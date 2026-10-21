@@ -85,13 +85,8 @@ export default function ReadingLine({ match }: { match: Match }) {
                 : "Secuencia incompleta."}
             </p>
           )}
-          {current.known < current.games.length && (
-            <p className="ry-data-note">{current.known} de {current.games.length} juegos registrados.</p>
-          )}
         </>
-      ) : (
-        <p className="ds-game-detail">Solo se conserva el marcador de este set.</p>
-      )}
+      ) : null}
     </section>
   );
 }

@@ -1,9 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import type { Match } from "@/lib/types";
-import { tournamentName } from "@/lib/labels";
-import { tournamentDirectory } from "@/lib/tournament-directory";
 import { durationLabel } from "@/lib/editorial";
 import {
   statLabel,
@@ -11,15 +8,10 @@ import {
   periodLabel,
   groupStatistics,
 } from "@/lib/statistics";
-import { playerPhoto } from "@/lib/player-imagery";
-import { playerSlug, type RivalrySummary } from "@/lib/explore";
+import { type RivalrySummary } from "@/lib/explore";
 import {
   score,
-  kind,
-  round,
-  sentence,
   tapeState,
-  surfaceLabel,
   pressure,
   measuredFields,
   measuredValue,
@@ -27,14 +19,9 @@ import {
   lineData,
 } from "@/lib/cuaderno/model";
 import ReadingLine from "./ReadingLine";
-import Share from "./Share";
+import MatchHero from "@/components/MatchHero";
 import MatchTabs, { type MatchView } from "./MatchTabs";
-import ScoreText from '@/components/ScoreText';
-
-function compactScoreName(name: string) {
-  const [given, ...family] = name.trim().split(/\s+/);
-  return family.length ? `${given[0]}. ${family.join(" ")}` : name;
-}
+import ScoreText from "@/components/ScoreText";
 
 export function ReadingHead({
   match,
@@ -44,174 +31,7 @@ export function ReadingHead({
   home?: boolean;
   reduced?: boolean;
 }) {
-  const names = [match.player1.name, match.player2.name],
-    tournament = tournamentDirectory([match])[0],
-    verified = match.quality?.result !== "review",
-    type = verified ? kind(match) : null,
-    photos = names.map(playerPhoto),
-    candidate = verified ? sentence(match) : "",
-    sample = candidate.match(/\bde (\d+) (?:juegos|bolas)/),
-    insight =
-      (sample && Number(sample[1]) < 3) ||
-      /\b(?:ganó|convirtió) 0 de\b/.test(candidate)
-        ? ""
-        : candidate;
-  const setScores = score(match).split(", ");
-  return (
-    <header
-      className={`ry-match-head${reduced ? " ry-match-head-small" : ""}`}
-      data-event-surface={match.surface}
-      data-event-category={match.category}
-    >
-      <div className="ry-match-meta">
-        <div className="ry-match-meta-main">
-          <span className="ry-match-category">{match.category}</span>
-          {tournament ? (
-            <Link className="ry-match-tournament" href={`/${tournament.slug}/${match.year}`}>
-              {tournamentName(match.tournament)}
-            </Link>
-          ) : (
-            <span className="ry-match-tournament">{tournamentName(match.tournament)}</span>
-          )}
-          <span className="ry-match-meta-detail">{match.year} · {round(match)}</span>
-        </div>
-        {!reduced && <Share match={match} />}
-      </div>
-      {reduced ? (
-        <h2 className="nc-sr">{names.join(" contra ")}</h2>
-      ) : (
-        <h1 className="nc-sr">
-          {names.join(" contra ")} · {score(match)}
-        </h1>
-      )}
-      <div className="ry-score-scroll">
-        <table
-          className="ry-scoreboard"
-          style={
-            {
-              "--set-count": match.score_summary.games.length,
-            } as React.CSSProperties
-          }
-        >
-          <caption className="nc-sr">
-            Resultado por sets desde {names[0]}: {score(match)}
-          </caption>
-          <thead>
-            <tr>
-              <th scope="col">Jugador</th>
-              <th scope="col" className="ry-score-total-label">
-                Sets
-              </th>
-              {match.score_summary.games.map((_, index) => (
-                <th scope="col" key={index}>
-                  <span className="ry-set-word">Set </span>
-                  {index + 1}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {names.map((name, side) => {
-              const won = verified && match.winner === side + 1,
-                setsWon = match.score_summary.games.filter(
-                  (set) => set[side] > set[1 - side],
-                ).length,
-                photo = photos[side];
-              return (
-                <tr
-                  key={name}
-                  className={`ry-score-player ry-player-${side + 1}${won ? " ry-score-winner" : ""}`}
-                >
-                  <th scope="row">
-                    <Link
-                      href={`/players/${playerSlug(name)}`}
-                      className={`ry-score-person${name.length > 14 ? " ry-score-person-long" : ""}`}
-                      aria-label={`${name}${won ? " · Ganador" : ""}`}
-                    >
-                      {photo && (
-                        <Image
-                          className="ry-score-avatar"
-                          src={photo.thumbnail || photo.src}
-                          alt=""
-                          width={120}
-                          height={140}
-                          sizes="(max-width:759px) 56px, 112px"
-                          loading={reduced ? "lazy" : "eager"}
-                          fetchPriority={reduced ? undefined : "high"}
-                          unoptimized
-                        />
-                      )}
-                      <span className="ry-score-name">
-                        <span className="ry-score-name-full">{name}</span>
-                        <span className="ry-score-name-short" aria-hidden="true">
-                          {compactScoreName(name)}
-                        </span>
-                        {won && (
-                          <span className="ry-score-winner-label">Ganador</span>
-                        )}
-                      </span>
-                    </Link>
-                  </th>
-                  <td className="ry-score-total">{number(setsWon)}</td>
-                  {match.score_summary.games.map((set, index) => {
-                    const tie = setScores[index]?.match(/\((\d+)\)/);
-                    return (
-                      <td
-                        key={index}
-                        className={
-                          set[side] > set[1 - side] ? "ry-set-won" : ""
-                        }
-                      >
-                        <span className="ds-game">
-                          {set[side]}
-                          {tie && set[side] < set[1 - side] && (
-                            <span className="ry-set-tiebreak" title={`${tie[1]} puntos en el tie-break`}>
-                              ({tie[1]})
-                            </span>
-                          )}
-                        </span>
-                      </td>
-                    );
-                  })}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
-      <p className="ry-mobile-score-line" aria-hidden="true">
-        <ScoreText value={score(match)} />
-      </p>
-      {!reduced && (
-        <div className="ry-match-footer">
-          <div className="ry-match-tags">
-            <span
-              className={`ry-coverage ry-coverage-${match.quality?.tape === "partial" ? "partial" : match.point_tape.length ? "points" : "score"}`}
-            >
-              <i aria-hidden="true" />
-              {tapeState(match)}
-            </span>
-            <span className="ry-match-surface">
-              <i
-                className={`nc-surface nc-surface-${match.surface}`}
-                aria-hidden="true"
-              />
-              {surfaceLabel[match.surface]}
-            </span>
-            {type && <span className="ry-match-type">{type}</span>}
-            {match.quality?.result === "review" && (
-              <span className="ry-match-review">
-                {/(retir|retirement|aband)/i.test(match.status)
-                  ? "Abandono"
-                  : "Marcador en revisión"}
-              </span>
-            )}
-          </div>
-        </div>
-      )}
-      {!reduced && insight && <p className="ry-match-feature">{insight}</p>}
-    </header>
-  );
+  return <MatchHero match={match} reduced={reduced} />;
 }
 
 function TieBreaks({ match }: { match: Match }) {
@@ -228,7 +48,9 @@ function TieBreaks({ match }: { match: Match }) {
         <div className="ry-tiebreak" key={points[0].set}>
           <p>
             Set {points[0].set}
-            <strong><ScoreText value={score(match).split(", ")[points[0].set - 1]}/></strong>
+            <strong>
+              <ScoreText value={score(match).split(", ")[points[0].set - 1]} />
+            </strong>
           </p>
           <ol
             className="ry-tiebreak-points"
@@ -288,7 +110,11 @@ function MatchPressure({
       </div>
       {match.winner && players.every((player) => player.converted[1] > 0) && (
         <p className="ry-pressure-insight">
-          {names[winnerIndex]} convirtió {number(players[winnerIndex].converted[0])} de {number(players[winnerIndex].converted[1])} bolas de break; {names[loserIndex]}, {number(players[loserIndex].converted[0])} de {number(players[loserIndex].converted[1])}.
+          {names[winnerIndex]} convirtió{" "}
+          {number(players[winnerIndex].converted[0])} de{" "}
+          {number(players[winnerIndex].converted[1])} bolas de break;{" "}
+          {names[loserIndex]}, {number(players[loserIndex].converted[0])} de{" "}
+          {number(players[loserIndex].converted[1])}.
         </p>
       )}
       <div className="ry-player-legend">
@@ -326,7 +152,11 @@ function MatchPressure({
                       {total >= 3 && <small>{number(percent)} %</small>}
                     </strong>
                   </div>
-                  {total >= 3 && <div className="ry-pressure-track" aria-hidden="true"><span style={{ width: `${percent}%` }} /></div>}
+                  {total >= 3 && (
+                    <div className="ry-pressure-track" aria-hidden="true">
+                      <span style={{ width: `${percent}%` }} />
+                    </div>
+                  )}
                 </div>
               );
             })}
@@ -401,7 +231,6 @@ function MatchMeasures({ match }: { match: Match }) {
     <section className="ry-measures">
       <div className="ry-section-heading">
         <h2>Medidas del partido</h2>
-        <span>Solo datos publicados</span>
       </div>
       {groups.map((group) => (
         <div className="ry-stat-group" key={group.title}>
@@ -526,11 +355,6 @@ function MatchMeasures({ match }: { match: Match }) {
           ))}
         </details>
       )}
-      {fields.length > 0 && (
-        <p className="ry-data-note">
-          Las barras de cada medida usan la misma escala para ambos jugadores.
-        </p>
-      )}
     </section>
   );
 }
@@ -540,9 +364,11 @@ function MatchContext({ match }: { match: Match }) {
     historicalRanks = context?.rankLabel === "Ranking al jugar",
     names = [match.player1.name, match.player2.name];
   const hasContext = Boolean(
-    context?.minutes || context?.indoor === true ||
-    context?.age1 || context?.age2 ||
-    (historicalRanks && (context?.rank1 || context?.rank2)),
+    context?.minutes ||
+      context?.indoor === true ||
+      context?.age1 ||
+      context?.age2 ||
+      (historicalRanks && (context?.rank1 || context?.rank2)),
   );
   if (!hasContext) return null;
   return (
@@ -704,6 +530,20 @@ export default function Reading({
       label: "Histórico",
       content: (
         <div className="ry-match-history">
+          <section className="match-registration" id="registro">
+            <h2>Registro del partido</h2>
+            <p>{tapeState(match)}</p>
+            <p>
+              La línea conserva los juegos que pueden verificarse con el
+              marcador.
+            </p>
+            <Link className="nc-link" href="/cobertura">
+              Cobertura
+            </Link>
+            <Link className="nc-link" href="/info">
+              Cómo se lee
+            </Link>
+          </section>
           <div className="ry-section-heading">
             <h2>Histórico y comparación</h2>
           </div>

@@ -23,6 +23,7 @@ export default function HomeHighlights({
   const [selected, setSelected] = useState(0);
   if (!slides.length) return null;
   const current = slides[selected];
+  const valueParts = current.value.match(/^([\d.,]+)\s+(.+)$/);
   return (
     <section className="ds-stories" aria-labelledby="ds-stories-title">
       <div className="ds-section-heading">
@@ -33,14 +34,23 @@ export default function HomeHighlights({
         <div
           className="ds-discovery-copy"
           key={current.id}
+          data-discovery-id={current.id}
           aria-live="polite"
           aria-atomic="true"
         >
           <span className="ds-discovery-category">{current.title}</span>
-          <strong className="ds-discovery-number">{current.value}</strong>
+          <strong className="ds-discovery-number">
+            {valueParts ? (
+              <>
+                <span>{valueParts[1]}</span>
+                <span className="ds-discovery-unit"> {valueParts[2]}</span>
+              </>
+            ) : (
+              current.value
+            )}
+          </strong>
           <h3>{current.name}</h3>
           <p>{current.detail}</p>
-          <span className="ds-discovery-sample">{current.sample}</span>
           <Link href={current.href}>Ver los partidos</Link>
         </div>
         {current.photo && (
@@ -69,12 +79,11 @@ export default function HomeHighlights({
         </button>
       </div>
       <div className="ds-stories-list">
-        {slides.map((story) => (
+        {slides.slice(0, 6).map((story) => (
           <Link className="ds-story" href={story.href} key={story.id}>
             <span className="ds-story-title">{story.title}</span>
             <strong>{story.value}</strong>
             <span className="ds-story-person">{story.name}</span>
-            <span className="ds-story-sample">{story.sample}</span>
           </Link>
         ))}
       </div>

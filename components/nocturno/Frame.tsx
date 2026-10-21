@@ -114,14 +114,13 @@ const destinations = [
   { label: "Estadísticas", href: "/records" },
   { label: "Jugadores", href: "/jugadores" },
   { label: "Torneos", href: "/tournaments" },
-  { label: "Cara a cara", href: "/jugadores?tipo=parejas" },
   { label: "Comparar", href: "/comparar" },
 ] as const;
 
 function pageLabel(path: string) {
   if (path === '/comparar' || path === '/compare') return 'Comparar';
   if (path.startsWith("/records")) return "Estadísticas";
-  if (path.startsWith("/rivalries")) return "Cara a cara";
+  if (path.startsWith("/rivalries")) return "Jugadores";
   if (path.startsWith("/players") || path === "/jugadores") return "Jugadores";
   if (path.startsWith("/torneo") || path === "/tournaments" || /^\/[^/]+\/\d{4}$/.test(path)) return "Torneos";
   if (path.startsWith("/match") || path === "/buscar" || path === "/partidos") return "Partidos";
@@ -150,7 +149,7 @@ function ContextNavigation(props: Omit<Parameters<typeof Navigation>[0], "active
   const parameters = useSearchParams();
   const path = usePathname();
   const active = path === "/jugadores" && parameters.get("tipo") === "parejas"
-    ? "Cara a cara"
+    ? "Jugadores"
     : props.fallback;
   return <Navigation active={active} mode={props.mode} choose={props.choose} />;
 }
@@ -293,6 +292,11 @@ export default function Frame({ children }: { children: React.ReactNode }) {
         </header>
         <main className="ry-main" id="main-content" tabIndex={-1}>{children}</main>
         <footer className="ry-footer">
+          <div className="deuce-footer-stage">
+            <Link href="/" className="deuce-footer-wordmark" aria-label="DEUCE, volver al inicio">DEUCE</Link>
+            <svg className="deuce-footer-court" viewBox="0 0 600 240" aria-hidden="true"><rect x="40" y="24" width="520" height="192" rx="2"/><path d="M40 48h520M40 192h520M300 24v192M160 48v144M440 48v144M160 120h280"/></svg>
+            <nav className="deuce-footer-surfaces" aria-label="Pistas"><Link href="/buscar?surface=grass"><i className="nc-dot nc-dot-grass"/>Hierba</Link><Link href="/buscar?surface=clay"><i className="nc-dot nc-dot-clay"/>Tierra</Link><Link href="/buscar?surface=hard"><i className="nc-dot nc-dot-hard"/>Dura</Link></nav>
+          </div>
           <div className="ry-footer-inner">
             <nav aria-label="Información"><Link href="/info">Cómo se lee</Link><Link href="/cobertura">Cobertura</Link><Link href="/credits">Fotografías</Link></nav>
             <details className="ry-theme" ref={themePicker}>

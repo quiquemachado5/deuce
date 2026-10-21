@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { preparedGeneration } from '@/lib/revista/read-records';
+import { preparedGeneration, recordView } from '@/lib/revista/read-records';
 import ArchiveNotice from '@/components/nocturno/ArchiveNotice';
 import { number } from '@/lib/cuaderno/model';
 import { SURFACES, surfaceLabel } from '@/lib/surface';
@@ -7,13 +7,17 @@ import { fieldCoverage } from '@/lib/field-coverage';
 
 export const metadata = { title: 'Cobertura del archivo — DEUCE', description: 'Consulta qué temporadas tienen resultados, ranking histórico, estadísticas y puntos documentados.', alternates: { canonical: '/cobertura' } };
 export const revalidate = 300;
-export default async function Coverage() {
+export default async function Coverage({searchParams}:{searchParams:Promise<Record<string,string|undefined>>}) {
+  const query=await searchParams;
+  const selection=query.dato ? await recordView(JSON.stringify(query)) : null;
+  const piece=selection?.piece;
   const generation = await preparedGeneration(), manifest = generation.manifest;
   const fields = fieldCoverage(await generation.matches());
   return <div className="nc-wrap deuce-coverage">
     <ArchiveNotice status={generation} />
     <header><h1>Cobertura del archivo</h1><p>{number(manifest.matchCount)} partidos · {number(manifest.summary.tournaments)} torneos.</p>
       <p>Actualizado el {new Date(manifest.generatedAt).toLocaleString('es-ES', { timeZone: 'Europe/Madrid' })}. Hora de Madrid.</p></header>
+    {piece && <section className="coverage-metric" id="estadistica"><h2>{piece.title}</h2><p>{piece.definition}</p><dl><div><dt>Periodo</dt><dd>{piece.years}</dd></div><div><dt>Partidos considerados</dt><dd>{number(piece.sample)}</dd></div><div><dt>Mínimo por entrada</dt><dd>{piece.minimum} casos</dd></div></dl></section>}
     <p>Un partido sin datos adicionales no equivale a cero. Los porcentajes y récords solo consideran los encuentros con los datos necesarios. Este archivo no representa necesariamente toda una carrera.</p>
     <section className="coverage-fields" aria-labelledby="coverage-fields-title">
       <h2 id="coverage-fields-title">La muestra detrás de cada dato</h2>

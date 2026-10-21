@@ -57,6 +57,11 @@ typography:
     fontSize: "16px"
     fontWeight: 400
     lineHeight: 1.5
+  body-small:
+    fontFamily: "Geist, -apple-system, BlinkMacSystemFont, sans-serif"
+    fontSize: "14px"
+    fontWeight: 500
+    lineHeight: 1.45
   label:
     fontFamily: "Geist, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
     fontSize: "12px"
@@ -183,6 +188,18 @@ Las transiciones de color, fondo, borde y opacidad duran 240ms. Las entradas rec
 Paneles redondeados (24px), campos suaves (16px) y cápsulas completas forman la gramática principal. El torneo destacado admite 32px en escritorio y 24px en móvil. Los avatares son circulares; el retrato protagonista puede usar una coronación redondeada y esquinas inferiores de panel. Las barras terminan en cápsula, y los indicadores de superficie son puntos circulares. Las líneas de 1px separan contenido denso sin convertir cada fila en una tarjeta independiente.
 
 ## Components
+
+### Actualización de navegación y lectura
+
+- **Cabecera glass:** barra flotante en cápsula, separada 12 px del borde superior (8 px en móvil), blur de 24 px y saturación de 180 %. Usa superficie al 82 %, borde claro e iluminación interior; el contenido nunca depende de la transparencia para leerse. Cinco enlaces: Partidos, Estadísticas, Jugadores, Torneos, Comparar. Cara a cara pertenece a Jugadores.
+- **MatchHero:** fotografía licenciada de sede, retratos circulares enfrentados, total de sets central y una tabla accesible de sets en cualquier ancho. Sin resultado duplicado en una segunda línea móvil. Ganador explícito y sets ganados en color de pista. Compartir y registro se abren bajo demanda.
+- **Archivo por ediciones:** selector de temporada, campeonatos con fotografía o color de superficie, partidas agrupadas por año y torneo tras filtrar. Paginación de 25; ninguna cinta viaja al cliente en el listado.
+- **Footer:** wordmark grande y trazado de pista propio, tres accesos por superficie y enlaces de información. Es una composición de cierre; no una repetición del menú.
+- **Galería:** selector de fotos/vídeos, navegación anterior/siguiente, ampliación nativa con Escape y retorno del foco. YouTube no se solicita hasta pulsar reproducir; siempre existe enlace al canal oficial. Fechas de los vídeos pertenecen al vídeo, no al partido destacado en portada.
+- **Comparación por superficie:** controles para total y pistas; dos barras proporcionales con escala común, valores escritos y transición de anchura. No hay una puntuación sintética.
+- **Texto secundario:** metodología, versiones y estados de cinta pasan a Cobertura o al registro del partido. Los denominadores que cambian el significado de un porcentaje se mantienen. No reemplazar datos ausentes por cero.
+
+
 
 ### Buttons
 

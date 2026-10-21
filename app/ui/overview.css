@@ -106,16 +106,6 @@
   bottom: auto;
   top: 16px;
 }
-.ds-hero-portrait {
-  position: absolute;
-  width: 280px;
-  height: 320px;
-  right: 40px;
-  top: 24px;
-  border: 6px solid var(--event-tint);
-  border-radius: 50% 50% 24px 24px;
-  overflow: hidden;
-}
 .ds-hero-portrait > img {
   object-position: 50% 20%;
 }
@@ -630,11 +620,6 @@
   .ds-hero-record {
     min-height: 460px;
   }
-  .ds-hero-portrait {
-    width: 160px;
-    height: 200px;
-    right: 24px;
-  }
   .ds-main-grid {
     grid-template-columns: 1fr;
   }
@@ -731,15 +716,6 @@
   .ds-hero-court .photo-info {
     right: 8px;
     top: 8px;
-  }
-  .ds-hero-portrait {
-    width: 120px;
-    height: 160px;
-    right: 16px;
-    top: 152px;
-    bottom: auto;
-    z-index: 2;
-    border-width: 4px;
   }
   .ds-hero-portrait .photo-info {
     width: 24px;
@@ -933,11 +909,6 @@
   }
   .ds-final-table th a > span small {
     font-size: 10px;
-  }
-  .ds-hero-portrait {
-    top: 136px;
-    width: 120px;
-    height: 160px;
   }
   .ds-home-end {
     grid-template-columns: 1fr;

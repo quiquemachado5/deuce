@@ -12,9 +12,9 @@ test('home shows a recent tournament, photography and verified discoveries',asyn
   const discoveries=page.getByRole('region',{name:'Siempre hay otro dato.'});
   await expect(discoveries.locator('.ds-story')).toHaveCount(6);
   await expect(discoveries.locator('.ds-story').first()).toContainText('Andy Murray');
-  const initial=await discoveries.locator('.ds-discovery-number').innerText();
+  const initial=await discoveries.locator('.ds-discovery-copy').getAttribute('data-discovery-id');
   await discoveries.getByRole('button',{name:'Otro dato'}).click();
-  await expect(discoveries.locator('.ds-discovery-number')).not.toHaveText(initial);
+  await expect(discoveries.locator('.ds-discovery-copy')).not.toHaveAttribute('data-discovery-id',initial!);
   await expect(discoveries.locator('.ds-discovery-copy>a')).toHaveAttribute('href',/\/records\?dato=/);
   await page.screenshot({path:test.info().outputPath('home-desktop.png')});
   for(const width of [390,320]){
@@ -28,7 +28,9 @@ test('home shows a recent tournament, photography and verified discoveries',asyn
 test('tiebreaks stay inline and five sets fit in one readable strip',async({page})=>{
   await page.setViewportSize({width:390,height:844});
   await page.goto('/match/archive-148401');
-  await expect(page.locator('.ry-mobile-score-line')).toContainText('6–7(5), 6–7(8)');
+  await expect(page.locator('.match-setboard .ry-scoreboard caption')).toContainText('6–7(5), 6–7(8)');
+  await expect(page.locator('.match-setboard .ry-scoreboard thead th')).toHaveCount(6);
+  await expect(page.locator('.match-hero-scene img')).toBeVisible();
   await expect(page.locator('.ry-scoreboard sup')).toHaveCount(0);
   await expect(page.locator('.ry-set-tiebreak').first()).toHaveText('(5)');
   const picker=page.getByRole('group',{name:'Seleccionar set'}).first();

@@ -1,3 +1,4 @@
+import { calendarOrder } from '@/lib/presentation-calendar';
 import Link from "next/link";
 import Image from "next/image";
 import { preparedArchive } from "@/lib/revista/read-records";
@@ -50,25 +51,25 @@ function TournamentRow({ entry, category }: { entry: TournamentEntry; category: 
 }
 
 function PhotoGroup({ category, entries }: { category: string; entries: TournamentEntry[] }) {
+  const calendar = category === "Calendario";
   const withPhoto = entries.filter((entry) => entry.canonical && courtPhoto(entry.name));
   const withoutPhoto = entries.filter((entry) => !withPhoto.includes(entry));
   if (!entries.length) return null;
-  return <section className="nc-section ry-photo-tournament-group" id={category === "Grand Slam" ? "grand-slams" : "masters"} data-event-category={category}>
-    <div className="ry-tournament-list-heading"><h2>{category === "Grand Slam" ? "Grand Slams" : "Masters 1000"}</h2><span>{number(entries.length)} torneos · {category === "Masters 1000" ? "desde 1990" : "este archivo"}</span></div>
+  return <section className="nc-section ry-photo-tournament-group" id={calendar ? "temporada" : category === "Grand Slam" ? "grand-slams" : "masters"} data-event-category={category}>
+    <div className="ry-tournament-list-heading"><h2>{calendar ? "De Australia a París" : category === "Grand Slam" ? "Grand Slams" : "Masters 1000"}</h2><span>{number(entries.length)} torneos</span></div>
     {withPhoto.length > 0 && <div className={`ry-photo-tournament-grid${category === "Grand Slam" ? " ry-photo-slams" : ""}`}>
       {withPhoto.map((entry, index) => {
         const photo = courtPhoto(entry.name)!;
-        const selected = entry.matches.filter((match) => match.category === category);
+        const selected = entry.matches.filter((match) => calendar ? ["Grand Slam","Masters 1000"].includes(match.category) : match.category === category);
         const finals = selected.filter((match) => roundPosition(match.round) === 7).length;
-        const surfaces = categorySurfaces(entry, category);
+        const surfaces = [...new Set(selected.map(match=>match.surface))];
         return <Link className="ry-photo-tournament-tile" href={`/torneos/${entry.slug}`} key={entry.slug}
-          data-event-surface={surfaces.length === 1 ? surfaces[0] : undefined} data-event-category={category}>
+          title={photo.caption || photo.alt} data-event-surface={surfaces.length === 1 ? surfaces[0] : undefined} data-event-category={category}>
           <span className="ry-photo-tournament-image"><Image src={photo.src} alt={photo.alt} fill priority={category === "Grand Slam" && index < 2}
             loading={category === "Grand Slam" && index < 2 ? "eager" : "lazy"}
             sizes={category === "Grand Slam" ? "(max-width: 759px) calc(100vw - 32px), (max-width: 1099px) 45vw, 43vw" : "(max-width: 759px) calc(100vw - 32px), (max-width: 1099px) 45vw, 29vw"} /></span>
           <span className="ry-photo-tournament-copy"><strong>{tournamentName(entry.name)}</strong>
-            <span>{surfaces.length === 1 && <><i className={`nc-dot nc-dot-${surfaces[0]}`} aria-hidden="true" />{surfaceLabel[surfaces[0]]} · </>}{number(finals)} finales</span>
-            {photo.caption && <small>{photo.caption}</small>}
+            <span>{surfaces.length === 1 && <><i className={`nc-dot nc-dot-${surfaces[0]}`} aria-hidden="true" />{surfaceLabel[surfaces[0]]} · </>}{calendar ? (entry.categories.includes("Grand Slam") ? "Grand Slam" : "Masters 1000") : `${number(finals)} finales`}</span>
           </span>
         </Link>;
       })}
@@ -94,7 +95,7 @@ function CompactSection({ category, entries }: { category: string; entries: Tour
 export default async function Tournaments({ searchParams }: Props) {
   const query = await searchParams;
   const matches = await preparedArchive();
-  const entries = tournamentDirectory(matches);
+  const entries = calendarOrder(tournamentDirectory(matches));
   const categories = [...new Set(entries.flatMap((entry) => entry.categories))]
     .sort((a, b) => {
       const ia = orderedCategories.indexOf(a), ib = orderedCategories.indexOf(b);
@@ -115,19 +116,19 @@ export default async function Tournaments({ searchParams }: Props) {
       {categories.map((category) => <Link key={category} href={categoryUrl(category)} aria-current={chosen === category ? "page" : undefined}
         data-event-category={category}>{categoryLabel(category)}</Link>)}
     </nav> : <nav className="ry-tournament-category-nav ry-tournament-jumps" aria-label="Ir a una categoría">
-      <a href="#grand-slams">Grand Slams</a>
-      <a href="#masters">Masters 1000</a>
+      <Link href={categoryUrl("Grand Slam")}>Grand Slams</Link>
+      <Link href={categoryUrl("Masters 1000")}>Masters 1000</Link>
       {categories.includes("ATP 500") && <a href="#atp-500">ATP 500</a>}
       {categories.includes("ATP 250") && <a href="#atp-250">ATP 250</a>}
       {categories.includes("ATP Tour histórico") && <a href="#otros">Histórico</a>}
       {categories.includes("Precursores de Masters") && <a href="#precursores">Precursores</a>}
     </nav>}
-    {chosen ? <section className="nc-section ry-tournament-list-section ry-tournament-filtered">
+    {chosen ? (["Grand Slam","Masters 1000"].includes(chosen) ? <PhotoGroup category={chosen} entries={chosenEntries} /> : <section className="nc-section ry-tournament-list-section ry-tournament-filtered">
       <div className="ry-tournament-list-heading"><h2>{categoryLabel(chosen)}</h2><span>Página {number(page)} de {number(pages)}</span></div>
       <div className="ry-tournament-directory-rows">{chosenEntries.slice((page - 1) * 25, page * 25).map((entry) => <TournamentRow entry={entry} category={chosen} key={entry.slug} />)}</div>
       {chosenEntries.length > 25 && <Pagination page={page} total={chosenEntries.length} href={(nextPage) => categoryUrl(chosen, nextPage)} />}
-    </section> : <>
-      {(["Grand Slam", "Masters 1000"] as const).map((category) => <PhotoGroup category={category} entries={entries.filter((entry) => entry.categories.includes(category))} key={category} />)}
+    </section>) : <>
+      <PhotoGroup category="Calendario" entries={entries.filter(entry => entry.canonical && entry.categories.some(category=>["Grand Slam","Masters 1000"].includes(category)))} />
       {categories.filter((category) => category !== "Grand Slam" && category !== "Masters 1000")
         .map((category) => <CompactSection category={category} entries={entries.filter((entry) => entry.categories.includes(category))} key={category} />)}
     </>}

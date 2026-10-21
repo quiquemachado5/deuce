@@ -1,39 +1,3 @@
-.ry-match-head {
-  position: relative;
-  background: var(--bg-raised);
-  border-radius: 24px;
-  overflow: hidden;
-  padding: 32px 40px;
-  animation: enter 400ms var(--ease) both;
-}
-
-.ry-match-meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 24px;
-  margin-bottom: 24px;
-}
-.ry-match-meta-main {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px 16px;
-}
-.ry-match-category {
-  font-size: 12px;
-  color: var(--muted);
-  padding-right: 16px;
-  border-right: 1px solid var(--line);
-}
-.ry-match-tournament {
-  font: 600 24px/1.1 var(--font-display);
-  color: var(--event-accent);
-}
-.ry-match-meta-detail {
-  color: var(--muted);
-  font-size: 13px;
-}
 .ry-match-share {
   display: inline-flex;
   align-items: center;
@@ -60,88 +24,6 @@
 .ry-match-share:hover {
   background: var(--event-tint);
 }
-.ry-score-scroll {
-  width: 100%;
-  overflow-x: auto;
-  scrollbar-width: thin;
-}
-.ry-scoreboard {
-  width: 100%;
-  table-layout: auto;
-}
-.ry-scoreboard thead th {
-  font-size: 12px;
-  font-weight: 400;
-  color: var(--muted);
-  text-align: center;
-  border: 0;
-  padding: 8px 16px;
-}
-.ry-scoreboard thead th:first-child {
-  text-align: left;
-}
-.ry-scoreboard th:first-child {
-  padding-left: 0;
-}
-.ry-scoreboard tbody th {
-  font-size: clamp(22px, 3vw, 36px);
-  font-family: var(--font-display);
-  text-align: left;
-  width: 100%;
-  font-weight: 600;
-}
-.ry-scoreboard tbody td {
-  font-family: var(--font-display);
-  font-size: clamp(28px, 3vw, 42px);
-  text-align: center;
-  color: var(--muted);
-  padding: 24px 16px;
-  white-space: nowrap;
-  border: 0;
-  font-weight: 500;
-}
-.ry-scoreboard tbody th {
-  border: 0;
-  padding-block: 16px;
-}
-.ry-scoreboard tbody tr + tr td,
-.ry-scoreboard tbody tr + tr th {
-  border-top: 1px solid var(--line);
-}
-.ry-scoreboard tbody td.ry-set-won {
-  color: var(--event-accent);
-  font-weight: 650;
-}
-.ry-score-person {
-  display: flex;
-  gap: 24px;
-  align-items: center;
-}
-.ry-score-avatar {
-  width: 96px;
-  height: 96px;
-  border-radius: 50%;
-  object-position: 50% 20%;
-  flex-shrink: 0;
-}
-.ry-score-name {
-  display: block;
-}
-.ry-score-name-short {
-  display: none;
-}
-.ry-score-winner-label {
-  display: block;
-  margin-top: 8px;
-  font: 600 12px var(--font-interface);
-  color: var(--event-accent);
-}
-.ry-scoreboard tbody .ry-score-total {
-  color: var(--ink);
-  font-weight: 700;
-  padding-right: 24px;
-  border-right: 1px solid var(--line);
-}
 .ry-set-tiebreak {
   font: 500 14px var(--font-interface);
   vertical-align: baseline;
@@ -151,39 +33,6 @@
 }
 .ds-game {
   white-space: nowrap;
-}
-.ry-mobile-score-line {
-  display: none;
-}
-.ry-match-footer {
-  margin-top: 24px;
-}
-.ry-match-tags {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-  font-size: 12px;
-  color: var(--muted);
-}
-.ry-coverage {
-  display: inline-flex;
-  gap: 8px;
-  align-items: center;
-}
-.ry-coverage i {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--muted);
-}
-.ry-coverage-points i {
-  background: var(--event-accent);
-}
-.ry-match-surface {
-  display: flex;
-  align-items: center;
-  gap: 8px;
 }
 .nc-surface {
   height: 8px;
@@ -202,13 +51,6 @@
 .ry-match-review {
   font-size: 13px;
   color: var(--danger);
-}
-.ry-match-feature {
-  font: 500 19px/1.4 var(--font-interface);
-  margin-top: 24px;
-  padding-top: 24px;
-  border-top: 1px solid var(--line);
-  max-width: none;
 }
 .ry-match-layout {
   display: grid;
@@ -837,114 +679,11 @@
     grid-template-columns: 1fr 1fr;
     gap: 24px;
   }
-  .ry-match-head {
-    padding: 32px;
-  }
-  .ry-score-avatar {
-    width: 72px;
-    height: 72px;
-  }
-  .ry-score-person {
-    gap: 16px;
-  }
-  .ry-scoreboard tbody td {
-    padding: 20px 12px;
-    font-size: 32px;
-  }
-  .ry-scoreboard tbody th {
-    font-size: 28px;
-  }
-  .ry-scoreboard thead th {
-    padding: 8px 12px;
-  }
   .ry-pressure-metrics {
     gap: 16px;
   }
 }
 @media (max-width: 759px) {
-  .ry-match-head {
-    padding: 24px 20px;
-  }
-  .ry-match-meta {
-    align-items: flex-start;
-    gap: 12px;
-  }
-  .ry-match-meta-main {
-    display: grid;
-    gap: 8px;
-  }
-  .ry-match-category {
-    border: 0;
-    padding: 0;
-    font-size: 11px;
-  }
-  .ry-match-tournament {
-    font-size: 26px;
-  }
-  .ry-match-meta-detail {
-    font-size: 12px;
-  }
-  .ry-scoreboard thead th:nth-child(n + 3),
-  .ry-scoreboard tbody td:nth-child(n + 3) {
-    display: none;
-  }
-  .ry-scoreboard thead th {
-    padding: 8px 0;
-  }
-  .ry-scoreboard tbody th {
-    font-size: 24px;
-    padding: 16px 0;
-  }
-  .ry-score-person {
-    gap: 12px;
-  }
-  .ry-score-avatar {
-    width: 56px;
-    height: 56px;
-  }
-  .ry-scoreboard tbody td.ry-score-total {
-    border: 0;
-    padding: 16px 0 16px 12px;
-    font-size: 40px;
-  }
-  .ry-scoreboard tbody th {
-    width: 100%;
-  }
-  .ry-score-name-full {
-    display: none;
-  }
-  .ry-score-name-short {
-    display: block;
-  }
-  .ry-score-name {
-    overflow-wrap: anywhere;
-  }
-  .ry-score-winner-label {
-    font-size: 11px;
-    margin-top: 4px;
-  }
-  .ry-mobile-score-line {
-    display: block;
-    font: 600 24px/1.3 var(--font-display);
-    overflow-x: auto;
-    white-space: nowrap;
-    color: var(--event-accent);
-    margin-top: 24px;
-    padding-bottom: 8px;
-    scrollbar-width: thin;
-  }
-  .ry-match-footer {
-    margin-top: 16px;
-  }
-  .ry-match-tags {
-    gap: 12px;
-    font-size: 11px;
-  }
-  .ry-match-feature {
-    font-size: 16px;
-    margin-top: 16px;
-    padding-top: 16px;
-  }
   .ry-match-layout {
     margin-top: 24px;
     gap: 24px;

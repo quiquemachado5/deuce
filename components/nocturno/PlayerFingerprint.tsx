@@ -115,7 +115,6 @@ export default function PlayerFingerprint({
         <h2 id="ry-fingerprint-title">{hasAboveMedian ? "Dónde destaca" : "Rendimiento medido"}</h2>
         <span className="ry-chart-key ry-chart-key-median">Mediana del archivo</span>
       </div>
-      <p className="nc-meta">Porcentajes frente a la mediana de jugadores con datos suficientes para cada medida.</p>
       <dl className="ry-fingerprint-list">
         {rows.map((row) => (
           <div className="ry-fingerprint-row" key={row.label}>
@@ -143,9 +142,7 @@ export default function PlayerFingerprint({
               <span className="nc-sr">
                 Mediana del archivo: {number(row.reference, 1)} % entre {number(row.cohort)} jugadores.
               </span>
-              <span className="ry-fingerprint-reference" aria-hidden="true">
-                Mediana: {number(row.reference, 1)} % · {number(row.cohort)} jugadores
-              </span>
+
             </dd>
           </div>
         ))}
