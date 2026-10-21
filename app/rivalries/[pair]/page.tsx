@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import "./pair.css";
 import { playerPhoto } from "@/lib/player-imagery";
 import SurfaceScore from "@/components/nocturno/SurfaceScore";
 import { SURFACES } from "@/lib/surface";

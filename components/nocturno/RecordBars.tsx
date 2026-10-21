@@ -1,4 +1,5 @@
 import Link from "next/link";
+import PlayerAvatar from '@/components/PlayerAvatar';
 import { number } from "@/lib/cuaderno/model";
 import { evidenceHref } from "@/lib/record-evidence";
 import type { RecordRow } from "@/lib/revista/records";
@@ -33,7 +34,7 @@ export default function RecordBars({
           return (
             <li key={`${row.href}-${row.name}-${index}`}>
               <Link href={href} prefetch={false} aria-label={`${row.name}: ${recordValue(row, percent)}${percent ? `, ${number(row.sample)} casos` : ""}. ${row.href.startsWith("/match/") ? "Ver partido" : "Ver partidos que sostienen esta cifra"}`}>
-                <span className="rv-bars-name"><span>{number(index + 1)}</span>{row.name}</span>
+                <span className="rv-bars-name"><span>{number(index + 1)}</span>{row.href.startsWith('/players/') && <PlayerAvatar name={row.name} size={40} />}{row.name}</span>
                 <span className="rv-bars-track" aria-hidden="true"><span style={{ width: `${Math.max(0, Math.min(100, row.value / ceiling * 100))}%` }} /></span>
                 <span className="rv-bars-result"><strong>{recordValue(row, percent)}</strong>{percent && <small>{number(row.sample)} casos</small>}</span>
               </Link>

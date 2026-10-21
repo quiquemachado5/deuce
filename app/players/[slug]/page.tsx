@@ -1,9 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { notFound, permanentRedirect } from "next/navigation";
-import "../../rally-photography.css";
-import "../../rally-bio.css";
-import "./player-refresh.css";
 import Row from "@/components/nocturno/Row";
 import PlayerFingerprint from "@/components/nocturno/PlayerFingerprint";
 import PeopleTabs from "@/components/nocturno/PeopleTabs";

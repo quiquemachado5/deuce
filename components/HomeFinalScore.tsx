@@ -6,7 +6,7 @@ import { playerPhoto } from "@/lib/player-imagery";
 import { playerSlug } from "@/lib/explore";
 import { score } from "@/lib/cuaderno/model";
 
-export default function HomeFinalScore({ match }: { match: Match }) {
+export default function HomeFinalScore({ match, context = "final" }: { match: Match; context?: string }) {
   const sets = match.score_summary.games;
   const formattedSets = score(match).split(", ");
   const names = [match.player1.name, match.player2.name];
@@ -14,7 +14,7 @@ export default function HomeFinalScore({ match }: { match: Match }) {
   return (
     <div className="ds-final-table-scroll">
       <table className="ds-final-table" style={{ "--home-set-count": sets.length } as CSSProperties}>
-        <caption className="nc-sr">Resultado de la final: {names.join(" contra ")}, {score(match)}</caption>
+        <caption className="nc-sr">Resultado del {context}: {names.join(" contra ")}, {score(match)}</caption>
         <thead><tr><th scope="col">Jugador</th><th scope="col">Sets</th>{sets.map((_, index) => <th scope="col" key={index}>{index + 1}</th>)}</tr></thead>
         <tbody>{names.map((name, side) => {
           const portrait = playerPhoto(name);

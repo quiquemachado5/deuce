@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ScoreText from '@/components/ScoreText';
+import PlayerAvatar from '@/components/PlayerAvatar';
 import type { Match } from "@/lib/types";
 import { tournamentName } from "@/lib/labels";
 import { round, score, number } from "@/lib/cuaderno/model";
@@ -43,9 +44,9 @@ export default function MatchRow({
         <span className="nc-row-round"> · {round(match)}{match.category.startsWith("Precursores") ? " · Precursor" : ""}</span>
       </span>
       <span className="nc-row-duel">
-        <span className={`nc-row-person ${players[0].name === winner ? "nc-row-winner" : "nc-row-loser"}`}>{players[0].name}</span>
+        <span className={`nc-row-person ${players[0].name === winner ? "nc-row-winner" : "nc-row-loser"}`}><PlayerAvatar name={players[0].name} size={28} />{players[0].name}</span>
         <span className="nc-row-contra">contra</span>
-        <span className={`nc-row-person ${players[1].name === winner ? "nc-row-winner" : "nc-row-loser"}`}>{players[1].name}</span>
+        <span className={`nc-row-person ${players[1].name === winner ? "nc-row-winner" : "nc-row-loser"}`}><PlayerAvatar name={players[1].name} size={28} />{players[1].name}</span>
       </span>
       <span className="nc-row-result" title={result}><ScoreText value={result}/></span>
     </Link>

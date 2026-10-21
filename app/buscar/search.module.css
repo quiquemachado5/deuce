@@ -1,8 +1,8 @@
 .searchPage{min-width:0;max-width:1180px;padding-block:40px 96px}
-.heading{margin:0 0 26px}
-.heading h1{margin:0;font-family:var(--font-interface);font-size:clamp(42px,5vw,60px);font-weight:600;line-height:1.05;letter-spacing:-.03em}
+.heading{margin:0 0 24px}
+.heading h1{margin:0;font-family:var(--font-display);font-size:clamp(42px,5vw,60px);font-weight:600;line-height:1.05;letter-spacing:-.03em}
 .searchPage :global(.nc-filters){display:block;margin:0;padding:0;border:0;border-radius:0;background:none}
-.searchBar{display:flex;align-items:center;gap:12px;min-height:64px;padding:7px 8px 7px 18px;border:1px solid transparent;border-radius:10px;background:var(--bg-sunken);transition:border-color 180ms ease}
+.searchBar{display:flex;align-items:center;gap:12px;min-height:64px;padding:7px 8px 7px 18px;border:1px solid transparent;border-radius:var(--field-radius);background:var(--bg-sunken);transition:border-color 180ms ease}
 .searchBar:focus-within{border-color:var(--focus)}
 .searchBar>svg{flex:none;color:var(--muted)}
 .searchBar :global(.nc-field){flex:1;display:block;min-width:0;max-width:none}
@@ -27,15 +27,15 @@
 .filterGrid :global(.nc-field select:hover){border-color:var(--line-strong)}
 .fiveSets{grid-column:1/-1;display:inline-flex;align-items:center;gap:10px;min-height:44px;width:fit-content;color:var(--ink);font-size:14px;font-weight:400;cursor:pointer}
 .fiveSets input{flex:none;width:19px;height:19px;margin:0;padding:0;accent-color:var(--ink)}
-.selection{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:30px;padding-bottom:14px;border-bottom:1px solid var(--line);color:var(--ink-soft);font-size:14px}
+.selection{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:32px;padding-bottom:14px;border-bottom:1px solid var(--line);color:var(--ink-soft);font-size:14px}
 .selection a,.empty a{flex:none;color:var(--ink);font-weight:600;text-decoration:underline;text-decoration-color:var(--line-strong);text-underline-offset:4px}
 .selection a:hover,.empty a:hover{text-decoration-color:var(--ink)}
-.suggestions,.matches{margin-top:56px}
-.suggestions h2,.resultsHead h2{margin:0 0 16px;font-family:var(--font-interface);font-size:clamp(27px,3vw,36px);font-weight:600;letter-spacing:-.03em}
-.suggestionGroups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px}
+.suggestions,.matches{margin-top:64px}
+.suggestions h2,.resultsHead h2{margin:0 0 16px;font-family:var(--font-display);font-size:clamp(27px,3vw,36px);font-weight:600;letter-spacing:-.03em}
+.suggestionGroups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px}
 .suggestionGroup{min-width:0;border-top:1px solid var(--line-strong)}
 .suggestionGroup h3{margin:0;padding:16px 0 9px;color:var(--ink);font-size:16px;font-weight:600}
-.suggestionGroup :global(.nc-index-row){display:grid;gap:4px;min-width:0;min-height:56px;padding:11px 0;border-bottom:1px solid var(--line);font-size:15px;font-weight:600}
+.suggestionGroup :global(.nc-index-row){display:grid;gap:4px;min-width:0;min-height:64px;padding:11px 0;border-bottom:1px solid var(--line);font-size:15px;font-weight:600}
 .suggestionGroup :global(.nc-index-row:last-child){border-bottom:0}
 .suggestionGroup :global(.nc-index-row:hover){background:var(--bg-raised)}
 .suggestionGroup :global(.nc-index-row small){min-width:0;color:var(--muted);font-size:13px;font-weight:400;white-space:normal}
@@ -48,7 +48,7 @@
 .searchPage{padding-block:24px 72px}
 .heading{margin-bottom:20px}
 .heading h1{font-size:clamp(38px,10vw,50px)}
-.searchBar{gap:8px;min-height:56px;padding:5px 6px 5px 13px}
+.searchBar{gap:8px;min-height:64px;padding:5px 6px 5px 13px}
 .searchBar>svg{width:18px;height:18px}
 .searchBar :global(.nc-field) input{height:44px;font-size:16px}
 .searchButton{min-width:70px;min-height:44px;padding:0 12px;font-size:13px}

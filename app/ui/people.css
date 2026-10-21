@@ -1,0 +1,1375 @@
+.ry-player-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 36%;
+  background: var(--bg-raised);
+  border-radius: 24px;
+  overflow: hidden;
+  min-height: 400px;
+  animation: enter 420ms var(--ease) both;
+}
+.ry-player-header:not(.ry-player-with-photo) {
+  grid-template-columns: 1fr;
+  min-height: 0;
+}
+.ry-player-identity {
+  padding: 40px;
+  align-self: center;
+}
+.ry-player-identity h1 {
+  font-size: clamp(40px, 5vw, 68px);
+}
+.ry-player-period {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 16px;
+}
+.ry-player-bio {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin-top: 24px;
+  color: var(--ink-soft);
+  font-size: 13px;
+}
+.ry-player-bio > div {
+  display: flex;
+  gap: 8px;
+}
+.ry-player-bio dt {
+  color: var(--muted);
+}
+.ry-player-totals {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 32px;
+}
+.ry-player-totals strong {
+  font: 650 clamp(32px, 4vw, 48px) / 1 var(--font-display);
+  display: block;
+  color: var(--court);
+}
+.ry-player-totals span,
+.ry-player-totals small {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 8px;
+}
+.ry-player-totals dd {
+  font: 650 40px var(--font-display);
+  color: var(--court);
+}
+.ry-player-totals dt {
+  font-size: 12px;
+  color: var(--muted);
+}
+.ry-player-compare {
+  margin-top: 32px;
+}
+.ry-photo-player {
+  position: relative;
+  min-height: 440px;
+}
+.ry-photo-player > img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: 50% 20%;
+}
+.ry-photo-player figcaption,
+.ry-photo-pair-header figcaption {
+  font-size: 11px;
+  color: var(--muted);
+  padding: 8px;
+}
+.ry-player-fact {
+  padding: 32px 40px;
+  margin-top: 24px;
+  border-radius: 24px;
+  background: var(--court-deep);
+  font: 550 24px/1.35 var(--font-display);
+  max-width: none;
+}
+.ry-player-fact a {
+  text-decoration: underline;
+  text-decoration-color: var(--line-strong);
+  text-underline-offset: 4px;
+}
+.ry-people-tablist,
+.ry-match-segments {
+  display: flex;
+  width: fit-content;
+  max-width: 100%;
+  gap: 4px;
+  background: var(--bg-sunken);
+  padding: 4px;
+  border-radius: 999px;
+  margin: 32px 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.ry-people-tablist a,
+.ry-match-segments a {
+  white-space: nowrap;
+  padding: 12px 24px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  border-radius: 999px;
+  min-height: 44px;
+}
+.ry-people-tablist a[aria-selected="true"],
+.ry-match-segments a[aria-selected="true"] {
+  background: var(--bg-raised);
+  color: var(--ink);
+}
+.ry-people-panel,
+.ry-match-panel {
+  min-width: 0;
+  animation: enter 280ms var(--ease) both;
+}
+.ry-people-panel > .ry-people-section:first-child {
+  margin-top: 0;
+}
+.ry-people-section {
+  background: var(--bg-raised);
+  border-radius: 24px;
+  padding: 32px;
+}
+.ry-people-section .nc-meta {
+  margin-top: 12px;
+}
+.ry-profile-analysis {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.ry-profile-analysis > section {
+  min-width: 0;
+}
+.ry-chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.ry-chart-key::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--win);
+  margin-right: 8px;
+}
+.ry-chart-key-loss::before {
+  background: var(--loss);
+}
+.ry-chart-key-median::before {
+  width: 2px;
+  height: 12px;
+  background: var(--ink);
+}
+.ry-season-highlights {
+  display: flex;
+  gap: 40px;
+  margin-block: 24px;
+}
+.ry-season-highlights strong {
+  font: 650 36px/1 var(--font-display);
+  color: var(--court);
+  display: block;
+}
+.ry-season-highlights span {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 8px;
+}
+.ry-season-chart-scroll {
+  overflow-x: auto;
+  padding-top: 16px;
+  scrollbar-width: thin;
+}
+.ry-season-chart-scroll svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.ry-chart-grid {
+  stroke: var(--line);
+  stroke-width: 1;
+}
+.ry-chart-axis {
+  fill: var(--muted);
+  font: 12px var(--font-interface);
+}
+.ry-chart-win {
+  fill: var(--win);
+}
+.ry-chart-loss {
+  fill: var(--loss);
+  opacity: 0.72;
+}
+.ry-chart-selection {
+  fill: var(--bg-sunken);
+}
+.ry-chart-empty {
+  fill: var(--muted);
+}
+.ry-season-mobile {
+  display: none;
+}
+.ry-player-surface-list {
+  display: grid;
+  gap: 24px;
+  margin-top: 24px;
+}
+.ry-player-surface-list dt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 13px;
+}
+.ry-player-surface-list dt > span:first-child {
+  color: var(--event-accent);
+  font-weight: 600;
+}
+.ry-player-surface-list dt > span + span {
+  color: var(--muted);
+  font-size: 12px;
+}
+.ry-player-surface-record {
+  display: flex;
+  align-items: baseline;
+  gap: 24px;
+  margin-block: 12px;
+}
+.ry-player-surface-record strong {
+  font: 650 28px/1 var(--font-display);
+  color: var(--event-accent);
+}
+.ry-player-surface-record strong + strong {
+  color: var(--muted);
+}
+.ry-player-surface-record strong span {
+  display: block;
+  font: 400 11px/1.5 var(--font-interface);
+  margin-top: 8px;
+  color: var(--muted);
+}
+.ry-surface-rate {
+  margin-left: auto;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--event-accent);
+}
+.ry-surface-rate small {
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+}
+.ry-player-surface-track {
+  display: flex;
+  width: 100%;
+  height: 12px;
+  overflow: hidden;
+  background: var(--bg-sunken);
+  border-radius: 999px;
+}
+.ry-player-surface-track > span:first-child {
+  background: var(--event-accent);
+}
+.ry-player-surface-track > span + span {
+  background: color-mix(in srgb, var(--event-accent) 18%, var(--bg-sunken));
+}
+.ry-fingerprint-list {
+  margin-top: 24px;
+}
+.ry-fingerprint-row {
+  display: grid;
+  gap: 8px;
+  margin-top: 24px;
+}
+.ry-fingerprint-row dt {
+  font-size: 13px;
+  font-weight: 500;
+}
+.ry-fingerprint-value {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--court);
+}
+.ry-fingerprint-value > span {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 400;
+  align-self: center;
+}
+.ry-fingerprint-track {
+  position: relative;
+  display: block;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--bg-sunken);
+  margin-top: 12px;
+}
+.ry-fingerprint-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: var(--ry-value);
+  background: var(--court);
+  border-radius: 999px;
+}
+.ry-fingerprint-median {
+  position: absolute;
+  left: var(--ry-median);
+  top: -4px;
+  height: 18px;
+  width: 2px;
+  background: var(--ink);
+}
+.ry-fingerprint-reference {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 8px;
+}
+.ry-fingerprint-note {
+  font-size: 14px;
+  margin-top: 24px;
+  font-weight: 500;
+}
+.ry-season-years {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  margin-block: 24px;
+  padding-bottom: 8px;
+  scrollbar-width: thin;
+}
+.ry-season-years a {
+  flex: none;
+  padding: 12px 16px;
+  border-radius: 999px;
+  background: var(--bg);
+  font-size: 13px;
+}
+.ry-season-years a[aria-current] {
+  background: var(--ink);
+  color: var(--bg-raised);
+}
+.ry-selected-season {
+  font: 650 32px var(--font-display);
+  color: var(--court);
+}
+.ry-circuit {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+.ry-circuit-cell {
+  border-radius: 16px;
+  background: var(--bg);
+  min-height: 100px;
+  min-width: 0;
+}
+.ry-circuit-cell > a,
+.ry-circuit-cell > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px;
+  height: 100%;
+}
+.ry-circuit-cell span {
+  font-size: 12px;
+  color: var(--muted);
+}
+.ry-circuit-cell strong {
+  font-size: 13px;
+  font-weight: 600;
+}
+.ry-circuit-champion {
+  background: var(--event-tint);
+  border: 1px solid color-mix(in srgb, var(--event-accent) 30%, transparent);
+}
+.ry-circuit-champion strong {
+  color: var(--event-accent);
+}
+.ry-circuit-cell a:hover {
+  background: var(--bg-sunken);
+  border-radius: 16px;
+}
+.ry-player-table-scroll {
+  overflow-x: auto;
+  margin-top: 24px;
+}
+.ry-player-table td {
+  text-align: right;
+}
+.ry-player-table th a {
+  color: var(--event-accent);
+}
+.ry-tournament-win-track {
+  height: 8px;
+  display: block;
+  background: var(--bg-sunken);
+  border-radius: 999px;
+  min-width: 80px;
+  margin-top: 8px;
+}
+.ry-tournament-win-track > i,
+.ry-tournament-win-track > span {
+  height: 100%;
+  display: block;
+  background: var(--event-accent);
+  border-radius: 999px;
+}
+.ry-tournament-win-numbers {
+  font-size: 16px;
+  font-weight: 600;
+}
+.ry-player-results .nc-match-row {
+  padding-inline: 0;
+}
+.ry-player-eras {
+  display: grid;
+  gap: 24px;
+}
+.ry-player-eras > article {
+  padding: 24px;
+  background: var(--bg);
+  border-radius: 16px;
+}
+.ry-directory-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+.ry-directory-head p {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 16px;
+}
+.ry-directory-modes {
+  display: flex;
+  gap: 4px;
+  background: var(--bg-sunken);
+  border-radius: 999px;
+  padding: 4px;
+}
+.ry-directory-modes a {
+  padding: 12px 20px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+}
+.ry-directory-modes a[aria-current] {
+  background: var(--bg-raised);
+}
+.ry-directory-feature {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 42%;
+  background: var(--bg-raised);
+  border-radius: 24px;
+  overflow: hidden;
+  margin-bottom: 48px;
+}
+.ry-directory-feature-copy {
+  padding: 40px;
+}
+.ry-directory-feature-label {
+  font-size: 13px;
+  color: var(--muted);
+}
+.ry-directory-feature h2 {
+  font-size: clamp(36px, 4vw, 54px);
+  margin-top: 16px;
+}
+.ry-directory-feature-figure {
+  font: 650 72px/1 var(--font-display);
+  color: var(--court);
+  margin-top: 24px;
+}
+.ry-directory-feature-context {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 16px;
+}
+.ry-directory-feature-actions {
+  display: flex;
+  gap: 24px;
+  margin-top: 24px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.ry-directory-feature-photo {
+  position: relative;
+  min-height: 380px;
+}
+.ry-directory-feature-photo img {
+  object-position: 50% 18%;
+}
+.ry-directory-feature figure {
+  margin: 0;
+}
+.ry-directory-lead-comparison {
+  margin-top: 24px;
+  font-size: 13px;
+}
+.ry-directory-lead-track {
+  display: block;
+  height: 10px;
+  background: var(--bg-sunken);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+.ry-directory-lead-track i {
+  display: block;
+  height: 100%;
+  background: var(--court);
+  border-radius: 999px;
+}
+.ry-directory-results-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 24px;
+}
+.ry-directory-results-head p {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 8px;
+}
+.ry-directory-table-wrap {
+  background: var(--bg-raised);
+  border-radius: 24px;
+  overflow: hidden;
+}
+.ry-directory-table caption {
+  font-size: 12px;
+  text-align: left;
+  padding: 24px;
+}
+.ry-directory-table th,
+.ry-directory-table td {
+  height: 80px;
+  text-align: right;
+  padding: 16px 24px;
+}
+.ry-directory-table th:first-child {
+  text-align: left;
+}
+.ry-directory-table tbody th {
+  font-weight: 500;
+}
+.ry-directory-table tbody th > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  vertical-align: middle;
+}
+.ry-directory-rank {
+  font-size: 12px;
+  color: var(--muted);
+  display: inline-block;
+  width: 32px;
+  font-weight: 400;
+  vertical-align: middle;
+}
+.ry-directory-wins {
+  font-size: 24px;
+  font-weight: 650;
+  color: var(--court);
+}
+.ry-directory-table tbody tr:hover {
+  background: var(--bg);
+}
+.ry-directory-rate > span {
+  font-weight: 600;
+  font-size: 16px;
+}
+.ry-directory-rate i {
+  display: block;
+  height: 6px;
+  background: var(--bg-sunken);
+  width: 100%;
+  border-radius: 999px;
+  margin-top: 8px;
+}
+.ry-directory-rate b {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--court);
+}
+.ry-directory-rate small {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.ry-directory-pair-row {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: center;
+  padding: 24px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-raised);
+}
+.ry-directory-pair-row:hover {
+  background: var(--bg-sunken);
+}
+.ry-directory-pair-row:first-child {
+  border-radius: 24px 24px 0 0;
+}
+.ry-directory-pair-row:last-child {
+  border-radius: 0 0 24px 24px;
+}
+.ry-directory-pair-row > strong {
+  font: 650 36px var(--font-display);
+  color: var(--p1);
+}
+.ry-directory-pair-names {
+  font-weight: 600;
+  font-size: 16px;
+}
+.ry-directory-pair-names > span {
+  font-weight: 400;
+  color: var(--muted);
+  margin-inline: 0.35em;
+}
+.ry-directory-pair-names small {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+  margin-top: 8px;
+}
+.ry-directory-pair-photos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 400px;
+}
+.ry-directory-pair-photo {
+  position: relative;
+  min-width: 0;
+}
+.ry-directory-pair-photo img {
+  object-position: 50% 20%;
+}
+.ry-directory-pair-feature .ry-directory-feature-figure {
+  color: var(--p1);
+}
+.ry-directory-empty {
+  padding: 32px;
+  background: var(--bg-raised);
+  border-radius: 24px;
+}
+.ry-pair-picker {
+  margin-block: 32px;
+}
+.ry-pair-picker input {
+  height: 44px;
+}
+.ry-pair-header {
+  background: var(--bg-raised);
+  padding: 40px;
+  border-radius: 24px;
+  animation: enter 420ms var(--ease) both;
+}
+.ry-pair-overline {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.ry-pair-header h1 {
+  font-size: clamp(32px, 4vw, 48px);
+}
+.ry-pair-header h1 > span {
+  color: var(--muted);
+  font: 400 18px var(--font-interface);
+  margin-inline: 0.35em;
+}
+.ry-pair-hero {
+  display: grid;
+  grid-template-columns: 1fr 0.8fr 1fr;
+  align-items: center;
+  gap: 32px;
+  margin-top: 32px;
+}
+.ry-pair-person {
+  text-align: center;
+  min-width: 0;
+}
+.ry-pair-photo {
+  max-width: 280px;
+  margin-inline: auto;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--bg-sunken);
+}
+.ry-pair-photo img {
+  height: 100%;
+  width: 100%;
+  object-position: 50% 18%;
+}
+.ry-pair-person h2 {
+  font-size: 24px;
+  margin-top: 24px;
+}
+.ry-pair-total {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  font: 650 clamp(64px, 8vw, 100px) / 1 var(--font-display);
+  white-space: nowrap;
+}
+.ry-p1 {
+  color: var(--p1);
+}
+.ry-p2 {
+  color: var(--p2);
+}
+.ry-pair-score-divider {
+  color: var(--muted);
+  font-weight: 400;
+}
+.ry-pair-score-label {
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 12px;
+}
+.ry-pair-scope {
+  text-align: center;
+  max-width: none;
+  font-size: 13px;
+  color: var(--muted);
+  margin-block: 32px;
+}
+.ry-pair-surfaces {
+  margin-top: 32px;
+}
+.ry-pair-surfaces h2 {
+  font-size: 24px;
+  margin-bottom: 24px;
+}
+.ry-surface-score-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.ry-surface-score-row {
+  background: var(--event-tint);
+  padding: 24px;
+  border-radius: 16px;
+}
+.ry-surface-score-row dt {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--event-accent);
+}
+.ry-surface-score-row dd {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 16px;
+  font: 650 36px/1 var(--font-display);
+  color: var(--muted);
+}
+.ry-surface-score-row dd > span:nth-child(2) {
+  font-weight: 400;
+  color: var(--muted);
+}
+.ry-surface-score-row .ry-surface-leading {
+  color: var(--event-accent);
+}
+.ry-pair-cuts {
+  display: block;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-block: 32px;
+}
+.ry-pair-cut {
+  padding: 16px 24px;
+  border-radius: 16px;
+  background: var(--bg-raised);
+  font-size: 13px;
+}
+.ry-pair-cut strong {
+  font: 650 28px var(--font-display);
+  display: block;
+  color: var(--p1);
+}
+.ry-pair-trajectory {
+  padding: 32px;
+  background: var(--bg-raised);
+  border-radius: 24px;
+  margin-top: 32px;
+}
+.ry-pair-trajectory h2 {
+  margin-bottom: 16px;
+}
+.ry-pair-trajectory svg {
+  width: 100%;
+  height: auto;
+  max-height: 260px;
+  margin-top: 24px;
+  overflow: visible;
+}
+.ry-pair-zero {
+  stroke: var(--line-strong);
+  stroke-dasharray: 4 4;
+}
+.ry-pair-trajectory-line {
+  stroke: var(--p1);
+  stroke-width: 3;
+  fill: none;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.ry-pair-trajectory text {
+  fill: var(--muted);
+  font: 12px var(--font-interface);
+}
+.ry-pair-trajectory p {
+  font-size: 13px;
+  color: var(--muted);
+}
+.ry-pair-sequence {
+  margin-top: 48px;
+}
+.ry-pair-sequence > h2 {
+  margin-bottom: 24px;
+}
+.ry-pair-lead-change {
+  border-left: 3px solid var(--p1);
+  padding-left: 16px;
+}
+.ry-pair-lead-change > p {
+  font-size: 12px;
+  color: var(--p1);
+  padding-block: 12px;
+}
+.ry-pair-running {
+  font-size: 12px;
+  color: var(--muted);
+  padding: 8px 24px;
+  background: var(--bg-raised);
+}
+
+.ry-player-fact h2 {
+  font: 550 24px/1.35 var(--font-display);
+  max-width: 50ch;
+}
+.ry-directory-feature-figure > span {
+  font: 500 13px var(--font-interface);
+  color: var(--muted);
+  display: block;
+  margin-top: 12px;
+}
+.ry-directory-lead-comparison > div {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  margin-top: 16px;
+}
+.ry-directory-lead-comparison .ry-directory-lead-track {
+  grid-column: 1/-1;
+  margin: 0;
+}
+.ry-pair-cuts h2 {
+  font-size: 26px;
+}
+.ry-pair-cuts dl {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+.ry-pair-cuts dl > div {
+  padding-top: 24px;
+}
+.ry-pair-cuts dt {
+  font-size: 13px;
+}
+.ry-pair-cuts dt small {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 8px;
+}
+.ry-pair-cuts dd {
+  display: flex;
+  gap: 12px;
+  font: 650 36px var(--font-display);
+  margin-top: 16px;
+  color: var(--muted);
+}
+.ry-pair-cuts dd > span:first-child {
+  color: var(--p1);
+}
+.ry-pair-cuts dd > span:last-child {
+  color: var(--p2);
+}
+.ry-pair-trajectory-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+}
+.ry-pair-trajectory-years {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 16px;
+}
+.ry-pair-filter {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  margin-block: 24px;
+}
+.ry-pair-filter a {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 12px 16px;
+  font-size: 12px;
+  border-radius: 999px;
+  background: var(--bg);
+  white-space: nowrap;
+  flex: none;
+}
+.ry-pair-filter a[aria-current] {
+  background: var(--ink);
+  color: var(--bg-raised);
+}
+.ry-pair-filter span {
+  font-size: 11px;
+  opacity: 0.7;
+}
+.ry-pair-turn {
+  border-left: 3px solid var(--hard);
+  padding-left: 16px;
+}
+.ry-pair-turn-label {
+  font-size: 12px;
+  padding: 16px 0;
+  color: var(--hard);
+}
+.ry-pair-turn-label > span {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.ry-player-eras > div {
+  margin-top: 24px;
+}
+.ry-player-era-rate {
+  font: 650 36px var(--font-display);
+  color: var(--court);
+  margin-block: 16px;
+}
+.ry-player-era-small {
+  font-size: 24px;
+}
+@media (max-width: 1099px) {
+  .ry-player-identity {
+    padding: 32px;
+  }
+  .ry-player-totals {
+    gap: 16px;
+  }
+  .ry-player-totals strong {
+    font-size: 36px;
+  }
+  .ry-profile-analysis {
+    grid-template-columns: 1fr;
+  }
+  .ry-circuit {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .ry-directory-feature-copy {
+    padding: 32px;
+  }
+  .ry-pair-header {
+    padding: 32px;
+  }
+  .ry-pair-hero {
+    gap: 24px;
+  }
+  .ry-pair-total {
+    font-size: 72px;
+  }
+  .ry-directory-table th,
+  .ry-directory-table td {
+    padding: 16px;
+  }
+  .ry-directory-table tbody th > a {
+    gap: 8px;
+  }
+}
+@media (max-width: 759px) {
+  .ry-player-header {
+    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column-reverse;
+    min-height: 0;
+  }
+  .ry-photo-player {
+    height: 320px;
+    min-height: 0;
+  }
+  .ry-photo-player > img {
+    object-position: 50% 22%;
+  }
+  .ry-player-identity {
+    padding: 24px;
+  }
+  .ry-player-identity h1 {
+    font-size: 42px;
+  }
+  .ry-player-totals {
+    gap: 12px;
+  }
+  .ry-player-totals strong,
+  .ry-player-totals dd {
+    font-size: clamp(22px, 6.6vw, 28px);
+    white-space: nowrap;
+  }
+  .ry-player-totals dd > span {
+    white-space: normal;
+  }
+  .ry-player-totals span,
+  .ry-player-totals dt {
+    font-size: 11px;
+  }
+  .ry-player-totals small {
+    font-size: 10px;
+  }
+  .ry-player-bio {
+    gap: 8px 16px;
+    font-size: 12px;
+  }
+  .ry-player-fact {
+    padding: 24px;
+    font-size: 20px;
+  }
+  .ry-people-tablist,
+  .ry-match-segments {
+    margin: 24px 0;
+    width: 100%;
+  }
+  .ry-people-tablist a,
+  .ry-match-segments a {
+    padding: 12px 16px;
+    font-size: 12px;
+    flex: 1;
+    text-align: center;
+  }
+  .ry-people-section {
+    padding: 24px 20px;
+  }
+  .ry-season-highlights {
+    gap: 24px;
+  }
+  .ry-season-highlights strong {
+    font-size: 30px;
+  }
+  .ry-season-highlights span {
+    font-size: 11px;
+  }
+  .ry-season-chart-scroll {
+    display: none;
+  }
+  .ry-season-mobile {
+    display: block;
+    margin-top: 24px;
+  }
+  .ry-season-mobile-row {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr) auto;
+    gap: 12px;
+    align-items: center;
+    min-height: 48px;
+    font-size: 12px;
+  }
+  .ry-season-mobile-row a {
+    font-weight: 600;
+  }
+  .ry-season-mobile-balance {
+    font-weight: 600;
+  }
+  .ry-season-mobile-track {
+    display: flex;
+    gap: 2px;
+    height: 12px;
+    align-items: center;
+    background: var(--bg-sunken);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .ry-season-mobile-track i,
+  .ry-season-mobile-track span {
+    display: block;
+    height: 100%;
+    background: var(--win);
+  }
+  .ry-season-mobile-track i + i,
+  .ry-season-mobile-track span + span {
+    background: var(--loss);
+  }
+  .ry-season-mobile-missing {
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .ry-season-older {
+    margin-top: 16px;
+    font-size: 13px;
+  }
+  .ry-circuit {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .ry-circuit-cell {
+    min-height: 96px;
+  }
+  .ry-fingerprint-value {
+    flex-wrap: wrap;
+  }
+  .ry-fingerprint-value > span {
+    font-size: 11px;
+  }
+  .ry-directory-head {
+    display: block;
+  }
+  .ry-directory-modes {
+    width: fit-content;
+    margin-top: 24px;
+  }
+  .ry-directory-feature {
+    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column-reverse;
+    margin-bottom: 32px;
+  }
+  .ry-directory-feature-photo {
+    min-height: 280px;
+    height: 280px;
+  }
+  .ry-directory-feature-copy {
+    padding: 24px;
+  }
+  .ry-directory-feature h2 {
+    font-size: 36px;
+  }
+  .ry-directory-feature-figure {
+    font-size: 60px;
+  }
+  .ry-directory-pair-photos {
+    min-height: 240px;
+  }
+  .ry-directory-results-head {
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .ry-directory-table th,
+  .ry-directory-table td {
+    padding: 12px 8px;
+    height: 80px;
+  }
+  .ry-directory-table th:first-child {
+    padding-left: 16px;
+  }
+  .ry-directory-table caption {
+    padding: 16px;
+    font-size: 11px;
+  }
+  .ry-directory-table .ry-directory-col-finals,
+  .ry-directory-table .ry-directory-col-played {
+    display: none;
+  }
+  .ry-directory-table tbody th > a {
+    font-size: 12px;
+    gap: 8px;
+    max-width: 160px;
+  }
+  .ry-directory-table .player-avatar {
+    --avatar-size: 32px !important;
+  }
+  .ry-directory-rank {
+    width: 20px;
+    font-size: 10px;
+  }
+  .ry-directory-wins {
+    font-size: 20px;
+  }
+  .ry-directory-rate span {
+    font-size: 13px;
+  }
+  .ry-directory-rate small {
+    font-size: 10px;
+  }
+  .ry-directory-pair-row {
+    padding: 20px 16px;
+    gap: 8px;
+    grid-template-columns: 20px minmax(0, 1fr) auto;
+  }
+  .ry-directory-pair-row > strong {
+    font-size: 30px;
+  }
+  .ry-directory-pair-names {
+    font-size: 14px;
+  }
+  .ry-directory-pair-names > span {
+    display: block;
+    margin: 4px 0;
+    font-size: 11px;
+  }
+  .ry-pair-header {
+    padding: 24px 20px;
+  }
+  .ry-pair-header h1 {
+    font-size: 32px;
+  }
+  .ry-pair-header h1 > span {
+    display: block;
+    margin: 8px 0;
+    font-size: 14px;
+  }
+  .ry-pair-hero {
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    gap: 16px;
+    margin-top: 24px;
+    padding-bottom: 100px;
+  }
+  .ry-pair-photo {
+    max-width: 160px;
+  }
+  .ry-pair-person h2 {
+    font-size: 19px;
+    margin-top: 16px;
+  }
+  .ry-pair-score-block {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  .ry-pair-total {
+    font-size: 64px;
+  }
+  .ry-pair-scope {
+    margin-block: 24px;
+    font-size: 12px;
+  }
+  .ry-surface-score-list {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .ry-surface-score-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+  }
+  .ry-surface-score-row dd {
+    margin: 0;
+    font-size: 30px;
+    gap: 16px;
+  }
+  .ry-pair-trajectory {
+    padding: 24px 20px;
+  }
+  .ry-pair-trajectory-line {
+    stroke-width: 3;
+  }
+  .ry-pair-cuts {
+    gap: 8px;
+  }
+  .ry-pair-cut {
+    padding: 16px;
+    font-size: 12px;
+    flex: 1;
+  }
+  .ry-pair-cut strong {
+    font-size: 24px;
+  }
+  .ry-people-breadcrumb {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 759px) {
+  .ry-player-fact h2 {
+    font-size: 20px;
+  }
+  .ry-season-mobile-row {
+    display: block;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .ry-season-mobile-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    font-size: 14px;
+  }
+  .ry-season-mobile-heading b {
+    color: var(--court);
+    font-weight: 600;
+  }
+  .ry-season-mobile-balance {
+    display: block;
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 400;
+    margin-top: 8px;
+  }
+  .ry-season-mobile-track {
+    display: block;
+    margin-top: 12px;
+    height: 10px;
+  }
+  .ry-pair-cuts dl {
+    gap: 12px;
+  }
+  .ry-pair-cuts dt {
+    font-size: 11px;
+  }
+  .ry-pair-cuts dt small {
+    font-size: 10px;
+  }
+  .ry-pair-cuts dd {
+    font-size: 28px;
+    gap: 8px;
+  }
+  .ry-pair-trajectory-head {
+    display: block;
+  }
+  .ry-pair-trajectory-head > p {
+    margin-top: 16px;
+  }
+  .nc-match-comparison {
+    grid-template-columns: 1fr;
+  }
+}

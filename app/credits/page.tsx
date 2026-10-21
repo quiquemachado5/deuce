@@ -4,7 +4,6 @@ import { playerPhotos } from "@/lib/player-imagery";
 import { courtPhotos, type Photo } from "@/lib/imagery";
 import { tournamentName } from "@/lib/labels";
 import { Pagination } from "@/components/nocturno/Row";
-import "../rally-help.css";
 
 export const metadata = {
   title: "Fotografías — DEUCE",

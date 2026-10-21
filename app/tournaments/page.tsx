@@ -1,7 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import "../rally-photography.css";
-import "./tournament-refresh.css";
 import { preparedArchive } from "@/lib/revista/read-records";
 import { courtPhoto } from "@/lib/imagery";
 import { tournamentName } from "@/lib/labels";

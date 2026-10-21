@@ -1,7 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import "../../rally-photography.css";
-import "../../tournaments/tournament-refresh.css";
 import { notFound } from "next/navigation";
 import { courtPhoto } from "@/lib/imagery";
 import { number, surfaceLabel } from "@/lib/cuaderno/model";

@@ -6,17 +6,17 @@ import Row from '@/components/nocturno/Row';
 import ArchiveNotice from '@/components/nocturno/ArchiveNotice';
 import HomeHighlights, { type HomeHighlight } from '@/components/HomeHighlights';
 import TourActivity from '@/components/TourActivity';
-import ScoreText from '@/components/ScoreText';
+import PlayerAvatar from '@/components/PlayerAvatar';
+import PhotoInfo from '@/components/PhotoInfo';
 import HomeFinalScore from '@/components/HomeFinalScore';
 import { playerPhoto } from '@/lib/player-imagery';
-import { chronological, roundPosition, winnerName } from '@/lib/editorial';
-import { number, round, score } from '@/lib/cuaderno/model';
+import { chronological, winnerName } from '@/lib/editorial';
+import { number, round } from '@/lib/cuaderno/model';
 import { tournamentName } from '@/lib/labels';
 import { courtPhoto, courtPhotos } from '@/lib/imagery';
 import { tournamentDirectory } from '@/lib/tournament-directory';
 import { SURFACES, surfaceLabel } from '@/lib/surface';
 import { eligibleMatch } from '@/lib/quality';
-import './rally-overview.css';
 
 export const revalidate = 300;
 
@@ -29,14 +29,14 @@ export default async function Home() {
   const manifest = generation.manifest;
   const recent = [...matches].sort((a, b) => chronological(b, a));
   const record = (id: string) => manifest.pieces.find(piece => piece.id === id);
-  const longest = record('mas-largos');
-  const longestMatch = longest?.leader?.proof;
-  const longestPhoto = longestMatch ? courtPhoto(longestMatch.tournament) : null;
-  const recentFinal = recent.find(match => roundPosition(match.round) === 7 && eligibleMatch(match));
+    const recentFinal = recent.find(match => eligibleMatch(match) && match.year <= new Date().getFullYear());
   const finalEvent = recentFinal
     ? tournamentDirectory(matches).find(event => event.name === recentFinal.tournament)
     : null;
 
+  const heroCourt = recentFinal ? courtPhoto(recentFinal.tournament) : null;
+  const heroWinner = recentFinal ? winnerName(recentFinal) : '';
+  const heroPortrait = heroWinner ? playerPhoto(heroWinner) : null;
   const storyIds = ['remontada-dos-sets', 'mas-juegos', 'tie-breaks', 'finales-ganadas', 'top-10', 'ganar-con-menos-puntos'];
   const stories: HomeHighlight[] = storyIds.flatMap(id => {
     const piece = record(id);
@@ -50,6 +50,7 @@ export default async function Home() {
       detail: leader.detail,
       sample: `${piece.years} · ${number(piece.sample)} partidos con dato`,
       href: `/records?dato=${id}`,
+      photo: playerPhoto(leader.name) || (leader.proof ? playerPhoto(winnerName(leader.proof) || leader.proof.player1.name) : undefined) || undefined,
     }];
   });
 
@@ -70,24 +71,27 @@ export default async function Home() {
   return <div className="deuce-home ds-home">
     <ArchiveNotice status={generation} />
 
-    {longest?.leader && longestMatch ? <section className="ds-hero-record" aria-labelledby="ds-hero-title">
+    <header className="ds-home-heading"><h1>El tenis, <span>en otra dimensión.</span></h1><Link href="/buscar">Encuentra un partido</Link></header>
+    {recentFinal ? <section className="ds-hero-record" data-event-surface={recentFinal.surface} aria-labelledby="ds-hero-title">
       <div className="ds-hero-copy">
-        <p className="ds-hero-context">El partido más largo entre {number(longest.sample)} con duración publicada</p>
-        <h1 id="ds-hero-title">{longest.leader.display || `${number(longest.leader.value)} min`}</h1>
-        <p className="ds-hero-names">{longestMatch.player1.name} <span>contra</span> {longestMatch.player2.name}</p>
-        <p className="ds-hero-meta">{tournamentName(longestMatch.tournament)} · {longestMatch.year} · {round(longestMatch)}</p>
-        <p className="ds-hero-score"><ScoreText value={score(longestMatch)} /></p>
-        <Link className="ds-hero-action" href={`/match/${longestMatch.match_id}`}>Leer el partido</Link>
+        <p className="ds-hero-context"><i className={`nc-dot nc-dot-${recentFinal.surface}`} aria-hidden="true" />{round(recentFinal)} · {recentFinal.year}</p>
+        <h2 id="ds-hero-title">{tournamentName(recentFinal.tournament)}</h2>
+        <p className="ds-hero-champion">{heroWinner}</p>
+        <p className="ds-hero-meta">Ganador del último encuentro · {recentFinal.category}</p>
+        <Link className="ds-hero-action" href={`/match/${recentFinal.match_id}`}>Ver el partido</Link>
+        {finalEvent && <Link className="ds-hero-edition" href={`/${finalEvent.slug}/${recentFinal.year}`}>Toda la edición</Link>}
       </div>
-      {longestPhoto && <div className="ds-hero-photo">
-        <Image src={longestPhoto.src} alt={longestPhoto.alt} fill sizes="(max-width: 759px) 100vw, (max-width: 1099px) 50vw, 540px" priority loading="eager" />
-      </div>}
-    </section> : <header className="ds-hero-fallback"><h1>Los partidos detrás de cada cifra.</h1><Link href="/records">Ver estadísticas</Link></header>}
+      {heroCourt && <div className="ds-hero-court"><Image src={heroCourt.src} alt={heroCourt.alt} fill sizes="(max-width:759px) 100vw, 800px" priority /><PhotoInfo photo={heroCourt} /></div>}
+      {heroPortrait && <div className="ds-hero-portrait"><Image src={heroPortrait.src} alt={heroPortrait.alt} fill sizes="(max-width:759px) 160px, 320px" priority unoptimized /><PhotoInfo photo={heroPortrait} /></div>}
+      <div className="ds-hero-scoreboard"><HomeFinalScore match={recentFinal} context="partido" /></div>
+    </section> : <header className="ds-hero-fallback"><h2>Los partidos detrás de cada cifra.</h2><Link href="/records">Ver estadísticas</Link></header>}
 
     <div className="ds-archive-line">
       <p>{number(matches.length)} partidos · {number(playerCount)} jugadores · Grand Slams y torneos ATP de este archivo</p>
       <Link href="/cobertura">Qué incluye el archivo</Link>
     </div>
+
+    <HomeHighlights slides={stories} />
 
     <div className="ds-main-grid">
       <section className="ds-results-section" aria-labelledby="ds-results-title">
@@ -123,27 +127,22 @@ export default async function Home() {
         <p className="ds-ranking-scope">Solo partidos con ranking del rival en la fecha del encuentro.</p>
         <div className="ds-ranking-chart">{rows.map((row, index) => <Link href={row.href} key={row.name} aria-label={`${row.name}: ${number(row.value)} victorias en ${number(row.sample)} partidos con dato`}>
           <span className="ds-rank-position">{number(index + 1)}</span>
-          <span className="ds-rank-name">{row.name}<small>{number(row.sample)} con ranking</small></span>
+          <span className="ds-rank-name"><PlayerAvatar name={row.name} size={40} /><span>{row.name}<small>{number(row.sample)} con ranking</small></span></span>
           <span className="ds-rank-track" aria-hidden="true"><i style={{ width: `${row.value / ceiling * 100}%` }} /></span>
           <strong className="ds-rank-value">{number(row.value)}</strong>
         </Link>)}</div>
       </section>
     </div>
 
-    <HomeHighlights slides={stories} />
-
-    <div className="ds-home-end">
-      {recentFinal && <section className="ds-latest-final" data-event-surface={recentFinal.surface}>
-        <div className="ds-section-heading"><h2>Última final registrada</h2>{finalEvent && <Link href={`/${finalEvent.slug}/${recentFinal.year}`}>Ver edición</Link>}</div>
-        <p className="ds-final-event"><i className={`nc-dot nc-dot-${recentFinal.surface}`} aria-hidden="true" />{tournamentName(recentFinal.tournament)} · {recentFinal.year}</p>
-        <HomeFinalScore match={recentFinal} />
-        <Link className="ds-final-open" href={`/match/${recentFinal.match_id}`}>Leer la final</Link>
-      </section>}
-      <Link className="ds-court-link" href="/wimbledon/2008">
-        <Image src={courtPhotos.Wimbledon.src} alt={courtPhotos.Wimbledon.alt} fill sizes="(max-width: 759px) 100vw, 500px" />
-        <span>Wimbledon 2008 <strong>La final y el camino del campeón</strong></span>
-      </Link>
-    </div>
+    <section className="ds-home-end" aria-label="Tres superficies, tres torneos">
+      {[['Wimbledon', '/torneos/wimbledon', 'Hierba', 'grass'], ['Roland Garros', '/torneos/roland-garros', 'Tierra', 'clay'], ['US Open', '/torneos/us-open', 'Dura', 'hard']].map(([name, href, surface, key]) => {
+        const photo = courtPhotos[name as keyof typeof courtPhotos];
+        return photo ? <Link className="ds-court-link" href={href} key={name} data-event-surface={key}>
+          <Image src={photo.src} alt={photo.alt} fill sizes="(max-width:759px) 100vw, 400px" />
+          <span>{surface}<strong>{tournamentName(name)}</strong></span>
+        </Link> : null;
+      })}
+    </section>
     <nav className="ds-home-links" aria-label="Más formas de explorar">
       <Link href="/jugadores">Jugadores</Link><Link href="/tournaments">Torneos</Link><Link href="/comparar">Comparar jugadores</Link><Link href="/records">Todas las estadísticas</Link>
     </nav>

@@ -1,8 +1,7 @@
+import PlayerAvatar from '@/components/PlayerAvatar';
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import "../../../rally-photography.css";
-import "../../../tournaments/tournament-refresh.css";
 import { preparedArchive } from "@/lib/revista/read-records";
 import { tournamentName } from "@/lib/labels";
 import { categoryLabel, tournamentDirectory } from "@/lib/tournament-directory";
@@ -167,7 +166,7 @@ export default async function Edition({ params, searchParams }: Props) {
               return <li key={match.match_id}>
                 <Link href={`/match/${match.match_id}`} aria-label={`${roundLabel(match.round)}: ${champion} ganó a ${opponent}, ${oriented}`}>
                   <span className="ry-edition-path-round">{roundLabel(match.round)}</span>
-                  <span className="ry-edition-path-opponent">{opponent}</span>
+                  <span className="ry-edition-path-opponent"><PlayerAvatar name={opponent} size={32} />{opponent}</span>
                   <strong>{oriented}</strong>
                 </Link>
               </li>;

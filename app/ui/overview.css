@@ -1,0 +1,945 @@
+.ds-home-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  margin: 8px 0 32px;
+}
+.ds-home-heading h1 {
+  font-size: clamp(40px, 5vw, 68px);
+  max-width: 850px;
+  letter-spacing: -0.055em;
+}
+.ds-home-heading h1 span {
+  color: var(--muted);
+}
+.ds-home-heading > a {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  min-height: 44px;
+  background: var(--ink);
+  color: var(--bg-raised);
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.ds-hero-record {
+  min-height: 480px;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  background: var(--event-tint);
+  border-radius: 32px;
+  isolation: isolate;
+  overflow: hidden;
+  animation: enter 480ms var(--ease) both;
+}
+.ds-hero-copy {
+  padding: 48px;
+  position: relative;
+  z-index: 3;
+  align-self: start;
+  max-width: 700px;
+}
+.ds-hero-context {
+  font-size: 13px;
+  color: var(--event-accent);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.ds-hero-copy h2 {
+  font-size: clamp(48px, 6vw, 88px);
+  letter-spacing: -0.06em;
+  color: var(--event-accent);
+  max-width: 600px;
+}
+.ds-hero-champion {
+  font: 600 clamp(24px, 3vw, 36px) / 1.1 var(--font-display);
+  margin-top: 24px;
+}
+.ds-hero-meta {
+  color: var(--ink-soft);
+  font-size: 13px;
+  margin-top: 8px;
+}
+.ds-hero-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ink);
+  color: var(--bg-raised);
+  border-radius: 999px;
+  padding: 12px 24px;
+  min-height: 44px;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 24px 16px 0 0;
+}
+.ds-hero-edition {
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-flex;
+  padding: 12px 0;
+}
+.ds-hero-court {
+  position: absolute;
+  inset: 0 0 100px 48%;
+  z-index: -1;
+}
+.ds-hero-court > img {
+  object-fit: cover;
+}
+.ds-hero-court::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--event-tint), transparent 52%);
+  pointer-events: none;
+}
+.ds-hero-court .photo-info {
+  bottom: auto;
+  top: 16px;
+}
+.ds-hero-portrait {
+  position: absolute;
+  width: 280px;
+  height: 320px;
+  right: 40px;
+  top: 24px;
+  border: 6px solid var(--event-tint);
+  border-radius: 50% 50% 24px 24px;
+  overflow: hidden;
+}
+.ds-hero-portrait > img {
+  object-position: 50% 20%;
+}
+.ds-hero-scoreboard {
+  grid-column: 1/-1;
+  position: relative;
+  z-index: 4;
+  background: var(--bg-raised);
+  padding: 16px 32px;
+  margin: 0 24px 24px;
+  border-radius: 24px;
+  align-self: end;
+}
+.ds-final-table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.ds-final-table th,
+.ds-final-table td {
+  padding: 8px 12px;
+  border: 0;
+  text-align: center;
+  font-size: 18px;
+}
+.ds-final-table thead th {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--muted);
+}
+.ds-final-table tbody th {
+  text-align: left;
+  font-size: 16px;
+  min-width: 180px;
+}
+.ds-final-table .ds-final-set-won,
+.ds-final-table .ds-final-total,
+.ds-final-table .ds-set-won {
+  color: var(--event-accent);
+  font-weight: 650;
+}
+.ds-final-table .ds-final-winner th {
+  font-weight: 650;
+}
+.ds-final-table th small {
+  display: block;
+  font-size: 11px;
+  color: var(--event-accent);
+}
+.ds-archive-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  font-size: 12px;
+  color: var(--muted);
+  padding: 24px 8px 0;
+}
+.ds-archive-line a {
+  white-space: nowrap;
+}
+.ds-stories {
+  margin-top: 64px;
+}
+.ds-discovery-stage {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 36%;
+  min-height: 360px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: var(--bg-raised);
+}
+.ds-discovery-copy {
+  padding: 40px;
+  animation: enter 380ms var(--ease) both;
+  min-width: 0;
+}
+.ds-discovery-category {
+  font-size: 13px;
+  color: var(--muted);
+}
+.ds-discovery-number {
+  font: 650 clamp(52px, 7vw, 88px) / 1.06 var(--font-display);
+  letter-spacing: -0.05em;
+  display: block;
+  margin: 16px 0;
+  color: var(--court);
+}
+.ds-discovery-copy h3 {
+  font-size: 28px;
+}
+.ds-discovery-copy p {
+  font-size: 14px;
+  margin-top: 12px;
+  color: var(--ink-soft);
+}
+.ds-discovery-sample {
+  font-size: 12px;
+  color: var(--muted);
+  display: block;
+  margin-top: 8px;
+}
+.ds-discovery-copy > a {
+  display: inline-flex;
+  margin-top: 24px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.ds-discovery-photo {
+  position: relative;
+  min-height: 360px;
+  animation: enter 380ms var(--ease) both;
+}
+.ds-discovery-photo img {
+  object-position: 50% 22%;
+}
+.ds-discovery-next {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  min-height: 44px;
+  border-radius: 999px;
+  padding: 8px 20px;
+  background: var(--ink);
+  color: var(--bg-raised);
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.ds-discovery-next span {
+  font-size: 22px;
+}
+.ds-discovery-next:hover {
+  opacity: 0.85;
+}
+.ds-stories-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  margin-top: 24px;
+  border-top: 1px solid var(--line);
+}
+.ds-story {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  padding: 24px 24px 24px 0;
+  border-bottom: 1px solid var(--line);
+}
+.ds-story:not(:nth-child(3n + 1)) {
+  padding-left: 24px;
+}
+.ds-story:hover {
+  background: var(--bg-raised);
+}
+.ds-story-title {
+  color: var(--muted);
+  font-size: 12px;
+}
+.ds-story > strong {
+  font: 650 36px/1.1 var(--font-display);
+}
+.ds-story-person {
+  font-size: 15px;
+  font-weight: 600;
+}
+.ds-story-sample {
+  font-size: 12px;
+  color: var(--muted);
+}
+.ds-main-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.8fr);
+  gap: 32px;
+  margin-top: 64px;
+}
+.ds-results-section,
+.ds-tour-section {
+  min-width: 0;
+}
+.ds-results-list .nc-match-row {
+  grid-template-columns: 1fr auto;
+  gap: 8px 16px;
+}
+.ds-results-list .nc-row-context {
+  grid-column: 1/-1;
+}
+.ds-results-list .nc-row-round {
+  display: inline;
+}
+.ds-results-list .nc-row-duel {
+  grid-column: 1;
+}
+.ds-results-list .nc-row-result {
+  grid-column: 2;
+  max-width: 260px;
+}
+.ds-more-results {
+  margin-top: 16px;
+  font-size: 13px;
+}
+.ds-more-results summary {
+  padding: 8px 16px;
+  background: var(--bg-raised);
+  border-radius: 999px;
+  width: fit-content;
+}
+.ds-tour-grid {
+  display: grid;
+  gap: 16px;
+}
+.ds-tour-card {
+  background: var(--bg-raised);
+  border-radius: 24px;
+  padding: 24px;
+}
+.ds-tour-card > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+.ds-tour-card h3 {
+  margin-top: 24px;
+  font-size: 28px;
+}
+.ds-tour-card > p {
+  font-size: 15px;
+  margin-top: 16px;
+}
+.ds-event-state,
+.ds-tour-level,
+.ds-tour-date {
+  font-size: 12px;
+  color: var(--muted);
+}
+.ds-event-state i {
+  display: none;
+}
+.ds-event-ongoing {
+  color: var(--court);
+  font-weight: 600;
+}
+.ds-tour-date {
+  display: block;
+  margin-top: 8px;
+}
+.ds-tour-card > a {
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  margin-top: 16px;
+}
+.ds-update-note {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 16px;
+}
+.ds-analysis-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-top: 64px;
+}
+.ds-rivalry-feature,
+.ds-ranking-section {
+  min-width: 0;
+  background: var(--bg-raised);
+  border-radius: 24px;
+  padding: 32px;
+}
+.ds-rivalry-feature h2,
+.ds-ranking-section h2 {
+  font-size: 26px;
+}
+.ds-rivalry-lead {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 32px;
+}
+.ds-rivalry-player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.ds-rivalry-player img {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  object-position: 50% 20%;
+}
+.ds-rivalry-player > span {
+  font-size: 14px;
+  font-weight: 600;
+}
+.ds-rivalry-player strong {
+  font: 650 72px/1 var(--font-display);
+  color: var(--p1);
+}
+.ds-rivalry-player + div strong {
+  color: var(--p2);
+}
+.ds-rivalry-scope {
+  font-size: 12px;
+  text-align: center;
+  color: var(--muted);
+  margin: 24px auto;
+}
+.ds-rivalry-splits {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+.ds-rivalry-splits > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.ds-rivalry-splits span {
+  font-size: 12px;
+  color: var(--muted);
+}
+.ds-rivalry-splits strong {
+  font: 600 24px var(--font-display);
+}
+.ds-ranking-scope {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.ds-ranking-chart > a {
+  display: grid;
+  grid-template-columns: 16px minmax(0, 1fr) 100px 40px;
+  gap: 12px;
+  align-items: center;
+  padding: 16px 0;
+  border-top: 1px solid var(--line);
+}
+.ds-ranking-chart > a:hover {
+  background: var(--bg);
+}
+.ds-rank-position {
+  font-size: 12px;
+  color: var(--muted);
+}
+.ds-rank-name {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 600;
+}
+.ds-rank-name small {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 400;
+  margin-top: 4px;
+}
+.ds-rank-track {
+  height: 12px;
+  border-radius: 999px;
+  background: var(--bg-sunken);
+  overflow: hidden;
+}
+.ds-rank-track i {
+  display: block;
+  height: 100%;
+  background: var(--court);
+  border-radius: 999px;
+}
+.ds-rank-value {
+  text-align: right;
+  font-size: 22px;
+  font-weight: 650;
+  color: var(--court);
+}
+.ds-home-end {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px;
+  margin-top: 64px;
+}
+.ds-latest-final {
+  background: var(--bg-raised);
+  border-radius: 24px;
+  padding: 32px;
+  min-width: 0;
+}
+.ds-latest-final h2 {
+  font-size: 26px;
+}
+.ds-final-event {
+  font-size: 13px;
+  color: var(--event-accent);
+  margin-bottom: 16px;
+}
+.ds-final-open {
+  display: inline-flex;
+  margin-top: 24px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.ds-court-link {
+  position: relative;
+  border-radius: 24px;
+  min-height: 320px;
+  overflow: hidden;
+  isolation: isolate;
+  color: white;
+}
+.ds-court-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.75));
+  z-index: -1;
+}
+.ds-court-link img {
+  z-index: -2;
+}
+.ds-court-link > span {
+  position: absolute;
+  bottom: 32px;
+  left: 32px;
+  right: 32px;
+  font-size: 13px;
+}
+.ds-court-link strong {
+  font: 600 32px/1.1 var(--font-display);
+  display: block;
+  margin-top: 8px;
+}
+.ds-home-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-top: 48px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.ds-hero-fallback {
+  padding: 64px 0;
+}
+
+.ds-final-table th a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+}
+.ds-final-table th a > img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  object-position: 50% 22%;
+}
+.ds-final-table-set-won,
+.ds-final-table-total {
+  color: var(--event-accent) !important;
+  font-weight: 650;
+}
+.ds-final-table-total {
+  font-size: 24px !important;
+}
+.ds-final-table td small {
+  vertical-align: baseline;
+  font-size: 12px;
+}
+.ds-final-table th a > span small {
+  color: var(--event-accent);
+  font-size: 11px;
+  display: block;
+  margin-top: 4px;
+}
+.ds-main-grid:not(:has(.ds-tour-section)) {
+  grid-template-columns: 1fr;
+}
+.ds-main-grid:not(:has(.ds-tour-section)) .ds-results-list .nc-match-row {
+  grid-template-columns: 200px minmax(0, 1fr) auto;
+}
+.ds-main-grid:not(:has(.ds-tour-section)) .ds-results-list .nc-row-context {
+  grid-column: auto;
+}
+.ds-main-grid:not(:has(.ds-tour-section)) .ds-results-list .nc-row-duel {
+  grid-column: auto;
+}
+.ds-main-grid:not(:has(.ds-tour-section)) .ds-results-list .nc-row-result {
+  grid-column: auto;
+}
+@media (max-width: 1099px) {
+  .ds-home-heading {
+    align-items: flex-start;
+  }
+  .ds-home-heading h1 span {
+    display: block;
+  }
+  .ds-hero-copy {
+    padding: 32px;
+  }
+  .ds-hero-record {
+    min-height: 460px;
+  }
+  .ds-hero-portrait {
+    width: 160px;
+    height: 200px;
+    right: 24px;
+  }
+  .ds-main-grid {
+    grid-template-columns: 1fr;
+  }
+  .ds-tour-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .ds-analysis-grid {
+    grid-template-columns: 1fr;
+  }
+  .ds-ranking-chart > a {
+    grid-template-columns: 20px minmax(0, 1fr) minmax(80px, 35%) 48px;
+  }
+  .ds-home-end {
+    grid-template-columns: 1fr 1fr;
+  }
+  .ds-latest-final {
+    padding: 24px;
+  }
+  .ds-final-table tbody th {
+    min-width: 140px;
+    font-size: 14px;
+  }
+  .ds-final-table td {
+    font-size: 16px;
+    padding: 8px;
+  }
+  .ds-archive-line {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .ds-discovery-copy {
+    padding: 32px;
+  }
+  .ds-stories-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 759px) {
+  .ds-home-heading {
+    display: block;
+    margin: 8px 4px 24px;
+  }
+  .ds-home-heading h1 {
+    font-size: 42px;
+    max-width: 340px;
+  }
+  .ds-home-heading > a {
+    margin-top: 24px;
+    padding: 12px 20px;
+    font-size: 13px;
+  }
+  .ds-hero-record {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .ds-hero-copy {
+    padding: 24px 24px 32px;
+    min-height: 360px;
+    background: linear-gradient(90deg, var(--event-tint) 25%, transparent);
+    max-width: none;
+    align-self: stretch;
+    z-index: 2;
+  }
+  .ds-hero-context {
+    font-size: 11px;
+    margin-bottom: 24px;
+    max-width: 200px;
+    flex-wrap: wrap;
+  }
+  .ds-hero-copy h2 {
+    font-size: 48px;
+    max-width: 220px;
+  }
+  .ds-hero-champion {
+    font-size: 26px;
+    margin-top: 16px;
+    max-width: 200px;
+  }
+  .ds-hero-meta {
+    font-size: 12px;
+    max-width: 180px;
+  }
+  .ds-hero-court {
+    inset: 0 0 0 40%;
+    height: 360px;
+  }
+  .ds-hero-court::after {
+    background: linear-gradient(90deg, var(--event-tint), transparent 65%);
+  }
+  .ds-hero-court .photo-info {
+    right: 8px;
+    top: 8px;
+  }
+  .ds-hero-portrait {
+    width: 120px;
+    height: 160px;
+    right: 16px;
+    top: 152px;
+    bottom: auto;
+    z-index: 2;
+    border-width: 4px;
+  }
+  .ds-hero-portrait .photo-info {
+    width: 24px;
+    height: 24px;
+    right: 4px;
+    bottom: 8px;
+  }
+  .ds-hero-action {
+    font-size: 13px;
+    padding: 12px 16px;
+    margin-right: 12px;
+  }
+  .ds-hero-edition {
+    font-size: 12px;
+    display: flex;
+    width: fit-content;
+    min-height: 44px;
+    align-items: center;
+  }
+  .ds-hero-scoreboard {
+    align-self: stretch;
+    min-width: 0;
+    margin: 0 12px 12px;
+    padding: 12px;
+    border-radius: 16px;
+  }
+  .ds-final-table th,
+  .ds-final-table td {
+    padding: 6px;
+    font-size: 16px;
+  }
+  .ds-final-table tbody th {
+    min-width: 120px;
+    font-size: 13px;
+  }
+  .ds-archive-line {
+    padding-top: 16px;
+    font-size: 11px;
+  }
+  .ds-stories,
+  .ds-main-grid,
+  .ds-analysis-grid,
+  .ds-home-end {
+    margin-top: 40px;
+  }
+  .ds-discovery-stage {
+    grid-template-columns: 1fr 30%;
+    min-height: 350px;
+  }
+  .ds-discovery-copy {
+    padding: 24px;
+    z-index: 1;
+  }
+  .ds-discovery-number {
+    font-size: 48px;
+    white-space: nowrap;
+  }
+  .ds-discovery-copy h3 {
+    font-size: 24px;
+    min-width: 200px;
+  }
+  .ds-discovery-copy p {
+    font-size: 13px;
+  }
+  .ds-discovery-photo {
+    min-height: 100%;
+    opacity: 0.8;
+  }
+  .ds-discovery-next {
+    right: 12px;
+    bottom: 12px;
+    padding: 8px 16px;
+    font-size: 12px;
+    z-index: 2;
+  }
+  .ds-discovery-sample {
+    max-width: 180px;
+    font-size: 11px;
+  }
+  .ds-stories-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .ds-story,
+  .ds-story:not(:nth-child(3n + 1)) {
+    padding: 20px 12px 20px 0;
+  }
+  .ds-story:nth-child(2n) {
+    padding-left: 16px;
+  }
+  .ds-story > strong {
+    font-size: 30px;
+  }
+  .ds-story-title,
+  .ds-story-sample {
+    font-size: 11px;
+  }
+  .ds-story-person {
+    font-size: 13px;
+  }
+  .ds-main-grid,
+  .ds-analysis-grid,
+  .ds-home-end {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .ds-tour-grid {
+    grid-template-columns: 1fr;
+  }
+  .ds-rivalry-feature,
+  .ds-ranking-section,
+  .ds-latest-final {
+    padding: 24px 20px;
+  }
+  .ds-rivalry-feature h2,
+  .ds-ranking-section h2,
+  .ds-latest-final h2 {
+    font-size: 25px;
+  }
+  .ds-rivalry-lead {
+    gap: 16px;
+  }
+  .ds-rivalry-player > span {
+    font-size: 12px;
+  }
+  .ds-rivalry-player strong {
+    font-size: 64px;
+  }
+  .ds-ranking-chart > a {
+    grid-template-columns: 12px minmax(0, 1fr) 56px 32px;
+    gap: 8px;
+  }
+  .ds-rank-name {
+    font-size: 12px;
+  }
+  .ds-rank-name .player-avatar {
+    --avatar-size: 28px !important;
+  }
+  .ds-rank-name small {
+    font-size: 10px;
+  }
+  .ds-rank-value {
+    font-size: 20px;
+  }
+  .ds-rank-track {
+    height: 10px;
+  }
+  .ds-court-link {
+    min-height: 280px;
+  }
+  .ds-court-link > span {
+    left: 24px;
+    bottom: 24px;
+  }
+  .ds-court-link strong {
+    font-size: 28px;
+  }
+  .ds-results-list .nc-row-result {
+    max-width: 144px;
+  }
+  .ds-home-links {
+    gap: 16px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 759px) {
+  .ds-main-grid:not(:has(.ds-tour-section)) .ds-results-list .nc-match-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .ds-main-grid:not(:has(.ds-tour-section)) .ds-results-list .nc-row-context {
+    grid-column: 1/-1;
+  }
+  .ds-main-grid:not(:has(.ds-tour-section)) .ds-results-list .nc-row-duel {
+    grid-column: 1;
+  }
+  .ds-main-grid:not(:has(.ds-tour-section)) .ds-results-list .nc-row-result {
+    grid-column: 2;
+  }
+  .ds-final-table th a {
+    gap: 8px;
+  }
+  .ds-final-table th a > img {
+    width: 28px;
+    height: 28px;
+  }
+  .ds-final-table tbody th {
+    min-width: 130px;
+  }
+  .ds-final-table th a > span {
+    font-size: 11px;
+  }
+  .ds-final-table th a > span small {
+    font-size: 10px;
+  }
+  .ds-hero-portrait {
+    top: 136px;
+    width: 120px;
+    height: 160px;
+  }
+  .ds-home-end {
+    grid-template-columns: 1fr;
+  }
+}

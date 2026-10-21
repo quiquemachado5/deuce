@@ -4,7 +4,6 @@ import { conflictCandidates } from '@/lib/archive-review';
 import { number } from '@/lib/cuaderno/model';
 import { tournamentName } from '@/lib/labels';
 import { reviewedFinals, referenceFinal, referenceIssue } from '@/lib/reviewed-finals';
-import '../coverage.css';
 export const metadata = {title:'Revisión histórica — DEUCE',alternates:{canonical:'/cobertura/revision'}};
 export const revalidate = 300;
 export default async function Review() {

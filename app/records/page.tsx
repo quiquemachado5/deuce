@@ -13,7 +13,6 @@ import FilterForm from "@/components/revista/FilterForm";
 import { TOURNAMENTS } from "@/lib/types";
 import { tournamentName } from "@/lib/labels";
 import { SURFACES, surfaceLabel } from "@/lib/surface";
-import "../rally-records.css";
 import ArchiveNotice from '@/components/nocturno/ArchiveNotice';
 
 type Query = Record<string, string | undefined>;
