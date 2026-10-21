@@ -1,0 +1,30 @@
+import { test, expect } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
+
+test('field coverage and reviewed finals expose real samples and evidence on mobile', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/cobertura');
+  await expect(page.getByRole('heading', { name: 'La muestra detrás de cada dato' })).toBeVisible();
+  await expect(page.locator('.coverage-field-group[open] li')).not.toHaveCount(0);
+  await page.locator('.coverage-field-group[open]').getByText('Temporadas y procedencia', { exact: true }).first().click();
+  await expect(page.locator('.coverage-field-detail[open]')).toContainText('Archivo histórico');
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  const audit = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']).analyze();
+  expect(audit.violations).toEqual([]);
+  await page.locator('.coverage-fields').scrollIntoViewIfNeeded();
+  await page.screenshot({ path: '/tmp/deuce-field-coverage-mobile.png' });
+  await page.goto('/cobertura/revision');
+  await expect(page.getByRole('heading', { name: 'Finales contrastadas con ATP' })).toBeVisible();
+  await expect(page.locator('.coverage-reviewed li')).toHaveCount(11);
+  await expect(page.locator('.coverage-reviewed').getByRole('link', { name: 'Fuente ATP' })).toHaveCount(11);
+  await expect(page.locator('.coverage-reviewed').getByText('En revisión', { exact: true })).toHaveCount(0);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await page.locator('.coverage-reviewed').scrollIntoViewIfNeeded();
+  await page.screenshot({ path: '/tmp/deuce-finals-review-mobile.png' });
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.emulateMedia({ colorScheme: 'dark' });
+  await page.goto('/cobertura');
+  await page.locator('.coverage-fields').scrollIntoViewIfNeeded();
+  await page.screenshot({ path: '/tmp/deuce-field-coverage-desktop.png' });
+  expect((await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']).analyze()).violations).toEqual([]);
+});
