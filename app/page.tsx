@@ -1,3 +1,5 @@
+import CourtGallery from '@/components/CourtGallery';
+import SurfaceDuel from '@/components/SurfaceDuel';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Suspense } from 'react';
@@ -15,7 +17,7 @@ import { number, round } from '@/lib/cuaderno/model';
 import { tournamentName } from '@/lib/labels';
 import { courtPhoto, courtPhotos } from '@/lib/imagery';
 import { tournamentDirectory } from '@/lib/tournament-directory';
-import { SURFACES, surfaceLabel } from '@/lib/surface';
+import { SURFACES } from '@/lib/surface';
 import { eligibleMatch } from '@/lib/quality';
 
 export const revalidate = 300;
@@ -37,7 +39,7 @@ export default async function Home() {
   const heroCourt = recentFinal ? courtPhoto(recentFinal.tournament) : null;
   const heroWinner = recentFinal ? winnerName(recentFinal) : '';
   const heroPortrait = heroWinner ? playerPhoto(heroWinner) : null;
-  const storyIds = ['remontada-dos-sets', 'mas-juegos', 'tie-breaks', 'finales-ganadas', 'top-10', 'ganar-con-menos-puntos'];
+  const storyIds = ['remontada-dos-sets', 'mas-juegos', 'tie-breaks', 'finales-ganadas', 'top-10', 'ganar-con-menos-puntos', 'mas-largos', 'rachas', 'victorias-temporada', 'temporadas-titulos'];
   const stories: HomeHighlight[] = storyIds.flatMap(id => {
     const piece = record(id);
     const leader = piece?.leader;
@@ -66,7 +68,6 @@ export default async function Home() {
   })).filter(split => split.wins[0] + split.wins[1] > 0);
   const rows = topTen.rows.slice(0, 5);
   const ceiling = Math.max(1, ...rows.map(row => row.value));
-  const playerCount = new Set(matches.flatMap(match => [match.player1.name, match.player2.name])).size;
 
   return <div className="deuce-home ds-home">
     <ArchiveNotice status={generation} />
@@ -85,11 +86,6 @@ export default async function Home() {
       {heroPortrait && <div className="ds-hero-portrait"><Image src={heroPortrait.src} alt={heroPortrait.alt} fill sizes="(max-width:759px) 160px, 320px" priority unoptimized /><PhotoInfo photo={heroPortrait} /></div>}
       <div className="ds-hero-scoreboard"><HomeFinalScore match={recentFinal} context="partido" /></div>
     </section> : <header className="ds-hero-fallback"><h2>Los partidos detrás de cada cifra.</h2><Link href="/records">Ver estadísticas</Link></header>}
-
-    <div className="ds-archive-line">
-      <p>{number(matches.length)} partidos · {number(playerCount)} jugadores · Grand Slams y torneos ATP de este archivo</p>
-      <Link href="/cobertura">Qué incluye el archivo</Link>
-    </div>
 
     <HomeHighlights slides={stories} />
 
@@ -117,14 +113,10 @@ export default async function Home() {
           })}
         </div>
         <p className="ds-rivalry-scope">{number(pair.length)} partidos de este archivo. No es toda la carrera.</p>
-        <div className="ds-rivalry-splits">{surfaceSplits.map(({ surface, wins }) => <div key={surface}>
-          <span><i className={`nc-dot nc-dot-${surface}`} aria-hidden="true" />{surfaceLabel[surface]}</span>
-          <strong>{wins.join('–')}</strong>
-        </div>)}</div>
+        <SurfaceDuel names={pairNames} rows={surfaceSplits} />
       </section>
       <section className="ds-ranking-section" aria-labelledby="ds-top-title">
         <div className="ds-section-heading"><h2 id="ds-top-title">Victorias ante el top 10</h2><Link href="/records?dato=top-10">Clasificación</Link></div>
-        <p className="ds-ranking-scope">Solo partidos con ranking del rival en la fecha del encuentro.</p>
         <div className="ds-ranking-chart">{rows.map((row, index) => <Link href={row.href} key={row.name} aria-label={`${row.name}: ${number(row.value)} victorias en ${number(row.sample)} partidos con dato`}>
           <span className="ds-rank-position">{number(index + 1)}</span>
           <span className="ds-rank-name"><PlayerAvatar name={row.name} size={40} /><span>{row.name}<small>{number(row.sample)} con ranking</small></span></span>
@@ -134,15 +126,12 @@ export default async function Home() {
       </section>
     </div>
 
-    <section className="ds-home-end" aria-label="Tres superficies, tres torneos">
-      {[['Wimbledon', '/torneos/wimbledon', 'Hierba', 'grass'], ['Roland Garros', '/torneos/roland-garros', 'Tierra', 'clay'], ['US Open', '/torneos/us-open', 'Dura', 'hard']].map(([name, href, surface, key]) => {
-        const photo = courtPhotos[name as keyof typeof courtPhotos];
-        return photo ? <Link className="ds-court-link" href={href} key={name} data-event-surface={key}>
-          <Image src={photo.src} alt={photo.alt} fill sizes="(max-width:759px) 100vw, 400px" />
-          <span>{surface}<strong>{tournamentName(name)}</strong></span>
-        </Link> : null;
-      })}
-    </section>
+    <CourtGallery items={[
+      {title:'Centre Court · Wimbledon',photo:courtPhotos.Wimbledon.src,alt:courtPhotos.Wimbledon.alt,surface:'grass',video:'eRbTHj2KLro',videoTitle:'Sinner – Alcaraz · Wimbledon 2025',source:'https://www.youtube.com/watch?v=eRbTHj2KLro'},
+      {title:'Philippe-Chatrier · 2024',photo:courtPhotos['Roland Garros'].src,alt:courtPhotos['Roland Garros'].alt,surface:'clay',video:'aERKJuBtIGw',videoTitle:'Sinner – Alcaraz · Roland Garros 2025',source:'https://www.youtube.com/watch?v=aERKJuBtIGw'},
+      {title:'Hard Rock Stadium · Miami 2025',photo:courtPhotos.Miami.src,alt:courtPhotos.Miami.alt,surface:'hard'},
+      {title:'Arthur Ashe · 2018',photo:courtPhotos['US Open'].src,alt:courtPhotos['US Open'].alt,surface:'hard'},
+    ]} />
     <nav className="ds-home-links" aria-label="Más formas de explorar">
       <Link href="/jugadores">Jugadores</Link><Link href="/tournaments">Torneos</Link><Link href="/comparar">Comparar jugadores</Link><Link href="/records">Todas las estadísticas</Link>
     </nav>

@@ -1,10 +1,12 @@
+import SeasonArchive from '@/components/SeasonArchive';
+import EditionMatchGroups from '@/components/EditionMatchGroups';
 import Link from "next/link";
 import { ChevronDown, Search, SlidersHorizontal } from "lucide-react";
 import { notebook } from "@/lib/cuaderno/data";
 import { searchArchive, matchingMatches } from "@/lib/cuaderno/search";
 import { normalizeText } from "@/lib/quality";
 import { round, description } from "@/lib/cuaderno/model";
-import Row, { Pagination } from "@/components/nocturno/Row";
+import { Pagination } from "@/components/nocturno/Row";
 import FilterForm from "@/components/revista/FilterForm";
 import { tournamentName } from "@/lib/labels";
 import { tournamentDirectory, categoryLabel } from "@/lib/tournament-directory";
@@ -68,6 +70,7 @@ export default async function SearchPage({
       (value) => value && value !== "all",
     ).length + Number(q.fiveSets === "true"),
     hasSelection = Boolean(q.q || q.player || activeFilters > 0),
+    browse = !q.q && !q.player && ![q.surface,q.tournament,q.category,q.round,q.fiveSets].some(value => value && value !== "all"),
     suggestionsByGroup = ["Récords", "Jugadores", "Parejas"].map((group) => ({
       group,
       items: suggestions.filter((item) => item.group === group),
@@ -75,7 +78,7 @@ export default async function SearchPage({
   return (
     <div className={`nc-wrap ${styles.searchPage}`}>
       <header className={styles.heading}>
-        <h1>Busca en el archivo</h1>
+        <h1>Partidos</h1>
       </header>
 
       <FilterForm action="/buscar">
@@ -183,13 +186,13 @@ export default async function SearchPage({
         </section>
       )}
 
-      {(filtered.length > 0 || suggestions.length === 0) && (
+      {browse ? <SeasonArchive matches={data.matches} years={years} year={q.year && q.year !== "all" ? Number(q.year) : years[0]} page={Number(q.page)||1} /> : (filtered.length > 0 || suggestions.length === 0) && (
         <section className={styles.matches} aria-labelledby="search-matches-heading">
           <div className={styles.resultsHead}>
             <h2 id="search-matches-heading">{hasSelection ? "Partidos" : "Últimos partidos"}</h2>
             <span>{filtered.length.toLocaleString("es-ES")} partidos</span>
           </div>
-          {filtered.slice(start, end).map((match) => <Row key={match.match_id} match={match} />)}
+          <EditionMatchGroups matches={filtered.slice(start,end)} />
           {!filtered.length && (
             <div className={styles.empty}>
               <p>{q.q || q.player ? "Ningún partido coincide con la búsqueda y los filtros." : "No hay partidos con estos filtros."}</p>

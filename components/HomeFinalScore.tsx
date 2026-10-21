@@ -22,7 +22,7 @@ export default function HomeFinalScore({ match, context = "final" }: { match: Ma
           const setsWon = sets.filter((set) => set[side] > set[1 - side]).length;
           return <tr key={name} className={winner ? "ds-final-table-winner" : undefined}>
             <th scope="row"><Link href={`/players/${playerSlug(name)}`}>
-              {portrait && <Image src={portrait.thumbnail || portrait.src} width={40} height={44} sizes="40px" alt="" />}
+              {portrait && <Image src={portrait.thumbnail || portrait.src} width={40} height={40} sizes="40px" alt="" unoptimized />}
               <span><span>{name}</span>{winner && <small>Ganador</small>}</span>
             </Link></th>
             <td className="ds-final-table-total">{setsWon}</td>

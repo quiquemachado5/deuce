@@ -143,7 +143,6 @@ function RecordIndex({ manifest, comebackRunner }: {
           ) : <section className="rv-family" id={`grupo-${index}`} key={group}>{content}</section>;
         })}
       </div>
-      <p className="rv-update">Archivo actualizado el {new Date(manifest.generatedAt).toLocaleDateString("es-ES", { timeZone: "Europe/Madrid" })}.</p>
     </div>
   );
 }
@@ -225,12 +224,9 @@ export default async function Records({ searchParams }: { searchParams: Promise<
     <Link className="rv-back" href="/records">Estadísticas</Link>
     <ArchiveNotice status={view} />
     <header className="rv-detail-header"><h1>{piece.title}</h1><p>{piece.definition}</p>
-      <div className="rv-scope"><span>{piece.years || "Periodo seleccionado"}</span>
-        <span>{number(piece.sample)} partidos {piece.measured ? "con dato publicado" : "considerados"}</span>
-        <span>Mínimo para entrar: {number(piece.minimum)} {piece.minimum === 1 ? "caso" : "casos"}</span>
-      </div></header>
+      <Link className="stats-data-link" href={'/cobertura?'+new URLSearchParams(Object.entries({...q,dato:piece.id}).filter(([,value])=>value) as [string,string][])}>Sobre los datos</Link></header>
     {leader && <section className="rv-lead" aria-label="Líder de esta estadística">
-      <div><span className="rv-lead-label">{asYear ? "Un partido de esta fecha" : "Primero en este archivo"}</span>
+      <div>
         <p className="rv-lead-value">{recordValue(leader, piece.percent, asYear)}</p>
         <h2><Link href={leader.href}>{leader.name}</Link></h2>
         <p className="rv-lead-detail">{leader.detail}{piece.percent ? ` · ${number(leader.sample)} casos` : ""}</p>
@@ -253,6 +249,5 @@ export default async function Records({ searchParams }: { searchParams: Promise<
       <RecordRanking evidence={{id:piece.id,filters:q}} rows={view.smallRows} percent small offset={(view.smallPage - 1) * 25} priorValue={piece.smallPagePrior?.[view.smallPage]} />
       {piece.smallTotal > 25 && <Pagination page={view.smallPage} total={piece.smallTotal} href={(page) => address({ ...q, smallPage: String(page) })} />}
     </section>}
-    <p className="rv-update">Archivo actualizado el {new Date(view.manifest.generatedAt).toLocaleDateString("es-ES", { timeZone: "Europe/Madrid" })}. <Link href="/records">Todas las estadísticas</Link></p>
   </div>;
 }

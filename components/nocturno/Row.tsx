@@ -7,9 +7,11 @@ import { round, score, number } from "@/lib/cuaderno/model";
 export default function MatchRow({
   match,
   firstPlayer,
+  grouped = false,
 }: {
   match: Match;
   firstPlayer?: string;
+  grouped?: boolean;
 }) {
   const reversed = firstPlayer === match.player2.name,
     players = reversed
@@ -33,15 +35,13 @@ export default function MatchRow({
   return (
     <Link
       href={`/match/${match.match_id}`}
-      className="nc-match-row"
+      className={`nc-match-row${grouped ? ' nc-row-grouped' : ''}`}
       data-event-surface={match.surface}
       data-event-category={match.category}
       aria-label={`${context}. ${players[0].name} contra ${players[1].name}. ${result}. Ganador: ${winner}`}
     >
       <span className="nc-row-context">
-        <i className={`nc-dot nc-dot-${match.surface}`} aria-hidden="true" />
-        {tournamentName(match.tournament)} · {match.year}
-        <span className="nc-row-round"> · {round(match)}{match.category.startsWith("Precursores") ? " · Precursor" : ""}</span>
+        {grouped ? round(match) : <><i className={`nc-dot nc-dot-${match.surface}`} aria-hidden="true" />{tournamentName(match.tournament)} · {match.year}<span className="nc-row-round"> · {round(match)}{match.category.startsWith("Precursores") ? " · Precursor" : ""}</span></>}
       </span>
       <span className="nc-row-duel">
         <span className={`nc-row-person ${players[0].name === winner ? "nc-row-winner" : "nc-row-loser"}`}><PlayerAvatar name={players[0].name} size={28} />{players[0].name}</span>

@@ -85,9 +85,6 @@ function SeasonChart({
           <span className="ry-chart-key ry-chart-key-loss">Derrotas</span>
         </div>
       </div>
-      <p className="nc-meta">
-        Victorias y derrotas por año. Un hueco indica que no hay partidos registrados.
-      </p>
       <p id="ry-season-chart-description" className="nc-sr">
         {seasons.map((season) => season.result
           ? `${season.year}: ${season.result.wins} victorias y ${season.result.losses} derrotas`
@@ -327,7 +324,6 @@ export default async function Player({ params, searchParams }: Props) {
           aria-labelledby="ry-player-surfaces-title"
         >
           <h2 id="ry-player-surfaces-title">Balance por superficie</h2>
-          <p className="nc-meta ry-surface-explainer">Cada barra muestra la proporción de victorias y derrotas en esa superficie.</p>
           <dl className="ry-player-surface-list">
             {SURFACES.filter(surface => player.bySurface[surface].played > 0).map((surface) => {
               const result = player.bySurface[surface];
@@ -425,10 +421,7 @@ export default async function Player({ params, searchParams }: Props) {
             </div>
           ))}
         </div>
-        <p className="nc-meta ry-calendar-note">
-          Solo partidos completos y validados. La ausencia de registro no
-          confirma que no disputara el torneo.
-        </p>
+
       </section>
       <section className="ry-people-section ry-player-results" id="resultados">
         <div className="ry-people-section-head">
@@ -542,7 +535,6 @@ export default async function Player({ params, searchParams }: Props) {
             {years.at(-1)}–{years[0]}{" "}
             <span>· {number(years.length)} temporadas registradas</span>
           </p>
-          <p className="nc-meta">Resultados de este archivo, no de toda la carrera.</p>
           <dl className="ry-player-totals">
             <div>
               <dt>Victorias</dt>

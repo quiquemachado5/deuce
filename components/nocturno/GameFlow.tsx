@@ -74,7 +74,7 @@ export default function GameFlow({ match, extent, total }: { match: Match; exten
     <figure className="ry-game-flow">
       <div className="ry-game-flow-heading">
         <strong>Ventaja en juegos</strong>
-        <span>{partial ? `Juegos 1–${chart.total} · solo tramos verificados` : `Juegos 1–${chart.total}`}</span>
+        <span>{partial ? `${chart.total} juegos` : `${chart.total} juegos`}</span>
       </div>
       <div className="ry-game-flow-plot">
         <svg
@@ -121,7 +121,7 @@ export default function GameFlow({ match, extent, total }: { match: Match; exten
       <div className="ry-game-flow-x-axis" aria-hidden="true"><span>0</span><span>{number(horizontalExtent)} juegos</span></div>
       <figcaption className="ry-game-flow-caption">
         <span>{names[0]} ↑</span>
-        <span aria-live="polite">{active ? momentText(active, names) : moments.length ? "Toca un momento para leerlo" : "Un juego mueve la línea una unidad"}</span>
+        <span aria-live="polite">{active ? momentText(active, names) : moments.length ? "" : ""}</span>
         <span>{names[1]} ↓</span>
       </figcaption>
       <details className="ry-game-flow-data">

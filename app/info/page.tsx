@@ -40,7 +40,8 @@ export default function Info() {
       <section className="ry-help-scope ry-help-measures" aria-labelledby="ry-help-measures-title">
         <h2 id="ry-help-measures-title">Qué cuenta una cifra</h2>
         <div className="ry-help-prose">
-          <p>Cada clasificación declara su periodo, exclusiones y tamaño de muestra.</p>
+          <p>El enlace «Sobre los datos» de cada estadística abre su periodo, exclusiones, tamaño de muestra y mínimo en Cobertura. Los porcentajes conservan su denominador.</p>
+          <p>En las comparaciones, la marca de mediana representa a los jugadores con muestra suficiente. Las barras de cada medida comparten escala. Un hueco en una serie indica ausencia de registro, no un cero.</p>
           <p>Aces, saques y golpes solo cuentan los partidos donde la fuente publicó esa medida. Un ranking histórico aparece únicamente cuando corresponde a la fecha del encuentro.</p>
         </div>
         <div className="ry-help-links">
