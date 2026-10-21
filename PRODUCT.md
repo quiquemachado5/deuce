@@ -18,3 +18,5 @@ La superficie presentada deriva de las ediciones registradas y se distingue de l
 
 ## Actualización diaria
 La fecha de compilación no acredita una sincronización. `/api/health` informa por separado de la edad de la generación activa y de la última sincronización y publicación. En despliegues con archivo remoto, una sincronización o publicación fallida, sin fecha o con más de 36 horas degrada la salud; la antigüedad de generación mantiene su umbral de 72 horas. Los cron del servidor conservan sus horarios de las 04:00 y 05:00 UTC para sincronizar y publicar.
+
+Las lecturas remotas permiten como máximo tres intentos ante fallos transitorios observados, con plazos nuevos y diagnósticos sin credenciales. Los detalles se descargan en lotes de 25, con cuatro peticiones concurrentes como máximo. Si se agota el presupuesto, se mantiene la publicación anterior y la comprobación de cobertura sigue bloqueando cualquier reducción de datos.
