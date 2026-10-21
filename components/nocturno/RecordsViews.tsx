@@ -43,6 +43,7 @@ export function RecordRanking({
 }) {
   return (
     <div className={`rv-ranking-wrap${small ? " rv-ranking-wrap-small" : ""}${asYear ? " rv-ranking-wrap-year" : ""}`}>
+    <div className="rd-ranking-columns" aria-hidden="true"><span>Pos.</span><span>Jugador o partido</span><span>Evidencia</span><span>{asYear ? "Año" : percent ? "Porcentaje" : "Cifra"}</span></div>
     <ol className={`rv-ranking${small ? " rv-ranking-small" : ""}`} start={offset + 1}>
       {rows.map((row, index) => {
         const prior = rows[index - 1];
@@ -50,17 +51,15 @@ export function RecordRanking({
         return (
           <li key={`${row.href}-${row.name}-${index}`}>
             <span className="rv-ranking-place">{place}</span>
-            <div className="rv-ranking-person">
-              <div className="rv-ranking-head">
+            <div className="rv-ranking-person" data-has-avatar={row.href.startsWith('/players/') || undefined}>
                 <Link href={row.href} className="rv-ranking-name">{row.href.startsWith('/players/') && <PlayerAvatar name={row.name} size={40} />}{row.name}</Link>
-                {evidence && !row.href.startsWith('/match/') ? (
+              <span className="rv-ranking-detail">{row.detail}</span>
+            </div>
+            <div className="rv-ranking-evidence">{evidence && !row.href.startsWith('/match/') ? (
                   <Link prefetch={false} className="rv-ranking-proof" href={evidenceHref(evidence.id, row, evidence.filters)} aria-label={`Ver partidos de ${row.name} en esta clasificación`}>Partidos</Link>
                 ) : row.proof && row.href !== `/match/${row.proof.match_id}` ? (
                   <Link className="rv-ranking-proof" href={`/match/${row.proof.match_id}`} aria-label={`Ver un partido de ${row.name}`}>Partido</Link>
-                ) : null}
-              </div>
-              <span className="rv-ranking-detail">{row.detail}</span>
-            </div>
+                ) : row.href.startsWith('/match/') ? <Link className="rv-ranking-proof" href={row.href} aria-label={`Ver partido: ${row.name}`}>Partido</Link> : null}</div>
             <div className="rv-ranking-result">
               <span className="rv-ranking-number"><strong>{recordValue(row, percent, asYear)}</strong>
                 {percent && <small>{number(row.sample)} casos</small>}

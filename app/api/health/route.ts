@@ -1,16 +1,70 @@
-import { preparedGeneration } from '@/lib/revista/read-records';
-import { generationMetadata } from '@/lib/revista/generation';
+import { preparedGeneration } from "@/lib/revista/read-records";
+import { generationMetadata } from "@/lib/revista/generation";
+import { cloudClient, cloudRead } from "@/lib/cloud-archive";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 export async function GET() {
-  const headers = { 'Cache-Control': 'no-store' };
+  const headers = { "Cache-Control": "no-store" };
   try {
-    const generation = await preparedGeneration();
-    const ageHours = Math.max(0, (Date.now() - Date.parse(generation.manifest.generatedAt)) / 3_600_000);
-    return Response.json({ status: generation.fallbackReason || ageHours > 72 ? 'degraded' : 'healthy',
-      ...generationMetadata(generation), matches: generation.manifest.matchCount,
-      statistics: generation.manifest.pieces.length,
-      ageHours: Math.round(ageHours * 10) / 10, staleAfterHours: 72,
-    }, { headers: { ...headers, 'X-DEUCE-Dataset-Version': generation.manifest.version } });
-  } catch { return Response.json({ status: 'unavailable' }, { status: 503, headers }); }
+    const [generation, sync, publication] = await Promise.all([
+      preparedGeneration(),
+      cloudRead("sync-status"),
+      cloudRead("publish-status"),
+    ]);
+    const ageHours = Math.max(
+      0,
+      (Date.now() - Date.parse(generation.manifest.generatedAt)) / 3_600_000,
+    );
+    const recentStatus = (value: unknown) => {
+      const row =
+        value && typeof value === "object"
+          ? (value as Record<string, unknown>)
+          : {};
+      const at =
+        typeof row.at === "string" && Number.isFinite(Date.parse(row.at))
+          ? row.at
+          : null;
+      return {
+        status: typeof row.status === "string" ? row.status : "unavailable",
+        at,
+        ageHours: at
+          ? Math.round(
+              Math.max(0, (Date.now() - Date.parse(at)) / 3_600_000) * 10,
+            ) / 10
+          : null,
+      };
+    };
+    const refresh = recentStatus(sync),
+      published = recentStatus(publication);
+    const dailyIssue =
+      Boolean(cloudClient()) &&
+      (refresh.status !== "success" ||
+        refresh.ageHours === null ||
+        refresh.ageHours > 36 ||
+        published.status !== "success" ||
+        published.ageHours === null ||
+        published.ageHours > 36);
+    return Response.json(
+      {
+        status:
+          generation.fallbackReason || ageHours > 72 || dailyIssue
+            ? "degraded"
+            : "healthy",
+        ...generationMetadata(generation),
+        matches: generation.manifest.matchCount,
+        statistics: generation.manifest.pieces.length,
+        ageHours: Math.round(ageHours * 10) / 10,
+        staleAfterHours: 72,
+        dailyUpdate: { refresh, publication: published, staleAfterHours: 36 },
+      },
+      {
+        headers: {
+          ...headers,
+          "X-DEUCE-Dataset-Version": generation.manifest.version,
+        },
+      },
+    );
+  } catch {
+    return Response.json({ status: "unavailable" }, { status: 503, headers });
+  }
 }

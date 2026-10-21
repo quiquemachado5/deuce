@@ -6,6 +6,7 @@ import { calendarOrder } from "@/lib/presentation-calendar";
 import { courtPhoto } from "@/lib/imagery";
 import { tournamentName } from "@/lib/labels";
 import { number } from "@/lib/cuaderno/model";
+import { editionTournamentCourt } from "@/lib/tournament-presentation";
 import { Pagination } from "./nocturno/Row";
 
 export default function SeasonArchive({
@@ -52,17 +53,13 @@ export default function SeasonArchive({
       <div className="season-archive-grid">
         {entries.slice((current - 1) * 25, current * 25).map((entry, index) => {
           const photo = courtPhoto(entry.name);
-          const surfaces = [
-            ...new Set(entry.matches.map((match) => match.surface)),
-          ];
+          const court = editionTournamentCourt(entry.matches);
           return (
             <Link
               key={entry.slug}
               className={`season-event${photo ? " season-event-photo" : ""}`}
               href={`/buscar?year=${year}&tournament=${entry.slug}`}
-              data-event-surface={
-                surfaces.length === 1 ? surfaces[0] : undefined
-              }
+              data-event-surface={court.surface}
             >
               {photo && (
                 <Image

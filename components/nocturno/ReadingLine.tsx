@@ -1,92 +1,81 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo } from "react";
 import type { Match } from "@/lib/types";
-import { matchStory } from "@/lib/match-story";
-import { score } from "@/lib/cuaderno/model";
-import ScoreText from "@/components/ScoreText";
+import { lineData, score } from "@/lib/cuaderno/model";
 import GameFlow from "./GameFlow";
 
 export default function ReadingLine({ match }: { match: Match }) {
-  const sets = matchStory(match);
-  const names = [match.player1.name, match.player2.name];
-  const scores = score(match).split(", ");
-  const [selected, setSelected] = useState(0);
-  const [selectedGame, setSelectedGame] = useState<number | null>(null);
-  const current = sets[selected] || sets[0];
-
-  if (!current?.games.length || match.status !== "Finished" || match.quality?.result === "review") {
+  const chart = useMemo(() => lineData(match), [match]);
+  if (
+    !chart.segments.length ||
+    match.status !== "Finished" ||
+    match.quality?.result === "review"
+  )
     return null;
-  }
-
-  const featuredGame = current.games.findIndex((game) => game.isBreak && game.winner);
-  const firstKnownGame = current.games.findIndex((game) => game.winner);
-  const activeGameIndex = selectedGame ?? (featuredGame >= 0 ? featuredGame : firstKnownGame);
-  const activeGame = activeGameIndex >= 0 ? current.games[activeGameIndex] : null;
-  const breaks = current.games.filter((game) => game.isBreak).length;
-
+  const names = [match.player1.name, match.player2.name];
   return (
-    <section className="ds-match-story" aria-label="El partido, set a set">
+    <section className="ds-match-story" aria-label="El desarrollo del partido">
       <div className="ry-section-heading">
-        <h2>Set a set</h2>
-        <span>{sets.length} sets · {sets.reduce((count, set) => count + set.games.length, 0)} juegos</span>
+        <h2>Así se decidió</h2>
       </div>
-
-      <GameFlow match={match} />
-
-      <div
-        className="ds-set-picker"
-        role="group"
-        aria-label="Seleccionar set"
-        style={{ gridTemplateColumns: `repeat(${sets.length}, minmax(0, 1fr))` }}
-      >
-        {sets.map((set, index) => (
-          <button
-            key={set.set}
-            type="button"
-            aria-pressed={index === selected}
-            aria-label={`Set ${set.set}: ${scores[index] || set.score.join("–")}. Ganó ${names[set.winner - 1]}`}
-            onClick={() => {
-              setSelected(index);
-              setSelectedGame(null);
-            }}
-          >
-            <span>Set {set.set}</span>
-            <ScoreText value={scores[index] || set.score.join("–")} />
-          </button>
-        ))}
-      </div>
-
-      <div className="ds-set-summary">
-        <strong>{names[current.winner - 1]} ganó el set</strong>
-        {breaks > 0 && <span>{breaks} {breaks === 1 ? "break registrado" : "breaks registrados"}</span>}
-      </div>
-
-      {current.known > 0 ? (
-        <>
-          <div className="ds-game-sequence" role="group" aria-label={`Juegos registrados del set ${current.set}`}>
-            {current.games.map((game, index) => (
-              <button
-                type="button"
-                key={game.number}
-                className={`ds-game-chip ds-game-side-${game.winner || "unknown"}${game.isBreak ? " ds-game-break" : ""}`}
-                aria-pressed={activeGameIndex === index}
-                aria-label={`Juego ${game.number}: ${game.winner ? `ganó ${names[game.winner - 1]}` : "secuencia incompleta"}${game.isBreak ? ", break" : ""}${game.tiebreak ? ", tie-break" : ""}`}
-                onClick={() => setSelectedGame(index)}
-              >
-                {game.tiebreak ? "TB" : game.number}
-              </button>
-            ))}
-          </div>
-          {activeGame && (
-            <p className="ds-game-detail" aria-live="polite">
-              Juego {activeGame.number} · {activeGame.winner
-                ? `${names[activeGame.winner - 1]} ganó ${activeGame.isBreak ? "al resto" : activeGame.tiebreak ? "el tie-break" : "el juego"}.`
-                : "Secuencia incompleta."}
+      <GameFlow match={match} data={chart} />
+      {chart.tiebreaks.map((points) => {
+        let first = 0,
+          second = 0;
+        const counts = points.map((point) => {
+          if (point.winner === 1) first++;
+          else if (point.winner === 2) second++;
+          return { point, score: `${first}–${second}` };
+        });
+        const winner = first > second ? 0 : 1;
+        const mini = points.filter(
+          (point) =>
+            point.server && point.winner && point.server !== point.winner,
+        ).length;
+        return (
+          <details className="match-tiebreak-detail" key={points[0].set}>
+            <summary>
+              <span>Tie-break · set {points[0].set}</span>
+              <strong>{score(match).split(", ")[points[0].set - 1]}</strong>
+            </summary>
+            <p>
+              {names[winner]} ganó {Math.max(first, second)}–
+              {Math.min(first, second)} puntos
+              {mini ? ` · ${mini} minibreak${mini === 1 ? "" : "s"}` : ""}.
             </p>
-          )}
-        </>
-      ) : null}
+            <ol
+              className="match-tiebreak-counts"
+              aria-label={`Marcador del tie-break del set ${points[0].set}`}
+            >
+              {counts.map(({ point, score: tally }, index) => (
+                <li
+                  key={point.point_number}
+                  data-player={point.winner}
+                  data-minibreak={Boolean(
+                    point.server && point.server !== point.winner,
+                  )}
+                  className={
+                    index === counts.length - 1
+                      ? "match-tiebreak-close"
+                      : undefined
+                  }
+                >
+                  <span aria-hidden="true">{tally}</span>
+                  <span className="nc-sr">
+                    Punto {index + 1}: {tally}. Ganó{" "}
+                    {point.winner ? names[point.winner - 1] : "sin registrar"}.
+                    {point.server ? ` Sacó ${names[point.server - 1]}.` : ""}
+                    {point.server && point.server !== point.winner
+                      ? " Minibreak."
+                      : ""}
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </details>
+        );
+      })}
     </section>
   );
 }

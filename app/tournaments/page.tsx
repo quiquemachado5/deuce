@@ -1,4 +1,5 @@
 import { calendarOrder } from '@/lib/presentation-calendar';
+import { latestTournamentCourt } from '@/lib/tournament-presentation';
 import Link from "next/link";
 import Image from "next/image";
 import { preparedArchive } from "@/lib/revista/read-records";
@@ -7,7 +8,6 @@ import { tournamentName } from "@/lib/labels";
 import { number, surfaceLabel } from "@/lib/cuaderno/model";
 import {
   categoryLabel,
-  categorySurfaces,
   categoryYears,
   tournamentDirectory,
   type TournamentEntry,
@@ -37,13 +37,13 @@ export async function generateMetadata({ searchParams }: Props) {
 function TournamentRow({ entry, category }: { entry: TournamentEntry; category: string }) {
   const matches = entry.matches.filter((match) => match.category === category);
   const years = categoryYears(entry, category);
-  const surfaces = categorySurfaces(entry, category);
+  const court = latestTournamentCourt(matches);
   const finals = matches.filter((match) => roundPosition(match.round) === 7).length;
   return <Link className="ry-tournament-directory-row" href={`/torneos/${entry.slug}?categoria=${encodeURIComponent(category)}`}
-    data-event-surface={surfaces.length === 1 ? surfaces[0] : undefined} data-event-category={category}>
+    data-event-surface={court.surface} data-event-category={category}>
     <span className="ry-tournament-directory-name">{tournamentName(entry.name)}</span>
     <span className="ry-tournament-directory-meta">
-      {surfaces.length === 1 && <><i className={`nc-dot nc-dot-${surfaces[0]}`} aria-hidden="true" />{surfaceLabel[surfaces[0]]} · </>}
+      <i className={`nc-dot nc-dot-${court.surface}`} aria-hidden="true" />{surfaceLabel[court.surface]} en {court.year} · {court.indoor !== null && `${court.indoor ? "Bajo techo" : "Al aire libre"} · `}
       {years.length === 1 ? years[0] : `${years.at(-1)}–${years[0]}`} · {number(years.length)} {years.length === 1 ? "edición" : "ediciones"}
     </span>
     <strong>{number(finals)} {finals === 1 ? "final" : "finales"}</strong>
@@ -62,14 +62,15 @@ function PhotoGroup({ category, entries }: { category: string; entries: Tourname
         const photo = courtPhoto(entry.name)!;
         const selected = entry.matches.filter((match) => calendar ? ["Grand Slam","Masters 1000"].includes(match.category) : match.category === category);
         const finals = selected.filter((match) => roundPosition(match.round) === 7).length;
-        const surfaces = [...new Set(selected.map(match=>match.surface))];
+        const court = latestTournamentCourt(selected);
         return <Link className="ry-photo-tournament-tile" href={`/torneos/${entry.slug}`} key={entry.slug}
-          title={photo.caption || photo.alt} data-event-surface={surfaces.length === 1 ? surfaces[0] : undefined} data-event-category={category}>
+          title={`${photo.caption || photo.alt} · ${photo.credit}`} data-event-surface={court.surface} data-event-category={category}>
           <span className="ry-photo-tournament-image"><Image src={photo.src} alt={photo.alt} fill priority={category === "Grand Slam" && index < 2}
             loading={category === "Grand Slam" && index < 2 ? "eager" : "lazy"}
             sizes={category === "Grand Slam" ? "(max-width: 759px) calc(100vw - 32px), (max-width: 1099px) 45vw, 43vw" : "(max-width: 759px) calc(100vw - 32px), (max-width: 1099px) 45vw, 29vw"} /></span>
           <span className="ry-photo-tournament-copy"><strong>{tournamentName(entry.name)}</strong>
-            <span>{surfaces.length === 1 && <><i className={`nc-dot nc-dot-${surfaces[0]}`} aria-hidden="true" />{surfaceLabel[surfaces[0]]} · </>}{calendar ? (entry.categories.includes("Grand Slam") ? "Grand Slam" : "Masters 1000") : `${number(finals)} finales`}</span>
+            <span><i className={`nc-dot nc-dot-${court.surface}`} aria-hidden="true" />{surfaceLabel[court.surface]}{court.indoor !== null && ` · ${court.indoor ? "Bajo techo" : "Al aire libre"}`} · {calendar ? (entry.categories.includes("Grand Slam") ? "Grand Slam" : "Masters 1000") : `${number(finals)} finales`}</span>
+            <small>Edición {court.year}{photo.caption ? ` · ${photo.caption}` : " · Vista de la sede"}</small>
           </span>
         </Link>;
       })}

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { notFound, permanentRedirect } from "next/navigation";
 import Row from "@/components/nocturno/Row";
 import PlayerFingerprint from "@/components/nocturno/PlayerFingerprint";
@@ -11,6 +10,7 @@ import {
   playerSeason,
   winnerName,
   roundLabel,
+  roundPosition,
 } from "@/lib/editorial";
 import { playerSlug } from "@/lib/explore";
 import { tournamentName } from "@/lib/labels";
@@ -23,11 +23,15 @@ import {
   handLabel,
   backhandLabel,
 } from "@/lib/player-bio";
-import { playerFact, eraComparisons } from "@/lib/revista/records";
+import { eraComparisons } from "@/lib/revista/records";
 import { tournamentDirectory } from "@/lib/tournament-directory";
 import type { Match } from "@/lib/types";
 import { SURFACES } from "@/lib/surface";
 import ArchiveNotice from '@/components/nocturno/ArchiveNotice';
+import PlayerFlag from '@/components/PlayerFlag';
+import PlayerPortrait from '@/components/PlayerPortrait';
+import PlayerDiscovery from '@/components/PlayerDiscovery';
+import { playerDiscoveries } from '@/components/PlayerDiscoveryData';
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -279,13 +283,13 @@ export default async function Player({ params, searchParams }: Props) {
     ? Number(query.year)
     : years[0];
   const calendar = playerSeason(player.matches, player.name, year);
-  const fact = playerFact(player.name, player.matches);
   const eras =
     eraComparisons(player.matches, 2020, player.name)[0] ||
     eraComparisons(player.matches, 2010, player.name)[0];
   const directoryByName = new Map(
     tournamentDirectory(data.matches).map((entry) => [entry.name, entry]),
   );
+  const discoveries = playerDiscoveries(player.name, player.matches, new Map([...directoryByName].map(([name, entry]) => [name, entry.slug])));
   const tournaments = [
     ...new Set(player.matches.map((match) => match.tournament)),
   ]
@@ -393,23 +397,32 @@ export default async function Player({ params, searchParams }: Props) {
             </Link>
           ))}
         </nav>
+        <div className="pd-calendar-legend" aria-label="Resultados destacados del calendario">
+          <span data-player-outcome="champion">Campeón</span>
+          <span data-player-outcome="finalist">Finalista</span>
+          <span data-player-outcome="semifinalist">Semifinalista</span>
+        </div>
         <div className="ry-circuit" role="list">
-          {calendar.map((entry) => (
+          {calendar.map((entry) => {
+            const outcome = entry.outcome === 'Campeón' ? 'champion'
+              : entry.last && winnerName(entry.last) !== player.name && roundPosition(entry.last.round) === 7 ? 'finalist'
+              : entry.last && winnerName(entry.last) !== player.name && roundPosition(entry.last.round) === 6 ? 'semifinalist'
+              : undefined;
+            const label = outcome === 'champion' ? 'Campeón' : outcome === 'finalist' ? 'Finalista' : outcome === 'semifinalist' ? 'Semifinalista' : entry.last ? roundLabel(entry.last.round) : 'Sin registro';
+            return (
             <div
               className={`ry-circuit-cell${entry.outcome === "Campeón" ? " ry-circuit-champion" : ""}`}
               key={entry.tournament}
               role="listitem"
               data-event-surface={entry.last?.surface}
               data-event-category={entry.last?.category}
+              data-player-outcome={outcome}
             >
               {entry.last ? (
                 <Link href={`/match/${entry.last.match_id}`}>
                   <span>{tournamentName(entry.tournament)}</span>
-                  <strong>
-                    {entry.outcome === "Campeón"
-                      ? "Campeón"
-                      : roundLabel(entry.last.round)}
-                  </strong>
+                  <strong>{label}</strong>
+                  <span className="pd-calendar-balance">{number(entry.won)}–{number(entry.played - entry.won)} · {number(entry.played)} partidos</span>
                   <span className="nc-sr">{entry.outcome}</span>
                 </Link>
               ) : (
@@ -419,7 +432,7 @@ export default async function Player({ params, searchParams }: Props) {
                 </div>
               )}
             </div>
-          ))}
+          );})}
         </div>
 
       </section>
@@ -557,7 +570,7 @@ export default async function Player({ params, searchParams }: Props) {
               {bio.country && (
                 <div>
                   <dt>País</dt>
-                  <dd>{countryLabel(bio.country)}</dd>
+                  <dd className="pd-country"><PlayerFlag code={bio.country} />{countryLabel(bio.country)}</dd>
                 </div>
               )}
               {bio.birthday && (
@@ -581,29 +594,9 @@ export default async function Player({ params, searchParams }: Props) {
             </dl>
           )}
         </div>
-        {portrait && (
-          <figure className="ry-photo-player">
-            <Image
-              src={portrait.src}
-              alt={portrait.alt}
-              width={640}
-              height={760}
-              sizes="(max-width: 649px) calc(100vw - 32px), (max-width: 1199px) 38vw, 440px"
-              priority
-              unoptimized
-            />
-          </figure>
-        )}
+        {portrait && <PlayerPortrait photo={portrait} className="ry-photo-player" preload />}
       </header>
-      {fact && (
-        <section className="ry-people-section ry-player-fact">
-          <h2>{fact.text}</h2>
-          <Link className="nc-link" href={`/match/${fact.proof.match_id}`}>
-            Ver partido · {tournamentName(fact.proof.tournament)}{" "}
-            {fact.proof.year}
-          </Link>
-        </section>
-      )}
+      <PlayerDiscovery key={player.name} items={discoveries} />
       <PeopleTabs
         key={`${year}-${query.vista || "resumen"}`}
         baseHref={`/players/${slug}?year=${year}`}

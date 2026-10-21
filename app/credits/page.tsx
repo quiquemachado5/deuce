@@ -96,6 +96,7 @@ export default async function Credits({ searchParams }: {
       )}
 
       {selected.length > 25 && <Pagination page={page} total={selected.length} href={(next) => href(query, kind, next)} />}
+      <section className="nc-section"><h2>Banderas</h2><p>Los SVG de países proceden de flag-icons (lipis), bajo licencia MIT. <a className="nc-link" href="/images/flags/LICENSE.txt">Licencia</a> · <a className="nc-link" href="/images/flags/SOURCE.txt">Procedencia</a></p></section>
       <p className="ry-photo-endnote"><Link href="/info">Cómo se lee DEUCE</Link></p>
     </div>
   );

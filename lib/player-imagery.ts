@@ -1,5 +1,6 @@
 import cached from './player-photo-manifest.json'
 import type { Photo } from './imagery'
+import { playerPhotoFocus } from './player-photo-focus'
 
 // Curated replacements must carry the source and licence of that exact image.
 const curated: Record<string, Photo> = {
@@ -35,6 +36,7 @@ export function playerPhoto(name: string): Photo | null {
   if (!photo) return null
   return {
     ...photo,
+    ...(playerPhotoFocus[name] || {}),
     thumbnail: photo.src.startsWith('/images/players/optimized/') && photo.src.endsWith('.webp')
       ? photo.src.replace(/\.webp$/, '-small.webp')
       : photo.src,

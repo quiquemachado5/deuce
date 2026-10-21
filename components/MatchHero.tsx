@@ -6,7 +6,9 @@ import { playerPhoto } from "@/lib/player-imagery";
 import { courtPhoto } from "@/lib/imagery";
 import { tournamentDirectory } from "@/lib/tournament-directory";
 import { tournamentName } from "@/lib/labels";
+import { tournamentCourt } from "@/lib/tournament-presentation";
 import { playerSlug } from "@/lib/explore";
+import { avatarPhotoStyle } from "@/lib/photo-style";
 import {
   kind,
   round,
@@ -16,7 +18,6 @@ import {
 } from "@/lib/cuaderno/model";
 import Share from "@/components/nocturno/Share";
 import HomeFinalScore from "@/components/HomeFinalScore";
-import PlayerAvatar from "./PlayerAvatar";
 
 export default function MatchHero({
   match,
@@ -26,6 +27,7 @@ export default function MatchHero({
   reduced?: boolean;
 }) {
   const names = [match.player1.name, match.player2.name];
+  const court = tournamentCourt({ ...match, indoor: match.context?.indoor });
   const event = tournamentDirectory([match])[0];
   const venue = courtPhoto(match.tournament);
   const result = match.quality?.result !== "review";
@@ -33,6 +35,7 @@ export default function MatchHero({
   const candidate = result ? sentence(match) : "";
   const sample = candidate.match(/\bde (\d+) (?:juegos|bolas)/);
   const insight = sample && Number(sample[1]) < 3 ? "" : candidate;
+  const noPortraits = names.every((name) => !playerPhoto(name));
   if (reduced)
     return (
       <header className="match-mini" data-event-surface={match.surface}>
@@ -43,7 +46,10 @@ export default function MatchHero({
       </header>
     );
   return (
-    <header className="match-hero" data-event-surface={match.surface}>
+    <header
+      className={`match-hero${venue ? "" : " match-hero-no-venue"}${noPortraits ? " match-hero-no-portraits" : ""}`}
+      data-event-surface={court.surface}
+    >
       <div
         className={`match-hero-scene${venue ? "" : " match-hero-scene-plain"}`}
       >
@@ -63,10 +69,11 @@ export default function MatchHero({
           <span>
             {match.year} · {round(match)}{" "}
             <i
-              className={`nc-dot nc-dot-${match.surface}`}
+              className={`nc-dot nc-dot-${court.surface}`}
               aria-hidden="true"
             />
-            {surfaceLabel[match.surface]}
+            {surfaceLabel[court.surface]}
+            {court.indoor === true ? " · Cubierta" : ""}
           </span>
         </div>
         <div className="match-hero-actions">
@@ -89,26 +96,28 @@ export default function MatchHero({
           return (
             <div
               key={name}
-              className={`match-contender match-contender-${index + 1}`}
+              className={`match-contender match-contender-${index + 1}${portrait ? "" : " match-contender-no-photo"}`}
             >
-              <Link
-                className="match-contender-photo"
-                href={`/players/${playerSlug(name)}`}
-                aria-label={`Perfil de ${name}`}
-              >
-                {portrait ? (
+              {portrait && (
+                <Link
+                  className="match-contender-photo"
+                  href={`/players/${playerSlug(name)}`}
+                  aria-label={`Perfil de ${name}`}
+                >
                   <Image
                     src={portrait.src}
                     alt={portrait.alt}
                     fill
-                    sizes="(max-width:759px) 88px, 160px"
+                    sizes={
+                      portrait.avatarCrop
+                        ? "(max-width:759px) 320px, 640px"
+                        : "(max-width:759px) 88px, 160px"
+                    }
                     priority
-                    unoptimized
+                    style={avatarPhotoStyle(portrait)}
                   />
-                ) : (
-                  <PlayerAvatar name={name} size={120} />
-                )}
-              </Link>
+                </Link>
+              )}
               <Link
                 className="match-contender-name"
                 href={`/players/${playerSlug(name)}`}
@@ -148,7 +157,7 @@ export default function MatchHero({
           </caption>
           <thead>
             <tr>
-              <th scope="col">Sets</th>
+              <th scope="col">Marcador</th>
               {match.score_summary.games.map((_, index) => (
                 <th scope="col" key={index}>
                   Set {index + 1}
@@ -160,7 +169,6 @@ export default function MatchHero({
             {names.map((name, side) => (
               <tr key={name}>
                 <th scope="row" aria-label={name}>
-                  <PlayerAvatar name={name} size={28} />
                   <span>{name.split(" ").slice(-1).join(" ")}</span>
                   {result && match.winner === side + 1 && (
                     <span className="nc-sr">Ganador</span>

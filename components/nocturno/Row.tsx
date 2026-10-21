@@ -1,9 +1,10 @@
 import Link from "next/link";
-import ScoreText from '@/components/ScoreText';
-import PlayerAvatar from '@/components/PlayerAvatar';
+import ScoreText from "@/components/ScoreText";
+import PlayerAvatar from "@/components/PlayerAvatar";
 import type { Match } from "@/lib/types";
 import { tournamentName } from "@/lib/labels";
 import { round, score, number } from "@/lib/cuaderno/model";
+import { tournamentCourt } from "@/lib/tournament-presentation";
 export default function MatchRow({
   match,
   firstPlayer,
@@ -13,6 +14,7 @@ export default function MatchRow({
   firstPlayer?: string;
   grouped?: boolean;
 }) {
+  const court = tournamentCourt(match);
   const reversed = firstPlayer === match.player2.name,
     players = reversed
       ? [match.player2, match.player1]
@@ -25,8 +27,9 @@ export default function MatchRow({
     .map((token) => token.match(/\((\d+)\)/)?.[1]);
   const result = reversed
     ? games
-        .map(([left, right], index) =>
-          `${left}–${right}${tieBreaks[index] ? `(${tieBreaks[index]})` : ""}`,
+        .map(
+          ([left, right], index) =>
+            `${left}–${right}${tieBreaks[index] ? `(${tieBreaks[index]})` : ""}`,
         )
         .join(", ")
     : score(match);
@@ -35,20 +38,47 @@ export default function MatchRow({
   return (
     <Link
       href={`/match/${match.match_id}`}
-      className={`nc-match-row${grouped ? ' nc-row-grouped' : ''}`}
-      data-event-surface={match.surface}
+      className={`nc-match-row${grouped ? " nc-row-grouped" : ""}`}
+      data-event-surface={court.surface}
       data-event-category={match.category}
       aria-label={`${context}. ${players[0].name} contra ${players[1].name}. ${result}. Ganador: ${winner}`}
     >
       <span className="nc-row-context">
-        {grouped ? round(match) : <><i className={`nc-dot nc-dot-${match.surface}`} aria-hidden="true" />{tournamentName(match.tournament)} · {match.year}<span className="nc-row-round"> · {round(match)}{match.category.startsWith("Precursores") ? " · Precursor" : ""}</span></>}
+        {grouped ? (
+          round(match)
+        ) : (
+          <>
+            <i
+              className={`nc-dot nc-dot-${court.surface}`}
+              aria-hidden="true"
+            />
+            {tournamentName(match.tournament)} · {match.year}
+            <span className="nc-row-round">
+              {" "}
+              · {round(match)}
+              {match.category.startsWith("Precursores") ? " · Precursor" : ""}
+            </span>
+          </>
+        )}
       </span>
       <span className="nc-row-duel">
-        <span className={`nc-row-person ${players[0].name === winner ? "nc-row-winner" : "nc-row-loser"}`}><PlayerAvatar name={players[0].name} size={28} />{players[0].name}</span>
+        <span
+          className={`nc-row-person ${players[0].name === winner ? "nc-row-winner" : "nc-row-loser"}`}
+        >
+          <PlayerAvatar name={players[0].name} size={28} />
+          {players[0].name}
+        </span>
         <span className="nc-row-contra">contra</span>
-        <span className={`nc-row-person ${players[1].name === winner ? "nc-row-winner" : "nc-row-loser"}`}><PlayerAvatar name={players[1].name} size={28} />{players[1].name}</span>
+        <span
+          className={`nc-row-person ${players[1].name === winner ? "nc-row-winner" : "nc-row-loser"}`}
+        >
+          <PlayerAvatar name={players[1].name} size={28} />
+          {players[1].name}
+        </span>
       </span>
-      <span className="nc-row-result" title={result}><ScoreText value={result}/></span>
+      <span className="nc-row-result" title={result}>
+        <ScoreText value={result} />
+      </span>
     </Link>
   );
 }

@@ -25,7 +25,7 @@ export default function RecordBars({
   return (
     <section className="rv-bars" aria-labelledby="rv-bars-title">
       <div className="rv-bars-heading">
-        <h2 id="rv-bars-title">Los cinco primeros</h2>
+        <h2 id="rv-bars-title">Las primeras {number(leaders.length)} posiciones</h2>
         <p>Escala común desde cero hasta {number(ceiling, percent ? 0 : 1)}{percent ? " %" : ""}.</p>
       </div>
       <ol>

@@ -5,3 +5,7 @@
 @import "./ui/match.css";
 @import "./ui/explore.css";
 @import "./ui/glass.css";
+@import "./ui/detail-depth.css";
+@import "./ui/record-depth.css";
+@import "./ui/player-depth.css";
+@import "./ui/tournament-depth.css";

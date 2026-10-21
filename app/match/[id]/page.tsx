@@ -16,6 +16,7 @@ import { tournamentName } from "@/lib/labels";
 import { score } from "@/lib/cuaderno/model";
 import { kindShelf, shelves } from "@/lib/cuaderno/shelves";
 import { rivalryDirectory } from "@/lib/explore";
+import Row from "@/components/nocturno/Row";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -39,7 +40,8 @@ export async function generateMetadata({
     { match } = await pageMatch(id);
   if (!match) return { title: "Página no encontrada — DEUCE" };
   const title = `${match.player1.name} – ${match.player2.name} · ${score(match)} · ${tournamentName(match.tournament)} ${match.year} — DEUCE`,
-    description = "Grand Slams, Masters 1000, ATP 500 y ATP 250, leídos por el dato.",
+    description =
+      "Grand Slams, Masters 1000, ATP 500 y ATP 250, leídos por el dato.",
     canonical = `/match/${id}${junto && junto !== "elige" ? `?junto=${encodeURIComponent(junto)}` : ""}`;
   return {
     title,
@@ -77,7 +79,9 @@ export default async function MatchPage({ params, searchParams }: Props) {
     previousRound = index >= 0 ? path[index - 1] : null,
     nextRound = index >= 0 ? path[index + 1] : null,
     other =
-      junto && junto !== "elige" && junto !== id ? matches.find(item => item.match_id === junto) : null,
+      junto && junto !== "elige" && junto !== id
+        ? matches.find((item) => item.match_id === junto)
+        : null,
     situation = shelves.find((shelf) => shelf.id === kindShelf(match)),
     initial = (
       ["resumen", "presion", "medidas", "alrededor"].includes(vista || "")
@@ -93,16 +97,19 @@ export default async function MatchPage({ params, searchParams }: Props) {
           <section>
             <h2>Entre los mismos</h2>
             {neighbors.previous && (
-              <Link href={`/match/${neighbors.previous.match_id}`}>
-                Anterior · {tournamentName(neighbors.previous.tournament)}{" "}
-                {neighbors.previous.year}
-              </Link>
+              <div className="match-history-meeting">
+                <span>Enfrentamiento anterior</span>
+                <Row
+                  match={neighbors.previous}
+                  firstPlayer={match.player1.name}
+                />
+              </div>
             )}
             {neighbors.next && (
-              <Link href={`/match/${neighbors.next.match_id}`}>
-                Siguiente · {tournamentName(neighbors.next.tournament)}{" "}
-                {neighbors.next.year}
-              </Link>
+              <div className="match-history-meeting">
+                <span>Enfrentamiento siguiente</span>
+                <Row match={neighbors.next} firstPlayer={match.player1.name} />
+              </div>
             )}
           </section>
         )}
@@ -110,14 +117,16 @@ export default async function MatchPage({ params, searchParams }: Props) {
           <section>
             <h2>En esta edición</h2>
             {previousRound && (
-              <Link href={`/match/${previousRound.match_id}`}>
-                Ronda anterior de {winner}
-              </Link>
+              <div className="match-history-meeting">
+                <span>Ronda anterior de {winner}</span>
+                <Row match={previousRound} firstPlayer={winner || undefined} />
+              </div>
             )}
             {nextRound && (
-              <Link href={`/match/${nextRound.match_id}`}>
-                Ronda siguiente de {winner}
-              </Link>
+              <div className="match-history-meeting">
+                <span>Ronda siguiente de {winner}</span>
+                <Row match={nextRound} firstPlayer={winner || undefined} />
+              </div>
             )}
           </section>
         )}
