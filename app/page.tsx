@@ -11,6 +11,7 @@ import { courtPhotos } from "@/lib/imagery";
 import { tournamentDirectory } from "@/lib/tournament-directory";
 import { SURFACES, surfaceLabel } from "@/lib/surface";
 import "./rally-overview.css";
+import ArchiveNotice from '@/components/nocturno/ArchiveNotice';
 
 export const revalidate = 300;
 
@@ -47,6 +48,7 @@ export default async function Home() {
   const topTenCeiling = Math.max(1, ...topTenRows.map((row) => row.value));
 
   return <div className="deuce-home">
+    <ArchiveNotice status={finals} />
     {proof && winner && loser && lead ? <section className={`dh-lead${winnerPortrait ? " dh-has-image" : ""}`} aria-labelledby="dh-lead-title">
       <div className="dh-lead-copy">
         <p className="dh-lead-context"><i className={`dh-surface-dot dh-surface-${proof.surface}`} aria-hidden="true" />{tournamentName(proof.tournament)} · {proof.year} · {round(proof)}</p>

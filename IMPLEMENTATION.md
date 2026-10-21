@@ -2,7 +2,7 @@
 
 21/10/2026. Trabajo por entregas verificables; no interpretar este archivo como una afirmación de que toda la auditoría esté resuelta.
 
-## Primera entrega: implementado, pendiente de promoción a producción
+## Primera entrega: publicada
 
 - Límite compartido de 16 lecturas del archivo comprimido; overview desde manifiesto.
 - Next 16.3.8 y actualizaciones compatibles de dependencias; árbol de producción sin avisos en el chequeo realizado.
@@ -30,14 +30,25 @@
 - Las guías de revisión React y verificación de Vercel orientaron las comprobaciones de semántica, contraste y recorridos interfaz/API/datos.
 - CI preparado, aún no ejecutado en GitHub. Producción no modificada por esta entrega.
 
+## Segunda entrega: coherencia y diagnóstico
+
+- Manifiesto, partidos y agregados de jugadores se seleccionan como una generación completa. Si falta una pieza esencial remota, se utiliza íntegramente la copia incluida.
+- Una página de ranking remota incompleta se recalcula con los partidos de esa misma generación, sin introducir filas antiguas.
+- Caché del cuaderno identificada por versión/origen; búsqueda, listados, fichas, destacados y sitemap de partidos leen datos publicados.
+- Metadatos y cabecera `X-DEUCE-Dataset-Version` en las APIs para contrastar resultados.
+- Aviso visible de respaldo en portada, estadísticas, fichas y cobertura. Las cachés CDN pueden actualizarse en momentos diferentes: no se promete simultaneidad global entre páginas.
+- `/api/health`: versión, origen, antigüedad y estado. Más de 72 horas o un respaldo por fallo remoto produce `degraded`; archivo inaccesible produce HTTP 503. No se ha contratado ni configurado un servicio de alertas.
+- Consultas de lectura remota con límite de espera; build de producción bloqueado si pierde partidos o cobertura estadística medida frente al manifiesto publicado.
+- Pruebas de fallos parciales, datos corruptos, cambio de versión, edición de torneo, persistencia de filtros y concordancia entre siete APIs.
+
 ## Próxima entrega: fiabilidad avanzada
 
 - Recuperar herramientas originales y esquema; revisar grants/RLS, backups y restauración con acceso al proyecto correcto.
-- Conciliar los cuatro partidos y detalles remotos adicionales antes de promocionar.
+- Conservar la conciliación en cada release: la primera publicación mantuvo 176.267 partidos, 94 estadísticas y los 50 partidos recientes comprobados.
 - Revisar los 42 grupos candidatos a conflictos; no borrar ni fusionar por coincidencia de nombres.
 - Reglas de desempate por torneo/época y corpus histórico más amplio.
 - Orden de rachas con fechas y rondas fiables; documentar cortes por datos ausentes.
-- Una generación única para todas las rutas, respuestas y fallback visible.
+- Ampliar los ensayos de fallo a múltiples instancias y cachés CDN.
 - Cálculo de estadísticas filtradas por métrica; índice preparado de entidades; medición frío/caliente.
 - Particionar artefactos para reducir memoria y trazado de funciones.
 - Timeouts consistentes, supervisión de cron, edad del dataset y alarmas accionables.

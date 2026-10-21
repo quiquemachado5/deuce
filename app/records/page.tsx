@@ -13,6 +13,7 @@ import { TOURNAMENTS } from "@/lib/types";
 import { tournamentName } from "@/lib/labels";
 import { SURFACES, surfaceLabel } from "@/lib/surface";
 import "../rally-records.css";
+import ArchiveNotice from '@/components/nocturno/ArchiveNotice';
 
 type Query = Record<string, string | undefined>;
 const address = (q: Query) =>
@@ -182,13 +183,14 @@ export default async function Records({ searchParams }: { searchParams: Promise<
       recordView(JSON.stringify(q)),
       recordView(JSON.stringify({ dato: "remontada-dos-sets" })),
     ]);
-    return <RecordIndex manifest={view.manifest} comebackRunner={comeback.rows[1]} />;
+    return <><ArchiveNotice status={view} /><RecordIndex manifest={view.manifest} comebackRunner={comeback.rows[1]} /></>;
   }
   const view = await recordView(JSON.stringify(q));
   if (q.dato === "dos-epocas") {
     const cutoff = view.manifest.eraCuts.includes(Number(q.corte)) ? Number(q.corte) : 2020;
     return <div className="nc-wrap rv-records rv-detail" data-event-surface={q.surface && q.surface !== "all" ? q.surface : undefined} data-event-category={q.competition && q.competition !== "all" ? q.competition : undefined}>
       <Link className="rv-back" href="/records">Estadísticas</Link>
+      <ArchiveNotice status={view} />
       <header className="rv-detail-header"><h1>Efectividad en finales, antes y después de {cutoff}</h1>
         <p>Cada tramo incluye al menos cinco finales de este archivo. Los porcentajes muestran su división.</p></header>
       <div className="rv-filter-wrap rv-cut-filter"><FilterForm action="/records">
@@ -206,6 +208,7 @@ export default async function Records({ searchParams }: { searchParams: Promise<
     if (!view.exists) notFound();
     return <div className="nc-wrap rv-records rv-detail">
       <Link className="rv-back" href="/records">Estadísticas</Link><h1>{view.manifest.pieces.find(entry => entry.id === q.dato)?.title || 'Estadísticas'}</h1>
+      <ArchiveNotice status={view} />
       <RecordFilters piece={{ id: q.dato }} q={q} years={view.manifest.years} />
       <p role="status">{view.emptyReason === 'ranking' ? 'No tenemos ranking histórico al jugar para los partidos de esta selección. Esto no significa que no hubiera victorias ante rivales con ese ranking.' : 'No hay resultados con estos filtros o faltan datos para calcular esta medida.'}</p>
       <p><Link href="/cobertura">Consultar la cobertura del archivo</Link></p>
@@ -218,6 +221,7 @@ export default async function Records({ searchParams }: { searchParams: Promise<
   const asYear = piece.id === "tal-dia-como-hoy";
   return <div className="nc-wrap rv-records rv-detail" data-event-surface={q.surface && q.surface !== "all" ? q.surface : undefined} data-event-category={q.competition && q.competition !== "all" ? q.competition : undefined}>
     <Link className="rv-back" href="/records">Estadísticas</Link>
+    <ArchiveNotice status={view} />
     <header className="rv-detail-header"><h1>{piece.title}</h1><p>{piece.definition}</p>
       <div className="rv-scope"><span>{piece.years || "Periodo seleccionado"}</span>
         <span>{number(piece.sample)} partidos {piece.measured ? "con dato publicado" : "considerados"}</span>

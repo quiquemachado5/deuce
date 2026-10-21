@@ -2,7 +2,6 @@ import "server-only";
 import { notebook } from "./data";
 import type { Match } from "../types";
 import { shelves, shelfMatches } from "./shelves";
-import { recordView } from "../revista/read-records";
 import { normalizeText } from "../quality";
 import { playerSlug } from "../explore";
 import { tournamentName } from "../labels";
@@ -10,16 +9,16 @@ import { score, round, sentence } from "./model";
 import { tournamentDirectory } from '../tournament-directory';
 import { approximateName, searchText } from '../search-text';
 import type { SearchItem } from "@/components/revista/Frame";
-export async function searchArchive(query: string, options: { includeMatches?: boolean } = {}) {
+export async function searchArchive(query: string, options: { includeMatches?: boolean; data?: Awaited<ReturnType<typeof notebook>> } = {}) {
   query = query.trim().slice(0, 180);
   if (!query) return [] as SearchItem[];
-  const [data, prepared] = await Promise.all([notebook(), recordView("{}")]),
+  const data = options.data || await notebook(),
     q = normalizeText(query).replace(/[–—]/g, "-"),
     terms = q.split(/\s+/).filter(Boolean);
   if (!terms.length) return [] as SearchItem[];
   const includes = (v: string) =>
     terms.every((t) => normalizeText(v).replace(/[–—]/g, "-").includes(t));
-  const records = prepared.manifest.pieces,
+  const records = data.manifest.pieces,
     items: SearchItem[] = [];
   for (const s of records
     .filter((s) => includes(`${s.title} ${s.id}`))

@@ -1476,3 +1476,4 @@ figcaption a:hover {
   align-items: center;
   min-height: 72px;
 }
+.deuce-archive-notice{margin-block:16px;padding:14px 18px;border:1px solid var(--line);border-radius:10px;font-size:14px;line-height:1.6}

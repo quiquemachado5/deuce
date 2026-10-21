@@ -1,4 +1,5 @@
 import { defineConfig } from '@playwright/test';
+const remote = process.env.PLAYWRIGHT_BASE_URL;
 
 export default defineConfig({
   testDir: './tests/browser',
@@ -6,13 +7,13 @@ export default defineConfig({
   workers: 1,
   timeout: 45_000,
   use: {
-    baseURL: 'http://127.0.0.1:3100',
+    baseURL: remote || 'http://127.0.0.1:3100',
     browserName: 'chromium',
     channel: process.env.PLAYWRIGHT_CHANNEL || undefined,
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
   },
-  webServer: {
+  webServer: remote ? undefined : {
     command: 'node node_modules/next/dist/bin/next start --hostname 127.0.0.1 --port 3100',
     url: 'http://127.0.0.1:3100',
     reuseExistingServer: false,

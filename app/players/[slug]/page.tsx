@@ -30,6 +30,7 @@ import { playerFact, eraComparisons } from "@/lib/revista/records";
 import { tournamentDirectory } from "@/lib/tournament-directory";
 import type { Match } from "@/lib/types";
 import { SURFACES } from "@/lib/surface";
+import ArchiveNotice from '@/components/nocturno/ArchiveNotice';
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -475,6 +476,7 @@ export default async function Player({ params, searchParams }: Props) {
   );
   return (
     <div className="nc-wrap ry-player-page">
+      <ArchiveNotice status={data} />
       <nav className="ry-people-breadcrumb" aria-label="Ruta de navegación">
         <Link href="/players">Jugadores</Link>
         <span aria-hidden="true">/</span>

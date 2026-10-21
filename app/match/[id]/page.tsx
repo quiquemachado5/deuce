@@ -3,7 +3,6 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { cache } from "react";
 import { preparedArchive } from "@/lib/revista/read-records";
-import { getMatch } from "@/lib/data";
 import Reading, { ReadingHead } from "@/components/nocturno/Reading";
 import ReadingLine from "@/components/nocturno/ReadingLine";
 import ComparePicker from "@/components/nocturno/Compare";
@@ -27,7 +26,7 @@ type Props = {
 // Reading it first keeps cold navigations off the slower provider archive path.
 const pageMatch = cache(async (id: string) => {
   const matches = await preparedArchive();
-  const match = matches.find((item) => item.match_id === id) ?? await getMatch(id);
+  const match = matches.find((item) => item.match_id === id);
   return { match, matches };
 });
 
@@ -78,7 +77,7 @@ export default async function MatchPage({ params, searchParams }: Props) {
     previousRound = index >= 0 ? path[index - 1] : null,
     nextRound = index >= 0 ? path[index + 1] : null,
     other =
-      junto && junto !== "elige" && junto !== id ? await getMatch(junto) : null,
+      junto && junto !== "elige" && junto !== id ? matches.find(item => item.match_id === junto) : null,
     situation = shelves.find((shelf) => shelf.id === kindShelf(match)),
     initial = (
       ["resumen", "presion", "medidas", "alrededor"].includes(vista || "")

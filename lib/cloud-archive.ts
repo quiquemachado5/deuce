@@ -26,7 +26,7 @@ export async function cloudRead(key: string): Promise<any> {
     let failure: { code: string; status: number } | undefined
     for (let attempt = 0; attempt < 2; attempt++) {
       try {
-        const { data, error, status } = await client.from('deuce_archive_objects').select('payload').eq('key', key).maybeSingle()
+        const { data, error, status } = await client.from('deuce_archive_objects').select('payload').eq('key', key).abortSignal(AbortSignal.timeout(15_000)).maybeSingle()
         if (!error) return data?.payload
         failure = { code: error.code || 'UNKNOWN', status }
         if (error.code !== 'PGRST303' || attempt === 1) break
@@ -79,7 +79,7 @@ export async function cloudDetails(): Promise<Record<string, ArchiveRow>> {
   const value = (async () => {
     const keys: string[] = []
     for (let offset = 0; ; offset += 1000) {
-      const { data, error } = await client.from('deuce_archive_objects').select('key').like('key', 'detail-%').order('key').range(offset, offset + 999)
+      const { data, error } = await client.from('deuce_archive_objects').select('key').like('key', 'detail-%').order('key').range(offset, offset + 999).abortSignal(AbortSignal.timeout(15_000))
       if (error) throw new Error(`Cloud detail index failed: ${error.code}`)
       for (const row of data || []) keys.push(row.key)
       if (!data || data.length < 1000) break
@@ -87,7 +87,7 @@ export async function cloudDetails(): Promise<Record<string, ArchiveRow>> {
     const files = await readdir(join(process.cwd(), 'data', 'archive', 'details')).catch(() => [])
     const bundled = new Set(files.filter(f => f.endsWith('.json.gz')).map(f => `detail-${f.slice(0, -8)}`))
     return loadMissingDetails<ArchiveRow>(keys, bundled, async batch => {
-      const { data, error } = await client.from('deuce_archive_objects').select('key,payload').in('key', batch)
+      const { data, error } = await client.from('deuce_archive_objects').select('key,payload').in('key', batch).abortSignal(AbortSignal.timeout(15_000))
       if (error) throw new Error(`Cloud detail batch failed: ${error.code}`)
       return data || []
     })

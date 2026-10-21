@@ -30,6 +30,8 @@ npm run test:browser
 
 Las pruebas de navegador arrancan la compilación de producción en `127.0.0.1:3100`; necesitan un build reciente. Si ya hay Chrome instalado, puede usarse `PLAYWRIGHT_CHANNEL=chrome npm run test:browser`. No apuntan a producción ni ejecutan sincronizaciones autenticadas.
 
+Para verificar explícitamente una publicación, `PLAYWRIGHT_BASE_URL=https://deuce-archive.vercel.app npm run test:browser`. Este modo no arranca un servidor local; solo navega y realiza lecturas, incluida una solicitud de cron sin autorización que debe rechazarse.
+
 La automatización de GitHub comprueba pruebas, lint, dependencias de producción, build, integridad del snapshot y navegación/accesibilidad. No despliega ni utiliza secretos. Activar este workflow no sustituye configurar los checks obligatorios en la protección de la rama.
 
 ## Datos y publicación
@@ -44,7 +46,13 @@ La automatización de GitHub comprueba pruebas, lint, dependencias de producció
 
 Los cron existentes siguen protegidos por `CRON_SECRET`. No ejecutar manualmente una sincronización o publicación en producción sin verificar primero equipo/proyecto, generación de origen, diferencias de datos y estado de la base de datos.
 
-Al desplegar este cambio de esquema, los lectores rechazan snapshots remotos anteriores para no reintroducir superficies erróneas. Hasta publicar una generación compatible se utiliza el snapshot empaquetado. Antes de la promoción hay que reconstruir con la configuración remota correcta y conciliar los partidos/detalles más recientes; la copia offline comprobada tiene 176.263 partidos y producción anunciaba 176.267 durante la auditoría.
+Los lectores rechazan snapshots remotos incompatibles o incompletos para no reintroducir superficies erróneas ni mezclar generaciones. Hasta disponer de una generación compatible se utiliza el snapshot empaquetado. La copia offline comprobada tiene 176.263 partidos; la primera publicación reconstruida con la configuración de producción conservó los 176.267 partidos y 94 estadísticas existentes. El build de producción verifica el manifiesto remoto y bloquea pérdidas de partidos o de cobertura medida; no utiliza una copia degradada silenciosamente.
+
+## Estado y versiones
+
+`/api/health` devuelve versión, origen (`bundled` o `remote`), antigüedad y `healthy`/`degraded`; responde 503 si no puede abrir la generación. `degraded` significa respaldo remoto o más de 72 horas sin generar datos, no que el servidor haya dejado de responder. No contiene secretos ni detalles internos de la base de datos.
+
+Las APIs públicas incluyen `datasetVersion` y `X-DEUCE-Dataset-Version`. Dentro de cada lectura se utiliza una generación coherente; distintas páginas/CDN pueden revalidarse en momentos distintos. La cobertura y los avisos indican qué copia se está leyendo. Un endpoint de diagnóstico no constituye por sí solo un sistema de alertas.
 
 ## Recuperación pendiente
 

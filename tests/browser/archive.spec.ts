@@ -28,6 +28,10 @@ test('global search finds tournaments, editions and a player with a typo', async
   await expect(page.locator('dialog[open] a[href="/torneos/wimbledon"]')).toBeVisible();
   await input.fill('Wimbledon 2008');
   await expect(page.locator('dialog[open] a[href="/wimbledon/2008"]')).toBeVisible();
+  await page.locator('dialog[open] a[href="/wimbledon/2008"]').click();
+  await expect(page).toHaveURL(/\/wimbledon\/2008/);
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Wimbledon');
+  await trigger.click();
   await input.fill('Djokovich');
   await expect(page.locator('dialog[open] a[href="/players/novak-djokovic"]')).toBeVisible();
   await page.keyboard.press('Escape');
@@ -42,6 +46,8 @@ test('missing historical rank keeps filters and explains missing coverage', asyn
   await page.locator('select[name=year]').selectOption('2019');
   await expect(page).toHaveURL(/year=2019/);
   await expect(page.getByRole('heading', { name: 'Clasificación', exact: true })).toBeVisible();
+  await page.reload();
+  await expect(page.locator('select[name=year]')).toHaveValue('2019');
 });
 
 test('moqueta can be selected and returned by the API', async ({ page, request }) => {
@@ -76,4 +82,20 @@ test('API validation, protected cron and security headers remain intact', async 
   const response = await request.get('/');
   expect(response.headers()['x-content-type-options']).toBe('nosniff');
   expect(response.headers()['content-security-policy']).toContain("frame-ancestors 'self'");
+});
+
+test('overview, matches, search and rivals identify the same validated generation', async ({ request }) => {
+  const matchList = await (await request.get('/api/matches?limit=1')).json();
+  const paths = ['/api/overview', '/api/matches?limit=1', `/api/matches/${matchList.matches[0].match_id}`, '/api/featured', '/api/search?q=Wimbledon', '/api/rivals?player=Novak%20Djokovic', '/api/health'];
+  const versions: string[] = [];
+  for (const path of paths) {
+    const response = await request.get(path);
+    expect(response.status()).toBe(200);
+    const body = await response.json();
+    expect(body.datasetVersion).toBeTruthy();
+    expect(response.headers()['x-deuce-dataset-version']).toBe(body.datasetVersion);
+    expect(['bundled', 'remote']).toContain(body.source);
+    versions.push(body.datasetVersion);
+  }
+  expect(new Set(versions).size).toBe(1);
 });
