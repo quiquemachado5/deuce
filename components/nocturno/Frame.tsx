@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { Menu, Search, X } from "lucide-react";
@@ -12,7 +13,14 @@ export type SearchItem = {
   group: string;
 };
 
-const searchGroups = ["Jugadores", "Torneos", "Ediciones", "Parejas", "Récords", "Partidos"];
+const searchGroups = [
+  "Jugadores",
+  "Torneos",
+  "Ediciones",
+  "Parejas",
+  "Récords",
+  "Partidos",
+];
 
 export function SearchResults({
   query,
@@ -70,11 +78,19 @@ export function SearchResults({
   if (!searchQuery) return null;
   return (
     <div className="ry-search-results" aria-busy={loading}>
-      {loading && <p className="ry-search-status" role="status">Buscando…</p>}
+      {loading && (
+        <p className="ry-search-status" role="status">
+          Buscando…
+        </p>
+      )}
       {failed && (
         <p className="ry-search-status" role="status">
           No se pudo cargar la búsqueda.{" "}
-          <button type="button" className="ry-text-button" onClick={() => setAttempt((value) => value + 1)}>
+          <button
+            type="button"
+            className="ry-text-button"
+            onClick={() => setAttempt((value) => value + 1)}
+          >
             Reintentar
           </button>
         </p>
@@ -83,23 +99,34 @@ export function SearchResults({
         <p className="ry-search-status" role="status">
           No hay resultados para «{searchQuery}».{" "}
           {clear ? (
-            <button type="button" className="ry-text-button" onClick={clear}>Limpiar búsqueda</button>
-          ) : <Link href="/buscar">Buscar con filtros</Link>}
+            <button type="button" className="ry-text-button" onClick={clear}>
+              Limpiar búsqueda
+            </button>
+          ) : (
+            <Link href="/buscar">Buscar con filtros</Link>
+          )}
         </p>
       )}
       {searchGroups.map((group) => {
         const rows = items.filter((item) => item.group === group);
         return rows.length ? (
           <section className="ry-search-group" key={group}>
-            <h3>{group === 'Parejas' ? 'Rivalidades' : group}</h3>
+            <h3>{group === "Parejas" ? "Rivalidades" : group}</h3>
             {rows.map((row) => (
               <Link
                 className="ry-search-row"
-                href={first ? `/match/${first}?junto=${encodeURIComponent(row.href.split("/").pop() || "")}#comparar` : row.href}
+                href={
+                  first
+                    ? `/match/${first}?junto=${encodeURIComponent(row.href.split("/").pop() || "")}#comparar`
+                    : row.href
+                }
                 key={row.href}
                 onClick={choose}
               >
-                <span><strong>{row.name}</strong>{row.detail && <small>{row.detail}</small>}</span>
+                <span>
+                  <strong>{row.name}</strong>
+                  {row.detail && <small>{row.detail}</small>}
+                </span>
               </Link>
             ))}
           </section>
@@ -118,26 +145,46 @@ const destinations = [
 ] as const;
 
 function pageLabel(path: string) {
-  if (path === '/comparar' || path === '/compare') return 'Comparar';
+  if (path === "/comparar" || path === "/compare") return "Comparar";
   if (path.startsWith("/records")) return "Estadísticas";
   if (path.startsWith("/rivalries")) return "Jugadores";
   if (path.startsWith("/players") || path === "/jugadores") return "Jugadores";
-  if (path.startsWith("/torneo") || path === "/tournaments" || /^\/[^/]+\/\d{4}$/.test(path)) return "Torneos";
-  if (path.startsWith("/match") || path === "/buscar" || path === "/partidos") return "Partidos";
+  if (
+    path.startsWith("/torneo") ||
+    path === "/tournaments" ||
+    /^\/[^/]+\/\d{4}$/.test(path)
+  )
+    return "Torneos";
+  if (path.startsWith("/match") || path === "/buscar" || path === "/partidos")
+    return "Partidos";
   if (path === "/info") return "Cómo se lee";
   if (path === "/credits") return "Fotografías";
   return "";
 }
 
-function Navigation({ active, mode, choose }: {
+function Navigation({
+  active,
+  mode,
+  choose,
+}: {
   active: string;
   mode: "desktop" | "menu";
   choose?: () => void;
 }) {
   return (
-    <nav className={`ry-navigation ry-navigation--${mode}`} aria-label={mode === "menu" ? "Menú de navegación" : "Navegación principal"}>
+    <nav
+      className={`ry-navigation ry-navigation--${mode}`}
+      aria-label={
+        mode === "menu" ? "Menú de navegación" : "Navegación principal"
+      }
+    >
       {destinations.map(({ label, href }) => (
-        <Link key={href} href={href} onClick={choose} aria-current={active === label ? "page" : undefined}>
+        <Link
+          key={href}
+          href={href}
+          onClick={choose}
+          aria-current={active === label ? "page" : undefined}
+        >
           {label}
         </Link>
       ))}
@@ -145,27 +192,45 @@ function Navigation({ active, mode, choose }: {
   );
 }
 
-function ContextNavigation(props: Omit<Parameters<typeof Navigation>[0], "active"> & { fallback: string }) {
+function ContextNavigation(
+  props: Omit<Parameters<typeof Navigation>[0], "active"> & {
+    fallback: string;
+  },
+) {
   const parameters = useSearchParams();
   const path = usePathname();
-  const active = path === "/jugadores" && parameters.get("tipo") === "parejas"
-    ? "Jugadores"
-    : props.fallback;
+  const active =
+    path === "/jugadores" && parameters.get("tipo") === "parejas"
+      ? "Jugadores"
+      : props.fallback;
   return <Navigation active={active} mode={props.mode} choose={props.choose} />;
 }
 
-function NavSection({ active, mode, choose }: Parameters<typeof Navigation>[0]) {
+function NavSection({
+  active,
+  mode,
+  choose,
+}: Parameters<typeof Navigation>[0]) {
   return (
-    <Suspense fallback={<Navigation active={active} mode={mode} choose={choose} />}>
+    <Suspense
+      fallback={<Navigation active={active} mode={mode} choose={choose} />}
+    >
       <ContextNavigation fallback={active} mode={mode} choose={choose} />
     </Suspense>
   );
 }
 
 function Wordmark({ choose }: { choose?: () => void }) {
-  return <Link className="ry-wordmark" href="/" aria-label="DEUCE, inicio" onClick={choose}>
-    <span>DEUCE</span>
-  </Link>;
+  return (
+    <Link
+      className="ry-wordmark"
+      href="/"
+      aria-label="DEUCE, inicio"
+      onClick={choose}
+    >
+      <span>DEUCE</span>
+    </Link>
+  );
 }
 
 type Theme = "system" | "dark" | "light";
@@ -174,12 +239,17 @@ function storedTheme(): Theme {
   try {
     const value = localStorage.getItem(themeKey);
     return value === "dark" || value === "light" ? value : "system";
-  } catch { return "system"; }
+  } catch {
+    return "system";
+  }
 }
 function applyTheme(theme: Theme) {
-  document.documentElement.dataset.theme = theme === "system"
-    ? matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
-    : theme;
+  document.documentElement.dataset.theme =
+    theme === "system"
+      ? matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light"
+      : theme;
 }
 
 export default function Frame({ children }: { children: React.ReactNode }) {
@@ -194,7 +264,9 @@ export default function Frame({ children }: { children: React.ReactNode }) {
   const themePicker = useRef<HTMLDetailsElement>(null);
   const [query, setQuery] = useState("");
   const [theme, setTheme] = useState<Theme>("system");
-  const [activeDialog, setActiveDialog] = useState<"menu" | "search" | null>(null);
+  const [activeDialog, setActiveDialog] = useState<"menu" | "search" | null>(
+    null,
+  );
 
   useEffect(() => {
     const preference = matchMedia("(prefers-color-scheme: dark)");
@@ -215,12 +287,19 @@ export default function Frame({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const shortcut = (event: KeyboardEvent) => {
-      if (!(event.metaKey || event.ctrlKey) || event.key.toLowerCase() !== "k") return;
+      if (!(event.metaKey || event.ctrlKey) || event.key.toLowerCase() !== "k")
+        return;
       if (menu.current?.open) return;
       event.preventDefault();
       const target = search.current;
-      if (!target || target.open) { searchField.current?.focus(); return; }
-      opener.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+      if (!target || target.open) {
+        searchField.current?.focus();
+        return;
+      }
+      opener.current =
+        document.activeElement instanceof HTMLElement
+          ? document.activeElement
+          : null;
       target.showModal();
       previousOverflow.current = document.body.style.overflow;
       document.body.style.overflow = "hidden";
@@ -254,20 +333,37 @@ export default function Frame({ children }: { children: React.ReactNode }) {
   const dismissBackdrop = (event: React.MouseEvent<HTMLDialogElement>) => {
     if (event.target !== event.currentTarget) return;
     const bounds = event.currentTarget.getBoundingClientRect();
-    if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) close();
+    if (
+      event.clientX < bounds.left ||
+      event.clientX > bounds.right ||
+      event.clientY < bounds.top ||
+      event.clientY > bounds.bottom
+    )
+      close();
   };
   const trapFocus = (event: React.KeyboardEvent<HTMLDialogElement>) => {
     if (event.key !== "Tab") return;
-    const focusable = Array.from(event.currentTarget.querySelectorAll<HTMLElement>('a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),[tabindex="0"]'))
-      .filter((element) => element.getClientRects().length > 0);
+    const focusable = Array.from(
+      event.currentTarget.querySelectorAll<HTMLElement>(
+        'a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),[tabindex="0"]',
+      ),
+    ).filter((element) => element.getClientRects().length > 0);
     const first = focusable[0];
     const last = focusable[focusable.length - 1];
-    if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }
-    if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last?.focus();
+    }
+    if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first?.focus();
+    }
   };
   const selectTheme = (value: Theme) => {
     setTheme(value);
-    try { localStorage.setItem(themeKey, value); } catch {}
+    try {
+      localStorage.setItem(themeKey, value);
+    } catch {}
     applyTheme(value);
     if (themePicker.current) {
       themePicker.current.open = false;
@@ -276,51 +372,229 @@ export default function Frame({ children }: { children: React.ReactNode }) {
   };
   return (
     <>
-      <a className="ry-skip" href="#main-content">Saltar al contenido</a>
+      <a className="ry-skip" href="#main-content">
+        Saltar al contenido
+      </a>
       <div className="ry-workspace">
         <header className="ry-header">
           <div className="ry-header-main">
-            <div className="ry-header-brand"><Wordmark /></div>
+            <div className="ry-header-brand">
+              <Wordmark />
+            </div>
             <NavSection active={active} mode="desktop" />
             <div className="ry-header-actions">
-              <button className="ry-search-trigger" aria-label="Buscar en DEUCE" aria-haspopup="dialog" aria-controls="ry-search-dialog" aria-expanded={activeDialog === "search"} aria-keyshortcuts="Control+K Meta+K" type="button" onClick={(event) => open("search", event.currentTarget)}>
-                <Search size={16} strokeWidth={1.6} aria-hidden="true" /><span>Jugador, torneo o dato</span>
+              <button
+                className="ry-search-trigger"
+                aria-label="Buscar en DEUCE"
+                aria-haspopup="dialog"
+                aria-controls="ry-search-dialog"
+                aria-expanded={activeDialog === "search"}
+                aria-keyshortcuts="Control+K Meta+K"
+                type="button"
+                onClick={(event) => open("search", event.currentTarget)}
+              >
+                <Search size={16} strokeWidth={1.6} aria-hidden="true" />
+                <span>Jugador, torneo o dato</span>
               </button>
-              <button className="ry-icon-button ry-menu-trigger" type="button" aria-label="Abrir menú" aria-haspopup="dialog" aria-controls="ry-menu-dialog" aria-expanded={activeDialog === "menu"} onClick={(event) => open("menu", event.currentTarget)}><Menu size={21} aria-hidden="true" /></button>
+              <button
+                className="ry-icon-button ry-menu-trigger"
+                type="button"
+                aria-label="Abrir menú"
+                aria-haspopup="dialog"
+                aria-controls="ry-menu-dialog"
+                aria-expanded={activeDialog === "menu"}
+                onClick={(event) => open("menu", event.currentTarget)}
+              >
+                <Menu size={21} aria-hidden="true" />
+              </button>
             </div>
           </div>
         </header>
-        <main className="ry-main" id="main-content" tabIndex={-1}>{children}</main>
+        <main className="ry-main" id="main-content" tabIndex={-1}>
+          {children}
+        </main>
         <footer className="ry-footer">
-          <div className="deuce-footer-stage">
-            <Link href="/" className="deuce-footer-wordmark" aria-label="DEUCE, volver al inicio">DEUCE</Link>
-            <svg className="deuce-footer-court" viewBox="0 0 600 240" aria-hidden="true"><rect x="40" y="24" width="520" height="192" rx="2"/><path d="M40 48h520M40 192h520M300 24v192M160 48v144M440 48v144M160 120h280"/></svg>
-            <nav className="deuce-footer-surfaces" aria-label="Pistas"><Link href="/buscar?surface=grass"><i className="nc-dot nc-dot-grass"/>Hierba</Link><Link href="/buscar?surface=clay"><i className="nc-dot nc-dot-clay"/>Tierra</Link><Link href="/buscar?surface=hard"><i className="nc-dot nc-dot-hard"/>Dura</Link></nav>
+          <div className="deuce-footer-panel">
+            <Link
+              href="/"
+              className="deuce-footer-brand"
+              aria-label="DEUCE, volver al inicio"
+            >
+              DEUCE
+            </Link>
+            <nav className="deuce-footer-courts" aria-label="Pistas">
+              {[
+                ["grass", "Hierba", "wimbledon"],
+                ["clay", "Tierra", "roland-garros"],
+                ["hard", "Dura", "us-open"],
+              ].map(([surface, label, image]) => (
+                <Link
+                  key={surface}
+                  href={`/buscar?surface=${surface}`}
+                  data-event-surface={surface}
+                >
+                  <Image
+                    src={`/images/courts/${image}.jpg`}
+                    width={160}
+                    height={96}
+                    sizes="80px"
+                    alt=""
+                  />
+                  <span>
+                    <i
+                      className={`nc-dot nc-dot-${surface}`}
+                      aria-hidden="true"
+                    />
+                    {label}
+                  </span>
+                </Link>
+              ))}
+            </nav>
           </div>
           <div className="ry-footer-inner">
-            <nav aria-label="Información"><Link href="/info">Cómo se lee</Link><Link href="/cobertura">Cobertura</Link><Link href="/credits">Fotografías</Link></nav>
+            <nav aria-label="Información">
+              <Link href="/info">Cómo se lee</Link>
+              <Link href="/cobertura">Cobertura</Link>
+              <Link href="/credits">Fotografías</Link>
+            </nav>
             <details className="ry-theme" ref={themePicker}>
-              <summary onClick={() => setTheme(storedTheme())} onKeyDown={(event) => { if (event.key === "Escape") { event.preventDefault(); if (themePicker.current) themePicker.current.open = false; event.currentTarget.focus(); } }}>Tema</summary>
-              <div className="ry-theme-options" role="group" aria-label="Tema de la interfaz">
-                {([["system", "Sistema"], ["dark", "Oscuro"], ["light", "Claro"]] as const).map(([value, label]) => <button key={value} type="button" aria-pressed={theme === value} onClick={() => selectTheme(value)}>{label}</button>)}
+              <summary
+                onClick={() => setTheme(storedTheme())}
+                onKeyDown={(event) => {
+                  if (event.key === "Escape") {
+                    event.preventDefault();
+                    if (themePicker.current) themePicker.current.open = false;
+                    event.currentTarget.focus();
+                  }
+                }}
+              >
+                Tema
+              </summary>
+              <div
+                className="ry-theme-options"
+                role="group"
+                aria-label="Tema de la interfaz"
+              >
+                {(
+                  [
+                    ["system", "Sistema"],
+                    ["dark", "Oscuro"],
+                    ["light", "Claro"],
+                  ] as const
+                ).map(([value, label]) => (
+                  <button
+                    key={value}
+                    type="button"
+                    aria-pressed={theme === value}
+                    onClick={() => selectTheme(value)}
+                  >
+                    {label}
+                  </button>
+                ))}
               </div>
             </details>
-            <span className="ry-copyright">© {new Date().getFullYear()} DEUCE</span>
+            <span className="ry-copyright">
+              © {new Date().getFullYear()} DEUCE
+            </span>
           </div>
         </footer>
       </div>
-      <dialog id="ry-menu-dialog" className="ry-menu-dialog" aria-label="Navegación" ref={menu} onClose={restoreFocus} onClick={dismissBackdrop} onKeyDown={trapFocus}>
-        <div className="ry-dialog-header"><Wordmark choose={close} /><button className="ry-icon-button" type="button" aria-label="Cerrar menú" onClick={close}><X size={20} aria-hidden="true" /></button></div>
+      <dialog
+        id="ry-menu-dialog"
+        className="ry-menu-dialog"
+        aria-label="Navegación"
+        ref={menu}
+        onClose={restoreFocus}
+        onClick={dismissBackdrop}
+        onKeyDown={trapFocus}
+      >
+        <div className="ry-dialog-header">
+          <Wordmark choose={close} />
+          <button
+            className="ry-icon-button"
+            type="button"
+            aria-label="Cerrar menú"
+            onClick={close}
+          >
+            <X size={20} aria-hidden="true" />
+          </button>
+        </div>
         <NavSection active={active} mode="menu" choose={close} />
       </dialog>
-      <dialog id="ry-search-dialog" className="ry-search-dialog" aria-labelledby="ry-search-title" ref={search} onClose={restoreFocus} onClick={dismissBackdrop} onKeyDown={trapFocus}>
-        <div className="ry-dialog-header"><h2 id="ry-search-title">Buscar</h2><button className="ry-icon-button" type="button" aria-label="Cerrar búsqueda" onClick={close}><X size={20} aria-hidden="true" /></button></div>
+      <dialog
+        id="ry-search-dialog"
+        className="ry-search-dialog"
+        aria-labelledby="ry-search-title"
+        ref={search}
+        onClose={restoreFocus}
+        onClick={dismissBackdrop}
+        onKeyDown={trapFocus}
+      >
+        <div className="ry-dialog-header">
+          <h2 id="ry-search-title">Buscar</h2>
+          <button
+            className="ry-icon-button"
+            type="button"
+            aria-label="Cerrar búsqueda"
+            onClick={close}
+          >
+            <X size={20} aria-hidden="true" />
+          </button>
+        </div>
         <form action="/buscar" onSubmit={close} className="ry-dialog-search">
-          <Search size={20} aria-hidden="true" /><label className="ry-sr" htmlFor="ry-search-query">Jugador, torneo o dato</label>
-          <input id="ry-search-query" type="search" ref={searchField} name="q" value={query} onChange={(event) => setQuery(event.target.value)} onKeyDown={(event) => { if (event.key === "Escape") { event.preventDefault(); event.stopPropagation(); close(); } }} placeholder="Jugador, torneo o dato" autoComplete="off" />
+          <Search size={20} aria-hidden="true" />
+          <label className="ry-sr" htmlFor="ry-search-query">
+            Jugador, torneo o dato
+          </label>
+          <input
+            id="ry-search-query"
+            type="search"
+            ref={searchField}
+            name="q"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            onKeyDown={(event) => {
+              if (event.key === "Escape") {
+                event.preventDefault();
+                event.stopPropagation();
+                close();
+              }
+            }}
+            placeholder="Jugador, torneo o dato"
+            autoComplete="off"
+          />
         </form>
-        {query.trim() ? <SearchResults query={query} choose={close} clear={() => { setQuery(""); searchField.current?.focus(); }} /> : <div className="ry-search-suggestions"><div><Link href="/buscar?q=Alcaraz" onClick={close}>Alcaraz</Link><Link href="/buscar?q=Wimbledon" onClick={close}>Wimbledon</Link><Link href="/records?dato=remontada-dos-sets" onClick={close}>Remontadas</Link></div></div>}
-        <Link className="ry-search-all" href={`/buscar?q=${encodeURIComponent(query)}`} onClick={close}>{query.trim() ? "Ver todos los resultados" : "Buscar con filtros"}</Link>
+        {query.trim() ? (
+          <SearchResults
+            query={query}
+            choose={close}
+            clear={() => {
+              setQuery("");
+              searchField.current?.focus();
+            }}
+          />
+        ) : (
+          <div className="ry-search-suggestions">
+            <div>
+              <Link href="/buscar?q=Alcaraz" onClick={close}>
+                Alcaraz
+              </Link>
+              <Link href="/buscar?q=Wimbledon" onClick={close}>
+                Wimbledon
+              </Link>
+              <Link href="/records?dato=remontada-dos-sets" onClick={close}>
+                Remontadas
+              </Link>
+            </div>
+          </div>
+        )}
+        <Link
+          className="ry-search-all"
+          href={`/buscar?q=${encodeURIComponent(query)}`}
+          onClick={close}
+        >
+          {query.trim() ? "Ver todos los resultados" : "Buscar con filtros"}
+        </Link>
       </dialog>
     </>
   );

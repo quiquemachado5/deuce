@@ -1,5 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { notFound } from "next/navigation";
 import { playerPhoto } from "@/lib/player-imagery";
 import { number } from "@/lib/cuaderno/model";
@@ -9,6 +9,8 @@ import type { RecordMeta } from "@/lib/revista/snapshot";
 import { Pagination } from "@/components/nocturno/Row";
 import { RecordEras, RecordProof, RecordRanking, recordValue } from "@/components/nocturno/RecordsViews";
 import RecordBars from "@/components/nocturno/RecordBars";
+import RecordDiscovery, { type RecordDiscoveryFact } from "@/components/nocturno/RecordDiscovery";
+import PlayerAvatar from "@/components/PlayerAvatar";
 import FilterForm from "@/components/revista/FilterForm";
 import { TOURNAMENTS } from "@/lib/types";
 import { tournamentName } from "@/lib/labels";
@@ -35,26 +37,60 @@ const families = [
   ["Medidas", "Medidas de partido"],
 ] as const;
 
+const metricSurface = (id: string, selected?: string) =>
+  selected && selected !== "all" ? selected : SURFACES.find((surface) => id.endsWith(`-${surface.toLowerCase()}`));
+
+function discoveryFacts(catalog: RecordMeta[]): RecordDiscoveryFact[] {
+  const statements: Record<string, (piece: RecordMeta) => string> = {
+    "remontada-dos-sets": () => "remontadas después de perder los dos primeros sets.",
+    "titulos-torneo": (piece) => `títulos en ${piece.leader!.detail}.`,
+    "titulos-hard": () => "títulos sobre pista dura.",
+    "titulos-clay": () => "títulos sobre tierra batida.",
+    "titulos-grass": () => "títulos sobre hierba.",
+    "victorias-temporada": (piece) => `victorias en la temporada ${piece.leader!.detail}.`,
+    "top-10": () => "victorias ante un rival del top 10 el día del partido.",
+    "mas-largos": () => "en el partido más largo con duración publicada.",
+    "30-30": () => "de juegos ganados tras ganar el punto de 30–30.",
+    "holds": () => "de juegos de saque conservados.",
+    "porcentaje-cinco-sets": () => "de victorias en partidos a cinco sets.",
+  };
+  return Object.entries(statements).flatMap(([id, statement]) => {
+    const piece = catalog.find((entry) => entry.id === id);
+    const leader = piece?.leader;
+    const photo = leader ? playerPhoto(leader.photoName || leader.name) : null;
+    if (!piece || !leader || !photo) return [];
+    return [{ id, name: leader.name, value: recordValue(leader, piece.percent), statement: statement(piece),
+      context: id === "mas-largos" ? `${leader.detail} · Entre ${number(piece.sample)} partidos con duración.`
+        : piece.percent ? leader.detail
+        : id === "top-10" ? `${number(leader.sample)} partidos con ranking aplicable.`
+        : piece.definition,
+      scope: `Archivo observado: ${piece.years || "periodo sin precisar"}.`,
+      href: address({ dato: id }), proofHref: leader.proof ? `/match/${leader.proof.match_id}` : undefined,
+      surface: metricSurface(id), photo,
+    }];
+  });
+}
+
 function CatalogueEntry({ piece }: { piece: RecordMeta }) {
   return (
-    <Link className="rv-catalogue-row" href={address({ dato: piece.id })}>
+    <Link className="rv-catalogue-row" href={address({ dato: piece.id })} data-record-surface={metricSurface(piece.id)}>
       <span className="rv-catalogue-name">{piece.title}</span>
-      <span className="rv-catalogue-leader">{piece.leader?.name || "Muestras pequeñas"}</span>
-      <strong className="rv-catalogue-value">{piece.leader ? recordValue(piece.leader, piece.percent, piece.id === "tal-dia-como-hoy") : "—"}</strong>
+      <span className="rv-catalogue-leader">{piece.leader?.href.startsWith("/players/") && <PlayerAvatar name={piece.leader.name} size={32} />}<span>{piece.leader?.name || "Muestras pequeñas"}</span></span>
+      <span className="rv-catalogue-result"><strong className="rv-catalogue-value">{piece.leader ? recordValue(piece.leader, piece.percent, piece.id === "tal-dia-como-hoy") : "—"}</strong>
+        {piece.percent && piece.leader && <small>{number(piece.leader.sample)} casos</small>}</span>
     </Link>
   );
 }
 
-function RecordIndex({ manifest, comebackRunner }: {
+function RecordIndex({ manifest }: {
   manifest: Awaited<ReturnType<typeof recordView>>["manifest"];
-  comebackRunner?: Awaited<ReturnType<typeof recordView>>["rows"][number];
 }) {
   const catalog = manifest.pieces;
-  const comeback = catalog.find((piece) => piece.id === "remontada-dos-sets");
-  const longest = catalog.find((piece) => piece.id === "mas-largos");
-  const topTen = catalog.find((piece) => piece.id === "top-10");
-  const leader = comeback?.leader;
-  const portrait = leader ? playerPhoto(leader.name) : null;
+  const surfaceRecords = ["hard", "clay", "grass"].flatMap((surface) => {
+    const piece = catalog.find((entry) => entry.id === `titulos-${surface}`);
+    return piece?.leader ? [{ ...piece, surface, leader: piece.leader }] : [];
+  });
+  const surfaceMaximum = Math.max(1, ...surfaceRecords.map((piece) => piece.leader.value));
   return (
     <div className="nc-wrap rv-records rv-index">
       <header className="rv-intro">
@@ -63,44 +99,18 @@ function RecordIndex({ manifest, comebackRunner }: {
         </div>
         <span>{number(catalog.length)} estadísticas · {number(manifest.matchCount)} partidos</span>
       </header>
-      {comeback && leader && (
-        <section className="rv-feature" aria-labelledby="rv-feature-title">
-          <div className="rv-feature-copy">
-            <p className="rv-feature-scope">Remontadas tras perder dos sets · {comeback.years}</p>
-            <h2 id="rv-feature-title"><Link href={address({ dato: comeback.id })}>
-              <strong>{leader.name}</strong> ganó <em>{number(leader.value)}</em> partidos después de perder los dos primeros sets.
-            </Link></h2>
-            <p className="rv-feature-context">
-              {comebackRunner && <>Le sigue {comebackRunner.name}, con {number(comebackRunner.value)}. </>}
-              Solo resultados completos de este archivo.
-            </p>
-            <div className="rv-feature-actions">
-              <Link href={address({ dato: comeback.id })}>Ver la clasificación</Link>
-              {leader.proof && <Link href={`/match/${leader.proof.match_id}`}>Abrir una remontada</Link>}
-            </div>
-          </div>
-          {portrait && <div className="rv-feature-photo">
-            <Image src={portrait.src} alt={`Retrato de ${leader.name}`} fill
-              sizes="(max-width: 759px) calc(100vw - 32px), (max-width: 1099px) 40vw, 500px" priority />
-          </div>}
-        </section>
-      )}
-      <section className="rv-discoveries" aria-label="Dos cifras del archivo">
-        {longest?.leader && <div className="rv-discovery rv-discovery-time">
-          <span>El partido más largo con minutos publicados</span>
-          <strong>{recordValue(longest.leader, longest.percent)}</strong>
-          <p>{longest.leader.name} · {longest.leader.detail.split(" · ").slice(0, 2).join(" · ")}</p>
-          <small>Entre {number(longest.sample)} partidos con duración.</small>
-          <Link href={longest.leader.href}>Leer el partido</Link>
-        </div>}
-        {topTen?.leader && <div className="rv-discovery rv-discovery-opposition">
-          <span>Ante rivales del top 10 el día del partido</span>
-          <strong>{recordValue(topTen.leader, topTen.percent)} victorias</strong>
-          <p>{topTen.leader.name}</p>
-          <small>{topTen.years} · {number(topTen.leader.sample)} encuentros con ranking de entonces.</small>
-          <Link href={address({ dato: topTen.id })}>Ver clasificación</Link>
-        </div>}
-      </section>
+      <RecordDiscovery facts={discoveryFacts(catalog)} />
+      {surfaceRecords.length > 0 && <section className="rd-surfaces" aria-labelledby="rd-surfaces-title">
+        <div className="rd-surfaces-heading"><h2 id="rd-surfaces-title">El récord de títulos en cada pista</h2><span>En este archivo · una escala común</span></div>
+        <div className="rd-surface-records">
+          {surfaceRecords.map((piece) => <Link href={address({ dato: piece.id })} className="rd-surface-record" data-record-surface={piece.surface} key={piece.id}>
+            <span className="rd-surface-label">{surfaceLabel[piece.surface as keyof typeof surfaceLabel]}</span>
+            <span className="rd-surface-person"><PlayerAvatar name={piece.leader.name} size={40} /><span>{piece.leader.name}</span><strong>{recordValue(piece.leader)}</strong></span>
+            <span className="rd-surface-track" aria-hidden="true"><span style={{ width: `${piece.leader.value / surfaceMaximum * 100}%` }} /></span>
+            <small>{piece.years} · Ver clasificación <ArrowUpRight size={13} aria-hidden="true" /></small>
+          </Link>)}
+        </div>
+      </section>}
       <div className="rv-index-heading">
         <h2>Todas las estadísticas</h2>
       </div>
@@ -117,22 +127,26 @@ function RecordIndex({ manifest, comebackRunner }: {
               <span>{group === "Un torneo" ? "Ediciones y torneos" : `${entries.length} listas`}</span>
             </div>
             <div className="rv-family-rows">
+              <div className="rd-catalogue-columns" aria-hidden="true"><span>Estadística</span><span>{group === "Un torneo" ? "Cobertura" : "Primera entrada"}</span><span>{group === "Un torneo" ? "Explorar" : "Cifra"}</span></div>
               {entries.map((piece) => <CatalogueEntry piece={piece} key={piece.id} />)}
               {group === "Títulos y finales" && manifest.eraCuts.map((cut) => (
                 <Link className="rv-catalogue-row" href={address({ dato: "dos-epocas", corte: String(cut) })} key={cut}>
                   <span className="rv-catalogue-name">Efectividad en finales · antes y desde {cut}</span>
                   <span className="rv-catalogue-leader">Mínimo 5 finales por época</span>
+                  <span className="rv-catalogue-action">Comparar <ArrowUpRight size={15} aria-hidden="true" /></span>
                 </Link>
               ))}
               {group === "Un torneo" && TOURNAMENTS.map((tournament) => (
                 <Link className="rv-catalogue-row" href={`/torneos/${tournament.slug}`} data-event-surface={tournament.surface} data-event-category={tournament.category} key={tournament.slug}>
                   <span className="rv-catalogue-name">{tournamentName(tournament.name)}</span>
                   <span className="rv-catalogue-leader">{tournament.category === "Grand Slam" ? "Grand Slam" : "Masters desde 1990"}</span>
+                  <span className="rv-catalogue-action">Ver torneo <ArrowUpRight size={15} aria-hidden="true" /></span>
                 </Link>
               ))}
               {group === "Un torneo" && <Link className="rv-catalogue-row" href="/tournaments">
                 <span className="rv-catalogue-name">Todos los torneos ATP 500 y ATP 250</span>
                 <span className="rv-catalogue-leader">Ediciones registradas desde 2023</span>
+                <span className="rv-catalogue-action">Ver torneos <ArrowUpRight size={15} aria-hidden="true" /></span>
               </Link>}
             </div>
           </>;
@@ -180,16 +194,13 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
 export default async function Records({ searchParams }: { searchParams: Promise<Query> }) {
   const q = await searchParams;
   if (!q.dato) {
-    const [view, comeback] = await Promise.all([
-      recordView(JSON.stringify(q)),
-      recordView(JSON.stringify({ dato: "remontada-dos-sets" })),
-    ]);
-    return <><ArchiveNotice status={view} /><RecordIndex manifest={view.manifest} comebackRunner={comeback.rows[1]} /></>;
+    const view = await recordView(JSON.stringify(q));
+    return <><ArchiveNotice status={view} /><RecordIndex manifest={view.manifest} /></>;
   }
   const view = await recordView(JSON.stringify(q));
   if (q.dato === "dos-epocas") {
     const cutoff = view.manifest.eraCuts.includes(Number(q.corte)) ? Number(q.corte) : 2020;
-    return <div className="nc-wrap rv-records rv-detail" data-event-surface={q.surface && q.surface !== "all" ? q.surface : undefined} data-event-category={q.competition && q.competition !== "all" ? q.competition : undefined}>
+    return <div className="nc-wrap rv-records rv-detail" data-record-surface={metricSurface(q.dato || "", q.surface)} data-event-surface={q.surface && q.surface !== "all" ? q.surface : undefined} data-event-category={q.competition && q.competition !== "all" ? q.competition : undefined}>
       <Link className="rv-back" href="/records">Estadísticas</Link>
       <ArchiveNotice status={view} />
       <header className="rv-detail-header"><h1>Efectividad en finales, antes y después de {cutoff}</h1>
@@ -220,7 +231,7 @@ export default async function Records({ searchParams }: { searchParams: Promise<
   const runner = view.page === 1 ? view.rows[1] : undefined;
   const delta = leader && runner ? leader.value - runner.value : null;
   const asYear = piece.id === "tal-dia-como-hoy";
-  return <div className="nc-wrap rv-records rv-detail" data-event-surface={q.surface && q.surface !== "all" ? q.surface : undefined} data-event-category={q.competition && q.competition !== "all" ? q.competition : undefined}>
+  return <div className="nc-wrap rv-records rv-detail" data-record-surface={metricSurface(q.dato || "", q.surface)} data-event-surface={q.surface && q.surface !== "all" ? q.surface : undefined} data-event-category={q.competition && q.competition !== "all" ? q.competition : undefined}>
     <Link className="rv-back" href="/records">Estadísticas</Link>
     <ArchiveNotice status={view} />
     <header className="rv-detail-header"><h1>{piece.title}</h1><p>{piece.definition}</p>
@@ -230,8 +241,8 @@ export default async function Records({ searchParams }: { searchParams: Promise<
         <p className="rv-lead-value">{recordValue(leader, piece.percent, asYear)}</p>
         <h2><Link href={leader.href}>{leader.name}</Link></h2>
         <p className="rv-lead-detail">{leader.detail}{piece.percent ? ` · ${number(leader.sample)} casos` : ""}</p>
-        {!asYear && runner && delta !== null && <p className="rv-runner">{delta > 0
-          ? `${piece.percent ? `${number(delta, 1)} puntos porcentuales` : number(delta)} más que ${runner.name} (${recordValue(runner, piece.percent)}).`
+        {!asYear && runner && delta !== null && <p className="rv-runner">{delta !== 0
+          ? `${piece.percent ? `${number(Math.abs(delta), 1)} puntos porcentuales` : number(Math.abs(delta))} ${delta > 0 ? "más" : "menos"} que ${runner.name} (${recordValue(runner, piece.percent)}).`
           : `Empatado con ${runner.name} (${recordValue(runner, piece.percent)}).`}</p>}
       </div><RecordProof row={leader} />
     </section>}

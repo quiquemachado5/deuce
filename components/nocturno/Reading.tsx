@@ -10,7 +10,6 @@ import {
 } from "@/lib/statistics";
 import { type RivalrySummary } from "@/lib/explore";
 import {
-  score,
   tapeState,
   pressure,
   measuredFields,
@@ -20,8 +19,8 @@ import {
 } from "@/lib/cuaderno/model";
 import ReadingLine from "./ReadingLine";
 import MatchHero from "@/components/MatchHero";
+import { tournamentCourt } from "@/lib/tournament-presentation";
 import MatchTabs, { type MatchView } from "./MatchTabs";
-import ScoreText from "@/components/ScoreText";
 
 export function ReadingHead({
   match,
@@ -32,50 +31,6 @@ export function ReadingHead({
   reduced?: boolean;
 }) {
   return <MatchHero match={match} reduced={reduced} />;
-}
-
-function TieBreaks({ match }: { match: Match }) {
-  const ties = lineData(match).tiebreaks,
-    names = [match.player1.name, match.player2.name];
-  if (!ties.length) return null;
-  return (
-    <section className="ry-tiebreaks">
-      <div className="ry-section-heading">
-        <h2>Tie-breaks</h2>
-        <span>Punto a punto</span>
-      </div>
-      {ties.map((points) => (
-        <div className="ry-tiebreak" key={points[0].set}>
-          <p>
-            Set {points[0].set}
-            <strong>
-              <ScoreText value={score(match).split(", ")[points[0].set - 1]} />
-            </strong>
-          </p>
-          <ol
-            className="ry-tiebreak-points"
-            aria-label={`Puntos del tie-break del set ${points[0].set}`}
-          >
-            {points.map((point, index) => (
-              <li
-                className={`ry-tiebreak-point ry-point-winner-${point.winner}${point.server !== point.winner ? " ry-point-minibreak" : ""}${index === points.length - 1 ? " ry-point-close" : ""}`}
-                key={point.point_number}
-              >
-                <span className="nc-sr">
-                  Punto {index + 1}. Saca {names[(point.server || 1) - 1]}; gana{" "}
-                  {names[(point.winner || 1) - 1]}.
-                  {index === points.length - 1 ? " Cierra el set." : ""}
-                </span>
-              </li>
-            ))}
-          </ol>
-        </div>
-      ))}
-      <p className="nc-sr">
-        Cada marca es un punto ganado. El contorno indica un minibreak.
-      </p>
-    </section>
-  );
 }
 
 function MatchPressure({
@@ -359,66 +314,91 @@ function MatchMeasures({ match }: { match: Match }) {
   );
 }
 
-function MatchContext({ match }: { match: Match }) {
-  const context = match.context,
-    historicalRanks = context?.rankLabel === "Ranking al jugar",
-    names = [match.player1.name, match.player2.name];
-  const hasContext = Boolean(
-    context?.minutes ||
-      context?.indoor === true ||
-      context?.age1 ||
-      context?.age2 ||
-      (historicalRanks && (context?.rank1 || context?.rank2)),
+function SummaryMeasures({ match }: { match: Match }) {
+  const keys = [
+    "Aces",
+    "1st serve points won",
+    "2nd serve points won",
+    "Return points won",
+  ];
+  const rows = keys
+    .map((key) => ({
+      key,
+      values: ([1, 2] as const).map((side) => measuredValue(match, side, key)),
+    }))
+    .filter((row) => row.values.every((value) => value !== null));
+  if (!rows.length) return null;
+  return (
+    <section className="match-summary-measures">
+      <h2>Principales cifras</h2>
+      <div className="match-summary-names">
+        <span>{match.player1.name}</span>
+        <span>{match.player2.name}</span>
+      </div>
+      {rows.map((row) => (
+        <div className="match-summary-datum" key={row.key}>
+          <span>{row.values[0]}</span>
+          <h3>{statLabel(row.key)}</h3>
+          <span>{row.values[1]}</span>
+        </div>
+      ))}
+    </section>
   );
-  if (!hasContext) return null;
+}
+
+function MatchContext({ match }: { match: Match }) {
+  const context = match.context;
+  const historicalRanks = context?.rankLabel === "Ranking al jugar";
+  const rows = [match.player1.name, match.player2.name].map((name, index) => ({
+    name,
+    age: index === 0 ? context?.age1 : context?.age2,
+    rank: historicalRanks
+      ? index === 0
+        ? context?.rank1
+        : context?.rank2
+      : null,
+  }));
+  const hasAge = rows.some((row) => row.age);
+  const hasRank = rows.some((row) => row.rank);
+  if (!context?.minutes && !hasAge && !hasRank && context?.indoor !== true)
+    return null;
   return (
     <section className="ry-match-context">
-      <h2>Contexto</h2>
-      <dl>
-        {context?.minutes ? (
-          <div>
-            <dt>Duración</dt>
-            <dd>{durationLabel(context.minutes)}</dd>
-          </div>
-        ) : null}
-        {context?.indoor === true && (
-          <div>
-            <dt>Pista</dt>
-            <dd>Cubierta</dd>
-          </div>
-        )}
-      </dl>
-      {context &&
-        names.map((name, index) => {
-          const age = index === 0 ? context.age1 : context.age2,
-            rank = historicalRanks
-              ? index === 0
-                ? context.rank1
-                : context.rank2
-              : null;
-          return age || rank ? (
-            <div
-              className={`ry-context-player ry-player-${index + 1}`}
-              key={name}
-            >
-              <h3>{name}</h3>
-              <dl>
-                {age ? (
-                  <div>
-                    <dt>Edad al jugar</dt>
-                    <dd>{number(age, 1)} años</dd>
-                  </div>
-                ) : null}
-                {rank ? (
-                  <div>
-                    <dt>Ranking al jugar</dt>
-                    <dd>{number(rank)}</dd>
-                  </div>
-                ) : null}
-              </dl>
-            </div>
-          ) : null;
-        })}
+      <h2>En aquel momento</h2>
+      {context?.minutes ? (
+        <div className="match-context-duration">
+          <span>Duración</span>
+          <strong>{durationLabel(context.minutes)}</strong>
+        </div>
+      ) : null}
+      {(hasAge || hasRank) && (
+        <table className="match-context-table">
+          <caption className="nc-sr">
+            Edad y ranking en la fecha del partido
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">Jugador</th>
+              {hasAge && <th scope="col">Edad</th>}
+              {hasRank && <th scope="col">Ranking</th>}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row) => (
+              <tr key={row.name}>
+                <th scope="row">{row.name}</th>
+                {hasAge && (
+                  <td>{row.age ? `${number(row.age, 1)} años` : "—"}</td>
+                )}
+                {hasRank && <td>{row.rank ? number(row.rank) : "—"}</td>}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+      {context?.indoor === true && (
+        <p className="match-context-venue">Pista cubierta</p>
+      )}
     </section>
   );
 }
@@ -488,6 +468,7 @@ export default function Reading({
   const hasMeasures = match.statistics.some(
     (stat) => stat.player !== null && stat.value !== "—",
   );
+  const hasFlow = lineData(match).segments.length > 0;
   const panels: { id: MatchView; label: string; content: ReactNode }[] = [
     {
       id: "resumen",
@@ -495,7 +476,12 @@ export default function Reading({
       content: (
         <>
           <ReadingLine match={match} />
-          <TieBreaks match={match} />
+          {!hasFlow && (
+            <>
+              <SummaryMeasures match={match} />
+              <MatchPressure match={match} compact />
+            </>
+          )}
           <div className="ry-match-close">
             <Link href={`/compare?left=${encodeURIComponent(match.match_id)}`}>
               Comparar con otro partido
@@ -530,7 +516,19 @@ export default function Reading({
       label: "Histórico",
       content: (
         <div className="ry-match-history">
-          <section className="match-registration" id="registro">
+          <div className="ry-section-heading">
+            <h2>La historia del cruce</h2>
+          </div>
+          {around || (
+            <Link
+              className="ry-compare-action"
+              href={`/compare?left=${encodeURIComponent(match.match_id)}`}
+            >
+              Comparar con otro partido
+            </Link>
+          )}
+          <details className="match-registration" id="registro">
+            <summary>Información de este registro</summary>
             <h2>Registro del partido</h2>
             <p>{tapeState(match)}</p>
             <p>
@@ -543,18 +541,7 @@ export default function Reading({
             <Link className="nc-link" href="/info">
               Cómo se lee
             </Link>
-          </section>
-          <div className="ry-section-heading">
-            <h2>Histórico y comparación</h2>
-          </div>
-          {around || (
-            <Link
-              className="ry-compare-action"
-              href={`/compare?left=${encodeURIComponent(match.match_id)}`}
-            >
-              Comparar con otro partido
-            </Link>
-          )}
+          </details>
         </div>
       ),
     },
@@ -562,7 +549,7 @@ export default function Reading({
   return (
     <div
       className={`ry-match${rivalry?.names[0] === match.player2.name ? " ry-pair-flipped" : ""}`}
-      data-event-surface={match.surface}
+      data-event-surface={tournamentCourt(match).surface}
       data-event-category={match.category}
     >
       <ReadingHead match={match} />

@@ -1,4 +1,4 @@
-export type Photo = { src: string; thumbnail?: string; alt: string; credit: string; source: string; caption?: string; licenseUrl?: string; photoYear?: number }
+export type Photo = { src: string; thumbnail?: string; alt: string; credit: string; source: string; caption?: string; licenseUrl?: string; photoYear?: number; objectPosition?: string; avatarCrop?: {x: number; y: number; width: number; height: number} }
 const commons = 'https://commons.wikimedia.org/wiki/File:'
 export const courtPhotos: Record<string, Photo> = {
   'Indian Wells': { src: '/images/courts/indian-wells.jpg', alt: 'Pista principal del Indian Wells Tennis Garden', credit: 'IvanAndreevich · CC BY 3.0', source: commons + 'Indian_Wells_Tennis_Garden,_Stadium_1_(cropped).jpg' },

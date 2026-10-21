@@ -139,18 +139,20 @@ Los valores de la cabecera son normativos; `app/ui/foundation.css` aplica el cam
 
 ### Primary
 
-- **Verde de pista** (`court`): acciones estadísticas, descubrimientos y valores destacados generales. **Bruma de pista** (`court-deep`) acompaña bloques explicativos y selección de texto.
+- **Verde de pista** (`court`): acciones estadísticas y descubrimientos del jugador. **Bruma de pista** (`court-deep`) acompaña bloques explicativos y selección de texto.
 
 ### Secondary
 
 - **Verde hierba** (`grass`), **terracota tierra** (`clay`), **azul dura** (`hard`) y **violeta moqueta** (`carpet`): identifican superficies en puntos, cifras, barras y contextos de torneo.
 - El acento de evento toma el color de su superficie; su fondo mezcla ese color al 10% con el panel elevado. La comparación usa azul para el primer jugador y terracota para el segundo. Victoria usa hierba; derrota usa `loss` en claro y terracota en oscuro. El foco usa azul dura y los errores usan `danger`.
+- El calendario del jugador reserva **oro para campeón**, **plata para finalista** y **verde azulado para semifinalista**, con fondos, tinta y bordes propios en ambos temas. Una leyenda y el resultado escrito acompañan esos colores; no describen la superficie.
 
 ### Neutral
 
 - **Fondo de archivo** (`bg`): lienzo general; **panel** (`bg-raised`): contenido; **hueco** (`bg-sunken`): controles, carriles y grupos segmentados.
 - **Tinta** (`ink`), **tinta secundaria** (`ink-soft`) y **texto auxiliar** (`muted`): jerarquía de lectura. **Línea** (`line`) y **línea firme** (`line-strong`): filas, límites y estados de campo.
 - Los tokens con prefijo `dark-` describen las sustituciones activas con `data-theme="dark"`. Las fotografías conservan su color original.
+- Las cifras de récords generales usan tinta neutra. Solo una métrica o un filtro referido a una superficie activa su color en cifras y barras.
 
 **The Court Meaning Rule.** El color vincula una cifra con su pista o jugador; nombres, etiquetas y valores siguen explicando el dato por sí mismos.
 
@@ -179,7 +181,7 @@ En móvil, el marcador conserva todo el ancho disponible y permite desplazamient
 
 ## Elevation & Depth
 
-No hay sombras de caja en el sistema activo. La profundidad procede de fondos elevados o hundidos, líneas finas y fotografía recortada. La cabecera fija mezcla el fondo al 92% y usa desenfoque de 20px. El diálogo atenúa el resto de la página con un velo oscuro y desenfoque de 6px. Los degradados de imagen aseguran lectura sobre fotografías.
+La profundidad procede de fondos elevados o hundidos, líneas finas y fotografía recortada. La cabecera flotante añade iluminación interior y una sombra exterior tenue; mezcla el panel al 72% en claro y al 78% en oscuro, con desenfoque de 32px y saturación de 180%. El diálogo atenúa el resto de la página con un velo oscuro y desenfoque de 6px. Los degradados de imagen aseguran lectura sobre fotografías.
 
 Las transiciones de color, fondo, borde y opacidad duran 240ms. Las entradas recorren 12px en 280–480ms con `cubic-bezier(0.22, 1, 0.36, 1)` y mantienen el texto opaco desde el primer fotograma; el trazo de algunos gráficos dura 1s. Con movimiento reducido se desactivan animaciones, transiciones y desplazamiento suave.
 
@@ -191,15 +193,22 @@ Paneles redondeados (24px), campos suaves (16px) y cápsulas completas forman la
 
 ### Actualización de navegación y lectura
 
-- **Cabecera glass:** barra flotante en cápsula, separada 12 px del borde superior (8 px en móvil), blur de 24 px y saturación de 180 %. Usa superficie al 82 %, borde claro e iluminación interior; el contenido nunca depende de la transparencia para leerse. Cinco enlaces: Partidos, Estadísticas, Jugadores, Torneos, Comparar. Cara a cara pertenece a Jugadores.
+- **Cabecera glass:** barra flotante en cápsula, separada 12 px del borde superior (8 px en móvil), con el tratamiento de vidrio descrito en Elevation & Depth. Cinco enlaces: Partidos, Estadísticas, Jugadores, Torneos, Comparar. Cara a cara pertenece a Jugadores.
 - **MatchHero:** fotografía licenciada de sede, retratos circulares enfrentados, total de sets central y una tabla accesible de sets en cualquier ancho. Sin resultado duplicado en una segunda línea móvil. Ganador explícito y sets ganados en color de pista. Compartir y registro se abren bajo demanda.
 - **Archivo por ediciones:** selector de temporada, campeonatos con fotografía o color de superficie, partidas agrupadas por año y torneo tras filtrar. Paginación de 25; ninguna cinta viaja al cliente en el listado.
-- **Footer:** wordmark grande y trazado de pista propio, tres accesos por superficie y enlaces de información. Es una composición de cierre; no una repetición del menú.
+- **Footer:** panel redondeado con marca DEUCE y tres accesos por superficie, cada uno con fotografía real de pista y etiqueta. Debajo reúne Cómo se lee, Cobertura, Fotografías y el selector de tema. En móvil las tres pistas se apilan.
 - **Galería:** selector de fotos/vídeos, navegación anterior/siguiente, ampliación nativa con Escape y retorno del foco. YouTube no se solicita hasta pulsar reproducir; siempre existe enlace al canal oficial. Fechas de los vídeos pertenecen al vídeo, no al partido destacado en portada.
 - **Comparación por superficie:** controles para total y pistas; dos barras proporcionales con escala común, valores escritos y transición de anchura. No hay una puntuación sintética.
 - **Texto secundario:** metodología, versiones y estados de cinta pasan a Cobertura o al registro del partido. Los denominadores que cambian el significado de un porcentaje se mantienen. No reemplazar datos ausentes por cero.
 
+### Exploración con contexto
 
+- **Descubrimientos del jugador:** cifra, explicación, muestra y enlace a un partido, temporada o campeonato forman un bloque estable. «Otro dato» elige otra observación entre resultados completos y elegibles, anuncia el cambio y conserva el espacio del contenido. Las banderas proceden del código de país publicado y acompañan su nombre; un código desconocido no genera una bandera.
+- **Retratos:** perfil y descubrimiento fotográfico muestran crédito, original y licencia mediante un único control de información de 44px. Los avatares de Federer, Nadal, Djokovic, Murray, Alcaraz y Sinner usan rectángulos de foco definidos sobre las seis fotografías locales existentes: el recorte CSS conserva los píxeles originales.
+- **Torneo y edición:** la vista general abre con fotografía licenciada de sede y enlaza ediciones y campeones registrados. La edición presenta su final y un cuadro por rondas, con el camino del campeón señalado por texto. Solo aparecen partidos disponibles; el orden no afirma posiciones del sorteo. Las columnas de escritorio pasan a una ronda seleccionable bajo 1100px. Una fotografía de edición requiere evidencia de ese año.
+- **Superficie y condición:** la presentación del torneo deriva de sus ediciones; la tarjeta general usa la más reciente y permite consultar la historia de superficies. El resolver distingue superficie y pista cubierta. La corrección de Madrid se limita a Masters 1000 desde 2002: dura cubierta hasta 2008 y tierra al aire libre desde 2009, con enlace a la fuente ATP y datos originales intactos.
+- **Lectura del partido:** «Principales cifras» compara medidas publicadas; «En aquel momento» alinea duración, edad y ranking histórico cuando existen. «Así se decidió» ofrece reproducción de hasta seis breaks y bolas de partido verificables, con pausa y pasos anterior/siguiente. Los huecos de cinta permanecen huecos. El recuento exacto del tie-break se consulta en un desplegable cerrado; la antigua sección «Set a set» se retira.
+- **Récords y clasificaciones:** la entrada ofrece un dato real cambiante con retrato licenciado y enlaces de exploración o prueba cuando existe. Los récords de títulos por pista comparten escala. Catálogo y clasificación alinean nombre, cifra, muestra y acceso a evidencia; en móvil la prueba pasa bajo el nombre y la cifra mantiene su columna. Las filas interactivas comparten radio de 16px y cifras tabulares.
 
 ### Buttons
 
@@ -223,7 +232,7 @@ Marca Bricolage de peso 800. Navegación Geist de 13px, texto auxiliar en reposo
 
 ### Photography & Avatars
 
-Los retratos locales y licenciados se recortan hacia el rostro; los avatares usan normalmente 24–40px en filas y tamaños mayores en marcadores. La inicial del nombre sustituye una foto ausente. El nombre adyacente aporta la etiqueta accesible, por lo que el avatar decorativo no la repite. Las fotos de sede describen la sede; no representan un partido concreto sin evidencia.
+Los retratos locales y licenciados se recortan hacia el rostro; los avatares usan normalmente 24–40px en filas y tamaños mayores en marcadores. La inicial del nombre sustituye una foto ausente en avatares de listado. El nombre adyacente aporta la etiqueta accesible, por lo que el avatar decorativo no la repite. Las fotos de sede describen la sede; no representan un partido concreto sin evidencia.
 
 ### Scoreboards & Discovery
 
@@ -248,4 +257,4 @@ Los marcadores son tablas: nombres a la izquierda, sets alineados y cifras tabul
 - **Don't** añadir nuevas familias tipográficas a pantallas del sistema.
 - **Don't** partir porcentajes o recortar resultados para encajarlos en una columna estrecha.
 
-<!-- Fuentes: PRODUCT.md; app/deuce.css; app/ui/*.css; components/PlayerAvatar.tsx; components/HomeHighlights.tsx; components/nocturno/Frame.tsx; app/layout.tsx. -->
+<!-- Fuentes: PRODUCT.md; app/deuce.css; app/ui/*.css; components/PlayerAvatar.tsx; components/PlayerPortrait.tsx; components/PlayerFlag.tsx; components/PlayerDiscovery*.ts*; components/MatchHero.tsx; components/TournamentBracket.tsx; components/nocturno/{Frame,Reading,ReadingLine,GameFlow,RecordDiscovery,RecordsViews}.tsx; lib/{photo-style,player-photo-focus,tournament-presentation}.ts; app/records/page.tsx; app/layout.tsx. -->

@@ -4,6 +4,7 @@ import { randomUUID } from 'node:crypto'
 import { readdir } from 'node:fs/promises'
 import { join } from 'node:path'
 import { loadMissingDetails } from './archive-detail-batches'
+import { archiveGet, archiveReadFailure } from './archive-get'
 import { enrichmentPlan } from './enrichment-plan'
 import { activityFixtures } from './tour-activity'
 import { detailRefreshPlan } from './detail-refresh-plan'
@@ -25,20 +26,12 @@ export async function cloudRead(key: string): Promise<any> {
   if (saved && Date.now() - saved.at < 300_000) return saved.value
   const pending: { value?: Promise<any> } = {}
   pending.value = (async () => {
-    let failure: { code: string; status: number } | undefined
-    for (let attempt = 0; attempt < 2; attempt++) {
-      try {
-        const { data, error, status } = await client.from('deuce_archive_objects').select('payload').eq('key', key).abortSignal(AbortSignal.timeout(15_000)).maybeSingle()
-        if (!error) return data?.payload
-        failure = { code: error.code || 'UNKNOWN', status }
-        if (error.code !== 'PGRST303' || attempt === 1) break
-        await new Promise(resolve => setTimeout(resolve, 150))
-      } catch {
-        failure = { code: 'NETWORK', status: 0 }
-        break
-      }
+    try {
+      const data = await archiveGet(signal => client.from('deuce_archive_objects').select('payload').eq('key', key).abortSignal(signal).maybeSingle().retry(false))
+      return data?.payload
+    } catch (error) {
+      console.error('Cloud archive read failed:', archiveReadFailure(error))
     }
-    console.error('Cloud archive read failed:', failure?.code, failure?.status)
     // An authentication or network error is not a missing object. Let the next
     // request try again instead of caching an empty result for five minutes.
     if (cache.get(key)?.value === pending.value) cache.delete(key)
@@ -81,8 +74,7 @@ export async function cloudDetails(): Promise<Record<string, ArchiveRow>> {
   const value = (async () => {
     const keys: string[] = []
     for (let offset = 0; ; offset += 1000) {
-      const { data, error } = await client.from('deuce_archive_objects').select('key').like('key', 'detail-%').order('key').range(offset, offset + 999).abortSignal(AbortSignal.timeout(15_000))
-      if (error) throw new Error(`Cloud detail index failed: ${error.code}`)
+      const data = await archiveGet(signal => client.from('deuce_archive_objects').select('key').like('key', 'detail-%').order('key').range(offset, offset + 999).abortSignal(signal).retry(false))
       for (const row of data || []) if(/^detail-(modern|archive)-/.test(row.key))keys.push(row.key)
       if (!data || data.length < 1000) break
     }
@@ -91,11 +83,10 @@ export async function cloudDetails(): Promise<Record<string, ArchiveRow>> {
     const overrides = await cloudRead('detail-overrides')
     for(const key of overrides?.keys || []) if(typeof key==='string')bundled.delete(key)
     return loadMissingDetails<ArchiveRow>(keys, bundled, async batch => {
-      const { data, error } = await client.from('deuce_archive_objects').select('key,payload').in('key', batch).abortSignal(AbortSignal.timeout(15_000))
-      if (error) throw new Error(`Cloud detail batch failed: ${error.code}`)
+      const data = await archiveGet(signal => client.from('deuce_archive_objects').select('key,payload').in('key', batch).abortSignal(signal).retry(false))
       return data || []
     })
-  })().catch(error => { cache.delete('detail-index'); console.error(error instanceof Error ? error.message : 'Cloud details read failed'); return {} })
+  })().catch(error => { cache.delete('detail-index'); console.error('Cloud details read failed:', archiveReadFailure(error)); return {} })
   cache.set('detail-index', { at: Date.now(), value })
   return value
 }
@@ -191,8 +182,7 @@ export async function refreshCloudArchive() {
     // Only keys are needed to avoid downloading the growing payload archive during sync.
     const known = new Set<string>()
     for(let offset=0;;offset+=1000){
-      const {data:keys,error}=await cloudClient()!.from('deuce_archive_objects').select('key').like('key','detail-%').order('key').range(offset,offset+999)
-      if(error)throw new Error(`Archive keys read failed: ${error.code}`)
+      const keys=await archiveGet(signal=>cloudClient()!.from('deuce_archive_objects').select('key').like('key','detail-%').order('key').range(offset,offset+999).abortSignal(signal).retry(false))
       for(const row of keys||[])known.add(row.key.slice(7))
       if(!keys||keys.length<1000)break
     }

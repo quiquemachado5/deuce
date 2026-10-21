@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Match } from "@/lib/types";
 import { tournamentName } from "@/lib/labels";
 import { tournamentDirectory } from "@/lib/tournament-directory";
+import { tournamentCourt } from "@/lib/tournament-presentation";
 import Row from "./nocturno/Row";
 
 /** Each page keeps its 25-match limit, with explicit edition boundaries. */
@@ -32,12 +33,12 @@ export default function EditionMatchGroups({ matches }: { matches: Match[] }) {
                 className="match-edition"
                 key={key}
                 open={index === 0}
-                data-event-surface={rows[0].surface}
+                data-event-surface={tournamentCourt(rows[0]).surface}
               >
                 <summary>
                   <span>
                     <i
-                      className={`nc-dot nc-dot-${rows[0].surface}`}
+                      className={`nc-dot nc-dot-${tournamentCourt(rows[0]).surface}`}
                       aria-hidden="true"
                     />
                     {tournamentName(rows[0].tournament)}

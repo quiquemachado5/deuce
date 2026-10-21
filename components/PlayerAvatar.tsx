@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { playerPhoto } from "@/lib/player-imagery";
+import { avatarPhotoStyle } from "@/lib/photo-style";
 
 /** Local, licensed, size-limited portraits. The adjacent name provides the label. */
 export default function PlayerAvatar({
@@ -24,11 +25,12 @@ export default function PlayerAvatar({
     >
       {photo ? (
         <Image
-          src={photo.thumbnail || photo.src}
+          src={photo.avatarCrop ? photo.src : photo.thumbnail || photo.src}
           alt=""
           width={size * 2}
           height={size * 2}
           sizes={`${size}px`}
+          style={avatarPhotoStyle(photo)}
           unoptimized
         />
       ) : (
