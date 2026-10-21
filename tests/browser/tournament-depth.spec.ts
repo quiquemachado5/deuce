@@ -142,13 +142,13 @@ test("mobile edition rounds show actual results, accessible tiebreaks and the ch
   const scoreboard = page.getByRole("region", { name: "Final · 2024", exact: true }).getByRole("table");
   await expect(scoreboard).toHaveAccessibleName(/Alexander Zverev contra Carlos Alcaraz.*3–6, 6–2, 7–5, 1–6, 2–6/);
   await expect(scoreboard.getByRole("columnheader")).toHaveCount(7);
-  await expect(scoreboard.getByRole("rowheader", { name: /Carlos Alcaraz.*Campeón/ })).toBeVisible();
+  await expect(scoreboard.getByRole("rowheader", { name: /Carlos Alcaraz.*Ganador/ })).toBeVisible();
 
   await picker.getByRole("button", { name: /^Octavos de final/ }).click();
   const fourthRound = bracket.getByRole("region", { name: "Octavos de final", exact: true });
   await expect(fourthRound).toBeVisible();
   await expect(final).not.toBeVisible();
-  await expect(fourthRound.locator(".td-bracket-match")).toHaveCount(7);
+  await expect(fourthRound.locator(".td-bracket-match")).toHaveCount(8);
   await expect(fourthRound.locator('a[href="/match/live-83157"]')).toHaveAccessibleName(
     /Carlos Alcaraz contra Félix Auger-Aliassime, 6–3, 6–3, 6–1/,
   );

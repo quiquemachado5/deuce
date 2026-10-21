@@ -28,7 +28,6 @@ import { tournamentDirectory } from "@/lib/tournament-directory";
 import type { Match } from "@/lib/types";
 import { SURFACES } from "@/lib/surface";
 import ArchiveNotice from '@/components/nocturno/ArchiveNotice';
-import PlayerFlag from '@/components/PlayerFlag';
 import PlayerPortrait from '@/components/PlayerPortrait';
 import PlayerDiscovery from '@/components/PlayerDiscovery';
 import { playerDiscoveries } from '@/components/PlayerDiscoveryData';
@@ -570,7 +569,7 @@ export default async function Player({ params, searchParams }: Props) {
               {bio.country && (
                 <div>
                   <dt>País</dt>
-                  <dd className="pd-country"><PlayerFlag code={bio.country} />{countryLabel(bio.country)}</dd>
+                  <dd className="pd-country">{countryLabel(bio.country)}</dd>
                 </div>
               )}
               {bio.birthday && (

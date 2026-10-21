@@ -46,6 +46,11 @@ export function recordEvidence(matches: Match[], id: string, row: RecordRow): { 
     note = 'Tramo consecutivo que alcanza esta cifra. Un resultado inválido interrumpe la racha. Fechas de inicio de torneo se ordenan por ronda; no equivalen al día exacto del partido. Los partidos ausentes no pueden reconstruirse.';
   } else if (['finales-ganadas','finales-jugadas','efectividad-finales'].includes(id)) {
     result = subject.filter(m => final(m) && (id !== 'finales-ganadas' || win(m)));
+  } else if (['ganar-menos-juegos','remontar-rosco','finales-cuatro-juegos'].includes(id)) {
+    result = subject.filter(m => win(m) && (id === 'ganar-menos-juegos'
+      ? m.score_summary.games.reduce((n,s)=>n+s[side(m)-1]-s[2-side(m)],0)<0
+      : id === 'remontar-rosco' ? m.score_summary.games.some(s=>s[side(m)-1]===0&&s[2-side(m)]===6)
+      : final(m)&&m.score_summary.games.reduce((n,s)=>n+s[2-side(m)],0)<=4));
   } else if (id === 'finales-remontadas-primer-set') {
     result = subject.filter(m => final(m) && win(m) && lostOpening(m));
   } else if (id.startsWith('titulos-') || id.startsWith('masters-')) {

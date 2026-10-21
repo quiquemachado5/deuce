@@ -99,7 +99,7 @@
   margin-top: 64px;
 }
 .rv-family-nav {
-  position: sticky;
+  position: static;
   top: 64px;
   z-index: 10;
   display: flex;

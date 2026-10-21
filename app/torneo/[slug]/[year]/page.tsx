@@ -150,12 +150,7 @@ export default async function Edition({ params, searchParams }: Props) {
           />
         )}
         <div className="td-edition-hero-copy">
-          <Link
-            className="td-breadcrumb"
-            href={`/torneos/${slug}${tournament.categories.length > 1 ? `?categoria=${encodeURIComponent(category)}` : ""}`}
-          >
-            {tournamentName(tournament.name)}{" "}
-          </Link>
+
           <p className="td-category">{categoryLabel(category)}</p>
           <h1>
             {tournamentName(tournament.name)} <span>{year}</span>

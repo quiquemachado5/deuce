@@ -70,7 +70,6 @@ function PhotoGroup({ category, entries }: { category: string; entries: Tourname
             sizes={category === "Grand Slam" ? "(max-width: 759px) calc(100vw - 32px), (max-width: 1099px) 45vw, 43vw" : "(max-width: 759px) calc(100vw - 32px), (max-width: 1099px) 45vw, 29vw"} /></span>
           <span className="ry-photo-tournament-copy"><strong>{tournamentName(entry.name)}</strong>
             <span><i className={`nc-dot nc-dot-${court.surface}`} aria-hidden="true" />{surfaceLabel[court.surface]}{court.indoor !== null && ` · ${court.indoor ? "Bajo techo" : "Al aire libre"}`} · {calendar ? (entry.categories.includes("Grand Slam") ? "Grand Slam" : "Masters 1000") : `${number(finals)} finales`}</span>
-            <small>Edición {court.year}{photo.caption ? ` · ${photo.caption}` : " · Vista de la sede"}</small>
           </span>
         </Link>;
       })}

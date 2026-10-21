@@ -9,3 +9,5 @@
 @import "./ui/record-depth.css";
 @import "./ui/player-depth.css";
 @import "./ui/tournament-depth.css";
+
+@import "./ui/precision.css";

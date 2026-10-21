@@ -347,6 +347,22 @@ export function recordCatalog(matches: Match[], now = new Date(), only?: string)
       false,
       source,
     );
+  for (const specification of [
+    { id: "ganar-menos-juegos", title: "Victorias con menos juegos que el rival", group: "Victorias", definition: "Victorias en las que la suma de juegos del ganador es menor que la de su rival. Solo partidos completos, sin abandonos.", test: (m: Match) => { const totals = m.score_summary.games.reduce((n, set) => [n[0] + set[0], n[1] + set[1]], [0, 0]); return m.winner === 1 ? totals[0] < totals[1] : totals[1] < totals[0]; } },
+    { id: "remontar-rosco", title: "Victorias después de perder un set 6–0", group: "Remontadas y forma del partido", definition: "Partidos ganados tras ceder al menos un set 0–6. Se cuenta una victoria por partido; solo marcadores completos.", test: (m: Match) => m.score_summary.games.some(set => m.winner === 1 ? set[0] === 0 && set[1] === 6 : set[1] === 0 && set[0] === 6) },
+    { id: "finales-cuatro-juegos", title: "Finales ganadas cediendo cuatro juegos o menos", group: "Títulos y finales", definition: "Finales completas en las que el campeón cede como máximo cuatro juegos en total. No incluye abandonos ni incomparecencias.", test: (m: Match) => final(m) && m.score_summary.games.reduce((n, set) => n + set[m.winner === 1 ? 1 : 0], 0) <= 4 },
+  ]) {
+    if (only && specification.id !== only) continue;
+    const counts = new Map<string, { count: number; proof: Match }>();
+    for (const match of matches) {
+      if (!specification.test(match)) continue;
+      const name = winnerName(match)!;
+      const row = counts.get(name);
+      if (row) row.count++; else counts.set(name, { count: 1, proof: match });
+    }
+    add(specification.id, specification.title, specification.group, specification.definition,
+      [...counts].map(([name, row]) => person(name, row.count, row.count, `${number(row.count)} victorias documentadas`, row.proof)), 1, false, matches);
+  }
   add(
     "finales-ganadas",
     "Más finales ganadas en este archivo",

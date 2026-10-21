@@ -1,4 +1,5 @@
 import cached from './player-photo-manifest.json'
+import refreshed from './player-photo-refresh.json'
 import type { Photo } from './imagery'
 import { playerPhotoFocus } from './player-photo-focus'
 
@@ -20,7 +21,7 @@ const curated: Record<string, Photo> = {
   },
 }
 
-export const playerPhotos: Record<string, Photo> = { ...(cached as Record<string, Photo>), ...curated }
+export const playerPhotos: Record<string, Photo> = { ...(cached as Record<string, Photo>), ...curated, ...(refreshed as Record<string, Photo>) }
 
 function normalizeName(name: string) {
   return name.normalize('NFKD').replace(/[\u0300-\u036f]/g, '')
@@ -36,9 +37,9 @@ export function playerPhoto(name: string): Photo | null {
   if (!photo) return null
   return {
     ...photo,
-    ...(playerPhotoFocus[name] || {}),
-    thumbnail: photo.src.startsWith('/images/players/optimized/') && photo.src.endsWith('.webp')
+    ...(photo.src.includes("/refreshed/") ? {} : playerPhotoFocus[name] || {}),
+    thumbnail: photo.thumbnail || (photo.src.startsWith('/images/players/optimized/') && photo.src.endsWith('.webp')
       ? photo.src.replace(/\.webp$/, '-small.webp')
-      : photo.src,
+      : photo.src),
   }
 }
