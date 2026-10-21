@@ -22,6 +22,7 @@ export default async function Coverage() {
       {[{ title: 'Contexto histórico', rows: fields.context }, { title: 'Medidas del partido', rows: fields.measures }].map(group => {
         const maximum = Math.max(1, ...group.rows.map(row => row.matches));
         return <details className="coverage-field-group" key={group.title} open={group.title === 'Medidas del partido'}><summary>{group.title}<span>{group.rows.length} campos</span></summary>
+          <p className="coverage-field-scale"><span>Partidos con dato</span><span>0–{number(maximum)}</span></p>
           <ul>{group.rows.map(row => <li key={row.id}>
             <div className="coverage-field-heading"><span>{row.label}</span><strong>{number(row.matches)} <small>partidos</small></strong></div>
             <div className="coverage-field-track" aria-hidden="true"><span style={{ width: `${row.matches / maximum * 100}%` }} /></div>

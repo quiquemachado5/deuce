@@ -14,6 +14,7 @@
 .coverage-field-group{border-block-end:1px solid var(--line);margin-block:24px}
 .coverage-field-group>summary{display:flex;justify-content:space-between;gap:16px;padding-block:16px;font-size:18px;font-weight:600;cursor:pointer;min-height:44px}
 .coverage-field-group>summary>span{font-size:13px;color:var(--muted);font-weight:400}
+.deuce-coverage .coverage-field-scale{display:flex;justify-content:space-between;gap:16px;max-width:none;font-size:13px;color:var(--muted);margin:8px 0 16px;font-variant-numeric:tabular-nums}
 .coverage-field-group ul,.coverage-reviewed ul{list-style:none;padding:0;margin:0}
 .coverage-field-group li{padding-block:16px;border-top:1px solid var(--line)}
 .coverage-field-heading{display:flex;justify-content:space-between;gap:16px;align-items:baseline;font-size:16px}
