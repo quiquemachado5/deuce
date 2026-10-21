@@ -1,6 +1,15 @@
 # DEUCE · entrega de interfaz del 21 de octubre de 2026
 
-Esta entrega está preparada en la rama `codex/premium-ui-polish` y en la [PR #1](https://github.com/quiquemachado5/deuce/pull/1). La fusión y la promoción a producción se comprueban por separado: una PR abierta no significa que el sitio público ya muestre estos cambios.
+La entrega visual se integró mediante la [PR #1](https://github.com/quiquemachado5/deuce/pull/1) y se publicó en [DEUCE](https://deuce-archive.vercel.app/). La producción se verificó con seis rutas públicas y el monitor de salud del archivo.
+
+## Continuación: finales y cobertura
+
+- El registro de resultados contrastados pasa de 3 a 11 finales, con enlaces a ATP, fecha de revisión y acceso a la ficha correspondiente en `/cobertura/revision`.
+- La validación detecta también un tanteo de tie-break contradictorio. Permite que falte ese tanteo en el proveedor y completa únicamente las finales contrastadas con su fuente.
+- `data:verify` exige que las 11 finales estén presentes y coincidan con el registro. Las reglas de la generación cambian a `2026-10-reviewed-finals-v3` para evitar mezclar derivaciones anteriores.
+- `/cobertura` muestra los partidos que conservan cada medida, cuántos tienen el dato de los dos jugadores, temporadas concretas y procedencia histórica o reciente. Los ceros documentados se conservan; valores vacíos, negativos o no numéricos no cuentan.
+- El estado de la cinta se desglosa entre fiable, incompleta y ausente. Las barras usan un máximo común dentro de cada grupo, con el valor escrito.
+- Esta auditoría usa lo ya guardado. No consume llamadas de pago ni afirma una cobertura que el proveedor no haya entregado.
 
 ## Cambios de esta entrega
 
@@ -21,9 +30,9 @@ Permanecen fuera de esta PR la ampliación de cobertura de campos del proveedor,
 
 ## Verificación
 
-- `npm run verify`: 29 pruebas, lint, TypeScript y archivo válido (176.265 partidos, 90 listas).
+- `npm run verify`: 31 pruebas, lint, TypeScript y archivo válido (176.265 partidos, 90 listas, 11 finales contrastadas).
 - `npm run build`: compilación de producción completa.
-- `npm run test:browser`: 16 pruebas de flujos, accesibilidad básica, datos, foco de búsqueda/menú y lectura de la curva de juegos.
+- `npm run test:browser`: 17 pruebas de flujos, accesibilidad básica, datos, foco de búsqueda/menú, lectura de la curva de juegos y cobertura de campos.
 - Revisión visual de portada, partido, jugador, cara a cara, torneo, edición y cifra a 390 y 1440 px; sin desplazamiento horizontal de documento ni errores de consola. También se comprobaron 320, 768 y 1024 px en las vistas modificadas.
 
-El build vuelve a generar instantáneas comprimidas del archivo sin cambiar su versión lógica. Esos artefactos se excluyeron del commit de interfaz.
+La continuación actualiza el manifiesto de la generación porque cambian las reglas de contraste. Los 176.265 partidos y las 90 listas conservan los mismos datos; los demás archivos regenerados, sin diferencias lógicas, se excluyeron del commit.
