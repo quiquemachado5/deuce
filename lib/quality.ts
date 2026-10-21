@@ -4,6 +4,7 @@ import { orientMatch } from './match-presentation'
 import aliases from './player-name-aliases.json'
 import type { Match, Point } from './types'
 import { normalizeSurface } from './surface'
+import { historicalClosedSet } from './historical-rules'
 
 export const ARCHIVE_CRITERIA = 'Individual masculino · cuadro principal · partidos terminados con sets cerrados y ganador coherente. Sin abandonos, incomparecencias ni marcadores en revisión. Cifras del archivo DEUCE, no de toda la carrera.'
 export function normalizeText(value: string) { return value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/ß/g, 'ss') }
@@ -45,9 +46,9 @@ export function resultIssue(match: Match): string | null {
   const target = bestOf === 5 ? 3 : 2
   const wins = [0, 0]
   if (!sets.length || sets.length > bestOf) return 'El número de sets no corresponde al formato.'
-  for (const set of sets) {
+  for (const [index, set] of sets.entries()) {
     if (wins.some(n => n >= target)) return 'Hay sets registrados después de finalizar el partido.'
-    if (!closedSet(set)) return 'El proveedor guarda al menos un set sin cerrar o imposible.'
+    if (!closedSet(set) && !historicalClosedSet(match,index)) return 'El proveedor guarda al menos un set sin cerrar o imposible.'
     wins[set[0] > set[1] ? 0 : 1]++
   }
   if (wins[match.winner - 1] !== target || wins[2 - match.winner] >= target) return 'El ganador no coincide con los sets necesarios para ganar.'

@@ -16,7 +16,12 @@ export function matchStory(match:Match) {
   if (twoSetComeback(match)) return { headline: `${winnerName(match)} remontó dos sets en contra.`, evidence: match.final_score }
   return chooseSocialHighlight(match,analyzePointTape(match.point_tape))
 }
-export function chronological(a:Match,b:Match) { return a.year-b.year || a.score_summary.timestamp.localeCompare(b.score_summary.timestamp) || roundPosition(a.round)-roundPosition(b.round) || a.match_id.localeCompare(b.match_id) }
+export function chronological(a:Match,b:Match) {
+  // Source dates can be tournament starts: order tied editions by round, never by opaque provider ID.
+  const dateA=(a.context?.date || a.score_summary.timestamp).slice(0,10);
+  const dateB=(b.context?.date || b.score_summary.timestamp).slice(0,10);
+  return a.year-b.year || dateA.localeCompare(dateB) || roundPosition(a.round)-roundPosition(b.round) || a.match_id.localeCompare(b.match_id);
+}
 export function neighboringMeetings(matches:Match[],match:Match) {
   const names=[match.player1.name,match.player2.name]
   const meetings=matches.filter(m=>names.includes(m.player1.name)&&names.includes(m.player2.name)).sort(chronological)

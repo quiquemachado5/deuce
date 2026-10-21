@@ -199,7 +199,7 @@ export default async function Records({ searchParams }: { searchParams: Promise<
           {view.manifest.eraCuts.map((year) => <option key={year}>{year}</option>)}
         </select></label>
       </FilterForm></div>
-      {view.eras.length ? <RecordEras eras={view.eras} /> : <p className="rv-empty">Ningún jugador llega a cinco finales en los dos periodos. <Link href="/records">Ver otras cifras</Link></p>}
+      {view.eras.length ? <RecordEras eras={view.eras} cut={cutoff} /> : <p className="rv-empty">Ningún jugador llega a cinco finales en los dos periodos. <Link href="/records">Ver otras cifras</Link></p>}
       {view.eraTotal > 25 && <Pagination page={view.page} total={view.eraTotal} href={(page) => address({ ...q, page: String(page) })} />}
     </div>;
   }
@@ -240,14 +240,14 @@ export default async function Records({ searchParams }: { searchParams: Promise<
     <RecordFilters piece={piece} q={q} years={view.manifest.years} />
     <section className="rv-list-section"><div className="rv-list-heading"><h2>Clasificación</h2>
       <span>{number(piece.total)} {piece.total === 1 ? "entrada" : "entradas"} · página {number(view.page)} de {number(Math.max(1, Math.ceil(piece.total / 25)))}</span></div>
-      {view.rows.length ? <RecordRanking rows={view.rows} percent={piece.percent} asYear={asYear} offset={(view.page - 1) * 25} priorValue={piece.pagePrior?.[view.page]} />
+      {view.rows.length ? <RecordRanking evidence={{id:piece.id,filters:q}} rows={view.rows} percent={piece.percent} asYear={asYear} offset={(view.page - 1) * 25} priorValue={piece.pagePrior?.[view.page]} />
         : piece.smallTotal ? <p className="rv-list-note">Las observaciones de esta cifra están en Muestras pequeñas, más abajo.</p>
         : <p className="rv-list-note">Ningún partido coincide con esta selección. Cambia los filtros para ampliar la consulta.</p>}
       {piece.total > 25 && <Pagination page={view.page} total={piece.total} href={(page) => address({ ...q, page: String(page) })} />}
     </section>
     {piece.smallTotal > 0 && <section className="rv-small-section"><div className="rv-list-heading"><h2>Muestras pequeñas</h2><span>{number(piece.smallTotal)} entradas</span></div>
       <p>Porcentajes basados en menos de 50 casos. Se leen con su denominador.</p>
-      <RecordRanking rows={view.smallRows} percent small offset={(view.smallPage - 1) * 25} priorValue={piece.smallPagePrior?.[view.smallPage]} />
+      <RecordRanking evidence={{id:piece.id,filters:q}} rows={view.smallRows} percent small offset={(view.smallPage - 1) * 25} priorValue={piece.smallPagePrior?.[view.smallPage]} />
       {piece.smallTotal > 25 && <Pagination page={view.smallPage} total={piece.smallTotal} href={(page) => address({ ...q, smallPage: String(page) })} />}
     </section>}
     <p className="rv-update">Archivo actualizado el {new Date(view.manifest.generatedAt).toLocaleDateString("es-ES", { timeZone: "Europe/Madrid" })}. <Link href="/records">Todas las estadísticas</Link></p>

@@ -3,6 +3,7 @@ import { number, round, score } from "@/lib/cuaderno/model";
 import { tournamentName } from "@/lib/labels";
 import { playerSlug } from "@/lib/explore";
 import type { Era, RecordRow } from "@/lib/revista/records";
+import { evidenceHref } from '@/lib/record-evidence';
 
 export function recordValue(row: RecordRow, percent = false, asYear = false) {
   return row.display || (asYear ? String(row.value) : `${number(row.value, percent ? 1 : 0)}${percent ? " %" : ""}`);
@@ -29,6 +30,7 @@ export function RecordRanking({
   small = false,
   priorValue,
   asYear = false,
+  evidence,
 }: {
   rows: RecordRow[];
   offset?: number;
@@ -36,6 +38,7 @@ export function RecordRanking({
   small?: boolean;
   priorValue?: number;
   asYear?: boolean;
+  evidence?: { id: string; filters: Record<string,string|undefined> };
 }) {
   return (
     <div className={`rv-ranking-wrap${small ? " rv-ranking-wrap-small" : ""}${asYear ? " rv-ranking-wrap-year" : ""}`}>
@@ -49,6 +52,7 @@ export function RecordRanking({
             <div className="rv-ranking-person">
               <Link href={row.href} className="rv-ranking-name">{row.name}</Link>
               <span className="rv-ranking-detail">{row.detail}</span>
+              {evidence && <Link prefetch={false} className="rv-ranking-proof" href={evidenceHref(evidence.id,row,evidence.filters)}>Ver todos los partidos ↗</Link>}
               {row.proof && row.href !== `/match/${row.proof.match_id}` && (
                 <Link className="rv-ranking-proof" href={`/match/${row.proof.match_id}`}>
                   Ver partido
@@ -68,7 +72,7 @@ export function RecordRanking({
   );
 }
 
-export function RecordEras({ eras }: { eras: Era[] }) {
+export function RecordEras({ eras, cut = 2020 }: { eras: Era[]; cut?: number }) {
   return (
     <div className="rv-eras-list">
       {eras.map((era) => (
@@ -90,6 +94,7 @@ export function RecordEras({ eras }: { eras: Era[] }) {
               );
             })}
           </div>
+          <Link className="dx-inline-link" href={'/records/evidencia?'+new URLSearchParams({dato:'dos-epocas',nombre:era.name,corte:String(cut)})}>Ver todas las finales de ambos periodos ↗</Link>
         </article>
       ))}
     </div>

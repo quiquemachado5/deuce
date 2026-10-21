@@ -49,16 +49,26 @@ export default async function Home() {
 
   return <div className="deuce-home">
     <ArchiveNotice status={finals} />
+    <header className="dx-home-intro">
+      <Link href="/cobertura" className="dx-status-pill"><span aria-hidden="true" />{number(matches.length)} partidos. Un archivo abierto a explorar. <span aria-hidden="true">↗</span></Link>
+      <h1>El tenis.<br /><span>Visto de otra manera.</span></h1>
+      <p>Las grandes rivalidades. Las cifras inesperadas.<br />Y todos los partidos que cuentan la historia.</p>
+      <div className="dx-hero-actions"><Link className="dx-button" href="/records">Explorar el archivo <span aria-hidden="true">↗</span></Link><Link className="dx-button dx-button-secondary" href="/comparar">Comparar jugadores</Link></div>
+      <div className="dx-hero-footnote">DATOS REALES <i /> RESULTADOS CON CONTEXTO <i /> SIN CIFRAS INVENTADAS</div>
+    </header>
+    <div className="dx-section-heading"><div><p className="dx-eyebrow">MÁS ALLÁ DEL MARCADOR</p><h2>El dato cambia la historia.</h2></div><Link href="/records">Todas las estadísticas ↗</Link></div>
     {proof && winner && loser && lead ? <section className={`dh-lead${winnerPortrait ? " dh-has-image" : ""}`} aria-labelledby="dh-lead-title">
       <div className="dh-lead-copy">
         <p className="dh-lead-context"><i className={`dh-surface-dot dh-surface-${proof.surface}`} aria-hidden="true" />{tournamentName(proof.tournament)} · {proof.year} · {round(proof)}</p>
-        <h1 id="dh-lead-title">{winner} ganó con <span>{number(lead.value)} puntos menos.</span></h1>
+        <h2 id="dh-lead-title">{winner} ganó con <span>{number(lead.value)} puntos menos.</span></h2>
         <p className="dh-lead-rival">Contra {loser}</p>
         <p className="dh-lead-score">{score(proof)}</p>
         <div className="dh-lead-bottom"><Link href={`/match/${proof.match_id}`} className="dh-action">Ver el partido</Link><span>{number(fewerPoints.piece!.sample)} partidos con puntos totales publicados</span></div>
       </div>
       {winnerPortrait && <div className="dh-lead-visual"><Image src={winnerPortrait.src} alt={winner} fill sizes="(max-width: 759px) 100vw, (max-width: 1099px) 48vw, 600px" priority unoptimized /></div>}
-    </section> : <header className="dh-fallback"><h1>Resultados con contexto.</h1><p>Grand Slams, Masters y ATP en el archivo DEUCE.</p></header>}
+    </section> : <header className="dh-fallback"><h2>Resultados con contexto.</h2><p>Grand Slams, Masters y ATP en el archivo DEUCE.</p></header>}
+
+    <section className="dx-discover-strip" aria-label="Explorar DEUCE"><Link href="/comparar"><span className="dx-tile-number">01</span><h3>Dos nombres.<br />Un mismo criterio.</h3><p>Compara temporadas, superficies y edades.</p><span className="dx-tile-arrow" aria-hidden="true">↗</span></Link><Link href="/records?dato=finales-ganadas"><span className="dx-tile-number">02</span><h3>Un récord.<br />Toda su historia.</h3><p>De cada cifra a los partidos que la explican.</p><span className="dx-tile-arrow" aria-hidden="true">↗</span></Link><Link href="/cobertura"><span className="dx-tile-number">03</span><h3>Lo que sabemos.<br />Y lo que falta.</h3><p>Datos, fuentes y límites a la vista.</p><span className="dx-tile-arrow" aria-hidden="true">↗</span></Link></section>
 
     <div className="dh-feature-grid">
       {featured && <section className="dh-final" aria-labelledby="dh-final-title">

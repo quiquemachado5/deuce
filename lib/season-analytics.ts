@@ -3,6 +3,8 @@ import { matchStat, statNumber, statFraction } from './archive-insights'
 import { analyzePointTape } from './analytics/engine'
 import { eligibleMatch } from './quality'
 import { publishedMatchMinutes } from './duration'
+import { chronological } from './editorial'
+import { isRecordedTiebreak } from './historical-rules'
 
 export type PlayerRecord = {
   name: string
@@ -104,7 +106,7 @@ function calculateSeasonAnalytics(matches: Match[]) {
     const winner = match.winner! - 1
     const isFinal = match.round.toLowerCase() === 'final'
     const deciding = games.length > 1 && Math.abs(sets[0] - sets[1]) === 1
-    const tieBreaks = games.filter(([a, b]) => (a === 7 && b === 6) || (b === 7 && a === 6))
+    const tieBreaks = games.filter((_,index) => isRecordedTiebreak(match,index))
     const tapeReport = match.point_tape.length && match.quality?.tape!=='partial' ? analyzePointTape(match.point_tape) : null
     for (const [index, record] of [first, second].entries()) {
       const ex = record.extra
@@ -203,13 +205,12 @@ function calculateSeasonAnalytics(matches: Match[]) {
     rivalry.matches.push(match)
     rivalries.set(key, rivalry)
   }
-  // A streak follows the actual match dates, independent of API pagination order.
+  // Tournament start dates use round order; invalid results break continuity.
   const streaks = new Map<string, number>()
-  for (const match of [...matches].filter(eligibleMatch)
-    .sort((a, b) => a.score_summary.timestamp.localeCompare(b.score_summary.timestamp) || a.match_id.localeCompare(b.match_id))) {
+  for (const match of [...matches].sort(chronological)) {
     for (const side of [1, 2] as const) {
       const name = side === 1 ? match.player1.name : match.player2.name
-      const next = match.winner === side ? (streaks.get(name) || 0) + 1 : 0
+      const next = eligibleMatch(match) && match.winner === side ? (streaks.get(name) || 0) + 1 : 0
       streaks.set(name, next)
       const record = records.get(name)
       if (record && next > record.longestWinStreak) record.longestWinStreak = next

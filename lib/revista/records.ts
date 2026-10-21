@@ -11,6 +11,7 @@ import { analyzePointTape } from "../analytics/engine";
 import { tournamentName } from "../labels";
 import { yearExtent } from "./year-extent";
 import { publishedMatchMinutes } from "../duration";
+import { isRecordedTiebreak } from '../historical-rules';
 export const description =
   "Grand Slams, Masters y torneos ATP, leídos por el dato.";
 export type RecordRow = {
@@ -153,15 +154,15 @@ function grouped(
   );
 }
 const cache = new WeakMap<Match[], { day: string; pieces: RecordPiece[] }>();
-export function recordCatalog(matches: Match[], now = new Date()): RecordPiece[] {
+export function recordCatalog(matches: Match[], now = new Date(), only?: string): RecordPiece[] {
   const day = now.toISOString().slice(0, 10);
   const cached = cache.get(matches);
-  if (cached?.day === day) return cached.pieces;
+  if (cached?.day === day) return only ? cached.pieces.filter(p => p.id === only) : cached.pieces;
   const cacheKey = matches;
   matches = matches.filter(eligibleMatch);
-  const records = buildSeasonAnalytics(matches).players,
+  const records = () => buildSeasonAnalytics(cacheKey).players,
     reliable = matches.filter((m) => m.quality?.tape === "reliable"),
-    prs = buildSeasonAnalytics(reliable).players,
+    prs = () => buildSeasonAnalytics(reliable).players,
     finals = matches.filter((m) => eligibleMatch(m) && final(m)),
     result: RecordPiece[] = [];
   const add = (
@@ -169,14 +170,15 @@ export function recordCatalog(matches: Match[], now = new Date()): RecordPiece[]
     title: string,
     group: string,
     definition: string,
-    rows: RecordRow[],
+    rows: RecordRow[] | (() => RecordRow[]),
     min = 1,
     percent = false,
     source = matches,
     measured = false,
     asc = false,
   ) => {
-    rows = rows
+    if (only && id !== only) return;
+    rows = (typeof rows === 'function' ? rows() : rows)
       .filter(
         (r) =>
           Number.isFinite(r.value) &&
@@ -211,6 +213,7 @@ export function recordCatalog(matches: Match[], now = new Date()): RecordPiece[]
     min = 1,
     pressure = false,
   ) => {
+    if (only && id !== only) return;
     const def = rankingMetrics.find((m) => m.key === key);
     if (!def) return;
     const opponentRankLimit =
@@ -235,9 +238,7 @@ export function recordCatalog(matches: Match[], now = new Date()): RecordPiece[]
       if (key === "five-set-wins" || key === "five-set-rate")
         return m.score_summary.games.length === 5;
       if (key === "tiebreaks")
-        return m.score_summary.games.some(
-          (g) => Math.max(...g) === 7 && Math.min(...g) === 6,
-        );
+        return m.score_summary.games.some((_,index) => isRecordedTiebreak(m,index));
       if (key === "deciders") return isDeciding(m);
       if (key === "straight-sets")
         return m.score_summary.sets.some((n) => n === 0);
@@ -272,7 +273,7 @@ export function recordCatalog(matches: Match[], now = new Date()): RecordPiece[]
           const opponentRank = side === 1 ? m.context?.rank2 : m.context?.rank1;
           if (!opponentRank || opponentRank > opponentRankLimit || opponentRank < 1 || winnerName(m) !== n) continue;
         }
-        if (key === "tiebreaks" && !m.score_summary.games.some(g => g[side-1] === 7 && g[2-side] === 6)) continue;
+        if (key === "tiebreaks" && !m.score_summary.games.some((g,index) => isRecordedTiebreak(m,index) && g[side-1] > g[2-side])) continue;
         if (key === "matchpoints-saved" && !m.point_tape.some(p => p.is_match_point && p.match_point_for === 3-side && p.winner === side)) continue;
         if (key === "thirty-all-games") {
           const lever = analyzePointTape(m.point_tape).pressure.thirtyAll[side === 1 ? "first" : "second"];
@@ -281,7 +282,7 @@ export function recordCatalog(matches: Match[], now = new Date()): RecordPiece[]
         if (["break-conversion", "break-saved"].includes(key) && !(statFraction(m, side, measuredKeys[key])?.[1])) continue;
         if (!proof.has(n) || chronological(proof.get(n)!, m) < 0) proof.set(n, m);
       }
-    const rows = (pressure ? prs : records).flatMap((r) => {
+    const rows = (pressure ? prs() : records()).flatMap((r) => {
       let value = def.value(r);
       if (value === null) return [];
       let detail = def.detail(r);
@@ -341,7 +342,7 @@ export function recordCatalog(matches: Match[], now = new Date()): RecordPiece[]
       title,
       group,
       definition,
-      source.map((m) => matchRow(m, value(m), display?.(m))),
+      () => source.map((m) => matchRow(m, value(m), display?.(m))),
       1,
       false,
       source,
@@ -351,7 +352,7 @@ export function recordCatalog(matches: Match[], now = new Date()): RecordPiece[]
     "Más finales ganadas en este archivo",
     "Títulos y finales",
     "Títulos obtenidos en finales con resultado completo. No son todos los títulos de una carrera.",
-    records.map((r) =>
+    () => records().map((r) =>
       person(
         r.name,
         r.finalsWon,
@@ -375,7 +376,7 @@ export function recordCatalog(matches: Match[], now = new Date()): RecordPiece[]
     "Efectividad en finales",
     "Títulos y finales",
     "Finales ganadas entre finales disputadas. Muestras inferiores a 50, en una lista secundaria.",
-    records.map((r) =>
+    () => records().map((r) =>
       person(
         r.name,
         (r.finalsWon / r.finalsPlayed) * 100,
@@ -440,6 +441,7 @@ export function recordCatalog(matches: Match[], now = new Date()): RecordPiece[]
     ["ATP 500", "atp-500"],
     ["ATP 250", "atp-250"],
   ] as const) {
+    if (only && !only.startsWith(slug)) continue;
     const tierMatches = matches.filter(
       (m) => m.category === category && m.year >= 2023,
     );
@@ -547,7 +549,7 @@ export function recordCatalog(matches: Match[], now = new Date()): RecordPiece[]
     );
   }
   const finalsByName = new Map<string, Match[]>();
-  for (const m of [...finals].sort(chronological))
+  for (const m of [...cacheKey].filter(final).sort(chronological))
     for (const n of [m.player1.name, m.player2.name]) {
       const list = finalsByName.get(n) || [];
       list.push(m);
@@ -559,7 +561,7 @@ export function recordCatalog(matches: Match[], now = new Date()): RecordPiece[]
         streak = 0,
         proof: Match | undefined;
       for (const m of list) {
-        streak = (winnerName(m) === name) === won ? streak + 1 : 0;
+        streak = eligibleMatch(m) && (winnerName(m) === name) === won ? streak + 1 : 0;
         if (streak > best) {
           best = streak;
           proof = m;
@@ -620,10 +622,10 @@ export function recordCatalog(matches: Match[], now = new Date()): RecordPiece[]
     ),
   );
   const streakProof = new Map<string, {current:number; best:number; proof?:Match}>();
-  for (const m of [...matches].sort((a,b) => a.score_summary.timestamp.localeCompare(b.score_summary.timestamp) || a.match_id.localeCompare(b.match_id))) {
+  for (const m of [...cacheKey].sort(chronological)) {
     for (const n of [m.player1.name, m.player2.name]) {
       const v = streakProof.get(n) || {current:0,best:0};
-      v.current = winnerName(m) === n ? v.current + 1 : 0;
+      v.current = eligibleMatch(m) && winnerName(m) === n ? v.current + 1 : 0;
       if (v.current > v.best) { v.best = v.current; v.proof = m; }
       streakProof.set(n,v);
     }
@@ -632,8 +634,8 @@ export function recordCatalog(matches: Match[], now = new Date()): RecordPiece[]
     "rachas",
     "Rachas de victorias en este archivo",
     "Victorias",
-    "Resultados completos consecutivos entre los torneos incluidos. No es una racha de todo el circuito.",
-    records.map((r) =>
+    "Resultados completos consecutivos del archivo. Un resultado inválido corta el tramo; fechas de inicio de torneo se ordenan por ronda. Los partidos ausentes no se reconstruyen. No es una racha de todo el circuito.",
+    () => records().map((r) =>
       person(
         r.name,
         r.longestWinStreak,
@@ -917,6 +919,7 @@ export function recordCatalog(matches: Match[], now = new Date()): RecordPiece[]
   for (const shelf of shelves.filter(
     (s) => s.family === "Saque, resto, golpes" && s.metric,
   )) {
+    if (only && shelf.id !== only) continue;
     const def = shelf.metric!,
       stat =
         measuredKeys[def.key] ||
@@ -933,7 +936,7 @@ export function recordCatalog(matches: Match[], now = new Date()): RecordPiece[]
             (p) => p.is_break_point && p.first_serve_in === false,
           ),
     );
-    const rows = records.flatMap((r) => {
+    const rows = records().flatMap((r) => {
       let value = def.value(r);
       if (value === null) return [];
       const detail = def.detail(r);
@@ -964,7 +967,7 @@ export function recordCatalog(matches: Match[], now = new Date()): RecordPiece[]
       true,
     );
   }
-  cache.set(cacheKey, { day, pieces: result });
+  if (!only) cache.set(cacheKey, { day, pieces: result });
   return result;
 }
 export function playerFact(

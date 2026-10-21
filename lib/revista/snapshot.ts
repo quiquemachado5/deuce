@@ -5,7 +5,7 @@ import { buildSeasonAnalytics, type PlayerRecord } from '../season-analytics';
 import { recordCatalog, eraComparisons, type RecordPiece, type RecordRow, type Era } from './records';
 export const SNAPSHOT_SCHEMA = 6;
 // Bump whenever derivation rules change, even if source matches do not.
-export const RULES_VERSION = '2026-10-surfaces-v1';
+export const RULES_VERSION = '2026-10-evidence-chronology-v2';
 export const PAGE_SIZE = 25;
 export const PIECE_CHUNK_PAGES = 50;
 export const pieceChunk = (page:number) => Math.floor((page-1)/PIECE_CHUNK_PAGES);

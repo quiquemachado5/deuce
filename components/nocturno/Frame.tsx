@@ -115,9 +115,11 @@ const destinations = [
   { label: "Jugadores", href: "/jugadores" },
   { label: "Torneos", href: "/tournaments" },
   { label: "Cara a cara", href: "/jugadores?tipo=parejas" },
+  { label: "Comparar", href: "/comparar" },
 ] as const;
 
 function pageLabel(path: string) {
+  if (path === '/comparar') return 'Comparar';
   if (path.startsWith("/records")) return "Estadísticas";
   if (path.startsWith("/rivalries")) return "Cara a cara";
   if (path.startsWith("/players") || path === "/jugadores") return "Jugadores";

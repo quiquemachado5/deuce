@@ -26,5 +26,7 @@ jobs:
       - run: npm run build
       - run: npm run typecheck
       - run: npm run data:verify
+      - run: npm run data:evidence
+      - run: npm run data:restore-drill
       - run: npx playwright install --with-deps chromium
       - run: npm run test:browser

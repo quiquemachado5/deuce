@@ -79,3 +79,26 @@
 ## Puerta de release
 
 No promocionar solo porque compila: ejecutar build, pruebas, verificación del archivo, comparación del dataset remoto, revisión del diff y una preview del mismo entorno de datos. Conservar la generación anterior para rollback. La prueba local no acredita la configuración del WAF ni los permisos reales de la base de datos.
+
+## Tercera entrega: producto, diseño y operaciones (21/10/2026)
+
+- Rediseño compartido de portada, cabecera, tarjetas, clasificaciones, filtros, cobertura y fichas: tipografía del sistema, superficies neutras, espacios amplios, radios y estados coherentes, claro/oscuro y movimiento reducido. Inspiración Apple/Revolut, identidad DEUCE.
+- `/comparar`: dos jugadores, temporada, superficie, competición, edad publicada y mínimo de muestra; datos ausentes explícitos y acceso a toda la muestra. Autocompletado sin enviar el directorio entero al navegador.
+- `/records/evidencia`: listas completas paginadas detrás de cada entrada, identidad y filtros comprobados contra la generación activa; diferencia entre partidos, puntos, juegos y oportunidades.
+- Índice por jugador/año/ID, selección acotada por generación, caché entre paginaciones y cálculo por métrica con agregados diferidos.
+- Fechas de fuente y rondas antes que IDs en cronología; resultados inválidos cortan rachas. Reglas de desempate históricas documentadas. Recuperados Federer–Djokovic (Wimbledon 2019) y Rinderknech–Otte (2021), antes excluidos por su 13–12.
+- `/cobertura/revision`: 42 grupos candidatos, 15 con marcadores distintos y 27 con mismo marcador/fechas distintas. No se han borrado ni fusionado partidos.
+- Supabase: revisión real de grants/RLS/RPC; hardening aplicado, pruebas por rol correctas y sin errores/advertencias posteriores en advisor. Se recuperó del historial la migración original de las dos tablas de archivo; NO el esquema histórico completo de los demás servicios.
+- Workflow de monitor externo con incidencias deduplicadas, recuperación y mínimos de volumen/catálogo; se activa al integrarse en `main`, sujeto a GitHub Actions y preferencias de notificación.
+- Ensayo de copia y restauración de los artefactos publicados con SHA-256, sin tocar producción. No equivale a PITR de Supabase.
+- Verificación local: 22 pruebas unitarias, 12 recorridos de navegador (incluido axe en claro/oscuro), build/TypeScript/lint, integridad y 266 entradas de evidencia entre 90 estadísticas. Copia local: 176.265 partidos; producción conserva enriquecimiento adicional y se valida aparte.
+- No se implementa el punto 5: favoritos, colecciones, cuentas ni nueva navegación móvil.
+
+### Pendientes que no deben presentarse como resueltos
+
+- Contraste documental y resolución de los 42 grupos; rankings históricos 2023–2025 ausentes de la base disponible (solo hay snapshots remotos desde agosto de 2026).
+- Backups físicos/PITR: la CLI necesita sesión autorizada; no se ha restaurado ni certificado la base completa.
+- Activación efectiva de protección de `main`: necesita sesión de administración en GitHub; el navegador integrado está sin autenticar. No confundir CI configurada con protección activada.
+- WAF/rate limiting distribuido, CSP estricta, avisos del proveedor/costes y los avisos de dependencias de desarrollo siguen fuera de esta entrega.
+
+Procedimientos, fuentes y límites: [docs/OPERATIONS.md](docs/OPERATIONS.md).

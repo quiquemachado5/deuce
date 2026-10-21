@@ -7,9 +7,11 @@ import {cloudClient} from '../cloud-archive';
 import {asyncCache} from '../async-cache';
 import type {Match} from '../types';
 import type {PlayerRecord} from '../season-analytics';
-import {recordCatalog,eraComparisons,type Era,type RecordRow} from './records';
+import {eraComparisons,type Era,type RecordRow} from './records';
 import {clampPage,pageBoundaryTies,pieceChunk,PAGE_SIZE,SNAPSHOT_SCHEMA,RULES_VERSION,type RecordManifest,type RecordMeta,type RecordPages} from './snapshot';
 import {selectGeneration,type PreparedGeneration,type GenerationStatus} from './generation';
+import {selectedArchive, selectedCatalog} from './selection';
+import {archiveIndex} from '../archive-index';
 const bundled=asyncCache<unknown>(3600_000,100);
 async function local<T>(id:string):Promise<T>{return await bundled(id,async()=>JSON.parse(gunzipSync(await readFile(join(process.cwd(),'data','reading',`${id}.json.gz`))).toString())) as T;}
 const remote=asyncCache<any>(300_000,32);
@@ -64,9 +66,8 @@ export const recordView=cache(async(encoded:string,recomputed=false):Promise<Rec
  const filtered=!!([q.year,q.surface,q.competition].some(v=>v&&v!=='all'));
  if(!q.dato)return initial(g);
  if(filtered||recomputed){
-   const matches=await g.matches();
-   const selected=matches.filter(x=>(!q.year||q.year==='all'||x.year===Number(q.year))&&(!q.surface||q.surface==='all'||x.surface===q.surface)&&(!q.competition||q.competition==='all'||x.category===q.competition));
-   const catalog=recordCatalog(selected,new Date(m.generatedAt)),piece=catalog.find(p=>p.id===q.dato),view={...initial(g),filtered,recomputed,exists:m.pieces.some(p=>p.id===q.dato)};
+   const selected=await selectedArchive(g,q);
+   const catalog=await selectedCatalog(g,q,q.dato),piece=catalog.find(p=>p.id===q.dato),view={...initial(g),filtered,recomputed,exists:m.pieces.some(p=>p.id===q.dato)};
    if(q.dato==='dos-epocas'){const rows=eraComparisons(selected,Number(q.corte)||2020);view.eraTotal=rows.length;view.page=clampPage(q.page,rows.length);view.eras=rows.slice((view.page-1)*PAGE_SIZE,view.page*PAGE_SIZE);return view;}
    if(!piece)return {...view,...(['top-10','top-5','numero-uno'].includes(q.dato)&&selected.length>0&&!selected.some(x=>x.context?.rank1||x.context?.rank2)?{emptyReason:'ranking' as const}:{})};
    const big=piece.rows.filter(r=>!piece.percent||r.sample>=50),small=piece.percent?piece.rows.filter(r=>r.sample<50):[];
@@ -107,7 +108,7 @@ export const recordView=cache(async(encoded:string,recomputed=false):Promise<Rec
 export const preparedArchive = cache(async (): Promise<Match[]> => {
  return (await preparedGeneration()).matches();
 });
-export const preparedMatch = cache(async (id:string) => (await preparedArchive()).find(match=>match.match_id===id));
+export const preparedMatch = cache(async (id:string) => archiveIndex(await preparedArchive()).ids.get(id));
 
 /** Matches and player aggregates always come from the same published generation. */
 export const preparedPlayerArchive = cache(async () => {

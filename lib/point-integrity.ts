@@ -1,4 +1,5 @@
 import type { Match, Point } from './types'
+import { isRecordedTiebreak, tiebreakTarget } from './historical-rules'
 
 const normalScore=(wins:number[])=>{
  if(wins[0]>=3&&wins[1]>=3)return wins[0]===wins[1]?'40-40':wins[0]>wins[1]?'AD-40':'40-AD'
@@ -28,7 +29,7 @@ export function normalizePointTape(points: Point[]) {
   return removed.size ? points.flatMap((point,index)=>removed.has(index)?[]:[replaced.get(index)||point]) : points
 }
 /** A game is usable only when every point from love to its closing point is present. */
-export function completeGames(points: Point[]) {
+export function completeGames(points: Point[], match?: Match) {
   points = normalizePointTape(points)
   const groups = new Map<string, Point[]>()
   for (const p of points) { const key = `${p.set}/${p.game}`; const rows = groups.get(key) || []; rows.push(p); groups.set(key, rows) }
@@ -37,22 +38,22 @@ export function completeGames(points: Point[]) {
     if (rows.length < 4 || !last.game_ended || !last.winner || first.score_before?.replace(/[–:]/g, '-') !== '0-0') return false
     if (rows.some((p,i) => !p.winner || (i > 0 && p.point_number !== rows[i-1].point_number + 1))) return false
     const numeric = /^([01])-([01])$/.test(normalized(first.score))
+    const target = numeric ? tiebreakTarget(match,first.set) : 4
     const running=[0,0]
     for(const [i,p] of rows.entries()){
       if(normalized(p.score_before||'') !== (numeric?running.join('-'):normalScore(running)))return false
       running[p.winner!-1]++
-      if((!numeric || first.set!==5) && i<rows.length-1 && Math.max(...running)>=(numeric?7:4) && Math.abs(running[0]-running[1])>=2)return false
+      if(target !== null && i<rows.length-1 && Math.max(...running)>=target && Math.abs(running[0]-running[1])>=2)return false
       if(!p.game_ended && normalized(p.score)!==(numeric?running.join('-'):normalScore(running)))return false
     }
     const wins = [rows.filter(p=>p.winner===1).length,rows.filter(p=>p.winner===2).length]
-    const target = numeric ? 7 : 4
-    return wins[last.winner-1] >= target && wins[last.winner-1] - wins[2-last.winner] >= 2
+    return wins[last.winner-1] >= (target ?? 7) && wins[last.winner-1] - wins[2-last.winner] >= 2
   })
 }
 export function tapeIntegrity(match: Match) {
   const tape = normalizePointTape(match.point_tape)
   if (!tape.length) return { state: 'none' as const, usable: [] as Point[] }
-  const groups = completeGames(tape)
+  const groups = completeGames(tape,match)
   const usable = groups.flat()
   const gameCounts = match.score_summary.games.map((_,i) => [groups.filter(g=>g[0].set===i+1 && g.at(-1)!.winner===1).length,groups.filter(g=>g[0].set===i+1 && g.at(-1)!.winner===2).length])
   const scoresMatch = gameCounts.every((pair,i)=>pair.every((n,side)=>n===match.score_summary.games[i][side]))
@@ -62,11 +63,11 @@ export function tapeIntegrity(match: Match) {
 }
 export function gameProgress(match: Match) {
   if (match.quality?.tape === 'partial' || match.quality?.result === 'review') return []
-  const games = completeGames(match.point_tape)
+  const games = completeGames(match.point_tape,match)
   if (!games.length) return []
   let difference = 0
   return games.map(rows => { const p=rows.at(-1)!; difference += p.winner===1 ? 1 : -1; return { point:p, difference, isBreak:p.game!==13 && p.server!==null && p.winner!==p.server } })
 }
 export function recordedTiebreaks(match: Match) {
-  return completeGames(match.point_tape).filter(rows => rows[0].game===13 && match.score_summary.games[rows[0].set-1]?.slice().sort((a,b)=>a-b).join(',')==='6,7')
+  return completeGames(match.point_tape,match).filter(rows => isRecordedTiebreak(match,rows[0].set-1) && rows[0].game === match.score_summary.games[rows[0].set-1].reduce((a,b)=>a+b,0))
 }

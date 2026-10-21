@@ -12,6 +12,9 @@
     "test:browser": "playwright test",
     "data:prepare": "node --import ./build/register.mjs --import tsx build/prepare-records.ts",
     "data:verify": "node --import ./build/register.mjs --import tsx build/verify-archive.ts",
+    "data:evidence": "node --import ./build/register.mjs --import tsx build/verify-evidence.ts",
+    "data:restore-drill": "node build/restore-drill.mjs",
+    "monitor:check": "node ops/monitor.mjs --check-only",
     "verify": "npm run test && npm run lint && npm run typecheck && npm run data:verify"
   },
   "dependencies": {

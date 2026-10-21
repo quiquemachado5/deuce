@@ -492,6 +492,7 @@ export default async function Player({ params, searchParams }: Props) {
             <span>· {number(years.length)} temporadas registradas</span>
           </p>
           <p className="nc-meta">Grand Slams y torneos ATP de este archivo.</p>
+          <Link className="dx-inline-link" href={`/comparar?a=${encodeURIComponent(player.name)}`}>Comparar por temporada, edad o superficie ↗</Link>
           <dl className="ry-player-totals">
             <div>
               <dt>Victorias</dt>
