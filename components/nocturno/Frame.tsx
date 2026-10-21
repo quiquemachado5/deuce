@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { Menu, Search, X } from "lucide-react";
@@ -414,42 +413,9 @@ export default function Frame({ children }: { children: React.ReactNode }) {
           {children}
         </main>
         <footer className="ry-footer">
-          <div className="deuce-footer-panel">
-            <Link
-              href="/"
-              className="deuce-footer-brand"
-              aria-label="DEUCE, volver al inicio"
-            >
-              DEUCE
-            </Link>
-            <nav className="deuce-footer-courts" aria-label="Pistas">
-              {[
-                ["grass", "Hierba", "wimbledon"],
-                ["clay", "Tierra", "roland-garros"],
-                ["hard", "Dura", "us-open"],
-              ].map(([surface, label, image]) => (
-                <Link
-                  key={surface}
-                  href={`/buscar?surface=${surface}`}
-                  data-event-surface={surface}
-                >
-                  <Image
-                    src={`/images/courts/${image}.jpg`}
-                    width={160}
-                    height={96}
-                    sizes="80px"
-                    alt=""
-                  />
-                  <span>
-                    <i
-                      className={`nc-dot nc-dot-${surface}`}
-                      aria-hidden="true"
-                    />
-                    {label}
-                  </span>
-                </Link>
-              ))}
-            </nav>
+          <div className="deuce-footer-top">
+            <Link href="/" className="deuce-footer-brand" aria-label="DEUCE, volver al inicio">DEUCE</Link>
+            <nav className="deuce-footer-navigation" aria-label="Archivo"><Link href="/partidos">Partidos</Link><Link href="/records">Estadísticas</Link><Link href="/jugadores">Jugadores</Link><Link href="/tournaments">Torneos</Link></nav>
           </div>
           <div className="ry-footer-inner">
             <nav aria-label="Información">

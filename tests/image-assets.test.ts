@@ -2,6 +2,7 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import { existsSync } from 'node:fs'
 import cached from '../lib/player-photo-manifest.json'
+import refreshed from '../lib/player-photo-refresh.json'
 import imageLoader from '../lib/image-loader'
 import { courtPhotoForEdition, courtPhotos } from '../lib/imagery'
 import { playerPhoto, playerPhotos } from '../lib/player-imagery'
@@ -14,12 +15,17 @@ test('the player directory serves cached local photos with their actual sources'
     assert.ok(thumbnail && existsSync(`public${thumbnail}`), `missing ${name} thumbnail`)
   }
 
-  for (const name of ['Carlos Alcaraz', 'Jannik Sinner', 'Alex De Minaur']) {
+  for (const name of ['Jannik Sinner', 'Alex De Minaur']) {
     assert.equal(playerPhoto(name)?.source, cached[name as keyof typeof cached].source)
     assert.equal(playerPhoto(name)?.credit, cached[name as keyof typeof cached].credit)
   }
   assert.match(playerPhoto('Novak Djokovic')?.source || '', /2025_Miami_Open/)
-  assert.match(playerPhoto('Rafael Nadal')?.source || '', /2022USOpen/)
+  assert.match(playerPhoto('Rafael Nadal')?.source || '', /2024/)
+  for (const [name, photo] of Object.entries(refreshed)) {
+    assert.equal(playerPhoto(name)?.src, photo.src)
+    assert.ok(photo.photoYear >= 2024)
+    assert.ok(photo.licenseUrl && photo.source)
+  }
   assert.equal(playerPhoto('Marin Cilic')?.src, playerPhoto('Marin Čilić')?.src)
   assert.equal(playerPhoto('Felix Auger–Aliassime')?.src, playerPhoto('Félix Auger-Aliassime')?.src)
 })

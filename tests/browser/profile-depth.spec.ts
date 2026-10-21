@@ -74,20 +74,16 @@ test("player discovery is available without JavaScript and Otro dato changes the
   expect(Math.abs(changedBox!.height - initialBox!.height)).toBeLessThan(1);
 });
 
-test("player bio supplies the flag and the mobile calendar identifies champion, finalist and semifinalist with direct evidence", async ({
+test("player bio names the country without a flag and the mobile calendar identifies champion, finalist and semifinalist with direct evidence", async ({
   page,
 }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.emulateMedia({ colorScheme: "light", reducedMotion: "reduce" });
   await page.goto(profile);
-  // The existing provider biography records Djokovic as srb; the flag is decorative beside its text.
+  // The country remains readable while flags are removed from the visual layout.
   const country = page.locator(".ry-player-bio .pd-country");
   await expect(country).toHaveText("Serbia");
-  await expect(country.locator("img")).toHaveAttribute(
-    "src",
-    "/images/flags/rs.svg",
-  );
-  await expect(country.locator("img")).toHaveAttribute("alt", "");
+  await expect(country.locator("img")).toHaveCount(0);
 
   const calendar = page.getByRole("region", { name: "Calendario del archivo" });
   await expect(calendar.locator(".ry-selected-season")).toHaveText("2014");

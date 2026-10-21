@@ -53,15 +53,15 @@ test("five-set score stays readable without duplicate photos or an invented sequ
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/match/archive-148401");
   await expect(
-    page.locator(".match-setboard .ry-scoreboard caption"),
+    page.locator(".match-setboard .set-scoreboard table caption"),
   ).toContainText("6–7(5), 6–7(8)");
   await expect(
-    page.locator(".match-setboard .ry-scoreboard thead th"),
-  ).toHaveCount(6);
+    page.locator(".match-setboard .set-scoreboard table thead th"),
+  ).toHaveCount(7);
   await expect(page.locator(".match-hero-scene img")).toBeVisible();
   await expect(page.locator(".match-setboard img")).toHaveCount(0);
-  await expect(page.locator(".ry-scoreboard sup")).toHaveCount(0);
-  await expect(page.locator(".ry-set-tiebreak").first()).toHaveText("(5)");
+  await expect(page.locator(".set-scoreboard table sup")).toHaveCount(0);
+  await expect(page.locator(".set-tie").first()).toHaveText("(5)");
   await expect(page.locator(".ds-set-picker")).toHaveCount(0);
   for (const width of [320, 390, 768, 1440]) {
     await page.setViewportSize({ width, height: 900 });
@@ -71,43 +71,42 @@ test("five-set score stays readable without duplicate photos or an invented sequ
       ),
     ).toBe(true);
   }
-  await expect(page.locator(".ry-set-tiebreak").first()).toBeVisible();
+  await expect(page.locator(".set-tie").first()).toBeVisible();
   expect(
     await page
-      .locator(".ry-set-tiebreak")
+      .locator(".set-tie")
       .first()
       .evaluate((el) => getComputedStyle(el).verticalAlign),
   ).toBe("baseline");
 });
-test("verified game flow has readable axes, moments and an equivalent table", async ({
-  page,
-}) => {
+test("match measures compare actual values without a redundant replay or filled winning sets", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/match/live-203807");
-  const flow = page.locator(".ry-game-flow");
-  await expect(flow).toBeVisible();
-  await expect(flow.locator(".ry-game-flow-axis span")).toHaveCount(3);
-  await expect(flow.getByRole("img")).toHaveAttribute(
-    "aria-label",
-    /eje horizontal de 0 a 20, eje vertical/,
-  );
-  await flow.getByText("Ver juegos en tabla").click();
-  await expect(
-    flow.getByRole("table", { name: /Juegos cerrados y verificados/ }),
-  ).toBeVisible();
-  await expect(flow.locator("tbody tr").first()).toContainText("juego");
-  const moment = flow.getByRole("button", { name: /Break de/ }).first();
-  await moment.click();
-  await expect(flow.locator(".match-replay-moment")).toContainText("Set");
-  await flow.getByRole("button", { name: "Reproducir momentos" }).click();
-  await expect(
-    flow.getByRole("button", { name: "Pausar momentos" }),
-  ).toBeVisible();
-  await flow.getByRole("button", { name: "Pausar momentos" }).click();
-  await expect(moment).toHaveAttribute("aria-pressed", "true");
-  expect(
-    await page.evaluate(
-      () => document.documentElement.scrollWidth <= innerWidth,
-    ),
-  ).toBe(true);
+  await expect(page.getByRole("heading", { name: "El partido en cifras" })).toBeVisible();
+  await expect(page.getByText("Así se decidió", { exact: true })).toHaveCount(0);
+  await expect(page.getByText("Roto", { exact: true })).toHaveCount(0);
+  for (const cell of await page.locator('.set-scoreboard [data-set-won="true"]').all()) {
+    await expect(cell).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
+  }
+  await page.getByRole("tab", { name: "Medidas", exact: true }).click();
+  const measures = page.locator(".match-measurements");
+  await expect(measures.getByRole("heading", { name: "Medidas del partido" })).toBeVisible();
+  await expect(measures.locator(".measure-row").first()).toBeVisible();
+  await expect(measures.locator(".measure-row").first().getByRole("cell")).toHaveCount(2);
+  for (const width of [320, 390, 768, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  }
+  const audit = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa", "best-practice"]).analyze();
+  expect(audit.violations).toEqual([]);
+});
+test("records have straight separators, rounded hover and opaque navigation without sticky categories", async ({ page }) => {
+  await page.goto("/records");
+  await expect(page.locator(".rv-family-nav")).toHaveCSS("position", "static");
+  await expect(page.locator(".ry-header")).toHaveCSS("backdrop-filter", "none");
+  const row = page.locator(".rv-catalogue-row").first();
+  await expect(row).toHaveCSS("border-bottom-left-radius", "0px");
+  await row.hover();
+  expect(await row.evaluate(el => getComputedStyle(el, "::before").borderRadius)).toBe("16px");
+  expect(await row.evaluate(el => getComputedStyle(el, "::before").backgroundColor)).not.toBe("rgba(0, 0, 0, 0)");
 });

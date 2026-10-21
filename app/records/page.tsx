@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import { notFound } from "next/navigation";
 import { playerPhoto } from "@/lib/player-imagery";
 import { number } from "@/lib/cuaderno/model";
@@ -101,13 +100,13 @@ function RecordIndex({ manifest }: {
       </header>
       <RecordDiscovery facts={discoveryFacts(catalog)} />
       {surfaceRecords.length > 0 && <section className="rd-surfaces" aria-labelledby="rd-surfaces-title">
-        <div className="rd-surfaces-heading"><h2 id="rd-surfaces-title">El récord de títulos en cada pista</h2><span>En este archivo · una escala común</span></div>
+        <div className="rd-surfaces-heading"><h2 id="rd-surfaces-title">El récord de títulos en cada pista</h2></div>
         <div className="rd-surface-records">
           {surfaceRecords.map((piece) => <Link href={address({ dato: piece.id })} className="rd-surface-record" data-record-surface={piece.surface} key={piece.id}>
             <span className="rd-surface-label">{surfaceLabel[piece.surface as keyof typeof surfaceLabel]}</span>
             <span className="rd-surface-person"><PlayerAvatar name={piece.leader.name} size={40} /><span>{piece.leader.name}</span><strong>{recordValue(piece.leader)}</strong></span>
             <span className="rd-surface-track" aria-hidden="true"><span style={{ width: `${piece.leader.value / surfaceMaximum * 100}%` }} /></span>
-            <small>{piece.years} · Ver clasificación <ArrowUpRight size={13} aria-hidden="true" /></small>
+            <small>{piece.years} · Ver clasificación</small>
           </Link>)}
         </div>
       </section>}
@@ -133,20 +132,20 @@ function RecordIndex({ manifest }: {
                 <Link className="rv-catalogue-row" href={address({ dato: "dos-epocas", corte: String(cut) })} key={cut}>
                   <span className="rv-catalogue-name">Efectividad en finales · antes y desde {cut}</span>
                   <span className="rv-catalogue-leader">Mínimo 5 finales por época</span>
-                  <span className="rv-catalogue-action">Comparar <ArrowUpRight size={15} aria-hidden="true" /></span>
+                  <span className="rv-catalogue-action">Comparar</span>
                 </Link>
               ))}
               {group === "Un torneo" && TOURNAMENTS.map((tournament) => (
                 <Link className="rv-catalogue-row" href={`/torneos/${tournament.slug}`} data-event-surface={tournament.surface} data-event-category={tournament.category} key={tournament.slug}>
                   <span className="rv-catalogue-name">{tournamentName(tournament.name)}</span>
                   <span className="rv-catalogue-leader">{tournament.category === "Grand Slam" ? "Grand Slam" : "Masters desde 1990"}</span>
-                  <span className="rv-catalogue-action">Ver torneo <ArrowUpRight size={15} aria-hidden="true" /></span>
+                  <span className="rv-catalogue-action">Ver torneo</span>
                 </Link>
               ))}
               {group === "Un torneo" && <Link className="rv-catalogue-row" href="/tournaments">
                 <span className="rv-catalogue-name">Todos los torneos ATP 500 y ATP 250</span>
                 <span className="rv-catalogue-leader">Ediciones registradas desde 2023</span>
-                <span className="rv-catalogue-action">Ver torneos <ArrowUpRight size={15} aria-hidden="true" /></span>
+                <span className="rv-catalogue-action">Ver torneos</span>
               </Link>}
             </div>
           </>;

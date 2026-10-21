@@ -99,9 +99,6 @@ export default async function Tournament({ params, searchParams }: Props) {
           />
         )}
         <div className="td-venue-copy">
-          <Link href="/tournaments" className="td-breadcrumb">
-            Torneos <span aria-hidden="true">/</span> {categoryLabel(category)}
-          </Link>
           <h1>{tournamentName(tournament.name)}</h1>
           <p className="td-hero-court">
             <i

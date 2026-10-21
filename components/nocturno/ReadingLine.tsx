@@ -17,7 +17,7 @@ export default function ReadingLine({ match }: { match: Match }) {
   return (
     <section className="ds-match-story" aria-label="El desarrollo del partido">
       <div className="ry-section-heading">
-        <h2>Así se decidió</h2>
+        <h2>Juegos registrados</h2>
       </div>
       <GameFlow match={match} data={chart} />
       {chart.tiebreaks.map((points) => {

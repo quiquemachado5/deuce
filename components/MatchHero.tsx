@@ -10,7 +10,6 @@ import { tournamentCourt } from "@/lib/tournament-presentation";
 import { playerSlug } from "@/lib/explore";
 import { avatarPhotoStyle } from "@/lib/photo-style";
 import {
-  kind,
   round,
   score,
   sentence,
@@ -18,6 +17,7 @@ import {
 } from "@/lib/cuaderno/model";
 import Share from "@/components/nocturno/Share";
 import HomeFinalScore from "@/components/HomeFinalScore";
+import SetScoreboard from "@/components/SetScoreboard";
 
 export default function MatchHero({
   match,
@@ -31,7 +31,6 @@ export default function MatchHero({
   const event = tournamentDirectory([match])[0];
   const venue = courtPhoto(match.tournament);
   const result = match.quality?.result !== "review";
-  const type = result ? kind(match) : null;
   const candidate = result ? sentence(match) : "";
   const sample = candidate.match(/\bde (\d+) (?:juegos|bolas)/);
   const insight = sample && Number(sample[1]) < 3 ? "" : candidate;
@@ -105,7 +104,7 @@ export default function MatchHero({
                   aria-label={`Perfil de ${name}`}
                 >
                   <Image
-                    src={portrait.src}
+                    src={portrait.avatarCrop ? portrait.src : portrait.thumbnail || portrait.src}
                     alt={portrait.alt}
                     fill
                     sizes={
@@ -120,12 +119,13 @@ export default function MatchHero({
               )}
               <Link
                 className="match-contender-name"
+                data-winner={result && match.winner === index + 1}
                 href={`/players/${playerSlug(name)}`}
               >
                 {name}
               </Link>
               {result && match.winner === index + 1 && (
-                <span className="match-contender-winner">Ganador</span>
+                <span className="nc-sr">Ganador</span>
               )}
             </div>
           );
@@ -150,56 +150,9 @@ export default function MatchHero({
           </span>
         </div>
       </div>
-      <div className="match-setboard">
-        <table className="ry-scoreboard">
-          <caption className="nc-sr">
-            Resultado por sets desde {names[0]}: {score(match)}
-          </caption>
-          <thead>
-            <tr>
-              <th scope="col">Marcador</th>
-              {match.score_summary.games.map((_, index) => (
-                <th scope="col" key={index}>
-                  Set {index + 1}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {names.map((name, side) => (
-              <tr key={name}>
-                <th scope="row" aria-label={name}>
-                  <span>{name.split(" ").slice(-1).join(" ")}</span>
-                  {result && match.winner === side + 1 && (
-                    <span className="nc-sr">Ganador</span>
-                  )}
-                </th>
-                {match.score_summary.games.map((set, index) => {
-                  const tie = score(match)
-                    .split(", ")
-                    [index]?.match(/\((\d+)\)/);
-                  return (
-                    <td
-                      key={index}
-                      className={
-                        set[side] > set[1 - side] ? "ry-set-won" : undefined
-                      }
-                    >
-                      {set[side]}
-                      {tie && set[side] < set[1 - side] && (
-                        <span className="ry-set-tiebreak">({tie[1]})</span>
-                      )}
-                    </td>
-                  );
-                })}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      {(type || (insight && insight.length <= 90)) && (
+      <div className="match-setboard"><SetScoreboard match={match} /></div>
+      {insight && insight.length <= 90 && (
         <div className="match-hero-bottom">
-          {type && <span className="ry-match-type">{type}</span>}
           {insight && insight.length <= 90 && <p>{insight}</p>}
         </div>
       )}

@@ -4,20 +4,15 @@ import type { Match } from "@/lib/types";
 import { durationLabel } from "@/lib/editorial";
 import {
   statLabel,
-  categoryLabel,
-  periodLabel,
-  groupStatistics,
 } from "@/lib/statistics";
 import { type RivalrySummary } from "@/lib/explore";
 import {
   tapeState,
   pressure,
-  measuredFields,
   measuredValue,
   number,
-  lineData,
 } from "@/lib/cuaderno/model";
-import ReadingLine from "./ReadingLine";
+import MatchMeasures from "@/components/MatchMeasures";
 import MatchHero from "@/components/MatchHero";
 import { tournamentCourt } from "@/lib/tournament-presentation";
 import MatchTabs, { type MatchView } from "./MatchTabs";
@@ -118,198 +113,6 @@ function MatchPressure({
           </div>
         ))}
       </div>
-    </section>
-  );
-}
-
-function MatchMeasures({ match }: { match: Match }) {
-  const fields = measuredFields
-    .map((key) => ({
-      key,
-      values: ([1, 2] as const).map((side) => measuredValue(match, side, key)),
-    }))
-    .filter((row) => row.values.some((value) => value !== null));
-  const extraGroups = groupStatistics(match.statistics)
-    .map((group) => ({
-      ...group,
-      rows: group.rows.filter(
-        (row) =>
-          group.period.toLowerCase() !== "match" ||
-          !measuredFields.some(
-            (key) => key.toLowerCase() === row.name.toLowerCase(),
-          ),
-      ),
-    }))
-    .filter((group) => group.rows.length);
-  if (!fields.length && !extraGroups.length)
-    return (
-      <div className="ry-match-empty">
-        <h2>Medidas del partido</h2>
-        <p>La fuente no publicó medidas para este partido.</p>
-      </div>
-    );
-  const groups = [
-    {
-      title: "Servicio",
-      fields: fields.filter(({ key }) =>
-        /serve|service|aces|double faults|saque/i.test(key),
-      ),
-    },
-    {
-      title: "Resto",
-      fields: fields.filter(
-        ({ key }) =>
-          /return|break points converted|resto/i.test(key) &&
-          !/serve|service|saque/i.test(key),
-      ),
-    },
-    {
-      title: "Puntos y golpes",
-      fields: fields.filter(
-        ({ key }) =>
-          !/serve|service|aces|double faults|saque|return|break points converted|resto/i.test(
-            key,
-          ),
-      ),
-    },
-  ].filter((group) => group.fields.length);
-  const magnitude = (value: string | null) =>
-    value
-      ? Number(
-          value
-            .match(/^[\d.,]+/)?.[0]
-            .replace(/\./g, "")
-            .replace(",", "."),
-        )
-      : NaN;
-  return (
-    <section className="ry-measures">
-      <div className="ry-section-heading">
-        <h2>Medidas del partido</h2>
-      </div>
-      {groups.map((group) => (
-        <div className="ry-stat-group" key={group.title}>
-          <h3>{group.title}</h3>
-          <div className="ry-table-scroll">
-            <table className="ry-stat-table">
-              <caption className="nc-sr">
-                {group.title}, estadísticas publicadas para este partido.
-              </caption>
-              <thead>
-                <tr>
-                  <th scope="col">Dato</th>
-                  <th scope="col">{match.player1.name}</th>
-                  <th scope="col">{match.player2.name}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {group.fields.map((field) => {
-                  const values = field.values.map(magnitude),
-                    common = field.values.some((value) => value?.includes("%"))
-                      ? 100
-                      : Math.max(1, ...values.filter(Number.isFinite));
-                  return (
-                    <tr key={field.key}>
-                      <th scope="row">{statLabel(field.key)}</th>
-                      {field.values.map((value, index) => (
-                        <td
-                          key={index}
-                          data-player={
-                            index === 0
-                              ? match.player1.name
-                              : match.player2.name
-                          }
-                        >
-                          {value ? (
-                            <span className="ry-measure-cell">
-                              <strong>{value}</strong>
-                              {Number.isFinite(values[index]) && (
-                                <i
-                                  aria-hidden="true"
-                                  style={{
-                                    width: `${Math.min(100, Math.max(0, (values[index] / common) * 100))}%`,
-                                  }}
-                                />
-                              )}
-                            </span>
-                          ) : (
-                            <span
-                              className="ry-no-value"
-                              aria-label="No publicado"
-                            >
-                              —
-                            </span>
-                          )}
-                        </td>
-                      ))}
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      ))}
-      {extraGroups.length > 0 && (
-        <details className="ry-more-measures">
-          <summary>
-            Más medidas publicadas ·{" "}
-            {number(
-              extraGroups.reduce((sum, group) => sum + group.rows.length, 0),
-            )}
-          </summary>
-          {extraGroups.map((group) => (
-            <div className="ry-stat-group" key={group.key}>
-              <h3>
-                {periodLabel(group.period)} · {categoryLabel(group.category)}
-              </h3>
-              <div className="ry-table-scroll">
-                <table className="ry-stat-table">
-                  <caption className="nc-sr">
-                    {periodLabel(group.period)}, {categoryLabel(group.category)}
-                    .
-                  </caption>
-                  <thead>
-                    <tr>
-                      <th scope="col">Dato</th>
-                      <th scope="col">{match.player1.name}</th>
-                      <th scope="col">{match.player2.name}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {group.rows.map((row) => (
-                      <tr key={row.key}>
-                        <th scope="row">{statLabel(row.name)}</th>
-                        {[row.first, row.second].map((stat, index) => (
-                          <td
-                            key={index}
-                            data-player={
-                              index === 0
-                                ? match.player1.name
-                                : match.player2.name
-                            }
-                          >
-                            {stat?.value && stat.value !== "—" ? (
-                              stat.value
-                            ) : (
-                              <span
-                                className="ry-no-value"
-                                aria-label="No publicado"
-                              >
-                                —
-                              </span>
-                            )}
-                          </td>
-                        ))}
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          ))}
-        </details>
-      )}
     </section>
   );
 }
@@ -468,20 +271,15 @@ export default function Reading({
   const hasMeasures = match.statistics.some(
     (stat) => stat.player !== null && stat.value !== "—",
   );
-  const hasFlow = lineData(match).segments.length > 0;
   const panels: { id: MatchView; label: string; content: ReactNode }[] = [
     {
       id: "resumen",
       label: "Resumen",
       content: (
         <>
-          <ReadingLine match={match} />
-          {!hasFlow && (
-            <>
-              <SummaryMeasures match={match} />
-              <MatchPressure match={match} compact />
-            </>
-          )}
+          <section className="match-games-summary"><h2>El partido en cifras</h2><div className="match-games-pair">{[match.player1, match.player2].map((player, side) => <div key={player.name}><span>{player.name}</span><strong>{match.score_summary.games.reduce((sum, set) => sum + set[side], 0)}</strong><span>juegos ganados</span></div>)}</div></section>
+          <SummaryMeasures match={match} />
+          <MatchPressure match={match} compact />
           <div className="ry-match-close">
             <Link href={`/compare?left=${encodeURIComponent(match.match_id)}`}>
               Comparar con otro partido
@@ -529,6 +327,7 @@ export default function Reading({
           )}
           <details className="match-registration" id="registro">
             <summary>Información de este registro</summary>
+            {match.context?.resultSource && <p>Marcador contrastado con la <a href={match.context.resultSource} target="_blank" rel="noreferrer">fuente oficial del torneo</a>.</p>}
             <h2>Registro del partido</h2>
             <p>{tapeState(match)}</p>
             <p>

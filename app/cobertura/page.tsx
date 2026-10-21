@@ -4,6 +4,7 @@ import ArchiveNotice from "@/components/nocturno/ArchiveNotice";
 import { number } from "@/lib/cuaderno/model";
 import { SURFACES, surfaceLabel } from "@/lib/surface";
 import { fieldCoverage } from "@/lib/field-coverage";
+import { verifiedResults } from "@/lib/verified-results";
 
 export const metadata = {
   title: "Cobertura del archivo — DEUCE",
@@ -65,6 +66,21 @@ export default async function Coverage({
         récords solo consideran los encuentros con los datos necesarios. Este
         archivo no representa necesariamente toda una carrera.
       </p>
+      <section className="coverage-metric">
+        <h2>Resultados contrastados</h2>
+        <p>
+          {verifiedResults.length} marcadores de Roland Garros 2024 estaban
+          incompletos en la fuente principal. Se han contrastado con el cuadro
+          oficial de FFT y documentación de ATP. Cada partido enlaza su referencia
+          en el registro. Las medidas y los puntos del resultado incompleto no
+          se reutilizan para calcular estadísticas.
+        </p>
+        <p>
+          Las retiradas y las victorias sin jugar no cuentan como partidos
+          terminados. Algunas ediciones antiguas conservan lagunas de origen;
+          un cuadro incompleto no se rellena con resultados estimados.
+        </p>
+      </section>
       <section className="coverage-metric">
         <h2>Actualización diaria</h2>
         <p>

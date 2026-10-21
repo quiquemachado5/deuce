@@ -11,7 +11,7 @@ const manifest=JSON.parse(gunzipSync(await readFile('data/reading/manifest.json.
 const start=performance.now(),catalog=recordCatalog(matches,new Date(manifest.generatedAt));
 const fullMs=Math.round(performance.now()-start);
 let checked=0;
-const countIDs=/^(victorias($|-)|finales-(ganadas|jugadas|remontadas-primer-set|seguidas-ganadas|seguidas-perdidas)$|titulos-|masters-|atp-|temporadas-|top-10$|top-5$|numero-uno$|sin-ceder-set$|seis-cero$|rachas$|bajo-techo$|aire-libre$|remontada-|sets-decisivos$|parejas)/;
+const countIDs=/^(victorias($|-)|finales-(ganadas|jugadas|remontadas-primer-set|seguidas-ganadas|seguidas-perdidas|cuatro-juegos)$|titulos-|masters-|atp-|temporadas-|top-10$|top-5$|numero-uno$|sin-ceder-set$|seis-cero$|rachas$|bajo-techo$|aire-libre$|remontada-|ganar-menos-juegos$|remontar-rosco$|sets-decisivos$|parejas)/;
 for(const piece of catalog) for(const row of piece.rows.slice(0,3)) {
   const evidence=recordEvidence(matches,piece.id,row).matches;
   assert.ok(evidence.length>0,piece.id+' / '+row.name+' has no evidence');

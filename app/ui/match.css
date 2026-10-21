@@ -24,13 +24,6 @@
 .ry-match-share:hover {
   background: var(--event-tint);
 }
-.ry-set-tiebreak {
-  font: 500 14px var(--font-interface);
-  vertical-align: baseline;
-  position: static;
-  margin-left: 2px;
-  display: inline;
-}
 .ds-game {
   white-space: nowrap;
 }

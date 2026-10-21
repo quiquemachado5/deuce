@@ -1,15 +1,15 @@
 /* One photographic score, one portrait per player, and rounded interactive rows. */
 .ry-header {
-  background: color-mix(in srgb, var(--bg-raised) 72%, transparent);
-  backdrop-filter: blur(32px) saturate(180%);
-  -webkit-backdrop-filter: blur(32px) saturate(180%);
+  background: var(--bg-raised);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   border-color: color-mix(in srgb, var(--bg-raised) 90%, transparent);
   box-shadow:
     inset 0 1px 1px #ffffffb3,
     0 8px 24px #151b2010;
 }
 html[data-theme="dark"] .ry-header {
-  background: color-mix(in srgb, var(--bg-raised) 78%, transparent);
+  background: var(--bg-raised);
   box-shadow:
     inset 0 1px 1px #ffffff26,
     0 8px 24px #00000020;
@@ -139,7 +139,6 @@ html[data-theme="dark"] .ry-header {
   font-weight: 600;
   padding: 4px 12px;
   border-radius: 999px;
-  background: var(--event-tint);
   color: var(--event-accent);
 }
 .match-total {
@@ -167,45 +166,6 @@ html[data-theme="dark"] .ry-header {
 .match-setboard {
   padding: 16px 24px 24px;
 }
-.match-setboard .ry-scoreboard {
-  width: 100%;
-  table-layout: fixed;
-  border-collapse: separate;
-  border-spacing: 8px;
-}
-.match-setboard .ry-scoreboard th,
-.match-setboard .ry-scoreboard td {
-  padding: 12px 8px;
-  border: 0;
-  text-align: center;
-  background: none;
-}
-.match-setboard .ry-scoreboard th:first-child {
-  text-align: left;
-  width: 26%;
-}
-.match-setboard .ry-scoreboard thead th {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--muted);
-}
-.match-setboard .ry-scoreboard tbody th {
-  font-size: 16px;
-  font-weight: 500;
-  overflow-wrap: break-word;
-}
-.match-setboard .ry-scoreboard td {
-  font-size: 28px;
-  font-weight: 600;
-  border-radius: 16px;
-  color: var(--muted);
-  white-space: nowrap;
-}
-.match-setboard .ry-scoreboard td.ry-set-won {
-  background: var(--event-tint);
-  color: var(--event-accent);
-}
-.match-setboard .ry-set-tiebreak,
 .score-tiebreak {
   font-size: 16px !important;
   line-height: 1;
@@ -223,23 +183,6 @@ html[data-theme="dark"] .ry-header {
 }
 .match-hero-bottom > p {
   font-size: 16px;
-}
-.ds-final-table .score-tiebreak {
-  font-weight: 500;
-}
-.ds-final-table thead th,
-.ds-final-table tbody th,
-.ds-final-table tbody td {
-  padding-block: 12px;
-}
-.ds-final-table tbody td {
-  border-radius: 16px;
-}
-.ds-final-table td.ds-final-table-set-won {
-  background: var(--event-tint);
-}
-.ds-final-table tbody tr + tr > * {
-  border-top: 8px solid var(--bg-raised);
 }
 /* Compact historical context uses columns, not a stack of competing headings. */
 .ry-match-context h2 {
@@ -576,10 +519,10 @@ html[data-theme="dark"] .ry-header {
   background: var(--bg-sunken);
 }
 .ry-directory-table tbody tr > :first-child {
-  border-radius: 16px 0 0 16px;
+  border-radius: 0;
 }
 .ry-directory-table tbody tr > :last-child {
-  border-radius: 0 16px 16px 0;
+  border-radius: 0;
 }
 .ry-directory-table :is(th, td) {
   padding-block: 16px;
@@ -618,7 +561,6 @@ html[data-theme="dark"] .ry-header {
   font-weight: 600;
 }
 .deuce-footer-courts a:hover {
-  background: var(--event-tint);
   color: var(--event-accent);
 }
 .deuce-footer-courts img {
@@ -726,29 +668,6 @@ html[data-theme="dark"] .ry-header {
   .match-setboard {
     padding: 0 12px 16px;
   }
-  .match-setboard .ry-scoreboard {
-    border-spacing: 4px 8px;
-  }
-  .match-setboard .ry-scoreboard th:first-child {
-    width: 26%;
-  }
-  .match-setboard .ry-scoreboard th,
-  .match-setboard .ry-scoreboard td {
-    padding: 12px 4px;
-  }
-  .match-setboard .ry-scoreboard tbody th {
-    font-size: 13px;
-  }
-  .match-setboard .ry-scoreboard td {
-    font-size: 24px;
-  }
-  .match-setboard .ry-scoreboard .ry-set-tiebreak {
-    font-size: 13px !important;
-    margin-left: 0;
-  }
-  .match-setboard .ry-scoreboard thead th {
-    font-size: 12px;
-  }
   .match-hero-bottom {
     padding: 0 20px 24px;
     gap: 12px;
@@ -775,9 +694,6 @@ html[data-theme="dark"] .ry-header {
   .match-history-meeting .nc-row-result {
     max-width: 100%;
     text-align: left;
-  }
-  .ds-final-table .score-tiebreak {
-    font-size: 13px !important;
   }
   .nc-ranking-row {
     gap: 8px;

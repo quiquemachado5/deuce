@@ -42,9 +42,7 @@ export function RankingRows({
   offset?: number;
   maxValue?: number;
 }) {
-  const ceiling = percent
-    ? 100
-    : maxValue || Math.max(1, ...rows.map((row) => row.value));
+  void maxValue;
   return (
     <ol
       className={`nc-ranking${small ? " nc-ranking-small" : ""}`}
@@ -57,13 +55,6 @@ export function RankingRows({
             className="nc-ranking-row"
             title={`${row.name} · ${row.detail}`}
           >
-            <span
-              className="ry-rank-meter"
-              aria-hidden="true"
-              style={{
-                width: `${Math.min(100, Math.max(0, (row.value / ceiling) * 100))}%`,
-              }}
-            />
             <span className="nc-rank-position">
               {i > 0 && rows[i - 1].value === row.value
                 ? "="

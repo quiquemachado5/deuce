@@ -119,41 +119,6 @@
   border-radius: 24px;
   align-self: end;
 }
-.ds-final-table-scroll {
-  max-width: 100%;
-  overflow-x: auto;
-}
-.ds-final-table th,
-.ds-final-table td {
-  padding: 8px 12px;
-  border: 0;
-  text-align: center;
-  font-size: 18px;
-}
-.ds-final-table thead th {
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--muted);
-}
-.ds-final-table tbody th {
-  text-align: left;
-  font-size: 16px;
-  min-width: 180px;
-}
-.ds-final-table .ds-final-set-won,
-.ds-final-table .ds-final-total,
-.ds-final-table .ds-set-won {
-  color: var(--event-accent);
-  font-weight: 650;
-}
-.ds-final-table .ds-final-winner th {
-  font-weight: 650;
-}
-.ds-final-table th small {
-  display: block;
-  font-size: 11px;
-  color: var(--event-accent);
-}
 .ds-archive-line {
   display: flex;
   justify-content: space-between;
@@ -560,38 +525,6 @@
 .ds-hero-fallback {
   padding: 64px 0;
 }
-
-.ds-final-table th a {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  text-align: left;
-}
-.ds-final-table th a > img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  object-position: 50% 22%;
-}
-.ds-final-table-set-won,
-.ds-final-table-total {
-  color: var(--event-accent) !important;
-  font-weight: 650;
-}
-.ds-final-table-total {
-  font-size: 24px !important;
-}
-.ds-final-table td small {
-  vertical-align: baseline;
-  font-size: 12px;
-}
-.ds-final-table th a > span small {
-  color: var(--event-accent);
-  font-size: 11px;
-  display: block;
-  margin-top: 4px;
-}
 .ds-main-grid:not(:has(.ds-tour-section)) {
   grid-template-columns: 1fr;
 }
@@ -637,14 +570,6 @@
   }
   .ds-latest-final {
     padding: 24px;
-  }
-  .ds-final-table tbody th {
-    min-width: 140px;
-    font-size: 14px;
-  }
-  .ds-final-table td {
-    font-size: 16px;
-    padding: 8px;
   }
   .ds-archive-line {
     flex-wrap: wrap;
@@ -741,15 +666,6 @@
     margin: 0 12px 12px;
     padding: 12px;
     border-radius: 16px;
-  }
-  .ds-final-table th,
-  .ds-final-table td {
-    padding: 6px;
-    font-size: 16px;
-  }
-  .ds-final-table tbody th {
-    min-width: 120px;
-    font-size: 13px;
   }
   .ds-archive-line {
     padding-top: 16px;
@@ -893,22 +809,6 @@
   }
   .ds-main-grid:not(:has(.ds-tour-section)) .ds-results-list .nc-row-result {
     grid-column: 2;
-  }
-  .ds-final-table th a {
-    gap: 8px;
-  }
-  .ds-final-table th a > img {
-    width: 28px;
-    height: 28px;
-  }
-  .ds-final-table tbody th {
-    min-width: 130px;
-  }
-  .ds-final-table th a > span {
-    font-size: 11px;
-  }
-  .ds-final-table th a > span small {
-    font-size: 10px;
   }
   .ds-home-end {
     grid-template-columns: 1fr;

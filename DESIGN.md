@@ -169,7 +169,7 @@ Los titulares usan peso 650, interletraje cerrado y altura compacta. El cuerpo u
 - **Display:** escala global de la cabecera; portada y perfiles amplían el máximo a 68px. El nombre del torneo principal alcanza 88px y los descubrimientos usan cifras de 52–88px.
 - **Headline / Title:** títulos de sección y panel en la escala declarada; las secciones principales conservan una voz común.
 - **Body:** lectura general; filas de tabla a 15px y controles o enlaces a 13–14px.
-- **Label:** contexto, muestras y leyendas a 11–13px. Mantener el español y la caja de oración observada.
+- **Label:** contexto, muestras y leyendas a 11–13px. Los desempates usan 11px en escritorio y 9px en móvil, junto al número del set; los encabezados compactos del marcador usan 10px. Mantener el español y la caja de oración observada.
 
 ## Layout
 
@@ -181,7 +181,7 @@ En móvil, el marcador conserva todo el ancho disponible y permite desplazamient
 
 ## Elevation & Depth
 
-La profundidad procede de fondos elevados o hundidos, líneas finas y fotografía recortada. La cabecera flotante añade iluminación interior y una sombra exterior tenue; mezcla el panel al 72% en claro y al 78% en oscuro, con desenfoque de 32px y saturación de 180%. El diálogo atenúa el resto de la página con un velo oscuro y desenfoque de 6px. Los degradados de imagen aseguran lectura sobre fotografías.
+La profundidad procede de fondos elevados o hundidos, líneas finas y fotografía recortada. La cabecera flotante es opaca, sobre el panel elevado, con una sombra neutra tenue y sin desenfoque. El diálogo atenúa el resto de la página con un velo oscuro y desenfoque de 6px. Los degradados de imagen aseguran lectura sobre fotografías.
 
 Las transiciones de color, fondo, borde y opacidad duran 240ms. Las entradas recorren 12px en 280–480ms con `cubic-bezier(0.22, 1, 0.36, 1)` y mantienen el texto opaco desde el primer fotograma; el trazo de algunos gráficos dura 1s. Con movimiento reducido se desactivan animaciones, transiciones y desplazamiento suave.
 
@@ -193,21 +193,21 @@ Paneles redondeados (24px), campos suaves (16px) y cápsulas completas forman la
 
 ### Actualización de navegación y lectura
 
-- **Cabecera glass:** barra flotante en cápsula, separada 12 px del borde superior (8 px en móvil), con el tratamiento de vidrio descrito en Elevation & Depth. Cinco enlaces: Partidos, Estadísticas, Jugadores, Torneos, Comparar. Cara a cara pertenece a Jugadores.
-- **MatchHero:** fotografía licenciada de sede, retratos circulares enfrentados, total de sets central y una tabla accesible de sets en cualquier ancho. Sin resultado duplicado en una segunda línea móvil. Ganador explícito y sets ganados en color de pista. Compartir y registro se abren bajo demanda.
+- **Cabecera opaca:** barra flotante en cápsula, separada 12 px del borde superior (8 px en móvil), con el tratamiento opaco descrito en Elevation & Depth. Cinco enlaces: Partidos, Estadísticas, Jugadores, Torneos, Comparar. Cara a cara pertenece a Jugadores.
+- **MatchHero:** fotografía licenciada de sede, retratos circulares enfrentados, total de sets central y una tabla accesible de sets en cualquier ancho. Sin resultado duplicado en una segunda línea móvil. Ganador en el nombre accesible y cifras ganadoras en color de pista, sin fondos en las celdas; el desempate es pequeño y queda en línea. Compartir y registro se abren bajo demanda.
 - **Archivo por ediciones:** selector de temporada, campeonatos con fotografía o color de superficie, partidas agrupadas por año y torneo tras filtrar. Paginación de 25; ninguna cinta viaja al cliente en el listado.
-- **Footer:** panel redondeado con marca DEUCE y tres accesos por superficie, cada uno con fotografía real de pista y etiqueta. Debajo reúne Cómo se lee, Cobertura, Fotografías y el selector de tema. En móvil las tres pistas se apilan.
+- **Footer:** marca DEUCE y navegación de archivo alineadas; debajo, Cómo se lee, Cobertura, Fotografías y tema. Sin panel fotográfico repetido. Se apila en móvil.
 - **Galería:** selector de fotos/vídeos, navegación anterior/siguiente, ampliación nativa con Escape y retorno del foco. YouTube no se solicita hasta pulsar reproducir; siempre existe enlace al canal oficial. Fechas de los vídeos pertenecen al vídeo, no al partido destacado en portada.
 - **Comparación por superficie:** controles para total y pistas; dos barras proporcionales con escala común, valores escritos y transición de anchura. No hay una puntuación sintética.
 - **Texto secundario:** metodología, versiones y estados de cinta pasan a Cobertura o al registro del partido. Los denominadores que cambian el significado de un porcentaje se mantienen. No reemplazar datos ausentes por cero.
 
 ### Exploración con contexto
 
-- **Descubrimientos del jugador:** cifra, explicación, muestra y enlace a un partido, temporada o campeonato forman un bloque estable. «Otro dato» elige otra observación entre resultados completos y elegibles, anuncia el cambio y conserva el espacio del contenido. Las banderas proceden del código de país publicado y acompañan su nombre; un código desconocido no genera una bandera.
+- **Descubrimientos del jugador:** cifra, explicación, muestra y enlace a un partido, temporada o campeonato forman un bloque estable. «Otro dato» elige otra observación entre resultados completos y elegibles, anuncia el cambio y conserva el espacio del contenido. El país publicado se presenta como texto; los perfiles y la comparación no muestran banderas.
 - **Retratos:** perfil y descubrimiento fotográfico muestran crédito, original y licencia mediante un único control de información de 44px. Los avatares de Federer, Nadal, Djokovic, Murray, Alcaraz y Sinner usan rectángulos de foco definidos sobre las seis fotografías locales existentes: el recorte CSS conserva los píxeles originales.
 - **Torneo y edición:** la vista general abre con fotografía licenciada de sede y enlaza ediciones y campeones registrados. La edición presenta su final y un cuadro por rondas, con el camino del campeón señalado por texto. Solo aparecen partidos disponibles; el orden no afirma posiciones del sorteo. Las columnas de escritorio pasan a una ronda seleccionable bajo 1100px. Una fotografía de edición requiere evidencia de ese año.
 - **Superficie y condición:** la presentación del torneo deriva de sus ediciones; la tarjeta general usa la más reciente y permite consultar la historia de superficies. El resolver distingue superficie y pista cubierta. La corrección de Madrid se limita a Masters 1000 desde 2002: dura cubierta hasta 2008 y tierra al aire libre desde 2009, con enlace a la fuente ATP y datos originales intactos.
-- **Lectura del partido:** «Principales cifras» compara medidas publicadas; «En aquel momento» alinea duración, edad y ranking histórico cuando existen. «Así se decidió» ofrece reproducción de hasta seis breaks y bolas de partido verificables, con pausa y pasos anterior/siguiente. Los huecos de cinta permanecen huecos. El recuento exacto del tie-break se consulta en un desplegable cerrado; la antigua sección «Set a set» se retira.
+- **Lectura del partido:** «Principales cifras» compara medidas publicadas; «En aquel momento» alinea duración, edad y ranking histórico cuando existen. «El partido en cifras» reúne juegos ganados y medidas disponibles. La pestaña Medidas agrupa servicio, resto y puntos con valores enfrentados y carriles de escala común. Los huecos de cinta permanecen huecos. El recuento exacto del tie-break se consulta en un desplegable cerrado; la antigua sección «Set a set» se retira.
 - **Récords y clasificaciones:** la entrada ofrece un dato real cambiante con retrato licenciado y enlaces de exploración o prueba cuando existe. Los récords de títulos por pista comparten escala. Catálogo y clasificación alinean nombre, cifra, muestra y acceso a evidencia; en móvil la prueba pasa bajo el nombre y la cifra mantiene su columna. Las filas interactivas comparten radio de 16px y cifras tabulares.
 
 ### Buttons
@@ -236,7 +236,7 @@ Los retratos locales y licenciados se recortan hacia el rostro; los avatares usa
 
 ### Scoreboards & Discovery
 
-Los marcadores son tablas: nombres a la izquierda, sets alineados y cifras tabulares. Sets ganados y totales se distinguen con peso, color y etiquetas. Los descubrimientos presentan cifra, jugador, explicación y muestra juntos; el control «Otro dato» cambia una observación real y anuncia su contenido de forma cortés a lectores de pantalla. Los gráficos conservan leyendas, alcance y valores legibles.
+Los marcadores son tablas: nombres a la izquierda, sets alineados y cifras tabulares. Sets ganados y totales se distinguen con peso y color; el ganador se incluye en el nombre accesible. SetScoreboard sirve la portada, el partido y el torneo. Los descubrimientos presentan cifra, jugador, explicación y muestra juntos; el control «Otro dato» cambia una observación real y anuncia su contenido de forma cortés a lectores de pantalla. Los gráficos conservan leyendas, alcance y valores legibles.
 
 ## Do's and Don'ts
 
