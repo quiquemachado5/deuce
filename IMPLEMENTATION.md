@@ -28,7 +28,7 @@
 - Auditoría npm: 0 vulnerabilidades en dependencias de producción; 9 en desarrollo (7 altas y 2 moderadas), pendientes de migración revisada.
 - Axe sin infracciones en las fichas comprobadas en claro/oscuro y en la página de cobertura; capturas revisadas en móvil. Esto no certifica todas las páginas ni sustituye pruebas con lectores de pantalla.
 - Las guías de revisión React y verificación de Vercel orientaron las comprobaciones de semántica, contraste y recorridos interfaz/API/datos.
-- CI preparado, aún no ejecutado en GitHub. Producción no modificada por esta entrega.
+- Primera entrega publicada el 21/10/2026 tras verificar 176.267 partidos y 94 estadísticas con la configuración remota. Los 7 recorridos de navegador también pasaron contra el dominio público.
 
 ## Segunda entrega: coherencia y diagnóstico
 
@@ -40,6 +40,7 @@
 - `/api/health`: versión, origen, antigüedad y estado. Más de 72 horas o un respaldo por fallo remoto produce `degraded`; archivo inaccesible produce HTTP 503. No se ha contratado ni configurado un servicio de alertas.
 - Consultas de lectura remota con límite de espera; build de producción bloqueado si pierde partidos o cobertura estadística medida frente al manifiesto publicado.
 - Pruebas de fallos parciales, datos corruptos, cambio de versión, edición de torneo, persistencia de filtros y concordancia entre siete APIs.
+- Verificación del código `96d3ace`: 16 pruebas unitarias y 8 de navegador, build, TypeScript, lint y chequeo de datos correctos. [GitHub Actions también completó todas las comprobaciones](https://github.com/quiquemachado5/deuce/actions/runs/39580883785).
 
 ## Próxima entrega: fiabilidad avanzada
 
