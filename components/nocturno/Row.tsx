@@ -35,7 +35,7 @@ export default function MatchRow({
       className="nc-match-row"
       data-event-surface={match.surface}
       data-event-category={match.category}
-      aria-label={`${context}. ${players[0].name} contra ${players[1].name}. ${score(match)}. Ganador: ${winner}`}
+      aria-label={`${context}. ${players[0].name} contra ${players[1].name}. ${result}. Ganador: ${winner}`}
     >
       <span className="nc-row-context">
         <i className={`nc-dot nc-dot-${match.surface}`} aria-hidden="true" />

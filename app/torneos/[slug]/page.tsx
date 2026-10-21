@@ -13,8 +13,8 @@ import {
   tournamentCategory, tournamentDirectory, tournamentRows,
 } from "@/lib/tournament-directory";
 import { RankingRows, FirstRecorded } from "@/components/nocturno/Pieces";
-import Row from "@/components/nocturno/Row";
 import EditionPicker from "@/components/EditionPicker";
+import { round, score } from "@/lib/cuaderno/model";
 
 type Props = { params: Promise<{ slug: string }>; searchParams: Promise<{ categoria?: string }> };
 export async function generateMetadata({ params, searchParams }: Props) {
@@ -39,6 +39,9 @@ export default async function Tournament({ params, searchParams }: Props) {
   const registered = tournament.matches.filter((match) => match.category === category);
   if (!registered.length) notFound();
   const pieces = tournamentRows(registered);
+  const lastFinal = pieces.champion;
+  const latestChampion = lastFinal ? lastFinal.winner === 1 ? lastFinal.player1.name : lastFinal.player2.name : null;
+  const latestOpponent = lastFinal ? lastFinal.winner === 1 ? lastFinal.player2.name : lastFinal.player1.name : null;
   const years = categoryYears(tournament, category);
   const surfaces = categorySurfaces(tournament, category);
   const photo = tournament.canonical && (category === "Grand Slam" || category === "Masters 1000")
@@ -60,6 +63,11 @@ export default async function Tournament({ params, searchParams }: Props) {
             {number(years.length)}{" "}
             ediciones · {number(registered.length)} partidos
           </p>
+          {lastFinal && <Link className="ry-tournament-latest" href={`/match/${lastFinal.match_id}`}>
+            <span>Última final · {lastFinal.year}</span>
+            <strong>{latestChampion} ganó a {latestOpponent}</strong>
+            <span>{round(lastFinal)} · {score(lastFinal)}</span>
+          </Link>}
         </div>
         {photo && (
           <figure className="nc-tournament-photo">
@@ -80,12 +88,6 @@ export default async function Tournament({ params, searchParams }: Props) {
           href={`/torneos/${slug}${level === tournamentCategory(tournament) ? "" : `?categoria=${encodeURIComponent(level)}`}`}
           aria-current={level === category ? "page" : undefined}>{categoryLabel(level)} <span>{number(categoryYears(tournament, level).length)}</span></Link>)}
       </nav>}
-      {pieces.champion && (
-        <section className="nc-section">
-          <h2>Última final registrada</h2>
-          <Row match={pieces.champion} />
-        </section>
-      )}
       {(pieces.titles.length > 0 || pieces.played.length > 0) && <div className="nc-tournament-columns">
         {pieces.titles.length > 0 && (
         <section className="nc-section">

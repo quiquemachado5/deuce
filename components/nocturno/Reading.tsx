@@ -136,6 +136,8 @@ export function ReadingHead({
                           width={120}
                           height={140}
                           sizes="(max-width:759px) 56px, 112px"
+                          loading={reduced ? "lazy" : "eager"}
+                          fetchPriority={reduced ? undefined : "high"}
                           unoptimized
                         />
                       )}
@@ -160,7 +162,14 @@ export function ReadingHead({
                           set[side] > set[1 - side] ? "ry-set-won" : ""
                         }
                       >
-                        <span className="ds-game">{set[side]}{tie && set[side] < set[1 - side] && <sup title={`${tie[1]} puntos en el tie-break`}>{tie[1]}</sup>}</span>
+                        <span className="ds-game">
+                          {set[side]}
+                          {tie && set[side] < set[1 - side] && (
+                            <span className="ry-set-tiebreak" title={`${tie[1]} puntos en el tie-break`}>
+                              ({tie[1]})
+                            </span>
+                          )}
+                        </span>
                       </td>
                     );
                   })}
@@ -170,6 +179,9 @@ export function ReadingHead({
           </tbody>
         </table>
       </div>
+      <p className="ry-mobile-score-line" aria-hidden="true">
+        <ScoreText value={score(match)} />
+      </p>
       {!reduced && (
         <div className="ry-match-footer">
           <div className="ry-match-tags">
@@ -237,7 +249,7 @@ function TieBreaks({ match }: { match: Match }) {
           </ol>
         </div>
       ))}
-      <p className="ry-data-note">
+      <p className="nc-sr">
         Cada marca es un punto ganado. El contorno indica un minibreak.
       </p>
     </section>
@@ -287,6 +299,7 @@ function MatchPressure({
             {players.map((player, index) => {
               const [won, total] = player[metric.key],
                 percent = total > 0 ? Math.round((won / total) * 100) : null;
+              if (percent === null) return null;
               return (
                 <div
                   className={`ry-pressure-row ry-player-${player.side}`}
@@ -302,26 +315,12 @@ function MatchPressure({
                       )}
                     </span>
                     <strong>
-                      {percent !== null ? (
-                        <>
-                          {number(percent)}
-                          <span> %</span>
-                          <small>
-                            {number(won)} de {number(total)}
-                          </small>
-                        </>
-                      ) : (
-                        <span
-                          className="ry-no-value"
-                          aria-label="Sin oportunidades registradas"
-                        >
-                          —
-                        </span>
-                      )}
+                      {number(won)} <span>de</span> {number(total)}
+                      <small>{number(percent)} %</small>
                     </strong>
                   </div>
                   <div className="ry-pressure-track" aria-hidden="true">
-                    <span style={{ width: `${percent ?? 0}%` }} />
+                    <span style={{ width: `${percent}%` }} />
                   </div>
                 </div>
               );
@@ -329,10 +328,6 @@ function MatchPressure({
           </div>
         ))}
       </div>
-      <p className="ry-data-note">
-        Barras en una escala común de 0 a 100 %. Cada porcentaje conserva su
-        muestra; solo se usan puntos verificables o estadísticas publicadas.
-      </p>
     </section>
   );
 }
@@ -539,39 +534,26 @@ function MatchContext({ match }: { match: Match }) {
   const context = match.context,
     historicalRanks = context?.rankLabel === "Ranking al jugar",
     names = [match.player1.name, match.player2.name];
+  const hasContext = Boolean(
+    context?.minutes || context?.indoor === true ||
+    context?.age1 || context?.age2 ||
+    (historicalRanks && (context?.rank1 || context?.rank2)),
+  );
+  if (!hasContext) return null;
   return (
     <section className="ry-match-context">
-      <h2>Datos del partido</h2>
+      <h2>Contexto</h2>
       <dl>
-        <div>
-          <dt>Torneo</dt>
-          <dd>{tournamentName(match.tournament)}</dd>
-        </div>
-        <div>
-          <dt>Edición</dt>
-          <dd>{match.year}</dd>
-        </div>
-        <div>
-          <dt>Ronda</dt>
-          <dd>{round(match)}</dd>
-        </div>
-        <div>
-          <dt>Superficie</dt>
-          <dd>
-            {surfaceLabel[match.surface]}
-            {context?.indoor === true ? " · cubierta" : ""}
-          </dd>
-        </div>
         {context?.minutes ? (
           <div>
             <dt>Duración</dt>
             <dd>{durationLabel(context.minutes)}</dd>
           </div>
         ) : null}
-        {context?.format && (
+        {context?.indoor === true && (
           <div>
-            <dt>Formato</dt>
-            <dd>{context.format}</dd>
+            <dt>Pista</dt>
+            <dd>Cubierta</dd>
           </div>
         )}
       </dl>

@@ -33,7 +33,7 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
       <label className="nc-field"><span>Competición</span><select name="competition" defaultValue={q.competition || 'all'}><option value="all">Todas</option>{[...new Set(matches.map(m => m.category))].sort().map(c => <option key={c}>{c}</option>)}</select></label>
       <label className="nc-field"><span>Edad al jugar</span><select name="age" defaultValue={q.age || 'all'}><option value="all">Todas las edades</option>{Array.from({length:40},(_,i) => i + 14).map(age => <option key={age} value={age}>{age} años</option>)}</select></label>
       <label className="nc-field"><span>Muestra mínima</span><select name="minimum" defaultValue={q.minimum || '20'}>{[5,20,50].map(n => <option key={n} value={n}>{n} partidos</option>)}</select></label>
-      <button className="dx-button" type="submit">Comparar jugadores <span aria-hidden="true">↗</span></button>
+      <button className="dx-button" type="submit">Comparar jugadores</button>
     </form>
     {!valid ? <p role="status" className="dx-notice">Selecciona dos nombres del archivo. No hay resultados para {chosen.filter(n => !names.includes(n)).join(', ')}.</p> : <>
     {(same || !sufficient) && <p role="status" className="dx-notice">{same ? 'Has elegido el mismo jugador. Selecciona dos jugadores distintos.' : 'Muestra pequeña o sin datos: se muestran las cifras, pero no se destaca una ventaja comparativa.'}</p>}
@@ -44,7 +44,7 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
       <dl className="dx-metric-grid"><div><dt>Victorias</dt><dd>{number(p.won)}</dd></div><div><dt>Derrotas</dt><dd>{number(p.lost)}</dd></div><div><dt>Títulos del archivo</dt><dd>{number(p.titles)}</dd></div><div><dt>Finales jugadas</dt><dd>{number(p.finals)}</dd></div></dl>
       <p className="dx-muted">Ante top 10: {p.ranking ? `${p.top10Won} victorias / ${p.top10Played} partidos` : 'sin ranking histórico disponible'}. Ranking del rival conocido en {number(p.ranking)} de {number(p.played)} encuentros.</p>
       {q.age && q.age !== 'all' && <p className="dx-muted">Edad publicada en {number(p.ageCoverage)} de {number(p.base)} partidos previos al filtro de edad. No se estima una edad ausente.</p>}
-      <Link className="dx-inline-link" href={href({...q,a:chosen[0],b:chosen[1],evidencia:i ? 'b':'a',page:'1'}) + '#partidos'}>Ver los {number(p.played)} partidos <span aria-hidden="true">↗</span></Link>
+      <Link className="dx-inline-link" href={href({...q,a:chosen[0],b:chosen[1],evidencia:i ? 'b':'a',page:'1'}) + '#partidos'}>Ver los {number(p.played)} partidos</Link>
     </article>;})}</div>
     <aside className="dx-notice">{sufficient && players.every(p => p.rate !== null) ? `Diferencia: ${number(Math.abs(players[0].rate! - players[1].rate!),1)} puntos porcentuales de victorias. ` : ''}Mismos filtros no significan rivales, calendario ni cobertura equivalentes. No es una clasificación de quién es mejor ni de toda su carrera. <Link href="/cobertura">Consultar cobertura</Link>.</aside>
     <section id="partidos" className="dx-evidence-list"><div className="dx-section-heading"><div><p className="dx-eyebrow">DEL DATO AL PARTIDO</p><h2>La muestra de {evidence.name}</h2></div><span>{number(evidence.played)} partidos</span></div>

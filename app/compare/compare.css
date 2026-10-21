@@ -1,7 +1,7 @@
 /* DEUCE · Compare: two matches, one honest scale. */
 .ry-compare-page {
   --compare-left: var(--ink);
-  --compare-right: var(--ink-soft);
+  --compare-right: var(--ds-second, #b35146);
   width: min(1180px, calc(100% - 40px));
   max-width: none;
   min-width: 0;
@@ -39,7 +39,7 @@
   grid-template-columns: repeat(2, minmax(0,1fr));
   overflow: hidden;
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: var(--panel-radius, 12px);
   background: var(--bg-raised);
 }
 .ry-compare-identity {
@@ -100,12 +100,12 @@
 .ry-compare-set strong { margin-top: -1px; color: var(--ink); font-size: 21px; line-height: 1; font-weight: 600; font-variant-numeric: tabular-nums; }
 .ry-compare-set.is-lost strong { color: var(--loss); }
 .ry-compare-set small { margin-top: 6px; white-space: nowrap; }
-.ry-compare-progress-grid > div { padding: 22px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg-raised); }
+.ry-compare-progress-grid > div { padding: 22px; border: 1px solid var(--line); border-radius: var(--panel-radius, 12px); background: var(--bg-raised); }
 .ry-compare-progress-grid .ry-game-line { margin-top: 0; }
 .ry-compare-progress-grid .ry-game-line-plot { height: 168px; }
 .ry-compare-progress-grid .ry-section-heading > span { display: none; }
 .ry-compare-progress-grid .ry-game-moment { margin-top: 16px; }
-.ry-compare-choice { padding: 38px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg-raised); }
+.ry-compare-choice { padding: 38px; border: 1px solid var(--line); border-radius: var(--panel-radius, 12px); background: var(--bg-raised); }
 .ry-compare-choice > div:first-child p { margin-top: 10px; }
 .ry-compare-change { display: flex; gap: 24px; margin: 22px 0 24px; border-bottom: 1px solid var(--line); }
 .ry-compare-change a { display: inline-flex; align-items: center; min-height: 46px; border-bottom: 2px solid transparent; color: var(--ink-soft); font-size: 14px; font-weight: 600; text-decoration: none; }
@@ -140,15 +140,16 @@
   .ry-compare-intro h1 { font-size: clamp(38px,10vw,54px); }
   .ry-compare-intro p { font-size: 15px; }
   .ry-compare-identities,.ry-compare-path-grid,.ry-compare-progress-grid { grid-template-columns: 1fr; }
-  .ry-compare-identity { grid-template-columns: minmax(0,1fr) 36%; min-height: 276px; }
+  .ry-compare-identity { display: block; min-height: 0; }
   .ry-compare-identity:first-child { border-right: 0; border-bottom: 1px solid var(--line); }
-  .ry-compare-identity-copy { padding: 18px 12px 18px 18px; }
-  .ry-compare-identity h2 { margin: 18px 0 10px; font-size: clamp(24px,6.7vw,31px); }
-  .ry-compare-ordinal { font-size: 11px; }
-  .ry-compare-score { font-size: 15px; gap: 3px 6px; }
+  .ry-compare-identity-copy { min-height: 238px; padding: 20px 18px 18px; }
+  .ry-compare-identity h2 { width: calc(100% - 92px); max-width: none; margin: 16px 0 12px; font-size: clamp(23px,6vw,28px); }
+  .ry-compare-ordinal { max-width: calc(100% - 92px); font-size: 12px; }
+  .ry-compare-score { font-size: 16px; }
   .ry-compare-winner { margin-top: 9px; }
   .ry-compare-sentence { margin-top: 8px; font-size: 13px; }
   .ry-compare-match-link { min-height: 42px; padding-top: 8px; }
+  .ry-compare-portrait { position: absolute; top: 20px; right: 18px; width: 76px; height: 92px; border-radius: var(--media-radius, 12px); }
   .ry-compare-analysis,.ry-compare-path,.ry-compare-progress,.ry-compare-choice { margin-top: 56px; }
   .ry-compare-heading { display: block; margin-bottom: 20px; }
   .ry-compare-heading p { margin-top: 10px; }
@@ -170,7 +171,6 @@
   .ry-compare-found li strong { text-align: left; }
 }
 @media (max-width: 359px) {
-  .ry-compare-identity { grid-template-columns: minmax(0,1fr) 31%; }
   .ry-compare-identity h2 { font-size: 22px; }
   .ry-compare-choice button { padding-inline: 15px; }
 }

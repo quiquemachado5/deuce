@@ -273,10 +273,6 @@ export default async function Player({ params, searchParams }: Props) {
           aria-labelledby="ry-player-surfaces-title"
         >
           <h2 id="ry-player-surfaces-title">Balance por superficie</h2>
-          <p className="nc-meta">
-            Victorias y derrotas · escala común de 0 a {number(surfaceMaximum)}{" "}
-            partidos.
-          </p>
           <dl className="ry-player-surface-list">
             {SURFACES.filter(surface => player.bySurface[surface].played > 0).map((surface) => {
               const result = player.bySurface[surface];
@@ -290,16 +286,16 @@ export default async function Player({ params, searchParams }: Props) {
                     <span className="ry-player-surface-record">
                       <strong>
                         {number(result.won)}
-                        <span>V</span>
+                        <span>victorias</span>
                       </strong>
                       <strong>
                         {number(result.played - result.won)}
-                        <span>D</span>
+                        <span>derrotas</span>
                       </strong>
                       {result.played > 0 && (
                         <span className="ry-surface-rate">
                           {number((result.won / result.played) * 100, 1)} %
-                          {result.played < 50 ? " · muestra pequeña" : ""}
+                          {result.played < 50 && <small>muestra pequeña</small>}
                         </span>
                       )}
                     </span>
@@ -491,8 +487,7 @@ export default async function Player({ params, searchParams }: Props) {
             {years.at(-1)}–{years[0]}{" "}
             <span>· {number(years.length)} temporadas registradas</span>
           </p>
-          <p className="nc-meta">Grand Slams y torneos ATP de este archivo.</p>
-          <Link className="dx-inline-link" href={`/comparar?a=${encodeURIComponent(player.name)}`}>Comparar por temporada, edad o superficie ↗</Link>
+          <p className="nc-meta">Resultados de este archivo, no de toda la carrera.</p>
           <dl className="ry-player-totals">
             <div>
               <dt>Victorias</dt>
@@ -507,6 +502,9 @@ export default async function Player({ params, searchParams }: Props) {
               <dd>{number((player.won / player.played) * 100, 1)} %<span>{number(player.won)} de {number(player.played)} partidos</span></dd>
             </div>
           </dl>
+          <Link className="ry-player-compare" href={`/comparar?a=${encodeURIComponent(player.name)}`}>
+            Comparar jugador
+          </Link>
           {bio && Object.keys(bio).length > 0 && (
             <dl className="ry-player-bio">
               {bio.country && (

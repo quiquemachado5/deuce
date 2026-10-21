@@ -65,7 +65,8 @@ function PhotoGroup({ category, entries }: { category: string; entries: Tourname
         const surfaces = categorySurfaces(entry, category);
         return <Link className="ry-photo-tournament-tile" href={`/torneos/${entry.slug}`} key={entry.slug}
           data-event-surface={surfaces.length === 1 ? surfaces[0] : undefined} data-event-category={category}>
-          <span className="ry-photo-tournament-image"><Image src={photo.src} alt={photo.alt} fill priority={category === "Grand Slam" && index === 0}
+          <span className="ry-photo-tournament-image"><Image src={photo.src} alt={photo.alt} fill priority={category === "Grand Slam" && index < 2}
+            loading={category === "Grand Slam" && index < 2 ? "eager" : "lazy"}
             sizes={category === "Grand Slam" ? "(max-width: 759px) calc(100vw - 32px), (max-width: 1099px) 45vw, 43vw" : "(max-width: 759px) calc(100vw - 32px), (max-width: 1099px) 45vw, 29vw"} /></span>
           <span className="ry-photo-tournament-copy"><strong>{tournamentName(entry.name)}</strong>
             <span>{surfaces.length === 1 && <><i className={`nc-dot nc-dot-${surfaces[0]}`} aria-hidden="true" />{surfaceLabel[surfaces[0]]} · </>}{number(finals)} finales</span>

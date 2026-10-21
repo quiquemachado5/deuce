@@ -59,7 +59,7 @@ function RecordIndex({ manifest, comebackRunner }: {
     <div className="nc-wrap rv-records rv-index">
       <header className="rv-intro">
         <div>
-          <h1>Estadísticas</h1>
+          <h1>Récords y estadísticas</h1>
         </div>
         <span>{number(catalog.length)} estadísticas · {number(manifest.matchCount)} partidos</span>
       </header>
@@ -81,7 +81,7 @@ function RecordIndex({ manifest, comebackRunner }: {
           </div>
           {portrait && <div className="rv-feature-photo">
             <Image src={portrait.src} alt={`Retrato de ${leader.name}`} fill
-              sizes="(max-width: 759px) calc(100vw - 32px), (max-width: 1099px) 40vw, 500px" priority unoptimized />
+              sizes="(max-width: 759px) calc(100vw - 32px), (max-width: 1099px) 40vw, 500px" priority />
           </div>}
         </section>
       )}
@@ -154,7 +154,9 @@ function RecordFilters({ piece, q, years }: { piece: Pick<RecordMeta, 'id'>; q: 
     <FilterForm action="/records">
       <input type="hidden" name="dato" value={piece.id} />
       <label className="nc-field"><span>Temporada</span><select name="year" defaultValue={q.year || "all"}>
-        <option value="all">Todo el archivo</option>{years.map((year) => <option key={year}>{year}</option>)}
+        <option value="all">Todo el archivo</option>
+        <optgroup label="Últimas temporadas">{years.slice(0, 8).map(year => <option key={year}>{year}</option>)}</optgroup>
+        <optgroup label="Archivo anterior">{years.slice(8).map(year => <option key={year}>{year}</option>)}</optgroup>
       </select></label>
       <label className="nc-field"><span>Superficie</span><select name="surface" defaultValue={q.surface || "all"}>
         <option value="all">Todas las pistas</option>{SURFACES.map(surface => <option key={surface} value={surface}>{surfaceLabel[surface]}</option>)}

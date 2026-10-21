@@ -57,7 +57,7 @@ function MatchIdentity({ match, position }: { match: Match; position: string }) 
       {sentence(match) && <p className="ry-compare-sentence">{sentence(match)}</p>}
       <Link href={"/match/" + match.match_id} className="ry-compare-match-link">Leer el partido</Link>
     </div>
-    {portrait && <div className="ry-compare-portrait"><Image src={portrait.src} alt={"Retrato de " + name} fill sizes="(max-width: 759px) 110px, 190px" unoptimized /></div>}
+    {portrait && <div className="ry-compare-portrait"><Image src={portrait.thumbnail || portrait.src} alt={"Fotografía de " + name} fill sizes="(max-width: 759px) 80px, 190px" unoptimized /></div>}
   </section>;
 }
 
@@ -115,9 +115,9 @@ export default async function ComparePage({ searchParams }: Props) {
   }));
   return <main className="nc-wrap ry-compare-page">
     <header className="ry-compare-intro">
-      <div><Link href="/buscar" className="ry-compare-back">Partidos</Link><h1>Dos partidos, lado a lado.</h1><p>{relationship(left, right)}</p></div>
+      <div><Link href="/buscar" className="ry-compare-back">Partidos</Link><h1>Comparar partidos</h1><p>{relationship(left, right)}</p></div>
     </header>
-    <div className="ry-compare-identities"><MatchIdentity match={left} position="Primer partido" /><MatchIdentity match={right} position="Segundo partido" /></div>
+    <div className="ry-compare-identities"><MatchIdentity match={left} position="Partido 1" /><MatchIdentity match={right} position="Partido 2" /></div>
     <section className="ry-compare-analysis" aria-labelledby="ry-compare-analysis-title">
       <div className="ry-compare-heading"><h2 id="ry-compare-analysis-title">El set final, en cifras</h2></div>
       <div className="ry-compare-stat-head"><span>Medida</span><span>{winner(left)} · {left.year}</span><span>{winner(right)} · {right.year}</span></div>

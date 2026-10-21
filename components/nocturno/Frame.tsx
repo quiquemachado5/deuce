@@ -119,12 +119,12 @@ const destinations = [
 ] as const;
 
 function pageLabel(path: string) {
-  if (path === '/comparar') return 'Comparar';
+  if (path === '/comparar' || path === '/compare') return 'Comparar';
   if (path.startsWith("/records")) return "Estadísticas";
   if (path.startsWith("/rivalries")) return "Cara a cara";
   if (path.startsWith("/players") || path === "/jugadores") return "Jugadores";
   if (path.startsWith("/torneo") || path === "/tournaments" || /^\/[^/]+\/\d{4}$/.test(path)) return "Torneos";
-  if (path.startsWith("/match") || path === "/buscar" || path === "/partidos" || path === "/compare") return "Partidos";
+  if (path.startsWith("/match") || path === "/buscar" || path === "/partidos") return "Partidos";
   if (path === "/info") return "Cómo se lee";
   if (path === "/credits") return "Fotografías";
   return "";
@@ -211,6 +211,7 @@ export default function Frame({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const shortcut = (event: KeyboardEvent) => {
       if (!(event.metaKey || event.ctrlKey) || event.key.toLowerCase() !== "k") return;
+      if (menu.current?.open) return;
       event.preventDefault();
       const target = search.current;
       if (!target || target.open) { searchField.current?.focus(); return; }
@@ -259,7 +260,10 @@ export default function Frame({ children }: { children: React.ReactNode }) {
     setTheme(value);
     try { localStorage.setItem(themeKey, value); } catch {}
     applyTheme(value);
-    if (themePicker.current) themePicker.current.open = false;
+    if (themePicker.current) {
+      themePicker.current.open = false;
+      themePicker.current.querySelector("summary")?.focus();
+    }
   };
   return (
     <>
@@ -270,10 +274,10 @@ export default function Frame({ children }: { children: React.ReactNode }) {
             <div className="ry-header-brand"><Wordmark /></div>
             <NavSection active={active} mode="desktop" />
             <div className="ry-header-actions">
-              <button className="ry-search-trigger" aria-label="Buscar en DEUCE" type="button" onClick={(event) => open("search", event.currentTarget)}>
+              <button className="ry-search-trigger" aria-label="Buscar en DEUCE" aria-haspopup="dialog" aria-controls="ry-search-dialog" aria-keyshortcuts="Control+K Meta+K" type="button" onClick={(event) => open("search", event.currentTarget)}>
                 <Search size={16} strokeWidth={1.6} aria-hidden="true" /><span>Jugador, torneo o dato</span>
               </button>
-              <button className="ry-icon-button ry-menu-trigger" type="button" aria-label="Abrir menú" onClick={(event) => open("menu", event.currentTarget)}><Menu size={21} aria-hidden="true" /></button>
+              <button className="ry-icon-button ry-menu-trigger" type="button" aria-label="Abrir menú" aria-haspopup="dialog" aria-controls="ry-menu-dialog" onClick={(event) => open("menu", event.currentTarget)}><Menu size={21} aria-hidden="true" /></button>
             </div>
           </div>
         </header>
@@ -291,11 +295,11 @@ export default function Frame({ children }: { children: React.ReactNode }) {
           </div>
         </footer>
       </div>
-      <dialog className="ry-menu-dialog" aria-label="Navegación" ref={menu} onClose={restoreFocus} onClick={dismissBackdrop} onKeyDown={trapFocus}>
+      <dialog id="ry-menu-dialog" className="ry-menu-dialog" aria-label="Navegación" ref={menu} onClose={restoreFocus} onClick={dismissBackdrop} onKeyDown={trapFocus}>
         <div className="ry-dialog-header"><Wordmark choose={close} /><button className="ry-icon-button" type="button" aria-label="Cerrar menú" onClick={close}><X size={20} aria-hidden="true" /></button></div>
         <NavSection active={active} mode="menu" choose={close} />
       </dialog>
-      <dialog className="ry-search-dialog" aria-labelledby="ry-search-title" ref={search} onClose={restoreFocus} onClick={dismissBackdrop} onKeyDown={trapFocus}>
+      <dialog id="ry-search-dialog" className="ry-search-dialog" aria-labelledby="ry-search-title" ref={search} onClose={restoreFocus} onClick={dismissBackdrop} onKeyDown={trapFocus}>
         <div className="ry-dialog-header"><h2 id="ry-search-title">Buscar</h2><button className="ry-icon-button" type="button" aria-label="Cerrar búsqueda" onClick={close}><X size={20} aria-hidden="true" /></button></div>
         <form action="/buscar" onSubmit={close} className="ry-dialog-search">
           <Search size={20} aria-hidden="true" /><label className="ry-sr" htmlFor="ry-search-query">Jugador, torneo o dato</label>

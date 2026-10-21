@@ -117,6 +117,8 @@ export default async function Edition({ params, searchParams }: Props) {
             sizes="(max-width: 649px) calc(100vw - 32px), (max-width: 1099px) 50vw, 560px"
             alt={photo.alt.includes(year) ? photo.alt : `${photo.alt} · ${year}`}
             priority
+            loading="eager"
+            fetchPriority="high"
           />
           {photo.caption && <figcaption>{photo.caption}</figcaption>}
         </figure>
@@ -128,6 +130,7 @@ export default async function Edition({ params, searchParams }: Props) {
       </nav>}
       {final && (
         <section className="nc-edition-final" aria-label="Final">
+          <p className="ry-edition-final-label">Final · {tournamentName(tournament.name)} {year}</p>
           <h2>
             <span className="ry-edition-final-player">{final.player1.name}</span>
             <span className="nc-versus">contra</span>
@@ -136,7 +139,7 @@ export default async function Edition({ params, searchParams }: Props) {
           <p className="nc-edition-score" aria-label={`Marcador: ${score(final)}`}>
             {finalSets.map((set, index) => <span key={`${set}-${index}`}>{set}{index < finalSets.length - 1 ? "," : ""}</span>)}
           </p>
-          <p className="nc-meta">Ganador: {champion}</p>
+          <p className="ry-edition-winner">Ganador: <strong>{champion}</strong></p>
           {finalSentence && finalSentence.length <= 90 && (
             <p>{finalSentence}</p>
           )}

@@ -123,7 +123,7 @@
 .ry-tournament-directory-meta { color: var(--muted); font-size: 13px; line-height: 1.25; }
 .ry-tournament-directory-row > strong { color: var(--ink); text-align: right; font-size: 14px; font-weight: 600; white-space: nowrap; }
 .ry-tournament-extra-masters { margin-top: 16px; }
-.ry-tournament-see-all { display: inline-flex; align-items: center; min-height: 44px; margin-top: 8px; color: var(--link, #0071e3); font-size: 14px; font-weight: 400; }
+.ry-tournament-see-all { display: inline-flex; align-items: center; min-height: 44px; margin-top: 8px; color: var(--ink); font-size: 14px; font-weight: 500; }
 .ry-tournament-see-all:hover { text-decoration: underline; text-underline-offset: 3px; }
 .ry-tournament-filtered { margin-top: 32px; }
 .ry-tournament-filtered .nc-pagination { margin-top: 20px; }
@@ -133,26 +133,33 @@
 .ry-photo-edition-header {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 44%);
-  min-height: 340px;
+  min-height: 400px;
   gap: 0;
   overflow: hidden;
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: var(--panel-radius, 16px);
   background: var(--bg-raised);
 }
 .ry-photo-tournament-detail-head-no-photo,
 .ry-photo-edition-header:not(.ry-photo-edition-has-image) { grid-template-columns: 1fr; min-height: 0; }
+.ry-photo-edition-header:not(.ry-photo-edition-has-image) { border: 0; border-radius: 0; background: transparent; }
+.ry-photo-edition-header:not(.ry-photo-edition-has-image) .ry-photo-edition-heading { padding: 0; }
 .ry-photo-tournament-detail-head > div,
 .ry-photo-edition-heading { display: flex; flex-direction: column; justify-content: center; min-width: 0; padding: clamp(28px, 4vw, 48px); }
 .ry-photo-tournament-detail-head h1,
 .ry-photo-edition-heading h1 { margin: 0 0 14px; }
 .ry-photo-tournament-detail-head .nc-meta,
 .ry-photo-edition-heading .nc-meta { margin-top: 7px; color: var(--muted); font-size: 14px; }
-.ry-photo-edition-heading .nc-meta a { color: var(--link, #0071e3); font-weight: 400; }
+.ry-photo-edition-heading .nc-meta a { color: var(--ink); font-weight: 500; text-underline-offset: 4px; }
 .ry-photo-tournament-detail-head .nc-tournament-photo,
 .ry-photo-edition-image { align-self: stretch; min-width: 0; margin: 0; border: 0; border-radius: 0; background: var(--bg-sunken); }
 .ry-photo-tournament-detail-head .nc-tournament-photo img,
 .ry-photo-edition-image img { display: block; width: 100%; height: 100%; min-height: 340px; border-radius: 0; object-fit: cover; }
+.ry-photo-tournament-detail-head .nc-tournament-photo img { min-height: 400px; }
+.ry-tournament-latest { display: grid; gap: 7px; align-self: stretch; max-width: 48ch; margin-top: 36px; padding: 20px 0 0; border-top: 1px solid var(--line); color: var(--ink); text-decoration: none; }
+.ry-tournament-latest > span { font-size: 13px; color: var(--muted); }
+.ry-tournament-latest > strong { font-size: 18px; font-weight: 600; line-height: 1.3; }
+.ry-tournament-latest:hover > strong { text-decoration: underline; text-underline-offset: 4px; }
 .ry-photo-tournament-detail-head figcaption,
 .ry-photo-edition-image figcaption {
   position: absolute;
@@ -175,8 +182,11 @@
 .ry-photo-tournament-detail .nc-rank-value,
 .ry-photo-tournament-detail .nc-ranking > li:first-child .nc-rank-value { color: var(--ink); font-size: 24px; font-weight: 600; }
 .ry-photo-tournament-detail .ry-rank-meter { background: var(--bg-sunken); border-right-color: var(--line); }
-.ry-photo-tournament-detail .nc-edition-picker { display: grid; gap: 16px; margin-top: 16px; }
+.ry-photo-tournament-detail .nc-edition-picker { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 20px; margin-top: 16px; }
 .ry-photo-tournament-detail .nc-edition-recent { display: flex; gap: 8px; margin: 0; }
+.ry-photo-tournament-detail .nc-edition-archive-select { display: grid; gap: 6px; width: min(210px, 100%); }
+.ry-photo-tournament-detail .nc-edition-archive-select > span { font-size: 13px; color: var(--muted); }
+.ry-photo-tournament-detail .nc-edition-archive-select select { width: 100%; min-height: 44px; padding: 0 12px; border: 1px solid var(--line-strong); border-radius: 10px; background: var(--bg-raised); color: var(--ink); font: inherit; font-size: 14px; }
 .ry-photo-tournament-detail .nc-edition-recent a,
 .ry-photo-tournament-detail .nc-edition-years a {
   min-width: 72px;
@@ -202,10 +212,13 @@
   margin: 0;
   padding: 32px 36px;
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: var(--panel-radius, 16px);
   background: var(--bg-raised);
 }
 .ry-photo-edition .nc-edition-final h2 { max-width: 26ch; margin: 0; font-size: clamp(30px, 3.6vw, 44px); font-weight: 600; line-height: 1.1; letter-spacing: -.03em; }
+.ry-edition-final-label { margin: 0 0 18px; font-size: 13px; color: var(--muted); }
+.ry-photo-edition .nc-edition-final .ry-edition-winner { margin-top: 16px; font-size: 14px; color: var(--muted); }
+.ry-photo-edition .nc-edition-final .ry-edition-winner strong { color: var(--ink); font-weight: 600; }
 .ry-photo-edition .nc-edition-final .nc-versus { color: var(--muted); }
 .ry-photo-edition .nc-edition-score {
   display: flex;
@@ -223,7 +236,7 @@
 }
 .ry-photo-edition .nc-edition-score span { white-space: nowrap; }
 .ry-photo-edition .nc-edition-final p:not(.nc-edition-score) { color: var(--muted); font-size: 14px; }
-.ry-photo-edition .nc-edition-final .nc-link { min-height: 44px; margin-top: 12px; color: var(--link, #0071e3); font-size: 14px; font-weight: 400; }
+.ry-photo-edition .nc-edition-final .nc-link { min-height: 44px; margin-top: 12px; color: var(--ink); font-size: 14px; font-weight: 500; text-underline-offset: 4px; }
 .ry-photo-edition .nc-edition-facts { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin: 56px 0; }
 .ry-photo-edition .nc-edition-facts h2 { grid-column: 1 / -1; }
 .ry-photo-edition .nc-edition-facts > div { min-width: 0; padding: 16px 0; border: 0; border-top: 1px solid var(--line); border-radius: 0; background: transparent; }
@@ -278,6 +291,8 @@
   .ry-photo-tournament-detail .nc-tournament-columns { grid-template-columns: 1fr; gap: 0; }
   .ry-photo-tournament-detail .nc-tournament-columns .nc-section { margin-top: 44px; }
   .ry-photo-tournament-detail .nc-edition-archive > div { padding: 14px 0; }
+  .ry-photo-tournament-detail .nc-edition-picker { align-items: stretch; }
+  .ry-photo-tournament-detail .nc-edition-archive-select { width: 100%; }
   .ry-photo-edition .nc-edition-final { padding: 24px 22px; }
   .ry-photo-edition .nc-edition-final h2 { font-size: clamp(28px, 8vw, 38px); }
   .ry-photo-edition .nc-edition-final h2 .ry-edition-final-player { display: block; }

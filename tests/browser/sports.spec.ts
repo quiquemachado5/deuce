@@ -1,18 +1,20 @@
 import {test,expect} from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-test('home highlights rotate, pause, and summarize the archive accessibly',async({page})=>{
+test('home opens with a verified record and lets readers explore six statistics',async({page})=>{
   await page.setViewportSize({width:1440,height:1000});
   await page.goto('/');
-  await expect(page.getByRole('heading',{level:1})).toContainText('Cada partido.');
-  const carousel=page.getByRole('region',{name:'Historias del archivo'});
-  const title=await carousel.locator('h2').textContent();
-  await page.mouse.move(0,0);
-  await expect(carousel.locator('h2')).not.toHaveText(title!,{timeout:18000});
-  await carousel.getByRole('button',{name:'Pausar destacados'}).click();
-  await expect(carousel.getByRole('button',{name:'Reanudar destacados'})).toBeVisible();
-  const dots=carousel.locator('button[aria-pressed]');
-  await dots.nth(0).click();await expect(dots.nth(0)).toHaveAttribute('aria-pressed','true');
-  expect(await page.locator('.ds-scorecard').count()).toBe(3);
+  const hero=page.locator('.ds-hero-record');
+  await expect(hero.getByRole('heading',{level:1})).toHaveText('11 h 5 min');
+  await expect(hero).toContainText('John Isner');
+  await expect(hero).toContainText('Nicolas Mahut');
+  await expect(hero).toContainText('Wimbledon · 2010');
+  await expect(hero.getByRole('link',{name:'Leer el partido'})).toHaveAttribute('href',/\/match\//);
+  await expect(page.locator('.ds-results-list .nc-match-row')).toHaveCount(5);
+  const discoveries=page.getByRole('region',{name:'Seis formas de mirar el archivo'});
+  await expect(discoveries.locator('.ds-story')).toHaveCount(6);
+  await expect(discoveries.locator('.ds-story').first()).toContainText('Andy Murray');
+  await expect(discoveries.locator('.ds-story').first()).toContainText('partidos con dato');
+  await expect(discoveries.locator('.ds-story').first()).toHaveAttribute('href',/\/records\?dato=/);
   await page.screenshot({path:test.info().outputPath('home-desktop.png')});
   for(const width of [390,320]){
     await page.setViewportSize({width,height:844});
@@ -22,16 +24,26 @@ test('home highlights rotate, pause, and summarize the archive accessibly',async
   expect(axe.violations).toEqual([]);
   await page.screenshot({path:test.info().outputPath('home-mobile.png')});
 });
-test('tiebreaks do not change score alignment; sets have understandable controls',async({page})=>{
+test('tiebreaks stay inline and five sets fit in one readable strip',async({page})=>{
   await page.setViewportSize({width:390,height:844});
-  await page.goto(process.env.PLAYWRIGHT_BASE_URL?'/match/live-205270':'/match/archive-148401');
-  await expect(page.locator('.ry-scoreboard .ds-game sup').first()).toBeVisible();
-  const ratio=await page.locator('.ry-scoreboard .ds-game sup').first().evaluate(el=>parseFloat(getComputedStyle(el).fontSize)/parseFloat(getComputedStyle(el.parentElement!).fontSize));
-  expect(ratio).toBeLessThan(.6);
+  await page.goto('/match/archive-148401');
+  await expect(page.locator('.ry-mobile-score-line')).toContainText('6–7(5), 6–7(8)');
+  await expect(page.locator('.ry-scoreboard sup')).toHaveCount(0);
+  await expect(page.locator('.ry-set-tiebreak').first()).toHaveText('(5)');
   const picker=page.getByRole('group',{name:'Seleccionar set'}).first();
-  await picker.getByRole('button').nth(1).click();
-  await expect(picker.getByRole('button').nth(1)).toHaveAttribute('aria-pressed','true');
+  const sets=picker.getByRole('button');
+  await expect(sets).toHaveCount(5);
+  const first=await sets.first().boundingBox(),last=await sets.last().boundingBox();
+  expect(first).not.toBeNull();
+  expect(last).not.toBeNull();
+  expect(Math.abs(first!.y-last!.y)).toBeLessThan(2);
+  await sets.nth(2).click();
+  await expect(sets.nth(2)).toHaveAttribute('aria-pressed','true');
+  await expect(page.locator('.ds-set-summary')).toContainText('Roger Federer ganó el set');
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   await page.locator('.ds-match-story').first().scrollIntoViewIfNeeded();
   await page.screenshot({path:test.info().outputPath('match-story-mobile.png')});
+  await page.setViewportSize({width:1440,height:900});
+  await expect(page.locator('.ry-set-tiebreak').first()).toBeVisible();
+  expect(await page.locator('.ry-set-tiebreak').first().evaluate(el=>getComputedStyle(el).verticalAlign)).toBe('baseline');
 });
