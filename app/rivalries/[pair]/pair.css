@@ -1,0 +1,470 @@
+.ry-pair-page {
+  padding-block: 24px 88px;
+}
+
+.ry-pair-page .ry-people-breadcrumb {
+  margin-bottom: 20px;
+}
+
+.ry-pair-page .ry-pair-header {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--bg-raised);
+}
+
+.ry-pair-page .ry-pair-header > .ry-people-section-head {
+  align-items: center;
+  margin: 0;
+  padding: 28px 32px 0;
+  border: 0;
+}
+
+.ry-pair-page .ry-pair-header h1 {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+.ry-pair-page .ry-pair-header > .ry-people-section-head .nc-meta {
+  font-size: 13px;
+}
+
+.ry-pair-page .ry-pair-hero {
+  grid-template-columns: minmax(0, 1fr) minmax(170px, auto) minmax(0, 1fr);
+  align-items: end;
+  gap: 24px;
+  min-height: 0;
+  padding: 20px 32px 0;
+}
+
+.ry-pair-page .ry-pair-person {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  min-height: 0;
+}
+
+.ry-pair-page .ry-pair-person-second {
+  align-items: end;
+}
+
+.ry-pair-page .ry-pair-photo {
+  width: min(100%, 220px);
+  height: 220px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--bg-sunken);
+}
+
+.ry-pair-page .ry-pair-photo img {
+  height: 100%;
+  object-position: center 20%;
+}
+
+.ry-pair-page .ry-pair-person h2 {
+  max-width: 16ch;
+  margin: 12px 0 0;
+  font-size: clamp(18px, 2.2vw, 26px);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+}
+
+.ry-pair-page .ry-pair-person h2 a:hover {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.ry-pair-page .ry-pair-score-block {
+  align-self: center;
+  padding: 0 0 24px;
+}
+
+.ry-pair-page .ry-pair-total {
+  gap: 3px;
+  font-size: clamp(56px, 6vw, 72px);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
+.ry-pair-page .ry-pair-total .ry-p1,
+.ry-pair-page .ry-pair-total .ry-p2 {
+  color: var(--ink);
+}
+
+.ry-pair-page .ry-pair-score-divider {
+  color: var(--muted);
+  font-size: 0.8em;
+  font-weight: 400;
+}
+
+.ry-pair-page .ry-pair-score-label {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.ry-pair-page .ry-pair-scope {
+  margin: 0;
+  padding: 22px 32px;
+  border: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.ry-pair-page .ry-pair-surfaces {
+  padding: 24px 32px 30px;
+  border-top: 1px solid var(--line);
+}
+
+.ry-pair-page .ry-pair-surfaces h2 {
+  width: min(100%, 420px);
+  margin: 0 auto 8px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.ry-pair-page .ry-surface-score-list {
+  width: min(100%, 420px);
+  margin: auto;
+}
+
+.ry-pair-page .ry-surface-score-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 11px 0;
+  border-top: 1px solid var(--line);
+}
+
+.ry-pair-page .ry-surface-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--ink-soft);
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.ry-pair-page .ry-surface-dot {
+  display: inline-block;
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--event-accent);
+}
+
+.ry-pair-page [data-event-surface="hard"] .ry-surface-dot {
+  background: var(--hard);
+}
+
+.ry-pair-page [data-event-surface="clay"] .ry-surface-dot {
+  background: var(--clay);
+}
+
+.ry-pair-page [data-event-surface="grass"] .ry-surface-dot {
+  background: var(--grass);
+}
+
+.ry-pair-page .ry-surface-score-row dd {
+  display: flex;
+  align-items: baseline;
+  justify-content: end;
+  gap: 5px;
+  min-width: 95px;
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 23px;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+
+.ry-pair-page .ry-surface-score-row dd span:first-child,
+.ry-pair-page .ry-surface-score-row dd span:last-child {
+  min-width: 1.15em;
+  text-align: right;
+}
+
+.ry-pair-page .ry-surface-score-row dd .ry-surface-leading {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.ry-pair-page .ry-pair-cuts {
+  margin-top: 56px;
+}
+
+.ry-pair-page .ry-pair-cuts h2,
+.ry-pair-page .ry-pair-trajectory h2,
+.ry-pair-page .ry-pair-sequence h2 {
+  font-size: clamp(24px, 2.6vw, 30px);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+}
+
+.ry-pair-page .ry-pair-cuts dl {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  margin: 18px 0 0;
+}
+
+.ry-pair-page .ry-pair-cuts dl > div {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 12px;
+  min-width: 0;
+  padding: 16px 0 0;
+  border-top: 1px solid var(--line);
+}
+
+.ry-pair-page .ry-pair-cuts dt {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.ry-pair-page .ry-pair-cuts dt small {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.ry-pair-page .ry-pair-cuts dd {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 28px;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+
+.ry-pair-page .ry-pair-cuts dd .ry-pair-leading {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.ry-pair-page .ry-pair-trajectory {
+  margin-top: 64px;
+}
+
+.ry-pair-page .ry-pair-trajectory-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.ry-pair-page .ry-pair-trajectory-head h2 {
+  margin: 0;
+}
+
+.ry-pair-page .ry-pair-trajectory-head p {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.ry-pair-page .ry-pair-trajectory-head > p {
+  max-width: 28ch;
+  text-align: right;
+}
+
+.ry-pair-page .ry-pair-trajectory-head > p strong {
+  display: inline;
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.ry-pair-page .ry-pair-trajectory svg {
+  display: block;
+  width: 100%;
+  height: 170px;
+  margin-top: 20px;
+  overflow: visible;
+}
+
+.ry-pair-page .ry-pair-zero {
+  stroke: var(--line-strong);
+  stroke-width: 1;
+  stroke-dasharray: 4 5;
+}
+
+.ry-pair-page .ry-pair-trajectory-line {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.ry-pair-page .ry-pair-trajectory-years {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 20px;
+  color: var(--muted);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.ry-pair-page .ry-pair-sequence {
+  margin-top: 72px;
+}
+
+.ry-pair-page .ry-pair-filter {
+  gap: 8px;
+  margin: 20px 0 14px;
+}
+
+.ry-pair-page .ry-pair-filter a {
+  min-height: 44px;
+  background: transparent;
+}
+
+.ry-pair-page .ry-pair-filter a:hover {
+  border-color: var(--ink);
+}
+
+.ry-pair-page .ry-pair-filter a[aria-current="true"] {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--bg-raised);
+}
+
+.ry-pair-page .ry-pair-turn::before {
+  width: 2px;
+  background: var(--ink);
+}
+
+.ry-pair-page .ry-pair-turn-label {
+  padding: 10px 14px;
+  background: var(--bg-sunken);
+  font-size: 13px;
+}
+
+@media (max-width: 1099px) {
+  .ry-pair-page .ry-pair-hero {
+    grid-template-columns: minmax(0, 1fr) 170px minmax(0, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (max-width: 759px) {
+  .ry-pair-page {
+    padding-block: 16px 72px;
+  }
+
+  .ry-pair-page .ry-pair-header > .ry-people-section-head {
+    padding: 20px 20px 0;
+  }
+
+  .ry-pair-page .ry-pair-header h1 {
+    font-size: 18px;
+  }
+
+  .ry-pair-page .ry-pair-hero {
+    grid-template-areas: "first second" "score score";
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 16px;
+    padding: 16px 20px 0;
+  }
+
+  .ry-pair-page .ry-pair-person-first {
+    grid-area: first;
+  }
+
+  .ry-pair-page .ry-pair-person-second {
+    grid-area: second;
+  }
+
+  .ry-pair-page .ry-pair-photo {
+    width: 100%;
+    height: clamp(132px, 38vw, 190px);
+  }
+
+  .ry-pair-page .ry-pair-person h2 {
+    margin-top: 10px;
+    font-size: clamp(16px, 4.3vw, 21px);
+  }
+
+  .ry-pair-page .ry-pair-score-block {
+    grid-area: score;
+    padding: 24px 0 0;
+  }
+
+  .ry-pair-page .ry-pair-total {
+    font-size: clamp(56px, 16vw, 70px);
+  }
+
+  .ry-pair-page .ry-pair-scope {
+    padding: 16px 20px 22px;
+    text-align: center;
+  }
+
+  .ry-pair-page .ry-pair-surfaces {
+    padding: 22px 20px 28px;
+  }
+
+  .ry-pair-page .ry-pair-cuts {
+    margin-top: 48px;
+  }
+
+  .ry-pair-page .ry-pair-cuts dl {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .ry-pair-page .ry-pair-cuts dl > div {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 0;
+  }
+
+  .ry-pair-page .ry-pair-trajectory {
+    margin-top: 52px;
+  }
+
+  .ry-pair-page .ry-pair-trajectory-head {
+    display: block;
+  }
+
+  .ry-pair-page .ry-pair-trajectory-head > p {
+    max-width: none;
+    margin-top: 8px;
+    text-align: left;
+  }
+
+  .ry-pair-page .ry-pair-trajectory svg {
+    height: 128px;
+  }
+
+  .ry-pair-page .ry-pair-sequence {
+    margin-top: 56px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ry-pair-page .ry-pair-filter a,
+  .ry-pair-page .ry-people-match-list a {
+    transition: background 180ms ease, color 180ms ease, border-color 180ms ease;
+  }
+}

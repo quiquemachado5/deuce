@@ -1,0 +1,42 @@
+{
+  "name": "deuce-slam",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "node --import ./build/register.mjs --import tsx build/prepare-records.ts && node --import ./build/register.mjs --import tsx build/prepare-player-bio.ts && next build",
+    "start": "next start",
+    "lint": "eslint . --max-warnings=0",
+    "typecheck": "tsc --noEmit",
+    "sync:catalog": "node scripts/sync-tennis.mjs catalog",
+    "sync:modern": "node scripts/sync-tennis.mjs modern",
+    "sync:tour": "node scripts/sync-tennis.mjs tour --max-calls=120",
+    "sync:archive-tour": "node scripts/sync-tennis.mjs archive-tour --max-calls=90",
+    "sync:archive": "node scripts/sync-tennis.mjs archive",
+    "sync:details": "node scripts/sync-tennis.mjs details",
+    "sync:index": "node scripts/build-archive-index.mjs",
+    "sync:refresh": "node scripts/sync-tennis.mjs refresh --max-calls=45 --max-details=12",
+    "sync:install-local": "node scripts/install-local-refresh.mjs"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.4",
+    "lucide-react": "^0.441.0",
+    "next": "^16.3.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "recharts": "^3.10.1",
+    "server-only": "0.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.3.0",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.12",
+    "tsx": "4.23.15",
+    "typescript": "^5.7.0"
+  }
+}

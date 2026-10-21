@@ -1,0 +1,17 @@
+.cache
+.git
+.env*
+*.tsbuildinfo
+scripts
+supabase
+README.md
+DESIGN.md
+PRODUCT.md
+screenshots
+
+DEPLOYMENT.md
+
+.impeccable
+
+review
+tests
