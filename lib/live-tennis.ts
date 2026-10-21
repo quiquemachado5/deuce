@@ -1,6 +1,6 @@
 import 'server-only'
 import { pointPosition } from './point-position'
-import { closedSet } from './quality'
+import { closedSet,prepareMatch,eligibleMatch } from './quality'
 import { readdir, readFile } from 'node:fs/promises'
 import { existsSync } from 'node:fs'
 import { join } from 'node:path'
@@ -387,6 +387,18 @@ export async function archiveMatch(id: string): Promise<Match | undefined> {
   return undefined
 }
 export function hasArchive() { return existsSync(listsDir) }
+
+/** One season at a time, without retaining the raw archive in navigation caches. */
+export async function publicationArchive():Promise<Match[]> {
+  const years=[...Array.from({length:Math.max(0,new Date().getUTCFullYear()-2022)},(_,i)=>2023+i),...Array.from({length:55},(_,i)=>1968+i)]
+  const result:Match[]=[]
+  for(const year of years){
+    const [summaries,details]=await Promise.all([readArchiveMatches(year,true),readArchiveDetailedMatches(year)])
+    const byId=new Map(details.map(prepareMatch).filter(eligibleMatch).map(m=>[m.match_id,m]))
+    for(const row of summaries){const m=prepareMatch(row);if(eligibleMatch(m))result.push(byId.get(m.match_id)||m)}
+  }
+  return result
+}
 
 export function hasBundledDetail(kind: 'modern' | 'archive', id: string) { return existsSync(join(detailsDir, `${kind}-${id}.json.gz`)) }
 

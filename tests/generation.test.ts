@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { gzipSync } from 'node:zlib';
+import { gzipSync,gunzipSync } from 'node:zlib';
+import {createHash} from 'node:crypto';
+import {compressedJson} from '../lib/revista/publish-snapshot';
 import { mockMatches } from '../lib/mocks';
 import { compileRecordSnapshot } from '../lib/revista/snapshot';
 import { selectGeneration, generationMetadata, type PreparedGeneration } from '../lib/revista/generation';
@@ -12,6 +14,13 @@ const before = compileRecordSnapshot(matches.slice(0, 2), new Date('2026-10-20T0
 const after = compileRecordSnapshot(matches, new Date('2026-10-21T08:00:00Z'));
 const base: PreparedGeneration = { manifest: before.manifest, source: 'bundled', matches: async () => before.matches, records: async () => before.players };
 const complete = async () => ({ matches: after.matches, records: after.players });
+
+test('bounded serialization and incremental hash preserve the exact snapshot format',async()=>{
+  const json=JSON.stringify(after.matches);
+  assert.equal(gunzipSync(await compressedJson(after.matches)).toString(),json);
+  const m=after.manifest;
+  assert.equal(m.version,createHash('sha256').update(JSON.stringify([m.schema,m.rulesVersion,m.generatedAt.slice(0,10),after.matches])).digest('hex').slice(0,20));
+});
 
 test('a complete remote generation supplies manifest, matches and players together', async () => {
   const chosen = await selectGeneration(base, after.manifest, complete, true);

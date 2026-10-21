@@ -14,11 +14,11 @@ export type RecordManifest = { schema: number; rulesVersion: string; version: st
 export type RecordPages = { pages: Record<string, RecordRow[]>; smallPages: Record<string, RecordRow[]> };
 export type Snapshot = { manifest: RecordManifest; pieces: Record<string, RecordPages>; eras: Record<string, Era[]>; matches: Match[]; players: PlayerRecord[] };
 export function stripSource(m: Match): Match {
-  const safe = {...m}; delete safe.raw_fixture; delete safe.raw_point_tape;
+  const {raw_fixture: _fixture,raw_point_tape: _tape,...safe}=m;
+  void _fixture;void _tape;
   return safe;
 }
 export function proofSummary(m: Match): Match { return {...stripSource(m), point_tape: [], statistics: []}; }
-const rowSummary = (r: RecordRow): RecordRow => ({...r, proof:r.proof ? proofSummary(r.proof) : undefined});
 export function paginate<T>(rows:T[]):Record<string,T[]> {
   const pages:Record<string,T[]> = {};
   for(let i=0;i<rows.length;i+=PAGE_SIZE) pages[String(i/PAGE_SIZE+1)]=rows.slice(i,i+PAGE_SIZE);
@@ -33,6 +33,15 @@ export function pageBoundaryTies(rows: RecordRow[]): Record<number, number> {
 }
 export function compileRecordSnapshot(input: Match[], now = new Date()): Snapshot {
   const matches=input.map(stripSource), catalog=recordCatalog(matches,now), pieces:Snapshot['pieces']={}, metas:RecordMeta[]=[];
+  // A match can substantiate many rankings. Share its compact proof instead of
+  // retaining hundreds of thousands of duplicate property dictionaries.
+  const proofs=new WeakMap<Match,Match>();
+  const rowSummary=(r:RecordRow):RecordRow=>{
+    if(!r.proof)return {...r,proof:undefined};
+    let proof=proofs.get(r.proof);
+    if(!proof){proof=proofSummary(r.proof);proofs.set(r.proof,proof);}
+    return {...r,proof};
+  };
   for(const piece of catalog) {
     const rows=piece.rows.map(rowSummary), big=rows.filter(r=>!piece.percent||r.sample>=50), small=piece.percent?rows.filter(r=>r.sample<50):[];
     const {id,group,title,definition,minimum,sample,percent,measured,years}=piece;
@@ -45,7 +54,10 @@ export function compileRecordSnapshot(input: Match[], now = new Date()): Snapsho
     const rows=eraComparisons(matches,cut).map(e=>({...e,proof:proofSummary(e.proof)}));
     if(rows.length)eras[String(cut)]=rows;
   }
-  const version=createHash('sha256').update(JSON.stringify([SNAPSHOT_SCHEMA,RULES_VERSION,now.toISOString().slice(0,10),matches])).digest('hex').slice(0,20);
+  // Identical JSON bytes, bounded allocation: no giant temporary match string.
+  const hash=createHash('sha256').update(JSON.stringify([SNAPSHOT_SCHEMA,RULES_VERSION,now.toISOString().slice(0,10)]).slice(0,-1)+',[');
+  matches.forEach((match,i)=>{if(i)hash.update(',');hash.update(JSON.stringify(match));});
+  const version=hash.update(']]').digest('hex').slice(0,20);
   return {manifest:{schema:SNAPSHOT_SCHEMA,rulesVersion:RULES_VERSION,version,generatedAt:now.toISOString(),years:[...new Set(matches.map(m=>m.year))].sort((a,b)=>b-a),pieces:metas,eraCuts:Object.keys(eras).map(Number),matchCount:matches.length,mode:matches.some(m=>m.data_source==='mock')?'DEMO':'ARCHIVO REAL',summary:summarizeDataset(matches)},pieces,eras,matches,players:buildSeasonAnalytics(matches).players};
 }
 export const clampPage=(value:unknown,total:number)=>Math.min(Math.max(1,Math.floor(Number(value)||1)),Math.max(1,Math.ceil(total/PAGE_SIZE)));

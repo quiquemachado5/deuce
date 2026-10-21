@@ -1,5 +1,7 @@
 import 'server-only';
-import {gzipSync} from 'node:zlib';
+import {gzipSync,createGzip} from 'node:zlib';
+import {Readable} from 'node:stream';
+import {pipeline} from 'node:stream/promises';
 import {mkdir,writeFile,rename} from 'node:fs/promises';
 import {join} from 'node:path';
 import {isDeepStrictEqual} from 'node:util';
@@ -14,8 +16,16 @@ function compressedPages(id:string,piece:RecordPages):Array<[string,unknown]> {
  }
  return [...chunks].map(([index,payload])=>[`piece-${id}-chunk${index}`,payload]);
 }
-function compressedBlob(id:string,value:unknown):Array<[string,unknown]> {
- const encoded=gzipSync(JSON.stringify(value)).toString('base64');
+export async function compressedJson(value:unknown):Promise<Buffer> {
+ if(!Array.isArray(value))return gzipSync(JSON.stringify(value));
+ const rows=value;
+ function* json(){yield '[';for(let i=0;i<rows.length;i++){if(i)yield ',';yield JSON.stringify(rows[i]);}yield ']';}
+ const chunks:Buffer[]=[];
+ await pipeline(Readable.from(json()),createGzip(),async source=>{for await(const chunk of source)chunks.push(Buffer.from(chunk));});
+ return Buffer.concat(chunks);
+}
+async function compressedBlob(id:string,value:unknown):Promise<Array<[string,unknown]>> {
+ const encoded=(await compressedJson(value)).toString('base64');
  if(encoded.length<=500_000)return [[id,{gzip:encoded}]];
  const parts:Array<[string,unknown]>=[];
  for(let offset=0;offset<encoded.length;offset+=500_000)parts.push([`${id}-chunk${parts.length}`,{chunk:encoded.slice(offset,offset+500_000)}]);
@@ -43,26 +53,29 @@ export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotSt
   const published=await storage.read('reading-v2-manifest');
   assertPublishableArchive(matches,(published as RecordManifest|undefined)?.matchCount);
   if(published&&typeof published==='object'&&isDeepStrictEqual(publishedGeneration(published as RecordManifest),publishedGeneration(manifest)))return;
-  const artifacts:Array<[string,unknown]>=[...Object.entries(pieces).flatMap(([id,p])=>compressedPages(id,p)),...compressedBlob('eras',eras),...compressedBlob('matches',matches),...compressedBlob('players',players)];
+  async function* artifacts():AsyncGenerator<[string,unknown]> {
+    for(const [id,piece] of Object.entries(pieces))yield* compressedPages(id,piece);
+    for(const [id,value] of [['eras',eras],['matches',matches],['players',players]] as const)yield* await compressedBlob(id,value);
+  }
   const batches:ArchiveWrite[][]=[];
+  const flush=async()=>{
+    const settled=await Promise.allSettled(batches.splice(0).map(async entries=>{
+      if(storage.writeMany)await storage.writeMany(entries);
+      else for(const {key,payload} of entries)await storage.write(key,payload);
+    }));
+    const failed=settled.find(result=>result.status==='rejected');
+    if(failed?.status==='rejected')throw failed.reason;
+  };
   let batch:ArchiveWrite[]=[],bytes=2;
-  for(const [id,payload] of artifacts){
+  for await(const [id,payload] of artifacts()){
     const entry={key:snapshotKey(manifest.version,id),payload},size=Buffer.byteLength(JSON.stringify({...entry,updated_at:'0000-00-00T00:00:00.000Z'}));
-    if(batch.length&&(batch.length===8||bytes+size+1>1_000_000)){batches.push(batch);batch=[];bytes=2;}
+    if(batch.length&&(batch.length===8||bytes+size+1>1_000_000)){batches.push(batch);batch=[];bytes=2;if(batches.length===4)await flush();}
     bytes+=size+(batch.length?1:0);batch.push(entry);
   }
   if(batch.length)batches.push(batch);
   // Versioned artifact keys make a failed upload safe to retry. Run a small
   // number of independent batches together so a large archive stays within
   // the cron budget, but never expose the new manifest until all settle.
-  const concurrency=4;
-  for(let index=0;index<batches.length;index+=concurrency){
-    const settled=await Promise.allSettled(batches.slice(index,index+concurrency).map(async entries=>{
-      if(storage.writeMany)await storage.writeMany(entries);
-      else for(const {key,payload} of entries)await storage.write(key,payload);
-    }));
-    const failed=settled.find(result=>result.status==='rejected');
-    if(failed?.status==='rejected')throw failed.reason;
-  }
+  await flush();
   await storage.write('reading-v2-manifest',manifest);
 }
