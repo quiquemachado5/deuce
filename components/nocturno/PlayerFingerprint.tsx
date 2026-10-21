@@ -2,9 +2,12 @@ import type { CSSProperties } from "react";
 import { number } from "@/lib/cuaderno/model";
 import type { PlayerRecord } from "@/lib/season-analytics";
 
-type Fraction = { won: number; total: number };
+type Fraction = { won: number; total: number; matches?: number };
 type Metric = {
   label: string;
+  unit: string;
+  minimum: number;
+  minimumMatches?: number;
   fraction: (record: PlayerRecord) => Fraction | null;
 };
 
@@ -14,43 +17,62 @@ const extra = (record: PlayerRecord, won: string, total: string): Fraction => ({
 });
 const measured = (record: PlayerRecord, key: string): Fraction | null => {
   const value = record.stats[key];
-  return value?.total ? { won: value.won, total: value.total } : null;
+  return value?.total ? { won: value.won, total: value.total, matches: value.samples } : null;
 };
 
 const metrics: Metric[] = [
   {
     label: "Juegos tras ganar el 30–30",
+    unit: "juegos",
+    minimum: 10,
     fraction: (r) => extra(r, "thirtyAllWon", "thirtyAllTotal"),
   },
   {
     label: "Breaks salvados",
+    unit: "bolas de break",
+    minimum: 10,
+    minimumMatches: 3,
     fraction: (r) => measured(r, "Break points saved"),
   },
   {
     label: "Partidos de cinco sets",
+    unit: "partidos",
+    minimum: 10,
     fraction: (r) => ({ won: r.fiveSetWins, total: r.fiveSetPlayed }),
   },
   {
     label: "Remonta el primer set",
+    unit: "partidos",
+    minimum: 10,
     fraction: (r) => extra(r, "afterOpeningLost", "openingLost"),
   },
   {
     label: "Ante el top 10 de entonces",
+    unit: "partidos",
+    minimum: 10,
     fraction: (r) => extra(r, "top10Wins", "top10Played"),
   },
   {
     label: "Puntos al saque",
+    unit: "puntos",
+    minimum: 50,
+    minimumMatches: 3,
     fraction: (r) => measured(r, "Service points won"),
   },
   {
     label: "Puntos al resto",
+    unit: "puntos",
+    minimum: 50,
+    minimumMatches: 3,
     fraction: (r) => measured(r, "Return points won"),
   },
 ];
 
-function valid(value: Fraction | null): value is Fraction {
+function valid(value: Fraction | null, metric: Metric): value is Fraction {
   return (
-    !!value && value.total >= 10 && value.won >= 0 && value.won <= value.total
+    !!value && value.total >= metric.minimum &&
+    (!metric.minimumMatches || (value.matches || 0) >= metric.minimumMatches) &&
+    value.won >= 0 && value.won <= value.total
   );
 }
 function median(values: number[]): number {
@@ -71,28 +93,29 @@ export default function PlayerFingerprint({
 }) {
   const rows = metrics.flatMap((metric) => {
     const fraction = metric.fraction(player);
-    if (!valid(fraction)) return [];
-    const population = archive.map(metric.fraction).filter(valid);
+    if (!valid(fraction, metric)) return [];
+    const population = archive.map(metric.fraction).filter((value): value is Fraction => valid(value, metric));
     if (!population.length) return [];
     const value = (fraction.won / fraction.total) * 100;
     const reference = median(population.map((p) => (p.won / p.total) * 100));
-    return [{ ...fraction, label: metric.label, value, reference }];
+    return [{ ...fraction, label: metric.label, unit: metric.unit, value, reference, cohort: population.length }];
   });
-  if (rows.length < 4) return null;
+  if (rows.length < 2) return null;
   const strongest = [...rows].sort(
     (a, b) => Math.abs(b.value - b.reference) - Math.abs(a.value - a.reference),
   )[0];
   const difference = strongest.value - strongest.reference;
+  const hasAboveMedian = rows.some((row) => row.value > row.reference + 0.5);
   return (
     <section
       className="ry-people-section ry-fingerprint"
       aria-labelledby="ry-fingerprint-title"
     >
       <div className="ry-people-section-head">
-        <h2 id="ry-fingerprint-title">Huella de juego</h2>
+        <h2 id="ry-fingerprint-title">{hasAboveMedian ? "Dónde destaca" : "Rendimiento medido"}</h2>
         <span className="ry-chart-key ry-chart-key-median">Mediana del archivo</span>
       </div>
-      <p className="nc-meta">Tasas observadas · escala común de 0 a 100 % · mínimo 10 casos por medida.</p>
+      <p className="nc-meta">Porcentajes frente a la mediana de jugadores con datos suficientes para cada medida.</p>
       <dl className="ry-fingerprint-list">
         {rows.map((row) => (
           <div className="ry-fingerprint-row" key={row.label}>
@@ -101,7 +124,7 @@ export default function PlayerFingerprint({
               <span className="ry-fingerprint-value">
                 {number(row.value, 1)} %{" "}
                 <span>
-                  {number(row.won)} / {number(row.total)}{row.total < 50 ? " · muestra pequeña" : ""}
+                  {number(row.won)} de {number(row.total)} {row.unit}{row.total < 50 ? " · muestra pequeña" : ""}
                 </span>
               </span>
               <span
@@ -118,7 +141,10 @@ export default function PlayerFingerprint({
                 <span className="ry-fingerprint-median" />
               </span>
               <span className="nc-sr">
-                Mediana del archivo: {number(row.reference, 1)} %.
+                Mediana del archivo: {number(row.reference, 1)} % entre {number(row.cohort)} jugadores.
+              </span>
+              <span className="ry-fingerprint-reference" aria-hidden="true">
+                Mediana: {number(row.reference, 1)} % · {number(row.cohort)} jugadores
               </span>
             </dd>
           </div>

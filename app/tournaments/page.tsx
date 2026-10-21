@@ -65,7 +65,8 @@ function PhotoGroup({ category, entries }: { category: string; entries: Tourname
         const surfaces = categorySurfaces(entry, category);
         return <Link className="ry-photo-tournament-tile" href={`/torneos/${entry.slug}`} key={entry.slug}
           data-event-surface={surfaces.length === 1 ? surfaces[0] : undefined} data-event-category={category}>
-          <span className="ry-photo-tournament-image"><Image src={photo.src} alt={photo.alt} fill priority={category === "Grand Slam" && index === 0}
+          <span className="ry-photo-tournament-image"><Image src={photo.src} alt={photo.alt} fill priority={category === "Grand Slam" && index < 2}
+            loading={category === "Grand Slam" && index < 2 ? "eager" : "lazy"}
             sizes={category === "Grand Slam" ? "(max-width: 759px) calc(100vw - 32px), (max-width: 1099px) 45vw, 43vw" : "(max-width: 759px) calc(100vw - 32px), (max-width: 1099px) 45vw, 29vw"} /></span>
           <span className="ry-photo-tournament-copy"><strong>{tournamentName(entry.name)}</strong>
             <span>{surfaces.length === 1 && <><i className={`nc-dot nc-dot-${surfaces[0]}`} aria-hidden="true" />{surfaceLabel[surfaces[0]]} · </>}{number(finals)} finales</span>
@@ -83,7 +84,9 @@ function PhotoGroup({ category, entries }: { category: string; entries: Tourname
 function CompactSection({ category, entries }: { category: string; entries: TournamentEntry[] }) {
   if (!entries.length) return null;
   const shown = entries.slice(0, 8);
-  return <section className="nc-section ry-tournament-list-section">
+  const id = category === "ATP 500" ? "atp-500" : category === "ATP 250" ? "atp-250" :
+    category === "Precursores de Masters" ? "precursores" : category === "ATP Tour histórico" ? "otros" : undefined;
+  return <section className="nc-section ry-tournament-list-section" id={id}>
     <div className="ry-tournament-list-heading"><h2>{categoryLabel(category)}</h2><span>{number(entries.length)} torneos</span></div>
     <div className="ry-tournament-directory-rows">{shown.map((entry) => <TournamentRow entry={entry} category={category} key={`${category}-${entry.slug}`} />)}</div>
     {entries.length > shown.length && <Link className="ry-tournament-see-all" href={categoryUrl(category)}>Ver los {number(entries.length)} torneos</Link>}
@@ -109,11 +112,18 @@ export default async function Tournaments({ searchParams }: Props) {
       <h1>{chosen ? categoryLabel(chosen) : "Torneos"}</h1>
       <p>{chosen ? `${number(chosenEntries.length)} torneos de esta categoría.` : "Resultados, finales y ediciones del archivo."}</p>
     </header>
-    <nav className="ry-tournament-category-nav" aria-label="Categorías de torneos">
-      <Link href="/tournaments" aria-current={!chosen ? "page" : undefined}>Todos</Link>
+    {chosen ? <nav className="ry-tournament-category-nav" aria-label="Categorías de torneos">
+      <Link href="/tournaments">Todos los torneos</Link>
       {categories.map((category) => <Link key={category} href={categoryUrl(category)} aria-current={chosen === category ? "page" : undefined}
         data-event-category={category}>{categoryLabel(category)}</Link>)}
-    </nav>
+    </nav> : <nav className="ry-tournament-category-nav ry-tournament-jumps" aria-label="Ir a una categoría">
+      <a href="#grand-slams">Grand Slams</a>
+      <a href="#masters">Masters 1000</a>
+      {categories.includes("ATP 500") && <a href="#atp-500">ATP 500</a>}
+      {categories.includes("ATP 250") && <a href="#atp-250">ATP 250</a>}
+      {categories.includes("ATP Tour histórico") && <a href="#otros">Histórico</a>}
+      {categories.includes("Precursores de Masters") && <a href="#precursores">Precursores</a>}
+    </nav>}
     {chosen ? <section className="nc-section ry-tournament-list-section ry-tournament-filtered">
       <div className="ry-tournament-list-heading"><h2>{categoryLabel(chosen)}</h2><span>Página {number(page)} de {number(pages)}</span></div>
       <div className="ry-tournament-directory-rows">{chosenEntries.slice((page - 1) * 25, page * 25).map((entry) => <TournamentRow entry={entry} category={chosen} key={entry.slug} />)}</div>

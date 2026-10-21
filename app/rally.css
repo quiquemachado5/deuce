@@ -32,11 +32,15 @@
   --footer-hover: var(--ink);
   --font-interface: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --control-radius: 999px;
+  --field-radius: 10px;
   --panel-radius: 12px;
   --media-radius: 12px;
   --radius: 12px;
   --control-height: 44px;
   --ease: cubic-bezier(.22, 1, .36, 1);
+  --dx-blue: var(--ink);
+  --dx-blue-soft: var(--bg-sunken);
+  --dx-shadow: none;
 }
 html[data-theme="dark"] {
   color-scheme: dark;
@@ -92,7 +96,7 @@ input, select, textarea {
   min-height: var(--control-height);
   padding: 10px 16px;
   border: 1px solid var(--line-strong);
-  border-radius: 10px;
+  border-radius: var(--field-radius);
   background: var(--bg-raised);
   transition: border-color 180ms var(--ease), background-color 180ms var(--ease);
 }

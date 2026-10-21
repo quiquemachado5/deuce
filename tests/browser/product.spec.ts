@@ -3,7 +3,7 @@ import AxeBuilder from '@axe-core/playwright';
 test('a record opens the full evidence list and preserves filters',async({page})=>{
   await page.goto('/records?dato=top-10&year=2019');
   const value=await page.locator('.rv-ranking-number strong').first().innerText();
-  await page.getByRole('link',{name:'Ver todos los partidos ↗',exact:true}).first().click();
+  await page.getByRole('link',{name:/Ver partidos de .* en esta clasificación/}).first().click();
   await expect(page).toHaveURL(/\/records\/evidencia\?.*year=2019/);
   await expect(page.locator('.dx-evidence-summary strong').nth(1)).toHaveText(value);
   await expect(page.getByRole('region',{name:'Lista completa de evidencia'})).toBeVisible();

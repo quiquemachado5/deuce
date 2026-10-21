@@ -60,6 +60,8 @@ function SeasonChart({
     const year = years[0] + index;
     return { year, result: byYear.get(year) || null };
   });
+  const recentSeasons = seasons.slice(-8).reverse();
+  const earlierSeasons = seasons.slice(0, -8).reverse();
   const best = [...byYear].sort((a, b) => b[1].wins - a[1].wins)[0];
   const selectedResult = byYear.get(selected);
   const maximum = Math.max(
@@ -95,7 +97,7 @@ function SeasonChart({
           : `${season.year}: sin partidos registrados`).join(". ")}. Escala común de cero a {maximum} partidos.
       </p>
       <div className="ry-season-highlights">
-        {selectedResult && <p><strong>{number(selectedResult.wins)}–{number(selectedResult.losses)}</strong><span>{selected} · victorias y derrotas</span></p>}
+        {selectedResult && <p><strong>{number(selectedResult.wins)}–{number(selectedResult.losses)}</strong><span>{selected} · {number(selectedResult.wins + selectedResult.losses)} partidos</span></p>}
         {best && <p><strong>{number(best[1].wins)}</strong><span>victorias en {best[0]} · máximo registrado</span></p>}
       </div>
       <div className="ry-season-chart-scroll">
@@ -141,6 +143,9 @@ function SeasonChart({
                 href={season.result ? `/players/${slug}?year=${season.year}#temporada` : undefined}
                 aria-label={season.result ? `Calendario ${season.year}: ${season.result.wins} victorias, ${season.result.losses} derrotas` : `${season.year}: sin partidos registrados`}
               >
+                <title>{season.result
+                  ? `${season.year}: ${season.result.wins} victorias y ${season.result.losses} derrotas`
+                  : `${season.year}: sin partidos registrados`}</title>
                 {season.year === selected && (
                   <rect
                     className="ry-chart-selection"
@@ -181,8 +186,64 @@ function SeasonChart({
           })}
         </svg>
       </div>
+      <div className="ry-season-mobile" aria-label="Resultados por temporada, de más reciente a más antigua">
+        <div className="ry-season-mobile-list">
+          {recentSeasons.map((season) => (
+            <SeasonMobileRow key={season.year} season={season} slug={slug} selected={selected} />
+          ))}
+        </div>
+        {earlierSeasons.length > 0 && (
+          <details className="ry-season-older">
+            <summary>Ver {number(earlierSeasons.length)} temporadas anteriores</summary>
+            <div className="ry-season-mobile-list">
+              {earlierSeasons.map((season) => (
+                <SeasonMobileRow key={season.year} season={season} slug={slug} selected={selected} />
+              ))}
+            </div>
+          </details>
+        )}
+      </div>
     </section>
   );
+}
+
+function SeasonMobileRow({
+  season,
+  slug,
+  selected,
+}: {
+  season: { year: number; result: { wins: number; losses: number } | null };
+  slug: string;
+  selected: number;
+}) {
+  const total = (season.result?.wins || 0) + (season.result?.losses || 0);
+  const content = (
+    <>
+      <span className="ry-season-mobile-heading">
+        <strong>{season.year}</strong>
+        {season.result && <b>{number((season.result.wins / total) * 100, 1)} %</b>}
+      </span>
+      {season.result ? (
+        <>
+          <span className="ry-season-mobile-balance">
+            {number(season.result.wins)} victorias · {number(season.result.losses)} derrotas · {number(total)} partidos
+          </span>
+          <span className="ry-season-mobile-track" aria-hidden="true">
+            <i style={{ width: `${(season.result.wins / total) * 100}%` }} />
+          </span>
+        </>
+      ) : <span className="ry-season-mobile-missing">Sin partidos registrados</span>}
+    </>
+  );
+  return season.result ? (
+    <Link
+      className="ry-season-mobile-row"
+      aria-current={season.year === selected ? "true" : undefined}
+      href={`/players/${slug}?year=${season.year}#temporada`}
+    >
+      {content}
+    </Link>
+  ) : <div className="ry-season-mobile-row ry-season-mobile-empty">{content}</div>;
 }
 
 export async function generateMetadata({ params, searchParams }: Props) {
@@ -228,10 +289,6 @@ export default async function Player({ params, searchParams }: Props) {
   const eras =
     eraComparisons(player.matches, 2020, player.name)[0] ||
     eraComparisons(player.matches, 2010, player.name)[0];
-  const surfaceMaximum = Math.max(
-    1,
-    ...Object.values(player.bySurface).map((surface) => surface.played),
-  );
   const directoryByName = new Map(
     tournamentDirectory(data.matches).map((entry) => [entry.name, entry]),
   );
@@ -273,33 +330,30 @@ export default async function Player({ params, searchParams }: Props) {
           aria-labelledby="ry-player-surfaces-title"
         >
           <h2 id="ry-player-surfaces-title">Balance por superficie</h2>
-          <p className="nc-meta">
-            Victorias y derrotas · escala común de 0 a {number(surfaceMaximum)}{" "}
-            partidos.
-          </p>
+          <p className="nc-meta ry-surface-explainer">Cada barra muestra la proporción de victorias y derrotas en esa superficie.</p>
           <dl className="ry-player-surface-list">
             {SURFACES.filter(surface => player.bySurface[surface].played > 0).map((surface) => {
               const result = player.bySurface[surface];
               return (
                 <div key={surface} data-event-surface={surface}>
                   <dt>
-                    {surfaceLabel[surface]}
+                    <span className="ry-surface-name">{surfaceLabel[surface]}</span>
                     <span>{number(result.played)} partidos</span>
                   </dt>
                   <dd>
                     <span className="ry-player-surface-record">
                       <strong>
                         {number(result.won)}
-                        <span>V</span>
+                        <span>victorias</span>
                       </strong>
                       <strong>
                         {number(result.played - result.won)}
-                        <span>D</span>
+                        <span>derrotas</span>
                       </strong>
                       {result.played > 0 && (
                         <span className="ry-surface-rate">
                           {number((result.won / result.played) * 100, 1)} %
-                          {result.played < 50 ? " · muestra pequeña" : ""}
+                          {result.played < 50 && <small>muestra pequeña</small>}
                         </span>
                       )}
                     </span>
@@ -309,12 +363,12 @@ export default async function Player({ params, searchParams }: Props) {
                     >
                       <span
                         style={{
-                          width: `${(result.won / surfaceMaximum) * 100}%`,
+                          width: `${(result.won / result.played) * 100}%`,
                         }}
                       />
                       <span
                         style={{
-                          width: `${((result.played - result.won) / surfaceMaximum) * 100}%`,
+                          width: `${((result.played - result.won) / result.played) * 100}%`,
                         }}
                       />
                     </span>
@@ -491,8 +545,7 @@ export default async function Player({ params, searchParams }: Props) {
             {years.at(-1)}–{years[0]}{" "}
             <span>· {number(years.length)} temporadas registradas</span>
           </p>
-          <p className="nc-meta">Grand Slams y torneos ATP de este archivo.</p>
-          <Link className="dx-inline-link" href={`/comparar?a=${encodeURIComponent(player.name)}`}>Comparar por temporada, edad o superficie ↗</Link>
+          <p className="nc-meta">Resultados de este archivo, no de toda la carrera.</p>
           <dl className="ry-player-totals">
             <div>
               <dt>Victorias</dt>
@@ -507,6 +560,9 @@ export default async function Player({ params, searchParams }: Props) {
               <dd>{number((player.won / player.played) * 100, 1)} %<span>{number(player.won)} de {number(player.played)} partidos</span></dd>
             </div>
           </dl>
+          <Link className="ry-player-compare" href={`/comparar?a=${encodeURIComponent(player.name)}`}>
+            Comparar jugador
+          </Link>
           {bio && Object.keys(bio).length > 0 && (
             <dl className="ry-player-bio">
               {bio.country && (

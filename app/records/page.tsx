@@ -8,6 +8,7 @@ import { description, groupDescriptions } from "@/lib/revista/records";
 import type { RecordMeta } from "@/lib/revista/snapshot";
 import { Pagination } from "@/components/nocturno/Row";
 import { RecordEras, RecordProof, RecordRanking, recordValue } from "@/components/nocturno/RecordsViews";
+import RecordBars from "@/components/nocturno/RecordBars";
 import FilterForm from "@/components/revista/FilterForm";
 import { TOURNAMENTS } from "@/lib/types";
 import { tournamentName } from "@/lib/labels";
@@ -59,7 +60,7 @@ function RecordIndex({ manifest, comebackRunner }: {
     <div className="nc-wrap rv-records rv-index">
       <header className="rv-intro">
         <div>
-          <h1>Estadísticas</h1>
+          <h1>Récords y estadísticas</h1>
         </div>
         <span>{number(catalog.length)} estadísticas · {number(manifest.matchCount)} partidos</span>
       </header>
@@ -81,7 +82,7 @@ function RecordIndex({ manifest, comebackRunner }: {
           </div>
           {portrait && <div className="rv-feature-photo">
             <Image src={portrait.src} alt={`Retrato de ${leader.name}`} fill
-              sizes="(max-width: 759px) calc(100vw - 32px), (max-width: 1099px) 40vw, 500px" priority unoptimized />
+              sizes="(max-width: 759px) calc(100vw - 32px), (max-width: 1099px) 40vw, 500px" priority />
           </div>}
         </section>
       )}
@@ -154,7 +155,9 @@ function RecordFilters({ piece, q, years }: { piece: Pick<RecordMeta, 'id'>; q: 
     <FilterForm action="/records">
       <input type="hidden" name="dato" value={piece.id} />
       <label className="nc-field"><span>Temporada</span><select name="year" defaultValue={q.year || "all"}>
-        <option value="all">Todo el archivo</option>{years.map((year) => <option key={year}>{year}</option>)}
+        <option value="all">Todo el archivo</option>
+        <optgroup label="Últimas temporadas">{years.slice(0, 8).map(year => <option key={year}>{year}</option>)}</optgroup>
+        <optgroup label="Archivo anterior">{years.slice(8).map(year => <option key={year}>{year}</option>)}</optgroup>
       </select></label>
       <label className="nc-field"><span>Superficie</span><select name="surface" defaultValue={q.surface || "all"}>
         <option value="all">Todas las pistas</option>{SURFACES.map(surface => <option key={surface} value={surface}>{surfaceLabel[surface]}</option>)}
@@ -238,6 +241,7 @@ export default async function Records({ searchParams }: { searchParams: Promise<
       </div><RecordProof row={leader} />
     </section>}
     <RecordFilters piece={piece} q={q} years={view.manifest.years} />
+    {view.page === 1 && !asYear && <RecordBars rows={view.rows} id={piece.id} percent={piece.percent} filters={q} />}
     <section className="rv-list-section"><div className="rv-list-heading"><h2>Clasificación</h2>
       <span>{number(piece.total)} {piece.total === 1 ? "entrada" : "entradas"} · página {number(view.page)} de {number(Math.max(1, Math.ceil(piece.total / 25)))}</span></div>
       {view.rows.length ? <RecordRanking evidence={{id:piece.id,filters:q}} rows={view.rows} percent={piece.percent} asYear={asYear} offset={(view.page - 1) * 25} priorValue={piece.pagePrior?.[view.page]} />

@@ -1,24 +1,97 @@
 "use client";
-import { useState } from 'react';
-import type { Match } from '@/lib/types';
-import { matchStory } from '@/lib/match-story';
-import { score } from '@/lib/cuaderno/model';
-import ScoreText from '@/components/ScoreText';
 
-export default function ReadingLine({match}: {match:Match}) {
-  const sets=matchStory(match),names=[match.player1.name,match.player2.name];
-  const [selected,setSelected]=useState(0),[game,setGame]=useState<number|null>(null);
-  const current=sets[selected]||sets[0];
-  if(!current?.games.length || match.status!=='Finished' || match.quality?.result==='review')return null;
-  const item=game===null?null:current.games[game];
-  return <section className="ds-match-story" aria-label="Cómo se decidió el partido">
-    <div className="ry-section-heading"><h2>El partido, set a set.</h2><span>{sets.length} sets · {sets.reduce((n,s)=>n+s.games.length,0)} juegos</span></div>
-    <p className="ds-chart-explainer">Quién ganó cada set y dónde cambió el servicio. Lee el resultado y explora los juegos registrados.</p>
-    <div className="ds-set-picker" role="group" aria-label="Seleccionar set">{sets.map((set,i)=><button key={set.set} type="button" aria-pressed={i===selected} onClick={()=>{setSelected(i);setGame(null);}}><span>SET {set.set}</span><ScoreText value={score(match).split(', ')[i]||set.score.join('–')}/><small>{names[set.winner-1]}</small></button>)}</div>
-    <div className="ds-set-summary"><span>Set {current.set}</span><strong>{names[current.winner-1]}</strong><span>Ganó {current.score[current.winner-1]} de los {current.games.length} juegos.</span></div>
-    <div className="ds-set-balance" role="img" aria-label={`${names[0]}: ${current.score[0]} juegos. ${names[1]}: ${current.score[1]} juegos.`}><span style={{width:`${current.score[0]/current.games.length*100}%`}}/><span style={{width:`${current.score[1]/current.games.length*100}%`}}/></div>
-    <div className="ds-story-legend"><span><i/>{names[0]}</span><span><i/>{names[1]}</span></div>
-    {current.known>0 ? <><div className="ds-game-sequence" role="group" aria-label={`Juegos registrados del set ${current.set}`}>{current.games.map((g,i)=><button type="button" key={i} className={`ds-game-chip ds-game-side-${g.winner||'unknown'}${g.isBreak?' ds-game-break':''}`} aria-pressed={game===i} aria-label={`Juego ${g.number}: ${g.winner?names[g.winner-1]:'sin secuencia completa'}${g.isBreak?', break':''}${g.tiebreak?', tie-break':''}`} onClick={()=>setGame(i)}>{g.tiebreak?'TB':g.number}{g.isBreak&&<span aria-hidden="true">↗</span>}</button>)}</div>
-    <p className="ds-game-detail" aria-live="polite">{item?<>Juego {item.number} · {item.winner?`Ganó ${names[item.winner-1]}${item.isBreak?' al resto: break.':item.tiebreak?' en el tie-break.':'.'}`:'No tenemos la secuencia completa de este juego.'}</>:<>Toca un juego para leerlo. ↗ = break. Gris = secuencia no disponible.</>}</p><p className="ry-data-note">{current.known} de {current.games.length} juegos con secuencia completa. No se rellenan huecos.</p></> : <p className="ds-game-detail">De este set tenemos el resultado, no una secuencia completa de juegos. No reconstruimos una evolución que la fuente no ofrece.</p>}
-  </section>;
+import { useState } from "react";
+import type { Match } from "@/lib/types";
+import { matchStory } from "@/lib/match-story";
+import { score } from "@/lib/cuaderno/model";
+import ScoreText from "@/components/ScoreText";
+import GameFlow from "./GameFlow";
+
+export default function ReadingLine({ match }: { match: Match }) {
+  const sets = matchStory(match);
+  const names = [match.player1.name, match.player2.name];
+  const scores = score(match).split(", ");
+  const [selected, setSelected] = useState(0);
+  const [selectedGame, setSelectedGame] = useState<number | null>(null);
+  const current = sets[selected] || sets[0];
+
+  if (!current?.games.length || match.status !== "Finished" || match.quality?.result === "review") {
+    return null;
+  }
+
+  const featuredGame = current.games.findIndex((game) => game.isBreak && game.winner);
+  const firstKnownGame = current.games.findIndex((game) => game.winner);
+  const activeGameIndex = selectedGame ?? (featuredGame >= 0 ? featuredGame : firstKnownGame);
+  const activeGame = activeGameIndex >= 0 ? current.games[activeGameIndex] : null;
+  const breaks = current.games.filter((game) => game.isBreak).length;
+
+  return (
+    <section className="ds-match-story" aria-label="El partido, set a set">
+      <div className="ry-section-heading">
+        <h2>Set a set</h2>
+        <span>{sets.length} sets · {sets.reduce((count, set) => count + set.games.length, 0)} juegos</span>
+      </div>
+
+      <GameFlow match={match} />
+
+      <div
+        className="ds-set-picker"
+        role="group"
+        aria-label="Seleccionar set"
+        style={{ gridTemplateColumns: `repeat(${sets.length}, minmax(0, 1fr))` }}
+      >
+        {sets.map((set, index) => (
+          <button
+            key={set.set}
+            type="button"
+            aria-pressed={index === selected}
+            aria-label={`Set ${set.set}: ${scores[index] || set.score.join("–")}. Ganó ${names[set.winner - 1]}`}
+            onClick={() => {
+              setSelected(index);
+              setSelectedGame(null);
+            }}
+          >
+            <span>Set {set.set}</span>
+            <ScoreText value={scores[index] || set.score.join("–")} />
+          </button>
+        ))}
+      </div>
+
+      <div className="ds-set-summary">
+        <strong>{names[current.winner - 1]} ganó el set</strong>
+        {breaks > 0 && <span>{breaks} {breaks === 1 ? "break registrado" : "breaks registrados"}</span>}
+      </div>
+
+      {current.known > 0 ? (
+        <>
+          <div className="ds-game-sequence" role="group" aria-label={`Juegos registrados del set ${current.set}`}>
+            {current.games.map((game, index) => (
+              <button
+                type="button"
+                key={game.number}
+                className={`ds-game-chip ds-game-side-${game.winner || "unknown"}${game.isBreak ? " ds-game-break" : ""}`}
+                aria-pressed={activeGameIndex === index}
+                aria-label={`Juego ${game.number}: ${game.winner ? `ganó ${names[game.winner - 1]}` : "secuencia incompleta"}${game.isBreak ? ", break" : ""}${game.tiebreak ? ", tie-break" : ""}`}
+                onClick={() => setSelectedGame(index)}
+              >
+                {game.tiebreak ? "TB" : game.number}
+              </button>
+            ))}
+          </div>
+          {activeGame && (
+            <p className="ds-game-detail" aria-live="polite">
+              Juego {activeGame.number} · {activeGame.winner
+                ? `${names[activeGame.winner - 1]} ganó ${activeGame.isBreak ? "al resto" : activeGame.tiebreak ? "el tie-break" : "el juego"}.`
+                : "Secuencia incompleta."}
+            </p>
+          )}
+          {current.known < current.games.length && (
+            <p className="ry-data-note">{current.known} de {current.games.length} juegos registrados.</p>
+          )}
+        </>
+      ) : (
+        <p className="ds-game-detail">Solo se conserva el marcador de este set.</p>
+      )}
+    </section>
+  );
 }

@@ -33,19 +33,19 @@
   top: 0;
   width: 100%;
   border-bottom: 1px solid var(--line);
-  background: color-mix(in srgb, var(--bg) 80%, transparent);
+  background: color-mix(in srgb, var(--bg) 97%, transparent);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
 }
 .ry-header-main {
   display: grid;
-  grid-template-columns: minmax(88px, 1fr) auto minmax(220px, 1fr);
+  grid-template-columns: minmax(92px, 1fr) auto minmax(220px, 1fr);
   align-items: center;
-  gap: 24px;
-  width: min(1440px, 100%);
-  min-height: 48px;
+  gap: 20px;
+  width: min(1304px, 100%);
+  min-height: 56px;
   margin-inline: auto;
-  padding-inline: 40px;
+  padding-inline: 32px;
 }
 .ry-header-brand,
 .ry-header-actions { display: flex; align-items: center; min-width: 0; }
@@ -55,9 +55,9 @@
   align-items: center;
   min-height: 44px;
   color: var(--ink);
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
-  letter-spacing: 0;
+  letter-spacing: -.025em;
   line-height: 1;
   text-decoration: none;
   white-space: nowrap;
@@ -65,6 +65,7 @@
 .ry-wordmark:hover { color: var(--ink); }
 .ry-navigation { font-size: 13px; font-weight: 400; }
 .ry-navigation a {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -76,6 +77,16 @@
 }
 .ry-navigation a:hover,
 .ry-navigation a[aria-current="page"] { color: var(--ink); }
+.ry-navigation a[aria-current="page"] { font-weight: 600; }
+.ry-navigation--desktop a[aria-current="page"]::after {
+  position: absolute;
+  right: 0;
+  bottom: 3px;
+  left: 0;
+  height: 1px;
+  background: var(--ink);
+  content: "";
+}
 .ry-navigation--desktop { display: flex; align-items: center; justify-content: center; gap: 24px; }
 .ry-icon-button {
   display: inline-flex;
@@ -100,7 +111,7 @@
   width: 220px;
   min-height: 44px;
   padding: 0 12px;
-  border: 0;
+  border: 1px solid transparent;
   border-radius: 10px;
   background: var(--bg-sunken);
   color: var(--muted);
@@ -111,6 +122,12 @@
   cursor: pointer;
 }
 .ry-search-trigger:hover { background: var(--bg-elevated); color: var(--ink); }
+.ry-search-trigger:focus-visible,
+.ry-icon-button:focus-visible,
+.ry-footer a:focus-visible,
+.ry-theme summary:focus-visible,
+.ry-search-row:focus-visible,
+.ry-search-all:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
 .ry-search-trigger svg { flex: none; }
 .ry-search-trigger span { overflow: hidden; text-overflow: ellipsis; }
 .ry-main {
@@ -134,10 +151,10 @@
   display: flex;
   align-items: center;
   gap: 28px;
-  width: min(1440px, 100%);
+  width: min(1304px, 100%);
   min-height: 96px;
   margin-inline: auto;
-  padding: 20px 40px;
+  padding: 20px 32px;
 }
 .ry-footer nav { display: flex; align-items: center; gap: 28px; }
 .ry-footer nav a,
@@ -247,7 +264,7 @@
 .ry-search-results { padding: 4px 20px 16px; }
 .ry-search-status { padding: 18px 4px; color: var(--muted); font-size: 14px; }
 .ry-search-status a,
-.ry-text-button { padding: 0; color: var(--link, #0071e3); font: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.ry-text-button { padding: 0; color: var(--link); font: inherit; text-decoration: underline; text-underline-offset: 3px; }
 .ry-search-group + .ry-search-group { margin-top: 12px; }
 .ry-search-group h3 {
   padding: 14px 8px 6px;
@@ -258,7 +275,7 @@
 .ry-search-row {
   display: flex;
   align-items: center;
-  min-height: 56px;
+  min-height: 60px;
   padding: 10px 8px;
   border-bottom: 1px solid var(--line);
   color: var(--ink);
@@ -274,14 +291,13 @@
   min-height: 52px;
   padding: 12px 20px;
   border-top: 1px solid var(--line);
-  color: var(--link, #0071e3);
+  color: var(--link);
   font-size: 13px;
   font-weight: 400;
   text-decoration: none;
 }
 .ry-search-all:hover { text-decoration: underline; text-underline-offset: 3px; }
 .ry-search-suggestions { padding: 18px 20px 16px; }
-.ry-search-suggestions p { margin: 0 0 10px; color: var(--muted); font-size: 13px; }
 .ry-search-suggestions > div { display: flex; flex-wrap: wrap; gap: 4px 20px; }
 .ry-search-suggestions a {
   display: inline-flex;
@@ -305,16 +321,16 @@
 }
 .ry-navigation--menu a[aria-current="page"] { font-weight: 600; }
 
-@media (min-width: 760px) and (max-width: 999px) {
-  .ry-header-main { grid-template-columns: minmax(76px, 1fr) auto minmax(44px, 1fr); gap: 12px; padding-inline: 24px; }
-  .ry-navigation--desktop { gap: 16px; }
+@media (min-width: 760px) and (max-width: 1099px) {
+  .ry-header-main { grid-template-columns: minmax(76px, 1fr) auto minmax(44px, 1fr); gap: 16px; padding-inline: 24px; }
+  .ry-navigation--desktop { gap: 14px; }
   .ry-search-trigger { justify-content: center; width: 44px; padding: 0; background: transparent; color: var(--ink); }
   .ry-search-trigger span { display: none; }
   .ry-main { padding-inline: 24px; }
   .ry-footer-inner { padding-inline: 24px; }
 }
 @media (max-width: 759px) {
-  .ry-header-main { display: flex; gap: 8px; padding-inline: 20px; }
+  .ry-header-main { display: flex; gap: 8px; min-height: 56px; padding-inline: 20px; }
   .ry-navigation--desktop { display: none; }
   .ry-header-actions { margin-left: auto; gap: 4px; }
   .ry-search-trigger { justify-content: center; width: 44px; padding: 0; background: transparent; color: var(--ink); }
@@ -322,9 +338,10 @@
   .ry-menu-trigger { display: inline-flex; }
   .ry-main { min-height: calc(100svh - 160px); padding: 24px 20px 0; }
   .ry-footer { margin-top: 64px; }
-  .ry-footer-inner { flex-wrap: wrap; gap: 0 20px; min-height: 0; padding: 16px 20px calc(24px + env(safe-area-inset-bottom)); }
-  .ry-footer nav { gap: 20px; }
-  .ry-copyright { width: 100%; margin-left: 0; }
+  .ry-footer-inner { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; min-height: 0; padding: 16px 20px calc(24px + env(safe-area-inset-bottom)); }
+  .ry-footer nav { grid-column: 1 / -1; flex-wrap: wrap; gap: 4px 18px; }
+  .ry-copyright { grid-column: 2; grid-row: 2; margin-left: 0; }
+  .ry-theme { grid-column: 1; grid-row: 2; }
   .ry-menu-dialog,
   .ry-search-dialog {
     width: 100%;
@@ -335,7 +352,9 @@
     border: 0;
     border-radius: 0;
     background: var(--bg);
+    padding-bottom: env(safe-area-inset-bottom);
   }
+  .ry-dialog-header { padding-top: calc(6px + env(safe-area-inset-top)); }
   .ry-navigation--menu { padding: 24px 20px 48px; }
   .ry-navigation--menu a { min-height: 72px; font-size: 32px; letter-spacing: -.03em; }
   .ry-search-results,

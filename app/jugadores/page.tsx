@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { notebook } from "@/lib/cuaderno/data";
-import { playerSlug } from "@/lib/explore";
+import { playerSlug, rivalryDirectory } from "@/lib/explore";
+import { preparedGeneration } from "@/lib/revista/read-records";
 import { number, description } from "@/lib/cuaderno/model";
 import FilterForm from "@/components/revista/FilterForm";
 import { Pagination } from "@/components/nocturno/Row";
@@ -21,12 +21,16 @@ export default async function Players({ searchParams }: {
   searchParams: Promise<{ q?: string; page?: string; tipo?: string; sort?: string }>;
 }) {
   const query = await searchParams;
-  const data = await notebook();
   const pairs = query.tipo === "parejas";
+  const generation = await preparedGeneration();
+  const [recordSource, pairSource] = await Promise.all([
+    pairs ? Promise.resolve([]) : generation.records(),
+    pairs ? generation.matches() : Promise.resolve([]),
+  ]);
   const term = normalizeText(query.q || "");
   const sort = query.sort === "played" || query.sort === "finals" ? query.sort : "wins";
-  const records = new Map(data.records.map((record) => [record.name, record]));
-  const players = data.players
+  const records = new Map(recordSource.map((record) => [record.name, record]));
+  const players = recordSource.map((record) => ({ name: record.name, won: record.wins, played: record.played }))
     .filter((player) => normalizeText(player.name).includes(term))
     .sort((a, b) => {
       const primary = sort === "played" ? b.played - a.played
@@ -34,7 +38,7 @@ export default async function Players({ searchParams }: {
         : b.won - a.won;
       return primary || b.won - a.won || a.name.localeCompare(b.name, "es");
     });
-  const duels = data.pairs.filter((pair) => normalizeText(pair.names.join(" ")).includes(term));
+  const duels = pairs ? rivalryDirectory(pairSource).filter((pair) => normalizeText(pair.names.join(" ")).includes(term)) : [];
   const total = pairs ? duels.length : players.length;
   const page = Math.max(1, Math.min(Math.ceil(total / 25) || 1, Number(query.page) || 1));
   const url = (params: Record<string, string>) => `/jugadores?${new URLSearchParams({ ...query, ...params } as Record<string, string>)}`;

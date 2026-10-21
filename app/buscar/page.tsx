@@ -54,9 +54,6 @@ export default async function SearchPage({
             q.round === "all" ||
             normalizeText(round(m)) === normalizeText(q.round)) &&
           (q.fiveSets !== "true" || m.score_summary.games.length === 5),
-      )
-      .sort((a, b) =>
-        b.score_summary.timestamp.localeCompare(a.score_summary.timestamp),
       ),
     suggestions = q.q
       ? await searchArchive(q.q, { includeMatches: false })

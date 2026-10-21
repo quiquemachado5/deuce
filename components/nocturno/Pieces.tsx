@@ -25,7 +25,6 @@ export function Portrait({
         height={732}
         sizes="(max-width:759px) calc(100vw - 40px), 280px"
         priority={large}
-        unoptimized
       />
     </figure>
   );

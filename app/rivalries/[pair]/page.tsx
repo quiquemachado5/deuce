@@ -107,7 +107,7 @@ export default async function Pair({ params, searchParams }: Props) {
     },
     {
       id: "desempates",
-      label: "Tie-breaks",
+      label: "Partidos con tie-break",
       test: (m: (typeof people.matches)[number]) => tiebreakCount(m) > 0,
     },
     {
@@ -169,10 +169,10 @@ export default async function Pair({ params, searchParams }: Props) {
       </nav>
       <header className="ry-pair-header ry-photo-pair-header">
         <div className="ry-people-section-head">
-          <h1>Cara a cara</h1>
-          <span className="nc-meta">
-            {timeline[0].year}–{timeline.at(-1)!.year}
-          </span>
+          <div>
+            <p className="ry-pair-overline">Cara a cara · {timeline[0].year}–{timeline.at(-1)!.year}</p>
+            <h1>{people.names[0]} <span>contra</span> {people.names[1]}</h1>
+          </div>
         </div>
         <div className="ry-pair-hero">
           <div className="ry-pair-person ry-pair-person-first">
@@ -185,7 +185,7 @@ export default async function Pair({ params, searchParams }: Props) {
                   height={760}
                   sizes="(max-width: 649px) 44vw, (max-width: 1199px) 25vw, 320px"
                   priority
-                  unoptimized
+                  loading="eager"
                 />
               </div>
             )}
@@ -218,7 +218,7 @@ export default async function Pair({ params, searchParams }: Props) {
                   height={760}
                   sizes="(max-width: 649px) 44vw, (max-width: 1199px) 25vw, 320px"
                   priority
-                  unoptimized
+                  loading="eager"
                 />
               </div>
             )}
