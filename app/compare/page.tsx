@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { preparedArchive } from "@/lib/revista/read-records";
 import { playerPhoto } from "@/lib/player-imagery";
 import { normalizeText } from "@/lib/quality";
-import { lineData, number, round, score, sentence, surfaceLabel, tapeState } from "@/lib/cuaderno/model";
+import { number, round, score, sentence, surfaceLabel, tapeState } from "@/lib/cuaderno/model";
 import { tournamentName } from "@/lib/labels";
 import type { Match } from "@/lib/types";
 import ReadingLine from "@/components/nocturno/ReadingLine";
@@ -109,11 +109,6 @@ export default async function ComparePage({ searchParams }: Props) {
   const term = normalizeText(query.q || "").trim();
   const results = term ? matches.filter((match) => match.match_id !== (changing === "left" ? right.match_id : left.match_id) && normalizeText(match.player1.name + " " + match.player2.name + " " + tournamentName(match.tournament) + " " + match.year + " " + round(match)).includes(term)).slice(0, 25) : [];
   const total = Math.max(games(left), games(right));
-  const extent = Math.max(2, lineData(left).extent, lineData(right).extent, ...[left, right].flatMap((match) => {
-    let difference = 0;
-    return match.score_summary.games.map(([a, b]) => Math.abs(difference += a - b));
-  }));
-  const scale = { total, extent };
   const setExtent = Math.max(1, ...[left, right].flatMap((match) => {
     const side = match.winner === 2 ? 1 : 0;
     return match.score_summary.games.map((set) => Math.abs(set[side] - set[1 - side]));
@@ -135,8 +130,8 @@ export default async function ComparePage({ searchParams }: Props) {
       <div className="ry-compare-path-grid"><div><h3>{winner(left)}</h3><SetPath match={left} maximum={setExtent} /></div><div><h3>{winner(right)}</h3><SetPath match={right} maximum={setExtent} /></div></div>
     </section>
     <section className="ry-compare-progress" aria-labelledby="ry-compare-progress-title">
-      <div className="ry-compare-heading"><h2 id="ry-compare-progress-title">Ventaja a lo largo del partido</h2><p>Sin puntos, la línea une los cierres de set.</p></div>
-      <div className="ry-compare-progress-grid">{[left, right].map((match) => <div key={match.match_id}><h3>{tournamentName(match.tournament)} {match.year} <span>{tapeState(match)}</span></h3><ReadingLine match={match} scale={scale}/></div>)}</div>
+      <div className="ry-compare-heading"><h2 id="ry-compare-progress-title">Cómo se decidió cada set</h2><p>Resultados, breaks y juegos documentados. Los huecos de la fuente permanecen visibles.</p></div>
+      <div className="ry-compare-progress-grid">{[left, right].map((match) => <div key={match.match_id}><h3>{tournamentName(match.tournament)} {match.year} <span>{tapeState(match)}</span></h3><ReadingLine match={match}/></div>)}</div>
     </section>
     <section className="ry-compare-choice" aria-labelledby="ry-compare-choice-title">
       <div><h2 id="ry-compare-choice-title">Elige otra lectura</h2><p>Busca por jugador, torneo o año. El otro partido permanece fijo.</p></div>

@@ -13,7 +13,7 @@ import {
   winnerName,
 } from "@/lib/editorial";
 import { tournamentName } from "@/lib/labels";
-import { score, lineData } from "@/lib/cuaderno/model";
+import { score } from "@/lib/cuaderno/model";
 import { kindShelf, shelves } from "@/lib/cuaderno/shelves";
 import { rivalryDirectory } from "@/lib/explore";
 
@@ -86,21 +86,6 @@ export default async function MatchPage({ params, searchParams }: Props) {
           ? "alrededor"
           : "resumen"
     ) as MatchView;
-  const extent = (item: typeof match) => {
-    let difference = 0;
-    return Math.max(
-      lineData(item).extent,
-      ...item.score_summary.games.map(([a, b]) =>
-        Math.abs((difference += a - b)),
-      ),
-    );
-  };
-  const scale = other
-    ? {
-        total: Math.max(lineData(match).total, lineData(other).total),
-        extent: Math.max(extent(match), extent(other)),
-      }
-    : undefined;
   const around = (
     <>
       <div className="nc-match-around">
@@ -151,13 +136,13 @@ export default async function MatchPage({ params, searchParams }: Props) {
             <>
               <h2>Comparación de partidos</h2>
               <p className="nc-meta">
-                Diferencia acumulada de juegos. Ejes con el mismo intervalo.
+                Resultados por set y juegos documentados de cada partido.
               </p>
               <div className="nc-match-comparison">
                 {[match, other].map((item) => (
                   <div key={item.match_id}>
                     <ReadingHead match={item} reduced />
-                    <ReadingLine match={item} scale={scale} />
+                    <ReadingLine match={item} />
                   </div>
                 ))}
               </div>

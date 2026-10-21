@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ScoreText from '@/components/ScoreText';
 import type { Match } from "@/lib/types";
 import { tournamentName } from "@/lib/labels";
 import { round, score, number } from "@/lib/cuaderno/model";
@@ -46,7 +47,7 @@ export default function MatchRow({
         <span className="nc-row-contra">contra</span>
         <span className={`nc-row-person ${players[1].name === winner ? "nc-row-winner" : "nc-row-loser"}`}>{players[1].name}</span>
       </span>
-      <span className="nc-row-result" title={result}>{result}</span>
+      <span className="nc-row-result" title={result}><ScoreText value={result}/></span>
     </Link>
   );
 }

@@ -292,7 +292,8 @@ function historical(row: Row, detail?: Row, summary = false): Match {
 }
 async function readSavedDetail(kind: 'modern' | 'archive', id: string): Promise<Row | undefined> {
   const file = join(detailsDir, `${kind}-${id}.json.gz`)
-  return existsSync(file) ? readZip(file) : (await cloudDetails())[`${kind}-${id}`]
+  const remote=(await cloudDetails())[`${kind}-${id}`]
+  return remote || (existsSync(file) ? readZip(file) : undefined)
 }
 const pendingDetails = new Map<string, Promise<Row | undefined>>()
 function readDetail(kind: 'modern' | 'archive', id: string): Promise<Row | undefined> {
@@ -304,10 +305,8 @@ function readDetail(kind: 'modern' | 'archive', id: string): Promise<Row | undef
   return promise
 }
 async function readDetailOnce(kind: 'modern' | 'archive', id: string): Promise<Row | undefined> {
-  const file = join(detailsDir, `${kind}-${id}.json.gz`)
-  if (existsSync(file)) return readZip(file)
   // Page navigation reads saved data only. The scheduled sync enriches missing details.
-  return cloudRead(`detail-${kind}-${id}`)
+  return readSavedDetail(kind,id)
 }
 const archiveCache = new Map<string, { expires: number; value: Promise<Match[]> }>()
 export function invalidateArchiveCache() { archiveCache.clear(); filesPromise = undefined }

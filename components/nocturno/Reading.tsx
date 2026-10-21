@@ -29,6 +29,7 @@ import {
 import ReadingLine from "./ReadingLine";
 import Share from "./Share";
 import MatchTabs, { type MatchView } from "./MatchTabs";
+import ScoreText from '@/components/ScoreText';
 
 function compactScoreName(name: string) {
   const [given, ...family] = name.trim().split(/\s+/);
@@ -159,8 +160,7 @@ export function ReadingHead({
                           set[side] > set[1 - side] ? "ry-set-won" : ""
                         }
                       >
-                        {set[side]}
-                        {tie && set[side] < set[1 - side] ? `(${tie[1]})` : ""}
+                        <span className="ds-game">{set[side]}{tie && set[side] < set[1 - side] && <sup title={`${tie[1]} puntos en el tie-break`}>{tie[1]}</sup>}</span>
                       </td>
                     );
                   })}
@@ -216,7 +216,7 @@ function TieBreaks({ match }: { match: Match }) {
         <div className="ry-tiebreak" key={points[0].set}>
           <p>
             Set {points[0].set}
-            <strong>{score(match).split(", ")[points[0].set - 1]}</strong>
+            <strong><ScoreText value={score(match).split(", ")[points[0].set - 1]}/></strong>
           </p>
           <ol
             className="ry-tiebreak-points"

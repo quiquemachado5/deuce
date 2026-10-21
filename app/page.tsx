@@ -1,116 +1,60 @@
-import Image from "next/image";
-import Link from "next/link";
-import { preparedArchive, recordView } from "@/lib/revista/read-records";
-import Row from "@/components/nocturno/Row";
-import { playerPhoto } from "@/lib/player-imagery";
-import { playerSlug } from "@/lib/explore";
-import { chronological, roundPosition, winnerName } from "@/lib/editorial";
-import { number, round, score, sentence } from "@/lib/cuaderno/model";
-import { tournamentName } from "@/lib/labels";
-import { courtPhotos } from "@/lib/imagery";
-import { tournamentDirectory } from "@/lib/tournament-directory";
-import { SURFACES, surfaceLabel } from "@/lib/surface";
-import "./rally-overview.css";
+import Image from 'next/image';
+import Link from 'next/link';
+import {Suspense} from 'react';
+import {preparedGeneration,recordView} from '@/lib/revista/read-records';
+import Row from '@/components/nocturno/Row';
 import ArchiveNotice from '@/components/nocturno/ArchiveNotice';
+import HomeHighlights,{type HomeHighlight} from '@/components/HomeHighlights';
+import TourActivity from '@/components/TourActivity';
+import ScoreText from '@/components/ScoreText';
+import {playerPhoto} from '@/lib/player-imagery';
+import {playerSlug} from '@/lib/explore';
+import {chronological,roundPosition,winnerName} from '@/lib/editorial';
+import {number,score} from '@/lib/cuaderno/model';
+import {tournamentName} from '@/lib/labels';
+import {courtPhotos} from '@/lib/imagery';
+import {tournamentDirectory} from '@/lib/tournament-directory';
+import {SURFACES,surfaceLabel} from '@/lib/surface';
+import './rally-overview.css';
 
-export const revalidate = 300;
-
-export default async function Home() {
-  const [matches, finals, topTen, fewerPoints] = await Promise.all([
-    preparedArchive(),
-    recordView(JSON.stringify({ dato: "finales-ganadas" })),
-    recordView(JSON.stringify({ dato: "top-10" })),
-    recordView(JSON.stringify({ dato: "ganar-con-menos-puntos" })),
-  ]);
-  const recent = [...matches].sort((a, b) => chronological(b, a));
-  const featured = recent.find((match) => roundPosition(match.round) === 7);
-  const event = featured
-    ? tournamentDirectory(matches).find((entry) => entry.name === featured.tournament)
-    : undefined;
-  const lead = fewerPoints.piece?.leader;
-  const proof = lead?.proof;
-  const winner = proof ? winnerName(proof) : null;
-  const loser = proof && winner
-    ? [proof.player1.name, proof.player2.name].find((name) => name !== winner)
-    : null;
-  const winnerPortrait = winner ? playerPhoto(winner) : null;
-  const pairNames = ["Novak Djokovic", "Rafael Nadal"] as const;
-  const pairMatches = matches.filter((match) =>
-    (match.player1.name === pairNames[0] && match.player2.name === pairNames[1]) ||
-    (match.player1.name === pairNames[1] && match.player2.name === pairNames[0]));
-  const rivalry = pairMatches.length ? {
-    names: pairNames,
-    matches: pairMatches,
-    wins: pairNames.map((name) => pairMatches.filter((match) => winnerName(match) === name).length),
-    slug: "novak-djokovic--rafael-nadal",
-  } : null;
-  const topTenRows = topTen.rows.slice(0, 5);
-  const topTenCeiling = Math.max(1, ...topTenRows.map((row) => row.value));
-
-  return <div className="deuce-home">
-    <ArchiveNotice status={finals} />
-    <header className="dx-home-intro">
-      <Link href="/cobertura" className="dx-status-pill"><span aria-hidden="true" />{number(matches.length)} partidos. Un archivo abierto a explorar. <span aria-hidden="true">↗</span></Link>
-      <h1>El tenis.<br /><span>Visto de otra manera.</span></h1>
-      <p>Las grandes rivalidades. Las cifras inesperadas.<br />Y todos los partidos que cuentan la historia.</p>
-      <div className="dx-hero-actions"><Link className="dx-button" href="/records">Explorar el archivo <span aria-hidden="true">↗</span></Link><Link className="dx-button dx-button-secondary" href="/comparar">Comparar jugadores</Link></div>
-      <div className="dx-hero-footnote">DATOS REALES <i /> RESULTADOS CON CONTEXTO <i /> SIN CIFRAS INVENTADAS</div>
-    </header>
-    <div className="dx-section-heading"><div><p className="dx-eyebrow">MÁS ALLÁ DEL MARCADOR</p><h2>El dato cambia la historia.</h2></div><Link href="/records">Todas las estadísticas ↗</Link></div>
-    {proof && winner && loser && lead ? <section className={`dh-lead${winnerPortrait ? " dh-has-image" : ""}`} aria-labelledby="dh-lead-title">
-      <div className="dh-lead-copy">
-        <p className="dh-lead-context"><i className={`dh-surface-dot dh-surface-${proof.surface}`} aria-hidden="true" />{tournamentName(proof.tournament)} · {proof.year} · {round(proof)}</p>
-        <h2 id="dh-lead-title">{winner} ganó con <span>{number(lead.value)} puntos menos.</span></h2>
-        <p className="dh-lead-rival">Contra {loser}</p>
-        <p className="dh-lead-score">{score(proof)}</p>
-        <div className="dh-lead-bottom"><Link href={`/match/${proof.match_id}`} className="dh-action">Ver el partido</Link><span>{number(fewerPoints.piece!.sample)} partidos con puntos totales publicados</span></div>
-      </div>
-      {winnerPortrait && <div className="dh-lead-visual"><Image src={winnerPortrait.src} alt={winner} fill sizes="(max-width: 759px) 100vw, (max-width: 1099px) 48vw, 600px" priority unoptimized /></div>}
-    </section> : <header className="dh-fallback"><h2>Resultados con contexto.</h2><p>Grand Slams, Masters y ATP en el archivo DEUCE.</p></header>}
-
-    <section className="dx-discover-strip" aria-label="Explorar DEUCE"><Link href="/comparar"><span className="dx-tile-number">01</span><h3>Dos nombres.<br />Un mismo criterio.</h3><p>Compara temporadas, superficies y edades.</p><span className="dx-tile-arrow" aria-hidden="true">↗</span></Link><Link href="/records?dato=finales-ganadas"><span className="dx-tile-number">02</span><h3>Un récord.<br />Toda su historia.</h3><p>De cada cifra a los partidos que la explican.</p><span className="dx-tile-arrow" aria-hidden="true">↗</span></Link><Link href="/cobertura"><span className="dx-tile-number">03</span><h3>Lo que sabemos.<br />Y lo que falta.</h3><p>Datos, fuentes y límites a la vista.</p><span className="dx-tile-arrow" aria-hidden="true">↗</span></Link></section>
-
-    <div className="dh-feature-grid">
-      {featured && <section className="dh-final" aria-labelledby="dh-final-title">
-        <div className="dh-final-top"><div><h2 id="dh-final-title">{tournamentName(featured.tournament)} · {featured.year}</h2><p><i className={`dh-surface-dot dh-surface-${featured.surface}`} aria-hidden="true" />Final · {surfaceLabel[featured.surface]}</p></div>{event && <Link href={`/${event.slug}/${featured.year}`}>Ver edición</Link>}</div>
-        <div className="dh-final-score" role="group" aria-label={`${featured.player1.name} contra ${featured.player2.name}. ${score(featured)}`}>
-          {[featured.player1, featured.player2].map((player, index) => {
-            const photo = playerPhoto(player.name);
-            const won = featured.winner === index + 1;
-            return <Link className={`dh-final-player${won ? " dh-final-winner" : ""}`} href={`/players/${playerSlug(player.name)}`} key={player.name}>
-              <span className="dh-final-identity">{photo && <Image src={photo.thumbnail || photo.src} alt="" width={48} height={48} sizes="48px" unoptimized />}<strong>{player.name}</strong></span>{won && <small>Ganador</small>}
-            </Link>;
-          })}
-        </div>
-        <p className="dh-final-result"><span>Marcador de {featured.player1.name}</span><strong>{score(featured)}</strong></p>
-        {sentence(featured) && <p className="dh-final-sentence">{sentence(featured)}</p>}
-        <Link className="dh-text-link" href={`/match/${featured.match_id}`}>Leer el partido</Link>
-      </section>}
-      {rivalry && <section className="dh-rivalry" aria-labelledby="dh-rivalry-title">
-        <div className="dh-rivalry-heading"><h2 id="dh-rivalry-title">Djokovic contra Nadal</h2><div className="dh-rivalry-portraits" aria-hidden="true">{rivalry.names.map((name) => { const photo = playerPhoto(name); return photo && <Image key={name} src={photo.thumbnail || photo.src} alt="" width={64} height={64} sizes="64px" unoptimized />; })}</div></div>
-        <p className="dh-rivalry-score" aria-label={`${rivalry.wins[0]} victorias de Djokovic y ${rivalry.wins[1]} de Nadal`}>{rivalry.wins[0]}–{rivalry.wins[1]}</p><p className="dh-rivalry-scope">{number(rivalry.matches.length)} partidos en este archivo. No es toda la carrera.</p>
-        <div className="dh-rivalry-splits">{SURFACES.filter(surface => rivalry.matches.some(match => match.surface === surface)).map((surface) => { const wins = rivalry.names.map((name) => rivalry.matches.filter((match) => match.surface === surface && winnerName(match) === name).length); return <div key={surface}><span><i className={`dh-surface-dot dh-surface-${surface}`} aria-hidden="true" />{surfaceLabel[surface]}</span><strong>{wins[0]}–{wins[1]}</strong></div>; })}</div>
-        <Link className="dh-text-link" href={`/rivalries/${rivalry.slug}`}>Ver cara a cara</Link>
-      </section>}
+export const revalidate=300;
+export default async function Home(){
+  const [generation,finals,topTen]=await Promise.all([preparedGeneration(),recordView(JSON.stringify({dato:'finales-ganadas'})),recordView(JSON.stringify({dato:'top-10'}))]);
+  const matches=await generation.matches(),manifest=generation.manifest;
+  const recent=[...matches].sort((a,b)=>chronological(b,a));
+  const featured=recent.find(m=>roundPosition(m.round)===7),events=tournamentDirectory(matches);
+  const event=featured?events.find(e=>e.name===featured.tournament):null;
+  const ids=['ganar-con-menos-puntos','mas-juegos','remontada-dos-sets','tie-breaks','finales-ganadas','top-10'];
+  const slides:HomeHighlight[]=ids.flatMap(id=>{
+    const piece=manifest.pieces.find(p=>p.id===id),row=piece?.leader;
+    if(!piece||!row)return [];
+    const photo=playerPhoto(row.photoName||row.name);
+    return [{id,title:piece.title,name:row.name,value:row.display||`${number(row.value)}${piece.percent?' %':''}`,detail:row.detail,sample:`${piece.years} · ${number(piece.sample)} partidos con dato`,href:`/records?dato=${id}`,photo:photo?.src,photoName:row.photoName||row.name}];
+  });
+  // A stable opening per publication; client-side rotation is random and pausable.
+  const start=slides.length?Math.floor(Date.parse(manifest.generatedAt)/3600000)%slides.length:0;
+  const highlights=[...slides.slice(start),...slides.slice(0,start)];
+  const names=['Novak Djokovic','Rafael Nadal'] as const;
+  const pair=matches.filter(m=>(m.player1.name===names[0]&&m.player2.name===names[1])||(m.player1.name===names[1]&&m.player2.name===names[0]));
+  const wins=names.map(name=>pair.filter(m=>winnerName(m)===name).length);
+  const rows=topTen.rows.slice(0,5),ceiling=Math.max(1,...rows.map(r=>r.value));
+  const players=[...new Set(matches.flatMap(m=>[m.player1.name,m.player2.name]))];
+  const champions=[...new Set(recent.filter(m=>roundPosition(m.round)===7).slice(0,30).map(winnerName).filter((n):n is string=>!!n))].slice(0,5);
+  return <div className="deuce-home ds-home">
+    <ArchiveNotice status={generation}/>
+    <header className="ds-home-header"><div><p className="dx-eyebrow">DEUCE · EL TENIS, CON PERSPECTIVA</p><h1>Cada partido.<br/><span>Una historia.</span></h1></div><div className="ds-home-intro"><p>Lo que acaba de pasar.<br/>Lo que no deja de sorprender.</p><Link className="dx-button" href="/records">Explora el archivo <span aria-hidden="true">↗</span></Link></div></header>
+    <nav className="ds-home-pulse" aria-label="El archivo en cifras"><Link href="/buscar"><strong>{number(matches.length)}</strong><span>partidos</span></Link><Link href="/jugadores"><strong>{number(players.length)}</strong><span>jugadores</span></Link><Link href="/records"><strong>{number(manifest.pieces.length)}</strong><span>estadísticas</span></Link><Link href="/cobertura"><span className="ds-status-dot"/><span>Datos reales · cobertura visible</span><span aria-hidden="true">↗</span></Link></nav>
+    <HomeHighlights slides={highlights}/>
+    <Suspense fallback={<section className="ds-tour-empty" aria-busy="true">Consultando la última agenda guardada…</section>}><TourActivity matches={matches}/></Suspense>
+    <section className="ds-results-section" aria-labelledby="ds-results-title"><div className="dx-section-heading"><div><p className="dx-eyebrow">EL ÚLTIMO PUNTO YA SE JUGÓ</p><h2 id="ds-results-title">Resultados. Sin ruido.</h2></div><Link href="/buscar">Todos los partidos ↗</Link></div><div className="ds-scorecards">{recent.slice(0,3).map(match=><Link className="ds-scorecard" href={`/match/${match.match_id}`} key={match.match_id}><div className="ds-scorecard-top"><span>{tournamentName(match.tournament)}</span><span>Finalizado</span></div>{[match.player1,match.player2].map((p,i)=><div className={`ds-scorecard-player${match.winner===i+1?' ds-scorecard-winner':''}`} key={p.name}><strong>{p.name}</strong><div>{match.score_summary.games.map((set,s)=><span className="ds-game" key={s}>{set[i]}{set[i]<set[1-i]&&score(match).split(', ')[s]?.match(/\((\d+)\)/)&&<sup>{score(match).split(', ')[s].match(/\((\d+)\)/)![1]}</sup>}</span>)}</div></div>)}<div className="ds-scorecard-bottom"><span>{match.round} · {match.year} · {surfaceLabel[match.surface]}</span><span aria-hidden="true">↗</span></div></Link>)}</div></section>
+    <div className="ds-home-duo">
+      {featured&&<section className="ds-final-feature"><p className="dx-eyebrow">LA ÚLTIMA FINAL DEL ARCHIVO</p><h2>{tournamentName(featured.tournament)} <span>{featured.year}</span></h2><p>{featured.player1.name}<br/><span>contra {featured.player2.name}</span></p><div className="ds-final-big-score"><ScoreText value={score(featured)}/></div><div className="ds-feature-links"><Link href={`/match/${featured.match_id}`}>Leer el partido ↗</Link>{event&&<Link href={`/${event.slug}/${featured.year}`}>Toda la edición ↗</Link>}</div></section>}
+      <section className="ds-rivalry-feature"><p className="dx-eyebrow">DOS CARRERAS. UNA RIVALIDAD.</p><h2>Djokovic. Nadal.</h2><div className="ds-rivalry-visual">{names.map((name,i)=>{const photo=playerPhoto(name);return <div key={name}>{photo&&<Image src={photo.thumbnail||photo.src} width={120} height={150} alt="" unoptimized/>}<strong>{wins[i]}</strong><span>{name.split(' ').at(-1)}</span></div>;})}</div><p>{number(pair.length)} enfrentamientos documentados en este archivo.</p><div className="ds-rivalry-splits">{SURFACES.filter(s=>pair.some(m=>m.surface===s)).map(s=>{const values=names.map(n=>pair.filter(m=>m.surface===s&&winnerName(m)===n).length);return <div key={s}><span>{surfaceLabel[s]}</span><div className="ds-split-bar"><i style={{width:`${values[0]/(values[0]+values[1])*100}%`}}/><i style={{width:`${values[1]/(values[0]+values[1])*100}%`}}/></div><strong>{values.join('–')}</strong></div>;})}</div><Link href="/rivalries/novak-djokovic--rafael-nadal">Explorar el cara a cara ↗</Link></section>
     </div>
-
-    {topTenRows.length > 0 && <section className="dh-chart-section" aria-labelledby="dh-chart-title">
-      <div className="dh-section-heading"><h2 id="dh-chart-title">Más victorias ante rivales del top 10</h2><Link href="/records?dato=top-10">Ver ranking</Link></div>
-      <p className="dh-section-context">Ranking del rival en la fecha del partido · solo partidos con dato</p>
-      <div className="dh-chart" aria-label="Victorias ante rivales del top 10">
-        {topTenRows.map((row, index) => { const photo = playerPhoto(row.name); return <Link href={row.href} className="dh-chart-row" key={row.name} aria-label={`${row.name}: ${number(row.value)} victorias en ${number(row.sample)} partidos con ranking del rival`}>
-          <span className="dh-chart-identity"><small>{index + 1}</small>{photo && <Image src={photo.thumbnail || photo.src} alt="" width={40} height={40} sizes="40px" unoptimized />}<span><strong>{row.name}</strong><em>{number(row.sample)} partidos con dato</em></span></span><span className="dh-chart-track"><span style={{ width: `${Math.max(2, row.value / topTenCeiling * 100)}%` }} /></span><strong>{number(row.value)}</strong>
-        </Link>; })}
-      </div>
-    </section>}
-
-    <section className="dh-results" aria-labelledby="dh-results-title"><div className="dh-section-heading"><h2 id="dh-results-title">Últimos resultados</h2><Link href="/buscar">Todos los partidos</Link></div><div className="dh-results-list">{recent.slice(0, 5).map((match) => <Row match={match} key={match.match_id} />)}</div></section>
-
-    <div className="dh-bottom-grid">
-      {finals.piece && <section className="dh-finalists" aria-labelledby="dh-finalists-title"><div className="dh-section-heading"><h2 id="dh-finalists-title">Más finales ganadas</h2><Link href="/records?dato=finales-ganadas">Ver ranking</Link></div><p className="dh-section-context">{finals.piece.years} · mínimo 5 finales · este archivo</p><ol>{finals.rows.slice(0, 5).map((row, index) => <li key={row.name}><Link href={row.href}><span className="dh-ranking-position">{index + 1}</span><span className="dh-ranking-name">{row.name}</span><strong>{number(row.value)}</strong></Link></li>)}</ol></section>}
-      <Link href="/wimbledon/2008" className="dh-court-feature"><span className="dh-court-image"><Image src={courtPhotos.Wimbledon.src} alt="Pista de hierba de Wimbledon" fill sizes="(max-width: 759px) calc(100vw - 40px), 42vw" /></span><span className="dh-court-copy"><strong>Wimbledon 2008</strong><span>La final y el camino del campeón</span></span></Link>
-    </div>
-
-    <nav className="dh-quick-links" aria-label="Más estadísticas"><Link href="/records?dato=ganar-con-menos-puntos">Victorias con menos puntos</Link><Link href="/records?dato=finales-remontadas-primer-set">Finales remontadas</Link><Link href="/records?dato=breaks-salvados-victoria">Breaks salvados</Link><Link href="/tournaments">Torneos</Link></nav>
+    <section className="ds-players-section"><div className="dx-section-heading"><div><p className="dx-eyebrow">LOS NOMBRES DEL MOMENTO</p><h2>Sus últimas victorias.<br/>Toda su trayectoria.</h2></div><Link href="/jugadores">Todos los jugadores ↗</Link></div><div className="ds-player-strip">{champions.map(name=>{const photo=playerPhoto(name);return <Link href={`/players/${playerSlug(name)}`} key={name}>{photo?<Image src={photo.thumbnail||photo.src} width={180} height={200} alt="" unoptimized/>:<span className="ds-player-initials">{name.split(' ').map(n=>n[0]).slice(0,2).join('')}</span>}<strong>{name}</strong><span>Campeón reciente en el archivo ↗</span></Link>;})}</div></section>
+    <section className="ds-ranking-section"><div className="dx-section-heading"><div><p className="dx-eyebrow">GANAR CUANDO IMPORTA</p><h2>Frente al top 10.</h2></div><Link href="/records?dato=top-10">La clasificación completa ↗</Link></div><p className="ds-chart-explainer">Victorias ante un rival del top 10 según el ranking disponible en la fecha del partido. No incluye encuentros sin ese dato.</p><div className="ds-ranking-chart">{rows.map((row,i)=><Link href={row.href} key={row.name} aria-label={`${row.name}: ${number(row.value)} victorias en ${number(row.sample)} partidos con dato`}><span className="ds-rank-position">{String(i+1).padStart(2,'0')}</span><div className="ds-rank-main"><div><strong>{row.name}</strong><span>{number(row.sample)} partidos con dato</span></div><div className="ds-rank-track"><i style={{width:`${row.value/ceiling*100}%`}}/></div></div><strong className="ds-rank-value">{number(row.value)}</strong></Link>)}</div></section>
+    <section className="ds-discover-grid" aria-label="Más formas de explorar"><Link className="ds-discover-compare" href="/comparar"><span className="dx-eyebrow">COMPARADOR</span><h2>El mismo criterio.<br/>Dos trayectorias.</h2><p>Temporada, superficie, edad. Compara con contexto y consulta la muestra completa.</p><div aria-hidden="true"><span>01</span><i>vs</i><span>02</span></div><strong>Empezar una comparación ↗</strong></Link><Link className="ds-discover-court" href="/wimbledon/2008"><Image src={courtPhotos.Wimbledon.src} alt="Pista central de Wimbledon" fill sizes="(max-width:759px) 100vw, 50vw"/><div><span>EDICIONES QUE QUEDAN</span><h2>Wimbledon.<br/>2008.</h2><p>La final y el camino del campeón ↗</p></div></Link></section>
+    <div className="ds-home-duo ds-home-bottom"><section className="ds-final-ranking"><p className="dx-eyebrow">CUANDO SOLO QUEDAN DOS</p><h2>Más finales ganadas.</h2><ol>{finals.rows.slice(0,5).map(row=><li key={row.name}><Link href={row.href}>{row.name}<strong>{number(row.value)}</strong></Link></li>)}</ol><p className="ds-update-note">{finals.piece?.years} · este archivo, no toda la carrera.</p><Link href="/records?dato=finales-ganadas">Ver los partidos detrás del dato ↗</Link></section><section className="ds-archive-note"><p className="dx-eyebrow">LA CONFIANZA TAMBIÉN SE MIDE</p><h2>Un dato es mejor<br/>cuando puedes<br/><span>comprobarlo.</span></h2><p>Cada cifra lleva a sus partidos. Cada ausencia se explica. Sin completar la historia con datos inventados.</p><Link href="/cobertura">Cobertura y límites del archivo ↗</Link><p className="ds-update-note">Estadísticas publicadas: {new Intl.DateTimeFormat('es-ES',{timeZone:'Europe/Madrid',dateStyle:'medium',timeStyle:'short'}).format(new Date(manifest.generatedAt))} · Madrid</p></section></div>
+    <details className="ds-more-results"><summary>Más resultados recientes</summary>{recent.slice(3,8).map(m=><Row key={m.match_id} match={m}/>)}</details>
   </div>;
 }

@@ -147,6 +147,7 @@ export function Timeline({
       </div>
       {graph(752, false)}
       {graph(400, true)}
+      <label className="ds-chart-scrub"><span>Explorar una temporada</span><select value={active ?? points.length-1} onChange={e=>setActive(Number(e.target.value))}>{points.map((p,i)=><option key={p.year} value={i}>{p.year}</option>)}</select></label>
       <details className="chart-table">
         <summary>Ver datos del gráfico</summary>
         <div className="table-wrap">
@@ -282,14 +283,14 @@ export function SurfaceBars({
               <i className={`surface-dot ${r.surface}`} />
               {r.name}
             </span>
-            <strong>{n((r.wins / r.played) * 100)} %</strong>
+            <strong>{r.played ? `${n((r.wins / r.played) * 100)} %` : 'Sin datos'}</strong>
           </div>
           <div
             className="bar-track"
             role="img"
             aria-label={`${r.name}: ${r.wins} victorias de ${r.played} partidos`}
           >
-            <span style={{ width: `${(r.wins / r.played) * 100}%` }} />
+            <span style={{ width: `${r.played ? (r.wins / r.played) * 100 : 0}%` }} />
           </div>
           <p className="micro">
             {r.wins} victorias · {r.played - r.wins} derrotas · {r.played}{" "}

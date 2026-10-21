@@ -11,7 +11,7 @@ export async function GET(request: Request) {
       const {invalidateEditorialCache}=await import('@/lib/editorial-data');
       invalidateEditorialCache();
     }
-    return Response.json(result, { headers: { 'Cache-Control': 'no-store' } });
+    return Response.json(result, {status:result.status==='success'?200:503, headers: { 'Cache-Control': 'no-store' } });
   }
-  catch { return Response.json({ error: 'Refresh failed; the saved archive remains available' }, { status: 503 }) }
+  catch { console.error('Daily provider refresh failed');return Response.json({ error: 'Refresh failed; the saved archive remains available' }, { status: 503,headers:{'Cache-Control':'no-store'} }) }
 }

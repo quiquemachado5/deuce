@@ -5,6 +5,8 @@ import { readdir } from 'node:fs/promises'
 import { join } from 'node:path'
 import { loadMissingDetails } from './archive-detail-batches'
 import { enrichmentPlan } from './enrichment-plan'
+import { activityFixtures } from './tour-activity'
+import { detailRefreshPlan } from './detail-refresh-plan'
 
 export type ArchiveRow = Record<string, any>
 const base = 'https://api.livetennisapi.com/api/public/v1'
@@ -81,11 +83,13 @@ export async function cloudDetails(): Promise<Record<string, ArchiveRow>> {
     for (let offset = 0; ; offset += 1000) {
       const { data, error } = await client.from('deuce_archive_objects').select('key').like('key', 'detail-%').order('key').range(offset, offset + 999).abortSignal(AbortSignal.timeout(15_000))
       if (error) throw new Error(`Cloud detail index failed: ${error.code}`)
-      for (const row of data || []) keys.push(row.key)
+      for (const row of data || []) if(/^detail-(modern|archive)-/.test(row.key))keys.push(row.key)
       if (!data || data.length < 1000) break
     }
     const files = await readdir(join(process.cwd(), 'data', 'archive', 'details')).catch(() => [])
     const bundled = new Set(files.filter(f => f.endsWith('.json.gz')).map(f => `detail-${f.slice(0, -8)}`))
+    const overrides = await cloudRead('detail-overrides')
+    for(const key of overrides?.keys || []) if(typeof key==='string')bundled.delete(key)
     return loadMissingDetails<ArchiveRow>(keys, bundled, async batch => {
       const { data, error } = await client.from('deuce_archive_objects').select('key,payload').in('key', batch).abortSignal(AbortSignal.timeout(15_000))
       if (error) throw new Error(`Cloud detail batch failed: ${error.code}`)
@@ -174,6 +178,15 @@ export async function refreshCloudArchive() {
     const data = [...merged.values()]
     // Publish only a complete set of pages; keep the prior snapshot if any request fails.
     await cloudWrite(`season-${year}`, { data, scope: 'atp-main-v1', at: new Date().toISOString() })
+    const activity: ReturnType<typeof activityFixtures> = []
+    let activityComplete=true
+    for(const status of ['live','upcoming'] as const){
+      const page=await request(`/matches?status=${status}&tour=atp&draw=singles&tier=grand_slam,atp_1000,atp_500,atp_250&limit=200`)
+      if(!Array.isArray(page.data))throw new Error('Unexpected activity response')
+      activity.push(...activityFixtures(page.data,status))
+      if(page.meta?.has_more)activityComplete=false
+    }
+    await cloudWrite('tour-activity',{checkedAt:new Date().toISOString(),fixtures:activity,complete:activityComplete})
     const { hasBundledDetail, bundledEnrichmentCandidates } = await import('./live-tennis')
     // Only keys are needed to avoid downloading the growing payload archive during sync.
     const known = new Set<string>()
@@ -183,16 +196,22 @@ export async function refreshCloudArchive() {
       for(const row of keys||[])known.add(row.key.slice(7))
       if(!keys||keys.length<1000)break
     }
-    let detailsAdded = 0
-    for (const row of data.filter(row => row.outcome === 'completed' && (row.tape?.rows || row.tape?.reconstructed_rows)).sort((a, b) => String(b.scheduled_time).localeCompare(String(a.scheduled_time)))) {
-      if (detailsAdded >= 12 || calls >= 35 || Date.now() - started > 190_000) break
-      if (known.has(`modern-${row.id}`) || hasBundledDetail('modern', String(row.id))) continue
+    let detailsAdded = 0,detailsRefreshed=0
+    const overrides = new Set<string>((await cloudRead('detail-overrides'))?.keys || [])
+    const previousRows=new Map<string,ArchiveRow>((old?.data||[]).map((r:ArchiveRow)=>[String(r.id),r]))
+    const checked:Record<string,string>=(await cloudRead('refresh-detail-state'))?.checked || {}
+    const planned=detailRefreshPlan(data as (ArchiveRow & {id:unknown})[],previousRows as Map<string,ArchiveRow & {id:unknown}>,id=>known.has(`modern-${id}`)||hasBundledDetail('modern',id),checked)
+    for (const row of planned) {
+      if (detailsAdded+detailsRefreshed >= 24 || calls >= 50 || Date.now() - started > 190_000) break
+      const existing=known.has(`modern-${row.id}`)||hasBundledDetail('modern',String(row.id))
       const detail = await request(`/history/matches/${row.id}?points=complete`)
       if (!detail.match && !detail.stats) continue
       await cloudWrite(`detail-modern-${row.id}`, detail)
+      if(existing){detailsRefreshed++;overrides.add(`detail-modern-${row.id}`)}else detailsAdded++
       known.add(`modern-${row.id}`)
-      detailsAdded++
+      checked[String(row.id)]=new Date().toISOString()
     }
+    await cloudWriteMany([{key:'detail-overrides',payload:{keys:[...overrides],at:new Date().toISOString()}},{key:'refresh-detail-state',payload:{checked}}])
     let historicalAdded=0,archiveRecentAdded=0
     const backfill=enrichmentPlan(await bundledEnrichmentCandidates(),known,90)
     for(const row of backfill){
@@ -204,7 +223,7 @@ export async function refreshCloudArchive() {
       if(row.kind==='archive')historicalAdded++;else archiveRecentAdded++
     }
     cache.delete('detail-index')
-    const result = { status: 'success', at: new Date().toISOString(), year, matches: data.length, updated: rows.length, detailsAdded, historicalAdded, archiveRecentAdded, calls }
+    const result = { status: 'success', at: new Date().toISOString(), year, matches: data.length, updated: rows.length, detailsAdded, detailsRefreshed, historicalAdded, archiveRecentAdded, calls, activityFixtures:activity.length }
     await cloudWrite('sync-status', result)
     return result
   } catch (error) {
