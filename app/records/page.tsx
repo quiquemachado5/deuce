@@ -8,6 +8,7 @@ import { description, groupDescriptions } from "@/lib/revista/records";
 import type { RecordMeta } from "@/lib/revista/snapshot";
 import { Pagination } from "@/components/nocturno/Row";
 import { RecordEras, RecordProof, RecordRanking, recordValue } from "@/components/nocturno/RecordsViews";
+import RecordBars from "@/components/nocturno/RecordBars";
 import FilterForm from "@/components/revista/FilterForm";
 import { TOURNAMENTS } from "@/lib/types";
 import { tournamentName } from "@/lib/labels";
@@ -240,6 +241,7 @@ export default async function Records({ searchParams }: { searchParams: Promise<
       </div><RecordProof row={leader} />
     </section>}
     <RecordFilters piece={piece} q={q} years={view.manifest.years} />
+    {view.page === 1 && !asYear && <RecordBars rows={view.rows} id={piece.id} percent={piece.percent} filters={q} />}
     <section className="rv-list-section"><div className="rv-list-heading"><h2>Clasificación</h2>
       <span>{number(piece.total)} {piece.total === 1 ? "entrada" : "entradas"} · página {number(view.page)} de {number(Math.max(1, Math.ceil(piece.total / 25)))}</span></div>
       {view.rows.length ? <RecordRanking evidence={{id:piece.id,filters:q}} rows={view.rows} percent={piece.percent} asYear={asYear} offset={(view.page - 1) * 25} priorValue={piece.pagePrior?.[view.page]} />

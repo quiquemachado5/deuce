@@ -65,6 +65,7 @@
 .ry-wordmark:hover { color: var(--ink); }
 .ry-navigation { font-size: 13px; font-weight: 400; }
 .ry-navigation a {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -77,6 +78,15 @@
 .ry-navigation a:hover,
 .ry-navigation a[aria-current="page"] { color: var(--ink); }
 .ry-navigation a[aria-current="page"] { font-weight: 600; }
+.ry-navigation--desktop a[aria-current="page"]::after {
+  position: absolute;
+  right: 0;
+  bottom: 3px;
+  left: 0;
+  height: 1px;
+  background: var(--ink);
+  content: "";
+}
 .ry-navigation--desktop { display: flex; align-items: center; justify-content: center; gap: 24px; }
 .ry-icon-button {
   display: inline-flex;
@@ -112,6 +122,12 @@
   cursor: pointer;
 }
 .ry-search-trigger:hover { background: var(--bg-elevated); color: var(--ink); }
+.ry-search-trigger:focus-visible,
+.ry-icon-button:focus-visible,
+.ry-footer a:focus-visible,
+.ry-theme summary:focus-visible,
+.ry-search-row:focus-visible,
+.ry-search-all:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
 .ry-search-trigger svg { flex: none; }
 .ry-search-trigger span { overflow: hidden; text-overflow: ellipsis; }
 .ry-main {
@@ -259,7 +275,7 @@
 .ry-search-row {
   display: flex;
   align-items: center;
-  min-height: 56px;
+  min-height: 60px;
   padding: 10px 8px;
   border-bottom: 1px solid var(--line);
   color: var(--ink);
@@ -282,7 +298,6 @@
 }
 .ry-search-all:hover { text-decoration: underline; text-underline-offset: 3px; }
 .ry-search-suggestions { padding: 18px 20px 16px; }
-.ry-search-suggestions p { margin: 0 0 10px; color: var(--muted); font-size: 13px; }
 .ry-search-suggestions > div { display: flex; flex-wrap: wrap; gap: 4px 20px; }
 .ry-search-suggestions a {
   display: inline-flex;
@@ -308,7 +323,7 @@
 
 @media (min-width: 760px) and (max-width: 1099px) {
   .ry-header-main { grid-template-columns: minmax(76px, 1fr) auto minmax(44px, 1fr); gap: 16px; padding-inline: 24px; }
-  .ry-navigation--desktop { gap: 16px; }
+  .ry-navigation--desktop { gap: 14px; }
   .ry-search-trigger { justify-content: center; width: 44px; padding: 0; background: transparent; color: var(--ink); }
   .ry-search-trigger span { display: none; }
   .ry-main { padding-inline: 24px; }
@@ -337,7 +352,9 @@
     border: 0;
     border-radius: 0;
     background: var(--bg);
+    padding-bottom: env(safe-area-inset-bottom);
   }
+  .ry-dialog-header { padding-top: calc(6px + env(safe-area-inset-top)); }
   .ry-navigation--menu { padding: 24px 20px 48px; }
   .ry-navigation--menu a { min-height: 72px; font-size: 32px; letter-spacing: -.03em; }
   .ry-search-results,

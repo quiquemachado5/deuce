@@ -99,12 +99,14 @@ body .ry-player-page .ry-player-header {
   scrollbar-width: thin;
 }
 .ry-player-page .ry-season-chart-scroll svg { width: 100%; max-width: none; }
+.ry-player-page .ry-season-mobile { display: none; }
 .ry-player-page .ry-chart-grid { stroke: var(--line-strong); }
 .ry-player-page .ry-chart-axis { fill: var(--muted); font-size: 12px; }
 .ry-player-page .ry-chart-selected-year { fill: var(--ink); font-weight: 600; }
 .ry-player-page .ry-chart-selection { fill: var(--bg-sunken); }
 .ry-player-page .ry-chart-win { fill: var(--win); }
 .ry-player-page .ry-chart-loss { fill: var(--loss); opacity: .78; }
+.ry-player-page .ry-season-chart-scroll svg a:focus-visible rect:is(.ry-chart-win, .ry-chart-loss) { stroke: var(--focus); stroke-width: 2; }
 .ry-player-page .ry-chart-empty { stroke: var(--muted); stroke-width: 2; stroke-dasharray: 3 3; opacity: .5; }
 .ry-player-page .ry-chart-key::before { background: var(--win); }
 .ry-player-page .ry-chart-key-loss::before { background: var(--loss); opacity: .78; }
@@ -112,16 +114,22 @@ body .ry-player-page .ry-player-header {
 .ry-player-page .ry-profile-analysis .ry-people-section { margin-top: 56px; }
 .ry-player-page .ry-player-surface-list,
 .ry-player-page .ry-fingerprint-list { margin-top: 20px; }
+.ry-player-page .ry-surface-explainer { max-width: 48ch; margin: 8px 0 0; color: var(--muted); font-size: 13px; }
 .ry-player-page .ry-player-surface-list > div,
 .ry-player-page .ry-fingerprint-row { grid-template-columns: minmax(0, .7fr) minmax(0, 1.3fr); gap: 16px; padding: 16px 0; }
+.ry-player-page [data-event-surface="hard"] { --ry-surface-dot: var(--hard); }
+.ry-player-page [data-event-surface="clay"] { --ry-surface-dot: var(--clay); }
+.ry-player-page [data-event-surface="grass"] { --ry-surface-dot: var(--grass); }
+.ry-player-page [data-event-surface="carpet"] { --ry-surface-dot: #a68cc6; }
+.ry-player-page [data-event-surface="unknown"] { --ry-surface-dot: var(--muted); }
 .ry-player-page .ry-player-surface-list dt { font-size: 15px; font-weight: 600; }
-.ry-player-page .ry-player-surface-list dt::before {
+.ry-player-page .ry-player-surface-list .ry-surface-name { display: inline-flex; align-items: center; gap: 8px; color: var(--ink); font-size: 15px; font-weight: 600; }
+.ry-player-page .ry-player-surface-list .ry-surface-name::before {
   display: inline-block;
   width: 8px;
   height: 8px;
-  margin-right: 8px;
   border-radius: 50%;
-  background: var(--event-accent);
+  background: var(--ry-surface-dot, var(--muted));
   content: "";
 }
 .ry-player-page .ry-player-surface-record strong:first-child { color: var(--win); }
@@ -134,10 +142,12 @@ body .ry-player-page .ry-player-header {
 .ry-player-page .ry-player-surface-track span:first-child { background: var(--win); }
 .ry-player-page .ry-player-surface-track span:nth-child(2) { background: var(--loss); opacity: .7; }
 .ry-player-page .ry-fingerprint-row dt { font-size: 14px; }
-.ry-player-page .ry-fingerprint-value { font-size: 15px; }
+.ry-player-page .ry-fingerprint-value { flex-wrap: wrap; font-size: 17px; }
+.ry-player-page .ry-fingerprint-value span { white-space: normal; text-align: right; }
 .ry-player-page .ry-fingerprint-track { height: 6px; }
-.ry-player-page .ry-fingerprint-fill { background: var(--ink); }
-.ry-player-page .ry-fingerprint-median { height: 14px; top: -4px; background: var(--muted); }
+.ry-player-page .ry-fingerprint-fill { background: var(--win); }
+.ry-player-page .ry-fingerprint-median { height: 14px; top: -4px; background: var(--ink); }
+.ry-player-page .ry-fingerprint-reference { display: block; margin-top: 7px; color: var(--muted); font-size: 12px; }
 .ry-player-page .ry-fingerprint-note { margin-top: 18px; color: var(--muted); font-size: 14px; }
 .ry-player-page .ry-calendar { scroll-margin-top: 72px; }
 .ry-player-page .ry-selected-season { color: var(--ink); font-size: 22px; font-weight: 600; }
@@ -155,7 +165,7 @@ body .ry-player-page .ry-player-header {
   height: 7px;
   margin-right: 7px;
   border-radius: 50%;
-  background: var(--event-accent, var(--line-strong));
+  background: var(--ry-surface-dot, var(--line-strong));
   content: "";
 }
 .ry-player-page .ry-circuit-cell:not([data-event-surface]) span:first-child::before { background: var(--line-strong); }
@@ -210,11 +220,35 @@ body .ry-player-page .ry-player-header {
   .ry-player-page .ry-people-section h2 { font-size: 28px; }
   .ry-player-page .ry-season-highlights { gap: 20px; }
   .ry-player-page .ry-season-highlights p { min-width: calc(50% - 10px); }
-  .ry-player-page .ry-season-chart-scroll { margin-inline: -20px; padding: 16px 12px 10px; border-radius: 0; }
+  .ry-player-page .ry-season-chart-scroll { display: none; }
+  .ry-player-page .ry-season-mobile { display: block; margin-top: 24px; border-top: 1px solid var(--line); }
+  .ry-player-page .ry-season-mobile-row {
+    display: grid;
+    gap: 8px;
+    min-height: 86px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .ry-player-page a.ry-season-mobile-row:hover { background: var(--bg-raised); }
+  .ry-player-page .ry-season-mobile-row[aria-current="true"] { background: var(--bg-raised); }
+  .ry-player-page .ry-season-mobile-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+  .ry-player-page .ry-season-mobile-heading strong { font-size: 19px; font-weight: 600; }
+  .ry-player-page .ry-season-mobile-heading b { color: var(--win); font-size: 20px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .ry-player-page .ry-season-mobile-balance { color: var(--muted); font-size: 13px; }
+  .ry-player-page .ry-season-mobile-track { display: block; width: 100%; height: 5px; background: var(--loss); }
+  .ry-player-page .ry-season-mobile-track i { display: block; height: 100%; background: var(--win); }
+  .ry-player-page .ry-season-mobile-empty { min-height: 64px; }
+  .ry-player-page .ry-season-mobile-missing { color: var(--muted); font-size: 13px; }
+  .ry-player-page .ry-season-older summary { display: flex; align-items: center; min-height: 44px; margin-top: 10px; color: var(--ink); font-size: 14px; font-weight: 600; cursor: pointer; }
+  .ry-player-page .ry-season-older summary:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .ry-player-page .ry-season-older .ry-season-mobile-list { margin-top: 8px; }
   .ry-player-page .ry-profile-analysis { grid-template-columns: 1fr; gap: 0; }
   .ry-player-page .ry-profile-analysis .ry-people-section { margin-top: 48px; }
   .ry-player-page .ry-player-surface-list > div,
   .ry-player-page .ry-fingerprint-row { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .ry-player-page .ry-fingerprint-value span { text-align: left; }
   .ry-player-page .ry-circuit { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .ry-player-page .ry-circuit-cell > a,
   .ry-player-page .ry-circuit-cell > div { min-height: 100px; padding: 12px; }

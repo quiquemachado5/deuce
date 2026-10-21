@@ -7,6 +7,7 @@ import ArchiveNotice from '@/components/nocturno/ArchiveNotice';
 import HomeHighlights, { type HomeHighlight } from '@/components/HomeHighlights';
 import TourActivity from '@/components/TourActivity';
 import ScoreText from '@/components/ScoreText';
+import HomeFinalScore from '@/components/HomeFinalScore';
 import { playerPhoto } from '@/lib/player-imagery';
 import { chronological, roundPosition, winnerName } from '@/lib/editorial';
 import { number, round, score } from '@/lib/cuaderno/model';
@@ -14,6 +15,7 @@ import { tournamentName } from '@/lib/labels';
 import { courtPhoto, courtPhotos } from '@/lib/imagery';
 import { tournamentDirectory } from '@/lib/tournament-directory';
 import { SURFACES, surfaceLabel } from '@/lib/surface';
+import { eligibleMatch } from '@/lib/quality';
 import './rally-overview.css';
 
 export const revalidate = 300;
@@ -30,7 +32,7 @@ export default async function Home() {
   const longest = record('mas-largos');
   const longestMatch = longest?.leader?.proof;
   const longestPhoto = longestMatch ? courtPhoto(longestMatch.tournament) : null;
-  const recentFinal = recent.find(match => roundPosition(match.round) === 7);
+  const recentFinal = recent.find(match => roundPosition(match.round) === 7 && eligibleMatch(match));
   const finalEvent = recentFinal
     ? tournamentDirectory(matches).find(event => event.name === recentFinal.tournament)
     : null;
@@ -131,13 +133,11 @@ export default async function Home() {
     <HomeHighlights slides={stories} />
 
     <div className="ds-home-end">
-      {recentFinal && <section className="ds-latest-final">
+      {recentFinal && <section className="ds-latest-final" data-event-surface={recentFinal.surface}>
         <div className="ds-section-heading"><h2>Última final registrada</h2>{finalEvent && <Link href={`/${finalEvent.slug}/${recentFinal.year}`}>Ver edición</Link>}</div>
-        <Link className="ds-final-link" href={`/match/${recentFinal.match_id}`}>
-          <span>{tournamentName(recentFinal.tournament)} · {recentFinal.year}</span>
-          <strong>{recentFinal.player1.name} <em>contra</em> {recentFinal.player2.name}</strong>
-          <span className="ds-final-score"><ScoreText value={score(recentFinal)} /></span>
-        </Link>
+        <p className="ds-final-event"><i className={`nc-dot nc-dot-${recentFinal.surface}`} aria-hidden="true" />{tournamentName(recentFinal.tournament)} · {recentFinal.year}</p>
+        <HomeFinalScore match={recentFinal} />
+        <Link className="ds-final-open" href={`/match/${recentFinal.match_id}`}>Leer la final</Link>
       </section>}
       <Link className="ds-court-link" href="/wimbledon/2008">
         <Image src={courtPhotos.Wimbledon.src} alt={courtPhotos.Wimbledon.alt} fill sizes="(max-width: 759px) 100vw, 500px" />

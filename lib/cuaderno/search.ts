@@ -77,6 +77,7 @@ export async function searchArchive(query: string, options: { includeMatches?: b
 }
 
 const matchIndexes = new WeakMap<Match[], { match: Match; text: string }[]>();
+const newestMatches = new WeakMap<Match[], Match[]>();
 export function matchingMatches(query: string, matches: Match[], limit = Infinity) {
   const terms = normalizeText(query)
     .replace(/[–—]/g, "-")
@@ -88,6 +89,14 @@ export function matchingMatches(query: string, matches: Match[], limit = Infinit
     ? shelves.find((s) => includes(`${s.label} ${s.id}`))
     : undefined;
   if (limit <= 0) return [];
+  if (!terms.length) {
+    let newest = newestMatches.get(matches);
+    if (!newest) {
+      newest = [...matches].sort((a, b) => b.score_summary.timestamp.localeCompare(a.score_summary.timestamp));
+      newestMatches.set(matches, newest);
+    }
+    return Number.isFinite(limit) ? newest.slice(0, limit) : newest;
+  }
   if (shelf) return shelfMatches(shelf, matches).sort((a,b) => b.score_summary.timestamp.localeCompare(a.score_summary.timestamp)).slice(0, limit);
   let index = matchIndexes.get(matches);
   if (!index) {

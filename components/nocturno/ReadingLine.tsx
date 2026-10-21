@@ -5,6 +5,7 @@ import type { Match } from "@/lib/types";
 import { matchStory } from "@/lib/match-story";
 import { score } from "@/lib/cuaderno/model";
 import ScoreText from "@/components/ScoreText";
+import GameFlow from "./GameFlow";
 
 export default function ReadingLine({ match }: { match: Match }) {
   const sets = matchStory(match);
@@ -18,11 +19,11 @@ export default function ReadingLine({ match }: { match: Match }) {
     return null;
   }
 
-  const totalGames = current.score[0] + current.score[1];
   const featuredGame = current.games.findIndex((game) => game.isBreak && game.winner);
   const firstKnownGame = current.games.findIndex((game) => game.winner);
   const activeGameIndex = selectedGame ?? (featuredGame >= 0 ? featuredGame : firstKnownGame);
   const activeGame = activeGameIndex >= 0 ? current.games[activeGameIndex] : null;
+  const breaks = current.games.filter((game) => game.isBreak).length;
 
   return (
     <section className="ds-match-story" aria-label="El partido, set a set">
@@ -30,6 +31,8 @@ export default function ReadingLine({ match }: { match: Match }) {
         <h2>Set a set</h2>
         <span>{sets.length} sets · {sets.reduce((count, set) => count + set.games.length, 0)} juegos</span>
       </div>
+
+      <GameFlow match={match} />
 
       <div
         className="ds-set-picker"
@@ -56,19 +59,7 @@ export default function ReadingLine({ match }: { match: Match }) {
 
       <div className="ds-set-summary">
         <strong>{names[current.winner - 1]} ganó el set</strong>
-      </div>
-
-      <div
-        className="ds-set-balance"
-        role="img"
-        aria-label={`${names[0]}: ${current.score[0]} juegos. ${names[1]}: ${current.score[1]} juegos.`}
-      >
-        <span style={{ width: `${(current.score[0] / totalGames) * 100}%` }} />
-        <span style={{ width: `${(current.score[1] / totalGames) * 100}%` }} />
-      </div>
-      <div className="ds-story-legend" aria-hidden="true">
-        <span><i />{names[0]} · {current.score[0]}</span>
-        <span><i />{names[1]} · {current.score[1]}</span>
+        {breaks > 0 && <span>{breaks} {breaks === 1 ? "break registrado" : "breaks registrados"}</span>}
       </div>
 
       {current.known > 0 ? (
@@ -84,7 +75,6 @@ export default function ReadingLine({ match }: { match: Match }) {
                 onClick={() => setSelectedGame(index)}
               >
                 {game.tiebreak ? "TB" : game.number}
-                {game.isBreak && <span className="ds-break-label" aria-hidden="true">break</span>}
               </button>
             ))}
           </div>

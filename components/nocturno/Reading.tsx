@@ -265,11 +265,13 @@ function MatchPressure({
 }) {
   const players = pressure(match),
     names = [match.player1.name, match.player2.name];
+  const winnerIndex = match.winner === 2 ? 1 : 0;
+  const loserIndex = 1 - winnerIndex;
   const metrics = [
-    { key: "thirty" as const, label: "Juegos tras ganar el 30–30" },
     { key: "converted" as const, label: "Bolas de break convertidas" },
     { key: "saved" as const, label: "Bolas de break salvadas" },
     { key: "matchPoints" as const, label: "Bolas de partido" },
+    { key: "thirty" as const, label: "Juegos tras ganar el 30–30" },
   ].filter((metric) => players.some((player) => player[metric.key][1] > 0));
   if (!metrics.length)
     return compact ? null : (
@@ -284,6 +286,11 @@ function MatchPressure({
         <h2>Rendimiento bajo presión</h2>
         <span>Éxitos / oportunidades</span>
       </div>
+      {match.winner && players.every((player) => player.converted[1] > 0) && (
+        <p className="ry-pressure-insight">
+          {names[winnerIndex]} convirtió {number(players[winnerIndex].converted[0])} de {number(players[winnerIndex].converted[1])} bolas de break; {names[loserIndex]}, {number(players[loserIndex].converted[0])} de {number(players[loserIndex].converted[1])}.
+        </p>
+      )}
       <div className="ry-player-legend">
         {names.map((name, index) => (
           <span className={`ry-player-${index + 1}`} key={name}>
@@ -302,7 +309,7 @@ function MatchPressure({
               if (percent === null) return null;
               return (
                 <div
-                  className={`ry-pressure-row ry-player-${player.side}`}
+                  className={`ry-pressure-row ry-player-${player.side}${total < 3 ? " ry-pressure-row-sparse" : ""}`}
                   key={player.side}
                 >
                   <div className="ry-pressure-value">
@@ -316,12 +323,10 @@ function MatchPressure({
                     </span>
                     <strong>
                       {number(won)} <span>de</span> {number(total)}
-                      <small>{number(percent)} %</small>
+                      {total >= 3 && <small>{number(percent)} %</small>}
                     </strong>
                   </div>
-                  <div className="ry-pressure-track" aria-hidden="true">
-                    <span style={{ width: `${percent}%` }} />
-                  </div>
+                  {total >= 3 && <div className="ry-pressure-track" aria-hidden="true"><span style={{ width: `${percent}%` }} /></div>}
                 </div>
               );
             })}
@@ -618,23 +623,9 @@ function MatchSidebar({
           <p className="ry-data-note">
             {number(rivalry.matches.length)} partidos en este archivo
           </p>
-          <Link href={`/rivalries/${rivalry.slug}`}>
-            Ver enfrentamientos
-            <svg viewBox="0 0 16 16" aria-hidden="true">
-              <path d="M3 8h10m-4-4 4 4-4 4" />
-            </svg>
-          </Link>
+          <Link href={`/rivalries/${rivalry.slug}`}>Ver enfrentamientos</Link>
         </section>
       )}
-      <Link
-        className="ry-compare-action"
-        href={`/compare?left=${encodeURIComponent(match.match_id)}`}
-      >
-        <svg viewBox="0 0 20 20" aria-hidden="true">
-          <path d="M4 15V8m6 7V4m6 11V6" />
-        </svg>
-        Comparar partido
-      </Link>
     </aside>
   );
 }
@@ -663,10 +654,6 @@ export default function Reading({
   initial?: MatchView;
   baseHref?: string;
 }) {
-  const games = match.score_summary.games.reduce(
-    (sum, set) => sum + set[0] + set[1],
-    0,
-  );
   const hasPressure = pressure(match).some((player) =>
     [player.thirty, player.converted, player.saved, player.matchPoints].some(
       (metric) => metric[1] > 0,
@@ -682,22 +669,6 @@ export default function Reading({
       content: (
         <>
           <ReadingLine match={match} />
-          <div className="ry-match-overview">
-            <div>
-              <span>Sets disputados</span>
-              <strong>{number(match.score_summary.games.length)}</strong>
-            </div>
-            <div>
-              <span>Juegos disputados</span>
-              <strong>{number(games)}</strong>
-            </div>
-            {match.context?.minutes ? (
-              <div>
-                <span>Duración</span>
-                <strong>{durationLabel(match.context.minutes)}</strong>
-              </div>
-            ) : null}
-          </div>
           <TieBreaks match={match} />
           <div className="ry-match-close">
             <Link href={`/compare?left=${encodeURIComponent(match.match_id)}`}>

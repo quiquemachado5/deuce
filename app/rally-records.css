@@ -373,6 +373,46 @@
 .rv-proof span:last-child { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
 .rv-proof:hover strong { text-decoration: underline; text-underline-offset: 3px; }
 
+.rv-bars {
+  margin: 0 0 40px;
+  padding: 0 0 32px;
+  border-bottom: 1px solid var(--line);
+}
+
+.rv-bars-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.rv-bars-heading h2 { margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -.025em; }
+.rv-bars-heading p { margin: 0; color: var(--muted); font-size: 13px; }
+.rv-bars ol { margin: 0; padding: 0; list-style: none; }
+.rv-bars li + li { border-top: 1px solid var(--line); }
+.rv-bars a {
+  display: grid;
+  grid-template-columns: minmax(190px, .9fr) minmax(100px, 1.1fr) auto;
+  align-items: center;
+  gap: 18px;
+  min-height: 58px;
+  padding: 8px 4px;
+  transition: background 180ms ease;
+}
+.rv-bars a:hover { background: var(--bg-raised); }
+.rv-bars-name { min-width: 0; font-size: 14px; font-weight: 600; line-height: 1.3; }
+.rv-bars-name > span { display: inline-block; width: 28px; color: var(--muted); font-size: 12px; font-weight: 400; font-variant-numeric: tabular-nums; }
+.rv-bars-track { display: block; height: 8px; overflow: hidden; background: var(--bg-sunken); }
+.rv-bars-track > span { display: block; height: 100%; background: var(--ink-soft); }
+.rv-bars li:first-child .rv-bars-track > span { background: var(--win); }
+.rv-detail[data-event-surface="clay"] .rv-bars li:first-child .rv-bars-track > span { background: var(--clay); }
+.rv-detail[data-event-surface="hard"] .rv-bars li:first-child .rv-bars-track > span { background: var(--hard); }
+.rv-detail[data-event-surface="grass"] .rv-bars li:first-child .rv-bars-track > span { background: var(--grass); }
+.rv-bars-result { display: flex; align-items: baseline; justify-content: end; gap: 8px; min-width: 80px; text-align: right; white-space: nowrap; }
+.rv-bars-result strong { font-size: 18px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.rv-bars-result small { color: var(--muted); font-size: 12px; }
+
 .rv-filter-wrap { margin: 32px 0; }
 .rv-filter-wrap .nc-filters {
   display: flex;
@@ -441,6 +481,13 @@
 }
 
 @media (max-width: 759px) {
+  .rv-bars-heading { display: block; }
+  .rv-bars-heading p { margin-top: 5px; }
+  .rv-bars a { grid-template-columns: minmax(0, 1fr) auto; gap: 8px 12px; padding-block: 12px; }
+  .rv-bars-name { overflow-wrap: anywhere; }
+  .rv-bars-track { grid-column: 1 / -1; grid-row: 2; }
+  .rv-bars-result { grid-column: 2; grid-row: 1; }
+  .rv-bars-result { flex-direction: column; align-items: end; gap: 1px; }
   .rv-records { padding-block: 24px 80px; }
   .rv-intro { display: block; margin-bottom: 22px; }
   .rv-intro > span { display: block; margin-top: 10px; }
@@ -485,7 +532,8 @@
 @media (prefers-reduced-motion: reduce) {
   .rv-catalogue-row,
   .rv-ranking > li,
-  .rv-family-nav a { transition: none; }
+  .rv-family-nav a,
+  .rv-bars a { transition: none; }
 }
 
 /* Records keep every shelf, but let the ranking rows carry the information. */

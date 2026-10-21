@@ -881,14 +881,6 @@
   font-size: 13px;
   font-weight: 600;
 }
-.ry-match-h2h svg {
-  width: 16px;
-  height: 16px;
-}
-.ry-match-sidebar > .ry-compare-action {
-  width: 100%;
-  margin-top: 20px;
-}
 .ry-match-history .nc-match-around {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1099,11 +1091,6 @@
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 16px;
-  }
-  .ry-match-sidebar > .ry-compare-action {
-    grid-column: 1 / -1;
-    width: auto;
-    justify-self: start;
   }
   .ry-match-history .nc-match-comparison {
     grid-template-columns: 1fr;

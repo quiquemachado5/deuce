@@ -24,6 +24,8 @@ test('bounded search keeps the same newest-first order as the full result',() =>
     .map((timestamp,index) => fixture({match_id:String(index),score_summary:{...fixture().score_summary,timestamp}}));
   assert.deepEqual(matchingMatches('One',matches,2).map(match=>match.match_id),['2','3']);
   assert.deepEqual(matchingMatches('One',matches,2),matchingMatches('One',matches).slice(0,2));
+  assert.deepEqual(matchingMatches('',matches,2).map(match=>match.match_id),['2','3']);
+  assert.deepEqual(matchingMatches('',matches,2),matchingMatches('',matches).slice(0,2));
 });
 test('single-metric calculation matches the full catalogue',() => {
   const matches=Array.from({length:8},(_,i) => fixture({match_id:String(i),year:2020+i%2}));

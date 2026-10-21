@@ -47,3 +47,18 @@ test('tiebreaks stay inline and five sets fit in one readable strip',async({page
   await expect(page.locator('.ry-set-tiebreak').first()).toBeVisible();
   expect(await page.locator('.ry-set-tiebreak').first().evaluate(el=>getComputedStyle(el).verticalAlign)).toBe('baseline');
 });
+test('verified game flow has readable axes, moments and an equivalent table',async({page})=>{
+  await page.setViewportSize({width:390,height:844});
+  await page.goto('/match/live-203807');
+  const flow=page.locator('.ry-game-flow');
+  await expect(flow).toBeVisible();
+  await expect(flow.locator('.ry-game-flow-axis span')).toHaveCount(3);
+  await expect(flow.getByRole('img')).toHaveAttribute('aria-label',/eje horizontal de 0 a 20, eje vertical/);
+  await flow.getByText('Ver juegos en tabla').click();
+  await expect(flow.getByRole('table',{name:/Juegos cerrados y verificados/})).toBeVisible();
+  await expect(flow.locator('tbody tr').first()).toContainText('juego');
+  const moment=flow.getByRole('button',{name:/Break de/}).first();
+  await moment.click();
+  await expect(moment).toHaveAttribute('aria-pressed','true');
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+});

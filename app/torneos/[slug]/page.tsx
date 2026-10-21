@@ -88,6 +88,11 @@ export default async function Tournament({ params, searchParams }: Props) {
           href={`/torneos/${slug}${level === tournamentCategory(tournament) ? "" : `?categoria=${encodeURIComponent(level)}`}`}
           aria-current={level === category ? "page" : undefined}>{categoryLabel(level)} <span>{number(categoryYears(tournament, level).length)}</span></Link>)}
       </nav>}
+      <section className="nc-section ry-tournament-editions">
+        <h2>Ediciones</h2>
+        <EditionPicker slug={slug} years={years} masters={category === "Precursores de Masters"}
+          category={tournament.categories.length > 1 ? category : undefined} />
+      </section>
       {(pieces.titles.length > 0 || pieces.played.length > 0) && <div className="nc-tournament-columns">
         {pieces.titles.length > 0 && (
         <section className="nc-section">
@@ -131,11 +136,6 @@ export default async function Tournament({ params, searchParams }: Props) {
           match={first.proof}
         />
       )}
-      <section className="nc-section">
-        <h2>Ediciones</h2>
-        <EditionPicker slug={slug} years={years} masters={category === "Precursores de Masters"}
-          category={tournament.categories.length > 1 ? category : undefined} />
-      </section>
     </div>
   );
 }

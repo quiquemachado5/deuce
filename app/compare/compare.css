@@ -100,11 +100,10 @@
 .ry-compare-set strong { margin-top: -1px; color: var(--ink); font-size: 21px; line-height: 1; font-weight: 600; font-variant-numeric: tabular-nums; }
 .ry-compare-set.is-lost strong { color: var(--loss); }
 .ry-compare-set small { margin-top: 6px; white-space: nowrap; }
-.ry-compare-progress-grid > div { padding: 22px; border: 1px solid var(--line); border-radius: var(--panel-radius, 12px); background: var(--bg-raised); }
-.ry-compare-progress-grid .ry-game-line { margin-top: 0; }
-.ry-compare-progress-grid .ry-game-line-plot { height: 168px; }
-.ry-compare-progress-grid .ry-section-heading > span { display: none; }
-.ry-compare-progress-grid .ry-game-moment { margin-top: 16px; }
+.ry-compare-progress-grid > div { min-width: 0; padding: 0; }
+.ry-compare-progress-grid .ry-game-flow { margin: 0; }
+.ry-compare-progress-grid .ry-game-flow-plot { height: 168px; }
+.ry-compare-progress-grid .ry-game-flow-caption { font-size: 11px; }
 .ry-compare-choice { padding: 38px; border: 1px solid var(--line); border-radius: var(--panel-radius, 12px); background: var(--bg-raised); }
 .ry-compare-choice > div:first-child p { margin-top: 10px; }
 .ry-compare-change { display: flex; gap: 24px; margin: 22px 0 24px; border-bottom: 1px solid var(--line); }
@@ -162,8 +161,8 @@
   .ry-compare-measure-pair strong { font-size: 29px; }
   .ry-compare-setpath { display: flex; overflow-x: auto; scrollbar-width: thin; }
   .ry-compare-set { flex: 1 0 64px; min-height: 166px; }
-  .ry-compare-progress-grid > div { padding: 18px; }
-  .ry-compare-progress-grid .ry-game-line-plot { height: 128px; }
+  .ry-compare-progress-grid > div { padding: 0; }
+  .ry-compare-progress-grid .ry-game-flow-plot { height: 148px; }
   .ry-compare-choice { padding: 24px 18px; }
   .ry-compare-change { gap: 20px; }
   .ry-compare-choice form > div { display: grid; grid-template-columns: minmax(0,1fr) auto; }

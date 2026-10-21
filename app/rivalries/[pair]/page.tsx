@@ -186,7 +186,6 @@ export default async function Pair({ params, searchParams }: Props) {
                   sizes="(max-width: 649px) 44vw, (max-width: 1199px) 25vw, 320px"
                   priority
                   loading="eager"
-                  unoptimized
                 />
               </div>
             )}
@@ -220,7 +219,6 @@ export default async function Pair({ params, searchParams }: Props) {
                   sizes="(max-width: 649px) 44vw, (max-width: 1199px) 25vw, 320px"
                   priority
                   loading="eager"
-                  unoptimized
                 />
               </div>
             )}
