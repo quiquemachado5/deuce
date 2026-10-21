@@ -1,5 +1,4 @@
 import Link from "next/link";
-import "../rally-help.css";
 
 export const metadata = {
   title: "Cómo se lee — DEUCE",

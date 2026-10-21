@@ -1,12 +1,6 @@
+import "./deuce.css";
 import type { Metadata } from "next";
 import Frame from "@/components/nocturno/Frame";
-import "./rally.css";
-import "./rally-shell.css";
-import "./rally-people.css";
-import "./rally-match.css";
-import "./rally-match-next.css";
-import "./design-system.css";
-import "./sports-design.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://deuce-archive.vercel.app"),
   title: "DEUCE — Datos del archivo de tenis",

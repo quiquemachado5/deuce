@@ -1,20 +1,21 @@
 import {test,expect} from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-test('home opens with a verified record and lets readers explore six statistics',async({page})=>{
+test('home shows a recent tournament, photography and verified discoveries',async({page})=>{
   await page.setViewportSize({width:1440,height:1000});
   await page.goto('/');
   const hero=page.locator('.ds-hero-record');
-  await expect(hero.getByRole('heading',{level:1})).toHaveText('11 h 5 min');
-  await expect(hero).toContainText('John Isner');
-  await expect(hero).toContainText('Nicolas Mahut');
-  await expect(hero).toContainText('Wimbledon · 2010');
-  await expect(hero.getByRole('link',{name:'Leer el partido'})).toHaveAttribute('href',/\/match\//);
+  await expect(hero.getByRole('heading',{level:2})).not.toBeEmpty();
+  await expect(hero).toContainText('Ganador del último encuentro');
+  await expect(hero.getByRole('link',{name:'Ver el partido',exact:true})).toHaveAttribute('href',/\/match\//);
+  await expect(hero.locator('.ds-hero-court img')).toBeVisible();
   await expect(page.locator('.ds-results-list .nc-match-row')).toHaveCount(5);
-  const discoveries=page.getByRole('region',{name:'Seis formas de mirar el archivo'});
+  const discoveries=page.getByRole('region',{name:'Siempre hay otro dato.'});
   await expect(discoveries.locator('.ds-story')).toHaveCount(6);
   await expect(discoveries.locator('.ds-story').first()).toContainText('Andy Murray');
-  await expect(discoveries.locator('.ds-story').first()).toContainText('partidos con dato');
-  await expect(discoveries.locator('.ds-story').first()).toHaveAttribute('href',/\/records\?dato=/);
+  const initial=await discoveries.locator('.ds-discovery-number').innerText();
+  await discoveries.getByRole('button',{name:'Otro dato'}).click();
+  await expect(discoveries.locator('.ds-discovery-number')).not.toHaveText(initial);
+  await expect(discoveries.locator('.ds-discovery-copy>a')).toHaveAttribute('href',/\/records\?dato=/);
   await page.screenshot({path:test.info().outputPath('home-desktop.png')});
   for(const width of [390,320]){
     await page.setViewportSize({width,height:844});

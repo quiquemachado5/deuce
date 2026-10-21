@@ -1,4 +1,5 @@
 import Link from "next/link";
+import PlayerAvatar from '@/components/PlayerAvatar';
 import { number, round, score } from "@/lib/cuaderno/model";
 import { tournamentName } from "@/lib/labels";
 import { playerSlug } from "@/lib/explore";
@@ -51,7 +52,7 @@ export function RecordRanking({
             <span className="rv-ranking-place">{place}</span>
             <div className="rv-ranking-person">
               <div className="rv-ranking-head">
-                <Link href={row.href} className="rv-ranking-name">{row.name}</Link>
+                <Link href={row.href} className="rv-ranking-name">{row.href.startsWith('/players/') && <PlayerAvatar name={row.name} size={40} />}{row.name}</Link>
                 {evidence && !row.href.startsWith('/match/') ? (
                   <Link prefetch={false} className="rv-ranking-proof" href={evidenceHref(evidence.id, row, evidence.filters)} aria-label={`Ver partidos de ${row.name} en esta clasificación`}>Partidos</Link>
                 ) : row.proof && row.href !== `/match/${row.proof.match_id}` ? (

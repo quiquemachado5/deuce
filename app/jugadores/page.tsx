@@ -1,3 +1,4 @@
+import PlayerAvatar from '@/components/PlayerAvatar';
 import Image from "next/image";
 import Link from "next/link";
 import { playerSlug, rivalryDirectory } from "@/lib/explore";
@@ -8,8 +9,6 @@ import { Pagination } from "@/components/nocturno/Row";
 import { normalizeText } from "@/lib/quality";
 import { playerPhoto } from "@/lib/player-imagery";
 import PairPicker from "@/components/analytics/PairPicker";
-import "./directory.css";
-import "./directory-refresh.css";
 
 export const metadata = {
   title: "Jugadores y cara a cara — DEUCE",
@@ -152,7 +151,7 @@ export default async function Players({ searchParams }: {
             </tr></thead>
             <tbody>{players.slice((page - 1) * 25, page * 25).map((player, index) => <tr key={player.name}>
               <th scope="row"><span className="ry-directory-rank">{number((page - 1) * 25 + index + 1)}</span>
-                <Link href={`/players/${playerSlug(player.name)}`}>{player.name}</Link></th>
+                <Link href={`/players/${playerSlug(player.name)}`}><PlayerAvatar name={player.name} size={40} />{player.name}</Link></th>
               <td className="ry-directory-wins">{number(player.won)}</td>
               <td className="ry-directory-col-played">{number(player.played)}</td>
               <td className="ry-directory-rate"><span>{number((100 * player.won) / player.played, 1)} %</span><i aria-hidden="true"><b style={{ width: `${100 * player.won / player.played}%` }} /></i><small>{number(player.won)} de {number(player.played)}</small></td>

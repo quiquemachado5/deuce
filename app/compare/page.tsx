@@ -8,7 +8,6 @@ import { lineData, number, round, score, sentence, surfaceLabel } from "@/lib/cu
 import { tournamentName } from "@/lib/labels";
 import type { Match } from "@/lib/types";
 import GameFlow from "@/components/nocturno/GameFlow";
-import "./compare.css";
 
 type Query = { left?: string; right?: string; q?: string; side?: string };
 type Props = { searchParams: Promise<Query> };

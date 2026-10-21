@@ -1,0 +1,618 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-21T17:41:51.172867+00:00",
+  "title": "Design System: DEUCE",
+  "extensions": {
+    "colorMeta": {
+      "bg": {
+        "role": "neutral",
+        "displayName": "Fondo de archivo",
+        "tonalRamp": [
+          "oklch(15% 0.0017 247.8)",
+          "oklch(26% 0.0017 247.8)",
+          "oklch(38% 0.0017 247.8)",
+          "oklch(49% 0.0017 247.8)",
+          "oklch(61% 0.0017 247.8)",
+          "oklch(72% 0.0017 247.8)",
+          "oklch(84% 0.0017 247.8)",
+          "oklch(95% 0.0017 247.8)"
+        ]
+      },
+      "bg-raised": {
+        "role": "neutral",
+        "displayName": "Panel",
+        "tonalRamp": [
+          "oklch(15% 0.0000 0.0)",
+          "oklch(26% 0.0000 0.0)",
+          "oklch(38% 0.0000 0.0)",
+          "oklch(49% 0.0000 0.0)",
+          "oklch(61% 0.0000 0.0)",
+          "oklch(72% 0.0000 0.0)",
+          "oklch(84% 0.0000 0.0)",
+          "oklch(95% 0.0000 0.0)"
+        ]
+      },
+      "bg-sunken": {
+        "role": "neutral",
+        "displayName": "Hueco",
+        "tonalRamp": [
+          "oklch(15% 0.0042 236.5)",
+          "oklch(26% 0.0042 236.5)",
+          "oklch(38% 0.0042 236.5)",
+          "oklch(49% 0.0042 236.5)",
+          "oklch(61% 0.0042 236.5)",
+          "oklch(72% 0.0042 236.5)",
+          "oklch(84% 0.0042 236.5)",
+          "oklch(95% 0.0042 236.5)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Tinta",
+        "tonalRamp": [
+          "oklch(15% 0.0133 243.5)",
+          "oklch(26% 0.0133 243.5)",
+          "oklch(38% 0.0133 243.5)",
+          "oklch(49% 0.0133 243.5)",
+          "oklch(61% 0.0133 243.5)",
+          "oklch(72% 0.0133 243.5)",
+          "oklch(84% 0.0133 243.5)",
+          "oklch(95% 0.0133 243.5)"
+        ]
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Tinta secundaria",
+        "tonalRamp": [
+          "oklch(15% 0.0225 243.4)",
+          "oklch(26% 0.0225 243.4)",
+          "oklch(38% 0.0225 243.4)",
+          "oklch(49% 0.0225 243.4)",
+          "oklch(61% 0.0225 243.4)",
+          "oklch(72% 0.0225 243.4)",
+          "oklch(84% 0.0225 243.4)",
+          "oklch(95% 0.0225 243.4)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Texto auxiliar",
+        "tonalRamp": [
+          "oklch(15% 0.0180 248.2)",
+          "oklch(26% 0.0180 248.2)",
+          "oklch(38% 0.0180 248.2)",
+          "oklch(49% 0.0180 248.2)",
+          "oklch(61% 0.0180 248.2)",
+          "oklch(72% 0.0180 248.2)",
+          "oklch(84% 0.0180 248.2)",
+          "oklch(95% 0.0180 248.2)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Línea",
+        "tonalRamp": [
+          "oklch(15% 0.0059 239.8)",
+          "oklch(26% 0.0059 239.8)",
+          "oklch(38% 0.0059 239.8)",
+          "oklch(49% 0.0059 239.8)",
+          "oklch(61% 0.0059 239.8)",
+          "oklch(72% 0.0059 239.8)",
+          "oklch(84% 0.0059 239.8)",
+          "oklch(95% 0.0059 239.8)"
+        ]
+      },
+      "line-strong": {
+        "role": "neutral",
+        "displayName": "Línea firme",
+        "tonalRamp": [
+          "oklch(15% 0.0121 239.9)",
+          "oklch(26% 0.0121 239.9)",
+          "oklch(38% 0.0121 239.9)",
+          "oklch(49% 0.0121 239.9)",
+          "oklch(61% 0.0121 239.9)",
+          "oklch(72% 0.0121 239.9)",
+          "oklch(84% 0.0121 239.9)",
+          "oklch(95% 0.0121 239.9)"
+        ]
+      },
+      "court": {
+        "role": "primary",
+        "displayName": "Verde de pista",
+        "tonalRamp": [
+          "oklch(15% 0.0899 167.7)",
+          "oklch(26% 0.0899 167.7)",
+          "oklch(38% 0.0899 167.7)",
+          "oklch(49% 0.0899 167.7)",
+          "oklch(61% 0.0899 167.7)",
+          "oklch(72% 0.0899 167.7)",
+          "oklch(84% 0.0899 167.7)",
+          "oklch(95% 0.0899 167.7)"
+        ]
+      },
+      "court-deep": {
+        "role": "primary",
+        "displayName": "Bruma de pista",
+        "tonalRamp": [
+          "oklch(15% 0.0191 162.9)",
+          "oklch(26% 0.0191 162.9)",
+          "oklch(38% 0.0191 162.9)",
+          "oklch(49% 0.0191 162.9)",
+          "oklch(61% 0.0191 162.9)",
+          "oklch(72% 0.0191 162.9)",
+          "oklch(84% 0.0191 162.9)",
+          "oklch(95% 0.0191 162.9)"
+        ]
+      },
+      "grass": {
+        "role": "secondary",
+        "displayName": "Verde hierba",
+        "tonalRamp": [
+          "oklch(15% 0.1106 157.6)",
+          "oklch(26% 0.1106 157.6)",
+          "oklch(38% 0.1106 157.6)",
+          "oklch(49% 0.1106 157.6)",
+          "oklch(61% 0.1106 157.6)",
+          "oklch(72% 0.1106 157.6)",
+          "oklch(84% 0.1106 157.6)",
+          "oklch(95% 0.1106 157.6)"
+        ]
+      },
+      "clay": {
+        "role": "secondary",
+        "displayName": "Terracota tierra",
+        "tonalRamp": [
+          "oklch(15% 0.1422 36.4)",
+          "oklch(26% 0.1422 36.4)",
+          "oklch(38% 0.1422 36.4)",
+          "oklch(49% 0.1422 36.4)",
+          "oklch(61% 0.1422 36.4)",
+          "oklch(72% 0.1422 36.4)",
+          "oklch(84% 0.1422 36.4)",
+          "oklch(95% 0.1422 36.4)"
+        ]
+      },
+      "hard": {
+        "role": "secondary",
+        "displayName": "Azul dura",
+        "tonalRamp": [
+          "oklch(15% 0.1361 252.7)",
+          "oklch(26% 0.1361 252.7)",
+          "oklch(38% 0.1361 252.7)",
+          "oklch(49% 0.1361 252.7)",
+          "oklch(61% 0.1361 252.7)",
+          "oklch(72% 0.1361 252.7)",
+          "oklch(84% 0.1361 252.7)",
+          "oklch(95% 0.1361 252.7)"
+        ]
+      },
+      "carpet": {
+        "role": "secondary",
+        "displayName": "Violeta moqueta",
+        "tonalRamp": [
+          "oklch(15% 0.1535 304.0)",
+          "oklch(26% 0.1535 304.0)",
+          "oklch(38% 0.1535 304.0)",
+          "oklch(49% 0.1535 304.0)",
+          "oklch(61% 0.1535 304.0)",
+          "oklch(72% 0.1535 304.0)",
+          "oklch(84% 0.1535 304.0)",
+          "oklch(95% 0.1535 304.0)"
+        ]
+      },
+      "loss": {
+        "role": "secondary",
+        "displayName": "Derrota",
+        "tonalRamp": [
+          "oklch(15% 0.1483 33.0)",
+          "oklch(26% 0.1483 33.0)",
+          "oklch(38% 0.1483 33.0)",
+          "oklch(49% 0.1483 33.0)",
+          "oklch(61% 0.1483 33.0)",
+          "oklch(72% 0.1483 33.0)",
+          "oklch(84% 0.1483 33.0)",
+          "oklch(95% 0.1483 33.0)"
+        ]
+      },
+      "danger": {
+        "role": "secondary",
+        "displayName": "Error",
+        "tonalRamp": [
+          "oklch(15% 0.1597 25.3)",
+          "oklch(26% 0.1597 25.3)",
+          "oklch(38% 0.1597 25.3)",
+          "oklch(49% 0.1597 25.3)",
+          "oklch(61% 0.1597 25.3)",
+          "oklch(72% 0.1597 25.3)",
+          "oklch(84% 0.1597 25.3)",
+          "oklch(95% 0.1597 25.3)"
+        ]
+      },
+      "dark-bg": {
+        "role": "neutral",
+        "displayName": "Fondo de archivo · oscuro",
+        "tonalRamp": [
+          "oklch(15% 0.0089 240.5)",
+          "oklch(26% 0.0089 240.5)",
+          "oklch(38% 0.0089 240.5)",
+          "oklch(49% 0.0089 240.5)",
+          "oklch(61% 0.0089 240.5)",
+          "oklch(72% 0.0089 240.5)",
+          "oklch(84% 0.0089 240.5)",
+          "oklch(95% 0.0089 240.5)"
+        ]
+      },
+      "dark-bg-raised": {
+        "role": "neutral",
+        "displayName": "Panel · oscuro",
+        "tonalRamp": [
+          "oklch(15% 0.0130 243.4)",
+          "oklch(26% 0.0130 243.4)",
+          "oklch(38% 0.0130 243.4)",
+          "oklch(49% 0.0130 243.4)",
+          "oklch(61% 0.0130 243.4)",
+          "oklch(72% 0.0130 243.4)",
+          "oklch(84% 0.0130 243.4)",
+          "oklch(95% 0.0130 243.4)"
+        ]
+      },
+      "dark-bg-sunken": {
+        "role": "neutral",
+        "displayName": "Hueco · oscuro",
+        "tonalRamp": [
+          "oklch(15% 0.0170 244.8)",
+          "oklch(26% 0.0170 244.8)",
+          "oklch(38% 0.0170 244.8)",
+          "oklch(49% 0.0170 244.8)",
+          "oklch(61% 0.0170 244.8)",
+          "oklch(72% 0.0170 244.8)",
+          "oklch(84% 0.0170 244.8)",
+          "oklch(95% 0.0170 244.8)"
+        ]
+      },
+      "dark-ink": {
+        "role": "neutral",
+        "displayName": "Tinta · oscuro",
+        "tonalRamp": [
+          "oklch(15% 0.0042 236.5)",
+          "oklch(26% 0.0042 236.5)",
+          "oklch(38% 0.0042 236.5)",
+          "oklch(49% 0.0042 236.5)",
+          "oklch(61% 0.0042 236.5)",
+          "oklch(72% 0.0042 236.5)",
+          "oklch(84% 0.0042 236.5)",
+          "oklch(95% 0.0042 236.5)"
+        ]
+      },
+      "dark-ink-soft": {
+        "role": "neutral",
+        "displayName": "Tinta secundaria · oscuro",
+        "tonalRamp": [
+          "oklch(15% 0.0139 241.0)",
+          "oklch(26% 0.0139 241.0)",
+          "oklch(38% 0.0139 241.0)",
+          "oklch(49% 0.0139 241.0)",
+          "oklch(61% 0.0139 241.0)",
+          "oklch(72% 0.0139 241.0)",
+          "oklch(84% 0.0139 241.0)",
+          "oklch(95% 0.0139 241.0)"
+        ]
+      },
+      "dark-muted": {
+        "role": "neutral",
+        "displayName": "Texto auxiliar · oscuro",
+        "tonalRamp": [
+          "oklch(15% 0.0180 242.5)",
+          "oklch(26% 0.0180 242.5)",
+          "oklch(38% 0.0180 242.5)",
+          "oklch(49% 0.0180 242.5)",
+          "oklch(61% 0.0180 242.5)",
+          "oklch(72% 0.0180 242.5)",
+          "oklch(84% 0.0180 242.5)",
+          "oklch(95% 0.0180 242.5)"
+        ]
+      },
+      "dark-line": {
+        "role": "neutral",
+        "displayName": "Línea · oscuro",
+        "tonalRamp": [
+          "oklch(15% 0.0215 243.1)",
+          "oklch(26% 0.0215 243.1)",
+          "oklch(38% 0.0215 243.1)",
+          "oklch(49% 0.0215 243.1)",
+          "oklch(61% 0.0215 243.1)",
+          "oklch(72% 0.0215 243.1)",
+          "oklch(84% 0.0215 243.1)",
+          "oklch(95% 0.0215 243.1)"
+        ]
+      },
+      "dark-line-strong": {
+        "role": "neutral",
+        "displayName": "Línea firme · oscuro",
+        "tonalRamp": [
+          "oklch(15% 0.0247 241.8)",
+          "oklch(26% 0.0247 241.8)",
+          "oklch(38% 0.0247 241.8)",
+          "oklch(49% 0.0247 241.8)",
+          "oklch(61% 0.0247 241.8)",
+          "oklch(72% 0.0247 241.8)",
+          "oklch(84% 0.0247 241.8)",
+          "oklch(95% 0.0247 241.8)"
+        ]
+      },
+      "dark-court": {
+        "role": "primary",
+        "displayName": "Verde de pista · oscuro",
+        "tonalRamp": [
+          "oklch(15% 0.1043 159.6)",
+          "oklch(26% 0.1043 159.6)",
+          "oklch(38% 0.1043 159.6)",
+          "oklch(49% 0.1043 159.6)",
+          "oklch(61% 0.1043 159.6)",
+          "oklch(72% 0.1043 159.6)",
+          "oklch(84% 0.1043 159.6)",
+          "oklch(95% 0.1043 159.6)"
+        ]
+      },
+      "dark-court-deep": {
+        "role": "primary",
+        "displayName": "Bruma de pista · oscuro",
+        "tonalRamp": [
+          "oklch(15% 0.0406 164.8)",
+          "oklch(26% 0.0406 164.8)",
+          "oklch(38% 0.0406 164.8)",
+          "oklch(49% 0.0406 164.8)",
+          "oklch(61% 0.0406 164.8)",
+          "oklch(72% 0.0406 164.8)",
+          "oklch(84% 0.0406 164.8)",
+          "oklch(95% 0.0406 164.8)"
+        ]
+      },
+      "dark-grass": {
+        "role": "secondary",
+        "displayName": "Verde hierba · oscuro",
+        "tonalRamp": [
+          "oklch(15% 0.1061 156.6)",
+          "oklch(26% 0.1061 156.6)",
+          "oklch(38% 0.1061 156.6)",
+          "oklch(49% 0.1061 156.6)",
+          "oklch(61% 0.1061 156.6)",
+          "oklch(72% 0.1061 156.6)",
+          "oklch(84% 0.1061 156.6)",
+          "oklch(95% 0.1061 156.6)"
+        ]
+      },
+      "dark-clay": {
+        "role": "secondary",
+        "displayName": "Terracota tierra · oscuro",
+        "tonalRamp": [
+          "oklch(15% 0.1201 44.7)",
+          "oklch(26% 0.1201 44.7)",
+          "oklch(38% 0.1201 44.7)",
+          "oklch(49% 0.1201 44.7)",
+          "oklch(61% 0.1201 44.7)",
+          "oklch(72% 0.1201 44.7)",
+          "oklch(84% 0.1201 44.7)",
+          "oklch(95% 0.1201 44.7)"
+        ]
+      },
+      "dark-hard": {
+        "role": "secondary",
+        "displayName": "Azul dura · oscuro",
+        "tonalRamp": [
+          "oklch(15% 0.0968 250.1)",
+          "oklch(26% 0.0968 250.1)",
+          "oklch(38% 0.0968 250.1)",
+          "oklch(49% 0.0968 250.1)",
+          "oklch(61% 0.0968 250.1)",
+          "oklch(72% 0.0968 250.1)",
+          "oklch(84% 0.0968 250.1)",
+          "oklch(95% 0.0968 250.1)"
+        ]
+      },
+      "dark-carpet": {
+        "role": "secondary",
+        "displayName": "Violeta moqueta · oscuro",
+        "tonalRamp": [
+          "oklch(15% 0.1115 303.8)",
+          "oklch(26% 0.1115 303.8)",
+          "oklch(38% 0.1115 303.8)",
+          "oklch(49% 0.1115 303.8)",
+          "oklch(61% 0.1115 303.8)",
+          "oklch(72% 0.1115 303.8)",
+          "oklch(84% 0.1115 303.8)",
+          "oklch(95% 0.1115 303.8)"
+        ]
+      },
+      "dark-danger": {
+        "role": "secondary",
+        "displayName": "Error · oscuro",
+        "tonalRamp": [
+          "oklch(15% 0.0898 24.2)",
+          "oklch(26% 0.0898 24.2)",
+          "oklch(38% 0.0898 24.2)",
+          "oklch(49% 0.0898 24.2)",
+          "oklch(61% 0.0898 24.2)",
+          "oklch(72% 0.0898 24.2)",
+          "oklch(84% 0.0898 24.2)",
+          "oklch(95% 0.0898 24.2)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Titulares globales; portada y perfiles amplían su escala."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Títulos de sección."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Títulos de panel."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Lectura y cifras tabulares."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Contexto, muestras y leyendas."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "speed",
+        "value": "240ms",
+        "purpose": "Color, fondo, borde y opacidad; easing CSS por defecto."
+      },
+      {
+        "name": "ease",
+        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "Entradas por desplazamiento de 12px sin alterar la opacidad del texto."
+      },
+      {
+        "name": "enter-duration",
+        "value": "280ms–480ms",
+        "purpose": "Paneles, perfiles, portada y descubrimientos según contexto."
+      },
+      {
+        "name": "draw-line",
+        "value": "1s",
+        "purpose": "Trazo inicial de gráficos."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "none",
+        "purpose": "Desactiva animaciones, transiciones y desplazamiento suave con prefers-reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "mobile-max",
+        "value": "759px"
+      },
+      {
+        "name": "intermediate-max",
+        "value": "1099px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Acción principal",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Acción de comparación en cápsula.",
+      "html": "<button class=\"ds-button\">Comparar jugadores</button>",
+      "css": ".ds-button{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:8px 24px;border:0;border-radius:999px;background:var(--ink);color:var(--bg-raised);font-family:var(--font-interface);font-size:14px;font-weight:600;cursor:pointer;transition:opacity var(--speed)}.ds-button:hover{opacity:.8}.ds-button:focus-visible{outline:2px solid var(--focus);outline-offset:4px}.ds-button:disabled{opacity:.5;cursor:default}"
+    },
+    {
+      "name": "Acción de texto",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Acción secundaria con subrayado.",
+      "html": "<button class=\"ds-text-button\">Limpiar filtros</button>",
+      "css": ".ds-text-button{background:none;color:var(--ink);border:0;padding:8px 0;text-decoration:underline;text-underline-offset:4px;font-family:var(--font-interface);font-size:13px;cursor:pointer;transition:color var(--speed)}.ds-text-button:focus-visible{outline:2px solid var(--focus);outline-offset:4px}"
+    },
+    {
+      "name": "Campo",
+      "kind": "input",
+      "refersTo": "field",
+      "description": "Etiqueta visible y campo de 44px.",
+      "html": "<label class=\"ds-field\"><span>Jugador</span><input placeholder=\"Buscar jugador\" /></label>",
+      "css": ".ds-field{display:flex;flex-direction:column;gap:8px;font-family:var(--font-interface);font-size:12px;font-weight:500;color:var(--ink-soft)}.ds-field input{width:100%;min-width:0;height:44px;padding:0 16px;border:1px solid var(--line);border-radius:16px;background:var(--bg);color:var(--ink);font:400 14px var(--font-interface);transition:border-color var(--speed)}.ds-field input::placeholder{color:var(--muted)}.ds-field input:hover{border-color:var(--line-strong)}.ds-field input:focus-visible{outline:2px solid var(--focus);outline-offset:4px}"
+    },
+    {
+      "name": "Navegación",
+      "kind": "nav",
+      "refersTo": "panel",
+      "description": "Ruta activa con tinta y línea inferior.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Principal\"><a href=\"#inicio\" aria-current=\"page\">Inicio</a><a href=\"#jugadores\">Jugadores</a><a href=\"#partidos\">Partidos</a></nav>",
+      "css": ".ds-nav{display:flex;gap:24px;font-family:var(--font-interface);}.ds-nav a{position:relative;display:flex;align-items:center;min-height:44px;font-size:13px;font-weight:500;white-space:nowrap;color:var(--muted);text-decoration:none;transition:color var(--speed)}.ds-nav a:hover,.ds-nav a[aria-current=page]{color:var(--ink)}.ds-nav a[aria-current=page]::after{content:\"\";position:absolute;bottom:0;left:0;right:0;height:3px;border-radius:999px;background:var(--ink)}.ds-nav a:focus-visible{outline:2px solid var(--focus);outline-offset:4px}"
+    },
+    {
+      "name": "Edición",
+      "kind": "chip",
+      "refersTo": "chip-selected",
+      "description": "La edición activa invierte tinta y panel.",
+      "html": "<nav class=\"ds-chips\" aria-label=\"Ediciones\"><a href=\"#2026\" aria-current=\"page\">2026</a><a href=\"#2025\">2025</a></nav>",
+      "css": ".ds-chips{display:flex;gap:8px;flex-wrap:wrap}.ds-chips a{padding:12px 16px;background:var(--bg-raised);color:var(--ink);border-radius:999px;font-family:var(--font-interface);font-size:14px;text-decoration:none;transition:color var(--speed),background-color var(--speed)}.ds-chips a[aria-current]{background:var(--ink);color:var(--bg-raised)}.ds-chips a:focus-visible{outline:2px solid var(--focus);outline-offset:4px}"
+    },
+    {
+      "name": "Panel",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "Contenedor elevado sin sombra.",
+      "html": "<article class=\"ds-panel\"><h3>Por superficie</h3><p>Resultados observados y muestra disponible.</p></article>",
+      "css": ".ds-panel{padding:24px;border-radius:24px;background:var(--bg-raised);color:var(--ink);font-family:var(--font-interface);}.ds-panel h3{margin:0;font:650 24px/1.08 var(--font-display);letter-spacing:-.035em}.ds-panel p{margin:16px 0 0;font-size:13px;color:var(--muted)}"
+    },
+    {
+      "name": "Avatar",
+      "kind": "custom",
+      "refersTo": "avatar",
+      "description": "Iniciales como alternativa al retrato local licenciado.",
+      "html": "<span class=\"ds-avatar\" aria-hidden=\"true\">RN</span>",
+      "css": ".ds-avatar{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;flex:none;overflow:hidden;border-radius:50%;background:var(--event-tint,var(--court-deep));color:var(--event-accent,var(--court));font:600 12px var(--font-interface)}"
+    },
+    {
+      "name": "Fila de partido",
+      "kind": "custom",
+      "refersTo": "panel",
+      "description": "Contexto, nombres y resultado; cada set permanece unido.",
+      "html": "<a class=\"ds-match\" href=\"#partido\"><span class=\"ds-context\">Torneo · Final</span><span class=\"ds-duel\"><strong>Jugador A</strong><span>Jugador B</span></span><span class=\"ds-result\"><span>6–4</span>, <span>7–6(4)</span></span></a>",
+      "css": ".ds-match{display:grid;grid-template-columns:190px minmax(0,1fr) auto;align-items:center;gap:24px;padding:16px 24px;min-height:88px;border-radius:24px;background:var(--bg-raised);color:var(--ink);text-decoration:none;font-family:var(--font-interface);transition:background-color var(--speed)}.ds-match:hover{background:var(--event-tint,var(--court-deep))}.ds-match:focus-visible{outline:2px solid var(--focus);outline-offset:4px}.ds-context{font-size:12px;color:var(--muted)}.ds-duel{display:flex;flex-direction:column;gap:8px;font-size:14px}.ds-result{max-width:340px;text-align:right;color:var(--event-accent,var(--court));font-size:15px;font-weight:600;font-variant-numeric:tabular-nums}.ds-result span{white-space:nowrap}@media(max-width:759px){.ds-match{grid-template-columns:minmax(0,1fr) auto;padding:16px;gap:8px 12px}.ds-context{grid-column:1/-1}.ds-result{font-size:13px;max-width:144px}}"
+    },
+    {
+      "name": "Pestañas",
+      "kind": "nav",
+      "refersTo": "panel",
+      "description": "Selección sobre un carril hundido y desplazamiento contenido.",
+      "html": "<nav class=\"ds-tabs\" aria-label=\"Perfil\"><a href=\"#resumen\" aria-selected=\"true\">Resumen</a><a href=\"#resultados\">Resultados</a><a href=\"#superficies\">Superficies</a></nav>",
+      "css": ".ds-tabs{display:flex;width:fit-content;max-width:100%;gap:4px;padding:4px;border-radius:999px;background:var(--bg-sunken);overflow-x:auto;scrollbar-width:none}.ds-tabs a{white-space:nowrap;padding:12px 24px;min-height:44px;border-radius:999px;color:var(--muted);text-decoration:none;font:600 13px var(--font-interface);transition:color var(--speed),background-color var(--speed)}.ds-tabs a[aria-selected=true]{background:var(--bg-raised);color:var(--ink)}.ds-tabs a:focus-visible{outline:2px solid var(--focus);outline-offset:4px}"
+    },
+    {
+      "name": "Marcador",
+      "kind": "custom",
+      "refersTo": "panel",
+      "description": "Tabla de sets con acento de superficie y total destacado.",
+      "html": "<div class=\"ds-score-scroll\"><table class=\"ds-scoreboard\"><thead><tr><th>Final · muestra</th><th>Sets</th><th>1</th><th>2</th></tr></thead><tbody><tr><th>Jugador A</th><td class=\"ds-total\">2</td><td class=\"ds-won\">6</td><td class=\"ds-won\">7</td></tr><tr><th>Jugador B</th><td class=\"ds-total\">0</td><td>4</td><td>6</td></tr></tbody></table></div>",
+      "css": ".ds-score-scroll{width:100%;overflow-x:auto;border-radius:24px;background:var(--bg-raised);color:var(--ink)}.ds-scoreboard{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}.ds-scoreboard thead th{padding:8px 16px;text-align:center;font:400 12px var(--font-interface);color:var(--muted)}.ds-scoreboard thead th:first-child{text-align:left}.ds-scoreboard tbody th{padding:16px;font:600 24px/1.08 var(--font-display);text-align:left;white-space:nowrap}.ds-scoreboard td{padding:24px 16px;text-align:center;white-space:nowrap;font:500 32px var(--font-display);color:var(--muted)}.ds-scoreboard tr+tr td,.ds-scoreboard tr+tr th{border-top:1px solid var(--line)}.ds-scoreboard .ds-won{color:var(--event-accent,var(--court));font-weight:650}.ds-scoreboard .ds-total{color:var(--ink);font-weight:700;border-right:1px solid var(--line)}"
+    }
+  ],
+  "narrative": {
+    "northStar": "El archivo deportivo visual",
+    "overview": "La jerarquía de Apple Sports y los controles de Revolut se expresan en fotografía deportiva real, cifras legibles y titulares con carácter. Bricolage Grotesque aporta energía; Geist sostiene nombres, tablas y lectura. El archivo debe sentirse cercano y vivo sin presentar los resultados observados como datos en directo.\n\nLos paneles claros o carbón descansan sobre un fondo neutro. El color de la pista conecta torneo, marcador y análisis; los rostros ayudan a reconocer a los jugadores. La interfaz conserva densidad suficiente para explorar estadísticas, con espacio y cambios de escala que explican qué mirar primero.",
+    "keyCharacteristics": [
+      "Fotografía licenciada de sedes y jugadores, con procedencia accesible.",
+      "Titulares expresivos y cifras tabulares coherentes.",
+      "Verde hierba, terracota y azul de pista dura con significado estable.",
+      "Paneles suaves, controles en cápsula y avatares circulares.",
+      "Temas claro y oscuro persistentes, teclado y movimiento reducido."
+    ],
+    "rules": [
+      {
+        "name": "The Court Meaning Rule",
+        "body": "El color vincula una cifra con su pista o jugador; nombres, etiquetas y valores siguen explicando el dato por sí mismos.",
+        "section": "colors"
+      }
+    ],
+    "dos": [
+      "**Do** conservar Bricolage para titulares y Geist para lectura y tablas.",
+      "**Do** enlazar color de superficie, marcador y gráfico con la misma semántica en ambos temas.",
+      "**Do** mostrar muestras, cobertura y elegibilidad junto a las cifras que explican.",
+      "**Do** mantener nombres, resultados y acciones legibles al apilar la vista móvil.",
+      "**Do** usar fotografía licenciada, procedencia accesible e iniciales cuando falte un retrato.",
+      "**Do** conservar foco visible, etiquetas de texto y movimiento reducido."
+    ],
+    "donts": [
+      "**Don't** presentar una observación histórica como directo ni inventar rankings, coordenadas o resultados.",
+      "**Don't** recrear con IA fotografías de encuentros reales.",
+      "**Don't** usar color como única identificación de un jugador o un resultado.",
+      "**Don't** añadir nuevas familias tipográficas a pantallas del sistema.",
+      "**Don't** partir porcentajes o recortar resultados para encajarlos en una columna estrecha."
+    ]
+  }
+}
