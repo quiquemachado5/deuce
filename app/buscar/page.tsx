@@ -139,6 +139,8 @@ export default async function SearchPage({
                 <option value="hard">Dura</option>
                 <option value="clay">Tierra</option>
                 <option value="grass">Hierba</option>
+                <option value="carpet">Moqueta</option>
+                <option value="unknown">Sin superficie registrada</option>
               </select>
             </label>
             <label className="nc-field">

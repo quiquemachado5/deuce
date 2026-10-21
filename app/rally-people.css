@@ -133,7 +133,11 @@
 .ry-player-totals > div:first-child dd {
   color: var(--court);
 }
-.ry-player-totals > div > span {
+.ry-player-totals dd > span {
+  display: block;
+  margin-top: 8px;
+  font-weight: 400;
+  letter-spacing: normal;
   color: var(--muted);
   font-size: 12px;
   line-height: 1.3;
@@ -957,7 +961,7 @@
   .ry-player-totals dd {
     font-size: clamp(25px, 7vw, 38px);
   }
-  .ry-player-totals > div > span {
+  .ry-player-totals dd > span {
     font-size: 11px;
   }
   .ry-people-tablist {

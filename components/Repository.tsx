@@ -13,7 +13,7 @@ import { courtPhoto } from '@/lib/imagery'
 import { playerPhoto } from '@/lib/player-imagery'
 
 const currentYear = new Date().getFullYear()
-const surfaceLabel: Record<Surface, string> = { grass: 'Hierba', clay: 'Tierra batida', hard: 'Pista dura' }
+const surfaceLabel: Record<Surface, string> = { grass: 'Hierba', clay: 'Tierra batida', hard: 'Pista dura', carpet: 'Moqueta', unknown: 'Sin superficie registrada' }
 type SavedView = { id: string; name: string; year: number; slug: string; surface: Surface | 'all'; query: string; fiveSets: boolean; round?: string }
 export type Reading = { href: string; title: string; subtitle: string; image?: string; alt: string; kind: string; facts?: string[] }
 

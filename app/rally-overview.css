@@ -6,6 +6,8 @@
 .dh-surface-dot{display:inline-block;flex:none;width:8px;height:8px;border-radius:50%;background:var(--hard)}
 .dh-surface-clay{background:var(--clay)}
 .dh-surface-grass{background:var(--grass)}
+.dh-surface-carpet{background:#7956a3}
+.dh-surface-unknown{background:#727578}
 .dh-lead{display:grid;grid-template-columns:52% 48%;min-height:480px;overflow:hidden;border:1px solid var(--line);border-radius:12px;background:var(--bg-raised)}
 .dh-lead:not(.dh-has-image){display:block;min-height:0}
 .dh-lead-copy{display:flex;flex-direction:column;min-width:0;padding:48px}

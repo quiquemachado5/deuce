@@ -5,7 +5,9 @@ import { readdir, readFile } from 'node:fs/promises'
 import { existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { gunzipSync } from 'node:zlib'
-import type { Match, MatchStat, Point, Surface } from './types'
+import type { Match, MatchStat, Point } from './types'
+import { normalizeSurface as surface } from './surface'
+import { createLimiter } from './concurrency'
 import { cloudRead, cloudDetails } from './cloud-archive'
 import { modernTournamentCategory, historicalTournamentCategory } from './tournament-tier'
 import { dedupeArchiveTourRows } from './archive-tour-dedupe'
@@ -15,7 +17,10 @@ const listsDir = join(archive, 'lists')
 const detailsDir = join(archive, 'details')
 
 type Row = Record<string, any>
-async function readZip(file: string): Promise<any> { return JSON.parse(gunzipSync(await readFile(file)).toString()) }
+const archiveIO = createLimiter(16)
+async function readZip(file: string): Promise<any> {
+  return archiveIO(async () => JSON.parse(gunzipSync(await readFile(file)).toString()))
+}
 let filesPromise: Promise<string[]> | undefined
 async function listFiles(prefix: string) {
   filesPromise ||= readdir(listsDir).then(files=>files.filter(name=>{
@@ -51,7 +56,6 @@ async function rowsFor(prefix: string): Promise<Row[]> {
   for (const row of rows) if (!unique.has(String(row.id))) unique.set(String(row.id), row)
   return [...unique.values()]
 }
-function surface(value: unknown): Surface { return value === 'clay' || value === 'grass' ? value : 'hard' }
 function numeric(value: unknown) { if (value === null || value === undefined || value === '') return null; const result = Number(value); return Number.isFinite(result) ? result : null }
 function player(number: 1 | 2, name: string, seed: unknown) { return { name: name || `Jugador ${number}`, seed: numeric(seed) } }
 function gamesFromScore(raw: unknown): number[][] {

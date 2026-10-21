@@ -12,7 +12,7 @@ export type SearchItem = {
   group: string;
 };
 
-const searchGroups = ["Jugadores", "Parejas", "Récords", "Partidos"];
+const searchGroups = ["Jugadores", "Torneos", "Ediciones", "Parejas", "Récords", "Partidos"];
 
 export function SearchResults({
   query,
@@ -91,7 +91,7 @@ export function SearchResults({
         const rows = items.filter((item) => item.group === group);
         return rows.length ? (
           <section className="ry-search-group" key={group}>
-            <h3>{group}</h3>
+            <h3>{group === 'Parejas' ? 'Rivalidades' : group}</h3>
             {rows.map((row) => (
               <Link
                 className="ry-search-row"
@@ -278,7 +278,7 @@ export default function Frame({ children }: { children: React.ReactNode }) {
         <main className="ry-main" id="main-content" tabIndex={-1}>{children}</main>
         <footer className="ry-footer">
           <div className="ry-footer-inner">
-            <nav aria-label="Información"><Link href="/info">Cómo se lee</Link><Link href="/credits">Fotografías</Link></nav>
+            <nav aria-label="Información"><Link href="/info">Cómo se lee</Link><Link href="/cobertura">Cobertura</Link><Link href="/credits">Fotografías</Link></nav>
             <details className="ry-theme" ref={themePicker}>
               <summary onClick={() => setTheme(storedTheme())}>Tema</summary>
               <div className="ry-theme-options" role="group" aria-label="Tema de la interfaz">

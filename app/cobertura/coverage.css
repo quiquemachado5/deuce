@@ -1,0 +1,12 @@
+.deuce-coverage{padding-block:48px;max-width:1100px}
+.deuce-coverage h1{font-size:clamp(32px,5vw,54px);line-height:1.1;letter-spacing:-.04em}
+.deuce-coverage h2{margin:36px 0 16px;font-size:24px}
+.deuce-coverage p{max-width:78ch;margin:18px 0;line-height:1.6}
+.deuce-coverage-surfaces{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:20px}
+.deuce-coverage-surfaces dd{font-size:28px;margin:6px 0;font-variant-numeric:tabular-nums}
+.deuce-coverage-table{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+.deuce-coverage table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+.deuce-coverage caption{text-align:left;padding:16px;font-size:14px}
+.deuce-coverage th,.deuce-coverage td{padding:12px 16px;border-top:1px solid var(--line);text-align:right;white-space:nowrap}
+.deuce-coverage th:first-child{text-align:left}
+.deuce-coverage code{overflow-wrap:anywhere}

@@ -5,6 +5,7 @@ import {join} from 'node:path';
 import {isDeepStrictEqual} from 'node:util';
 import {cloudRead,cloudWrite,cloudWriteMany,type ArchiveWrite} from '../cloud-archive';
 import {pieceChunk,type Snapshot,type RecordPages,type RecordManifest} from './snapshot';
+import {assertPublishableArchive} from '../dataset-summary';
 function compressedPages(id:string,piece:RecordPages):Array<[string,unknown]> {
  const chunks=new Map<number,{encoding:string;pages:Record<string,string>;smallPages:Record<string,string>}>([[0,{encoding:'gzip-base64',pages:{},smallPages:{}}]]);
  for(const group of ['pages','smallPages'] as const)for(const [page,rows] of Object.entries(piece[group])){
@@ -23,7 +24,8 @@ function compressedBlob(id:string,value:unknown):Array<[string,unknown]> {
 export const snapshotKey=(version:string,id:string)=>`reading-v2-${version}-${id}`;
 export async function writeBundledSnapshot(snapshot:Snapshot) {
   const dir=join(process.cwd(),'data','reading');await mkdir(dir,{recursive:true});
-  const artifacts:Record<string,unknown>={manifest:snapshot.manifest,eras:snapshot.eras,matches:snapshot.matches,players:snapshot.players,...Object.fromEntries(Object.entries(snapshot.pieces).map(([id,p])=>[`piece-${id}`,p]))};
+  assertPublishableArchive(snapshot.matches);
+  const artifacts:Record<string,unknown>={eras:snapshot.eras,matches:snapshot.matches,players:snapshot.players,...Object.fromEntries(Object.entries(snapshot.pieces).map(([id,p])=>[`piece-${id}`,p])),manifest:snapshot.manifest};
   for(const [id,value] of Object.entries(artifacts)) {
     const path=join(dir,`${id}.json.gz`);await writeFile(`${path}.tmp`,gzipSync(JSON.stringify(value)));await rename(`${path}.tmp`,path);
   }
@@ -39,6 +41,7 @@ function publishedGeneration(manifest:RecordManifest) {
 export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotStorage={read:cloudRead,write:cloudWrite,writeMany:cloudWriteMany}) {
   const {manifest,pieces,eras,matches,players}=snapshot;
   const published=await storage.read('reading-v2-manifest');
+  assertPublishableArchive(matches,(published as RecordManifest|undefined)?.matchCount);
   if(published&&typeof published==='object'&&isDeepStrictEqual(publishedGeneration(published as RecordManifest),publishedGeneration(manifest)))return;
   const artifacts:Array<[string,unknown]>=[...Object.entries(pieces).flatMap(([id,p])=>compressedPages(id,p)),...compressedBlob('eras',eras),...compressedBlob('matches',matches),...compressedBlob('players',players)];
   const batches:ArchiveWrite[][]=[];

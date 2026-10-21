@@ -29,6 +29,7 @@ import {
 import { playerFact, eraComparisons } from "@/lib/revista/records";
 import { tournamentDirectory } from "@/lib/tournament-directory";
 import type { Match } from "@/lib/types";
+import { SURFACES } from "@/lib/surface";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -100,7 +101,7 @@ function SeasonChart({
         <svg
           viewBox={`0 0 ${plot.width + 64} 236`}
           style={{ minWidth: `${plot.width + 64}px` }}
-          role="img"
+          role="group"
           aria-labelledby="ry-seasons-title ry-season-chart-description"
         >
           {[0, 1, 2, 3, 4].map((tick) => {
@@ -276,7 +277,7 @@ export default async function Player({ params, searchParams }: Props) {
             partidos.
           </p>
           <dl className="ry-player-surface-list">
-            {(["hard", "clay", "grass"] as const).map((surface) => {
+            {SURFACES.filter(surface => player.bySurface[surface].played > 0).map((surface) => {
               const result = player.bySurface[surface];
               return (
                 <div key={surface} data-event-surface={surface}>
@@ -492,18 +493,15 @@ export default async function Player({ params, searchParams }: Props) {
           <dl className="ry-player-totals">
             <div>
               <dt>Victorias</dt>
-              <dd>{number(player.won)}</dd>
-              <span>de {number(player.played)} partidos</span>
+              <dd>{number(player.won)}<span>de {number(player.played)} partidos</span></dd>
             </div>
             <div>
               <dt>Finales ganadas</dt>
-              <dd>{number(record.finalsWon)}</dd>
-              <span>de {number(record.finalsPlayed)} finales</span>
+              <dd>{number(record.finalsWon)}<span>de {number(record.finalsPlayed)} finales</span></dd>
             </div>
             <div>
               <dt>Efectividad</dt>
-              <dd>{number((player.won / player.played) * 100, 1)} %</dd>
-              <span>{number(player.won)} de {number(player.played)} partidos</span>
+              <dd>{number((player.won / player.played) * 100, 1)} %<span>{number(player.won)} de {number(player.played)} partidos</span></dd>
             </div>
           </dl>
           {bio && Object.keys(bio).length > 0 && (

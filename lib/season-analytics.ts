@@ -63,7 +63,7 @@ function createRecord(name: string): PlayerRecord {
     finalsPlayed: 0, finalsWon: 0, grandSlamFinalsWon: 0, mastersFinalsWon: 0, fiveSetWins: 0, fiveSetPlayed: 0, firstSetComebacks: 0, twoSetComebacks: 0, decidingFinalsWon: 0, semifinalsPlayed: 0, quarterfinalsPlayed: 0, opponentsBeaten: [], decidingSetWins: 0, decidingSetPlayed: 0,
     straightSetWins: 0, sixLoveSets: 0, closeSetsWon: 0, seasons: [], tournamentsWonAt: [], longestWinStreak: 0,
     tieBreaksWon: 0, tieBreaksPlayed: 0, setsWon: 0, setsLost: 0,
-    surfaces: { hard: { played: 0, wins: 0 }, clay: { played: 0, wins: 0 }, grass: { played: 0, wins: 0 } },
+    surfaces: { hard: { played: 0, wins: 0 }, clay: { played: 0, wins: 0 }, grass: { played: 0, wins: 0 }, carpet: { played: 0, wins: 0 }, unknown: { played: 0, wins: 0 } },
     stats: {}, extra: {}, matchIds: [],
   }
 }

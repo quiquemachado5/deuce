@@ -1,6 +1,7 @@
 import 'server-only'
 import { cache } from 'react'
 import { asyncCache } from './async-cache'
+import { isDemoDataEnabled } from './data-config'
 import { eligibleMatch, prepareMatch } from './quality'
 import { createClient } from '@supabase/supabase-js'
 import { mockMatches } from './mocks'
@@ -8,7 +9,7 @@ import { TOURNAMENTS, type Match, type Point } from './types'
 import { normalizeStatistics } from './statistics'
 import { invalidateArchiveCache, archiveMatch, archiveMatches, archiveDetailedMatches, hasArchive } from './live-tennis'
 
-const mock = process.env.NEXT_PUBLIC_USE_MOCK_DATA !== 'false'
+const mock = isDemoDataEnabled()
 function db() {
   const url = process.env.SUPABASE_URL, key = process.env.SUPABASE_SECRET_KEY
   if (!url || !key) return null

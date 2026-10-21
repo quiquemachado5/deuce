@@ -21,7 +21,7 @@ export const score = (match: Match) =>
     .trim()
     .split(/[\s,]+/)
     .join(", ");
-export const surfaceLabel = { hard: "Dura", clay: "Tierra", grass: "Hierba" };
+export { surfaceLabel } from '../surface';
 export function round(match: Match) {
   const p = roundPosition(match.round);
   if (p >= 4)

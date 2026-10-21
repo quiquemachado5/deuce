@@ -3,6 +3,7 @@ import { tapeIntegrity, recordedTiebreaks, normalizePointTape } from './point-in
 import { orientMatch } from './match-presentation'
 import aliases from './player-name-aliases.json'
 import type { Match, Point } from './types'
+import { normalizeSurface } from './surface'
 
 export const ARCHIVE_CRITERIA = 'Individual masculino · cuadro principal · partidos terminados con sets cerrados y ganador coherente. Sin abandonos, incomparecencias ni marcadores en revisión. Cifras del archivo DEUCE, no de toda la carrera.'
 export function normalizeText(value: string) { return value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/ß/g, 'ss') }
@@ -58,7 +59,7 @@ export function pointHeight(point: Point) {
   return point.is_match_point ? 95 : point.is_break_point ? 75 : 38
 }
 export function prepareMatch(match: Match): Match {
-  match = { ...match, tournament: canonicalTournamentName(match.tournament,match.year,match.category) }
+  match = { ...match, surface: normalizeSurface(match.surface), tournament: canonicalTournamentName(match.tournament,match.year,match.category) }
   match = orientMatch(match)
   match = { ...match, point_tape: normalizePointTape(match.point_tape) }
   const issue = resultIssue(match)

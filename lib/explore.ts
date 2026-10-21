@@ -25,7 +25,7 @@ export function playerDirectory(matches: Match[]): PlayerSummary[] {
       if (!name || !match.winner) continue
       let entry = map.get(name)
       if (!entry) {
-        entry = { name, played: 0, won: 0, bySurface: { hard: { played: 0, won: 0 }, clay: { played: 0, won: 0 }, grass: { played: 0, won: 0 } }, matches: [] }
+        entry = { name, played: 0, won: 0, bySurface: { hard: { played: 0, won: 0 }, clay: { played: 0, won: 0 }, grass: { played: 0, won: 0 }, carpet: { played: 0, won: 0 }, unknown: { played: 0, won: 0 } }, matches: [] }
         map.set(name, entry)
       }
       entry.played++

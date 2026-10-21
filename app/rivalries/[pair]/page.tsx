@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import "./pair.css";
 import { playerPhoto } from "@/lib/player-imagery";
 import SurfaceScore from "@/components/nocturno/SurfaceScore";
+import { SURFACES } from "@/lib/surface";
 import Row, { Pagination } from "@/components/nocturno/Row";
 import { notebook } from "@/lib/cuaderno/data";
 import { number } from "@/lib/cuaderno/model";
@@ -79,7 +80,7 @@ export default async function Pair({ params, searchParams }: Props) {
   const people = (await notebook()).pairs.find((p) => p.slug === pair);
   if (!people) notFound();
   const portraits = people.names.map((name) => playerPhoto(name));
-  const surfaces = (["hard", "clay", "grass"] as const).map((surface) => {
+  const surfaces = SURFACES.filter(surface => people.matches.some(match => match.surface === surface)).map((surface) => {
     const matches = people.matches.filter((m) => m.surface === surface);
     return {
       surface,

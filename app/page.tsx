@@ -9,6 +9,7 @@ import { number, round, score, sentence } from "@/lib/cuaderno/model";
 import { tournamentName } from "@/lib/labels";
 import { courtPhotos } from "@/lib/imagery";
 import { tournamentDirectory } from "@/lib/tournament-directory";
+import { SURFACES, surfaceLabel } from "@/lib/surface";
 import "./rally-overview.css";
 
 export const revalidate = 300;
@@ -59,7 +60,7 @@ export default async function Home() {
 
     <div className="dh-feature-grid">
       {featured && <section className="dh-final" aria-labelledby="dh-final-title">
-        <div className="dh-final-top"><div><h2 id="dh-final-title">{tournamentName(featured.tournament)} · {featured.year}</h2><p><i className={`dh-surface-dot dh-surface-${featured.surface}`} aria-hidden="true" />Final · {({ hard: "Pista dura", clay: "Tierra", grass: "Hierba" } as const)[featured.surface]}</p></div>{event && <Link href={`/${event.slug}/${featured.year}`}>Ver edición</Link>}</div>
+        <div className="dh-final-top"><div><h2 id="dh-final-title">{tournamentName(featured.tournament)} · {featured.year}</h2><p><i className={`dh-surface-dot dh-surface-${featured.surface}`} aria-hidden="true" />Final · {surfaceLabel[featured.surface]}</p></div>{event && <Link href={`/${event.slug}/${featured.year}`}>Ver edición</Link>}</div>
         <div className="dh-final-score" role="group" aria-label={`${featured.player1.name} contra ${featured.player2.name}. ${score(featured)}`}>
           {[featured.player1, featured.player2].map((player, index) => {
             const photo = playerPhoto(player.name);
@@ -76,7 +77,7 @@ export default async function Home() {
       {rivalry && <section className="dh-rivalry" aria-labelledby="dh-rivalry-title">
         <div className="dh-rivalry-heading"><h2 id="dh-rivalry-title">Djokovic contra Nadal</h2><div className="dh-rivalry-portraits" aria-hidden="true">{rivalry.names.map((name) => { const photo = playerPhoto(name); return photo && <Image key={name} src={photo.thumbnail || photo.src} alt="" width={64} height={64} sizes="64px" unoptimized />; })}</div></div>
         <p className="dh-rivalry-score" aria-label={`${rivalry.wins[0]} victorias de Djokovic y ${rivalry.wins[1]} de Nadal`}>{rivalry.wins[0]}–{rivalry.wins[1]}</p><p className="dh-rivalry-scope">{number(rivalry.matches.length)} partidos en este archivo. No es toda la carrera.</p>
-        <div className="dh-rivalry-splits">{(["hard", "clay", "grass"] as const).map((surface) => { const wins = rivalry.names.map((name) => rivalry.matches.filter((match) => match.surface === surface && winnerName(match) === name).length); return <div key={surface}><span><i className={`dh-surface-dot dh-surface-${surface}`} aria-hidden="true" />{({ hard: "Dura", clay: "Tierra", grass: "Hierba" } as const)[surface]}</span><strong>{wins[0]}–{wins[1]}</strong></div>; })}</div>
+        <div className="dh-rivalry-splits">{SURFACES.filter(surface => rivalry.matches.some(match => match.surface === surface)).map((surface) => { const wins = rivalry.names.map((name) => rivalry.matches.filter((match) => match.surface === surface && winnerName(match) === name).length); return <div key={surface}><span><i className={`dh-surface-dot dh-surface-${surface}`} aria-hidden="true" />{surfaceLabel[surface]}</span><strong>{wins[0]}–{wins[1]}</strong></div>; })}</div>
         <Link className="dh-text-link" href={`/rivalries/${rivalry.slug}`}>Ver cara a cara</Link>
       </section>}
     </div>

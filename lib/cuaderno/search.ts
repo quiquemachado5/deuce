@@ -7,8 +7,12 @@ import { normalizeText } from "../quality";
 import { playerSlug } from "../explore";
 import { tournamentName } from "../labels";
 import { score, round, sentence } from "./model";
+import { tournamentDirectory } from '../tournament-directory';
+import { approximateName, searchText } from '../search-text';
 import type { SearchItem } from "@/components/revista/Frame";
 export async function searchArchive(query: string, options: { includeMatches?: boolean } = {}) {
+  query = query.trim().slice(0, 180);
+  if (!query) return [] as SearchItem[];
   const [data, prepared] = await Promise.all([notebook(), recordView("{}")]),
     q = normalizeText(query).replace(/[–—]/g, "-"),
     terms = q.split(/\s+/).filter(Boolean);
@@ -26,13 +30,25 @@ export async function searchArchive(query: string, options: { includeMatches?: b
       group: "Récords",
       detail: s.group,
     });
-  for (const p of data.players.filter((p) => includes(p.name)).slice(0, 4))
+  const exactPlayers = data.players.filter(p => includes(p.name));
+  const playerResults = exactPlayers.length ? exactPlayers : data.players.filter(p => approximateName(query, p.name));
+  for (const p of playerResults.slice(0, 4))
     items.push({
       href: `/players/${playerSlug(p.name)}`,
       name: p.name,
-      detail: `${p.played.toLocaleString("es-ES")} partidos en el archivo`,
+      detail: `${exactPlayers.length ? '' : 'Coincidencia aproximada · '}${p.played.toLocaleString("es-ES")} partidos en el archivo`,
       group: "Jugadores",
     });
+  const requestedYear = terms.find(term => /^\d{4}$/.test(term));
+  const eventTerms = terms.filter(term => term !== requestedYear);
+  if (eventTerms.length) {
+    const events = tournamentDirectory(data.matches).filter(event => eventTerms.every(term => searchText(`${event.name} ${tournamentName(event.name)}`).includes(searchText(term)))).slice(0, 3);
+    for (const event of events) {
+      if (!requestedYear) items.push({ href: `/torneos/${event.slug}`, name: tournamentName(event.name), group: 'Torneos', detail: `${event.matches.length.toLocaleString('es-ES')} partidos en el archivo` });
+      const years = [...new Set(event.matches.map(match => match.year))].sort((a, b) => b - a).filter(year => !requestedYear || year === Number(requestedYear)).slice(0, requestedYear ? 1 : 2);
+      for (const year of years) items.push({ href: `/${event.slug}/${year}`, name: `${tournamentName(event.name)} ${year}`, group: 'Ediciones', detail: 'Resultados y camino del campeón' });
+    }
+  }
   for (const p of data.pairs
     .filter((p) => includes(p.names.join(" ")))
     .slice(0, 3))
@@ -43,7 +59,7 @@ export async function searchArchive(query: string, options: { includeMatches?: b
       group: "Parejas",
     });
   if (options.includeMatches !== false) {
-    const matches = matchingMatches(query, data.matches);
+    const matches = matchingMatches(query, data.matches, Math.max(0, 25 - items.length));
     for (const m of matches.slice(0, 25 - items.length))
       items.push({
         href: `/match/${m.match_id}`,
@@ -55,7 +71,8 @@ export async function searchArchive(query: string, options: { includeMatches?: b
   return items;
 }
 
-export function matchingMatches(query: string, matches: Match[]) {
+const matchIndexes = new WeakMap<Match[], { match: Match; text: string }[]>();
+export function matchingMatches(query: string, matches: Match[], limit = Infinity) {
   const terms = normalizeText(query)
     .replace(/[–—]/g, "-")
     .split(/\s+/)
@@ -65,15 +82,17 @@ export function matchingMatches(query: string, matches: Match[]) {
   const shelf = terms.length
     ? shelves.find((s) => includes(`${s.label} ${s.id}`))
     : undefined;
-  return (
-    shelf
-      ? shelfMatches(shelf, matches)
-      : matches.filter((m) =>
-          includes(
-            `${m.player1.name} ${m.player2.name} ${tournamentName(m.tournament)} ${m.tournament} ${m.year} ${round(m)}`,
-          ),
-        )
-  ).sort((a, b) =>
-    b.score_summary.timestamp.localeCompare(a.score_summary.timestamp),
-  );
+  if (limit <= 0) return [];
+  if (shelf) return shelfMatches(shelf, matches).sort((a,b) => b.score_summary.timestamp.localeCompare(a.score_summary.timestamp)).slice(0, limit);
+  let index = matchIndexes.get(matches);
+  if (!index) {
+    index = [...matches].sort((a,b) => b.score_summary.timestamp.localeCompare(a.score_summary.timestamp)).map(match => ({match, text: normalizeText(`${match.player1.name} ${match.player2.name} ${tournamentName(match.tournament)} ${match.tournament} ${match.year} ${round(match)}`).replace(/[–—]/g, '-')}));
+    matchIndexes.set(matches, index);
+  }
+  const result: Match[] = [];
+  for (const entry of index) {
+    if (terms.every(term => entry.text.includes(term))) result.push(entry.match);
+    if (result.length >= limit) break;
+  }
+  return result;
 }

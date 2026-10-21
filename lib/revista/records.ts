@@ -1,5 +1,5 @@
 import { eligibleMatch } from "../quality";
-import type { Match, Surface } from "../types";
+import type { Match } from "../types";
 import { TOURNAMENTS } from "../types";
 import { buildSeasonAnalytics, rankingMetrics } from "../season-analytics";
 import { playerSlug, rivalryDirectory } from "../explore";
@@ -152,10 +152,11 @@ function grouped(
     ),
   );
 }
-const cache = new WeakMap<Match[], RecordPiece[]>();
-export function recordCatalog(matches: Match[]): RecordPiece[] {
+const cache = new WeakMap<Match[], { day: string; pieces: RecordPiece[] }>();
+export function recordCatalog(matches: Match[], now = new Date()): RecordPiece[] {
+  const day = now.toISOString().slice(0, 10);
   const cached = cache.get(matches);
-  if (cached) return cached;
+  if (cached?.day === day) return cached.pieces;
   const cacheKey = matches;
   matches = matches.filter(eligibleMatch);
   const records = buildSeasonAnalytics(matches).players,
@@ -512,7 +513,7 @@ export function recordCatalog(matches: Match[]): RecordPiece[] {
       tierMatches,
     );
   }
-  for (const s of ["hard", "clay", "grass"] as Surface[]) {
+  for (const s of ["hard", "clay", "grass"] as const) {
     const label = { hard: "dura", clay: "tierra", grass: "hierba" }[s],
       source = finals.filter((m) => m.surface === s),
       masters = source.filter(
@@ -880,7 +881,7 @@ export function recordCatalog(matches: Match[]): RecordPiece[] {
     false,
     finals,
   );
-  const today = new Date().toISOString().slice(5, 10),
+  const today = day.slice(5, 10),
     anniversary = matches.filter(
       (m) =>
         m.context?.dateLabel === "Fecha del partido" &&
@@ -963,7 +964,7 @@ export function recordCatalog(matches: Match[]): RecordPiece[] {
       true,
     );
   }
-  cache.set(cacheKey, result);
+  cache.set(cacheKey, { day, pieces: result });
   return result;
 }
 export function playerFact(

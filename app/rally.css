@@ -22,7 +22,7 @@
   --loss: #b35146;
   --danger: #a6342c;
   --focus: #0071e3;
-  --link: #0071e3;
+  --link: #0064cc;
   --event-accent: var(--ink);
   --event-accent-soft: var(--bg-sunken);
   --event-ink: #ffffff;
@@ -249,6 +249,10 @@ details > div { padding: 16px 0; }
 .nc-dot-grass {
   background: var(--grass);
 }
+.nc-dot-carpet { background: #7956a3; }
+.nc-dot-unknown { background: #727578; }
+[data-event-surface="carpet"] { --court: #7956a3; }
+[data-event-surface="unknown"] { --court: #727578; }
 .nc-versus {
   color: var(--muted);
   font-size: 0.7em;

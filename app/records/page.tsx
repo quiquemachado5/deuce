@@ -11,6 +11,7 @@ import { RecordEras, RecordProof, RecordRanking, recordValue } from "@/component
 import FilterForm from "@/components/revista/FilterForm";
 import { TOURNAMENTS } from "@/lib/types";
 import { tournamentName } from "@/lib/labels";
+import { SURFACES, surfaceLabel } from "@/lib/surface";
 import "../rally-records.css";
 
 type Query = Record<string, string | undefined>;
@@ -146,7 +147,7 @@ function RecordIndex({ manifest, comebackRunner }: {
   );
 }
 
-function RecordFilters({ piece, q, years }: { piece: RecordMeta; q: Query; years: number[] }) {
+function RecordFilters({ piece, q, years }: { piece: Pick<RecordMeta, 'id'>; q: Query; years: number[] }) {
   const active = [q.year, q.surface, q.competition].some((value) => value && value !== "all");
   return <div className="rv-filter-wrap">
     <FilterForm action="/records">
@@ -155,7 +156,7 @@ function RecordFilters({ piece, q, years }: { piece: RecordMeta; q: Query; years
         <option value="all">Todo el archivo</option>{years.map((year) => <option key={year}>{year}</option>)}
       </select></label>
       <label className="nc-field"><span>Superficie</span><select name="surface" defaultValue={q.surface || "all"}>
-        <option value="all">Todas las pistas</option><option value="hard">Dura</option><option value="clay">Tierra</option><option value="grass">Hierba</option>
+        <option value="all">Todas las pistas</option>{SURFACES.map(surface => <option key={surface} value={surface}>{surfaceLabel[surface]}</option>)}
       </select></label>
       <label className="nc-field"><span>Competición</span><select name="competition" defaultValue={q.competition || "all"}>
         <option value="all">Todas</option><option>Grand Slam</option><option>Masters 1000</option><option>ATP 500</option><option>ATP 250</option><option>Precursores de Masters</option><option>ATP Tour · nivel no especificado</option>
@@ -204,7 +205,10 @@ export default async function Records({ searchParams }: { searchParams: Promise<
   if (!piece) {
     if (!view.exists) notFound();
     return <div className="nc-wrap rv-records rv-detail">
-      <Link className="rv-back" href="/records">Estadísticas</Link><h1>Sin resultados con estos filtros</h1>
+      <Link className="rv-back" href="/records">Estadísticas</Link><h1>{view.manifest.pieces.find(entry => entry.id === q.dato)?.title || 'Estadísticas'}</h1>
+      <RecordFilters piece={{ id: q.dato }} q={q} years={view.manifest.years} />
+      <p role="status">{view.emptyReason === 'ranking' ? 'No tenemos ranking histórico al jugar para los partidos de esta selección. Esto no significa que no hubiera victorias ante rivales con ese ranking.' : 'No hay resultados con estos filtros o faltan datos para calcular esta medida.'}</p>
+      <p><Link href="/cobertura">Consultar la cobertura del archivo</Link></p>
       <p className="rv-empty">Prueba otro periodo, superficie o competición. <Link href={address({ dato: q.dato })}>Limpiar filtros</Link></p>
     </div>;
   }

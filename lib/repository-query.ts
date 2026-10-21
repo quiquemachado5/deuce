@@ -19,7 +19,7 @@ export function parseRepositoryQuery(params: URLSearchParams) {
   if (token && token !== 'all' && !/^[a-z0-9-]{2,100}$/.test(token)) throw new Error('Torneo no válido')
   const tournament = token && token !== 'all' ? TOURNAMENTS.find(t => [t.slug, normalizeText(t.name).replace(/\s+/g, '-'), normalizeText(tournamentName(t.name)).replace(/\s+/g, '-')].includes(token)) : undefined
   const surface = params.get('surface') || 'all'
-  if (!['all','hard','clay','grass'].includes(surface)) throw new Error('Superficie no válida')
+  if (!['all','hard','clay','grass','carpet','unknown'].includes(surface)) throw new Error('Superficie no válida')
   const category = params.get('category') || 'all'
   if (!['all','Grand Slam','Masters 1000','Precursores de Masters','ATP 500','ATP 250','ATP Tour · nivel no especificado'].includes(category)) throw new Error('Categoría no válida')
   if (params.has('fiveSets') && !['true','false'].includes(params.get('fiveSets')!)) throw new Error('fiveSets debe ser true o false')

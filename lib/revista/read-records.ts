@@ -8,7 +8,7 @@ import {asyncCache} from '../async-cache';
 import type {Match} from '../types';
 import type {PlayerRecord} from '../season-analytics';
 import {recordCatalog,eraComparisons,type Era,type RecordRow} from './records';
-import {clampPage,pageBoundaryTies,pieceChunk,PAGE_SIZE,SNAPSHOT_SCHEMA,type RecordManifest,type RecordMeta,type RecordPages} from './snapshot';
+import {clampPage,pageBoundaryTies,pieceChunk,PAGE_SIZE,SNAPSHOT_SCHEMA,RULES_VERSION,type RecordManifest,type RecordMeta,type RecordPages} from './snapshot';
 const bundled=asyncCache<unknown>(3600_000,100);
 async function local<T>(id:string):Promise<T>{return await bundled(id,async()=>JSON.parse(gunzipSync(await readFile(join(process.cwd(),'data','reading',`${id}.json.gz`))).toString())) as T;}
 const remote=asyncCache<any>(300_000,32);
@@ -20,9 +20,12 @@ async function query(key:string,projection='payload',budget=800):Promise<any>{
 }
 async function manifest(){
  const base=await local<RecordManifest>('manifest'),fresh=(await query('reading-v2-manifest'))?.payload as RecordManifest|undefined;
- return {base,current:fresh?.schema===SNAPSHOT_SCHEMA&&fresh.generatedAt>base.generatedAt?fresh:base};
+ if(base.schema!==SNAPSHOT_SCHEMA||base.rulesVersion!==RULES_VERSION)throw new Error('Reading snapshot is incompatible; run npm run build');
+ return {base,current:fresh?.schema===SNAPSHOT_SCHEMA&&fresh.rulesVersion===RULES_VERSION&&fresh.generatedAt>base.generatedAt?fresh:base};
 }
-export type RecordView={manifest:RecordManifest;piece?:RecordMeta;rows:RecordRow[];smallRows:RecordRow[];page:number;smallPage:number;eras:Era[];eraTotal:number;filtered:boolean;exists:boolean};
+/** Lightweight overview: never re-imports the raw historical archive. */
+export const preparedManifest=cache(async()=> (await manifest()).current);
+export type RecordView={manifest:RecordManifest;piece?:RecordMeta;rows:RecordRow[];smallRows:RecordRow[];page:number;smallPage:number;eras:Era[];eraTotal:number;filtered:boolean;exists:boolean;emptyReason?:'ranking'};
 function initial(m:RecordManifest):RecordView{return {manifest:m,rows:[],smallRows:[],page:1,smallPage:1,eras:[],eraTotal:0,filtered:false,exists:true};}
 const key=(version:string,id:string)=>`reading-v2-${version}-${id}`;
 /** A blob is usable only when every fragment arrives and the complete gzip decodes. */
@@ -64,7 +67,7 @@ export const recordView=cache(async(encoded:string):Promise<RecordView>=>{
    const selected=matches.filter(x=>(!q.year||q.year==='all'||x.year===Number(q.year))&&(!q.surface||q.surface==='all'||x.surface===q.surface)&&(!q.competition||q.competition==='all'||x.category===q.competition));
    const catalog=recordCatalog(selected),piece=catalog.find(p=>p.id===q.dato),view={...initial(m),filtered:true,exists:m.pieces.some(p=>p.id===q.dato)};
    if(q.dato==='dos-epocas'){const rows=eraComparisons(selected,Number(q.corte)||2020);view.eraTotal=rows.length;view.page=clampPage(q.page,rows.length);view.eras=rows.slice((view.page-1)*PAGE_SIZE,view.page*PAGE_SIZE);return view;}
-   if(!piece)return view;
+   if(!piece)return {...view,...(['top-10','top-5','numero-uno'].includes(q.dato)&&selected.length>0&&!selected.some(x=>x.context?.rank1||x.context?.rank2)?{emptyReason:'ranking' as const}:{})};
    const big=piece.rows.filter(r=>!piece.percent||r.sample>=50),small=piece.percent?piece.rows.filter(r=>r.sample<50):[];
    view.piece={...piece,total:big.length,smallTotal:small.length,leader:big[0],pagePrior:pageBoundaryTies(big),smallPagePrior:pageBoundaryTies(small)};view.page=clampPage(q.page,big.length);view.smallPage=clampPage(q.smallPage,small.length);view.rows=big.slice((view.page-1)*PAGE_SIZE,view.page*PAGE_SIZE);view.smallRows=small.slice((view.smallPage-1)*PAGE_SIZE,view.smallPage*PAGE_SIZE);return view;
  }
