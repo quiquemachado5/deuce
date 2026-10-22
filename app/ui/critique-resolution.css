@@ -23,6 +23,7 @@
   font-weight: 700;
 }
 .player-avatar:has(img) { background: var(--bg-sunken); }
+.match-photo-initials .player-avatar { color: var(--ink); }
 
 /* Scores: the winning game is bold; only the set total is a pill. */
 .row-score-line [data-won="true"],
