@@ -1,8 +1,9 @@
 import Link from "next/link";
 import Row from "./nocturno/Row";
 import type { Match } from "@/lib/types";
-import { winnerName, roundPosition, chronological } from "@/lib/editorial";
+import { roundPosition, chronological } from "@/lib/editorial";
 import { number } from "@/lib/cuaderno/model";
+import type { CSSProperties } from "react";
 export default function HomeSeason({ matches }: { matches: Match[] }) {
   const year = new Date().getUTCFullYear(),
     season = matches.filter((m) => m.year === year),
@@ -10,7 +11,8 @@ export default function HomeSeason({ matches }: { matches: Match[] }) {
       .filter((m) => roundPosition(m.round) === 7)
       .sort((a, b) => chronological(b, a));
   if (!season.length) return null;
-  const months = Array.from({ length: 12 }, (_, i) => ({
+  const currentMonth = new Date().getUTCMonth();
+  const months = Array.from({ length: currentMonth + 1 }, (_, i) => ({
     label: new Intl.DateTimeFormat("es", {
       month: "short",
       timeZone: "UTC",
@@ -21,15 +23,7 @@ export default function HomeSeason({ matches }: { matches: Match[] }) {
         Number(m.context.date?.slice(5, 7)) === i + 1,
     ).length,
   }));
-  const max = Math.max(1, ...months.map((m) => m.count)),
-    wins = new Map<string, number>();
-  for (const m of season) {
-    const name = winnerName(m);
-    if (name) wins.set(name, (wins.get(name) || 0) + 1);
-  }
-  const leader = [...wins].sort(
-    (a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "es"),
-  )[0];
+  const max = Math.max(1, ...months.map((m) => m.count));
   return (
     <>
       <section className="home-season" aria-labelledby="home-season-title">
@@ -46,21 +40,16 @@ export default function HomeSeason({ matches }: { matches: Match[] }) {
             <strong>{number(finals.length)}</strong>
             <span>finales registradas</span>
           </div>
-          {leader && (
-            <div>
-              <strong>{number(leader[1])}</strong>
-              <span>victorias de {leader[0]}</span>
-            </div>
-          )}
         </div>
         <div
           className="home-months"
+          style={{ "--month-count": months.length } as CSSProperties}
           role="img"
           aria-label={`Partidos por mes de ${year}: ${months.map((m) => `${m.label}, ${m.count}`).join("; ")}`}
         >
           {months.map((m) => (
             <div key={m.label}>
-              <span>{m.count > 0 ? number(m.count) : ""}</span>
+              <span>{number(m.count)}</span>
               <i style={{ height: `${(m.count / max) * 100}%` }} />
               <small>{m.label}</small>
             </div>

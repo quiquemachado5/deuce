@@ -75,7 +75,7 @@ export default async function Home() {
   return <div className="deuce-home ds-home">
     <ArchiveNotice status={generation} />
 
-    <header className="ds-home-heading"><h1>El tenis, <span>en otra dimensión.</span></h1><Link href="/buscar">Encuentra un partido</Link></header>
+    <header className="ds-home-heading"><div><h1>El archivo visual del tenis.</h1><p>{number(manifest.matchCount)} partidos documentados desde {manifest.years.at(-1)}.</p></div><Link href="/buscar">Explorar partidos</Link></header>
     {recentFinal ? <section className="ds-hero-record" data-event-surface={recentFinal.surface} aria-labelledby="ds-hero-title">
       <div className="ds-hero-visual">
       {heroCourt && <div className="ds-hero-court"><ParallaxPhoto src={heroCourt.src} alt={heroCourt.alt}/><PhotoInfo photo={heroCourt}/></div>}
@@ -85,8 +85,9 @@ export default async function Home() {
         <div className="ds-hero-champion"><PlayerAvatar name={heroWinner!} size={56}/><span>{heroWinner}<small>{roundPosition(recentFinal.round)===7 ? 'Campeón' : 'Ganador del último partido'}</small></span></div>
         <div className="ds-hero-links"><Link className="ds-hero-action" href={`/match/${recentFinal.match_id}`}>Ver el partido</Link>
         {finalEvent && <Link className="ds-hero-edition" href={`/${finalEvent.slug}/${recentFinal.year}`}>Toda la edición</Link>}</div>
-      </div></div>
+      </div>
       <div className="ds-hero-scoreboard"><HomeFinalScore match={recentFinal} context="partido" /></div>
+      </div>
     </section> : <header className="ds-hero-fallback"><h2>Los partidos detrás de cada cifra.</h2><Link href="/records">Ver estadísticas</Link></header>}
 
     <HomeHighlights slides={stories} />
@@ -130,19 +131,16 @@ export default async function Home() {
 
     <HomeSeason matches={matches} />
     <CourtGallery items={[
-      {title:'Centre Court · Wimbledon',photo:courtPhotos.Wimbledon.src,alt:courtPhotos.Wimbledon.alt,surface:'grass',video:'eRbTHj2KLro',videoTitle:'Sinner – Alcaraz · Wimbledon 2025',source:'https://www.youtube.com/watch?v=eRbTHj2KLro'},
+      {title:'Pista Central · Wimbledon',photo:courtPhotos.Wimbledon.src,alt:courtPhotos.Wimbledon.alt,surface:'grass',video:'eRbTHj2KLro',videoTitle:'Sinner – Alcaraz · Wimbledon 2025',source:'https://www.youtube.com/watch?v=eRbTHj2KLro'},
       {title:'Philippe-Chatrier · 2024',photo:courtPhotos['Roland Garros'].src,alt:courtPhotos['Roland Garros'].alt,surface:'clay',video:'aERKJuBtIGw',videoTitle:'Sinner – Alcaraz · Roland Garros 2025',source:'https://www.youtube.com/watch?v=aERKJuBtIGw'},
       {title:'Hard Rock Stadium · Miami 2025',photo:courtPhotos.Miami.src,alt:courtPhotos.Miami.alt,surface:'hard'},
       {title:'Arthur Ashe · 2018',photo:courtPhotos['US Open'].src,alt:courtPhotos['US Open'].alt,surface:'hard'},
     ].map(item=>{
-      const name=item.title.startsWith('Centre')?'Wimbledon':item.title.startsWith('Philippe')?'Roland Garros':item.title.startsWith('Hard')?'Miami':'US Open';
+      const name=item.title.startsWith('Pista')?'Wimbledon':item.title.startsWith('Philippe')?'Roland Garros':item.title.startsWith('Hard')?'Miami':'US Open';
       const entry=events.find(e=>e.name===name);const titles=new Map<string,number>();
       for(const m of entry?.matches||[])if(roundPosition(m.round)===7){const winner=winnerName(m);if(winner)titles.set(winner,(titles.get(winner)||0)+1);}
       const leader=[...titles].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0],'es'))[0];
       return {...item,fact:leader?`${leader[0]} · ${leader[1]} títulos en este torneo`:undefined,href:entry?`/torneos/${entry.slug}`:undefined};
     })} />
-    <nav className="ds-home-links" aria-label="Más formas de explorar">
-      <Link href="/jugadores">Jugadores</Link><Link href="/tournaments">Torneos</Link><Link href="/comparar">Comparar jugadores</Link><Link href="/records">Todas las estadísticas</Link>
-    </nav>
   </div>;
 }

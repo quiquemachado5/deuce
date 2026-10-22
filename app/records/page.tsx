@@ -15,6 +15,7 @@ import { TOURNAMENTS } from "@/lib/types";
 import { tournamentName } from "@/lib/labels";
 import { SURFACES, surfaceLabel } from "@/lib/surface";
 import ArchiveNotice from '@/components/nocturno/ArchiveNotice';
+import StatisticsFamilyNav from '@/components/StatisticsFamilyNav';
 
 type Query = Record<string, string | undefined>;
 const address = (q: Query) =>
@@ -74,9 +75,8 @@ function CatalogueEntry({ piece }: { piece: RecordMeta }) {
   return (
     <Link className="rv-catalogue-row" href={address({ dato: piece.id })} data-record-surface={metricSurface(piece.id)}>
       <span className="rv-catalogue-name">{piece.title}</span>
-      <span className="rv-catalogue-leader">{piece.leader?.href.startsWith("/players/") && <PlayerAvatar name={piece.leader.name} size={32} />}<span>{piece.leader?.name || "Muestras pequeñas"}</span></span>
-      <span className="rv-catalogue-result"><strong className="rv-catalogue-value">{piece.leader ? recordValue(piece.leader, piece.percent, piece.id === "tal-dia-como-hoy") : "—"}</strong>
-        {piece.percent && piece.leader && <small>{number(piece.leader.sample)} casos</small>}</span>
+      <span className="rv-catalogue-leader">{piece.leader ? <PlayerAvatar name={piece.leader.name} size={32} /> : <span className="rv-avatar-placeholder" aria-hidden="true" />}<span>{piece.leader?.name || "Muestra insuficiente"}{piece.percent && piece.leader && <small>{number(piece.leader.sample)} casos</small>}</span></span>
+      <span className="rv-catalogue-result"><strong className="rv-catalogue-value">{piece.leader ? recordValue(piece.leader, piece.percent, piece.id === "tal-dia-como-hoy") : "—"}</strong></span>
     </Link>
   );
 }
@@ -89,7 +89,6 @@ function RecordIndex({ manifest }: {
     const piece = catalog.find((entry) => entry.id === `titulos-${surface}`);
     return piece?.leader ? [{ ...piece, surface, leader: piece.leader }] : [];
   });
-  const surfaceMaximum = Math.max(1, ...surfaceRecords.map((piece) => piece.leader.value));
   return (
     <div className="nc-wrap rv-records rv-index">
       <header className="rv-intro">
@@ -105,7 +104,6 @@ function RecordIndex({ manifest }: {
           {surfaceRecords.map((piece) => <Link href={address({ dato: piece.id })} className="rd-surface-record" data-record-surface={piece.surface} key={piece.id}>
             <span className="rd-surface-label">{surfaceLabel[piece.surface as keyof typeof surfaceLabel]}</span>
             <span className="rd-surface-person"><PlayerAvatar name={piece.leader.name} size={40} /><span>{piece.leader.name}</span><strong>{recordValue(piece.leader)}</strong></span>
-            <span className="rd-surface-track" aria-hidden="true"><span style={{ width: `${piece.leader.value / surfaceMaximum * 100}%` }} /></span>
             <small>{piece.years} · Ver clasificación</small>
           </Link>)}
         </div>
@@ -113,9 +111,7 @@ function RecordIndex({ manifest }: {
       <div className="rv-index-heading">
         <h2>Todas las estadísticas</h2>
       </div>
-      <nav className="rv-family-nav" aria-label="Familias de estadísticas">
-        {families.map(([label], index) => <a href={`#grupo-${index}`} key={label}>{label}</a>)}
-      </nav>
+      <StatisticsFamilyNav items={families.map(([label], index) => ({ id: `grupo-${index}`, label }))} />
       <div className="rv-families">
         {families.map(([label, group], index) => {
           const entries = catalog.filter((piece) => piece.group === group);
@@ -126,13 +122,14 @@ function RecordIndex({ manifest }: {
               <span>{group === "Un torneo" ? "Ediciones y torneos" : `${entries.length} listas`}</span>
             </div>
             <div className="rv-family-rows">
-              <div className="rd-catalogue-columns" aria-hidden="true"><span>Estadística</span><span>{group === "Un torneo" ? "Cobertura" : "Primera entrada"}</span><span>{group === "Un torneo" ? "Explorar" : "Cifra"}</span></div>
-              {entries.map((piece) => <CatalogueEntry piece={piece} key={piece.id} />)}
+              <div className="rd-catalogue-columns" aria-hidden="true"><span>Estadística</span><span>{group === "Un torneo" ? "Cobertura" : "Líder y muestra"}</span><span>{group === "Un torneo" ? "Explorar" : "Cifra"}</span></div>
+              {entries.slice(0, 4).map((piece) => <CatalogueEntry piece={piece} key={piece.id} />)}
+              {entries.length > 4 && <details className="rv-family-more"><summary>Ver {number(entries.length - 4)} estadísticas más</summary><div>{entries.slice(4).map((piece) => <CatalogueEntry piece={piece} key={piece.id} />)}</div></details>}
               {group === "Títulos y finales" && manifest.eraCuts.map((cut) => (
-                <Link className="rv-catalogue-row" href={address({ dato: "dos-epocas", corte: String(cut) })} key={cut}>
+                <Link className="rv-catalogue-row rv-era-row" href={address({ dato: "dos-epocas", corte: String(cut) })} key={cut}>
                   <span className="rv-catalogue-name">Efectividad en finales · antes y desde {cut}</span>
                   <span className="rv-catalogue-leader">Mínimo 5 finales por época</span>
-                  <span className="rv-catalogue-action">Comparar</span>
+                  <span className="rv-catalogue-action">Comparar →</span>
                 </Link>
               ))}
               {group === "Un torneo" && TOURNAMENTS.map((tournament) => (
@@ -174,7 +171,7 @@ function RecordFilters({ piece, q, years }: { piece: Pick<RecordMeta, 'id'>; q: 
         <option value="all">Todas las pistas</option>{SURFACES.map(surface => <option key={surface} value={surface}>{surfaceLabel[surface]}</option>)}
       </select></label>
       <label className="nc-field"><span>Competición</span><select name="competition" defaultValue={q.competition || "all"}>
-        <option value="all">Todas</option><option>Grand Slam</option><option>Masters 1000</option><option>ATP 500</option><option>ATP 250</option><option>Precursores de Masters</option><option>ATP Tour · nivel no especificado</option>
+        <option value="all">Todas</option><option>Grand Slam</option><option>Masters 1000</option><option>ATP 500</option><option>ATP 250</option><option>Precursores de Masters</option>
       </select></label>
     </FilterForm>
     {active && <Link href={address({ dato: piece.id })}>Limpiar filtros</Link>}

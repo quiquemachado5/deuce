@@ -8,9 +8,14 @@ import { courtPhotoForEdition, courtPhotos } from '../lib/imagery'
 import { playerPhoto, playerPhotos } from '../lib/player-imagery'
 
 test('the player directory serves cached local photos with their actual sources', () => {
+  const portraitsUsingInitials = new Set(['Jimmy Connors', 'Roger Federer', 'Ivan Lendl', 'John McEnroe'])
   for (const [name, photo] of Object.entries(playerPhotos)) {
     assert.ok(existsSync(`public${photo.src}`), `missing ${name} portrait`)
     assert.ok(photo.credit && photo.source, `missing ${name} attribution`)
+    if (portraitsUsingInitials.has(name)) {
+      assert.equal(playerPhoto(name), null, `${name} should use initials until a suitable portrait is available`)
+      continue
+    }
     const thumbnail = playerPhoto(name)?.thumbnail
     assert.ok(thumbnail && existsSync(`public${thumbnail}`), `missing ${name} thumbnail`)
   }
