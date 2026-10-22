@@ -26,8 +26,8 @@ export const preparedGeneration=cache(()=>generations('active',async()=>{
  const base=await local<RecordManifest>('manifest');
  if(base.schema!==SNAPSHOT_SCHEMA||base.rulesVersion!==RULES_VERSION)throw new Error('Reading snapshot is incompatible; run npm run build');
  const fresh=await query('reading-v2-manifest');
- return selectGeneration({manifest:base,source:'bundled',matches:()=>local<Match[]>('matches'),records:()=>local<PlayerRecord[]>('players')},fresh===null?null:fresh?.payload,
-   async m=>{const [matches,records]=await Promise.all([cloudBlob<Match[]>(m.version,'matches'),cloudBlob<PlayerRecord[]>(m.version,'players')]);return {matches,records};},!!cloudClient());
+ return selectGeneration({manifest:base,source:'bundled',matches:()=>local<Match[]>('matches'),records:()=>local<PlayerRecord[]>('players'),competition:()=>local<Match[]>('competition')},fresh===null?null:fresh?.payload,
+   async m=>{const [matches,records,competition]=await Promise.all([cloudBlob<Match[]>(m.version,'matches'),cloudBlob<PlayerRecord[]>(m.version,'players'),cloudBlob<Match[]>(m.version,'competition')]);return {matches,records,competition};},!!cloudClient());
 }));
 /** The bundled summary stays lightweight; a newer remote generation is validated before use. */
 export const preparedManifest=cache(async()=> (await preparedGeneration()).manifest);
@@ -116,3 +116,7 @@ export const preparedPlayerArchive = cache(async () => {
  const [matches,records]=await Promise.all([generation.matches(),generation.records()]);
  return {matches,records,manifest:generation.manifest,source:generation.source,fallbackReason:generation.fallbackReason};
 });
+
+export const preparedTournamentArchive=cache(async()=>{const g=await preparedGeneration();const [matches,entries]=await Promise.all([g.matches(),g.competition?.()||Promise.resolve([])]);return [...matches,...entries];});
+
+export const preparedEditionAudit=cache(async()=>{const g=await preparedGeneration();return g.source==='remote' ? (await cloudBlob<import('../edition-audit').EditionAudit[]>(g.manifest.version,'audit') || []) : local<import('../edition-audit').EditionAudit[]>('audit');});

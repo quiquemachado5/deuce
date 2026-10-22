@@ -34,7 +34,7 @@ export function round(match: Match) {
   const n = match.round.match(/(?:round of |r)(128|64|32)/i);
   return n
     ? `Ronda de ${n[1]}`
-    : ({ 1: "Primera", 2: "Segunda", 3: "Tercera" } as Record<number, string>)[
+    : ({ 1: "Primera ronda", 2: "Segunda ronda", 3: "Tercera ronda" } as Record<number, string>)[
         p
       ] || match.round;
 }

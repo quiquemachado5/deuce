@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { displaySetClosed, displayTotal } from "@/lib/score-display";
 import type { CSSProperties } from "react";
 import type { Match } from "@/lib/types";
 import { playerSlug } from "@/lib/explore";
@@ -15,7 +16,9 @@ export default function SetScoreboard({
   const sets = match.score_summary.games;
   const tokens = score(match).split(", ");
   const finished =
-    match.status === "Finished" && match.quality?.result !== "review";
+    match.winner !== null &&
+    (match.quality?.result !== "review" ||
+      /retired|abandoned|walkover|cancelled/i.test(match.status));
   return (
     <div
       className={`set-scoreboard${compact ? " set-scoreboard-compact" : ""}`}
@@ -57,7 +60,8 @@ export default function SetScoreboard({
                   {winner && <span className="nc-sr"> · Ganador</span>}
                 </th>
                 {sets.map((set, i) => {
-                  const won = set[side] > set[1 - side];
+                  const won =
+                    displaySetClosed(match, i) && set[side] > set[1 - side];
                   const tie = !won && tokens[i]?.match(/\((\d+)\)/)?.[1];
                   return (
                     <td key={i} data-set-won={won}>
@@ -69,7 +73,7 @@ export default function SetScoreboard({
                   );
                 })}
                 <td className="set-total">
-                  {sets.filter((set) => set[side] > set[1 - side]).length}
+                  <strong>{displayTotal(match, side)}</strong>
                 </td>
               </tr>
             );

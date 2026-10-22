@@ -22,9 +22,9 @@
   --muted: #626b74;
   --line: #e2e6e9;
   --line-strong: #c6ced4;
-  --court: #146c52;
-  --court-deep: #e4f3eb;
-  --gold: #146c52;
+  --court: var(--ink);
+  --court-deep: var(--bg-sunken);
+  --gold: #9b742a;
   --grass: #17774b;
   --clay: #aa4326;
   --hard: #2169b3;
@@ -35,8 +35,8 @@
   --p2: #aa4326;
   --focus: #2169b3;
   --danger: #a92e2e;
-  --event-accent: var(--court);
-  --event-tint: var(--court-deep);
+  --event-accent: var(--ink);
+  --event-tint: var(--bg-sunken);
   --font-interface:
     Geist, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-display: Bricolage, Geist, sans-serif;
@@ -57,9 +57,9 @@ html[data-theme="dark"] {
   --muted: #a2adb6;
   --line: #303b44;
   --line-strong: #53616c;
-  --court: #8bdfb2;
-  --court-deep: #203c30;
-  --gold: #8bdfb2;
+  --court: var(--ink);
+  --court-deep: var(--bg-sunken);
+  --gold: #e3c675;
   --grass: #88d9a8;
   --clay: #f39a72;
   --hard: #86bbf2;

@@ -1,4 +1,5 @@
 import 'server-only'
+import {isCompetitionOnly,prepareCompetitionMatch} from './competition'
 import { pointPosition } from './point-position'
 import { closedSet,prepareMatch,eligibleMatch } from './quality'
 import { readdir, readFile } from 'node:fs/promises'
@@ -36,7 +37,7 @@ async function rowsFor(prefix: string): Promise<Row[]> {
   if (season) {
     const cloud = await cloudRead(`season-${season[1]}`)
     if (Array.isArray(cloud?.data)) {
-      if (cloud.scope === 'atp-main-v1') return cloud.data
+      if (['atp-main-v1','atp-main-v2'].includes(cloud.scope)) return cloud.data
       // Older cloud snapshots contain only Slams and Masters. Add the new,
       // completely downloaded local tour cohort until the cron replaces them.
       const tour = (await listFiles(`modern-${season[1]}-tour-`))
@@ -266,7 +267,7 @@ function modern(row: Row, detail?: Row, summary = false): Match {
   const year = Number(String(source.scheduled_time || source.created_at || '').slice(0, 4)) || 2026
   return {
     match_id: `live-${row.id}`, tournament: tournamentName(row.tournament || ''), surface: surface(row.surface),
-    category: modernTournamentCategory(row.tier), year,
+    category: ['Australian Open','Roland Garros','Wimbledon','US Open'].includes(tournamentName(row.tournament||'')) ? 'Grand Slam' : modernTournamentCategory(row.tier), year,
     player1: player(1, row.players?.p1?.name, null), player2: player(2, row.players?.p2?.name, null),
     score_summary: { sets: source.score?.sets || [], games, points: source.score?.points || [], server: source.score?.server ?? null, is_tiebreak: !!source.score?.is_tiebreak, win_probability_p1: source.score?.win_probability_p1 ?? null, timestamp: source.scheduled_time || `${year}-01-01T00:00:00Z` },
     final_score: games.map(([a, b], i) => { const end = detail?.tape?.find((p: Row) => Array.isArray(p.tiebreak_final) && gamesFromScore(p.games)[i]?.[0] === a && gamesFromScore(p.games)[i]?.[1] === b && gamesFromScore(p.games).length === i + 1); return `${a}–${b}${end && Math.max(a,b) === 7 && Math.min(a,b) === 6 ? `(${Math.min(...end.tiebreak_final)})` : ''}` }).join(' '), round: roundName(row.round_code || ''), winner: row.winner === 1 || row.winner === 2 ? row.winner : null,
@@ -420,3 +421,12 @@ export async function bundledEnrichmentCandidates(): Promise<import('./enrichmen
  }
  return candidates
 }
+
+/** Terminal draw entries are visible in editions but never enter statistical rankings. */
+export async function competitionEntries():Promise<Match[]> {
+ const years=Array.from({length:Math.max(0,new Date().getUTCFullYear()-2022)},(_,i)=>2023+i);
+ const source=(await Promise.all(years.map(year=>archiveMatches(year,true)))).flat();
+ return source.filter(m=>isCompetitionOnly(m)).map(prepareCompetitionMatch);
+}
+
+export async function editionSourceAudit(){const {auditEditions}=await import('./edition-audit');const result=[];for(let year=1968;year<=new Date().getUTCFullYear();year++)result.push(...auditEditions(await readArchiveMatches(year,true)));return result.sort((a,b)=>b.year-a.year||b.pending-a.pending||a.tournament.localeCompare(b.tournament,'es'));}

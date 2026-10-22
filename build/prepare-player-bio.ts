@@ -5,7 +5,7 @@ import { collectPlayerBios, mergeBio, type PlayerBio } from '../lib/player-bio';
 
 async function main() {
   const directory = join(process.cwd(), 'data', 'archive', 'lists');
-  const files = (await readdir(directory)).filter((name) => /^modern-\d{4}-\d+\.json\.gz$/.test(name)).sort();
+  const files = (await readdir(directory)).filter((name) => /^(modern-\d{4}-(?:tour-)?\d+|archive-\d{4}-[GMA]-\d+)\.json\.gz$/.test(name)).sort((a,b)=>Number(b.startsWith('modern'))-Number(a.startsWith('modern')) || b.localeCompare(a));
   if (!files.length) throw new Error('No se encontraron listas recientes para las fichas de jugadores');
   const people: Record<string, PlayerBio> = {};
   for (const filename of files) {

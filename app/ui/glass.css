@@ -100,24 +100,6 @@ html[data-theme="dark"] .ry-header {
     0 8px 32px rgba(0, 0, 0, 0.12);
   border-color: var(--line);
 }
-.ds-hero-portrait {
-  position: absolute;
-  width: 264px;
-  height: 264px;
-  right: 48px;
-  top: 40px;
-  border: 6px solid var(--bg-raised);
-  border-radius: 50%;
-  overflow: hidden;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
-}
-.ds-hero-portrait .photo-info {
-  right: 24px;
-  bottom: 24px;
-}
-.ds-hero-meta {
-  font-size: 14px;
-}
 .ds-story-title,
 .ds-discovery-category {
   font-size: 14px;
@@ -133,9 +115,6 @@ html[data-theme="dark"] .ry-header {
   font-size: 12px;
 }
 .ds-rivalry-scope {
-  font-size: 14px;
-}
-.ds-hero-context {
   font-size: 14px;
 }
 /* A match is a photographic sports page, with one set board at every width. */
@@ -302,19 +281,6 @@ html[data-theme="dark"] .ry-header {
   margin: 0 24px 16px;
   font-size: 14px;
   font-weight: 600;
-}
-.nc-match-row.nc-row-grouped {
-  grid-template-columns: 120px minmax(0, 1fr) auto;
-  border-radius: 0;
-}
-.nc-row-grouped .nc-row-context {
-  font-size: 13px;
-}
-.nc-row-grouped .nc-row-context > .nc-dot {
-  display: none;
-}
-.nc-row-grouped .nc-row-round {
-  font-size: 13px;
 }
 /* Honest interactive H2H. Both sides always share one percentage scale. */
 .surface-duel {
@@ -559,12 +525,6 @@ html[data-theme="dark"] .ry-header {
   .ds-story:hover {
     background: var(--event-tint);
   }
-  .nc-row-result {
-    transition: color var(--speed);
-  }
-  .nc-match-row:hover .nc-row-result {
-    color: var(--event-accent);
-  }
   .ry-people-tablist a:hover,
   .ry-match-segments a:hover {
     color: var(--ink);
@@ -632,30 +592,6 @@ html[data-theme="dark"] .ry-header {
   .ry-theme {
     margin-left: auto;
   }
-  .ds-hero-portrait {
-    width: 112px;
-    height: 112px;
-    right: 16px;
-    top: 144px;
-    border-width: 4px;
-  }
-  .ds-hero-portrait .photo-info {
-    bottom: 8px;
-    right: 12px;
-    width: 24px;
-    height: 24px;
-  }
-  .ds-hero-copy {
-    padding-bottom: 24px;
-    min-height: 360px;
-  }
-  .ds-hero-context {
-    font-size: 13px;
-  }
-  .ds-hero-meta {
-    font-size: 13px;
-    max-width: 180px;
-  }
   .ds-discovery-copy h3 {
     min-width: 0;
     font-size: 24px;
@@ -709,15 +645,6 @@ html[data-theme="dark"] .ry-header {
     font-size: 24px;
     padding: 20px;
     min-height: 80px;
-  }
-  .nc-match-row.nc-row-grouped {
-    grid-template-columns: minmax(0, 1fr) auto;
-  }
-  .nc-row-grouped .nc-row-context {
-    grid-column: 1/-1;
-  }
-  .nc-row-grouped .nc-row-round {
-    font-size: 12px;
   }
   .surface-duel-result > span {
     font-size: 13px;

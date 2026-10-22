@@ -35,7 +35,7 @@ export const snapshotKey=(version:string,id:string)=>`reading-v2-${version}-${id
 export async function writeBundledSnapshot(snapshot:Snapshot) {
   const dir=join(process.cwd(),'data','reading');await mkdir(dir,{recursive:true});
   assertPublishableArchive(snapshot.matches);
-  const artifacts:Record<string,unknown>={eras:snapshot.eras,matches:snapshot.matches,players:snapshot.players,...Object.fromEntries(Object.entries(snapshot.pieces).map(([id,p])=>[`piece-${id}`,p])),manifest:snapshot.manifest};
+  const artifacts:Record<string,unknown>={eras:snapshot.eras,matches:snapshot.matches,players:snapshot.players,competition:snapshot.competition,audit:snapshot.audit,...Object.fromEntries(Object.entries(snapshot.pieces).map(([id,p])=>[`piece-${id}`,p])),manifest:snapshot.manifest};
   for(const [id,value] of Object.entries(artifacts)) {
     const path=join(dir,`${id}.json.gz`);await writeFile(`${path}.tmp`,gzipSync(JSON.stringify(value)));await rename(`${path}.tmp`,path);
   }
@@ -49,13 +49,13 @@ function publishedGeneration(manifest:RecordManifest) {
 }
 /** A published pointer proves all artifacts exist. A new pointer is written last. */
 export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotStorage={read:cloudRead,write:cloudWrite,writeMany:cloudWriteMany}) {
-  const {manifest,pieces,eras,matches,players}=snapshot;
+  const {manifest,pieces,eras,matches,players,competition,audit}=snapshot;
   const published=await storage.read('reading-v2-manifest');
   assertPublishableArchive(matches,(published as RecordManifest|undefined)?.matchCount);
   if(published&&typeof published==='object'&&isDeepStrictEqual(publishedGeneration(published as RecordManifest),publishedGeneration(manifest)))return;
   async function* artifacts():AsyncGenerator<[string,unknown]> {
     for(const [id,piece] of Object.entries(pieces))yield* compressedPages(id,piece);
-    for(const [id,value] of [['eras',eras],['matches',matches],['players',players]] as const)yield* await compressedBlob(id,value);
+    for(const [id,value] of [['eras',eras],['matches',matches],['players',players],['competition',competition],['audit',audit]] as const)yield* await compressedBlob(id,value);
   }
   const batches:ArchiveWrite[][]=[];
   const flush=async()=>{

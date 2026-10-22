@@ -106,8 +106,8 @@ export default async function Tournament({ params, searchParams }: Props) {
               aria-hidden="true"
             />
             {surfaceLabel[court.surface]}
-            {court.indoor !== null && (
-              <span>· {court.indoor ? "Bajo techo" : "Al aire libre"}</span>
+            {court.indoor === true && (
+              <span>· {court.indoor ? "Bajo techo" : ""}</span>
             )}
             <span>· última edición registrada, {court.year}</span>
           </p>

@@ -439,9 +439,6 @@
   font-size: 16px;
   font-weight: 600;
 }
-.ry-player-results .nc-match-row {
-  padding-inline: 0;
-}
 .ry-player-eras {
   display: grid;
   gap: 24px;

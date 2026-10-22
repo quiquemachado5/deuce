@@ -8,13 +8,12 @@ import { tournamentDirectory } from "@/lib/tournament-directory";
 import { tournamentName } from "@/lib/labels";
 import { tournamentCourt } from "@/lib/tournament-presentation";
 import { playerSlug } from "@/lib/explore";
+import PlayerAvatar from "@/components/PlayerAvatar";
+import PlayerFlag from "@/components/PlayerFlag";
+import { playerBiography } from "@/lib/player-bio";
+import { displayTotal } from "@/lib/score-display";
 import { avatarPhotoStyle } from "@/lib/photo-style";
-import {
-  round,
-  score,
-  sentence,
-  surfaceLabel,
-} from "@/lib/cuaderno/model";
+import { round, score, surfaceLabel } from "@/lib/cuaderno/model";
 import Share from "@/components/nocturno/Share";
 import HomeFinalScore from "@/components/HomeFinalScore";
 import SetScoreboard from "@/components/SetScoreboard";
@@ -30,11 +29,10 @@ export default function MatchHero({
   const court = tournamentCourt({ ...match, indoor: match.context?.indoor });
   const event = tournamentDirectory([match])[0];
   const venue = courtPhoto(match.tournament);
-  const result = match.quality?.result !== "review";
-  const candidate = result ? sentence(match) : "";
-  const sample = candidate.match(/\bde (\d+) (?:juegos|bolas)/);
-  const insight = sample && Number(sample[1]) < 3 ? "" : candidate;
-  const noPortraits = names.every((name) => !playerPhoto(name));
+  const result =
+    match.winner !== null &&
+    (match.quality?.result !== "review" ||
+      /retired|abandoned|walkover|cancelled/i.test(match.status));
   if (reduced)
     return (
       <header className="match-mini" data-event-surface={match.surface}>
@@ -46,7 +44,7 @@ export default function MatchHero({
     );
   return (
     <header
-      className={`match-hero${venue ? "" : " match-hero-no-venue"}${noPortraits ? " match-hero-no-portraits" : ""}`}
+      className={`match-hero${venue ? "" : " match-hero-no-venue"}`}
       data-event-surface={court.surface}
     >
       <div
@@ -65,7 +63,7 @@ export default function MatchHero({
           <Link href={event ? `/${event.slug}/${match.year}` : "/tournaments"}>
             {tournamentName(match.tournament)}
           </Link>
-          <span>
+          <span className="match-event-meta">
             {match.year} · {round(match)}{" "}
             <i
               className={`nc-dot nc-dot-${court.surface}`}
@@ -76,6 +74,15 @@ export default function MatchHero({
           </span>
         </div>
         <div className="match-hero-actions">
+          <span className="match-event-status">
+            {match.status === "Finished"
+              ? "Finalizado"
+              : /retir|aband/i.test(match.status)
+                ? "Abandono"
+                : /walkover|cancelled/i.test(match.status)
+                  ? "Sin jugar"
+                  : "En revisión"}
+          </span>
           <Link
             href={`/match/${match.match_id}?vista=alrededor#registro`}
             className="match-record-info"
@@ -97,14 +104,18 @@ export default function MatchHero({
               key={name}
               className={`match-contender match-contender-${index + 1}${portrait ? "" : " match-contender-no-photo"}`}
             >
-              {portrait && (
+              {portrait ? (
                 <Link
                   className="match-contender-photo"
                   href={`/players/${playerSlug(name)}`}
                   aria-label={`Perfil de ${name}`}
                 >
                   <Image
-                    src={portrait.avatarCrop ? portrait.src : portrait.thumbnail || portrait.src}
+                    src={
+                      portrait.avatarCrop
+                        ? portrait.src
+                        : portrait.thumbnail || portrait.src
+                    }
                     alt={portrait.alt}
                     fill
                     sizes={
@@ -116,13 +127,24 @@ export default function MatchHero({
                     style={avatarPhotoStyle(portrait)}
                   />
                 </Link>
+              ) : (
+                <Link
+                  className="match-contender-photo match-photo-initials"
+                  href={`/players/${playerSlug(name)}`}
+                  aria-label={`Perfil de ${name}`}
+                >
+                  <PlayerAvatar name={name} size={128} />
+                </Link>
               )}
               <Link
                 className="match-contender-name"
                 data-winner={result && match.winner === index + 1}
                 href={`/players/${playerSlug(name)}`}
               >
-                {name}
+                {playerBiography(name)?.country && (
+                  <PlayerFlag code={playerBiography(name)!.country!} />
+                )}
+                <span className="match-name-text">{name}</span>
               </Link>
               {result && match.winner === index + 1 && (
                 <span className="nc-sr">Ganador</span>
@@ -132,30 +154,18 @@ export default function MatchHero({
         })}
         <div
           className="match-total"
-          aria-label={`Sets: ${names[0]} ${match.score_summary.games.filter((set) => set[0] > set[1]).length}, ${names[1]} ${match.score_summary.games.filter((set) => set[1] > set[0]).length}`}
+          aria-label={`Sets: ${names[0]} ${displayTotal(match, 0)}, ${names[1]} ${displayTotal(match, 1)}`}
         >
           <strong>
-            {match.score_summary.games.filter((set) => set[0] > set[1]).length}
+            {displayTotal(match, 0)}
             <span>–</span>
-            {match.score_summary.games.filter((set) => set[1] > set[0]).length}
+            {displayTotal(match, 1)}
           </strong>
-          <span>
-            {!result
-              ? "En revisión"
-              : match.status === "Finished"
-                ? "Finalizado"
-                : /retir|aband/i.test(match.status)
-                  ? "Abandono"
-                  : "En revisión"}
-          </span>
         </div>
       </div>
-      <div className="match-setboard"><SetScoreboard match={match} /></div>
-      {insight && insight.length <= 90 && (
-        <div className="match-hero-bottom">
-          {insight && insight.length <= 90 && <p>{insight}</p>}
-        </div>
-      )}
+      <div className="match-setboard">
+        <SetScoreboard match={match} />
+      </div>
     </header>
   );
 }

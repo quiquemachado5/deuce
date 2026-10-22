@@ -7,7 +7,7 @@ test("home shows a recent tournament, photography and verified discoveries", asy
   await page.goto("/");
   const hero = page.locator(".ds-hero-record");
   await expect(hero.getByRole("heading", { level: 2 })).not.toBeEmpty();
-  await expect(hero).toContainText("Ganador del último encuentro");
+  await expect(hero.locator(".ds-hero-champion")).toContainText(/Campeón|Ganador del último partido/);
   await expect(
     hero.getByRole("link", { name: "Ver el partido", exact: true }),
   ).toHaveAttribute("href", /\/match\//);
@@ -107,6 +107,10 @@ test("records have straight separators, rounded hover and opaque navigation with
   const row = page.locator(".rv-catalogue-row").first();
   await expect(row).toHaveCSS("border-bottom-left-radius", "0px");
   await row.hover();
-  expect(await row.evaluate(el => getComputedStyle(el, "::before").borderRadius)).toBe("16px");
-  expect(await row.evaluate(el => getComputedStyle(el, "::before").backgroundColor)).not.toBe("rgba(0, 0, 0, 0)");
+  await expect(row).toHaveCSS("border-top-left-radius", "24px");
+  await expect(row).toHaveCSS("border-bottom-left-radius", "0px");
+  await expect(row).not.toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
+});
+test('every match row aligns players with individual set columns and labels the early rounds',async({page})=>{
+ await page.setViewportSize({width:390,height:844});await page.goto('/match/archive-139865?vista=alrededor');const row=page.locator('.match-history-meeting .nc-match-row').first();await expect(row).toHaveCSS('display','grid');await expect(row.locator('.nc-row-round')).toContainText('ronda');await expect(row.locator('.row-score-line')).toHaveCount(3);for(let i=0;i<2;i++){const person=await row.locator('.nc-row-person').nth(i).boundingBox(),score=await row.locator('.row-score-line').nth(i+1).boundingBox();expect(Math.abs(person!.y+person!.height/2-score!.y-score!.height/2)).toBeLessThan(2)}await page.goto('/match/archive-139865');await expect(page.locator('.match-photo-initials')).toContainText('IL');await expect(page.locator('.match-contender-name .pd-country-flag')).toHaveCount(2);await expect(page.getByText('Ivan Ljubicic remontó el primer set en semifinal.',{exact:true})).toHaveCount(0);
 });

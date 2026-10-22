@@ -10,7 +10,7 @@ export type PlayerBio = {
 };
 
 type RawPlayer = Record<string, unknown>;
-type RawMatch = { players?: { p1?: RawPlayer; p2?: RawPlayer } };
+type RawMatch = { players?: { p1?: RawPlayer; p2?: RawPlayer }; winner?:RawPlayer; loser?:RawPlayer };
 
 function validBirthday(value: unknown): string | undefined {
   if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return undefined;
@@ -36,7 +36,7 @@ export function bioKey(name: string): string { return playerSlug(canonicalName(n
 /** Extract only provider biography fields; rankings in these rows are download-time values. */
 export function collectPlayerBios(matches: RawMatch[]): Record<string, PlayerBio> {
   const people: Record<string, PlayerBio> = {};
-  for (const match of matches) for (const player of [match.players?.p1, match.players?.p2]) {
+  for (const match of matches) for (const player of [match.players?.p1, match.players?.p2,match.winner,match.loser]) {
     if (!player || typeof player.name !== 'string') continue;
     const key = bioKey(player.name);
     const bio = normalizedBio(player);

@@ -228,41 +228,6 @@
 }
 
 /* Plain separators at rest; an inset rounded hover never bends a table rule. */
-.nc-match-row,
-.nc-match-row:first-child,
-.nc-match-row:last-child,
-.nc-match-row:only-child {
-  position: relative;
-  isolation: isolate;
-  border-radius: 0;
-}
-.nc-match-row:hover {
-  background: var(--bg-raised);
-}
-.nc-match-row::before {
-  content: "";
-  position: absolute;
-  inset: 4px;
-  z-index: -1;
-  border-radius: 16px;
-  transition: background var(--speed);
-}
-.nc-match-row:hover::before {
-  background: var(--bg-sunken);
-}
-.nc-row-context {
-  line-height: 1.6;
-}
-.nc-row-round {
-  display: inline;
-  white-space: normal;
-}
-.nc-row-duel {
-  min-width: 0;
-}
-.nc-row-person {
-  overflow-wrap: anywhere;
-}
 .ry-directory-table tbody tr > :is(th, td) {
   border-radius: 0;
 }
@@ -565,18 +530,6 @@ html[data-theme="dark"] .ry-header {
   }
   .match-games-pair strong {
     font-size: 36px;
-  }
-  .nc-match-row {
-    padding: 16px;
-    gap: 12px;
-  }
-  .nc-row-context {
-    grid-column: 1/-1 !important;
-    width: auto;
-    max-width: none;
-  }
-  .nc-row-round {
-    display: inline;
   }
   .rv-records .rv-family-nav {
     flex-wrap: nowrap;

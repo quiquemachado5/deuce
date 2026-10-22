@@ -43,7 +43,7 @@ function TournamentRow({ entry, category }: { entry: TournamentEntry; category: 
     data-event-surface={court.surface} data-event-category={category}>
     <span className="ry-tournament-directory-name">{tournamentName(entry.name)}</span>
     <span className="ry-tournament-directory-meta">
-      <i className={`nc-dot nc-dot-${court.surface}`} aria-hidden="true" />{surfaceLabel[court.surface]} en {court.year} · {court.indoor !== null && `${court.indoor ? "Bajo techo" : "Al aire libre"} · `}
+      <i className={`nc-dot nc-dot-${court.surface}`} aria-hidden="true" />{surfaceLabel[court.surface]} en {court.year} · {court.indoor === true && "Bajo techo · "}
       {years.length === 1 ? years[0] : `${years.at(-1)}–${years[0]}`} · {number(years.length)} {years.length === 1 ? "edición" : "ediciones"}
     </span>
     <strong>{number(finals)} {finals === 1 ? "final" : "finales"}</strong>
@@ -64,12 +64,12 @@ function PhotoGroup({ category, entries }: { category: string; entries: Tourname
         const finals = selected.filter((match) => roundPosition(match.round) === 7).length;
         const court = latestTournamentCourt(selected);
         return <Link className="ry-photo-tournament-tile" href={`/torneos/${entry.slug}`} key={entry.slug}
-          title={`${photo.caption || photo.alt} · ${photo.credit}`} data-event-surface={court.surface} data-event-category={category}>
+          title={`${photo.caption || photo.alt} · ${photo.credit}`} data-event-surface={court.surface} data-event-category={entry.categories.includes("Grand Slam") ? "Grand Slam" : category}>
           <span className="ry-photo-tournament-image"><Image src={photo.src} alt={photo.alt} fill priority={category === "Grand Slam" && index < 2}
             loading={category === "Grand Slam" && index < 2 ? "eager" : "lazy"}
             sizes={category === "Grand Slam" ? "(max-width: 759px) calc(100vw - 32px), (max-width: 1099px) 45vw, 43vw" : "(max-width: 759px) calc(100vw - 32px), (max-width: 1099px) 45vw, 29vw"} /></span>
           <span className="ry-photo-tournament-copy"><strong>{tournamentName(entry.name)}</strong>
-            <span><i className={`nc-dot nc-dot-${court.surface}`} aria-hidden="true" />{surfaceLabel[court.surface]}{court.indoor !== null && ` · ${court.indoor ? "Bajo techo" : "Al aire libre"}`} · {calendar ? (entry.categories.includes("Grand Slam") ? "Grand Slam" : "Masters 1000") : `${number(finals)} finales`}</span>
+            <span><i className={`nc-dot nc-dot-${court.surface}`} aria-hidden="true" />{surfaceLabel[court.surface]}{court.indoor === true && " · Bajo techo"} · {calendar ? (entry.categories.includes("Grand Slam") ? "Grand Slam" : "Masters 1000") : `${number(finals)} finales`}</span>
           </span>
         </Link>;
       })}

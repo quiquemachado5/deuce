@@ -399,14 +399,14 @@ export default async function Player({ params, searchParams }: Props) {
         <div className="pd-calendar-legend" aria-label="Resultados destacados del calendario">
           <span data-player-outcome="champion">Campeón</span>
           <span data-player-outcome="finalist">Finalista</span>
-          <span data-player-outcome="semifinalist">Semifinalista</span>
+          <span data-player-outcome="semifinalist">Semifinal</span><span data-player-outcome="quarterfinalist">Cuartos</span><span data-player-outcome="round16">Octavos</span><span data-player-outcome="round32">Tercera ronda</span><span data-player-outcome="round64">Segunda ronda</span><span data-player-outcome="round128">Primera ronda</span>
         </div>
         <div className="ry-circuit" role="list">
           {calendar.map((entry) => {
             const outcome = entry.outcome === 'Campeón' ? 'champion'
               : entry.last && winnerName(entry.last) !== player.name && roundPosition(entry.last.round) === 7 ? 'finalist'
               : entry.last && winnerName(entry.last) !== player.name && roundPosition(entry.last.round) === 6 ? 'semifinalist'
-              : undefined;
+              : entry.last ? ({5:'quarterfinalist',4:'round16',3:'round32',2:'round64',1:'round128'} as Record<number,string>)[roundPosition(entry.last.round)] : undefined;
             const label = outcome === 'champion' ? 'Campeón' : outcome === 'finalist' ? 'Finalista' : outcome === 'semifinalist' ? 'Semifinalista' : entry.last ? roundLabel(entry.last.round) : 'Sin registro';
             return (
             <div

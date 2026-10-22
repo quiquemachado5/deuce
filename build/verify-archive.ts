@@ -16,6 +16,12 @@ async function main() {
   assert.equal(manifest.mode, 'ARCHIVO REAL');
   assert.equal(manifest.matchCount, matches.length);
   assert.deepEqual(manifest.summary, summarizeDataset(matches));
+  const competition: Match[] = await read('competition');
+  const audit = await read('audit');
+  assert.equal(competition.length, manifest.competitionCount);
+  assert.equal(audit.length, manifest.editionCount);
+  assert.equal(new Set([...matches, ...competition].map(row => row.match_id)).size, matches.length + competition.length);
+  assert.ok(audit.every((row: {sourceRows:number;completed:number;terminal:number;pending:number}) => row.sourceRows === row.completed + row.terminal + row.pending));
   assert.equal(matches.find(match => match.match_id === 'archive-2914')?.surface, 'carpet');
   assert.ok(manifest.summary.surfaces.carpet > 10_000);
   assert.ok(manifest.summary.surfaces.unknown > 0);

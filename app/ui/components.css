@@ -19,71 +19,6 @@
   width: 100%;
   object-position: 50% 25%;
 }
-.nc-match-row {
-  display: grid;
-  grid-template-columns: 190px minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 24px;
-  min-height: 88px;
-  padding: 16px 24px;
-  border-bottom: 1px solid var(--line);
-  background: var(--bg-raised);
-}
-.nc-match-row:first-child {
-  border-radius: 24px 24px 0 0;
-}
-.nc-match-row:last-child {
-  border-bottom: 0;
-  border-radius: 0 0 24px 24px;
-}
-.nc-match-row:only-child {
-  border-radius: 24px;
-}
-.nc-match-row:hover {
-  background: var(--event-tint);
-}
-.nc-row-context {
-  font-size: 12px;
-  color: var(--muted);
-  line-height: 1.5;
-}
-.nc-row-round {
-  display: block;
-}
-.nc-row-duel {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.nc-row-person {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 14px;
-  line-height: 1.3;
-}
-.nc-row-winner {
-  font-weight: 650;
-}
-.nc-row-loser {
-  color: var(--ink-soft);
-}
-.nc-row-contra {
-  display: none;
-}
-.nc-row-result {
-  min-width: 0;
-  max-width: 340px;
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--event-accent);
-  font-variant-numeric: tabular-nums;
-  white-space: normal;
-  text-align: right;
-  overflow-wrap: normal;
-  scrollbar-width: thin;
-}
 .nc-dot,
 .ry-surface-dot {
   display: inline-block;
@@ -106,9 +41,6 @@
 }
 .nc-dot-carpet {
   background: var(--carpet);
-}
-.nc-row-person .player-avatar {
-  --avatar-size: 28px;
 }
 .nc-number {
   font: 650 44px/1.1 var(--font-display);
@@ -173,8 +105,7 @@
 .rv-back:hover {
   text-decoration-color: var(--ink);
 }
-.nc-versus,
-.nc-row-contra {
+.nc-versus {
   margin-inline: 0.4em;
 }
 .nc-filters {
@@ -422,59 +353,8 @@
   gap: 24px;
 }
 @media (max-width: 1099px) {
-  .nc-match-row {
-    grid-template-columns: 150px minmax(0, 1fr) auto;
-    gap: 16px;
-    padding: 16px;
-  }
-  .nc-row-result {
-    font-size: 13px;
-    max-width: 230px;
-  }
-  .nc-row-person {
-    font-size: 13px;
-    gap: 8px;
-  }
-  .nc-row-person .player-avatar {
-    --avatar-size: 24px;
-  }
 }
 @media (max-width: 759px) {
-  .nc-match-row {
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 8px 12px;
-    padding: 16px;
-    min-height: 96px;
-  }
-  .nc-row-context {
-    grid-column: 1/-1;
-    display: flex;
-    align-items: center;
-    font-size: 11px;
-    min-width: 0;
-    flex-wrap: wrap;
-    gap: 0;
-  }
-  .nc-row-round {
-    display: inline;
-  }
-  .nc-row-duel {
-    grid-column: 1;
-    gap: 8px;
-  }
-  .nc-row-person {
-    font-size: 13px;
-    gap: 8px;
-  }
-  .nc-row-result {
-    grid-column: 2;
-    grid-row: 2;
-    font-size: 13px;
-    max-width: 144px;
-  }
-  .nc-row-person .player-avatar {
-    --avatar-size: 24px;
-  }
   .nc-pagination {
     justify-content: flex-start;
   }
