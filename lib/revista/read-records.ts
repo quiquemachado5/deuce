@@ -16,16 +16,18 @@ const bundled=asyncCache<unknown>(3600_000,100);
 async function local<T>(id:string):Promise<T>{return await bundled(id,async()=>JSON.parse(gunzipSync(await readFile(join(process.cwd(),'data','reading',`${id}.json.gz`))).toString())) as T;}
 const remote=asyncCache<any>(300_000,32);
 async function query(key:string,projection='payload',budget=800):Promise<any>{
- return remote(`${key}:${projection}`,async()=>{
+ try{return await remote(`${key}:${projection}`,async()=>{
   const db=cloudClient();if(!db)return null;
-  try{const {data,error}=await db.from('deuce_archive_objects').select(projection).eq('key',key).abortSignal(AbortSignal.timeout(budget)).maybeSingle();return error?undefined:data;}catch{return undefined;}
- });
+  const {data,error}=await db.from('deuce_archive_objects').select(projection).eq('key',key).abortSignal(AbortSignal.timeout(budget)).maybeSingle();
+  if(error)throw error;
+  return data;
+ });}catch{return undefined;}
 }
-const generations=asyncCache<PreparedGeneration>(300_000,1);
+const generations=asyncCache<PreparedGeneration>(300_000,1,g=>g.fallbackReason?30_000:300_000);
 export const preparedGeneration=cache(()=>generations('active',async()=>{
  const base=await local<RecordManifest>('manifest');
  if(base.schema!==SNAPSHOT_SCHEMA||base.rulesVersion!==RULES_VERSION)throw new Error('Reading snapshot is incompatible; run npm run build');
- const fresh=await query('reading-v2-manifest');
+ const fresh=await query('reading-v2-manifest','payload',5000);
  return selectGeneration({manifest:base,source:'bundled',matches:()=>local<Match[]>('matches'),records:()=>local<PlayerRecord[]>('players'),competition:()=>local<Match[]>('competition')},fresh===null?null:fresh?.payload,
    async m=>{const [matches,records,competition]=await Promise.all([cloudBlob<Match[]>(m.version,'matches'),cloudBlob<PlayerRecord[]>(m.version,'players'),cloudBlob<Match[]>(m.version,'competition')]);return {matches,records,competition};},!!cloudClient());
 }));
