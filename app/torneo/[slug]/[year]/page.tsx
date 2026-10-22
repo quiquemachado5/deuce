@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { Info } from "lucide-react";
-import { preparedArchive } from "@/lib/revista/read-records";
+import { preparedTournamentArchive } from "@/lib/revista/read-records";
 import { tournamentName } from "@/lib/labels";
 import {
   categoryLabel,
@@ -10,10 +10,11 @@ import {
   tournamentDirectory,
 } from "@/lib/tournament-directory";
 import { roundPosition, durationLabel } from "@/lib/editorial";
+import { eligibleMatch } from "@/lib/quality";
 import { lostOpening } from "@/lib/archive-insights";
 import { closeness, number, surfaceLabel } from "@/lib/cuaderno/model";
 import { editionTournamentCourt } from "@/lib/tournament-presentation";
-import { courtPhotoForEdition } from "@/lib/imagery";
+import { courtPhoto, courtPhotoForEdition } from "@/lib/imagery";
 import Row, { Pagination } from "@/components/nocturno/Row";
 import EditionPicker from "@/components/EditionPicker";
 import TournamentFinal from "@/components/TournamentFinal";
@@ -27,7 +28,7 @@ type Props = {
 export async function generateMetadata({ params, searchParams }: Props) {
   const { slug, year } = await params;
   const query = await searchParams;
-  const tournament = tournamentDirectory(await preparedArchive()).find(
+  const tournament = tournamentDirectory(await preparedTournamentArchive()).find(
     (entry) => entry.slug === slug,
   );
   const options =
@@ -55,7 +56,7 @@ export async function generateMetadata({ params, searchParams }: Props) {
 export default async function Edition({ params, searchParams }: Props) {
   const { slug, year } = await params;
   const query = await searchParams;
-  const tournament = tournamentDirectory(await preparedArchive()).find(
+  const tournament = tournamentDirectory(await preparedTournamentArchive()).find(
     (entry) => entry.slug === slug,
   );
   if (!tournament || !/^\d{4}$/.test(year)) notFound();
@@ -71,15 +72,16 @@ export default async function Edition({ params, searchParams }: Props) {
   if (!matches.length) notFound();
   const court = editionTournamentCourt(matches);
   const final = matches.find((match) => roundPosition(match.round) === 7);
+  const measuredMatches=matches.filter(eligibleMatch);
   const comeback =
-    matches
+    measuredMatches
       .filter((match) => lostOpening(match, 2))
       .sort((a, b) => closeness(b) - closeness(a))[0] ||
-    matches
+    measuredMatches
       .filter((match) => lostOpening(match))
       .sort((a, b) => closeness(b) - closeness(a))[0];
-  const closest = [...matches].sort((a, b) => closeness(b) - closeness(a))[0];
-  const timed = matches
+  const closest = [...measuredMatches].sort((a, b) => closeness(b) - closeness(a))[0];
+  const timed = measuredMatches
     .filter((match) => publishedMatchMinutes(match) !== null)
     .sort((a, b) => publishedMatchMinutes(b)! - publishedMatchMinutes(a)!);
   const requestedPage = Number(query.page);
@@ -90,7 +92,7 @@ export default async function Edition({ params, searchParams }: Props) {
       )
     : 1;
   const photo = tournament.canonical
-    ? courtPhotoForEdition(tournament.name, Number(year))
+    ? courtPhotoForEdition(tournament.name, Number(year)) || (Number(year)>=2023 ? courtPhoto(tournament.name) : null)
     : null;
   const moments = [
     comeback ? { match: comeback, label: "Remontada" } : null,
@@ -138,7 +140,7 @@ export default async function Edition({ params, searchParams }: Props) {
       data-event-surface={court.surface}
     >
       <header
-        className={`td-edition-hero${photo ? " td-edition-hero-photo" : ""}`}
+        className={`td-edition-hero${photo ? " td-edition-hero-photo" : ""}`} data-grand-slam={category === "Grand Slam"}
       >
         {photo && (
           <Image
@@ -151,7 +153,6 @@ export default async function Edition({ params, searchParams }: Props) {
         )}
         <div className="td-edition-hero-copy">
 
-          <p className="td-category">{categoryLabel(category)}</p>
           <h1>
             {tournamentName(tournament.name)} <span>{year}</span>
           </h1>
@@ -161,10 +162,10 @@ export default async function Edition({ params, searchParams }: Props) {
               aria-hidden="true"
             />
             {surfaceLabel[court.surface]}
-            {court.indoor !== null && (
-              <span>· {court.indoor ? "Bajo techo" : "Al aire libre"}</span>
+            {court.indoor === true && (
+              <span>· {court.indoor ? "Bajo techo" : ""}</span>
             )}
-            <span>· {number(matches.length)} partidos registrados</span>
+            <span>· {number(matches.length)} resultados registrados</span>
           </p>
         </div>
         {photo && (

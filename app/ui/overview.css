@@ -26,99 +26,6 @@
   font-size: 14px;
   font-weight: 600;
 }
-.ds-hero-record {
-  min-height: 480px;
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  background: var(--event-tint);
-  border-radius: 32px;
-  isolation: isolate;
-  overflow: hidden;
-  animation: enter 480ms var(--ease) both;
-}
-.ds-hero-copy {
-  padding: 48px;
-  position: relative;
-  z-index: 3;
-  align-self: start;
-  max-width: 700px;
-}
-.ds-hero-context {
-  font-size: 13px;
-  color: var(--event-accent);
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  margin-bottom: 24px;
-}
-.ds-hero-copy h2 {
-  font-size: clamp(48px, 6vw, 88px);
-  letter-spacing: -0.06em;
-  color: var(--event-accent);
-  max-width: 600px;
-}
-.ds-hero-champion {
-  font: 600 clamp(24px, 3vw, 36px) / 1.1 var(--font-display);
-  margin-top: 24px;
-}
-.ds-hero-meta {
-  color: var(--ink-soft);
-  font-size: 13px;
-  margin-top: 8px;
-}
-.ds-hero-action {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--ink);
-  color: var(--bg-raised);
-  border-radius: 999px;
-  padding: 12px 24px;
-  min-height: 44px;
-  font-size: 14px;
-  font-weight: 600;
-  margin: 24px 16px 0 0;
-}
-.ds-hero-edition {
-  font-size: 13px;
-  font-weight: 600;
-  display: inline-flex;
-  padding: 12px 0;
-}
-.ds-hero-court {
-  position: absolute;
-  inset: 0 0 100px 48%;
-  z-index: -1;
-}
-.ds-hero-court > img {
-  object-fit: cover;
-}
-.ds-hero-court::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, var(--event-tint), transparent 52%);
-  pointer-events: none;
-}
-.ds-hero-court .photo-info {
-  bottom: auto;
-  top: 16px;
-}
-.ds-hero-portrait > img {
-  object-position: 50% 20%;
-}
-.ds-hero-scoreboard {
-  grid-column: 1/-1;
-  position: relative;
-  z-index: 4;
-  background: var(--bg-raised);
-  padding: 16px 32px;
-  margin: 0 24px 24px;
-  border-radius: 24px;
-  align-self: end;
-}
 .ds-archive-line {
   display: flex;
   justify-content: space-between;
@@ -254,23 +161,6 @@
 .ds-results-section,
 .ds-tour-section {
   min-width: 0;
-}
-.ds-results-list .nc-match-row {
-  grid-template-columns: 1fr auto;
-  gap: 8px 16px;
-}
-.ds-results-list .nc-row-context {
-  grid-column: 1/-1;
-}
-.ds-results-list .nc-row-round {
-  display: inline;
-}
-.ds-results-list .nc-row-duel {
-  grid-column: 1;
-}
-.ds-results-list .nc-row-result {
-  grid-column: 2;
-  max-width: 260px;
 }
 .ds-more-results {
   margin-top: 16px;
@@ -522,23 +412,8 @@
   font-size: 14px;
   font-weight: 500;
 }
-.ds-hero-fallback {
-  padding: 64px 0;
-}
 .ds-main-grid:not(:has(.ds-tour-section)) {
   grid-template-columns: 1fr;
-}
-.ds-main-grid:not(:has(.ds-tour-section)) .ds-results-list .nc-match-row {
-  grid-template-columns: 200px minmax(0, 1fr) auto;
-}
-.ds-main-grid:not(:has(.ds-tour-section)) .ds-results-list .nc-row-context {
-  grid-column: auto;
-}
-.ds-main-grid:not(:has(.ds-tour-section)) .ds-results-list .nc-row-duel {
-  grid-column: auto;
-}
-.ds-main-grid:not(:has(.ds-tour-section)) .ds-results-list .nc-row-result {
-  grid-column: auto;
 }
 @media (max-width: 1099px) {
   .ds-home-heading {
@@ -546,12 +421,6 @@
   }
   .ds-home-heading h1 span {
     display: block;
-  }
-  .ds-hero-copy {
-    padding: 32px;
-  }
-  .ds-hero-record {
-    min-height: 460px;
   }
   .ds-main-grid {
     grid-template-columns: 1fr;
@@ -595,77 +464,6 @@
     margin-top: 24px;
     padding: 12px 20px;
     font-size: 13px;
-  }
-  .ds-hero-record {
-    grid-template-columns: 1fr;
-    min-height: 0;
-    border-radius: 24px;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .ds-hero-copy {
-    padding: 24px 24px 32px;
-    min-height: 360px;
-    background: linear-gradient(90deg, var(--event-tint) 25%, transparent);
-    max-width: none;
-    align-self: stretch;
-    z-index: 2;
-  }
-  .ds-hero-context {
-    font-size: 11px;
-    margin-bottom: 24px;
-    max-width: 200px;
-    flex-wrap: wrap;
-  }
-  .ds-hero-copy h2 {
-    font-size: 48px;
-    max-width: 220px;
-  }
-  .ds-hero-champion {
-    font-size: 26px;
-    margin-top: 16px;
-    max-width: 200px;
-  }
-  .ds-hero-meta {
-    font-size: 12px;
-    max-width: 180px;
-  }
-  .ds-hero-court {
-    inset: 0 0 0 40%;
-    height: 360px;
-  }
-  .ds-hero-court::after {
-    background: linear-gradient(90deg, var(--event-tint), transparent 65%);
-  }
-  .ds-hero-court .photo-info {
-    right: 8px;
-    top: 8px;
-  }
-  .ds-hero-portrait .photo-info {
-    width: 24px;
-    height: 24px;
-    right: 4px;
-    bottom: 8px;
-  }
-  .ds-hero-action {
-    font-size: 13px;
-    padding: 12px 16px;
-    margin-right: 12px;
-  }
-  .ds-hero-edition {
-    font-size: 12px;
-    display: flex;
-    width: fit-content;
-    min-height: 44px;
-    align-items: center;
-  }
-  .ds-hero-scoreboard {
-    align-self: stretch;
-    min-width: 0;
-    margin: 0 12px 12px;
-    padding: 12px;
-    border-radius: 16px;
   }
   .ds-archive-line {
     padding-top: 16px;
@@ -788,9 +586,6 @@
   .ds-court-link strong {
     font-size: 28px;
   }
-  .ds-results-list .nc-row-result {
-    max-width: 144px;
-  }
   .ds-home-links {
     gap: 16px;
     font-size: 13px;
@@ -798,18 +593,6 @@
 }
 
 @media (max-width: 759px) {
-  .ds-main-grid:not(:has(.ds-tour-section)) .ds-results-list .nc-match-row {
-    grid-template-columns: minmax(0, 1fr) auto;
-  }
-  .ds-main-grid:not(:has(.ds-tour-section)) .ds-results-list .nc-row-context {
-    grid-column: 1/-1;
-  }
-  .ds-main-grid:not(:has(.ds-tour-section)) .ds-results-list .nc-row-duel {
-    grid-column: 1;
-  }
-  .ds-main-grid:not(:has(.ds-tour-section)) .ds-results-list .nc-row-result {
-    grid-column: 2;
-  }
   .ds-home-end {
     grid-template-columns: 1fr;
   }

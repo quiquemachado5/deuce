@@ -4,9 +4,11 @@ import type { Metadata } from "next";
 import { preparedArchive } from "@/lib/revista/read-records";
 import { playerPhoto } from "@/lib/player-imagery";
 import { normalizeText } from "@/lib/quality";
-import { lineData, number, round, score, sentence, surfaceLabel } from "@/lib/cuaderno/model";
+import { lineData, number, round, score, surfaceLabel } from "@/lib/cuaderno/model";
 import { tournamentName } from "@/lib/labels";
 import type { Match } from "@/lib/types";
+import SetScoreboard from "@/components/SetScoreboard";
+import MatchRow from "@/components/nocturno/Row";
 import GameFlow from "@/components/nocturno/GameFlow";
 
 type Query = { left?: string; right?: string; q?: string; side?: string };
@@ -47,16 +49,11 @@ function relationship(left: Match, right: Match) {
 
 function MatchIdentity({ match, position }: { match: Match; position: string }) {
   const name = winner(match), portrait = playerPhoto(name);
-  const candidate = sentence(match);
-  const sample = candidate.match(/\bde (\d+) (?:juegos|bolas)/);
-  const insight = sample && Number(sample[1]) < 3 ? "" : candidate;
   return <section className="ry-compare-identity" data-event-surface={match.surface} data-event-category={match.category} aria-label={position + ": " + matchTitle(match)}>
     <div className="ry-compare-identity-copy">
       <p className="ry-compare-ordinal">{position} · {tournamentName(match.tournament)} {match.year} · {round(match)} <span className={"ry-compare-surface ry-compare-surface--" + match.surface} aria-hidden="true" /> {surfaceLabel[match.surface]}</p>
       <h2>{matchTitle(match)}</h2>
-      <p className="ry-compare-score">{score(match)}</p>
-      <p className="ry-compare-winner">Ganador: <strong>{name}</strong></p>
-      {insight && <p className="ry-compare-sentence">{insight}</p>}
+      <SetScoreboard match={match} compact />
       <Link href={"/match/" + match.match_id} className="ry-compare-match-link">Leer el partido</Link>
     </div>
     {portrait && <div className="ry-compare-portrait"><Image src={portrait.thumbnail || portrait.src} alt={"Fotografía de " + name} fill sizes="(max-width: 759px) 80px, 190px" unoptimized /></div>}
@@ -144,7 +141,7 @@ export default async function ComparePage({ searchParams }: Props) {
       <div><h2 id="ry-compare-choice-title">Cambiar un partido</h2><p>Busca por jugador, torneo o año. El otro permanece fijo.</p></div>
       <div className="ry-compare-change"><Link href={address(left.match_id, right.match_id) + "&side=left#elegir"} aria-current={changing === "left" ? "true" : undefined}>Cambiar el primero</Link><Link href={address(left.match_id, right.match_id) + "&side=right#elegir"} aria-current={changing === "right" ? "true" : undefined}>Cambiar el segundo</Link></div>
       <form id="elegir" action="/compare" method="get" role="search"><input type="hidden" name="left" value={left.match_id}/><input type="hidden" name="right" value={right.match_id}/><input type="hidden" name="side" value={changing}/><label htmlFor="ry-compare-query">Buscar partido</label><div><input id="ry-compare-query" name="q" defaultValue={query.q || ""} type="search" placeholder="Jugador, torneo o año"/><button type="submit">Buscar</button></div></form>
-      {term && <div className="ry-compare-found"><p>{results.length ? "Resultados para «" + query.q + "»" : "Nada con ese nombre en el archivo."}</p>{results.length ? <ol>{results.map((match) => <li key={match.match_id}><Link href={changing === "left" ? address(match.match_id, right.match_id) : address(left.match_id, match.match_id)}><span>{matchTitle(match)}<small>{tournamentName(match.tournament)} · {match.year} · {round(match)}</small></span><strong>{score(match)}</strong></Link></li>)}</ol> : <Link href={address(left.match_id, right.match_id) + "&side=" + changing + "#elegir"}>Limpiar búsqueda</Link>}</div>}
+      {term && <div className="ry-compare-found"><p>{results.length ? "Resultados para «" + query.q + "»" : "Nada con ese nombre en el archivo."}</p>{results.length ? <ol>{results.map((match) => <li key={match.match_id}><MatchRow match={match} href={changing === "left" ? address(match.match_id, right.match_id) : address(left.match_id, match.match_id)} /></li>)}</ol> : <Link href={address(left.match_id, right.match_id) + "&side=" + changing + "#elegir"}>Limpiar búsqueda</Link>}</div>}
     </section>
   </main>;
 }

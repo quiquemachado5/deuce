@@ -11,6 +11,8 @@ export type CourtMedia = {
   video?: string;
   videoTitle?: string;
   source?: string;
+  fact?: string;
+  href?: string;
 };
 export default function CourtGallery({ items }: { items: CourtMedia[] }) {
   const [mode, setMode] = useState<"photos" | "videos">("photos");
@@ -40,7 +42,7 @@ export default function CourtGallery({ items }: { items: CourtMedia[] }) {
   return (
     <section className="court-gallery" aria-labelledby="court-gallery-title">
       <div className="ds-section-heading">
-        <h2 id="court-gallery-title">En pista.</h2>
+        <h2 id="court-gallery-title">La historia de cada pista.</h2>
         <div
           className="gallery-modes"
           role="group"
@@ -82,7 +84,7 @@ export default function CourtGallery({ items }: { items: CourtMedia[] }) {
               sizes="(max-width:759px) 100vw, 1200px"
             />
             <div className="court-gallery-caption" aria-live="polite">
-              <h3>{title}</h3>
+              <h3>{title}</h3>{mode === "photos" && item.fact && <p>{item.fact}</p>}{mode === "photos" && item.href && <a href={item.href}>Ver torneo y resultados</a>}
             </div>
             {mode === "videos" ? (
               <button

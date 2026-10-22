@@ -17,7 +17,7 @@ export async function GET(request: Request) {
     console.info('Daily publication: started')
     const refresh=await cloudRead('sync-status')
     if(refresh?.status!=='success'||!Number.isFinite(Date.parse(refresh.at))||Date.now()-Date.parse(refresh.at)>30*3600000)throw new Error('No recent successful provider refresh; keeping the previous publication')
-    const [{ publicationArchive }, { compileRecordSnapshot }, { publishRecordSnapshot }] = await Promise.all([
+    const [{ publicationArchive, competitionEntries, editionSourceAudit }, { compileRecordSnapshot }, { publishRecordSnapshot }] = await Promise.all([
       import('@/lib/live-tennis'),
       import('@/lib/revista/snapshot'),
       import('@/lib/revista/publish-snapshot'),
@@ -26,7 +26,7 @@ export async function GET(request: Request) {
     const remote=await cloudRead('reading-v2-manifest')
     const input=await publicationArchive()
     console.info('Daily publication: archive loaded',input.length,Math.round(process.memoryUsage().rss/1048576))
-    const snapshot = compileRecordSnapshot(input)
+    const snapshot = compileRecordSnapshot(input,new Date(),await competitionEntries(),await editionSourceAudit())
     console.info('Daily publication: compiled',Math.round(process.memoryUsage().rss/1048576))
     if (!snapshot.matches.length) throw new Error('Cannot publish an empty reading snapshot')
     assertReleaseCoverage(bundled,snapshot.manifest)

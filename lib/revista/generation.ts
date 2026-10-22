@@ -10,6 +10,7 @@ export type PreparedGeneration = GenerationStatus & {
   manifest: RecordManifest;
   matches: () => Promise<Match[]>;
   records: () => Promise<PlayerRecord[]>;
+  competition?:()=>Promise<Match[]>;
 };
 
 export function compatibleManifest(value: unknown): value is RecordManifest {
@@ -27,7 +28,7 @@ export function compatibleManifest(value: unknown): value is RecordManifest {
 export async function selectGeneration(
   bundled: PreparedGeneration,
   candidate: unknown,
-  loadRemote: (manifest: RecordManifest) => Promise<{ matches: unknown; records: unknown }>,
+  loadRemote: (manifest: RecordManifest) => Promise<{ matches: unknown; records: unknown; competition?:unknown }>,
   configured: boolean,
 ): Promise<PreparedGeneration> {
   if (!configured) return bundled;
@@ -39,13 +40,14 @@ export async function selectGeneration(
   if (!compatibleManifest(candidate)) return fallback('remote-incompatible');
   if (candidate.version === bundled.manifest.version || Date.parse(candidate.generatedAt) <= Date.parse(bundled.manifest.generatedAt)) return bundled;
   try {
-    const { matches, records } = await loadRemote(candidate);
+    const { matches, records, competition } = await loadRemote(candidate);
     if (!Array.isArray(matches) || matches.length !== candidate.matchCount || !Array.isArray(records) || !records.length) return fallback('remote-incomplete');
+    if((candidate.competitionCount||0)>0&&(!Array.isArray(competition)||competition.length!==candidate.competitionCount))return fallback('remote-incomplete');
     const rows = matches as Match[], players = records as PlayerRecord[];
     if (rows.some(match => match.data_source === 'mock') || new Set(rows.map(match => match.match_id)).size !== rows.length
       || players.reduce((sum, player) => sum + player.played, 0) !== rows.length * 2
       || !isDeepStrictEqual(summarizeDataset(rows), candidate.summary)) return fallback('remote-incomplete');
-    return { manifest: candidate, source: 'remote', matches: async () => rows, records: async () => players };
+    return { manifest: candidate, source: 'remote', matches: async () => rows, records: async () => players,competition:async()=>Array.isArray(competition)?competition:[] };
   } catch { return fallback('remote-incomplete'); }
 }
 

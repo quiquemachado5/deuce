@@ -395,20 +395,6 @@ html[data-theme="dark"] .ry-header {
 .match-history-meeting {
   margin-bottom: 16px;
 }
-.match-history-meeting .nc-match-row {
-  grid-template-columns: 1fr auto;
-  gap: 12px;
-  background: var(--bg);
-}
-.match-history-meeting .nc-row-context {
-  grid-column: 1/-1;
-}
-.match-history-meeting .nc-row-person {
-  font-size: 14px;
-}
-.match-history-meeting .nc-row-result {
-  max-width: 200px;
-}
 .match-registration {
   margin-top: 32px;
   border-top: 1px solid var(--line);
@@ -498,10 +484,6 @@ html[data-theme="dark"] .ry-header {
   opacity: 0.2;
   z-index: -1;
 }
-.nc-match-row,
-.nc-match-row:first-child,
-.nc-match-row:last-child,
-.nc-match-row:only-child,
 .rv-catalogue-row,
 .ry-tournament-directory-row,
 .ry-directory-pair-row,
@@ -687,13 +669,6 @@ html[data-theme="dark"] .ry-header {
   }
   .ry-match-history {
     padding: 20px;
-  }
-  .match-history-meeting .nc-match-row {
-    grid-template-columns: 1fr;
-  }
-  .match-history-meeting .nc-row-result {
-    max-width: 100%;
-    text-align: left;
   }
   .nc-ranking-row {
     gap: 8px;

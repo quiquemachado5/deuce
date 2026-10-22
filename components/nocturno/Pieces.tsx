@@ -2,8 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { playerPhoto } from "@/lib/player-imagery";
 import { playerSlug } from "@/lib/explore";
-import { number, score } from "@/lib/cuaderno/model";
-import { tournamentName } from "@/lib/labels";
+import MatchRow from "./Row";
+import { number } from "@/lib/cuaderno/model";
 import type { Match } from "@/lib/types";
 import type { RecordPiece, RecordRow, Era } from "@/lib/revista/records";
 export function Portrait({
@@ -114,21 +114,7 @@ export function ListPiece({
     </section>
   );
 }
-export function Proof({ match }: { match: Match }) {
-  return (
-    <Link href={`/match/${match.match_id}`} className="nc-proof">
-      <span>
-        {tournamentName(match.tournament)} · {match.year}
-      </span>
-      <span>
-        {match.player1.name}
-        <span className="nc-versus">contra</span>
-        {match.player2.name}
-      </span>
-      <strong>{score(match)}</strong>
-    </Link>
-  );
-}
+export function Proof({ match }: { match: Match }) { return <MatchRow match={match}/>; }
 export function Curiosity({
   text,
   match,

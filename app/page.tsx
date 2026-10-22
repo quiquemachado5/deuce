@@ -11,8 +11,10 @@ import TourActivity from '@/components/TourActivity';
 import PlayerAvatar from '@/components/PlayerAvatar';
 import PhotoInfo from '@/components/PhotoInfo';
 import HomeFinalScore from '@/components/HomeFinalScore';
+import ParallaxPhoto from '@/components/ParallaxPhoto';
+import HomeSeason from '@/components/HomeSeason';
 import { playerPhoto } from '@/lib/player-imagery';
-import { chronological, winnerName } from '@/lib/editorial';
+import { chronological, winnerName, roundPosition } from '@/lib/editorial';
 import { number, round } from '@/lib/cuaderno/model';
 import { tournamentName } from '@/lib/labels';
 import { courtPhoto, courtPhotos } from '@/lib/imagery';
@@ -29,16 +31,17 @@ export default async function Home() {
   ]);
   const matches = await generation.matches();
   const manifest = generation.manifest;
+  const events=tournamentDirectory(matches);
   const recent = [...matches].sort((a, b) => chronological(b, a));
   const record = (id: string) => manifest.pieces.find(piece => piece.id === id);
     const recentFinal = recent.find(match => eligibleMatch(match) && match.year <= new Date().getFullYear());
   const finalEvent = recentFinal
-    ? tournamentDirectory(matches).find(event => event.name === recentFinal.tournament)
+    ? events.find(event => event.name === recentFinal.tournament)
     : null;
 
   const heroCourt = recentFinal ? courtPhoto(recentFinal.tournament) : null;
   const heroWinner = recentFinal ? winnerName(recentFinal) : '';
-  const heroPortrait = heroWinner ? playerPhoto(heroWinner) : null;
+
   const storyIds = ['remontada-dos-sets', 'mas-juegos', 'tie-breaks', 'finales-ganadas', 'top-10', 'ganar-con-menos-puntos', 'mas-largos', 'rachas', 'victorias-temporada', 'temporadas-titulos'];
   const stories: HomeHighlight[] = storyIds.flatMap(id => {
     const piece = record(id);
@@ -74,16 +77,15 @@ export default async function Home() {
 
     <header className="ds-home-heading"><h1>El tenis, <span>en otra dimensión.</span></h1><Link href="/buscar">Encuentra un partido</Link></header>
     {recentFinal ? <section className="ds-hero-record" data-event-surface={recentFinal.surface} aria-labelledby="ds-hero-title">
+      <div className="ds-hero-visual">
+      {heroCourt && <div className="ds-hero-court"><ParallaxPhoto src={heroCourt.src} alt={heroCourt.alt}/><PhotoInfo photo={heroCourt}/></div>}
       <div className="ds-hero-copy">
-        <p className="ds-hero-context"><i className={`nc-dot nc-dot-${recentFinal.surface}`} aria-hidden="true" />{round(recentFinal)} · {recentFinal.year}</p>
+        <p className="ds-hero-context">{recentFinal.year} · {round(recentFinal)}</p>
         <h2 id="ds-hero-title">{tournamentName(recentFinal.tournament)}</h2>
-        <p className="ds-hero-champion">{heroWinner}</p>
-        <p className="ds-hero-meta">Ganador del último encuentro · {recentFinal.category}</p>
-        <Link className="ds-hero-action" href={`/match/${recentFinal.match_id}`}>Ver el partido</Link>
-        {finalEvent && <Link className="ds-hero-edition" href={`/${finalEvent.slug}/${recentFinal.year}`}>Toda la edición</Link>}
-      </div>
-      {heroCourt && <div className="ds-hero-court"><Image src={heroCourt.src} alt={heroCourt.alt} fill sizes="(max-width:759px) 100vw, 800px" priority /><PhotoInfo photo={heroCourt} /></div>}
-      {heroPortrait && <div className="ds-hero-portrait"><Image src={heroPortrait.src} alt={heroPortrait.alt} fill sizes="(max-width:759px) 160px, 320px" priority unoptimized /><PhotoInfo photo={heroPortrait} /></div>}
+        <div className="ds-hero-champion"><PlayerAvatar name={heroWinner!} size={56}/><span>{heroWinner}<small>{roundPosition(recentFinal.round)===7 ? 'Campeón' : 'Ganador del último partido'}</small></span></div>
+        <div className="ds-hero-links"><Link className="ds-hero-action" href={`/match/${recentFinal.match_id}`}>Ver el partido</Link>
+        {finalEvent && <Link className="ds-hero-edition" href={`/${finalEvent.slug}/${recentFinal.year}`}>Toda la edición</Link>}</div>
+      </div></div>
       <div className="ds-hero-scoreboard"><HomeFinalScore match={recentFinal} context="partido" /></div>
     </section> : <header className="ds-hero-fallback"><h2>Los partidos detrás de cada cifra.</h2><Link href="/records">Ver estadísticas</Link></header>}
 
@@ -126,12 +128,19 @@ export default async function Home() {
       </section>
     </div>
 
+    <HomeSeason matches={matches} />
     <CourtGallery items={[
       {title:'Centre Court · Wimbledon',photo:courtPhotos.Wimbledon.src,alt:courtPhotos.Wimbledon.alt,surface:'grass',video:'eRbTHj2KLro',videoTitle:'Sinner – Alcaraz · Wimbledon 2025',source:'https://www.youtube.com/watch?v=eRbTHj2KLro'},
       {title:'Philippe-Chatrier · 2024',photo:courtPhotos['Roland Garros'].src,alt:courtPhotos['Roland Garros'].alt,surface:'clay',video:'aERKJuBtIGw',videoTitle:'Sinner – Alcaraz · Roland Garros 2025',source:'https://www.youtube.com/watch?v=aERKJuBtIGw'},
       {title:'Hard Rock Stadium · Miami 2025',photo:courtPhotos.Miami.src,alt:courtPhotos.Miami.alt,surface:'hard'},
       {title:'Arthur Ashe · 2018',photo:courtPhotos['US Open'].src,alt:courtPhotos['US Open'].alt,surface:'hard'},
-    ]} />
+    ].map(item=>{
+      const name=item.title.startsWith('Centre')?'Wimbledon':item.title.startsWith('Philippe')?'Roland Garros':item.title.startsWith('Hard')?'Miami':'US Open';
+      const entry=events.find(e=>e.name===name);const titles=new Map<string,number>();
+      for(const m of entry?.matches||[])if(roundPosition(m.round)===7){const winner=winnerName(m);if(winner)titles.set(winner,(titles.get(winner)||0)+1);}
+      const leader=[...titles].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0],'es'))[0];
+      return {...item,fact:leader?`${leader[0]} · ${leader[1]} títulos en este torneo`:undefined,href:entry?`/torneos/${entry.slug}`:undefined};
+    })} />
     <nav className="ds-home-links" aria-label="Más formas de explorar">
       <Link href="/jugadores">Jugadores</Link><Link href="/tournaments">Torneos</Link><Link href="/comparar">Comparar jugadores</Link><Link href="/records">Todas las estadísticas</Link>
     </nav>

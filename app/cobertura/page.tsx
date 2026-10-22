@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { preparedGeneration, recordView } from "@/lib/revista/read-records";
+import { preparedGeneration, recordView, preparedEditionAudit } from "@/lib/revista/read-records";
 import ArchiveNotice from "@/components/nocturno/ArchiveNotice";
 import { number } from "@/lib/cuaderno/model";
 import { SURFACES, surfaceLabel } from "@/lib/surface";
 import { fieldCoverage } from "@/lib/field-coverage";
-import { verifiedResults } from "@/lib/verified-results";
+import { verifiedResults, australian2026Corrections } from "@/lib/verified-results";
 
 export const metadata = {
   title: "Cobertura del archivo — DEUCE",
@@ -24,6 +24,7 @@ export default async function Coverage({
   const generation = await preparedGeneration(),
     manifest = generation.manifest;
   const fields = fieldCoverage(await generation.matches());
+  const editions=await preparedEditionAudit();const pending=editions.filter(e=>e.pending>0);
   return (
     <div className="nc-wrap deuce-coverage">
       <ArchiveNotice status={generation} />
@@ -66,6 +67,7 @@ export default async function Coverage({
         récords solo consideran los encuentros con los datos necesarios. Este
         archivo no representa necesariamente toda una carrera.
       </p>
+      <section className="coverage-metric"><h2>Revisión por edición</h2><p>{number(editions.length)} ediciones revisadas. {number(pending.length)} conservan marcadores pendientes de cierre o contraste. Las retiradas y los encuentros sin jugar se presentan en las ediciones; no se suman a las estadísticas de partidos completos.</p><details><summary>Ediciones con marcadores pendientes</summary><div className="deuce-coverage-table" role="region" aria-label="Revisión de ediciones" tabIndex={0}><table><caption>Primeras 25 ediciones por temporada. «Sin final» significa que la fuente guardada no contiene esa ronda; no afirma que el torneo se cancelara.</caption><thead><tr><th scope="col">Torneo</th><th scope="col">Año</th><th scope="col">Filas de origen</th><th scope="col">Completos</th><th scope="col">Retiradas y sin jugar</th><th scope="col">Pendientes</th></tr></thead><tbody>{pending.slice(0,25).map(e=><tr key={`${e.tournament}-${e.year}-${e.category}`}><th scope="row">{e.tournament}{!e.hasFinal?' · Sin final registrada':''}</th><td>{e.year}</td><td>{number(e.sourceRows)}</td><td>{number(e.completed)}</td><td>{number(e.terminal)}</td><td>{number(e.pending)}</td></tr>)}</tbody></table></div></details></section>
       <section className="coverage-metric">
         <h2>Resultados contrastados</h2>
         <p>
@@ -80,6 +82,7 @@ export default async function Coverage({
           terminados. Algunas ediciones antiguas conservan lagunas de origen;
           un cuadro incompleto no se rellena con resultados estimados.
         </p>
+        <p>{australian2026Corrections.length} marcadores truncados de Australia 2026 se han cerrado con referencias del torneo, ATP y TNNS. Las dos semifinales, la final y la retirada de Mensik se documentan con fuentes oficiales. La API principal mantiene prioridad cuando publica el mismo encuentro; la identidad, ronda y temporada impiden duplicarlo.</p>
       </section>
       <section className="coverage-metric">
         <h2>Actualización diaria</h2>
@@ -184,6 +187,7 @@ export default async function Coverage({
           de ranking. Sin fusiones automáticas ni datos inventados.
         </p>
       </aside>
+      <h2>El color de los datos</h2><p>Los totales generales usan tinta neutra. Hierba, tierra, dura y moqueta conservan su color de superficie. En el calendario, campeón es dorado; finalista, plata; semifinal, verde azulado; cuartos, azul; octavos, violeta; tercera ronda, rosa; segunda, arena; primera, gris. Es el mismo código para todos los jugadores.</p>
       <h2>Superficies registradas</h2>
       <dl className="deuce-coverage-surfaces">
         {SURFACES.map((surface) => (

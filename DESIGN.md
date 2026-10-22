@@ -10,8 +10,8 @@ colors:
   muted: "#626b74"
   line: "#e2e6e9"
   line-strong: "#c6ced4"
-  court: "#146c52"
-  court-deep: "#e4f3eb"
+  court: "#151b20"
+  court-deep: "#ebeef0"
   grass: "#17774b"
   clay: "#aa4326"
   hard: "#2169b3"
@@ -26,8 +26,8 @@ colors:
   dark-muted: "#a2adb6"
   dark-line: "#303b44"
   dark-line-strong: "#53616c"
-  dark-court: "#8bdfb2"
-  dark-court-deep: "#203c30"
+  dark-court: "#f4f7f9"
+  dark-court-deep: "#252d34"
   dark-grass: "#88d9a8"
   dark-clay: "#f39a72"
   dark-hard: "#86bbf2"
@@ -139,13 +139,13 @@ Los valores de la cabecera son normativos; `app/ui/foundation.css` aplica el cam
 
 ### Primary
 
-- **Verde de pista** (`court`): acciones estadísticas y descubrimientos del jugador. **Bruma de pista** (`court-deep`) acompaña bloques explicativos y selección de texto.
+- **Tinta estadística** (`court`, alias de `ink`): cifras y acciones generales. El fondo asociado (`court-deep`) usa el neutro hundido; el verde se reserva para hierba y resultados definidos.
 
 ### Secondary
 
 - **Verde hierba** (`grass`), **terracota tierra** (`clay`), **azul dura** (`hard`) y **violeta moqueta** (`carpet`): identifican superficies en puntos, cifras, barras y contextos de torneo.
 - El acento de evento toma el color de su superficie; su fondo mezcla ese color al 10% con el panel elevado. La comparación usa azul para el primer jugador y terracota para el segundo. Victoria usa hierba; derrota usa `loss` en claro y terracota en oscuro. El foco usa azul dura y los errores usan `danger`.
-- El calendario del jugador reserva **oro para campeón**, **plata para finalista** y **verde azulado para semifinalista**, con fondos, tinta y bordes propios en ambos temas. Una leyenda y el resultado escrito acompañan esos colores; no describen la superficie.
+- El calendario del jugador reserva **oro para campeón**, **plata para finalista** y **verde azulado para semifinalista**, azul para cuartos, violeta para octavos, rosa para tercera ronda, arena para segunda y gris para primera, con fondos, tinta y bordes propios en ambos temas. Una leyenda y el resultado escrito acompañan esos colores; no describen la superficie.
 
 ### Neutral
 
@@ -258,3 +258,11 @@ Los marcadores son tablas: nombres a la izquierda, sets alineados y cifras tabul
 - **Don't** partir porcentajes o recortar resultados para encajarlos en una columna estrecha.
 
 <!-- Fuentes: PRODUCT.md; app/deuce.css; app/ui/*.css; components/PlayerAvatar.tsx; components/PlayerPortrait.tsx; components/PlayerFlag.tsx; components/PlayerDiscovery*.ts*; components/MatchHero.tsx; components/TournamentBracket.tsx; components/nocturno/{Frame,Reading,ReadingLine,GameFlow,RecordDiscovery,RecordsViews}.tsx; lib/{photo-style,player-photo-focus,tournament-presentation}.ts; app/records/page.tsx; app/layout.tsx. -->
+
+## Revisión de ediciones y marcadores (22 octubre 2026)
+
+Las filas compartidas muestran dos jugadores alineados con columnas de sets y total. Solo el número del set ganado toma el acento de superficie; el total ganador usa tinta invertida en una pequeña cápsula neutra. Los desempates permanecen pequeños y en línea. Las separaciones de todas las tablas son rectas; solo el extremo superior de la primera fila e inferior de la última admiten radios al pasar el puntero. Las filas aisladas conservan el panel redondo.
+
+La cabecera del partido reúne torneo, año, ronda y superficie; el estado y las acciones quedan al extremo. Cada jugador conserva un avatar circular aun sin fotografía y una bandera pequeña junto al nombre si el país está documentado. La portada usa una fotografía a todo el ancho con un desplazamiento de hasta 28px, desactivado con movimiento reducido. El pie ocupa otro material neutro y redondea sus esquinas superiores. Las cards Grand Slam llevan un borde fino dorado.
+
+La revisión visual se limita a una pasada de detección y una confirmación de correcciones. Las variaciones tipográficas contextuales y el degradado sobre fotografía se conservan para legibilidad; no se generó una segunda pasada de detector.

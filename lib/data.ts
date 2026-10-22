@@ -1,4 +1,5 @@
 import 'server-only'
+import {isCompetitionOnly,prepareCompetitionMatch} from './competition'
 import { cache } from 'react'
 import { asyncCache } from './async-cache'
 import { isDemoDataEnabled } from './data-config'
@@ -46,7 +47,7 @@ export const getMatches = cache(async (year?: number, slug?: string, summary = f
 })
 export const getMatch = cache(async (id: string): Promise<Match | undefined> => singles(id, async () => {
   const match = mock ? mockMatches.find(m => m.match_id === id) : hasArchive() ? await archiveMatch(id) : (await stored()).find(m => m.match_id === id)
-  return match ? prepareMatch(match) : undefined
+  return match ? isCompetitionOnly(match) ? prepareCompetitionMatch(match) : prepareMatch(match) : undefined
 }))
 export async function getSeasonMatches(year?: number): Promise<Match[]> { return getMatches(year) }
 export const getAnalyzableMatches = cache(async (year?: number): Promise<Match[]> => {

@@ -7,7 +7,7 @@ test("home shows a recent tournament, photography and verified discoveries", asy
   await page.goto("/");
   const hero = page.locator(".ds-hero-record");
   await expect(hero.getByRole("heading", { level: 2 })).not.toBeEmpty();
-  await expect(hero).toContainText("Ganador del último encuentro");
+  await expect(hero.locator(".ds-hero-champion")).toContainText(/Campeón|Ganador del último partido/);
   await expect(
     hero.getByRole("link", { name: "Ver el partido", exact: true }),
   ).toHaveAttribute("href", /\/match\//);
@@ -107,6 +107,14 @@ test("records have straight separators, rounded hover and opaque navigation with
   const row = page.locator(".rv-catalogue-row").first();
   await expect(row).toHaveCSS("border-bottom-left-radius", "0px");
   await row.hover();
-  expect(await row.evaluate(el => getComputedStyle(el, "::before").borderRadius)).toBe("16px");
-  expect(await row.evaluate(el => getComputedStyle(el, "::before").backgroundColor)).not.toBe("rgba(0, 0, 0, 0)");
+  await expect(row).toHaveCSS("border-top-left-radius", "24px");
+  await expect(row).toHaveCSS("border-bottom-left-radius", "0px");
+  await expect(row).not.toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
 });
+test('every match row aligns players with individual set columns and labels the early rounds',async({page})=>{
+ await page.setViewportSize({width:390,height:844});await page.goto('/match/archive-139865?vista=alrededor');const row=page.locator('.match-history-meeting .nc-match-row').first();await expect(row).toHaveCSS('display','grid');await expect(row.locator('.nc-row-round')).toContainText('ronda');await expect(row.locator('.row-score-line')).toHaveCount(3);for(let i=0;i<2;i++){const person=await row.locator('.nc-row-person').nth(i).boundingBox(),score=await row.locator('.row-score-line').nth(i+1).boundingBox();expect(Math.abs(person!.y+person!.height/2-score!.y-score!.height/2)).toBeLessThan(2)}await page.goto('/match/archive-139865');await expect(page.locator('.match-photo-initials')).toContainText('IL');await expect(page.locator('.match-contender-name .pd-country-flag')).toHaveCount(2);await expect(page.getByText('Ivan Ljubicic remontó el primer set en semifinal.',{exact:true})).toHaveCount(0);
+});
+
+test('completed Australian draw and non-played results open real detail pages',async({page})=>{await page.goto('/australian-open/2026');const picker=page.getByRole('group',{name:'Elegir ronda del cuadro'});await expect(picker.getByRole('button',{name:/^Final/})).toContainText('1');await expect(picker.getByRole('button',{name:/^Semifinal/})).toContainText('2');for(const id of ['live-37395','reference-ao-2026-mensik-withdrawal','reference-ao-2026-ms701']){const response=await page.goto('/match/'+id);expect(response?.status()).toBe(200);await expect(page.locator('.match-hero')).toBeVisible();}await expect(page.locator('.match-total')).toContainText('3–1');await page.goto('/match/reference-ao-2026-mensik-withdrawal');await expect(page.locator('.match-event-status')).toHaveText('Sin jugar');await expect(page.locator('.match-total')).toContainText('W/O');});
+
+test('sharing uses the column scoreboard and exports a real PNG',async({page})=>{await page.setViewportSize({width:390,height:844});await page.goto('/match/reference-ao-2026-ms701');await page.getByRole('button',{name:'Compartir partido',exact:true}).click();const dialog=page.getByRole('dialog',{name:'Compartir partido'});await expect(dialog.getByRole('table')).toBeVisible();await expect(dialog.getByRole('table').getByRole('rowheader')).toHaveCount(2);const download=page.waitForEvent('download');await dialog.getByRole('button',{name:/Cuadrado/}).click();const file=await download;expect(file.suggestedFilename()).toContain('1080x1080.png');expect(await file.failure()).toBeNull();await dialog.getByRole('button',{name:'Cerrar',exact:true}).click();await expect(dialog).not.toBeVisible();await expect(page.getByRole('button',{name:'Compartir partido',exact:true})).toBeFocused();});

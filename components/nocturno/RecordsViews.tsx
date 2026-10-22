@@ -1,6 +1,7 @@
 import Link from "next/link";
+import MatchRow from "./Row";
 import PlayerAvatar from '@/components/PlayerAvatar';
-import { number, round, score } from "@/lib/cuaderno/model";
+import { number } from "@/lib/cuaderno/model";
 import { tournamentName } from "@/lib/labels";
 import { playerSlug } from "@/lib/explore";
 import type { Era, RecordRow } from "@/lib/revista/records";
@@ -13,15 +14,7 @@ export function recordValue(row: RecordRow, percent = false, asYear = false) {
 export function RecordProof({ row }: { row: RecordRow }) {
   if (!row.proof) return null;
   const match = row.proof;
-  return (
-    <Link className="rv-proof" href={`/match/${match.match_id}`}>
-      <strong>
-        {tournamentName(match.tournament)} · {match.year} · {round(match)}
-      </strong>
-      <span>{match.player1.name} contra {match.player2.name}</span>
-      <span>{score(match)}</span>
-    </Link>
-  );
+  return <div className="record-proof-score"><MatchRow match={match} /></div>;
 }
 
 export function RecordRanking({

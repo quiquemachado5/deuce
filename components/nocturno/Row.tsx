@@ -1,5 +1,6 @@
 import Link from "next/link";
-import ScoreText from "@/components/ScoreText";
+import { displaySetClosed, displayTotal } from "@/lib/score-display";
+import type { CSSProperties } from "react";
 import PlayerAvatar from "@/components/PlayerAvatar";
 import type { Match } from "@/lib/types";
 import { tournamentName } from "@/lib/labels";
@@ -9,10 +10,12 @@ export default function MatchRow({
   match,
   firstPlayer,
   grouped = false,
+  href,
 }: {
   match: Match;
   firstPlayer?: string;
   grouped?: boolean;
+  href?: string;
 }) {
   const court = tournamentCourt(match);
   const reversed = firstPlayer === match.player2.name,
@@ -37,47 +40,72 @@ export default function MatchRow({
   const context = `${tournamentName(match.tournament)} · ${match.year} · ${round(match)}`;
   return (
     <Link
-      href={`/match/${match.match_id}`}
+      href={href || `/match/${match.match_id}`}
       className={`nc-match-row${grouped ? " nc-row-grouped" : ""}`}
       data-event-surface={court.surface}
       data-event-category={match.category}
       aria-label={`${context}. ${players[0].name} contra ${players[1].name}. ${result}. Ganador: ${winner}`}
     >
       <span className="nc-row-context">
-        {grouped ? (
-          round(match)
-        ) : (
-          <>
-            <i
-              className={`nc-dot nc-dot-${court.surface}`}
-              aria-hidden="true"
-            />
-            {tournamentName(match.tournament)} · {match.year}
-            <span className="nc-row-round">
-              {" "}
-              · {round(match)}
-              {match.category.startsWith("Precursores") ? " · Precursor" : ""}
-            </span>
-          </>
-        )}
+        <span>
+          <i className={`nc-dot nc-dot-${court.surface}`} aria-hidden="true" />
+          {tournamentName(match.tournament)} · {match.year}
+        </span>
+        <span className="nc-row-round">
+          {round(match)}
+          {/retired|abandoned/i.test(match.status)
+            ? " · Abandono"
+            : /walkover|cancelled/i.test(match.status)
+              ? " · Sin jugar"
+              : ""}
+          {match.category.startsWith("Precursores") ? " · Precursor" : ""}
+        </span>
       </span>
       <span className="nc-row-duel">
-        <span
-          className={`nc-row-person ${players[0].name === winner ? "nc-row-winner" : "nc-row-loser"}`}
-        >
-          <PlayerAvatar name={players[0].name} size={28} />
-          {players[0].name}
-        </span>
-        <span className="nc-row-contra">contra</span>
-        <span
-          className={`nc-row-person ${players[1].name === winner ? "nc-row-winner" : "nc-row-loser"}`}
-        >
-          <PlayerAvatar name={players[1].name} size={28} />
-          {players[1].name}
-        </span>
+        {players.map((player) => (
+          <span
+            key={player.name}
+            className={`nc-row-person ${player.name === winner ? "nc-row-winner" : "nc-row-loser"}`}
+          >
+            <PlayerAvatar name={player.name} size={28} />
+            <span>{player.name}</span>
+          </span>
+        ))}
       </span>
-      <span className="nc-row-result" title={result}>
-        <ScoreText value={result} />
+      <span
+        className="nc-row-result"
+        aria-hidden="true"
+        style={{ "--score-count": games.length } as CSSProperties}
+      >
+        <span className="row-score-line row-score-labels">
+          {games.map((_, i) => (
+            <span key={i}>{i + 1}</span>
+          ))}
+          <span>Sets</span>
+        </span>
+        {players.map((player, side) => (
+          <span
+            className="row-score-line"
+            key={player.name}
+            data-winner={player.name === winner}
+          >
+            {games.map((set, i) => {
+              const won =
+                displaySetClosed(match, i) && set[side] > set[1 - side];
+              return (
+                <span key={i} data-won={won}>
+                  {set[side]}
+                  {set[side] < set[1 - side] && tieBreaks[i] && (
+                    <small>({tieBreaks[i]})</small>
+                  )}
+                </span>
+              );
+            })}
+            <strong className="row-score-total">
+              {displayTotal(match, reversed ? 1 - side : side)}
+            </strong>
+          </span>
+        ))}
       </span>
     </Link>
   );

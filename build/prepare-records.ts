@@ -10,7 +10,8 @@ async function main(){
   let previousCount=0;
   try{previousCount=JSON.parse(gunzipSync(await readFile('data/reading/manifest.json.gz')).toString()).matchCount||0;}catch{}
   assertPublishableArchive(matches,previousCount);
-  const snapshot=compileRecordSnapshot(matches);
+  const {competitionEntries,editionSourceAudit}=await import('../lib/live-tennis');
+  const snapshot=compileRecordSnapshot(matches,new Date(),await competitionEntries(),await editionSourceAudit());
   if(process.env.VERCEL_ENV==='production'){
     const {cloudClient,cloudRead}=await import('../lib/cloud-archive');
     if(!cloudClient())throw new Error('Production release requires the configured remote archive');

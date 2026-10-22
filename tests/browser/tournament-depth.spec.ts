@@ -25,7 +25,7 @@ test("Madrid uses clay today and preserves indoor hard for its 2007 Masters edit
   const madridCard = page.locator('.ry-photo-tournament-tile[href="/torneos/madrid"]');
   await expect(madridCard).toHaveAttribute("data-event-surface", "clay");
   await expect(madridCard).toContainText("Tierra");
-  await expect(madridCard).toContainText("Al aire libre");
+  await expect(madridCard).not.toContainText("Al aire libre");
   await expectSurfaceColour(madridCard, "clay");
 
   await madridCard.click();
@@ -33,7 +33,7 @@ test("Madrid uses clay today and preserves indoor hard for its 2007 Masters edit
   const current = page.locator(".td-tournament");
   await expect(current).toHaveAttribute("data-event-surface", "clay");
   await expect(current.locator(".td-hero-court")).toContainText("Tierra");
-  await expect(current.locator(".td-hero-court")).toContainText("Al aire libre");
+  await expect(current.locator(".td-hero-court")).not.toContainText("Al aire libre");
 
   await page.goto("/madrid/2007?categoria=Masters%201000");
   const historical = page.locator(".td-edition");

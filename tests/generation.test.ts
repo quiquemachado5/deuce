@@ -19,7 +19,7 @@ test('bounded serialization and incremental hash preserve the exact snapshot for
   const json=JSON.stringify(after.matches);
   assert.equal(gunzipSync(await compressedJson(after.matches)).toString(),json);
   const m=after.manifest;
-  assert.equal(m.version,createHash('sha256').update(JSON.stringify([m.schema,m.rulesVersion,m.generatedAt.slice(0,10),after.matches])).digest('hex').slice(0,20));
+  assert.equal(m.version,createHash('sha256').update(JSON.stringify([m.schema,m.rulesVersion,m.generatedAt.slice(0,10),after.matches,after.competition,after.audit])).digest('hex').slice(0,20));
 });
 
 test('a complete remote generation supplies manifest, matches and players together', async () => {

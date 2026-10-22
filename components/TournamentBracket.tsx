@@ -1,4 +1,5 @@
 import Link from "next/link";
+import {displaySetClosed} from "@/lib/score-display";
 import PlayerAvatar from "./PlayerAvatar";
 import TournamentRounds from "./TournamentRounds";
 import { roundLabel, roundPosition, winnerName } from "@/lib/editorial";
@@ -29,9 +30,9 @@ export default function TournamentBracket({ matches }: { matches: Match[] }) {
               <PlayerAvatar name={player.name} size={28} />
               <span>{player.name}{match.winner === index + 1 && <span className="nc-sr"> · Ganador</span>}</span>
               <span className="td-bracket-sets" aria-hidden="true">{match.score_summary.games.map((games, set) =>
-                <b key={set} data-set-winner={games[index] > games[1 - index]}>{games[index]}</b>)}</span>
+                <b key={set} data-set-winner={displaySetClosed(match,set)&&games[index] > games[1 - index]}>{games[index]}{games[index]<games[1-index]&&score(match).split(", ")[set]?.match(/\((\d+)\)/)?.[1]&&<small>({score(match).split(", ")[set].match(/\((\d+)\)/)![1]})</small>}</b>)}</span>
             </span>)}
-            <span className="td-bracket-result">{onPath ? "Camino del campeón" : "Resultado"}<strong>{score(match)}</strong></span>
+            <span className="td-bracket-result">{onPath ? "Camino del campeón" : "Resultado"}<span>{/retired|abandoned/i.test(match.status)?"Abandono":/walkover|cancelled/i.test(match.status)?"Sin jugar":"Finalizado"}</span></span>
           </Link>
         </li>;
       })}

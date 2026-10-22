@@ -7,6 +7,7 @@ import { loadMissingDetails } from './archive-detail-batches'
 import { archiveGet, archiveReadFailure } from './archive-get'
 import { enrichmentPlan } from './enrichment-plan'
 import { activityFixtures } from './tour-activity'
+import {reconcileSeasonResults} from './result-refresh'
 import { detailRefreshPlan } from './detail-refresh-plan'
 
 export type ArchiveRow = Record<string, any>
@@ -149,26 +150,18 @@ export async function refreshCloudArchive() {
     }
     const year = new Date().getUTCFullYear()
     const old = await cloudRead(`season-${year}`)
-    const last = old?.at ? new Date(old.at).getTime() : 0
-    const from = last && old?.scope === 'atp-main-v1'
-      ? new Date(Math.max(Date.UTC(year, 0, 1), last - 7 * 86400000)).toISOString().slice(0, 10)
-      : `${year}-01-01`
-    const rows: ArchiveRow[] = []
-    let offset = 0
-    for (;;) {
-      const page = await request(`/history/matches?tour=atp&draw=singles&tier=grand_slam,atp_1000,atp_500,atp_250&from=${from}&to=${year}-12-31&limit=200&offset=${offset}`)
-      if (!Array.isArray(page.data) || !page.meta) throw new Error('Unexpected tennis list response')
-      rows.push(...page.data)
-      if (!page.meta.has_more) break
-      const step = Number(page.meta.limit)
-      if (!Number.isFinite(step) || step <= 0) throw new Error('Invalid pagination from provider')
-      offset += step
+    const seasonsRefreshed:number[]=[]
+    let rows:ArchiveRow[]=[],data:ArchiveRow[]=[]
+    // Migrate every saved modern season once. Afterwards, poll result restatements
+    // across all years as well as the current fixture window.
+    for(const season of [year,...Array.from({length:Math.max(0,year-2023)},(_,i)=>2023+i)]){
+      const previous=season===year?old:await cloudRead(`season-${season}`)
+      const refreshed=await reconcileSeasonResults(season,year,previous,request)
+      const fresh=refreshed.fresh,complete=refreshed.data
+      await cloudWrite(`season-${season}`,{data:complete,scope:refreshed.scope,at:refreshed.at})
+      seasonsRefreshed.push(season)
+      if(season===year){rows=fresh;data=complete}
     }
-    const merged = new Map<string, ArchiveRow>((old?.data || []).map((row: ArchiveRow) => [String(row.id), row]))
-    for (const row of rows) merged.set(String(row.id), row)
-    const data = [...merged.values()]
-    // Publish only a complete set of pages; keep the prior snapshot if any request fails.
-    await cloudWrite(`season-${year}`, { data, scope: 'atp-main-v1', at: new Date().toISOString() })
     const activity: ReturnType<typeof activityFixtures> = []
     let activityComplete=true
     for(const status of ['live','upcoming'] as const){
@@ -213,7 +206,7 @@ export async function refreshCloudArchive() {
       if(row.kind==='archive')historicalAdded++;else archiveRecentAdded++
     }
     cache.delete('detail-index')
-    const result = { status: 'success', at: new Date().toISOString(), year, matches: data.length, updated: rows.length, detailsAdded, detailsRefreshed, historicalAdded, archiveRecentAdded, calls, activityFixtures:activity.length }
+    const result = { status: 'success', at: new Date().toISOString(), year, matches: data.length, updated: rows.length, seasonsRefreshed, detailsAdded, detailsRefreshed, historicalAdded, archiveRecentAdded, calls, activityFixtures:activity.length }
     await cloudWrite('sync-status', result)
     return result
   } catch (error) {
