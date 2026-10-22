@@ -135,7 +135,8 @@
 .rd-discovery-fact .rd-discovery-definition { margin-top: 8px; color: var(--ink-soft); font-size: 16px; }
 .rd-discovery-actions .rd-discovery-primary { padding: 10px 18px; border-radius: 999px; background: var(--ink); color: var(--bg-raised); text-decoration: none; }
 .rd-discovery-portrait { display: grid; grid-template-rows: 1fr auto; }
-.rd-discovery-portrait > img { position: relative !important; min-height: 460px; }
+.rd-discovery-photo { position: relative; min-height: 460px; overflow: hidden; }
+.rd-discovery-photo img { object-fit: cover; }
 .rd-discovery-portrait figcaption { position: static; display: block; padding: 10px 14px; color: var(--muted); background: var(--bg-raised); font-size: 11px; }
 .rd-discovery-portrait figcaption a { text-decoration: underline; text-underline-offset: 2px; }
 
@@ -233,7 +234,8 @@
   .season-archive-all-years > div { left: 0; right: auto; }
   .rv-records .rv-family-nav { top: 76px; margin-inline: -16px; padding-inline: 16px; }
   .rv-era-row .rv-catalogue-leader { padding-left: 0; }
-  .rd-discovery-portrait > img { min-height: 340px; }
+  .rd-discovery-portrait { height: auto; min-height: 0; }
+  .rd-discovery-photo { height: 260px; min-height: 0; }
   .ry-directory-title-row { align-items: flex-start; }
   .ry-directory-modes { width: 100%; }
   .ry-directory-modes a { flex: 1; text-align: center; }

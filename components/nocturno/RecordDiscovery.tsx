@@ -83,13 +83,13 @@ export default function RecordDiscovery({
         </button>
       </div>
       <figure className="rd-discovery-portrait" key={fact.photo.src}>
-        <Image
+        <div className="rd-discovery-photo"><Image
           src={fact.photo.src}
           alt={fact.photo.alt}
           fill
           style={{ objectPosition: fact.photo.objectPosition }}
           sizes="(max-width: 759px) calc(100vw - 32px), (max-width: 1099px) 38vw, 440px"
-        />
+        /></div>
         <figcaption>{fact.photo.credit} · <a href={fact.photo.source} target="_blank" rel="noreferrer">Fuente</a>{fact.photo.licenseUrl && <> · <a href={fact.photo.licenseUrl} target="_blank" rel="noreferrer">Licencia</a></>}</figcaption>
       </figure>
     </section>
