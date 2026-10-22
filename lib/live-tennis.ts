@@ -1,4 +1,5 @@
 import 'server-only'
+import {mergeEditionReferences,editionReferenceMatches} from './verified-editions'
 import {isCompetitionOnly,prepareCompetitionMatch} from './competition'
 import { pointPosition } from './point-position'
 import { closedSet,prepareMatch,eligibleMatch } from './quality'
@@ -334,7 +335,7 @@ async function readArchiveMatches(year?: number, summary = false): Promise<Match
     const rows = (level === 'A' ? dedupeArchiveTourRows(source) : source).filter(row => !/^Q[1-4]$/.test(row.round || ''))
     return Promise.all(rows.map(async row => historical(row, summary ? undefined : await readSavedDetail('archive', String(row.id)), summary)))
   })())
-  return (await Promise.all(tasks)).flat()
+  return mergeEditionReferences((await Promise.all(tasks)).flat(),year)
 }
 /** Reads only detail files already stored locally; never calls the provider. */
 export function archiveDetailedMatches(year?: number): Promise<Match[]> {
@@ -363,6 +364,7 @@ async function matchIndex(): Promise<Record<string, string>> {
   return indexPromise
 }
 export async function archiveMatch(id: string): Promise<Match | undefined> {
+  const reference=editionReferenceMatches.find(m=>m.match_id===id);if(reference)return reference
   const matchId = id.match(/^(live|archive)-(\d+)$/)
   if (!matchId) return undefined
   const kind = matchId[1] === 'live' ? 'modern' : 'archive'
@@ -424,9 +426,9 @@ export async function bundledEnrichmentCandidates(): Promise<import('./enrichmen
 
 /** Terminal draw entries are visible in editions but never enter statistical rankings. */
 export async function competitionEntries():Promise<Match[]> {
- const years=Array.from({length:Math.max(0,new Date().getUTCFullYear()-2022)},(_,i)=>2023+i);
- const source=(await Promise.all(years.map(year=>archiveMatches(year,true)))).flat();
- return source.filter(m=>isCompetitionOnly(m)).map(prepareCompetitionMatch);
+ const entries:Match[]=[];
+ for(let year=1968;year<=new Date().getUTCFullYear();year++)for(const match of await readArchiveMatches(year,true))if(isCompetitionOnly(match))entries.push(prepareCompetitionMatch(match));
+ return entries;
 }
 
 export async function editionSourceAudit(){const {auditEditions}=await import('./edition-audit');const result=[];for(let year=1968;year<=new Date().getUTCFullYear();year++)result.push(...auditEditions(await readArchiveMatches(year,true)));return result.sort((a,b)=>b.year-a.year||b.pending-a.pending||a.tournament.localeCompare(b.tournament,'es'));}

@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { cache } from "react";
-import { preparedArchive } from "@/lib/revista/read-records";
+import { preparedArchive, preparedMatch } from "@/lib/revista/read-records";
 import Reading, { ReadingHead } from "@/components/nocturno/Reading";
 import ReadingLine from "@/components/nocturno/ReadingLine";
 import ComparePicker from "@/components/nocturno/Compare";
@@ -27,7 +27,7 @@ type Props = {
 // Reading it first keeps cold navigations off the slower provider archive path.
 const pageMatch = cache(async (id: string) => {
   const matches = await preparedArchive();
-  const match = matches.find((item) => item.match_id === id);
+  const match = matches.find((item) => item.match_id === id) || await preparedMatch(id);
   return { match, matches };
 });
 

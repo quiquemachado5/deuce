@@ -108,7 +108,7 @@ export const recordView=cache(async(encoded:string,recomputed=false):Promise<Rec
 export const preparedArchive = cache(async (): Promise<Match[]> => {
  return (await preparedGeneration()).matches();
 });
-export const preparedMatch = cache(async (id:string) => archiveIndex(await preparedArchive()).ids.get(id));
+export const preparedMatch = cache(async (id:string) => {const g=await preparedGeneration();return archiveIndex(await g.matches()).ids.get(id) || (await g.competition?.())?.find(m=>m.match_id===id);});
 
 /** Matches and player aggregates always come from the same published generation. */
 export const preparedPlayerArchive = cache(async () => {

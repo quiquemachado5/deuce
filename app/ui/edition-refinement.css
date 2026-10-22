@@ -811,3 +811,22 @@
 /* History links retain the shared grid rather than a generic block-link rule. */
 .ry-match-history .nc-match-row {display:grid}.ry-match-history>div {background:none;padding:0}.ry-match-history .nc-match-around>section{background:none;padding:0;margin-top:24px}.ry-match-history .nc-match-around h2{margin-bottom:20px}.match-contender-name{flex-wrap:nowrap;align-items:baseline}.match-name-text{min-width:0}
 @media(max-width:759px){.match-hero-scene{display:grid;grid-template-columns:minmax(0,1fr) auto;height:auto;min-height:180px;gap:8px 12px}.match-hero-event{display:contents}.match-hero-event>a{grid-column:1;grid-row:1;min-width:0}.match-hero-event .match-event-meta{grid-column:1/-1;grid-row:2;white-space:nowrap;flex-wrap:nowrap;margin-top:0}.match-hero-actions{grid-column:2;grid-row:1}.match-contender-name{font-size:14px;align-items:flex-start}.match-name-text{line-height:1.3}.home-months span{font-size:10px}.home-months small{font-size:10px}}
+
+/* The same matrix also serves champions, proof cards and comparison. */
+.td-champions li { background:var(--bg-raised); border-radius:24px; overflow:hidden; }
+.td-champions li > a { height:auto; border-radius:0; }
+.td-champions .set-scoreboard { padding:0 16px 16px; }
+.td-champions .set-scoreboard th a { display:inline; padding:0; background:none; border-radius:0; font:inherit; }
+.td-champions .set-scoreboard table { min-width:0; }
+.td-champions .set-scoreboard th:first-child { width:auto; }
+.td-champions .set-scoreboard td,.td-champions .set-scoreboard th { padding:8px 4px; font-size:11px; }
+.td-champions .set-scoreboard .set-game { font-size:16px; }
+.td-champions .set-scoreboard .set-total strong { font-size:16px; width:24px; height:24px; }
+.ry-compare-identity-copy { min-width:0; }
+.ry-compare-identity .set-scoreboard { margin-top:20px; }
+.ry-compare-found a.nc-match-row { display:grid; border-radius:0; }
+.ry-compare-found .nc-row-context,.ry-compare-found .nc-row-person { display:flex; }
+.ry-compare-found .nc-row-context { flex-direction:column; }
+.record-proof-score { min-width:0; }
+.record-proof-score .nc-match-row { height:100%; }
+.ry-share-preview .set-scoreboard > div { display:block; }

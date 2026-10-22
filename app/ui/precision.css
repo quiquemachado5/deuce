@@ -1,5 +1,6 @@
 /* Shared score and measured comparisons. No cell or row carries a winning fill. */
 .set-scoreboard {
+  position: relative;
   width: 100%;
   min-width: 0;
   overflow-x: auto;

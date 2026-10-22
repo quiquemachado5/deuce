@@ -124,3 +124,8 @@ test("edition audit distinguishes incomplete source results and walkovers withou
   assert.equal(displayTotal(wo, 0), "W/O");
   assert.equal(displayTotal(wo, 1), "—");
 });
+import {archiveMatches} from '../lib/live-tennis';
+import {prepareMatch} from '../lib/quality';
+import {editionReferenceMatches,mergeEditionReferences} from '../lib/verified-editions';
+test('Australian Open 2026 has every round: 120 closed matches, six retirements and the documented Mensik walkover',async()=>{const rows=(await archiveMatches(2026,true)).filter(m=>m.tournament==='Australian Open'&&m.category==='Grand Slam');const [audit]=auditEditions(rows);assert.equal(rows.length,127);assert.equal(new Set(rows.map(m=>m.match_id)).size,127);assert.equal(audit.completed,120);assert.equal(audit.terminal,7);assert.equal(audit.pending,0);assert.deepEqual(audit.rounds,{'1':64,'2':32,'3':16,'4':8,'5':4,'6':2,'7':1});const final=rows.map(prepareMatch).find(m=>m.round==='Final')!;assert.equal(final.final_score,'2–6 6–2 6–3 7–5');assert.equal(final.player1.name,'Carlos Alcaraz');assert.equal(final.winner,1);assert.match(final.context?.resultSource||'',/ausopen.com/);assert.deepEqual(final.point_tape,[]);});
+test('a reference never duplicates a subsequently supplied provider contest',()=>{const final=editionReferenceMatches.find(m=>m.round==='Final')!;const provider={...final,match_id:'live-123456',data_source:'api' as const};const result=mergeEditionReferences([provider],2026);assert.equal(result.filter(m=>m.round==='Final').length,1);assert.equal(result.find(m=>m.round==='Final')?.match_id,provider.match_id);});

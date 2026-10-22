@@ -22,7 +22,7 @@ export default function SetScoreboard({
   return (
     <div
       className={`set-scoreboard${compact ? " set-scoreboard-compact" : ""}`}
-      role="region"
+      role={compact ? "group" : "region"}
       aria-label="Marcador por sets"
       tabIndex={0}
     >

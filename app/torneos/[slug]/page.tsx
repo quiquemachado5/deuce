@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
+import SetScoreboard from "@/components/SetScoreboard";
 import { notFound } from "next/navigation";
 import { Info } from "lucide-react";
 import { courtPhoto } from "@/lib/imagery";
-import { number, score, surfaceLabel } from "@/lib/cuaderno/model";
+import { number, surfaceLabel } from "@/lib/cuaderno/model";
 import { preparedArchive } from "@/lib/revista/read-records";
 import { firstRecordedChampion } from "@/lib/revista/records";
 import { tournamentName } from "@/lib/labels";
@@ -199,10 +200,8 @@ export default async function Tournament({ params, searchParams }: Props) {
                     <PlayerAvatar name={champion} size={64} />
                     <strong>{champion}</strong>
                     <span>Final ante {opponent}</span>
-                    <small>
-                      Desde {final.player1.name}: {score(final)}
-                    </small>
                   </Link>
+                  <SetScoreboard match={final} compact />
                 </li>
               );
             })}

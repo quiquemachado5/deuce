@@ -10,10 +10,12 @@ export default function MatchRow({
   match,
   firstPlayer,
   grouped = false,
+  href,
 }: {
   match: Match;
   firstPlayer?: string;
   grouped?: boolean;
+  href?: string;
 }) {
   const court = tournamentCourt(match);
   const reversed = firstPlayer === match.player2.name,
@@ -38,7 +40,7 @@ export default function MatchRow({
   const context = `${tournamentName(match.tournament)} · ${match.year} · ${round(match)}`;
   return (
     <Link
-      href={`/match/${match.match_id}`}
+      href={href || `/match/${match.match_id}`}
       className={`nc-match-row${grouped ? " nc-row-grouped" : ""}`}
       data-event-surface={court.surface}
       data-event-category={match.category}

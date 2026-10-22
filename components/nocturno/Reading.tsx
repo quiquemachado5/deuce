@@ -327,7 +327,7 @@ export default function Reading({
           )}
           <details className="match-registration" id="registro">
             <summary>Información de este registro</summary>
-            {match.context?.resultSource && <p>Marcador contrastado con la <a href={match.context.resultSource} target="_blank" rel="noreferrer">fuente oficial del torneo</a>.</p>}
+            {match.context?.resultSource && <p>Marcador contrastado con la <a href={match.context.resultSource} target="_blank" rel="noreferrer">fuente de referencia</a>.</p>}
             <h2>Registro del partido</h2>
             <p>{tapeState(match)}</p>
             <p>
