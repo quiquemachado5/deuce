@@ -18,7 +18,9 @@ export default function MatchRow({
   href?: string;
 }) {
   const court = tournamentCourt(match);
-  const reversed = firstPlayer === match.player2.name,
+  const winner = match.winner === 1 ? match.player1.name : match.winner === 2 ? match.player2.name : "";
+  const leadingPlayer = firstPlayer || winner || match.player1.name;
+  const reversed = leadingPlayer === match.player2.name,
     players = reversed
       ? [match.player2, match.player1]
       : [match.player1, match.player2];
@@ -36,7 +38,7 @@ export default function MatchRow({
         )
         .join(", ")
     : score(match);
-  const winner = match.winner === 1 ? match.player1.name : match.player2.name;
+  const columns = Array.from({ length: 5 }, (_, index) => index);
   const context = `${tournamentName(match.tournament)} · ${match.year} · ${round(match)}`;
   return (
     <Link
@@ -75,13 +77,13 @@ export default function MatchRow({
       <span
         className="nc-row-result"
         aria-hidden="true"
-        style={{ "--score-count": games.length } as CSSProperties}
+        style={{ "--score-count": 5 } as CSSProperties}
       >
         <span className="row-score-line row-score-labels">
-          {games.map((_, i) => (
+          {columns.map((i) => (
             <span key={i}>{i + 1}</span>
           ))}
-          <span>Sets</span>
+          <span>Total</span>
         </span>
         {players.map((player, side) => (
           <span
@@ -89,7 +91,9 @@ export default function MatchRow({
             key={player.name}
             data-winner={player.name === winner}
           >
-            {games.map((set, i) => {
+            {columns.map((i) => {
+              const set = games[i];
+              if (!set) return <span className="row-score-empty" aria-hidden="true" key={i}>—</span>;
               const won =
                 displaySetClosed(match, i) && set[side] > set[1 - side];
               return (
@@ -128,18 +132,20 @@ export function Pagination({
   href: (page: number) => string;
 }) {
   const pages = Math.max(1, Math.ceil(total / 25));
+  if (pages <= 1) return null;
+  const numbered = [...new Set([1, page - 2, page - 1, page, page + 1, page + 2, pages])]
+    .filter((value) => value >= 1 && value <= pages)
+    .sort((a, b) => a - b);
   return (
     <nav className="nc-pagination" aria-label="Páginas de resultados">
       {page > 1 && <Link href={href(page - 1)}>Anterior</Link>}
-      <span>
-        Página {number(page)} de {number(pages)}
+      <span className="nc-pagination-pages">
+        {numbered.map((value, index) => <span key={value}>
+          {index > 0 && value - numbered[index - 1] > 1 && <span className="nc-pagination-gap" aria-hidden="true">…</span>}
+          {value === page ? <strong aria-current="page" aria-label={`Página ${value}, actual`}>{number(value)}</strong> : <Link href={href(value)} aria-label={`Ir a la página ${value}`}>{number(value)}</Link>}
+        </span>)}
       </span>
-      {page < pages && (
-        <>
-          <Link href={href(page + 1)}>Siguiente</Link>
-          <Link href={href(pages)}>Última</Link>
-        </>
-      )}
+      {page < pages && <Link href={href(page + 1)}>Siguiente</Link>}
     </nav>
   );
 }

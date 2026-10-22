@@ -6,5 +6,8 @@ const tournaments: Record<string, string> = {
   Canada: 'Canadá',
   Shanghai: 'Shanghái',
   Paris: 'París',
+  'Lyon (France)': 'Lyon',
+  Brussels: 'Bruselas',
+  Tokyo: 'Tokio',
 }
 export function tournamentName(name: string) { return tournaments[name] || name }

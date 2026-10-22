@@ -79,6 +79,7 @@ export function tournamentCategory(entry: TournamentEntry) {
 export function categoryLabel(category: string) {
   if (category === "Precursores de Masters") return "Precursores · antes de 1990";
   if (category === "ATP Tour histórico") return "ATP Tour histórico";
+  if (category === "ATP Tour · nivel no especificado") return "Otros torneos ATP";
   return category;
 }
 

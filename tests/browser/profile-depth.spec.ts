@@ -198,7 +198,7 @@ test("mobile comparison keeps the selected pair visible while editing a rival an
     ),
     dock.getByRole("button", { name: "Comparar", exact: true }).click(),
   ]);
-  await expect(page.locator(".dx-compare-cards h2")).toHaveText([
+  await expect(page.locator(".dx-comparison-players strong")).toHaveText([
     "Novak Djokovic",
     "Roger Federer",
   ]);

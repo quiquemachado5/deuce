@@ -1,6 +1,6 @@
 .searchPage{min-width:0;max-width:1180px;padding-block:40px 96px}
 .heading{margin:0 0 24px}
-.heading h1{margin:0;font-family:var(--font-display);font-size:clamp(42px,5vw,60px);font-weight:600;line-height:1.05;letter-spacing:-.03em}
+.heading h1{margin:0;font-family:var(--font-display);font-size:clamp(34px,4vw,48px);font-weight:650;line-height:1.05;letter-spacing:-.03em}
 .searchPage :global(.nc-filters){display:block;margin:0;padding:0;border:0;border-radius:0;background:none}
 .searchBar{display:flex;align-items:center;gap:12px;min-height:64px;padding:7px 8px 7px 18px;border:1px solid transparent;border-radius:var(--field-radius);background:var(--bg-sunken);transition:border-color 180ms ease}
 .searchBar:focus-within{border-color:var(--focus)}
@@ -27,7 +27,9 @@
 .filterGrid :global(.nc-field select:hover){border-color:var(--line-strong)}
 .fiveSets{grid-column:1/-1;display:inline-flex;align-items:center;gap:10px;min-height:44px;width:fit-content;color:var(--ink);font-size:14px;font-weight:400;cursor:pointer}
 .fiveSets input{flex:none;width:19px;height:19px;margin:0;padding:0;accent-color:var(--ink)}
-.selection{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:32px;padding-bottom:14px;border-bottom:1px solid var(--line);color:var(--ink-soft);font-size:14px}
+.selection{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:24px;padding-bottom:14px;border-bottom:1px solid var(--line);color:var(--ink-soft);font-size:14px}
+.selection>div{display:flex;align-items:center;flex-wrap:wrap;gap:12px}.selection strong{color:var(--ink)}
+.activeChips{display:flex;flex-wrap:wrap;gap:6px}.activeChips>span{padding:6px 10px;border-radius:999px;background:var(--bg-sunken);color:var(--ink-soft);font-size:11px}
 .selection a,.empty a{flex:none;color:var(--ink);font-weight:600;text-decoration:underline;text-decoration-color:var(--line-strong);text-underline-offset:4px}
 .selection a:hover,.empty a:hover{text-decoration-color:var(--ink)}
 .suggestions,.matches{margin-top:64px}
@@ -43,11 +45,14 @@
 .resultsHead>span{color:var(--muted);font-size:13px;white-space:nowrap}
 .matches :global(.nc-match-row:hover){background:var(--bg-raised)}
 .empty{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:32px 0;color:var(--ink-soft);font-size:15px}
+.seasonIndex{margin-top:48px;border-top:1px solid var(--line)}
+.seasonIndex>summary{padding:20px 0;font-weight:650}.seasonIndex>summary::after{float:none}
+.seasonIndex :global(.season-archive){margin-top:8px}
 @media(max-width:1099px){.filterGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:759px){
 .searchPage{padding-block:24px 72px}
 .heading{margin-bottom:20px}
-.heading h1{font-size:clamp(38px,10vw,50px)}
+.heading h1{font-size:36px}
 .searchBar{gap:8px;min-height:64px;padding:5px 6px 5px 13px}
 .searchBar>svg{width:18px;height:18px}
 .searchBar :global(.nc-field) input{height:44px;font-size:16px}
@@ -63,5 +68,6 @@
 .suggestions,.matches{margin-top:44px}
 .suggestionGroups{grid-template-columns:1fr;gap:24px}
 .empty{display:grid}
+.selection{align-items:flex-start}.selection>div{display:grid}.activeChips{gap:5px}
 }
 @media(prefers-reduced-motion:reduce){.searchBar,.filters>summary>svg{transition:none}}

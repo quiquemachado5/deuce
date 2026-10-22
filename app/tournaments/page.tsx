@@ -12,7 +12,7 @@ import {
   tournamentDirectory,
   type TournamentEntry,
 } from "@/lib/tournament-directory";
-import { roundPosition } from "@/lib/editorial";
+import { chronological, roundPosition, winnerName } from "@/lib/editorial";
 import { Pagination } from "@/components/nocturno/Row";
 
 type Query = { categoria?: string; page?: string };
@@ -56,20 +56,23 @@ function PhotoGroup({ category, entries }: { category: string; entries: Tourname
   const withoutPhoto = entries.filter((entry) => !withPhoto.includes(entry));
   if (!entries.length) return null;
   return <section className="nc-section ry-photo-tournament-group" id={calendar ? "temporada" : category === "Grand Slam" ? "grand-slams" : "masters"} data-event-category={category}>
-    <div className="ry-tournament-list-heading"><h2>{calendar ? "De Australia a París" : category === "Grand Slam" ? "Grand Slams" : "Masters 1000"}</h2><span>{number(entries.length)} torneos</span></div>
+    <div className="ry-tournament-list-heading"><h2>{calendar ? "Grand Slams y Masters 1000" : category === "Grand Slam" ? "Grand Slams" : "Masters 1000"}</h2><span>{number(entries.length)} torneos</span></div>
     {withPhoto.length > 0 && <div className={`ry-photo-tournament-grid${category === "Grand Slam" ? " ry-photo-slams" : ""}`}>
       {withPhoto.map((entry, index) => {
         const photo = courtPhoto(entry.name)!;
         const selected = entry.matches.filter((match) => calendar ? ["Grand Slam","Masters 1000"].includes(match.category) : match.category === category);
         const finals = selected.filter((match) => roundPosition(match.round) === 7).length;
         const court = latestTournamentCourt(selected);
+        const latestFinal = [...selected].filter((match) => roundPosition(match.round) === 7).sort(chronological).at(-1);
+        const champion = latestFinal ? winnerName(latestFinal) : "";
         return <Link className="ry-photo-tournament-tile" href={`/torneos/${entry.slug}`} key={entry.slug}
-          title={`${photo.caption || photo.alt} · ${photo.credit}`} data-event-surface={court.surface} data-event-category={entry.categories.includes("Grand Slam") ? "Grand Slam" : category}>
+          data-event-surface={court.surface} data-event-category={entry.categories.includes("Grand Slam") ? "Grand Slam" : category}>
           <span className="ry-photo-tournament-image"><Image src={photo.src} alt={photo.alt} fill priority={category === "Grand Slam" && index < 2}
             loading={category === "Grand Slam" && index < 2 ? "eager" : "lazy"}
             sizes={category === "Grand Slam" ? "(max-width: 759px) calc(100vw - 32px), (max-width: 1099px) 45vw, 43vw" : "(max-width: 759px) calc(100vw - 32px), (max-width: 1099px) 45vw, 29vw"} /></span>
-          <span className="ry-photo-tournament-copy"><strong>{tournamentName(entry.name)}</strong>
-            <span><i className={`nc-dot nc-dot-${court.surface}`} aria-hidden="true" />{surfaceLabel[court.surface]}{court.indoor === true && " · Bajo techo"} · {calendar ? (entry.categories.includes("Grand Slam") ? "Grand Slam" : "Masters 1000") : `${number(finals)} finales`}</span>
+          <span className="ry-photo-tournament-copy">{entry.categories.includes("Grand Slam") && <span className="ry-photo-tournament-tag">Grand Slam</span>}<strong>{tournamentName(entry.name)}</strong>
+            <span><i className={`nc-dot nc-dot-${court.surface}`} aria-hidden="true" />{surfaceLabel[court.surface]}{court.indoor === true && " · Bajo techo"}{!calendar && ` · ${number(finals)} finales`}</span>
+            {champion && <small>Campeón {latestFinal!.year}: {champion}</small>}
           </span>
         </Link>;
       })}

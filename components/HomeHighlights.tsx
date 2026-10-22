@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import { ArrowRight, RefreshCw } from "lucide-react";
 
 export type HomeHighlight = {
   id: string;
@@ -23,6 +24,7 @@ export default function HomeHighlights({
   const [selected, setSelected] = useState(0);
   if (!slides.length) return null;
   const current = slides[selected];
+  const supporting = slides.filter((story) => story.id !== current.id).slice(0, 6);
   const valueParts = current.value.match(/^([\d.,]+)\s+(.+)$/);
   return (
     <section className="ds-stories" aria-labelledby="ds-stories-title">
@@ -75,15 +77,15 @@ export default function HomeHighlights({
             )
           }
         >
-          Otro dato <span aria-hidden="true">↻</span>
+          Otro dato <RefreshCw size={16} aria-hidden="true" />
         </button>
       </div>
       <div className="ds-stories-list">
-        {slides.slice(0, 6).map((story) => (
+        {supporting.map((story) => (
           <Link className="ds-story" href={story.href} key={story.id}>
             <span className="ds-story-title">{story.title}</span>
             <strong>{story.value}</strong>
-            <span className="ds-story-person">{story.name}</span>
+            <span className="ds-story-person">{story.name}<ArrowRight size={16} aria-hidden="true" /></span>
           </Link>
         ))}
       </div>

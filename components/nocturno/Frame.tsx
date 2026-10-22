@@ -254,6 +254,7 @@ function applyTheme(theme: Theme) {
 export default function Frame({ children }: { children: React.ReactNode }) {
   const path = usePathname();
   const active = pageLabel(path);
+  const pageOwnsSearch = path === "/buscar" || path === "/partidos" || path === "/jugadores";
   const menu = useRef<HTMLDialogElement>(null);
   const search = useRef<HTMLDialogElement>(null);
   const searchField = useRef<HTMLInputElement>(null);
@@ -382,9 +383,9 @@ export default function Frame({ children }: { children: React.ReactNode }) {
             </div>
             <NavSection active={active} mode="desktop" />
             <div className="ry-header-actions">
-              <button
+              {!pageOwnsSearch && <button
                 className="ry-search-trigger"
-                aria-label="Buscar en DEUCE"
+                aria-label="Buscar en todo DEUCE"
                 aria-haspopup="dialog"
                 aria-controls="ry-search-dialog"
                 aria-expanded={activeDialog === "search"}
@@ -393,8 +394,8 @@ export default function Frame({ children }: { children: React.ReactNode }) {
                 onClick={(event) => open("search", event.currentTarget)}
               >
                 <Search size={16} strokeWidth={1.6} aria-hidden="true" />
-                <span>Jugador, torneo o dato</span>
-              </button>
+                <span>Buscar en todo DEUCE</span>
+              </button>}
               <button
                 className="ry-icon-button ry-menu-trigger"
                 type="button"
@@ -415,7 +416,7 @@ export default function Frame({ children }: { children: React.ReactNode }) {
         <footer className="ry-footer">
           <div className="deuce-footer-top">
             <Link href="/" className="deuce-footer-brand" aria-label="DEUCE, volver al inicio">DEUCE</Link>
-            <nav className="deuce-footer-navigation" aria-label="Archivo"><Link href="/partidos">Partidos</Link><Link href="/records">Estadísticas</Link><Link href="/jugadores">Jugadores</Link><Link href="/tournaments">Torneos</Link></nav>
+            <nav className="deuce-footer-navigation" aria-label="Archivo"><Link href="/partidos">Partidos</Link><Link href="/records">Estadísticas</Link><Link href="/jugadores">Jugadores</Link><Link href="/tournaments">Torneos</Link><Link href="/comparar">Comparar</Link></nav>
           </div>
           <div className="ry-footer-inner">
             <nav aria-label="Información">
@@ -434,7 +435,7 @@ export default function Frame({ children }: { children: React.ReactNode }) {
                   }
                 }}
               >
-                Tema
+                Tema: {theme === "system" ? "Sistema" : theme === "dark" ? "Oscuro" : "Claro"}
               </summary>
               <div
                 className="ry-theme-options"
@@ -497,7 +498,7 @@ export default function Frame({ children }: { children: React.ReactNode }) {
         onKeyDown={trapFocus}
       >
         <div className="ry-dialog-header">
-          <h2 id="ry-search-title">Buscar</h2>
+          <h2 id="ry-search-title">Buscar en todo DEUCE</h2>
           <button
             className="ry-icon-button"
             type="button"
@@ -526,7 +527,7 @@ export default function Frame({ children }: { children: React.ReactNode }) {
                 close();
               }
             }}
-            placeholder="Jugador, torneo o dato"
+            placeholder="Jugador, torneo, edición o estadística"
             autoComplete="off"
           />
         </form>

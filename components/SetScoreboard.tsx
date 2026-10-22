@@ -45,7 +45,7 @@ export default function SetScoreboard({
                 Set {i + 1}
               </th>
             ))}
-            <th scope="col">Sets</th>
+            <th scope="col">Total</th>
           </tr>
         </thead>
         <tbody>

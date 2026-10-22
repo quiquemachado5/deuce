@@ -13,12 +13,13 @@ test('comparison preserves cohort, exposes denominator and handles unknown playe
   await page.goto('/comparar');
   await page.locator('select[name=year]').selectOption('2019');
   await page.locator('select[name=surface]').selectOption('clay');
-  await page.getByRole('button',{name:'Comparar jugadores'}).click();
+  await page.getByRole('button',{name:'Actualizar comparación'}).click();
   await expect(page).toHaveURL(/year=2019.*surface=clay/);
-  await expect(page.locator('.dx-player-card')).toHaveCount(2);
-  await expect(page.locator('.dx-player-card').first()).toContainText('de');
+  await expect(page.locator('.dx-comparison-players > a')).toHaveCount(2);
+  await expect(page.locator('.dx-comparison-context')).toContainText('Temporada 2019');
+  await expect(page.locator('.dx-shared-metric-row')).toHaveCount(6);
   await page.locator('input[name=a]').fill('Nobody In This Archive');
-  await page.getByRole('button',{name:'Comparar jugadores'}).click();
+  await page.getByRole('button',{name:'Actualizar comparación'}).click();
   await expect(page.getByRole('status')).toContainText('No hay resultados');
 });
 for(const colorScheme of ['light','dark'] as const) test(`redesign accessibility and layout: ${colorScheme}`,async({page})=>{

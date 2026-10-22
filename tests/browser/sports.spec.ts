@@ -17,9 +17,8 @@ test("home shows a recent tournament, photography and verified discoveries", asy
     name: "Siempre hay otro dato.",
   });
   await expect(discoveries.locator(".ds-story")).toHaveCount(6);
-  await expect(discoveries.locator(".ds-story").first()).toContainText(
-    "Andy Murray",
-  );
+  const featuredName = await discoveries.locator(".ds-discovery-copy h3").innerText();
+  await expect(discoveries.locator(".ds-story").filter({ hasText: featuredName })).toHaveCount(0);
   const initial = await discoveries
     .locator(".ds-discovery-copy")
     .getAttribute("data-discovery-id");
@@ -100,9 +99,10 @@ test("match measures compare actual values without a redundant replay or filled 
   const audit = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa", "best-practice"]).analyze();
   expect(audit.violations).toEqual([]);
 });
-test("records have straight separators, rounded hover and opaque navigation without sticky categories", async ({ page }) => {
+test("records have straight separators, rounded hover and a visible family navigation", async ({ page }) => {
   await page.goto("/records");
-  await expect(page.locator(".rv-family-nav")).toHaveCSS("position", "static");
+  await expect(page.locator(".rv-family-nav")).toHaveCSS("position", "sticky");
+  await expect(page.locator(".rv-family-nav [aria-current=location]")).toHaveCount(1);
   await expect(page.locator(".ry-header")).toHaveCSS("backdrop-filter", "none");
   const row = page.locator(".rv-catalogue-row").first();
   await expect(row).toHaveCSS("border-bottom-left-radius", "0px");

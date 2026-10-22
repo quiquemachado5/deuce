@@ -1,12 +1,11 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { Match } from "@/lib/types";
 import { tournamentDirectory } from "@/lib/tournament-directory";
 import { calendarOrder } from "@/lib/presentation-calendar";
-import { courtPhoto } from "@/lib/imagery";
 import { tournamentName } from "@/lib/labels";
-import { number } from "@/lib/cuaderno/model";
-import { editionTournamentCourt } from "@/lib/tournament-presentation";
+import { number, surfaceLabel } from "@/lib/cuaderno/model";
+import { tournamentCourt } from "@/lib/tournament-presentation";
+import { chronological, roundPosition, winnerName } from "@/lib/editorial";
 import { Pagination } from "./nocturno/Row";
 
 export default function SeasonArchive({
@@ -43,6 +42,10 @@ export default function SeasonArchive({
             {value}
           </Link>
         ))}
+        <details className="season-archive-all-years">
+          <summary>Más años</summary>
+          <div>{years.slice(6).map((value) => <Link key={value} href={`/buscar?year=${value}`} aria-current={year === value ? "page" : undefined}>{value}</Link>)}</div>
+        </details>
       </nav>
       {!entries.length && (
         <p className="season-archive-empty">
@@ -51,34 +54,25 @@ export default function SeasonArchive({
         </p>
       )}
       <div className="season-archive-grid">
-        {entries.slice((current - 1) * 25, current * 25).map((entry, index) => {
-          const photo = courtPhoto(entry.name);
-          const court = editionTournamentCourt(entry.matches);
+        {entries.slice((current - 1) * 25, current * 25).map((entry) => {
+          const court = tournamentCourt(entry.matches[0]);
+          const final = [...entry.matches].filter((match) => roundPosition(match.round) === 7).sort(chronological).at(-1);
+          const champion = final ? winnerName(final) : "";
+          const category = entry.categories.find((value) => value !== "ATP Tour · nivel no especificado");
           return (
             <Link
               key={entry.slug}
-              className={`season-event${photo ? " season-event-photo" : ""}`}
+              className="season-event"
               href={`/buscar?year=${year}&tournament=${entry.slug}`}
               data-event-surface={court.surface}
             >
-              {photo && (
-                <Image
-                  src={photo.src}
-                  alt={photo.alt}
-                  fill
-                  priority={index === 0}
-                  sizes="(max-width:759px) 100vw, (max-width:1099px) 50vw, 400px"
-                />
-              )}
               <span className="season-event-category">
-                {entry.categories[0]}
+                <i className={`nc-dot nc-dot-${court.surface}`} aria-hidden="true" />{surfaceLabel[court.surface]}{category ? ` · ${category}` : ""}
               </span>
               <span className="season-event-name">
                 {tournamentName(entry.name)}
               </span>
-              <span className="season-event-count">
-                {number(entry.matches.length)} partidos
-              </span>
+              <span className="season-event-count">{champion ? `Campeón: ${champion}` : "Campeón no registrado"} · {number(entry.matches.length)} partidos</span>
             </Link>
           );
         })}
@@ -87,7 +81,7 @@ export default function SeasonArchive({
         <Pagination
           page={current}
           total={entries.length}
-          href={(value) => `/buscar?year=${year}&page=${value}`}
+          href={(value) => `/buscar?year=${year}&editions=${value}`}
         />
       )}
     </section>

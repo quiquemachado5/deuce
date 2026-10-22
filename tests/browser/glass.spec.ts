@@ -10,7 +10,8 @@ test("navigation merges rivals into players and the match index browses editions
     nav.getByRole("link", { name: "Cara a cara", exact: true }),
   ).toHaveCount(0);
   await expect(page.locator(".season-event")).not.toHaveCount(0);
-  await expect(page.locator(".nc-match-row")).toHaveCount(0);
+  await expect(page.locator(".nc-match-row")).toHaveCount(25);
+  await page.getByText("Explorar campeonatos por temporada", { exact: true }).click();
   await page.locator(".season-event").first().click();
   await expect(page.locator(".match-year")).toHaveCount(1);
   await expect(page.locator(".match-edition[open]")).not.toHaveCount(0);
@@ -48,12 +49,8 @@ test("gallery, official videos and surface comparisons are interactive", async (
   const old = await gallery.locator("h3").innerText();
   await gallery.getByRole("button", { name: "Imagen siguiente" }).click();
   await expect(gallery.locator("h3")).not.toHaveText(old);
-  await gallery.getByRole("button", { name: "Ampliar fotografía" }).click();
-  await expect(page.getByRole("dialog")).toBeVisible();
-  await page.keyboard.press("Escape");
-  await expect(
-    gallery.getByRole("button", { name: "Ampliar fotografía" }),
-  ).toBeFocused();
+  await expect(gallery.getByRole("button", { name: "Ampliar fotografía" })).toHaveCount(0);
+  await expect(gallery.getByRole("link", { name: "Ver torneo y resultados" })).toBeVisible();
   await gallery.getByRole("button", { name: "Vídeos", exact: true }).click();
   await expect(gallery.locator("iframe")).toHaveCount(0);
   await gallery.getByRole("button", { name: /Reproducir/ }).click();

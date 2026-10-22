@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight, Play, X, Maximize2 } from "lucide-react";
+import { useState } from "react";
+import { ChevronLeft, ChevronRight, Play } from "lucide-react";
 
 export type CourtMedia = {
   title: string;
@@ -18,17 +18,6 @@ export default function CourtGallery({ items }: { items: CourtMedia[] }) {
   const [mode, setMode] = useState<"photos" | "videos">("photos");
   const [selected, setSelected] = useState(0);
   const [playing, setPlaying] = useState(false);
-  const dialog = useRef<HTMLDialogElement>(null);
-  const previousOverflow = useRef("");
-  const opened = useRef(false);
-  useEffect(
-    () => () => {
-      if (opened.current)
-        document.body.style.overflow = previousOverflow.current;
-    },
-    [],
-  );
-  const opener = useRef<HTMLButtonElement>(null);
   const available = items.filter((item) => mode === "photos" || item.video);
   const item = available[selected % available.length];
   if (!item) return null;
@@ -95,22 +84,7 @@ export default function CourtGallery({ items }: { items: CourtMedia[] }) {
               >
                 <Play size={28} fill="currentColor" aria-hidden="true" />
               </button>
-            ) : (
-              <button
-                type="button"
-                ref={opener}
-                className="gallery-expand"
-                aria-label="Ampliar fotografía"
-                onClick={() => {
-                  previousOverflow.current = document.body.style.overflow;
-                  opened.current = true;
-                  document.body.style.overflow = "hidden";
-                  dialog.current?.showModal();
-                }}
-              >
-                <Maximize2 size={20} aria-hidden="true" />
-              </button>
-            )}
+            ) : null}
           </>
         )}
       </div>
@@ -140,35 +114,6 @@ export default function CourtGallery({ items }: { items: CourtMedia[] }) {
           </button>
         </div>
       </div>
-      <dialog
-        ref={dialog}
-        className="court-gallery-dialog"
-        aria-label={title}
-        onClose={() => {
-          document.body.style.overflow = previousOverflow.current;
-          opened.current = false;
-          opener.current?.focus();
-        }}
-        onClick={(event) => {
-          if (event.target === event.currentTarget) dialog.current?.close();
-        }}
-      >
-        <button
-          type="button"
-          aria-label="Cerrar fotografía"
-          onClick={() => dialog.current?.close()}
-        >
-          <X size={24} aria-hidden="true" />
-        </button>
-        <Image
-          src={item.photo}
-          alt={item.alt}
-          width={1440}
-          height={960}
-          sizes="100vw"
-        />
-        <p>{title}</p>
-      </dialog>
     </section>
   );
 }

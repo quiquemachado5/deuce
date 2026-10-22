@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { ArrowRight, Shuffle, Info } from "lucide-react";
+import { ArrowRight, Shuffle } from "lucide-react";
 
 export type RecordDiscoveryFact = {
   id: string;
@@ -55,15 +55,13 @@ export default function RecordDiscovery({
           aria-live="polite"
           aria-atomic="true"
         >
-          <h2>
-            <span>{fact.name}</span>
-            <strong>{fact.value}</strong>
-            {fact.statement}
-          </h2>
+          <strong className="rd-discovery-value">{fact.value}</strong>
+          <h2>{fact.name}</h2>
+          <p className="rd-discovery-definition">{fact.statement}</p>
           <p>{fact.context}</p>
         </div>
         <div className="rd-discovery-actions">
-          <Link href={fact.href}>
+          <Link className="rd-discovery-primary" href={fact.href}>
             Explorar el dato <ArrowRight size={17} aria-hidden="true" />
           </Link>
           {fact.proofHref && <Link href={fact.proofHref}>Ver un partido</Link>}
@@ -85,29 +83,14 @@ export default function RecordDiscovery({
         </button>
       </div>
       <figure className="rd-discovery-portrait" key={fact.photo.src}>
-        <Image
+        <div className="rd-discovery-photo"><Image
           src={fact.photo.src}
           alt={fact.photo.alt}
           fill
           style={{ objectPosition: fact.photo.objectPosition }}
           sizes="(max-width: 759px) calc(100vw - 32px), (max-width: 1099px) 38vw, 440px"
-        />
-        <figcaption>
-          <details>
-            <summary aria-label="Información de la fotografía">
-              <Info size={18} aria-hidden="true" />
-            </summary>
-            <p>{fact.photo.credit}</p>
-            <a href={fact.photo.source} target="_blank" rel="noreferrer">
-              Fuente
-            </a>
-            {fact.photo.licenseUrl && (
-              <a href={fact.photo.licenseUrl} target="_blank" rel="noreferrer">
-                Licencia
-              </a>
-            )}
-          </details>
-        </figcaption>
+        /></div>
+        <figcaption>{fact.photo.credit} · <a href={fact.photo.source} target="_blank" rel="noreferrer">Fuente</a>{fact.photo.licenseUrl && <> · <a href={fact.photo.licenseUrl} target="_blank" rel="noreferrer">Licencia</a></>}</figcaption>
       </figure>
     </section>
   );

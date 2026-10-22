@@ -32,7 +32,13 @@ const normalizedPhotos = new Map(
   Object.entries(playerPhotos).map(([name, photo]) => [normalizeName(name), photo]),
 )
 
+// These archival crops do not remain legible at avatar or hero sizes. The UI
+// deliberately falls back to high-contrast initials until a better licensed
+// portrait is curated.
+const initialsPreferred = new Set(['Jimmy Connors', 'Roger Federer', 'Ivan Lendl', 'John McEnroe'])
+
 export function playerPhoto(name: string): Photo | null {
+  if (initialsPreferred.has(name)) return null
   const photo = playerPhotos[name] || normalizedPhotos.get(normalizeName(name))
   if (!photo) return null
   return {
