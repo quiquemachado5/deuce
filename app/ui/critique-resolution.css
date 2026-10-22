@@ -167,7 +167,8 @@
 .ry-photo-tournament-image { aspect-ratio: 16/10; height: auto; }
 .ry-photo-slams .ry-photo-tournament-image { aspect-ratio: 16/10; height: auto; }
 .ry-photo-tournament-image img { object-position: center; }
-.ry-photo-tournament-tag { width: fit-content; padding: 5px 9px; border: 1px solid color-mix(in srgb, var(--gold) 58%, var(--line)); border-radius: 999px; color: var(--gold) !important; font-size: 10px !important; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
+.ry-photo-tournament-tag { width: fit-content; padding: 5px 9px; border: 1px solid color-mix(in srgb, var(--gold) 58%, var(--line)); border-radius: 999px; color: #805a13 !important; font-size: 10px !important; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
+html[data-theme="dark"] .ry-photo-tournament-tag { color: var(--gold) !important; }
 .ry-photo-tournament-tile[data-event-category="Grand Slam"] { border: 1px solid color-mix(in srgb, var(--gold) 55%, var(--line)); }
 
 /* Comparison: one shared table, then one balanced sample per player. */

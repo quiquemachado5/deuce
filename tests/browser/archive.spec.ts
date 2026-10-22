@@ -21,7 +21,7 @@ test('overview is real, versioned and matches the public coverage page', async (
 
 test('global search finds tournaments, editions and a player with a typo', async ({ page }) => {
   await page.goto('/');
-  const trigger = page.getByRole('button', { name: 'Buscar en DEUCE', exact: true });
+  const trigger = page.getByRole('button', { name: 'Buscar en todo DEUCE', exact: true });
   await trigger.click();
   const input = page.locator('#ry-search-query');
   await input.fill('Wimbledon');

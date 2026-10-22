@@ -4,7 +4,7 @@ test("la búsqueda y el menú móvil devuelven el foco al cerrarse", async ({ pa
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/info");
 
-  const searchButton = page.getByRole("button", { name: "Buscar en DEUCE" });
+  const searchButton = page.getByRole("button", { name: "Buscar en todo DEUCE" });
   await searchButton.click();
   await expect(page.locator("#ry-search-dialog")).toBeVisible();
   await expect(page.locator("#ry-search-query")).toBeFocused();
