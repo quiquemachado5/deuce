@@ -8,6 +8,7 @@ import { compileRecordSnapshot } from '../lib/revista/snapshot';
 import { selectGeneration, generationMetadata, type PreparedGeneration } from '../lib/revista/generation';
 import { decodeCloudBlob } from '../lib/revista/read-records';
 import { assertReleaseCoverage } from '../lib/revista/release-check';
+import { asyncCache } from '../lib/async-cache';
 
 const matches = mockMatches.map(match => ({ ...match, data_source: 'api' as const }));
 const before = compileRecordSnapshot(matches.slice(0, 2), new Date('2026-10-20T08:00:00Z'));
@@ -67,6 +68,16 @@ test('compressed cloud reads require every chunk and respect a bounded wait', as
   assert.equal(await decodeCloudBlob(payload, async index => index ? undefined : { chunk: encoded.slice(0, cut) }), undefined);
   assert.equal(await decodeCloudBlob({ gzip: 'corrupt' }, async () => null), undefined);
   assert.equal(await decodeCloudBlob(payload, async () => new Promise(() => {}), 5), undefined);
+});
+
+test('a transient generation failure expires immediately while a healthy result is reused',async()=>{
+  let loads=0;
+  const generations=asyncCache<{healthy:boolean}>(1000,1,result=>result.healthy?1000:0);
+  const load=async()=>({healthy:++loads>1});
+  assert.equal((await generations('active',load)).healthy,false);
+  assert.equal((await generations('active',load)).healthy,true);
+  assert.equal((await generations('active',load)).healthy,true);
+  assert.equal(loads,2);
 });
 
 test('release gate rejects losses of published matches or measured coverage', () => {

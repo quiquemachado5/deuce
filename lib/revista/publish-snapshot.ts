@@ -52,7 +52,10 @@ export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotSt
   const {manifest,pieces,eras,matches,players,competition,audit}=snapshot;
   const published=await storage.read('reading-v2-manifest');
   assertPublishableArchive(matches,(published as RecordManifest|undefined)?.matchCount);
-  if(published&&typeof published==='object'&&isDeepStrictEqual(publishedGeneration(published as RecordManifest),publishedGeneration(manifest)))return;
+  if(published&&typeof published==='object'&&isDeepStrictEqual(publishedGeneration(published as RecordManifest),publishedGeneration(manifest))){
+    if(Date.parse(manifest.generatedAt)>Date.parse((published as RecordManifest).generatedAt))await storage.write('reading-v2-manifest',manifest);
+    return;
+  }
   async function* artifacts():AsyncGenerator<[string,unknown]> {
     for(const [id,piece] of Object.entries(pieces))yield* compressedPages(id,piece);
     for(const [id,value] of [['eras',eras],['matches',matches],['players',players],['competition',competition],['audit',audit]] as const)yield* await compressedBlob(id,value);
