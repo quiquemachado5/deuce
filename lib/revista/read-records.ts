@@ -55,10 +55,26 @@ export async function decodeCloudBlob<T>(payload:unknown,part:(index:number)=>Pr
  }catch{return undefined;}finally{if(timeout)clearTimeout(timeout);}
 }
 async function cloudBlob<T>(version:string,id:string):Promise<T|undefined>{
- const deadline=Date.now()+6000,remaining=()=>Math.max(1,deadline-Date.now());
+ const deadline=Date.now()+25000,remaining=()=>Math.max(1,deadline-Date.now());
  const row=await query(key(version,id),'payload',remaining());
  if(!row?.payload||Date.now()>=deadline)return undefined;
- return decodeCloudBlob<T>(row.payload,async index=>(await query(key(version,`${id}-chunk${index}`),'payload',remaining()))?.payload,remaining());
+ const index=row.payload as {encoding?:unknown;chunks?:unknown};
+ if(index.encoding!=='gzip-chunks')return decodeCloudBlob<T>(row.payload,async()=>undefined,remaining());
+ if(!Number.isInteger(index.chunks)||Number(index.chunks)<1||Number(index.chunks)>256)return undefined;
+ const db=cloudClient();if(!db)return undefined;
+ const keys=Array.from({length:Number(index.chunks)},(_,i)=>key(version,`${id}-chunk${i}`));
+ const groups=Array.from({length:Math.ceil(keys.length/8)},(_,i)=>keys.slice(i*8,i*8+8));
+ try{
+  const rows=await Promise.all(groups.map(async group=>{
+   const {data,error}=await db.from('deuce_archive_objects').select('key,payload').in('key',group).abortSignal(AbortSignal.timeout(remaining()));
+   if(error||!data||data.length!==group.length)throw new Error('Incomplete snapshot blob');
+   return data;
+  }));
+  const parts=new Map(rows.flat().map(part=>[part.key,part.payload]));
+  const decoded=await decodeCloudBlob<T>(row.payload,async part=>parts.get(keys[part]),remaining());
+  if(decoded===undefined)console.warn('Snapshot blob decode failed:',id);
+  return decoded;
+ }catch(error){console.warn('Snapshot blob read failed:',id,error instanceof Error?error.message:'unknown');return undefined;}
 }
 /** Request path only reads prepared data. No archive ingestion or tape analysis for unfiltered lists. */
 export const recordView=cache(async(encoded:string,recomputed=false):Promise<RecordView>=>{
