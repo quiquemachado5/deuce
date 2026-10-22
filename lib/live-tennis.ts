@@ -13,6 +13,8 @@ import { createLimiter } from './concurrency'
 import { cloudRead, cloudDetails } from './cloud-archive'
 import { modernTournamentCategory, historicalTournamentCategory } from './tournament-tier'
 import { dedupeArchiveTourRows } from './archive-tour-dedupe'
+import { recoveredModernResult } from './modern-result'
+import { reconcileEditionSummaries } from './edition-reconcile'
 
 const archive = join(process.cwd(), 'data', 'archive')
 const listsDir = join(archive, 'lists')
@@ -262,8 +264,7 @@ function tapePoints(detail: Row | undefined): Point[] {
   return points
 }
 function modern(row: Row, detail?: Row, summary = false): Match {
-  // The season snapshot is the canonical result; a cached detail may predate a correction.
-  const source = row
+  const source = recoveredModernResult(row, detail)
   const games = gamesFromScore(source.score?.games)
   const year = Number(String(source.scheduled_time || source.created_at || '').slice(0, 4)) || 2026
   return {
@@ -271,8 +272,8 @@ function modern(row: Row, detail?: Row, summary = false): Match {
     category: ['Australian Open','Roland Garros','Wimbledon','US Open'].includes(tournamentName(row.tournament||'')) ? 'Grand Slam' : modernTournamentCategory(row.tier), year,
     player1: player(1, row.players?.p1?.name, null), player2: player(2, row.players?.p2?.name, null),
     score_summary: { sets: source.score?.sets || [], games, points: source.score?.points || [], server: source.score?.server ?? null, is_tiebreak: !!source.score?.is_tiebreak, win_probability_p1: source.score?.win_probability_p1 ?? null, timestamp: source.scheduled_time || `${year}-01-01T00:00:00Z` },
-    final_score: games.map(([a, b], i) => { const end = detail?.tape?.find((p: Row) => Array.isArray(p.tiebreak_final) && gamesFromScore(p.games)[i]?.[0] === a && gamesFromScore(p.games)[i]?.[1] === b && gamesFromScore(p.games).length === i + 1); return `${a}–${b}${end && Math.max(a,b) === 7 && Math.min(a,b) === 6 ? `(${Math.min(...end.tiebreak_final)})` : ''}` }).join(' '), round: roundName(row.round_code || ''), winner: row.winner === 1 || row.winner === 2 ? row.winner : null,
-    status: row.outcome === 'completed' ? 'Finished' : row.outcome === 'retired' ? 'Retired' : row.outcome || row.status || 'Finished',
+    final_score: games.map(([a, b], i) => { const end = detail?.tape?.find((p: Row) => Array.isArray(p.tiebreak_final) && gamesFromScore(p.games)[i]?.[0] === a && gamesFromScore(p.games)[i]?.[1] === b && gamesFromScore(p.games).length === i + 1); return `${a}–${b}${end && Math.max(a,b) === 7 && Math.min(a,b) === 6 ? `(${Math.min(...end.tiebreak_final)})` : ''}` }).join(' '), round: roundName(row.round_code || ''), winner: source.winner === 1 || source.winner === 2 ? source.winner : null,
+    status: source.outcome === 'completed' ? 'Finished' : source.outcome === 'retired' ? 'Retired' : source.outcome || row.status || 'Finished',
     point_tape: summary ? [] : tapePoints(detail), statistics: summary ? [] : modernStats(detail),
     raw_fixture: summary ? undefined : detail || row, raw_point_tape: summary ? undefined : detail?.tape,
     data_source: 'api', coverage: summary ? 'Solo resultado' : detail?.tape?.length ? 'Puntos documentados' : detail ? 'Estadísticas disponibles' : 'Solo resultado',
@@ -396,9 +397,8 @@ export async function publicationArchive():Promise<Match[]> {
   const years=[...Array.from({length:Math.max(0,new Date().getUTCFullYear()-2022)},(_,i)=>2023+i),...Array.from({length:55},(_,i)=>1968+i)]
   const result:Match[]=[]
   for(const year of years){
-    const [summaries,details]=await Promise.all([readArchiveMatches(year,true),readArchiveDetailedMatches(year)])
-    const byId=new Map(details.map(prepareMatch).filter(eligibleMatch).map(m=>[m.match_id,m]))
-    for(const row of summaries){const m=prepareMatch(row);if(eligibleMatch(m))result.push(byId.get(m.match_id)||m)}
+    const [summaries,details]=await Promise.all([readArchiveMatches(year,true),archiveDetailedMatches(year)])
+    for(const row of reconcileEditionSummaries(summaries,details)){const m=prepareMatch(row);if(eligibleMatch(m))result.push(m)}
   }
   return result
 }
@@ -431,4 +431,11 @@ export async function competitionEntries():Promise<Match[]> {
  return entries;
 }
 
-export async function editionSourceAudit(){const {auditEditions}=await import('./edition-audit');const result=[];for(let year=1968;year<=new Date().getUTCFullYear();year++)result.push(...auditEditions(await readArchiveMatches(year,true)));return result.sort((a,b)=>b.year-a.year||b.pending-a.pending||a.tournament.localeCompare(b.tournament,'es'));}
+export async function editionSourceAudit(){
+ const {auditEditions}=await import('./edition-audit');const result=[];
+ for(let year=1968;year<=new Date().getUTCFullYear();year++){
+  const [summaries,details]=await Promise.all([readArchiveMatches(year,true),archiveDetailedMatches(year)]);
+  result.push(...auditEditions(reconcileEditionSummaries(summaries,details)));
+ }
+ return result.sort((a,b)=>b.year-a.year||b.pending-a.pending||a.tournament.localeCompare(b.tournament,'es'));
+}

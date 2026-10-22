@@ -1,0 +1,762 @@
+[
+  {
+    "id": "miami-2026-ms065",
+    "first": "Joao Fonseca",
+    "second": "Fabian Marozsan",
+    "round": "Primera ronda",
+    "score": "6–4 3–6 6–2",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms066",
+    "first": "Camilo Ugo Carabelli",
+    "second": "Giovanni Mpetshi Perricard",
+    "round": "Primera ronda",
+    "score": "2–6 6–3 7–6(3)",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms069",
+    "first": "Martin Landaluce",
+    "second": "Marcos Giron",
+    "round": "Primera ronda",
+    "score": "6–3 7–6(6)",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms070",
+    "first": "Roberto Bautista Agut",
+    "second": "James Duckworth",
+    "round": "Primera ronda",
+    "score": "7–6(3) 7–6(4)",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms073",
+    "first": "Ethan Quinn",
+    "second": "Hubert Hurkacz",
+    "round": "Primera ronda",
+    "score": "6–2 6–4",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms074",
+    "first": "Moise Kouame",
+    "second": "Zachary Svajda",
+    "round": "Primera ronda",
+    "score": "5–7 6–4 6–4",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms077",
+    "first": "Reilly Opelka",
+    "second": "Nuno Borges",
+    "round": "Primera ronda",
+    "score": "6–7(6) 6–2 7–6(5)",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms078",
+    "first": "Botic van de Zandschulp",
+    "second": "Denis Shapovalov",
+    "round": "Primera ronda",
+    "score": "7–5 6–3",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms081",
+    "first": "Rafael Jodar",
+    "second": "Yannick Hanfmann",
+    "round": "Primera ronda",
+    "score": "6–4 4–6 6–1",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms082",
+    "first": "Zizou Bergs",
+    "second": "Jenson Brooksby",
+    "round": "Primera ronda",
+    "score": "7–5 6–2",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms085",
+    "first": "Adrian Mannarino",
+    "second": "Zhizhen Zhang",
+    "round": "Primera ronda",
+    "score": "6–3 6–2",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms086",
+    "first": "Raphael Collignon",
+    "second": "Grigor Dimitrov",
+    "round": "Primera ronda",
+    "score": "7–6(3) 4–6 7–6(6)",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms089",
+    "first": "Matteo Berrettini",
+    "second": "Alexandre Muller",
+    "round": "Primera ronda",
+    "score": "6–4 6–2",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms090",
+    "first": "Mariano Navone",
+    "second": "Nikoloz Basilashvili",
+    "round": "Primera ronda",
+    "score": "7–6(7) 6–3",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms093",
+    "first": "Darwin Blanch",
+    "second": "Jan-Lennard Struff",
+    "round": "Primera ronda",
+    "score": "6–3 3–6 6–3",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms094",
+    "first": "Stefanos Tsitsipas",
+    "second": "Arthur Fery",
+    "round": "Primera ronda",
+    "score": "6–1 7–6(4)",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms097",
+    "first": "Alexander Shevchenko",
+    "second": "Matteo Arnaldi",
+    "round": "Primera ronda",
+    "score": "7–6(5) 6–7(5) 6–2",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms098",
+    "first": "Gabriel Diallo",
+    "second": "Yibing Wu",
+    "round": "Primera ronda",
+    "score": "6–2 7–6(3)",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms101",
+    "first": "Thiago Agustin Tirante",
+    "second": "Valentin Royer",
+    "round": "Primera ronda",
+    "score": "7–5 6–7(9) 7–6(5)",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms102",
+    "first": "Rei Sakamoto",
+    "second": "Aleksandar Kovacevic",
+    "round": "Primera ronda",
+    "score": "6–4 3–6 7–6(7)",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms105",
+    "first": "Quentin Halys",
+    "second": "Liam Draxl",
+    "round": "Primera ronda",
+    "score": "6–7(4) 6–1 6–1",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms106",
+    "first": "Kamil Majchrzak",
+    "second": "Miomir Kecmanovic",
+    "round": "Primera ronda",
+    "score": "4–6 6–3 6–1",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms109",
+    "first": "Marin Cilic",
+    "second": "Alexei Popyrin",
+    "round": "Primera ronda",
+    "score": "6–4 6–4",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms110",
+    "first": "Martin Damm",
+    "second": "Jacob Fearnley",
+    "round": "Primera ronda",
+    "score": "6–0",
+    "status": "Retired"
+  },
+  {
+    "id": "miami-2026-ms113",
+    "first": "Marton Fucsovics",
+    "second": "Christopher O'Connell",
+    "round": "Primera ronda",
+    "score": "7–6(6) 6–3",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms114",
+    "first": "Terence Atmane",
+    "second": "Daniel Altmaier",
+    "round": "Primera ronda",
+    "score": "6–4 6–2",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms117",
+    "first": "Arthur Cazaux",
+    "second": "Tomas Barrios Vera",
+    "round": "Primera ronda",
+    "score": "7–5 6–4",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms118",
+    "first": "Adam Walton",
+    "second": "Sebastian Baez",
+    "round": "Primera ronda",
+    "score": "6–2 6–2",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms121",
+    "first": "Alejandro Tabilo",
+    "second": "Francisco Comesana",
+    "round": "Primera ronda",
+    "score": "6–4 6–2",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms122",
+    "first": "Alex Michelsen",
+    "second": "Mattia Bellucci",
+    "round": "Primera ronda",
+    "score": "6–2 6–1",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms125",
+    "first": "Tomas Machac",
+    "second": "Emilio Nava",
+    "round": "Primera ronda",
+    "score": "2–6 6–4 6–1",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms126",
+    "first": "Damir Dzumhur",
+    "second": "Ignacio Buse",
+    "round": "Primera ronda",
+    "score": "6–7(6) 7–6(6) 6–1",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms032",
+    "first": "Carlos Alcaraz",
+    "second": "Joao Fonseca",
+    "round": "Segunda ronda",
+    "score": "6–4 6–4",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms033",
+    "first": "Sebastian Korda",
+    "second": "Camilo Ugo Carabelli",
+    "round": "Segunda ronda",
+    "score": "6–0 6–3",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms034",
+    "first": "Martin Landaluce",
+    "second": "Luciano Darderi",
+    "round": "Segunda ronda",
+    "score": "6–3 6–7(4) 6–4",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms035",
+    "first": "Karen Khachanov",
+    "second": "Roberto Bautista Agut",
+    "round": "Segunda ronda",
+    "score": "6–3 6–3",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms036",
+    "first": "Ethan Quinn",
+    "second": "Casper Ruud",
+    "round": "Segunda ronda",
+    "score": "6–4 7–6(7)",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms037",
+    "first": "Jiri Lehecka",
+    "second": "Moise Kouame",
+    "round": "Segunda ronda",
+    "score": "6–2 7–5",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms038",
+    "first": "Reilly Opelka",
+    "second": "Jack Draper",
+    "round": "Segunda ronda",
+    "score": "7–6(3) 7–6(0)",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms039",
+    "first": "Taylor Fritz",
+    "second": "Botic van de Zandschulp",
+    "round": "Segunda ronda",
+    "score": "6–3 6–7(2) 6–3",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms040",
+    "first": "Rafael Jodar",
+    "second": "Aleksandar Vukic",
+    "round": "Segunda ronda",
+    "score": "6–1 6–2",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms041",
+    "first": "Tomas Martin Etcheverry",
+    "second": "Zizou Bergs",
+    "round": "Segunda ronda",
+    "score": "7–6(5) 7–6(3)",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms042",
+    "first": "Tommy Paul",
+    "second": "Adrian Mannarino",
+    "round": "Segunda ronda",
+    "score": "6–2 2–6 6–4",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms043",
+    "first": "Raphael Collignon",
+    "second": "Flavio Cobolli",
+    "round": "Segunda ronda",
+    "score": "7–5 6–3",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms044",
+    "first": "Matteo Berrettini",
+    "second": "Alexander Bublik",
+    "round": "Segunda ronda",
+    "score": "6–4 6–4",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms045",
+    "first": "Valentin Vacherot",
+    "second": "Mariano Navone",
+    "round": "Segunda ronda",
+    "score": "6–3 6–4",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms046",
+    "first": "Arthur Fils",
+    "second": "Darwin Blanch",
+    "round": "Segunda ronda",
+    "score": "6–2 6–3",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms047",
+    "first": "Stefanos Tsitsipas",
+    "second": "Alex de Minaur",
+    "round": "Segunda ronda",
+    "score": "6–3 7–6(3)",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms048",
+    "first": "Alexander Shevchenko",
+    "second": "Ben Shelton",
+    "round": "Segunda ronda",
+    "score": "6–7(3) 7–6(3) 6–3",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms049",
+    "first": "Ugo Humbert",
+    "second": "Gabriel Diallo",
+    "round": "Segunda ronda",
+    "score": "6–1 6–4",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms050",
+    "first": "Francisco Cerundolo",
+    "second": "Thiago Agustin Tirante",
+    "round": "Segunda ronda",
+    "score": "6–4 6–2",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms051",
+    "first": "Daniil Medvedev",
+    "second": "Rei Sakamoto",
+    "round": "Segunda ronda",
+    "score": "6–7(10) 6–3 6–1",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms052",
+    "first": "Quentin Halys",
+    "second": "Alejandro Davidovich Fokina",
+    "round": "Segunda ronda",
+    "score": "7–6(8) 6–4",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms053",
+    "first": "Kamil Majchrzak",
+    "second": "Learner Tien",
+    "round": "Segunda ronda",
+    "score": "6–2 4–6 6–2",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms054",
+    "first": "Marin Cilic",
+    "second": "Brandon Nakashima",
+    "round": "Segunda ronda",
+    "score": "2–6 6–4 7–6(7)",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms055",
+    "first": "Alexander Zverev",
+    "second": "Martin Damm",
+    "round": "Segunda ronda",
+    "score": "6–2 6–4",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms056",
+    "first": "Felix Auger-Aliassime",
+    "second": "Marton Fucsovics",
+    "round": "Segunda ronda",
+    "score": "7–6(3) 7–5",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms057",
+    "first": "Terence Atmane",
+    "second": "Arthur Rinderknech",
+    "round": "Segunda ronda",
+    "score": "7–6(4) 6–3",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms058",
+    "first": "Frances Tiafoe",
+    "second": "Arthur Cazaux",
+    "round": "Segunda ronda",
+    "score": "7–6(1) 6–1",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms059",
+    "first": "Jakub Mensik",
+    "second": "Adam Walton",
+    "round": "Segunda ronda",
+    "score": "3–6 6–2 6–4",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms060",
+    "first": "Alejandro Tabilo",
+    "second": "Andrey Rublev",
+    "round": "Segunda ronda",
+    "score": "6–7(5) 6–2 6–4",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms061",
+    "first": "Alex Michelsen",
+    "second": "Cameron Norrie",
+    "round": "Segunda ronda",
+    "score": "7–5 6–7(4) 6–4",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms062",
+    "first": "Corentin Moutet",
+    "second": "Tomas Machac",
+    "round": "Segunda ronda",
+    "score": "6–0 1–6 6–4",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms063",
+    "first": "Jannik Sinner",
+    "second": "Damir Dzumhur",
+    "round": "Segunda ronda",
+    "score": "6–3 6–3",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms016",
+    "first": "Sebastian Korda",
+    "second": "Carlos Alcaraz",
+    "round": "Tercera ronda",
+    "score": "6–3 5–7 6–4",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms017",
+    "first": "Martin Landaluce",
+    "second": "Karen Khachanov",
+    "round": "Tercera ronda",
+    "score": "6–3 7–6(2)",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms018",
+    "first": "Jiri Lehecka",
+    "second": "Ethan Quinn",
+    "round": "Tercera ronda",
+    "score": "6–3 7–6(6)",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms019",
+    "first": "Taylor Fritz",
+    "second": "Reilly Opelka",
+    "round": "Tercera ronda",
+    "score": "6–3 6–4",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms020",
+    "first": "Tomas Martin Etcheverry",
+    "second": "Rafael Jodar",
+    "round": "Tercera ronda",
+    "score": "7–5 6–4",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms021",
+    "first": "Tommy Paul",
+    "second": "Raphael Collignon",
+    "round": "Tercera ronda",
+    "score": "6–2 3–6 7–6(5)",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms022",
+    "first": "Valentin Vacherot",
+    "second": "Matteo Berrettini",
+    "round": "Tercera ronda",
+    "score": "7–6(5) 6–4",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms023",
+    "first": "Arthur Fils",
+    "second": "Stefanos Tsitsipas",
+    "round": "Tercera ronda",
+    "score": "6–0 6–1",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms024",
+    "first": "Ugo Humbert",
+    "second": "Alexander Shevchenko",
+    "round": "Tercera ronda",
+    "score": "6–4 7–6(2)",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms025",
+    "first": "Francisco Cerundolo",
+    "second": "Daniil Medvedev",
+    "round": "Tercera ronda",
+    "score": "6–0 4–6 7–5",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms026",
+    "first": "Quentin Halys",
+    "second": "Kamil Majchrzak",
+    "round": "Tercera ronda",
+    "score": "7–6(4) 6–1",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms027",
+    "first": "Alexander Zverev",
+    "second": "Marin Cilic",
+    "round": "Tercera ronda",
+    "score": "6–2 5–7 6–4",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms028",
+    "first": "Terence Atmane",
+    "second": "Felix Auger-Aliassime",
+    "round": "Tercera ronda",
+    "score": "6–3 1–6 6–3",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms029",
+    "first": "Frances Tiafoe",
+    "second": "Jakub Mensik",
+    "round": "Tercera ronda",
+    "score": "7–6(4) 4–6 7–6(11)",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms030",
+    "first": "Alex Michelsen",
+    "second": "Alejandro Tabilo",
+    "round": "Tercera ronda",
+    "score": "3–6 6–3 6–4",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms031",
+    "first": "Jannik Sinner",
+    "second": "Corentin Moutet",
+    "round": "Tercera ronda",
+    "score": "6–1 6–4",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms008",
+    "first": "Martin Landaluce",
+    "second": "Sebastian Korda",
+    "round": "Octavos de final",
+    "score": "2–6 7–6(6) 6–4",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms009",
+    "first": "Jiri Lehecka",
+    "second": "Taylor Fritz",
+    "round": "Octavos de final",
+    "score": "6–4 6–7(4) 6–2",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms010",
+    "first": "Tommy Paul",
+    "second": "Tomas Martin Etcheverry",
+    "round": "Octavos de final",
+    "score": "6–1 6–3",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms011",
+    "first": "Arthur Fils",
+    "second": "Valentin Vacherot",
+    "round": "Octavos de final",
+    "score": "6–4 6–7(4) 6–4",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms012",
+    "first": "Francisco Cerundolo",
+    "second": "Ugo Humbert",
+    "round": "Octavos de final",
+    "score": "6–4 6–3",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms013",
+    "first": "Alexander Zverev",
+    "second": "Quentin Halys",
+    "round": "Octavos de final",
+    "score": "7–6(4) 7–6(1)",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms014",
+    "first": "Frances Tiafoe",
+    "second": "Terence Atmane",
+    "round": "Octavos de final",
+    "score": "6–4 1–6 6–4",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms015",
+    "first": "Jannik Sinner",
+    "second": "Alex Michelsen",
+    "round": "Octavos de final",
+    "score": "7–5 7–6(4)",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms004",
+    "first": "Jiri Lehecka",
+    "second": "Martin Landaluce",
+    "round": "Cuartos de final",
+    "score": "7–6(1) 7–5",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms005",
+    "first": "Arthur Fils",
+    "second": "Tommy Paul",
+    "round": "Cuartos de final",
+    "score": "6–7(3) 7–6(4) 7–6(6)",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms006",
+    "first": "Alexander Zverev",
+    "second": "Francisco Cerundolo",
+    "round": "Cuartos de final",
+    "score": "6–1 6–2",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms007",
+    "first": "Jannik Sinner",
+    "second": "Frances Tiafoe",
+    "round": "Cuartos de final",
+    "score": "6–2 6–2",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms002",
+    "first": "Jiri Lehecka",
+    "second": "Arthur Fils",
+    "round": "Semifinal",
+    "score": "6–2 6–2",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms003",
+    "first": "Jannik Sinner",
+    "second": "Alexander Zverev",
+    "round": "Semifinal",
+    "score": "6–3 7–6(4)",
+    "status": "Finished"
+  },
+  {
+    "id": "miami-2026-ms001",
+    "first": "Jannik Sinner",
+    "second": "Jiri Lehecka",
+    "round": "Final",
+    "score": "6–4 6–4",
+    "status": "Finished"
+  }
+]

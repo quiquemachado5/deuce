@@ -1,6 +1,8 @@
 import type { Match } from "./types";
+import miamiDraw from "./verified-miami-2026.json";
+import rolandGarrosDraw from "./verified-roland-garros-2026.json";
 /** Result-only references for entries absent from the principal provider. No points or measurements are inferred. */
-const references = [
+const australianOpenReferences = [
   {
     id: "ao-2026-ms601",
     first: "Carlos Alcaraz",
@@ -45,6 +47,51 @@ const references = [
       "https://www.atptour.com/en/news/mensik-australian-open-2026-withdrawal",
   },
 ] as const;
+type EditionReference = {
+  id: string;
+  first: string;
+  second: string;
+  round: string;
+  date: string;
+  score: string;
+  status: string;
+  source: string;
+  tournament: string;
+  category: string;
+  surface: Match["surface"];
+  format: string;
+  dateLabel: string;
+};
+const references: EditionReference[] = [
+  ...australianOpenReferences.map((r) => ({
+    ...r,
+    tournament: "Australian Open",
+    category: "Grand Slam",
+    surface: "hard" as const,
+    format: "BO5",
+    dateLabel:
+      r.status === "Walkover" ? "Fecha de la retirada" : "Fecha del partido",
+  })),
+  ...miamiDraw.map((r) => ({
+    ...r,
+    tournament: "Miami",
+    category: "Masters 1000",
+    surface: "hard" as const,
+    format: "BO3",
+    date: "2026-03-15",
+    dateLabel: "Inicio del torneo",
+    source: "https://www.miamiopen.com/draws/",
+  })),
+  ...rolandGarrosDraw.map((r) => ({
+    ...r,
+    tournament: "Roland Garros",
+    category: "Grand Slam",
+    surface: "clay" as const,
+    format: "BO5",
+    dateLabel: r.status === "Walkover" ? "Fecha programada" : "Fecha del partido",
+    source: "https://www.rolandgarros.com/en-us/results/SM?round=1",
+  })),
+];
 export const editionReferenceMatches: Match[] = references.map((r) => {
   const games = [...r.score.matchAll(/(\d+)–(\d+)/g)].map((m) => [
     Number(m[1]),
@@ -52,10 +99,10 @@ export const editionReferenceMatches: Match[] = references.map((r) => {
   ]);
   return {
     match_id: `reference-${r.id}`,
-    tournament: "Australian Open",
+    tournament: r.tournament,
     year: 2026,
-    category: "Grand Slam",
-    surface: "hard",
+    category: r.category,
+    surface: r.surface,
     player1: { name: r.first, seed: null },
     player2: { name: r.second, seed: null },
     round: r.round,
@@ -81,19 +128,26 @@ export const editionReferenceMatches: Match[] = references.map((r) => {
     statistics: [],
     context: {
       date: r.date,
-      dateLabel:
-        r.status === "Walkover" ? "Fecha de la retirada" : "Fecha del partido",
-      format: "BO5",
+      dateLabel: r.dateLabel,
+      format: r.format,
       resultSource: r.source,
     },
   };
 });
-const fold = (value: string) =>
-  value
+const fold = (value: string) => {
+  const normalized = value
     .normalize("NFKD")
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase()
     .replace(/[^a-z0-9]/g, "");
+  const aliases: Record<string, string> = {
+    tomasverabarrios: "tomasbarriosvera",
+    danielmeridaaguilar: "danielmerida",
+    danieladolfovallejo: "adolfodanielvallejo",
+    colemanchaklamwong: "colemanwong",
+  };
+  return aliases[normalized] || normalized;
+};
 const identity = (m: Match) =>
   [
     m.tournament,
