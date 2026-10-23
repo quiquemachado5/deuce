@@ -69,7 +69,7 @@ export default function CompareSelection({
       </form>
       <div
         className="pd-compare-dock"
-        hidden={!inView && !editing}
+        hidden={inView && !editing}
         aria-label="Jugadores de la comparación"
       >
         <div className="pd-compare-dock-pair">

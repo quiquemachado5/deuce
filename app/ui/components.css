@@ -6,12 +6,13 @@
   position: relative;
   overflow: hidden;
   border-radius: 50%;
-  background: var(--event-tint);
+  background: linear-gradient(145deg, var(--avatar-from, var(--ink)), var(--avatar-to, var(--ink-soft)));
   color: var(--event-accent);
   align-items: center;
   justify-content: center;
   font-size: 12px;
   font-weight: 600;
+  letter-spacing: -.02em;
   vertical-align: middle;
 }
 .player-avatar img {
@@ -19,6 +20,41 @@
   width: 100%;
   object-position: 50% 25%;
 }
+.match-status-badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  gap: 6px;
+  padding: 4px 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  background: var(--bg-raised);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+.match-status-badge i { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.match-status-badge[data-live="true"] { color: #087e58; border-color: color-mix(in srgb, #0ba875 45%, var(--line)); }
+.match-status-badge[data-live="true"] i { animation: live-pulse 1.5s ease-out infinite; }
+@keyframes live-pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(11,168,117,.38); } 50% { box-shadow: 0 0 0 5px rgba(11,168,117,0); } }
+.empty-state {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 28px;
+  border: 1px dashed var(--line-strong);
+  border-radius: 20px;
+  background: var(--bg-raised);
+}
+.empty-state h3 { font-size: 20px; }
+.empty-state p { margin-top: 4px; color: var(--muted); font-size: 13px; }
+.empty-state a { min-height: 44px; display: inline-flex; align-items: center; padding: 10px 16px; border-radius: 999px; background: var(--ink); color: var(--bg-raised); font-weight: 650; }
+@media (max-width: 759px) { .empty-state { grid-template-columns: auto 1fr; } .empty-state a { grid-column: 1 / -1; justify-content: center; } }
+@media (prefers-reduced-motion: reduce) { .match-status-badge[data-live="true"] i { animation: none; } }
 .nc-dot,
 .ry-surface-dot {
   display: inline-block;

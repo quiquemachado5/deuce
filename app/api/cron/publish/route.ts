@@ -16,7 +16,8 @@ export async function GET(request: Request) {
   try {
     console.info('Daily publication: started')
     const refresh=await cloudRead('sync-status')
-    if(refresh?.status!=='success'||!Number.isFinite(Date.parse(refresh.at))||Date.now()-Date.parse(refresh.at)>30*3600000)throw new Error('No recent successful provider refresh; keeping the previous publication')
+    const lastSuccessfulRefresh = refresh?.status === 'success' ? refresh.at : refresh?.lastSuccessAt
+    if(!Number.isFinite(Date.parse(lastSuccessfulRefresh))||Date.now()-Date.parse(lastSuccessfulRefresh)>30*3600000)throw new Error('No recent successful provider refresh; keeping the previous publication')
     const [{ publicationArchive, competitionEntries, editionSourceAudit }, { compileRecordSnapshot }, { publishRecordSnapshot }] = await Promise.all([
       import('@/lib/live-tennis'),
       import('@/lib/revista/snapshot'),
@@ -35,8 +36,9 @@ export async function GET(request: Request) {
     await cloudWrite('publish-status',{status:'success',at:new Date().toISOString(),version:snapshot.manifest.version,matches:snapshot.manifest.matchCount,lists:snapshot.manifest.pieces.length})
     return Response.json({ status: 'success', at: new Date().toISOString(), matches: snapshot.manifest.matchCount, lists: snapshot.manifest.pieces.length, version: snapshot.manifest.version }, { headers: { 'Cache-Control': 'no-store' } })
   } catch (error) {
-    await cloudWrite('publish-status',{status:'error',at:new Date().toISOString()}).catch(()=>undefined)
-    console.error('Daily reading snapshot publication failed:', error instanceof Error ? error.message : 'unknown error')
+    const reason = error instanceof Error ? error.message : 'unknown error'
+    await cloudWrite('publish-status',{status:'error',at:new Date().toISOString(),message:reason}).catch(()=>undefined)
+    console.error('Daily reading snapshot publication failed:', reason)
     return Response.json({ error: 'Publish failed; the saved archive remains available' }, { status: 503, headers: { 'Cache-Control': 'no-store' } })
   }
 }

@@ -6,6 +6,7 @@ import type { Match } from "@/lib/types";
 import { tournamentName } from "@/lib/labels";
 import { round, score, number } from "@/lib/cuaderno/model";
 import { tournamentCourt } from "@/lib/tournament-presentation";
+import MatchStatusBadge from "@/components/MatchStatusBadge";
 export default function MatchRow({
   match,
   firstPlayer,
@@ -53,6 +54,7 @@ export default function MatchRow({
           <i className={`nc-dot nc-dot-${court.surface}`} aria-hidden="true" />
           {tournamentName(match.tournament)} · {match.year}
         </span>
+        <MatchStatusBadge status={match.status} />
         <span className="nc-row-round">
           {round(match)}
           {/retired|abandoned/i.test(match.status)

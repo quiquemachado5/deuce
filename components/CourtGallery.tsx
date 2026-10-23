@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Play } from "lucide-react";
 
 export type CourtMedia = {
@@ -18,6 +18,7 @@ export default function CourtGallery({ items }: { items: CourtMedia[] }) {
   const [mode, setMode] = useState<"photos" | "videos">("photos");
   const [selected, setSelected] = useState(0);
   const [playing, setPlaying] = useState(false);
+  const touchStart = useRef<number | null>(null);
   const available = items.filter((item) => mode === "photos" || item.video);
   const item = available[selected % available.length];
   if (!item) return null;
@@ -29,7 +30,23 @@ export default function CourtGallery({ items }: { items: CourtMedia[] }) {
     setPlaying(false);
   };
   return (
-    <section className="court-gallery" aria-labelledby="court-gallery-title">
+    <section
+      className="court-gallery"
+      aria-labelledby="court-gallery-title"
+      aria-roledescription="carrusel"
+      tabIndex={0}
+      onKeyDown={(event) => {
+        if (event.key === "ArrowLeft") move(-1);
+        if (event.key === "ArrowRight") move(1);
+      }}
+      onTouchStart={(event) => { touchStart.current = event.touches[0]?.clientX ?? null; }}
+      onTouchEnd={(event) => {
+        if (touchStart.current === null) return;
+        const distance = event.changedTouches[0].clientX - touchStart.current;
+        touchStart.current = null;
+        if (Math.abs(distance) >= 48) move(distance > 0 ? -1 : 1);
+      }}
+    >
       <div className="ds-section-heading">
         <h2 id="court-gallery-title">La historia de cada pista.</h2>
         <div
@@ -53,7 +70,7 @@ export default function CourtGallery({ items }: { items: CourtMedia[] }) {
           ))}
         </div>
       </div>
-      <div className="court-gallery-stage" data-event-surface={item.surface}>
+      <div className="court-gallery-stage" data-event-surface={item.surface} aria-label={`${title}. Elemento ${(selected % available.length) + 1} de ${available.length}`}>
         {playing && item.video ? (
           <iframe
             key={item.video}

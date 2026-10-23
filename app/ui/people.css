@@ -1370,3 +1370,60 @@
     grid-template-columns: 1fr;
   }
 }
+/* Sticky alphabet for quickly scanning the player directory. */
+.ry-player-alphabet {
+  position: sticky;
+  top: 76px;
+  z-index: 8;
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  padding: 10px;
+  margin: 0 0 32px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter: blur(14px);
+  scrollbar-width: thin;
+}
+.ry-player-alphabet a,
+.ry-player-alphabet span {
+  flex: 0 0 auto;
+  min-width: 30px;
+  min-height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 9px;
+  color: var(--ink);
+  font: 700 11px/1 var(--font-sans);
+  text-decoration: none;
+}
+.ry-player-alphabet a:first-child { padding-inline: 12px; }
+.ry-player-alphabet a:hover,
+.ry-player-alphabet a:focus-visible,
+.ry-player-alphabet a[aria-current="page"] {
+  background: var(--ink);
+  color: var(--paper);
+}
+.ry-player-alphabet span[aria-disabled="true"] { color: var(--muted); opacity: .42; }
+
+.ry-ranking-history .ry-people-section-head > div > p {
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+.ry-ranking-best { margin: 0; text-align: right; }
+.ry-ranking-best strong,
+.ry-ranking-best span { display: block; }
+.ry-ranking-best strong { color: var(--court); font-size: 25px; }
+.ry-ranking-best span { color: var(--muted); font-size: 11px; }
+.ry-ranking-scroll { overflow-x: auto; margin-top: 20px; }
+.ry-ranking-scroll svg { display: block; width: 100%; }
+.ry-ranking-grid { stroke: var(--line); stroke-dasharray: 3 6; }
+.ry-ranking-line { fill: none; stroke: var(--court); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.ry-ranking-point { fill: var(--paper); stroke: var(--court); stroke-width: 3; }
+
+@media (max-width: 759px) {
+  .ry-player-alphabet { top: 64px; margin-inline: -4px; }
+  .ry-ranking-scroll svg { width: auto; }
+}

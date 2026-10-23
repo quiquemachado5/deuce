@@ -243,20 +243,65 @@ function SeasonMobileRow({
   ) : <div className="ry-season-mobile-row ry-season-mobile-empty">{content}</div>;
 }
 
+function RankingHistory({ matches, name }: { matches: Match[]; name: string }) {
+  const yearlyBest = new Map<number, number>();
+  for (const match of matches) {
+    if (match.context?.rankLabel !== "Ranking al jugar") continue;
+    const rank = match.player1.name === name ? match.context.rank1 : match.context.rank2;
+    if (!rank || rank < 1) continue;
+    yearlyBest.set(match.year, Math.min(yearlyBest.get(match.year) || Infinity, rank));
+  }
+  const points = [...yearlyBest].sort((a, b) => a[0] - b[0]);
+  if (!points.length) return null;
+  const width = Math.max(620, points.length * 54);
+  const height = 190;
+  const padding = { left: 46, right: 22, top: 22, bottom: 34 };
+  const maximum = Math.max(10, ...points.map(([, rank]) => rank));
+  const x = (index: number) => padding.left + (points.length === 1 ? 0 : index * (width - padding.left - padding.right) / (points.length - 1));
+  const y = (rank: number) => padding.top + ((rank - 1) / Math.max(1, maximum - 1)) * (height - padding.top - padding.bottom);
+  const path = points.map(([, rank], index) => `${index ? "L" : "M"}${x(index)},${y(rank)}`).join(" ");
+  const best = points.reduce((current, point) => point[1] < current[1] ? point : current, points[0]);
+  return <section className="ry-people-section ry-ranking-history" aria-labelledby="ry-ranking-title">
+    <div className="ry-people-section-head">
+      <div><h2 id="ry-ranking-title">Evolución del ranking</h2><p>Mejor ranking documentado en cada temporada.</p></div>
+      <p className="ry-ranking-best"><strong>n.º {number(best[1])}</strong><span>{best[0]}</span></p>
+    </div>
+    <p id="ry-ranking-description" className="nc-sr">{points.map(([year, rank]) => `${year}: puesto ${rank}`).join(". ")}.</p>
+    <div className="ry-ranking-scroll" role="region" aria-label="Gráfica desplazable de evolución del ranking" tabIndex={0}>
+      <svg viewBox={`0 0 ${width} ${height}`} style={{ minWidth: `${width}px` }} role="img" aria-labelledby="ry-ranking-title ry-ranking-description">
+        {[1, Math.max(2, Math.round(maximum / 2)), maximum].map((rank) => <g key={rank}>
+          <line className="ry-ranking-grid" x1={padding.left} x2={width - padding.right} y1={y(rank)} y2={y(rank)} />
+          <text className="ry-chart-axis" x={padding.left - 10} y={y(rank) + 4} textAnchor="end">{rank}</text>
+        </g>)}
+        {points.length > 1 && <path className="ry-ranking-line" d={path} />}
+        {points.map(([year, rank], index) => <g key={year}>
+          <title>{year}: puesto {rank}</title>
+          <circle className="ry-ranking-point" cx={x(index)} cy={y(rank)} r="5" />
+          <text className="ry-chart-axis" x={x(index)} y={height - 10} textAnchor="middle">{year}</text>
+        </g>)}
+      </svg>
+    </div>
+  </section>;
+}
+
 export async function generateMetadata({ params, searchParams }: Props) {
   const { slug } = await params;
   const query = await searchParams;
   const player = (await notebook()).players.find(
     (p) => playerSlug(p.name) === slug,
   );
-  return {
-    title: `${player?.name || "Jugador"} — DEUCE`,
-    description: player
+  const title = `${player?.name || "Jugador"} — DEUCE`;
+  const summary = player
       ? `${player.name}: resultados, superficies y temporadas en el archivo DEUCE.`
-      : "Resultados de los torneos ATP guardados en DEUCE.",
+      : "Resultados de los torneos ATP guardados en DEUCE.";
+  return {
+    title,
+    description: summary,
     alternates: {
       canonical: `/players/${slug}${query.year ? `?year=${query.year}` : ""}`,
     },
+    openGraph: { title, description: summary, type: "profile", url: `/players/${slug}` },
+    twitter: { card: "summary_large_image", title, description: summary },
   };
 }
 
@@ -321,6 +366,7 @@ export default async function Player({ params, searchParams }: Props) {
         slug={slug}
         selected={year}
       />
+      <RankingHistory matches={player.matches} name={player.name} />
       <div className="ry-profile-analysis">
         <section
           className="ry-people-section ry-player-surfaces"

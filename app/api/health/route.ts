@@ -27,6 +27,8 @@ export async function GET() {
       return {
         status: typeof row.status === "string" ? row.status : "unavailable",
         at,
+        detail: typeof row.message === "string" ? row.message.slice(0, 120) : undefined,
+        lastSuccessAt: typeof row.lastSuccessAt === "string" && Number.isFinite(Date.parse(row.lastSuccessAt)) ? row.lastSuccessAt : undefined,
         ageHours: at
           ? Math.round(
               Math.max(0, (Date.now() - Date.parse(at)) / 3_600_000) * 10,

@@ -21,6 +21,7 @@ import { courtPhoto, courtPhotos } from '@/lib/imagery';
 import { tournamentDirectory } from '@/lib/tournament-directory';
 import { SURFACES } from '@/lib/surface';
 import { eligibleMatch } from '@/lib/quality';
+import AnimatedCounter from '@/components/AnimatedCounter';
 
 export const revalidate = 300;
 
@@ -75,7 +76,7 @@ export default async function Home() {
   return <div className="deuce-home ds-home">
     <ArchiveNotice status={generation} />
 
-    <header className="ds-home-heading"><div><h1>El archivo visual del tenis.</h1><p>{number(manifest.matchCount)} partidos documentados desde {manifest.years.at(-1)}.</p></div><Link href="/buscar">Explorar partidos</Link></header>
+    <header className="ds-home-heading"><div><h1>El archivo visual del tenis.</h1><p><AnimatedCounter value={manifest.matchCount} /> partidos documentados desde {manifest.years.at(-1)}.</p></div><Link href="/buscar">Explorar partidos</Link></header>
     {recentFinal ? <section className="ds-hero-record" data-event-surface={recentFinal.surface} aria-labelledby="ds-hero-title">
       <div className="ds-hero-visual">
       {heroCourt && <div className="ds-hero-court"><ParallaxPhoto src={heroCourt.src} alt={heroCourt.alt}/><PhotoInfo photo={heroCourt}/></div>}

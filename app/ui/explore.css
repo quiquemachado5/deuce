@@ -529,6 +529,14 @@
   color: var(--bg-raised);
   border-color: var(--ink);
 }
+.ry-tournament-more-categories { margin: -4px 0 28px; color: var(--muted); font-size: 12px; }
+.ry-tournament-more-categories summary { cursor: pointer; width: fit-content; }
+.ry-tournament-more-categories nav { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 14px; }
+.ry-tournament-more-categories a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.ry-tournament-empty { padding: 48px 24px; text-align: center; border: 1px dashed var(--line); border-radius: 18px; }
+.ry-tournament-empty h3 { margin: 0; font-size: 22px; }
+.ry-tournament-empty p { max-width: 520px; margin: 10px auto 20px; color: var(--muted); }
+.ry-tournament-empty a { font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
 .ry-photo-tournament-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

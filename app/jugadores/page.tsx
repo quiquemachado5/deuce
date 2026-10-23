@@ -17,7 +17,7 @@ export const metadata = {
 };
 
 export default async function Players({ searchParams }: {
-  searchParams: Promise<{ q?: string; page?: string; tipo?: string; sort?: string }>;
+  searchParams: Promise<{ q?: string; page?: string; tipo?: string; sort?: string; letter?: string }>;
 }) {
   const query = await searchParams;
   const pairs = query.tipo === "parejas";
@@ -27,10 +27,15 @@ export default async function Players({ searchParams }: {
     pairs ? generation.matches() : Promise.resolve([]),
   ]);
   const term = normalizeText(query.q || "");
+  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+  const requestedLetter = (query.letter || "").toUpperCase();
+  const letter = alphabet.includes(requestedLetter) ? requestedLetter : "";
   const sort = query.sort === "played" || query.sort === "finals" ? query.sort : "wins";
   const records = new Map(recordSource.map((record) => [record.name, record]));
+  const availableLetters = new Set(recordSource.map((record) => normalizeText(record.name).charAt(0).toUpperCase()));
   const players = recordSource.map((record) => ({ name: record.name, won: record.wins, played: record.played }))
     .filter((player) => normalizeText(player.name).includes(term))
+    .filter((player) => !letter || normalizeText(player.name).charAt(0).toUpperCase() === letter)
     .sort((a, b) => {
       const primary = sort === "played" ? b.played - a.played
         : sort === "finals" ? (records.get(b.name)?.finalsWon || 0) - (records.get(a.name)?.finalsWon || 0)
@@ -40,9 +45,16 @@ export default async function Players({ searchParams }: {
   const duels = pairs ? rivalryDirectory(pairSource).filter((pair) => normalizeText(pair.names.join(" ")).includes(term)) : [];
   const total = pairs ? duels.length : players.length;
   const page = Math.max(1, Math.min(Math.ceil(total / 25) || 1, Number(query.page) || 1));
-  const url = (params: Record<string, string>) => `/jugadores?${new URLSearchParams({ ...query, ...params } as Record<string, string>)}`;
-  const leader = !term && !pairs ? players[0] : undefined;
-  const runner = !term && !pairs ? players[1] : undefined;
+  const url = (params: Record<string, string>) => {
+    const next = new URLSearchParams();
+    Object.entries({ ...query, ...params }).forEach(([key, value]) => {
+      if (value && value !== "all" && !(key === "page" && value === "1")) next.set(key, value);
+    });
+    const search = next.toString();
+    return `/jugadores${search ? `?${search}` : ""}`;
+  };
+  const leader = !term && !letter && !pairs ? players[0] : undefined;
+  const runner = !term && !letter && !pairs ? players[1] : undefined;
   const metric = sort === "played" ? "partidos disputados" : sort === "finals" ? "finales ganadas" : "victorias";
   const valueOf = (name: string, won: number, played: number) => sort === "played" ? played : sort === "finals" ? records.get(name)?.finalsWon || 0 : won;
   const leadValue = leader ? valueOf(leader.name, leader.won, leader.played) : 0;
@@ -79,6 +91,13 @@ export default async function Players({ searchParams }: {
           </label>}
         </FilterForm>
       </div>
+
+      {!pairs && <nav className="ry-player-alphabet" aria-label="Índice alfabético de jugadores">
+        <Link href={url({ letter: "", page: "1" })} aria-current={!letter ? "page" : undefined}>Todos</Link>
+        {alphabet.map((initial) => availableLetters.has(initial)
+          ? <Link key={initial} href={url({ letter: initial, page: "1" })} aria-current={letter === initial ? "page" : undefined}>{initial}</Link>
+          : <span key={initial} aria-disabled="true">{initial}</span>)}
+      </nav>}
 
       {leader && (
         <section className="ry-directory-feature ry-directory-leader-feature">
@@ -122,9 +141,9 @@ export default async function Players({ searchParams }: {
         <div className="ry-directory-results-head">
           <div>
             <h2 id="directory-results-title">{pairs ? "Enfrentamientos" : "Clasificación de jugadores"}</h2>
-            {(term || pairs) && <p>{term ? `${number(total)} resultados para «${query.q}»` : "Ordenados por encuentros entre ambos."}</p>}
+            {(term || letter || pairs) && <p>{term ? `${number(total)} resultados para «${query.q}»` : letter ? `${number(total)} jugadores cuyo nombre empieza por ${letter}` : "Ordenados por encuentros entre ambos."}</p>}
           </div>
-          {term && <Link href={pairs ? "/jugadores?tipo=parejas" : "/jugadores"}>Limpiar búsqueda</Link>}
+          {(term || letter) && <Link href={pairs ? "/jugadores?tipo=parejas" : "/jugadores"}>Limpiar filtros</Link>}
         </div>
 
         {pairs ? <div className="ry-directory-pair-list">

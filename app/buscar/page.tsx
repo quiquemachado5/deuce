@@ -11,12 +11,13 @@ import FilterForm from "@/components/revista/FilterForm";
 import { tournamentName } from "@/lib/labels";
 import { tournamentDirectory, categoryLabel } from "@/lib/tournament-directory";
 import styles from "./search.module.css";
+import EmptyState from "@/components/EmptyState";
 type Q = Record<string, string | undefined>;
 
 function searchUrl(q: Q, page?: number) {
   const params = new URLSearchParams(
     Object.entries(q).filter(
-      ([key, value]) => key !== "page" && typeof value === "string" && value.length > 0,
+      ([key, value]) => key !== "page" && typeof value === "string" && value.length > 0 && value !== "all",
     ) as [string, string][],
   );
   if (page && page > 1) params.set("page", String(page));
@@ -28,10 +29,12 @@ export async function generateMetadata({
   searchParams: Promise<Q>;
 }) {
   const q = await searchParams;
+  const hasQuery = Object.entries(q).some(([, value]) => value && value !== "all");
   return {
     title: `${q.q ? `Buscar ${q.q}` : "Buscar en el archivo"} — DEUCE`,
     description,
     alternates: { canonical: searchUrl(q, Number(q.page) || 1) },
+    robots: hasQuery ? { index: false, follow: true } : undefined,
   };
 }
 export default async function SearchPage({
@@ -198,10 +201,11 @@ export default async function SearchPage({
           </div>
           <EditionMatchGroups matches={filtered.slice(start,end)} />
           {!filtered.length && (
-            <div className={styles.empty}>
-              <p>{q.q || q.player ? "Ningún partido coincide con la búsqueda y los filtros." : "No hay partidos con estos filtros."}</p>
-              <Link href="/buscar">Limpiar búsqueda</Link>
-            </div>
+            <EmptyState
+              title="No encontramos partidos"
+              description={q.q || q.player ? "Prueba con otro nombre o amplía los filtros activos." : "No hay partidos con esta combinación de filtros."}
+              resetHref="/buscar"
+            />
           )}
           {total > 25 && (
             <Pagination page={page} total={total} href={(nextPage) => searchUrl(q, nextPage)} />

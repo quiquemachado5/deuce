@@ -13,7 +13,7 @@ import { parseRepositoryQuery, selectRepository } from '@/lib/repository-query'
 export default async function RepositoryPage({ query = {}, indexOnly = false }: { query?: Record<string,string|undefined>; indexOnly?: boolean }) {
   const params = new URLSearchParams(Object.entries(query).filter((entry): entry is [string,string] => Boolean(entry[1])))
   let filters
-  try { filters = parseRepositoryQuery(params) } catch (error) { return <Shell mode={dataMode()}><div className="page-frame editorial-page"><h1>Revisa los filtros</h1><p>{error instanceof Error ? error.message : 'La búsqueda no es válida.'}</p><Link href="/partidos">Abrir el índice sin filtros</Link></div></Shell> }
+  try { filters = parseRepositoryQuery(params) } catch (error) { return <Shell mode={dataMode()}><div className="page-frame editorial-page"><h1>Revisa los filtros</h1><p>{error instanceof Error ? error.message : 'La búsqueda no es válida.'}</p><Link href="/buscar">Abrir el índice sin filtros</Link></div></Shell> }
   filters.limit = 25
   const all = await getMatches(undefined, undefined, true)
   const result = selectRepository(all, filters)

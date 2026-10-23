@@ -45,10 +45,14 @@ export async function generateMetadata({ params, searchParams }: Props) {
     categoria && tournament?.categories.includes(categoria)
       ? `?categoria=${encodeURIComponent(categoria)}`
       : "";
+  const title = `${tournament ? tournamentName(tournament.name) : "Torneo"}${category ? ` · ${categoryLabel(category)}` : ""} — DEUCE`;
+  const description = "Títulos, finales y ediciones de este torneo en el archivo.";
   return {
-    title: `${tournament ? tournamentName(tournament.name) : "Torneo"}${category ? ` · ${categoryLabel(category)}` : ""} — DEUCE`,
-    description: "Títulos, finales y ediciones de este torneo en el archivo.",
+    title,
+    description,
     alternates: { canonical: `/torneos/${slug}${categoryQuery}` },
+    openGraph: { title, description, url: `/torneos/${slug}${categoryQuery}` },
+    twitter: { card: "summary_large_image", title, description },
   };
 }
 

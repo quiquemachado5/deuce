@@ -1,13 +1,13 @@
 "use client";
 
-import Form from "next/form";
+import { useRouter } from "next/navigation";
 import {
   Children,
   cloneElement,
   isValidElement,
-  useEffect,
-  useRef,
+  useCallback,
 } from "react";
+import useDebounce from "@/hooks/useDebounce";
 
 export default function FilterForm({
   action,
@@ -16,28 +16,31 @@ export default function FilterForm({
   action: string;
   children: React.ReactNode;
 }) {
-  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  useEffect(
-    () => () => {
-      if (timer.current) clearTimeout(timer.current);
-    },
-    [],
-  );
+  const router = useRouter();
+  const navigate = useCallback((form: HTMLFormElement) => {
+    const params = new URLSearchParams();
+    for (const [key, raw] of new FormData(form)) {
+      const value = String(raw).trim();
+      if (!value || value === "all" || (key === "page" && value === "1")) continue;
+      params.append(key, value);
+    }
+    router.push(`${action}${params.size ? `?${params}` : ""}`, { scroll: false });
+  }, [action, router]);
+  const debouncedNavigate = useDebounce(navigate, 300);
   return (
-    <Form
+    <form
       action={action}
-      scroll={false}
       className="nc-filters"
-      onSubmit={() => {
-        if (timer.current) clearTimeout(timer.current);
+      onSubmit={(event) => {
+        event.preventDefault();
+        navigate(event.currentTarget);
       }}
       onChange={(event) => {
         const form = event.currentTarget;
         const control = event.target as HTMLInputElement;
-        if (timer.current) clearTimeout(timer.current);
         if (control.tagName === "SELECT" || control.type === "checkbox")
-          form.requestSubmit();
-        else timer.current = setTimeout(() => form.requestSubmit(), 250);
+          navigate(form);
+        else debouncedNavigate(form);
       }}
     >
       {Children.map(children, (child) =>
@@ -58,6 +61,6 @@ export default function FilterForm({
           Ver selección
         </button>
       </noscript>
-    </Form>
+    </form>
   );
 }

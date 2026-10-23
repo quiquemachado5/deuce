@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { Menu, Search, X } from "lucide-react";
+import ThemeControl from "@/components/ThemeControl";
 
 export type SearchItem = {
   href: string;
@@ -232,25 +233,6 @@ function Wordmark({ choose }: { choose?: () => void }) {
   );
 }
 
-type Theme = "system" | "dark" | "light";
-const themeKey = "deuce-rally-theme";
-function storedTheme(): Theme {
-  try {
-    const value = localStorage.getItem(themeKey);
-    return value === "dark" || value === "light" ? value : "system";
-  } catch {
-    return "system";
-  }
-}
-function applyTheme(theme: Theme) {
-  document.documentElement.dataset.theme =
-    theme === "system"
-      ? matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light"
-      : theme;
-}
-
 export default function Frame({ children }: { children: React.ReactNode }) {
   const path = usePathname();
   const active = pageLabel(path);
@@ -261,20 +243,10 @@ export default function Frame({ children }: { children: React.ReactNode }) {
   const opener = useRef<HTMLElement | null>(null);
   const previousOverflow = useRef("");
   const initialPath = useRef(path);
-  const themePicker = useRef<HTMLDetailsElement>(null);
   const [query, setQuery] = useState("");
-  const [theme, setTheme] = useState<Theme>("system");
   const [activeDialog, setActiveDialog] = useState<"menu" | "search" | null>(
     null,
   );
-
-  useEffect(() => {
-    const preference = matchMedia("(prefers-color-scheme: dark)");
-    const update = () => applyTheme(storedTheme());
-    update();
-    preference.addEventListener("change", update);
-    return () => preference.removeEventListener("change", update);
-  }, []);
 
   useEffect(() => {
     // Route changes dismiss overlays; the first hydration must not close one
@@ -359,17 +331,6 @@ export default function Frame({ children }: { children: React.ReactNode }) {
       first?.focus();
     }
   };
-  const selectTheme = (value: Theme) => {
-    setTheme(value);
-    try {
-      localStorage.setItem(themeKey, value);
-    } catch {}
-    applyTheme(value);
-    if (themePicker.current) {
-      themePicker.current.open = false;
-      themePicker.current.querySelector("summary")?.focus();
-    }
-  };
   return (
     <>
       <a className="ry-skip" href="#main-content">
@@ -383,6 +344,7 @@ export default function Frame({ children }: { children: React.ReactNode }) {
             </div>
             <NavSection active={active} mode="desktop" />
             <div className="ry-header-actions">
+              <ThemeControl />
               {!pageOwnsSearch && <button
                 className="ry-search-trigger"
                 aria-label="Buscar en todo DEUCE"
@@ -416,7 +378,7 @@ export default function Frame({ children }: { children: React.ReactNode }) {
         <footer className="ry-footer">
           <div className="deuce-footer-top">
             <Link href="/" className="deuce-footer-brand" aria-label="DEUCE, volver al inicio">DEUCE</Link>
-            <nav className="deuce-footer-navigation" aria-label="Archivo"><Link href="/partidos">Partidos</Link><Link href="/records">Estadísticas</Link><Link href="/jugadores">Jugadores</Link><Link href="/tournaments">Torneos</Link><Link href="/comparar">Comparar</Link></nav>
+            <nav className="deuce-footer-navigation" aria-label="Archivo"><Link href="/buscar">Partidos</Link><Link href="/records">Estadísticas</Link><Link href="/jugadores">Jugadores</Link><Link href="/tournaments">Torneos</Link><Link href="/comparar">Comparar</Link></nav>
           </div>
           <div className="ry-footer-inner">
             <nav aria-label="Información">
@@ -424,42 +386,6 @@ export default function Frame({ children }: { children: React.ReactNode }) {
               <Link href="/cobertura">Cobertura</Link>
               <Link href="/credits">Fotografías</Link>
             </nav>
-            <details className="ry-theme" ref={themePicker}>
-              <summary
-                onClick={() => setTheme(storedTheme())}
-                onKeyDown={(event) => {
-                  if (event.key === "Escape") {
-                    event.preventDefault();
-                    if (themePicker.current) themePicker.current.open = false;
-                    event.currentTarget.focus();
-                  }
-                }}
-              >
-                Tema: {theme === "system" ? "Sistema" : theme === "dark" ? "Oscuro" : "Claro"}
-              </summary>
-              <div
-                className="ry-theme-options"
-                role="group"
-                aria-label="Tema de la interfaz"
-              >
-                {(
-                  [
-                    ["system", "Sistema"],
-                    ["dark", "Oscuro"],
-                    ["light", "Claro"],
-                  ] as const
-                ).map(([value, label]) => (
-                  <button
-                    key={value}
-                    type="button"
-                    aria-pressed={theme === value}
-                    onClick={() => selectTheme(value)}
-                  >
-                    {label}
-                  </button>
-                ))}
-              </div>
-            </details>
             <span className="ry-copyright">
               © {new Date().getFullYear()} DEUCE
             </span>
@@ -487,6 +413,11 @@ export default function Frame({ children }: { children: React.ReactNode }) {
           </button>
         </div>
         <NavSection active={active} mode="menu" choose={close} />
+        <nav className="ry-menu-secondary" aria-label="Información y ayuda">
+          <Link href="/jugadores?tipo=parejas" onClick={close}>Cara a cara</Link>
+          <Link href="/cobertura" onClick={close}>Cobertura</Link>
+          <Link href="/info" onClick={close}>Cómo se lee</Link>
+        </nav>
       </dialog>
       <dialog
         id="ry-search-dialog"

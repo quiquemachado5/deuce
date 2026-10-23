@@ -43,13 +43,16 @@ export async function generateMetadata({ params, searchParams }: Props) {
     canonicalParams.set("categoria", level);
   if (Number(query.page) > 1)
     canonicalParams.set("page", String(Number(query.page)));
+  const title = `${tournament ? tournamentName(tournament.name) : "Edición"} ${year}${level ? ` · ${categoryLabel(level)}` : ""} — DEUCE`;
+  const description = "La final, el camino del campeón y los resultados de esta edición.";
   return {
-    title: `${tournament ? tournamentName(tournament.name) : "Edición"} ${year}${level ? ` · ${categoryLabel(level)}` : ""} — DEUCE`,
-    description:
-      "La final, el camino del campeón y los resultados de esta edición.",
+    title,
+    description,
     alternates: {
       canonical: `/${slug}/${year}${canonicalParams.size ? `?${canonicalParams}` : ""}`,
     },
+    openGraph: { title, description, url: `/${slug}/${year}` },
+    twitter: { card: "summary_large_image", title, description },
   };
 }
 

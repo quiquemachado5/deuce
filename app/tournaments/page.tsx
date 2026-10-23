@@ -21,16 +21,22 @@ const orderedCategories = [
   "Grand Slam", "Masters 1000", "ATP 500", "ATP 250",
   "ATP Tour histórico", "ATP Tour", "ATP Tour · nivel no especificado", "Precursores de Masters",
 ];
+const primaryCategories = ["Grand Slam", "Masters 1000", "ATP 500", "ATP 250", "Challenger"] as const;
+const primaryLabel = (category: string) => category === "Grand Slam" ? "Grand Slams" : category === "Challenger" ? "Challengers" : category;
 const categoryUrl = (category: string, page = 1) =>
   `/tournaments?categoria=${encodeURIComponent(category)}${page > 1 ? `&page=${page}` : ""}`;
 
 export async function generateMetadata({ searchParams }: Props) {
   const { categoria, page } = await searchParams;
   const pageNumber = Number(page);
+  const title = categoria ? `${primaryLabel(categoria)} · Torneos — DEUCE` : "Torneos — DEUCE";
+  const description = "Grand Slams, Masters y torneos ATP del archivo, separados por categoría y edición.";
   return {
-    title: categoria ? `${categoryLabel(categoria)} · Torneos — DEUCE` : "Torneos — DEUCE",
-    description: "Grand Slams, Masters y torneos ATP del archivo, separados por categoría y edición.",
+    title,
+    description,
     alternates: { canonical: categoria ? categoryUrl(categoria, Number.isFinite(pageNumber) ? Math.max(1, Math.floor(pageNumber)) : 1) : "/tournaments" },
+    openGraph: { title, description, url: categoria ? categoryUrl(categoria) : "/tournaments" },
+    twitter: { card: "summary_large_image", title, description },
   };
 }
 
@@ -104,31 +110,29 @@ export default async function Tournaments({ searchParams }: Props) {
       const ia = orderedCategories.indexOf(a), ib = orderedCategories.indexOf(b);
       return (ia < 0 ? 999 : ia) - (ib < 0 ? 999 : ib) || a.localeCompare(b, "es");
     });
-  const chosen = query.categoria && categories.includes(query.categoria) ? query.categoria : null;
+  const chosen = query.categoria && (categories.includes(query.categoria) || primaryCategories.includes(query.categoria as typeof primaryCategories[number])) ? query.categoria : null;
   const chosenEntries = chosen ? entries.filter((entry) => entry.categories.includes(chosen)) : [];
   const pages = Math.max(1, Math.ceil(chosenEntries.length / 25));
   const requestedPage = Number(query.page);
   const page = Number.isFinite(requestedPage) ? Math.min(pages, Math.max(1, Math.floor(requestedPage))) : 1;
   return <div className="nc-wrap ry-photo-tournaments" data-event-category={chosen || undefined}>
     <header className="ry-photo-tournaments-intro">
-      <h1>{chosen ? categoryLabel(chosen) : "Torneos"}</h1>
+      <h1>{chosen ? primaryLabel(chosen) : "Torneos"}</h1>
       <p>{chosen ? `${number(chosenEntries.length)} torneos de esta categoría.` : "Resultados, finales y ediciones del archivo."}</p>
     </header>
-    {chosen ? <nav className="ry-tournament-category-nav" aria-label="Categorías de torneos">
-      <Link href="/tournaments">Todos los torneos</Link>
-      {categories.map((category) => <Link key={category} href={categoryUrl(category)} aria-current={chosen === category ? "page" : undefined}
-        data-event-category={category}>{categoryLabel(category)}</Link>)}
-    </nav> : <nav className="ry-tournament-category-nav ry-tournament-jumps" aria-label="Ir a una categoría">
-      <Link href={categoryUrl("Grand Slam")}>Grand Slams</Link>
-      <Link href={categoryUrl("Masters 1000")}>Masters 1000</Link>
-      {categories.includes("ATP 500") && <a href="#atp-500">ATP 500</a>}
-      {categories.includes("ATP 250") && <a href="#atp-250">ATP 250</a>}
-      {categories.includes("ATP Tour histórico") && <a href="#otros">Histórico</a>}
-      {categories.includes("Precursores de Masters") && <a href="#precursores">Precursores</a>}
-    </nav>}
+    <nav className="ry-tournament-category-nav ry-tournament-primary-tabs" aria-label="Categorías principales de torneos">
+      <Link href="/tournaments" aria-current={!chosen ? "page" : undefined}>Todos</Link>
+      {primaryCategories.map((category) => <Link key={category} href={categoryUrl(category)} aria-current={chosen === category ? "page" : undefined}
+        data-event-category={category}>{primaryLabel(category)}</Link>)}
+    </nav>
+    {!chosen && categories.some(category => !primaryCategories.includes(category as typeof primaryCategories[number])) && <details className="ry-tournament-more-categories">
+      <summary>Más categorías históricas</summary>
+      <nav aria-label="Categorías históricas">{categories.filter(category => !primaryCategories.includes(category as typeof primaryCategories[number])).map(category => <Link key={category} href={categoryUrl(category)}>{categoryLabel(category)}</Link>)}</nav>
+    </details>}
     {chosen ? (["Grand Slam","Masters 1000"].includes(chosen) ? <PhotoGroup category={chosen} entries={chosenEntries} /> : <section className="nc-section ry-tournament-list-section ry-tournament-filtered">
       <div className="ry-tournament-list-heading"><h2>{categoryLabel(chosen)}</h2><span>Página {number(page)} de {number(pages)}</span></div>
-      <div className="ry-tournament-directory-rows">{chosenEntries.slice((page - 1) * 25, page * 25).map((entry) => <TournamentRow entry={entry} category={chosen} key={entry.slug} />)}</div>
+      {chosenEntries.length ? <div className="ry-tournament-directory-rows">{chosenEntries.slice((page - 1) * 25, page * 25).map((entry) => <TournamentRow entry={entry} category={chosen} key={entry.slug} />)}</div>
+        : <div className="ry-tournament-empty" role="status"><h3>Aún no hay {primaryLabel(chosen).toLowerCase()} en esta copia del archivo</h3><p>La categoría está preparada para incorporarlos cuando existan datos publicados.</p><Link href="/tournaments">Volver a todos los torneos</Link></div>}
       {chosenEntries.length > 25 && <Pagination page={page} total={chosenEntries.length} href={(nextPage) => categoryUrl(chosen, nextPage)} />}
     </section>) : <>
       <PhotoGroup category="Calendario" entries={entries.filter(entry => entry.canonical && entry.categories.some(category=>["Grand Slam","Masters 1000"].includes(category)))} />

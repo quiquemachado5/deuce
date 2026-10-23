@@ -1,6 +1,16 @@
+"use client";
+
 import Image from "next/image";
 import { playerPhoto } from "@/lib/player-imagery";
 import { avatarPhotoStyle } from "@/lib/photo-style";
+import { useState } from "react";
+
+function avatarColors(name: string) {
+  let hash = 0;
+  for (const character of name) hash = (hash * 31 + character.charCodeAt(0)) >>> 0;
+  const hue = hash % 360;
+  return [`hsl(${hue} 58% 36%)`, `hsl(${(hue + 42) % 360} 68% 58%)`];
+}
 
 /** Local, licensed, size-limited portraits. The adjacent name provides the label. */
 export default function PlayerAvatar({
@@ -11,6 +21,8 @@ export default function PlayerAvatar({
   size?: number;
 }) {
   const photo = playerPhoto(name);
+  const [failed, setFailed] = useState(false);
+  const [from, to] = avatarColors(name);
   const initials = name
     .split(/\s+/)
     .filter(Boolean)
@@ -20,10 +32,15 @@ export default function PlayerAvatar({
   return (
     <span
       className="player-avatar"
-      style={{ "--avatar-size": `${size}px` } as React.CSSProperties}
+      style={{
+        "--avatar-size": `${size}px`,
+        "--avatar-from": from,
+        "--avatar-to": to,
+      } as React.CSSProperties}
       aria-hidden="true"
+      data-fallback={!photo || failed ? "true" : undefined}
     >
-      {photo ? (
+      {photo && !failed ? (
         <Image
           src={photo.avatarCrop ? photo.src : photo.thumbnail || photo.src}
           alt=""
@@ -32,6 +49,7 @@ export default function PlayerAvatar({
           sizes={`${size}px`}
           style={avatarPhotoStyle(photo)}
           unoptimized
+          onError={() => setFailed(true)}
         />
       ) : (
         initials

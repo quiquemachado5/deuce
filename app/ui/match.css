@@ -594,6 +594,17 @@
 .ry-share-formats svg {
   display: none;
 }
+@media (max-width: 759px) {
+  .ry-share-dialog { padding: 16px; }
+  .ry-share-preview { padding: 12px; }
+  .ry-share-preview .set-scoreboard table { min-width: 0; }
+  .ry-share-preview .set-scoreboard col { width: 30px; }
+  .ry-share-preview .set-scoreboard .set-player-column { width: auto; }
+  .ry-share-preview .set-scoreboard th,
+  .ry-share-preview .set-scoreboard td { padding-inline: 2px; }
+  .ry-share-preview .set-scoreboard tbody th { min-width: 72px; }
+  .ry-share-preview .set-scoreboard .set-total strong { width: 24px; height: 24px; font-size: 15px; }
+}
 @keyframes draw-line {
   from {
     stroke-dashoffset: 2400;

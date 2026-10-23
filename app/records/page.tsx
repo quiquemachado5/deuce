@@ -16,6 +16,7 @@ import { tournamentName } from "@/lib/labels";
 import { SURFACES, surfaceLabel } from "@/lib/surface";
 import ArchiveNotice from '@/components/nocturno/ArchiveNotice';
 import StatisticsFamilyNav from '@/components/StatisticsFamilyNav';
+import ShareLinkButton from '@/components/ShareLinkButton';
 
 type Query = Record<string, string | undefined>;
 const address = (q: Query) =>
@@ -81,8 +82,9 @@ function CatalogueEntry({ piece }: { piece: RecordMeta }) {
   );
 }
 
-function RecordIndex({ manifest }: {
+function RecordIndex({ manifest, q }: {
   manifest: Awaited<ReturnType<typeof recordView>>["manifest"];
+  q: Query;
 }) {
   const catalog = manifest.pieces;
   const surfaceRecords = ["hard", "clay", "grass"].flatMap((surface) => {
@@ -97,6 +99,10 @@ function RecordIndex({ manifest }: {
         </div>
         <span>{number(catalog.length)} estadísticas · {number(manifest.matchCount)} partidos</span>
       </header>
+      <nav className="rv-era-filter" aria-label="Periodo de las estadísticas">
+        <Link href="/records" aria-current={!q.era || q.era === "all" ? "page" : undefined}>Era Abierta · 1968–actualidad</Link>
+        <Link href={address({ era: "last20" })} aria-current={q.era === "last20" ? "page" : undefined}>Últimos 20 años</Link>
+      </nav>
       <RecordDiscovery facts={discoveryFacts(catalog)} />
       {surfaceRecords.length > 0 && <section className="rd-surfaces" aria-labelledby="rd-surfaces-title">
         <div className="rd-surfaces-heading"><h2 id="rd-surfaces-title">El récord de títulos en cada pista</h2></div>
@@ -158,10 +164,13 @@ function RecordIndex({ manifest }: {
 }
 
 function RecordFilters({ piece, q, years }: { piece: Pick<RecordMeta, 'id'>; q: Query; years: number[] }) {
-  const active = [q.year, q.surface, q.competition].some((value) => value && value !== "all");
+  const active = [q.year, q.surface, q.competition, q.era].some((value) => value && value !== "all");
   return <div className="rv-filter-wrap">
     <FilterForm action="/records">
       <input type="hidden" name="dato" value={piece.id} />
+      <label className="nc-field"><span>Era</span><select name="era" defaultValue={q.era || "all"}>
+        <option value="all">Era Abierta · 1968–actualidad</option><option value="last20">Últimos 20 años</option>
+      </select></label>
       <label className="nc-field"><span>Temporada</span><select name="year" defaultValue={q.year || "all"}>
         <option value="all">Todo el archivo</option>
         <optgroup label="Últimas temporadas">{years.slice(0, 8).map(year => <option key={year}>{year}</option>)}</optgroup>
@@ -191,7 +200,7 @@ export default async function Records({ searchParams }: { searchParams: Promise<
   const q = await searchParams;
   if (!q.dato) {
     const view = await recordView(JSON.stringify(q));
-    return <><ArchiveNotice status={view} /><RecordIndex manifest={view.manifest} /></>;
+    return <><ArchiveNotice status={view} /><RecordIndex manifest={view.manifest} q={q} /></>;
   }
   const view = await recordView(JSON.stringify(q));
   if (q.dato === "dos-epocas") {
@@ -231,7 +240,7 @@ export default async function Records({ searchParams }: { searchParams: Promise<
     <Link className="rv-back" href="/records">Estadísticas</Link>
     <ArchiveNotice status={view} />
     <header className="rv-detail-header"><h1>{piece.title}</h1><p>{piece.definition}</p>
-      <Link className="stats-data-link" href={'/cobertura?'+new URLSearchParams(Object.entries({...q,dato:piece.id}).filter(([,value])=>value) as [string,string][])}>Sobre los datos</Link></header>
+      <div className="rv-detail-actions"><Link className="stats-data-link" href={'/cobertura?'+new URLSearchParams(Object.entries({...q,dato:piece.id}).filter(([,value])=>value) as [string,string][])}>Sobre los datos</Link><ShareLinkButton title={`${piece.title} — DEUCE`} /></div></header>
     {leader && <section className="rv-lead" aria-label="Líder de esta estadística">
       <div>
         <p className="rv-lead-value">{recordValue(leader, piece.percent, asYear)}</p>
@@ -246,6 +255,7 @@ export default async function Records({ searchParams }: { searchParams: Promise<
     {view.page === 1 && !asYear && <RecordBars rows={view.rows} id={piece.id} percent={piece.percent} filters={q} />}
     <section className="rv-list-section"><div className="rv-list-heading"><h2>Clasificación</h2>
       <span>{number(piece.total)} {piece.total === 1 ? "entrada" : "entradas"} · página {number(view.page)} de {number(Math.max(1, Math.ceil(piece.total / 25)))}</span></div>
+      <nav className="rv-sort" aria-label="Ordenar clasificación"><span>Ordenar por</span>{[["value","Cifra"],["sample","Partidos"],["name","Nombre"]].map(([value,label])=><Link key={value} href={address({...q,sort:value,page:undefined})} aria-current={(q.sort||"value")===value?"page":undefined}>{label}</Link>)}</nav>
       {view.rows.length ? <RecordRanking evidence={{id:piece.id,filters:q}} rows={view.rows} percent={piece.percent} asYear={asYear} offset={(view.page - 1) * 25} priorValue={piece.pagePrior?.[view.page]} />
         : piece.smallTotal ? <p className="rv-list-note">Las observaciones de esta cifra están en Muestras pequeñas, más abajo.</p>
         : <p className="rv-list-note">Ningún partido coincide con esta selección. Cambia los filtros para ampliar la consulta.</p>}

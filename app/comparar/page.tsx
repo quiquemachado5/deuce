@@ -78,6 +78,25 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
           })}
         </div>
       </section>
+      <section className="dx-surface-comparison" aria-labelledby="surface-comparison-title">
+        <div className="dx-section-heading"><h2 id="surface-comparison-title">Rendimiento por superficie</h2><span>Porcentaje de victorias en la muestra</span></div>
+        <div className="dx-surface-comparison-list">
+          {SURFACES.map((surface) => <article key={surface}>
+            <h3>{surfaceLabel[surface]}</h3>
+            {players.map((player) => {
+              const result = player.surfaces.find((entry) => entry.surface === surface)!;
+              return <div className="dx-surface-player" key={player.name}>
+                <span><strong>{player.name}</strong><small>{result.played ? `${number(result.won)}–${number(result.played - result.won)} · ${number(result.rate!, 1)} %` : "Sin partidos"}</small></span>
+                <span className="dx-surface-track" aria-hidden="true"><i style={{ width: `${result.rate || 0}%` }} /></span>
+              </div>;
+            })}
+          </article>)}
+        </div>
+        <div className="dx-finals-comparison" aria-label="Rendimiento en finales">
+          <h3>Finales</h3>
+          {players.map((player) => <p key={player.name}><span>{player.name}</span><strong>{player.finals ? `${number(player.titles)} de ${number(player.finals)} · ${number(player.titles / player.finals * 100, 1)} %` : "Sin finales"}</strong></p>)}
+        </div>
+      </section>
       <section className="dx-dual-sample" aria-labelledby="sample-title"><div className="dx-section-heading"><h2 id="sample-title">Partidos de la muestra</h2><span>Últimos cinco de cada jugador</span></div><div className="dx-dual-sample-grid">{players.map(player => <div className="dx-sample-column" key={player.name}><h3>{player.name}</h3>{[...player.matches].slice(-5).reverse().map(match => <article className="dx-sample-match" key={match.match_id}><Link className="dx-sample-match-context" href={`/match/${match.match_id}`}>{tournamentName(match.tournament)} · {match.year} · {round(match)} <span aria-hidden="true">↗</span></Link><SetScoreboard match={match} compact /></article>)}<Link className="dx-sample-all" href={sampleHref(player.name)}>Ver toda la muestra</Link></div>)}</div></section>
     </>}
     <p className="dx-provenance">Solo se comparan resultados completos. Los abandonos y encuentros en revisión quedan fuera de las cifras.</p>

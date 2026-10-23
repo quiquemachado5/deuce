@@ -104,9 +104,20 @@ async function lease() {
 }
 async function provider(path: string) {
   if (!process.env.TENNIS_API_KEY) throw new Error('Tennis provider is not configured')
-  const response = await fetch(`${base}${path}`, { headers: { 'X-API-Key': process.env.TENNIS_API_KEY }, cache: 'no-store', signal: AbortSignal.timeout(20_000) })
-  if (!response.ok) throw new Error(`Tennis provider HTTP ${response.status}`)
-  return response.json()
+  let lastError: unknown
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      const response = await fetch(`${base}${path}`, { headers: { 'X-API-Key': process.env.TENNIS_API_KEY }, cache: 'no-store', signal: AbortSignal.timeout(20_000) })
+      if (response.ok) return response.json()
+      if (response.status !== 429 && response.status < 500) throw new Error(`Tennis provider HTTP ${response.status}`)
+      lastError = new Error(`Tennis provider HTTP ${response.status}`)
+    } catch (error) {
+      lastError = error
+      if (error instanceof Error && !['AbortError', 'TimeoutError', 'TypeError'].includes(error.name)) throw error
+    }
+    if (attempt === 0) await new Promise(resolve => setTimeout(resolve, 750))
+  }
+  throw lastError instanceof Error ? lastError : new Error('Tennis provider request failed')
 }
 export async function downloadCloudDetail(kind: 'modern' | 'archive', id: string) {
   const key = `detail-${kind}-${id}`
@@ -138,7 +149,8 @@ export async function refreshCloudArchive() {
     const quota = await provider('/usage')
     const remaining = Number(quota.today?.remaining_day || 0)
     if (remaining < 120) {
-      const result = { status: 'quota-reserve', at: new Date().toISOString(), remaining }
+      const previous = await cloudRead('sync-status')
+      const result = { status: 'quota-reserve', at: new Date().toISOString(), remaining, lastSuccessAt: previous?.status === 'success' ? previous.at : previous?.lastSuccessAt }
       await cloudWrite('sync-status', result)
       return result
     }
@@ -206,11 +218,12 @@ export async function refreshCloudArchive() {
       if(row.kind==='archive')historicalAdded++;else archiveRecentAdded++
     }
     cache.delete('detail-index')
-    const result = { status: 'success', at: new Date().toISOString(), year, matches: data.length, updated: rows.length, seasonsRefreshed, detailsAdded, detailsRefreshed, historicalAdded, archiveRecentAdded, calls, activityFixtures:activity.length }
+    const result = { status: 'success', at: new Date().toISOString(), lastSuccessAt: new Date().toISOString(), year, matches: data.length, updated: rows.length, seasonsRefreshed, detailsAdded, detailsRefreshed, historicalAdded, archiveRecentAdded, calls, activityFixtures:activity.length }
     await cloudWrite('sync-status', result)
     return result
   } catch (error) {
-    await cloudWrite('sync-status', { status: 'error', at: new Date().toISOString(), calls, message: error instanceof Error ? error.message : 'Sync failed' })
+    const previous = await cloudRead('sync-status').catch(() => undefined)
+    await cloudWrite('sync-status', { status: 'error', at: new Date().toISOString(), lastSuccessAt: previous?.status === 'success' ? previous.at : previous?.lastSuccessAt, calls, message: error instanceof Error ? error.message : 'Sync failed' })
     throw error
   } finally { await release() }
 }

@@ -47,7 +47,8 @@ export async function generateMetadata({
     title,
     description: `${title.replace(" — DEUCE", "")}. ${description}`,
     alternates: { canonical },
-    openGraph: { title, description, images: [`/match/${id}/opengraph-image`] },
+    openGraph: { title, description, images: [`/match/${id}/opengraph-image`], type: "article", url: canonical },
+    twitter: { card: "summary_large_image", title, description, images: [`/match/${id}/opengraph-image`] },
   };
 }
 
