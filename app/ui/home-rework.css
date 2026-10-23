@@ -248,6 +248,16 @@ html { overflow-x: clip; }
   .home-search form button { min-width: 62px; padding: 6px; font-size: 12px; }
   .home-featured .set-scoreboard th { font-size: 11px; }
   .home-featured .set-winner-label { display: block; margin: 2px 0 0; }
+  .home-featured .set-scoreboard table { min-width: 0; }
+  .home-featured .set-scoreboard col:not(.set-player-column) { width: 28px; }
+  .home-featured .set-scoreboard th, .home-featured .set-scoreboard td { padding-inline: 2px; }
+  .home-featured .set-scoreboard thead th { font-size: 9px; white-space: nowrap; }
+  .home-featured .set-scoreboard tbody th { min-width: 0; font-size: 11px; }
+}
+@supports (width: 100cqw) {
+  body { container-type: inline-size; }
+  .ds-home .home-intro, .home-featured, .ds-home .ds-stories { width: 100cqw; margin-left: calc(50% - 50cqw); }
+  .home-featured { margin-top: 12px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .home-explore-card, .home-explore-image, .match-card { transition-duration: .01ms !important; }
