@@ -1,8 +1,10 @@
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { round, score } from "@/lib/cuaderno/model";
-import { displaySetClosed, tieBreakPoints } from "@/lib/score-display";
+import { matchContext } from "@/lib/match-labels";
 import { tournamentName } from "@/lib/labels";
+import { visibleTournamentCategory } from "@/lib/tournament-tier";
+import { displaySetClosed, tieBreakPoints } from "@/lib/score-display";
 import { tournamentCourt } from "@/lib/tournament-presentation";
 import type { Match } from "@/lib/types";
 import PlayerCountryFlag from "@/components/PlayerCountryFlag";
@@ -13,7 +15,8 @@ export default function MatchCard({ match }: { match: Match }) {
   const sets = match.score_summary.games;
   const tieBreaks = tieBreakPoints(match);
   const winner = match.winner === 1 ? match.player1.name : match.winner === 2 ? match.player2.name : "";
-  const context = `${tournamentName(match.tournament)} · ${match.year} · ${round(match)} · ${match.category}`;
+  const context = matchContext(match);
+  const category = visibleTournamentCategory(match.category, match.tournament, match.year);
 
   return (
     <Link
@@ -23,7 +26,8 @@ export default function MatchCard({ match }: { match: Match }) {
       aria-label={`${context}. ${match.player1.name} contra ${match.player2.name}. ${score(match)}${winner ? `. Ganador: ${winner}` : ""}`}
     >
       <span className="match-card-meta">
-        <span>{context}</span>
+        <span>{tournamentName(match.tournament)} · {match.year}{match.round.trim() ? ` · ${round(match)}` : ''}</span>
+        {category && <strong>{category}</strong>}
       </span>
 
       <span
@@ -45,7 +49,7 @@ export default function MatchCard({ match }: { match: Match }) {
               <span className="match-card-identity">
                 <PlayerCountryFlag name={player.name} />
                 <span className="match-card-name">{player.name}</span>
-                {playerWon ? <i className="match-card-winner" title="Ganador"><span className="nc-sr">Ganador</span></i> : null}
+                {playerWon && <span className="nc-sr">Ganador</span>}
               </span>
               {sets.map((set, setIndex) => {
                 const won = displaySetClosed(match, setIndex) && set[side] > set[1 - side];

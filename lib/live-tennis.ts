@@ -68,7 +68,8 @@ function scoreFromGames(games: number[][]) { return games.map(([a, b]) => `${a}â
 function archiveGames(score: string): number[][] {
   return score.split(/\s+/).map(part => part.match(/^(\d+)-(\d+)/)).filter(Boolean).map(match => [Number(match![1]), Number(match![2])])
 }
-function roundName(code: string) { return ({ F: 'Final', SF: 'Semifinal', QF: 'Cuartos de final', R16: 'Octavos de final', R32: 'Tercera ronda', R64: 'Segunda ronda', R128: 'Primera ronda' } as Record<string, string>)[code] || code }
+// The API supplies draw size, not a universal "first/second/third round" label.
+function roundName(code: string) { return ({ F: 'Final', SF: 'Semifinal', QF: 'Cuartos de final', R16: 'Octavos de final', R32: 'Ronda de 32', R64: 'Ronda de 64', R128: 'Ronda de 128' } as Record<string, string>)[code] || code }
 function tournamentName(name: string) {
   const n = name.toLowerCase()
   if ((n.includes('australian open') || n.includes('australian chps'))) return 'Australian Open'
@@ -268,7 +269,7 @@ function modern(row: Row, detail?: Row, summary = false): Match {
   const year = Number(String(source.scheduled_time || source.created_at || '').slice(0, 4)) || 2026
   return {
     match_id: `live-${row.id}`, tournament: tournamentName(row.tournament || ''), surface: surface(row.surface),
-    category: ['Australian Open','Roland Garros','Wimbledon','US Open'].includes(tournamentName(row.tournament||'')) ? 'Grand Slam' : modernTournamentCategory(row.tier), year,
+    category: ['Australian Open','Roland Garros','Wimbledon','US Open'].includes(tournamentName(row.tournament||'')) ? 'Grand Slam' : modernTournamentCategory(row.tier, tournamentName(row.tournament || ''), year), year,
     player1: player(1, row.players?.p1?.name, null), player2: player(2, row.players?.p2?.name, null),
     score_summary: { sets: source.score?.sets || [], games, points: source.score?.points || [], server: source.score?.server ?? null, is_tiebreak: !!source.score?.is_tiebreak, win_probability_p1: source.score?.win_probability_p1 ?? null, timestamp: source.scheduled_time || `${year}-01-01T00:00:00Z` },
     final_score: games.map(([a, b], i) => { const end = detail?.tape?.find((p: Row) => Array.isArray(p.tiebreak_final) && gamesFromScore(p.games)[i]?.[0] === a && gamesFromScore(p.games)[i]?.[1] === b && gamesFromScore(p.games).length === i + 1); return `${a}â€“${b}${end && Math.max(a,b) === 7 && Math.min(a,b) === 6 ? `(${Math.min(...end.tiebreak_final)})` : ''}` }).join(' '), round: roundName(row.round_code || ''), winner: row.winner === 1 || row.winner === 2 ? row.winner : null,

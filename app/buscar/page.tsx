@@ -10,6 +10,7 @@ import { Pagination } from "@/components/nocturno/Row";
 import FilterForm from "@/components/revista/FilterForm";
 import { tournamentName } from "@/lib/labels";
 import { tournamentDirectory, categoryLabel } from "@/lib/tournament-directory";
+import { verifiedTournamentCategory } from "@/lib/tournament-tier";
 import styles from "./search.module.css";
 import EmptyState from "@/components/EmptyState";
 type Q = Record<string, string | undefined>;
@@ -46,7 +47,7 @@ export default async function SearchPage({
     data = await notebook(),
     tournaments = tournamentDirectory(data.matches),
     selectedTournament = tournaments.find((tournament) => tournament.slug === q.tournament),
-    categories = ["Grand Slam", "Masters 1000", "ATP 500", "ATP 250", "Precursores de Masters", "ATP Tour histórico"].filter((category) => data.matches.some((match) => match.category === category)),
+    categories = ["Grand Slam", "Masters 1000", "ATP 500", "ATP 250", "Precursores de Masters", "ATP Tour histórico"].filter((category) => data.matches.some((match) => verifiedTournamentCategory(match.category, match.tournament, match.year) === category)),
     base = matchingMatches(q.q || q.player || "", data.matches),
     filtered = base
       .filter(
@@ -54,7 +55,7 @@ export default async function SearchPage({
           (!q.year || q.year === "all" || m.year === Number(q.year)) &&
           (!q.surface || q.surface === "all" || m.surface === q.surface) &&
           (!q.tournament || q.tournament === "all" || selectedTournament?.name === m.tournament) &&
-          (!q.category || q.category === "all" || m.category === q.category) &&
+          (!q.category || q.category === "all" || verifiedTournamentCategory(m.category, m.tournament, m.year) === q.category) &&
           (!q.round ||
             q.round === "all" ||
             normalizeText(round(m)) === normalizeText(q.round)) &&
@@ -156,7 +157,7 @@ export default async function SearchPage({
               <span>Ronda</span>
               <select name="round" defaultValue={q.round || "all"}>
                 <option value="all">Todas</option>
-                {["Primera ronda", "Segunda ronda", "Tercera ronda", "Octavos", "Cuartos", "Semifinal", "Final"].map((value) => (
+                {["Ronda de 128", "Ronda de 64", "Ronda de 32", "Octavos", "Cuartos", "Semifinal", "Final"].map((value) => (
                   <option key={value}>{value}</option>
                 ))}
               </select>

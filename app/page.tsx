@@ -5,18 +5,11 @@ import ArchiveNotice from '@/components/nocturno/ArchiveNotice';
 import HomeHighlights, { type HomeHighlight } from '@/components/HomeHighlights';
 import TourActivity from '@/components/TourActivity';
 import PlayerAvatar from '@/components/PlayerAvatar';
-import PhotoInfo from '@/components/PhotoInfo';
-import HomeFinalScore from '@/components/HomeFinalScore';
-import ParallaxPhoto from '@/components/ParallaxPhoto';
+import HomeIntro from '@/components/HomeIntro';
 import HomeSeason from '@/components/HomeSeason';
 import { playerPhoto } from '@/lib/player-imagery';
-import { chronological, winnerName, roundPosition } from '@/lib/editorial';
-import { number, round } from '@/lib/cuaderno/model';
-import { tournamentName } from '@/lib/labels';
-import { courtPhoto, courtPhotos } from '@/lib/imagery';
-import { tournamentDirectory } from '@/lib/tournament-directory';
-import { eligibleMatch } from '@/lib/quality';
-import AnimatedCounter from '@/components/AnimatedCounter';
+import { chronological, winnerName } from '@/lib/editorial';
+import { number } from '@/lib/cuaderno/model';
 import MatchCard from '@/components/MatchCard';
 import QuickH2H from '@/components/QuickH2H';
 import HomeExplore from '@/components/HomeExplore';
@@ -31,17 +24,8 @@ export default async function Home() {
   ]);
   const matches = await generation.matches();
   const manifest = generation.manifest;
-  const events=tournamentDirectory(matches);
   const recent = [...matches].sort((a, b) => chronological(b, a));
   const record = (id: string) => manifest.pieces.find(piece => piece.id === id);
-    const recentFinal = recent.find(match => eligibleMatch(match) && match.year <= new Date().getFullYear());
-  const finalEvent = recentFinal
-    ? events.find(event => event.name === recentFinal.tournament)
-    : null;
-
-  const heroCourt = recentFinal ? courtPhoto(recentFinal.tournament) || (recentFinal.surface === 'clay' ? courtPhotos['Roland Garros'] : recentFinal.surface === 'grass' ? courtPhotos.Wimbledon : courtPhotos['US Open']) : null;
-  const illustrativeCourt = recentFinal && !courtPhoto(recentFinal.tournament);
-  const heroWinner = recentFinal ? winnerName(recentFinal) : '';
 
   const storyIds = ['remontada-dos-sets', 'mas-juegos', 'tie-breaks', 'finales-ganadas', 'top-10', 'ganar-con-menos-puntos', 'mas-largos', 'rachas', 'victorias-temporada', 'temporadas-titulos'];
   const stories: HomeHighlight[] = storyIds.flatMap(id => {
@@ -66,21 +50,7 @@ export default async function Home() {
   return <div className="deuce-home ds-home">
     <ArchiveNotice status={generation} />
 
-    <header className="ds-home-heading"><div><h1>El archivo visual del tenis.</h1><p><AnimatedCounter value={manifest.matchCount} /> partidos documentados desde {manifest.years.at(-1)}.</p></div><Link href="/buscar">Explorar partidos</Link></header>
-    {recentFinal ? <section className="ds-hero-record" data-event-surface={recentFinal.surface} aria-labelledby="ds-hero-title">
-      <div className="ds-hero-visual">
-      {heroCourt && <div className="ds-hero-court"><ParallaxPhoto src={heroCourt.src} alt={heroCourt.alt}/><PhotoInfo photo={heroCourt}/></div>}
-      <div className="ds-hero-copy">
-        <p className="ds-hero-context">Destacado del archivo · {recentFinal.category} · {recentFinal.year} · {round(recentFinal)}</p>
-        {illustrativeCourt && <p className="ds-hero-photo-note">Imagen de archivo de la superficie · no corresponde a este partido</p>}
-        <h2 id="ds-hero-title">{tournamentName(recentFinal.tournament)}</h2>
-        <div className="ds-hero-champion"><PlayerAvatar name={heroWinner!} size={56}/><span>{heroWinner}<small>{roundPosition(recentFinal.round)===7 ? 'Campeón' : 'Ganador del último partido'}</small></span></div>
-        <div className="ds-hero-links"><Link className="ds-hero-action" href={`/match/${recentFinal.match_id}`}>Ver el partido</Link>
-        {finalEvent && <Link className="ds-hero-edition" href={`/${finalEvent.slug}/${recentFinal.year}`}>Toda la edición</Link>}</div>
-      </div>
-      <div className="ds-hero-scoreboard"><HomeFinalScore match={recentFinal} context="partido" /></div>
-      </div>
-    </section> : <header className="ds-hero-fallback"><h2>Los partidos detrás de cada cifra.</h2><Link href="/records">Ver estadísticas</Link></header>}
+    <HomeIntro count={manifest.matchCount} firstYear={manifest.years.at(-1) || 1968} />
 
     <HomeHighlights slides={stories} />
 

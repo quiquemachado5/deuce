@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Swords } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useEffect, useId, useState } from "react";
 
 type PairResult = {
@@ -124,8 +124,7 @@ export default function QuickH2H() {
   return (
     <section className="quick-h2h" aria-labelledby="quick-h2h-title">
       <div className="ds-section-heading">
-        <div><span className="quick-h2h-kicker"><Swords size={15} aria-hidden="true" /> Comparador rápido</span><h2 id="quick-h2h-title">Cara a cara en el archivo</h2></div>
-        <Link href="/comparar">Comparador completo</Link>
+        <h2 id="quick-h2h-title">Cara a cara</h2>
       </div>
       <div className="quick-h2h-fields">
         <PlayerField label="Jugador 1" value={first} onChange={setFirst} />
@@ -138,7 +137,7 @@ export default function QuickH2H() {
           <div><span>{result.names[0]}</span><strong>{result.wins[0]}</strong></div>
           <p className="quick-h2h-donut" style={{ "--h2h-share": `${firstShare}%` } as React.CSSProperties} role="img" aria-label={`${result.names[0]}: ${result.wins[0]} victorias; ${result.names[1]}: ${result.wins[1]} victorias en ${result.played} partidos`}><span><strong>{result.played}</strong><span>partidos</span></span></p>
           <div><span>{result.names[1]}</span><strong>{result.wins[1]}</strong></div>
-          <Link href={compareHref}>Ver comparación completa <ArrowRight size={16} aria-hidden="true" /></Link>
+          <Link href={compareHref}>Ver enfrentamientos <ArrowRight size={16} aria-hidden="true" /></Link>
         </div>
       ) : <p className="quick-h2h-status" role="status">{status}</p>}
     </section>

@@ -4,6 +4,7 @@ import { TOURNAMENTS, type Match } from './types'
 import { tournamentName } from './labels'
 import { normalizeText } from './quality'
 import { tournamentDirectory } from './tournament-directory'
+import { verifiedTournamentCategory } from './tournament-tier'
 
 export function parseRepositoryQuery(params: URLSearchParams) {
   const allowed = ['q','search','player','round','year','tournament','category','surface','fiveSets','view','page','limit','kind']
@@ -40,7 +41,7 @@ export function selectRepository(matches: Match[], query: RepositoryQuery) {
   const roundAliases: Record<string,string> = { f:'final', sf:'semifinal', qf:'quarterfinal', 'cuartos de final':'quarterfinal', r16:'octavos de final' }
   const round = roundAliases[normalizeText(query.round)] || normalizeText(query.round)
   const filtered = matches.filter(m => (!query.kind || matchType(m)===query.kind) && (!query.year || m.year === query.year) && (!requestedName || requestedName === m.tournament) &&
-    (query.category === 'all' || query.category === m.category) &&
+    (query.category === 'all' || query.category === verifiedTournamentCategory(m.category,m.tournament,m.year)) &&
     (query.surface === 'all' || query.surface === m.surface) && (!query.fiveSets || m.score_summary.games.length === 5) &&
     (!query.player || normalizeText(`${m.player1.name} ${m.player2.name}`).includes(normalizeText(query.player))) && (!round || (normalizeText(m.round) === round || normalizeText(roundLabel(m.round)) === normalizeText(roundLabel(query.round)))) &&
     terms.every(t => normalizeText(`${m.player1.name} ${m.player2.name} ${m.tournament} ${tournamentName(m.tournament)} ${m.year} ${m.round === 'Quarterfinal' ? 'Cuartos de final' : m.round}`).includes(t)))

@@ -5,8 +5,8 @@ import PlayerAvatar from "@/components/PlayerAvatar";
 import PlayerCountryFlag from "@/components/PlayerCountryFlag";
 import SetGame from "@/components/SetGame";
 import type { Match } from "@/lib/types";
-import { tournamentName } from "@/lib/labels";
-import { round, score, number } from "@/lib/cuaderno/model";
+import { score, number } from "@/lib/cuaderno/model";
+import { matchContext } from "@/lib/match-labels";
 import { tournamentCourt } from "@/lib/tournament-presentation";
 export default function MatchRow({
   match,
@@ -39,7 +39,7 @@ export default function MatchRow({
         .join(", ")
     : score(match);
   const columns = games.map((_, index) => index);
-  const context = `${tournamentName(match.tournament)} · ${match.year} · ${round(match)} · ${match.category}`;
+  const context = matchContext(match);
   return (
     <Link
       href={href || `/match/${match.match_id}`}
@@ -62,7 +62,6 @@ export default function MatchRow({
             <PlayerAvatar name={player.name} size={28} />
             <PlayerCountryFlag name={player.name} />
             <span className="nc-row-name">{player.name}</span>
-            {player.name === winner ? <i className="match-card-winner" aria-hidden="true" /> : null}
           </span>
         ))}
       </span>

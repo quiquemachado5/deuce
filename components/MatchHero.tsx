@@ -7,6 +7,7 @@ import { courtPhoto } from "@/lib/imagery";
 import { tournamentDirectory } from "@/lib/tournament-directory";
 import { tournamentName } from "@/lib/labels";
 import { tournamentCourt } from "@/lib/tournament-presentation";
+import { visibleTournamentCategory } from "@/lib/tournament-tier";
 import { playerSlug } from "@/lib/explore";
 import PlayerAvatar from "@/components/PlayerAvatar";
 import PlayerFlag from "@/components/PlayerFlag";
@@ -29,6 +30,7 @@ export default function MatchHero({
   const court = tournamentCourt({ ...match, indoor: match.context?.indoor });
   const event = tournamentDirectory([match])[0];
   const venue = courtPhoto(match.tournament);
+  const category = visibleTournamentCategory(match.category, match.tournament, match.year);
   const result =
     match.winner !== null &&
     (match.quality?.result !== "review" ||
@@ -64,12 +66,7 @@ export default function MatchHero({
             {tournamentName(match.tournament)}
           </Link>
           <span className="match-event-meta">
-            {match.year} · {round(match)} · {match.category}{" "}
-            <i
-              className={`nc-dot nc-dot-${court.surface}`}
-              aria-hidden="true"
-            />
-            {surfaceLabel[court.surface]}
+            {match.year} · {round(match)}{category ? ` · ${category}` : ''} · {surfaceLabel[court.surface]}
             {court.indoor === true ? " · Cubierta" : ""}
           </span>
         </div>

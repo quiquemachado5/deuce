@@ -58,7 +58,6 @@ export default function SetScoreboard({
                   <Link href={`/players/${playerSlug(player.name)}`}>
                     {player.name}
                   </Link>
-                  {winner ? <i className="set-winner-dot" aria-hidden="true" /> : null}
                   {winner && <span className="nc-sr"> · Ganador</span>}
                 </th>
                 {sets.map((set, i) => {

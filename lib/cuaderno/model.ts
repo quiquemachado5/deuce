@@ -23,6 +23,8 @@ export const score = (match: Match) =>
     .join(", ");
 export { surfaceLabel } from '../surface';
 export function round(match: Match) {
+  const legacyDraw = ({ 'primera ronda': 128, 'segunda ronda': 64, 'tercera ronda': 32 } as Record<string, number>)[match.round.toLowerCase()];
+  if (legacyDraw) return `Ronda de ${legacyDraw}`;
   const p = roundPosition(match.round);
   if (p >= 4)
     return (
@@ -31,7 +33,7 @@ export function round(match: Match) {
         string
       >
     )[p];
-  const n = match.round.match(/(?:round of |r)(128|64|32)/i);
+  const n = match.round.match(/(?:round of |ronda de |r)(128|64|32)/i);
   return n
     ? `Ronda de ${n[1]}`
     : ({ 1: "Primera ronda", 2: "Segunda ronda", 3: "Tercera ronda" } as Record<number, string>)[

@@ -5,6 +5,7 @@ import PhotoInfo from "@/components/PhotoInfo";
 import { courtPhotos } from "@/lib/imagery";
 import { number } from "@/lib/cuaderno/model";
 import { surfaceLabel } from "@/lib/surface";
+import { verifiedTournamentCategory } from "@/lib/tournament-tier";
 import type { Match, Surface } from "@/lib/types";
 
 const surfaces: Surface[] = ["hard", "clay", "grass", "carpet"];
@@ -16,7 +17,8 @@ export default function HomeExplore({ matches }: { matches: Match[] }) {
   const categoryCounts = new Map<string, number>();
   for (const match of matches) {
     surfaceCounts.set(match.surface, (surfaceCounts.get(match.surface) || 0) + 1);
-    categoryCounts.set(match.category, (categoryCounts.get(match.category) || 0) + 1);
+    const category = verifiedTournamentCategory(match.category, match.tournament, match.year);
+    categoryCounts.set(category, (categoryCounts.get(category) || 0) + 1);
   }
   const items = [
     ...surfaces.map((surface) => ({
@@ -42,7 +44,7 @@ export default function HomeExplore({ matches }: { matches: Match[] }) {
   return (
     <section className="home-explore" aria-labelledby="home-explore-title">
       <div className="ds-section-heading">
-        <div><span className="home-explore-kicker">Otra forma de entrar al archivo</span><h2 id="home-explore-title">Superficies y categorías</h2></div>
+        <h2 id="home-explore-title">Superficies y categorías</h2>
         <Link href="/buscar">Ver todos los filtros</Link>
       </div>
       <div className="home-explore-grid">
