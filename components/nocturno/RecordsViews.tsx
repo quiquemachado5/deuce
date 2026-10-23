@@ -66,7 +66,7 @@ export function RecordRanking({
   );
 }
 
-export function RecordEras({ eras, cut = 2020 }: { eras: Era[]; cut?: number }) {
+export function RecordEras({ eras, cut = 2020, filters = {} }: { eras: Era[]; cut?: number; filters?: Record<string, string | undefined> }) {
   return (
     <div className="rv-eras-list">
       {eras.map((era) => (
@@ -88,7 +88,7 @@ export function RecordEras({ eras, cut = 2020 }: { eras: Era[]; cut?: number }) 
               );
             })}
           </div>
-          <Link className="dx-inline-link" href={'/records/evidencia?'+new URLSearchParams({dato:'dos-epocas',nombre:era.name,corte:String(cut)})}>Ver todas las finales de ambos periodos</Link>
+          <Link className="dx-inline-link" href={'/records/evidencia?'+new URLSearchParams({...Object.fromEntries(Object.entries(filters).filter(([key,value])=>['year','surface','competition','era'].includes(key)&&value)) as Record<string,string>,dato:'dos-epocas',nombre:era.name,corte:String(cut)})}>Ver todas las finales de ambos periodos</Link>
         </article>
       ))}
     </div>

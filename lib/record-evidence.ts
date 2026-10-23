@@ -12,7 +12,7 @@ const eligibleSets = new WeakMap<Match[],Match[]>();
 
 export function evidenceHref(id: string, row: RecordRow, filters: Record<string,string|undefined> = {}) {
   const q = new URLSearchParams({dato:id,nombre:row.name,detalle:row.detail,entrada:row.href});
-  for (const key of ['year','surface','competition']) if (filters[key] && filters[key] !== 'all') q.set(key,filters[key]!);
+  for (const key of ['year','surface','competition','era']) if (filters[key] && filters[key] !== 'all') q.set(key,filters[key]!);
   return '/records/evidencia?' + q;
 }
 const final = (m:Match) => m.round.toLowerCase() === 'final';

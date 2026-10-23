@@ -10,21 +10,22 @@ import ArchiveNotice from '@/components/nocturno/ArchiveNotice';
 import { eraComparisons } from '@/lib/revista/records';
 import { eligibleMatch } from '@/lib/quality';
 import { chronological } from '@/lib/editorial';
+import { recordFilters, recordsUrl } from '@/lib/records-url';
 export const metadata = { title: 'Los partidos detrás del dato — DEUCE', robots:{index:false,follow:true} };
 export default async function Evidence({searchParams}:{searchParams:Promise<Record<string,string|undefined>>}) {
   const q = await searchParams, g = await preparedGeneration();
   if(q.dato === 'dos-epocas') {
-    const matches=await g.matches(),cut=g.manifest.eraCuts.includes(Number(q.corte)) ? Number(q.corte):2020;
+    const matches=await selectedArchive(g,q),cut=g.manifest.eraCuts.includes(Number(q.corte)) ? Number(q.corte):2020;
     const era=eraComparisons(matches,cut,q.nombre).find(e=>e.name===q.nombre);
     if(!era)notFound();
     const finals=matches.filter(m=>eligibleMatch(m)&&m.round.toLowerCase()==='final'&&(m.player1.name===era.name||m.player2.name===era.name)).sort(chronological);
     const page=Math.min(Math.max(1,Math.floor(Number(q.page))||1),Math.max(1,Math.ceil(finals.length/25)));
-    return <div className="nc-wrap dx-evidence"><ArchiveNotice status={g}/><Link className="dx-inline-link" href={`/records?dato=dos-epocas&corte=${cut}`}>← Volver a la clasificación</Link>
+    return <div className="nc-wrap dx-evidence"><ArchiveNotice status={g}/><Link className="dx-inline-link" href={recordsUrl(recordFilters(q),{dato:'dos-epocas',corte:String(cut)})}>← Volver a la clasificación</Link>
       <header className="dx-page-heading"><p className="dx-eyebrow">DEL DATO AL PARTIDO</p><h1>{era.name}</h1><p>Todas las finales: antes de {cut} y desde {cut}.</p></header>
       <div className="dx-evidence-summary">{[era.before,era.after].map(period=><div key={period.from}><span>{period.from}–{period.to}</span><strong>{number(period.won/period.played*100,1)} %</strong><p>{number(period.won)} ganadas de {number(period.played)} finales.</p></div>)}</div>
       <aside className="dx-notice">Cada periodo tiene al menos cinco finales completas. La lista incluye victorias y derrotas, ordenadas por fecha y ronda, con el año visible en cada partido.</aside>
       <section className="dx-evidence-list" aria-label="Lista completa de evidencia">{finals.slice((page-1)*25,page*25).map(m=><Row key={m.match_id} match={m}/>)}</section>
-      {finals.length>25&&<Pagination page={page} total={finals.length} href={p=>'/records/evidencia?'+new URLSearchParams({dato:'dos-epocas',nombre:era.name,corte:String(cut),page:String(p)})}/>}
+      {finals.length>25&&<Pagination page={page} total={finals.length} href={p=>'/records/evidencia?'+new URLSearchParams({...Object.fromEntries(Object.entries(recordFilters(q)).filter(([,value])=>value)) as Record<string,string>,dato:'dos-epocas',nombre:era.name,corte:String(cut),page:String(p)})}/>}
       <p className="dx-provenance">{number(finals.length)} finales · Versión {g.manifest.version} · Reglas {g.manifest.rulesVersion}</p></div>;
   }
   if (!q.dato || !g.manifest.pieces.some(p => p.id === q.dato)) notFound();
@@ -34,7 +35,7 @@ export default async function Evidence({searchParams}:{searchParams:Promise<Reco
   const evidence = recordEvidence(await selectedArchive(g,q),piece.id,row);
   const page = Math.min(Math.max(1,Math.floor(Number(q.page))||1),Math.max(1,Math.ceil(evidence.matches.length/25)));
   const back = new URLSearchParams({dato:piece.id});
-  for (const key of ['year','surface','competition']) if(q[key])back.set(key,q[key]!);
+  for (const key of ['year','surface','competition','era']) if(q[key])back.set(key,q[key]!);
   return <div className="nc-wrap dx-evidence"><ArchiveNotice status={g} />
     <Link className="dx-inline-link" href={'/records?'+back}>← Volver a la clasificación</Link>
     <header className="dx-page-heading"><p className="dx-eyebrow">DEL DATO AL PARTIDO</p><h1>{row.name}</h1><p>{piece.title}</p></header>
