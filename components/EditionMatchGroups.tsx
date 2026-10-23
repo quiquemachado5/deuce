@@ -5,28 +5,12 @@ import type { Match } from '@/lib/types';
 import { tournamentName, displayPlayerName } from '@/lib/labels';
 import { browserCategory, browserRound } from '@/lib/match-browser';
 import { roundPosition, chronological, winnerName } from '@/lib/editorial';
-import { score, surfaceLabel } from '@/lib/cuaderno/model';
-import { displaySetClosed, tieBreakPoints } from '@/lib/score-display';
-import PlayerCountryFlag from './PlayerCountryFlag';
-import SetGame from './SetGame';
+import { surfaceLabel } from '@/lib/cuaderno/model';
+import { toMatchRecord } from '@/data/map-match';
+import { MatchScoreboard } from '@/components/deuce/MatchScoreboard';
 import styles from '@/app/buscar/search.module.css';
 
 export type MatchEdition = { key: string; href: string; matches: Match[] };
-
-function ArchiveScoreRow({ match, columns }: { match: Match; columns: number }) {
-  const ties = tieBreakPoints(match);
-  return <Link href={`/match/${match.match_id}`} className={styles.matchRow} aria-label={`${displayPlayerName(match.player1.name)} contra ${displayPlayerName(match.player2.name)}. ${score(match)}.${winnerName(match) ? ` Ganó ${displayPlayerName(winnerName(match)!)}.` : ''} Ver partido`}>
-    {[match.player1, match.player2].map((player, side) => <span className={styles.playerRow} data-winner={match.winner === side + 1} key={player.name}>
-      <span className={styles.playerName}><PlayerCountryFlag name={player.name} /><span>{displayPlayerName(player.name)}</span>{match.winner === side + 1 && <span className="nc-sr">Ganador</span>}</span>
-      {Array.from({ length: columns }, (_, index) => {
-        const set = match.score_summary.games[index];
-        if (!set) return <span key={index} aria-hidden="true" />;
-        const won = displaySetClosed(match, index) && set[side] > set[1 - side];
-        return <span className={styles.setScore} data-won={won} key={index}><SetGame games={set[side]} tieBreak={!won ? ties[index] : undefined} /></span>;
-      })}
-    </span>)}
-  </Link>;
-}
 
 export default function EditionMatchGroups({ editions, showYears = false }: { editions: MatchEdition[]; showYears?: boolean }) {
   return <div className={styles.editionGroups}>{editions.map(edition => {
@@ -53,8 +37,8 @@ export default function EditionMatchGroups({ editions, showYears = false }: { ed
         </summary>
         <div className={styles.editionMatches} style={{ '--archive-sets': columns } as CSSProperties}>
           {[...rounds].map(([label, matches]) => <section key={label} aria-label={label || 'Marcadores'} className={styles.roundGroup}>
-            <div className={styles.roundHeading}>{label ? <h3>{label}</h3> : <span />}{Array.from({ length: columns }, (_, index) => <span key={index} aria-label={`Set ${index + 1}`}>{index + 1}</span>)}</div>
-            {matches.map(match => <ArchiveScoreRow match={match} columns={columns} key={match.match_id} />)}
+            <h3 className="deuce-round-heading">{label}</h3>
+            <div className="match-archive-grid">{matches.map(match => <MatchScoreboard match={toMatchRecord(match)} key={match.match_id} />)}</div>
           </section>)}
         </div>
       </details>

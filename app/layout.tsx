@@ -1,6 +1,11 @@
 import "./deuce.css";
+import "@/styles/deuce-system.css";
 import type { Metadata } from "next";
-import Frame from "@/components/nocturno/Frame";
+import { DM_Sans, Manrope, Newsreader } from 'next/font/google';
+import { DeuceShell } from '@/components/deuce/DeuceShell';
+const body = DM_Sans({ subsets:['latin'], variable:'--deuce-body', display:'swap' });
+const display = Manrope({ subsets:['latin'], variable:'--deuce-display', display:'swap' });
+const editorial = Newsreader({ subsets:['latin'], variable:'--deuce-editorial', style:['normal','italic'], display:'swap' });
 export const metadata: Metadata = {
   metadataBase: new URL("https://deuce-archive.vercel.app"),
   title: "DEUCE — Datos del archivo de tenis",
@@ -15,19 +20,15 @@ export const metadata: Metadata = {
     images: ["/opengraph-image"],
   },
 };
-const theme = `try{var t=localStorage.getItem('deuce-rally-theme')||'system';document.documentElement.dataset.theme=t==='system'?(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):t}catch(e){document.documentElement.dataset.theme='light'}`;
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es" suppressHydrationWarning>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: theme }} />
-      </head>
+    <html lang="es" className={`${body.variable} ${display.variable} ${editorial.variable}`}>
       <body>
-        <Frame>{children}</Frame>
+        <DeuceShell>{children}</DeuceShell>
       </body>
     </html>
   );

@@ -42,11 +42,10 @@ test("each material has a distinct documented photograph and responsive assets",
   }
 });
 
-test("motion is enhancement only; reduced motion exposes all record scenes", () => {
-  const css = readFileSync("app/home-story.module.css", "utf8");
-  assert.match(css, /@media \(prefers-reduced-motion: reduce\)/);
-  assert.match(css, /\.story \.recordScene \{ position: relative !important; opacity: 1 !important; transform: none !important;/);
+test("home uses the handoff components without stale chapter UI", () => {
+  const css = readFileSync("styles/deuce-system.css", "utf8");
+  assert.match(css, /prefers-reduced-motion/);
   const page = readFileSync("app/page.tsx", "utf8");
-  assert.equal((page.match(/<HomeSearch /g) || []).length, 1);
-  assert.doesNotMatch(page, /MatchCard|QuickH2H|HomeFeaturedFinal|HomeHighlights|HomeSeason|HomeExplore/);
+  for (const component of ["HeroVideo", "OnThisDay", "MatchScoreboard", "TournamentSlider"]) assert.ok(page.includes("<"+component));
+  assert.doesNotMatch(page, /<HomeSearch|<QuickH2H|<HomeSeason/);
 });

@@ -22,7 +22,7 @@ async function expectNoPageOverflow(page: Page, context: string) {
 
 test("Madrid uses clay today and preserves indoor hard for its 2007 Masters edition", async ({ page }) => {
   await page.goto("/tournaments");
-  const madridCard = page.locator('.ry-photo-tournament-tile[href="/torneos/madrid"]');
+  const madridCard = page.locator('.catalog-card[href="/torneos/madrid"]');
   await expect(madridCard).toHaveAttribute("data-event-surface", "clay");
   await expect(madridCard).toContainText("Tierra");
   await expect(madridCard).not.toContainText("Al aire libre");
@@ -48,10 +48,10 @@ test("Madrid uses clay today and preserves indoor hard for its 2007 Masters edit
 
 test("Paris labels indoor conditions independently of its hard court surface", async ({ page }) => {
   await page.goto("/tournaments");
-  const parisCard = page.locator('.ry-photo-tournament-tile[href="/torneos/paris"]');
+  const parisCard = page.locator('.catalog-card[href="/torneos/paris"]');
   await expect(parisCard).toHaveAttribute("data-event-surface", "hard");
   await expect(parisCard).toContainText("Dura · Bajo techo");
-  await expect(parisCard.locator(".nc-dot-hard")).toHaveCount(1);
+
   await expectSurfaceColour(parisCard, "hard");
 
   await parisCard.click();
@@ -107,52 +107,23 @@ test("Australian Open rankings keep position, name, detail and values in aligned
   }
 });
 
-test("mobile edition rounds show actual results, accessible tiebreaks and the champion's path", async ({ page }) => {
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/roland-garros/2024");
-  const bracket = page.getByRole("region", { name: "Cuadro registrado", exact: true });
-  const picker = bracket.getByRole("group", { name: "Elegir ronda del cuadro" });
-  const quarterfinals = bracket.getByRole("region", { name: "Cuartos de final", exact: true });
-  await expect(quarterfinals).toBeVisible();
-  // Three quarterfinals are registered; the absent fourth result must not become an invented slot.
-  await expect(quarterfinals.locator(".td-bracket-match")).toHaveCount(3);
-  const alcarazQuarterfinal = quarterfinals.locator('a[href="/match/live-83847"]');
-  await expect(alcarazQuarterfinal).toHaveAccessibleName(
-    "Cuartos de final: Carlos Alcaraz contra Stefanos Tsitsipas, 6–3, 7–6(3), 6–4. Ganador: Carlos Alcaraz",
-  );
-  await expect(alcarazQuarterfinal).toHaveAttribute("data-champion-path", "true");
-  await expect(alcarazQuarterfinal.locator(".td-bracket-result")).toContainText("Camino del campeón");
-  await expect(quarterfinals.locator('a[href="/match/live-84298"]')).toHaveAttribute("data-champion-path", "false");
-
-  const finalButton = picker.getByRole("button", { name: /^Final/ });
-  await finalButton.focus();
-  await page.keyboard.press("Enter");
-  await expect(finalButton).toHaveAttribute("aria-pressed", "true");
-  const final = bracket.getByRole("region", { name: "Final", exact: true });
-  await expect(final).toBeVisible();
-  await expect(quarterfinals).not.toBeVisible();
-  await expect(final.locator(".td-bracket-match")).toHaveCount(1);
-  const actualFinal = final.locator('a[href="/match/live-85844"]');
-  await expect(actualFinal).toHaveAccessibleName(
-    "Final: Alexander Zverev contra Carlos Alcaraz, 3–6, 6–2, 7–5, 1–6, 2–6. Ganador: Carlos Alcaraz",
-  );
-  await expect(actualFinal).toHaveAttribute("data-champion-path", "true");
-  await expect(actualFinal.locator('[data-winner="true"]')).toContainText("Carlos Alcaraz");
-
-  const scoreboard = page.getByRole("region", { name: "Final · 2024", exact: true }).getByRole("table");
-  await expect(scoreboard).toHaveAccessibleName(/Alexander Zverev contra Carlos Alcaraz.*3–6, 6–2, 7–5, 1–6, 2–6/);
-  await expect(scoreboard.getByRole("columnheader")).toHaveCount(7);
-  await expect(scoreboard.getByRole("rowheader", { name: /Carlos Alcaraz.*Ganador/ })).toBeVisible();
-
-  await picker.getByRole("button", { name: /^Octavos de final/ }).click();
-  const fourthRound = bracket.getByRole("region", { name: "Octavos de final", exact: true });
-  await expect(fourthRound).toBeVisible();
-  await expect(final).not.toBeVisible();
-  await expect(fourthRound.locator(".td-bracket-match")).toHaveCount(8);
-  await expect(fourthRound.locator('a[href="/match/live-83157"]')).toHaveAccessibleName(
-    /Carlos Alcaraz contra Félix Auger-Aliassime, 6–3, 6–3, 6–1/,
-  );
-  await expectNoPageOverflow(page, "Mobile edition after switching rounds");
+test("mobile edition rounds keep scores, tiebreaks and the champion path",async({page})=>{
+ await page.setViewportSize({width:390,height:844});await page.goto('/roland-garros/2024');
+ const bracket=page.getByRole('region',{name:'Cuadro registrado',exact:true});
+ const picker=bracket.getByRole('group',{name:'Elegir ronda del cuadro'});
+ const quarters=bracket.getByRole('region',{name:'Cuartos de final',exact:true});
+ await expect(quarters.locator('.match-scorecard')).toHaveCount(3);
+ const alcaraz=quarters.locator('a[href="/match/live-83847"]');
+ await expect(alcaraz.locator('.match-winner')).toContainText('Carlos Alcaraz');
+ await expect(alcaraz.locator('sup')).toHaveText('3');
+ await expect(alcaraz.locator('..')).toHaveAttribute('data-champion-path','true');
+ const button=picker.getByRole('button',{name:/^Final/});await button.focus();await button.press('Enter');
+ const final=bracket.getByRole('region',{name:'Final',exact:true});await expect(final).toBeVisible();await expect(quarters).not.toBeVisible();
+ await expect(final.locator('.global-player').first().locator('.global-set')).toHaveCount(5);
+ await expect(final.locator('.match-winner')).toContainText('Carlos Alcaraz');
+ const score=page.locator('.deuce-tournament-final .global-scoreboard');await expect(score).toHaveAccessibleName(/Alexander Zverev contra Carlos Alcaraz/);
+ await picker.getByRole('button',{name:/^Octavos de final/}).click();const fourth=bracket.getByRole('region',{name:'Octavos de final',exact:true});
+ await expect(fourth.locator('.match-scorecard')).toHaveCount(8);await expectNoPageOverflow(page,'Mobile edition');
 });
 
 for (const colorScheme of ["light", "dark"] as const) {

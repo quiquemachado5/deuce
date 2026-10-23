@@ -4,16 +4,10 @@
 @import "./ui/people.css";
 @import "./ui/match.css";
 @import "./ui/explore.css";
-@import "./ui/glass.css";
 @import "./ui/detail-depth.css";
 @import "./ui/record-depth.css";
 @import "./ui/player-depth.css";
 @import "./ui/tournament-depth.css";
 
-@import "./ui/precision.css";
 
 @import "./ui/edition-refinement.css";
-@import "./ui/critique-resolution.css";
-@import "./ui/home-bento.css";
-@import "./ui/home-apple.css";
-@import "./ui/home-rework.css";

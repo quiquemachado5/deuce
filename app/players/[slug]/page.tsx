@@ -275,7 +275,7 @@ function RankingHistory({ matches, name }: { matches: Match[]; name: string }) {
         </g>)}
         {points.length > 1 && <path className="ry-ranking-line" d={path} />}
         {points.map(([year, rank], index) => <g key={year}>
-          <title>{year}: puesto {rank}</title>
+          <title>{`${year}: puesto ${rank}`}</title>
           <circle className="ry-ranking-point" cx={x(index)} cy={y(rank)} r="5" />
           <text className="ry-chart-axis" x={x(index)} y={height - 10} textAnchor="middle">{year}</text>
         </g>)}

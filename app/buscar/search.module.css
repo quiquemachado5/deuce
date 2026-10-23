@@ -1,4 +1,4 @@
-.searchPage{min-width:0;max-width:1060px;padding:42px 0 24px;--archive-blue:#0066cc}
+.searchPage{min-width:0;max-width:none;padding:105px 0 50px;--archive-blue:var(--winner)}
 .heading{margin:0 0 28px}.heading h1{margin:0;font:690 clamp(38px,4.6vw,60px)/1.05 var(--font-interface);letter-spacing:-.045em}
 .searchControl{position:relative;z-index:4;border:1px solid var(--line-strong);border-radius:20px;background:var(--bg-raised);transition:border-color .2s ease}
 .searchControl:focus-within{border-color:var(--focus)}
@@ -51,7 +51,7 @@
 :global(html[data-theme=dark]) .searchPage{--archive-blue:#85baff}
 .searchPage a:focus-visible,.searchPage button:focus-visible,.searchPage summary:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
 @media(max-width:759px){
-  .searchPage{padding:25px 0 10px}.heading{margin-bottom:22px}.heading h1{font-size:40px}
+  .searchPage{padding:95px 0 40px}.heading{margin-bottom:22px}.heading h1{font-size:40px}
   .searchInput{gap:10px;padding:6px 8px 6px 15px}.searchInput input{font-size:16px}.searchControl{border-radius:18px}.filterMenus{gap:0;padding-inline:7px}.filterMenu>summary,.fiveSetsToggle{font-size:12px;padding-inline:8px}.filterOptions{width:min(220px,calc(100vw - 48px))}.filterMenu:nth-child(3) .filterOptions{left:auto;right:0}.activeChips{padding-inline:14px}.activeChips button{min-height:38px}
   .season{margin-top:32px}.seasonHeading{align-items:center;gap:8px;margin-bottom:14px}.seasonHeading h2{font-size:24px}.seasonHeading>span{font-size:11px}.years{gap:3px;margin-bottom:19px}.years>a,.moreYears>summary{padding-inline:11px;min-height:40px}.moreYears>div{right:auto;left:0;width:min(280px,calc(100vw - 40px))}
   .playerResults{grid-template-columns:1fr}.playerResult{padding:16px;gap:13px}.playerResult strong{font-size:19px}

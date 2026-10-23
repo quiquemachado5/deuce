@@ -1,0 +1,38 @@
+/* eslint-disable @typescript-eslint/no-require-imports -- Standalone CommonJS QA runner. */
+const {chromium,expect}=require('@playwright/test');
+const fs=require('node:fs/promises');
+(async()=>{
+ const browser=await chromium.launch({channel:'chrome',headless:true});
+ const context=await browser.newContext({viewport:{width:390,height:844}});
+ const page=await context.newPage(),checks=[];
+ await page.goto('http://localhost:3000/match/live-189546',{waitUntil:'networkidle'});
+ await page.getByRole('button',{name:'Compartir partido',exact:true}).click();
+ const dialog=page.getByRole('dialog',{name:'Compartir partido'});
+ await expect(dialog.locator('.global-player')).toHaveCount(2);
+ const downloading=page.waitForEvent('download');
+ await dialog.getByRole('button',{name:/Cuadrado/}).click();
+ const file=await downloading;expect(await file.failure()).toBeNull();
+ await file.saveAs('outputs/handoff-qa/partido-compartido.png');
+ await dialog.getByRole('button',{name:'Cerrar',exact:true}).click();
+ await expect(page.getByRole('button',{name:'Compartir partido',exact:true})).toBeFocused();
+ checks.push('Shared score exported to a real PNG; dialog returns focus');
+ await page.goto('http://localhost:3000/',{waitUntil:'networkidle'});
+ await page.evaluate(()=>scrollTo(0,500));await page.waitForTimeout(500);
+ await expect(page.locator('.topbar')).toHaveClass(/nav-hidden/);
+ await page.evaluate(()=>scrollTo(0,300));await page.waitForTimeout(500);
+ await expect(page.locator('.topbar')).not.toHaveClass(/nav-hidden/);
+ checks.push('Topbar hides down and returns up');
+ const slider=page.locator('.archive-slider');await slider.scrollIntoViewIfNeeded();
+ await page.waitForTimeout(200);
+ const before=await slider.locator('.slider-count').textContent();
+ const window=slider.locator('.slider-window'),box=await window.boundingBox();
+ await window.dispatchEvent('pointerdown',{clientX:box.x+box.width-20,clientY:box.y+80,pointerId:1,pointerType:'touch'});
+ await window.dispatchEvent('pointerup',{clientX:box.x+20,clientY:box.y+80,pointerId:1,pointerType:'touch'});
+ expect(await slider.locator('.slider-count').textContent()).not.toBe(before);
+ expect(await page.locator('video').evaluate(v=>v.paused)).toBe(true);
+ checks.push('Touch swipe and offscreen video pause');
+ await page.screenshot({path:'outputs/handoff-qa/slider-390.png'});
+ await fs.writeFile('outputs/handoff-qa/extras.json',JSON.stringify(checks,null,2));
+ await browser.close();
+ console.log(checks);
+})().catch(error=>{console.error(error);process.exitCode=1;});

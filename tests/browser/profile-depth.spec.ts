@@ -215,10 +215,7 @@ for (const colorScheme of ["light", "dark"] as const) {
     );
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(profile);
-    await expect(page.locator("html")).toHaveAttribute(
-      "data-theme",
-      colorScheme,
-    );
+    await expect(page.locator("html")).not.toHaveAttribute("data-theme", "dark");
     await expect(page.locator(".pd-discovery")).toBeVisible();
     await expect(page.locator(".pd-portrait > img")).toBeVisible();
     await page

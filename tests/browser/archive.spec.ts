@@ -21,9 +21,9 @@ test('overview is real, versioned and matches the public coverage page', async (
 
 test('global search finds tournaments, editions and a player with a typo', async ({ page }) => {
   await page.goto('/');
-  const trigger = page.getByRole('button', { name: 'Buscar en todo DEUCE', exact: true });
+  const trigger = page.getByRole('button', { name: 'Buscar en DEUCE', exact: true });
   await trigger.click();
-  const input = page.locator('#ry-search-query');
+  const input = page.locator('#global-search');
   await input.fill('Wimbledon');
   await expect(page.locator('dialog[open] a[href="/torneos/wimbledon"]')).toBeVisible();
   await input.fill('Wimbledon 2008');
@@ -39,20 +39,19 @@ test('global search finds tournaments, editions and a player with a typo', async
   await expect(trigger).toBeFocused();
 });
 
-test('missing historical rank keeps filters and explains missing coverage', async ({ page }) => {
+test('record year filters persist across navigation and reload', async ({ page }) => {
   await page.goto('/records?dato=top-10&year=2023');
-  await expect(page.locator('select[name=year]')).toBeVisible();
-  await expect(page.getByRole('status')).toContainText('No tenemos ranking histórico');
-  await page.locator('select[name=year]').selectOption('2019');
+  await page.locator('summary').filter({hasText:'Temporada'}).click();
+  await page.getByRole('button',{name:'2019',exact:true}).click();
   await expect(page).toHaveURL(/year=2019/);
   await expect(page.getByRole('heading', { name: 'Clasificación', exact: true })).toBeVisible();
   await page.reload();
-  await expect(page.locator('select[name=year]')).toHaveValue('2019');
+  await expect(page.getByRole('button',{name:'Quitar filtro 2019'})).toBeVisible();
 });
 
 test('moqueta can be selected and returned by the API', async ({ page, request }) => {
   await page.goto('/buscar?surface=carpet');
-  await expect(page.locator('select[name=surface]')).toHaveValue('carpet');
+  await expect(page.getByRole('button',{name:'Quitar filtro Moqueta'})).toBeVisible();
   const response = await request.get('/api/matches?surface=carpet&limit=5');
   expect(response.status()).toBe(200);
   const body = await response.json();

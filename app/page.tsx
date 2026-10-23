@@ -1,77 +1,42 @@
-import Image from "next/image";
-import Link from "next/link";
-import { preparedGeneration } from "@/lib/revista/read-records";
-import { homeMaterials } from "@/lib/home-photography";
-import { homeTotals, featuredFinal, homeRecordStories } from "@/lib/home-story";
-import HomeMotion from "@/components/home/HomeMotion";
-import HomeSearch from "@/components/home/HomeSearch";
-import styles from "./home-story.module.css";
-
+import Image from 'next/image';
+import Link from 'next/link';
+import { preparedGeneration } from '@/lib/revista/read-records';
+import { homeSelection } from '@/lib/deuce-home';
+import { HeroVideo } from '@/components/deuce/HeroVideo';
+import { OnThisDay } from '@/components/deuce/OnThisDay';
+import { MatchScoreboard } from '@/components/deuce/MatchScoreboard';
+import { TournamentSlider } from '@/components/deuce/TournamentSlider';
+import { toMatchRecord } from '@/data/map-match';
+import { playerPhoto } from '@/lib/player-imagery';
+import { courtPhoto } from '@/lib/imagery';
+import { winnerName } from '@/lib/editorial';
+import { playerSlug } from '@/lib/explore';
+import { number } from '@/lib/cuaderno/model';
+import { tournamentName } from '@/lib/labels';
+import { TOURNAMENTS } from '@/lib/types';
+import { surfaceLabel } from '@/lib/surface';
+import type { TournamentSlide } from '@/types/deuce';
 export const revalidate = 300;
-export const metadata = {
-  title: "DEUCE — El tenis, partido a partido",
-  description: "El archivo visual del tenis desde 1968. Partidos, jugadores, torneos y récords, una historia a la vez.",
-  alternates: { canonical: "/" },
-};
-const format = new Intl.NumberFormat("es-ES", { useGrouping: "always" });
-
+export const metadata = { title:'DEUCE — Todo el tenis, partido a partido', description:'Explora el archivo visual del tenis desde 1968: partidos, jugadores, torneos y récords con los datos que los cuentan.', alternates:{canonical:'/'} };
 export default async function Home() {
-  const generation = await preparedGeneration();
-  const matches = await generation.matches();
-  const year = new Date().getUTCFullYear();
-  const totals = homeTotals(matches, year);
-  const final = featuredFinal(matches);
-  const records = homeRecordStories(generation.manifest.pieces);
-
-  return <HomeMotion className={styles.story}>
-    <section className={styles.intro} data-intro data-home-tone="dark" aria-labelledby="intro-title">
-      <div className={styles.introSticky}><div className={styles.introCopy}>
-        <h1 id="intro-title">El tenis,<br />partido a partido.</h1>
-        <p>El archivo. Desde 1968.</p>
-      </div></div>
-    </section>
-    <section className={styles.matchChapter} data-home-tone="dark" aria-labelledby="match-title">
-      <div className={styles.matchContent}>
-        <p className={styles.eyebrow}>Final · Masters 1000</p>
-        <h2 id="match-title">Shanghái <span>2026</span></h2>
-        <p className={styles.winner}>Ganó Alejandro Davidovich Fokina</p>
-        <div className={styles.score} role="group" aria-label="Alejandro Davidovich Fokina ganó a Rafael Jódar por 1–6, 7–6, 6–4. Jódar hizo cinco puntos en el tie-break del segundo set.">
-          <div className={styles.scoreLine} aria-hidden="true"><span className={styles.scoreName}>Alejandro Davidovich Fokina</span><span>1</span><span>7</span><span>6</span></div>
-          <div className={`${styles.scoreLine} ${styles.loser}`} aria-hidden="true"><span className={styles.scoreName}>Rafael Jódar</span><span>6</span><span>6<sup>(5)</sup></span><span>4</span></div>
-        </div>
-        <Link className={styles.textLink} href={`/match/${final}`}>Ver el partido <span aria-hidden="true">›</span></Link>
-      </div>
-    </section>
-    <section className={styles.records} data-records data-home-tone="light" aria-label="Tres récords del archivo">
-      <div className={styles.srOnly}>{records.map(record => <p key={record.id}>{record.name}: {record.value} {record.label}.</p>)}</div>
-      <div className={styles.recordSticky}>
-        <div className={styles.recordScenes} aria-hidden="true">{records.map(record => <div className={styles.recordScene} data-record-slide key={record.id}>
-          <span className={styles.recordNumber}>{format.format(record.value)}</span>
-          <p>{record.label}</p><h2>{record.name}</h2>
-        </div>)}</div>
-        <Link className={`${styles.textLink} ${styles.recordLink}`} href="/records">Todos los récords <span aria-hidden="true">›</span></Link>
-      </div>
-    </section>
-    {homeMaterials.map(material => <section key={material.surface} className={styles.material} data-material data-home-tone="dark" aria-labelledby={`material-${material.surface}`}>
-      <div className={styles.materialImage}><Image src={material.photo.src} alt={material.photo.alt} fill sizes="100vw" style={{ objectPosition: material.photo.objectPosition }} /></div>
-      <div className={styles.materialCopy}><h2 id={`material-${material.surface}`}>{material.name}</h2><p>{format.format(totals.surfaces[material.surface])}<span>partidos en el archivo</span></p></div>
-      <a href={material.photo.source} className={styles.photoCredit} target="_blank" rel="noopener noreferrer">{material.photo.credit}</a>
-    </section>)}
-    <section className={styles.season} data-home-tone="light" aria-labelledby="season-title">
-      <div className={styles.seasonContent}>
-        <h2 id="season-title">{year}</h2>
-        <dl className={styles.seasonNumbers}><div><dt>partidos</dt><dd>{format.format(totals.season.matches)}</dd></div><div><dt>finales</dt><dd>{format.format(totals.season.finals)}</dd></div></dl>
-        <div className={styles.proportion} role="img" aria-label={`Partidos de 2026 por superficie: ${totals.season.hard} en dura, ${totals.season.clay} en tierra, ${totals.season.grass} en hierba, ${totals.season.other} en otras superficies o sin identificar.`}>
-          {(["hard", "clay", "grass", "other"] as const).map(surface => totals.season[surface] > 0 && <span key={surface} data-surface={surface} style={{ flexGrow: totals.season[surface] }} />)}
-        </div>
-        <p className={styles.coverage}>La cobertura no es uniforme. Esta proporción no representa una evolución mes a mes.</p>
-      </div>
-    </section>
-    <section className={styles.entry} data-home-tone="dark" aria-labelledby="entry-title">
-      <div className={styles.entryContent}>
-        <h2 id="entry-title">Busca un partido.</h2><HomeSearch id="archive-entry" />
-        <p className={styles.suggestions}><Link href="/buscar?q=Alcaraz">Alcaraz</Link><span aria-hidden="true">·</span><Link href="/buscar?q=Wimbledon">Wimbledon</Link><span aria-hidden="true">·</span><Link href="/buscar?year=1977">1977</Link></p>
-      </div>
-    </section>
-  </HomeMotion>;
+  const generation=await preparedGeneration();
+  const [matches,players]=await Promise.all([generation.matches(),generation.records()]);
+  const {anniversary,featured,latest}=homeSelection(matches);
+  const photo=featured?playerPhoto(winnerName(featured)||''):null;
+  const records=['top-10','mas-juegos','remontada-dos-sets'].flatMap(id=>{const piece=generation.manifest.pieces.find(p=>p.id===id);return piece?.leader?[piece]:[];});
+  const people=['Rafael Nadal','Andre Agassi','Andy Murray'].flatMap(name=>{const record=players.find(p=>p.name===name),image=playerPhoto(name);return record&&image?[{record,image}]:[];});
+  const slides: TournamentSlide[]=TOURNAMENTS.filter(t=>t.category==='Grand Slam').flatMap(t=>{const image=courtPhoto(t.name);const count=matches.filter(m=>m.tournament===t.name).length;return image&&count?[{id:t.slug,name:tournamentName(t.name),city:({'australian-open':'Melbourne','roland-garros':'París',wimbledon:'Londres','us-open':'Nueva York'} as Record<string,string>)[t.slug],surface:surfaceLabel[t.surface],description:`${number(count)} partidos en el archivo`,image:image.src,alt:image.alt,href:`/torneos/${t.slug}`,credit:image.credit,source:image.source}]:[];});
+  return <div className="deuce-home">
+    <HeroVideo count={generation.manifest.matchCount}/>
+    <OnThisDay match={anniversary}/>
+    {featured&&<section className="home-section intro-grid"><div><h2>Una historia.<br/>Cada día.</h2><p>Un partido elegido del archivo para volver a mirar el tenis con calma.</p></div><div className="feature-match">
+      {photo&&<Image unoptimized src={photo.src} alt={photo.alt} fill sizes="(max-width:900px) 90vw, 60vw" style={{objectPosition:photo.objectPosition||'center top'}}/>}<div className="feature-overlay"/>
+      <span className="chip">{tournamentName(featured.tournament)} · {featured.year}</span><MatchScoreboard match={toMatchRecord(featured)} variant="overlay"/>
+      {photo&&<a className="media-credit feature-credit" href={photo.source} target="_blank" rel="noopener noreferrer">Retrato · {photo.credit}</a>}
+    </div></section>}
+    <section className="home-section"><div className="section-head"><h2>Últimos resultados</h2><Link href="/buscar">Ver el archivo ↗</Link></div><div className="results floating-results-v2">{latest.map(match=><MatchScoreboard key={match.match_id} match={toMatchRecord(match)} variant="compact"/>)}</div></section>
+    {records.length>0&&<section className="dark-section"><div className="section-head light"><h2>Récords que explican el juego</h2><Link href="/records">Explorar récords ↗</Link></div><div className="record-showcase">{records.map((piece,index)=>{const leader=piece.leader!,image=playerPhoto(leader.photoName||leader.name);return <Link className={`${index===0?'record-big':index===2?'record-small acid':'record-small'} hover-card`} href={`/records?dato=${piece.id}`} key={piece.id}><strong className="home-record-value">{leader.display||number(leader.value)}</strong><h3>{piece.title}</h3><div>{index===0&&image&&<Image unoptimized src={image.thumbnail||image.src} alt={image.alt} width={48} height={48}/>}<p><b>{leader.name}</b><small>{number(leader.sample)} {piece.percent?'casos':'partidos'} documentados</small></p></div></Link>;})}</div></section>}
+    <section className="home-section"><div className="section-head"><h2>Jugadores</h2><Link href="/jugadores">Ver el archivo ↗</Link></div><div className="photo-grid">{people.map(({record,image})=><Link href={`/players/${playerSlug(record.name)}`} className="photo-card hover-card" key={record.name}><Image unoptimized src={image.src} alt={image.alt} width={700} height={840} sizes="(max-width:600px) 90vw, 29vw" style={{objectPosition:image.objectPosition||'center top'}}/><div><h3>{record.name}</h3><p>{number(record.played)} partidos · {number(record.finalsWon)} finales ganadas en el archivo</p></div></Link>)}</div></section>
+    <TournamentSlider slides={slides}/>
+  </div>;
 }

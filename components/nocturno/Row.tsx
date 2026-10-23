@@ -1,104 +1,17 @@
-import Link from "next/link";
-import { displaySetClosed, tieBreakPoints } from "@/lib/score-display";
-import type { CSSProperties } from "react";
-import PlayerAvatar from "@/components/PlayerAvatar";
-import PlayerCountryFlag from "@/components/PlayerCountryFlag";
-import SetGame from "@/components/SetGame";
-import type { Match } from "@/lib/types";
-import { score, number } from "@/lib/cuaderno/model";
-import { matchContext } from "@/lib/match-labels";
-import { displayPlayerName } from "@/lib/labels";
-import { tournamentCourt } from "@/lib/tournament-presentation";
-export default function MatchRow({
-  match,
-  firstPlayer,
-  grouped = false,
-  href,
-}: {
-  match: Match;
-  firstPlayer?: string;
-  grouped?: boolean;
-  href?: string;
-}) {
-  const court = tournamentCourt(match);
-  const winner = match.winner === 1 ? match.player1.name : match.winner === 2 ? match.player2.name : "";
-  const leadingPlayer = firstPlayer || winner || match.player1.name;
-  const reversed = leadingPlayer === match.player2.name,
-    players = reversed
-      ? [match.player2, match.player1]
-      : [match.player1, match.player2];
-  const games = reversed
-    ? match.score_summary.games.map(([a, b]) => [b, a])
-    : match.score_summary.games;
-  const tieBreaks = tieBreakPoints(match);
-  const result = reversed
-    ? games
-        .map(
-          ([left, right], index) =>
-            `${left}–${right}${tieBreaks[index] ? `(${tieBreaks[index]})` : ""}`,
-        )
-        .join(", ")
-    : score(match);
-  const columns = games.map((_, index) => index);
-  const context = matchContext(match);
-  return (
-    <Link
-      href={href || `/match/${match.match_id}`}
-      className={`nc-match-row${grouped ? " nc-row-grouped" : ""}`}
-      data-event-surface={court.surface}
-      data-event-category={match.category}
-      aria-label={`${context}. ${players[0].name} contra ${players[1].name}. ${result}. Ganador: ${winner}`}
-    >
-      <span className="nc-row-context">
-        <span>{context}</span>
-        {/retired|abandoned/i.test(match.status) ? <span className="nc-row-status">Abandono</span> : null}
-        {/walkover|cancelled/i.test(match.status) ? <span className="nc-row-status">Sin jugar</span> : null}
-      </span>
-      <span className="nc-row-duel">
-        {players.map((player) => (
-          <span
-            key={player.name}
-            className={`nc-row-person ${player.name === winner ? "nc-row-winner" : "nc-row-loser"}`}
-          >
-            <PlayerAvatar name={player.name} size={28} />
-            <PlayerCountryFlag name={player.name} />
-            <span className="nc-row-name">{displayPlayerName(player.name)}</span>
-            {player.name === winner ? <span className="nc-row-winner-label">Ganador</span> : null}
-          </span>
-        ))}
-      </span>
-      <span
-        className="nc-row-result"
-        aria-hidden="true"
-        style={{ "--score-count": Math.max(columns.length, 1) } as CSSProperties}
-      >
-        <span className="row-score-line row-score-labels">
-          {columns.map((i) => (
-            <span key={i}>{i + 1}</span>
-          ))}
-        </span>
-        {players.map((player, side) => (
-          <span
-            className="row-score-line"
-            key={player.name}
-            data-winner={player.name === winner}
-          >
-            {columns.map((i) => {
-              const set = games[i];
-              if (!set) return null;
-              const won =
-                displaySetClosed(match, i) && set[side] > set[1 - side];
-              return (
-                <span key={i} data-won={won}>
-                  <SetGame games={set[side]} tieBreak={set[side] < set[1 - side] ? tieBreaks[i] : undefined} />
-                </span>
-              );
-            })}
-          </span>
-        ))}
-      </span>
-    </Link>
-  );
+import Link from 'next/link';
+import type { Match } from '@/lib/types';
+import { number } from '@/lib/cuaderno/model';
+import { toMatchRecord } from '@/data/map-match';
+import { MatchScoreboard } from '@/components/deuce/MatchScoreboard';
+export default function MatchRow({ match, firstPlayer, href }: { match: Match; firstPlayer?: string; grouped?: boolean; href?: string }) {
+  const record = toMatchRecord(match);
+  if (href) record.href = href;
+  if (firstPlayer === match.player2.name) {
+    record.players = [record.players[1], record.players[0]];
+    record.winnerIndex = record.winnerIndex === undefined ? undefined : record.winnerIndex === 0 ? 1 : 0;
+    record.sets = record.sets.map(set => ({...set, games:[set.games[1],set.games[0]], tieBreak:set.tieBreak ? [set.tieBreak[1],set.tieBreak[0]] : undefined}));
+  }
+  return <MatchScoreboard match={record} variant="compact" />;
 }
 export function Figure({ value, label }: { value: string; label: string }) {
   return (

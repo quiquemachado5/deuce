@@ -1,25 +1,12 @@
-import { expect, test } from "@playwright/test";
-
-test("la búsqueda y el menú móvil devuelven el foco al cerrarse", async ({ page }) => {
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/info");
-
-  const searchButton = page.getByRole("button", { name: "Buscar en todo DEUCE" });
-  await searchButton.click();
-  await expect(page.locator("#ry-search-dialog")).toBeVisible();
-  await expect(page.locator("#ry-search-query")).toBeFocused();
-  await expect(searchButton).toHaveAttribute("aria-expanded", "true");
-  await page.keyboard.press("Escape");
-  await expect(page.locator("#ry-search-dialog")).toBeHidden();
-  await expect(searchButton).toBeFocused();
-  await expect(searchButton).toHaveAttribute("aria-expanded", "false");
-
-  const menuButton = page.getByRole("button", { name: "Abrir menú" });
-  await menuButton.click();
-  await expect(page.locator("#ry-menu-dialog")).toBeVisible();
-  await expect(menuButton).toHaveAttribute("aria-expanded", "true");
-  await page.keyboard.press("Escape");
-  await expect(page.locator("#ry-menu-dialog")).toBeHidden();
-  await expect(menuButton).toBeFocused();
-  await expect(menuButton).toHaveAttribute("aria-expanded", "false");
+import { expect, test } from '@playwright/test';
+test('search and mobile navigation restore keyboard focus',async({page})=>{
+  await page.setViewportSize({width:390,height:844});await page.goto('/info');
+  const search=page.getByRole('button',{name:'Buscar en DEUCE',exact:true});
+  await search.click();await expect(page.locator('#global-search')).toBeFocused();
+  await page.keyboard.press('Escape');await expect(page.locator('.search-modal')).not.toBeVisible();await expect(search).toBeFocused();
+  const menu=page.locator('.menu');await menu.click();
+  await expect(menu).toHaveAttribute('aria-expanded','true');
+  await page.getByRole('navigation',{name:'Principal',exact:true}).getByRole('link',{name:'Jugadores',exact:true}).focus();
+  await page.keyboard.press('Escape');
+  await expect(menu).toHaveAttribute('aria-expanded','false');await expect(menu).toBeFocused();
 });

@@ -1,13 +1,11 @@
+import { ArchivePage, ArchiveGrid } from '@/components/deuce/ArchivePage';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { number } from '@/lib/cuaderno/model';
 import { recordView } from '@/lib/revista/read-records';
-import { description, groupDescriptions } from '@/lib/revista/records';
-import type { RecordMeta } from '@/lib/revista/snapshot';
+import { description } from '@/lib/revista/records';
 import { RecordEras, recordValue } from '@/components/nocturno/RecordsViews';
-import { TOURNAMENTS } from '@/lib/types';
-import { tournamentName } from '@/lib/labels';
 import { SURFACES, surfaceLabel } from '@/lib/surface';
 import { recordFilters, recordsUrl, type RecordQuery } from '@/lib/records-url';
 import { evidenceHref } from '@/lib/record-evidence';
@@ -25,41 +23,23 @@ const families = [
   ['Superficies', 'Superficies'], ['Saque', 'Saque'], ['Resto', 'Resto'], ['Golpes', 'Golpes'],
 ] as const;
 
-function CatalogueEntry({ piece, query }: { piece: RecordMeta; query: RecordQuery }) {
-  return <Link className={styles.catalogueRow} href={recordsUrl(recordFilters(query), { dato: piece.id })} prefetch={false}>
-    <span className={styles.metricTitle}>{piece.title}</span>
-    <span className={styles.metricLeader}>{piece.leader?.name || 'Sin muestra suficiente'}{piece.percent && piece.leader && <small>{number(piece.leader.sample)} casos</small>}</span>
-    <strong className={styles.metricValue}>{piece.leader ? recordValue(piece.leader, piece.percent, piece.id === 'tal-dia-como-hoy') : ''}</strong>
-    <ChevronRight size={16} aria-hidden="true" />
-  </Link>;
-}
-
 function RecordIndex({ manifest, query }: { manifest: Awaited<ReturnType<typeof recordView>>['manifest']; query: RecordQuery }) {
-  return <div className={`nc-wrap ${styles.page}`}>
-    <header className={styles.heading}><h1>Récords</h1></header>
-    <nav className={styles.periods} aria-label="Periodo de las estadísticas">
-      <Link href={recordsUrl(recordFilters(query), { era: undefined })} aria-current={query.era !== 'last20' ? 'page' : undefined}>Era Abierta<span> · 1968–actualidad</span></Link>
-      <Link href={recordsUrl(recordFilters(query), { era: 'last20' })} aria-current={query.era === 'last20' ? 'page' : undefined}>Últimos 20 años</Link>
-    </nav>
-    <p className={styles.archiveCount}>{number(manifest.pieces.length)} estadísticas · {number(manifest.matchCount)} partidos en esta selección</p>
-    {['year', 'surface', 'competition'].some(key => query[key] && query[key] !== 'all') && <RecordsControls query={query} filters={filtersFor(manifest.years).filter(filter => filter.key !== 'era')} />}
-    <div className={styles.families}>
-      {families.map(([label, group], index) => {
-        const entries = manifest.pieces.filter(piece => piece.group === group);
-        if (!entries.length && group !== 'Un torneo') return null;
-        return <details className={styles.family} id={`grupo-${index}`} key={group}>
-          <summary><span><h2>{label}</h2><span className={styles.familyDescription}>{groupDescriptions[group]}</span></span><span className={styles.familyCount}>{entries.length > 0 ? number(entries.length) : 'Explorar'}</span><ChevronDown size={19} aria-hidden="true" /></summary>
-          <div className={styles.familyRows}>
-            {entries.length > 0 && <div className={styles.columns} aria-hidden="true"><span>Estadística</span><span>Líder</span><span>Cifra</span></div>}
-            {entries.map(piece => <CatalogueEntry piece={piece} query={query} key={piece.id} />)}
-            {group === 'Títulos y finales' && manifest.eraCuts.length > 0 && <Link className={styles.exploreRow} href={recordsUrl(recordFilters(query), { dato: 'dos-epocas', corte: '2020' })}><span>Comparar la efectividad en finales entre épocas</span><ChevronRight size={16} aria-hidden="true" /></Link>}
-            {group === 'Un torneo' && <>{TOURNAMENTS.map(tournament => <Link className={styles.exploreRow} href={`/torneos/${tournament.slug}`} key={tournament.slug}><span>{tournamentName(tournament.name)}<small>{tournament.category}</small></span><ChevronRight size={16} aria-hidden="true" /></Link>)}<Link className={styles.exploreRow} href="/tournaments"><span>Ver todos los torneos</span><ChevronRight size={16} aria-hidden="true" /></Link></>}
-          </div>
-        </details>;
-      })}
+  const groups=[...new Set(manifest.pieces.map(piece=>piece.group))];
+  const selected=query.grupo&&groups.includes(query.grupo)?query.grupo:'';
+  const pieces=manifest.pieces.filter(piece=>!selected||piece.group===selected);
+  const cards=pieces.map(piece=>({id:piece.id,title:piece.title,eyebrow:piece.group,
+    value:piece.leader?recordValue(piece.leader,piece.percent,piece.id==='tal-dia-como-hoy'):undefined,
+    meta:piece.leader?`${piece.leader.name}${piece.percent?' · '+number(piece.leader.sample)+' casos':''}`:'Sin muestra suficiente',
+    href:recordsUrl(recordFilters(query),{dato:piece.id})}));
+  return <ArchivePage title="Récords">
+    <div className="deuce-content">
+      <RecordsControls query={query} filters={filtersFor(manifest.years)}/>
+      <nav className="deuce-tabs" aria-label="Familias de estadísticas"><Link href={recordsUrl(recordFilters(query))} aria-current={!selected?'page':undefined}>Todos</Link>{groups.map(group=><Link key={group} href={recordsUrl(recordFilters(query),{grupo:group})} aria-current={selected===group?'page':undefined}>{families.find(([,value])=>value===group)?.[0]||group}</Link>)}</nav>
+      <p className="deuce-count">{number(pieces.length)} estadísticas · {number(manifest.matchCount)} partidos en esta selección</p>
     </div>
-    <Link className={styles.coverage} href="/cobertura">Cobertura y metodología<ChevronRight size={14} aria-hidden="true" /></Link>
-  </div>;
+    <ArchiveGrid cards={cards}/>
+    <nav className="deuce-tabs deuce-content" aria-label="Explorar más estadísticas"><Link href={recordsUrl(recordFilters(query),{dato:'dos-epocas',corte:'2020'})}>Comparar épocas ↗</Link><Link href="/tournaments">Por torneo ↗</Link><Link href="/cobertura">Cobertura y metodología ↗</Link></nav>
+  </ArchivePage>;
 }
 
 function filtersFor(years: number[]): RecordFilter[] {

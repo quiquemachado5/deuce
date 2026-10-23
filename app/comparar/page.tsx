@@ -47,9 +47,9 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
     return `/buscar?${params}`;
   };
 
-  return <div className="nc-wrap dx-comparison">
+  return <div className="nc-wrap dx-comparison deuce-comparison">
     <ArchiveNotice status={generation} />
-    <header className="dx-page-heading"><h1>Comparar jugadores</h1><p>Dos trayectorias dentro del mismo marco del archivo.</p></header>
+    <header className="inner-title"><h1>Comparar</h1></header>
     <CompareSelection key={chosen.join('|')} initial={chosen.map(name => {
       const photo = playerPhoto(name);
       return { name, photo: photo ? { src: photo.avatarCrop ? photo.src : photo.thumbnail || photo.src, objectPosition: photo.objectPosition, avatarCrop: photo.avatarCrop } : undefined };
