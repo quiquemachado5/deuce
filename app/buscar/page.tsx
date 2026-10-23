@@ -77,7 +77,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
     {players.length !== 1 && <p className={styles.resultCount} role="status">{number(filtered.length)} partidos{selectedYear ? ` en ${selectedYear}` : ''}</p>}
 
     {players.length > 0 && <section className={styles.playerResults} aria-label="Jugadores encontrados">{players.map(player => <Link className={styles.playerResult} href={player.href} key={player.href}>
-      <PlayerAvatar name={player.name} size={60} /><span><strong>{player.name}</strong><small>{players.length === 1 ? `${number(filtered.length)} partidos · Ver ficha` : 'Ver ficha del jugador'}</small></span><ArrowUpRight size={18} aria-hidden="true" />
+      <PlayerAvatar name={player.name} size={60} /><span><strong>{player.name}</strong><small>{players.length === 1 ? `${number(filtered.length)} partidos` : 'Ver ficha del jugador'}</small></span><ArrowUpRight size={18} aria-hidden="true" />
     </Link>)}</section>}
     {related.length > 0 && <nav className={styles.relatedResults} aria-label="También en el archivo">{related.map(item => <Link href={item.href} key={item.href}>{item.name}<ArrowUpRight size={14} aria-hidden="true" /></Link>)}</nav>}
 

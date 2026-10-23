@@ -167,7 +167,7 @@ html[data-theme="dark"] .ry-header {
   padding: 16px 24px 24px;
 }
 .score-tiebreak {
-  font-size: 16px !important;
+  font-size: .4em;
   line-height: 1;
   vertical-align: baseline;
   margin-left: 2px;

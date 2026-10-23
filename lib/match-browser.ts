@@ -15,7 +15,7 @@ export function browserCategory(match: Match): string | null {
   if (/united cup/.test(name)) return 'United Cup';
   if (/olympic|olímpic|olimpic/.test(name)) return 'Juegos Olímpicos';
   if (/next gen/.test(name)) return 'Next Gen Finals';
-  if (/atp finals|tour finals|masters cup|year.end/.test(name)) return 'ATP Finals';
+  if (/atp finals|tour finals|masters cup|year.end|^finals\s*[-–]/.test(name)) return 'ATP Finals';
   if (/laver cup/.test(name)) return 'Laver Cup';
   const category = visibleTournamentCategory(match.category, match.tournament, match.year);
   if (category && /precursor|histórico|otro torneo/i.test(category)) return 'Otros torneos';

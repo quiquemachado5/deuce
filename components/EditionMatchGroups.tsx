@@ -31,9 +31,11 @@ function ArchiveScoreRow({ match, columns }: { match: Match; columns: number }) 
 export default function EditionMatchGroups({ editions, showYears = false }: { editions: MatchEdition[]; showYears?: boolean }) {
   return <div className={styles.editionGroups}>{editions.map(edition => {
     const first = edition.matches[0];
-    const category = browserCategory(first);
+    const category = edition.matches.map(browserCategory).find(Boolean);
+    const surfaces = [...new Set(edition.matches.map(match => match.surface))].filter(surface => surface !== 'unknown').map(surface => surfaceLabel[surface]).join(' / ');
     const columns = Math.max(3, ...edition.matches.map(match => match.score_summary.games.length));
-    const final = edition.matches.find(match => roundPosition(match.round) === 7);
+    const finals = edition.matches.filter(match => roundPosition(match.round) === 7);
+    const final = finals.length === 1 && !['Copa Davis', 'United Cup', 'Laver Cup', 'ATP Cup'].includes(category || '') ? finals[0] : null;
     const champion = final ? winnerName(final) : null;
     const rounds = new Map<string, Match[]>();
     for (const match of [...edition.matches].sort((a, b) => roundPosition(b.round) - roundPosition(a.round) || chronological(b, a))) {
@@ -45,8 +47,8 @@ export default function EditionMatchGroups({ editions, showYears = false }: { ed
     return <article className={styles.editionGroup} key={edition.key}>
       <details className={styles.editionDisclosure}>
         <summary>
-          <span className={styles.editionIdentity}><strong>{tournamentName(first.tournament)}{showYears && <span> {first.year}</span>}</strong><small>{[category, first.surface !== 'unknown' ? surfaceLabel[first.surface] : null].filter(Boolean).join(' · ')}</small>{champion && <span className={styles.champion}>Ganó {displayPlayerName(champion)}</span>}</span>
-          <span className={styles.editionCount} aria-label={`${edition.matches.length} partidos`}>{edition.matches.length}</span>
+          <span className={styles.editionIdentity}><strong>{tournamentName(first.tournament)}{showYears && <span> {first.year}</span>}</strong><small>{[category, surfaces].filter(Boolean).join(' · ')}</small>{champion && <span className={styles.champion}>Ganó {displayPlayerName(champion)}</span>}</span>
+          <span className={styles.editionCount} aria-label={`${edition.matches.length} ${edition.matches.length === 1 ? 'partido' : 'partidos'}`}>{edition.matches.length}</span>
           <ChevronDown className={styles.editionChevron} size={19} strokeWidth={1.7} aria-hidden="true" />
         </summary>
         <div className={styles.editionMatches} style={{ '--archive-sets': columns } as CSSProperties}>

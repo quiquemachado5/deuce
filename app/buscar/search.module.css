@@ -21,6 +21,7 @@
 .searchPage summary::before,.searchPage summary::after{display:none!important;content:none!important}.searchPage summary::-webkit-details-marker{display:none}
 .filterMenu>summary:hover,.fiveSetsToggle:hover,.filterMenu[open]>summary{background:var(--bg-sunken);color:var(--ink)}
 .filterMenu>summary svg,.moreYears>summary svg{transition:transform .2s ease}.filterMenu[open]>summary svg,.moreYears[open]>summary svg{transform:rotate(180deg)}
+.filterMenu[data-compact]>summary{width:36px;padding-inline:6px}.filterMenu[data-compact] .filterOptions{left:auto;right:0}.filterMenu[data-compact][open]>summary svg{transform:none}
 .fiveSetsToggle[aria-pressed=true]{color:var(--archive-blue)}
 .filterOptions{position:absolute;z-index:8;top:calc(100% + 7px);left:0;width:220px;max-height:320px;overflow:auto;padding:6px;border:1px solid var(--line);border-radius:15px;background:var(--bg-raised);box-shadow:0 12px 35px #0000001f}
 .filterOptions button{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:42px;padding:9px 12px;border:0;border-radius:9px;background:transparent;color:var(--ink);text-align:left;font-size:13px}
@@ -61,3 +62,4 @@
 }
 @media(max-width:360px){.filterMenu>summary,.fiveSetsToggle{font-size:11px;padding-inline:7px;gap:4px}.seasonHeading{flex-wrap:wrap}.seasonHeading h2{font-size:23px}.moreYears{position:static}.years{position:relative}.moreYears>div{left:0;right:auto;top:100%}.editionMatches{padding-inline:10px;--archive-set-width:24px}.playerName{font-size:11px;gap:5px}.playerName :global(.player-country-badge),.playerName :global(.pd-country-flag){width:16px;height:12px}.setScore{font-size:16px}.matchRow :global(.score-tiebreak){font-size:.43em;margin-left:1.5px}.roundHeading,.playerRow{gap:2px}}
 @media(prefers-reduced-motion:reduce){.searchControl,.filterMenu>summary svg,.moreYears>summary svg,.editionChevron,.editionGroup,.playerResult,.matchRow{transition:none}}
+@media(max-width:360px){.filterMenu>summary{padding-inline:6px}.filterMenu[data-compact]>summary{width:32px}.years>a,.moreYears>summary{padding-inline:9px}}
