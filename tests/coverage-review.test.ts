@@ -39,3 +39,15 @@ test('every reviewed final validates either orientation and fills only undocumen
     }
   }
 });
+
+test('coverage discovers numeric fields beyond the old ten-stat whitelist', () => {
+  const report = fieldCoverage([{ ...base(), statistics: [
+    { ...stat(1, 0), name: 'Consecutive points won' },
+    { ...stat(2, 6), name: 'Consecutive points won' },
+    { ...stat(1, 4), name: 'Service games played' },
+    { ...stat(1, 9), name: 'Set-only field', period: 'set1' },
+  ] }]);
+  assert.equal(report.measures.find(row => row.id === 'Consecutive points won')?.both, 1);
+  assert.equal(report.measures.find(row => row.id === 'Service games played')?.matches, 1);
+  assert.ok(!report.measures.some(row => row.id === 'Set-only field'));
+});

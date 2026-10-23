@@ -22,6 +22,7 @@ const families = [
   ['Remontadas', 'Remontadas y forma del partido'], ['Presión', 'Presión'],
   ['Tiempo y edad', 'Tiempo, edad y calendario'], ['Por torneo', 'Un torneo'],
   ['Parejas', 'Parejas'], ['Medidas de partido', 'Medidas de partido'],
+  ['Superficies', 'Superficies'], ['Saque', 'Saque'], ['Resto', 'Resto'], ['Golpes', 'Golpes'],
 ] as const;
 
 function CatalogueEntry({ piece, query }: { piece: RecordMeta; query: RecordQuery }) {

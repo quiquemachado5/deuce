@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { featuredFinal, homeTotals } from "../lib/home-story";
+import { featuredFinal, homeTotals, homeRecordStories } from "../lib/home-story";
 import { homeMaterials } from "../lib/home-photography";
 import type { Match } from "../lib/types";
 
@@ -17,6 +17,15 @@ test("season totals exclude other years and distinguish final from semifinal", (
   assert.deepEqual(data.season, { matches: 3, finals: 2, hard: 1, clay: 1, grass: 0, other: 1 });
   assert.equal(Object.values(data.surfaces).reduce((a,b) => a+b,0), 4);
   assert.equal(data.season.hard + data.season.clay + data.season.grass + data.season.other, data.season.matches);
+});
+
+test('home follows the published leader and does not invent missing record values', () => {
+  assert.deepEqual(homeRecordStories([]), []);
+  const first = homeRecordStories([{ id: 'top-10', leader: { name: 'Novak Djokovic', value: 191 } }]);
+  assert.equal(first[0].value, 191);
+  const changed = homeRecordStories([{ id: 'top-10', leader: { name: 'Otro líder', value: 192 } }]);
+  assert.equal(changed[0].name, 'Otro líder');
+  assert.equal(changed[0].value, 192);
 });
 
 test("the editorial final cannot silently become another match", () => {

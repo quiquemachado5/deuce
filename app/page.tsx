@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { preparedGeneration } from "@/lib/revista/read-records";
 import { homeMaterials } from "@/lib/home-photography";
-import { homeTotals, featuredFinal } from "@/lib/home-story";
+import { homeTotals, featuredFinal, homeRecordStories } from "@/lib/home-story";
 import HomeMotion from "@/components/home/HomeMotion";
 import HomeSearch from "@/components/home/HomeSearch";
 import styles from "./home-story.module.css";
@@ -14,21 +14,14 @@ export const metadata = {
   alternates: { canonical: "/" },
 };
 const format = new Intl.NumberFormat("es-ES", { useGrouping: "always" });
-const recordStories = [
-  { id: "remontada-dos-sets", value: 10, name: "Andy Murray", label: "remontadas tras perder dos sets" },
-  { id: "mas-juegos", value: 183, name: "John Isner – Nicolas Mahut", label: "juegos en un solo partido" },
-  { id: "top-10", value: 190, name: "Novak Djokovic", label: "victorias ante el top 10" },
-] as const;
 
 export default async function Home() {
   const generation = await preparedGeneration();
   const matches = await generation.matches();
-  const totals = homeTotals(matches, 2026);
+  const year = new Date().getUTCFullYear();
+  const totals = homeTotals(matches, year);
   const final = featuredFinal(matches);
-  const records = recordStories.map(story => {
-    const leader = generation.manifest.pieces.find(piece => piece.id === story.id)?.leader;
-    return { ...story, value: leader?.name === story.name ? leader.value : story.value };
-  });
+  const records = homeRecordStories(generation.manifest.pieces);
 
   return <HomeMotion className={styles.story}>
     <section className={styles.intro} data-intro data-home-tone="dark" aria-labelledby="intro-title">
@@ -66,7 +59,7 @@ export default async function Home() {
     </section>)}
     <section className={styles.season} data-home-tone="light" aria-labelledby="season-title">
       <div className={styles.seasonContent}>
-        <h2 id="season-title">2026</h2>
+        <h2 id="season-title">{year}</h2>
         <dl className={styles.seasonNumbers}><div><dt>partidos</dt><dd>{format.format(totals.season.matches)}</dd></div><div><dt>finales</dt><dd>{format.format(totals.season.finals)}</dd></div></dl>
         <div className={styles.proportion} role="img" aria-label={`Partidos de 2026 por superficie: ${totals.season.hard} en dura, ${totals.season.clay} en tierra, ${totals.season.grass} en hierba, ${totals.season.other} en otras superficies o sin identificar.`}>
           {(["hard", "clay", "grass", "other"] as const).map(surface => totals.season[surface] > 0 && <span key={surface} data-surface={surface} style={{ flexGrow: totals.season[surface] }} />)}

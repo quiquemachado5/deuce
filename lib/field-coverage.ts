@@ -1,6 +1,7 @@
 import type { Match } from './types';
 import { publishedMatchMinutes } from './duration';
 import { statNumber } from './archive-insights';
+import { statLabel } from './statistics';
 
 type Availability = { id: string; label: string; matches: number; both: number; historical: number; recent: number; years: number[] };
 export type FieldCoverage = { total: number; reliable: number; partial: number; none: number; context: Availability[]; measures: Availability[] };
@@ -39,9 +40,14 @@ export function fieldCoverage(matches: Match[]): FieldCoverage {
     else none++;
     const present = new Map<string, Set<1 | 2>>();
     for (const stat of match.statistics) {
-      if (!byName.has(stat.name) || stat.period.toLowerCase() !== 'match' || !stat.player) continue;
+      if (stat.period.toLowerCase() !== 'match' || (stat.player !== 1 && stat.player !== 2)) continue;
       const value = statNumber(stat);
       if (value === null || !Number.isFinite(value) || value < 0) continue;
+      if (!byName.has(stat.name)) {
+        const row = make(stat.name, statLabel(stat.name));
+        rows.push(row);
+        byName.set(stat.name, row);
+      }
       const sides = present.get(stat.name) || new Set<1 | 2>();
       sides.add(stat.player);
       present.set(stat.name, sides);

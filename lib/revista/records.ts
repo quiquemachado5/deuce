@@ -12,6 +12,9 @@ import { tournamentName } from "../labels";
 import { yearExtent } from "./year-extent";
 import { publishedMatchMinutes } from "../duration";
 import { isRecordedTiebreak } from '../historical-rules';
+import { additionalRecords } from './additional-records';
+import { metricDefinition } from '../statistics-catalog';
+import { densityFields, hasDensityPair } from '../metric-density';
 export const description =
   "Grand Slams, Masters y torneos ATP, leídos por el dato.";
 export type RecordRow = {
@@ -82,6 +85,10 @@ export const groupDescriptions: Record<string, string> = {
   "Un torneo": "Títulos, finales y ediciones de cada campeonato.",
   Parejas: "Los enfrentamientos que se repiten en este archivo.",
   "Medidas de partido": "Solo partidos con este dato. No es todo el archivo.",
+  Superficies: "Eficacia en dura, tierra, hierba y moqueta, con muestra explícita.",
+  Saque: "Aces, servicio y juegos conservados. Solo datos publicados.",
+  Resto: "Puntos y juegos ganados al resto. Solo datos publicados.",
+  Golpes: "Ganadores y errores registrados. Cobertura parcial, no toda la carrera.",
 };
 export function eraComparisons(
   matches: Match[],
@@ -957,15 +964,17 @@ export function recordCatalog(matches: Match[], now = new Date(), only?: string)
       if (value === null) return [];
       const detail = def.detail(r);
       const field = stat ? r.stats[stat] : undefined;
+      const densityField = densityFields[def.key]?.field;
       const sample =
-        def.unit === "%"
-          ? field?.total || r.extra.secondBreakTotal || 0
-          : field?.samples || r.extra.secondBreakSamples || 0;
+        densityField ? r.extra[`${densityField}Total`] || 0 : def.unit === "%"
+          ? field?.total ?? r.extra.secondBreakTotal ?? 0
+          : field?.samples ?? r.extra.secondBreakSamples ?? 0;
       if (def.unit === "%" && sample)
-        value = ((field?.won || r.extra.secondBreakWon || 0) / sample) * 100;
+        value = ((field?.won ?? r.extra.secondBreakWon ?? 0) / sample) * 100;
       const proof = source.find(m => {
         const side = m.player1.name === r.name ? 1 : m.player2.name === r.name ? 2 : null;
         if (!side) return false;
+        if (densityField) return hasDensityPair(m, side, def.key);
         if (stat) return def.unit === "%" ? !!statFraction(m, side, stat)?.[1] : statNumber(matchStat(m, side, stat)) !== null;
         return m.point_tape.some(p => p.server === 3-side && p.is_break_point && p.first_serve_in === false);
       });
@@ -974,14 +983,33 @@ export function recordCatalog(matches: Match[], now = new Date(), only?: string)
     add(
       shelf.id,
       shelf.label,
-      "Medidas de partido",
-      "Solo partidos con este dato. No es todo el archivo.",
+      ({ Servicio: 'Saque', 'Resto y rallies': 'Resto', Golpes: 'Golpes' } as Record<string, string>)[def.group] || "Medidas de partido",
+      `${metricDefinition(def)} Solo partidos con este dato; no es todo el archivo.`,
       rows,
       def.min || 1,
       def.unit === "%",
       source,
       true,
     );
+  }
+  for (const spec of additionalRecords) {
+    if (only && only !== spec.id) continue;
+    const source = spec.source ? matches.filter(spec.source) : matches;
+    const proofs = new Map<string, Match>();
+    const samples = new Map<string, number>();
+    for (const match of source) for (const name of [match.player1.name, match.player2.name]) {
+      samples.set(name, (samples.get(name) || 0) + 1);
+      if (!proofs.has(name) || chronological(proofs.get(name)!, match) < 0) proofs.set(name, match);
+    }
+    add(spec.id, spec.title, spec.group,
+      `${spec.definition} Mínimo de ${spec.minimum} ${spec.denominator ? 'casos' : 'partidos'} documentados. Se recalcula con cada publicación del archivo.`,
+      () => records().flatMap(r => {
+        const numerator = spec.numerator(r);
+        const sample = spec.denominator ? spec.denominator(r) : samples.get(r.name) || 0;
+        if (!sample) return [];
+        const value = spec.denominator ? numerator / sample * 100 : numerator;
+        return [person(r.name, value, sample, spec.denominator ? `${number(numerator)} de ${number(sample)} casos documentados` : `${number(sample)} partidos en la selección`, proofs.get(r.name))];
+      }), spec.minimum, !!spec.denominator, source);
   }
   if (!only) cache.set(cacheKey, { day, pieces: result });
   return result;

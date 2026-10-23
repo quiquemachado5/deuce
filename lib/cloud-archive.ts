@@ -61,7 +61,8 @@ export async function cloudWriteMany(entries: readonly ArchiveWrite[]) {
       return
     }
     if (attempt === 0 && (error.code === '57014' || status === 0 || status === 429 || status >= 500)) continue
-    throw new Error(`Archive write failed: ${error.code || status}`)
+    // Object keys and size identify the failed stage without exposing payloads.
+    throw new Error(`Archive write failed: ${error.code || status}; keys=${entries.map(entry => entry.key).join(',')}; bytes=${Buffer.byteLength(JSON.stringify(rows))}`)
   }
 }
 export async function cloudWrite(key: string, payload: unknown) {
@@ -163,13 +164,17 @@ export async function refreshCloudArchive() {
     const year = new Date().getUTCFullYear()
     const old = await cloudRead(`season-${year}`)
     const seasonsRefreshed:number[]=[]
+    const detailCandidates:ArchiveRow[]=[]
+    const previousRows=new Map<string,ArchiveRow>()
     let rows:ArchiveRow[]=[],data:ArchiveRow[]=[]
     // Migrate every saved modern season once. Afterwards, poll result restatements
     // across all years as well as the current fixture window.
     for(const season of [year,...Array.from({length:Math.max(0,year-2023)},(_,i)=>2023+i)]){
       const previous=season===year?old:await cloudRead(`season-${season}`)
+      for (const row of previous?.data || []) previousRows.set(String(row.id), row)
       const refreshed=await reconcileSeasonResults(season,year,previous,request)
       const fresh=refreshed.fresh,complete=refreshed.data
+      detailCandidates.push(...complete)
       await cloudWrite(`season-${season}`,{data:complete,scope:refreshed.scope,at:refreshed.at})
       seasonsRefreshed.push(season)
       if(season===year){rows=fresh;data=complete}
@@ -193,9 +198,8 @@ export async function refreshCloudArchive() {
     }
     let detailsAdded = 0,detailsRefreshed=0
     const overrides = new Set<string>((await cloudRead('detail-overrides'))?.keys || [])
-    const previousRows=new Map<string,ArchiveRow>((old?.data||[]).map((r:ArchiveRow)=>[String(r.id),r]))
     const checked:Record<string,string>=(await cloudRead('refresh-detail-state'))?.checked || {}
-    const planned=detailRefreshPlan(data as (ArchiveRow & {id:unknown})[],previousRows as Map<string,ArchiveRow & {id:unknown}>,id=>known.has(`modern-${id}`)||hasBundledDetail('modern',id),checked)
+    const planned=detailRefreshPlan(detailCandidates as (ArchiveRow & {id:unknown})[],previousRows as Map<string,ArchiveRow & {id:unknown}>,id=>known.has(`modern-${id}`)||hasBundledDetail('modern',id),checked)
     for (const row of planned) {
       if (detailsAdded+detailsRefreshed >= 24 || calls >= 50 || Date.now() - started > 190_000) break
       const existing=known.has(`modern-${row.id}`)||hasBundledDetail('modern',String(row.id))

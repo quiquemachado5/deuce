@@ -15,6 +15,18 @@ export function homeTotals(matches: readonly Match[], year: number) {
   return { surfaces, season };
 }
 
+export function homeRecordStories(pieces: readonly { id: string; leader?: { name: string; value: number } }[]) {
+  const stories = [
+    { id: 'remontada-dos-sets', label: 'remontadas tras perder dos sets' },
+    { id: 'mas-juegos', label: 'juegos en un solo partido' },
+    { id: 'top-10', label: 'victorias ante el top 10' },
+  ];
+  return stories.flatMap(story => {
+    const leader = pieces.find(piece => piece.id === story.id)?.leader;
+    return leader && Number.isFinite(leader.value) ? [{ ...story, name: leader.name, value: leader.value }] : [];
+  });
+}
+
 // Editorial selection verified against the published archive, 23 October 2026.
 // Local snapshots may precede this final; never substitute a different match.
 export function featuredFinal(matches: readonly Match[]): string {

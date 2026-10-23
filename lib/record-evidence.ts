@@ -8,6 +8,8 @@ import { tournamentName } from './labels';
 import { analyzePointTape } from './analytics/engine';
 import { isRecordedTiebreak } from './historical-rules';
 import { archiveIndex } from './archive-index';
+import { additionalRecordEvidence } from './revista/additional-records';
+import { densityFields, hasDensityPair } from './metric-density';
 const eligibleSets = new WeakMap<Match[],Match[]>();
 
 export function evidenceHref(id: string, row: RecordRow, filters: Record<string,string|undefined> = {}) {
@@ -37,7 +39,12 @@ export function recordEvidence(matches: Match[], id: string, row: RecordRow): { 
   const win = (m:Match) => winnerName(m) === name;
   let result: Match[];
   let note = 'Cada encuentro aparece una sola vez. Abre el partido para consultar su marcador y los datos disponibles.';
+  const additional = additionalRecordEvidence(id, subject, name);
   if (row.href.startsWith('/match/')) result = valid.filter(m => '/match/' + m.match_id === row.href);
+  else if (additional) {
+    result = additional;
+    note = 'Encuentros que aportan casos al cálculo. La cifra puede contar sets, juegos, rivales o temporadas, no partidos. Los porcentajes incluyen victorias y derrotas aplicables; consulta la división de la clasificación.';
+  }
   else if (id === 'parejas' || id === 'parejas-finales') {
     const names = row.name.split(' – ');
     result = valid.filter(m => names.includes(m.player1.name) && names.includes(m.player2.name) && (id !== 'parejas-finales' || final(m)));
@@ -88,7 +95,8 @@ export function recordEvidence(matches: Match[], id: string, row: RecordRow): { 
       const shelf = shelves.find(s => s.id === id), key = shelf?.metric?.key;
       const stat = id === 'breaks-convertidos' ? 'Break points converted' : id === 'breaks-salvados' ? 'Break points saved' : key ? measuredKeys[key] || (key.startsWith('golpes-') ? shelf!.label : undefined) : undefined;
       const source = ['breaks-convertidos','breaks-salvados'].includes(id) ? reliable : subject;
-      if (stat) result = source.filter(m => statFraction(m,side(m),stat)?.[1] || statNumber(matchStat(m,side(m),stat)) !== null);
+      if (key && densityFields[key]) result = source.filter(m => hasDensityPair(m, side(m), key));
+      else if (stat) result = source.filter(m => statFraction(m,side(m),stat)?.[1] || statNumber(matchStat(m,side(m),stat)) !== null);
       else if (shelf?.metric) result = reliable.filter(m => m.point_tape.some(p => p.server === 3-side(m) && p.is_break_point && p.first_serve_in === false));
       else throw new Error(`No evidence selector for ${id}`);
     }
