@@ -1,219 +1,97 @@
-import SeasonArchive from '@/components/SeasonArchive';
-import EditionMatchGroups from '@/components/EditionMatchGroups';
-import Link from "next/link";
-import { ChevronDown, Search, SlidersHorizontal } from "lucide-react";
-import { notebook } from "@/lib/cuaderno/data";
-import { searchArchive, matchingMatches } from "@/lib/cuaderno/search";
-import { normalizeText } from "@/lib/quality";
-import { round, description } from "@/lib/cuaderno/model";
-import { Pagination } from "@/components/nocturno/Row";
-import FilterForm from "@/components/revista/FilterForm";
-import { tournamentName } from "@/lib/labels";
-import { tournamentDirectory, categoryLabel } from "@/lib/tournament-directory";
-import { verifiedTournamentCategory } from "@/lib/tournament-tier";
-import styles from "./search.module.css";
-import EmptyState from "@/components/EmptyState";
-type Q = Record<string, string | undefined>;
+import Link from 'next/link';
+import { ArrowUpRight, ChevronDown } from 'lucide-react';
+import { notebook } from '@/lib/cuaderno/data';
+import { searchArchive, matchingMatches } from '@/lib/cuaderno/search';
+import { normalizeText } from '@/lib/quality';
+import { tournamentName } from '@/lib/labels';
+import { tournamentDirectory } from '@/lib/tournament-directory';
+import { browserCategory, browserRound, browserRounds } from '@/lib/match-browser';
+import { matchSearchUrl, type MatchQuery } from '@/lib/match-search-url';
+import { chronological } from '@/lib/editorial';
+import { number } from '@/lib/cuaderno/model';
+import EditionMatchGroups, { type MatchEdition } from '@/components/EditionMatchGroups';
+import MatchSearchBar from '@/components/MatchSearchBar';
+import PlayerAvatar from '@/components/PlayerAvatar';
+import EmptyState from '@/components/EmptyState';
+import styles from './search.module.css';
 
-function searchUrl(q: Q, page?: number) {
-  const params = new URLSearchParams(
-    Object.entries(q).filter(
-      ([key, value]) => key !== "page" && typeof value === "string" && value.length > 0 && value !== "all",
-    ) as [string, string][],
-  );
-  if (page && page > 1) params.set("page", String(page));
-  return `/buscar${params.size ? `?${params}` : ""}`;
-}
-export async function generateMetadata({
-  searchParams,
-}: {
-  searchParams: Promise<Q>;
-}) {
-  const q = await searchParams;
-  const hasQuery = Object.entries(q).some(([, value]) => value && value !== "all");
+export async function generateMetadata({ searchParams }: { searchParams: Promise<MatchQuery> }) {
+  const query = await searchParams;
   return {
-    title: `${q.q ? `Buscar ${q.q}` : "Buscar en el archivo"} — DEUCE`,
-    description,
-    alternates: { canonical: searchUrl(q, Number(q.page) || 1) },
-    robots: hasQuery ? { index: false, follow: true } : undefined,
+    title: `${query.q ? `${query.q} · Partidos` : 'Partidos'} — DEUCE`,
+    description: 'Busca jugadores y torneos. Recorre los partidos de tenis por temporada, superficie y ronda desde 1968.',
+    alternates: { canonical: matchSearchUrl(query, { limit: undefined }) },
+    robots: Object.values(query).some(Boolean) ? { index: false, follow: true } : undefined,
   };
 }
-export default async function SearchPage({
-  searchParams,
-}: {
-  searchParams: Promise<Q>;
-}) {
-  const q = await searchParams,
-    data = await notebook(),
-    tournaments = tournamentDirectory(data.matches),
-    selectedTournament = tournaments.find((tournament) => tournament.slug === q.tournament),
-    categories = ["Grand Slam", "Masters 1000", "ATP 500", "ATP 250", "Precursores de Masters", "ATP Tour histórico"].filter((category) => data.matches.some((match) => verifiedTournamentCategory(match.category, match.tournament, match.year) === category)),
-    base = matchingMatches(q.q || q.player || "", data.matches),
-    filtered = base
-      .filter(
-        (m) =>
-          (!q.year || q.year === "all" || m.year === Number(q.year)) &&
-          (!q.surface || q.surface === "all" || m.surface === q.surface) &&
-          (!q.tournament || q.tournament === "all" || selectedTournament?.name === m.tournament) &&
-          (!q.category || q.category === "all" || verifiedTournamentCategory(m.category, m.tournament, m.year) === q.category) &&
-          (!q.round ||
-            q.round === "all" ||
-            normalizeText(round(m)) === normalizeText(q.round)) &&
-          (q.fiveSets !== "true" || m.score_summary.games.length === 5),
-      ),
-    suggestions = q.q
-      ? await searchArchive(q.q, { includeMatches: false })
-      : [],
-    total = filtered.length + suggestions.length,
-    pages = Math.max(1, Math.ceil(total / 25)),
-    page = Math.max(1, Math.min(pages, Number(q.page) || 1)),
-    start = Math.max(0, (page - 1) * 25 - suggestions.length),
-    end = page * 25 - suggestions.length,
-    years = [...new Set(data.matches.map((m) => m.year))].sort((a, b) => b - a),
-    activeFilters = [q.year, q.surface, q.tournament, q.category, q.round].filter(
-      (value) => value && value !== "all",
-    ).length + Number(q.fiveSets === "true"),
-    hasSelection = Boolean(q.q || q.player || activeFilters > 0),
-    appliedFilters = [
-      q.year && q.year !== "all" ? `Temporada ${q.year}` : null,
-      q.surface && q.surface !== "all" ? ({ hard: "Dura", clay: "Tierra", grass: "Hierba", carpet: "Moqueta" }[q.surface] || q.surface) : null,
-      selectedTournament ? tournamentName(selectedTournament.name) : null,
-      q.category && q.category !== "all" ? categoryLabel(q.category) : null,
-      q.round && q.round !== "all" ? q.round : null,
-      q.fiveSets === "true" ? "A cinco sets" : null,
-    ].filter(Boolean) as string[],
-    suggestionsByGroup = ["Récords", "Jugadores", "Parejas"].map((group) => ({
-      group,
-      items: suggestions.filter((item) => item.group === group),
-    }));
-  return (
-    <div className={`nc-wrap ${styles.searchPage}`}>
-      <header className={styles.heading}>
-        <h1>Partidos</h1>
-      </header>
 
-      <FilterForm action="/buscar">
-        <div className={styles.searchBar}>
-          <Search size={20} strokeWidth={1.8} aria-hidden="true" />
-          <label className="nc-field nc-filter-query">
-            <span className="nc-sr">Jugador, torneo, año o dato</span>
-            <input
-              name="q"
-              type="search"
-              defaultValue={q.q || q.player || ""}
-              placeholder="Buscar partidos por jugador o torneo"
-              autoComplete="off"
-            />
-          </label>
-          <button type="submit" className={styles.searchButton}>Buscar</button>
-        </div>
+export default async function SearchPage({ searchParams }: { searchParams: Promise<MatchQuery> }) {
+  const [raw, data] = await Promise.all([searchParams, notebook()]);
+  const query: MatchQuery = Object.fromEntries(Object.entries(raw).filter(([, value]) => typeof value === 'string' && value !== 'all'));
+  query.q = (query.q || query.player || '').trim().slice(0, 180);
+  if (query.round) query.round = ({ Octavos: 'Octavos de final', Cuartos: 'Cuartos de final', Semifinal: 'Semifinales' } as Record<string, string>)[query.round] || query.round;
+  if (query.category && /precursor|histórico|otro torneo/i.test(query.category)) query.category = 'Otros torneos';
+  const years = [...new Set(data.matches.map(match => match.year))].sort((a, b) => b - a);
+  if (query.year && !years.includes(Number(query.year))) delete query.year;
+  const selectedYear = query.year ? Number(query.year) : query.q ? null : years[0];
+  const directory = tournamentDirectory(data.matches);
+  const tournament = directory.find(entry => entry.slug === query.tournament);
+  const slugs = new Map(directory.map(entry => [entry.name, entry.slug]));
+  const categories = [...new Set(data.matches.map(browserCategory).filter((category): category is string => Boolean(category)))].sort((a, b) => {
+    const priority = ['Grand Slam', 'Masters 1000', 'ATP 500', 'ATP 250', 'ATP Finals', 'Challenger', 'Copa Davis', 'Juegos Olímpicos', 'United Cup', 'Laver Cup', 'Next Gen Finals', 'Otros torneos'];
+    return (priority.indexOf(a) < 0 ? 99 : priority.indexOf(a)) - (priority.indexOf(b) < 0 ? 99 : priority.indexOf(b)) || a.localeCompare(b, 'es');
+  });
+  const filtered = matchingMatches(query.q || '', data.matches).filter(match =>
+    (!selectedYear || match.year === selectedYear) &&
+    (!query.surface || match.surface === query.surface) &&
+    (!query.tournament || tournament?.name === match.tournament) &&
+    (!query.category || browserCategory(match) === query.category) &&
+    (!query.round || normalizeText(browserRound(match)) === normalizeText(query.round)) &&
+    (query.fiveSets !== 'true' || match.score_summary.games.length === 5)
+  ).sort((a, b) => chronological(b, a));
+  const editions = new Map<string, MatchEdition>();
+  for (const match of filtered) {
+    const key = `${match.year}|${match.tournament}`;
+    const edition = editions.get(key) || { key, href: `/${slugs.get(match.tournament)}/${match.year}`, matches: [] };
+    edition.matches.push(match);
+    editions.set(key, edition);
+  }
+  const groups = [...editions.values()];
+  const requestedLimit = Number(query.limit);
+  const limit = Number.isFinite(requestedLimit) && requestedLimit > 0 ? Math.max(12, Math.floor(requestedLimit)) : 12;
+  const suggestions = query.q ? await searchArchive(query.q, { includeMatches: false, data }) : [];
+  const players = suggestions.filter(item => item.group === 'Jugadores');
+  const related = suggestions.filter(item => ['Torneos', 'Récords', 'Parejas'].includes(item.group));
+  const chips = [
+    query.year ? { key: 'year', label: query.year } : null,
+    query.surface ? { key: 'surface', label: ({ hard: 'Dura', clay: 'Tierra', grass: 'Hierba', carpet: 'Moqueta' } as Record<string, string>)[query.surface] || query.surface } : null,
+    query.category ? { key: 'category', label: query.category } : null,
+    query.round ? { key: 'round', label: query.round } : null,
+    query.tournament ? { key: 'tournament', label: tournament ? tournamentName(tournament.name) : query.tournament } : null,
+    query.fiveSets === 'true' ? { key: 'fiveSets', label: 'Cinco sets' } : null,
+  ].filter((chip): chip is { key: string; label: string } => Boolean(chip));
+  const yearLink = (year: number) => matchSearchUrl(query, { year: String(year), limit: undefined });
+  return <div className={`nc-wrap ${styles.searchPage}`}>
+    <header className={styles.heading}><h1>Partidos</h1></header>
+    <MatchSearchBar query={query} chips={chips} categories={categories} rounds={[...new Set([...browserRounds, ...data.matches.map(browserRound)])]} />
+    {players.length !== 1 && <p className={styles.resultCount} role="status">{number(filtered.length)} partidos{selectedYear ? ` en ${selectedYear}` : ''}</p>}
 
-        <details className={styles.filters} open={activeFilters > 0}>
-          <summary>
-            <span className={styles.filterSummaryLabel}>
-              <SlidersHorizontal size={17} strokeWidth={1.7} aria-hidden="true" />
-              Filtrar
-              {activeFilters > 0 && <span className={styles.filterCount}>{activeFilters} activos</span>}
-            </span>
-            <ChevronDown size={17} strokeWidth={1.7} aria-hidden="true" />
-          </summary>
-          <div className={styles.filterGrid}>
-            <label className="nc-field">
-              <span>Temporada</span>
-              <select name="year" defaultValue={q.year || "all"}>
-                <option value="all">Todas</option>
-                {years.map((year) => <option key={year}>{year}</option>)}
-              </select>
-            </label>
-            <label className="nc-field">
-              <span>Torneo</span>
-              <select name="tournament" defaultValue={q.tournament || "all"}>
-                <option value="all">Todos</option>
-                {tournaments.map((tournament) => (
-                  <option value={tournament.slug} key={tournament.slug}>
-                    {tournamentName(tournament.name)}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label className="nc-field">
-              <span>Categoría</span>
-              <select name="category" defaultValue={q.category || "all"}>
-                <option value="all">Todas</option>
-                {categories.map((category) => <option value={category} key={category}>{categoryLabel(category)}</option>)}
-              </select>
-            </label>
-            <label className="nc-field">
-              <span>Superficie</span>
-              <select name="surface" defaultValue={q.surface || "all"}>
-                <option value="all">Todas</option>
-                <option value="hard">Dura</option>
-                <option value="clay">Tierra</option>
-                <option value="grass">Hierba</option>
-                <option value="carpet">Moqueta</option>
-              </select>
-            </label>
-            <label className="nc-field">
-              <span>Ronda</span>
-              <select name="round" defaultValue={q.round || "all"}>
-                <option value="all">Todas</option>
-                {["Ronda de 128", "Ronda de 64", "Ronda de 32", "Octavos", "Cuartos", "Semifinal", "Final"].map((value) => (
-                  <option key={value}>{value}</option>
-                ))}
-              </select>
-            </label>
-            <label className={styles.fiveSets}>
-              <input type="checkbox" name="fiveSets" value="true" defaultChecked={q.fiveSets === "true"} />
-              Solo partidos a cinco sets
-            </label>
-          </div>
-        </details>
-      </FilterForm>
+    {players.length > 0 && <section className={styles.playerResults} aria-label="Jugadores encontrados">{players.map(player => <Link className={styles.playerResult} href={player.href} key={player.href}>
+      <PlayerAvatar name={player.name} size={60} /><span><strong>{player.name}</strong><small>{players.length === 1 ? `${number(filtered.length)} partidos · Ver ficha` : 'Ver ficha del jugador'}</small></span><ArrowUpRight size={18} aria-hidden="true" />
+    </Link>)}</section>}
+    {related.length > 0 && <nav className={styles.relatedResults} aria-label="También en el archivo">{related.map(item => <Link href={item.href} key={item.href}>{item.name}<ArrowUpRight size={14} aria-hidden="true" /></Link>)}</nav>}
 
-      <div className={styles.selection}>
-          <div><strong>{filtered.length.toLocaleString("es-ES")} partidos</strong><span className={styles.activeChips}>{appliedFilters.length ? appliedFilters.map(label => <span key={label}>{label}</span>) : <span>Todo el archivo</span>}</span></div>
-          {hasSelection && <Link href="/buscar">Limpiar búsqueda</Link>}
-        </div>
-
-      {page === 1 && suggestions.length > 0 && (
-        <section className={styles.suggestions} aria-labelledby="search-suggestions-heading">
-          <h2 id="search-suggestions-heading">Otros resultados</h2>
-          <div className={styles.suggestionGroups}>
-            {suggestionsByGroup.filter(({ items }) => items.length > 0).map(({ group, items }) => (
-              <div key={group} className={styles.suggestionGroup}>
-                <h3>{group}</h3>
-                {items.map((item) => (
-                  <Link className="nc-index-row" key={item.href} href={item.href}>
-                    <span>{item.name}</span>
-                    <small>{item.detail || item.group}</small>
-                  </Link>
-                ))}
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {(filtered.length > 0 || suggestions.length === 0) && (
-        <section className={styles.matches} aria-labelledby="search-matches-heading">
-          <div className={styles.resultsHead}>
-            <h2 id="search-matches-heading">{hasSelection ? "Partidos" : "Últimos partidos"}</h2>
-            <span>{filtered.length.toLocaleString("es-ES")} partidos</span>
-          </div>
-          <EditionMatchGroups matches={filtered.slice(start,end)} />
-          {!filtered.length && (
-            <EmptyState
-              title="No encontramos partidos"
-              description={q.q || q.player ? "Prueba con otro nombre o amplía los filtros activos." : "No hay partidos con esta combinación de filtros."}
-              resetHref="/buscar"
-            />
-          )}
-          {total > 25 && (
-            <Pagination page={page} total={total} href={(nextPage) => searchUrl(q, nextPage)} />
-          )}
-        </section>
-      )}
-      <details className={styles.seasonIndex}><summary>Explorar campeonatos por temporada</summary><SeasonArchive matches={data.matches} years={years} year={q.year && years.includes(Number(q.year)) ? Number(q.year) : years[0]} page={Math.max(1, Number(q.editions) || 1)} /></details>
-    </div>
-  );
+    <section className={styles.season} aria-labelledby="match-season-title">
+      <div className={styles.seasonHeading}><h2 id="match-season-title">{selectedYear ? `La temporada ${selectedYear}` : 'Por torneo'}</h2><span>{number(groups.length)} campeonatos</span></div>
+      <nav className={styles.years} aria-label="Temporadas">
+        {query.q && <Link href={matchSearchUrl(query, { year: undefined, limit: undefined })} scroll={false} aria-current={!selectedYear ? 'page' : undefined}>Todas</Link>}
+        {years.slice(0, 6).map(year => <Link key={year} href={yearLink(year)} scroll={false} aria-current={selectedYear === year ? 'page' : undefined}>{year}</Link>)}
+        {selectedYear && !years.slice(0, 6).includes(selectedYear) && <Link href={yearLink(selectedYear)} aria-current="page" scroll={false}>{selectedYear}</Link>}
+        {years.length > 6 && <details className={styles.moreYears}><summary>Más años<ChevronDown size={14} aria-hidden="true" /></summary><div>{years.slice(6).map(year => <Link key={year} href={yearLink(year)} scroll={false} aria-current={selectedYear === year ? 'page' : undefined}>{year}</Link>)}</div></details>}
+      </nav>
+      <EditionMatchGroups editions={groups.slice(0, limit)} showYears={!selectedYear} />
+      {!filtered.length && <EmptyState title="No encontramos partidos" description="Prueba otro nombre o quita alguno de los filtros de la búsqueda." resetHref="/buscar" />}
+      {groups.length > limit && <div className={styles.loadMore}><Link href={matchSearchUrl(query, { limit: String(limit + 12) })} scroll={false}>Cargar más torneos<ChevronDown size={16} aria-hidden="true" /></Link></div>}
+    </section>
+  </div>;
 }

@@ -1,6 +1,6 @@
 /* Three visual planes: typography, portrait, and restrained data. */
 html { overflow-x: clip; }
-.ry-header, html[data-theme="dark"] .ry-header { background: color-mix(in srgb, var(--bg-raised) 96%, transparent); border-color: var(--line); box-shadow: 0 3px 18px #00000010; backdrop-filter: blur(32px) saturate(150%); -webkit-backdrop-filter: blur(32px) saturate(150%); }
+.ry-header, html[data-theme="dark"] .ry-header { background: var(--bg-raised); border-color: var(--line); box-shadow: 0 3px 18px #00000010; backdrop-filter: blur(32px) saturate(150%); -webkit-backdrop-filter: blur(32px) saturate(150%); }
 .ry-header-search { position: relative; width: 226px; }
 .ry-header-search-form { display: flex; align-items: center; gap: 9px; min-height: 44px; padding: 0 11px; border: 1px solid var(--line-strong); border-radius: 16px; background: var(--bg-raised); color: var(--ink-soft); }
 .ry-header-search-form:focus-within { border-color: var(--ink); }
@@ -20,7 +20,7 @@ html { overflow-x: clip; }
 .ry-copyright { grid-column: 1 / -1; }
 
 .score-game { display: inline-flex; align-items: baseline; white-space: nowrap; }
-.score-tiebreak, .row-score-line .score-tiebreak { position: relative; top: -.55em; margin-left: 1px; font-family: var(--font-interface); font-size: .4em; font-weight: 650; line-height: 1; letter-spacing: -.025em; }
+.score-tiebreak, .row-score-line .score-tiebreak { position: relative; top: -.65em; margin-left: 2px; font-family: var(--font-interface); font-size: .4em; font-weight: 650; line-height: 1; letter-spacing: 0; }
 .match-card-player > strong, .row-score-line, .set-scoreboard tbody td, .td-bracket-sets b { font-family: var(--font-interface); font-weight: 680; letter-spacing: -.045em; font-variant-numeric: tabular-nums; }
 .match-card-winner-label, .set-winner-label, .nc-row-winner-label { flex: none; color: var(--ink); font-family: var(--font-interface); font-size: 10px; font-weight: 650; letter-spacing: 0; }
 .match-hero-winner-label { align-self: center; color: var(--ink); font-size: 12px; font-weight: 700; }

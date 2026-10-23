@@ -234,6 +234,7 @@ function Wordmark({ choose }: { choose?: () => void }) {
 
 export default function Frame({ children }: { children: React.ReactNode }) {
   const path = usePathname();
+  const isMatchSearch = path === '/buscar' || path === '/partidos';
   const active = pageLabel(path);
   const menu = useRef<HTMLDialogElement>(null);
   const search = useRef<HTMLDialogElement>(null);
@@ -264,6 +265,10 @@ export default function Frame({ children }: { children: React.ReactNode }) {
         return;
       if (menu.current?.open) return;
       event.preventDefault();
+      if (isMatchSearch) {
+        document.getElementById('match-search')?.focus();
+        return;
+      }
       if (window.innerWidth >= 760) {
         headerField.current?.focus();
         return;
@@ -285,7 +290,7 @@ export default function Frame({ children }: { children: React.ReactNode }) {
     };
     window.addEventListener("keydown", shortcut);
     return () => window.removeEventListener("keydown", shortcut);
-  }, []);
+  }, [isMatchSearch]);
 
   const close = () => {
     if (menu.current?.open) menu.current.close();
@@ -349,7 +354,7 @@ export default function Frame({ children }: { children: React.ReactNode }) {
             </div>
             <NavSection active={active} mode="desktop" />
             <div className="ry-header-actions">
-              <div className="ry-header-search" onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) setHeaderFocused(false); }}>
+              {!isMatchSearch && <div className="ry-header-search" onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) setHeaderFocused(false); }}>
                 <form action="/buscar" role="search" className="ry-header-search-form">
                   <Search size={16} strokeWidth={1.6} aria-hidden="true" />
                   <label className="ry-sr" htmlFor="ry-header-query">Buscar en DEUCE</label>
@@ -357,8 +362,8 @@ export default function Frame({ children }: { children: React.ReactNode }) {
                   <kbd>⌘K</kbd>
                 </form>
                 {headerFocused && headerQuery.trim() ? <SearchResults query={headerQuery} choose={() => { setHeaderFocused(false); setHeaderQuery(''); }} clear={() => setHeaderQuery('')} /> : null}
-              </div>
-              <button
+              </div>}
+              {!isMatchSearch && <button
                 className="ry-search-trigger"
                 aria-label="Buscar"
                 aria-haspopup="dialog"
@@ -370,7 +375,7 @@ export default function Frame({ children }: { children: React.ReactNode }) {
               >
                 <Search size={16} strokeWidth={1.6} aria-hidden="true" />
                 <span>Buscar</span>
-              </button>
+              </button>}
               <button
                 className="ry-icon-button ry-menu-trigger"
                 type="button"
