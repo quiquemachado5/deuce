@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { Menu, Search, X } from "lucide-react";
+import HomeShell from "@/components/home/HomeShell";
 
 export type SearchItem = {
   href: string;
@@ -233,6 +234,11 @@ function Wordmark({ choose }: { choose?: () => void }) {
 }
 
 export default function Frame({ children }: { children: React.ReactNode }) {
+  const path = usePathname();
+  return path === "/" ? <HomeShell>{children}</HomeShell> : <ArchiveFrame>{children}</ArchiveFrame>;
+}
+
+function ArchiveFrame({ children }: { children: React.ReactNode }) {
   const path = usePathname();
   const isMatchSearch = path === '/buscar' || path === '/partidos';
   const active = pageLabel(path);

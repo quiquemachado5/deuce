@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { playerPhotos } from "@/lib/player-imagery";
 import { courtPhotos, type Photo } from "@/lib/imagery";
+import { homeMaterials } from "@/lib/home-photography";
 import { tournamentName } from "@/lib/labels";
 import { Pagination } from "@/components/nocturno/Row";
 
@@ -14,6 +15,7 @@ export const metadata = {
 type Kind = "all" | "players" | "courts";
 type CreditEntry = { key: string; name: string; photo: Photo; kind: Exclude<Kind, "all"> };
 const photos: CreditEntry[] = [
+  ...homeMaterials.map(material => ({ key: `material-${material.surface}`, name: material.name, photo: material.photo, kind: "courts" as const })),
   ...Object.entries(courtPhotos).map(([key, photo]) => ({ key: `court-${key}`, name: tournamentName(key), photo, kind: "courts" as const })),
   ...Object.entries(playerPhotos).map(([key, photo]) => ({ key: `player-${key}`, name: key, photo, kind: "players" as const })),
 ].sort((a, b) => a.name.localeCompare(b.name, "es"));

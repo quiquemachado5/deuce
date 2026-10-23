@@ -3,6 +3,10 @@
 import type { ImageLoaderProps } from 'next/image'
 
 export default function imageLoader({ src, width }: ImageLoaderProps) {
+  if (/^\/images\/home-materials\/(clay|grass|hard)\.webp$/.test(src)) {
+    const size = width <= 768 ? 768 : width <= 1440 ? 1440 : 2400
+    return src.replace(/\.webp$/, `-${size}.webp`)
+  }
   // Venue and editorial originals have checked static variants. A caller may
   // also pass a variant directly; never append a second suffix.
   if (/^\/images\/(?:courts|editorial)\/.+\.jpg$/.test(src) || src === '/images/editorial/wimbledon-2008-recreation.webp') {
