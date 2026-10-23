@@ -4,7 +4,7 @@ import { visibleTournamentCategory } from './tournament-tier';
 
 export function browserRound(match: Match) {
   const label = round(match);
-  return ({ Octavos: 'Octavos de final', Cuartos: 'Cuartos de final', Semifinal: 'Semifinales' } as Record<string, string>)[label] || label;
+  return ({ Octavos: 'Octavos de final', Cuartos: 'Cuartos de final', Semifinal: 'Semifinales', RR: 'Fase de grupos', BR: 'Partido por el bronce', ER: 'Rondas iniciales' } as Record<string, string>)[label] || label;
 }
 
 export const browserRounds = ['Ronda de 128', 'Ronda de 64', 'Ronda de 32', 'Octavos de final', 'Cuartos de final', 'Semifinales', 'Final'];

@@ -50,8 +50,8 @@ export default function EditionMatchGroups({ editions, showYears = false }: { ed
           <ChevronDown className={styles.editionChevron} size={19} strokeWidth={1.7} aria-hidden="true" />
         </summary>
         <div className={styles.editionMatches} style={{ '--archive-sets': columns } as CSSProperties}>
-          {[...rounds].map(([label, matches]) => <section key={label} aria-label={label} className={styles.roundGroup}>
-            <div className={styles.roundHeading}><h3>{label}</h3>{Array.from({ length: columns }, (_, index) => <span key={index} aria-label={`Set ${index + 1}`}>{index + 1}</span>)}</div>
+          {[...rounds].map(([label, matches]) => <section key={label} aria-label={label || 'Marcadores'} className={styles.roundGroup}>
+            <div className={styles.roundHeading}>{label ? <h3>{label}</h3> : <span />}{Array.from({ length: columns }, (_, index) => <span key={index} aria-label={`Set ${index + 1}`}>{index + 1}</span>)}</div>
             {matches.map(match => <ArchiveScoreRow match={match} columns={columns} key={match.match_id} />)}
           </section>)}
         </div>

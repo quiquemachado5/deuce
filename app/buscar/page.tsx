@@ -29,7 +29,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
   const [raw, data] = await Promise.all([searchParams, notebook()]);
   const query: MatchQuery = Object.fromEntries(Object.entries(raw).filter(([, value]) => typeof value === 'string' && value !== 'all'));
   query.q = (query.q || query.player || '').trim().slice(0, 180);
-  if (query.round) query.round = ({ Octavos: 'Octavos de final', Cuartos: 'Cuartos de final', Semifinal: 'Semifinales' } as Record<string, string>)[query.round] || query.round;
+  if (query.round) query.round = ({ Octavos: 'Octavos de final', Cuartos: 'Cuartos de final', Semifinal: 'Semifinales', RR: 'Fase de grupos', BR: 'Partido por el bronce', ER: 'Rondas iniciales' } as Record<string, string>)[query.round] || query.round;
   if (query.category && /precursor|histórico|otro torneo/i.test(query.category)) query.category = 'Otros torneos';
   const years = [...new Set(data.matches.map(match => match.year))].sort((a, b) => b - a);
   if (query.year && !years.includes(Number(query.year))) delete query.year;
@@ -45,7 +45,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
     (!selectedYear || match.year === selectedYear) &&
     (!query.surface || match.surface === query.surface) &&
     (!query.tournament || tournament?.name === match.tournament) &&
-    (!query.category || browserCategory(match) === query.category) &&
+    (!query.category || (browserCategory(match) || 'Otros torneos') === query.category) &&
     (!query.round || normalizeText(browserRound(match)) === normalizeText(query.round)) &&
     (query.fiveSets !== 'true' || match.score_summary.games.length === 5)
   ).sort((a, b) => chronological(b, a));
@@ -73,7 +73,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
   const yearLink = (year: number) => matchSearchUrl(query, { year: String(year), limit: undefined });
   return <div className={`nc-wrap ${styles.searchPage}`}>
     <header className={styles.heading}><h1>Partidos</h1></header>
-    <MatchSearchBar query={query} chips={chips} categories={categories} rounds={[...new Set([...browserRounds, ...data.matches.map(browserRound)])]} />
+    <MatchSearchBar query={query} chips={chips} categories={categories} rounds={[...new Set([...browserRounds, ...data.matches.map(browserRound)])].filter(Boolean)} />
     {players.length !== 1 && <p className={styles.resultCount} role="status">{number(filtered.length)} partidos{selectedYear ? ` en ${selectedYear}` : ''}</p>}
 
     {players.length > 0 && <section className={styles.playerResults} aria-label="Jugadores encontrados">{players.map(player => <Link className={styles.playerResult} href={player.href} key={player.href}>
@@ -87,7 +87,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
         {query.q && <Link href={matchSearchUrl(query, { year: undefined, limit: undefined })} scroll={false} aria-current={!selectedYear ? 'page' : undefined}>Todas</Link>}
         {years.slice(0, 6).map(year => <Link key={year} href={yearLink(year)} scroll={false} aria-current={selectedYear === year ? 'page' : undefined}>{year}</Link>)}
         {selectedYear && !years.slice(0, 6).includes(selectedYear) && <Link href={yearLink(selectedYear)} aria-current="page" scroll={false}>{selectedYear}</Link>}
-        {years.length > 6 && <details className={styles.moreYears}><summary>Más años<ChevronDown size={14} aria-hidden="true" /></summary><div>{years.slice(6).map(year => <Link key={year} href={yearLink(year)} scroll={false} aria-current={selectedYear === year ? 'page' : undefined}>{year}</Link>)}</div></details>}
+        {years.length > 6 && <details className={styles.moreYears} key={selectedYear || 'all'}><summary>Más años<ChevronDown size={14} aria-hidden="true" /></summary><div>{years.slice(6).map(year => <Link key={year} href={yearLink(year)} scroll={false} aria-current={selectedYear === year ? 'page' : undefined}>{year}</Link>)}</div></details>}
       </nav>
       <EditionMatchGroups editions={groups.slice(0, limit)} showYears={!selectedYear} />
       {!filtered.length && <EmptyState title="No encontramos partidos" description="Prueba otro nombre o quita alguno de los filtros de la búsqueda." resetHref="/buscar" />}
