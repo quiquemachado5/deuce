@@ -16,7 +16,7 @@ export function verifiedTournamentCategory(category: string, tournament: string,
 
 export function visibleTournamentCategory(category: string, tournament: string, year: number): string | null {
   const verified = verifiedTournamentCategory(category, tournament, year);
-  return verified === 'ATP Tour · nivel no especificado' ? null : verified;
+  return /nivel no especificado/i.test(verified) ? null : verified;
 }
 
 export function modernTournamentCategory(tier: unknown, tournament = '', year = 0): string {

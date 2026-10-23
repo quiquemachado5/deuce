@@ -11,3 +11,7 @@ const tournaments: Record<string, string> = {
   Tokyo: 'Tokio',
 }
 export function tournamentName(name: string) { return tournaments[name] || name }
+/** Typography only: retain provider spelling as the stable lookup key. */
+export function displayPlayerName(name: string) {
+  return name.replace(/\bClement\b/g, 'Clément').replace(/\bMoise\b/g, 'Moïse');
+}

@@ -72,8 +72,8 @@ function PlayerField({ label, value, onChange }: { label: string; value: string;
 }
 
 export default function QuickH2H() {
-  const [first, setFirst] = useState("");
-  const [second, setSecond] = useState("");
+  const [first, setFirst] = useState("Novak Djokovic");
+  const [second, setSecond] = useState("Rafael Nadal");
   const [lookup, setLookup] = useState<{ key: string; result: PairResult | null; status: string }>({ key: "", result: null, status: "" });
   const a = first.trim();
   const b = second.trim();

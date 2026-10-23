@@ -137,7 +137,7 @@ export function SearchResults({
 
 const destinations = [
   { label: "Partidos", href: "/buscar" },
-  { label: "Estadísticas", href: "/records" },
+  { label: "Récords", href: "/records" },
   { label: "Jugadores", href: "/jugadores" },
   { label: "Torneos", href: "/tournaments" },
   { label: "Comparar", href: "/comparar" },
@@ -145,7 +145,7 @@ const destinations = [
 
 function pageLabel(path: string) {
   if (path === "/comparar" || path === "/compare") return "Comparar";
-  if (path.startsWith("/records")) return "Estadísticas";
+  if (path.startsWith("/records")) return "Récords";
   if (path.startsWith("/rivalries")) return "Jugadores";
   if (path.startsWith("/players") || path === "/jugadores") return "Jugadores";
   if (
@@ -157,7 +157,7 @@ function pageLabel(path: string) {
   if (path.startsWith("/match") || path === "/buscar" || path === "/partidos")
     return "Partidos";
   if (path === "/info") return "Cómo se lee";
-  if (path === "/credits") return "Fotografías";
+  if (path === "/credits") return "Créditos de las fotos";
   return "";
 }
 
@@ -238,10 +238,13 @@ export default function Frame({ children }: { children: React.ReactNode }) {
   const menu = useRef<HTMLDialogElement>(null);
   const search = useRef<HTMLDialogElement>(null);
   const searchField = useRef<HTMLInputElement>(null);
+  const headerField = useRef<HTMLInputElement>(null);
   const opener = useRef<HTMLElement | null>(null);
   const previousOverflow = useRef("");
   const initialPath = useRef(path);
   const [query, setQuery] = useState("");
+  const [headerQuery, setHeaderQuery] = useState("");
+  const [headerFocused, setHeaderFocused] = useState(false);
   const [activeDialog, setActiveDialog] = useState<"menu" | "search" | null>(
     null,
   );
@@ -261,6 +264,10 @@ export default function Frame({ children }: { children: React.ReactNode }) {
         return;
       if (menu.current?.open) return;
       event.preventDefault();
+      if (window.innerWidth >= 760) {
+        headerField.current?.focus();
+        return;
+      }
       const target = search.current;
       if (!target || target.open) {
         searchField.current?.focus();
@@ -342,9 +349,18 @@ export default function Frame({ children }: { children: React.ReactNode }) {
             </div>
             <NavSection active={active} mode="desktop" />
             <div className="ry-header-actions">
+              <div className="ry-header-search" onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) setHeaderFocused(false); }}>
+                <form action="/buscar" role="search" className="ry-header-search-form">
+                  <Search size={16} strokeWidth={1.6} aria-hidden="true" />
+                  <label className="ry-sr" htmlFor="ry-header-query">Buscar en DEUCE</label>
+                  <input id="ry-header-query" ref={headerField} name="q" type="search" value={headerQuery} onChange={event => setHeaderQuery(event.target.value)} onFocus={() => setHeaderFocused(true)} onKeyDown={event => { if (event.key === 'Escape') { setHeaderQuery(''); setHeaderFocused(false); headerField.current?.blur(); } }} placeholder="Buscar" autoComplete="off" />
+                  <kbd>⌘K</kbd>
+                </form>
+                {headerFocused && headerQuery.trim() ? <SearchResults query={headerQuery} choose={() => { setHeaderFocused(false); setHeaderQuery(''); }} clear={() => setHeaderQuery('')} /> : null}
+              </div>
               <button
                 className="ry-search-trigger"
-                aria-label="Buscar en todo DEUCE"
+                aria-label="Buscar"
                 aria-haspopup="dialog"
                 aria-controls="ry-search-dialog"
                 aria-expanded={activeDialog === "search"}
@@ -353,7 +369,7 @@ export default function Frame({ children }: { children: React.ReactNode }) {
                 onClick={(event) => open("search", event.currentTarget)}
               >
                 <Search size={16} strokeWidth={1.6} aria-hidden="true" />
-                <span>Buscar en todo DEUCE</span>
+                <span>Buscar</span>
               </button>
               <button
                 className="ry-icon-button ry-menu-trigger"
@@ -375,14 +391,12 @@ export default function Frame({ children }: { children: React.ReactNode }) {
         <footer className="ry-footer">
           <div className="deuce-footer-top">
             <Link href="/" className="deuce-footer-brand" aria-label="DEUCE, volver al inicio">DEUCE</Link>
-            <nav className="deuce-footer-navigation" aria-label="Archivo"><Link href="/buscar">Partidos</Link><Link href="/records">Estadísticas</Link><Link href="/jugadores">Jugadores</Link><Link href="/tournaments">Torneos</Link><Link href="/comparar">Comparar</Link></nav>
+            <p className="deuce-footer-about">Un archivo visual para recorrer los partidos, jugadores y récords del tenis desde 1968.</p>
           </div>
           <div className="ry-footer-inner">
-            <nav aria-label="Información">
-              <Link href="/info">Cómo se lee</Link>
-              <Link href="/cobertura">Cobertura</Link>
-              <Link href="/credits">Fotografías</Link>
-            </nav>
+            <nav aria-label="Archivo"><strong>Archivo</strong><Link href="/buscar">Partidos</Link><Link href="/jugadores">Jugadores</Link><Link href="/tournaments">Torneos</Link><Link href="/comparar">Cara a cara</Link></nav>
+            <nav aria-label="Récords"><strong>Récords</strong><Link href="/records">Todos los récords</Link><Link href="/records?dato=top-10">Top 10</Link></nav>
+            <nav aria-label="El proyecto"><strong>El proyecto</strong><Link href="/info">Cómo se lee</Link><Link href="/cobertura">Cobertura</Link><Link href="/credits">Créditos de las fotos</Link></nav>
             <span className="ry-copyright">
               © {new Date().getFullYear()} DEUCE
             </span>

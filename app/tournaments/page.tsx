@@ -22,7 +22,7 @@ const orderedCategories = [
   "ATP Tour histórico", "ATP Tour", "ATP Tour · nivel no especificado", "Precursores de Masters",
 ];
 const primaryCategories = ["Grand Slam", "Masters 1000", "ATP 500", "ATP 250", "Challenger"] as const;
-const primaryLabel = (category: string) => category === "Grand Slam" ? "Grand Slams" : category === "Challenger" ? "Challengers" : category;
+const primaryLabel = (category: string) => category === "Grand Slam" ? "Grand Slams" : category === "Challenger" ? "Challengers" : category === "ATP Tour · nivel no especificado" ? "Otros torneos ATP" : category;
 const categoryUrl = (category: string, page = 1) =>
   `/tournaments?categoria=${encodeURIComponent(category)}${page > 1 ? `&page=${page}` : ""}`;
 

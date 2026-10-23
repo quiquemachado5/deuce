@@ -7,6 +7,7 @@ import SetGame from "@/components/SetGame";
 import type { Match } from "@/lib/types";
 import { score, number } from "@/lib/cuaderno/model";
 import { matchContext } from "@/lib/match-labels";
+import { displayPlayerName } from "@/lib/labels";
 import { tournamentCourt } from "@/lib/tournament-presentation";
 export default function MatchRow({
   match,
@@ -61,7 +62,8 @@ export default function MatchRow({
           >
             <PlayerAvatar name={player.name} size={28} />
             <PlayerCountryFlag name={player.name} />
-            <span className="nc-row-name">{player.name}</span>
+            <span className="nc-row-name">{displayPlayerName(player.name)}</span>
+            {player.name === winner ? <span className="nc-row-winner-label">Ganador</span> : null}
           </span>
         ))}
       </span>

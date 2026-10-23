@@ -4,11 +4,11 @@ import Frame from "@/components/nocturno/Frame";
 export const metadata: Metadata = {
   metadataBase: new URL("https://deuce-archive.vercel.app"),
   title: "DEUCE — Datos del archivo de tenis",
-  description: "Grand Slams, Masters y torneos ATP, leídos por el dato.",
+  description: "Explora partidos, jugadores y récords del tenis desde 1968 en el archivo visual de DEUCE.",
   alternates: { canonical: "/" },
   openGraph: {
     title: "DEUCE — Datos del archivo de tenis",
-    description: "Grand Slams, Masters y torneos ATP, leídos por el dato.",
+    description: "Explora partidos, jugadores y récords del tenis desde 1968 en el archivo visual de DEUCE.",
     siteName: "DEUCE",
     locale: "es_ES",
     type: "website",

@@ -8,7 +8,7 @@ import { surfaceLabel } from "@/lib/surface";
 import { verifiedTournamentCategory } from "@/lib/tournament-tier";
 import type { Match, Surface } from "@/lib/types";
 
-const surfaces: Surface[] = ["hard", "clay", "grass", "carpet"];
+const surfaces: Surface[] = ["clay", "grass", "hard"];
 const categories = ["Grand Slam", "Masters 1000", "ATP 500", "ATP 250"];
 const surfacePhotos: Partial<Record<Surface, (typeof courtPhotos)[string]>> = { hard: courtPhotos['US Open'], clay: courtPhotos['Roland Garros'], grass: courtPhotos.Wimbledon };
 
@@ -30,22 +30,13 @@ export default function HomeExplore({ matches }: { matches: Match[] }) {
       surface,
       photo: surfacePhotos[surface],
     })),
-    ...categories.map((category) => ({
-      key: category,
-      label: category,
-      detail: "Categoría",
-      count: categoryCounts.get(category) || 0,
-      href: `/buscar?category=${encodeURIComponent(category)}`,
-      surface: undefined,
-      photo: undefined,
-    })),
   ].filter((item) => item.count > 0);
 
   return (
     <section className="home-explore" aria-labelledby="home-explore-title">
       <div className="ds-section-heading">
         <h2 id="home-explore-title">Superficies y categorías</h2>
-        <Link href="/buscar">Ver todos los filtros</Link>
+        <Link href="/buscar">Ver todos</Link>
       </div>
       <div className="home-explore-grid">
         {items.map((item) => (
@@ -60,6 +51,9 @@ export default function HomeExplore({ matches }: { matches: Match[] }) {
             {item.photo && <PhotoInfo photo={item.photo} />}
           </div>
         ))}
+      </div>
+      <div className="home-category-list" aria-label="Explorar por categoría">
+        {categories.filter(category => (categoryCounts.get(category) || 0) > 0).map(category => <Link href={`/buscar?category=${encodeURIComponent(category)}`} key={category}><span>{category}</span><strong>{number(categoryCounts.get(category) || 0)} partidos</strong><ArrowUpRight size={16} aria-hidden="true" /></Link>)}
       </div>
     </section>
   );

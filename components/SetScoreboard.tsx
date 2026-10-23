@@ -6,6 +6,7 @@ import { playerSlug } from "@/lib/explore";
 import { score } from "@/lib/cuaderno/model";
 import PlayerCountryFlag from "@/components/PlayerCountryFlag";
 import SetGame from "@/components/SetGame";
+import { displayPlayerName } from "@/lib/labels";
 
 /** One score layout for home, match, tournament and comparison. */
 export default function SetScoreboard({
@@ -56,9 +57,9 @@ export default function SetScoreboard({
                 <th scope="row">
                   <PlayerCountryFlag name={player.name} />
                   <Link href={`/players/${playerSlug(player.name)}`}>
-                    {player.name}
+                    {displayPlayerName(player.name)}
                   </Link>
-                  {winner && <span className="nc-sr"> · Ganador</span>}
+                  {winner && <span className="set-winner-label">Ganador</span>}
                 </th>
                 {sets.map((set, i) => {
                   const won =

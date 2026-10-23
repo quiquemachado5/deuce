@@ -32,7 +32,7 @@ export default function TournamentBracket({ matches }: { matches: Match[] }) {
               data-winner={match.winner === index + 1}>
               <PlayerAvatar name={player.name} size={28} />
               <PlayerCountryFlag name={player.name} />
-              <span>{player.name}{match.winner === index + 1 && <span className="nc-sr"> · Ganador</span>}</span>
+              <span>{player.name}{match.winner === index + 1 && <span className="td-bracket-winner-label"> · Ganador</span>}</span>
               <span className="td-bracket-sets" aria-hidden="true">{match.score_summary.games.map((games, set) =>
                 <b key={set} data-set-winner={displaySetClosed(match,set)&&games[index] > games[1 - index]}><SetGame games={games[index]} tieBreak={games[index] < games[1 - index] ? tieBreaks[set] : undefined} /></b>)}</span>
             </span>)}

@@ -6,7 +6,7 @@ export default function PlayerCountryFlag({ name }: { name: string }) {
   const country = playerBiography(name)?.country;
   if (!country) {
     return (
-      <span className="player-country-badge player-country-badge-missing" aria-label="País no disponible">
+      <span className="player-country-badge player-country-badge-missing" role="img" aria-label="País no disponible">
         <Flag size={13} strokeWidth={1.7} aria-hidden="true" />
       </span>
     );
@@ -14,7 +14,7 @@ export default function PlayerCountryFlag({ name }: { name: string }) {
 
   const label = countryLabel(country);
   return (
-    <span className="player-country-badge" aria-label={label} title={label}>
+    <span className="player-country-badge" role="img" aria-label={label} title={label}>
       <PlayerFlag code={country} />
     </span>
   );

@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { CSSProperties } from "react";
 import { round, score } from "@/lib/cuaderno/model";
 import { matchContext } from "@/lib/match-labels";
-import { tournamentName } from "@/lib/labels";
+import { displayPlayerName, tournamentName } from "@/lib/labels";
 import { visibleTournamentCategory } from "@/lib/tournament-tier";
 import { displaySetClosed, tieBreakPoints } from "@/lib/score-display";
 import { tournamentCourt } from "@/lib/tournament-presentation";
@@ -48,8 +48,8 @@ export default function MatchCard({ match }: { match: Match }) {
             <span className="match-card-player" data-winner={playerWon} key={player.name}>
               <span className="match-card-identity">
                 <PlayerCountryFlag name={player.name} />
-                <span className="match-card-name">{player.name}</span>
-                {playerWon && <span className="nc-sr">Ganador</span>}
+                <span className="match-card-name">{displayPlayerName(player.name)}</span>
+                {playerWon && <span className="match-card-winner-label">Ganador</span>}
               </span>
               {sets.map((set, setIndex) => {
                 const won = displaySetClosed(match, setIndex) && set[side] > set[1 - side];

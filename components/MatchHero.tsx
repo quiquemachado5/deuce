@@ -3,7 +3,6 @@ import Link from "next/link";
 import { Info } from "lucide-react";
 import type { Match } from "@/lib/types";
 import { playerPhoto } from "@/lib/player-imagery";
-import { courtPhoto } from "@/lib/imagery";
 import { tournamentDirectory } from "@/lib/tournament-directory";
 import { tournamentName } from "@/lib/labels";
 import { tournamentCourt } from "@/lib/tournament-presentation";
@@ -29,7 +28,6 @@ export default function MatchHero({
   const names = [match.player1.name, match.player2.name];
   const court = tournamentCourt({ ...match, indoor: match.context?.indoor });
   const event = tournamentDirectory([match])[0];
-  const venue = courtPhoto(match.tournament);
   const category = visibleTournamentCategory(match.category, match.tournament, match.year);
   const result =
     match.winner !== null &&
@@ -46,21 +44,12 @@ export default function MatchHero({
     );
   return (
     <header
-      className={`match-hero${venue ? "" : " match-hero-no-venue"}`}
+      className="match-hero match-hero-no-venue"
       data-event-surface={court.surface}
     >
       <div
-        className={`match-hero-scene${venue ? "" : " match-hero-scene-plain"}`}
+        className="match-hero-scene match-hero-scene-plain"
       >
-        {venue && (
-          <Image
-            src={venue.src}
-            alt={venue.alt}
-            fill
-            priority
-            sizes="(max-width:759px) 100vw, 1200px"
-          />
-        )}
         <div className="match-hero-event">
           <Link href={event ? `/${event.slug}/${match.year}` : "/tournaments"}>
             {tournamentName(match.tournament)}
@@ -141,9 +130,7 @@ export default function MatchHero({
                 )}
                 <span className="match-name-text">{name}</span>
               </Link>
-              {result && match.winner === index + 1 && (
-                <span className="nc-sr">Ganador</span>
-              )}
+              {result && match.winner === index + 1 && <span className="match-hero-winner-label">Ganador</span>}
             </div>
           );
         })}
