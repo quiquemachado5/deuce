@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { Menu, Search, X } from "lucide-react";
-import ThemeControl from "@/components/ThemeControl";
 
 export type SearchItem = {
   href: string;
@@ -236,7 +235,6 @@ function Wordmark({ choose }: { choose?: () => void }) {
 export default function Frame({ children }: { children: React.ReactNode }) {
   const path = usePathname();
   const active = pageLabel(path);
-  const pageOwnsSearch = path === "/buscar" || path === "/partidos" || path === "/jugadores";
   const menu = useRef<HTMLDialogElement>(null);
   const search = useRef<HTMLDialogElement>(null);
   const searchField = useRef<HTMLInputElement>(null);
@@ -344,8 +342,7 @@ export default function Frame({ children }: { children: React.ReactNode }) {
             </div>
             <NavSection active={active} mode="desktop" />
             <div className="ry-header-actions">
-              <ThemeControl />
-              {!pageOwnsSearch && <button
+              <button
                 className="ry-search-trigger"
                 aria-label="Buscar en todo DEUCE"
                 aria-haspopup="dialog"
@@ -357,7 +354,7 @@ export default function Frame({ children }: { children: React.ReactNode }) {
               >
                 <Search size={16} strokeWidth={1.6} aria-hidden="true" />
                 <span>Buscar en todo DEUCE</span>
-              </button>}
+              </button>
               <button
                 className="ry-icon-button ry-menu-trigger"
                 type="button"

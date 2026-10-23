@@ -12,7 +12,9 @@ test("home shows a recent tournament, photography and verified discoveries", asy
     hero.getByRole("link", { name: "Ver el partido", exact: true }),
   ).toHaveAttribute("href", /\/match\//);
   await expect(hero.locator(".ds-hero-court img")).toBeVisible();
-  await expect(page.locator(".ds-results-list .nc-match-row")).toHaveCount(5);
+  const matchCards = page.locator(".ds-match-grid").first().locator(".match-card");
+  await expect(matchCards).toHaveCount(6);
+  await expect(matchCards.first().locator(".row-score-empty, .row-score-total")).toHaveCount(0);
   const discoveries = page.getByRole("region", {
     name: "Siempre hay otro dato.",
   });

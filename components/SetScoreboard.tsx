@@ -9,9 +9,11 @@ import { score } from "@/lib/cuaderno/model";
 export default function SetScoreboard({
   match,
   compact = false,
+  showTotal = true,
 }: {
   match: Match;
   compact?: boolean;
+  showTotal?: boolean;
 }) {
   const sets = match.score_summary.games;
   const tokens = score(match).split(", ");
@@ -35,7 +37,7 @@ export default function SetScoreboard({
           {sets.map((_, i) => (
             <col key={i} />
           ))}
-          <col />
+          {showTotal ? <col /> : null}
         </colgroup>
         <thead>
           <tr>
@@ -45,7 +47,7 @@ export default function SetScoreboard({
                 Set {i + 1}
               </th>
             ))}
-            <th scope="col">Total</th>
+            {showTotal ? <th scope="col">Total</th> : null}
           </tr>
         </thead>
         <tbody>
@@ -57,6 +59,7 @@ export default function SetScoreboard({
                   <Link href={`/players/${playerSlug(player.name)}`}>
                     {player.name}
                   </Link>
+                  {winner && !showTotal ? <i className="set-winner-dot" aria-hidden="true" /> : null}
                   {winner && <span className="nc-sr"> · Ganador</span>}
                 </th>
                 {sets.map((set, i) => {
@@ -72,9 +75,9 @@ export default function SetScoreboard({
                     </td>
                   );
                 })}
-                <td className="set-total">
+                {showTotal ? <td className="set-total">
                   <strong>{displayTotal(match, side)}</strong>
-                </td>
+                </td> : null}
               </tr>
             );
           })}
