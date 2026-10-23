@@ -37,3 +37,4 @@
 }
 @media(max-width:360px){.family>summary{gap:9px;padding-inline:14px}.family h2{font-size:18px}.familyDescription{font-size:11px}.familyRows{padding-inline:13px}.catalogueRow{grid-template-columns:minmax(0,1fr) 76px 10px;column-gap:7px}.metricTitle{font-size:12px}.metricValue{font-size:18px}.metricLeader{font-size:11px}.menu>summary{font-size:10px;padding-inline:3px;gap:2px}.menu:nth-child(2) .options{left:-66px}.table thead th:nth-child(3){width:77px}.table thead th:last-child{width:24px}.result strong{font-size:17px}.person>a{font-size:11px}.listHeading h2{font-size:21px}}
 @media(prefers-reduced-motion:reduce){.family,.family>summary>svg,.periods a,.catalogueRow{transition:none}}
+@media(max-width:759px){.menus .menu{position:static}.menus .menu:nth-child(n) .options{left:0;right:auto;top:calc(100% + 8px)}}
