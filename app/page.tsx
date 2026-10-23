@@ -13,7 +13,7 @@ import { playerPhoto } from '@/lib/player-imagery';
 import { chronological, winnerName, roundPosition } from '@/lib/editorial';
 import { number, round } from '@/lib/cuaderno/model';
 import { tournamentName } from '@/lib/labels';
-import { courtPhoto } from '@/lib/imagery';
+import { courtPhoto, courtPhotos } from '@/lib/imagery';
 import { tournamentDirectory } from '@/lib/tournament-directory';
 import { eligibleMatch } from '@/lib/quality';
 import AnimatedCounter from '@/components/AnimatedCounter';
@@ -39,7 +39,8 @@ export default async function Home() {
     ? events.find(event => event.name === recentFinal.tournament)
     : null;
 
-  const heroCourt = recentFinal ? courtPhoto(recentFinal.tournament) : null;
+  const heroCourt = recentFinal ? courtPhoto(recentFinal.tournament) || (recentFinal.surface === 'clay' ? courtPhotos['Roland Garros'] : recentFinal.surface === 'grass' ? courtPhotos.Wimbledon : courtPhotos['US Open']) : null;
+  const illustrativeCourt = recentFinal && !courtPhoto(recentFinal.tournament);
   const heroWinner = recentFinal ? winnerName(recentFinal) : '';
 
   const storyIds = ['remontada-dos-sets', 'mas-juegos', 'tie-breaks', 'finales-ganadas', 'top-10', 'ganar-con-menos-puntos', 'mas-largos', 'rachas', 'victorias-temporada', 'temporadas-titulos'];
@@ -70,7 +71,8 @@ export default async function Home() {
       <div className="ds-hero-visual">
       {heroCourt && <div className="ds-hero-court"><ParallaxPhoto src={heroCourt.src} alt={heroCourt.alt}/><PhotoInfo photo={heroCourt}/></div>}
       <div className="ds-hero-copy">
-        <p className="ds-hero-context">{recentFinal.year} · {round(recentFinal)}</p>
+        <p className="ds-hero-context">Destacado del archivo · {recentFinal.category} · {recentFinal.year} · {round(recentFinal)}</p>
+        {illustrativeCourt && <p className="ds-hero-photo-note">Imagen de archivo de la superficie · no corresponde a este partido</p>}
         <h2 id="ds-hero-title">{tournamentName(recentFinal.tournament)}</h2>
         <div className="ds-hero-champion"><PlayerAvatar name={heroWinner!} size={56}/><span>{heroWinner}<small>{roundPosition(recentFinal.round)===7 ? 'Campeón' : 'Ganador del último partido'}</small></span></div>
         <div className="ds-hero-links"><Link className="ds-hero-action" href={`/match/${recentFinal.match_id}`}>Ver el partido</Link>
@@ -99,7 +101,7 @@ export default async function Home() {
         <div className="ds-section-heading"><h2 id="ds-top-title">Victorias ante el top 10</h2><Link href="/records?dato=top-10">Clasificación</Link></div>
         <div className="ds-ranking-chart">{rows.map((row, index) => <Link href={row.href} key={row.name} aria-label={`${row.name}: ${number(row.value)} victorias en ${number(row.sample)} partidos con dato`}>
           <span className="ds-rank-position">{number(index + 1)}</span>
-          <span className="ds-rank-name"><PlayerCountryFlag name={row.name} /><span>{row.name}<small>{number(row.sample)} partidos con ranking</small></span></span>
+          <span className="ds-rank-name"><span className="ds-rank-avatar"><PlayerAvatar name={row.name} size={34} /></span><PlayerCountryFlag name={row.name} /><span>{row.name}<small>{number(row.sample)} partidos con ranking</small></span></span>
           <span className="ds-rank-track" aria-hidden="true"><i style={{ width: `${row.value / ceiling * 100}%` }} /></span>
           <strong className="ds-rank-value">{number(row.value)}</strong>
         </Link>)}</div>

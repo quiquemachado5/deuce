@@ -1,6 +1,11 @@
 import type { Match } from "./types";
 import { closedSet } from "./quality";
 import { historicalClosedSet } from "./historical-rules";
+import { score } from "./cuaderno/model";
+
+/** The provider writes the loser's tie-break points in parentheses after a set. */
+export const tieBreakPoints = (match: Match) =>
+  score(match).split(", ").map((set) => set.match(/\((\d+)\)/)?.[1]);
 export const displaySetClosed = (match: Match, index: number) =>
   closedSet(match.score_summary.games[index]) ||
   historicalClosedSet(match, index);

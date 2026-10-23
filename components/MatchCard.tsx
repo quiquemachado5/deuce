@@ -1,20 +1,19 @@
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { round, score } from "@/lib/cuaderno/model";
-import { displaySetClosed } from "@/lib/score-display";
+import { displaySetClosed, tieBreakPoints } from "@/lib/score-display";
 import { tournamentName } from "@/lib/labels";
 import { tournamentCourt } from "@/lib/tournament-presentation";
 import type { Match } from "@/lib/types";
 import PlayerCountryFlag from "@/components/PlayerCountryFlag";
+import SetGame from "@/components/SetGame";
 
 export default function MatchCard({ match }: { match: Match }) {
   const court = tournamentCourt(match);
   const sets = match.score_summary.games;
-  const tieBreaks = score(match)
-    .split(", ")
-    .map((token) => token.match(/\((\d+)\)/)?.[1]);
+  const tieBreaks = tieBreakPoints(match);
   const winner = match.winner === 1 ? match.player1.name : match.winner === 2 ? match.player2.name : "";
-  const context = `${tournamentName(match.tournament)} ${match.year} · ${round(match)}`;
+  const context = `${tournamentName(match.tournament)} · ${match.year} · ${round(match)} · ${match.category}`;
 
   return (
     <Link
@@ -24,7 +23,6 @@ export default function MatchCard({ match }: { match: Match }) {
       aria-label={`${context}. ${match.player1.name} contra ${match.player2.name}. ${score(match)}${winner ? `. Ganador: ${winner}` : ""}`}
     >
       <span className="match-card-meta">
-        <i className={`nc-dot nc-dot-${court.surface}`} aria-hidden="true" />
         <span>{context}</span>
       </span>
 
@@ -51,12 +49,9 @@ export default function MatchCard({ match }: { match: Match }) {
               </span>
               {sets.map((set, setIndex) => {
                 const won = displaySetClosed(match, setIndex) && set[side] > set[1 - side];
-                const tieBreak = !won && tieBreaks[setIndex];
+                const tieBreak = !won ? tieBreaks[setIndex] : undefined;
                 return (
-                  <strong data-set-won={won} key={setIndex}>
-                    {set[side]}
-                    {tieBreak ? <small>({tieBreak})</small> : null}
-                  </strong>
+                  <strong data-set-won={won} key={setIndex}><SetGame games={set[side]} tieBreak={tieBreak} /></strong>
                 );
               })}
             </span>

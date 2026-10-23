@@ -1,11 +1,15 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
+import PhotoInfo from "@/components/PhotoInfo";
+import { courtPhotos } from "@/lib/imagery";
 import { number } from "@/lib/cuaderno/model";
 import { surfaceLabel } from "@/lib/surface";
 import type { Match, Surface } from "@/lib/types";
 
 const surfaces: Surface[] = ["hard", "clay", "grass", "carpet"];
 const categories = ["Grand Slam", "Masters 1000", "ATP 500", "ATP 250"];
+const surfacePhotos: Partial<Record<Surface, (typeof courtPhotos)[string]>> = { hard: courtPhotos['US Open'], clay: courtPhotos['Roland Garros'], grass: courtPhotos.Wimbledon };
 
 export default function HomeExplore({ matches }: { matches: Match[] }) {
   const surfaceCounts = new Map<Surface, number>();
@@ -22,6 +26,7 @@ export default function HomeExplore({ matches }: { matches: Match[] }) {
       count: surfaceCounts.get(surface) || 0,
       href: `/buscar?surface=${surface}`,
       surface,
+      photo: surfacePhotos[surface],
     })),
     ...categories.map((category) => ({
       key: category,
@@ -30,6 +35,7 @@ export default function HomeExplore({ matches }: { matches: Match[] }) {
       count: categoryCounts.get(category) || 0,
       href: `/buscar?category=${encodeURIComponent(category)}`,
       surface: undefined,
+      photo: undefined,
     })),
   ].filter((item) => item.count > 0);
 
@@ -41,12 +47,16 @@ export default function HomeExplore({ matches }: { matches: Match[] }) {
       </div>
       <div className="home-explore-grid">
         {items.map((item) => (
-          <Link href={item.href} key={item.key} data-event-surface={item.surface}>
-            <span>{item.detail}</span>
-            <strong>{item.label}</strong>
-            <small>{number(item.count)} partidos</small>
-            <ArrowUpRight size={18} aria-hidden="true" />
-          </Link>
+          <div className={`home-explore-card${item.photo ? " home-explore-card-photo" : ""}`} key={item.key} data-event-surface={item.surface}>
+            {item.photo && <Image className="home-explore-image" src={item.photo.src} alt="" fill sizes="(max-width: 640px) 100vw, (max-width: 900px) 50vw, 25vw" />}
+            <Link href={item.href} aria-label={`Explorar ${item.label}: ${number(item.count)} partidos`}>
+              <span>{item.detail}</span>
+              <strong>{item.label}</strong>
+              <small>{number(item.count)} partidos</small>
+              <ArrowUpRight size={18} aria-hidden="true" />
+            </Link>
+            {item.photo && <PhotoInfo photo={item.photo} />}
+          </div>
         ))}
       </div>
     </section>

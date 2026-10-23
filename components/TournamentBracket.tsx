@@ -1,6 +1,8 @@
 import Link from "next/link";
-import {displaySetClosed} from "@/lib/score-display";
+import {displaySetClosed, tieBreakPoints} from "@/lib/score-display";
 import PlayerAvatar from "./PlayerAvatar";
+import PlayerCountryFlag from "./PlayerCountryFlag";
+import SetGame from "./SetGame";
 import TournamentRounds from "./TournamentRounds";
 import { roundLabel, roundPosition, winnerName } from "@/lib/editorial";
 import { number, score } from "@/lib/cuaderno/model";
@@ -22,17 +24,19 @@ export default function TournamentBracket({ matches }: { matches: Match[] }) {
     content: <ol className="td-bracket-results">
       {results.map((match) => {
         const onPath = champion !== null && winnerName(match) === champion;
+        const tieBreaks = tieBreakPoints(match);
         return <li key={match.match_id}>
           <Link href={`/match/${match.match_id}`} className="td-bracket-match" data-champion-path={onPath}
             aria-label={`${roundLabel(match.round)}: ${match.player1.name} contra ${match.player2.name}, ${score(match)}${winnerName(match) ? `. Ganador: ${winnerName(match)}` : ""}`}>
             {[match.player1, match.player2].map((player, index) => <span className="td-bracket-player" key={player.name}
               data-winner={match.winner === index + 1}>
               <PlayerAvatar name={player.name} size={28} />
+              <PlayerCountryFlag name={player.name} />
               <span>{player.name}{match.winner === index + 1 && <span className="nc-sr"> · Ganador</span>}</span>
               <span className="td-bracket-sets" aria-hidden="true">{match.score_summary.games.map((games, set) =>
-                <b key={set} data-set-winner={displaySetClosed(match,set)&&games[index] > games[1 - index]}>{games[index]}{games[index]<games[1-index]&&score(match).split(", ")[set]?.match(/\((\d+)\)/)?.[1]&&<small>({score(match).split(", ")[set].match(/\((\d+)\)/)![1]})</small>}</b>)}</span>
+                <b key={set} data-set-winner={displaySetClosed(match,set)&&games[index] > games[1 - index]}><SetGame games={games[index]} tieBreak={games[index] < games[1 - index] ? tieBreaks[set] : undefined} /></b>)}</span>
             </span>)}
-            <span className="td-bracket-result">{onPath ? "Camino del campeón" : "Resultado"}<span>{/retired|abandoned/i.test(match.status)?"Abandono":/walkover|cancelled/i.test(match.status)?"Sin jugar":"Finalizado"}</span></span>
+            <span className="td-bracket-result">{onPath ? "Camino del campeón" : "Resultado"}{/retired|abandoned/i.test(match.status)?<span>Abandono</span>:/walkover|cancelled/i.test(match.status)?<span>Sin jugar</span>:null}</span>
           </Link>
         </li>;
       })}

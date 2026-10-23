@@ -1,12 +1,13 @@
 import Link from "next/link";
-import { displaySetClosed, displayTotal } from "@/lib/score-display";
+import { displaySetClosed, tieBreakPoints } from "@/lib/score-display";
 import type { CSSProperties } from "react";
 import PlayerAvatar from "@/components/PlayerAvatar";
+import PlayerCountryFlag from "@/components/PlayerCountryFlag";
+import SetGame from "@/components/SetGame";
 import type { Match } from "@/lib/types";
 import { tournamentName } from "@/lib/labels";
 import { round, score, number } from "@/lib/cuaderno/model";
 import { tournamentCourt } from "@/lib/tournament-presentation";
-import MatchStatusBadge from "@/components/MatchStatusBadge";
 export default function MatchRow({
   match,
   firstPlayer,
@@ -28,9 +29,7 @@ export default function MatchRow({
   const games = reversed
     ? match.score_summary.games.map(([a, b]) => [b, a])
     : match.score_summary.games;
-  const tieBreaks = score(match)
-    .split(", ")
-    .map((token) => token.match(/\((\d+)\)/)?.[1]);
+  const tieBreaks = tieBreakPoints(match);
   const result = reversed
     ? games
         .map(
@@ -39,8 +38,8 @@ export default function MatchRow({
         )
         .join(", ")
     : score(match);
-  const columns = Array.from({ length: 5 }, (_, index) => index);
-  const context = `${tournamentName(match.tournament)} · ${match.year} · ${round(match)}`;
+  const columns = games.map((_, index) => index);
+  const context = `${tournamentName(match.tournament)} · ${match.year} · ${round(match)} · ${match.category}`;
   return (
     <Link
       href={href || `/match/${match.match_id}`}
@@ -50,20 +49,9 @@ export default function MatchRow({
       aria-label={`${context}. ${players[0].name} contra ${players[1].name}. ${result}. Ganador: ${winner}`}
     >
       <span className="nc-row-context">
-        <span>
-          <i className={`nc-dot nc-dot-${court.surface}`} aria-hidden="true" />
-          {tournamentName(match.tournament)} · {match.year}
-        </span>
-        <MatchStatusBadge status={match.status} />
-        <span className="nc-row-round">
-          {round(match)}
-          {/retired|abandoned/i.test(match.status)
-            ? " · Abandono"
-            : /walkover|cancelled/i.test(match.status)
-              ? " · Sin jugar"
-              : ""}
-          {match.category.startsWith("Precursores") ? " · Precursor" : ""}
-        </span>
+        <span>{context}</span>
+        {/retired|abandoned/i.test(match.status) ? <span className="nc-row-status">Abandono</span> : null}
+        {/walkover|cancelled/i.test(match.status) ? <span className="nc-row-status">Sin jugar</span> : null}
       </span>
       <span className="nc-row-duel">
         {players.map((player) => (
@@ -72,20 +60,21 @@ export default function MatchRow({
             className={`nc-row-person ${player.name === winner ? "nc-row-winner" : "nc-row-loser"}`}
           >
             <PlayerAvatar name={player.name} size={28} />
-            <span>{player.name}</span>
+            <PlayerCountryFlag name={player.name} />
+            <span className="nc-row-name">{player.name}</span>
+            {player.name === winner ? <i className="match-card-winner" aria-hidden="true" /> : null}
           </span>
         ))}
       </span>
       <span
         className="nc-row-result"
         aria-hidden="true"
-        style={{ "--score-count": 5 } as CSSProperties}
+        style={{ "--score-count": Math.max(columns.length, 1) } as CSSProperties}
       >
         <span className="row-score-line row-score-labels">
           {columns.map((i) => (
             <span key={i}>{i + 1}</span>
           ))}
-          <span>Total</span>
         </span>
         {players.map((player, side) => (
           <span
@@ -95,21 +84,15 @@ export default function MatchRow({
           >
             {columns.map((i) => {
               const set = games[i];
-              if (!set) return <span className="row-score-empty" aria-hidden="true" key={i}>—</span>;
+              if (!set) return null;
               const won =
                 displaySetClosed(match, i) && set[side] > set[1 - side];
               return (
                 <span key={i} data-won={won}>
-                  {set[side]}
-                  {set[side] < set[1 - side] && tieBreaks[i] && (
-                    <small>({tieBreaks[i]})</small>
-                  )}
+                  <SetGame games={set[side]} tieBreak={set[side] < set[1 - side] ? tieBreaks[i] : undefined} />
                 </span>
               );
             })}
-            <strong className="row-score-total">
-              {displayTotal(match, reversed ? 1 - side : side)}
-            </strong>
           </span>
         ))}
       </span>

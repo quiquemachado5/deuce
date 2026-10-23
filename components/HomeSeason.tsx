@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Row from "./nocturno/Row";
+import MatchCard from "./MatchCard";
 import type { Match } from "@/lib/types";
 import { roundPosition, chronological } from "@/lib/editorial";
 import { number } from "@/lib/cuaderno/model";
@@ -64,9 +64,9 @@ export default function HomeSeason({ matches }: { matches: Match[] }) {
           <h2 id="home-finals-title">Las últimas finales</h2>
           <Link href={`/buscar?year=${year}&round=Final`}>Más resultados</Link>
         </div>
-        <div className="match-row-group">
+        <div className="ds-match-grid">
           {finals.slice(0, 3).map((m) => (
-            <Row match={m} key={m.match_id} />
+            <MatchCard match={m} key={m.match_id} />
           ))}
         </div>
       </section>

@@ -64,7 +64,7 @@ export default function MatchHero({
             {tournamentName(match.tournament)}
           </Link>
           <span className="match-event-meta">
-            {match.year} · {round(match)}{" "}
+            {match.year} · {round(match)} · {match.category}{" "}
             <i
               className={`nc-dot nc-dot-${court.surface}`}
               aria-hidden="true"
@@ -74,15 +74,13 @@ export default function MatchHero({
           </span>
         </div>
         <div className="match-hero-actions">
-          <span className="match-event-status">
-            {match.status === "Finished"
-              ? "Finalizado"
-              : /retir|aband/i.test(match.status)
+          {match.status !== "Finished" && <span className="match-event-status">
+            {/retir|aband/i.test(match.status)
                 ? "Abandono"
                 : /walkover|cancelled/i.test(match.status)
                   ? "Sin jugar"
                   : "En revisión"}
-          </span>
+          </span>}
           <Link
             href={`/match/${match.match_id}?vista=alrededor#registro`}
             className="match-record-info"

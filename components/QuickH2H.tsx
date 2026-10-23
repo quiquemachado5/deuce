@@ -13,6 +13,8 @@ type PairResult = {
 function PlayerField({ label, value, onChange }: { label: string; value: string; onChange: (value: string) => void }) {
   const listId = useId();
   const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState(0);
 
   useEffect(() => {
     const query = value.trim();
@@ -38,19 +40,34 @@ function PlayerField({ label, value, onChange }: { label: string; value: string;
   }, [value]);
 
   return (
-    <label className="quick-h2h-field">
-      <span>{label}</span>
+    <div className="quick-h2h-field">
+      <label htmlFor={`${listId}-input`}>{label}</label>
       <input
+        id={`${listId}-input`}
         type="search"
-        list={listId}
         value={value}
-        onChange={(event) => onChange(event.target.value)}
+        role="combobox"
+        aria-autocomplete="list"
+        aria-expanded={open && suggestions.length > 0}
+        aria-controls={listId}
+        aria-activedescendant={open && suggestions.length ? `${listId}-${active}` : undefined}
+        onChange={(event) => { onChange(event.target.value); setOpen(true); setActive(0); }}
+        onFocus={() => setOpen(true)}
+        onBlur={() => window.setTimeout(() => setOpen(false), 120)}
+        onKeyDown={(event) => {
+          if (event.key === "Escape") setOpen(false);
+          if (event.key === "ArrowDown" && suggestions.length) { event.preventDefault(); setOpen(true); setActive((current) => Math.min(current + 1, suggestions.length - 1)); }
+          if (event.key === "ArrowUp" && suggestions.length) { event.preventDefault(); setActive((current) => Math.max(current - 1, 0)); }
+          if (event.key === "Enter" && open && suggestions.length) { event.preventDefault(); onChange(suggestions[active]); setOpen(false); }
+        }}
         placeholder="Escribe un nombre"
         autoComplete="off"
         maxLength={100}
       />
-      <datalist id={listId}>{value.trim().length >= 2 ? suggestions.map((name) => <option value={name} key={name} />) : null}</datalist>
-    </label>
+      {open && value.trim().length >= 2 && suggestions.length > 0 && <div className="quick-h2h-options" id={listId} role="listbox" aria-label={`Sugerencias para ${label}`}>
+        {suggestions.map((name, index) => <button type="button" role="option" aria-selected={index === active} id={`${listId}-${index}`} key={name} onMouseDown={(event) => event.preventDefault()} onClick={() => { onChange(name); setOpen(false); }}>{name}</button>)}
+      </div>}
+    </div>
   );
 }
 
@@ -102,6 +119,7 @@ export default function QuickH2H() {
     ? `/comparar?a=${encodeURIComponent(result.names[0])}&b=${encodeURIComponent(result.names[1])}&minimum=5`
     : "/comparar";
   const totalWins = result ? Math.max(1, result.wins[0] + result.wins[1]) : 1;
+  const firstShare = result ? result.wins[0] / totalWins * 100 : 50;
 
   return (
     <section className="quick-h2h" aria-labelledby="quick-h2h-title">
@@ -118,9 +136,8 @@ export default function QuickH2H() {
       {result ? (
         <div className="quick-h2h-result" aria-live="polite">
           <div><span>{result.names[0]}</span><strong>{result.wins[0]}</strong></div>
-          <p><strong>{result.played}</strong><span>partidos</span></p>
+          <p className="quick-h2h-donut" style={{ "--h2h-share": `${firstShare}%` } as React.CSSProperties} role="img" aria-label={`${result.names[0]}: ${result.wins[0]} victorias; ${result.names[1]}: ${result.wins[1]} victorias en ${result.played} partidos`}><span><strong>{result.played}</strong><span>partidos</span></span></p>
           <div><span>{result.names[1]}</span><strong>{result.wins[1]}</strong></div>
-          <div className="quick-h2h-bar" aria-hidden="true"><i style={{ width: `${result.wins[0] / totalWins * 100}%` }} /><i style={{ width: `${result.wins[1] / totalWins * 100}%` }} /></div>
           <Link href={compareHref}>Ver comparación completa <ArrowRight size={16} aria-hidden="true" /></Link>
         </div>
       ) : <p className="quick-h2h-status" role="status">{status}</p>}

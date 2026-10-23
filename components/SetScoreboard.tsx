@@ -1,22 +1,22 @@
 import Link from "next/link";
-import { displaySetClosed, displayTotal } from "@/lib/score-display";
+import { displaySetClosed, tieBreakPoints } from "@/lib/score-display";
 import type { CSSProperties } from "react";
 import type { Match } from "@/lib/types";
 import { playerSlug } from "@/lib/explore";
 import { score } from "@/lib/cuaderno/model";
+import PlayerCountryFlag from "@/components/PlayerCountryFlag";
+import SetGame from "@/components/SetGame";
 
 /** One score layout for home, match, tournament and comparison. */
 export default function SetScoreboard({
   match,
   compact = false,
-  showTotal = true,
 }: {
   match: Match;
   compact?: boolean;
-  showTotal?: boolean;
 }) {
   const sets = match.score_summary.games;
-  const tokens = score(match).split(", ");
+  const tieBreaks = tieBreakPoints(match);
   const finished =
     match.winner !== null &&
     (match.quality?.result !== "review" ||
@@ -37,7 +37,6 @@ export default function SetScoreboard({
           {sets.map((_, i) => (
             <col key={i} />
           ))}
-          {showTotal ? <col /> : null}
         </colgroup>
         <thead>
           <tr>
@@ -47,7 +46,6 @@ export default function SetScoreboard({
                 Set {i + 1}
               </th>
             ))}
-            {showTotal ? <th scope="col">Total</th> : null}
           </tr>
         </thead>
         <tbody>
@@ -56,28 +54,23 @@ export default function SetScoreboard({
             return (
               <tr key={player.name} data-winner={winner}>
                 <th scope="row">
+                  <PlayerCountryFlag name={player.name} />
                   <Link href={`/players/${playerSlug(player.name)}`}>
                     {player.name}
                   </Link>
-                  {winner && !showTotal ? <i className="set-winner-dot" aria-hidden="true" /> : null}
+                  {winner ? <i className="set-winner-dot" aria-hidden="true" /> : null}
                   {winner && <span className="nc-sr"> · Ganador</span>}
                 </th>
                 {sets.map((set, i) => {
                   const won =
                     displaySetClosed(match, i) && set[side] > set[1 - side];
-                  const tie = !won && tokens[i]?.match(/\((\d+)\)/)?.[1];
+                  const tie = !won ? tieBreaks[i] : undefined;
                   return (
                     <td key={i} data-set-won={won}>
-                      <span className="set-game">
-                        {set[side]}
-                        {tie && <span className="set-tie">({tie})</span>}
-                      </span>
+                      <SetGame games={set[side]} tieBreak={tie} />
                     </td>
                   );
                 })}
-                {showTotal ? <td className="set-total">
-                  <strong>{displayTotal(match, side)}</strong>
-                </td> : null}
               </tr>
             );
           })}
