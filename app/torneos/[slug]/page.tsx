@@ -16,6 +16,7 @@ import {
   tournamentRows,
 } from "@/lib/tournament-directory";
 import {
+  tournamentTimeline,
   latestTournamentCourt,
   tournamentSurfaceHistory,
 } from "@/lib/tournament-presentation";
@@ -285,6 +286,7 @@ export default async function Tournament({ params, searchParams }: Props) {
           )}
         </details>
       )}
+      <details className="archive-provenance"><summary>Categoría y condiciones por época</summary><p>Solo ediciones registradas. Un salto de años no acredita continuidad; una condición ausente no se deduce de la fotografía. Los nombres y sedes no documentados se mantienen sin reconstruir.</p><ul>{tournamentTimeline(tournament.matches).map(period=><li key={period.from+'-'+period.category+'-'+period.surface}>{period.from===period.to?period.from:period.from+'–'+period.to} · {categoryLabel(period.category)} · {surfaceLabel[period.surface]}{period.indoor===null?'':period.indoor?' · Bajo techo':' · Al aire libre'}</li>)}</ul></details>
       {first && (
         <FirstRecorded
           name={first.name}

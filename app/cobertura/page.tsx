@@ -1,3 +1,6 @@
+import { metadataReview } from '@/lib/metadata-review';
+import { playerPhoto } from '@/lib/player-imagery';
+import { playerSlug } from '@/lib/explore';
 import Link from "next/link";
 import { preparedGeneration, recordView, preparedEditionAudit } from "@/lib/revista/read-records";
 import ArchiveNotice from "@/components/nocturno/ArchiveNotice";
@@ -23,7 +26,8 @@ export default async function Coverage({
   const piece = selection?.piece;
   const generation = await preparedGeneration(),
     manifest = generation.manifest;
-  const fields = fieldCoverage(await generation.matches());
+  const matches = await generation.matches(), fields = fieldCoverage(matches), review = metadataReview(matches);
+  const missingPortraits = (await generation.records()).filter(player=>!playerPhoto(player.name)).sort((a,b)=>b.played-a.played);
   const editions=await preparedEditionAudit();const pending=editions.filter(e=>e.pending>0);
   return (
     <div className="nc-wrap deuce-coverage">
@@ -35,13 +39,14 @@ export default async function Coverage({
           {number(manifest.summary.tournaments)} torneos.
         </p>
         <p>
-          Actualizado el{" "}
+          Cálculo actualizado el{" "}
           {new Date(manifest.generatedAt).toLocaleString("es-ES", {
             timeZone: "Europe/Madrid",
           })}
           . Hora de Madrid.
         </p>
       </header>
+      <section className="coverage-metric"><h2>Campos pendientes de documentar</h2><p>No reconstruimos categorías, rondas ni fechas a partir de una fotografía o de una temporada distinta.</p><dl>{[['Fecha exacta',review.missing.exactDate],['Categoría',review.missing.category],['Ronda',review.missing.round],['Superficie',review.missing.surface]].map(([label,value])=><div key={label}><dt>{label}</dt><dd>{number(Number(value))} partidos</dd></div>)}</dl><details><summary>Ediciones que necesitan fuentes adicionales</summary><ul>{review.editions.slice(0,20).map(item=><li key={item.tournament+item.year}>{item.tournament} {item.year}: {item.missing.join(', ')}</li>)}</ul></details><details><summary>Retratos pendientes · {number(missingPortraits.length)} jugadores</summary><p>Prioridad por presencia en el archivo. Solo se incorporan fotografías identificadas y con derechos documentados.</p><ul>{missingPortraits.slice(0,20).map(player=><li key={player.name}><Link href={'/players/'+playerSlug(player.name)}>{player.name}</Link> · {number(player.played)} partidos</li>)}</ul></details></section>
       {piece && (
         <section className="coverage-metric" id="estadistica">
           <h2>{piece.title}</h2>

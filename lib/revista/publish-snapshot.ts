@@ -1,4 +1,5 @@
 import 'server-only';
+import { attachRecordChanges, assertSnapshotIntegrity } from './record-changes';
 import {gzipSync,createGzip} from 'node:zlib';
 import {Readable} from 'node:stream';
 import {pipeline} from 'node:stream/promises';
@@ -49,9 +50,11 @@ function publishedGeneration(manifest:RecordManifest) {
 }
 /** A published pointer proves all artifacts exist. A new pointer is written last. */
 export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotStorage={read:cloudRead,write:cloudWrite,writeMany:cloudWriteMany}) {
-  const {manifest,pieces,eras,matches,players,competition,audit}=snapshot;
+  assertSnapshotIntegrity(snapshot);
+  const {pieces,eras,matches,players,competition,audit}=snapshot;
   const published=await storage.read('reading-v2-manifest');
   assertPublishableArchive(matches,(published as RecordManifest|undefined)?.matchCount);
+  const manifest=attachRecordChanges(published as RecordManifest | undefined,snapshot.manifest);
   if(published&&typeof published==='object'&&isDeepStrictEqual(publishedGeneration(published as RecordManifest),publishedGeneration(manifest))){
     if(Date.parse(manifest.generatedAt)>Date.parse((published as RecordManifest).generatedAt))await storage.write('reading-v2-manifest',manifest);
     return;

@@ -1,3 +1,4 @@
+import { archiveStories } from '@/lib/archive-stories';
 import Link from "next/link";
 import { notFound, permanentRedirect } from "next/navigation";
 import Row from "@/components/nocturno/Row";
@@ -641,6 +642,7 @@ export default async function Player({ params, searchParams }: Props) {
         </div>
         {portrait && <PlayerPortrait photo={portrait} className="ry-photo-player" preload />}
       </header>
+      {archiveStories(player.matches).length>0&&<nav className="archive-suggestions" aria-label="Historias de este jugador">{archiveStories(player.matches).map(story=><Link key={story.id} href={'/historias#'+story.id}>{story.title}</Link>)}</nav>}
       <PlayerDiscovery key={player.name} items={discoveries} />
       <PeopleTabs
         key={`${year}-${query.vista || "resumen"}`}

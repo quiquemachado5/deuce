@@ -1,3 +1,4 @@
+import { assertSnapshotIntegrity, attachRecordChanges } from '../lib/revista/record-changes';
 import {loadEnvConfig} from '@next/env';
 import {readFile} from 'node:fs/promises';
 import {gunzipSync} from 'node:zlib';
@@ -18,8 +19,10 @@ async function main(){
     const previous=await cloudRead('reading-v2-manifest');
     if(!previous)throw new Error('Cannot verify the published archive baseline');
     assertReleaseCoverage(previous,snapshot.manifest);
+    snapshot.manifest=attachRecordChanges(previous,snapshot.manifest);
     console.log(`Release baseline verified: ${previous.matchCount} published matches; ${snapshot.manifest.matchCount} prepared; measured coverage preserved`);
   }
+  assertSnapshotIntegrity(snapshot);
   await writeBundledSnapshot(snapshot);
   // Builds must only prepare their immutable local generation. Uploading the
   // full archive to Supabase here can exceed the deployment build budget; the

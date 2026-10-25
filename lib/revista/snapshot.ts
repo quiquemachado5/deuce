@@ -1,3 +1,5 @@
+import { archiveExtent } from '../archive-freshness';
+import type { LeaderChange } from './record-changes';
 import { createHash } from 'node:crypto';
 import { summarizeDataset } from '../dataset-summary';
 import type {EditionAudit} from '../edition-audit';
@@ -10,8 +12,8 @@ export const RULES_VERSION = '2026-10-statistics-v7';
 export const PAGE_SIZE = 25;
 export const PIECE_CHUNK_PAGES = 50;
 export const pieceChunk = (page:number) => Math.floor((page-1)/PIECE_CHUNK_PAGES);
-export type RecordMeta = Omit<RecordPiece, 'rows'> & { total: number; smallTotal: number; leader?: RecordRow; pagePrior?: Record<number, number>; smallPagePrior?: Record<number, number> };
-export type RecordManifest = { schema: number; rulesVersion: string; version: string; generatedAt: string; years: number[]; pieces: RecordMeta[]; eraCuts: number[]; matchCount: number; competitionCount?:number; editionCount?:number; mode: 'DEMO' | 'ARCHIVO REAL'; summary: ReturnType<typeof summarizeDataset> };
+export type RecordMeta = Omit<RecordPiece, 'rows'> & { total: number; smallTotal: number; leader?: RecordRow; leaders?: Pick<RecordRow, 'name' | 'value' | 'href'>[]; pagePrior?: Record<number, number>; smallPagePrior?: Record<number, number> };
+export type RecordManifest = { schema: number; rulesVersion: string; version: string; generatedAt: string; extent?: ReturnType<typeof archiveExtent>; leaderChanges?: LeaderChange[]; years: number[]; pieces: RecordMeta[]; eraCuts: number[]; matchCount: number; competitionCount?:number; editionCount?:number; mode: 'DEMO' | 'ARCHIVO REAL'; summary: ReturnType<typeof summarizeDataset> };
 export type RecordPages = { pages: Record<string, RecordRow[]>; smallPages: Record<string, RecordRow[]> };
 export type Snapshot = { manifest: RecordManifest; pieces: Record<string, RecordPages>; eras: Record<string, Era[]>; matches: Match[]; players: PlayerRecord[]; competition:Match[]; audit:EditionAudit[] };
 export function stripSource(m: Match): Match {
@@ -48,7 +50,7 @@ export function compileRecordSnapshot(input: Match[], now = new Date(), competit
     const rows=piece.rows.map(rowSummary), big=rows.filter(r=>!piece.percent||r.sample>=50), small=piece.percent?rows.filter(r=>r.sample<50):[];
     const {id,group,title,definition,minimum,sample,percent,measured,years}=piece;
     const meta={id,group,title,definition,minimum,sample,percent,measured,years};
-    metas.push({...meta,total:big.length,smallTotal:small.length,leader:big[0],pagePrior:pageBoundaryTies(big),smallPagePrior:pageBoundaryTies(small)});
+    metas.push({...meta,total:big.length,smallTotal:small.length,leader:big[0],leaders:big.filter(row=>row.value===big[0]?.value).map(({name,value,href})=>({name,value,href})),pagePrior:pageBoundaryTies(big),smallPagePrior:pageBoundaryTies(small)});
     pieces[piece.id]={pages:paginate(big),smallPages:paginate(small)};
   }
   const eras:Snapshot['eras']={};
@@ -60,6 +62,6 @@ export function compileRecordSnapshot(input: Match[], now = new Date(), competit
   const hash=createHash('sha256').update(JSON.stringify([SNAPSHOT_SCHEMA,RULES_VERSION,now.toISOString().slice(0,10)]).slice(0,-1)+',[');
   matches.forEach((match,i)=>{if(i)hash.update(',');hash.update(JSON.stringify(match));});
   const version=hash.update('],').update(JSON.stringify(competition)).update(',').update(JSON.stringify(audit)).update(']').digest('hex').slice(0,20);
-  return {manifest:{schema:SNAPSHOT_SCHEMA,rulesVersion:RULES_VERSION,version,generatedAt:now.toISOString(),years:[...new Set(matches.map(m=>m.year))].sort((a,b)=>b-a),pieces:metas,eraCuts:Object.keys(eras).map(Number),matchCount:matches.length,competitionCount:competition.length,editionCount:audit.length,mode:matches.some(m=>m.data_source==='mock')?'DEMO':'ARCHIVO REAL',summary:summarizeDataset(matches)},pieces,eras,matches,competition,audit,players:buildSeasonAnalytics(matches).players};
+  return {manifest:{schema:SNAPSHOT_SCHEMA,rulesVersion:RULES_VERSION,version,generatedAt:now.toISOString(),extent:archiveExtent(matches,now),years:[...new Set(matches.map(m=>m.year))].sort((a,b)=>b-a),pieces:metas,eraCuts:Object.keys(eras).map(Number),matchCount:matches.length,competitionCount:competition.length,editionCount:audit.length,mode:matches.some(m=>m.data_source==='mock')?'DEMO':'ARCHIVO REAL',summary:summarizeDataset(matches)},pieces,eras,matches,competition,audit,players:buildSeasonAnalytics(matches).players};
 }
 export const clampPage=(value:unknown,total:number)=>Math.min(Math.max(1,Math.floor(Number(value)||1)),Math.max(1,Math.ceil(total/PAGE_SIZE)));

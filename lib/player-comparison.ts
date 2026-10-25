@@ -29,3 +29,12 @@ export function comparePlayer(matches: Match[], name: string, q: ComparisonFilte
     stats: eligible.filter(m => m.statistics.length).length, exactDates: eligible.filter(m => m.context?.dateLabel === 'Fecha del partido').length,
   };
 }
+
+/** Intersection of documented seasons, not a claim about retirement or professional debut. */
+export function sharedCareerWindow(matches: Match[], names: string[]) {
+  const periods=names.map(name=>archiveIndex(matches).players.get(name)||[]);
+  if(periods.some(rows=>!rows.length))return null;
+  const first=Math.max(...periods.map(rows=>Math.min(...rows.map(m=>m.year))));
+  const last=Math.min(...periods.map(rows=>Math.max(...rows.map(m=>m.year))));
+  return first<=last?{first,last}:null;
+}

@@ -1,4 +1,6 @@
 import { ArchivePage, ArchiveGrid } from '@/components/deuce/ArchivePage';
+import ArchiveFreshness from '@/components/ArchiveFreshness';
+import { archiveDate } from '@/lib/archive-freshness';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -33,11 +35,14 @@ function RecordIndex({ manifest, query }: { manifest: Awaited<ReturnType<typeof 
     href:recordsUrl(recordFilters(query),{dato:piece.id})}));
   return <ArchivePage title="Récords">
     <div className="deuce-content">
+      <nav className="deuce-tabs" aria-label="Alcance de los récords"><Link href="/records">Históricos</Link><Link href={recordsUrl({}, {year:String(manifest.years[0])})}>Temporada {manifest.years[0]}</Link><Link href="/records?dato=victorias">Carreras</Link><Link href="/records#cambios">Cambios publicados</Link></nav>
+      <ArchiveFreshness manifest={manifest}/>
       <RecordsControls query={query} filters={filtersFor(manifest.years)}/>
       <nav className="deuce-tabs" aria-label="Familias de estadísticas"><Link href={recordsUrl(recordFilters(query))} aria-current={!selected?'page':undefined}>Todos</Link>{groups.map(group=><Link key={group} href={recordsUrl(recordFilters(query),{grupo:group})} aria-current={selected===group?'page':undefined}>{families.find(([,value])=>value===group)?.[0]||group}</Link>)}</nav>
       <p className="deuce-count">{number(pieces.length)} estadísticas · {number(manifest.matchCount)} partidos en esta selección</p>
     </div>
     <ArchiveGrid cards={cards}/>
+    <section className="deuce-content archive-changes" id="cambios"><h2>Cambios publicados</h2><p>Cambios entre cálculos del archivo. Pueden deberse a nuevos resultados o correcciones de cobertura, no necesariamente a un récord batido ese día.</p>{manifest.leaderChanges?.length ? <ul>{manifest.leaderChanges.slice(0,12).map(change=><li key={`${change.toVersion}-${change.id}`}><Link href={recordsUrl({}, {dato:change.id})}>{change.title}</Link><p>{change.before.names.join(", ")} ({number(change.before.value,2)}) → {change.after.names.join(", ")} ({number(change.after.value,2)})</p><time dateTime={change.observedAt}>{archiveDate(change.observedAt)}</time></li>)}</ul>:<p>El seguimiento comienza con esta versión. Los cambios aparecerán al publicarse una nueva generación comparable.</p>}</section>
     <nav className="deuce-tabs deuce-content" aria-label="Explorar más estadísticas"><Link href={recordsUrl(recordFilters(query),{dato:'dos-epocas',corte:'2020'})}>Comparar épocas ↗</Link><Link href="/tournaments">Por torneo ↗</Link><Link href="/cobertura">Cobertura y metodología ↗</Link></nav>
   </ArchivePage>;
 }
@@ -84,6 +89,8 @@ export default async function Records({ searchParams }: { searchParams: Promise<
     <header className={styles.heading}><h1>{title}</h1><p>{piece?.definition}</p>
       <div className={styles.actions}><Link href={'/cobertura?' + new URLSearchParams(Object.entries(query).filter(([, value]) => value) as [string, string][])}>Sobre los datos<ChevronRight size={14} aria-hidden="true" /></Link><ShareLinkButton title={`${title} — DEUCE`} /></div>
     </header>
+    <ArchiveFreshness manifest={view.manifest}/>
+    {piece && <p className="archive-freshness">Periodo: {piece.years}. Muestra: {number(piece.sample)} partidos con los campos necesarios. Mínimo por entrada: {piece.minimum}.{piece.percent?' Clasificación principal: al menos 50 casos; muestras menores separadas.':''} {query.competition || 'Todas las competiciones del archivo'}.</p>}
     <RecordsControls query={query} filters={filtersFor(view.manifest.years)} />
     {!piece ? <section className={styles.empty} role="status"><h2>Sin resultados para esta selección</h2><p>{view.emptyReason === 'ranking' ? 'Faltan posiciones históricas de ranking para calcular esta estadística. No significa que no hubiera victorias.' : 'Prueba otro periodo, superficie o categoría.'}</p><Link href={recordsUrl({ dato: query.dato })}>Quitar filtros<ChevronRight size={15} aria-hidden="true" /></Link></section> : <>
       {leader && <section className={styles.leader} aria-label="Líder de esta estadística"><p className={styles.leaderValue}>{recordValue(leader, piece.percent, asYear)}</p><div><h2><Link href={leader.href}>{leader.name}</Link></h2><p>{[leader.detail, piece.percent ? `${number(leader.sample)} casos` : ''].filter(Boolean).join(' · ')}</p><Link className={styles.inlineLink} prefetch={false} href={leader.href.startsWith('/match/') ? leader.href : evidenceHref(piece.id, leader, query)}>Ver {leader.href.startsWith('/match/') ? 'partido' : 'partidos'}<ChevronRight size={15} aria-hidden="true" /></Link></div></section>}

@@ -7,6 +7,9 @@ export type PlayerPhotoFocus = {
 };
 
 export const playerPhotoFocus: Record<string, PlayerPhotoFocus> = {
+  'Ivan Lendl': {objectPosition:'50% 20%',avatarCrop:{x:.2,y:0,width:.72,height:.81}},
+  'Jimmy Connors': {objectPosition:'50% 20%',avatarCrop:{x:.15,y:.08,width:.75,height:.62}},
+  'John McEnroe': {objectPosition:'50% 20%',avatarCrop:{x:.08,y:.03,width:.84,height:.65}},
   'Roger Federer': {
     objectPosition: '50% 20%',
     avatarCrop: { x: 34 / 330, y: 26 / 457, width: 270 / 330, height: 270 / 457 },

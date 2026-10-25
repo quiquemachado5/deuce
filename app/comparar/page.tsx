@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { preparedGeneration } from '@/lib/revista/read-records';
 import { archiveIndex } from '@/lib/archive-index';
-import { comparePlayer } from '@/lib/player-comparison';
+import { comparePlayer, sharedCareerWindow } from '@/lib/player-comparison';
 import { playerPhoto } from '@/lib/player-imagery';
 import { playerSlug } from '@/lib/explore';
 import { SURFACES, surfaceLabel } from '@/lib/surface';
@@ -20,11 +20,14 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
   const q = await searchParams, generation = await preparedGeneration(), matches = await generation.matches();
   const names = [...archiveIndex(matches).players.keys()].sort((a,b) => a.localeCompare(b,'es'));
   const chosen = [q.a || 'Novak Djokovic', q.b || 'Rafael Nadal'];
-  const players = chosen.map(name => comparePlayer(matches, name, q));
+  const window = sharedCareerWindow(matches, chosen);
+  const cohort = q.period === 'shared' ? (window ? matches.filter(m=>m.year>=window.first&&m.year<=window.last) : []) : matches;
+  const players = chosen.map(name => comparePlayer(cohort, name, q));
   const same = chosen[0] === chosen[1], valid = chosen.every(name => names.includes(name));
   const sufficient = !same && valid && players.every(p => p.sufficient);
   const minimum = ['5','20','50'].includes(q.minimum || '') ? q.minimum! : '20';
   const context = [
+    q.period === 'shared' ? (window ? `Periodo compartido documentado: ${window.first}–${window.last}` : 'Sin periodo compartido documentado') : 'Carrera documentada completa',
     q.year && q.year !== 'all' ? `Temporada ${q.year}` : 'Todas las temporadas',
     q.surface && q.surface !== 'all' ? surfaceLabel[q.surface as keyof typeof surfaceLabel] : 'Todas las superficies',
     q.competition && q.competition !== 'all' ? q.competition : 'Todas las competiciones',
@@ -44,6 +47,8 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
     if (q.year && q.year !== 'all') params.set('year', q.year);
     if (q.surface && q.surface !== 'all') params.set('surface', q.surface);
     if (q.competition && q.competition !== 'all') params.set('category', q.competition);
+    if(q.age&&q.age!=='all')params.set('age',q.age);
+    if(q.period==='shared'&&window){params.set('fromYear',String(window.first));params.set('toYear',String(window.last));}
     return `/buscar?${params}`;
   };
 
@@ -55,6 +60,7 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
       return { name, photo: photo ? { src: photo.avatarCrop ? photo.src : photo.thumbnail || photo.src, objectPosition: photo.objectPosition, avatarCrop: photo.avatarCrop } : undefined };
     })}>
       {['a','b'].map((key,index) => <label className="nc-field" key={key}><span>Jugador {index + 1}</span><PlayerInput key={chosen[index]} name={key} initial={chosen[index]} /></label>)}
+      <label className="nc-field"><span>Periodo de comparación</span><select name="period" defaultValue={q.period || "career"}><option value="career">Carrera documentada</option><option value="shared">Periodo compartido</option></select></label>
       <label className="nc-field"><span>Temporada</span><select name="year" defaultValue={q.year || 'all'}><option value="all">Todas</option>{generation.manifest.years.map(year => <option key={year}>{year}</option>)}</select></label>
       <label className="nc-field"><span>Superficie</span><select name="surface" defaultValue={q.surface || 'all'}><option value="all">Todas</option>{SURFACES.map(s => <option value={s} key={s}>{surfaceLabel[s]}</option>)}</select></label>
       <label className="nc-field"><span>Competición</span><select name="competition" defaultValue={q.competition || 'all'}><option value="all">Todas</option>{[...new Set(matches.map(m => m.category))].sort().filter(category => category !== 'ATP Tour · nivel no especificado').map(c => <option key={c}>{c}</option>)}</select></label>
@@ -72,9 +78,9 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
           {metrics.map(metric => {
             const [a,b] = metric.values;
             const difference = typeof a === 'number' && typeof b === 'number' ? Math.abs(a-b) : null;
-            const leader = difference && a !== b ? ((a! > b!) !== metric.lowerIsBetter ? chosen[0] : chosen[1]) : '';
+            const leader = sufficient && difference && a !== b ? ((a! > b!) !== metric.lowerIsBetter ? chosen[0] : chosen[1]) : '';
             const format = (value: number | null) => value === null ? '—' : `${number(value, metric.percent ? 1 : undefined)}${metric.percent ? ' %' : ''}`;
-            return <div className="dx-shared-metric-row" role="row" key={metric.label}><strong role="rowheader">{metric.label}</strong><span role="cell">{format(a)}</span><span role="cell">{format(b)}</span><small role="cell">{difference === null || difference === 0 ? 'Igual' : `${metric.percent ? `${number(difference,1)} pp` : number(difference)} · ${leader}`}</small></div>;
+            return <div className="dx-shared-metric-row" role="row" key={metric.label}><strong role="rowheader">{metric.label}</strong><span role="cell">{format(a)}</span><span role="cell">{format(b)}</span><small role="cell">{difference === null ? 'Sin datos' : difference === 0 ? 'Igual' : `${metric.percent ? `${number(difference,1)} pp` : number(difference)}${leader ? ` · ${leader}` : ''}`}</small></div>;
           })}
         </div>
       </section>
@@ -99,6 +105,7 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
       </section>
       <section className="dx-dual-sample" aria-labelledby="sample-title"><div className="dx-section-heading"><h2 id="sample-title">Partidos de la muestra</h2><span>Últimos cinco de cada jugador</span></div><div className="dx-dual-sample-grid">{players.map(player => <div className="dx-sample-column" key={player.name}><h3>{player.name}</h3>{[...player.matches].slice(-5).reverse().map(match => <article className="dx-sample-match" key={match.match_id}><Link className="dx-sample-match-context" href={`/match/${match.match_id}`}>{tournamentName(match.tournament)} · {match.year} · {round(match)} <span aria-hidden="true">↗</span></Link><SetScoreboard match={match} compact /></article>)}<Link className="dx-sample-all" href={sampleHref(player.name)}>Ver toda la muestra</Link></div>)}</div></section>
     </>}
+    <p className="dx-provenance">Cobertura de ranking histórico: {players.map(player=>`${player.name}: ${number(player.ranking)} de ${number(player.played)} partidos`).join(" · ")}. Las victorias ante top 10 solo usan esa muestra.</p>
     <p className="dx-provenance">Solo se comparan resultados completos. Los abandonos y encuentros en revisión quedan fuera de las cifras.</p>
   </div>;
 }

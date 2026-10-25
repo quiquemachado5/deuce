@@ -45,7 +45,7 @@ test('Australian draw and walkover details remain truthful',async({page})=>{
  await page.goto('/australian-open/2026');const picker=page.getByRole('group',{name:'Elegir ronda del cuadro'});
  await expect(picker.getByRole('button',{name:/^Final/})).toContainText('1');await expect(picker.getByRole('button',{name:/^Semifinal/})).toContainText('2');
  for(const id of ['live-37395','reference-ao-2026-mensik-withdrawal','reference-ao-2026-ms701']){const response=await page.goto('/match/'+id);expect(response?.status()).toBe(200);await expect(page.locator('.deuce-match-detail')).toBeVisible();}
- await page.goto('/match/reference-ao-2026-mensik-withdrawal');await expect(page.locator('.deuce-match-detail > .global-scoreboard .score-status')).toContainText('W/O');await expect(page.locator('.global-set')).toHaveCount(0);
+ await page.goto('/match/reference-ao-2026-mensik-withdrawal');const walkover=page.locator('.deuce-match-detail > .global-scoreboard');await expect(walkover.locator('.score-status')).toContainText('W/O');await expect(walkover.locator('.global-set')).toHaveCount(0);
 });
 test('sharing exports the same set-based result to a real PNG',async({page})=>{
  await page.goto('/match/reference-ao-2026-ms701');await page.getByRole('button',{name:'Compartir partido',exact:true}).click();

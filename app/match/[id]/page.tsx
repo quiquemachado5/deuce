@@ -1,3 +1,7 @@
+import ArchiveBackLink from '@/components/ArchiveBackLink';
+import ArchiveFreshness from '@/components/ArchiveFreshness';
+import { editionNeighbors } from '@/lib/edition-neighbors';
+import { preparedManifest } from '@/lib/revista/read-records';
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
@@ -9,8 +13,6 @@ import ComparePicker from "@/components/nocturno/Compare";
 import type { MatchView } from "@/components/nocturno/MatchTabs";
 import {
   neighboringMeetings,
-  roundPosition,
-  winnerName,
 } from "@/lib/editorial";
 import { tournamentName } from "@/lib/labels";
 import { score } from "@/lib/cuaderno/model";
@@ -67,18 +69,7 @@ export default async function MatchPage({ params, searchParams }: Props) {
       ),
     )[0],
     neighbors = neighboringMeetings(matches, match),
-    winner = winnerName(match),
-    path = matches
-      .filter(
-        (item) =>
-          item.tournament === match.tournament &&
-          item.year === match.year &&
-          (item.player1.name === winner || item.player2.name === winner),
-      )
-      .sort((a, b) => roundPosition(a.round) - roundPosition(b.round)),
-    index = path.findIndex((item) => item.match_id === id),
-    previousRound = index >= 0 ? path[index - 1] : null,
-    nextRound = index >= 0 ? path[index + 1] : null,
+    paths = editionNeighbors(matches,match),
     other =
       junto && junto !== "elige" && junto !== id
         ? matches.find((item) => item.match_id === junto)
@@ -114,23 +105,7 @@ export default async function MatchPage({ params, searchParams }: Props) {
             )}
           </section>
         )}
-        {(previousRound || nextRound) && (
-          <section>
-            <h2>En esta edición</h2>
-            {previousRound && (
-              <div className="match-history-meeting">
-                <span>Ronda anterior de {winner}</span>
-                <Row match={previousRound} firstPlayer={winner || undefined} />
-              </div>
-            )}
-            {nextRound && (
-              <div className="match-history-meeting">
-                <span>Ronda siguiente de {winner}</span>
-                <Row match={nextRound} firstPlayer={winner || undefined} />
-              </div>
-            )}
-          </section>
-        )}
+        {paths.some(path=>path.previous||path.next) && <section><h2>En esta edición</h2>{paths.map(path=><div key={path.name}><h3>{path.name}</h3>{path.previous&&<div className="match-history-meeting"><span>Ronda anterior registrada</span><Row match={path.previous} firstPlayer={path.name}/></div>}{path.next&&<div className="match-history-meeting"><span>Ronda siguiente registrada</span><Row match={path.next} firstPlayer={path.name}/></div>}</div>)}</section>}
         {situation && (
           <Link href={`/records?dato=${situation.id}`}>{situation.label}</Link>
         )}
@@ -169,12 +144,8 @@ export default async function MatchPage({ params, searchParams }: Props) {
   );
   return (
     <article className="nc-wrap nc-match-page">
-      <Link className="ry-match-back" href="/buscar">
-        <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
-          <path d="m11.5 4.5-5.5 5.5 5.5 5.5M6.5 10H17" />
-        </svg>
-        Partidos
-      </Link>
+      <ArchiveBackLink />
+      <details className="archive-provenance"><summary>Procedencia y actualización</summary><ArchiveFreshness manifest={await preparedManifest()}/><p>{match.context?.dateLabel==='Fecha del partido'?'Fecha exacta del encuentro documentada.':match.context?.date?'La fecha disponible identifica la edición; no acredita el día exacto del encuentro.':'No consta una fecha exacta del encuentro.'}</p><p>{match.context?.resultSource&&/^https?:\/\//.test(match.context.resultSource)?<a href={match.context.resultSource} rel="noopener noreferrer" target="_blank">Fuente del resultado ↗</a>:<Link href="/cobertura">Fuentes y metodología del archivo</Link>}</p><p>La fecha del cálculo no equivale a una revisión manual de este resultado.</p></details>
       <Reading
         match={match}
         rivalry={rivalry}

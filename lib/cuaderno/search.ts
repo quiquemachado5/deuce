@@ -7,6 +7,7 @@ import { playerSlug } from "../explore";
 import { tournamentName } from "../labels";
 import { score, round, sentence } from "./model";
 import { tournamentDirectory } from '../tournament-directory';
+import { matchSearchIntent, matchesIntent } from '../search-intent';
 import { approximateName, searchText } from '../search-text';
 import type { SearchItem } from "@/components/revista/Frame";
 export async function searchArchive(query: string, options: { includeMatches?: boolean; data?: Awaited<ReturnType<typeof notebook>> } = {}) {
@@ -44,7 +45,8 @@ export async function searchArchive(query: string, options: { includeMatches?: b
   const eventTerms = terms.filter(term => term !== requestedYear);
   let foundEvent = false;
   if (eventTerms.length) {
-    const events = tournamentDirectory(data.matches).filter(event => eventTerms.every(term => searchText(`${event.name} ${tournamentName(event.name)}`).includes(searchText(term)))).slice(0, 3);
+    const eventQuery = eventTerms.join(' ');
+    const events = tournamentDirectory(data.matches).filter(event => eventTerms.every(term => searchText(`${event.name} ${tournamentName(event.name)}`).includes(searchText(term))) || approximateName(eventQuery, tournamentName(event.name))).slice(0, 3);
     foundEvent = events.length > 0;
     for (const event of events) {
       if (!requestedYear) items.push({ href: `/torneos/${event.slug}`, name: tournamentName(event.name), group: 'Torneos', detail: `${event.matches.length.toLocaleString('es-ES')} partidos en el archivo` });
@@ -79,6 +81,7 @@ export async function searchArchive(query: string, options: { includeMatches?: b
 const matchIndexes = new WeakMap<Match[], { match: Match; text: string }[]>();
 const newestMatches = new WeakMap<Match[], Match[]>();
 export function matchingMatches(query: string, matches: Match[], limit = Infinity) {
+  const intent = matchSearchIntent(query);
   const terms = normalizeText(query)
     .replace(/[–—]/g, "-")
     .split(/\s+/)
@@ -100,12 +103,12 @@ export function matchingMatches(query: string, matches: Match[], limit = Infinit
   if (shelf) return shelfMatches(shelf, matches).sort((a,b) => b.score_summary.timestamp.localeCompare(a.score_summary.timestamp)).slice(0, limit);
   let index = matchIndexes.get(matches);
   if (!index) {
-    index = matches.map(match => ({match, text: normalizeText(`${match.player1.name} ${match.player2.name} ${tournamentName(match.tournament)} ${match.tournament} ${match.year} ${round(match)}`).replace(/[–—]/g, '-')}));
+    index = matches.map(match => ({match, text: searchText(`${match.player1.name} ${match.player2.name} ${tournamentName(match.tournament)} ${match.tournament} ${match.year} ${round(match)}`).replace(/[–—]/g, '-')}));
     matchIndexes.set(matches, index);
   }
   const result: Match[] = [];
   for (const entry of index) {
-    if (!terms.every(term => entry.text.includes(term))) continue;
+    if (!matchesIntent(entry.match, intent) || !intent.terms.every(term => entry.text.includes(term))) continue;
     if (!Number.isFinite(limit)) {
       result.push(entry.match);
       continue;

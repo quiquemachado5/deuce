@@ -75,3 +75,19 @@ export function tournamentSurfaceHistory(matches: Match[]) {
     .map(([surface, years]) => ({ surface, ...years }))
     .sort((a, b) => a.from - b.from);
 }
+
+/** Do not span undocumented years or collapse changes into a timeless surface. */
+export function tournamentTimeline(matches: Match[]) {
+  const years=[...new Set(matches.map(m=>m.year))].sort((a,b)=>a-b);
+  const periods:{from:number;to:number;category:string;surface:Surface;indoor:boolean|null}[]=[];
+  for(const year of years){
+    const rows=matches.filter(m=>m.year===year);
+    for(const category of [...new Set(rows.map(m=>m.category))]){
+      const court=editionTournamentCourt(rows.filter(m=>m.category===category));
+      const prior=periods.at(-1);
+      if(prior&&prior.to===year-1&&prior.category===category&&prior.surface===court.surface&&prior.indoor===court.indoor)prior.to=year;
+      else periods.push({from:year,to:year,category,surface:court.surface,indoor:court.indoor});
+    }
+  }
+  return periods;
+}

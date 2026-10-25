@@ -25,7 +25,7 @@ export function DeuceTopbar() {
   useEffect(()=>{
     const text=query.trim();if(!text)return;
     const abort=new AbortController();
-    const timer=setTimeout(async()=>{try{const response=await fetch(`/api/search?q=${encodeURIComponent(text)}`,{signal:abort.signal});if(!response.ok)throw Error('search');const data=await response.json();setResult({query:text,items:Array.isArray(data.items)?data.items.slice(0,12):[]});}catch(error){if(!(error instanceof Error&&error.name==='AbortError'))setResult({query:text,items:[],error:true});}},200);
+    const timer=setTimeout(async()=>{try{const response=await fetch(`/api/search?q=${encodeURIComponent(text)}`,{signal:abort.signal});if(!response.ok)throw Error('search');const data=await response.json();setResult({query:text,items:Array.isArray(data.items)?data.items.slice(0,25):[]});}catch(error){if(!(error instanceof Error&&error.name==='AbortError'))setResult({query:text,items:[],error:true});}},200);
     return()=>{clearTimeout(timer);abort.abort();};
   },[query]);
   const loading=!!query.trim()&&result.query!==query.trim();
@@ -42,7 +42,7 @@ export function DeuceTopbar() {
         <label id="global-search-label" htmlFor="global-search">Busca un jugador,<br/>un torneo o un partido</label>
         <div><input ref={field} id="global-search" type="search" name="q" value={query} onChange={event=>setQuery(event.target.value)} placeholder="Escribe para buscar…" autoComplete="off"/><button aria-label="Buscar" type="submit">→</button></div>
       </form>
-      <div className="deuce-search-results" aria-live="polite" aria-busy={loading}>{query.trim()&&(loading?<p>Buscando…</p>:result.error?<p>No se pudieron cargar las sugerencias. Pulsa Intro para buscar en el archivo.</p>:result.items.length?result.items.map(item=><Link href={item.href} key={`${item.group}-${item.href}`} onClick={closeSearch}><span><strong>{item.name}</strong><small>{item.detail}</small></span><span>{item.group}</span></Link>):<p>No hay resultados para «{query}».</p>)}</div>
+      <div className="deuce-search-results" aria-live="polite" aria-busy={loading}>{query.trim()&&(loading?<p>Buscando…</p>:result.error?<p>No se pudieron cargar las sugerencias. Pulsa Intro para buscar en el archivo.</p>:result.items.length?[...new Set(result.items.map(item=>item.group))].map(group=><section key={group} aria-label={group}><h2>{group}</h2>{result.items.filter(item=>item.group===group).map(item=><Link href={item.href} key={item.href} onClick={closeSearch}><span><strong>{item.name}</strong><small>{item.detail}</small></span></Link>)}</section>):<p>No hay resultados para «{query}».</p>)}</div>
     </dialog>
   </>;
 }
