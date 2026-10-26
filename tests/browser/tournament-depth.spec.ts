@@ -86,21 +86,21 @@ test("Australian Open uses distinct visual forms for titles, finals and effectiv
 
 test("mobile edition rounds keep scores, tiebreaks and the champion path",async({page})=>{
  await page.setViewportSize({width:390,height:844});await page.goto('/torneos/roland-garros/2024');
- const bracket=page.getByRole('region',{name:'Cuadro registrado',exact:true});
- const picker=bracket.getByRole('group',{name:'Elegir ronda del cuadro'});
- const quarters=bracket.getByRole('region',{name:'Cuartos de final',exact:true});
- await expect(quarters.locator('.match-scorecard')).toHaveCount(3);
- const alcaraz=quarters.locator('a[href="/match/live-83847"]');
+ const explorer=page.getByRole('region',{name:'Partidos de esta edición',exact:true});
+ const picker=explorer.getByRole('group',{name:'Filtrar partidos por ronda'});
+ await picker.getByRole('button',{name:'Cuartos de final',exact:true}).click();
+ await expect(explorer.locator('.edition-result-list>li')).toHaveCount(3);
+ const alcaraz=explorer.locator('a[href="/match/live-83847"]');
  await expect(alcaraz.locator('.match-winner')).toContainText('Carlos Alcaraz');
  await expect(alcaraz.locator('sup')).toHaveText('3');
  await expect(alcaraz.locator('..')).toHaveAttribute('data-champion-path','true');
  const button=picker.getByRole('button',{name:/^Final/});await button.focus();await button.press('Enter');
- const final=bracket.getByRole('region',{name:'Final',exact:true});await expect(final).toBeVisible();await expect(quarters).not.toBeVisible();
- await expect(final.locator('.global-player').first().locator('.global-set')).toHaveCount(5);
- await expect(final.locator('.match-winner')).toContainText('Carlos Alcaraz');
+ await expect(explorer.locator('.edition-result-list>li')).toHaveCount(1);
+ await expect(explorer.locator('.global-player').first().locator('.global-set')).toHaveCount(5);
+ await expect(explorer.locator('.match-winner')).toContainText('Carlos Alcaraz');
  const score=page.locator('.deuce-tournament-final .global-scoreboard');await expect(score).toHaveAccessibleName(/Alexander Zverev contra Carlos Alcaraz/);
- await picker.getByRole('button',{name:/^Octavos de final/}).click();const fourth=bracket.getByRole('region',{name:'Octavos de final',exact:true});
- await expect(fourth.locator('.match-scorecard')).toHaveCount(8);await expectNoPageOverflow(page,'Mobile edition');
+ await picker.getByRole('button',{name:/^Octavos de final/}).click();
+ await expect(explorer.locator('.edition-result-list>li')).toHaveCount(8);await expectNoPageOverflow(page,'Mobile edition');
 });
 
 for (const colorScheme of ["light", "dark"] as const) {

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node --import ./build/register.mjs --import tsx build/prepare-records.ts && node --import ./build/register.mjs --import tsx build/prepare-player-bio.ts && next build",
+    "build": "npm run media:verify && node --import ./build/register.mjs --import tsx build/prepare-records.ts && node --import ./build/register.mjs --import tsx build/prepare-player-bio.ts && next build",
     "start": "next start",
     "lint": "eslint . --max-warnings=0",
     "typecheck": "tsc --noEmit",
@@ -14,8 +14,9 @@
     "data:verify": "node --import ./build/register.mjs --import tsx build/verify-archive.ts",
     "data:evidence": "node --import ./build/register.mjs --import tsx build/verify-evidence.ts",
     "data:restore-drill": "node build/restore-drill.mjs",
+    "media:verify": "node --import ./build/register.mjs --import tsx build/audit-tournament-media.ts",
     "monitor:check": "node ops/monitor.mjs --check-only",
-    "verify": "npm run test && npm run lint && npm run typecheck && npm run data:verify"
+    "verify": "npm run test && npm run lint && npm run typecheck && npm run media:verify && npm run data:verify"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.4",
@@ -36,6 +37,7 @@
     "eslint": "^9.39.5",
     "eslint-config-next": "16.4.2",
     "postcss": "^8.4.47",
+    "sharp": "^0.35.5",
     "tailwindcss": "^3.4.12",
     "tsx": "4.23.15",
     "typescript": "^5.7.0"

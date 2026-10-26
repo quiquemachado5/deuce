@@ -249,9 +249,11 @@ function ArchiveFrame({ children }: { children: React.ReactNode }) {
   const opener = useRef<HTMLElement | null>(null);
   const previousOverflow = useRef("");
   const initialPath = useRef(path);
+  const lastScroll = useRef(0);
   const [query, setQuery] = useState("");
   const [headerQuery, setHeaderQuery] = useState("");
   const [headerFocused, setHeaderFocused] = useState(false);
+  const [headerHidden, setHeaderHidden] = useState(false);
   const [activeDialog, setActiveDialog] = useState<"menu" | "search" | null>(
     null,
   );
@@ -266,37 +268,16 @@ function ArchiveFrame({ children }: { children: React.ReactNode }) {
   }, [path]);
 
   useEffect(() => {
-    const shortcut = (event: KeyboardEvent) => {
-      if (!(event.metaKey || event.ctrlKey) || event.key.toLowerCase() !== "k")
-        return;
-      if (menu.current?.open) return;
-      event.preventDefault();
-      if (isMatchSearch) {
-        document.getElementById('match-search')?.focus();
-        return;
-      }
-      if (window.innerWidth >= 760) {
-        headerField.current?.focus();
-        return;
-      }
-      const target = search.current;
-      if (!target || target.open) {
-        searchField.current?.focus();
-        return;
-      }
-      opener.current =
-        document.activeElement instanceof HTMLElement
-          ? document.activeElement
-          : null;
-      target.showModal();
-      previousOverflow.current = document.body.style.overflow;
-      document.body.style.overflow = "hidden";
-      setActiveDialog("search");
-      searchField.current?.focus();
+    const onScroll = () => {
+      const next = Math.max(0, window.scrollY);
+      if (next <= 72 || headerFocused || activeDialog) setHeaderHidden(false);
+      else if (Math.abs(next - lastScroll.current) > 7) setHeaderHidden(next > lastScroll.current);
+      lastScroll.current = next;
     };
-    window.addEventListener("keydown", shortcut);
-    return () => window.removeEventListener("keydown", shortcut);
-  }, [isMatchSearch]);
+    const frame=requestAnimationFrame(onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => { cancelAnimationFrame(frame); window.removeEventListener("scroll", onScroll); };
+  }, [activeDialog, headerFocused]);
 
   const close = () => {
     if (menu.current?.open) menu.current.close();
@@ -353,7 +334,7 @@ function ArchiveFrame({ children }: { children: React.ReactNode }) {
         Saltar al contenido
       </a>
       <div className="ry-workspace">
-        <header className="ry-header">
+        <header className="ry-header" data-hidden={headerHidden || undefined}>
           <div className="ry-header-main">
             <div className="ry-header-brand">
               <Wordmark />
@@ -365,7 +346,6 @@ function ArchiveFrame({ children }: { children: React.ReactNode }) {
                   <Search size={16} strokeWidth={1.6} aria-hidden="true" />
                   <label className="ry-sr" htmlFor="ry-header-query">Buscar en DEUCE</label>
                   <input id="ry-header-query" ref={headerField} name="q" type="search" value={headerQuery} onChange={event => setHeaderQuery(event.target.value)} onFocus={() => setHeaderFocused(true)} onKeyDown={event => { if (event.key === 'Escape') { setHeaderQuery(''); setHeaderFocused(false); headerField.current?.blur(); } }} placeholder="Buscar" autoComplete="off" />
-                  <kbd>⌘K</kbd>
                 </form>
                 {headerFocused && headerQuery.trim() ? <SearchResults query={headerQuery} choose={() => { setHeaderFocused(false); setHeaderQuery(''); }} clear={() => setHeaderQuery('')} /> : null}
               </div>}
@@ -375,7 +355,6 @@ function ArchiveFrame({ children }: { children: React.ReactNode }) {
                 aria-haspopup="dialog"
                 aria-controls="ry-search-dialog"
                 aria-expanded={activeDialog === "search"}
-                aria-keyshortcuts="Control+K Meta+K"
                 type="button"
                 onClick={(event) => open("search", event.currentTarget)}
               >

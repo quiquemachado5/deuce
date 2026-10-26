@@ -10,17 +10,14 @@ const navigation = [["Partidos", "/buscar"], ["Récords", "/records"], ["Jugador
 
 export default function HomeShell({ children }: { children: React.ReactNode }) {
   const dialog = useRef<HTMLDialogElement>(null);
+  const lastScroll = useRef(0);
   const [panel, setPanel] = useState<"search" | "menu" | null>(null);
+  const [headerHidden, setHeaderHidden] = useState(false);
   useEffect(() => {
-    const shortcut = (event: KeyboardEvent) => {
-      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
-        event.preventDefault();
-        setPanel("search");
-      }
-    };
-    document.addEventListener("keydown", shortcut);
-    return () => document.removeEventListener("keydown", shortcut);
-  }, []);
+    const onScroll=()=>{const next=Math.max(0,window.scrollY);if(next<=72||panel)setHeaderHidden(false);else if(Math.abs(next-lastScroll.current)>7)setHeaderHidden(next>lastScroll.current);lastScroll.current=next;};
+    const frame=requestAnimationFrame(onScroll);window.addEventListener("scroll",onScroll,{passive:true});
+    return()=>{cancelAnimationFrame(frame);window.removeEventListener("scroll",onScroll)};
+  },[panel]);
   useEffect(() => {
     const element = dialog.current;
     if (!element) return;
@@ -34,12 +31,12 @@ export default function HomeShell({ children }: { children: React.ReactNode }) {
 
   return <div className={styles.shell}>
     <a className={styles.skip} href="#main-content">Saltar al contenido</a>
-    <header className={styles.topbar} data-home-header data-tone="dark">
+    <header className={styles.topbar} data-home-header data-tone="dark" data-hidden={headerHidden || undefined}>
       <div className={styles.topbarInner}>
         <Link href="/" className={styles.wordmark} aria-label="DEUCE, inicio">DEUCE</Link>
         <nav className={styles.desktopNav} aria-label="Principal">{navigation.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}</nav>
         <div className={styles.headerActions}>
-          <button type="button" aria-label="Buscar (Control o Comando K)" aria-haspopup="dialog" onClick={() => setPanel("search")}><Search size={18} strokeWidth={1.5} /></button>
+          <button type="button" aria-label="Buscar" aria-haspopup="dialog" onClick={() => setPanel("search")}><Search size={18} strokeWidth={1.5} /></button>
           <button type="button" className={styles.menuTrigger} aria-label="Abrir menú" aria-haspopup="dialog" onClick={() => setPanel("menu")}><Menu size={20} strokeWidth={1.5} /></button>
         </div>
       </div>

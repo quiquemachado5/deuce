@@ -22,6 +22,8 @@ import { Breadcrumbs } from "@/components/deuce/Breadcrumbs";
 import { editionCompleteness } from "@/lib/edition-audit";
 import { playerPhoto } from "@/lib/player-imagery";
 import { ArrowUpRight } from "lucide-react";
+import { latestMediaForTournament } from "@/lib/tournament-media";
+import TournamentEditionMediaView from "@/components/TournamentEditionMedia";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -98,6 +100,7 @@ export default async function Tournament({ params, searchParams }: Props) {
   const recurringFinal=[...finalPairs.values()].sort((a,b)=>b.count-a.count)[0];
   const editionHref = (year: number) =>
     `/torneos/${slug}/${year}${tournament.categories.length > 1 ? `?categoria=${encodeURIComponent(category)}` : ""}`;
+  const editionMedia=latestMediaForTournament(tournament.name,years);
   return (
     <div
       className="nc-wrap ry-photo-tournament-detail td-tournament"
@@ -162,8 +165,8 @@ export default async function Tournament({ params, searchParams }: Props) {
         </div>
       </div>
       <div className={`td-coverage-status${!categoryAudits.length?'':incompleteEditions.length?' is-warning':' is-complete'}`} role="status"><strong>{!categoryAudits.length?'Control de edición no disponible':incompleteEditions.length?`${number(incompleteEditions.length)} ediciones necesitan revisión`:'Rondas finales verificadas'}</strong><span>{!categoryAudits.length?'La página conserva los resultados publicados, pero no ha podido abrir el informe automático de esta categoría.':incompleteEditions.length?`Faltan rondas o marcadores por cerrar en la fuente guardada. Últimas: ${incompleteEditions.slice(0,3).map(audit=>`${audit.year} (${audit.missingLateRounds.join(', ')||`${audit.pending} pendientes`})`).join(' · ')}.`:`${number(verifiedEditions)} ediciones conservan cuartos, semifinales y final en la fuente publicada.`}</span><Link href="/cobertura#ediciones">Ver control de cobertura</Link></div>
-      <section className="td-editions" aria-labelledby="td-editions-heading">
-        <h2 id="td-editions-heading">Explorar una edición</h2>
+      <section className="td-editions td-editions--archive" aria-labelledby="td-editions-heading">
+        <div><h2 id="td-editions-heading">Explorar una edición</h2><p>Abre un año para consultar su final, resultados, rondas y control de cobertura.</p></div>
         <EditionPicker
           slug={slug}
           years={years}
@@ -208,6 +211,7 @@ export default async function Tournament({ params, searchParams }: Props) {
           </TournamentChampionRail>
         </section>
       )}
+      {editionMedia && <TournamentEditionMediaView media={editionMedia} />}
       {(pieces.titles.length > 0 || pieces.played.length > 0) && (
         <section className="td-tournament-rankings" aria-labelledby="td-rankings-title">
           <div className="td-section-heading"><div><h2 id="td-rankings-title">Nombres que definen el torneo</h2><p>Títulos y finales dentro de la cobertura disponible.</p></div></div>

@@ -10,7 +10,7 @@ test('compound searches keep player, year, final and format constraints',async({
   await expect(page.locator('main')).toContainText('Interpretamos: Cinco sets · Final · 2008');
   await expect(page.locator('main .global-scoreboard').first()).toContainText('Roger Federer');
   await expect(page.locator('main .global-scoreboard').first()).toContainText('Rafael Nadal');
-  await page.keyboard.press('Control+k');
+  await page.getByRole('button',{name:'Buscar en DEUCE'}).click();
   await page.locator('#global-search').fill('Alcaraz');
   await expect(page.locator('.deuce-search-results').getByRole('heading',{name:'Jugadores'})).toBeVisible();
   await page.keyboard.press('Escape');
