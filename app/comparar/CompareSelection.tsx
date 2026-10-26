@@ -79,7 +79,7 @@ export default function CompareSelection({
         ref={form}
         id="player-comparison-form"
         action="/comparar"
-        className="dx-filter-panel"
+        className="dx-filter-panel archive-unified-toolbar"
         onInput={(event) => {
           const target = event.target;
           if (

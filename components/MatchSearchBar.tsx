@@ -42,10 +42,10 @@ export default function MatchSearchBar({ query, categories, rounds, chips, years
     activeYear ? 'year' : '', query.surface ? 'surface' : '', query.category ? 'category' : '',
     query.round ? 'round' : '', query.fiveSets === 'true' ? 'fiveSets' : '', ...chips.map(chip => chip.key),
   ].filter(Boolean)).size;
-  return <div className={styles.searchControl} aria-busy={pending}>
+  return <div className={`${styles.searchControl} archive-unified-toolbar`} aria-busy={pending}>
     <form role="search" action="/buscar" onSubmit={event => { event.preventDefault(); apply({}); }}>
       {Object.entries(query).filter(([key, value]) => value && !['q', 'player', 'page', 'limit', 'editions'].includes(key)).map(([key, value]) => <input key={key} type="hidden" name={key} value={value} />)}
-      <div className={styles.searchBox}>
+      <div className={`${styles.searchBox} archive-query-row`}>
         <div className={styles.searchInput}>
           <Search size={20} strokeWidth={1.7} aria-hidden="true" />
           <label className="nc-sr" htmlFor="match-search">Buscar jugador o torneo</label>
@@ -54,7 +54,7 @@ export default function MatchSearchBar({ query, categories, rounds, chips, years
         </div>
         <button className={styles.searchSubmit} type="submit">Buscar<ArrowRight size={17} aria-hidden="true" /></button>
       </div>
-      <div className={styles.filterBar}>
+      <div className={`${styles.filterBar} archive-filter-row`}>
         <div className={styles.filterDisclosure} data-open={filtersOpen || undefined}>
           <button className={styles.filterToggle} type="button" aria-expanded={filtersOpen} onClick={() => setFiltersOpen(open => !open)}><SlidersHorizontal size={16} aria-hidden="true"/><span>Filtros{activeFilterCount ? ` (${activeFilterCount})` : ''}</span><ChevronDown size={14} aria-hidden="true"/></button>
           <div className={styles.filterMenus}>

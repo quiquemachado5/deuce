@@ -17,6 +17,14 @@ test('tournament directory prioritizes the four Grand Slams and preserves catego
   await expect(page).toHaveURL(/categoria=ATP/);
   await expect(page.locator('.catalog-card').first()).toBeVisible();
 });
+test('player directory keeps search and sorting compact without an alphabet strip',async({page})=>{
+  await page.goto('/jugadores');
+  const toolbar=page.locator('.player-toolbar.archive-unified-toolbar');
+  await expect(toolbar).toBeVisible();
+  await expect(toolbar.getByRole('searchbox')).toHaveAttribute('placeholder','Nombre del jugador');
+  await expect(page.getByRole('navigation',{name:'Índice alfabético'})).toHaveCount(0);
+  await expect(page.locator('.player-directory-count')).toContainText('jugadores');
+});
 test('home slider is keyboard operable and reduced motion disables rotation',async({page})=>{
   await page.emulateMedia({reducedMotion:'reduce'});await page.goto('/');
   const slider=page.locator('.archive-slider');await slider.scrollIntoViewIfNeeded();

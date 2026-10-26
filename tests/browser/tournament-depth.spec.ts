@@ -32,8 +32,8 @@ test("Madrid uses clay today and preserves indoor hard for its 2007 Masters edit
   await expect(page).toHaveURL(/\/torneos\/madrid$/);
   const current = page.locator(".td-tournament");
   await expect(current).toHaveAttribute("data-event-surface", "clay");
-  await expect(current.locator(".td-hero-court")).toContainText("Tierra");
-  await expect(current.locator(".td-hero-court")).not.toContainText("Al aire libre");
+  await expect(current.locator(".td-hero-court")).toHaveCount(0);
+  await expect(current.locator(".td-venue-hero")).not.toContainText("última edición registrada");
 
   await page.goto("/madrid/2007?categoria=Masters%201000");
   const historical = page.locator(".td-edition");
@@ -55,56 +55,33 @@ test("Paris labels indoor conditions independently of its hard court surface", a
   await expectSurfaceColour(parisCard, "hard");
 
   await parisCard.click();
-  const court = page.locator(".td-hero-court");
-  await expect(court).toContainText("Dura");
-  await expect(court).toContainText("Bajo techo");
+  await expect(page.locator(".td-hero-court")).toHaveCount(0);
   await expect(page.locator(".td-tournament")).toHaveAttribute("data-event-surface", "hard");
   await expect(page.locator('[data-event-surface="indoor"]')).toHaveCount(0);
 });
 
-test("Australian Open rankings keep position, name, detail and values in aligned columns", async ({ page }) => {
+test("Australian Open uses distinct visual forms for titles, finals and effectiveness", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto("/torneos/australian-open");
   await page.evaluate(async () => { await document.fonts.ready; });
-  const panels = page.locator(".td-tournament-rankings > section");
-  await expect(panels).toHaveCount(2);
-  await expect(panels.nth(0).getByRole("heading", { name: "Más títulos", exact: true })).toBeVisible();
-  await expect(panels.nth(1).getByRole("heading", { name: "Más finales", exact: true })).toBeVisible();
+  await expect(page.locator(".td-titles-leader")).toBeVisible();
+  await expect(page.locator(".td-title-chasers li")).toHaveCount(5);
+  await expect(page.getByRole("heading", { name: "Más finales", exact: true })).toBeVisible();
+  await expect(page.locator(".td-finalists-strip li")).toHaveCount(7);
+  await expect(page.locator(".td-rate-bars li")).toHaveCount(8);
+  await expect(page.locator(".td-surface-history")).toHaveCount(0);
+  await expect(page.getByText("Categoría y condiciones por época")).toHaveCount(0);
+  await expect(page.getByText("El primero en este archivo")).toHaveCount(0);
 
   for (const width of [1440, 390]) {
     await page.setViewportSize({ width, height: 1000 });
-    for (const panel of await panels.all()) {
-      const rows = panel.locator(".nc-ranking-row");
-      await expect(rows).toHaveCount(8);
-      const rightEdges: number[] = [];
-      for (let index = 0; index < 3; index++) {
-        const row = rows.nth(index);
-        await expect(row.locator(".nc-rank-name")).toBeVisible();
-        await expect(row.locator(".nc-rank-detail")).not.toBeEmpty();
-        await expect(row.locator(".nc-rank-value")).toBeVisible();
-        const layout = await row.evaluate((node) => {
-          const position = node.querySelector(".nc-rank-position")!.getBoundingClientRect();
-          const person = node.querySelector(".nc-rank-person")!.getBoundingClientRect();
-          const name = node.querySelector(".nc-rank-name")!.getBoundingClientRect();
-          const detail = node.querySelector(".nc-rank-detail")!.getBoundingClientRect();
-          const value = node.querySelector(".nc-rank-value")!.getBoundingClientRect();
-          return {
-            height: node.getBoundingClientRect().height,
-            positionRight: position.right, personLeft: person.left, personRight: person.right,
-            nameBottom: name.bottom, detailTop: detail.top,
-            valueLeft: value.left, valueRight: value.right,
-          };
-        });
-        expect(layout.height).toBeGreaterThanOrEqual(60);
-        expect(layout.personLeft - layout.positionRight).toBeGreaterThanOrEqual(6);
-        expect(layout.valueLeft - layout.personRight).toBeGreaterThanOrEqual(6);
-        expect(layout.detailTop).toBeGreaterThanOrEqual(layout.nameBottom);
-        rightEdges.push(layout.valueRight);
-      }
-      expect(Math.max(...rightEdges) - Math.min(...rightEdges)).toBeLessThanOrEqual(1);
-    }
     await expectNoPageOverflow(page, `Australian Open rankings at ${width}px`);
   }
+  const rail = page.getByRole("region", { name: "Campeones recientes" });
+  await rail.focus();
+  const before = await rail.evaluate(node => node.scrollLeft);
+  await rail.press("ArrowRight");
+  await expect.poll(() => rail.evaluate(node => node.scrollLeft)).toBeGreaterThan(before);
 });
 
 test("mobile edition rounds keep scores, tiebreaks and the champion path",async({page})=>{

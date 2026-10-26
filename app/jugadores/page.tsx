@@ -16,7 +16,7 @@ export const metadata = {
 };
 
 export default async function Players({ searchParams }: {
-  searchParams: Promise<{ q?: string; page?: string; tipo?: string; sort?: string; letter?: string }>;
+  searchParams: Promise<{ q?: string; page?: string; tipo?: string; sort?: string }>;
 }) {
   const query = await searchParams;
   const pairs = query.tipo === "parejas";
@@ -26,15 +26,10 @@ export default async function Players({ searchParams }: {
     pairs ? generation.matches() : Promise.resolve([]),
   ]);
   const term = normalizeText(query.q || "");
-  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-  const requestedLetter = (query.letter || "").toUpperCase();
-  const letter = alphabet.includes(requestedLetter) ? requestedLetter : "";
   const sort = query.sort === "played" || query.sort === "finals" ? query.sort : "wins";
   const records = new Map(recordSource.map((record) => [record.name, record]));
-  const availableLetters = new Set(recordSource.map((record) => normalizeText(record.name).charAt(0).toUpperCase()));
   const players = recordSource.map((record) => ({ name: record.name, won: record.wins, played: record.played }))
     .filter((player) => normalizeText(player.name).includes(term))
-    .filter((player) => !letter || normalizeText(player.name).charAt(0).toUpperCase() === letter)
     .sort((a, b) => {
       const primary = sort === "played" ? b.played - a.played
         : sort === "finals" ? (records.get(b.name)?.finalsWon || 0) - (records.get(a.name)?.finalsWon || 0)
@@ -64,22 +59,21 @@ export default async function Players({ searchParams }: {
   });
   return <ArchivePage title="Jugadores" className="player-directory">
     <div className="deuce-content">
-      <div className="archive-filter-shell player-toolbar">
+      <div className="archive-filter-shell player-toolbar archive-unified-toolbar">
         <nav className="deuce-tabs" aria-label="Explorar jugadores"><Link href="/jugadores" aria-current={!pairs?'page':undefined}>Jugadores</Link><Link href="/jugadores?tipo=parejas" aria-current={pairs?'page':undefined}>Cara a cara</Link></nav>
         <FilterForm action="/jugadores">
           <input type="hidden" name="tipo" value={pairs?'parejas':'jugadores'}/>
-          {letter&&<input type="hidden" name="letter" value={letter}/>}
           <label className="nc-field nc-filter-query"><span>Buscar {pairs?'un enfrentamiento':'jugadores'}</span><input name="q" type="search" defaultValue={query.q} placeholder={pairs?'Jugador o rival':'Nombre del jugador'} autoComplete="off"/></label>
           {!pairs&&<label className="player-sort"><span>Ordenar por</span><select name="sort" defaultValue={sort} aria-label="Ordenar jugadores"><option value="wins">Victorias</option><option value="played">Partidos</option><option value="finals">Finales ganadas</option></select></label>}
         </FilterForm>
-        {!pairs&&<div className="player-index-row"><nav className="deuce-alphabet" aria-label="Índice alfabético"><Link href={url({letter:'',page:'1'})} aria-current={!letter?'page':undefined}>Todos</Link>{alphabet.map(initial=>availableLetters.has(initial)?<Link key={initial} href={url({letter:initial,page:'1'})} aria-current={letter===initial?'page':undefined}>{initial}</Link>:<span key={initial} aria-disabled="true">{initial}</span>)}</nav><p className="deuce-count" role="status">{number(total)} jugadores</p></div>}
       </div>
+      {!pairs&&<p className="deuce-count player-directory-count" role="status">{number(total)} jugadores</p>}
       {pairs&&<details className="deuce-disclosure"><summary>Elegir dos jugadores</summary><PairPicker/></details>}
       {pairs&&<p className="deuce-count" role="status">{number(total)} parejas · Resultados del archivo</p>}
-      {(term||letter)&&<Link className="deuce-text-link" href={pairs?'/jugadores?tipo=parejas':'/jugadores'}>Limpiar filtros <ArrowUpRight size={17} aria-hidden="true"/></Link>}
+      {term&&<Link className="deuce-text-link" href={pairs?'/jugadores?tipo=parejas':'/jugadores'}>Limpiar filtros <ArrowUpRight size={17} aria-hidden="true"/></Link>}
     </div>
     <ArchiveGrid cards={cards}/>
-    {!total&&<div className="deuce-empty deuce-content"><h2>No hay resultados</h2><p>No encontramos jugadores con esta búsqueda y esta inicial.</p><Link href={pairs?'/jugadores?tipo=parejas':'/jugadores'}>Quitar filtros</Link></div>}
+    {!total&&<div className="deuce-empty deuce-content"><h2>No hay resultados</h2><p>No encontramos jugadores con esta búsqueda.</p><Link href={pairs?'/jugadores?tipo=parejas':'/jugadores'}>Quitar filtros</Link></div>}
     <Pagination page={page} total={total} href={next=>url({page:String(next)})}/>
   </ArchivePage>;
 }

@@ -1,11 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import SetScoreboard from "@/components/SetScoreboard";
 import { notFound } from "next/navigation";
 import { courtPhoto } from "@/lib/imagery";
-import { number, surfaceLabel } from "@/lib/cuaderno/model";
+import { number } from "@/lib/cuaderno/model";
 import { preparedArchive, preparedEditionAudit } from "@/lib/revista/read-records";
-import { firstRecordedChampion } from "@/lib/revista/records";
 import { tournamentName } from "@/lib/labels";
 import {
   categoryLabel,
@@ -14,18 +12,16 @@ import {
   tournamentDirectory,
   tournamentRows,
 } from "@/lib/tournament-directory";
-import {
-  tournamentTimeline,
-  latestTournamentCourt,
-  tournamentSurfaceHistory,
-} from "@/lib/tournament-presentation";
-import { chronological, roundPosition, winnerName } from "@/lib/editorial";
-import { RankingRows, FirstRecorded } from "@/components/nocturno/Pieces";
+import { latestTournamentCourt } from "@/lib/tournament-presentation";
+import { chronological, roundPosition, scoreFor, winnerName } from "@/lib/editorial";
 import EditionPicker from "@/components/EditionPicker";
 import PlayerAvatar from "@/components/PlayerAvatar";
 import TournamentFinal from "@/components/TournamentFinal";
+import TournamentChampionRail from "@/components/TournamentChampionRail";
 import { Breadcrumbs } from "@/components/deuce/Breadcrumbs";
 import { editionCompleteness } from "@/lib/edition-audit";
+import { playerPhoto } from "@/lib/player-imagery";
+import { ArrowUpRight } from "lucide-react";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -77,12 +73,10 @@ export default async function Tournament({ params, searchParams }: Props) {
   const pieces = tournamentRows(registered);
   const years = categoryYears(tournament, category);
   const court = latestTournamentCourt(registered);
-  const surfaceHistory = tournamentSurfaceHistory(registered);
   const photo =
     tournament.canonical && ["Grand Slam", "Masters 1000"].includes(category)
       ? courtPhoto(tournament.name)
       : null;
-  const first = firstRecordedChampion(registered);
   const mainRates = pieces.rate.filter((row) => row.sample >= 50);
   const smallRates = pieces.rate.filter((row) => row.sample < 50);
   const finals = registered
@@ -91,6 +85,17 @@ export default async function Tournament({ params, searchParams }: Props) {
   const categoryAudits=audits.filter(audit=>audit.tournament===tournament.name&&audit.category===category).map(audit=>({...audit,...editionCompleteness(audit)}));
   const verifiedEditions=categoryAudits.filter(audit=>audit.completeDraw===true).length;
   const incompleteEditions=categoryAudits.filter(audit=>audit.completeDraw===false);
+  const distinctChampions = new Set(finals.map((match) => winnerName(match)).filter(Boolean)).size;
+  const decidingFinals = finals.filter((match) => Math.abs(match.score_summary.sets[0] - match.score_summary.sets[1]) === 1).length;
+  const longestFinal = [...finals].filter((match) => match.context?.minutes).sort((a,b)=>(b.context?.minutes||0)-(a.context?.minutes||0))[0];
+  const finalPairs = new Map<string,{names:[string,string];count:number}>();
+  for (const match of finals) {
+    const names=[match.player1.name,match.player2.name].sort((a,b)=>a.localeCompare(b,"es")) as [string,string];
+    const key=names.join("|");
+    const previous=finalPairs.get(key);
+    finalPairs.set(key,{names,count:(previous?.count||0)+1});
+  }
+  const recurringFinal=[...finalPairs.values()].sort((a,b)=>b.count-a.count)[0];
   const editionHref = (year: number) =>
     `/torneos/${slug}/${year}${tournament.categories.length > 1 ? `?categoria=${encodeURIComponent(category)}` : ""}`;
   return (
@@ -106,23 +111,13 @@ export default async function Tournament({ params, searchParams }: Props) {
             alt={photo.alt}
             fill
             sizes="(max-width: 759px) calc(100vw - 32px), 1240px"
+            style={{objectPosition:photo.objectPosition||"center"}}
             priority
           />
         )}
         <div className="td-venue-copy">
           <Breadcrumbs className="td-breadcrumb" items={[{label:'Torneos',href:'/torneos'},{label:tournamentName(tournament.name)}]}/>
           <h1>{tournamentName(tournament.name)}</h1>
-          <p className="td-hero-court">
-            <i
-              className={`nc-dot nc-dot-${court.surface}`}
-              aria-hidden="true"
-            />
-            {surfaceLabel[court.surface]}
-            {court.indoor === true && (
-              <span>· {court.indoor ? "Bajo techo" : ""}</span>
-            )}
-            <span>· última edición registrada, {court.year}</span>
-          </p>
         </div>
       </header>
 
@@ -182,117 +177,70 @@ export default async function Tournament({ params, searchParams }: Props) {
           className="nc-section td-champion-history"
           aria-labelledby="td-history-title"
         >
-          <div className="td-section-heading">
+          <div className="td-section-heading td-section-heading--rail">
             <div>
               <h2 id="td-history-title">Campeones de la historia</h2>
+              <p>Una secuencia visual de las últimas finales conservadas.</p>
             </div>
             <span>
-              Últimas {Math.min(6, finals.length)} finales registradas
+              Últimas {Math.min(10, finals.length)} finales registradas
             </span>
           </div>
-          <ol className="td-champions">
-            {finals.slice(0, 6).map((final) => {
+          <TournamentChampionRail>
+            {finals.slice(0, 10).map((final) => {
               const champion = winnerName(final)!;
               const opponent =
                 final.player1.name === champion
                   ? final.player2.name
                   : final.player1.name;
+              const championPhoto=playerPhoto(champion);
               return (
                 <li key={final.match_id}>
-                  <Link href={editionHref(final.year)}>
+                  <Link href={editionHref(final.year)} aria-label={`${champion}, campeón en ${final.year}. Final ante ${opponent}`}>
+                    {championPhoto ? <Image className="td-champion-photo" src={championPhoto.src} alt="" fill sizes="(max-width: 759px) 78vw, 330px" style={{objectPosition:championPhoto.objectPosition||"50% 20%"}} unoptimized /> : <PlayerAvatar name={champion} size={80} />}
+                    <span className="td-champion-shade" aria-hidden="true" />
                     <span className="td-champion-year">{final.year}</span>
-                    <PlayerAvatar name={champion} size={64} />
-                    <strong>{champion}</strong>
-                    <span>Final ante {opponent}</span>
+                    <span className="td-champion-copy"><strong>{champion}</strong><span>Final ante {opponent}</span><small>{scoreFor(final,champion)}</small></span>
                   </Link>
-                  <SetScoreboard match={final} compact />
                 </li>
               );
             })}
-          </ol>
+          </TournamentChampionRail>
         </section>
       )}
       {(pieces.titles.length > 0 || pieces.played.length > 0) && (
-        <div className="nc-tournament-columns td-tournament-rankings">
+        <section className="td-tournament-rankings" aria-labelledby="td-rankings-title">
+          <div className="td-section-heading"><div><h2 id="td-rankings-title">Nombres que definen el torneo</h2><p>Títulos y finales dentro de la cobertura disponible.</p></div></div>
           {pieces.titles.length > 0 && (
-            <section className="nc-section td-stat-panel">
-              <h2>Más títulos</h2>
-              <p className="nc-meta">
-                {years.at(-1)}–{years[0]} · En este archivo · Mínimo un título.
-              </p>
-              <RankingRows rows={pieces.titles.slice(0, 8)} />
-            </section>
+            <div className="td-titles-feature">
+              <div className="td-titles-leader">
+                <PlayerAvatar name={pieces.titles[0].name} size={88}/>
+                <span><small>Más títulos</small><strong>{pieces.titles[0].value}</strong><Link href={pieces.titles[0].href}>{pieces.titles[0].name}<ArrowUpRight size={16} aria-hidden="true"/></Link><em>{pieces.titles[0].detail}</em></span>
+              </div>
+              <ol className="td-title-chasers">{pieces.titles.slice(1,6).map((row,index)=><li key={row.name}><span>{index+2}</span><Link href={row.href}><PlayerAvatar name={row.name} size={34}/><strong>{row.name}</strong></Link><b>{number(row.value)}</b></li>)}</ol>
+            </div>
           )}
           {pieces.played.length > 0 && (
-            <section className="nc-section td-stat-panel">
-              <h2>Más finales</h2>
-              <p className="nc-meta">
-                {years.at(-1)}–{years[0]} · En este archivo · Mínimo una final.
-              </p>
-              <RankingRows rows={pieces.played.slice(0, 8)} />
-            </section>
-          )}
-        </div>
-      )}
-      {(mainRates.length > 0 || smallRates.length > 0) && (
-        <section className="nc-section td-stat-panel td-effectiveness">
-          <h2>Efectividad en este torneo</h2>
-          <p className="nc-meta">
-            Mínimo diez partidos. El porcentaje incluye victorias y derrotas con
-            marcador cerrado.
-          </p>
-          <RankingRows rows={mainRates.slice(0, 8)} percent />
-          {smallRates.length > 0 && (
-            <details>
-              <summary>Muestras pequeñas · menos de 50 partidos</summary>
-              <RankingRows rows={smallRates.slice(0, 25)} percent small />
-            </details>
+            <div className="td-finalists-strip"><h3>Más finales</h3><ol>{pieces.played.slice(0,7).map((row,index)=><li key={row.name}><Link href={row.href}><span>{number(index+1).padStart(2,"0")}</span><PlayerAvatar name={row.name} size={42}/><strong>{row.name}</strong><small>{row.detail}</small><b>{number(row.value)}</b></Link></li>)}</ol></div>
           )}
         </section>
       )}
-      {surfaceHistory.length > 1 && (
-        <details className="td-surface-history">
-          <summary>Las superficies de este torneo</summary>
-          <p>
-            Ediciones registradas de {categoryLabel(category)}. La fotografía
-            describe la sede; el color principal corresponde a {court.year}.
-          </p>
-          <ul>
-            {surfaceHistory.map((period) => (
-              <li key={period.surface}>
-                <i
-                  className={`nc-dot nc-dot-${period.surface}`}
-                  aria-hidden="true"
-                />
-                {surfaceLabel[period.surface]}
-                <span>
-                  {period.from === period.to
-                    ? period.from
-                    : `${period.from}–${period.to}`}
-                </span>
-              </li>
-            ))}
-          </ul>
-          {tournament.name === "Madrid" && category === "Masters 1000" && (
-            <a
-              href="https://www.atptour.com/en/news/madrid-foundation-story-bespoke-2024"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Historia oficial ATP: dura bajo techo hasta 2008; tierra al aire
-              libre desde 2009.
-            </a>
-          )}
-        </details>
+      {(mainRates.length > 0 || smallRates.length > 0) && (
+        <section className="td-effectiveness" aria-labelledby="td-effectiveness-title">
+          <div className="td-section-heading"><div><h2 id="td-effectiveness-title">Efectividad en este torneo</h2><p>Porcentaje de victorias con un mínimo de diez partidos registrados.</p></div></div>
+          <ol className="td-rate-bars">{[...mainRates,...smallRates].slice(0,8).map((row,index)=><li key={row.name}><span className="td-rate-rank">{number(index+1)}</span><Link href={row.href}><PlayerAvatar name={row.name} size={38}/><strong>{row.name}</strong><small>{row.detail}</small></Link><span className="td-rate-track" aria-hidden="true"><i style={{width:`${Math.min(100,row.value)}%`}}/></span><b>{number(row.value,1)} %</b></li>)}</ol>
+        </section>
       )}
-      <details className="archive-provenance"><summary>Categoría y condiciones por época</summary><p>Solo ediciones registradas. Un salto de años no acredita continuidad; una condición ausente no se deduce de la fotografía. Los nombres y sedes no documentados se mantienen sin reconstruir.</p><ul>{tournamentTimeline(tournament.matches).map(period=><li key={period.from+'-'+period.category+'-'+period.surface}>{period.from===period.to?period.from:period.from+'–'+period.to} · {categoryLabel(period.category)} · {surfaceLabel[period.surface]}{period.indoor===null?'':period.indoor?' · Bajo techo':' · Al aire libre'}</li>)}</ul></details>
-      {first && (
-        <FirstRecorded
-          name={first.name}
-          year={first.year}
-          match={first.proof}
-        />
-      )}
+      <section className="td-stories" aria-labelledby="td-stories-title">
+        <div className="td-section-heading"><div><h2 id="td-stories-title">El torneo, visto desde los datos</h2><p>Lecturas calculadas solo con resultados y contexto documentados.</p></div></div>
+        <div className="td-story-grid">
+          <article className="td-story-card td-story-card--number"><span>Finales al límite</span><strong>{number(decidingFinals)}</strong><p>se decidieron en el último set de su formato.</p></article>
+          <article className="td-story-card td-story-card--champions"><span>Campeones distintos</span><strong>{number(distinctChampions)}</strong><p>en {number(finals.length)} finales registradas.</p></article>
+          {recurringFinal&&<article className="td-story-card td-story-card--rivalry"><span>Final que más se repite</span><div><PlayerAvatar name={recurringFinal.names[0]} size={48}/><PlayerAvatar name={recurringFinal.names[1]} size={48}/></div><strong>{recurringFinal.names[0]} <i>contra</i> {recurringFinal.names[1]}</strong><p>{number(recurringFinal.count)} enfrentamientos por el título.</p></article>}
+          {longestFinal&&<article className="td-story-card td-story-card--duration"><span>Final más larga documentada</span><strong>{Math.floor((longestFinal.context?.minutes||0)/60)} h {(longestFinal.context?.minutes||0)%60} min</strong><p>{longestFinal.player1.name} contra {longestFinal.player2.name} · {longestFinal.year}</p><Link href={`/match/${longestFinal.match_id}`}>Ver partido <ArrowUpRight size={15} aria-hidden="true"/></Link></article>}
+          <article className="td-story-card td-story-card--sources"><span>Fuentes y trazabilidad</span><strong>Datos verificables</strong><p>Marcadores, cobertura de ediciones y créditos fotográficos separados de la lectura editorial.</p><nav aria-label="Fuentes del torneo"><Link href="/cobertura">Cobertura</Link><Link href="/credits">Fotografías</Link></nav></article>
+        </div>
+      </section>
     </div>
   );
 }
