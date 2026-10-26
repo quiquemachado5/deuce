@@ -11,12 +11,12 @@ test('mobile match filters keep search, filters and view controls distinct', asy
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
 });
 
-test('scoreboards expose set headings and the set total', async ({ page }) => {
+test('scoreboards show only the games in each set', async ({ page }) => {
   await page.goto('/buscar?q=Nadal+Federer+Wimbledon+2008');
   const card = page.locator('.match-scorecard').first();
-  await expect(card.locator('.global-score-labels')).toContainText('S1');
-  await expect(card.locator('.global-score-labels')).toContainText('Sets');
-  await expect(card.locator('.global-set-total')).toHaveCount(3);
+  await expect(card.locator('.global-score-labels')).toHaveCount(0);
+  await expect(card.locator('.global-set-total')).toHaveCount(0);
+  await expect(card.locator('.global-set')).not.toHaveCount(0);
 });
 
 test('record index is progressive and mobile directories are compact', async ({ page }) => {

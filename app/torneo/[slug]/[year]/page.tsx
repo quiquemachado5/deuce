@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { preparedEditionAudit, preparedTournamentArchive } from "@/lib/revista/read-records";
+import { preparedTournamentArchive } from "@/lib/revista/read-records";
 import { tournamentName } from "@/lib/labels";
 import {
   categoryLabel,
@@ -14,14 +14,11 @@ import { lostOpening } from "@/lib/archive-insights";
 import { closeness, number, surfaceLabel } from "@/lib/cuaderno/model";
 import { editionTournamentCourt } from "@/lib/tournament-presentation";
 import { courtPhoto, courtPhotoForEdition } from "@/lib/imagery";
-import Row from "@/components/nocturno/Row";
 import EditionPicker from "@/components/EditionPicker";
 import TournamentFinal from "@/components/TournamentFinal";
 import EditionMatchExplorer from "@/components/EditionMatchExplorer";
 import { toMatchRecord } from "@/data/map-match";
 import { publishedMatchMinutes } from "@/lib/duration";
-import { Breadcrumbs } from "@/components/deuce/Breadcrumbs";
-import { editionCompleteness } from "@/lib/edition-audit";
 import { mediaForEdition } from "@/lib/tournament-media";
 import TournamentEditionMediaView from "@/components/TournamentEditionMedia";
 
@@ -61,7 +58,7 @@ export async function generateMetadata({ params, searchParams }: Props) {
 export default async function Edition({ params, searchParams }: Props) {
   const { slug, year } = await params;
   const query = await searchParams;
-  const [archive,audits]=await Promise.all([preparedTournamentArchive(),preparedEditionAudit()]);
+  const archive=await preparedTournamentArchive();
   const tournament = tournamentDirectory(archive).find(
     (entry) => entry.slug === slug,
   );
@@ -77,17 +74,9 @@ export default async function Edition({ params, searchParams }: Props) {
   const matches = edition.filter((match) => match.category === category);
   if (!matches.length) notFound();
   const court = editionTournamentCourt(matches);
-  const storedAudit=audits.find(audit=>audit.tournament===tournament.name&&audit.year===Number(year)&&audit.category===category);
-  const audit=storedAudit?{...storedAudit,...editionCompleteness(storedAudit)}:null;
   const final = matches.find((match) => roundPosition(match.round) === 7);
   const measuredMatches=matches.filter(eligibleMatch);
-  const comeback =
-    measuredMatches
-      .filter((match) => lostOpening(match, 2))
-      .sort((a, b) => closeness(b) - closeness(a))[0] ||
-    measuredMatches
-      .filter((match) => lostOpening(match))
-      .sort((a, b) => closeness(b) - closeness(a))[0];
+  const comebacks=measuredMatches.filter(match=>lostOpening(match));
   const closest = [...measuredMatches].sort((a, b) => closeness(b) - closeness(a))[0];
   const timed = measuredMatches
     .filter((match) => publishedMatchMinutes(match) !== null)
@@ -96,39 +85,13 @@ export default async function Edition({ params, searchParams }: Props) {
     ? courtPhotoForEdition(tournament.name, Number(year)) || (Number(year)>=2023 ? courtPhoto(tournament.name) : null)
     : null;
   const editionMedia=mediaForEdition(tournament.name,Number(year));
-  const moments = [
-    comeback ? { match: comeback, label: "Remontada" } : null,
-    closest
-      ? {
-          match: closest,
-          label: `Marcador más ajustado · ${number(closeness(closest))} / 100`,
-        }
-      : null,
-    timed[0]
-      ? {
-          match: timed[0],
-          label: `Mayor duración publicada · ${durationLabel(publishedMatchMinutes(timed[0])!)}`,
-        }
-      : null,
-  ].filter(
-    (moment): moment is { match: (typeof matches)[number]; label: string } =>
-      Boolean(moment),
-  );
-  const uniqueMoments = [
-    ...new Map(
-      moments.map((moment) => [
-        moment.match.match_id,
-        {
-          match: moment.match,
-          labels: moments
-            .filter(
-              (candidate) => candidate.match.match_id === moment.match.match_id,
-            )
-            .map((candidate) => candidate.label),
-        },
-      ]),
-    ).values(),
-  ];
+  const tiebreaks=measuredMatches.reduce((total,match)=>total+match.score_summary.games.filter(set=>set.length===2&&Math.max(...set)===7&&Math.min(...set)===6).length,0);
+  const decidingMatches=measuredMatches.filter(match=>{
+    const [one,two]=match.score_summary.sets;
+    return Number.isFinite(one)&&Number.isFinite(two)&&Math.abs(one-two)===1;
+  }).length;
+  const straightSetWins=measuredMatches.filter(match=>match.score_summary.sets.some(value=>value>0)&&match.score_summary.sets.includes(0)).length;
+  const players=new Set(matches.flatMap(match=>[match.player1.name,match.player2.name])).size;
   const champion=final?winnerName(final):null;
   const editionResults=matches.filter(match=>roundPosition(match.round)>0).sort((a,b)=>roundPosition(b.round)-roundPosition(a.round)||b.score_summary.timestamp.localeCompare(a.score_summary.timestamp)).map(match=>({key:String(roundPosition(match.round)),label:roundLabel(match.round),position:roundPosition(match.round),championPath:Boolean(champion&&winnerName(match)===champion),match:toMatchRecord(match)}));
   return (
@@ -145,12 +108,11 @@ export default async function Edition({ params, searchParams }: Props) {
             src={photo.src}
             alt={photo.alt}
             fill
-            sizes="(max-width: 759px) calc(100vw - 32px), 1240px"
+            sizes="100vw"
             priority
           />
         )}
         <div className="td-edition-hero-copy">
-          <Breadcrumbs className="td-breadcrumb" items={[{label:'Torneos',href:'/torneos'},{label:tournamentName(tournament.name),href:`/torneos/${slug}`},{label:year}]}/>
           <h1>
             {tournamentName(tournament.name)} <span>{year}</span>
           </h1>
@@ -189,9 +151,8 @@ export default async function Edition({ params, searchParams }: Props) {
         <Link href={`/torneos/${slug}${tournament.categories.length > 1 ? `?categoria=${encodeURIComponent(category)}` : ""}`}>Resumen del torneo</Link>
         <span aria-current="page">Edición {year}</span>
       </nav>
-      {audit&&<div className={`td-coverage-status${audit.completeDraw===false?' is-warning':' is-complete'}`} role="status"><strong>{audit.completeDraw===false?'Edición incompleta en la fuente':'Cuadro final verificado'}</strong><span>{audit.completeDraw===false?`Revisión automática: ${[...audit.missingLateRounds,audit.pending?`${audit.pending} marcadores pendientes`:null].filter(Boolean).join(' · ')}.`:`Cuartos, semifinales y final presentes · ${number(audit.completed)} partidos completos y ${number(audit.terminal)} retiradas o encuentros sin jugar.`}</span><Link href="/cobertura#ediciones">Cómo se controla</Link></div>}
       <section className="td-editions td-editions--switch" aria-label="Cambiar edición">
-        <div><h2>Cambiar de edición</h2><p>Consulta otro año sin perder el contexto del torneo.</p></div>
+        <div><h2>Cambiar de edición</h2></div>
         <EditionPicker
           slug={slug}
           years={categoryYears(tournament, category)}
@@ -203,31 +164,23 @@ export default async function Edition({ params, searchParams }: Props) {
       {final && <TournamentFinal match={final} />}
       {editionMedia && <TournamentEditionMediaView media={editionMedia} />}
       <EditionMatchExplorer results={editionResults} />
-      {uniqueMoments.length > 0 && (
-        <section className="nc-section nc-edition-facts td-edition-moments">
+      {measuredMatches.length > 0 && (
+        <section className="nc-section nc-edition-facts td-edition-insights">
           <div className="td-section-heading">
             <div>
               <h2>Lecturas de la edición</h2>
+              <p>Las cifras que explican el desarrollo del torneo, calculadas con sus resultados cerrados.</p>
             </div>
           </div>
-          {uniqueMoments.map(({ match, labels }) => (
-            <div key={match.match_id}>
-              <h3>{labels.join(" · ")}</h3>
-              {match.match_id === closest?.match_id && (
-                <p className="nc-meta">
-                  El ajuste se basa solo en el tanteo; no mide la importancia
-                  del partido.
-                </p>
-              )}
-              {match.match_id === timed[0]?.match_id && (
-                <p className="nc-meta">
-                  {number(timed.length)} partidos de esta edición tienen
-                  duración publicada.
-                </p>
-              )}
-              <Row match={match} />
-            </div>
-          ))}
+          <div className="td-edition-insight-grid">
+            <article className="td-edition-insight td-edition-insight--hero"><span>Partidos cerrados</span><strong>{number(measuredMatches.length)}</strong><p>{number(players)} jugadores aparecen en la edición.</p></article>
+            <article className="td-edition-insight td-edition-insight--deciders"><span>Al set decisivo</span><strong>{number(decidingMatches)}</strong><p>partidos llegaron al último set de su formato.</p></article>
+            <article className="td-edition-insight td-edition-insight--tiebreak"><span>Tie-breaks</span><strong>{number(tiebreaks)}</strong><p>sets terminaron 7–6 o 6–7.</p></article>
+            <article className="td-edition-insight td-edition-insight--clean"><span>Sin ceder un set</span><strong>{number(straightSetWins)}</strong><p>victorias se resolvieron sin sets para el rival.</p></article>
+            <article className="td-edition-insight td-edition-insight--comeback"><span>Remontadas</span><strong>{number(comebacks.length)}</strong><p>ganadores perdieron el primer set.</p></article>
+            {closest&&<article className="td-edition-insight td-edition-insight--close"><span>Partido más ajustado</span><strong>{number(closeness(closest))}<small>/100</small></strong><p>{closest.player1.name} contra {closest.player2.name}.</p></article>}
+            {timed[0]&&<article className="td-edition-insight td-edition-insight--duration"><span>Mayor duración publicada</span><strong>{durationLabel(publishedMatchMinutes(timed[0])!)}</strong><p>{timed[0].player1.name} contra {timed[0].player2.name}.</p></article>}
+          </div>
         </section>
       )}
     </div>

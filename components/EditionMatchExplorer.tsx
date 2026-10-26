@@ -20,7 +20,7 @@ export default function EditionMatchExplorer({ results }: { results: EditionResu
   const choose = (next: string) => { setRound(next); setLimit(12); };
   return <section className="nc-section edition-match-explorer" aria-labelledby="edition-results-title">
     <div className="td-section-heading">
-      <div><h2 id="edition-results-title">Partidos de esta edición</h2><p>Resultados publicados, ordenados por ronda y con columnas de set estables.</p></div>
+      <div><h2 id="edition-results-title">Partidos de esta edición</h2><p>Resultados publicados y ordenados por ronda.</p></div>
       <span>{filtered.length} {filtered.length === 1 ? "partido" : "partidos"}</span>
     </div>
     <div className="edition-filter-bar">

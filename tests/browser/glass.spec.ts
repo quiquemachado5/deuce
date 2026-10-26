@@ -19,12 +19,13 @@ test('tournament directory prioritizes the four Grand Slams and preserves catego
   await expect(page).toHaveURL(/categoria=ATP/);
   await expect(page.locator('.catalog-card').first()).toBeVisible();
 });
-test('edition media stays lazy and exposes verified provenance',async({page})=>{
+test('edition media stays lazy without exposing technical provenance',async({page})=>{
   await page.goto('/torneos/roland-garros/2024');
   const media=page.locator('.tournament-edition-media');await media.scrollIntoViewIfNeeded();
   await expect(media.getByRole('heading',{name:'Registro multimedia'})).toBeVisible();
   await expect(media.locator('iframe')).toHaveCount(0);
-  await expect(media.getByRole('link',{name:/Original y metadatos/})).toHaveAttribute('href',/commons\.wikimedia\.org/);
+  await expect(media.getByRole('link')).toHaveCount(0);
+  await expect(media).not.toContainText(/licencia|crédito|metadatos|fuente/i);
   await media.getByRole('button',{name:/Reproducir Final masculina 2024/}).click();
   await expect(media.locator('iframe')).toHaveAttribute('src',/youtube-nocookie\.com/);
 });

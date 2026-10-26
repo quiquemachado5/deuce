@@ -13,7 +13,7 @@ export const courtPhotos: Record<string, Photo> = {
   'Australian Open': { photoYear: 2023, caption:'Rod Laver Arena · fotografía de 2023', src: '/images/courts/australian-open.jpg', alt: 'Rod Laver Arena durante el Abierto de Australia', credit: 'Gracchus250 · CC BY-SA 4.0', source: commons + 'Rod_Laver_Arena_Melbourne_Park_Australian_Open_2023_first_round.jpg' },
   'Roland Garros': { photoYear: 2024, caption:'Philippe-Chatrier · fotografía de 2024', src: '/images/courts/roland-garros.jpg', alt: 'Pista Philippe Chatrier en Roland Garros', credit: 'MFonzatti · CC BY-SA 4.0', source: commons + 'Court_Philippe_Chatrier_2024.jpg' },
   'Wimbledon': { src: '/images/courts/wimbledon.jpg', alt: 'Pista central de Wimbledon', credit: 'Arne Müseler · CC BY-SA 3.0 de', source: commons + 'Uk_london_Centre_Court_Wimbledon.jpg' },
-  'US Open': { photoYear: 2018, caption:'Arthur Ashe · fotografía de 2018', src: '/images/courts/us-open.jpg', alt: 'Estadio Arthur Ashe en el Abierto de Estados Unidos', credit: 'Whoisjohngalt · CC BY-SA 4.0', source: commons + 'Arthur_Ashe_Stadium_in_2018.jpg' },
+  'US Open': { photoYear: 2026, caption:'Arthur Ashe · panorámica de 2026', src: '/images/courts/us-open.jpg', alt: 'Panorámica del estadio Arthur Ashe durante el Abierto de Estados Unidos', credit: 'Oleg Yunakov · CC BY-SA 4.0', source: commons + 'Arthur_Ashe_Stadium_Panorama_US_Open_Tennis.jpg', licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/' },
 }
 export function courtPhoto(tournament: string) { return courtPhotos[tournament] || null }
 export function courtPhotoForEdition(tournament: string, year: number) {

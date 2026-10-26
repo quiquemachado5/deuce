@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { courtPhoto } from "@/lib/imagery";
 import { number } from "@/lib/cuaderno/model";
-import { preparedArchive, preparedEditionAudit } from "@/lib/revista/read-records";
+import { preparedArchive } from "@/lib/revista/read-records";
 import { tournamentName } from "@/lib/labels";
 import {
   categoryLabel,
@@ -18,11 +18,9 @@ import EditionPicker from "@/components/EditionPicker";
 import PlayerAvatar from "@/components/PlayerAvatar";
 import TournamentFinal from "@/components/TournamentFinal";
 import TournamentChampionRail from "@/components/TournamentChampionRail";
-import { Breadcrumbs } from "@/components/deuce/Breadcrumbs";
-import { editionCompleteness } from "@/lib/edition-audit";
 import { playerPhoto } from "@/lib/player-imagery";
 import { ArrowUpRight } from "lucide-react";
-import { latestMediaForTournament } from "@/lib/tournament-media";
+import { latestMediaForTournament, mediaForEdition } from "@/lib/tournament-media";
 import TournamentEditionMediaView from "@/components/TournamentEditionMedia";
 
 type Props = {
@@ -59,7 +57,7 @@ export async function generateMetadata({ params, searchParams }: Props) {
 export default async function Tournament({ params, searchParams }: Props) {
   const { slug } = await params;
   const { categoria } = await searchParams;
-  const [archive,audits]=await Promise.all([preparedArchive(),preparedEditionAudit()]);
+  const archive=await preparedArchive();
   const tournament = tournamentDirectory(archive).find(
     (entry) => entry.slug === slug,
   );
@@ -84,9 +82,6 @@ export default async function Tournament({ params, searchParams }: Props) {
   const finals = registered
     .filter((match) => roundPosition(match.round) === 7 && winnerName(match))
     .sort((a, b) => chronological(b, a));
-  const categoryAudits=audits.filter(audit=>audit.tournament===tournament.name&&audit.category===category).map(audit=>({...audit,...editionCompleteness(audit)}));
-  const verifiedEditions=categoryAudits.filter(audit=>audit.completeDraw===true).length;
-  const incompleteEditions=categoryAudits.filter(audit=>audit.completeDraw===false);
   const distinctChampions = new Set(finals.map((match) => winnerName(match)).filter(Boolean)).size;
   const decidingFinals = finals.filter((match) => Math.abs(match.score_summary.sets[0] - match.score_summary.sets[1]) === 1).length;
   const longestFinal = [...finals].filter((match) => match.context?.minutes).sort((a,b)=>(b.context?.minutes||0)-(a.context?.minutes||0))[0];
@@ -101,6 +96,7 @@ export default async function Tournament({ params, searchParams }: Props) {
   const editionHref = (year: number) =>
     `/torneos/${slug}/${year}${tournament.categories.length > 1 ? `?categoria=${encodeURIComponent(category)}` : ""}`;
   const editionMedia=latestMediaForTournament(tournament.name,years);
+  const championFinals=finals.filter(final=>winnerName(final)).slice(0,10);
   return (
     <div
       className="nc-wrap ry-photo-tournament-detail td-tournament"
@@ -113,13 +109,12 @@ export default async function Tournament({ params, searchParams }: Props) {
             src={photo.src}
             alt={photo.alt}
             fill
-            sizes="(max-width: 759px) calc(100vw - 32px), 1240px"
+            sizes="100vw"
             style={{objectPosition:photo.objectPosition||"center"}}
             priority
           />
         )}
         <div className="td-venue-copy">
-          <Breadcrumbs className="td-breadcrumb" items={[{label:'Torneos',href:'/torneos'},{label:tournamentName(tournament.name)}]}/>
           <h1>{tournamentName(tournament.name)}</h1>
         </div>
       </header>
@@ -159,14 +154,9 @@ export default async function Tournament({ params, searchParams }: Props) {
           </strong>
           <span>periodo de esta categoría</span>
         </div>
-        <div>
-          <strong>{number(verifiedEditions)}</strong>
-          <span>ediciones con rondas finales completas</span>
-        </div>
       </div>
-      <div className={`td-coverage-status${!categoryAudits.length?'':incompleteEditions.length?' is-warning':' is-complete'}`} role="status"><strong>{!categoryAudits.length?'Control de edición no disponible':incompleteEditions.length?`${number(incompleteEditions.length)} ediciones necesitan revisión`:'Rondas finales verificadas'}</strong><span>{!categoryAudits.length?'La página conserva los resultados publicados, pero no ha podido abrir el informe automático de esta categoría.':incompleteEditions.length?`Faltan rondas o marcadores por cerrar en la fuente guardada. Últimas: ${incompleteEditions.slice(0,3).map(audit=>`${audit.year} (${audit.missingLateRounds.join(', ')||`${audit.pending} pendientes`})`).join(' · ')}.`:`${number(verifiedEditions)} ediciones conservan cuartos, semifinales y final en la fuente publicada.`}</span><Link href="/cobertura#ediciones">Ver control de cobertura</Link></div>
       <section className="td-editions td-editions--archive" aria-labelledby="td-editions-heading">
-        <div><h2 id="td-editions-heading">Explorar una edición</h2><p>Abre un año para consultar su final, resultados, rondas y control de cobertura.</p></div>
+        <div><h2 id="td-editions-heading">Explorar una edición</h2></div>
         <EditionPicker
           slug={slug}
           years={years}
@@ -183,24 +173,23 @@ export default async function Tournament({ params, searchParams }: Props) {
           <div className="td-section-heading td-section-heading--rail">
             <div>
               <h2 id="td-history-title">Campeones de la historia</h2>
-              <p>Una secuencia visual de las últimas finales conservadas.</p>
+              <p>Cada edición conserva su propia imagen y su final.</p>
             </div>
-            <span>
-              Últimas {Math.min(10, finals.length)} finales registradas
-            </span>
           </div>
           <TournamentChampionRail>
-            {finals.slice(0, 10).map((final) => {
+            {championFinals.map((final, index) => {
               const champion = winnerName(final)!;
               const opponent =
                 final.player1.name === champion
                   ? final.player2.name
                   : final.player1.name;
-              const championPhoto=playerPhoto(champion);
+              const titlePhoto=mediaForEdition(tournament.name,final.year)?.trophy;
+              const repeatedChampion=championFinals.slice(0,index).some(item=>winnerName(item)===champion);
+              const championPhoto=titlePhoto||(!repeatedChampion?playerPhoto(champion):null);
               return (
                 <li key={final.match_id}>
                   <Link href={editionHref(final.year)} aria-label={`${champion}, campeón en ${final.year}. Final ante ${opponent}`}>
-                    {championPhoto ? <Image className="td-champion-photo" src={championPhoto.src} alt="" fill sizes="(max-width: 759px) 78vw, 330px" style={{objectPosition:championPhoto.objectPosition||"50% 20%"}} unoptimized /> : <PlayerAvatar name={champion} size={80} />}
+                    {championPhoto ? <Image className="td-champion-photo" src={championPhoto.src} alt={titlePhoto?`${champion} con el trofeo de ${final.year}`:""} fill sizes="(max-width: 759px) 78vw, 330px" style={{objectPosition:("objectPosition" in championPhoto&&championPhoto.objectPosition)||"50% 20%"}} unoptimized /> : <PlayerAvatar name={champion} size={80} />}
                     <span className="td-champion-shade" aria-hidden="true" />
                     <span className="td-champion-year">{final.year}</span>
                     <span className="td-champion-copy"><strong>{champion}</strong><span>Final ante {opponent}</span><small>{scoreFor(final,champion)}</small></span>
@@ -242,7 +231,6 @@ export default async function Tournament({ params, searchParams }: Props) {
           <article className="td-story-card td-story-card--champions"><span>Campeones distintos</span><strong>{number(distinctChampions)}</strong><p>en {number(finals.length)} finales registradas.</p></article>
           {recurringFinal&&<article className="td-story-card td-story-card--rivalry"><span>Final que más se repite</span><div><PlayerAvatar name={recurringFinal.names[0]} size={48}/><PlayerAvatar name={recurringFinal.names[1]} size={48}/></div><strong>{recurringFinal.names[0]} <i>contra</i> {recurringFinal.names[1]}</strong><p>{number(recurringFinal.count)} enfrentamientos por el título.</p></article>}
           {longestFinal&&<article className="td-story-card td-story-card--duration"><span>Final más larga documentada</span><strong>{Math.floor((longestFinal.context?.minutes||0)/60)} h {(longestFinal.context?.minutes||0)%60} min</strong><p>{longestFinal.player1.name} contra {longestFinal.player2.name} · {longestFinal.year}</p><Link href={`/match/${longestFinal.match_id}`}>Ver partido <ArrowUpRight size={15} aria-hidden="true"/></Link></article>}
-          <article className="td-story-card td-story-card--sources"><span>Fuentes y trazabilidad</span><strong>Datos verificables</strong><p>Marcadores, cobertura de ediciones y créditos fotográficos separados de la lectura editorial.</p><nav aria-label="Fuentes del torneo"><Link href="/cobertura">Cobertura</Link><Link href="/credits">Fotografías</Link></nav></article>
         </div>
       </section>
     </div>

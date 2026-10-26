@@ -34,6 +34,9 @@ test("Madrid uses clay today and preserves indoor hard for its 2007 Masters edit
   await expect(current).toHaveAttribute("data-event-surface", "clay");
   await expect(current.locator(".td-hero-court")).toHaveCount(0);
   await expect(current.locator(".td-venue-hero")).not.toContainText("última edición registrada");
+  await expect(current.locator(".td-breadcrumb")).toHaveCount(0);
+  await expect(current.locator(".td-tournament-facts>div")).toHaveCount(3);
+  await expect(current.getByText(/necesitan revisión/i)).toHaveCount(0);
 
   await page.goto("/madrid/2007?categoria=Masters%201000");
   const historical = page.locator(".td-edition");
@@ -97,6 +100,8 @@ test("mobile edition rounds keep scores, tiebreaks and the champion path",async(
  const button=picker.getByRole('button',{name:/^Final/});await button.focus();await button.press('Enter');
  await expect(explorer.locator('.edition-result-list>li')).toHaveCount(1);
  await expect(explorer.locator('.global-player').first().locator('.global-set')).toHaveCount(5);
+ await expect(explorer.locator('.global-score-labels')).toHaveCount(0);
+ await expect(explorer.locator('.global-set-total')).toHaveCount(0);
  await expect(explorer.locator('.match-winner')).toContainText('Carlos Alcaraz');
  const score=page.locator('.deuce-tournament-final .global-scoreboard');await expect(score).toHaveAccessibleName(/Alexander Zverev contra Carlos Alcaraz/);
  await picker.getByRole('button',{name:/^Octavos de final/}).click();
