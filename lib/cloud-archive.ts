@@ -3,6 +3,7 @@ import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 import { randomUUID } from 'node:crypto'
 import { readdir } from 'node:fs/promises'
 import { join } from 'node:path'
+import { gunzipSync } from 'node:zlib'
 import { loadMissingDetails } from './archive-detail-batches'
 import { archiveGet, archiveReadFailure } from './archive-get'
 import { enrichmentPlan } from './enrichment-plan'
@@ -41,6 +42,27 @@ export async function cloudRead(key: string): Promise<any> {
   })()
   cache.set(key, { at: Date.now(), value: pending.value })
   return pending.value
+}
+
+/** Read one immutable artifact from a published records generation. */
+export async function cloudSnapshotBlob<T>(version: string, id: string): Promise<T | undefined> {
+  const key = `reading-v2-${version}-${id}`
+  const index = await cloudRead(key)
+  if (!index || typeof index !== 'object') return undefined
+  try {
+    let encoded: string
+    if (typeof index.gzip === 'string') encoded = index.gzip
+    else {
+      const chunks = Number(index.chunks)
+      if (index.encoding !== 'gzip-chunks' || !Number.isInteger(chunks) || chunks < 1 || chunks > 256) return undefined
+      const parts = await Promise.all(Array.from({ length: chunks }, (_, part) => cloudRead(`${key}-chunk${part}`)))
+      if (parts.some(value => typeof value?.chunk !== 'string' || !value.chunk.length)) return undefined
+      encoded = parts.map(value => value.chunk).join('')
+    }
+    return JSON.parse(gunzipSync(Buffer.from(encoded, 'base64')).toString()) as T
+  } catch {
+    return undefined
+  }
 }
 export type ArchiveWrite = { key: string; payload: unknown }
 export async function cloudWriteMany(entries: readonly ArchiveWrite[]) {
