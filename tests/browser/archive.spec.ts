@@ -41,7 +41,7 @@ test('global search finds tournaments, editions and a player with a typo', async
 
 test('record year filters persist across navigation and reload', async ({ page }) => {
   await page.goto('/records?dato=top-10&year=2023');
-  await page.locator('summary').filter({hasText:'Temporada'}).click();
+  await page.locator('summary[aria-label="Temporada"]').click();
   await page.getByRole('button',{name:'2019',exact:true}).click();
   await expect(page).toHaveURL(/year=2019/);
   await expect(page.getByRole('heading', { name: 'Clasificación', exact: true })).toBeVisible();
@@ -51,7 +51,7 @@ test('record year filters persist across navigation and reload', async ({ page }
 
 test('moqueta can be selected and returned by the API', async ({ page, request }) => {
   await page.goto('/buscar?surface=carpet');
-  await expect(page.getByRole('button',{name:'Quitar filtro Moqueta'})).toBeVisible();
+  await expect(page.locator('summary[aria-label="Superficie"]')).toContainText('Moqueta');
   const response = await request.get('/api/matches?surface=carpet&limit=5');
   expect(response.status()).toBe(200);
   const body = await response.json();

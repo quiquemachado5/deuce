@@ -50,6 +50,7 @@ test('Australian draw and walkover details remain truthful',async({page})=>{
 test('match header keeps the result and omits redundant metadata actions',async({page})=>{
  await page.goto('/match/reference-ao-2026-ms701');
  await expect(page.locator('.deuce-match-detail > .global-scoreboard .global-player')).toHaveCount(2);
+ await expect(page.locator('.deuce-match-detail>h1')).toHaveClass(/nc-sr/);
  await expect(page.getByText('Fecha del partido')).toHaveCount(0);
  await expect(page.getByText('Información y cobertura')).toHaveCount(0);
  await expect(page.getByRole('button',{name:'Compartir partido',exact:true})).toHaveCount(0);

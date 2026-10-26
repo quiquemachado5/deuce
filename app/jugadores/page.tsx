@@ -64,14 +64,16 @@ export default async function Players({ searchParams }: {
   });
   return <ArchivePage title="Jugadores">
     <div className="deuce-content">
-      <nav className="deuce-tabs" aria-label="Explorar jugadores"><Link href="/jugadores" aria-current={!pairs?'page':undefined}>Jugadores</Link><Link href="/jugadores?tipo=parejas" aria-current={pairs?'page':undefined}>Cara a cara</Link></nav>
-      <FilterForm action="/jugadores">
-        <input type="hidden" name="tipo" value={pairs?'parejas':'jugadores'}/>
-        {letter&&<input type="hidden" name="letter" value={letter}/>}
-        <label className="nc-field nc-filter-query"><span>Buscar {pairs?'un enfrentamiento':'jugadores'}</span><input name="q" defaultValue={query.q} placeholder="Nombre del jugador"/></label>
-        {!pairs&&<label className="nc-field"><span>Ordenar por</span><select name="sort" defaultValue={sort}><option value="wins">Victorias</option><option value="played">Partidos</option><option value="finals">Finales ganadas</option></select></label>}
-      </FilterForm>
-      {!pairs&&<nav className="deuce-alphabet" aria-label="Índice alfabético"><Link href={url({letter:'',page:'1'})} aria-current={!letter?'page':undefined}>Todos</Link>{alphabet.map(initial=>availableLetters.has(initial)?<Link key={initial} href={url({letter:initial,page:'1'})} aria-current={letter===initial?'page':undefined}>{initial}</Link>:<span key={initial} aria-disabled="true">{initial}</span>)}</nav>}
+      <div className="archive-filter-shell">
+        <nav className="deuce-tabs" aria-label="Explorar jugadores"><Link href="/jugadores" aria-current={!pairs?'page':undefined}>Jugadores</Link><Link href="/jugadores?tipo=parejas" aria-current={pairs?'page':undefined}>Cara a cara</Link></nav>
+        <FilterForm action="/jugadores">
+          <input type="hidden" name="tipo" value={pairs?'parejas':'jugadores'}/>
+          {letter&&<input type="hidden" name="letter" value={letter}/>}
+          <label className="nc-field nc-filter-query"><span>Buscar {pairs?'un enfrentamiento':'jugadores'}</span><input name="q" defaultValue={query.q} placeholder="Nombre del jugador"/></label>
+          {!pairs&&<label className="nc-field"><span>Ordenar por</span><select name="sort" defaultValue={sort}><option value="wins">Victorias</option><option value="played">Partidos</option><option value="finals">Finales ganadas</option></select></label>}
+        </FilterForm>
+        {!pairs&&<nav className="deuce-alphabet" aria-label="Índice alfabético"><Link href={url({letter:'',page:'1'})} aria-current={!letter?'page':undefined}>Todos</Link>{alphabet.map(initial=>availableLetters.has(initial)?<Link key={initial} href={url({letter:initial,page:'1'})} aria-current={letter===initial?'page':undefined}>{initial}</Link>:<span key={initial} aria-disabled="true">{initial}</span>)}</nav>}
+      </div>
       {pairs&&<details className="deuce-disclosure"><summary>Elegir dos jugadores</summary><PairPicker/></details>}
       <p className="deuce-count" role="status">{number(total)} {pairs?'parejas':'jugadores'} · Resultados del archivo, no clasificación ATP</p>
       {(term||letter)&&<Link className="deuce-text-link" href={pairs?'/jugadores?tipo=parejas':'/jugadores'}>Limpiar filtros <ArrowUpRight size={17} aria-hidden="true"/></Link>}
