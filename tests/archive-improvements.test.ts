@@ -26,6 +26,11 @@ test('semantic match search returns only the requested format, round and names',
   const semi={...final,match_id:'search-b',round:'Semifinal'};
   assert.deepEqual(matchingMatches('Nadal Federer Wimbledon 2008 finales a cinco sets',[final,semi]).map(m=>m.match_id),['search-a']);
   assert.equal(matchingMatches('Djokovic Wimbledon 2008',[final,semi]).length,0);
+  assert.deepEqual(matchingMatches('Nadal Federar Wimbledon 2008 final',[final,semi]).map(m=>m.match_id),['search-a']);
+  const quarter={...final,match_id:'search-c',tournament:'Australian Open',round:'Quarterfinal'};
+  assert.deepEqual(matchingMatches('Australian Open 2008 quarterfinal',[quarter]).map(m=>m.match_id),['search-c']);
+  const lyon={...final,match_id:'search-d',tournament:'Lyon (France)'};
+  assert.deepEqual(matchingMatches('Lyon Francia 2008 final',[lyon]).map(m=>m.match_id),['search-d']);
 });
 test('freshness separates exact dates, edition starts, invalid dates and future data',()=>{
   assert.equal(exactDay('2026-02-30'),null);

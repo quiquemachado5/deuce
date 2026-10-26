@@ -1,10 +1,10 @@
-import { searchText } from './search-text';
+import { canonicalSearchText } from './search-text';
 import type { Match } from './types';
 import { roundPosition } from './editorial';
 
 /** Explicit vocabulary only: numbers and names are never guessed. */
 export function matchSearchIntent(query: string) {
-  let text = searchText(query.slice(0, 180));
+  let text = canonicalSearchText(query.slice(0, 180));
   const labels: string[] = [];
   const fiveSets = /\b(?:a |en )?(?:cinco|5) sets\b/.test(text);
   if (fiveSets) { text = text.replace(/\b(?:a |en )?(?:cinco|5) sets\b/g, ' '); labels.push('Cinco sets'); }
@@ -22,8 +22,7 @@ export function matchSearchIntent(query: string) {
   const yearToken = text.match(/\b(?:19|20)\d{2}\b/)?.[0];
   const year = yearToken ? Number(yearToken) : undefined;
   if (yearToken) { text = text.replace(yearToken, ' '); labels.push(yearToken); }
-  text = text.replace(/\bfrench open\b|\brg\b/g, 'roland garros').replace(/\bao\b/g, 'australian open')
-    .replace(/\bee uu\b|\busopen\b/g, 'us open');
+  text = text.replace(/\bao\b/g, 'abierto de australia').replace(/\busopen\b/g, 'abierto de estados unidos');
   const terms = text.split(/\s+/).filter(term => term && !['partido', 'partidos', 'contra', 'vs', 'versus', 'de', 'del', 'en', 'a', 'y'].includes(term));
   return { terms, year, round, surface, fiveSets, labels };
 }

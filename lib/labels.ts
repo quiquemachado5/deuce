@@ -9,6 +9,10 @@ const tournaments: Record<string, string> = {
   'Lyon (France)': 'Lyon',
   Brussels: 'Bruselas',
   Tokyo: 'Tokio',
+  'Davis Cup - World Group': 'Copa Davis · Grupo Mundial',
+  'Davis Cup - World Group I': 'Copa Davis · Grupo Mundial I',
+  'Davis Cup - World Group II': 'Copa Davis · Grupo Mundial II',
+  'Olympic Games': 'Juegos Olímpicos',
 }
 export function tournamentName(name: string) { return tournaments[name] || name }
 /** Typography only: retain provider spelling as the stable lookup key. */

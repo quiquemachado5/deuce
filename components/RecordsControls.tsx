@@ -2,7 +2,7 @@
 
 import { useRef, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
-import { Check, ChevronDown, X } from 'lucide-react';
+import { ArrowRight, Check, ChevronDown, Search, X } from 'lucide-react';
 import { recordsUrl, type RecordQuery } from '@/lib/records-url';
 import styles from '@/app/records/records.module.css';
 
@@ -23,8 +23,9 @@ function Menu({ filter, value, pending, choose }: { filter: RecordFilter; value?
   </details>;
 }
 
-export default function RecordsControls({ query, filters }: { query: RecordQuery; filters: RecordFilter[] }) {
+export default function RecordsControls({ query, filters, searchable = false }: { query: RecordQuery; filters: RecordFilter[]; searchable?: boolean }) {
   const router = useRouter();
+  const search = useRef<HTMLInputElement>(null);
   const [pending, startTransition] = useTransition();
   const apply = (changes: RecordQuery) => startTransition(() => router.replace(recordsUrl(query, { page: undefined, smallPage: undefined, ...changes }), { scroll: false }));
   const active = filters.flatMap(filter => {
@@ -32,7 +33,8 @@ export default function RecordsControls({ query, filters }: { query: RecordQuery
     return option && filter.key !== 'corte' ? [{ key: filter.key, ...option }] : [];
   });
   return <div className={`${styles.controls} archive-unified-toolbar`} aria-busy={pending}>
-    <div className={styles.menus} aria-label="Filtrar estadísticas">{filters.map(filter => <Menu key={filter.key} filter={filter} value={query[filter.key] === 'all' ? '' : query[filter.key]} pending={pending} choose={value => apply({ [filter.key]: value })} />)}</div>
+    {searchable && <form className={styles.recordSearch} role="search" onSubmit={event => { event.preventDefault(); apply({ q: search.current?.value.trim() || undefined, grupo: undefined }); }}><Search size={18} aria-hidden="true"/><label className="nc-sr" htmlFor="record-search">Buscar una estadística</label><input ref={search} id="record-search" type="search" defaultValue={query.q || ''} placeholder="Buscar una estadística"/><button type="submit" aria-label="Buscar estadística"><ArrowRight size={17} aria-hidden="true"/></button></form>}
+    <div className={styles.filterBand}><span>Filtrar por</span><div className={styles.menus} aria-label="Filtrar estadísticas">{filters.map(filter => <Menu key={filter.key} filter={filter} value={query[filter.key] === 'all' ? '' : query[filter.key]} pending={pending} choose={value => apply({ [filter.key]: value })} />)}</div></div>
     {active.length > 0 && <div className={styles.chips} aria-label="Filtros activos">{active.map(item => <button disabled={pending} type="button" key={item.key} aria-label={`Quitar filtro ${item.label}`} onClick={() => apply({ [item.key]: undefined })}>{item.label}<X size={13} aria-hidden="true" /></button>)}</div>}
     <span role="status" className="nc-sr">{pending ? 'Actualizando estadísticas…' : ''}</span>
   </div>;

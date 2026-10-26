@@ -15,6 +15,36 @@ type Selection = {
   };
 };
 
+export function CompareSampleFilters({
+  summary,
+  children,
+}: {
+  summary: string;
+  children: ReactNode;
+}) {
+  const details = useRef<HTMLDetailsElement>(null);
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 600px)");
+    const update = () => {
+      if (details.current) {
+        details.current.open = !media.matches;
+        details.current.dataset.ready = "true";
+      }
+    };
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
+  return (
+    <details ref={details} className="dx-more-filters" data-responsive="true" open>
+      <summary>
+        Filtros de la muestra <span>{summary}</span>
+      </summary>
+      <div>{children}</div>
+    </details>
+  );
+}
+
 /** The submitted filters stay native; the mobile dock keeps the current pair in sight. */
 export default function CompareSelection({
   initial,
@@ -102,7 +132,6 @@ export default function CompareSelection({
                 <div>
                   <span>Jugador {index + 1}</span>
                   <strong>
-
                     <span>{name.trim() || "Elige jugador"}</span>
                   </strong>
                 </div>

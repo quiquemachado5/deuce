@@ -16,6 +16,7 @@ import ShareLinkButton from '@/components/ShareLinkButton';
 import RecordsControls, { type RecordFilter } from '@/components/RecordsControls';
 import RecordsTable, { RecordsPagination } from '@/components/RecordsTable';
 import PlayerAvatar from '@/components/PlayerAvatar';
+import { canonicalSearchText } from '@/lib/search-text';
 import styles from './records.module.css';
 
 const families = [
@@ -29,16 +30,17 @@ const families = [
 function RecordIndex({ manifest, query }: { manifest: Awaited<ReturnType<typeof recordView>>['manifest']; query: RecordQuery }) {
   const groups=[...new Set(manifest.pieces.map(piece=>piece.group))];
   const selected=query.grupo&&groups.includes(query.grupo)?query.grupo:'';
-  const pieces=manifest.pieces.filter(piece=>!selected||piece.group===selected);
+  const term=canonicalSearchText(query.q||'');
+  const pieces=manifest.pieces.filter(piece=>(!selected||piece.group===selected)&&(!term||canonicalSearchText(`${piece.title} ${piece.group} ${piece.leader?.name||''}`).includes(term)));
   const featured=pieces.filter(piece=>piece.leader).slice(0,8);
   return <ArchivePage title="Récords" className="records-page">
     <div className="deuce-content records-intro">
       <p>Las marcas del archivo, desde 1968 hasta la última temporada registrada.</p>
-      <RecordsControls query={query} filters={filtersFor(manifest.years)}/>
+      <RecordsControls query={query} filters={filtersFor(manifest.years)} searchable/>
       <p className="deuce-count">{number(pieces.length)} estadísticas calculadas con {number(manifest.matchCount)} partidos</p>
     </div>
     {!!featured.length&&<section className="records-featured deuce-content" aria-labelledby="records-featured-heading"><div className="records-section-head"><h2 id="records-featured-heading">En primer plano</h2><span>Desliza para explorar →</span></div><div className="records-featured-track">{featured.map(piece=><Link key={piece.id} href={recordsUrl(recordFilters(query),{dato:piece.id})} className="records-feature-card"><span className="records-feature-type">{piece.group}</span><strong>{recordValue(piece.leader!,piece.percent,piece.id==='tal-dia-como-hoy')}</strong><span className="records-feature-title">{piece.title}</span><span className="records-feature-person"><PlayerAvatar name={piece.leader!.name} size={44}/>{piece.leader!.name}</span><span className="records-feature-arrow" aria-hidden="true">↗</span></Link>)}</div></section>}
-    <section className="records-directory deuce-content" aria-labelledby="records-directory-heading"><div className="records-section-head"><h2 id="records-directory-heading">Todas las estadísticas</h2><span>{number(pieces.length)} registros</span></div><nav className="deuce-tabs" aria-label="Familias de estadísticas"><Link href={recordsUrl(recordFilters(query))} aria-current={!selected?'page':undefined}>Todas</Link>{groups.map(group=><Link key={group} href={recordsUrl(recordFilters(query),{grupo:group})} aria-current={selected===group?'page':undefined}>{families.find(([,value])=>value===group)?.[0]||group}</Link>)}</nav><div className="records-family-list">{(selected?[selected]:groups).map(group=><section key={group} className="records-family"><h3>{families.find(([,value])=>value===group)?.[0]||group}</h3><div>{pieces.filter(piece=>piece.group===group).map(piece=><Link key={piece.id} href={recordsUrl(recordFilters(query),{dato:piece.id})}><span>{piece.title}<small>{piece.leader?.name||'Sin muestra suficiente'}</small></span><strong>{piece.leader?recordValue(piece.leader,piece.percent,piece.id==='tal-dia-como-hoy'):'—'}</strong><ArrowUpRight size={17} aria-hidden="true"/></Link>)}</div></section>)}</div></section>
+    <section className="records-directory deuce-content" aria-labelledby="records-directory-heading"><div className="records-section-head"><h2 id="records-directory-heading">Todas las estadísticas</h2><span>{number(pieces.length)} registros</span></div><nav className="deuce-tabs" aria-label="Familias de estadísticas"><Link href={recordsUrl(recordFilters(query),{q:query.q})} aria-current={!selected?'page':undefined}>Todas</Link>{groups.map(group=><Link key={group} href={recordsUrl(recordFilters(query),{grupo:group,q:query.q})} aria-current={selected===group?'page':undefined}>{families.find(([,value])=>value===group)?.[0]||group}</Link>)}</nav><div className="records-family-list">{(selected?[selected]:groups).map(group=>{const groupPieces=pieces.filter(piece=>piece.group===group),visible=selected||term?groupPieces:groupPieces.slice(0,5);return <section key={group} className="records-family"><h3>{families.find(([,value])=>value===group)?.[0]||group}</h3><div>{visible.map(piece=><Link key={piece.id} href={recordsUrl(recordFilters(query),{dato:piece.id})}><span>{piece.title}<small>{piece.leader?.name||'Sin muestra suficiente'}</small></span><strong>{piece.leader?recordValue(piece.leader,piece.percent,piece.id==='tal-dia-como-hoy'):'—'}</strong><ArrowUpRight size={17} aria-hidden="true"/></Link>)}{!selected&&!term&&groupPieces.length>visible.length&&<Link className="records-family-more" href={recordsUrl(recordFilters(query),{grupo:group})}><span>Ver las {number(groupPieces.length)} estadísticas</span><ArrowUpRight size={17} aria-hidden="true"/></Link>}</div></section>})}</div>{!pieces.length&&<p className="archive-freshness" role="status">No hay estadísticas que coincidan con «{query.q}».</p>}</section>
   </ArchivePage>;
 }
 

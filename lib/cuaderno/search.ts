@@ -8,17 +8,17 @@ import { tournamentName } from "../labels";
 import { score, round, sentence } from "./model";
 import { tournamentDirectory } from '../tournament-directory';
 import { matchSearchIntent, matchesIntent } from '../search-intent';
-import { approximateName, searchText } from '../search-text';
+import { approximateName, canonicalSearchText, searchTermsMatch } from '../search-text';
 import type { SearchItem } from "@/components/revista/Frame";
 export async function searchArchive(query: string, options: { includeMatches?: boolean; data?: Awaited<ReturnType<typeof notebook>> } = {}) {
   query = query.trim().slice(0, 180);
   if (!query) return [] as SearchItem[];
   const data = options.data || await notebook(),
-    q = normalizeText(query).replace(/[–—]/g, "-"),
+    q = canonicalSearchText(query).replace(/[–—]/g, "-"),
     terms = q.split(/\s+/).filter(Boolean);
   if (!terms.length) return [] as SearchItem[];
   const includes = (v: string) =>
-    terms.every((t) => normalizeText(v).replace(/[–—]/g, "-").includes(t));
+    terms.every((t) => canonicalSearchText(v).replace(/[–—]/g, "-").includes(t));
   const records = data.manifest.pieces,
     items: SearchItem[] = [];
   for (const s of records
@@ -46,7 +46,7 @@ export async function searchArchive(query: string, options: { includeMatches?: b
   let foundEvent = false;
   if (eventTerms.length) {
     const eventQuery = eventTerms.join(' ');
-    const events = tournamentDirectory(data.matches).filter(event => eventTerms.every(term => searchText(`${event.name} ${tournamentName(event.name)}`).includes(searchText(term))) || approximateName(eventQuery, tournamentName(event.name))).slice(0, 3);
+    const events = tournamentDirectory(data.matches).filter(event => eventTerms.every(term => canonicalSearchText(`${event.name} ${tournamentName(event.name)}`).includes(canonicalSearchText(term))) || searchTermsMatch(eventTerms, `${event.name} ${tournamentName(event.name)}`) || approximateName(eventQuery, tournamentName(event.name))).slice(0, 3);
     foundEvent = events.length > 0;
     for (const event of events) {
       if (!requestedYear) items.push({ href: `/torneos/${event.slug}`, name: tournamentName(event.name), group: 'Torneos', detail: `${event.matches.length.toLocaleString('es-ES')} partidos en el archivo` });
@@ -103,23 +103,29 @@ export function matchingMatches(query: string, matches: Match[], limit = Infinit
   if (shelf) return shelfMatches(shelf, matches).sort((a,b) => b.score_summary.timestamp.localeCompare(a.score_summary.timestamp)).slice(0, limit);
   let index = matchIndexes.get(matches);
   if (!index) {
-    index = matches.map(match => ({match, text: searchText(`${match.player1.name} ${match.player2.name} ${tournamentName(match.tournament)} ${match.tournament} ${match.year} ${round(match)}`).replace(/[–—]/g, '-')}));
+    index = matches.map(match => ({match, text: canonicalSearchText(`${match.player1.name} ${match.player2.name} ${tournamentName(match.tournament)} ${match.tournament} ${match.year} ${round(match)}`).replace(/[–—]/g, '-')}));
     matchIndexes.set(matches, index);
   }
-  const result: Match[] = [];
-  for (const entry of index) {
-    if (!matchesIntent(entry.match, intent) || !intent.terms.every(term => entry.text.includes(term))) continue;
-    if (!Number.isFinite(limit)) {
-      result.push(entry.match);
-      continue;
+  const collect = (fuzzy: boolean) => {
+    const result: Match[] = [];
+    for (const entry of index) {
+      const termsMatch = fuzzy ? searchTermsMatch(intent.terms, entry.text) : intent.terms.every(term => entry.text.includes(term));
+      if (!matchesIntent(entry.match, intent) || !termsMatch) continue;
+      if (!Number.isFinite(limit)) {
+        result.push(entry.match);
+        continue;
+      }
+      const date = entry.match.score_summary.timestamp;
+      if (result.length >= limit && date <= result[result.length - 1].score_summary.timestamp) continue;
+      const earlier = result.findIndex(match => date > match.score_summary.timestamp);
+      result.splice(earlier < 0 ? result.length : earlier, 0, entry.match);
+      if (result.length > limit) result.pop();
     }
-    const date = entry.match.score_summary.timestamp;
-    if (result.length >= limit && date <= result[result.length - 1].score_summary.timestamp) continue;
-    const earlier = result.findIndex(match => date > match.score_summary.timestamp);
-    result.splice(earlier < 0 ? result.length : earlier, 0, entry.match);
-    if (result.length > limit) result.pop();
-  }
-  return Number.isFinite(limit)
-    ? result
-    : result.sort((a,b) => b.score_summary.timestamp.localeCompare(a.score_summary.timestamp));
+    return Number.isFinite(limit)
+      ? result
+      : result.sort((a,b) => b.score_summary.timestamp.localeCompare(a.score_summary.timestamp));
+  };
+  const exact = collect(false);
+  if (exact.length) return exact;
+  return collect(true);
 }

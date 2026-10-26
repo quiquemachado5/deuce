@@ -8,6 +8,7 @@ import { number, surfaceLabel } from '@/lib/cuaderno/model';
 import { categoryYears, tournamentDirectory } from '@/lib/tournament-directory';
 import { Pagination } from '@/components/nocturno/Row';
 import { ArchivePage, ArchiveGrid } from '@/components/deuce/ArchivePage';
+import { winnerName, roundPosition } from '@/lib/editorial';
 type Query = { categoria?: string; page?: string };
 type Props = { searchParams: Promise<Query> };
 const primaryCategories = ["Grand Slam", "Masters 1000", "ATP 500", "ATP 250"] as const;
@@ -46,12 +47,14 @@ export default async function Tournaments({searchParams}:Props) {
     const filtered=activeCategory?entry.matches.filter(match=>match.category===activeCategory):entry.matches;
     const court=latestTournamentCourt(filtered),photo=entry.canonical?courtPhoto(entry.name):null;
     const years=activeCategory?categoryYears(entry,activeCategory):[...new Set(filtered.map(match=>match.year))].sort((a,b)=>b-a);
+    const latestFinal=filtered.filter(match=>roundPosition(match.round)===7).sort((a,b)=>b.year-a.year||b.score_summary.timestamp.localeCompare(a.score_summary.timestamp))[0];
+    const champion=latestFinal?winnerName(latestFinal):null;
     return {surface:court.surface,id:entry.slug,title:tournamentName(entry.name),image:photo?.src,alt:photo?.alt,imagePosition:'center',
       eyebrow:activeCategory?primaryLabel(activeCategory):entry.categories.map(primaryLabel).join(' · '),
-      meta:`${surfaceLabel[court.surface]}${court.indoor === true?' · Bajo techo':''} · ${number(years.length)} ediciones · ${number(filtered.length)} partidos`,
+      meta:`${champion?`Campeón ${latestFinal.year}: ${champion} · `:''}${surfaceLabel[court.surface]}${court.indoor === true?' · Bajo techo':''} · ${number(years.length)} ediciones · ${number(filtered.length)} partidos`,
       href:`/torneos/${entry.slug}${chosen?'?categoria='+encodeURIComponent(chosen):''}`};
   });
-  return <ArchivePage title="Torneos">
+  return <ArchivePage title="Torneos" className="tournament-directory">
     <div className="archive-filter-shell archive-filter-shell--nav deuce-content"><nav className="deuce-tabs" aria-label="Categorías de torneos"><Link href="/tournaments" aria-current={!chosen?'page':undefined}>Principales</Link>{primaryCategories.map(category=><Link key={category} href={categoryUrl(category)} aria-current={chosen===category?'page':undefined}>{primaryLabel(category)}</Link>)}</nav></div>
     <p className="deuce-count deuce-content" role="status">{number(selected.length)} torneos {chosen?`de ${primaryLabel(chosen)}`:'entre Grand Slams, Masters 1000 y ATP 500'}</p>
     {chosen?<ArchiveGrid cards={cards}/>:<div className="tournament-category-groups">{primaryCategories.slice(0,3).map(category=>{const group=cards.filter(card=>primaryLevelBySlug.get(card.id)===category);return group.length?<section key={category} aria-labelledby={`group-${category.replace(' ','-')}`}><div className="tournament-group-heading"><h2 id={`group-${category.replace(' ','-')}`}>{primaryLabel(category)}</h2><Link href={categoryUrl(category)}>Ver los {number(entries.filter(entry=>entry.categories.includes(category)).length)} torneos ↗</Link></div><ArchiveGrid cards={group}/></section>:null})}</div>}

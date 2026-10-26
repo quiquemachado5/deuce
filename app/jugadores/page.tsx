@@ -62,7 +62,7 @@ export default async function Players({ searchParams }: {
       meta:`${number(player.played ? 100*player.won/player.played : 0,1)} % de victorias · ${number(records.get(player.name)?.finalsWon || 0)} finales ganadas`,
       href:`/players/${playerSlug(player.name)}` };
   });
-  return <ArchivePage title="Jugadores">
+  return <ArchivePage title="Jugadores" className="player-directory">
     <div className="deuce-content">
       <div className="archive-filter-shell">
         <nav className="deuce-tabs" aria-label="Explorar jugadores"><Link href="/jugadores" aria-current={!pairs?'page':undefined}>Jugadores</Link><Link href="/jugadores?tipo=parejas" aria-current={pairs?'page':undefined}>Cara a cara</Link></nav>
