@@ -1,7 +1,6 @@
 import { ArrowUpRight } from 'lucide-react';
-import { ArchivePage, ArchiveGrid } from '@/components/deuce/ArchivePage';
+import { ArchivePage } from '@/components/deuce/ArchivePage';
 import ArchiveFreshness from '@/components/ArchiveFreshness';
-import { archiveDate } from '@/lib/archive-freshness';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -16,6 +15,7 @@ import ArchiveNotice from '@/components/nocturno/ArchiveNotice';
 import ShareLinkButton from '@/components/ShareLinkButton';
 import RecordsControls, { type RecordFilter } from '@/components/RecordsControls';
 import RecordsTable, { RecordsPagination } from '@/components/RecordsTable';
+import PlayerAvatar from '@/components/PlayerAvatar';
 import styles from './records.module.css';
 
 const families = [
@@ -30,21 +30,15 @@ function RecordIndex({ manifest, query }: { manifest: Awaited<ReturnType<typeof 
   const groups=[...new Set(manifest.pieces.map(piece=>piece.group))];
   const selected=query.grupo&&groups.includes(query.grupo)?query.grupo:'';
   const pieces=manifest.pieces.filter(piece=>!selected||piece.group===selected);
-  const cards=pieces.map(piece=>({id:piece.id,title:piece.title,eyebrow:piece.group,
-    value:piece.leader?recordValue(piece.leader,piece.percent,piece.id==='tal-dia-como-hoy'):undefined,
-    meta:piece.leader?`${piece.leader.name}${piece.percent?' · '+number(piece.leader.sample)+' casos':''}`:'Sin muestra suficiente',
-    href:recordsUrl(recordFilters(query),{dato:piece.id})}));
-  return <ArchivePage title="Récords">
-    <div className="deuce-content">
-      <nav className="deuce-tabs" aria-label="Alcance de los récords"><Link href="/records">Históricos</Link><Link href={recordsUrl({}, {year:String(manifest.years[0])})}>Temporada {manifest.years[0]}</Link><Link href="/records?dato=victorias">Carreras</Link><Link href="/records#cambios">Cambios publicados</Link></nav>
-      <ArchiveFreshness manifest={manifest}/>
+  const featured=pieces.filter(piece=>piece.leader).slice(0,8);
+  return <ArchivePage title="Récords" className="records-page">
+    <div className="deuce-content records-intro">
+      <p>Las marcas del archivo, desde 1968 hasta la última temporada registrada.</p>
       <RecordsControls query={query} filters={filtersFor(manifest.years)}/>
-      <nav className="deuce-tabs" aria-label="Familias de estadísticas"><Link href={recordsUrl(recordFilters(query))} aria-current={!selected?'page':undefined}>Todos</Link>{groups.map(group=><Link key={group} href={recordsUrl(recordFilters(query),{grupo:group})} aria-current={selected===group?'page':undefined}>{families.find(([,value])=>value===group)?.[0]||group}</Link>)}</nav>
-      <p className="deuce-count">{number(pieces.length)} estadísticas · {number(manifest.matchCount)} partidos en esta selección</p>
+      <p className="deuce-count">{number(pieces.length)} estadísticas calculadas con {number(manifest.matchCount)} partidos</p>
     </div>
-    <ArchiveGrid cards={cards}/>
-    <section className="deuce-content archive-changes" id="cambios"><h2>Cambios publicados</h2><p>Cambios entre cálculos del archivo. Pueden deberse a nuevos resultados o correcciones de cobertura, no necesariamente a un récord batido ese día.</p>{manifest.leaderChanges?.length ? <ul>{manifest.leaderChanges.slice(0,12).map(change=><li key={`${change.toVersion}-${change.id}`}><Link href={recordsUrl({}, {dato:change.id})}>{change.title}</Link><p>{change.before.names.join(", ")} ({number(change.before.value,2)}) → {change.after.names.join(", ")} ({number(change.after.value,2)})</p><time dateTime={change.observedAt}>{archiveDate(change.observedAt)}</time></li>)}</ul>:<p>El seguimiento comienza con esta versión. Los cambios aparecerán al publicarse una nueva generación comparable.</p>}</section>
-    <nav className="deuce-tabs deuce-content" aria-label="Explorar más estadísticas"><Link href={recordsUrl(recordFilters(query),{dato:'dos-epocas',corte:'2020'})}>Comparar épocas <ArrowUpRight size={17} aria-hidden="true"/></Link><Link href="/tournaments">Por torneo <ArrowUpRight size={17} aria-hidden="true"/></Link><Link href="/cobertura">Cobertura y metodología <ArrowUpRight size={17} aria-hidden="true"/></Link></nav>
+    {!!featured.length&&<section className="records-featured deuce-content" aria-labelledby="records-featured-heading"><div className="records-section-head"><h2 id="records-featured-heading">En primer plano</h2><span>Desliza para explorar →</span></div><div className="records-featured-track">{featured.map(piece=><Link key={piece.id} href={recordsUrl(recordFilters(query),{dato:piece.id})} className="records-feature-card"><span className="records-feature-type">{piece.group}</span><strong>{recordValue(piece.leader!,piece.percent,piece.id==='tal-dia-como-hoy')}</strong><span className="records-feature-title">{piece.title}</span><span className="records-feature-person"><PlayerAvatar name={piece.leader!.name} size={44}/>{piece.leader!.name}</span><span className="records-feature-arrow" aria-hidden="true">↗</span></Link>)}</div></section>}
+    <section className="records-directory deuce-content" aria-labelledby="records-directory-heading"><div className="records-section-head"><h2 id="records-directory-heading">Todas las estadísticas</h2><span>{number(pieces.length)} registros</span></div><nav className="deuce-tabs" aria-label="Familias de estadísticas"><Link href={recordsUrl(recordFilters(query))} aria-current={!selected?'page':undefined}>Todas</Link>{groups.map(group=><Link key={group} href={recordsUrl(recordFilters(query),{grupo:group})} aria-current={selected===group?'page':undefined}>{families.find(([,value])=>value===group)?.[0]||group}</Link>)}</nav><div className="records-family-list">{(selected?[selected]:groups).map(group=><section key={group} className="records-family"><h3>{families.find(([,value])=>value===group)?.[0]||group}</h3><div>{pieces.filter(piece=>piece.group===group).map(piece=><Link key={piece.id} href={recordsUrl(recordFilters(query),{dato:piece.id})}><span>{piece.title}<small>{piece.leader?.name||'Sin muestra suficiente'}</small></span><strong>{piece.leader?recordValue(piece.leader,piece.percent,piece.id==='tal-dia-como-hoy'):'—'}</strong><ArrowUpRight size={17} aria-hidden="true"/></Link>)}</div></section>)}</div></section>
   </ArchivePage>;
 }
 

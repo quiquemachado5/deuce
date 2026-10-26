@@ -5,16 +5,12 @@ import { preparedArchive } from '@/lib/revista/read-records';
 import { courtPhoto } from '@/lib/imagery';
 import { tournamentName } from '@/lib/labels';
 import { number, surfaceLabel } from '@/lib/cuaderno/model';
-import { categoryLabel, categoryYears, tournamentDirectory } from '@/lib/tournament-directory';
+import { categoryYears, tournamentDirectory } from '@/lib/tournament-directory';
 import { Pagination } from '@/components/nocturno/Row';
 import { ArchivePage, ArchiveGrid } from '@/components/deuce/ArchivePage';
 type Query = { categoria?: string; page?: string };
 type Props = { searchParams: Promise<Query> };
-const orderedCategories = [
-  "Grand Slam", "Masters 1000", "ATP 500", "ATP 250",
-  "ATP Tour histórico", "ATP Tour", "ATP Tour · nivel no especificado", "Precursores de Masters",
-];
-const primaryCategories = ["Grand Slam", "Masters 1000", "ATP 500", "ATP 250", "Challenger"] as const;
+const primaryCategories = ["Grand Slam", "Masters 1000", "ATP 500", "ATP 250"] as const;
 const primaryLabel = (category: string) => category === "Grand Slam" ? "Grand Slams" : category === "Challenger" ? "Challengers" : category === "ATP Tour · nivel no especificado" ? "Otros torneos ATP" : category;
 const categoryUrl = (category: string, page = 1) =>
   `/tournaments?categoria=${encodeURIComponent(category)}${page > 1 ? `&page=${page}` : ""}`;
@@ -40,28 +36,26 @@ export default async function Tournaments({searchParams}:Props) {
     const rank=(entry:typeof a)=>entry.canonical ? entry.categories.includes('Grand Slam')?0:entry.categories.includes('Masters 1000')?1:2:3;
     return rank(a)-rank(b);
   });
-  const categories=[...new Set([...primaryCategories,...entries.flatMap(entry=>entry.categories)])].sort((a,b)=>{
-    const ia=orderedCategories.indexOf(a),ib=orderedCategories.indexOf(b);
-    return (ia<0?99:ia)-(ib<0?99:ib)||a.localeCompare(b,'es');
-  });
-  const chosen=query.categoria&&categories.includes(query.categoria)?query.categoria:null;
-  const selected=chosen?entries.filter(entry=>entry.categories.includes(chosen)):entries;
+  const chosen=query.categoria&&primaryCategories.some(category=>category===query.categoria)?query.categoria:null;
+  const selected=chosen?entries.filter(entry=>entry.categories.includes(chosen)):entries.filter(entry=>primaryCategories.slice(0,3).some(category=>entry.categories.includes(category)));
   const pages=Math.max(1,Math.ceil(selected.length/25));
   const page=Math.min(pages,Math.max(1,Math.floor(Number(query.page)||1)));
-  const cards=selected.slice((page-1)*25,page*25).map(entry=>{
-    const filtered=chosen?entry.matches.filter(match=>match.category===chosen):entry.matches;
+  const primaryLevelBySlug = new Map(entries.map(entry => [entry.slug, primaryCategories.slice(0, 3).find(level => entry.categories.includes(level))]));
+  const cards=(chosen?selected.slice((page-1)*25,page*25):selected).map(entry=>{
+    const activeCategory=chosen||primaryLevelBySlug.get(entry.slug);
+    const filtered=activeCategory?entry.matches.filter(match=>match.category===activeCategory):entry.matches;
     const court=latestTournamentCourt(filtered),photo=entry.canonical?courtPhoto(entry.name):null;
-    const years=chosen?categoryYears(entry,chosen):[...new Set(filtered.map(match=>match.year))].sort((a,b)=>b-a);
+    const years=activeCategory?categoryYears(entry,activeCategory):[...new Set(filtered.map(match=>match.year))].sort((a,b)=>b-a);
     return {surface:court.surface,id:entry.slug,title:tournamentName(entry.name),image:photo?.src,alt:photo?.alt,imagePosition:'center',
-      eyebrow:chosen?primaryLabel(chosen):entry.categories.map(primaryLabel).join(' · '),
+      eyebrow:activeCategory?primaryLabel(activeCategory):entry.categories.map(primaryLabel).join(' · '),
       meta:`${surfaceLabel[court.surface]}${court.indoor === true?' · Bajo techo':''} · ${number(years.length)} ediciones · ${number(filtered.length)} partidos`,
       href:`/torneos/${entry.slug}${chosen?'?categoria='+encodeURIComponent(chosen):''}`};
   });
   return <ArchivePage title="Torneos">
-    <nav className="deuce-tabs deuce-content" aria-label="Categorías de torneos"><Link href="/tournaments" aria-current={!chosen?'page':undefined}>Todos</Link>{categories.map(category=><Link key={category} href={categoryUrl(category)} aria-current={chosen===category?'page':undefined}>{categoryLabel(category).replace('ATP Tour · nivel no especificado','Otros torneos ATP')}</Link>)}</nav>
-    <p className="deuce-count deuce-content" role="status">{number(selected.length)} torneos</p>
-    <ArchiveGrid cards={cards}/>
+    <nav className="deuce-tabs deuce-content" aria-label="Categorías de torneos"><Link href="/tournaments" aria-current={!chosen?'page':undefined}>Principales</Link>{primaryCategories.map(category=><Link key={category} href={categoryUrl(category)} aria-current={chosen===category?'page':undefined}>{primaryLabel(category)}</Link>)}</nav>
+    <p className="deuce-count deuce-content" role="status">{number(selected.length)} torneos {chosen?`de ${primaryLabel(chosen)}`:'entre Grand Slams, Masters 1000 y ATP 500'}</p>
+    {chosen?<ArchiveGrid cards={cards}/>:<div className="tournament-category-groups">{primaryCategories.slice(0,3).map(category=>{const group=cards.filter(card=>primaryLevelBySlug.get(card.id)===category);return group.length?<section key={category} aria-labelledby={`group-${category.replace(' ','-')}`}><div className="tournament-group-heading"><h2 id={`group-${category.replace(' ','-')}`}>{primaryLabel(category)}</h2><Link href={categoryUrl(category)}>Ver los {number(entries.filter(entry=>entry.categories.includes(category)).length)} torneos ↗</Link></div><ArchiveGrid cards={group}/></section>:null})}</div>}
     {!selected.length&&<p className="deuce-content">No hay torneos publicados de esta categoría en esta copia del archivo.</p>}
-    <Pagination page={page} total={selected.length} href={next=>chosen?categoryUrl(chosen,next):`/tournaments?page=${next}`}/>
+    {chosen&&<Pagination page={page} total={selected.length} href={next=>categoryUrl(chosen,next)}/>}
   </ArchivePage>;
 }

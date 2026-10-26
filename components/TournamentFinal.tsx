@@ -2,5 +2,5 @@ import type { Match } from '@/lib/types';
 import { toMatchRecord } from '@/data/map-match';
 import { MatchScoreboard } from './deuce/MatchScoreboard';
 export default function TournamentFinal({match,latest=false}:{match:Match;latest?:boolean}) {
-  return <section className="deuce-tournament-final" aria-label={latest?'Última final registrada':'Final'}><MatchScoreboard match={toMatchRecord(match)}/></section>;
+  return <section className="deuce-tournament-final" aria-label={latest?'Última final registrada':'Final'}><h2>{latest?'Última final registrada':'Final'} · {match.year}</h2><MatchScoreboard match={toMatchRecord(match)}/></section>;
 }

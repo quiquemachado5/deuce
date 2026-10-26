@@ -7,7 +7,6 @@ import {
 } from "@/lib/statistics";
 import { type RivalrySummary } from "@/lib/explore";
 import {
-  tapeState,
   pressure,
   measuredValue,
   number,
@@ -325,22 +324,6 @@ export default function Reading({
               Comparar con otro partido
             </Link>
           )}
-          <details className="match-registration" id="registro">
-            <summary>Información de este registro</summary>
-            {match.context?.resultSource && <p>Marcador contrastado con la <a href={match.context.resultSource} target="_blank" rel="noreferrer">fuente de referencia</a>.</p>}
-            <h2>Registro del partido</h2>
-            <p>{tapeState(match)}</p>
-            <p>
-              La línea conserva los juegos que pueden verificarse con el
-              marcador.
-            </p>
-            <Link className="nc-link" href="/cobertura">
-              Cobertura
-            </Link>
-            <Link className="nc-link" href="/info">
-              Cómo se lee
-            </Link>
-          </details>
         </div>
       ),
     },

@@ -8,6 +8,6 @@ export function ArchiveGrid({ cards }: { cards:ArchiveCard[] }) {
     <div className="catalog-copy">{card.value&&<strong className="record-number">{card.value}</strong>}{card.eyebrow&&<span>{card.eyebrow}</span>}<h2>{card.title}</h2>{card.meta&&<p>{card.meta}</p>}</div>
   </Link>)}</div>;
 }
-export function ArchivePage({ title, children }: { title:string;children:ReactNode }) {
-  return <div className="view-root"><header className="inner-title"><h1>{title}</h1></header>{children}</div>;
+export function ArchivePage({ title, children, className = '' }: { title:string;children:ReactNode;className?:string }) {
+  return <div className={`view-root${className ? ` ${className}` : ''}`}><header className="inner-title"><h1>{title}</h1></header>{children}</div>;
 }
