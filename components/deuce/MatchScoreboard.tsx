@@ -1,4 +1,5 @@
-import Link from 'next/link';
+import { ArrowUpRight } from 'lucide-react';
+import Link from '@/components/IntentLink';
 import type { MatchRecord } from '@/types/deuce';
 import PlayerFlag from '@/components/PlayerFlag';
 import { resolvedWinner, resolvedSetClosed } from '@/lib/deuce-score';
@@ -29,6 +30,6 @@ export function MatchScoreboard({ match, variant = 'card' }: { match: MatchRecor
   return <Link href={match.href} prefetch={false} className={`${classes}${isFinal ? ' is-final' : ''}`}>
     <div className={variant === 'compact' ? 'simple-result-head' : 'simple-match-head'}><div><strong>{match.tournament}</strong><span>{match.round}</span></div></div>
     <ScoreRows match={match} />
-    <div className="simple-match-foot"><time dateTime={match.date || undefined}>{date}{date && match.dateLabel === 'Inicio del torneo' ? ' · inicio del torneo' : ''}</time><span>Ver partido <b aria-hidden="true">↗</b></span></div>
+    <div className="simple-match-foot"><time dateTime={match.date || undefined}>{date}{date && match.dateLabel === 'Inicio del torneo' ? ' · inicio del torneo' : ''}</time><span>Ver partido <ArrowUpRight size={17} aria-hidden="true"/></span></div>
   </Link>;
 }

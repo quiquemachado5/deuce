@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { Info } from "lucide-react";
 import { preparedTournamentArchive } from "@/lib/revista/read-records";
 import { tournamentName } from "@/lib/labels";
 import {
@@ -171,18 +170,6 @@ export default async function Edition({ params, searchParams }: Props) {
             <span>· {number(matches.length)} resultados registrados</span>
           </p>
         </div>
-        {photo && (
-          <details className="td-photo-info">
-            <summary aria-label="Información de la fotografía">
-              <Info size={18} aria-hidden="true" />
-            </summary>
-            <p>{photo.caption || photo.alt}</p>
-            <p>{photo.credit}</p>
-            <a href={photo.source} target="_blank" rel="noreferrer">
-              Ver fuente y licencia
-            </a>
-          </details>
-        )}
       </header>
 
       {categories.length > 1 && (

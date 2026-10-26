@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import SetScoreboard from "@/components/SetScoreboard";
 import { notFound } from "next/navigation";
-import { Info } from "lucide-react";
 import { courtPhoto } from "@/lib/imagery";
 import { number, surfaceLabel } from "@/lib/cuaderno/model";
 import { preparedArchive } from "@/lib/revista/read-records";
@@ -118,18 +117,6 @@ export default async function Tournament({ params, searchParams }: Props) {
             <span>· última edición registrada, {court.year}</span>
           </p>
         </div>
-        {photo && (
-          <details className="td-photo-info">
-            <summary aria-label="Información de la fotografía">
-              <Info size={18} aria-hidden="true" />
-            </summary>
-            <p>{photo.caption || photo.alt}</p>
-            <p>{photo.credit}</p>
-            <a href={photo.source} target="_blank" rel="noreferrer">
-              Ver fuente y licencia
-            </a>
-          </details>
-        )}
       </header>
 
       {tournament.categories.length > 1 && (

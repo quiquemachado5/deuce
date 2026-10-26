@@ -1,3 +1,4 @@
+import { ArrowUpRight } from 'lucide-react';
 import ArchiveBackLink from '@/components/ArchiveBackLink';
 import ArchiveFreshness from '@/components/ArchiveFreshness';
 import { editionNeighbors } from '@/lib/edition-neighbors';
@@ -145,7 +146,7 @@ export default async function MatchPage({ params, searchParams }: Props) {
   return (
     <article className="nc-wrap nc-match-page">
       <ArchiveBackLink />
-      <details className="archive-provenance"><summary>Procedencia y actualización</summary><ArchiveFreshness manifest={await preparedManifest()}/><p>{match.context?.dateLabel==='Fecha del partido'?'Fecha exacta del encuentro documentada.':match.context?.date?'La fecha disponible identifica la edición; no acredita el día exacto del encuentro.':'No consta una fecha exacta del encuentro.'}</p><p>{match.context?.resultSource&&/^https?:\/\//.test(match.context.resultSource)?<a href={match.context.resultSource} rel="noopener noreferrer" target="_blank">Fuente del resultado ↗</a>:<Link href="/cobertura">Fuentes y metodología del archivo</Link>}</p><p>La fecha del cálculo no equivale a una revisión manual de este resultado.</p></details>
+      <details className="archive-provenance"><summary>Procedencia y actualización</summary><ArchiveFreshness manifest={await preparedManifest()}/><p>{match.context?.dateLabel==='Fecha del partido'?'Fecha exacta del encuentro documentada.':match.context?.date?'La fecha disponible identifica la edición; no acredita el día exacto del encuentro.':'No consta una fecha exacta del encuentro.'}</p><p>{match.context?.resultSource&&/^https?:\/\//.test(match.context.resultSource)?<a href={match.context.resultSource} rel="noopener noreferrer" target="_blank">Fuente del resultado <ArrowUpRight size={17} aria-hidden="true"/></a>:<Link href="/cobertura">Fuentes y metodología del archivo</Link>}</p>{match.context?.endDate&&<p>El encuentro terminó el {match.context.endDate}. La fecha principal indica el día de inicio.</p>}{!!match.context?.metadataSources?.length&&<ul>{match.context.metadataSources.map(item=><li key={item.field+item.url}><a href={item.url} target="_blank" rel="noopener noreferrer">{item.field}: fuente contrastada <ArrowUpRight size={15} aria-hidden="true"/></a></li>)}</ul>}<p>La fecha del cálculo no equivale a una revisión manual de este resultado.</p></details>
       <Reading
         match={match}
         rivalry={rivalry}

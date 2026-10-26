@@ -3,6 +3,7 @@ import { tapeIntegrity, recordedTiebreaks, normalizePointTape } from './point-in
 import { orientMatch } from './match-presentation'
 import aliases from './player-name-aliases.json'
 import { verifiedResult } from './verified-results'
+import { verifiedContext } from './verified-context'
 import type { Match, Point } from './types'
 import { normalizeSurface } from './surface'
 import { historicalClosedSet } from './historical-rules'
@@ -61,7 +62,7 @@ export function pointHeight(point: Point) {
   return point.is_match_point ? 95 : point.is_break_point ? 75 : 38
 }
 export function prepareMatch(match: Match): Match {
-  match = verifiedResult(match)
+  match = verifiedContext(verifiedResult(match))
   match = { ...match, surface: normalizeSurface(match.surface), tournament: canonicalTournamentName(match.tournament,match.year,match.category) }
   match = orientMatch(match)
   match = { ...match, point_tape: normalizePointTape(match.point_tape) }

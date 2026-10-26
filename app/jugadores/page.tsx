@@ -1,3 +1,4 @@
+import { ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
 import { playerSlug, rivalryDirectory } from '@/lib/explore';
 import { preparedGeneration } from '@/lib/revista/read-records';
@@ -73,7 +74,7 @@ export default async function Players({ searchParams }: {
       {!pairs&&<nav className="deuce-alphabet" aria-label="Índice alfabético"><Link href={url({letter:'',page:'1'})} aria-current={!letter?'page':undefined}>Todos</Link>{alphabet.map(initial=>availableLetters.has(initial)?<Link key={initial} href={url({letter:initial,page:'1'})} aria-current={letter===initial?'page':undefined}>{initial}</Link>:<span key={initial} aria-disabled="true">{initial}</span>)}</nav>}
       {pairs&&<details className="deuce-disclosure"><summary>Elegir dos jugadores</summary><PairPicker/></details>}
       <p className="deuce-count" role="status">{number(total)} {pairs?'parejas':'jugadores'} · Resultados del archivo, no clasificación ATP</p>
-      {(term||letter)&&<Link className="deuce-text-link" href={pairs?'/jugadores?tipo=parejas':'/jugadores'}>Limpiar filtros ↗</Link>}
+      {(term||letter)&&<Link className="deuce-text-link" href={pairs?'/jugadores?tipo=parejas':'/jugadores'}>Limpiar filtros <ArrowUpRight size={17} aria-hidden="true"/></Link>}
     </div>
     <ArchiveGrid cards={cards}/>
     {!total&&<p className="deuce-content">No hay resultados con estos filtros.</p>}

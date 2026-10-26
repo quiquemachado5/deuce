@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
-import PhotoInfo from "@/components/PhotoInfo";
 import { courtPhotos } from "@/lib/imagery";
 import { number } from "@/lib/cuaderno/model";
 import { surfaceLabel } from "@/lib/surface";
@@ -48,7 +47,6 @@ export default function HomeExplore({ matches }: { matches: Match[] }) {
               <small>{number(item.count)} partidos</small>
               <ArrowUpRight size={18} aria-hidden="true" />
             </Link>
-            {item.photo && <PhotoInfo photo={item.photo} />}
           </div>
         ))}
       </div>

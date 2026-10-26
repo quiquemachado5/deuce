@@ -1,3 +1,4 @@
+import { ArrowUpRight } from 'lucide-react';
 import { ArchivePage, ArchiveGrid } from '@/components/deuce/ArchivePage';
 import ArchiveFreshness from '@/components/ArchiveFreshness';
 import { archiveDate } from '@/lib/archive-freshness';
@@ -43,7 +44,7 @@ function RecordIndex({ manifest, query }: { manifest: Awaited<ReturnType<typeof 
     </div>
     <ArchiveGrid cards={cards}/>
     <section className="deuce-content archive-changes" id="cambios"><h2>Cambios publicados</h2><p>Cambios entre cálculos del archivo. Pueden deberse a nuevos resultados o correcciones de cobertura, no necesariamente a un récord batido ese día.</p>{manifest.leaderChanges?.length ? <ul>{manifest.leaderChanges.slice(0,12).map(change=><li key={`${change.toVersion}-${change.id}`}><Link href={recordsUrl({}, {dato:change.id})}>{change.title}</Link><p>{change.before.names.join(", ")} ({number(change.before.value,2)}) → {change.after.names.join(", ")} ({number(change.after.value,2)})</p><time dateTime={change.observedAt}>{archiveDate(change.observedAt)}</time></li>)}</ul>:<p>El seguimiento comienza con esta versión. Los cambios aparecerán al publicarse una nueva generación comparable.</p>}</section>
-    <nav className="deuce-tabs deuce-content" aria-label="Explorar más estadísticas"><Link href={recordsUrl(recordFilters(query),{dato:'dos-epocas',corte:'2020'})}>Comparar épocas ↗</Link><Link href="/tournaments">Por torneo ↗</Link><Link href="/cobertura">Cobertura y metodología ↗</Link></nav>
+    <nav className="deuce-tabs deuce-content" aria-label="Explorar más estadísticas"><Link href={recordsUrl(recordFilters(query),{dato:'dos-epocas',corte:'2020'})}>Comparar épocas <ArrowUpRight size={17} aria-hidden="true"/></Link><Link href="/tournaments">Por torneo <ArrowUpRight size={17} aria-hidden="true"/></Link><Link href="/cobertura">Cobertura y metodología <ArrowUpRight size={17} aria-hidden="true"/></Link></nav>
   </ArchivePage>;
 }
 
