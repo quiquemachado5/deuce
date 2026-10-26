@@ -1,5 +1,6 @@
 import "./deuce.css";
 import "@/styles/deuce-system.css";
+import "@/styles/refinement-2026-10.css";
 import type { Metadata } from "next";
 import { DM_Sans, Manrope, Newsreader } from 'next/font/google';
 import { DeuceShell } from '@/components/deuce/DeuceShell';

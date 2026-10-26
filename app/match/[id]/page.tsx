@@ -1,8 +1,4 @@
-import { ArrowUpRight } from 'lucide-react';
 import ArchiveBackLink from '@/components/ArchiveBackLink';
-import ArchiveFreshness from '@/components/ArchiveFreshness';
-import { editionNeighbors } from '@/lib/edition-neighbors';
-import { preparedManifest } from '@/lib/revista/read-records';
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
@@ -17,7 +13,6 @@ import {
 } from "@/lib/editorial";
 import { tournamentName } from "@/lib/labels";
 import { score } from "@/lib/cuaderno/model";
-import { kindShelf, shelves } from "@/lib/cuaderno/shelves";
 import { rivalryDirectory } from "@/lib/explore";
 import Row from "@/components/nocturno/Row";
 
@@ -70,12 +65,10 @@ export default async function MatchPage({ params, searchParams }: Props) {
       ),
     )[0],
     neighbors = neighboringMeetings(matches, match),
-    paths = editionNeighbors(matches,match),
     other =
       junto && junto !== "elige" && junto !== id
         ? matches.find((item) => item.match_id === junto)
         : null,
-    situation = shelves.find((shelf) => shelf.id === kindShelf(match)),
     initial = (
       ["resumen", "presion", "medidas", "alrededor"].includes(vista || "")
         ? vista
@@ -106,15 +99,7 @@ export default async function MatchPage({ params, searchParams }: Props) {
             )}
           </section>
         )}
-        {paths.some(path=>path.previous||path.next) && <section><h2>En esta edición</h2>{paths.map(path=><div key={path.name}><h3>{path.name}</h3>{path.previous&&<div className="match-history-meeting"><span>Ronda anterior registrada</span><Row match={path.previous} firstPlayer={path.name}/></div>}{path.next&&<div className="match-history-meeting"><span>Ronda siguiente registrada</span><Row match={path.next} firstPlayer={path.name}/></div>}</div>)}</section>}
-        {situation && (
-          <Link href={`/records?dato=${situation.id}`}>{situation.label}</Link>
-        )}
-        {!junto && (
-          <Link href={`/compare?left=${encodeURIComponent(id)}`}>
-            Comparar con otro partido
-          </Link>
-        )}
+        {!neighbors.previous && !neighbors.next && <p className="match-history-empty">No hay otros partidos registrados entre estos dos jugadores.</p>}
       </div>
       {junto && (
         <section id="comparar" className="nc-match-compare">
@@ -146,7 +131,6 @@ export default async function MatchPage({ params, searchParams }: Props) {
   return (
     <article className="nc-wrap nc-match-page">
       <ArchiveBackLink />
-      <details className="archive-provenance"><summary>Procedencia y actualización</summary><ArchiveFreshness manifest={await preparedManifest()}/><p>{match.context?.dateLabel==='Fecha del partido'?'Fecha exacta del encuentro documentada.':match.context?.date?'La fecha disponible identifica la edición; no acredita el día exacto del encuentro.':'No consta una fecha exacta del encuentro.'}</p><p>{match.context?.resultSource&&/^https?:\/\//.test(match.context.resultSource)?<a href={match.context.resultSource} rel="noopener noreferrer" target="_blank">Fuente del resultado <ArrowUpRight size={17} aria-hidden="true"/></a>:<Link href="/cobertura">Fuentes y metodología del archivo</Link>}</p>{match.context?.endDate&&<p>El encuentro terminó el {match.context.endDate}. La fecha principal indica el día de inicio.</p>}{!!match.context?.metadataSources?.length&&<ul>{match.context.metadataSources.map(item=><li key={item.field+item.url}><a href={item.url} target="_blank" rel="noopener noreferrer">{item.field}: fuente contrastada <ArrowUpRight size={15} aria-hidden="true"/></a></li>)}</ul>}<p>La fecha del cálculo no equivale a una revisión manual de este resultado.</p></details>
       <Reading
         match={match}
         rivalry={rivalry}

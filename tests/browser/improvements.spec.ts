@@ -28,13 +28,14 @@ test('return from a match restores the filtered list and its scroll position',as
   await expect.poll(()=>page.evaluate(()=>scrollY)).toBeGreaterThan(Math.max(0,position-200));
 });
 
-test('records explain coverage and changes without inventing previous leaders',async({page})=>{
+test('record detail explains coverage and the index stays focused on discovery',async({page})=>{
   await page.goto('/records?dato=top-10');
   await expect(page.locator('main')).toContainText('Mínimo por entrada:');
   await expect(page.locator('main')).toContainText('Cálculo actualizado');
   await page.goto('/records');
-  await expect(page.getByRole('heading',{name:'Cambios publicados'})).toBeVisible();
-  await expect(page.locator('#cambios')).toContainText('no necesariamente a un récord batido ese día');
+  await expect(page.getByRole('heading',{name:'En primer plano'})).toBeVisible();
+  await expect(page.getByRole('navigation',{name:'Familias de estadísticas'})).toBeVisible();
+  await expect(page.getByRole('heading',{name:'Cambios publicados'})).toHaveCount(0);
 });
 
 test('shared career comparison and evidence use the same period',async({page})=>{
