@@ -6,7 +6,7 @@
 :root{--ink:#0d281f;--gray:#edf0ee;--white:#fff;--acid:#dfff48;--winner:#24704f;--gold:#b1872e;--gold-line:rgba(177,135,46,.58);--muted:#66746f;--line:rgba(13,40,31,.16)}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--gray);color:var(--ink);font-family:var(--font-body),sans-serif;overflow-x:hidden;opacity:0;animation:pageIn .6s ease forwards}
+body{margin:0;background:var(--gray);color:var(--ink);font-family:var(--font-body),sans-serif;overflow-x:hidden}
 body.leaving{opacity:0;transform:translateY(8px);transition:.25s}
 a{color:inherit;text-decoration:none}
 button,input{font:inherit}
@@ -1459,6 +1459,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,su
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  body,body.leaving{opacity:1;transform:none}
   .page-orb{display:none}
 }
 

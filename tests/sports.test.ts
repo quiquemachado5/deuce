@@ -26,4 +26,7 @@ test('daily detail refresh prioritizes corrections and rotates already checked r
   assert.deepEqual(detailRefreshPlan(rows,previous,()=>true,{a:'2026-10-21'},Date.parse('2026-10-21')).map(r=>r.id),['b','a']);
   const corrected=[...rows.slice(0,2),{...rows[2],scheduled_time:'2026-10-02'}];
   assert.equal(detailRefreshPlan(corrected,previous,()=>true,{},Date.parse('2026-10-21'))[0].id,'c');
+  const incomplete={...rows[0],id:'repair'};
+  const planned=detailRefreshPlan([...rows,incomplete],previous,id=>id!=='repair',{},Date.parse('2026-10-21'),row=>row.id==='repair');
+  assert.equal(planned[0].id,'repair');
 });

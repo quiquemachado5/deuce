@@ -9,6 +9,7 @@ import { enrichmentPlan } from './enrichment-plan'
 import { activityFixtures } from './tour-activity'
 import {reconcileSeasonResults} from './result-refresh'
 import { detailRefreshPlan } from './detail-refresh-plan'
+import { hasClosedModernResult } from './modern-result'
 
 export type ArchiveRow = Record<string, any>
 const base = 'https://api.livetennisapi.com/api/public/v1'
@@ -199,7 +200,7 @@ export async function refreshCloudArchive() {
     let detailsAdded = 0,detailsRefreshed=0
     const overrides = new Set<string>((await cloudRead('detail-overrides'))?.keys || [])
     const checked:Record<string,string>=(await cloudRead('refresh-detail-state'))?.checked || {}
-    const planned=detailRefreshPlan(detailCandidates as (ArchiveRow & {id:unknown})[],previousRows as Map<string,ArchiveRow & {id:unknown}>,id=>known.has(`modern-${id}`)||hasBundledDetail('modern',id),checked)
+    const planned=detailRefreshPlan(detailCandidates as (ArchiveRow & {id:unknown})[],previousRows as Map<string,ArchiveRow & {id:unknown}>,id=>known.has(`modern-${id}`)||hasBundledDetail('modern',id),checked,Date.now(),row=>!hasClosedModernResult(row))
     for (const row of planned) {
       if (detailsAdded+detailsRefreshed >= 24 || calls >= 50 || Date.now() - started > 190_000) break
       const existing=known.has(`modern-${row.id}`)||hasBundledDetail('modern',String(row.id))
