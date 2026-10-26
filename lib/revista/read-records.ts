@@ -90,14 +90,16 @@ export const recordView=cache(async(encoded:string,recomputed=false):Promise<Rec
    const pieces=catalog.map(piece=>{const big=piece.rows.filter(r=>!piece.percent||r.sample>=50),small=piece.percent?piece.rows.filter(r=>r.sample<50):[];const {rows:_,...meta}=piece;void _;return {...meta,total:big.length,smallTotal:small.length,leader:big[0],pagePrior:pageBoundaryTies(big),smallPagePrior:pageBoundaryTies(small)};});
    return {...initial(g),filtered:true,manifest:{...m,pieces,matchCount:selected.length,years:[...new Set(selected.map(match=>match.year))].sort((a,b)=>b-a)}};
  }
- if(filtered||recomputed||q.sort){
+ if(filtered||recomputed||q.sort||q.min){
    const selected=await selectedArchive(g,q);
    const catalog=await selectedCatalog(g,q,q.dato),piece=catalog.find(p=>p.id===q.dato),view={...initial(g),filtered,recomputed,exists:m.pieces.some(p=>p.id===q.dato)};
    if(q.dato==='dos-epocas'){const rows=eraComparisons(selected,Number(q.corte)||2020);view.eraTotal=rows.length;view.page=clampPage(q.page,rows.length);view.eras=rows.slice((view.page-1)*PAGE_SIZE,view.page*PAGE_SIZE);return view;}
    if(!piece)return {...view,...(['top-10','top-5','numero-uno'].includes(q.dato)&&selected.length>0&&!selected.some(x=>x.context?.rank1||x.context?.rank2)?{emptyReason:'ranking' as const}:{})};
    const sortRows=(rows:RecordRow[])=>q.sort==='name'?[...rows].sort((a,b)=>a.name.localeCompare(b.name,'es')):q.sort==='sample'?[...rows].sort((a,b)=>b.sample-a.sample||b.value-a.value):rows;
-   const big=sortRows(piece.rows.filter(r=>!piece.percent||r.sample>=50)),small=sortRows(piece.percent?piece.rows.filter(r=>r.sample<50):[]);
-   const leader=piece.rows.find(row=>!piece.percent||row.sample>=50);
+   const requestedMinimum = Number(q.min);
+   const sampleMinimum = piece.percent && [10,30,50,100].includes(requestedMinimum) ? requestedMinimum : 50;
+   const big=sortRows(piece.rows.filter(r=>!piece.percent||r.sample>=sampleMinimum)),small=sortRows(piece.percent?piece.rows.filter(r=>r.sample<sampleMinimum):[]);
+   const leader=piece.rows.find(row=>!piece.percent||row.sample>=sampleMinimum);
    view.piece={...piece,total:big.length,smallTotal:small.length,leader,pagePrior:pageBoundaryTies(big),smallPagePrior:pageBoundaryTies(small)};view.page=clampPage(q.page,big.length);view.smallPage=clampPage(q.smallPage,small.length);view.rows=big.slice((view.page-1)*PAGE_SIZE,view.page*PAGE_SIZE);view.smallRows=small.slice((view.smallPage-1)*PAGE_SIZE,view.smallPage*PAGE_SIZE);return view;
  }
  if(q.dato==='dos-epocas'){

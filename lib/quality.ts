@@ -16,6 +16,7 @@ const names: Record<string, string> = {
   'felix auger aliassime': 'Félix Auger-Aliassime', 'gael monfils': 'Gaël Monfils', 'tomas berdych': 'Tomáš Berdych',
   'dusan lajovic': 'Dušan Lajović', 'dusan la jovic': 'Dušan Lajović', 'marin cilic': 'Marin Čilić', 'rainer schuettler': 'Rainer Schüttler', 'rainer schuttler': 'Rainer Schüttler',
   'rafael jodar': 'Rafael Jódar',
+  'joao fonseca': 'João Fonseca',
 }
 export function canonicalName(name: string) { return names[normalizeText(name).replace(/-/g, ' ').trim()] || name.trim() }
 const tourVenueAliases: Record<string,string> = {

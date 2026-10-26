@@ -5,10 +5,21 @@ import { chronological } from './editorial';
 import { SURFACES } from './surface';
 
 export type ComparisonFilter = ArchiveFilter & { age?: string; minimum?: string };
+function ageRange(value: string) {
+  if (/^\d+\+$/.test(value)) return { first: Number(value.slice(0, -1)), last: Infinity };
+  const match = value.match(/^(\d+)-(\d+)$/);
+  if (match) return { first: Number(match[1]), last: Number(match[2]) };
+  const exact = Number(value);
+  return Number.isFinite(exact) ? { first: exact, last: exact } : null;
+}
 export function comparePlayer(matches: Match[], name: string, q: ComparisonFilter) {
   const base = filterArchive(archiveIndex(matches).players.get(name) || [], q);
   const knownAge = base.filter(m => Number.isFinite(m.player1.name === name ? m.context?.age1 : m.context?.age2));
-  const selected = q.age && q.age !== 'all' ? knownAge.filter(m => Math.floor((m.player1.name === name ? m.context!.age1 : m.context!.age2)!) === Number(q.age)) : base;
+  const range = q.age && q.age !== 'all' ? ageRange(q.age) : null;
+  const selected = range ? knownAge.filter(m => {
+    const age = Math.floor((m.player1.name === name ? m.context!.age1 : m.context!.age2)!);
+    return age >= range.first && age <= range.last;
+  }) : base;
   const eligible = selected.filter(eligibleMatch).sort(chronological);
   const won = eligible.filter(m => m.winner === (m.player1.name === name ? 1 : 2)).length;
   const finals = eligible.filter(m => m.round.toLowerCase() === 'final');

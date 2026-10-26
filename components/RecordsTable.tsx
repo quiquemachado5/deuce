@@ -33,7 +33,7 @@ export default function RecordsTable({ rows, offset = 0, percent = false, asYear
           <th scope="row" className={styles.person}><Link href={row.href}>{row.name}</Link>{row.detail && <span>{row.detail}</span>}
             {!asYear && sortedByValue && ceiling > 0 && offset === 0 && <span className={styles.track} aria-hidden="true"><span style={{ width: `${Math.min(100, Math.max(0, row.value / ceiling * 100))}%` }} /></span>}
           </th>
-          <td className={styles.result}><strong>{recordValue(row, percent, asYear)}</strong>{percent && <small>{number(row.sample)} casos</small>}</td>
+          <td className={styles.result}><strong>{recordValue(row, percent, asYear)}</strong>{percent ? <small>{number(row.sample)} casos</small> : !asYear && !row.href.startsWith('/match/') && row.sample > 0 && row.value <= row.sample ? <small>{number(row.value / row.sample * 100, 1)} por 100</small> : null}</td>
           <td className={styles.evidence}><Link prefetch={false} href={proof} aria-label={`Ver ${row.href.startsWith('/match/') ? 'partido' : 'partidos'} de ${row.name}`}><span>{row.href.startsWith('/match/') ? 'Partido' : 'Partidos'}</span><ChevronRight size={15} aria-hidden="true" /></Link></td>
         </tr>;
       })}</tbody>

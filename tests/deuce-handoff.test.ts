@@ -11,13 +11,15 @@ function match(overrides:Partial<Match>={}):Match {
     ...overrides};
 }
 test('mapper keeps final, flags, long names and the loser’s tie-break index',()=>{
-  const card=toMatchRecord(match());
+  const card=toMatchRecord(match({context:{indoor:false}}));
   assert.equal(card.isFinal,true);
   assert.equal(card.players[0].name,'Novak Djokovic');
   assert.ok(card.players[0].countryCode);
   assert.deepEqual(card.sets[1].tieBreak,[5,null]);
   assert.equal(card.sets.length,4);
   assert.equal(resolvedWinner(card),0);
+  assert.equal(card.category,'Grand Slam');
+  assert.equal(card.environment,'Al aire libre');
 });
 test('backend result prevails for retirement even when trailing',()=>{
   const card=toMatchRecord(match({status:'retired',winner:2}));
@@ -59,4 +61,11 @@ test('home never promotes tournament start as an anniversary or repeats matches'
   assert.equal(selection.anniversary?.match_id,'anniversary');
   const ids=[selection.anniversary?.match_id,selection.featured?.match_id,...selection.latest.map(row=>row.match_id)];
   assert.equal(new Set(ids).size,ids.length);
+});
+test('home anniversary selection spans decades when the date exists in several eras',()=>{
+  const source=[1976,1986,1996,2006,2016,2025].map((year,index)=>match({match_id:`day-${year}`,year,round:index%2?'Final':'Semifinal',context:{date:`${year}-10-23`,dateLabel:'Fecha del partido'}}));
+  const selection=homeSelection(source,new Date('2026-10-23T12:00:00Z'));
+  assert.equal(selection.anniversaries.length,4);
+  assert.equal(new Set(selection.anniversaries.map(row=>Math.floor(row.year/10))).size,4);
+  assert.equal(selection.anniversary?.match_id,selection.anniversaries[0].match_id);
 });

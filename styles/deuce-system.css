@@ -779,6 +779,14 @@ body{max-width:100%;overflow-x:hidden}
   font-size: 10px;
 }
 
+.simple-match-head small,
+.simple-result-head small {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 520;
+  line-height: 1.35;
+}
+
 .simple-match-card.is-final .simple-match-head span {
   color: var(--gold);
   font-weight: 750;

@@ -40,7 +40,7 @@ export default function MatchSearchBar({ query, categories, rounds, chips, years
   const apply = (changes: MatchQuery) => startTransition(() => router.replace(matchSearchUrl(query, { q: field.current?.value.trim(), limit: undefined, ...changes }), { scroll: false }));
   const activeFilterCount = new Set([
     activeYear ? 'year' : '', query.surface ? 'surface' : '', query.category ? 'category' : '',
-    query.round ? 'round' : '', query.fiveSets === 'true' ? 'fiveSets' : '', ...chips.map(chip => chip.key),
+    query.round ? 'round' : '', query.fiveSets === 'true' ? 'fiveSets' : '', query.data ? 'data' : '', ...chips.map(chip => chip.key),
   ].filter(Boolean)).size;
   return <div className={`${styles.searchControl} archive-unified-toolbar`} aria-busy={pending}>
     <form role="search" action="/buscar" onSubmit={event => { event.preventDefault(); apply({}); }}>
@@ -62,12 +62,14 @@ export default function MatchSearchBar({ query, categories, rounds, chips, years
             <FilterMenu label="Superficie" value={query.surface} options={[{ value: 'clay', label: 'Tierra' }, { value: 'grass', label: 'Hierba' }, { value: 'hard', label: 'Dura' }, { value: 'carpet', label: 'Moqueta' }]} choose={surface => apply({ surface })} />
             <FilterMenu label="Categoría" value={query.category} options={categories.map(value => ({ value, label: value }))} choose={category => apply({ category })} />
             <FilterMenu label="Ronda" value={query.round} options={rounds.map(value => ({ value, label: value }))} choose={round => apply({ round })} />
+            <FilterMenu label="Datos" value={query.data} options={[{ value: 'measures', label: 'Con medidas' }, { value: 'points', label: 'Con puntos' }]} choose={data => apply({ data })} />
             <FilterMenu label="Más filtros" compact value={query.fiveSets} options={[{ value: 'true', label: 'Cinco sets' }]} choose={fiveSets => apply({ fiveSets })} />
           </div>
         </div>
         <nav className={styles.viewSwitch} aria-label="Vista de resultados">
           <Link href={matchSearchUrl(query, { vista: undefined, limit: undefined })} aria-current={query.vista !== 'torneos' ? 'page' : undefined} scroll={false}>Lista</Link>
           <Link href={matchSearchUrl(query, { vista: 'torneos', limit: undefined })} aria-current={query.vista === 'torneos' ? 'page' : undefined} scroll={false}>Torneos</Link>
+          <Link href="/jugadores?tipo=enfrentamientos">Cruces</Link>
         </nav>
         {chips.length > 0 && <div className={styles.activeChips} aria-label="Filtros activos">{chips.map(chip => <button type="button" key={chip.key} onClick={() => apply({ [chip.key]: undefined })} aria-label={`Quitar filtro ${chip.label}`}>{chip.label}<X size={13} aria-hidden="true" /></button>)}</div>}
       </div>

@@ -13,7 +13,7 @@ import {
   roundLabel,
   roundPosition,
 } from "@/lib/editorial";
-import { playerSlug } from "@/lib/explore";
+import { pairSlug, playerSlug } from "@/lib/explore";
 import { tournamentName } from "@/lib/labels";
 import { canonicalName } from "@/lib/quality";
 import { playerPhoto } from "@/lib/player-imagery";
@@ -254,13 +254,19 @@ function RankingHistory({ matches, name }: { matches: Match[]; name: string }) {
   }
   const points = [...yearlyBest].sort((a, b) => a[0] - b[0]);
   if (!points.length) return null;
-  const width = Math.max(620, points.length * 54);
+  const firstYear = points[0][0], lastYear = points.at(-1)![0];
+  const width = Math.max(620, (lastYear - firstYear + 1) * 54);
   const height = 190;
   const padding = { left: 46, right: 22, top: 22, bottom: 34 };
   const maximum = Math.max(10, ...points.map(([, rank]) => rank));
-  const x = (index: number) => padding.left + (points.length === 1 ? 0 : index * (width - padding.left - padding.right) / (points.length - 1));
+  const x = (year: number) => padding.left + (lastYear === firstYear ? 0 : (year - firstYear) * (width - padding.left - padding.right) / (lastYear - firstYear));
   const y = (rank: number) => padding.top + ((rank - 1) / Math.max(1, maximum - 1)) * (height - padding.top - padding.bottom);
-  const path = points.map(([, rank], index) => `${index ? "L" : "M"}${x(index)},${y(rank)}`).join(" ");
+  const sequences = points.reduce<Array<Array<[number, number]>>>((groups, point) => {
+    const current = groups.at(-1);
+    if (!current || point[0] - current.at(-1)![0] > 1) groups.push([point]);
+    else current.push(point);
+    return groups;
+  }, []);
   const best = points.reduce((current, point) => point[1] < current[1] ? point : current, points[0]);
   return <section className="ry-people-section ry-ranking-history" aria-labelledby="ry-ranking-title">
     <div className="ry-people-section-head">
@@ -274,11 +280,13 @@ function RankingHistory({ matches, name }: { matches: Match[]; name: string }) {
           <line className="ry-ranking-grid" x1={padding.left} x2={width - padding.right} y1={y(rank)} y2={y(rank)} />
           <text className="ry-chart-axis" x={padding.left - 10} y={y(rank) + 4} textAnchor="end">{rank}</text>
         </g>)}
-        {points.length > 1 && <path className="ry-ranking-line" d={path} />}
-        {points.map(([year, rank], index) => <g key={year}>
+        {sequences.map((sequence, sequenceIndex) => sequence.length > 1 && <path className="ry-ranking-line" key={sequenceIndex} d={sequence.map(([year, rank], index) => {
+          return `${index ? "L" : "M"}${x(year)},${y(rank)}`;
+        }).join(" ")} />)}
+        {points.map(([year, rank]) => <g key={year}>
           <title>{`${year}: puesto ${rank}`}</title>
-          <circle className="ry-ranking-point" cx={x(index)} cy={y(rank)} r="5" />
-          <text className="ry-chart-axis" x={x(index)} y={height - 10} textAnchor="middle">{year}</text>
+          <circle className="ry-ranking-point" cx={x(year)} cy={y(rank)} r="5" />
+          <text className="ry-chart-axis" x={x(year)} y={height - 10} textAnchor="middle">{year}</text>
         </g>)}
       </svg>
     </div>
@@ -358,6 +366,20 @@ export default async function Player({ params, searchParams }: Props) {
     })
     .sort((a, b) => b.titles - a.titles || b.wins - a.wins);
   const tournamentWinsMaximum = Math.max(1, ...tournaments.map((entry) => entry.wins));
+  const rivals = [...player.matches.reduce((map, match) => {
+    const opponent = match.player1.name === player.name ? match.player2.name : match.player1.name;
+    const row = map.get(opponent) || { name: opponent, played: 0, won: 0, bySurface: new Map<string, { played: number; won: number }>() };
+    row.played++;
+    if (winnerName(match) === player.name) row.won++;
+    const surface = row.bySurface.get(match.surface) || { played: 0, won: 0 };
+    surface.played++;
+    if (winnerName(match) === player.name) surface.won++;
+    row.bySurface.set(match.surface, surface);
+    map.set(opponent, row);
+    return map;
+  }, new Map<string, { name: string; played: number; won: number; bySurface: Map<string, { played: number; won: number }> }>()).values()]
+    .sort((a, b) => b.played - a.played || b.won - a.won || a.name.localeCompare(b.name, 'es'))
+    .slice(0, 5);
 
   const summary = (
     <>
@@ -368,6 +390,14 @@ export default async function Player({ params, searchParams }: Props) {
         selected={year}
       />
       <RankingHistory matches={player.matches} name={player.name} />
+      {rivals.length > 0 && <section className="ry-people-section ry-player-rivals" aria-labelledby="ry-rivals-title">
+        <div className="ry-people-section-head"><div><h2 id="ry-rivals-title">Rivales más frecuentes</h2><p>Partidos terminados que conserva este archivo.</p></div><Link className="nc-link" href={`/jugadores?tipo=enfrentamientos&q=${encodeURIComponent(player.name)}`}>Todos los enfrentamientos</Link></div>
+        <div className="ry-rival-grid">{rivals.map(rival => <Link key={rival.name} href={`/rivalries/${pairSlug(player.name, rival.name)}`}>
+          <span><strong>{rival.name}</strong><small>{number(rival.played)} partidos</small></span>
+          <b>{number(rival.won)}–{number(rival.played - rival.won)}</b>
+          <small>{[...rival.bySurface].sort((a,b) => b[1].played-a[1].played).slice(0,2).map(([surface, record]) => `${surfaceLabel[surface as keyof typeof surfaceLabel]} ${record.won}–${record.played-record.won}`).join(' · ')}</small>
+        </Link>)}</div>
+      </section>}
       <div className="ry-profile-analysis">
         <section
           className="ry-people-section ry-player-surfaces"

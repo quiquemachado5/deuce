@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation'
 import { Menu, X, Search } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import type { Surface } from '@/lib/types'
-const navigation = [['/buscar','Partidos'],['/jugadores','Jugadores'],['/torneos','Torneos'],['/jugadores?tipo=parejas','Rivalidades'],['/records','Cifras'],['/epicos','Marcadores ajustados'],['/comparar','Comparar']] as const
+const navigation = [['/buscar','Partidos'],['/jugadores','Jugadores'],['/torneos','Torneos'],['/jugadores?tipo=enfrentamientos','Enfrentamientos'],['/records','Cifras'],['/epicos','Marcadores ajustados'],['/comparar','Comparar']] as const
 export default function Shell({children}:{children:React.ReactNode;mode?:string;surface?:Surface}) {
  const path=usePathname(),dialog=useRef<HTMLDialogElement>(null),trigger=useRef<HTMLButtonElement>(null)
  const [scrolled,setScrolled]=useState(false)

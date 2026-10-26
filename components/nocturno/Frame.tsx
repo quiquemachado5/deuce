@@ -200,7 +200,7 @@ function ContextNavigation(
   const parameters = useSearchParams();
   const path = usePathname();
   const active =
-    path === "/jugadores" && parameters.get("tipo") === "parejas"
+    path === "/jugadores" && ["parejas", "enfrentamientos"].includes(parameters.get("tipo") || "")
       ? "Jugadores"
       : props.fallback;
   return <Navigation active={active} mode={props.mode} choose={props.choose} />;
@@ -415,7 +415,7 @@ function ArchiveFrame({ children }: { children: React.ReactNode }) {
         </div>
         <NavSection active={active} mode="menu" choose={close} />
         <nav className="ry-menu-secondary" aria-label="Información y ayuda">
-          <Link href="/jugadores?tipo=parejas" onClick={close}>Cara a cara</Link>
+          <Link href="/jugadores?tipo=enfrentamientos" onClick={close}>Enfrentamientos</Link>
           <Link href="/cobertura" onClick={close}>Cobertura</Link>
           <Link href="/info" onClick={close}>Cómo se lee</Link>
         </nav>

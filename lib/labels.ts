@@ -13,6 +13,11 @@ const tournaments: Record<string, string> = {
   'Davis Cup - World Group I': 'Copa Davis · Grupo Mundial I',
   'Davis Cup - World Group II': 'Copa Davis · Grupo Mundial II',
   'Olympic Games': 'Juegos Olímpicos',
+  'Beijing Olympics': 'Juegos Olímpicos · Pekín',
+  'Finals - Turin': 'ATP Finals · Turín',
+  'Tour Finals': 'ATP Finals',
+  'Adelaide 2': 'Adelaida',
+  "Queen's Club": 'Queen’s Club',
 }
 export function tournamentName(name: string) { return tournaments[name] || name }
 /** Typography only: retain provider spelling as the stable lookup key. */

@@ -67,9 +67,9 @@ typography:
     fontSize: "12px"
     fontWeight: 500
 rounded:
-  field: "16px"
-  panel: "24px"
-  hero: "32px"
+  field: "12px"
+  panel: "18px"
+  hero: "24px"
   capsule: "999px"
   avatar: "50%"
 spacing:
@@ -94,7 +94,7 @@ components:
     textColor: "{colors.ink}"
     rounded: "{rounded.field}"
     padding: "0 16px"
-    height: "44px"
+    height: "48px"
   panel:
     backgroundColor: "{colors.bg-raised}"
     textColor: "{colors.ink}"

@@ -27,9 +27,11 @@ export function MatchScoreboard({ match, variant = 'card' }: { match: MatchRecor
   const isFinal = match.isFinal ?? match.round.toLocaleLowerCase('es') === 'final';
   const date = match.date ? new Intl.DateTimeFormat('es-ES', { day:'numeric',month:'short',year:'numeric',timeZone:'UTC' }).format(new Date(`${match.date}T12:00:00Z`)) : String(match.year || '');
   const classes = variant === 'compact' ? 'result-row result-float-v2 simple-result' : variant === 'overlay' ? 'feature-score simple-match-card global-scoreboard--overlay' : 'match-scorecard simple-match-card hover-card';
+  const approximateDate = match.dateLabel === 'Inicio del torneo';
+  const context = [match.category, match.environment].filter(Boolean).join(' · ');
   return <Link href={match.href} prefetch={false} className={`${classes}${isFinal ? ' is-final' : ''}`}>
-    <div className={variant === 'compact' ? 'simple-result-head' : 'simple-match-head'}><div><strong>{match.tournament}</strong><span>{match.round}</span></div></div>
+    <div className={variant === 'compact' ? 'simple-result-head' : 'simple-match-head'}><div><strong>{match.tournament}</strong><span>{match.round}</span>{context && <small>{context}</small>}</div></div>
     <ScoreRows match={match} />
-    <div className="simple-match-foot"><time dateTime={match.date || undefined}>{date}{date && match.dateLabel === 'Inicio del torneo' ? ' · inicio del torneo' : ''}</time><span>Ver partido <ArrowUpRight size={17} aria-hidden="true"/></span></div>
+    <div className="simple-match-foot"><time dateTime={approximateDate ? undefined : match.date || undefined}>{approximateDate && date ? `Semana del ${date}` : date}</time><span>Ver partido <ArrowUpRight size={17} aria-hidden="true"/></span></div>
   </Link>;
 }

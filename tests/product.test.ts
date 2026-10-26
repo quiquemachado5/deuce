@@ -18,6 +18,8 @@ test('comparison applies the same filters and never estimates absent ages/rankin
   assert.equal(c.played,1);assert.equal(c.base,2);assert.equal(c.ageCoverage,1);assert.equal(c.top10Won,1);assert.equal(c.sufficient,false);
   assert.equal(comparePlayer(matches,'Unknown',{}).rate,null);
   assert.equal(comparePlayer([fixture({context:{rankLabel:'Ranking en la descarga',rank2:1}})],'One',{}).ranking,0);
+  assert.equal(comparePlayer(matches,'One',{surface:'hard',age:'22-25'}).played,1);
+  assert.equal(comparePlayer(matches,'One',{surface:'hard',age:'23-25'}).played,0);
 });
 test('bounded search keeps the same newest-first order as the full result',() => {
   const matches = ['2020-02-01','2020-01-01','2020-03-01','2020-03-01']

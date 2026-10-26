@@ -123,7 +123,7 @@ export default function PlayerFingerprint({
               <span className="ry-fingerprint-value">
                 {number(row.value, 1)} %{" "}
                 <span>
-                  {number(row.won)} de {number(row.total)} {row.unit}{row.total < 50 ? " · muestra pequeña" : ""}
+                  {number(row.won)} de {number(row.total)} {row.unit}{row.matches ? ` · ${number(row.matches)} de ${number(player.played)} partidos medidos` : ""}{row.total < 50 ? " · muestra pequeña" : ""}
                 </span>
               </span>
               <span
@@ -153,6 +153,7 @@ export default function PlayerFingerprint({
           {difference > 0 ? "encima" : "debajo"} de la mediana.
         </p>
       )}
+      {rows.some(row => row.matches && row.matches / player.played < .2) && <p className="ry-fingerprint-note">Las medidas cubren menos del 20 % de los partidos del jugador. Describen la muestra medida, no toda su carrera.</p>}
     </section>
   );
 }

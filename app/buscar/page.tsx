@@ -31,6 +31,14 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
 export default async function SearchPage({ searchParams }: { searchParams: Promise<MatchQuery> }) {
   const [raw, data] = await Promise.all([searchParams, notebook()]);
   const query: MatchQuery = Object.fromEntries(Object.entries(raw).filter(([, value]) => typeof value === 'string' && value !== 'all'));
+  const surfaceAliases: Record<string, string> = { tierra: 'clay', hierba: 'grass', dura: 'hard', moqueta: 'carpet' };
+  const rawSurface = typeof raw.surface === 'string' ? raw.surface.trim() : '';
+  const normalizedSurface = rawSurface ? surfaceAliases[normalizeText(rawSurface)] || rawSurface.toLowerCase() : '';
+  const allowedSurfaces = new Set(['clay', 'grass', 'hard', 'carpet', 'unknown']);
+  const invalidSurface = normalizedSurface && !allowedSurfaces.has(normalizedSurface) ? rawSurface : '';
+  const translatedSurface = rawSurface && normalizedSurface !== rawSurface.toLowerCase() && !invalidSurface ? rawSurface : '';
+  if (invalidSurface) delete query.surface;
+  else if (normalizedSurface) query.surface = normalizedSurface;
   query.q = (query.q || query.player || '').trim().slice(0, 180);
   if (query.round) query.round = ({ Octavos: 'Octavos de final', Cuartos: 'Cuartos de final', Semifinal: 'Semifinales', RR: 'Fase de grupos', BR: 'Partido por el bronce', ER: 'Rondas iniciales' } as Record<string, string>)[query.round] || query.round;
   if (query.category && /precursor|histórico|otro torneo/i.test(query.category)) query.category = 'Otros torneos';
@@ -52,7 +60,9 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
     (!query.tournament || tournament?.name === match.tournament) &&
     (!query.category || (browserCategory(match) || 'Otros torneos') === query.category) &&
     (!query.round || normalizeText(browserRound(match)) === normalizeText(query.round)) &&
-    (query.fiveSets !== 'true' || match.score_summary.games.length === 5)
+    (query.fiveSets !== 'true' || match.score_summary.games.length === 5) &&
+    (query.data !== 'measures' || match.statistics.length > 0) &&
+    (query.data !== 'points' || match.point_tape.length > 0)
   ).sort((a, b) => chronological(b, a));
   const editions = new Map<string, MatchEdition>();
   for (const match of filtered) {
@@ -77,10 +87,13 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
     query.toYear ? {key:'toYear',label:`Hasta ${query.toYear}`} : null,
     query.tournament ? { key: 'tournament', label: tournament ? tournamentName(tournament.name) : query.tournament } : null,
     query.fiveSets === 'true' ? { key: 'fiveSets', label: 'Cinco sets' } : null,
+    query.data === 'measures' ? { key: 'data', label: 'Con medidas' } : query.data === 'points' ? { key: 'data', label: 'Con puntos' } : null,
   ].filter((chip): chip is { key: string; label: string } => Boolean(chip));
   return <div className={`deuce-search view-root ${styles.searchPage}`}>
     <header className="inner-title"><h1>Partidos</h1></header>
     <MatchSearchBar query={query} chips={chips} categories={categories} rounds={[...new Set([...browserRounds, ...data.matches.map(browserRound)])].filter(Boolean)} years={years} activeYear={selectedYear} />
+    {invalidSurface && <p className={styles.queryNotice} role="status">«{invalidSurface}» no es una superficie válida. Mostramos el archivo sin ese filtro.</p>}
+    {translatedSurface && <p className={styles.queryNotice} role="status">El filtro «{translatedSurface}» se ha aplicado correctamente.</p>}
     {!!query.q && matchSearchIntent(query.q).labels.length > 0 && <p className="archive-freshness">Interpretamos: {matchSearchIntent(query.q).labels.join(' · ')}</p>}
     {players.length !== 1 && <p className={styles.resultCount} role="status">{number(filtered.length)} partidos · {number(groups.length)} campeonatos{selectedYear ? ` · ${selectedYear}` : ''}</p>}
 

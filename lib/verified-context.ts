@@ -16,6 +16,9 @@ export const matchContextReferences:Reference[]=[
   {tournament:'Wimbledon',year:2019,players:['Novak Djokovic','Roger Federer'],games:[[7,6],[1,6],[7,6],[4,6],[13,12]],date:'2019-07-14',minutes:297,source:'https://novakdjokovic.com/en/news/tennis/novak-beats-roger-in-epic-wins-fifth-wimbledon-crown/'},
   {tournament:'Australian Open',year:2012,players:['Novak Djokovic','Rafael Nadal'],games:[[5,7],[6,4],[6,2],[6,7],[7,5]],date:'2012-01-29',endDate:'2012-01-30',minutes:353,source:'https://www.bbc.co.uk/sport/tennis/16773908'},
   {tournament:'Australian Open',year:2023,players:['Andy Murray','Thanasi Kokkinakis'],games:[[4,6],[6,7],[7,6],[6,3],[7,5]],date:'2023-01-19',endDate:'2023-01-20',minutes:345,source:'https://www.usopen.org/amp/en_US/news/articles/2023-01-19/andy_murray_wins_longest_match_of_career_against_thanasi_kokkinakis_to_reach_round_3_at_australian_open.html'},
+  {tournament:'Vienna',year:1986,players:['Brad Gilbert','Karel Novacek'],games:[[3,6],[6,3],[7,5],[6,0]],date:'1986-10-26',source:'https://www.atptour.com/en/scores/results-archive?year=1986'},
+  {tournament:'Lyon',year:2008,players:['Julien Benneteau','Robin Soderling'],games:[[3,6],[7,6],[1,6]],date:'2008-10-26',source:'https://www.atptour.com/en/scores/results-archive?year=2008'},
+  {tournament:'Basel',year:2014,players:['David Goffin','Roger Federer'],games:[[2,6],[2,6]],date:'2014-10-26',source:'https://www.atptour.com/en/scores/results-archive?year=2014'},
   {tournament:'Bucharest',year:2026,players:['Daniel Merida Aguilar','Otto Virtanen'],games:[[7,6],[5,7],[7,5]],round:'Ronda de 32',source:'https://www.tennis.com/tournaments/tiriac-open/matches/o-virtanen-vs-d-merida-2026-03-31'},
 ];
 const referencesByEdition=new Map<string,Reference[]>();
