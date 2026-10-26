@@ -1,4 +1,5 @@
 import type { Match } from "./types";
+import { roundPosition } from "./editorial";
 import miamiDraw from "./verified-miami-2026.json";
 import rolandGarrosDraw from "./verified-roland-garros-2026.json";
 /** Result-only references for entries absent from the principal provider. No points or measurements are inferred. */
@@ -152,7 +153,7 @@ const identity = (m: Match) =>
   [
     m.tournament,
     m.year,
-    m.round,
+    roundPosition(m.round) || m.round,
     [fold(m.player1.name), fold(m.player2.name)].sort().join("|"),
   ].join("|");
 /** Provider IDs remain stable; matching official references repair or fill the same contest. */
