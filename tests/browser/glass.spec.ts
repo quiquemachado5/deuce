@@ -11,7 +11,7 @@ test('match archive keeps cards and edition navigation with shared filters',asyn
   await expect(page.locator('.td-edition')).toBeVisible();
 });
 test('tournament directory prioritizes the four Grand Slams and preserves categories',async({page})=>{
-  await page.goto('/tournaments');
+  await page.goto('/torneos');
   await expect(page.locator('.catalog-card h2').nth(0)).toHaveText('Abierto de Australia');
   await page.getByRole('navigation',{name:'Categorías de torneos'}).getByRole('link',{name:'ATP 250',exact:true}).click();
   await expect(page).toHaveURL(/categoria=ATP/);
@@ -29,7 +29,7 @@ test('home slider is keyboard operable and reduced motion disables rotation',asy
 test('handoff screens fit all required widths and pass accessibility checks',async({page})=>{
   test.setTimeout(120000);
   await page.emulateMedia({reducedMotion:'reduce'});
-  for(const route of ['/','/buscar','/records','/jugadores','/tournaments','/comparar']){
+  for(const route of ['/','/buscar','/records','/jugadores','/torneos','/comparar']){
     await page.goto(route);
     for(const width of [320,390,768,1024,1440,1920]){
       await page.setViewportSize({width,height:900});

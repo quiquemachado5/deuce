@@ -1,14 +1,14 @@
 import {test,expect} from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-test('home uses real records, a non-duplicated featured match and the new photographic structure',async({page})=>{
+test('home exposes useful archive entry points without repeating its content',async({page})=>{
  await page.emulateMedia({reducedMotion:'reduce'});await page.goto('/');
  await expect(page.locator('h1')).toContainText('TODO EL TENIS');
  await expect(page.locator('.hero video')).toHaveAttribute('poster',/tennis-hero-poster/);
- const featured=page.locator('.global-scoreboard--overlay');await expect(featured).toBeVisible();
- const href=await featured.getAttribute('href');await expect(page.locator('.floating-results-v2 a')).toHaveCount(3);
- expect(await page.locator('.floating-results-v2 a').evaluateAll(nodes=>nodes.map(node=>node.getAttribute('href')))).not.toContain(href);
+ await expect(page.locator('.home-archive-tools')).toBeVisible();
+ await expect(page.locator('.home-archive-tools nav a')).toHaveCount(4);
+ await expect(page.locator('.floating-results-v2 > a')).toHaveCount(3);
  await expect(page.locator('.record-showcase>a')).toHaveCount(3);
- await expect(page.locator('.photo-grid>a')).toHaveCount(3);
+ await expect(page.locator('.global-scoreboard--overlay,.photo-grid')).toHaveCount(0);
  await expect(page.locator('.archive-slide')).toHaveCount(4);
 });
 test('five-set score keeps full names, aligned columns and small tiebreak superscripts',async({page})=>{

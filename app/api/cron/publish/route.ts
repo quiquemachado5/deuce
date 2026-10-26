@@ -1,6 +1,7 @@
 import { authorizedCronRequest } from '@/lib/cron-auth'
 import {cloudRead,cloudWrite} from '@/lib/cloud-archive'
-import {assertReleaseCoverage} from '@/lib/revista/release-check'
+import {assertEditionCoverage,assertReleaseCoverage} from '@/lib/revista/release-check'
+import {preparedEditionAudit} from '@/lib/revista/read-records'
 import {readFile} from 'node:fs/promises'
 import {gunzipSync} from 'node:zlib'
 import {join} from 'node:path'
@@ -25,16 +26,18 @@ export async function GET(request: Request) {
     ])
     const bundled=JSON.parse(gunzipSync(await readFile(join(process.cwd(),'data/reading/manifest.json.gz'))).toString()) as RecordManifest
     const remote=await cloudRead('reading-v2-manifest')
-    const input=await publicationArchive()
+    const [input,previousAudit]=await Promise.all([publicationArchive(),preparedEditionAudit()])
     console.info('Daily publication: archive loaded',input.length,Math.round(process.memoryUsage().rss/1048576))
     const snapshot = compileRecordSnapshot(input,new Date(),await competitionEntries(),await editionSourceAudit())
+    assertEditionCoverage(previousAudit,snapshot.audit)
     console.info('Daily publication: compiled',Math.round(process.memoryUsage().rss/1048576))
     if (!snapshot.matches.length) throw new Error('Cannot publish an empty reading snapshot')
     assertReleaseCoverage(bundled,snapshot.manifest)
     if(compatibleManifest(remote))assertReleaseCoverage(remote,snapshot.manifest)
     await publishRecordSnapshot(snapshot)
-    await cloudWrite('publish-status',{status:'success',at:new Date().toISOString(),version:snapshot.manifest.version,matches:snapshot.manifest.matchCount,lists:snapshot.manifest.pieces.length})
-    return Response.json({ status: 'success', at: new Date().toISOString(), matches: snapshot.manifest.matchCount, lists: snapshot.manifest.pieces.length, version: snapshot.manifest.version }, { headers: { 'Cache-Control': 'no-store' } })
+    const incompleteEditions=snapshot.audit.filter(edition=>edition.completeDraw===false).length
+    await cloudWrite('publish-status',{status:'success',at:new Date().toISOString(),version:snapshot.manifest.version,matches:snapshot.manifest.matchCount,lists:snapshot.manifest.pieces.length,incompleteEditions})
+    return Response.json({ status: 'success', at: new Date().toISOString(), matches: snapshot.manifest.matchCount, lists: snapshot.manifest.pieces.length, incompleteEditions, version:snapshot.manifest.version }, { headers: { 'Cache-Control': 'no-store' } })
   } catch (error) {
     const reason = error instanceof Error ? error.message : 'unknown error'
     await cloudWrite('publish-status',{status:'error',at:new Date().toISOString(),message:reason}).catch(()=>undefined)

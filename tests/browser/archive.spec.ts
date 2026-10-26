@@ -33,7 +33,7 @@ test('global search finds tournaments, editions and a player with a typo', async
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Wimbledon');
   await trigger.click();
   await input.fill('Djokovich');
-  await expect(page.locator('dialog[open] a[href="/players/novak-djokovic"]')).toBeVisible();
+  await expect(page.locator('dialog[open] a[href="/jugadores/novak-djokovic"]')).toBeVisible();
   await page.keyboard.press('Escape');
   await expect(page.locator('dialog[open]')).toHaveCount(0);
   await expect(trigger).toBeFocused();
@@ -64,7 +64,8 @@ for (const colorScheme of ['light', 'dark'] as const) {
   test(`player accessibility, surface totals and no mobile overflow: ${colorScheme}`, async ({ page }) => {
     await page.emulateMedia({ colorScheme });
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto('/players/novak-djokovic');
+    await page.goto('/jugadores/novak-djokovic');
+    await expect(page.getByRole('heading', { level: 1, name: 'Novak Djokovic' })).toBeVisible();
     const result = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'best-practice']).analyze();
     expect(result.violations).toEqual([]);
     await page.screenshot({ path: test.info().outputPath(`player-${colorScheme}.png`), fullPage: true });

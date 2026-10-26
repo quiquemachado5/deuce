@@ -140,7 +140,7 @@ export function TwoEras({ era }: { era: Era }) {
     <section className="nc-eras">
       <h2>Efectividad en finales</h2>
       <p className="nc-era-person">
-        <Link href={`/players/${playerSlug(era.name)}`}>{era.name}</Link>
+        <Link href={`/jugadores/${playerSlug(era.name)}`}>{era.name}</Link>
       </p>
       <div className={`nc-era-pair${small ? " nc-era-small" : ""}`}>
         {[era.before, era.after].map((p, i) => (

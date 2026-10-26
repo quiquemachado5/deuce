@@ -140,7 +140,7 @@ const destinations = [
   { label: "Partidos", href: "/buscar" },
   { label: "Récords", href: "/records" },
   { label: "Jugadores", href: "/jugadores" },
-  { label: "Torneos", href: "/tournaments" },
+  { label: "Torneos", href: "/torneos" },
   { label: "Comparar", href: "/comparar" },
 ] as const;
 
@@ -148,10 +148,10 @@ function pageLabel(path: string) {
   if (path === "/comparar" || path === "/compare") return "Comparar";
   if (path.startsWith("/records")) return "Récords";
   if (path.startsWith("/rivalries")) return "Jugadores";
-  if (path.startsWith("/players") || path === "/jugadores") return "Jugadores";
+  if (path.startsWith("/jugadores") || path.startsWith("/players")) return "Jugadores";
   if (
     path.startsWith("/torneo") ||
-    path === "/tournaments" ||
+    path === "/torneos" || path === "/tournaments" ||
     /^\/[^/]+\/\d{4}$/.test(path)
   )
     return "Torneos";
@@ -405,7 +405,7 @@ function ArchiveFrame({ children }: { children: React.ReactNode }) {
             <p className="deuce-footer-about">Un archivo visual para recorrer los partidos, jugadores y récords del tenis desde 1968.</p>
           </div>
           <div className="ry-footer-inner">
-            <nav aria-label="Archivo"><strong>Archivo</strong><Link href="/buscar">Partidos</Link><Link href="/jugadores">Jugadores</Link><Link href="/tournaments">Torneos</Link><Link href="/comparar">Cara a cara</Link></nav>
+            <nav aria-label="Archivo"><strong>Archivo</strong><Link href="/buscar">Partidos</Link><Link href="/jugadores">Jugadores</Link><Link href="/torneos">Torneos</Link><Link href="/comparar">Cara a cara</Link></nav>
             <nav aria-label="Récords"><strong>Récords</strong><Link href="/records">Todos los récords</Link><Link href="/records?dato=top-10">Top 10</Link></nav>
             <nav aria-label="El proyecto"><strong>El proyecto</strong><Link href="/info">Cómo se lee</Link><Link href="/cobertura">Cobertura</Link><Link href="/credits">Créditos de las fotos</Link></nav>
             <span className="ry-copyright">

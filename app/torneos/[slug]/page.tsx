@@ -4,7 +4,7 @@ import SetScoreboard from "@/components/SetScoreboard";
 import { notFound } from "next/navigation";
 import { courtPhoto } from "@/lib/imagery";
 import { number, surfaceLabel } from "@/lib/cuaderno/model";
-import { preparedArchive } from "@/lib/revista/read-records";
+import { preparedArchive, preparedEditionAudit } from "@/lib/revista/read-records";
 import { firstRecordedChampion } from "@/lib/revista/records";
 import { tournamentName } from "@/lib/labels";
 import {
@@ -24,6 +24,8 @@ import { RankingRows, FirstRecorded } from "@/components/nocturno/Pieces";
 import EditionPicker from "@/components/EditionPicker";
 import PlayerAvatar from "@/components/PlayerAvatar";
 import TournamentFinal from "@/components/TournamentFinal";
+import { Breadcrumbs } from "@/components/deuce/Breadcrumbs";
+import { editionCompleteness } from "@/lib/edition-audit";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -59,7 +61,8 @@ export async function generateMetadata({ params, searchParams }: Props) {
 export default async function Tournament({ params, searchParams }: Props) {
   const { slug } = await params;
   const { categoria } = await searchParams;
-  const tournament = tournamentDirectory(await preparedArchive()).find(
+  const [archive,audits]=await Promise.all([preparedArchive(),preparedEditionAudit()]);
+  const tournament = tournamentDirectory(archive).find(
     (entry) => entry.slug === slug,
   );
   if (!tournament) notFound();
@@ -85,8 +88,11 @@ export default async function Tournament({ params, searchParams }: Props) {
   const finals = registered
     .filter((match) => roundPosition(match.round) === 7 && winnerName(match))
     .sort((a, b) => chronological(b, a));
+  const categoryAudits=audits.filter(audit=>audit.tournament===tournament.name&&audit.category===category).map(audit=>({...audit,...editionCompleteness(audit)}));
+  const verifiedEditions=categoryAudits.filter(audit=>audit.completeDraw===true).length;
+  const incompleteEditions=categoryAudits.filter(audit=>audit.completeDraw===false);
   const editionHref = (year: number) =>
-    `/${slug}/${year}${tournament.categories.length > 1 ? `?categoria=${encodeURIComponent(category)}` : ""}`;
+    `/torneos/${slug}/${year}${tournament.categories.length > 1 ? `?categoria=${encodeURIComponent(category)}` : ""}`;
   return (
     <div
       className="nc-wrap ry-photo-tournament-detail td-tournament"
@@ -104,6 +110,7 @@ export default async function Tournament({ params, searchParams }: Props) {
           />
         )}
         <div className="td-venue-copy">
+          <Breadcrumbs className="td-breadcrumb" items={[{label:'Torneos',href:'/torneos'},{label:tournamentName(tournament.name)}]}/>
           <h1>{tournamentName(tournament.name)}</h1>
           <p className="td-hero-court">
             <i
@@ -154,7 +161,12 @@ export default async function Tournament({ params, searchParams }: Props) {
           </strong>
           <span>periodo de esta categoría</span>
         </div>
+        <div>
+          <strong>{number(verifiedEditions)}</strong>
+          <span>ediciones con rondas finales completas</span>
+        </div>
       </div>
+      <div className={`td-coverage-status${!categoryAudits.length?'':incompleteEditions.length?' is-warning':' is-complete'}`} role="status"><strong>{!categoryAudits.length?'Control de edición no disponible':incompleteEditions.length?`${number(incompleteEditions.length)} ediciones necesitan revisión`:'Rondas finales verificadas'}</strong><span>{!categoryAudits.length?'La página conserva los resultados publicados, pero no ha podido abrir el informe automático de esta categoría.':incompleteEditions.length?`Faltan rondas o marcadores por cerrar en la fuente guardada. Últimas: ${incompleteEditions.slice(0,3).map(audit=>`${audit.year} (${audit.missingLateRounds.join(', ')||`${audit.pending} pendientes`})`).join(' · ')}.`:`${number(verifiedEditions)} ediciones conservan cuartos, semifinales y final en la fuente publicada.`}</span><Link href="/cobertura#ediciones">Ver control de cobertura</Link></div>
       <section className="td-editions" aria-labelledby="td-editions-heading">
         <h2 id="td-editions-heading">Explorar una edición</h2>
         <EditionPicker

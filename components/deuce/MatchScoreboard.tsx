@@ -11,7 +11,7 @@ export function ScoreRows({ match, playerLinks = false }: { match: MatchRecord; 
     {!!match.sets.length && <div className="global-score-labels" aria-hidden="true"><span/><span/><div className="global-sets">{match.sets.map((_, index) => <span key={index}>S{index + 1}</span>)}<span className="global-set-total">Sets</span></div></div>}
     {match.players.map((player, side) => <div className={`global-player${winner === side ? ' match-winner' : ''}`} key={player.id}>
       <span className="player-flag" aria-hidden="true">{player.countryCode && <PlayerFlag code={player.countryCode} />}</span>
-      <strong>{playerLinks ? <Link href={`/players/${player.id}`}>{player.name}</Link> : player.name}</strong>
+      <strong>{playerLinks ? <Link href={`/jugadores/${player.id}`}>{player.name}</Link> : player.name}</strong>
       <div className="global-sets">{match.sets.map((set,index) => {
         const won = resolvedSetClosed(set) && set.games[side] > set.games[1-side];
         const tie = set.tieBreak?.[side];

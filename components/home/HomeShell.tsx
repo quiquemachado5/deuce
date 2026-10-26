@@ -6,7 +6,7 @@ import { Menu, Search, X } from "lucide-react";
 import HomeSearch from "./HomeSearch";
 import styles from "@/app/home-story.module.css";
 
-const navigation = [["Partidos", "/buscar"], ["Récords", "/records"], ["Jugadores", "/jugadores"], ["Torneos", "/tournaments"], ["Cara a cara", "/comparar"]] as const;
+const navigation = [["Partidos", "/buscar"], ["Récords", "/records"], ["Jugadores", "/jugadores"], ["Torneos", "/torneos"], ["Cara a cara", "/comparar"]] as const;
 
 export default function HomeShell({ children }: { children: React.ReactNode }) {
   const dialog = useRef<HTMLDialogElement>(null);
@@ -48,7 +48,7 @@ export default function HomeShell({ children }: { children: React.ReactNode }) {
     <footer className={styles.footer} data-home-tone="light">
       <div className={styles.footerInner}>
         <div className={styles.footerColumns}>
-          <nav aria-label="Archivo"><h2>Archivo</h2><Link href="/buscar">Partidos</Link><Link href="/jugadores">Jugadores</Link><Link href="/tournaments">Torneos</Link></nav>
+          <nav aria-label="Archivo"><h2>Archivo</h2><Link href="/buscar">Partidos</Link><Link href="/jugadores">Jugadores</Link><Link href="/torneos">Torneos</Link></nav>
           <nav aria-label="Explorar"><h2>Explorar</h2><Link href="/records">Récords</Link><Link href="/comparar">Cara a cara</Link></nav>
           <nav aria-label="El proyecto"><h2>El proyecto</h2><Link href="/info">Cómo se lee</Link><Link href="/cobertura">Cobertura del archivo</Link><Link href="/credits">Créditos de las fotos</Link></nav>
         </div>

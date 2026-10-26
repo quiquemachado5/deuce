@@ -44,8 +44,8 @@ export function RecordRanking({
         return (
           <li key={`${row.href}-${row.name}-${index}`}>
             <span className="rv-ranking-place">{place}</span>
-            <div className="rv-ranking-person" data-has-avatar={row.href.startsWith('/players/') || undefined}>
-                <Link href={row.href} className="rv-ranking-name">{row.href.startsWith('/players/') && <PlayerAvatar name={row.name} size={40} />}{row.name}</Link>
+            <div className="rv-ranking-person" data-has-avatar={row.href.startsWith('/jugadores/') || undefined}>
+                <Link href={row.href} className="rv-ranking-name">{row.href.startsWith('/jugadores/') && <PlayerAvatar name={row.name} size={40} />}{row.name}</Link>
               <span className="rv-ranking-detail">{row.detail}</span>
             </div>
             <div className="rv-ranking-evidence">{evidence && !row.href.startsWith('/match/') ? (
@@ -72,7 +72,7 @@ export function RecordEras({ eras, cut = 2020, filters = {} }: { eras: Era[]; cu
       {eras.map((era) => (
         <article className="rv-era" key={era.name}>
           <div className="rv-era-head">
-            <h2><Link href={`/players/${playerSlug(era.name)}`}>{era.name}</Link></h2>
+            <h2><Link href={`/jugadores/${playerSlug(era.name)}`}>{era.name}</Link></h2>
             <Link href={`/match/${era.proof.match_id}`}>{tournamentName(era.proof.tournament)} {era.proof.year}</Link>
           </div>
           <div className="rv-era-values">

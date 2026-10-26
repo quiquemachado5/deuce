@@ -62,7 +62,7 @@ test('404 search, editorial stories and metadata review work at narrow and wide 
     expect((await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21aa']).analyze()).violations).toEqual([]);
     await page.screenshot({path:testInfo.outputPath(route.slice(1)+'.png'),fullPage:true});
   }
-  await page.goto('/players/roger-federer');
+  await page.goto('/jugadores/roger-federer');
   await expect(page.locator('.ry-photo-player img').first()).toBeVisible();
   expect(errors).toEqual([]);
 });

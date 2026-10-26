@@ -189,7 +189,7 @@ export default async function Pair({ params, searchParams }: Props) {
               </div>
             )}
             <h2>
-              <Link href={`/players/${playerSlug(people.names[0])}`}>
+              <Link href={`/jugadores/${playerSlug(people.names[0])}`}>
                 {people.names[0]}
               </Link>
             </h2>
@@ -222,7 +222,7 @@ export default async function Pair({ params, searchParams }: Props) {
               </div>
             )}
             <h2>
-              <Link href={`/players/${playerSlug(people.names[1])}`}>
+              <Link href={`/jugadores/${playerSlug(people.names[1])}`}>
                 {people.names[1]}
               </Link>
             </h2>

@@ -1,16 +1,19 @@
-import { preparedGeneration } from "@/lib/revista/read-records";
+import { preparedEditionAudit, preparedGeneration } from "@/lib/revista/read-records";
 import { generationMetadata } from "@/lib/revista/generation";
 import { cloudClient, cloudRead } from "@/lib/cloud-archive";
+import { editionCompleteness } from "@/lib/edition-audit";
 
 export const dynamic = "force-dynamic";
 export async function GET() {
   const headers = { "Cache-Control": "no-store" };
   try {
-    const [generation, sync, publication] = await Promise.all([
+    const [generation, editions, sync, publication] = await Promise.all([
       preparedGeneration(),
+      preparedEditionAudit(),
       cloudRead("sync-status"),
       cloudRead("publish-status"),
     ]);
+    const auditedEditions = editions.map(edition => ({ ...edition, ...editionCompleteness(edition) }));
     const ageHours = Math.max(
       0,
       (Date.now() - Date.parse(generation.manifest.generatedAt)) / 3_600_000,
@@ -55,6 +58,11 @@ export async function GET() {
         ...generationMetadata(generation),
         matches: generation.manifest.matchCount,
         statistics: generation.manifest.pieces.length,
+        editionCoverage: {
+          audited: auditedEditions.length,
+          incomplete: auditedEditions.filter(edition => edition.completeDraw === false).length,
+          pendingResults: auditedEditions.reduce((sum, edition) => sum + edition.pending, 0),
+        },
         ageHours: Math.round(ageHours * 10) / 10,
         staleAfterHours: 72,
         dailyUpdate: { refresh, publication: published, staleAfterHours: 36 },

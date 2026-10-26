@@ -36,7 +36,7 @@ export async function searchArchive(query: string, options: { includeMatches?: b
   const playerResults = exactPlayers.length ? exactPlayers : data.records.filter(p => approximateName(query, p.name));
   for (const p of playerResults.slice(0, 4))
     items.push({
-      href: `/players/${playerSlug(p.name)}`,
+      href: `/jugadores/${playerSlug(p.name)}`,
       name: p.name,
       detail: `${exactPlayers.length ? '' : 'Coincidencia aproximada · '}${p.played.toLocaleString("es-ES")} partidos en el archivo`,
       group: "Jugadores",

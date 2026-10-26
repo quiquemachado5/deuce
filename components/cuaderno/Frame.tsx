@@ -143,7 +143,7 @@ export default function Frame({ children }: { children: React.ReactNode }) {
   const active =
     path.startsWith("/situaciones") || path.startsWith("/torneo")
       ? "Situaciones"
-      : path.startsWith("/players") ||
+      : path.startsWith("/jugadores") || path.startsWith("/players") ||
           path.startsWith("/rivalries") ||
           path === "/alguien"
         ? "Alguien"

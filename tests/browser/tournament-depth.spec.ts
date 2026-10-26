@@ -21,7 +21,7 @@ async function expectNoPageOverflow(page: Page, context: string) {
 }
 
 test("Madrid uses clay today and preserves indoor hard for its 2007 Masters edition", async ({ page }) => {
-  await page.goto("/tournaments");
+  await page.goto("/torneos");
   const madridCard = page.locator('.catalog-card[href="/torneos/madrid"]');
   await expect(madridCard).toHaveAttribute("data-event-surface", "clay");
   await expect(madridCard).toContainText("Tierra");
@@ -47,7 +47,7 @@ test("Madrid uses clay today and preserves indoor hard for its 2007 Masters edit
 });
 
 test("Paris labels indoor conditions independently of its hard court surface", async ({ page }) => {
-  await page.goto("/tournaments");
+  await page.goto("/torneos");
   const parisCard = page.locator('.catalog-card[href="/torneos/paris"]');
   await expect(parisCard).toHaveAttribute("data-event-surface", "hard");
   await expect(parisCard).toContainText("Dura · Bajo techo");
@@ -108,7 +108,7 @@ test("Australian Open rankings keep position, name, detail and values in aligned
 });
 
 test("mobile edition rounds keep scores, tiebreaks and the champion path",async({page})=>{
- await page.setViewportSize({width:390,height:844});await page.goto('/roland-garros/2024');
+ await page.setViewportSize({width:390,height:844});await page.goto('/torneos/roland-garros/2024');
  const bracket=page.getByRole('region',{name:'Cuadro registrado',exact:true});
  const picker=bracket.getByRole('group',{name:'Elegir ronda del cuadro'});
  const quarters=bracket.getByRole('region',{name:'Cuartos de final',exact:true});
@@ -129,7 +129,7 @@ test("mobile edition rounds keep scores, tiebreaks and the champion path",async(
 for (const colorScheme of ["light", "dark"] as const) {
   test(`tournament gallery, overview and edition fit all supported widths and pass Axe: ${colorScheme}`, async ({ page }) => {
     await page.emulateMedia({ colorScheme, reducedMotion: "reduce" });
-    for (const path of ["/tournaments", "/torneos/australian-open", "/roland-garros/2024"]) {
+    for (const path of ["/torneos", "/torneos/australian-open", "/torneos/roland-garros/2024"]) {
       await page.goto(path);
       await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
       for (const width of [320, 390, 768, 1024, 1440]) {

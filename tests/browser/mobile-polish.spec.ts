@@ -16,6 +16,6 @@ test('mobile home has SVG actions, compact records and automatic clean slides',a
 test('navigation is immediate and credits remain in the dedicated directory',async({page})=>{
  await page.goto('/');await expect(page.locator('.page-orb')).toHaveCount(0);
  await page.getByRole('navigation',{name:'Principal',exact:true}).getByRole('link',{name:'Jugadores'}).click();await expect(page).toHaveURL(/\/jugadores/);await expect(page.getByRole('heading',{level:1})).toBeVisible();
- await page.goto('/players/ilie-nastase');await expect(page.locator('img[src*="documented/ilie-nastase"]')).toBeAttached();await expect(page.locator('.pd-photo-credit,.photo-info')).toHaveCount(0);
+ await page.goto('/jugadores/ilie-nastase');await expect(page.locator('img[src*="documented/ilie-nastase"]')).toBeAttached();await expect(page.locator('.pd-photo-credit,.photo-info')).toHaveCount(0);
  await page.goto('/credits?q=Nastase');await expect(page.locator('.ry-photo-entry')).toContainText('CC BY-SA');
 });

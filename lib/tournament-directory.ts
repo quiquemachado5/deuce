@@ -91,7 +91,7 @@ export function tournamentRows(matches: Match[]) {
   const finals = matches.filter((match) => roundPosition(match.round) === 7);
   const players = buildSeasonAnalytics(matches).players;
   const record = (name: string, value: number, sample: number, detail: string, proof?: Match): RecordRow => ({
-    name, value, sample, detail, href: `/players/${playerSlug(name)}`, photoName: name, proof,
+    name, value, sample, detail, href: `/jugadores/${playerSlug(name)}`, photoName: name, proof,
   });
   return {
     champion: [...finals].sort(chronological).at(-1),

@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { preparedTournamentArchive } from "@/lib/revista/read-records";
+import { preparedEditionAudit, preparedTournamentArchive } from "@/lib/revista/read-records";
 import { tournamentName } from "@/lib/labels";
 import {
   categoryLabel,
@@ -19,6 +19,8 @@ import EditionPicker from "@/components/EditionPicker";
 import TournamentFinal from "@/components/TournamentFinal";
 import TournamentBracket from "@/components/TournamentBracket";
 import { publishedMatchMinutes } from "@/lib/duration";
+import { Breadcrumbs } from "@/components/deuce/Breadcrumbs";
+import { editionCompleteness } from "@/lib/edition-audit";
 
 type Props = {
   params: Promise<{ slug: string; year: string }>;
@@ -48,9 +50,9 @@ export async function generateMetadata({ params, searchParams }: Props) {
     title,
     description,
     alternates: {
-      canonical: `/${slug}/${year}${canonicalParams.size ? `?${canonicalParams}` : ""}`,
+      canonical: `/torneos/${slug}/${year}${canonicalParams.size ? `?${canonicalParams}` : ""}`,
     },
-    openGraph: { title, description, url: `/${slug}/${year}` },
+    openGraph: { title, description, url: `/torneos/${slug}/${year}` },
     twitter: { card: "summary_large_image", title, description },
   };
 }
@@ -58,7 +60,8 @@ export async function generateMetadata({ params, searchParams }: Props) {
 export default async function Edition({ params, searchParams }: Props) {
   const { slug, year } = await params;
   const query = await searchParams;
-  const tournament = tournamentDirectory(await preparedTournamentArchive()).find(
+  const [archive,audits]=await Promise.all([preparedTournamentArchive(),preparedEditionAudit()]);
+  const tournament = tournamentDirectory(archive).find(
     (entry) => entry.slug === slug,
   );
   if (!tournament || !/^\d{4}$/.test(year)) notFound();
@@ -73,6 +76,8 @@ export default async function Edition({ params, searchParams }: Props) {
   const matches = edition.filter((match) => match.category === category);
   if (!matches.length) notFound();
   const court = editionTournamentCourt(matches);
+  const storedAudit=audits.find(audit=>audit.tournament===tournament.name&&audit.year===Number(year)&&audit.category===category);
+  const audit=storedAudit?{...storedAudit,...editionCompleteness(storedAudit)}:null;
   const final = matches.find((match) => roundPosition(match.round) === 7);
   const measuredMatches=matches.filter(eligibleMatch);
   const comeback =
@@ -133,7 +138,7 @@ export default async function Edition({ params, searchParams }: Props) {
     const params = new URLSearchParams();
     if (categories.length > 1) params.set("categoria", category);
     if (pageNumber > 1) params.set("page", String(pageNumber));
-    return `/${slug}/${year}${params.size ? `?${params}` : ""}`;
+    return `/torneos/${slug}/${year}${params.size ? `?${params}` : ""}`;
   };
   return (
     <div
@@ -154,7 +159,7 @@ export default async function Edition({ params, searchParams }: Props) {
           />
         )}
         <div className="td-edition-hero-copy">
-
+          <Breadcrumbs className="td-breadcrumb" items={[{label:'Torneos',href:'/torneos'},{label:tournamentName(tournament.name),href:`/torneos/${slug}`},{label:year}]}/>
           <h1>
             {tournamentName(tournament.name)} <span>{year}</span>
           </h1>
@@ -182,13 +187,14 @@ export default async function Edition({ params, searchParams }: Props) {
               key={level}
               data-event-category={level}
               aria-current={level === category ? "page" : undefined}
-              href={`/${slug}/${year}?categoria=${encodeURIComponent(level)}`}
+              href={`/torneos/${slug}/${year}?categoria=${encodeURIComponent(level)}`}
             >
               {categoryLabel(level)}
             </Link>
           ))}
         </nav>
       )}
+      {audit&&<div className={`td-coverage-status${audit.completeDraw===false?' is-warning':' is-complete'}`} role="status"><strong>{audit.completeDraw===false?'Edición incompleta en la fuente':'Cuadro final verificado'}</strong><span>{audit.completeDraw===false?`Revisión automática: ${[...audit.missingLateRounds,audit.pending?`${audit.pending} marcadores pendientes`:null].filter(Boolean).join(' · ')}.`:`Cuartos, semifinales y final presentes · ${number(audit.completed)} partidos completos y ${number(audit.terminal)} retiradas o encuentros sin jugar.`}</span><Link href="/cobertura#ediciones">Cómo se controla</Link></div>}
       <section className="td-editions" aria-label="Cambiar edición">
         <h2>Ediciones</h2>
         <EditionPicker
