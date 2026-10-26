@@ -29,8 +29,10 @@ export default function TournamentShowcase({ cards, variant = "rail", label }: {
   const move = (direction: -1 | 1) => {
     const node = viewport.current;
     if (!node) return;
-    const distance = Math.max(280, node.clientWidth * .72) * direction;
-    node.scrollBy({ left: distance, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    const card=node.querySelector<HTMLElement>(".tournament-card");
+    const gap=Number.parseFloat(getComputedStyle(node).gap||"0")||0;
+    const distance = (card?.getBoundingClientRect().width || Math.max(280, node.clientWidth * .72)) + gap;
+    node.scrollBy({ left: distance * direction, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
   };
   const onKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "ArrowLeft") { event.preventDefault(); move(-1); }

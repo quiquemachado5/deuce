@@ -45,3 +45,21 @@ export function playerPhoto(name: string): Photo | null {
       : photo.src),
   }
 }
+
+const editionPhotoVariants: Record<string,string[]> = {
+  'Carlos Alcaraz': ['/images/players/refreshed/carlos-alcaraz-379d5255.webp','/images/players/optimized/carlos-alcaraz.webp'],
+  'Jannik Sinner': ['/images/players/jannik-sinner.jpg','/images/players/optimized/jannik-sinner.webp'],
+  'Novak Djokovic': ['/images/players/novak-djokovic.jpg','/images/players/refreshed/novak-djokovic-692d5ed1.webp','/images/players/optimized/novak-djokovic.webp'],
+  'Rafael Nadal': ['/images/players/optimized/rafael-nadal-2022.webp','/images/players/refreshed/rafael-nadal-70eb65d8.webp','/images/players/rafael-nadal.jpg','/images/players/optimized/rafael-nadal.webp'],
+  'Roger Federer': ['/images/players/roger-federer.jpg','/images/players/optimized/roger-federer.webp'],
+  'Andy Murray': ['/images/players/andy-murray.jpg','/images/players/optimized/andy-murray.webp'],
+  'Stan Wawrinka': ['/images/players/stan-wawrinka.jpg','/images/players/optimized/stan-wawrinka.webp'],
+};
+
+export function playerEditionPhoto(name: string, occurrence: number): Photo | null {
+  const base=playerPhoto(name);
+  if(!base)return null;
+  const variants=editionPhotoVariants[name];
+  if(!variants?.[occurrence])return occurrence===0?base:null;
+  return {...base,src:variants[occurrence],thumbnail:variants[occurrence]};
+}
