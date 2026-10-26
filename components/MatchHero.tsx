@@ -10,7 +10,7 @@ export default function MatchHero({match,reduced=false}:{match:Match;reduced?:bo
   if(reduced)return <MatchScoreboard match={record}/>;
   return <header className={`deuce-match-detail${record.isFinal?' is-final':''}`}>
     <div className="deuce-match-meta"><Link href={event?`/${event.slug}/${match.year}`:'/tournaments'}>{record.tournament} · {match.year} ↗</Link><span>{[record.round,browserCategory(match),surfaceLabel[match.surface]].filter(Boolean).join(' · ')}</span></div>
-    <h1>{record.players.map(player=>player.name).join(' contra ')}</h1>
+    <h1 className="nc-sr">{record.players.map(player=>player.name).join(' contra ')}</h1>
     <ScoreRows match={record} playerLinks/>
   </header>;
 }

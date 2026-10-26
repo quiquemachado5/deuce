@@ -2,6 +2,18 @@
 .topbar .search-trigger{height:44px;align-items:center;gap:10px;padding:6px 8px 6px 14px;line-height:1}
 .topbar .search-trigger svg,.topbar .search-trigger span,.topbar .search-trigger kbd{flex:none}
 .topbar .search-trigger kbd{display:grid;place-items:center;min-width:31px;min-height:28px;margin-left:auto;font:600 11px/1 var(--font-body),sans-serif}
+.archive-filter-shell{display:flex;align-items:center;gap:8px;margin-bottom:14px;padding:6px;border:1px solid var(--line-strong);border-radius:18px;background:var(--bg-raised);box-shadow:0 8px 30px color-mix(in srgb,var(--ink) 5%,transparent)}
+.archive-filter-shell>.deuce-tabs{flex:none;gap:2px;margin:0;padding-right:8px;border-right:1px solid var(--line)}
+.archive-filter-shell>.deuce-tabs a{min-height:42px;padding:8px 13px;border:0;border-radius:11px}
+.archive-filter-shell>.nc-filters{flex:1;gap:7px;margin:0;padding:0}
+.archive-filter-shell>.nc-filters .nc-field{max-width:none;gap:3px}
+.archive-filter-shell>.nc-filters .nc-field>span{padding-left:4px;font-size:10px}
+.archive-filter-shell>.nc-filters .nc-field input,.archive-filter-shell>.nc-filters .nc-field select{height:42px;min-height:42px;border:0;border-radius:11px;background:var(--bg-sunken)}
+.archive-filter-shell>.deuce-alphabet{flex-basis:100%;margin:0;padding:7px 4px 1px;border-top:1px solid var(--line)}
+.archive-filter-shell:has(>.deuce-alphabet){flex-wrap:wrap}
+.archive-filter-shell--nav{margin-bottom:16px}
+.archive-filter-shell--nav>.deuce-tabs{border-right:0;padding-right:0}
+.archive-unified-toolbar{box-shadow:0 8px 30px color-mix(in srgb,var(--ink) 5%,transparent)}
 .deuce-search.view-root{padding-top:104px}
 .deuce-search>.inner-title{padding:18px 0 31px}
 .deuce-search>.inner-title h1{font-size:clamp(54px,6.5vw,84px);line-height:1}
@@ -106,6 +118,14 @@
 .td-stat-panel{border:1px solid var(--line)}
 
 @media(max-width:800px){
+  .archive-filter-shell{display:block;padding:4px;border-radius:16px}
+  .archive-filter-shell>.deuce-tabs{padding:0 0 4px;border:0;border-bottom:1px solid var(--line)}
+  .archive-filter-shell>.deuce-tabs a{flex:1;justify-content:center}
+  .archive-filter-shell>.nc-filters{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px}
+  .archive-filter-shell>.nc-filters .nc-field{min-width:0}
+  .archive-filter-shell>.deuce-alphabet{overflow-x:auto;flex-wrap:nowrap;padding-top:5px}
+  .archive-filter-shell--nav>.deuce-tabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-bottom:0}
+  .archive-filter-shell--nav>.deuce-tabs a{padding-inline:5px;font-size:10px}
   .records-family-list{grid-template-columns:1fr}
   .td-champions{grid-template-columns:1fr}
   .records-section-head,.tournament-group-heading{align-items:start}

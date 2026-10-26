@@ -3,7 +3,7 @@ import AxeBuilder from '@axe-core/playwright';
 test('match archive keeps cards and edition navigation with shared filters',async({page})=>{
   await page.goto('/buscar');
   await expect(page.locator('.match-scorecard')).toHaveCount(12);
-  await page.getByRole('navigation',{name:'Vista de resultados'}).getByRole('link',{name:'Por torneo',exact:true}).click();
+  await page.getByRole('navigation',{name:'Vista de resultados'}).getByRole('link',{name:'Torneos',exact:true}).click();
   const group=page.locator('main article').filter({has:page.locator('details')}).first();
   await group.locator('summary').click();
   await expect(group.locator('.match-scorecard').first()).toBeVisible();

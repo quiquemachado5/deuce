@@ -71,19 +71,14 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
     query.age ? {key:'age',label:`${query.age} años al jugar`} : null,
     query.fromYear ? {key:'fromYear',label:`Desde ${query.fromYear}`} : null,
     query.toYear ? {key:'toYear',label:`Hasta ${query.toYear}`} : null,
-    query.year ? { key: 'year', label: query.year } : null,
-    query.surface ? { key: 'surface', label: ({ hard: 'Dura', clay: 'Tierra', grass: 'Hierba', carpet: 'Moqueta' } as Record<string, string>)[query.surface] || query.surface } : null,
-    query.category ? { key: 'category', label: query.category } : null,
-    query.round ? { key: 'round', label: query.round } : null,
     query.tournament ? { key: 'tournament', label: tournament ? tournamentName(tournament.name) : query.tournament } : null,
     query.fiveSets === 'true' ? { key: 'fiveSets', label: 'Cinco sets' } : null,
   ].filter((chip): chip is { key: string; label: string } => Boolean(chip));
-  const yearLink = (year: number) => matchSearchUrl(query, { year: String(year), limit: undefined });
   return <div className={`deuce-search view-root ${styles.searchPage}`}>
     <header className="inner-title"><h1>Partidos</h1></header>
-    <MatchSearchBar query={query} chips={chips} categories={categories} rounds={[...new Set([...browserRounds, ...data.matches.map(browserRound)])].filter(Boolean)} />
+    <MatchSearchBar query={query} chips={chips} categories={categories} rounds={[...new Set([...browserRounds, ...data.matches.map(browserRound)])].filter(Boolean)} years={years} activeYear={selectedYear} />
     {!!query.q && matchSearchIntent(query.q).labels.length > 0 && <p className="archive-freshness">Interpretamos: {matchSearchIntent(query.q).labels.join(' · ')}</p>}
-    {players.length !== 1 && <p className={styles.resultCount} role="status">{number(filtered.length)} partidos{selectedYear ? ` en ${selectedYear}` : ''}</p>}
+    {players.length !== 1 && <p className={styles.resultCount} role="status">{number(filtered.length)} partidos · {number(groups.length)} campeonatos{selectedYear ? ` · ${selectedYear}` : ''}</p>}
 
     {players.length > 0 && <section className={styles.playerResults} aria-label="Jugadores encontrados">{players.map(player => <Link className={styles.playerResult} href={player.href} key={player.href}>
       <PlayerAvatar name={player.name} size={60} /><span><strong>{player.name}</strong><small>{players.length === 1 ? `${number(filtered.length)} partidos` : 'Ver ficha del jugador'}</small></span><ArrowUpRight size={18} aria-hidden="true" />
@@ -91,14 +86,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
     {related.length > 0 && <nav className={styles.relatedResults} aria-label="También en el archivo">{related.map(item => <Link href={item.href} key={item.href}>{item.name}<ArrowUpRight size={14} aria-hidden="true" /></Link>)}</nav>}
 
     <section className={styles.season} aria-labelledby="match-season-title">
-      <div className={styles.seasonHeading}><h2 id="match-season-title">{selectedYear ? `La temporada ${selectedYear}` : 'Por torneo'}</h2><span>{number(groups.length)} campeonatos</span></div>
-      <nav className={styles.years} aria-label="Temporadas">
-        {query.q && <Link href={matchSearchUrl(query, { year: undefined, limit: undefined })} scroll={false} aria-current={!selectedYear ? 'page' : undefined}>Todas</Link>}
-        {years.slice(0, 6).map(year => <Link key={year} href={yearLink(year)} scroll={false} aria-current={selectedYear === year ? 'page' : undefined}>{year}</Link>)}
-        {selectedYear && !years.slice(0, 6).includes(selectedYear) && <Link href={yearLink(selectedYear)} aria-current="page" scroll={false}>{selectedYear}</Link>}
-        {years.length > 6 && <details className={styles.moreYears} key={selectedYear || 'all'}><summary>Más años<ChevronDown size={14} aria-hidden="true" /></summary><div>{years.slice(6).map(year => <Link key={year} href={yearLink(year)} scroll={false} aria-current={selectedYear === year ? 'page' : undefined}>{year}</Link>)}</div></details>}
-      </nav>
-      <nav className="deuce-tabs" aria-label="Vista de resultados"><Link href={matchSearchUrl(query, { vista: undefined, limit: undefined })} aria-current={query.vista !== 'torneos' ? 'page' : undefined}>Partidos</Link><Link href={matchSearchUrl(query, { vista: 'torneos', limit: undefined })} aria-current={query.vista === 'torneos' ? 'page' : undefined}>Por torneo</Link></nav>
+      <h2 className="nc-sr" id="match-season-title">{selectedYear ? `Partidos de ${selectedYear}` : 'Partidos por torneo'}</h2>
       {query.vista === 'torneos' ? <EditionMatchGroups editions={groups.slice(0, limit)} showYears={!selectedYear} /> : <MatchArchivePage matches={filtered.slice(0,limit).map(toMatchRecord)}/>}
       {!filtered.length && <EmptyState title="No encontramos partidos" description="Prueba otro nombre o quita alguno de los filtros de la búsqueda." resetHref={matchSearchUrl({}, { q: query.q })} />}
       {!filtered.length && <nav className="archive-suggestions" aria-label="Alternativas de búsqueda">{chips.map(chip => <Link key={chip.key} href={matchSearchUrl(query,{[chip.key]:undefined})}>Quitar {chip.label}</Link>)}<Link href="/buscar">Empezar de nuevo</Link><Link href="/buscar?q=Nadal+Federer+Wimbledon+2008">Nadal · Federer · Wimbledon 2008</Link></nav>}
