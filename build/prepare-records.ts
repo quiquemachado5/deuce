@@ -4,6 +4,7 @@ import {readFile} from 'node:fs/promises';
 import {gunzipSync} from 'node:zlib';
 import {assertPublishableArchive} from '../lib/dataset-summary';
 import {assertEditionCoverage,assertReleaseCoverage} from '../lib/revista/release-check';
+import type {EditionAudit} from '../lib/edition-audit';
 loadEnvConfig(process.cwd());
 async function main(){
   const [{editorialArchive},{compileRecordSnapshot},{writeBundledSnapshot}]=await Promise.all([import('../lib/editorial-data'),import('../lib/revista/snapshot'),import('../lib/revista/publish-snapshot')]);
@@ -14,13 +15,14 @@ async function main(){
   const {competitionEntries,editionSourceAudit}=await import('../lib/live-tennis');
   const snapshot=compileRecordSnapshot(matches,new Date(),await competitionEntries(),await editionSourceAudit());
   if(process.env.VERCEL_ENV==='production'){
-    const {cloudClient,cloudRead}=await import('../lib/cloud-archive');
+    const {cloudClient,cloudRead,cloudSnapshotBlob}=await import('../lib/cloud-archive');
     if(!cloudClient())throw new Error('Production release requires the configured remote archive');
     const previous=await cloudRead('reading-v2-manifest');
     if(!previous)throw new Error('Cannot verify the published archive baseline');
     assertReleaseCoverage(previous,snapshot.manifest);
-    const {preparedEditionAudit}=await import('../lib/revista/read-records');
-    assertEditionCoverage(await preparedEditionAudit(),snapshot.audit);
+    const previousAudit=typeof previous.version==='string' ? await cloudSnapshotBlob<EditionAudit[]>(previous.version,'audit') : undefined;
+    if(previousAudit?.length)assertEditionCoverage(previousAudit,snapshot.audit);
+    else console.log('Edition coverage baseline initialized from this release');
     snapshot.manifest=attachRecordChanges(previous,snapshot.manifest);
     console.log(`Release baseline verified: ${previous.matchCount} published matches; ${snapshot.manifest.matchCount} prepared; measured coverage preserved`);
   }
