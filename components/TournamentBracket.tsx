@@ -18,7 +18,7 @@ export default function TournamentBracket({ matches }: { matches: Match[] }) {
     key: String(position),
     label: roundLabel(results[0].round),
     count: results.length,
-    content: <ol className="td-bracket-results">
+    content: <ol className="td-bracket-results" key={`round-${position}`}>
       {results.map((match) => {
         const onPath = champion !== null && winnerName(match) === champion;
         return <li key={match.match_id} data-champion-path={onPath}>

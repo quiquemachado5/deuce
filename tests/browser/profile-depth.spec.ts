@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
-const profile = "/players/novak-djokovic?year=2014";
+const profile = "/jugadores/novak-djokovic?year=2014";
 const currentFact = '.pd-discovery-body[data-current="true"]';
 
 test("player discovery is available without JavaScript and Otro dato changes the observation without moving the panel", async ({

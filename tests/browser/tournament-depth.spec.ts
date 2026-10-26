@@ -21,7 +21,7 @@ async function expectNoPageOverflow(page: Page, context: string) {
 }
 
 test("Madrid uses clay today and preserves indoor hard for its 2007 Masters edition", async ({ page }) => {
-  await page.goto("/tournaments");
+  await page.goto("/torneos");
   const madridCard = page.locator('.catalog-card[href="/torneos/madrid"]');
   await expect(madridCard).toHaveAttribute("data-event-surface", "clay");
   await expect(madridCard).toContainText("Tierra");
@@ -32,8 +32,8 @@ test("Madrid uses clay today and preserves indoor hard for its 2007 Masters edit
   await expect(page).toHaveURL(/\/torneos\/madrid$/);
   const current = page.locator(".td-tournament");
   await expect(current).toHaveAttribute("data-event-surface", "clay");
-  await expect(current.locator(".td-hero-court")).toContainText("Tierra");
-  await expect(current.locator(".td-hero-court")).not.toContainText("Al aire libre");
+  await expect(current.locator(".td-hero-court")).toHaveCount(0);
+  await expect(current.locator(".td-venue-hero")).not.toContainText("última edición registrada");
 
   await page.goto("/madrid/2007?categoria=Masters%201000");
   const historical = page.locator(".td-edition");
@@ -47,7 +47,7 @@ test("Madrid uses clay today and preserves indoor hard for its 2007 Masters edit
 });
 
 test("Paris labels indoor conditions independently of its hard court surface", async ({ page }) => {
-  await page.goto("/tournaments");
+  await page.goto("/torneos");
   const parisCard = page.locator('.catalog-card[href="/torneos/paris"]');
   await expect(parisCard).toHaveAttribute("data-event-surface", "hard");
   await expect(parisCard).toContainText("Dura · Bajo techo");
@@ -55,81 +55,58 @@ test("Paris labels indoor conditions independently of its hard court surface", a
   await expectSurfaceColour(parisCard, "hard");
 
   await parisCard.click();
-  const court = page.locator(".td-hero-court");
-  await expect(court).toContainText("Dura");
-  await expect(court).toContainText("Bajo techo");
+  await expect(page.locator(".td-hero-court")).toHaveCount(0);
   await expect(page.locator(".td-tournament")).toHaveAttribute("data-event-surface", "hard");
   await expect(page.locator('[data-event-surface="indoor"]')).toHaveCount(0);
 });
 
-test("Australian Open rankings keep position, name, detail and values in aligned columns", async ({ page }) => {
+test("Australian Open uses distinct visual forms for titles, finals and effectiveness", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto("/torneos/australian-open");
   await page.evaluate(async () => { await document.fonts.ready; });
-  const panels = page.locator(".td-tournament-rankings > section");
-  await expect(panels).toHaveCount(2);
-  await expect(panels.nth(0).getByRole("heading", { name: "Más títulos", exact: true })).toBeVisible();
-  await expect(panels.nth(1).getByRole("heading", { name: "Más finales", exact: true })).toBeVisible();
+  await expect(page.locator(".td-titles-leader")).toBeVisible();
+  await expect(page.locator(".td-title-chasers li")).toHaveCount(5);
+  await expect(page.getByRole("heading", { name: "Más finales", exact: true })).toBeVisible();
+  await expect(page.locator(".td-finalists-strip li")).toHaveCount(7);
+  await expect(page.locator(".td-rate-bars li")).toHaveCount(8);
+  await expect(page.locator(".td-surface-history")).toHaveCount(0);
+  await expect(page.getByText("Categoría y condiciones por época")).toHaveCount(0);
+  await expect(page.getByText("El primero en este archivo")).toHaveCount(0);
 
   for (const width of [1440, 390]) {
     await page.setViewportSize({ width, height: 1000 });
-    for (const panel of await panels.all()) {
-      const rows = panel.locator(".nc-ranking-row");
-      await expect(rows).toHaveCount(8);
-      const rightEdges: number[] = [];
-      for (let index = 0; index < 3; index++) {
-        const row = rows.nth(index);
-        await expect(row.locator(".nc-rank-name")).toBeVisible();
-        await expect(row.locator(".nc-rank-detail")).not.toBeEmpty();
-        await expect(row.locator(".nc-rank-value")).toBeVisible();
-        const layout = await row.evaluate((node) => {
-          const position = node.querySelector(".nc-rank-position")!.getBoundingClientRect();
-          const person = node.querySelector(".nc-rank-person")!.getBoundingClientRect();
-          const name = node.querySelector(".nc-rank-name")!.getBoundingClientRect();
-          const detail = node.querySelector(".nc-rank-detail")!.getBoundingClientRect();
-          const value = node.querySelector(".nc-rank-value")!.getBoundingClientRect();
-          return {
-            height: node.getBoundingClientRect().height,
-            positionRight: position.right, personLeft: person.left, personRight: person.right,
-            nameBottom: name.bottom, detailTop: detail.top,
-            valueLeft: value.left, valueRight: value.right,
-          };
-        });
-        expect(layout.height).toBeGreaterThanOrEqual(60);
-        expect(layout.personLeft - layout.positionRight).toBeGreaterThanOrEqual(6);
-        expect(layout.valueLeft - layout.personRight).toBeGreaterThanOrEqual(6);
-        expect(layout.detailTop).toBeGreaterThanOrEqual(layout.nameBottom);
-        rightEdges.push(layout.valueRight);
-      }
-      expect(Math.max(...rightEdges) - Math.min(...rightEdges)).toBeLessThanOrEqual(1);
-    }
     await expectNoPageOverflow(page, `Australian Open rankings at ${width}px`);
   }
+  const rail = page.getByRole("region", { name: "Campeones recientes" });
+  await rail.focus();
+  const before = await rail.evaluate(node => node.scrollLeft);
+  await rail.press("ArrowRight");
+  await expect.poll(() => rail.evaluate(node => node.scrollLeft)).toBeGreaterThan(before);
 });
 
 test("mobile edition rounds keep scores, tiebreaks and the champion path",async({page})=>{
- await page.setViewportSize({width:390,height:844});await page.goto('/roland-garros/2024');
- const bracket=page.getByRole('region',{name:'Cuadro registrado',exact:true});
- const picker=bracket.getByRole('group',{name:'Elegir ronda del cuadro'});
- const quarters=bracket.getByRole('region',{name:'Cuartos de final',exact:true});
- await expect(quarters.locator('.match-scorecard')).toHaveCount(3);
- const alcaraz=quarters.locator('a[href="/match/live-83847"]');
+ await page.setViewportSize({width:390,height:844});await page.goto('/torneos/roland-garros/2024');
+ const explorer=page.getByRole('region',{name:'Partidos de esta edición',exact:true});
+ const picker=explorer.getByRole('group',{name:'Filtrar partidos por ronda'});
+ await picker.getByRole('button',{name:'Cuartos de final',exact:true}).click();
+ await expect(explorer.locator('.edition-result-list>li')).toHaveCount(3);
+ const alcaraz=explorer.locator('a[href="/match/live-83847"]');
  await expect(alcaraz.locator('.match-winner')).toContainText('Carlos Alcaraz');
  await expect(alcaraz.locator('sup')).toHaveText('3');
  await expect(alcaraz.locator('..')).toHaveAttribute('data-champion-path','true');
  const button=picker.getByRole('button',{name:/^Final/});await button.focus();await button.press('Enter');
- const final=bracket.getByRole('region',{name:'Final',exact:true});await expect(final).toBeVisible();await expect(quarters).not.toBeVisible();
- await expect(final.locator('.global-player').first().locator('.global-set')).toHaveCount(5);
- await expect(final.locator('.match-winner')).toContainText('Carlos Alcaraz');
+ await expect(explorer.locator('.edition-result-list>li')).toHaveCount(1);
+ await expect(explorer.locator('.global-player').first().locator('.global-set')).toHaveCount(5);
+ await expect(explorer.locator('.match-winner')).toContainText('Carlos Alcaraz');
  const score=page.locator('.deuce-tournament-final .global-scoreboard');await expect(score).toHaveAccessibleName(/Alexander Zverev contra Carlos Alcaraz/);
- await picker.getByRole('button',{name:/^Octavos de final/}).click();const fourth=bracket.getByRole('region',{name:'Octavos de final',exact:true});
- await expect(fourth.locator('.match-scorecard')).toHaveCount(8);await expectNoPageOverflow(page,'Mobile edition');
+ await picker.getByRole('button',{name:/^Octavos de final/}).click();
+ await expect(explorer.locator('.edition-result-list>li')).toHaveCount(8);await expectNoPageOverflow(page,'Mobile edition');
 });
 
 for (const colorScheme of ["light", "dark"] as const) {
   test(`tournament gallery, overview and edition fit all supported widths and pass Axe: ${colorScheme}`, async ({ page }) => {
     await page.emulateMedia({ colorScheme, reducedMotion: "reduce" });
-    for (const path of ["/tournaments", "/torneos/australian-open", "/roland-garros/2024"]) {
+    for (const path of ["/torneos", "/torneos/australian-open", "/torneos/roland-garros/2024"]) {
       await page.goto(path);
       await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
       for (const width of [320, 390, 768, 1024, 1440]) {

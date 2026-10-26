@@ -5,6 +5,7 @@ import { summarizeDataset, assertPublishableArchive } from '../lib/dataset-summa
 import { RULES_VERSION, SNAPSHOT_SCHEMA, type RecordManifest, type RecordPages } from '../lib/revista/snapshot';
 import type { Match } from '../lib/types';
 import { reviewedFinals, referenceFinal, referenceIssue } from '../lib/reviewed-finals';
+import { editionCompleteness, type EditionAudit } from '../lib/edition-audit';
 
 async function main() {
   const read = async (name: string) => JSON.parse(gunzipSync(await readFile(`data/reading/${name}.json.gz`)).toString());
@@ -17,11 +18,12 @@ async function main() {
   assert.equal(manifest.matchCount, matches.length);
   assert.deepEqual(manifest.summary, summarizeDataset(matches));
   const competition: Match[] = await read('competition');
-  const audit = await read('audit');
+  const audit: EditionAudit[] = await read('audit');
   assert.equal(competition.length, manifest.competitionCount);
   assert.equal(audit.length, manifest.editionCount);
   assert.equal(new Set([...matches, ...competition].map(row => row.match_id)).size, matches.length + competition.length);
   assert.ok(audit.every((row: {sourceRows:number;completed:number;terminal:number;pending:number}) => row.sourceRows === row.completed + row.terminal + row.pending));
+  assert.ok(audit.every(row => JSON.stringify(editionCompleteness(row)) === JSON.stringify({expectedLateRounds:row.expectedLateRounds,missingLateRounds:row.missingLateRounds,completeDraw:row.completeDraw})));
   assert.equal(matches.find(match => match.match_id === 'archive-2914')?.surface, 'carpet');
   assert.ok(manifest.summary.surfaces.carpet > 10_000);
   assert.ok(manifest.summary.surfaces.unknown > 0);

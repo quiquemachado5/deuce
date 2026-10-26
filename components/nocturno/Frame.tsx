@@ -140,7 +140,7 @@ const destinations = [
   { label: "Partidos", href: "/buscar" },
   { label: "Récords", href: "/records" },
   { label: "Jugadores", href: "/jugadores" },
-  { label: "Torneos", href: "/tournaments" },
+  { label: "Torneos", href: "/torneos" },
   { label: "Comparar", href: "/comparar" },
 ] as const;
 
@@ -148,10 +148,10 @@ function pageLabel(path: string) {
   if (path === "/comparar" || path === "/compare") return "Comparar";
   if (path.startsWith("/records")) return "Récords";
   if (path.startsWith("/rivalries")) return "Jugadores";
-  if (path.startsWith("/players") || path === "/jugadores") return "Jugadores";
+  if (path.startsWith("/jugadores") || path.startsWith("/players")) return "Jugadores";
   if (
     path.startsWith("/torneo") ||
-    path === "/tournaments" ||
+    path === "/torneos" || path === "/tournaments" ||
     /^\/[^/]+\/\d{4}$/.test(path)
   )
     return "Torneos";
@@ -249,9 +249,11 @@ function ArchiveFrame({ children }: { children: React.ReactNode }) {
   const opener = useRef<HTMLElement | null>(null);
   const previousOverflow = useRef("");
   const initialPath = useRef(path);
+  const lastScroll = useRef(0);
   const [query, setQuery] = useState("");
   const [headerQuery, setHeaderQuery] = useState("");
   const [headerFocused, setHeaderFocused] = useState(false);
+  const [headerHidden, setHeaderHidden] = useState(false);
   const [activeDialog, setActiveDialog] = useState<"menu" | "search" | null>(
     null,
   );
@@ -266,37 +268,16 @@ function ArchiveFrame({ children }: { children: React.ReactNode }) {
   }, [path]);
 
   useEffect(() => {
-    const shortcut = (event: KeyboardEvent) => {
-      if (!(event.metaKey || event.ctrlKey) || event.key.toLowerCase() !== "k")
-        return;
-      if (menu.current?.open) return;
-      event.preventDefault();
-      if (isMatchSearch) {
-        document.getElementById('match-search')?.focus();
-        return;
-      }
-      if (window.innerWidth >= 760) {
-        headerField.current?.focus();
-        return;
-      }
-      const target = search.current;
-      if (!target || target.open) {
-        searchField.current?.focus();
-        return;
-      }
-      opener.current =
-        document.activeElement instanceof HTMLElement
-          ? document.activeElement
-          : null;
-      target.showModal();
-      previousOverflow.current = document.body.style.overflow;
-      document.body.style.overflow = "hidden";
-      setActiveDialog("search");
-      searchField.current?.focus();
+    const onScroll = () => {
+      const next = Math.max(0, window.scrollY);
+      if (next <= 72 || headerFocused || activeDialog) setHeaderHidden(false);
+      else if (Math.abs(next - lastScroll.current) > 7) setHeaderHidden(next > lastScroll.current);
+      lastScroll.current = next;
     };
-    window.addEventListener("keydown", shortcut);
-    return () => window.removeEventListener("keydown", shortcut);
-  }, [isMatchSearch]);
+    const frame=requestAnimationFrame(onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => { cancelAnimationFrame(frame); window.removeEventListener("scroll", onScroll); };
+  }, [activeDialog, headerFocused]);
 
   const close = () => {
     if (menu.current?.open) menu.current.close();
@@ -353,7 +334,7 @@ function ArchiveFrame({ children }: { children: React.ReactNode }) {
         Saltar al contenido
       </a>
       <div className="ry-workspace">
-        <header className="ry-header">
+        <header className="ry-header" data-hidden={headerHidden || undefined}>
           <div className="ry-header-main">
             <div className="ry-header-brand">
               <Wordmark />
@@ -365,7 +346,6 @@ function ArchiveFrame({ children }: { children: React.ReactNode }) {
                   <Search size={16} strokeWidth={1.6} aria-hidden="true" />
                   <label className="ry-sr" htmlFor="ry-header-query">Buscar en DEUCE</label>
                   <input id="ry-header-query" ref={headerField} name="q" type="search" value={headerQuery} onChange={event => setHeaderQuery(event.target.value)} onFocus={() => setHeaderFocused(true)} onKeyDown={event => { if (event.key === 'Escape') { setHeaderQuery(''); setHeaderFocused(false); headerField.current?.blur(); } }} placeholder="Buscar" autoComplete="off" />
-                  <kbd>⌘K</kbd>
                 </form>
                 {headerFocused && headerQuery.trim() ? <SearchResults query={headerQuery} choose={() => { setHeaderFocused(false); setHeaderQuery(''); }} clear={() => setHeaderQuery('')} /> : null}
               </div>}
@@ -375,7 +355,6 @@ function ArchiveFrame({ children }: { children: React.ReactNode }) {
                 aria-haspopup="dialog"
                 aria-controls="ry-search-dialog"
                 aria-expanded={activeDialog === "search"}
-                aria-keyshortcuts="Control+K Meta+K"
                 type="button"
                 onClick={(event) => open("search", event.currentTarget)}
               >
@@ -405,7 +384,7 @@ function ArchiveFrame({ children }: { children: React.ReactNode }) {
             <p className="deuce-footer-about">Un archivo visual para recorrer los partidos, jugadores y récords del tenis desde 1968.</p>
           </div>
           <div className="ry-footer-inner">
-            <nav aria-label="Archivo"><strong>Archivo</strong><Link href="/buscar">Partidos</Link><Link href="/jugadores">Jugadores</Link><Link href="/tournaments">Torneos</Link><Link href="/comparar">Cara a cara</Link></nav>
+            <nav aria-label="Archivo"><strong>Archivo</strong><Link href="/buscar">Partidos</Link><Link href="/jugadores">Jugadores</Link><Link href="/torneos">Torneos</Link><Link href="/comparar">Cara a cara</Link></nav>
             <nav aria-label="Récords"><strong>Récords</strong><Link href="/records">Todos los récords</Link><Link href="/records?dato=top-10">Top 10</Link></nav>
             <nav aria-label="El proyecto"><strong>El proyecto</strong><Link href="/info">Cómo se lee</Link><Link href="/cobertura">Cobertura</Link><Link href="/credits">Créditos de las fotos</Link></nav>
             <span className="ry-copyright">

@@ -11,7 +11,19 @@ export type EditionAudit = {
   pending: number;
   hasFinal: boolean;
   rounds: Record<string, number>;
+  expectedLateRounds: boolean;
+  missingLateRounds: string[];
+  completeDraw: boolean | null;
 };
+const knockoutCategories = new Set(["Grand Slam", "Masters 1000", "ATP 500", "ATP 250", "Precursores de Masters"]);
+const lateRounds = [{position:5,label:"cuartos",singular:"cuarto",expected:4},{position:6,label:"semifinales",singular:"semifinal",expected:2},{position:7,label:"finales",singular:"final",expected:1}] as const;
+
+export function editionCompleteness(audit: Pick<EditionAudit,"category"|"rounds"|"pending">) {
+  const hasLateRound=lateRounds.some(({position})=>(audit.rounds[String(position)]||0)>0);
+  const expected=knockoutCategories.has(audit.category)&&hasLateRound;
+  const missing=expected?lateRounds.flatMap(({position,label,singular,expected:count})=>{const actual=audit.rounds[String(position)]||0,difference=count-actual;return difference>0?[`${difference} ${difference===1?singular:label}`]:[];}):[];
+  return {expectedLateRounds:expected,missingLateRounds:missing,completeDraw:expected?missing.length===0&&audit.pending===0:null};
+}
 export function auditEditions(source: Match[]): EditionAudit[] {
   const groups = new Map<string, EditionAudit>();
   for (const row of source) {
@@ -27,6 +39,9 @@ export function auditEditions(source: Match[]): EditionAudit[] {
       pending: 0,
       hasFinal: false,
       rounds: {},
+      expectedLateRounds: false,
+      missingLateRounds: [],
+      completeDraw: null,
     };
     a.sourceRows++;
     if (eligibleMatch(m)) a.completed++;
@@ -40,7 +55,7 @@ export function auditEditions(source: Match[]): EditionAudit[] {
     }
     groups.set(key, a);
   }
-  return [...groups.values()].sort(
+  return [...groups.values()].map(a=>({...a,...editionCompleteness(a)})).sort(
     (a, b) =>
       b.year - a.year ||
       b.pending - a.pending ||

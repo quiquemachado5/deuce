@@ -124,6 +124,15 @@ test("edition audit distinguishes incomplete source results and walkovers withou
   assert.equal(displayTotal(wo, 0), "W/O");
   assert.equal(displayTotal(wo, 1), "—");
 });
+test("edition audit detects missing quarterfinals, semifinals and finals conservatively",()=>{
+  const rows=Array.from({length:4},(_,index)=>({...mockMatches[0],match_id:`qf-${index}`,category:'ATP 250',round:'Quarterfinal'}));
+  rows.push({...mockMatches[0],match_id:'sf-1',category:'ATP 250',round:'Semifinal'});
+  rows.push({...mockMatches[0],match_id:'final',category:'ATP 250',round:'Final'});
+  const [audit]=auditEditions(rows);
+  assert.equal(audit.expectedLateRounds,true);
+  assert.deepEqual(audit.missingLateRounds,['1 semifinal']);
+  assert.equal(audit.completeDraw,false);
+});
 import {archiveMatches} from '../lib/live-tennis';
 import {prepareMatch} from '../lib/quality';
 import {editionReferenceMatches,mergeEditionReferences} from '../lib/verified-editions';

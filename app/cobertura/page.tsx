@@ -8,6 +8,7 @@ import { number } from "@/lib/cuaderno/model";
 import { SURFACES, surfaceLabel } from "@/lib/surface";
 import { fieldCoverage } from "@/lib/field-coverage";
 import { verifiedResults, australian2026Corrections } from "@/lib/verified-results";
+import { editionCompleteness } from "@/lib/edition-audit";
 
 export const metadata = {
   title: "Cobertura del archivo — DEUCE",
@@ -28,7 +29,7 @@ export default async function Coverage({
     manifest = generation.manifest;
   const matches = await generation.matches(), fields = fieldCoverage(matches), review = metadataReview(matches);
   const missingPortraits = (await generation.records()).filter(player=>!playerPhoto(player.name)).sort((a,b)=>b.played-a.played);
-  const editions=await preparedEditionAudit();const pending=editions.filter(e=>e.pending>0);
+  const editions=(await preparedEditionAudit()).map(edition=>({...edition,...editionCompleteness(edition)}));const pending=editions.filter(e=>e.pending>0);
   return (
     <div className="nc-wrap deuce-coverage">
       <ArchiveNotice status={generation} />
@@ -46,7 +47,7 @@ export default async function Coverage({
           . Hora de Madrid.
         </p>
       </header>
-      <section className="coverage-metric"><h2>Campos pendientes de documentar</h2><p>No reconstruimos categorías, rondas ni fechas a partir de una fotografía o de una temporada distinta.</p><dl>{[['Fecha exacta',review.missing.exactDate],['Categoría',review.missing.category],['Ronda',review.missing.round],['Superficie',review.missing.surface]].map(([label,value])=><div key={label}><dt>{label}</dt><dd>{number(Number(value))} partidos</dd></div>)}</dl><details><summary>Ediciones que necesitan fuentes adicionales</summary><ul>{review.editions.slice(0,20).map(item=><li key={item.tournament+item.year}>{item.tournament} {item.year}: {item.missing.join(', ')}</li>)}</ul></details><details><summary>Retratos pendientes · {number(missingPortraits.length)} jugadores</summary><p>Prioridad por presencia en el archivo. Solo se incorporan fotografías identificadas y con derechos documentados.</p><ul>{missingPortraits.slice(0,20).map(player=><li key={player.name}><Link href={'/players/'+playerSlug(player.name)}>{player.name}</Link> · {number(player.played)} partidos</li>)}</ul></details></section>
+      <section className="coverage-metric"><h2>Campos pendientes de documentar</h2><p>No reconstruimos categorías, rondas ni fechas a partir de una fotografía o de una temporada distinta.</p><dl>{[['Fecha exacta',review.missing.exactDate],['Categoría',review.missing.category],['Ronda',review.missing.round],['Superficie',review.missing.surface]].map(([label,value])=><div key={label}><dt>{label}</dt><dd>{number(Number(value))} partidos</dd></div>)}</dl><details><summary>Ediciones que necesitan fuentes adicionales</summary><ul>{review.editions.slice(0,20).map(item=><li key={item.tournament+item.year}>{item.tournament} {item.year}: {item.missing.join(', ')}</li>)}</ul></details><details><summary>Retratos pendientes · {number(missingPortraits.length)} jugadores</summary><p>Prioridad por presencia en el archivo. Solo se incorporan fotografías identificadas y con derechos documentados.</p><ul>{missingPortraits.slice(0,20).map(player=><li key={player.name}><Link href={'/jugadores/'+playerSlug(player.name)}>{player.name}</Link> · {number(player.played)} partidos</li>)}</ul></details></section>
       {piece && (
         <section className="coverage-metric" id="estadistica">
           <h2>{piece.title}</h2>
@@ -72,7 +73,7 @@ export default async function Coverage({
         récords solo consideran los encuentros con los datos necesarios. Este
         archivo no representa necesariamente toda una carrera.
       </p>
-      <section className="coverage-metric"><h2>Revisión por edición</h2><p>{number(editions.length)} ediciones revisadas. {number(pending.length)} conservan marcadores pendientes de cierre o contraste. Las retiradas y los encuentros sin jugar se presentan en las ediciones; no se suman a las estadísticas de partidos completos.</p><details><summary>Ediciones con marcadores pendientes</summary><div className="deuce-coverage-table" role="region" aria-label="Revisión de ediciones" tabIndex={0}><table><caption>Primeras 25 ediciones por temporada. «Sin final» significa que la fuente guardada no contiene esa ronda; no afirma que el torneo se cancelara.</caption><thead><tr><th scope="col">Torneo</th><th scope="col">Año</th><th scope="col">Filas de origen</th><th scope="col">Completos</th><th scope="col">Retiradas y sin jugar</th><th scope="col">Pendientes</th></tr></thead><tbody>{pending.slice(0,25).map(e=><tr key={`${e.tournament}-${e.year}-${e.category}`}><th scope="row">{e.tournament}{!e.hasFinal?' · Sin final registrada':''}</th><td>{e.year}</td><td>{number(e.sourceRows)}</td><td>{number(e.completed)}</td><td>{number(e.terminal)}</td><td>{number(e.pending)}</td></tr>)}</tbody></table></div></details></section>
+      <section className="coverage-metric" id="ediciones"><h2>Revisión automática por edición</h2><p>{number(editions.length)} ediciones revisadas. {number(editions.filter(e=>e.completeDraw===false).length)} tienen huecos en cuartos, semifinales o final; {number(pending.length)} conservan marcadores pendientes de cierre o contraste. Una edición nueva puede estar en curso, pero una edición ya verificada no puede perder rondas en la siguiente publicación.</p><details><summary>Ediciones que necesitan revisión</summary><div className="deuce-coverage-table" role="region" aria-label="Revisión de ediciones" tabIndex={0}><table><caption>Primeras 25 ediciones por temporada. Un hueco describe la fuente guardada; no implica que el partido no se disputara.</caption><thead><tr><th scope="col">Torneo</th><th scope="col">Año</th><th scope="col">Filas</th><th scope="col">Completos</th><th scope="col">Retiradas</th><th scope="col">Incidencia</th></tr></thead><tbody>{editions.filter(e=>e.pending>0||e.completeDraw===false).slice(0,25).map(e=><tr key={`${e.tournament}-${e.year}-${e.category}`}><th scope="row">{e.tournament}</th><td>{e.year}</td><td>{number(e.sourceRows)}</td><td>{number(e.completed)}</td><td>{number(e.terminal)}</td><td>{[...(e.missingLateRounds||[]),e.pending?`${number(e.pending)} pendientes`:null].filter(Boolean).join(' · ')||'Revisión manual'}</td></tr>)}</tbody></table></div></details></section>
       <section className="coverage-metric">
         <h2>Resultados contrastados</h2>
         <p>

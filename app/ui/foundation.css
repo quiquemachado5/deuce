@@ -28,7 +28,20 @@
   --font-editorial: var(--deuce-editorial), serif;
   --font-mono: var(--font-interface);
   --panel-radius: 24px;
-  --field-radius: 16px;
+  --field-radius: 12px;
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 24px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --control-search: 48px;
+  --control-filter: 40px;
+  --control-button: 44px;
+  --control-tab: 38px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --speed: 240ms;
 }
@@ -167,8 +180,8 @@ summary {
     opacity var(--speed);
 }
 :focus-visible {
-  outline: 2px solid var(--focus);
-  outline-offset: 4px;
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
 }
 button {
   border: 0;

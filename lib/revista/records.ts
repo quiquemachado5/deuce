@@ -61,7 +61,7 @@ const person = (
   value,
   sample,
   detail,
-  href: `/players/${playerSlug(name)}`,
+  href: `/jugadores/${playerSlug(name)}`,
   photoName: name,
   proof,
 });

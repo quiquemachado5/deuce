@@ -1,28 +1,33 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { preparedTournamentArchive } from "@/lib/revista/read-records";
+import { preparedEditionAudit, preparedTournamentArchive } from "@/lib/revista/read-records";
 import { tournamentName } from "@/lib/labels";
 import {
   categoryLabel,
   categoryYears,
   tournamentDirectory,
 } from "@/lib/tournament-directory";
-import { roundPosition, durationLabel } from "@/lib/editorial";
+import { roundLabel, roundPosition, durationLabel, winnerName } from "@/lib/editorial";
 import { eligibleMatch } from "@/lib/quality";
 import { lostOpening } from "@/lib/archive-insights";
 import { closeness, number, surfaceLabel } from "@/lib/cuaderno/model";
 import { editionTournamentCourt } from "@/lib/tournament-presentation";
 import { courtPhoto, courtPhotoForEdition } from "@/lib/imagery";
-import Row, { Pagination } from "@/components/nocturno/Row";
+import Row from "@/components/nocturno/Row";
 import EditionPicker from "@/components/EditionPicker";
 import TournamentFinal from "@/components/TournamentFinal";
-import TournamentBracket from "@/components/TournamentBracket";
+import EditionMatchExplorer from "@/components/EditionMatchExplorer";
+import { toMatchRecord } from "@/data/map-match";
 import { publishedMatchMinutes } from "@/lib/duration";
+import { Breadcrumbs } from "@/components/deuce/Breadcrumbs";
+import { editionCompleteness } from "@/lib/edition-audit";
+import { mediaForEdition } from "@/lib/tournament-media";
+import TournamentEditionMediaView from "@/components/TournamentEditionMedia";
 
 type Props = {
   params: Promise<{ slug: string; year: string }>;
-  searchParams: Promise<{ page?: string; categoria?: string }>;
+  searchParams: Promise<{ categoria?: string }>;
 };
 export async function generateMetadata({ params, searchParams }: Props) {
   const { slug, year } = await params;
@@ -40,17 +45,15 @@ export async function generateMetadata({ params, searchParams }: Props) {
   const canonicalParams = new URLSearchParams();
   if (level && new Set(options.map((match) => match.category)).size > 1)
     canonicalParams.set("categoria", level);
-  if (Number(query.page) > 1)
-    canonicalParams.set("page", String(Number(query.page)));
   const title = `${tournament ? tournamentName(tournament.name) : "Edición"} ${year}${level ? ` · ${categoryLabel(level)}` : ""} — DEUCE`;
   const description = "La final, el camino del campeón y los resultados de esta edición.";
   return {
     title,
     description,
     alternates: {
-      canonical: `/${slug}/${year}${canonicalParams.size ? `?${canonicalParams}` : ""}`,
+      canonical: `/torneos/${slug}/${year}${canonicalParams.size ? `?${canonicalParams}` : ""}`,
     },
-    openGraph: { title, description, url: `/${slug}/${year}` },
+    openGraph: { title, description, url: `/torneos/${slug}/${year}` },
     twitter: { card: "summary_large_image", title, description },
   };
 }
@@ -58,7 +61,8 @@ export async function generateMetadata({ params, searchParams }: Props) {
 export default async function Edition({ params, searchParams }: Props) {
   const { slug, year } = await params;
   const query = await searchParams;
-  const tournament = tournamentDirectory(await preparedTournamentArchive()).find(
+  const [archive,audits]=await Promise.all([preparedTournamentArchive(),preparedEditionAudit()]);
+  const tournament = tournamentDirectory(archive).find(
     (entry) => entry.slug === slug,
   );
   if (!tournament || !/^\d{4}$/.test(year)) notFound();
@@ -73,6 +77,8 @@ export default async function Edition({ params, searchParams }: Props) {
   const matches = edition.filter((match) => match.category === category);
   if (!matches.length) notFound();
   const court = editionTournamentCourt(matches);
+  const storedAudit=audits.find(audit=>audit.tournament===tournament.name&&audit.year===Number(year)&&audit.category===category);
+  const audit=storedAudit?{...storedAudit,...editionCompleteness(storedAudit)}:null;
   const final = matches.find((match) => roundPosition(match.round) === 7);
   const measuredMatches=matches.filter(eligibleMatch);
   const comeback =
@@ -86,16 +92,10 @@ export default async function Edition({ params, searchParams }: Props) {
   const timed = measuredMatches
     .filter((match) => publishedMatchMinutes(match) !== null)
     .sort((a, b) => publishedMatchMinutes(b)! - publishedMatchMinutes(a)!);
-  const requestedPage = Number(query.page);
-  const page = Number.isFinite(requestedPage)
-    ? Math.max(
-        1,
-        Math.min(Math.ceil(matches.length / 25), Math.floor(requestedPage)),
-      )
-    : 1;
   const photo = tournament.canonical
     ? courtPhotoForEdition(tournament.name, Number(year)) || (Number(year)>=2023 ? courtPhoto(tournament.name) : null)
     : null;
+  const editionMedia=mediaForEdition(tournament.name,Number(year));
   const moments = [
     comeback ? { match: comeback, label: "Remontada" } : null,
     closest
@@ -129,12 +129,8 @@ export default async function Edition({ params, searchParams }: Props) {
       ]),
     ).values(),
   ];
-  const editionUrl = (pageNumber: number) => {
-    const params = new URLSearchParams();
-    if (categories.length > 1) params.set("categoria", category);
-    if (pageNumber > 1) params.set("page", String(pageNumber));
-    return `/${slug}/${year}${params.size ? `?${params}` : ""}`;
-  };
+  const champion=final?winnerName(final):null;
+  const editionResults=matches.filter(match=>roundPosition(match.round)>0).sort((a,b)=>roundPosition(b.round)-roundPosition(a.round)||b.score_summary.timestamp.localeCompare(a.score_summary.timestamp)).map(match=>({key:String(roundPosition(match.round)),label:roundLabel(match.round),position:roundPosition(match.round),championPath:Boolean(champion&&winnerName(match)===champion),match:toMatchRecord(match)}));
   return (
     <div
       className="nc-wrap ry-photo-edition td-edition"
@@ -154,7 +150,7 @@ export default async function Edition({ params, searchParams }: Props) {
           />
         )}
         <div className="td-edition-hero-copy">
-
+          <Breadcrumbs className="td-breadcrumb" items={[{label:'Torneos',href:'/torneos'},{label:tournamentName(tournament.name),href:`/torneos/${slug}`},{label:year}]}/>
           <h1>
             {tournamentName(tournament.name)} <span>{year}</span>
           </h1>
@@ -182,15 +178,20 @@ export default async function Edition({ params, searchParams }: Props) {
               key={level}
               data-event-category={level}
               aria-current={level === category ? "page" : undefined}
-              href={`/${slug}/${year}?categoria=${encodeURIComponent(level)}`}
+              href={`/torneos/${slug}/${year}?categoria=${encodeURIComponent(level)}`}
             >
               {categoryLabel(level)}
             </Link>
           ))}
         </nav>
       )}
-      <section className="td-editions" aria-label="Cambiar edición">
-        <h2>Ediciones</h2>
+      <nav className="td-edition-context" aria-label="Vista del torneo">
+        <Link href={`/torneos/${slug}${tournament.categories.length > 1 ? `?categoria=${encodeURIComponent(category)}` : ""}`}>Resumen del torneo</Link>
+        <span aria-current="page">Edición {year}</span>
+      </nav>
+      {audit&&<div className={`td-coverage-status${audit.completeDraw===false?' is-warning':' is-complete'}`} role="status"><strong>{audit.completeDraw===false?'Edición incompleta en la fuente':'Cuadro final verificado'}</strong><span>{audit.completeDraw===false?`Revisión automática: ${[...audit.missingLateRounds,audit.pending?`${audit.pending} marcadores pendientes`:null].filter(Boolean).join(' · ')}.`:`Cuartos, semifinales y final presentes · ${number(audit.completed)} partidos completos y ${number(audit.terminal)} retiradas o encuentros sin jugar.`}</span><Link href="/cobertura#ediciones">Cómo se controla</Link></div>}
+      <section className="td-editions td-editions--switch" aria-label="Cambiar edición">
+        <div><h2>Cambiar de edición</h2><p>Consulta otro año sin perder el contexto del torneo.</p></div>
         <EditionPicker
           slug={slug}
           years={categoryYears(tournament, category)}
@@ -200,12 +201,13 @@ export default async function Edition({ params, searchParams }: Props) {
         />
       </section>
       {final && <TournamentFinal match={final} />}
-      <TournamentBracket matches={matches} />
+      {editionMedia && <TournamentEditionMediaView media={editionMedia} />}
+      <EditionMatchExplorer results={editionResults} />
       {uniqueMoments.length > 0 && (
         <section className="nc-section nc-edition-facts td-edition-moments">
           <div className="td-section-heading">
             <div>
-              <h2>Partidos de esta edición</h2>
+              <h2>Lecturas de la edición</h2>
             </div>
           </div>
           {uniqueMoments.map(({ match, labels }) => (
@@ -228,13 +230,6 @@ export default async function Edition({ params, searchParams }: Props) {
           ))}
         </section>
       )}
-      <details className="nc-section td-all-matches" open={Boolean(query.page)}>
-        <summary>Todos los partidos · {number(matches.length)}</summary>
-        {matches.slice((page - 1) * 25, page * 25).map((match) => (
-          <Row key={match.match_id} match={match} />
-        ))}
-        <Pagination page={page} total={matches.length} href={editionUrl} />
-      </details>
     </div>
   );
 }

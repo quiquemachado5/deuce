@@ -11,11 +11,30 @@ test('match archive keeps cards and edition navigation with shared filters',asyn
   await expect(page.locator('.td-edition')).toBeVisible();
 });
 test('tournament directory prioritizes the four Grand Slams and preserves categories',async({page})=>{
-  await page.goto('/tournaments');
+  await page.goto('/torneos');
   await expect(page.locator('.catalog-card h2').nth(0)).toHaveText('Abierto de Australia');
+  await expect(page.locator('.tournament-showcase--majors .catalog-card')).toHaveCount(4);
+  expect((await page.locator('.tournament-card-copy').allTextContents()).join(' ')).not.toContain('partidos');
   await page.getByRole('navigation',{name:'Categorías de torneos'}).getByRole('link',{name:'ATP 250',exact:true}).click();
   await expect(page).toHaveURL(/categoria=ATP/);
   await expect(page.locator('.catalog-card').first()).toBeVisible();
+});
+test('edition media stays lazy and exposes verified provenance',async({page})=>{
+  await page.goto('/torneos/roland-garros/2024');
+  const media=page.locator('.tournament-edition-media');await media.scrollIntoViewIfNeeded();
+  await expect(media.getByRole('heading',{name:'Registro multimedia'})).toBeVisible();
+  await expect(media.locator('iframe')).toHaveCount(0);
+  await expect(media.getByRole('link',{name:/Original y metadatos/})).toHaveAttribute('href',/commons\.wikimedia\.org/);
+  await media.getByRole('button',{name:/Reproducir Final masculina 2024/}).click();
+  await expect(media.locator('iframe')).toHaveAttribute('src',/youtube-nocookie\.com/);
+});
+test('player directory keeps search and sorting compact without an alphabet strip',async({page})=>{
+  await page.goto('/jugadores');
+  const toolbar=page.locator('.player-toolbar.archive-unified-toolbar');
+  await expect(toolbar).toBeVisible();
+  await expect(toolbar.getByRole('searchbox')).toHaveAttribute('placeholder','Nombre del jugador');
+  await expect(page.getByRole('navigation',{name:'Índice alfabético'})).toHaveCount(0);
+  await expect(page.locator('.player-directory-count')).toContainText('jugadores');
 });
 test('home slider is keyboard operable and reduced motion disables rotation',async({page})=>{
   await page.emulateMedia({reducedMotion:'reduce'});await page.goto('/');
@@ -29,7 +48,7 @@ test('home slider is keyboard operable and reduced motion disables rotation',asy
 test('handoff screens fit all required widths and pass accessibility checks',async({page})=>{
   test.setTimeout(120000);
   await page.emulateMedia({reducedMotion:'reduce'});
-  for(const route of ['/','/buscar','/records','/jugadores','/tournaments','/comparar']){
+  for(const route of ['/','/buscar','/records','/jugadores','/torneos','/comparar']){
     await page.goto(route);
     for(const width of [320,390,768,1024,1440,1920]){
       await page.setViewportSize({width,height:900});

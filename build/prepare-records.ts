@@ -3,7 +3,7 @@ import {loadEnvConfig} from '@next/env';
 import {readFile} from 'node:fs/promises';
 import {gunzipSync} from 'node:zlib';
 import {assertPublishableArchive} from '../lib/dataset-summary';
-import {assertReleaseCoverage} from '../lib/revista/release-check';
+import {assertEditionCoverage,assertReleaseCoverage} from '../lib/revista/release-check';
 loadEnvConfig(process.cwd());
 async function main(){
   const [{editorialArchive},{compileRecordSnapshot},{writeBundledSnapshot}]=await Promise.all([import('../lib/editorial-data'),import('../lib/revista/snapshot'),import('../lib/revista/publish-snapshot')]);
@@ -19,6 +19,8 @@ async function main(){
     const previous=await cloudRead('reading-v2-manifest');
     if(!previous)throw new Error('Cannot verify the published archive baseline');
     assertReleaseCoverage(previous,snapshot.manifest);
+    const {preparedEditionAudit}=await import('../lib/revista/read-records');
+    assertEditionCoverage(await preparedEditionAudit(),snapshot.audit);
     snapshot.manifest=attachRecordChanges(previous,snapshot.manifest);
     console.log(`Release baseline verified: ${previous.matchCount} published matches; ${snapshot.manifest.matchCount} prepared; measured coverage preserved`);
   }

@@ -7,7 +7,7 @@ import { mockMatches } from '../lib/mocks';
 import { compileRecordSnapshot } from '../lib/revista/snapshot';
 import { selectGeneration, generationMetadata, type PreparedGeneration } from '../lib/revista/generation';
 import { decodeCloudBlob } from '../lib/revista/read-records';
-import { assertReleaseCoverage } from '../lib/revista/release-check';
+import { assertEditionCoverage, assertReleaseCoverage } from '../lib/revista/release-check';
 import { asyncCache } from '../lib/async-cache';
 
 const matches = mockMatches.map(match => ({ ...match, data_source: 'api' as const }));
@@ -87,4 +87,9 @@ test('release gate rejects losses of published matches or measured coverage', ()
   assert.throws(() => assertReleaseCoverage(previous, { ...previous, matchCount: previous.matchCount - 1 }), /lose published matches/);
   assert.throws(() => assertReleaseCoverage(previous, { ...previous, pieces: [] }), /measured coverage/);
   assert.throws(() => assertReleaseCoverage(previous, { ...previous, pieces: [{ ...metric, sample: 9 }] }), /measured coverage/);
+});
+test('release gate preserves editions whose late rounds were already complete',()=>{
+  const complete:import('../lib/edition-audit').EditionAudit={tournament:'Madrid',year:2025,category:'Masters 1000',sourceRows:7,completed:7,terminal:0,pending:0,hasFinal:true,rounds:{'5':4,'6':2,'7':1},expectedLateRounds:true,missingLateRounds:[],completeDraw:true};
+  assert.doesNotThrow(()=>assertEditionCoverage([complete],[complete]));
+  assert.throws(()=>assertEditionCoverage([complete],[{...complete,rounds:{'5':4,'6':1,'7':1},missingLateRounds:['1 semifinal'],completeDraw:false}]),/complete edition incomplete/);
 });

@@ -19,7 +19,7 @@ export default function EditionPicker({
   const archived = years.slice(4);
   const router = useRouter();
   const decades = [...new Set(archived.map((year) => Math.floor(year / 10) * 10))];
-  const editionHref = (year: number) => `/${slug}/${year}${category ? `?categoria=${encodeURIComponent(category)}` : ""}`;
+  const editionHref = (year: number) => `/torneos/${slug}/${year}${category ? `?categoria=${encodeURIComponent(category)}` : ""}`;
   return (
     <div className="nc-edition-picker">
       <nav className="nc-edition-recent" aria-label="Últimas ediciones">

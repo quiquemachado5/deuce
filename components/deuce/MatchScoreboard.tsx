@@ -6,17 +6,19 @@ import { resolvedWinner, resolvedSetClosed } from '@/lib/deuce-score';
 
 export function ScoreRows({ match, playerLinks = false }: { match: MatchRecord; playerLinks?: boolean }) {
   const winner = resolvedWinner(match);
+  const setWins = match.players.map((_, side) => match.sets.filter(set => resolvedSetClosed(set) && set.games[side] > set.games[1-side]).length);
   return <div className="global-scoreboard" role="group" aria-label={`${match.players[0].name} contra ${match.players[1].name}${winner >= 0 ? `. Ganó ${match.players[winner].name}` : ''}`}>
+    {!!match.sets.length && <div className="global-score-labels" aria-hidden="true"><span/><span/><div className="global-sets">{match.sets.map((_, index) => <span key={index}>S{index + 1}</span>)}<span className="global-set-total">Sets</span></div></div>}
     {match.players.map((player, side) => <div className={`global-player${winner === side ? ' match-winner' : ''}`} key={player.id}>
       <span className="player-flag" aria-hidden="true">{player.countryCode && <PlayerFlag code={player.countryCode} />}</span>
-      <strong>{playerLinks ? <Link href={`/players/${player.id}`}>{player.name}</Link> : player.name}</strong>
+      <strong>{playerLinks ? <Link href={`/jugadores/${player.id}`}>{player.name}</Link> : player.name}</strong>
       <div className="global-sets">{match.sets.map((set,index) => {
         const won = resolvedSetClosed(set) && set.games[side] > set.games[1-side];
         const tie = set.tieBreak?.[side];
         return <span className={`global-set${won ? ' set-won' : ''}`} key={index} aria-label={`Set ${index+1}: ${set.games[side]}${tie != null ? `, tie-break ${tie}` : ''}`}>
           {set.games[side]}{tie != null && <sup aria-hidden="true">{tie}</sup>}
         </span>;
-      })}</div>
+      })}<span className="global-set-total" aria-label={`${setWins[side]} sets ganados`}>{setWins[side]}</span></div>
     </div>)}
     {!match.sets.length && <p className="score-status">{/walkover/i.test(match.status || '') ? 'Sin disputa · W/O' : 'Sin sets registrados'}</p>}
     {match.status && /retired|abandoned|disqualified|cancelled/i.test(match.status) && <p className="score-status">{/disqualified/i.test(match.status) ? 'Descalificación' : /cancelled/i.test(match.status) ? 'Cancelado' : 'Retirada'}</p>}

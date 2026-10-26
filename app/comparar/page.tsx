@@ -1,7 +1,6 @@
 import { ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
 import { preparedGeneration } from '@/lib/revista/read-records';
-import { archiveIndex } from '@/lib/archive-index';
 import { comparePlayer, sharedCareerWindow } from '@/lib/player-comparison';
 import { playerPhoto } from '@/lib/player-imagery';
 import { playerSlug } from '@/lib/explore';
@@ -9,24 +8,29 @@ import { SURFACES, surfaceLabel } from '@/lib/surface';
 import { number, round } from '@/lib/cuaderno/model';
 import ArchiveNotice from '@/components/nocturno/ArchiveNotice';
 import PlayerInput from '@/components/PlayerInput';
-import CompareSelection from './CompareSelection';
+import CompareSelection, { CompareSampleFilters } from './CompareSelection';
 import PlayerAvatar from '@/components/PlayerAvatar';
 import { tournamentName } from '@/lib/labels';
 import SetScoreboard from '@/components/SetScoreboard';
 
 export const metadata = { title: 'Comparador de jugadores — DEUCE', alternates: { canonical: '/comparar' }, robots: { index: false, follow: true } };
+export const revalidate = 300;
 type Query = Record<string, string | undefined>;
 
 export default async function Compare({ searchParams }: { searchParams: Promise<Query> }) {
-  const q = await searchParams, generation = await preparedGeneration(), matches = await generation.matches();
-  const names = [...archiveIndex(matches).players.keys()].sort((a,b) => a.localeCompare(b,'es'));
+  const q = await searchParams, generation = await preparedGeneration();
+  const [matches,recordSource]=await Promise.all([generation.matches(),generation.records()]);
+  const names = recordSource.map(player=>player.name).sort((a,b) => a.localeCompare(b,'es'));
   const chosen = [q.a || 'Novak Djokovic', q.b || 'Rafael Nadal'];
-  const window = sharedCareerWindow(matches, chosen);
-  const cohort = q.period === 'shared' ? (window ? matches.filter(m=>m.year>=window.first&&m.year<=window.last) : []) : matches;
+  const chosenNames=new Set(chosen);
+  const relevantMatches=matches.filter(match=>chosenNames.has(match.player1.name)||chosenNames.has(match.player2.name));
+  const window = sharedCareerWindow(relevantMatches, chosen);
+  const cohort = q.period === 'shared' ? (window ? relevantMatches.filter(m=>m.year>=window.first&&m.year<=window.last) : []) : relevantMatches;
   const players = chosen.map(name => comparePlayer(cohort, name, q));
   const same = chosen[0] === chosen[1], valid = chosen.every(name => names.includes(name));
   const sufficient = !same && valid && players.every(p => p.sufficient);
   const minimum = ['5','20','50'].includes(q.minimum || '') ? q.minimum! : '20';
+  const activeSampleFilters = [q.period && q.period !== 'career', q.year && q.year !== 'all', q.surface && q.surface !== 'all', q.competition && q.competition !== 'all', q.age && q.age !== 'all', q.minimum && q.minimum !== '20'].filter(Boolean).length;
   const context = [
     q.period === 'shared' ? (window ? `Periodo compartido documentado: ${window.first}–${window.last}` : 'Sin periodo compartido documentado') : 'Carrera documentada completa',
     q.year && q.year !== 'all' ? `Temporada ${q.year}` : 'Todas las temporadas',
@@ -61,19 +65,21 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
       return { name, photo: photo ? { src: photo.avatarCrop ? photo.src : photo.thumbnail || photo.src, objectPosition: photo.objectPosition, avatarCrop: photo.avatarCrop } : undefined };
     })}>
       {['a','b'].map((key,index) => <label className="nc-field" key={key}><span>Jugador {index + 1}</span><PlayerInput key={chosen[index]} name={key} initial={chosen[index]} /></label>)}
-      <label className="nc-field"><span>Periodo de comparación</span><select name="period" defaultValue={q.period || "career"}><option value="career">Carrera documentada</option><option value="shared">Periodo compartido</option></select></label>
-      <label className="nc-field"><span>Temporada</span><select name="year" defaultValue={q.year || 'all'}><option value="all">Todas</option>{generation.manifest.years.map(year => <option key={year}>{year}</option>)}</select></label>
-      <label className="nc-field"><span>Superficie</span><select name="surface" defaultValue={q.surface || 'all'}><option value="all">Todas</option>{SURFACES.map(s => <option value={s} key={s}>{surfaceLabel[s]}</option>)}</select></label>
-      <label className="nc-field"><span>Competición</span><select name="competition" defaultValue={q.competition || 'all'}><option value="all">Todas</option>{[...new Set(matches.map(m => m.category))].sort().filter(category => category !== 'ATP Tour · nivel no especificado').map(c => <option key={c}>{c}</option>)}</select></label>
-      <label className="nc-field"><span>Edad al jugar</span><select name="age" defaultValue={q.age || 'all'}><option value="all">Todas las edades</option>{Array.from({length:40},(_,i) => i + 14).map(age => <option key={age} value={age}>{age} años</option>)}</select></label>
-      <label className="nc-field"><span>Muestra mínima</span><select name="minimum" defaultValue={minimum}>{[5,20,50].map(n => <option key={n} value={n}>{n} partidos</option>)}</select></label>
+      <CompareSampleFilters summary={activeSampleFilters ? `${activeSampleFilters} activos` : 'Valores generales'}>
+        <label className="nc-field"><span>Periodo de comparación</span><select name="period" defaultValue={q.period || "career"}><option value="career">Carrera documentada</option><option value="shared">Periodo compartido</option></select></label>
+        <label className="nc-field"><span>Temporada</span><select name="year" defaultValue={q.year || 'all'}><option value="all">Todas</option>{generation.manifest.years.map(year => <option key={year}>{year}</option>)}</select></label>
+        <label className="nc-field"><span>Superficie</span><select name="surface" defaultValue={q.surface || 'all'}><option value="all">Todas</option>{SURFACES.map(s => <option value={s} key={s}>{surfaceLabel[s]}</option>)}</select></label>
+        <label className="nc-field"><span>Competición</span><select name="competition" defaultValue={q.competition || 'all'}><option value="all">Todas</option>{[...new Set(matches.map(m => m.category))].sort().filter(category => category !== 'ATP Tour · nivel no especificado').map(c => <option key={c}>{c}</option>)}</select></label>
+        <label className="nc-field"><span>Edad al jugar</span><select name="age" defaultValue={q.age || 'all'}><option value="all">Todas las edades</option>{Array.from({length:40},(_,i) => i + 14).map(age => <option key={age} value={age}>{age} años</option>)}</select></label>
+        <label className="nc-field"><span>Muestra mínima</span><select name="minimum" defaultValue={minimum}>{[5,20,50].map(n => <option key={n} value={n}>{n} partidos</option>)}</select></label>
+      </CompareSampleFilters>
       <button className="dx-button" type="submit">Actualizar comparación</button>
     </CompareSelection>
     <p className="dx-comparison-context">{context.join(' · ')}</p>
     {!valid ? <p role="status" className="dx-notice">Selecciona dos nombres del archivo. No hay resultados para {chosen.filter(n => !names.includes(n)).join(', ')}.</p> : <>
       {(same || !sufficient) && <p role="status" className="dx-notice">{same ? 'Has elegido el mismo jugador. Selecciona dos jugadores distintos.' : 'La muestra no alcanza el mínimo elegido; las cifras se muestran sin declarar una ventaja.'}</p>}
       <section className="dx-comparison-table" aria-labelledby="comparison-table-title">
-        <div className="dx-comparison-players"><h2 id="comparison-table-title" className="nc-sr">Comparación métrica</h2>{players.map(player => <Link href={`/players/${playerSlug(player.name)}`} key={player.name}><PlayerAvatar name={player.name} size={64}/><strong>{player.name}</strong><span>{number(player.played)} partidos</span></Link>)}</div>
+        <div className="dx-comparison-players"><h2 id="comparison-table-title" className="nc-sr">Comparación métrica</h2>{players.map(player => <Link href={`/jugadores/${playerSlug(player.name)}`} key={player.name}><PlayerAvatar name={player.name} size={64}/><strong>{player.name}</strong><span>{number(player.played)} partidos</span></Link>)}</div>
         <div className="dx-shared-metrics" role="table" aria-label={`Comparación entre ${chosen[0]} y ${chosen[1]}`}>
           <div className="dx-shared-metric-head" role="row"><span role="columnheader">Métrica</span><span role="columnheader">{chosen[0]}</span><span role="columnheader">{chosen[1]}</span><span role="columnheader">Diferencia</span></div>
           {metrics.map(metric => {
@@ -88,7 +94,7 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
       <section className="dx-surface-comparison" aria-labelledby="surface-comparison-title">
         <div className="dx-section-heading"><h2 id="surface-comparison-title">Rendimiento por superficie</h2><span>Porcentaje de victorias en la muestra</span></div>
         <div className="dx-surface-comparison-list">
-          {SURFACES.map((surface) => <article key={surface}>
+          {SURFACES.filter(surface => surface !== 'unknown').map((surface) => <article key={surface}>
             <h3>{surfaceLabel[surface]}</h3>
             {players.map((player) => {
               const result = player.surfaces.find((entry) => entry.surface === surface)!;
@@ -104,7 +110,7 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
           {players.map((player) => <p key={player.name}><span>{player.name}</span><strong>{player.finals ? `${number(player.titles)} de ${number(player.finals)} · ${number(player.titles / player.finals * 100, 1)} %` : "Sin finales"}</strong></p>)}
         </div>
       </section>
-      <section className="dx-dual-sample" aria-labelledby="sample-title"><div className="dx-section-heading"><h2 id="sample-title">Partidos de la muestra</h2><span>Últimos cinco de cada jugador</span></div><div className="dx-dual-sample-grid">{players.map(player => <div className="dx-sample-column" key={player.name}><h3>{player.name}</h3>{[...player.matches].slice(-5).reverse().map(match => <article className="dx-sample-match" key={match.match_id}><Link className="dx-sample-match-context" href={`/match/${match.match_id}`}>{tournamentName(match.tournament)} · {match.year} · {round(match)} <ArrowUpRight size={17} aria-hidden="true"/></Link><SetScoreboard match={match} compact /></article>)}<Link className="dx-sample-all" href={sampleHref(player.name)}>Ver toda la muestra</Link></div>)}</div></section>
+      <section className="dx-dual-sample" aria-labelledby="sample-title"><div className="dx-section-heading"><h2 id="sample-title">Partidos de la muestra</h2><span>Últimos dos de cada jugador</span></div><div className="dx-dual-sample-grid">{players.map(player => <div className="dx-sample-column" key={player.name}><h3>{player.name}</h3>{[...player.matches].slice(-2).reverse().map(match => <article className="dx-sample-match" key={match.match_id}><Link className="dx-sample-match-context" href={`/match/${match.match_id}`}>{tournamentName(match.tournament)} · {match.year} · {round(match)} <ArrowUpRight size={17} aria-hidden="true"/></Link><SetScoreboard match={match} compact /></article>)}<Link className="dx-sample-all" href={sampleHref(player.name)}>Ver toda la muestra</Link></div>)}</div></section>
     </>}
     <p className="dx-provenance">Cobertura de ranking histórico: {players.map(player=>`${player.name}: ${number(player.ranking)} de ${number(player.played)} partidos`).join(" · ")}. Las victorias ante top 10 solo usan esa muestra.</p>
     <p className="dx-provenance">Solo se comparan resultados completos. Los abandonos y encuentros en revisión quedan fuera de las cifras.</p>

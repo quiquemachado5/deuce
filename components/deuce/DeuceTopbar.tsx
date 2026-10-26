@@ -3,24 +3,31 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { Search, X, ArrowRight } from 'lucide-react';
-const navigation = [['Partidos','/buscar'],['Récords','/records'],['Jugadores','/jugadores'],['Torneos','/tournaments'],['Comparar','/comparar']] as const;
+const navigation = [['Partidos','/buscar'],['Récords','/records'],['Jugadores','/jugadores'],['Torneos','/torneos'],['Comparar','/comparar']] as const;
 type Result = { href: string; name: string; detail?: string; group: string };
 export function DeuceTopbar() {
   const pathname=usePathname(), router=useRouter();
-  const [hidden,setHidden]=useState(false), [menu,setMenu]=useState(false), [query,setQuery]=useState('');
+  const [scrolled,setScrolled]=useState(false), [navHidden,setNavHidden]=useState(false), [menu,setMenu]=useState(false), [query,setQuery]=useState('');
   const [result,setResult]=useState<{query:string;items:Result[];error?:boolean}>({query:'',items:[]});
+  const lastScroll=useRef(0);
   const menuTrigger=useRef<HTMLButtonElement>(null);
   const dialog=useRef<HTMLDialogElement>(null), field=useRef<HTMLInputElement>(null), trigger=useRef<HTMLButtonElement>(null);
   const closeSearch=()=>{dialog.current?.close();document.body.style.removeProperty('overflow');trigger.current?.focus();};
-  const openSearch=()=>{setMenu(false);dialog.current?.showModal();document.body.style.overflow='hidden';field.current?.focus();};
+  const openSearch=()=>{setMenu(false);setNavHidden(false);dialog.current?.showModal();document.body.style.overflow='hidden';field.current?.focus();};
   useEffect(()=>{
-    let previous=window.scrollY;
-    const scroll=()=>{const current=window.scrollY;if(Math.abs(current-previous)<6)return;setHidden(current>previous&&current>120);previous=current;};
-    const key=(event:KeyboardEvent)=>{if((event.metaKey||event.ctrlKey)&&event.key.toLowerCase()==='k'){event.preventDefault();openSearch();}if(event.key==='Escape'){if(menuTrigger.current?.getAttribute('aria-expanded')==='true')menuTrigger.current.focus();setMenu(false);if(dialog.current?.open)closeSearch();}};
+    const scroll=()=>{
+      const next=Math.max(0,window.scrollY);
+      setScrolled(next>24);
+      if(next<=72)setNavHidden(false);
+      else if(Math.abs(next-lastScroll.current)>7)setNavHidden(next>lastScroll.current);
+      lastScroll.current=next;
+    };
+    const key=(event:KeyboardEvent)=>{if(event.key==='Escape'){if(menuTrigger.current?.getAttribute('aria-expanded')==='true')menuTrigger.current.focus();setMenu(false);if(dialog.current?.open)closeSearch();}};
     const navigate=()=>setMenu(false);
+    const frame=requestAnimationFrame(scroll);
     document.addEventListener('deuce:navigate',navigate);
     window.addEventListener('scroll',scroll,{passive:true});document.addEventListener('keydown',key);
-    return()=>{document.removeEventListener('deuce:navigate',navigate);window.removeEventListener('scroll',scroll);document.removeEventListener('keydown',key);document.body.style.removeProperty('overflow');};
+    return()=>{cancelAnimationFrame(frame);document.removeEventListener('deuce:navigate',navigate);window.removeEventListener('scroll',scroll);document.removeEventListener('keydown',key);document.body.style.removeProperty('overflow');};
   },[]);
   useEffect(()=>{
     const text=query.trim();if(!text)return;
@@ -30,11 +37,11 @@ export function DeuceTopbar() {
   },[query]);
   const loading=!!query.trim()&&result.query!==query.trim();
   return <>
-    <header className={`topbar${hidden&&!menu?' nav-hidden':''}`} onFocusCapture={()=>setHidden(false)}>
+    <header className={`topbar${scrolled?' is-scrolled':''}${navHidden&&!menu?' nav-hidden':''}`}>
       <Link className="logo" href="/" aria-label="DEUCE, inicio" onClick={()=>setMenu(false)}><span aria-hidden="true"/>DEUCE</Link>
-      <nav id="deuce-navigation" className={menu?'mobile-open':''} aria-label="Principal">{navigation.map(([label,href])=><Link prefetch={true} className={pathname===href?'active':''} aria-current={pathname===href?'page':undefined} href={href} key={href} onClick={()=>setMenu(false)}>{label}</Link>)}</nav>
-      <button ref={trigger} className="search-trigger" type="button" onClick={openSearch} aria-label="Buscar en DEUCE" aria-haspopup="dialog"><Search size={18} aria-hidden="true"/><span>Buscar</span><kbd>⌘K</kbd></button>
-      <button ref={menuTrigger} className="menu" type="button" aria-expanded={menu} aria-controls="deuce-navigation" onClick={()=>setMenu(value=>!value)}>{menu?'Cerrar':'Menú'}</button>
+      <nav id="deuce-navigation" className={menu?'mobile-open':''} aria-label="Principal">{navigation.map(([label,href])=>{const active=href==='/buscar'?pathname==='/buscar'||pathname.startsWith('/match/'):href==='/jugadores'?pathname.startsWith('/jugadores')||pathname.startsWith('/players/')||pathname.startsWith('/rivalries/'):href==='/torneos'?pathname.startsWith('/torneos')||/^\/[a-z0-9-]+\/\d{4}$/.test(pathname):href==='/comparar'?pathname==='/comparar'||pathname==='/compare':pathname===href||pathname.startsWith(`${href}/`);return <Link prefetch={true} className={active?'active':''} aria-current={active?'page':undefined} href={href} key={href} onClick={()=>setMenu(false)}>{label}</Link>;})}</nav>
+      <button ref={trigger} className="search-trigger" type="button" onClick={openSearch} aria-label="Buscar en DEUCE" aria-haspopup="dialog"><Search size={18} aria-hidden="true"/><span>Buscar</span></button>
+      <button ref={menuTrigger} className="menu" type="button" aria-expanded={menu} aria-controls="deuce-navigation" onClick={()=>{setNavHidden(false);setMenu(value=>!value)}}>{menu?'Cerrar':'Menú'}</button>
     </header>
     <dialog ref={dialog} className="search-modal" aria-labelledby="global-search-label" onClose={()=>document.body.style.removeProperty('overflow')} onClick={event=>{if(event.target===event.currentTarget)closeSearch();}}>
       <button className="close-search" type="button" onClick={closeSearch}>Cerrar <X size={16} aria-hidden="true"/></button>

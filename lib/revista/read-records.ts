@@ -12,8 +12,10 @@ import {clampPage,pageBoundaryTies,pieceChunk,PAGE_SIZE,SNAPSHOT_SCHEMA,RULES_VE
 import {selectGeneration,type PreparedGeneration,type GenerationStatus} from './generation';
 import {selectedArchive, selectedCatalog} from './selection';
 import {archiveIndex} from '../archive-index';
+import {auditEditions} from '../edition-audit';
 const bundled=asyncCache<unknown>(3600_000,100);
 async function local<T>(id:string):Promise<T>{return await bundled(id,async()=>JSON.parse(gunzipSync(await readFile(join(process.cwd(),'data','reading',`${id}.json.gz`))).toString())) as T;}
+async function localOptional<T>(id:string,fallback:T):Promise<T>{try{return await local<T>(id);}catch{return fallback;}}
 const remote=asyncCache<any>(300_000,32);
 async function query(key:string,projection='payload',budget=800):Promise<any>{
  try{return await remote(`${key}:${projection}`,async()=>{
@@ -28,7 +30,7 @@ export const preparedGeneration=cache(()=>generations('active',async()=>{
  const base=await local<RecordManifest>('manifest');
  if(base.schema!==SNAPSHOT_SCHEMA||base.rulesVersion!==RULES_VERSION)throw new Error('Reading snapshot is incompatible; run npm run build');
  const fresh=await query('reading-v2-manifest','payload',5000);
- return selectGeneration({manifest:base,source:'bundled',matches:()=>local<Match[]>('matches'),records:()=>local<PlayerRecord[]>('players'),competition:()=>local<Match[]>('competition')},fresh===null?null:fresh?.payload,
+ return selectGeneration({manifest:base,source:'bundled',matches:()=>local<Match[]>('matches'),records:()=>local<PlayerRecord[]>('players'),competition:()=>localOptional<Match[]>('competition',[])},fresh===null?null:fresh?.payload,
    async m=>{const [matches,records,competition]=await Promise.all([cloudBlob<Match[]>(m.version,'matches'),cloudBlob<PlayerRecord[]>(m.version,'players'),cloudBlob<Match[]>(m.version,'competition')]);return {matches,records,competition};},!!cloudClient());
 }));
 /** The bundled summary stays lightweight; a newer remote generation is validated before use. */
@@ -144,4 +146,4 @@ export const preparedPlayerArchive = cache(async () => {
 
 export const preparedTournamentArchive=cache(async()=>{const g=await preparedGeneration();const [matches,entries]=await Promise.all([g.matches(),g.competition?.()||Promise.resolve([])]);return [...matches,...entries];});
 
-export const preparedEditionAudit=cache(async()=>{const g=await preparedGeneration();return g.source==='remote' ? (await cloudBlob<import('../edition-audit').EditionAudit[]>(g.manifest.version,'audit') || []) : local<import('../edition-audit').EditionAudit[]>('audit');});
+export const preparedEditionAudit=cache(async()=>{const g=await preparedGeneration();const stored=g.source==='remote' ? await cloudBlob<import('../edition-audit').EditionAudit[]>(g.manifest.version,'audit') : await localOptional<import('../edition-audit').EditionAudit[]>('audit',[]);if(stored?.length)return stored;const [matches,competition]=await Promise.all([g.matches(),g.competition?.()||Promise.resolve([])]);return auditEditions([...matches,...competition]);});

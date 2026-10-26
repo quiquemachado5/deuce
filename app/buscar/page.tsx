@@ -68,6 +68,10 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
   const players = suggestions.filter(item => item.group === 'Jugadores');
   const related = suggestions.filter(item => ['Torneos', 'Récords', 'Parejas'].includes(item.group));
   const chips = [
+    query.year ? { key: 'year', label: `Temporada ${query.year}` } : null,
+    query.surface ? { key: 'surface', label: ({ clay: 'Tierra', grass: 'Hierba', hard: 'Dura', carpet: 'Moqueta' } as Record<string,string>)[query.surface] || query.surface } : null,
+    query.category ? { key: 'category', label: query.category } : null,
+    query.round ? { key: 'round', label: query.round } : null,
     query.age ? {key:'age',label:`${query.age} años al jugar`} : null,
     query.fromYear ? {key:'fromYear',label:`Desde ${query.fromYear}`} : null,
     query.toYear ? {key:'toYear',label:`Hasta ${query.toYear}`} : null,

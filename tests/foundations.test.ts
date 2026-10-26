@@ -7,7 +7,7 @@ import { summarizeDataset, assertPublishableArchive } from '../lib/dataset-summa
 import { mockMatches } from '../lib/mocks';
 import { playerDirectory } from '../lib/explore';
 import { buildSeasonAnalytics } from '../lib/season-analytics';
-import { approximateName, searchText, withinOneEdit } from '../lib/search-text';
+import { approximateName, canonicalSearchText, searchText, withinOneEdit } from '../lib/search-text';
 import { compileRecordSnapshot } from '../lib/revista/snapshot';
 import { parseRepositoryQuery } from '../lib/repository-query';
 import type { Match } from '../lib/types';
@@ -81,6 +81,8 @@ test('search suggestions tolerate a single typo but not unrelated names', () => 
   assert.equal(approximateName('Novak Djokovic', 'Novak Djokovic'), true);
   assert.equal(approximateName('Nadal', 'Novak Djokovic'), false);
   assert.equal(withinOneEdit('abc', 'abd'), false);
+  assert.equal(canonicalSearchText('Australian Open quarterfinal'), 'abierto de australia cuartos de final');
+  assert.equal(canonicalSearchText('Lyon, Francia'), 'lyon france');
 });
 
 test('API accepts moqueta/unknown and still rejects invalid values', () => {
