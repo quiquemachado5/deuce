@@ -11,7 +11,7 @@ export function homeSelection(matches:Match[],today=new Date()) {
     const decade=Math.floor(match.year/10)*10;
     if(!anniversaryByDecade.has(decade)) anniversaryByDecade.set(decade,match);
   }
-  const anniversaries=[...anniversaryByDecade.values()].sort((a,b)=>chronological(b,a)).slice(0,4);
+  const anniversaries=[...anniversaryByDecade.values()].sort((a,b)=>chronological(b,a)).slice(0,8);
   const anniversary=anniversaries[0] || sameDay[0];
   const featured=sorted.find(m=>roundPosition(m.round)===7&&['Grand Slam','Masters 1000'].includes(m.category)&&m.match_id!==anniversary?.match_id)||sorted.find(m=>m.match_id!==anniversary?.match_id);
   return {anniversary,anniversaries,featured,latest:sorted.filter(m=>m.match_id!==featured?.match_id&&m.match_id!==anniversary?.match_id&&!anniversaries.some(item=>item.match_id===m.match_id)).slice(0,3)};
