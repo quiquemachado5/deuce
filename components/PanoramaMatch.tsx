@@ -571,9 +571,15 @@ export default function PanoramaMatch({
             alt=""
             fill
             priority
-            sizes="(max-width: 760px) 100vw, 1040px"
+            sizes="(max-width: 759px) 100vw, (max-width: 1304px) calc(100vw - 64px), 1240px"
+            style={{
+              "--pm-photo-position": photo.objectPosition || "50% 50%",
+              "--pm-photo-position-mobile": photo.mobileObjectPosition || photo.objectPosition || "50% 50%",
+            } as CSSProperties}
           />
-        ) : <div className="pm-surface-art" aria-hidden="true" />}
+        ) : (
+          <div className="pm-surface-art" aria-hidden="true" />
+        )}
         <div className="pm-photo-shade" aria-hidden="true" />
         <div className="pm-hero-actions">
           <Link href="/buscar" aria-label="Volver a partidos"><ArrowLeft /></Link>

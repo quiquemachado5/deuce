@@ -4,7 +4,7 @@ import { existsSync } from 'node:fs'
 import cached from '../lib/player-photo-manifest.json'
 import refreshed from '../lib/player-photo-refresh.json'
 import imageLoader from '../lib/image-loader'
-import { courtPhotoForEdition, courtPhotos } from '../lib/imagery'
+import { courtPhoto, courtPhotoForEdition, courtPhotos, premiumCourtPhotoNames } from '../lib/imagery'
 import { playerPhoto, playerPhotos } from '../lib/player-imagery'
 
 test('the player directory serves cached local photos with their actual sources', () => {
@@ -37,6 +37,9 @@ test('the player directory serves cached local photos with their actual sources'
 })
 
 test('court photos have real responsive files and edition photos never imply another year', () => {
+  for (const tournament of premiumCourtPhotoNames) {
+    assert.ok(courtPhoto(tournament), `missing premium tournament venue: ${tournament}`)
+  }
   for (const [tournament, photo] of Object.entries(courtPhotos)) {
     for (const width of [734, 1068, 1440]) {
       const source = imageLoader({ src: photo.src, width })
