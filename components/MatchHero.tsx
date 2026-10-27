@@ -1,16 +1,11 @@
-import Link from 'next/link';
 import type { Match } from '@/lib/types';
 import { toMatchRecord } from '@/data/map-match';
-import { ScoreRows, MatchScoreboard } from '@/components/deuce/MatchScoreboard';
-import { tournamentDirectory } from '@/lib/tournament-directory';
-import { browserCategory } from '@/lib/match-browser';
-import { surfaceLabel } from '@/lib/surface';
+import { MatchScoreboard } from '@/components/deuce/MatchScoreboard';
 export default function MatchHero({match,reduced=false}:{match:Match;reduced?:boolean}) {
-  const record=toMatchRecord(match),event=tournamentDirectory([match])[0];
+  const record=toMatchRecord(match);
   if(reduced)return <MatchScoreboard match={record}/>;
-  return <header className={`deuce-match-detail${record.isFinal?' is-final':''}`}>
-    <div className="deuce-match-meta"><Link href={event?`/torneos/${event.slug}/${match.year}`:'/torneos'}>{record.tournament} · {match.year} ↗</Link><span>{[record.round,browserCategory(match),surfaceLabel[match.surface]].filter(Boolean).join(' · ')}</span></div>
+  return <header className="deuce-match-detail">
     <h1 className="nc-sr">{record.players.map(player=>player.name).join(' contra ')}</h1>
-    <ScoreRows match={record} playerLinks/>
+    <MatchScoreboard match={record} variant="detail"/>
   </header>;
 }

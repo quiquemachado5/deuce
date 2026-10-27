@@ -34,6 +34,6 @@ export function HeroPlayback() {
   const current=segments[segment];
   return <div ref={container} className="hero-video hero-youtube" aria-label="Selección editorial de grandes puntos de la temporada 2025">
     <Image src="/videos/tennis-hero-poster.webp" alt="" fill sizes="100vw" aria-hidden="true" priority unoptimized/>
-    {active&&<iframe key={segment} src={`https://www.youtube-nocookie.com/embed/N34Ac5H0NMk?autoplay=1&mute=1&controls=0&disablekb=1&playsinline=1&rel=0&modestbranding=1&start=${current.start}&end=${current.end}`} title="Grandes puntos del circuito ATP 2025" allow="autoplay; encrypted-media; picture-in-picture" tabIndex={-1}/>}
+    {active&&<iframe key={segment} src={`https://www.youtube-nocookie.com/embed/N34Ac5H0NMk?autoplay=1&mute=1&controls=0&disablekb=1&playsinline=1&rel=0&modestbranding=1&cc_load_policy=0&iv_load_policy=3&fs=0&showinfo=0&start=${current.start}&end=${current.end}`} title="Grandes puntos del circuito ATP 2025" allow="autoplay; encrypted-media" tabIndex={-1}/>}
   </div>;
 }

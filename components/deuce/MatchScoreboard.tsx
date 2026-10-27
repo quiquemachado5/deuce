@@ -13,6 +13,10 @@ function roundTone(round: string) {
   return 'neutral';
 }
 
+function cleanLabel(value?: string) {
+  return (value || '').replace(/^[\s·•/|–—.,:;-]+|[\s·•/|–—.,:;-]+$/g, '').trim();
+}
+
 export function ScoreRows({ match, playerLinks = false }: { match: MatchRecord; playerLinks?: boolean }) {
   const winner = resolvedWinner(match);
   return <div className="global-scoreboard" role="group" aria-label={`${match.players[0].name} contra ${match.players[1].name}${winner >= 0 ? `. Ganó ${match.players[winner].name}` : ''}`}>
@@ -35,18 +39,25 @@ export function ScoreRows({ match, playerLinks = false }: { match: MatchRecord; 
   </div>;
 }
 
-export function MatchScoreboard({ match, variant = 'card' }: { match: MatchRecord; variant?: 'card' | 'compact' | 'overlay' }) {
-  const isFinal = match.isFinal ?? match.round.toLocaleLowerCase('es') === 'final';
+export function MatchScoreboard({ match, variant = 'card' }: { match: MatchRecord; variant?: 'card' | 'compact' | 'overlay' | 'detail' }) {
+  const tournament = cleanLabel(match.tournament);
+  const round = cleanLabel(match.round);
+  const context = cleanLabel(match.category);
+  const isFinal = match.isFinal ?? round.toLocaleLowerCase('es') === 'final';
   const date = match.date ? new Intl.DateTimeFormat('es-ES', { day:'numeric',month:'short',year:'numeric',timeZone:'UTC' }).format(new Date(`${match.date}T12:00:00Z`)) : String(match.year || '');
-  const classes = variant === 'compact' ? 'result-row result-float-v2 simple-result' : variant === 'overlay' ? 'feature-score simple-match-card global-scoreboard--overlay' : 'match-scorecard simple-match-card hover-card';
+  const classes = variant === 'compact' ? 'result-row result-float-v2 simple-result' : variant === 'overlay' ? 'feature-score simple-match-card global-scoreboard--overlay' : variant === 'detail' ? 'match-scorecard simple-match-card match-scoreboard-detail' : 'match-scorecard simple-match-card hover-card';
   const approximateDate = match.dateLabel === 'Inicio del torneo';
-  const context = match.category;
-  return <Link href={match.href} prefetch={false} className={`${classes}${isFinal ? ' is-final' : ''}`} data-event-surface={match.surface} data-event-category={context}>
+  const content = <>
     <div className={variant === 'compact' ? 'simple-result-head' : 'simple-match-head'}>
-      <div className="simple-match-event"><strong>{match.tournament}</strong><span className="simple-match-slash" aria-hidden="true">/</span><span className={`match-round match-round--${roundTone(match.round)}`}>{match.round}</span></div>
+      <div className="simple-match-event"><strong>{tournament}</strong>{round && <><span className="simple-match-slash" aria-hidden="true">/</span><span className={`match-round match-round--${roundTone(round)}`}>{round}</span></>}</div>
       {context && <small className="simple-match-category">{context}</small>}
     </div>
-    <ScoreRows match={match} />
-    <div className="simple-match-foot"><time className="simple-match-date" dateTime={approximateDate ? undefined : match.date || undefined}>{approximateDate && date ? `Semana del ${date}` : date}</time><span>Ver partido <ArrowUpRight size={14} aria-hidden="true"/></span></div>
-  </Link>;
+    <ScoreRows match={match} playerLinks={variant === 'detail'} />
+    <div className="simple-match-foot"><time className="simple-match-date" dateTime={approximateDate ? undefined : match.date || undefined}>{approximateDate && date ? `Semana del ${date}` : date}</time>{variant !== 'detail' && <span>Ver partido <ArrowUpRight size={14} aria-hidden="true"/></span>}</div>
+  </>;
+  const className = `${classes}${isFinal ? ' is-final' : ''}`;
+  const data = { 'data-event-surface': match.surface, 'data-event-category': context };
+  return variant === 'detail'
+    ? <section className={className} {...data}>{content}</section>
+    : <Link href={match.href} prefetch={false} className={className} {...data}>{content}</Link>;
 }

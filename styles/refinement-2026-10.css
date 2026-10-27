@@ -2476,6 +2476,327 @@ main:has(>.deuce-home)+.deuce-footer{margin-top:0}
 @media(max-width:380px){.pp-calendar-controls{grid-template-columns:1fr}.pp-stat-summary article strong{font-size:28px}.pp-section-nav a{padding-inline:11px}}
 @media(prefers-reduced-motion:reduce){.pp-hero-photo>img,.pp-career-columns i,.pp-tournament-list>a,.pp-rival-grid>a,.pp-recent-list>a{transition:none!important}.pp-hero:hover .pp-hero-photo>img,.pp-tournament-list>a:hover,.pp-rival-grid>a:hover{transform:none!important}}
 
+/* 2026-10-27 · final visual consistency pass. */
+
+/* The same compact scoreboard is used in cards, tournament pages and match detail. */
+.simple-match-card,
+.simple-result.result-float-v2{
+  grid-template-rows:auto minmax(72px,1fr) auto!important;
+  gap:7px!important;
+  padding:17px 18px!important;
+  border:1px solid var(--line)!important;
+  background:var(--bg-raised)!important;
+}
+.simple-match-head,
+.simple-result-head{align-items:baseline!important;gap:12px!important}
+.simple-match-event{gap:5px!important}
+.simple-match-event strong{
+  color:var(--ink)!important;
+  text-shadow:none!important;
+}
+.simple-match-slash,
+.match-round{color:var(--muted)!important}
+.match-round--final{color:var(--gold)!important}
+.simple-match-category{
+  align-self:baseline!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  color:var(--muted)!important;
+  font-size:8px!important;
+  letter-spacing:.015em;
+}
+[data-event-category="Grand Slam"]>.simple-match-head .simple-match-category,
+[data-event-category="Grand Slam"]>.simple-result-head .simple-match-category{
+  background:transparent!important;
+  color:var(--gold)!important;
+}
+.simple-match-card.is-final,
+.simple-result.is-final{border-color:var(--line)!important;box-shadow:none!important}
+.simple-match-card .global-scoreboard,
+.simple-result .global-scoreboard{align-self:center;margin-top:0!important}
+.global-player.match-winner>.global-player-name,
+.global-player.match-winner>.global-player-name a,
+.global-sets .set-won{
+  color:var(--winner)!important;
+  text-shadow:none!important;
+}
+.match-win-mark,
+.global-player.match-winner .match-win-mark{
+  background:transparent!important;
+  color:var(--winner)!important;
+}
+.simple-match-foot{
+  min-height:34px;
+  align-items:center!important;
+  margin-top:2px!important;
+  padding-top:4px;
+}
+.simple-match-foot .simple-match-date{
+  align-self:center!important;
+  line-height:30px!important;
+}
+.simple-match-foot>span{background:var(--acid);color:var(--ink)}
+.simple-match-foot svg{transform:rotate(45deg)!important}
+.simple-match-card:hover .simple-match-foot svg,
+.simple-result:hover .simple-match-foot svg{transform:rotate(0deg) translate(2px,-1px)!important}
+
+.deuce-match-detail{
+  width:100%;
+  margin:22px 0 34px!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+}
+.match-scoreboard-detail{
+  width:100%;
+  min-height:210px;
+  padding:19px 23px!important;
+  border-radius:24px!important;
+}
+.deuce-match-detail .global-scoreboard{width:100%;max-width:none;margin:0!important}
+.deuce-match-detail .global-player{
+  grid-template-columns:24px minmax(0,1fr) auto!important;
+  min-height:46px!important;
+  gap:9px!important;
+}
+.deuce-match-detail .global-player>strong{font-size:clamp(19px,2vw,29px)!important}
+.deuce-match-detail .global-sets{gap:clamp(10px,1.5vw,22px)!important}
+.deuce-match-detail .global-sets>span{min-width:22px!important;font-size:clamp(22px,2.3vw,32px)!important}
+.match-scoreboard-detail .simple-match-foot{justify-content:flex-start!important}
+
+/* Match reading: a compact score summary and a standalone history empty state. */
+.match-games-summary{
+  width:min(760px,100%);
+  margin-bottom:24px;
+  padding:25px 28px;
+}
+.match-games-summary h2{margin-bottom:20px;font-size:25px}
+.match-games-pair{gap:16px}
+.match-games-pair>div{gap:5px}
+.match-games-player{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  color:var(--ink)!important;
+  font-size:16px!important;
+  line-height:1.15;
+}
+.match-games-pair>div:last-child .match-games-player{justify-content:flex-end}
+.match-games-player .pd-country-flag{width:23px;height:16px;border-radius:3px}
+.match-games-player b{font-weight:780}
+.match-games-pair strong{color:var(--winner);font-size:44px;font-weight:720}
+.match-history-empty--standalone{
+  margin:18px 0 0;
+  padding:10px 2px!important;
+  background:transparent!important;
+  color:var(--ink)!important;
+  font-size:clamp(18px,2vw,25px)!important;
+  font-weight:720;
+  line-height:1.2;
+}
+.ry-match-history:has(> .match-history-empty--standalone){
+  margin:0!important;
+  padding:10px 0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+}
+
+/* Calm, factual coverage page with one restrained accent. */
+.coverage-hero{
+  gap:clamp(26px,5vw,70px);
+  padding:clamp(30px,4vw,52px)!important;
+  border:1px solid var(--line);
+  background:var(--bg-raised)!important;
+  color:var(--ink)!important;
+}
+.coverage-hero-copy>span,
+.coverage-section-copy>span,
+.coverage-piece>div>span{color:var(--winner)}
+.coverage-hero-copy h1{font-size:clamp(50px,6.2vw,84px)!important}
+.coverage-hero-copy p{color:var(--muted)!important}
+.coverage-hero-stats>div{border-top:1px solid var(--line)}
+.coverage-hero-stats dt{color:var(--muted)}
+.coverage-hero-stats dd{color:var(--ink)}
+.coverage-updated{color:var(--muted)}
+.coverage-updated>span{background:var(--winner);box-shadow:none}
+.coverage-daily,
+.coverage-snapshot,
+.coverage-piece{border:1px solid var(--line);box-shadow:none}
+.coverage-snapshot{background:var(--bg-raised)}
+.coverage-daily-bar{height:5px}
+.coverage-daily-bar i{background:var(--winner);box-shadow:none}
+.coverage-data-bars>div>i>span{background:var(--winner)}
+.coverage-surface-strip>div{background:var(--bg-sunken)}
+.coverage-surface-strip dt{color:var(--ink)}
+.coverage-footer nav a{background:var(--bg-sunken);color:var(--ink)}
+.coverage-footer nav a:hover{background:var(--acid)}
+
+/* Crop the privacy player beyond its chrome and subtitle safe area. */
+.hero-youtube{overflow:hidden;background:#071b15}
+.hero-youtube>img{
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  object-fit:cover;
+  transform:none!important;
+}
+.hero-youtube>iframe{
+  inset:50% auto auto 50%!important;
+  width:177.78vh!important;
+  height:100vh!important;
+  min-width:100vw!important;
+  min-height:56.25vw!important;
+  transform:translate(-50%,-50%) scale(1.22)!important;
+  transform-origin:center;
+  pointer-events:none;
+}
+
+/* Tournament overview and every edition share one hero composition. */
+.td-tournament>.td-venue-hero,
+.td-edition>.td-edition-hero{
+  min-height:clamp(560px,72svh,760px)!important;
+  margin-top:-125px!important;
+}
+.td-tournament .td-venue-copy,
+.td-edition .td-edition-hero-copy.td-venue-copy{
+  width:min(90%,1600px)!important;
+  margin-inline:auto!important;
+  padding:150px 0 56px!important;
+}
+.td-tournament .td-venue-copy h1,
+.td-edition .td-edition-hero-copy h1{
+  max-width:14ch!important;
+  margin:clamp(120px,25vh,250px) 0 0!important;
+  font-size:clamp(62px,8vw,112px)!important;
+  line-height:.9!important;
+  letter-spacing:-.065em!important;
+  text-shadow:0 2px 30px rgba(0,0,0,.25)!important;
+}
+.tournament-edition-nav{
+  width:fit-content!important;
+  max-width:min(100%,510px)!important;
+  justify-content:flex-start!important;
+  gap:2px!important;
+  padding:3px!important;
+  overflow-x:auto!important;
+  border:0!important;
+  background:linear-gradient(135deg,rgba(255,255,255,.58),rgba(231,239,235,.35))!important;
+  box-shadow:0 10px 30px rgba(3,18,14,.14)!important;
+}
+.tournament-edition-nav>.tournament-summary-link,
+.tournament-edition-nav .nc-edition-recent a{min-height:32px;padding:6px 8px}
+.tournament-edition-nav .nc-edition-archive-select select{
+  width:72px!important;
+  min-width:72px!important;
+  padding:0 17px 0 8px!important;
+}
+.tournament-edition-nav .nc-edition-archive-select{
+  width:72px!important;
+  min-width:72px!important;
+  max-width:72px!important;
+  flex:0 0 72px!important;
+}
+
+/* Selected controls stay green; lime is reserved for direct hover feedback. */
+:is(.deuce-tabs a,.ry-pair-filter a,.ry-match-segments a,.pp-segmented button,.court-options button,.ry-tournament-levels a,.tournament-edition-nav a)[aria-current],
+.ry-match-segments a[aria-selected="true"],
+:is(.pp-segmented button,.court-options button)[aria-pressed="true"],
+:is(.records-filter-disclosure,.player-filter-disclosure)[open]>summary{
+  background:var(--ink)!important;
+  color:#fff!important;
+}
+:is(.deuce-tabs a,.ry-pair-filter a,.ry-match-segments a,.pp-segmented button,.court-options button,.ry-tournament-levels a,.tournament-edition-nav a):hover,
+:is(.records-filter-disclosure,.player-filter-disclosure)>summary:hover{
+  background:var(--acid)!important;
+  color:var(--ink)!important;
+}
+
+/* One arrow language: horizontal at rest, diagonally upward on interaction. */
+:is(a,button) :is(.lucide-arrow-right,.lucide-arrow-left,.lucide-arrow-up-right){
+  transform-origin:center;
+  transition:transform .24s var(--ease)!important;
+}
+:is(a,button) .lucide-arrow-up-right{transform:rotate(45deg)!important}
+:is(a,button):hover .lucide-arrow-up-right{transform:rotate(0deg) translate(2px,-1px)!important}
+:is(a,button):hover .lucide-arrow-right{transform:rotate(-45deg) translate(2px,-1px)!important}
+:is(a,button):hover .lucide-arrow-left{transform:rotate(45deg) translate(-2px,-1px)!important}
+.ry-match-close a svg{transform:rotate(0deg);transform-origin:center;transition:transform .24s var(--ease)}
+.ry-match-close a:hover svg{transform:rotate(-45deg) translate(2px,-1px)}
+
+/* Search and topbar enter and leave as one continuous surface. */
+.topbar,
+.topbar.is-scrolled{
+  will-change:transform,opacity,filter;
+  transition:transform .34s cubic-bezier(.16,1,.3,1),opacity .24s ease,filter .24s ease,top .28s cubic-bezier(.16,1,.3,1),height .28s cubic-bezier(.16,1,.3,1),box-shadow .24s ease!important;
+}
+.topbar.nav-hidden{transform:translate(-50%,calc(-100% - 18px)) scale(.985)!important}
+.topbar nav,
+.topbar>.search-trigger,
+.topbar>.menu{
+  transition:opacity .22s ease .17s,transform .34s cubic-bezier(.16,1,.3,1) .12s,visibility 0s linear .17s!important;
+}
+.topbar.search-open nav,
+.topbar.search-open>.search-trigger,
+.topbar.search-open>.menu{
+  transition:opacity .14s ease,transform .24s ease,visibility 0s linear .22s!important;
+}
+.topbar-spotlight-form{
+  transform:scaleX(.16) translateY(-1px)!important;
+  transition:opacity .16s ease,transform .38s cubic-bezier(.16,1,.3,1),visibility 0s linear .38s!important;
+}
+.topbar.search-open .topbar-spotlight-form{
+  transform:scaleX(1) translateY(0)!important;
+  transition:opacity .2s ease .06s,transform .44s cubic-bezier(.16,1,.3,1),visibility 0s!important;
+}
+.topbar-spotlight-panel{transition:opacity .18s ease,transform .32s cubic-bezier(.16,1,.3,1),visibility 0s linear .32s!important}
+.topbar-spotlight-panel.is-open{transition:opacity .22s ease .08s,transform .38s cubic-bezier(.16,1,.3,1) .04s,visibility 0s!important}
+
+/* Stable player-card geometry and a continuous green homepage ending. */
+.player-directory .catalog-card{height:100%;transform:none!important}
+.player-directory .catalog-copy,
+.player-directory .catalog-card:nth-child(4n+2) .catalog-copy,
+.player-directory .catalog-card:nth-child(4n+3) .catalog-copy,
+.player-directory .catalog-card:hover .catalog-copy{
+  height:158px!important;
+  min-height:158px!important;
+  overflow:hidden;
+  background:var(--bg-raised)!important;
+}
+.player-directory .catalog-card:hover{height:100%;transform:none!important;box-shadow:none!important}
+.player-directory .catalog-card:hover .catalog-card-action{transform:none!important}
+body:has(.deuce-home) .ry-footer{margin-top:0!important;background:var(--ink)!important}
+
+@media(max-width:759px){
+  .simple-match-card,.simple-result.result-float-v2{padding:15px!important}
+  .match-scoreboard-detail{min-height:215px;padding:18px 16px!important}
+  .deuce-match-detail .global-player{grid-template-columns:19px minmax(0,1fr) auto!important;min-height:48px!important;gap:7px!important}
+  .deuce-match-detail .global-player>strong{font-size:16px!important}
+  .deuce-match-detail .global-sets{gap:6px!important}
+  .deuce-match-detail .global-sets>span{min-width:17px!important;font-size:20px!important}
+  .match-games-summary{width:100%;padding:22px 18px}
+  .match-games-player{font-size:13px!important}
+  .match-games-player .pd-country-flag{width:19px;height:13px}
+  .coverage-hero-copy h1{font-size:50px!important}
+  .hero-youtube>iframe{transform:translate(-50%,-50%) scale(1.3)!important}
+  .td-tournament>.td-venue-hero,.td-edition>.td-edition-hero{min-height:72svh!important;margin-top:-105px!important}
+  .td-tournament .td-venue-copy,.td-edition .td-edition-hero-copy.td-venue-copy{width:calc(100% - 32px)!important;padding:112px 0 30px!important}
+  .td-tournament .td-venue-copy h1,.td-edition .td-edition-hero-copy h1{margin-top:clamp(150px,30vh,260px)!important;font-size:clamp(48px,15vw,72px)!important}
+  .td-venue-title-row,.td-edition-title-row{align-items:flex-start;flex-direction:column;gap:15px}
+  .tournament-edition-nav{max-width:calc(100vw - 32px)!important}
+  .player-directory .catalog-copy,.player-directory .catalog-card:nth-child(4n+2) .catalog-copy,.player-directory .catalog-card:nth-child(4n+3) .catalog-copy,.player-directory .catalog-card:hover .catalog-copy{height:164px!important;min-height:164px!important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  :is(a,button) :is(.lucide-arrow-right,.lucide-arrow-left,.lucide-arrow-up-right),
+  .ry-match-close a svg{transition:none!important}
+}
+
 /* Final cascade: shared controls and scorecards must win over legacy page rules. */
 .topbar.search-open{justify-content:space-between;gap:0}
 .topbar-spotlight-form{position:absolute;left:126px;right:12px;opacity:0;visibility:hidden;pointer-events:none;transform:scaleX(.22);transform-origin:calc(100% - 52px) 50%}
@@ -2514,3 +2835,57 @@ main:has(>.deuce-home)+.deuce-footer{margin-top:0}
 .simple-result .simple-result-head>div{padding-right:0!important}
 .ry-people-match-list .simple-result.result-float-v2{grid-template-columns:1fr!important;grid-template-rows:auto 1fr auto;gap:7px!important}
 .ry-people-match-list .simple-result .simple-match-foot{grid-column:1}
+
+/* Absolute final cascade: keep shared states above page-specific legacy rules. */
+.simple-match-card,
+.simple-result.result-float-v2{grid-template-rows:auto minmax(72px,1fr) auto!important;gap:7px!important;border:1px solid var(--line)!important;background:var(--bg-raised)!important}
+.simple-match-head,
+.simple-result-head{align-items:baseline!important}
+.simple-match-event strong{color:var(--ink)!important;text-shadow:none!important}
+.simple-match-slash,
+.match-round{color:var(--muted)!important}
+.match-round--final{color:var(--gold)!important}
+.simple-match-category{align-self:baseline!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;color:var(--muted)!important;letter-spacing:.015em}
+[data-event-category="Grand Slam"]>.simple-match-head .simple-match-category,
+[data-event-category="Grand Slam"]>.simple-result-head .simple-match-category{background:transparent!important;color:var(--gold)!important}
+.simple-match-card.is-final,
+.simple-result.is-final{border-color:var(--line)!important;box-shadow:none!important}
+.simple-match-card .global-scoreboard,
+.simple-result .global-scoreboard{align-self:center;margin-top:0!important}
+.simple-match-card .global-player.match-winner>.global-player-name,
+.simple-match-card .global-player.match-winner>.global-player-name a,
+.simple-result .global-player.match-winner>.global-player-name,
+.simple-result .global-player.match-winner>.global-player-name a,
+.simple-match-card .global-sets .set-won,
+.simple-result .global-sets .set-won{color:var(--winner)!important;text-shadow:none!important}
+.simple-match-card .match-win-mark,
+.simple-result .match-win-mark{background:transparent!important;color:var(--winner)!important}
+.simple-match-card .global-player.match-winner .match-win-mark,
+.simple-result .global-player.match-winner .match-win-mark{color:var(--winner)!important}
+.simple-match-foot{min-height:34px!important;align-items:center!important;margin-top:2px!important;padding-top:4px}
+.simple-match-foot .simple-match-date{align-self:center!important;line-height:30px!important}
+.simple-match-foot svg{transform:rotate(45deg)!important}
+.simple-match-card:hover .simple-match-foot svg,
+.simple-result:hover .simple-match-foot svg{transform:rotate(0deg) translate(2px,-1px)!important}
+
+.ry-match .ry-match-tabs .ry-match-segments a[aria-selected="true"],
+:is(.deuce-tabs a,.ry-pair-filter a,.pp-segmented button,.court-options button,.ry-tournament-levels a,.tournament-edition-nav a)[aria-current],
+:is(.pp-segmented button,.court-options button)[aria-pressed="true"],
+:is(.records-filter-disclosure,.player-filter-disclosure)[open]>summary{background:var(--ink)!important;color:#fff!important}
+.ry-match .ry-match-tabs .ry-match-segments a:hover,
+:is(.deuce-tabs a,.ry-pair-filter a,.pp-segmented button,.court-options button,.ry-tournament-levels a,.tournament-edition-nav a):hover,
+:is(.records-filter-disclosure,.player-filter-disclosure)>summary:hover{background:var(--acid)!important;color:var(--ink)!important}
+
+.topbar-spotlight-form{transform:scaleX(.16) translateY(-1px)!important;transition:opacity .16s ease,transform .38s cubic-bezier(.16,1,.3,1),visibility 0s linear .38s!important}
+.topbar.search-open .topbar-spotlight-form{transform:scaleX(1) translateY(0)!important;transition:opacity .2s ease .06s,transform .44s cubic-bezier(.16,1,.3,1),visibility 0s!important}
+.topbar nav,
+.topbar>.search-trigger,
+.topbar>.menu{transition:opacity .22s ease .17s,transform .34s cubic-bezier(.16,1,.3,1) .12s,visibility 0s linear .17s!important}
+.topbar.search-open nav,
+.topbar.search-open>.search-trigger,
+.topbar.search-open>.menu{transition:opacity .14s ease,transform .24s ease,visibility 0s linear .22s!important}
+
+@media(max-width:759px){
+  .simple-match-card,.simple-result.result-float-v2{padding:15px!important}
+}
+body:has(.deuce-home) .deuce-footer{margin-top:0!important;background:var(--ink)!important}

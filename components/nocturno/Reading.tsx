@@ -15,6 +15,8 @@ import MatchMeasures from "@/components/MatchMeasures";
 import MatchHero from "@/components/MatchHero";
 import { tournamentCourt } from "@/lib/tournament-presentation";
 import MatchTabs, { type MatchView } from "./MatchTabs";
+import PlayerFlag from "@/components/PlayerFlag";
+import { toMatchRecord } from "@/data/map-match";
 
 export function ReadingHead({
   match,
@@ -242,6 +244,7 @@ export default function Reading({
   initial?: MatchView;
   baseHref?: string;
 }) {
+  const record = toMatchRecord(match);
   const hasPressure = pressure(match).some((player) =>
     [player.thirty, player.converted, player.saved, player.matchPoints].some(
       (metric) => metric[1] > 0,
@@ -256,7 +259,7 @@ export default function Reading({
       label: "Resumen",
       content: (
         <>
-          <section className="match-games-summary"><h2>El partido en cifras</h2><div className="match-games-pair">{[match.player1, match.player2].map((player, side) => <div key={player.name}><span>{player.name}</span><strong>{match.score_summary.games.reduce((sum, set) => sum + set[side], 0)}</strong><span>juegos ganados</span></div>)}</div></section>
+          <section className="match-games-summary"><h2>El partido en cifras</h2><div className="match-games-pair">{[match.player1, match.player2].map((player, side) => <div key={player.name}><span className="match-games-player">{record.players[side]?.countryCode&&<PlayerFlag code={record.players[side].countryCode}/>}<b>{player.name}</b></span><strong>{match.score_summary.games.reduce((sum, set) => sum + set[side], 0)}</strong><span>juegos ganados</span></div>)}</div></section>
           <SummaryMeasures match={match} />
           <MatchPressure match={match} compact />
           <div className="ry-match-close">

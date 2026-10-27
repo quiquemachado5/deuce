@@ -77,8 +77,8 @@ export default async function MatchPage({ params, searchParams }: Props) {
     ) as MatchView;
   const around = (
     <>
-      <div className="nc-match-around">
-        {(neighbors.previous || neighbors.next) && (
+      {(neighbors.previous || neighbors.next) && (
+        <div className="nc-match-around">
           <section>
             <h2>Entre los mismos</h2>
             {neighbors.previous && (
@@ -97,9 +97,9 @@ export default async function MatchPage({ params, searchParams }: Props) {
               </div>
             )}
           </section>
-        )}
-        {!neighbors.previous && !neighbors.next && <p className="match-history-empty">No hay otros partidos registrados entre estos dos jugadores.</p>}
-      </div>
+        </div>
+      )}
+      {!neighbors.previous && !neighbors.next && <p className="match-history-empty match-history-empty--standalone">No hay otros partidos registrados entre estos dos jugadores.</p>}
       {junto && (
         <section id="comparar" className="nc-match-compare">
           {other ? (
