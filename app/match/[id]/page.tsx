@@ -3,16 +3,17 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { cache } from "react";
 import { preparedArchive, preparedMatch } from "@/lib/revista/read-records";
-import Reading, { ReadingHead } from "@/components/nocturno/Reading";
+import { ReadingHead } from "@/components/nocturno/Reading";
 import ReadingLine from "@/components/nocturno/ReadingLine";
 import ComparePicker from "@/components/nocturno/Compare";
-import type { MatchView } from "@/components/nocturno/MatchTabs";
+import PanoramaMatch, { type PanoramaSection } from "@/components/PanoramaMatch";
 import {
   neighboringMeetings,
+  winnerName,
 } from "@/lib/editorial";
 import { tournamentName } from "@/lib/labels";
 import { score } from "@/lib/cuaderno/model";
-import { rivalryDirectory } from "@/lib/explore";
+import { pairSlug, rivalryDirectory } from "@/lib/explore";
 import Row from "@/components/nocturno/Row";
 
 type Props = {
@@ -54,27 +55,40 @@ export default async function MatchPage({ params, searchParams }: Props) {
     { junto, vista } = await searchParams,
     { match, matches } = await pageMatch(id);
   if (!match) notFound();
-  const rivalry = rivalryDirectory(
-      matches.filter(
-        (item) =>
-          (item.player1.name === match.player1.name &&
-            item.player2.name === match.player2.name) ||
-          (item.player1.name === match.player2.name &&
-            item.player2.name === match.player1.name),
-      ),
-    )[0],
+  const pairMatches = matches.filter(
+    (item) =>
+      (item.player1.name === match.player1.name &&
+        item.player2.name === match.player2.name) ||
+      (item.player1.name === match.player2.name &&
+        item.player2.name === match.player1.name),
+  );
+  if (!pairMatches.some((item) => item.match_id === match.match_id)) pairMatches.push(match);
+  const rivalryNames = [match.player1.name, match.player2.name].sort((a, b) =>
+      a.localeCompare(b, "es"),
+    ) as [string, string],
+    rivalry = rivalryDirectory(pairMatches)[0] || {
+      names: rivalryNames,
+      wins: rivalryNames.map((name) =>
+        pairMatches.filter((item) => winnerName(item) === name).length,
+      ) as [number, number],
+      matches: pairMatches,
+      slug: pairSlug(...rivalryNames),
+    },
     neighbors = neighboringMeetings(matches, match),
     other =
       junto && junto !== "elige" && junto !== id
         ? matches.find((item) => item.match_id === junto)
         : null,
     initial = (
-      ["resumen", "presion", "medidas", "alrededor"].includes(vista || "")
-        ? vista
-        : junto
-          ? "alrededor"
-          : "resumen"
-    ) as MatchView;
+      {
+        resumen: "resumen",
+        estadisticas: "estadisticas",
+        medidas: "estadisticas",
+        presion: "presion",
+        "cara-a-cara": "cara-a-cara",
+        alrededor: "cara-a-cara",
+      } as Record<string, PanoramaSection>
+    )[vista || ""] || (junto ? "cara-a-cara" : "resumen");
   const around = (
     <>
       {(neighbors.previous || neighbors.next) && (
@@ -128,14 +142,11 @@ export default async function MatchPage({ params, searchParams }: Props) {
     </>
   );
   return (
-    <article className="nc-wrap nc-match-page">
-      <Reading
-        match={match}
-        rivalry={rivalry}
-        initial={initial}
-        baseHref={`/match/${id}${junto ? `?junto=${encodeURIComponent(junto)}` : ""}`}
-        around={around}
-      />
-    </article>
+    <PanoramaMatch
+      match={match}
+      rivalry={rivalry}
+      active={initial}
+      supplemental={junto ? around : undefined}
+    />
   );
 }

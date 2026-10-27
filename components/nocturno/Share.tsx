@@ -1,9 +1,10 @@
 "use client";
 import { useRef, useState } from 'react';
+import { Share2 } from 'lucide-react';
 import { ScoreRows } from '@/components/deuce/MatchScoreboard';
 import { resolvedWinner, resolvedSetClosed } from '@/lib/deuce-score';
 import type { MatchRecord } from '@/types/deuce';
-export default function Share({ record }: { record:MatchRecord }) {
+export default function Share({ record, iconOnly = false }: { record:MatchRecord; iconOnly?:boolean }) {
   const dialog=useRef<HTMLDialogElement>(null),trigger=useRef<HTMLButtonElement>(null);
   const [error,setError]=useState(''),[busy,setBusy]=useState(false);
   async function download(width:number,height:number) {
@@ -41,7 +42,7 @@ export default function Share({ record }: { record:MatchRecord }) {
     } catch {setError('No se pudo crear la imagen. Inténtalo de nuevo.');} finally{setBusy(false);}
   }
   return <>
-    <button ref={trigger} type="button" className="deuce-text-link" aria-label="Compartir partido" onClick={()=>dialog.current?.showModal()}><span>Compartir ↗</span></button>
+    <button ref={trigger} type="button" className={`deuce-text-link${iconOnly?' ry-match-share':''}`} aria-label="Compartir partido" onClick={()=>dialog.current?.showModal()}>{iconOnly?<Share2 size={18} aria-hidden="true"/>:<span>Compartir ↗</span>}</button>
     <dialog ref={dialog} className="ry-share-dialog" aria-labelledby={`share-${record.id}`} onClose={()=>trigger.current?.focus()}>
       <div className="ry-share-dialog-head"><h2 id={`share-${record.id}`}>Compartir partido</h2><button type="button" className="ry-match-icon" aria-label="Cerrar" onClick={()=>dialog.current?.close()}>×</button></div>
       <p className="ry-data-note">Descarga una imagen con el resultado del partido.</p>
