@@ -52,8 +52,8 @@ html:has(.pm-page) {
   position: relative;
   width: 100vw;
   width: 100dvw;
-  min-height: 466px;
-  margin-bottom: 154px;
+  min-height: 525px;
+  margin-bottom: 95px;
   margin-left: calc(50% - 50vw);
   margin-left: calc(50% - 50dvw);
   background: var(--pm-pine);
@@ -63,7 +63,7 @@ html:has(.pm-page) {
   position: relative;
   z-index: 1;
   width: min(1240px, 100%);
-  min-height: 466px;
+  min-height: 525px;
   margin-inline: auto;
 }
 
@@ -183,7 +183,7 @@ html:has(.pm-page) {
   position: absolute;
   z-index: 1;
   right: 28px;
-  bottom: 62px;
+  bottom: 121px;
   left: 28px;
   color: #fff;
 }
@@ -207,7 +207,7 @@ html:has(.pm-page) {
 .pm-score {
   position: absolute;
   right: 0;
-  bottom: -154px;
+  bottom: -95px;
   left: 0;
   z-index: 2;
   display: grid;
@@ -216,7 +216,7 @@ html:has(.pm-page) {
   padding: 20px 24px;
   gap: 8px;
   border-radius: 28px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, .76), rgba(255, 255, 255, .96) 30px, #fff 58px);
+  background: #fff;
   color: var(--pm-ink);
 }
 
@@ -839,8 +839,8 @@ html:has(.pm-page) {
 }
 
 @media (max-width: 759px) {
-  .pm-hero { min-height: 352px; margin-bottom: 148px; }
-  .pm-hero-inner { min-height: 352px; }
+  .pm-hero { min-height: 412px; margin-bottom: 88px; }
+  .pm-hero-inner { min-height: 412px; }
   .pm-photo {
     inset: 0 !important;
     height: 100% !important;
@@ -852,10 +852,10 @@ html:has(.pm-page) {
     background: linear-gradient(180deg, rgba(4, 8, 7, .08), rgba(4, 8, 7, .16) 42%, rgba(4, 8, 7, .7));
   }
   .pm-hero-actions { padding: 80px 16px 12px; }
-  .pm-event { right: 16px; bottom: 52px; left: 16px; }
+  .pm-event { right: 16px; bottom: 112px; left: 16px; }
   .pm-event h1 { font-size: 34px; }
   .pm-event p { font-size: 13px; }
-  .pm-score { bottom: -148px; height: 176px; padding: 10px 12px; gap: 2px; border-radius: 22px; }
+  .pm-score { bottom: -88px; height: 176px; padding: 10px 12px; gap: 2px; border-radius: 22px; }
   .pm-score-row {
     grid-template-columns: minmax(116px, 1fr) minmax(145px, 1.18fr);
     grid-template-rows: 1fr;
