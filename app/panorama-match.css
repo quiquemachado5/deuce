@@ -19,10 +19,6 @@ html:has(.pm-page) {
   --link: #155f44;
 }
 
-html:has(.pm-page) #main-content {
-  padding-top: 96px;
-}
-
 .pm-page {
   --pm-bg: #f1f3f2;
   --pm-panel: #ffffff;
@@ -62,16 +58,16 @@ html:has(.pm-page) #main-content {
 
 .pm-photo {
   position: absolute !important;
-  inset: 0 0 190px !important;
+  inset: 0 0 154px !important;
   width: 100% !important;
-  height: calc(100% - 190px) !important;
+  height: calc(100% - 154px) !important;
   object-fit: cover;
   object-position: var(--pm-photo-position, 50% 50%);
 }
 
 .pm-photo-shade {
   position: absolute;
-  inset: 0 0 190px;
+  inset: 0 0 154px;
   background: linear-gradient(180deg, rgba(4, 8, 7, .12), rgba(4, 8, 7, .2) 44%, rgba(4, 8, 7, .72));
 }
 
@@ -84,7 +80,7 @@ html:has(.pm-page) #main-content {
   --pm-court-dark: #32545e;
   --pm-court-line: rgba(255, 255, 255, .58);
   position: absolute;
-  inset: 0 0 190px;
+  inset: 0 0 154px;
   overflow: hidden;
   background:
     radial-gradient(circle at 72% 18%, rgba(255, 255, 255, .15), transparent 25%),
@@ -212,7 +208,7 @@ html:has(.pm-page) #main-content {
   height: 190px;
   padding: 20px 24px;
   gap: 8px;
-  background: #fff;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .76), rgba(255, 255, 255, .96) 30px, #fff 58px);
   color: var(--pm-ink);
 }
 
@@ -367,12 +363,14 @@ html:has(.pm-page) #main-content {
 }
 
 .pm-summary-intro p {
+  justify-self: end;
   max-width: 52ch;
   margin: 0;
   color: var(--pm-muted);
   font-size: 17px;
   font-weight: 500;
   line-height: 1.55;
+  text-align: right;
 }
 
 .pm-games {
@@ -827,20 +825,20 @@ html:has(.pm-page) #main-content {
 
 @media (max-width: 900px) {
   .pm-summary-intro { grid-template-columns: 1fr; gap: 22px; }
+  .pm-summary-intro p { justify-self: start; text-align: left; }
   .pm-score-row { grid-template-columns: minmax(210px, 1fr) minmax(250px, 320px); }
   .pm-h2h-balance { grid-template-columns: minmax(0, 1fr) 124px minmax(0, 1fr); gap: 20px; }
 }
 
 @media (max-width: 759px) {
-  html:has(.pm-page) #main-content { padding-top: 80px; }
   .pm-hero { min-height: 500px; border-radius: 0 0 22px 22px; }
   .pm-photo {
-    inset: 0 0 176px !important;
-    height: calc(100% - 176px) !important;
+    inset: 0 0 148px !important;
+    height: calc(100% - 148px) !important;
     object-position: var(--pm-photo-position-mobile, var(--pm-photo-position, 50% 50%));
   }
   .pm-photo-shade,
-  .pm-surface-art { inset: 0 0 176px; }
+  .pm-surface-art { inset: 0 0 148px; }
   .pm-photo-shade {
     background: linear-gradient(180deg, rgba(4, 8, 7, .08), rgba(4, 8, 7, .16) 42%, rgba(4, 8, 7, .7));
   }
