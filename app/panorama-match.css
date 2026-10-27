@@ -19,6 +19,10 @@ html:has(.pm-page) {
   --link: #155f44;
 }
 
+html:has(.pm-page) #main-content {
+  padding-top: 96px;
+}
+
 .pm-page {
   --pm-bg: #f1f3f2;
   --pm-panel: #ffffff;
@@ -831,6 +835,7 @@ html:has(.pm-page) {
 }
 
 @media (max-width: 759px) {
+  html:has(.pm-page) #main-content { padding-top: 80px; }
   .pm-hero { min-height: 500px; border-radius: 22px; }
   .pm-photo {
     inset: 0 0 176px !important;
