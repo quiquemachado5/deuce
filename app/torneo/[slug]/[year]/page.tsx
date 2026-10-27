@@ -14,7 +14,6 @@ import { lostOpening } from "@/lib/archive-insights";
 import { closeness, number, surfaceLabel } from "@/lib/cuaderno/model";
 import { editionTournamentCourt } from "@/lib/tournament-presentation";
 import { courtPhoto, courtPhotoForEdition } from "@/lib/imagery";
-import EditionPicker from "@/components/EditionPicker";
 import TournamentFinal from "@/components/TournamentFinal";
 import EditionMatchExplorer from "@/components/EditionMatchExplorer";
 import { toMatchRecord } from "@/data/map-match";
@@ -22,6 +21,7 @@ import { publishedMatchMinutes } from "@/lib/duration";
 import { mediaForEdition } from "@/lib/tournament-media";
 import TournamentEditionMediaView from "@/components/TournamentEditionMedia";
 import { imageFocus } from "@/lib/image-focus";
+import TournamentEditionNav from "@/components/TournamentEditionNav";
 
 type Props = {
   params: Promise<{ slug: string; year: string }>;
@@ -116,9 +116,10 @@ export default async function Edition({ params, searchParams }: Props) {
           />
         )}
         <div className="td-edition-hero-copy">
-          <h1>
-            {tournamentName(tournament.name)} <span>{year}</span>
-          </h1>
+          <div className="td-edition-title-row">
+            <h1>{tournamentName(tournament.name)} <span>{year}</span></h1>
+            <TournamentEditionNav slug={slug} years={categoryYears(tournament, category)} currentYear={Number(year)} masters={category === "Precursores de Masters"} category={tournament.categories.length > 1 ? category : undefined}/>
+          </div>
           <p className="td-hero-court">
             <i
               className={`nc-dot nc-dot-${court.surface}`}
@@ -147,20 +148,6 @@ export default async function Edition({ params, searchParams }: Props) {
           ))}
         </nav>
       )}
-      <nav className="td-edition-context" aria-label="Vista del torneo">
-        <Link href={`/torneos/${slug}${tournament.categories.length > 1 ? `?categoria=${encodeURIComponent(category)}` : ""}`}>Resumen del torneo</Link>
-        <span aria-current="page">Edición {year}</span>
-      </nav>
-      <section className="td-editions td-editions--switch" aria-label="Cambiar edición">
-        <div><h2>Cambiar de edición</h2></div>
-        <EditionPicker
-          slug={slug}
-          years={categoryYears(tournament, category)}
-          currentYear={Number(year)}
-          masters={category === "Precursores de Masters"}
-          category={tournament.categories.length > 1 ? category : undefined}
-        />
-      </section>
       {final && <TournamentFinal match={final} />}
       {editionMedia && <TournamentEditionMediaView media={editionMedia} />}
       <EditionMatchExplorer results={editionResults} />

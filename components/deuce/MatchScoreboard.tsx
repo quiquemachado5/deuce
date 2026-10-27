@@ -1,4 +1,4 @@
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Check } from 'lucide-react';
 import Link from '@/components/IntentLink';
 import type { MatchRecord } from '@/types/deuce';
 import PlayerFlag from '@/components/PlayerFlag';
@@ -10,6 +10,7 @@ export function ScoreRows({ match, playerLinks = false }: { match: MatchRecord; 
     {match.players.map((player, side) => <div className={`global-player${winner === side ? ' match-winner' : ''}`} key={player.id}>
       <span className="player-flag" aria-hidden="true">{player.countryCode && <PlayerFlag code={player.countryCode} />}</span>
       <strong>{playerLinks ? <Link href={`/jugadores/${player.id}`}>{player.name}</Link> : player.name}</strong>
+      <span className="match-win-mark" aria-hidden="true">{winner === side && <Check size={15} strokeWidth={3} />}</span>
       <div className="global-sets">{match.sets.map((set,index) => {
         const won = resolvedSetClosed(set) && set.games[side] > set.games[1-side];
         const tie = set.tieBreak?.[side];
@@ -30,8 +31,8 @@ export function MatchScoreboard({ match, variant = 'card' }: { match: MatchRecor
   const approximateDate = match.dateLabel === 'Inicio del torneo';
   const context = match.category;
   return <Link href={match.href} prefetch={false} className={`${classes}${isFinal ? ' is-final' : ''}`}>
-    <div className={variant === 'compact' ? 'simple-result-head' : 'simple-match-head'}><div><strong>{match.tournament}</strong><span>{match.round}</span>{context && <small>{context}</small>}</div></div>
+    <div className={variant === 'compact' ? 'simple-result-head' : 'simple-match-head'}><div><strong>{match.tournament}</strong><span>{match.round}</span>{context && <small>{context}</small>}</div><time className="simple-match-date" dateTime={approximateDate ? undefined : match.date || undefined}>{approximateDate && date ? `Semana del ${date}` : date}</time></div>
     <ScoreRows match={match} />
-    <div className="simple-match-foot"><time dateTime={approximateDate ? undefined : match.date || undefined}>{approximateDate && date ? `Semana del ${date}` : date}</time><span>Ver partido <ArrowUpRight size={17} aria-hidden="true"/></span></div>
+    <div className="simple-match-foot"><span>Ver partido <ArrowUpRight size={17} aria-hidden="true"/></span></div>
   </Link>;
 }

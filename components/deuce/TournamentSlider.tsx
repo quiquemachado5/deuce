@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowUpRight, Pause, Play } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { TournamentSlide } from '@/types/deuce';
 import { imageFocus } from '@/lib/image-focus';
@@ -14,7 +14,6 @@ export function TournamentSlider({ slides }: { slides:TournamentSlide[] }) {
   const directionRef=useRef<1|-1>(1);
   const scrollFrameRef=useRef<number>();
   const [current,setCurrent]=useState(0);
-  const [manualPaused,setManualPaused]=useState(false);
   const [focusPaused,setFocusPaused]=useState(false);
   const [reducedMotion,setReducedMotion]=useState(false);
 
@@ -41,7 +40,7 @@ export function TournamentSlider({ slides }: { slides:TournamentSlide[] }) {
   },[]);
 
   useEffect(()=>{
-    if(manualPaused||focusPaused||reducedMotion||slides.length<2)return;
+    if(focusPaused||reducedMotion||slides.length<2)return;
     const timer=window.setInterval(()=>{
       setCurrent(previous=>{
         let next=previous+directionRef.current;
@@ -52,7 +51,7 @@ export function TournamentSlider({ slides }: { slides:TournamentSlide[] }) {
       });
     },AUTOPLAY_DELAY);
     return()=>window.clearInterval(timer);
-  },[focusPaused,manualPaused,reducedMotion,scrollToSlide,slides.length]);
+  },[focusPaused,reducedMotion,scrollToSlide,slides.length]);
 
   useEffect(()=>()=>{
     if(scrollFrameRef.current)window.cancelAnimationFrame(scrollFrameRef.current);
@@ -88,7 +87,7 @@ export function TournamentSlider({ slides }: { slides:TournamentSlide[] }) {
 
   if(!slides.length)return null;
   return <section className="tournament-band tournament-static tournament-carousel" aria-labelledby="grand-venues-title" data-current={current+1}>
-    <div className="section-head light"><h2 id="grand-venues-title">Grandes escenarios</h2><div className="tournament-carousel-actions"><Link className="deuce-cta" href="/torneos">Ver torneos <ArrowUpRight size={18} aria-hidden="true"/></Link><span className="tournament-carousel-position" aria-hidden="true">{String(current+1).padStart(2,'0')} / {String(slides.length).padStart(2,'0')}</span><button className="tournament-carousel-toggle" type="button" onClick={()=>setManualPaused(value=>!value)} aria-label={manualPaused?'Reanudar carrusel automático':'Pausar carrusel automático'} aria-pressed={manualPaused}>{manualPaused?<Play size={16} fill="currentColor" aria-hidden="true"/>:<Pause size={16} fill="currentColor" aria-hidden="true"/>}</button></div></div>
+    <div className="section-head light"><h2 id="grand-venues-title">Grandes escenarios</h2><div className="tournament-carousel-actions"><Link className="deuce-cta" href="/torneos">Ver torneos <ArrowUpRight size={18} aria-hidden="true"/></Link></div></div>
     <div ref={trackRef} className="tournament-static-grid" role="list" aria-label="Grand Slams y Masters 1000" tabIndex={0} onScroll={syncCurrent} onKeyDown={handleKeys} onFocusCapture={()=>setFocusPaused(true)} onBlurCapture={event=>{if(!event.currentTarget.contains(event.relatedTarget))setFocusPaused(false);}}>{slides.map((slide,index)=><article className="archive-slide active" role="listitem" aria-current={current===index?'true':undefined} key={slide.id}>
       <Image className="art-directed-photo" src={slide.image} alt={slide.alt} fill sizes="(max-width:759px) 84vw, 31vw" priority={index<2} style={imageFocus(slide.imagePosition||'center',slide.imagePositionMobile||slide.imagePosition||'center')}/><div className="slide-copy"><h3><Link href={slide.href}>{slide.name}</Link></h3></div>
     </article>)}</div>
