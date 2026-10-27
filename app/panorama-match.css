@@ -50,10 +50,21 @@ html:has(.pm-page) {
 
 .pm-hero {
   position: relative;
+  width: 100vw;
+  width: 100dvw;
   min-height: 620px;
+  margin-left: calc(50% - 50vw);
+  margin-left: calc(50% - 50dvw);
   overflow: hidden;
-  border-radius: 28px;
   background: var(--pm-pine);
+}
+
+.pm-hero-inner {
+  position: relative;
+  z-index: 1;
+  width: min(1240px, 100%);
+  min-height: 620px;
+  margin-inline: auto;
 }
 
 .pm-photo {
@@ -208,6 +219,7 @@ html:has(.pm-page) {
   height: 190px;
   padding: 20px 24px;
   gap: 8px;
+  border-radius: 0 0 28px 28px;
   background: linear-gradient(180deg, rgba(255, 255, 255, .76), rgba(255, 255, 255, .96) 30px, #fff 58px);
   color: var(--pm-ink);
 }
@@ -831,7 +843,8 @@ html:has(.pm-page) {
 }
 
 @media (max-width: 759px) {
-  .pm-hero { min-height: 500px; border-radius: 0 0 22px 22px; }
+  .pm-hero,
+  .pm-hero-inner { min-height: 500px; }
   .pm-photo {
     inset: 0 0 148px !important;
     height: calc(100% - 148px) !important;
@@ -846,7 +859,7 @@ html:has(.pm-page) {
   .pm-event { right: 16px; bottom: 200px; left: 16px; }
   .pm-event h1 { font-size: 34px; }
   .pm-event p { font-size: 13px; }
-  .pm-score { height: 176px; padding: 10px 12px; gap: 2px; }
+  .pm-score { height: 176px; padding: 10px 12px; gap: 2px; border-radius: 0 0 22px 22px; }
   .pm-score-row {
     grid-template-columns: minmax(116px, 1fr) minmax(145px, 1.18fr);
     grid-template-rows: 1fr;

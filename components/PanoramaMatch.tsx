@@ -580,15 +580,17 @@ export default function PanoramaMatch({
           <div className="pm-surface-art" aria-hidden="true" />
         )}
         <div className="pm-photo-shade" aria-hidden="true" />
-        <div className="pm-hero-actions">
-          <Link href="/buscar" aria-label="Volver a partidos"><ArrowLeft /></Link>
-          <Share record={toMatchRecord(match)} iconOnly />
+        <div className="pm-hero-inner">
+          <div className="pm-hero-actions">
+            <Link href="/buscar" aria-label="Volver a partidos"><ArrowLeft /></Link>
+            <Share record={toMatchRecord(match)} iconOnly />
+          </div>
+          <div className="pm-event">
+            <h1 id="pm-title">{tournamentName(match.tournament)}</h1>
+            <p>{roundLabel(match.round)} · {matchDate(match)}</p>
+          </div>
+          <HeroScore match={match} />
         </div>
-        <div className="pm-event">
-          <h1 id="pm-title">{tournamentName(match.tournament)}</h1>
-          <p>{roundLabel(match.round)} · {matchDate(match)}</p>
-        </div>
-        <HeroScore match={match} />
       </section>
 
       <SectionNav

@@ -14,6 +14,7 @@ export const courtPhotos: Record<string, Photo> = {
   'Roland Garros': { photoYear: 2024, caption:'Philippe-Chatrier · fotografía de 2024', src: '/images/courts/roland-garros.jpg', alt: 'Pista Philippe Chatrier en Roland Garros', credit: 'MFonzatti · CC BY-SA 4.0', source: commons + 'Court_Philippe_Chatrier_2024.jpg' },
   'Wimbledon': { src: '/images/courts/wimbledon.jpg', alt: 'Pista central de Wimbledon', credit: 'Arne Müseler · CC BY-SA 3.0 de', source: commons + 'Uk_london_Centre_Court_Wimbledon.jpg' },
   'US Open': { photoYear: 2026, caption:'Arthur Ashe · panorámica de 2026', src: '/images/courts/us-open.jpg', alt: 'Panorámica del estadio Arthur Ashe durante el Abierto de Estados Unidos', credit: 'Oleg Yunakov · CC BY-SA 4.0', source: commons + 'Arthur_Ashe_Stadium_Panorama_US_Open_Tennis.jpg', licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/' },
+  'Olympic Games': { photoYear: 2024, caption: 'París 2024 · Court Philippe-Chatrier', src: '/images/courts/olympic-games.jpg', alt: 'Court Philippe-Chatrier vestido para los Juegos Olímpicos de París 2024', credit: 'Like tears in rain · CC BY-SA 4.0', source: commons + 'Court_Philippe-Chatrier_at_the_2024_Summer_Olympics_(2).jpg', licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/' },
   'Acapulco': { caption: 'Arena GNP Seguros · pista principal', src: '/images/courts/acapulco.jpg', alt: 'Pista principal de la Arena GNP Seguros de Acapulco', credit: 'Radio y Televisión de Guerrero · CC BY 4.0', source: commons + 'Arena_GNP_Seguros_cancha_principal_1.png', licenseUrl: 'https://creativecommons.org/licenses/by/4.0/' },
   'Barcelona': { caption: 'Real Club de Tenis Barcelona · pista central', src: '/images/courts/barcelona.jpg', alt: 'Pista central del torneo Conde de Godó en Barcelona', credit: 'Alberto-g-rovi · CC BY-SA 3.0', source: commons + 'Conde_de_godo-2009_(2).JPG', licenseUrl: 'https://creativecommons.org/licenses/by-sa/3.0/' },
   'Basel': { caption: 'St. Jakobshalle · Swiss Indoors', src: '/images/courts/basel.jpg', alt: 'Pista del Swiss Indoors en la St. Jakobshalle de Basilea', credit: 'LHC88 · CC BY 4.0', source: commons + 'Van_de_Zandschulp_v_Lehečka_on_Court_1_in_Basel.png', licenseUrl: 'https://creativecommons.org/licenses/by/4.0/' },
@@ -49,6 +50,7 @@ const courtPhotoFocus: Record<string, { objectPosition: string; mobileObjectPosi
   'Roland Garros': { objectPosition: '50% 55%', mobileObjectPosition: '55% 50%' },
   'Wimbledon': { objectPosition: '50% 48%', mobileObjectPosition: '54% 46%' },
   'US Open': { objectPosition: '50% 52%', mobileObjectPosition: '54% 48%' },
+  'Olympic Games': { objectPosition: '50% 48%', mobileObjectPosition: '58% 48%' },
   'Acapulco': { objectPosition: '50% 52%', mobileObjectPosition: '58% 50%' },
   'Barcelona': { objectPosition: '50% 52%', mobileObjectPosition: '55% 50%' },
   'Basel': { objectPosition: '50% 55%', mobileObjectPosition: '52% 52%' },
@@ -71,7 +73,7 @@ const courtPhotoFocus: Record<string, { objectPosition: string; mobileObjectPosi
   'Stuttgart Masters': { objectPosition: '50% 50%', mobileObjectPosition: '54% 48%' },
 }
 export const premiumCourtPhotoNames = [
-  'Australian Open', 'Roland Garros', 'US Open', 'Wimbledon',
+  'Australian Open', 'Roland Garros', 'US Open', 'Wimbledon', 'Olympic Games',
   'Canada', 'Cincinnati', 'Essen Masters', 'Hamburg Masters', 'Indian Wells',
   'Madrid', 'Miami', 'Monte Carlo', 'Paris', 'Rome', 'Shanghai',
   'Stockholm Masters', 'Stuttgart Masters',
@@ -80,8 +82,9 @@ export const premiumCourtPhotoNames = [
   'Tokyo', 'Vienna', 'Washington',
 ] as const
 export function courtPhoto(tournament: string) {
-  const photo = courtPhotos[tournament]
-  return photo ? { ...photo, ...(courtPhotoFocus[tournament] || {}) } : null
+  const key = /olympic/i.test(tournament) ? 'Olympic Games' : tournament
+  const photo = courtPhotos[key]
+  return photo ? { ...photo, ...(courtPhotoFocus[key] || {}) } : null
 }
 export function courtPhotoForEdition(tournament: string, year: number) {
   const photo = courtPhoto(tournament)
