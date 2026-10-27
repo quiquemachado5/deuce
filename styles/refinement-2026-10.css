@@ -866,3 +866,115 @@ main :is(li,.catalogueRow,.familyRows,.chips,.leader,.dx-shared-metric-head,.dx-
   .home-archive-tools nav a,.player-directory .catalog-card,.player-directory .catalog-card>img,.catalog-card-action{transition:none}
   .home-archive-tools nav a:hover,.player-directory .catalog-card:hover,.player-directory .catalog-card:hover>img,.player-directory .catalog-card:hover .catalog-card-action{transform:none!important}
 }
+
+/* 2026-10-27 · editorial home, compact player controls and a definitive footer. */
+.home-section-kicker{display:block;margin-bottom:10px;color:var(--winner);font-size:10px;font-weight:780;letter-spacing:.11em;text-transform:uppercase}
+
+/* The daily memory is a single cinematic story with three smaller paths into the date. */
+.legacy-daily{padding-top:clamp(74px,8vw,110px);padding-bottom:clamp(74px,8vw,110px)}
+.legacy-daily-head{align-items:end;margin-bottom:28px}
+.legacy-daily-head>div{display:grid;gap:0}
+.legacy-daily-head h2{font-size:clamp(44px,5.5vw,78px);line-height:.9}
+.legacy-daily-head>p{padding:10px 15px;border-radius:999px;background:var(--ink);color:#fff;font-size:13px;font-weight:680;text-transform:capitalize}
+.legacy-daily-card{position:relative;isolation:isolate;display:flex;min-height:clamp(520px,62vw,720px);align-items:flex-end;overflow:hidden;border-radius:var(--radius-lg);background:var(--ink);color:#fff}
+.legacy-daily-photo{position:absolute;z-index:-3;inset:0;min-height:0}
+.legacy-daily-photo img{object-fit:cover;animation:home-memory-pan 16s var(--ease) infinite alternate}
+.legacy-daily-shade{position:absolute;z-index:-2;inset:0;background:linear-gradient(90deg,rgba(3,19,14,.96) 0%,rgba(3,19,14,.74) 46%,rgba(3,19,14,.08) 78%),linear-gradient(0deg,rgba(3,19,14,.72),transparent 52%)}
+.legacy-daily-copy{width:min(650px,58%);min-height:100%;padding:clamp(28px,4vw,58px);justify-content:flex-end}
+.legacy-daily-year{width:max-content;margin-bottom:auto;color:var(--acid);font-size:clamp(68px,9vw,132px);line-height:.78}
+.legacy-daily-context{width:max-content;max-width:100%;margin:0 0 15px;color:rgba(255,255,255,.7);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.legacy-daily-copy h3{max-width:12ch;margin:0;font-size:clamp(35px,4.2vw,64px);line-height:.93;color:#fff}
+.legacy-daily-copy>p{margin:18px 0 24px;color:rgba(255,255,255,.72);font-size:14px}
+.legacy-daily-copy>a{display:inline-flex;align-items:center;gap:8px;width:max-content;margin:0;padding:12px 16px;border-radius:999px;background:#23483d;color:#fff}
+.legacy-daily-copy>a:hover{transform:translateY(-2px);border-radius:999px;background:var(--acid);color:var(--ink)}
+.legacy-daily-archive{display:grid;grid-template-columns:1.2fr .9fr .9fr;gap:10px;margin-top:10px}
+.legacy-daily-archive>a{position:relative;isolation:isolate;display:flex;min-height:210px;align-items:flex-end;overflow:hidden;padding:20px;border-radius:var(--radius-md);background:#23483d;color:#fff}
+.legacy-daily-archive-photo{position:absolute;z-index:-3;inset:0}
+.legacy-daily-archive-photo img{object-fit:cover;transition:transform .55s var(--ease)}
+.legacy-daily-archive-shade{position:absolute;z-index:-2;inset:0;background:linear-gradient(0deg,rgba(3,19,14,.96),rgba(3,19,14,.12) 88%)}
+.legacy-daily-archive-copy{position:relative;z-index:1;display:grid;gap:6px;padding-right:26px}
+.legacy-daily-archive>a :is(.legacy-daily-archive-copy>span,.legacy-daily-archive-copy>small){color:rgba(255,255,255,.7);font-size:10px}
+.legacy-daily-archive>a .legacy-daily-archive-copy>strong{font:690 clamp(17px,1.7vw,22px)/1.05 var(--font-display);color:#fff}
+.legacy-daily-archive>a>svg{z-index:2;top:17px;right:17px;color:#fff}
+.legacy-daily-archive>a:hover .legacy-daily-archive-photo img{transform:scale(1.055)}
+
+/* Record cards use the protagonists as moving editorial backdrops. */
+.home-records{position:relative;overflow:hidden;background:#061b15}
+.home-records .home-section-kicker{color:var(--acid)}
+.home-records .section-head{position:relative;z-index:2}
+.record-showcase{display:grid;grid-template-columns:1.25fr .75fr;grid-template-rows:repeat(2,minmax(250px,1fr));gap:12px}
+.home-record-card{position:relative;isolation:isolate;display:flex;min-height:0!important;align-items:flex-end;overflow:hidden;padding:clamp(22px,3vw,34px)!important;border-radius:var(--radius-lg)!important;background:#16382e;color:#fff}
+.home-record-card--1{grid-row:1/3;min-height:570px!important}.home-record-card--3{background:var(--acid);color:var(--ink)}
+.home-record-media{position:absolute;z-index:-3;inset:0}
+.home-record-media img{object-fit:cover;transition:transform .7s var(--ease);animation:home-record-pan 18s var(--ease) infinite alternate}
+.home-record-card--2 .home-record-media img{object-position:center 18%!important}.home-record-card--3 .home-record-media img{object-position:center 12%!important}
+.home-record-shade{position:absolute;z-index:-2;inset:0;background:linear-gradient(0deg,rgba(3,18,14,.97),rgba(3,18,14,.48) 54%,rgba(3,18,14,.04) 100%)}
+.home-record-card--3 .home-record-shade{background:linear-gradient(0deg,rgba(217,255,69,.98),rgba(217,255,69,.58) 57%,rgba(217,255,69,.03))}
+.home-record-copy{position:relative;z-index:1;display:grid;gap:8px;width:100%}
+.home-record-copy .home-record-value{font-size:clamp(68px,8vw,130px);line-height:.75;color:inherit}
+.home-record-card:not(.home-record-card--1) .home-record-value{font-size:clamp(50px,5vw,76px)}
+.home-record-copy h3{max-width:17ch;margin:7px 0 12px;font:680 clamp(22px,2.4vw,34px)/1 var(--font-display);letter-spacing:-.04em}
+.home-record-copy>span{display:grid;gap:4px}.home-record-copy b{font-size:13px}.home-record-copy small{max-width:48ch;color:rgba(255,255,255,.68);font-size:10px;line-height:1.45}
+.home-record-card--3 .home-record-copy small{color:color-mix(in srgb,var(--ink) 68%,transparent)}
+.home-record-arrow{position:absolute;z-index:2;top:22px;right:22px;width:42px;height:42px;padding:11px;border-radius:50%;background:rgba(255,255,255,.92);color:var(--ink);transition:transform .3s var(--ease)}
+.home-record-card:hover .home-record-media img{transform:scale(1.045)}.home-record-card:hover .home-record-arrow{transform:rotate(45deg)}
+
+/* All major venues continue in one horizontal rail; the image only carries its name. */
+.tournament-static{overflow:hidden;padding-inline:0}
+.tournament-static>.section-head{padding-inline:5vw}
+.tournament-static-grid{display:flex;grid-template-columns:none;gap:12px;width:100%;padding:0 5vw 16px;overflow-x:auto;scroll-padding-inline:5vw;scroll-snap-type:x mandatory;scrollbar-width:none}
+.tournament-static-grid::-webkit-scrollbar{display:none}
+.tournament-static-grid .archive-slide{flex:0 0 clamp(300px,31vw,490px);height:clamp(390px,43vw,560px);scroll-snap-align:start}
+.tournament-static-grid .slide-copy{right:24px;bottom:24px;left:24px}
+.tournament-static-grid .slide-copy h3{max-width:11ch;font-size:clamp(34px,4vw,58px);line-height:.9}
+
+/* Tournament category actions and cards avoid restating their section label. */
+.tournament-group-heading>a.deuce-cta{min-height:44px!important;height:44px!important;padding:9px 16px!important;background:#23483d!important;color:#fff!important}
+.tournament-group-heading>a.deuce-cta:hover{background:var(--acid)!important;color:var(--ink)!important}
+.tournament-card-copy h2{margin-top:0}
+
+/* The player controls are one short, deliberately compact capsule. */
+.player-directory .inner-title-tools{flex:0 1 610px;max-width:610px}
+.player-toolbar.archive-unified-toolbar{grid-template-columns:auto minmax(0,1fr);gap:2px;min-height:44px;padding:3px;border-radius:999px}
+.player-toolbar.archive-unified-toolbar>.deuce-tabs{gap:1px}.player-toolbar.archive-unified-toolbar>.deuce-tabs a{min-height:36px;padding:7px 10px;font-size:11px}
+.player-toolbar.archive-unified-toolbar>.nc-filters{grid-template-columns:minmax(142px,1fr) 110px;gap:3px}
+.player-toolbar.archive-unified-toolbar>.nc-filters .nc-filter-query input,.player-toolbar.archive-unified-toolbar>.nc-filters select{height:36px;min-height:36px;font-size:11px}
+.player-toolbar.archive-unified-toolbar>.nc-filters .nc-filter-query input{padding-left:34px}.player-toolbar .player-query-icon{left:11px;width:15px;height:15px}
+
+/* Closing page: one large editorial gesture, two clear indexes and one action. */
+.deuce-footer{position:relative;isolation:isolate;grid-template-columns:minmax(0,1.15fr) minmax(390px,.85fr);gap:clamp(54px,9vw,150px);overflow:hidden;padding:clamp(76px,9vw,124px) 6vw 34px;background:#041711}
+.footer-court-mark{position:absolute;z-index:-1;top:-26%;right:-9%;width:min(58vw,820px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 50% 50%,rgba(217,255,69,.12) 0 27%,transparent 28%),linear-gradient(90deg,transparent 48.8%,rgba(255,255,255,.06) 49% 51%,transparent 51.2%),linear-gradient(0deg,transparent 48.8%,rgba(255,255,255,.06) 49% 51%,transparent 51.2%);transform:rotate(-12deg)}
+.footer-court-mark i{position:absolute;inset:15%;border-radius:50%;background:radial-gradient(ellipse,transparent 0 56%,rgba(255,255,255,.035) 57% 63%,transparent 64%)}
+.footer-court-mark i+ i{inset:30%}
+.footer-brand{min-height:430px;align-content:space-between;gap:72px}.footer-brand>div{display:grid;gap:15px}
+.footer-kicker{color:#aac0b5;font-size:10px;font-weight:700;letter-spacing:.11em;text-transform:uppercase}
+.deuce-footer .footer-brand h2{max-width:8ch;margin:0;font-size:clamp(62px,7vw,110px);line-height:.82;color:var(--acid)}
+.footer-right{align-content:start;gap:52px}
+.footer-entry{display:flex!important;min-height:96px!important;align-items:center!important;justify-content:space-between;padding:24px 27px;border-radius:var(--radius-lg);background:var(--acid);color:var(--ink)!important;font:720 clamp(20px,2vw,28px)/1 var(--font-display);transition:transform .25s var(--ease),background-color .25s var(--ease)}
+.footer-entry:hover{transform:translateY(-4px);background:#fff}
+.footer-nav-groups{grid-template-columns:1.15fr .85fr;gap:30px}.footer-nav{gap:1px}.footer-nav>strong{margin-bottom:14px}.deuce-footer .footer-nav a{font-size:15px}
+.footer-meta{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:20px;text-align:left}.deuce-footer .archive-freshness--compact{max-width:760px}.deuce-footer .legal{white-space:nowrap}
+
+@keyframes home-memory-pan{from{transform:scale(1.01) translate3d(-.6%,0,0)}to{transform:scale(1.075) translate3d(.8%,-.8%,0)}}
+@keyframes home-record-pan{from{transform:scale(1.015) translate3d(0,0,0)}to{transform:scale(1.07) translate3d(1%,-1%,0)}}
+
+@media(max-width:1100px){
+  .legacy-daily-copy{width:72%}
+  .record-showcase{grid-template-columns:1fr 1fr;grid-template-rows:440px 310px}.home-record-card--1{grid-column:1/-1;grid-row:auto;min-height:440px!important}
+  .deuce-footer{grid-template-columns:1fr 1fr;gap:48px}.footer-brand{min-height:380px}
+}
+@media(max-width:759px){
+  .legacy-daily-head{align-items:flex-start}.legacy-daily-head>p{font-size:11px}
+  .legacy-daily-card{min-height:570px}.legacy-daily-shade{background:linear-gradient(0deg,rgba(3,19,14,.98) 0%,rgba(3,19,14,.78) 52%,rgba(3,19,14,.08) 100%)}
+  .legacy-daily-copy{width:100%;min-height:570px;padding:25px}.legacy-daily-year{font-size:74px}.legacy-daily-copy h3{font-size:36px}
+  .legacy-daily-archive{display:flex;overflow-x:auto;scroll-snap-type:x mandatory}.legacy-daily-archive>a{flex:0 0 78vw;min-height:230px;scroll-snap-align:start}
+  .record-showcase{display:flex;overflow-x:auto;scroll-snap-type:x mandatory}.home-record-card,.home-record-card--1{flex:0 0 84vw;min-height:430px!important;scroll-snap-align:start}
+  .tournament-static-grid{display:flex;padding-inline:16px;scroll-padding-inline:16px}.tournament-static-grid .archive-slide{flex-basis:82vw;height:430px}
+  .player-directory .inner-title-tools{flex:none;width:100%;max-width:100%}.player-toolbar.archive-unified-toolbar{grid-template-columns:1fr;min-height:0}
+  .player-toolbar.archive-unified-toolbar>.deuce-tabs{width:100%;padding:0 0 3px}.player-toolbar.archive-unified-toolbar>.deuce-tabs a{flex:1;justify-content:center}
+  .player-toolbar.archive-unified-toolbar>.nc-filters{grid-template-columns:minmax(0,1fr) 108px;width:100%}
+  .deuce-footer{grid-template-columns:1fr;gap:48px;padding:68px 6vw 28px}.footer-brand{min-height:0;gap:54px}.deuce-footer .footer-brand h2{font-size:58px}.footer-right{gap:34px}.footer-entry{min-height:78px!important}.footer-meta{align-items:flex-start;flex-direction:column;margin-top:0}.footer-court-mark{top:8%;right:-48%;width:110vw}
+}
+@media(prefers-reduced-motion:reduce){
+  .legacy-daily-photo img,.home-record-media img{animation:none!important}.legacy-daily-archive-photo img,.home-record-media img,.footer-entry{transition:none!important}
+}

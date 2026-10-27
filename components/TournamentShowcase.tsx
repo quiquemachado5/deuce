@@ -12,7 +12,6 @@ export type TournamentShowcaseCard = {
   image?: string | null;
   alt?: string;
   imagePosition?: string;
-  eyebrow?: string;
   surface: string;
   champion?: string | null;
   championYear?: number | null;
@@ -48,7 +47,6 @@ export default function TournamentShowcase({ cards, variant = "rail", label }: {
         {card.image ? <Image src={card.image} alt={card.alt || card.title} fill priority={variant === "majors" && index === 0} sizes={variant === "majors" && index === 0 ? "(max-width:759px) 88vw, 52vw" : "(max-width:759px) 78vw, 28vw"} unoptimized={card.image.includes("/images/players/")} style={{ objectPosition: card.imagePosition || "center" }} /> : <span className="tournament-card-fallback" aria-hidden="true" />}
         <span className="tournament-card-shade" aria-hidden="true" />
         <span className="tournament-card-copy">
-          <span>{card.eyebrow}</span>
           <h2>{card.title}</h2>
           {card.champion ? <strong>Campeón {card.championYear}: {card.champion}</strong> : <strong>{card.court}</strong>}
           <small>{card.court} · {card.editions} {card.editions === 1 ? "edición" : "ediciones"}</small>
