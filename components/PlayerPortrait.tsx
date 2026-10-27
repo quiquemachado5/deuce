@@ -21,7 +21,8 @@ export default function PlayerPortrait({
         sizes="(max-width: 759px) calc(100vw - 32px), (max-width: 1099px) 38vw, 480px"
         className="art-directed-photo"
         style={imageFocus(photo.objectPosition || "50% 20%",photo.mobileObjectPosition||photo.objectPosition||"50% 20%")}
-        preload={preload}
+        loading={preload ? "eager" : "lazy"}
+        fetchPriority={preload ? "high" : "auto"}
         unoptimized
       />
     </figure>
