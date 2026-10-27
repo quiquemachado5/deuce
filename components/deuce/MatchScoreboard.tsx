@@ -28,7 +28,7 @@ export function MatchScoreboard({ match, variant = 'card' }: { match: MatchRecor
   const date = match.date ? new Intl.DateTimeFormat('es-ES', { day:'numeric',month:'short',year:'numeric',timeZone:'UTC' }).format(new Date(`${match.date}T12:00:00Z`)) : String(match.year || '');
   const classes = variant === 'compact' ? 'result-row result-float-v2 simple-result' : variant === 'overlay' ? 'feature-score simple-match-card global-scoreboard--overlay' : 'match-scorecard simple-match-card hover-card';
   const approximateDate = match.dateLabel === 'Inicio del torneo';
-  const context = [match.category, match.environment].filter(Boolean).join(' · ');
+  const context = match.category;
   return <Link href={match.href} prefetch={false} className={`${classes}${isFinal ? ' is-final' : ''}`}>
     <div className={variant === 'compact' ? 'simple-result-head' : 'simple-match-head'}><div><strong>{match.tournament}</strong><span>{match.round}</span>{context && <small>{context}</small>}</div></div>
     <ScoreRows match={match} />

@@ -162,8 +162,7 @@ function MatchContext({ match }: { match: Match }) {
   }));
   const hasAge = rows.some((row) => row.age);
   const hasRank = rows.some((row) => row.rank);
-  if (!context?.minutes && !hasAge && !hasRank && context?.indoor !== true)
-    return null;
+  if (!context?.minutes && !hasAge && !hasRank) return null;
   return (
     <section className="ry-match-context">
       <h2>En aquel momento</h2>
@@ -197,9 +196,6 @@ function MatchContext({ match }: { match: Match }) {
             ))}
           </tbody>
         </table>
-      )}
-      {context?.indoor === true && (
-        <p className="match-context-venue">Pista cubierta</p>
       )}
     </section>
   );

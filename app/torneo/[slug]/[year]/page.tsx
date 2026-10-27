@@ -125,9 +125,6 @@ export default async function Edition({ params, searchParams }: Props) {
               aria-hidden="true"
             />
             {surfaceLabel[court.surface]}
-            {court.indoor === true && (
-              <span>· {court.indoor ? "Bajo techo" : ""}</span>
-            )}
             <span>· {number(matches.length)} resultados registrados</span>
           </p>
         </div>

@@ -139,8 +139,9 @@ export default async function Tournament({ params, searchParams }: Props) {
           ))}
         </nav>
       )}
+      {pieces.champion && <TournamentFinal match={pieces.champion} latest />}
       <section className="td-editions td-editions--archive" aria-labelledby="td-editions-heading">
-        <div><h2 id="td-editions-heading">Explorar una edición</h2></div>
+        <div><h2 id="td-editions-heading">Ediciones</h2></div>
         <EditionPicker
           slug={slug}
           years={years}
@@ -148,7 +149,6 @@ export default async function Tournament({ params, searchParams }: Props) {
           category={tournament.categories.length > 1 ? category : undefined}
         />
       </section>
-      {pieces.champion && <TournamentFinal match={pieces.champion} latest />}
       {finals.length > 0 && (
         <section
           className="nc-section td-champion-history"

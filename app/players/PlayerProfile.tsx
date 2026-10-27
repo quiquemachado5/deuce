@@ -28,7 +28,6 @@ import { eraComparisons } from "@/lib/revista/records";
 import { tournamentDirectory } from "@/lib/tournament-directory";
 import type { Match } from "@/lib/types";
 import { SURFACES } from "@/lib/surface";
-import ArchiveNotice from '@/components/nocturno/ArchiveNotice';
 import PlayerPortrait from '@/components/PlayerPortrait';
 import PlayerDiscovery from '@/components/PlayerDiscovery';
 import { playerDiscoveries } from '@/components/PlayerDiscoveryData';
@@ -270,7 +269,7 @@ function RankingHistory({ matches, name }: { matches: Match[]; name: string }) {
   const best = points.reduce((current, point) => point[1] < current[1] ? point : current, points[0]);
   return <section className="ry-people-section ry-ranking-history" aria-labelledby="ry-ranking-title">
     <div className="ry-people-section-head">
-      <div><h2 id="ry-ranking-title">Evolución del ranking</h2><p>Mejor ranking documentado en cada temporada.</p></div>
+      <h2 id="ry-ranking-title">Evolución del ranking</h2>
       <p className="ry-ranking-best"><strong>n.º {number(best[1])}</strong><span>{best[0]}</span></p>
     </div>
     <p id="ry-ranking-description" className="nc-sr">{points.map(([year, rank]) => `${year}: puesto ${rank}`).join(". ")}.</p>
@@ -383,15 +382,8 @@ export default async function Player({ params, searchParams }: Props) {
 
   const summary = (
     <>
-      <SeasonChart
-        matches={player.matches}
-        name={player.name}
-        slug={slug}
-        selected={year}
-      />
-      <RankingHistory matches={player.matches} name={player.name} />
       {rivals.length > 0 && <section className="ry-people-section ry-player-rivals" aria-labelledby="ry-rivals-title">
-        <div className="ry-people-section-head"><div><h2 id="ry-rivals-title">Rivales más frecuentes</h2><p>Partidos terminados que conserva este archivo.</p></div><Link className="nc-link" href={`/jugadores?tipo=enfrentamientos&q=${encodeURIComponent(player.name)}`}>Todos los enfrentamientos</Link></div>
+        <div className="ry-people-section-head"><h2 id="ry-rivals-title">Rivales más frecuentes</h2><Link className="nc-link" href={`/jugadores?tipo=enfrentamientos&q=${encodeURIComponent(player.name)}`}>Todos los enfrentamientos</Link></div>
         <div className="ry-rival-grid">{rivals.map(rival => <Link key={rival.name} href={`/rivalries/${pairSlug(player.name, rival.name)}`}>
           <span><strong>{rival.name}</strong><small>{number(rival.played)} partidos</small></span>
           <b>{number(rival.won)}–{number(rival.played - rival.won)}</b>
@@ -453,6 +445,13 @@ export default async function Player({ params, searchParams }: Props) {
         </section>
         <PlayerFingerprint player={record} archive={data.records} />
       </div>
+      <SeasonChart
+        matches={player.matches}
+        name={player.name}
+        slug={slug}
+        selected={year}
+      />
+      <RankingHistory matches={player.matches} name={player.name} />
       <section
         className="ry-people-section ry-calendar"
         id="temporada"
@@ -540,9 +539,6 @@ export default async function Player({ params, searchParams }: Props) {
         aria-labelledby="ry-player-tournaments-title"
       >
         <h2 id="ry-player-tournaments-title">Torneos y finales</h2>
-        <p className="nc-meta">
-          Finales ganadas, finales disputadas y victorias. Solo este archivo.
-        </p>
         <div className="ry-player-table-scroll">
           <table className="ry-player-table">
             <caption>Victorias con escala común de 0 a {number(tournamentWinsMaximum)} partidos.</caption>
@@ -579,9 +575,6 @@ export default async function Player({ params, searchParams }: Props) {
       {eras && (
         <section className="ry-people-section">
           <h2>Efectividad en finales por época</h2>
-          <p className="nc-meta">
-            Mínimo 5 finales en cada tramo. Solo este archivo.
-          </p>
           <div className="ry-player-eras">
             {[eras.before, eras.after].map((era) => (
               <div key={era.from}>
@@ -609,7 +602,6 @@ export default async function Player({ params, searchParams }: Props) {
   );
   return (
     <div className="nc-wrap ry-player-page">
-      <ArchiveNotice status={data} />
       <nav className="ry-people-breadcrumb" aria-label="Ruta de navegación">
         <Link href="/jugadores">Jugadores</Link>
         <span aria-hidden="true">/</span>
@@ -619,11 +611,16 @@ export default async function Player({ params, searchParams }: Props) {
         className={`ry-player-header ry-photo-player-header${portrait ? " ry-player-with-photo" : ""}`}
       >
         <div className="ry-player-identity">
+          <span className="pd-player-kicker">{years.at(-1)}—{years[0]} · {number(years.length)} temporadas</span>
           <h1>{player.name}</h1>
-          <p className="ry-player-period">
-            {years.at(-1)}–{years[0]}{" "}
-            <span>· {number(years.length)} temporadas registradas</span>
-          </p>
+          {bio && Object.keys(bio).length > 0 && (
+            <dl className="ry-player-bio">
+              {bio.country && <div><dt>País</dt><dd className="pd-country">{countryLabel(bio.country)}</dd></div>}
+              {bio.birthday && <div><dt>Nacimiento</dt><dd>{birthLabel(bio.birthday)}</dd></div>}
+              {bio.hand && <div><dt>Mano</dt><dd>{handLabel(bio.hand)}</dd></div>}
+              {bio.backhand && <div><dt>Revés</dt><dd>{backhandLabel(bio.backhand)}</dd></div>}
+            </dl>
+          )}
           <dl className="ry-player-totals">
             <div>
               <dt>Victorias</dt>
@@ -641,34 +638,6 @@ export default async function Player({ params, searchParams }: Props) {
           <Link className="ry-player-compare" href={`/comparar?a=${encodeURIComponent(player.name)}`}>
             Comparar jugador
           </Link>
-          {bio && Object.keys(bio).length > 0 && (
-            <dl className="ry-player-bio">
-              {bio.country && (
-                <div>
-                  <dt>País</dt>
-                  <dd className="pd-country">{countryLabel(bio.country)}</dd>
-                </div>
-              )}
-              {bio.birthday && (
-                <div>
-                  <dt>Nacimiento</dt>
-                  <dd>{birthLabel(bio.birthday)}</dd>
-                </div>
-              )}
-              {bio.hand && (
-                <div>
-                  <dt>Mano</dt>
-                  <dd>{handLabel(bio.hand)}</dd>
-                </div>
-              )}
-              {bio.backhand && (
-                <div>
-                  <dt>Revés</dt>
-                  <dd>{backhandLabel(bio.backhand)}</dd>
-                </div>
-              )}
-            </dl>
-          )}
         </div>
         {portrait && <PlayerPortrait photo={portrait} className="ry-photo-player" preload />}
       </header>
@@ -679,8 +648,8 @@ export default async function Player({ params, searchParams }: Props) {
         baseHref={`/jugadores/${slug}?year=${year}`}
         initial={query.vista}
         panels={[
-          { id: "resumen", label: "Resumen", content: summary },
-          { id: "torneos", label: "Torneos y finales", content: details },
+          { id: "resumen", label: "Trayectoria", content: summary },
+          { id: "torneos", label: "Torneos", content: details },
         ]}
       />
     </div>
