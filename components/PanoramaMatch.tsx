@@ -489,7 +489,6 @@ function HeadToHead({ rivalry, names }: { rivalry: RivalrySummary; names: [strin
           <details className="pm-h2h-more">
             <summary>
               <span className="pm-more-closed">Ver {hidden.length} más</span>
-              <span className="pm-more-open">Ver menos</span>
               <ChevronDown />
             </summary>
             <div>

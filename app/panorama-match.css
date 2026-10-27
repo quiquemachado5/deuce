@@ -812,10 +812,7 @@ html:has(.pm-page) #main-content {
   stroke-linejoin: round;
   transition: transform 180ms ease;
 }
-.pm-h2h-more[open] > summary svg { transform: rotate(180deg); }
-.pm-more-open { display: none; }
-.pm-h2h-more[open] .pm-more-closed { display: none; }
-.pm-h2h-more[open] .pm-more-open { display: inline; }
+.pm-h2h-more[open] > summary { display: none; }
 .pm-h2h-more > div { margin-top: 10px; }
 
 .pm-supplemental {
@@ -836,7 +833,7 @@ html:has(.pm-page) #main-content {
 
 @media (max-width: 759px) {
   html:has(.pm-page) #main-content { padding-top: 80px; }
-  .pm-hero { min-height: 500px; border-radius: 22px; }
+  .pm-hero { min-height: 500px; border-radius: 0 0 22px 22px; }
   .pm-photo {
     inset: 0 0 176px !important;
     height: calc(100% - 176px) !important;
