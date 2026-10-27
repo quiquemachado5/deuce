@@ -4,6 +4,15 @@ import type { MatchRecord } from '@/types/deuce';
 import PlayerFlag from '@/components/PlayerFlag';
 import { resolvedWinner, resolvedSetClosed } from '@/lib/deuce-score';
 
+function roundTone(round: string) {
+  const normalized = round.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase('es');
+  if (normalized.includes('semi')) return 'semifinal';
+  if (normalized.includes('cuartos') || normalized.includes('quarter')) return 'quarterfinal';
+  if (normalized.includes('octavos') || normalized.includes('round of 16') || normalized === 'r16') return 'round-of-16';
+  if (normalized === 'final') return 'final';
+  return 'neutral';
+}
+
 export function ScoreRows({ match, playerLinks = false }: { match: MatchRecord; playerLinks?: boolean }) {
   const winner = resolvedWinner(match);
   return <div className="global-scoreboard" role="group" aria-label={`${match.players[0].name} contra ${match.players[1].name}${winner >= 0 ? `. Ganó ${match.players[winner].name}` : ''}`}>
@@ -33,7 +42,7 @@ export function MatchScoreboard({ match, variant = 'card' }: { match: MatchRecor
   const approximateDate = match.dateLabel === 'Inicio del torneo';
   const context = match.category;
   return <Link href={match.href} prefetch={false} className={`${classes}${isFinal ? ' is-final' : ''}`}>
-    <div className={variant === 'compact' ? 'simple-result-head' : 'simple-match-head'}><div><strong>{match.tournament}</strong><span>{match.round}</span>{context && <small>{context}</small>}</div><time className="simple-match-date" dateTime={approximateDate ? undefined : match.date || undefined}>{approximateDate && date ? `Semana del ${date}` : date}</time></div>
+    <div className={variant === 'compact' ? 'simple-result-head' : 'simple-match-head'}><div><strong>{match.tournament}</strong><span className={`match-round match-round--${roundTone(match.round)}`}>{match.round}</span>{context && <small>{context}</small>}</div><time className="simple-match-date" dateTime={approximateDate ? undefined : match.date || undefined}>{approximateDate && date ? `Semana del ${date}` : date}</time></div>
     <ScoreRows match={match} />
     <div className="simple-match-foot"><span>Ver partido <ArrowUpRight size={17} aria-hidden="true"/></span></div>
   </Link>;

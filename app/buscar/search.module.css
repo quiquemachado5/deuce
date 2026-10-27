@@ -78,6 +78,11 @@
 .searchControl[data-compact=true] .viewSwitch{margin:0;background:var(--bg-sunken);border-radius:999px}
 .searchControl[data-compact=true] .viewSwitch a{min-height:34px;padding:6px 10px;border-radius:999px}
 .searchControl[data-compact=true] .activeChips{display:none}
+.searchControl[data-compact=true]{padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
+.searchControl[data-compact=true]:focus-within{border:0!important;box-shadow:none!important}
+.searchControl[data-compact=true] form{border:0!important;box-shadow:0 12px 32px color-mix(in srgb,var(--ink) 8%,transparent)!important}
+.searchControl[data-compact=true] .searchBox{min-width:190px}
+.searchControl[data-compact=true] .filterBar{border:0!important;border-top:0!important}
 :global(html[data-theme=dark]) .searchPage{--archive-blue:#85baff}
 .searchPage a:focus-visible,.searchPage button:focus-visible,.searchPage summary:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
 @media(max-width:1180px){.filterMenu>summary{padding-inline:8px}.activeChips{order:3;flex-basis:100%;margin:0;padding:3px 5px}.filterBar{flex-wrap:wrap}}

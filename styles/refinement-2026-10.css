@@ -1820,3 +1820,204 @@ main:has(>.deuce-home)+.deuce-footer{margin-top:0}
   .player-directory .inner-title-tools{flex:none;width:100%;max-width:100%;height:auto}
   .deuce-search.view-root>.inner-title{padding-inline:0!important}
 }
+
+/* 2026-10-27 · compact controls, equal tournament heroes and semantic rounds. */
+.home-record-card{
+  justify-content:flex-end!important;
+  align-items:stretch!important;
+}
+.home-record-copy{
+  width:100%;
+  margin-top:auto;
+  transform:none;
+}
+.home-record-shade{
+  background:
+    linear-gradient(90deg,rgba(3,18,14,.4),rgba(3,18,14,.02) 76%),
+    linear-gradient(0deg,rgba(3,18,14,.99) 0%,rgba(3,18,14,.86) 34%,rgba(3,18,14,.32) 66%,rgba(3,18,14,0) 88%)!important;
+}
+.home-record-card--3 .home-record-shade{
+  background:
+    linear-gradient(90deg,rgba(217,255,69,.34),rgba(217,255,69,.02) 76%),
+    linear-gradient(0deg,rgba(217,255,69,.99) 0%,rgba(217,255,69,.86) 34%,rgba(217,255,69,.3) 67%,rgba(217,255,69,0) 88%)!important;
+}
+
+.player-directory .inner-title-tools{
+  position:relative;
+  z-index:18;
+  flex:0 0 auto;
+  width:auto;
+  max-width:none;
+  overflow:visible;
+}
+.player-toolbar.archive-unified-toolbar{
+  display:inline-flex;
+  width:max-content;
+  min-width:0;
+  min-height:40px;
+  align-items:center;
+  gap:2px;
+  padding:3px;
+  border:0;
+  border-radius:999px;
+  background:rgba(255,255,255,.76);
+  box-shadow:0 10px 30px color-mix(in srgb,var(--ink) 8%,transparent);
+  backdrop-filter:blur(20px) saturate(1.3);
+}
+.player-toolbar.archive-unified-toolbar>.deuce-tabs{
+  width:auto;
+  gap:1px;
+  margin:0;
+  padding:0;
+  border:0;
+}
+.player-toolbar.archive-unified-toolbar>.deuce-tabs a{
+  min-height:34px;
+  padding:6px 9px;
+  border:0;
+  font-size:10px;
+}
+.player-filter-disclosure{position:relative;flex:none;margin:0}
+.player-filter-disclosure>summary{
+  display:inline-flex;
+  min-height:34px;
+  align-items:center;
+  gap:6px;
+  padding:6px 9px;
+  border:0;
+  border-radius:999px;
+  background:var(--bg-sunken);
+  color:var(--ink);
+  font-size:10px;
+  font-weight:700;
+  list-style:none;
+  cursor:pointer;
+}
+.player-filter-disclosure>summary::-webkit-details-marker{display:none}
+.player-filter-disclosure>summary::before,
+.player-filter-disclosure>summary::after{display:none!important;content:none!important}
+.player-filter-disclosure>summary svg:last-child{transition:transform .2s ease}
+.player-filter-disclosure[open]>summary{background:var(--acid)}
+.player-filter-disclosure[open]>summary svg:last-child{transform:rotate(180deg)}
+.player-filter-popover{
+  position:absolute;
+  z-index:40;
+  top:calc(100% + 9px);
+  right:0;
+  width:300px;
+  padding:7px;
+  border:1px solid rgba(255,255,255,.5);
+  border-radius:17px;
+  background:rgba(250,252,250,.88);
+  box-shadow:0 18px 48px rgba(3,18,14,.18);
+  backdrop-filter:blur(24px) saturate(1.35);
+}
+.player-filter-popover>.nc-filters{display:grid;grid-template-columns:minmax(0,1fr) 104px;gap:5px;margin:0}
+.player-filter-popover .nc-field{position:relative;min-width:0;gap:0}
+.player-filter-popover .nc-field>span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+.player-filter-popover .player-query-icon{position:absolute;z-index:1;left:11px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+.player-filter-popover :is(input,select){width:100%;height:36px;min-height:36px;margin:0;border:0;border-radius:999px;background:var(--bg-sunken);font-size:10px}
+.player-filter-popover input{padding:0 10px 0 34px}
+.player-filter-popover select{padding:0 26px 0 10px;font-weight:650}
+
+.player-directory .catalog-copy,
+.player-directory .catalog-card:nth-child(4n+2) .catalog-copy,
+.player-directory .catalog-card:nth-child(4n+3) .catalog-copy,
+.player-directory .catalog-card:hover .catalog-copy{
+  min-height:154px;
+  gap:7px;
+  padding:16px 17px;
+  background:#fff!important;
+}
+.catalog-player-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.catalog-player-heading h2{min-width:0;margin:0!important}
+.catalog-card-trophies{
+  display:inline-flex!important;
+  flex:none;
+  align-items:center;
+  gap:4px;
+  margin-top:2px;
+  color:#aa7811!important;
+  font-size:12px!important;
+  font-weight:800;
+  line-height:1;
+}
+.catalog-card-trophies svg{color:#bd8a1d}
+.catalog-card-trophies b{font:800 12px/1 var(--font-interface)}
+.player-directory .catalog-card-accent{
+  margin:0;
+  color:var(--winner);
+  font-size:11px;
+  font-weight:760;
+  line-height:1.45;
+}
+.player-directory .catalog-card-action{
+  min-height:34px;
+  padding:7px 11px;
+  font-size:10px;
+}
+
+.td-edition>.td-edition-hero{
+  min-height:clamp(560px,72svh,760px);
+}
+.tournament-edition-nav{
+  width:max-content;
+  max-width:min(100%,560px);
+  justify-content:flex-start;
+  padding:3px;
+  border:1px solid rgba(255,255,255,.36);
+  background:linear-gradient(135deg,rgba(255,255,255,.36),rgba(225,236,230,.18));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.58),0 10px 30px rgba(3,18,14,.14);
+  -webkit-backdrop-filter:blur(24px) saturate(1.45);
+  backdrop-filter:blur(24px) saturate(1.45);
+}
+.tournament-edition-nav>.tournament-summary-link,
+.tournament-edition-nav .nc-edition-recent a{min-height:32px;padding:6px 8px}
+.tournament-edition-nav .nc-edition-archive-select select{
+  width:78px;
+  height:32px;
+  min-height:32px;
+  padding:0 20px 0 8px;
+  background:rgba(241,245,242,.62);
+}
+
+.deuce-search .inner-title-tools{flex:0 1 680px;max-width:680px}
+
+.match-round{display:inline-flex;align-items:center;gap:5px}
+.match-round:not(.match-round--neutral)::before{content:"";width:5px;height:5px;flex:none;border-radius:50%;background:currentColor}
+.match-round--final{color:#a97812!important;font-weight:800!important}
+.match-round--semifinal{color:#7852a7!important;font-weight:760!important}
+.match-round--quarterfinal{color:#bd5d35!important;font-weight:760!important}
+.match-round--round-of-16{color:#167886!important;font-weight:760!important}
+
+.topbar .logo{perspective:90px}
+.topbar .logo>span{
+  background:radial-gradient(circle at 32% 28%,#efff9b 0%,var(--acid) 48%,#b8d92d 100%);
+  transform-style:preserve-3d;
+  transform-origin:center;
+  animation:deuce-ball-spin 3.2s linear infinite;
+  will-change:transform;
+}
+@keyframes deuce-ball-spin{to{transform:rotateY(360deg)}}
+
+@media(max-width:1000px){
+  .tournament-edition-nav{width:max-content;max-width:100%}
+}
+@media(max-width:759px){
+  .player-directory .inner-title-tools{width:100%;max-width:100%;overflow:visible}
+  .player-toolbar.archive-unified-toolbar{display:flex;width:100%;height:auto;min-height:40px}
+  .player-toolbar.archive-unified-toolbar>.deuce-tabs{flex:1;min-width:0}
+  .player-toolbar.archive-unified-toolbar>.deuce-tabs a{flex:1;justify-content:center;padding-inline:6px}
+  .player-filter-popover{right:0;width:min(300px,calc(100vw - 32px))}
+  .player-directory .catalog-copy,
+  .player-directory .catalog-card:nth-child(4n+2) .catalog-copy,
+  .player-directory .catalog-card:nth-child(4n+3) .catalog-copy{min-height:164px;padding:14px;gap:6px}
+  .player-directory .catalog-copy h2{font-size:19px}
+  .td-edition>.td-edition-hero{min-height:72svh}
+  .tournament-edition-nav{width:max-content;max-width:100%}
+  .deuce-search .inner-title-tools{flex:none;width:100%;max-width:100%}
+}
+@media(prefers-reduced-motion:reduce){
+  .topbar .logo>span{animation:none}
+  .player-filter-disclosure>summary svg:last-child{transition:none}
+}

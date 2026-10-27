@@ -49,7 +49,7 @@ export default function MatchSearchBar({ query, categories, rounds, chips, years
         <div className={styles.searchInput}>
           <Search size={20} strokeWidth={1.7} aria-hidden="true" />
           <label className="nc-sr" htmlFor="match-search">Buscar jugador o torneo</label>
-          <input ref={field} id="match-search" key={query.q || ''} name="q" type="search" defaultValue={query.q || ''} placeholder="Jugador, torneo, año, ronda" autoComplete="off" enterKeyHint="search" />
+          <input ref={field} id="match-search" key={query.q || ''} name="q" type="search" defaultValue={query.q || ''} placeholder="Jugador, torneo…" autoComplete="off" enterKeyHint="search" />
           <button className={styles.clearQuery} type="button" aria-label="Borrar búsqueda" onClick={() => { if (field.current) field.current.value = ''; apply({ q: undefined }); field.current?.focus(); }}><X size={18} aria-hidden="true" /></button>
         </div>
         <button className={styles.searchSubmit} type="submit">Buscar<ArrowRight size={17} aria-hidden="true" /></button>

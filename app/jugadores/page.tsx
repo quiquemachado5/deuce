@@ -1,9 +1,9 @@
-import { ArrowUpRight, Search } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
 import { playerSlug, rivalryDirectory } from '@/lib/explore';
 import { preparedGeneration } from '@/lib/revista/read-records';
 import { number, description } from '@/lib/cuaderno/model';
-import FilterForm from '@/components/revista/FilterForm';
+import PlayerDirectoryToolbar from '@/components/PlayerDirectoryToolbar';
 import { Pagination } from '@/components/nocturno/Row';
 import { normalizeText } from '@/lib/quality';
 import { playerPhoto } from '@/lib/player-imagery';
@@ -57,19 +57,11 @@ export default async function Players({ searchParams }: {
     const photo=playerPhoto(player.name);
     const record=records.get(player.name);
     return { id:player.name,title:player.name,image:photo?.src,alt:photo?.alt,imagePosition:photo?.objectPosition||'center top',imagePositionMobile:photo?.mobileObjectPosition||photo?.objectPosition||'center top',fallback:player.name.split(/\s+/).map(part=>part[0]).slice(0,2).join(''),
-      accentMeta:`${number(player.played ? 100*player.won/player.played : 0,1)} % de efectividad · ${number(player.won)} victorias`,
-      titleMeta:`${number(record?.grandSlamFinalsWon || 0)} títulos de Grand Slam`,
-      meta:`${number(player.played)} partidos`,
+      accentMeta:`${number(player.played ? 100*player.won/player.played : 0,1)} % · ${number(player.won)} victorias · ${number(player.played)} partidos`,
+      trophyCount:number(record?.grandSlamFinalsWon || 0),
       href:`/jugadores/${playerSlug(player.name)}`,actionLabel:'Ver perfil' };
   });
-  const tools=<div className="archive-filter-shell player-toolbar archive-unified-toolbar">
-    <nav className="deuce-tabs" aria-label="Explorar jugadores"><Link href="/jugadores" aria-current={!pairs?'page':undefined}>Jugadores</Link><Link href="/jugadores?tipo=enfrentamientos" aria-current={pairs?'page':undefined}>Enfrentamientos</Link></nav>
-    <FilterForm action="/jugadores">
-      <input type="hidden" name="tipo" value={pairs?'enfrentamientos':'jugadores'}/>
-      <label className="nc-field nc-filter-query"><span>Buscar {pairs?'un enfrentamiento':'jugadores'}</span><Search className="player-query-icon" size={17} aria-hidden="true"/><input name="q" type="search" defaultValue={query.q} placeholder={pairs?'Jugador o rival':'Buscar jugador'} autoComplete="off"/></label>
-      {!pairs&&<label className="player-sort"><span>Ordenar por</span><select name="sort" defaultValue={sort} aria-label="Ordenar jugadores"><option value="slams">Grand Slams</option><option value="wins">Victorias</option><option value="played">Partidos</option><option value="finals">Finales ganadas</option></select></label>}
-    </FilterForm>
-  </div>;
+  const tools=<PlayerDirectoryToolbar pairs={pairs} query={query.q} sort={sort}/>;
   return <ArchivePage title="Jugadores" className="player-directory" tools={tools}>
     <div className="deuce-content">
       {pairs&&<details className="deuce-disclosure"><summary>Elegir dos jugadores</summary><PairPicker/></details>}
