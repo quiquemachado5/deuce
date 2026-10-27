@@ -89,9 +89,9 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
     query.fiveSets === 'true' ? { key: 'fiveSets', label: 'Cinco sets' } : null,
     query.data === 'measures' ? { key: 'data', label: 'Con medidas' } : query.data === 'points' ? { key: 'data', label: 'Con puntos' } : null,
   ].filter((chip): chip is { key: string; label: string } => Boolean(chip));
+  const searchTools=<MatchSearchBar query={query} chips={chips} categories={categories} rounds={[...new Set([...browserRounds, ...data.matches.map(browserRound)])].filter(Boolean)} years={years} activeYear={selectedYear} />;
   return <div className={`deuce-search view-root ${styles.searchPage}`}>
-    <header className="inner-title"><h1>Partidos</h1></header>
-    <MatchSearchBar query={query} chips={chips} categories={categories} rounds={[...new Set([...browserRounds, ...data.matches.map(browserRound)])].filter(Boolean)} years={years} activeYear={selectedYear} />
+    <header className="inner-title"><h1>Partidos</h1><div className="inner-title-tools">{searchTools}</div></header>
     {invalidSurface && <p className={styles.queryNotice} role="status">«{invalidSurface}» no es una superficie válida. Mostramos el archivo sin ese filtro.</p>}
     {translatedSurface && <p className={styles.queryNotice} role="status">El filtro «{translatedSurface}» se ha aplicado correctamente.</p>}
     {!!query.q && matchSearchIntent(query.q).labels.length > 0 && <p className="archive-freshness">Interpretamos: {matchSearchIntent(query.q).labels.join(' · ')}</p>}

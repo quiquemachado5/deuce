@@ -18,8 +18,6 @@ import TournamentFinal from "@/components/TournamentFinal";
 import EditionMatchExplorer from "@/components/EditionMatchExplorer";
 import { toMatchRecord } from "@/data/map-match";
 import { publishedMatchMinutes } from "@/lib/duration";
-import { mediaForEdition } from "@/lib/tournament-media";
-import TournamentEditionMediaView from "@/components/TournamentEditionMedia";
 import { imageFocus } from "@/lib/image-focus";
 import TournamentEditionNav from "@/components/TournamentEditionNav";
 
@@ -85,7 +83,6 @@ export default async function Edition({ params, searchParams }: Props) {
   const photo = tournament.canonical
     ? courtPhotoForEdition(tournament.name, Number(year)) || (Number(year)>=2023 ? courtPhoto(tournament.name) : null)
     : null;
-  const editionMedia=mediaForEdition(tournament.name,Number(year));
   const tiebreaks=measuredMatches.reduce((total,match)=>total+match.score_summary.games.filter(set=>set.length===2&&Math.max(...set)===7&&Math.min(...set)===6).length,0);
   const decidingMatches=measuredMatches.filter(match=>{
     const [one,two]=match.score_summary.sets;
@@ -149,7 +146,6 @@ export default async function Edition({ params, searchParams }: Props) {
         </nav>
       )}
       {final && <TournamentFinal match={final} />}
-      {editionMedia && <TournamentEditionMediaView media={editionMedia} />}
       <EditionMatchExplorer results={editionResults} />
       {measuredMatches.length > 0 && (
         <section className="nc-section nc-edition-facts td-edition-insights">

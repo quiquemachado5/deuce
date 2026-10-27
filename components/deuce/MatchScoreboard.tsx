@@ -9,8 +9,10 @@ export function ScoreRows({ match, playerLinks = false }: { match: MatchRecord; 
   return <div className="global-scoreboard" role="group" aria-label={`${match.players[0].name} contra ${match.players[1].name}${winner >= 0 ? `. Ganó ${match.players[winner].name}` : ''}`}>
     {match.players.map((player, side) => <div className={`global-player${winner === side ? ' match-winner' : ''}`} key={player.id}>
       <span className="player-flag" aria-hidden="true">{player.countryCode && <PlayerFlag code={player.countryCode} />}</span>
-      <strong>{playerLinks ? <Link href={`/jugadores/${player.id}`}>{player.name}</Link> : player.name}</strong>
-      <span className="match-win-mark" aria-hidden="true">{winner === side && <Check size={15} strokeWidth={3} />}</span>
+      <strong className="global-player-name">
+        {playerLinks ? <Link href={`/jugadores/${player.id}`}>{player.name}</Link> : player.name}
+        {winner === side && <span className="match-win-mark" aria-hidden="true"><Check size={13} strokeWidth={3} /></span>}
+      </strong>
       <div className="global-sets">{match.sets.map((set,index) => {
         const won = resolvedSetClosed(set) && set.games[side] > set.games[1-side];
         const tie = set.tieBreak?.[side];

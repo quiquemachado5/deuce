@@ -1759,3 +1759,64 @@ main:has(>.deuce-home)+.deuce-footer{margin-top:0}
   .td-titles-leader-photo,.td-story-photo{transition:none}
   .td-titles-leader:hover .td-titles-leader-photo,.td-story-card:hover .td-story-photo{transform:none}
 }
+
+/* 2026-10-27 · compact archive headers and clearer result hierarchy. */
+.simple-match-head,
+.simple-result-head{align-items:baseline}
+.simple-match-head strong,
+.simple-result-head strong{font-size:15px;line-height:1.15}
+.simple-match-head span,
+.simple-result-head span{font-size:11px}
+.simple-match-date{align-self:baseline;font-size:11px;font-weight:650}
+.global-player,
+.simple-result .global-player,
+.floating-results-v2 .simple-result .global-player,
+.global-scoreboard--overlay .global-player{grid-template-columns:22px minmax(0,1fr) auto}
+.deuce-match-detail .global-player{grid-template-columns:24px minmax(0,1fr) minmax(200px,40%)}
+.deuce-tournament-final .global-player{grid-template-columns:22px minmax(0,1fr) auto}
+.td-champions .global-player{grid-template-columns:19px minmax(0,1fr) auto}
+.global-player-name{display:inline-flex;min-width:0;align-items:center;gap:7px}
+.global-player-name>a{min-width:0;overflow:hidden;text-overflow:ellipsis}
+.match-win-mark{display:inline-grid;flex:none;width:18px;height:18px;place-items:center;border-radius:50%;background:color-mix(in srgb,var(--winner) 14%,transparent);color:var(--winner)}
+
+.home-record-copy{gap:5px;transform:translateY(3px)}
+.home-record-copy .home-record-value{font-size:clamp(64px,7vw,112px)}
+.home-record-card:not(.home-record-card--1) .home-record-value{font-size:clamp(48px,4.5vw,68px)}
+.home-record-copy h3{margin:5px 0 7px}
+.home-record-copy>b{font-size:13px}
+
+.player-directory .inner-title-tools{flex:0 1 420px;max-width:420px}
+.player-directory .catalog-card,
+.player-directory .catalog-copy,
+.player-directory .catalog-card:nth-child(4n+2) .catalog-copy,
+.player-directory .catalog-card:nth-child(4n+3) .catalog-copy{background:#fff}
+.player-directory .catalog-copy h2{order:0;margin-bottom:8px}
+.player-directory .catalog-card-accent{order:1;margin:0;color:var(--winner);font-size:12px;font-weight:760}
+.player-directory .catalog-card-title-meta{order:2;display:inline-flex;width:max-content;max-width:100%;margin-top:7px;padding:5px 8px;border-radius:999px;background:color-mix(in srgb,var(--gold) 15%,transparent);color:#8b650d;font-size:10px;font-weight:760}
+.player-directory .catalog-card-title-meta+p{order:3;margin-top:8px}
+.player-directory .catalog-card-action{order:4}
+
+.tournament-edition-nav{max-width:min(630px,56vw);padding:3px;border:0;background:linear-gradient(135deg,rgba(255,255,255,.68),rgba(238,246,242,.48));box-shadow:inset 0 1px 0 rgba(255,255,255,.62),0 12px 32px rgba(3,18,14,.16);backdrop-filter:blur(22px) saturate(1.3)}
+.tournament-edition-nav>.tournament-summary-link,
+.tournament-edition-nav .nc-edition-recent a{min-height:32px;padding:6px 9px}
+.tournament-edition-nav .nc-edition-archive-select select{width:90px;height:32px;min-height:32px;padding:0 22px 0 9px;background:rgba(238,241,239,.72)}
+.td-edition>.td-edition-hero{margin-top:-125px}
+
+.deuce-search.view-root>.inner-title{align-items:center;width:100%;padding-inline:0!important;padding-bottom:34px}
+.deuce-search .inner-title-tools{flex:1;max-width:920px;margin:0;overflow:visible}
+.deuce-search .inner-title-tools>.archive-unified-toolbar{width:100%}
+
+@media(max-width:1100px){
+  .deuce-search.view-root>.inner-title{align-items:stretch}
+  .deuce-search .inner-title-tools{max-width:100%}
+}
+@media(max-width:759px){
+  .global-player,
+  .simple-result .global-player,
+  .floating-results-v2 .simple-result .global-player,
+  .deuce-match-detail .global-player,
+  .deuce-tournament-final .global-player{grid-template-columns:18px minmax(0,1fr) auto}
+  .td-edition>.td-edition-hero{margin-top:-105px}
+  .player-directory .inner-title-tools{flex:none;width:100%;max-width:100%;height:auto}
+  .deuce-search.view-root>.inner-title{padding-inline:0!important}
+}

@@ -42,7 +42,7 @@ export default function MatchSearchBar({ query, categories, rounds, chips, years
     activeYear ? 'year' : '', query.surface ? 'surface' : '', query.category ? 'category' : '',
     query.round ? 'round' : '', query.fiveSets === 'true' ? 'fiveSets' : '', query.data ? 'data' : '', ...chips.map(chip => chip.key),
   ].filter(Boolean)).size;
-  return <div className={`${styles.searchControl} archive-unified-toolbar`} aria-busy={pending}>
+  return <div className={`${styles.searchControl} archive-unified-toolbar`} data-compact="true" aria-busy={pending}>
     <form role="search" action="/buscar" onSubmit={event => { event.preventDefault(); apply({}); }}>
       {Object.entries(query).filter(([key, value]) => value && !['q', 'player', 'page', 'limit', 'editions'].includes(key)).map(([key, value]) => <input key={key} type="hidden" name={key} value={value} />)}
       <div className={`${styles.searchBox} archive-query-row`}>
@@ -69,7 +69,6 @@ export default function MatchSearchBar({ query, categories, rounds, chips, years
         <nav className={styles.viewSwitch} aria-label="Vista de resultados">
           <Link href={matchSearchUrl(query, { vista: undefined, limit: undefined })} aria-current={query.vista !== 'torneos' ? 'page' : undefined} scroll={false}>Lista</Link>
           <Link href={matchSearchUrl(query, { vista: 'torneos', limit: undefined })} aria-current={query.vista === 'torneos' ? 'page' : undefined} scroll={false}>Torneos</Link>
-          <Link href="/jugadores?tipo=enfrentamientos">Cruces</Link>
         </nav>
         {chips.length > 0 && <div className={styles.activeChips} aria-label="Filtros activos">{chips.map(chip => <button type="button" key={chip.key} onClick={() => apply({ [chip.key]: undefined })} aria-label={`Quitar filtro ${chip.label}`}>{chip.label}<X size={13} aria-hidden="true" /></button>)}</div>}
       </div>

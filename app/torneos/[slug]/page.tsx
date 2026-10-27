@@ -18,9 +18,8 @@ import PlayerAvatar from "@/components/PlayerAvatar";
 import TournamentChampionRail from "@/components/TournamentChampionRail";
 import { playerEditionPhoto, playerPhoto } from "@/lib/player-imagery";
 import { ArrowUpRight } from "lucide-react";
-import { championPhotoForEdition, latestMediaForTournament } from "@/lib/tournament-media";
+import { championPhotoForEdition } from "@/lib/tournament-media";
 import { imageFocus } from "@/lib/image-focus";
-import TournamentEditionMediaView from "@/components/TournamentEditionMedia";
 import TournamentEditionNav from "@/components/TournamentEditionNav";
 
 type Props = {
@@ -95,7 +94,6 @@ export default async function Tournament({ params, searchParams }: Props) {
   const recurringFinal=[...finalPairs.values()].sort((a,b)=>b.count-a.count)[0];
   const editionHref = (year: number) =>
     `/torneos/${slug}/${year}${tournament.categories.length > 1 ? `?categoria=${encodeURIComponent(category)}` : ""}`;
-  const editionMedia=latestMediaForTournament(tournament.name,years);
   const championFinals=finals.filter(final=>winnerName(final)).slice(0,10);
   const titleLeaderPhoto=pieces.titles[0]?playerPhoto(pieces.titles[0].name):null;
   const decidingFinalPhoto=finals[0]?playerPhoto(winnerName(finals[0])!):null;
@@ -179,7 +177,6 @@ export default async function Tournament({ params, searchParams }: Props) {
           </TournamentChampionRail>
         </section>
       )}
-      {editionMedia && <TournamentEditionMediaView media={editionMedia} />}
       {(pieces.titles.length > 0 || pieces.played.length > 0) && (
         <section className="td-tournament-rankings" aria-labelledby="td-rankings-title">
           <div className="td-section-heading"><div><h2 id="td-rankings-title">Nombres que definen el torneo</h2></div></div>
@@ -211,7 +208,6 @@ export default async function Tournament({ params, searchParams }: Props) {
           <article className="td-story-card td-story-card--champions"><span>Campeones distintos</span><div className="td-story-portraits">{pieces.titles.slice(0,3).map(row=><PlayerAvatar key={row.name} name={row.name} size={46}/>)}</div><strong>{number(distinctChampions)}</strong><p>en {number(finals.length)} finales registradas.</p></article>
           {recurringFinal&&<article className="td-story-card td-story-card--rivalry">{rivalryPhoto&&<Image className="td-story-photo art-directed-photo" src={rivalryPhoto.src} alt="" fill sizes="(max-width:759px) 94vw, 36vw" style={imageFocus(rivalryPhoto.objectPosition||"center top",rivalryPhoto.mobileObjectPosition||rivalryPhoto.objectPosition||"center top")} unoptimized/>}<span className="td-story-shade" aria-hidden="true"/><span>Final que más se repite</span><div><PlayerAvatar name={recurringFinal.names[0]} size={48}/><PlayerAvatar name={recurringFinal.names[1]} size={48}/></div><strong>{recurringFinal.names[0]} <i>contra</i> {recurringFinal.names[1]}</strong><p>{number(recurringFinal.count)} enfrentamientos por el título.</p></article>}
           {longestFinal&&<article className="td-story-card td-story-card--duration">{durationPhoto&&<Image className="td-story-photo art-directed-photo" src={durationPhoto.src} alt="" fill sizes="(max-width:759px) 94vw, 30vw" style={imageFocus(durationPhoto.objectPosition||"center top",durationPhoto.mobileObjectPosition||durationPhoto.objectPosition||"center top")} unoptimized/>}<span className="td-story-shade" aria-hidden="true"/><span>Final más larga documentada</span><div className="td-story-portraits"><PlayerAvatar name={longestFinal.player1.name} size={44}/><PlayerAvatar name={longestFinal.player2.name} size={44}/></div><strong>{Math.floor((longestFinal.context?.minutes||0)/60)} h {(longestFinal.context?.minutes||0)%60} min</strong><p>{longestFinal.player1.name} contra {longestFinal.player2.name} · {longestFinal.year}</p><Link className="deuce-cta deuce-cta--small" href={`/match/${longestFinal.match_id}`}>Ver partido <ArrowUpRight size={15} aria-hidden="true"/></Link></article>}
-          {editionMedia&&<article className="td-story-card td-story-card--media"><Image className="td-story-photo art-directed-photo" src={editionMedia.trophy.src} alt="" fill sizes="(max-width:759px) 94vw, 30vw" style={imageFocus(editionMedia.trophy.objectPosition||"center",editionMedia.trophy.mobileObjectPosition||editionMedia.trophy.objectPosition||"center")} unoptimized/><span className="td-story-shade" aria-hidden="true"/><span>Archivo visual</span><strong>{editionMedia.year}</strong><p>La final y el momento del trofeo, conservados en imagen y vídeo.</p><a className="deuce-cta deuce-cta--small" href="#edition-media-title">Ver archivo</a></article>}
         </div>
       </section>
     </div>

@@ -6,6 +6,6 @@ export type MatchRecord = {
   status?: string; requiredSets?: number; dateLabel?: string; year?: number;
   category?: string; surface?: string; environment?: string;
 };
-export type ArchiveCard = { surface?: string; id: string; title: string; eyebrow?: string; meta?: string; image?: string; alt?: string; imagePosition?: string; imagePositionMobile?: string; href: string; value?: string; tags?: string[]; fallback?: string; actionLabel?: string };
+export type ArchiveCard = { surface?: string; id: string; title: string; eyebrow?: string; accentMeta?: string; titleMeta?: string; meta?: string; image?: string; alt?: string; imagePosition?: string; imagePositionMobile?: string; href: string; value?: string; tags?: string[]; fallback?: string; actionLabel?: string };
 export type ArchiveSection = { title: string; cards: ArchiveCard[] };
 export type TournamentSlide = { id: string; name: string; city: string; surface: string; description: string; image: string; alt: string; imagePosition?: string; imagePositionMobile?: string; href: string; credit: string; source: string };
