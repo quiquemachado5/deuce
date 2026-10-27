@@ -16,9 +16,7 @@ import {
 import type { RivalrySummary } from "@/lib/explore";
 import { findStat, type StatRow } from "@/lib/statistics";
 import { pressure, sentence } from "@/lib/cuaderno/model";
-import Share from "@/components/nocturno/Share";
 import PlayerFlag from "@/components/PlayerFlag";
-import { toMatchRecord } from "@/data/map-match";
 
 const geist = Geist({
   subsets: ["latin"],
@@ -583,7 +581,6 @@ export default function PanoramaMatch({
         <div className="pm-hero-inner">
           <div className="pm-hero-actions">
             <Link href="/buscar" aria-label="Volver a partidos"><ArrowLeft /></Link>
-            <Share record={toMatchRecord(match)} iconOnly />
           </div>
           <div className="pm-event">
             <h1 id="pm-title">{tournamentName(match.tournament)}</h1>

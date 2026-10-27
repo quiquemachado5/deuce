@@ -52,10 +52,10 @@ html:has(.pm-page) {
   position: relative;
   width: 100vw;
   width: 100dvw;
-  min-height: 620px;
+  min-height: 466px;
+  margin-bottom: 154px;
   margin-left: calc(50% - 50vw);
   margin-left: calc(50% - 50dvw);
-  overflow: hidden;
   background: var(--pm-pine);
 }
 
@@ -63,22 +63,22 @@ html:has(.pm-page) {
   position: relative;
   z-index: 1;
   width: min(1240px, 100%);
-  min-height: 620px;
+  min-height: 466px;
   margin-inline: auto;
 }
 
 .pm-photo {
   position: absolute !important;
-  inset: 0 0 154px !important;
+  inset: 0 !important;
   width: 100% !important;
-  height: calc(100% - 154px) !important;
+  height: 100% !important;
   object-fit: cover;
   object-position: var(--pm-photo-position, 50% 50%);
 }
 
 .pm-photo-shade {
   position: absolute;
-  inset: 0 0 154px;
+  inset: 0;
   background: linear-gradient(180deg, rgba(4, 8, 7, .12), rgba(4, 8, 7, .2) 44%, rgba(4, 8, 7, .72));
 }
 
@@ -91,7 +91,7 @@ html:has(.pm-page) {
   --pm-court-dark: #32545e;
   --pm-court-line: rgba(255, 255, 255, .58);
   position: absolute;
-  inset: 0 0 154px;
+  inset: 0;
   overflow: hidden;
   background:
     radial-gradient(circle at 72% 18%, rgba(255, 255, 255, .15), transparent 25%),
@@ -141,13 +141,12 @@ html:has(.pm-page) {
   z-index: 2;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 94px 24px 22px;
+  justify-content: flex-start;
+  padding: 94px 0 22px;
   color: #fff;
 }
 
-.pm-hero-actions > a,
-.pm-page .ry-match-share {
+.pm-hero-actions > a {
   display: grid;
   place-items: center;
   width: 44px;
@@ -164,15 +163,13 @@ html:has(.pm-page) {
   -webkit-backdrop-filter: blur(16px) saturate(135%);
 }
 
-.pm-hero-actions > a:hover,
-.pm-page .ry-match-share:hover {
+.pm-hero-actions > a:hover {
   border-color: rgba(255, 255, 255, .3);
   background: rgba(12, 34, 27, .5);
   color: #fff;
 }
 
-.pm-hero-actions svg,
-.pm-page .ry-match-share svg {
+.pm-hero-actions svg {
   width: 18px;
   height: 18px;
   fill: none;
@@ -182,13 +179,11 @@ html:has(.pm-page) {
   stroke-linejoin: round;
 }
 
-.pm-page .ry-match-share span { display: none; }
-
 .pm-event {
   position: absolute;
   z-index: 1;
   right: 28px;
-  bottom: 216px;
+  bottom: 62px;
   left: 28px;
   color: #fff;
 }
@@ -212,14 +207,15 @@ html:has(.pm-page) {
 .pm-score {
   position: absolute;
   right: 0;
-  bottom: 0;
+  bottom: -154px;
   left: 0;
+  z-index: 2;
   display: grid;
   align-content: center;
   height: 190px;
   padding: 20px 24px;
   gap: 8px;
-  border-radius: 0 0 28px 28px;
+  border-radius: 28px;
   background: linear-gradient(180deg, rgba(255, 255, 255, .76), rgba(255, 255, 255, .96) 30px, #fff 58px);
   color: var(--pm-ink);
 }
@@ -843,23 +839,23 @@ html:has(.pm-page) {
 }
 
 @media (max-width: 759px) {
-  .pm-hero,
-  .pm-hero-inner { min-height: 500px; }
+  .pm-hero { min-height: 352px; margin-bottom: 148px; }
+  .pm-hero-inner { min-height: 352px; }
   .pm-photo {
-    inset: 0 0 148px !important;
-    height: calc(100% - 148px) !important;
+    inset: 0 !important;
+    height: 100% !important;
     object-position: var(--pm-photo-position-mobile, var(--pm-photo-position, 50% 50%));
   }
   .pm-photo-shade,
-  .pm-surface-art { inset: 0 0 148px; }
+  .pm-surface-art { inset: 0; }
   .pm-photo-shade {
     background: linear-gradient(180deg, rgba(4, 8, 7, .08), rgba(4, 8, 7, .16) 42%, rgba(4, 8, 7, .7));
   }
-  .pm-hero-actions { padding: 80px 12px 12px; }
-  .pm-event { right: 16px; bottom: 200px; left: 16px; }
+  .pm-hero-actions { padding: 80px 16px 12px; }
+  .pm-event { right: 16px; bottom: 52px; left: 16px; }
   .pm-event h1 { font-size: 34px; }
   .pm-event p { font-size: 13px; }
-  .pm-score { height: 176px; padding: 10px 12px; gap: 2px; border-radius: 0 0 22px 22px; }
+  .pm-score { bottom: -148px; height: 176px; padding: 10px 12px; gap: 2px; border-radius: 22px; }
   .pm-score-row {
     grid-template-columns: minmax(116px, 1fr) minmax(145px, 1.18fr);
     grid-template-rows: 1fr;
@@ -980,9 +976,4 @@ html:has(.pm-page) {
   .pm-mini-row { grid-template-columns: minmax(96px, 1fr) minmax(112px, 1.15fr); }
   .pm-mini-row > span strong { font-size: 11px; }
   .pm-h2h-meeting header span { max-width: 120px; }
-}
-
-@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .pm-photo { transition: transform 450ms cubic-bezier(.22, 1, .36, 1); }
-  .pm-hero:hover .pm-photo { transform: scale(1.012); }
 }
