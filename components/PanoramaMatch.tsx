@@ -454,7 +454,10 @@ function HeadToHead({ rivalry, names }: { rivalry: RivalrySummary; names: [strin
   return (
     <section className="pm-related" id="match-head-to-head" aria-labelledby="match-h2h-title">
       <div className="pm-h2h-heading">
-        <h2 id="match-h2h-title">Cara a cara</h2>
+        <h2 id="match-h2h-title">
+          Cara a cara
+          <span className="pm-h2h-count" aria-hidden="true">{matches.length}</span>
+        </h2>
         <span>{matches.length} {matches.length === 1 ? "partido" : "partidos"} de muestra</span>
       </div>
       <div className="pm-h2h-card">
