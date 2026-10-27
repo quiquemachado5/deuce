@@ -53,7 +53,7 @@ html:has(.pm-page) {
   width: 100vw;
   width: 100dvw;
   min-height: 525px;
-  margin-bottom: 95px;
+  margin-bottom: 125px;
   margin-left: calc(50% - 50vw);
   margin-left: calc(50% - 50dvw);
   background: var(--pm-pine);
@@ -319,7 +319,7 @@ html:has(.pm-page) {
   display: flex;
   width: max-content;
   max-width: 100%;
-  margin: 20px auto 48px;
+  margin: 0 auto 48px;
   padding: 5px;
   gap: 4px;
   border-radius: 999px;
@@ -839,7 +839,7 @@ html:has(.pm-page) {
 }
 
 @media (max-width: 759px) {
-  .pm-hero { min-height: 412px; margin-bottom: 88px; }
+  .pm-hero { min-height: 412px; margin-bottom: 118px; }
   .pm-hero-inner { min-height: 412px; }
   .pm-photo {
     inset: 0 !important;
@@ -851,11 +851,11 @@ html:has(.pm-page) {
   .pm-photo-shade {
     background: linear-gradient(180deg, rgba(4, 8, 7, .08), rgba(4, 8, 7, .16) 42%, rgba(4, 8, 7, .7));
   }
-  .pm-hero-actions { padding: 80px 16px 12px; }
+  .pm-hero-actions { display: none; }
   .pm-event { right: 16px; bottom: 112px; left: 16px; }
   .pm-event h1 { font-size: 34px; }
   .pm-event p { font-size: 13px; }
-  .pm-score { bottom: -88px; height: 176px; padding: 10px 12px; gap: 2px; border-radius: 22px; }
+  .pm-score { right: 12px; bottom: -88px; left: 12px; height: 176px; padding: 10px 12px; gap: 2px; border-radius: 22px; }
   .pm-score-row {
     grid-template-columns: minmax(116px, 1fr) minmax(145px, 1.18fr);
     grid-template-rows: 1fr;
@@ -874,8 +874,8 @@ html:has(.pm-page) {
   .pm-local-nav {
     display: grid;
     grid-template-columns: repeat(var(--pm-nav-count, 4), minmax(0, 1fr));
-    width: 100%;
-    margin: 14px auto 40px;
+    width: calc(100% - 24px);
+    margin: 0 auto 40px;
     gap: 2px;
   }
   .pm-local-nav-4 { --pm-nav-count: 4; }
@@ -883,7 +883,7 @@ html:has(.pm-page) {
   .pm-local-nav-2 { --pm-nav-count: 2; max-width: 320px; }
   .pm-local-nav a { padding: 11px 2px; font-size: 11px; letter-spacing: -.015em; }
 
-  .pm-summary { padding: 0 2px 40px; }
+  .pm-summary { padding: 0 14px 40px; }
   .pm-summary-intro { display: block; margin-bottom: 26px; }
   .pm-summary h2,
   .pm-section-heading h2,
@@ -899,7 +899,7 @@ html:has(.pm-page) {
   .pm-key-comparison article { padding: 18px; }
   .pm-metric-pair { margin-top: 12px; }
 
-  .pm-statistics { padding: 24px 10px; border-radius: 22px; }
+  .pm-statistics { margin-inline: 12px; padding: 24px 10px; border-radius: 22px; }
   .pm-section-heading { margin: 0 6px 14px; }
   .pm-stat-group { padding: 16px 14px; }
   .pm-stat-group h3 { margin-bottom: 14px; }
@@ -955,7 +955,8 @@ html:has(.pm-page) {
   .pm-flag-compact { width: 19px; height: 14px; }
   .pm-mini-row > span strong { font-size: 12px; }
   .pm-mini-sets { width: 100%; font-size: 15px; }
-  .pm-supplemental { margin-inline: 2px; padding: 18px 14px; }
+  .pm-related { padding-inline: 14px; }
+  .pm-supplemental { margin-inline: 12px; padding: 18px 14px; }
 }
 
 @media (max-width: 380px) {
