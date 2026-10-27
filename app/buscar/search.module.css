@@ -14,8 +14,8 @@
 .clearQuery{display:grid;place-items:center;flex:none;width:44px;height:44px;padding:0;border:0;border-radius:50%;background:transparent;color:var(--muted)}
 .clearQuery:hover{background:var(--bg-sunken);color:var(--ink)}
 .searchInput:has(input:placeholder-shown) .clearQuery{visibility:hidden}
-.searchSubmit{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:10px 17px;border:0;border-radius:13px;background:var(--ink);color:var(--bg-raised);font:650 13px var(--font-interface)}
-.searchSubmit:hover{background:color-mix(in srgb,var(--ink) 88%,var(--bg-raised))}.searchSubmit svg{flex:none}
+.searchSubmit{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:10px 17px;border:0;border-radius:13px;background:var(--acid);color:var(--ink);font:650 13px var(--font-interface)}
+.searchSubmit:hover{background:var(--ink);color:#fff}.searchSubmit svg{flex:none}
 .filterBar{position:relative;display:flex;align-items:center;gap:8px;margin-top:10px;padding:6px;border:1px solid var(--line);border-radius:16px;background:color-mix(in srgb,var(--bg-sunken) 72%,var(--bg-raised));box-shadow:0 3px 14px color-mix(in srgb,var(--ink) 3%,transparent)}
 .filterDisclosure{display:contents}.filterToggle{display:none}
 .activeChips{display:flex;flex-wrap:wrap;gap:7px;margin-left:6px}
@@ -37,7 +37,7 @@
 .viewSwitch{display:flex;align-items:center;gap:2px;margin-left:auto;padding:3px;border-radius:12px;background:var(--bg-raised)}
 .viewSwitch a{display:grid;place-items:center;min-height:38px;padding:7px 11px;border-radius:9px;color:var(--ink-soft);font-size:11px;font-weight:600;white-space:nowrap}
 .viewSwitch a:hover{background:var(--bg-sunken);color:var(--ink)}
-.viewSwitch a[aria-current=page]{background:var(--ink);color:var(--bg-raised)}
+.viewSwitch a[aria-current=page]{background:var(--acid);color:var(--ink)}
 .resultCount{margin:11px 0 0;padding-inline:3px;color:var(--muted);font-size:12px}
 .queryNotice{margin:11px 3px 0;padding:10px 12px;border-radius:12px;background:var(--bg-raised);color:var(--ink-soft);font-size:12px;line-height:1.45}
 .playerResults{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:24px}
@@ -70,6 +70,7 @@
 .searchControl[data-compact=true] .filterBar{position:relative;flex:none;gap:5px;margin:0;padding:0;border:0;border-radius:999px;background:transparent;box-shadow:none}
 .searchControl[data-compact=true] .filterDisclosure{position:relative;display:block}
 .searchControl[data-compact=true] .filterToggle{display:flex;align-items:center;gap:7px;min-height:40px;padding:8px 12px;border:0;border-radius:999px;background:var(--bg-sunken);color:var(--ink);font:650 11px var(--font-interface)}
+.filterToggle[data-active=true]{background:var(--acid)!important;color:var(--ink)}
 .searchControl[data-compact=true] .filterToggle svg:last-child{transition:transform .2s ease}
 .searchControl[data-compact=true] .filterDisclosure[data-open] .filterToggle svg:last-child{transform:rotate(180deg)}
 .searchControl[data-compact=true] .filterMenus{display:none}

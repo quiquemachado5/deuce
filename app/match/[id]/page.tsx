@@ -1,4 +1,3 @@
-import ArchiveBackLink from '@/components/ArchiveBackLink';
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
@@ -130,7 +129,6 @@ export default async function MatchPage({ params, searchParams }: Props) {
   );
   return (
     <article className="nc-wrap nc-match-page">
-      <ArchiveBackLink />
       <Reading
         match={match}
         rivalry={rivalry}

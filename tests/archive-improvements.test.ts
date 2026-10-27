@@ -8,7 +8,7 @@ import { archiveExtent, exactDay } from '../lib/archive-freshness';
 import { sharedCareerWindow } from '../lib/player-comparison';
 import { editionNeighbors } from '../lib/edition-neighbors';
 import { tournamentTimeline } from '../lib/tournament-presentation';
-import { compileRecordSnapshot } from '../lib/revista/snapshot';
+import { attachIngestionHistory, compileRecordSnapshot } from '../lib/revista/snapshot';
 import { attachRecordChanges, assertSnapshotIntegrity } from '../lib/revista/record-changes';
 import { archiveStories } from '../lib/archive-stories';
 const base={...mockMatches[0],data_source:'api' as const};
@@ -61,6 +61,15 @@ test('leader observations preserve ties and are idempotent across publication re
   const next=attachRecordChanges(previous,current);assert.equal(next.leaderChanges?.length,1);assert.deepEqual(next.leaderChanges?.[0].after.names,['A','B']);
   assert.equal(attachRecordChanges(next,current).leaderChanges?.length,1);
   assert.equal(attachRecordChanges({...previous,rulesVersion:'other'},current).leaderChanges,undefined);
+});
+test('daily ingestion history records positive additions and stays idempotent on retries',()=>{
+  const first=compileRecordSnapshot([base],new Date('2026-10-26T05:00:00Z')).manifest;
+  const baseline=attachIngestionHistory(undefined,first);
+  assert.deepEqual(baseline.ingestionHistory,[{date:'2026-10-26',added:0,total:1}]);
+  const second={...first,generatedAt:'2026-10-27T05:00:00Z',matchCount:4};
+  const published=attachIngestionHistory(baseline,second);
+  assert.deepEqual(published.ingestionHistory?.at(-1),{date:'2026-10-27',added:3,total:4});
+  assert.deepEqual(attachIngestionHistory(published,{...second,generatedAt:'2026-10-27T06:00:00Z'}).ingestionHistory?.at(-1),{date:'2026-10-27',added:3,total:4});
 });
 test('publication rejects invalid ratios and non-finite statistics',()=>{
   const snapshot=compileRecordSnapshot([base]);assertSnapshotIntegrity(snapshot);

@@ -19,7 +19,6 @@ export default function SurfaceScore({
       {rows.map((row) => (
         <div className="ry-surface-score-row" data-event-surface={row.surface} key={row.surface}>
           <dt className="ry-surface-name">
-            <span className="ry-surface-dot" aria-hidden="true" />
             {surfaceLabel[row.surface]}
           </dt>
           <dd aria-label={`${names[0]}: ${number(row.wins[0])} ${row.wins[0] === 1 ? "victoria" : "victorias"}. ${names[1]}: ${number(row.wins[1])} ${row.wins[1] === 1 ? "victoria" : "victorias"}. ${number(row.count ?? row.wins[0] + row.wins[1])} partidos en total.`}>

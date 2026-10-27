@@ -201,35 +201,19 @@ function MatchContext({ match }: { match: Match }) {
   );
 }
 
-function MatchSidebar({
-  match,
-  rivalry,
-}: {
-  match: Match;
-  rivalry?: RivalrySummary;
-}) {
+function RivalrySnapshot({match,rivalry}:{match:Match;rivalry:RivalrySummary}) {
+  const values=[match.player1.name,match.player2.name].map(name=>rivalry.wins[rivalry.names.indexOf(name)]||0);
+  return <section className="ry-match-h2h ry-match-h2h-integrated">
+    <div><span>Cara a cara</span><h2>{match.player1.name} <i>VS</i> {match.player2.name}</h2></div>
+    <p className="ry-match-h2h-score" aria-label={`${match.player1.name}: ${values[0]} victorias. ${match.player2.name}: ${values[1]} victorias.`}><strong className={values[0]>values[1]?'is-leading':undefined}>{number(values[0])}</strong><span>–</span><strong className={values[1]>values[0]?'is-leading':undefined}>{number(values[1])}</strong></p>
+    <Link href={`/rivalries/${rivalry.slug}`}>Ver enfrentamientos</Link>
+  </section>;
+}
+
+function MatchSidebar({ match }: { match: Match }) {
   return (
     <aside className="ry-match-sidebar" aria-label="Contexto del partido">
       <MatchContext match={match} />
-      {rivalry && (
-        <section className="ry-match-h2h">
-          <h2>Cara a cara</h2>
-          <div>
-            {[match.player1.name, match.player2.name].map((name, index) => (
-              <p key={name} className={`ry-player-${index + 1}`}>
-                <span>{name}</span>
-                <strong>
-                  {number(rivalry.wins[rivalry.names.indexOf(name)])}
-                </strong>
-              </p>
-            ))}
-          </div>
-          <p className="ry-data-note">
-            {number(rivalry.matches.length)} partidos en este archivo
-          </p>
-          <Link href={`/rivalries/${rivalry.slug}`}>Ver enfrentamientos</Link>
-        </section>
-      )}
     </aside>
   );
 }
@@ -306,12 +290,10 @@ export default function Reading({
       : []),
     {
       id: "alrededor",
-      label: "Histórico",
+      label: "Cara a cara",
       content: (
         <div className="ry-match-history">
-          <div className="ry-section-heading">
-            <h2>La historia del cruce</h2>
-          </div>
+          {rivalry&&<RivalrySnapshot match={match} rivalry={rivalry}/>}
           {around || (
             <Link
               className="ry-compare-action"
@@ -340,7 +322,7 @@ export default function Reading({
             panels={panels}
           />
         </div>
-        <MatchSidebar match={match} rivalry={rivalry} />
+        <MatchSidebar match={match} />
       </div>
     </div>
   );

@@ -10,7 +10,7 @@ import type {RecordManifest} from '../lib/revista/snapshot';
 import {preservePublishedArchive} from '../lib/revista/release-source';
 loadEnvConfig(process.cwd());
 async function main(){
-  const [{editorialArchive},{compileRecordSnapshot},{writeBundledSnapshot}]=await Promise.all([import('../lib/editorial-data'),import('../lib/revista/snapshot'),import('../lib/revista/publish-snapshot')]);
+  const [{editorialArchive},{compileRecordSnapshot,attachIngestionHistory},{writeBundledSnapshot}]=await Promise.all([import('../lib/editorial-data'),import('../lib/revista/snapshot'),import('../lib/revista/publish-snapshot')]);
   let matches=await editorialArchive();
   let previous:RecordManifest|undefined;
   let previousAudit:EditionAudit[]|undefined;
@@ -42,7 +42,7 @@ async function main(){
     assertReleaseCoverage(previous,snapshot.manifest);
     if(previousAudit?.length)assertEditionCoverage(previousAudit,snapshot.audit);
     else console.log('Edition coverage baseline initialized from this release');
-    snapshot.manifest=attachRecordChanges(previous,snapshot.manifest);
+    snapshot.manifest=attachIngestionHistory(previous,attachRecordChanges(previous,snapshot.manifest));
     console.log(`Release baseline verified: ${previous.matchCount} published matches; ${snapshot.manifest.matchCount} prepared; measured coverage preserved`);
   }
   assertSnapshotIntegrity(snapshot);

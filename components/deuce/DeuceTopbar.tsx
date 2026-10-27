@@ -60,23 +60,24 @@ export function DeuceTopbar() {
   return <>
     <header className={`topbar${scrolled?' is-scrolled':''}${navHidden&&!menu&&!searchOpen?' nav-hidden':''}${searchOpen?' search-open':''}`}>
       <Link className="logo" href="/" aria-label="DEUCE, inicio" onClick={()=>{setMenu(false);setSearchOpen(false);}}><span aria-hidden="true"/>DEUCE</Link>
-      {!searchOpen&&<nav id="deuce-navigation" className={menu?'mobile-open':''} aria-label="Principal">{navigation.map(([label,href])=>{const active=href==='/buscar'?pathname==='/buscar'||pathname.startsWith('/match/'):href==='/jugadores'?pathname.startsWith('/jugadores')||pathname.startsWith('/players/')||pathname.startsWith('/rivalries/'):href==='/torneos'?pathname.startsWith('/torneos')||/^\/[a-z0-9-]+\/\d{4}$/.test(pathname):href==='/comparar'?pathname==='/comparar'||pathname==='/compare':pathname===href||pathname.startsWith(`${href}/`);return <Link prefetch={true} className={active?'active':''} aria-current={active?'page':undefined} href={href} key={href} onClick={()=>setMenu(false)}>{label}</Link>;})}</nav>}
-      {searchOpen?<form className="topbar-spotlight-form" role="search" onSubmit={event=>{event.preventDefault();submit();}}>
+      <nav id="deuce-navigation" className={menu?'mobile-open':''} aria-label="Principal" aria-hidden={searchOpen}>{navigation.map(([label,href])=>{const active=href==='/buscar'?pathname==='/buscar'||pathname.startsWith('/match/'):href==='/jugadores'?pathname.startsWith('/jugadores')||pathname.startsWith('/players/')||pathname.startsWith('/rivalries/'):href==='/torneos'?pathname.startsWith('/torneos')||/^\/[a-z0-9-]+\/\d{4}$/.test(pathname):href==='/comparar'?pathname==='/comparar'||pathname==='/compare':pathname===href||pathname.startsWith(`${href}/`);return <Link prefetch={true} className={active?'active':''} aria-current={active?'page':undefined} href={href} key={href} tabIndex={searchOpen?-1:undefined} onClick={()=>setMenu(false)}>{label}</Link>;})}</nav>
+      <form className="topbar-spotlight-form" role="search" aria-hidden={!searchOpen} onSubmit={event=>{event.preventDefault();submit();}}>
         <Search size={19} aria-hidden="true"/>
         <label className="nc-sr" htmlFor="global-search">Buscar en DEUCE</label>
-        <input ref={field} id="global-search" type="search" name="q" value={query} onChange={event=>setQuery(event.target.value)} placeholder="Jugador, torneo o partido" autoComplete="off"/>
-        {query&&<button className="topbar-search-clear" type="button" onClick={()=>{setQuery('');field.current?.focus();}} aria-label="Borrar búsqueda"><X size={16} aria-hidden="true"/></button>}
-        <button className="topbar-spotlight-submit" type="submit" aria-label="Ver todos los resultados"><ArrowRight size={18} aria-hidden="true"/></button>
-        <button className="topbar-search-close" type="button" onClick={closeSearch} aria-label="Cerrar búsqueda"><X size={18} aria-hidden="true"/></button>
-      </form>:<button ref={trigger} className="search-trigger" type="button" onClick={openSearch} aria-label="Buscar en DEUCE" aria-expanded={searchOpen}><Search size={18} aria-hidden="true"/><span>Buscar</span></button>}
-      {!searchOpen&&<button ref={menuTrigger} className="menu" type="button" aria-expanded={menu} aria-controls="deuce-navigation" onClick={()=>{setNavHidden(false);setMenu(value=>!value)}}>{menu?'Cerrar':'Menú'}</button>}
+        <input ref={field} id="global-search" type="search" name="q" value={query} onChange={event=>setQuery(event.target.value)} placeholder="Jugador, torneo o partido" autoComplete="off" tabIndex={searchOpen?0:-1}/>
+        {query&&<button className="topbar-search-clear" type="button" onClick={()=>{setQuery('');field.current?.focus();}} aria-label="Borrar búsqueda" tabIndex={searchOpen?0:-1}><X size={16} aria-hidden="true"/></button>}
+        <button className="topbar-spotlight-submit" type="submit" aria-label="Ver todos los resultados" tabIndex={searchOpen?0:-1}><ArrowRight size={18} aria-hidden="true"/></button>
+        <button className="topbar-search-close" type="button" onClick={closeSearch} aria-label="Cerrar búsqueda" tabIndex={searchOpen?0:-1}><X size={18} aria-hidden="true"/></button>
+      </form>
+      <button ref={trigger} className="search-trigger" type="button" onClick={openSearch} aria-label="Buscar en DEUCE" aria-expanded={searchOpen} tabIndex={searchOpen?-1:0}><Search size={18} aria-hidden="true"/><span>Buscar</span></button>
+      <button ref={menuTrigger} className="menu" type="button" aria-expanded={menu} aria-controls="deuce-navigation" tabIndex={searchOpen?-1:0} onClick={()=>{setNavHidden(false);setMenu(value=>!value)}}>{menu?'Cerrar':'Menú'}</button>
     </header>
-    {searchOpen&&<section className="topbar-spotlight-panel" aria-label="Sugerencias de búsqueda" aria-live="polite" aria-busy={loading}>
+    <section className={`topbar-spotlight-panel${searchOpen?' is-open':''}`} aria-label="Sugerencias de búsqueda" aria-live="polite" aria-busy={loading} aria-hidden={!searchOpen}>
       {!query.trim()?<div className="topbar-spotlight-empty"><span>Búsqueda rápida</span><p>Escribe un jugador, un torneo o una edición del archivo.</p><div>{navigation.slice(0,4).map(([label,href])=><Link key={href} href={href} onClick={()=>setSearchOpen(false)}>{label}</Link>)}</div></div>
       :loading?<p className="topbar-spotlight-status">Buscando…</p>
       :result.error?<p className="topbar-spotlight-status">No se pudieron cargar las sugerencias. Pulsa Intro para buscar.</p>
       :result.items.length?<div className="topbar-spotlight-groups">{groups.map(group=><section key={group} aria-label={group}><h2>{group}</h2>{result.items.filter(item=>item.group===group).slice(0,6).map(item=><Link href={item.href} key={item.href} onClick={()=>setSearchOpen(false)}><span><strong>{item.name}</strong>{item.detail&&<small>{item.detail}</small>}</span><ArrowRight size={15} aria-hidden="true"/></Link>)}</section>)}</div>
       :<p className="topbar-spotlight-status">No hay sugerencias para «{query}». Pulsa Intro para buscar en todo el archivo.</p>}
-    </section>}
+    </section>
   </>;
 }

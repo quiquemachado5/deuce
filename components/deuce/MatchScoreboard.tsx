@@ -41,9 +41,12 @@ export function MatchScoreboard({ match, variant = 'card' }: { match: MatchRecor
   const classes = variant === 'compact' ? 'result-row result-float-v2 simple-result' : variant === 'overlay' ? 'feature-score simple-match-card global-scoreboard--overlay' : 'match-scorecard simple-match-card hover-card';
   const approximateDate = match.dateLabel === 'Inicio del torneo';
   const context = match.category;
-  return <Link href={match.href} prefetch={false} className={`${classes}${isFinal ? ' is-final' : ''}`}>
-    <div className={variant === 'compact' ? 'simple-result-head' : 'simple-match-head'}><div><strong>{match.tournament}</strong><span className={`match-round match-round--${roundTone(match.round)}`}>{match.round}</span>{context && <small>{context}</small>}</div><time className="simple-match-date" dateTime={approximateDate ? undefined : match.date || undefined}>{approximateDate && date ? `Semana del ${date}` : date}</time></div>
+  return <Link href={match.href} prefetch={false} className={`${classes}${isFinal ? ' is-final' : ''}`} data-event-surface={match.surface} data-event-category={context}>
+    <div className={variant === 'compact' ? 'simple-result-head' : 'simple-match-head'}>
+      <div className="simple-match-event"><strong>{match.tournament}</strong><span className="simple-match-slash" aria-hidden="true">/</span><span className={`match-round match-round--${roundTone(match.round)}`}>{match.round}</span></div>
+      {context && <small className="simple-match-category">{context}</small>}
+    </div>
     <ScoreRows match={match} />
-    <div className="simple-match-foot"><span>Ver partido <ArrowUpRight size={17} aria-hidden="true"/></span></div>
+    <div className="simple-match-foot"><time className="simple-match-date" dateTime={approximateDate ? undefined : match.date || undefined}>{approximateDate && date ? `Semana del ${date}` : date}</time><span>Ver partido <ArrowUpRight size={14} aria-hidden="true"/></span></div>
   </Link>;
 }

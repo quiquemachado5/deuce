@@ -56,7 +56,7 @@ export default function MatchSearchBar({ query, categories, rounds, chips, years
       </div>
       <div className={`${styles.filterBar} archive-filter-row`}>
         <div className={styles.filterDisclosure} data-open={filtersOpen || undefined}>
-          <button className={styles.filterToggle} type="button" aria-expanded={filtersOpen} onClick={() => setFiltersOpen(open => !open)}><SlidersHorizontal size={16} aria-hidden="true"/><span>Filtros{activeFilterCount ? ` (${activeFilterCount})` : ''}</span><ChevronDown size={14} aria-hidden="true"/></button>
+          <button className={styles.filterToggle} type="button" aria-expanded={filtersOpen} data-active={activeFilterCount>0} onClick={() => setFiltersOpen(open => !open)}><SlidersHorizontal size={16} aria-hidden="true"/><span>Filtros{activeFilterCount ? ` (${activeFilterCount})` : ''}</span><ChevronDown size={14} aria-hidden="true"/></button>
           <div className={styles.filterMenus}>
             <FilterMenu label="Temporada" value={activeYear ? String(activeYear) : ''} options={years.map(year => ({ value: String(year), label: String(year) }))} includeAll={Boolean(query.q)} choose={year => apply({ year })} />
             <FilterMenu label="Superficie" value={query.surface} options={[{ value: 'clay', label: 'Tierra' }, { value: 'grass', label: 'Hierba' }, { value: 'hard', label: 'Dura' }, { value: 'carpet', label: 'Moqueta' }]} choose={surface => apply({ surface })} />

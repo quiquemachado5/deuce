@@ -1,20 +1,39 @@
 'use client';
-import { useEffect, useRef } from 'react';
-/** No controls in the hero. Motion preference, visibility and data saving govern playback. */
+import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
+
+const segments = [
+  { start: 1210, end: 1270 },
+  { start: 1640, end: 1700 },
+  { start: 2048, end: 2108 },
+  { start: 2865, end: 2925 },
+] as const;
+
+/** The official privacy-enhanced player joins four one-minute editorial excerpts. */
 export function HeroPlayback() {
-  const video=useRef<HTMLVideoElement>(null);
+  const container=useRef<HTMLDivElement>(null);
+  const [active,setActive]=useState(false),[segment,setSegment]=useState(0);
   useEffect(()=>{
-    const node=video.current;if(!node)return;
+    const node=container.current;if(!node)return;
     const motion=matchMedia('(prefers-reduced-motion: reduce)');
     const connection=(navigator as Navigator&{connection?:{saveData?:boolean;effectiveType?:string}}).connection;
     let visible=false;
     const update=()=>{
       const allowed=visible&&!document.hidden&&!motion.matches&&!connection?.saveData&&!/^(slow-)?2g$/.test(connection?.effectiveType||'');
-      if(allowed){if(!node.getAttribute('src'))node.src='/videos/tennis-hero.mp4';void node.play().catch(()=>{});}else node.pause();
+      setActive(allowed);
     };
     const observer=new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;update();},{threshold:.05});
     observer.observe(node);motion.addEventListener('change',update);document.addEventListener('visibilitychange',update);update();
-    return()=>{observer.disconnect();motion.removeEventListener('change',update);document.removeEventListener('visibilitychange',update);node.pause();};
+    return()=>{observer.disconnect();motion.removeEventListener('change',update);document.removeEventListener('visibilitychange',update);};
   },[]);
-  return <video ref={video} className="hero-video" muted loop playsInline preload="none" poster="/videos/tennis-hero-poster.webp" aria-label="Vista aérea de un jugador ejecutando un saque en una pista azul"/>;
+  useEffect(()=>{
+    if(!active)return;
+    const timer=window.setTimeout(()=>setSegment(value=>(value+1)%segments.length),(segments[segment].end-segments[segment].start)*1000);
+    return()=>window.clearTimeout(timer);
+  },[active,segment]);
+  const current=segments[segment];
+  return <div ref={container} className="hero-video hero-youtube" aria-label="Selección editorial de grandes puntos de la temporada 2025">
+    <Image src="/videos/tennis-hero-poster.webp" alt="" fill sizes="100vw" aria-hidden="true" priority unoptimized/>
+    {active&&<iframe key={segment} src={`https://www.youtube-nocookie.com/embed/N34Ac5H0NMk?autoplay=1&mute=1&controls=0&disablekb=1&playsinline=1&rel=0&modestbranding=1&start=${current.start}&end=${current.end}`} title="Grandes puntos del circuito ATP 2025" allow="autoplay; encrypted-media; picture-in-picture" tabIndex={-1}/>}
+  </div>;
 }

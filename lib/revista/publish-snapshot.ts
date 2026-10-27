@@ -7,7 +7,7 @@ import {mkdir,writeFile,rename} from 'node:fs/promises';
 import {join} from 'node:path';
 import {isDeepStrictEqual} from 'node:util';
 import {cloudRead,cloudWrite,cloudWriteMany,type ArchiveWrite} from '../cloud-archive';
-import {pieceChunk,type Snapshot,type RecordPages,type RecordManifest} from './snapshot';
+import {attachIngestionHistory,pieceChunk,type Snapshot,type RecordPages,type RecordManifest} from './snapshot';
 import {assertPublishableArchive} from '../dataset-summary';
 function compressedPages(id:string,piece:RecordPages):Array<[string,unknown]> {
  const chunks=new Map<number,{encoding:string;pages:Record<string,string>;smallPages:Record<string,string>}>([[0,{encoding:'gzip-base64',pages:{},smallPages:{}}]]);
@@ -54,7 +54,7 @@ export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotSt
   const {pieces,eras,matches,players,competition,audit}=snapshot;
   const published=await storage.read('reading-v2-manifest');
   assertPublishableArchive(matches,(published as RecordManifest|undefined)?.matchCount);
-  const manifest=attachRecordChanges(published as RecordManifest | undefined,snapshot.manifest);
+  const manifest=attachIngestionHistory(published as RecordManifest | undefined,attachRecordChanges(published as RecordManifest | undefined,snapshot.manifest));
   if(published&&typeof published==='object'&&isDeepStrictEqual(publishedGeneration(published as RecordManifest),publishedGeneration(manifest))){
     if(Date.parse(manifest.generatedAt)>Date.parse((published as RecordManifest).generatedAt))await storage.write('reading-v2-manifest',manifest);
     return;

@@ -13,7 +13,8 @@ export const PAGE_SIZE = 25;
 export const PIECE_CHUNK_PAGES = 50;
 export const pieceChunk = (page:number) => Math.floor((page-1)/PIECE_CHUNK_PAGES);
 export type RecordMeta = Omit<RecordPiece, 'rows'> & { total: number; smallTotal: number; leader?: RecordRow; leaders?: Pick<RecordRow, 'name' | 'value' | 'href'>[]; pagePrior?: Record<number, number>; smallPagePrior?: Record<number, number> };
-export type RecordManifest = { schema: number; rulesVersion: string; version: string; generatedAt: string; extent?: ReturnType<typeof archiveExtent>; leaderChanges?: LeaderChange[]; years: number[]; pieces: RecordMeta[]; eraCuts: number[]; matchCount: number; competitionCount?:number; editionCount?:number; mode: 'DEMO' | 'ARCHIVO REAL'; summary: ReturnType<typeof summarizeDataset> };
+export type IngestionDay = { date: string; added: number; total: number };
+export type RecordManifest = { schema: number; rulesVersion: string; version: string; generatedAt: string; extent?: ReturnType<typeof archiveExtent>; leaderChanges?: LeaderChange[]; ingestionHistory?: IngestionDay[]; years: number[]; pieces: RecordMeta[]; eraCuts: number[]; matchCount: number; competitionCount?:number; editionCount?:number; mode: 'DEMO' | 'ARCHIVO REAL'; summary: ReturnType<typeof summarizeDataset> };
 export type RecordPages = { pages: Record<string, RecordRow[]>; smallPages: Record<string, RecordRow[]> };
 export type Snapshot = { manifest: RecordManifest; pieces: Record<string, RecordPages>; eras: Record<string, Era[]>; matches: Match[]; players: PlayerRecord[]; competition:Match[]; audit:EditionAudit[] };
 export function stripSource(m: Match): Match {
@@ -33,6 +34,14 @@ export function pageBoundaryTies(rows: RecordRow[]): Record<number, number> {
     if (rows[start - 1].value === rows[start].value) ties[start / PAGE_SIZE + 1] = rows[start - 1].value;
   }
   return ties;
+}
+export function attachIngestionHistory(previous: RecordManifest | undefined, next: RecordManifest): RecordManifest {
+  const date=next.generatedAt.slice(0,10),history=(previous?.ingestionHistory||[]).filter(entry=>/^\d{4}-\d{2}-\d{2}$/.test(entry.date)&&Number.isSafeInteger(entry.added)&&Number.isSafeInteger(entry.total)).slice(-13);
+  const added=previous?Math.max(0,next.matchCount-previous.matchCount):0;
+  const last=history.at(-1);
+  if(last?.date===date)history[history.length-1]={date,added:last.added+added,total:next.matchCount};
+  else history.push({date,added,total:next.matchCount});
+  return {...next,ingestionHistory:history.slice(-14)};
 }
 export function compileRecordSnapshot(input: Match[], now = new Date(), competitionInput:Match[]=[],audit:EditionAudit[]=[]): Snapshot {
   const competition=competitionInput.map(proofSummary);

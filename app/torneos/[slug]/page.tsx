@@ -199,15 +199,12 @@ export default async function Tournament({ params, searchParams }: Props) {
       )}
       {rateLeader && (
         <section className="td-effectiveness" aria-labelledby="td-effectiveness-title">
-          <div className="td-section-heading"><div><h2 id="td-effectiveness-title">Efectividad en este torneo</h2><p>Porcentaje de victorias con un mínimo de diez partidos registrados.</p></div></div>
-          <div className="td-effectiveness-graphic">
-            <Link className="td-rate-leader" href={rateLeader.href}>
-              <span className="td-rate-leader-person"><PlayerAvatar name={rateLeader.name} size={58}/><span><small>Mejor porcentaje registrado</small><strong>{rateLeader.name}</strong><em>{rateLeader.detail}</em></span></span>
-              <b>{number(rateLeader.value,1)}<small>%</small></b>
-              <span className="td-rate-leader-track" aria-hidden="true"><i style={{width:`${Math.min(100,rateLeader.value)}%`}}/></span>
-            </Link>
-            {rateRows.length>1&&<ol className="td-rate-ranking">{rateRows.slice(1).map((row,index)=><li key={row.name}><span>{number(index+2).padStart(2,'0')}</span><Link href={row.href}><strong>{row.name}</strong><small>{row.detail}</small></Link><span className="td-rate-track" aria-hidden="true"><i style={{width:`${Math.min(100,row.value)}%`}}/></span><b>{number(row.value,1)} %</b></li>)}</ol>}
-          </div>
+          <div className="td-section-heading"><div><h2 id="td-effectiveness-title">Efectividad en este torneo</h2><p>Los mejores porcentajes entre quienes suman al menos diez partidos.</p></div></div>
+          <ol className="td-rate-chart">{rateRows.slice(0,6).map((row,index)=><li key={row.name} className={index===0?'is-leader':undefined}><Link href={row.href}>
+            <span className="td-rate-chart-value"><b>{number(row.value,1)}</b><small>%</small></span>
+            <span className="td-rate-chart-column" aria-hidden="true"><i style={{height:`${Math.max(8,row.value)}%`}}/></span>
+            <span className="td-rate-chart-person">{index===0&&<PlayerAvatar name={row.name} size={38}/>}<strong>{row.name}</strong><small>{row.detail}</small></span>
+          </Link></li>)}</ol>
         </section>
       )}
       <section className="td-stories" aria-labelledby="td-stories-title">
