@@ -19,6 +19,7 @@ import PlayerAvatar from '@/components/PlayerAvatar';
 import { canonicalSearchText } from '@/lib/search-text';
 import styles from './records.module.css';
 import GrandSlamCrown from '@/components/GrandSlamCrown';
+import RecordsDirectoryToolbar from '@/components/RecordsDirectoryToolbar';
 
 const families = [
   ['Títulos y finales', 'Títulos y finales'], ['Victorias', 'Victorias'],
@@ -35,10 +36,9 @@ function RecordIndex({ manifest, query }: { manifest: Awaited<ReturnType<typeof 
   const pieces=manifest.pieces.filter(piece=>(!selected||piece.group===selected)&&(!term||canonicalSearchText(`${piece.title} ${piece.group} ${piece.leader?.name||''}`).includes(term)));
   const featured=pieces.filter(piece=>piece.leader).slice(0,6);
   const visibleGroups=selected?[selected]:term?groups:groups.slice(0,6);
-  return <ArchivePage title="Récords" className="records-page">
+  return <ArchivePage title="Récords" className="records-page" tools={<RecordsDirectoryToolbar query={query} filters={filtersFor(manifest.years)}/>}>
     <div className="deuce-content records-intro">
       <p>Las marcas del archivo, desde 1968 hasta la última temporada registrada.</p>
-      <RecordsControls query={query} filters={filtersFor(manifest.years)} searchable/>
       <p className="deuce-count">{number(pieces.length)} estadísticas calculadas con {number(manifest.matchCount)} partidos</p>
     </div>
     {!!featured.length&&<section className="records-featured deuce-content" aria-labelledby="records-featured-heading"><div className="records-section-head"><h2 id="records-featured-heading">En primer plano</h2><span>Desliza para explorar →</span></div><div className="records-featured-track">{featured.map(piece=><Link key={piece.id} href={recordsUrl(recordFilters(query),{dato:piece.id})} className="records-feature-card"><span className="records-feature-type">{piece.group}</span><strong>{recordValue(piece.leader!,piece.percent,piece.id==='tal-dia-como-hoy')}</strong><span className="records-feature-title">{piece.title}</span><span className="records-feature-person"><PlayerAvatar name={piece.leader!.name} size={44}/>{piece.leader!.name}</span><span className="records-feature-arrow" aria-hidden="true">↗</span></Link>)}</div></section>}

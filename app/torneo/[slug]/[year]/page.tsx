@@ -11,7 +11,7 @@ import {
 import { roundLabel, roundPosition, durationLabel, winnerName } from "@/lib/editorial";
 import { eligibleMatch } from "@/lib/quality";
 import { lostOpening } from "@/lib/archive-insights";
-import { closeness, number, surfaceLabel } from "@/lib/cuaderno/model";
+import { closeness, number } from "@/lib/cuaderno/model";
 import { editionTournamentCourt } from "@/lib/tournament-presentation";
 import { courtPhoto, courtPhotoForEdition } from "@/lib/imagery";
 import TournamentFinal from "@/components/TournamentFinal";
@@ -112,19 +112,11 @@ export default async function Edition({ params, searchParams }: Props) {
             style={imageFocus(photo.objectPosition||"center",photo.mobileObjectPosition||photo.objectPosition||"center")}
           />
         )}
-        <div className="td-edition-hero-copy">
-          <div className="td-edition-title-row">
+        <div className="td-edition-hero-copy td-venue-copy">
+          <div className="td-edition-title-row td-venue-title-row">
             <h1>{tournamentName(tournament.name)} <span>{year}</span></h1>
             <TournamentEditionNav slug={slug} years={categoryYears(tournament, category)} currentYear={Number(year)} masters={category === "Precursores de Masters"} category={tournament.categories.length > 1 ? category : undefined}/>
           </div>
-          <p className="td-hero-court">
-            <i
-              className={`nc-dot nc-dot-${court.surface}`}
-              aria-hidden="true"
-            />
-            {surfaceLabel[court.surface]}
-            <span>· {number(matches.length)} resultados registrados</span>
-          </p>
         </div>
       </header>
 

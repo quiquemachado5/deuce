@@ -57,7 +57,8 @@ export default async function Players({ searchParams }: {
     const photo=playerPhoto(player.name);
     const record=records.get(player.name);
     return { id:player.name,title:player.name,image:photo?.src,alt:photo?.alt,imagePosition:photo?.objectPosition||'center top',imagePositionMobile:photo?.mobileObjectPosition||photo?.objectPosition||'center top',fallback:player.name.split(/\s+/).map(part=>part[0]).slice(0,2).join(''),
-      accentMeta:`${number(player.played ? 100*player.won/player.played : 0,1)} % · ${number(player.won)} victorias · ${number(player.played)} partidos`,
+      accentMeta:`${number(player.played ? 100*player.won/player.played : 0,1)} % · ${number(player.won)} victorias`,
+      mutedMeta:`${number(player.played)} partidos`,
       trophyCount:number(record?.grandSlamFinalsWon || 0),
       href:`/jugadores/${playerSlug(player.name)}`,actionLabel:'Ver perfil' };
   });
