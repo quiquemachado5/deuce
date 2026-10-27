@@ -17,7 +17,7 @@ export function OnThisDay({ match, matches = [] }: { match?:Match; matches?:Matc
   const date=new Intl.DateTimeFormat('es-ES',{day:'numeric',month:'long',timeZone:'UTC'}).format(new Date(match.context!.date!));
   const otherMatches=matches.filter(item=>item.match_id!==match.match_id).slice(0,3);
   return <section className="home-section legacy-daily">
-    <div className="legacy-daily-head"><div><span className="home-section-kicker">Archivo en movimiento</span><h2>Tal día como hoy</h2></div><p>{date}</p></div>
+    <div className="legacy-daily-head"><h2>Tal día como hoy</h2><p>{date}</p></div>
     <article className={`legacy-daily-card${photo?'':' without-photo'}`}>{photo&&<div className="legacy-daily-photo"><Image className="art-directed-photo" unoptimized src={photo.src} alt={photo.alt} fill sizes="(max-width:800px) 94vw, 90vw" style={imageFocus(photo.objectPosition||'center top',photo.mobileObjectPosition||photo.objectPosition||'center top')}/></div>}<span className="legacy-daily-shade" aria-hidden="true"/><div className="legacy-daily-copy">
       <span className="legacy-daily-year">{match.year}</span><span className="legacy-daily-context">{tournamentName(match.tournament)} · {browserRound(match)}</span><h3>{canonicalName(winner)} ganó a {canonicalName(loser)}</h3>
       <p>{scoreFor(match,winner)}. Un resultado para volver a aquel día.</p><Link href={`/match/${match.match_id}`}>Revivir el partido <ArrowUpRight size={20} aria-hidden="true"/></Link>

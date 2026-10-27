@@ -985,3 +985,65 @@ main :is(li,.catalogueRow,.familyRows,.chips,.leader,.dx-shared-metric-head,.dx-
   .art-directed-photo{object-position:var(--image-position-mobile,var(--image-position,center))!important}
   .hero-video{object-position:68% 50%}
 }
+
+/* Compact glass navigation, continuous venue carousel and a quieter site signature. */
+.topbar,.topbar.is-scrolled{
+  left:50%;right:auto;width:min(1160px,calc(100% - 40px));
+  height:68px;padding-inline:20px;border:1px solid rgba(255,255,255,.72);border-radius:25px;
+  background:linear-gradient(135deg,rgba(255,255,255,.78),rgba(244,248,246,.58));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.92),inset 0 -1px 0 rgba(7,35,27,.05),0 16px 42px rgba(5,25,19,.12);
+  transform:translateX(-50%);
+}
+.topbar{top:14px}
+.topbar.is-scrolled{top:8px;height:60px;border-radius:22px}
+.topbar::before{
+  content:"";
+  position:absolute;
+  inset:1px 10% auto;
+  height:1px;
+  border:0;
+  border-radius:999px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.92),transparent);
+  pointer-events:none;
+}
+.topbar nav a{min-height:38px;padding:9px 13px}
+.topbar .search-trigger{height:42px;background:rgba(255,255,255,.48);border-color:rgba(7,35,27,.12)}
+
+.tournament-carousel .section-head{align-items:end}
+.tournament-carousel-actions{display:flex;align-items:center;justify-content:flex-end;gap:10px}
+.tournament-carousel-position{min-width:52px;color:rgba(255,255,255,.64);font-size:11px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:.06em;text-align:center}
+.tournament-carousel-toggle{display:grid;place-items:center;width:40px;height:40px;padding:0;border:1px solid rgba(255,255,255,.22);border-radius:50%;background:rgba(255,255,255,.1);color:#fff;transition:background .2s var(--ease),transform .2s var(--ease)}
+.tournament-carousel-toggle:hover{background:rgba(255,255,255,.2);transform:translateY(-1px)}
+.tournament-carousel-toggle:focus-visible,.tournament-static-grid:focus-visible{outline:3px solid var(--acid);outline-offset:4px}
+.tournament-static-grid{overscroll-behavior-inline:contain;scroll-snap-stop:always}
+.tournament-static-grid .archive-slide{scroll-snap-stop:always;transition:opacity .35s var(--ease),transform .35s var(--ease)}
+.tournament-static-grid .archive-slide:not([aria-current="true"]){opacity:.72;transform:scale(.982)}
+.tournament-static-grid .archive-slide[aria-current="true"]{opacity:1;transform:scale(1)}
+
+.deuce-footer{display:grid;grid-template-columns:minmax(250px,.85fr) minmax(420px,1.15fr) auto;align-items:center;gap:28px;margin:56px 0 0;padding:25px max(22px,calc((100% - 1160px)/2)) max(23px,env(safe-area-inset-bottom));overflow:visible;background:#061b14;color:#fff}
+.footer-identity{display:flex;align-items:center;gap:14px;min-width:0}
+.deuce-footer .footer-logo{min-height:34px;color:#fff;font-size:22px}
+.footer-identity p{margin:0;color:rgba(255,255,255,.66);font-size:12px;white-space:nowrap}
+.footer-primary,.footer-utility{display:flex;align-items:center;gap:clamp(12px,1.5vw,22px)}
+.deuce-footer .footer-primary a,.deuce-footer .footer-utility a{display:inline-flex;align-items:center;min-height:34px;color:rgba(255,255,255,.82);font-size:12px;font-weight:560;white-space:nowrap}
+.deuce-footer .footer-primary a:hover,.deuce-footer .footer-utility a:hover{color:var(--acid)}
+.footer-utility{justify-content:flex-end;gap:13px;color:rgba(255,255,255,.45);font-size:10px}
+.footer-utility span{white-space:nowrap}
+
+@media(max-width:1099px){
+  .topbar,.topbar.is-scrolled{width:calc(100% - 28px)}
+  .deuce-footer{grid-template-columns:1fr auto}.footer-primary{justify-content:flex-end}.footer-utility{grid-column:1/-1;justify-content:flex-start}
+}
+@media(max-width:759px){
+  .topbar,.topbar.is-scrolled{top:8px;width:calc(100% - 18px);height:60px;padding-inline:13px 9px;border-radius:22px}
+  .topbar.is-scrolled{height:56px}
+  .tournament-carousel .section-head{align-items:flex-start}.tournament-carousel-actions{width:100%;justify-content:flex-start;flex-wrap:wrap}.tournament-carousel-actions .deuce-cta{margin-right:auto}
+  .tournament-static-grid .archive-slide:not([aria-current="true"]){opacity:.8;transform:scale(.99)}
+  .deuce-footer{grid-template-columns:1fr;gap:14px;margin-top:42px;padding:25px 20px max(22px,env(safe-area-inset-bottom))}
+  .footer-identity{display:grid;gap:5px}.footer-identity p{white-space:normal}
+  .footer-primary{justify-content:flex-start;flex-wrap:wrap;gap:2px 18px}
+  .footer-utility{grid-column:auto;justify-content:flex-start;flex-wrap:wrap;gap:2px 14px}
+}
+@media(prefers-reduced-motion:reduce){
+  .tournament-static-grid{scroll-behavior:auto}.tournament-static-grid .archive-slide,.tournament-carousel-toggle{transition:none!important}
+}
