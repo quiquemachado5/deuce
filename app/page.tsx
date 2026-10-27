@@ -9,7 +9,8 @@ import { MatchScoreboard } from '@/components/deuce/MatchScoreboard';
 import { TournamentSlider } from '@/components/deuce/TournamentSlider';
 import { toMatchRecord } from '@/data/map-match';
 import { courtPhoto } from '@/lib/imagery';
-import { playerPhoto } from '@/lib/player-imagery';
+import { recordPhoto } from '@/lib/editorial-imagery';
+import { imageFocus } from '@/lib/image-focus';
 import { number } from '@/lib/cuaderno/model';
 import { tournamentName } from '@/lib/labels';
 import { TOURNAMENTS } from '@/lib/types';
@@ -23,12 +24,12 @@ export default async function Home() {
   const {anniversary,anniversaries,latest}=homeSelection(matches);
   const records=['top-10','mas-juegos','remontada-dos-sets'].flatMap(id=>{const piece=generation.manifest.pieces.find(p=>p.id===id);return piece?.leader?[piece]:[];});
   const tournamentsWithMatches=new Set(matches.map(match=>match.tournament));
-  const slides: TournamentSlide[]=TOURNAMENTS.filter(t=>t.category==='Grand Slam'||t.category==='Masters 1000').flatMap(t=>{const image=courtPhoto(t.name);return image&&tournamentsWithMatches.has(t.name)?[{id:t.slug,name:tournamentName(t.name),city:'',surface:t.surface,description:'',image:image.src,alt:image.alt,href:`/torneos/${t.slug}`,credit:image.credit,source:image.source}]:[];});
+  const slides: TournamentSlide[]=TOURNAMENTS.filter(t=>t.category==='Grand Slam'||t.category==='Masters 1000').flatMap(t=>{const image=courtPhoto(t.name);return image&&tournamentsWithMatches.has(t.name)?[{id:t.slug,name:tournamentName(t.name),city:'',surface:t.surface,description:'',image:image.src,alt:image.alt,imagePosition:image.objectPosition,imagePositionMobile:image.mobileObjectPosition,href:`/torneos/${t.slug}`,credit:image.credit,source:image.source}]:[];});
   return <div className="deuce-home">
     <HeroVideo count={generation.manifest.matchCount}/>
     <OnThisDay match={anniversary} matches={anniversaries}/>
     <section className="home-section"><div className="section-head"><h2>Últimos resultados</h2><Link className="deuce-cta" href="/buscar">Ver el archivo <ArrowUpRight size={17} aria-hidden="true"/></Link></div><div className="results floating-results-v2">{latest.map(match=><MatchScoreboard key={match.match_id} match={toMatchRecord(match)} variant="compact"/>)}</div></section>
-    {records.length>0&&<section className="dark-section home-records"><div className="section-head light"><div><span className="home-section-kicker">Tres cifras, tres historias</span><h2>Récords que explican el juego</h2></div><Link className="deuce-cta" href="/records">Ver récords <ArrowUpRight size={17} aria-hidden="true"/></Link></div><div className="record-showcase">{records.map((piece,index)=>{const leader=piece.leader!,image=playerPhoto(leader.photoName||leader.name);return <Link className={`home-record-card home-record-card--${index+1}`} href={`/records?dato=${piece.id}`} key={piece.id}>{image&&<span className="home-record-media"><Image unoptimized src={image.src} alt={image.alt} fill sizes="(max-width:759px) 92vw, 42vw" style={{objectPosition:index===0?'center top':image.objectPosition||'center top'}}/></span>}<span className="home-record-shade" aria-hidden="true"/><span className="home-record-copy"><strong className="home-record-value">{leader.display||number(leader.value)}</strong><h3>{piece.title}</h3><span><b>{canonicalName(leader.name)}</b><small>{piece.definition}</small></span></span><ArrowUpRight className="home-record-arrow" size={19} aria-hidden="true"/></Link>;})}</div></section>}
+    {records.length>0&&<section className="dark-section home-records"><div className="section-head light"><div><span className="home-section-kicker">Tres cifras, tres historias</span><h2>Récords que explican el juego</h2></div><Link className="deuce-cta" href="/records">Ver récords <ArrowUpRight size={17} aria-hidden="true"/></Link></div><div className="record-showcase">{records.map((piece,index)=>{const leader=piece.leader!,image=recordPhoto(piece.id,leader.photoName||leader.name);return <Link className={`home-record-card home-record-card--${index+1}`} href={`/records?dato=${piece.id}`} key={piece.id}>{image&&<span className="home-record-media"><Image className="art-directed-photo" unoptimized src={image.src} alt={image.alt} fill sizes="(max-width:759px) 92vw, 42vw" style={imageFocus(index===0?'center top':image.objectPosition||'center top',image.mobileObjectPosition||image.objectPosition||'center top')}/></span>}<span className="home-record-shade" aria-hidden="true"/><span className="home-record-copy"><strong className="home-record-value">{leader.display||number(leader.value)}</strong><h3>{piece.title}</h3><span><b>{canonicalName(leader.name)}</b><small>{piece.definition}</small></span></span><ArrowUpRight className="home-record-arrow" size={19} aria-hidden="true"/></Link>;})}</div></section>}
     <TournamentSlider slides={slides}/>
   </div>;
 }

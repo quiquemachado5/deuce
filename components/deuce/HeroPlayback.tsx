@@ -10,11 +10,11 @@ export function HeroPlayback() {
     let visible=false;
     const update=()=>{
       const allowed=visible&&!document.hidden&&!motion.matches&&!connection?.saveData&&!/^(slow-)?2g$/.test(connection?.effectiveType||'');
-      if(allowed){if(!node.getAttribute('src'))node.src=node.canPlayType('video/mp4')?'/videos/tennis-hero.mp4':'/videos/tennis-hero.webm';void node.play().catch(()=>{});}else node.pause();
+      if(allowed){if(!node.getAttribute('src'))node.src='/videos/tennis-hero.mp4';void node.play().catch(()=>{});}else node.pause();
     };
     const observer=new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;update();},{threshold:.05});
     observer.observe(node);motion.addEventListener('change',update);document.addEventListener('visibilitychange',update);update();
     return()=>{observer.disconnect();motion.removeEventListener('change',update);document.removeEventListener('visibilitychange',update);node.pause();};
   },[]);
-  return <video ref={video} className="hero-video" muted loop playsInline preload="none" poster="/videos/tennis-hero-poster.webp" aria-label="Jugadores disputando un partido en una pista azul al aire libre"/>;
+  return <video ref={video} className="hero-video" muted loop playsInline preload="none" poster="/videos/tennis-hero-poster.webp" aria-label="Vista aérea de un jugador ejecutando un saque en una pista azul"/>;
 }

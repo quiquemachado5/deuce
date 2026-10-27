@@ -84,7 +84,12 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
     <header className="inner-title"><h1>Comparar</h1></header>
     <CompareSelection key={chosen.join('|')} initial={chosen.map(name => {
       const photo = playerPhoto(name);
-      return { name, photo: photo ? { src: photo.avatarCrop ? photo.src : photo.thumbnail || photo.src, objectPosition: photo.objectPosition, avatarCrop: photo.avatarCrop } : undefined };
+      const hasThumbnail = Boolean(photo?.thumbnail);
+      return { name, photo: photo ? {
+        src: photo.thumbnail || photo.src,
+        objectPosition: hasThumbnail ? '50% 20%' : photo.objectPosition,
+        avatarCrop: hasThumbnail ? undefined : photo.avatarCrop,
+      } : undefined };
     })}>
       {['a','b'].map((key,index) => <label className="nc-field" key={key}><span>Jugador {index + 1}</span><PlayerInput key={chosen[index]} name={key} initial={chosen[index]} /></label>)}
       <CompareSampleFilters summary={activeSampleFilters ? `${activeSampleFilters} activos` : 'Valores generales'}>

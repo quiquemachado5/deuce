@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useRef } from "react";
+import { imageFocus } from "@/lib/image-focus";
 
 export type TournamentShowcaseCard = {
   id: string;
@@ -12,6 +13,7 @@ export type TournamentShowcaseCard = {
   image?: string | null;
   alt?: string;
   imagePosition?: string;
+  imagePositionMobile?: string;
   surface: string;
   champion?: string | null;
   championYear?: number | null;
@@ -44,7 +46,7 @@ export default function TournamentShowcase({ cards, variant = "rail", label }: {
     </div>}
     <div ref={viewport} className="tournament-showcase-track" tabIndex={variant === "majors" ? -1 : 0} onKeyDown={onKeyDown} aria-label={label}>
       {cards.map((card, index) => <Link href={card.href} className="catalog-card tournament-card" key={card.id} prefetch={false} data-event-surface={card.surface} data-index={index}>
-        {card.image ? <Image src={card.image} alt={card.alt || card.title} fill priority={variant === "majors" && index === 0} sizes={variant === "majors" && index === 0 ? "(max-width:759px) 88vw, 52vw" : "(max-width:759px) 78vw, 28vw"} unoptimized={card.image.includes("/images/players/")} style={{ objectPosition: card.imagePosition || "center" }} /> : <span className="tournament-card-fallback" aria-hidden="true" />}
+        {card.image ? <Image className="art-directed-photo" src={card.image} alt={card.alt || card.title} fill priority={variant === "majors" && index === 0} sizes={variant === "majors" && index === 0 ? "(max-width:759px) 88vw, 52vw" : "(max-width:759px) 78vw, 28vw"} unoptimized={card.image.includes("/images/players/")} style={imageFocus(card.imagePosition || "center", card.imagePositionMobile || card.imagePosition || "center")} /> : <span className="tournament-card-fallback" aria-hidden="true" />}
         <span className="tournament-card-shade" aria-hidden="true" />
         <span className="tournament-card-copy">
           <h2>{card.title}</h2>

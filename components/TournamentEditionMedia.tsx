@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Play } from "lucide-react";
 import { useState } from "react";
 import type { TournamentEditionMedia } from "@/lib/tournament-media";
+import { imageFocus } from "@/lib/image-focus";
 
 export default function TournamentEditionMediaView({ media }: { media: TournamentEditionMedia }) {
   const [playing, setPlaying] = useState(false);
@@ -15,7 +16,7 @@ export default function TournamentEditionMediaView({ media }: { media: Tournamen
         <div><strong>{media.video.title}</strong><p>Resumen oficial de la final.</p></div>
       </article>
       <figure className="edition-trophy">
-        <div><Image src={media.trophy.src} alt={media.trophy.alt} fill sizes="(max-width:759px) 100vw, 34vw" style={{ objectPosition: media.trophy.objectPosition }} unoptimized /></div>
+        <div><Image className="art-directed-photo" src={media.trophy.src} alt={media.trophy.alt} fill sizes="(max-width:759px) 100vw, 34vw" style={imageFocus(media.trophy.objectPosition,media.trophy.mobileObjectPosition||media.trophy.objectPosition)} unoptimized /></div>
         <figcaption><strong>El trofeo de la edición</strong><span>{media.tournament} · {media.year}</span></figcaption>
       </figure>
     </div>

@@ -22,7 +22,110 @@ const curated: Record<string, Photo> = {
   },
 }
 
-export const playerPhotos: Record<string, Photo> = { ...(cached as Record<string, Photo>), ...curated, ...(refreshed as Record<string, Photo>), ...(documented as Record<string, Photo>) }
+// These final overrides favour the moment over the portrait: play, ceremony and
+// trophy photographs have enough room to survive both landscape and mobile crops.
+export const editorialPlayerPhotos: Record<string, Photo> = {
+  'Roger Federer': {
+    src: '/images/editorial/champions/roger-federer-wimbledon-2006.webp',
+    thumbnail: '/images/players/optimized/roger-federer-small.webp',
+    alt: 'Roger Federer recorre la pista con el trofeo de Wimbledon 2006',
+    credit: 'Georgio · CC BY 2.0 · recorte editorial DEUCE',
+    source: 'https://commons.wikimedia.org/wiki/File:Federer_Nadal_trophy_presentation_2006_cropped.jpg',
+    licenseUrl: 'https://creativecommons.org/licenses/by/2.0/',
+    photoYear: 2006,
+    objectPosition: '50% 35%',
+    mobileObjectPosition: '50% 30%',
+  },
+  'Björn Borg': {
+    src: '/images/players/editorial/bjorn-borg-action.webp',
+    thumbnail: '/images/players/documented/bjorn-borg-small.webp',
+    alt: 'Björn Borg golpea de revés durante un partido en 1979',
+    credit: 'Rob Croes · Anefo · CC0',
+    source: 'https://commons.wikimedia.org/wiki/File:Bj%C3%B6rn_Borg_in_aktie,_Bestanddeelnr_930-2090.jpg',
+    licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/',
+    photoYear: 1979,
+    objectPosition: '53% 38%',
+    mobileObjectPosition: '51% 34%',
+  },
+  'Jimmy Connors': {
+    src: '/images/players/editorial/jimmy-connors-action.webp',
+    thumbnail: '/images/players/optimized/jimmy-connors-small.webp',
+    alt: 'Jimmy Connors en acción durante el torneo de Rotterdam de 1981',
+    credit: 'Rob C. Croes · Anefo · CC0',
+    source: 'https://commons.wikimedia.org/wiki/File:ABN_tennistoernooi_in_Ahoy_te_Rotterdam,_Jimmy_Conners_aktie_tegen_Wilkison,_Bestanddeelnr_931-3783.jpg',
+    licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/',
+    photoYear: 1981,
+    objectPosition: '58% 36%',
+    mobileObjectPosition: '56% 31%',
+  },
+  'Andre Agassi': {
+    src: '/images/players/editorial/andre-agassi-action.webp',
+    thumbnail: '/images/players/optimized/andre-agassi-small.webp',
+    alt: 'Andre Agassi ejecuta un saque durante el US Clay Court Championship de 2005',
+    credit: 'Chris Josefy · CC BY-SA 2.5',
+    source: 'https://commons.wikimedia.org/wiki/File:Andre_Agassi_2005_US_Clay_Court_Serve.jpg',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/2.5/',
+    photoYear: 2005,
+    objectPosition: '50% 36%',
+    mobileObjectPosition: '49% 31%',
+  },
+  'Ivan Lendl': {
+    src: '/images/players/editorial/ivan-lendl-action.webp',
+    thumbnail: '/images/players/optimized/ivan-lendl-small.webp',
+    alt: 'Ivan Lendl en acción durante la final del torneo de Rotterdam de 1984',
+    credit: 'Rob C. Croes · Anefo · CC0',
+    source: 'https://commons.wikimedia.org/wiki/File:Finale_ABN_Tennistoernooi_Rotterdam_Lendl_in_actie,_Bestanddeelnr_932-9002.jpg',
+    licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/',
+    photoYear: 1984,
+    objectPosition: '49% 28%',
+    mobileObjectPosition: '50% 24%',
+  },
+  'John McEnroe': {
+    src: '/images/players/editorial/john-mcenroe-action.webp',
+    thumbnail: '/images/players/optimized/john-mcenroe-small.webp',
+    alt: 'John McEnroe juega un punto en 1979',
+    credit: 'Rob Croes · Anefo · CC0',
+    source: 'https://commons.wikimedia.org/wiki/File:McEnroe_in_aktie,_Bestanddeelnr_930-2093.jpg',
+    licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/',
+    photoYear: 1979,
+    objectPosition: '55% 37%',
+    mobileObjectPosition: '55% 32%',
+  },
+  'Mats Wilander': {
+    src: '/images/players/editorial/mats-wilander-action.webp',
+    thumbnail: '/images/players/optimized/mats-wilander-small.webp',
+    alt: 'Mats Wilander juega durante el Abierto de Estados Unidos',
+    credit: 'Robbie Mendelson · CC BY-SA 2.0',
+    source: 'https://commons.wikimedia.org/wiki/File:Mats_Wilander_at_the_2010_US_Open_01.jpg',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/2.0/',
+    photoYear: 2010,
+    objectPosition: '50% 27%',
+    mobileObjectPosition: '50% 23%',
+  },
+  'Boris Becker': {
+    src: '/images/players/editorial/boris-becker-action.webp',
+    thumbnail: '/images/players/optimized/boris-becker-small.webp',
+    alt: 'Boris Becker se prepara para devolver una pelota durante un partido',
+    credit: 'James Phelps · CC BY 2.0',
+    source: 'https://commons.wikimedia.org/wiki/File:Boris_Becker_in_action.jpg',
+    licenseUrl: 'https://creativecommons.org/licenses/by/2.0/',
+    objectPosition: '48% 38%',
+    mobileObjectPosition: '50% 32%',
+  },
+  'Stefan Edberg': {
+    src: '/images/players/editorial/stefan-edberg-action.webp',
+    thumbnail: '/images/players/optimized/stefan-edberg-small.webp',
+    alt: 'Stefan Edberg juega en la pista de Båstad',
+    credit: 'Michael Erhardsson · CC BY-SA 3.0',
+    source: 'https://commons.wikimedia.org/wiki/File:Stefan_Edberg_B%C3%A5stad_sweden_20070708.jpg',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/3.0/',
+    photoYear: 2007,
+    objectPosition: '50% 36%',
+    mobileObjectPosition: '50% 31%',
+  },
+}
+
+export const playerPhotos: Record<string, Photo> = { ...(cached as Record<string, Photo>), ...curated, ...(refreshed as Record<string, Photo>), ...(documented as Record<string, Photo>), ...editorialPlayerPhotos }
 
 function normalizeName(name: string) {
   return name.normalize('NFKD').replace(/[\u0300-\u036f]/g, '')
@@ -36,10 +139,13 @@ const normalizedPhotos = new Map(
 export function playerPhoto(name: string): Photo | null {
   const photo = playerPhotos[name] || normalizedPhotos.get(normalizeName(name))
   if (!photo) return null
+  const focus = playerPhotoFocus[name]
   return {
     ...photo,
-    ...(['Roger Federer','Jimmy Connors'].includes(name) ? {licenseUrl:'https://creativecommons.org/licenses/by-sa/2.0/'} : ['Ivan Lendl','John McEnroe'].includes(name) ? {licenseUrl:'https://creativecommons.org/licenses/by/2.0/'} : {}),
-    ...(photo.src.includes("/refreshed/") ? {} : playerPhotoFocus[name] || {}),
+    ...(focus && !photo.src.includes("/refreshed/") ? {
+      objectPosition: photo.objectPosition || focus.objectPosition,
+      avatarCrop: photo.avatarCrop || focus.avatarCrop,
+    } : {}),
     thumbnail: photo.thumbnail || (photo.src.startsWith('/images/players/optimized/') && photo.src.endsWith('.webp')
       ? photo.src.replace(/\.webp$/, '-small.webp')
       : photo.src),

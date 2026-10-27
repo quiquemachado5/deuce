@@ -21,6 +21,7 @@ export default function PlayerAvatar({
   size?: number;
 }) {
   const photo = playerPhoto(name);
+  const hasThumbnail = Boolean(photo?.thumbnail);
   const [failed, setFailed] = useState(false);
   const [from, to] = avatarColors(name);
   const initials = name
@@ -42,12 +43,14 @@ export default function PlayerAvatar({
     >
       {photo && !failed ? (
         <Image
-          src={photo.avatarCrop ? photo.src : photo.thumbnail || photo.src}
+          src={photo.thumbnail || photo.src}
           alt=""
           width={size * 2}
           height={size * 2}
           sizes={`${size}px`}
-          style={avatarPhotoStyle(photo)}
+          style={avatarPhotoStyle(hasThumbnail ? {
+            objectPosition: "50% 20%",
+          } : photo)}
           unoptimized
           onError={() => setFailed(true)}
         />

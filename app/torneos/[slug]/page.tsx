@@ -21,6 +21,7 @@ import TournamentChampionRail from "@/components/TournamentChampionRail";
 import { playerEditionPhoto } from "@/lib/player-imagery";
 import { ArrowUpRight } from "lucide-react";
 import { championPhotoForEdition, latestMediaForTournament } from "@/lib/tournament-media";
+import { imageFocus } from "@/lib/image-focus";
 import TournamentEditionMediaView from "@/components/TournamentEditionMedia";
 
 type Props = {
@@ -106,11 +107,12 @@ export default async function Tournament({ params, searchParams }: Props) {
       <header className={`td-venue-hero${photo ? " td-venue-hero-photo" : ""}`}>
         {photo && (
           <Image
+            className="art-directed-photo"
             src={photo.src}
             alt={photo.alt}
             fill
             sizes="100vw"
-            style={{objectPosition:photo.objectPosition||"center"}}
+            style={imageFocus(photo.objectPosition||"center",photo.mobileObjectPosition||photo.objectPosition||"center")}
             priority
           />
         )}
@@ -170,7 +172,7 @@ export default async function Tournament({ params, searchParams }: Props) {
               return (
                 <li key={final.match_id}>
                   <Link href={editionHref(final.year)} aria-label={`${champion}, campeón en ${final.year}. Final ante ${opponent}`}>
-                    {championPhoto ? <Image className="td-champion-photo" src={championPhoto.src} alt={titlePhoto?`${champion} con el trofeo de ${final.year}`:""} fill sizes="(max-width: 759px) 78vw, 330px" style={{objectPosition:("objectPosition" in championPhoto&&championPhoto.objectPosition)||"50% 20%"}} unoptimized /> : <PlayerAvatar name={champion} size={80} />}
+                    {championPhoto ? <Image className="td-champion-photo art-directed-photo" src={championPhoto.src} alt={titlePhoto?`${champion} con el trofeo de ${final.year}`:""} fill sizes="(max-width: 759px) 78vw, 330px" style={imageFocus(championPhoto.objectPosition||"50% 20%",championPhoto.mobileObjectPosition||championPhoto.objectPosition||"50% 20%")} unoptimized /> : <PlayerAvatar name={champion} size={80} />}
                     <span className="td-champion-shade" aria-hidden="true" />
                     <span className="td-champion-year">{final.year}</span>
                     <span className="td-champion-copy"><strong>{champion}</strong><span>Final ante {opponent}</span><small>{scoreFor(final,champion)}</small></span>

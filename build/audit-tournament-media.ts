@@ -1,6 +1,8 @@
 import path from "node:path";
 import sharp from "sharp";
-import { tournamentEditionMedia } from "../lib/tournament-media";
+import { championPhotos, tournamentEditionMedia } from "../lib/tournament-media";
+import { editorialPlayerPhotos } from "../lib/player-imagery";
+import { recordPhotos } from "../lib/editorial-imagery";
 
 async function main() {
 const failures: string[] = [];
@@ -23,11 +25,33 @@ for (const entry of tournamentEditionMedia) {
   }
 }
 
+const editorialPhotos = [
+  ...Object.entries(championPhotos).map(([label, photo]) => ({ label, photo, minimumWidth: label === 'Wimbledon|2006' ? 560 : 800, minimumHeight: 500 })),
+  ...Object.entries(recordPhotos).map(([label, photo]) => ({ label: `récord ${label}`, photo, minimumWidth: 1000, minimumHeight: 500 })),
+  ...Object.entries(editorialPlayerPhotos).map(([label, photo]) => ({ label: `jugador ${label}`, photo, minimumWidth: ['Boris Becker','Roger Federer'].includes(label) ? 480 : 800, minimumHeight: 330 })),
+];
+
+for (const { label, photo, minimumWidth, minimumHeight } of editorialPhotos) {
+  if (!photo.credit || !photo.source || !photo.licenseUrl) failures.push(`${label}: falta fuente, crédito o licencia`);
+  if (!photo.objectPosition || !photo.mobileObjectPosition) failures.push(`${label}: faltan puntos focales para escritorio o móvil`);
+  const localPath = path.join(process.cwd(), "public", photo.src.replace(/^\//, ""));
+  try {
+    const image = sharp(localPath);
+    const [metadata, stats] = await Promise.all([image.metadata(), image.clone().greyscale().stats()]);
+    const width = metadata.width || 0, height = metadata.height || 0;
+    if (width < minimumWidth || height < minimumHeight) failures.push(`${label}: resolución insuficiente (${width}×${height})`);
+    if ((stats.sharpness || 0) < .7) failures.push(`${label}: posible desenfoque (nitidez ${stats.sharpness?.toFixed(2)})`);
+    if ((stats.entropy || 0) < 3.5) failures.push(`${label}: imagen con poco detalle (entropía ${stats.entropy?.toFixed(2)})`);
+  } catch (error) {
+    failures.push(`${label}: no se pudo analizar ${photo.src} (${error instanceof Error ? error.message : "error desconocido"})`);
+  }
+}
+
 if (failures.length) {
   console.error("Registro multimedia rechazado:\n" + failures.map(item => `- ${item}`).join("\n"));
   process.exit(1);
 }
-console.log(`Registro multimedia verificado: ${tournamentEditionMedia.length} edición${tournamentEditionMedia.length === 1 ? "" : "es"}.`);
+console.log(`Registro multimedia verificado: ${tournamentEditionMedia.length} edición${tournamentEditionMedia.length === 1 ? "" : "es"} y ${editorialPhotos.length} fotografías editoriales.`);
 }
 
 main().catch(error => {

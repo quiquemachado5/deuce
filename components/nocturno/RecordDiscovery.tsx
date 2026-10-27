@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ArrowRight, Shuffle } from "lucide-react";
+import { imageFocus } from "@/lib/image-focus";
 
 export type RecordDiscoveryFact = {
   id: string;
@@ -23,6 +24,7 @@ export type RecordDiscoveryFact = {
     licenseUrl?: string;
     photoYear?: number;
     objectPosition?: string;
+    mobileObjectPosition?: string;
   };
 };
 
@@ -87,7 +89,8 @@ export default function RecordDiscovery({
           src={fact.photo.src}
           alt={fact.photo.alt}
           fill
-          style={{ objectPosition: fact.photo.objectPosition }}
+          className="art-directed-photo"
+          style={imageFocus(fact.photo.objectPosition||'center top',fact.photo.mobileObjectPosition||fact.photo.objectPosition||'center top')}
           sizes="(max-width: 759px) calc(100vw - 32px), (max-width: 1099px) 38vw, 440px"
         /></div>
         <figcaption>{fact.photo.credit} · <a href={fact.photo.source} target="_blank" rel="noreferrer">Fuente</a>{fact.photo.licenseUrl && <> · <a href={fact.photo.licenseUrl} target="_blank" rel="noreferrer">Licencia</a></>}</figcaption>

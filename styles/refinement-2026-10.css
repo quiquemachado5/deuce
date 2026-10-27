@@ -907,7 +907,6 @@ main :is(li,.catalogueRow,.familyRows,.chips,.leader,.dx-shared-metric-head,.dx-
 .home-record-card--1{grid-row:1/3;min-height:570px!important}.home-record-card--3{background:var(--acid);color:var(--ink)}
 .home-record-media{position:absolute;z-index:-3;inset:0}
 .home-record-media img{object-fit:cover;transition:transform .7s var(--ease);animation:home-record-pan 18s var(--ease) infinite alternate}
-.home-record-card--2 .home-record-media img{object-position:center 18%!important}.home-record-card--3 .home-record-media img{object-position:center 12%!important}
 .home-record-shade{position:absolute;z-index:-2;inset:0;background:linear-gradient(0deg,rgba(3,18,14,.97),rgba(3,18,14,.48) 54%,rgba(3,18,14,.04) 100%)}
 .home-record-card--3 .home-record-shade{background:linear-gradient(0deg,rgba(217,255,69,.98),rgba(217,255,69,.58) 57%,rgba(217,255,69,.03))}
 .home-record-copy{position:relative;z-index:1;display:grid;gap:8px;width:100%}
@@ -977,4 +976,12 @@ main :is(li,.catalogueRow,.familyRows,.chips,.leader,.dx-shared-metric-head,.dx-
 }
 @media(prefers-reduced-motion:reduce){
   .legacy-daily-photo img,.home-record-media img{animation:none!important}.legacy-daily-archive-photo img,.home-record-media img,.footer-entry{transition:none!important}
+}
+
+/* Art direction: every editorial image carries a desktop and mobile focal point. */
+.art-directed-photo{object-fit:cover;object-position:var(--image-position,center)!important}
+.hero-video{object-position:50% 50%;filter:saturate(.94) contrast(1.04)}
+@media(max-width:759px){
+  .art-directed-photo{object-position:var(--image-position-mobile,var(--image-position,center))!important}
+  .hero-video{object-position:68% 50%}
 }

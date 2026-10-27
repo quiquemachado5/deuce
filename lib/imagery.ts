@@ -1,4 +1,4 @@
-export type Photo = { src: string; thumbnail?: string; alt: string; credit: string; source: string; caption?: string; licenseUrl?: string; photoYear?: number; objectPosition?: string; avatarCrop?: {x: number; y: number; width: number; height: number} }
+export type Photo = { src: string; thumbnail?: string; alt: string; credit: string; source: string; caption?: string; licenseUrl?: string; photoYear?: number; objectPosition?: string; mobileObjectPosition?: string; avatarCrop?: {x: number; y: number; width: number; height: number} }
 const commons = 'https://commons.wikimedia.org/wiki/File:'
 export const courtPhotos: Record<string, Photo> = {
   'Indian Wells': { src: '/images/courts/indian-wells.jpg', alt: 'Pista principal del Indian Wells Tennis Garden', credit: 'IvanAndreevich · CC BY 3.0', source: commons + 'Indian_Wells_Tennis_Garden,_Stadium_1_(cropped).jpg' },
@@ -15,7 +15,25 @@ export const courtPhotos: Record<string, Photo> = {
   'Wimbledon': { src: '/images/courts/wimbledon.jpg', alt: 'Pista central de Wimbledon', credit: 'Arne Müseler · CC BY-SA 3.0 de', source: commons + 'Uk_london_Centre_Court_Wimbledon.jpg' },
   'US Open': { photoYear: 2026, caption:'Arthur Ashe · panorámica de 2026', src: '/images/courts/us-open.jpg', alt: 'Panorámica del estadio Arthur Ashe durante el Abierto de Estados Unidos', credit: 'Oleg Yunakov · CC BY-SA 4.0', source: commons + 'Arthur_Ashe_Stadium_Panorama_US_Open_Tennis.jpg', licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/' },
 }
-export function courtPhoto(tournament: string) { return courtPhotos[tournament] || null }
+const courtPhotoFocus: Record<string, { objectPosition: string; mobileObjectPosition: string }> = {
+  'Indian Wells': { objectPosition: '50% 52%', mobileObjectPosition: '58% 50%' },
+  'Miami': { objectPosition: '50% 36%', mobileObjectPosition: '55% 34%' },
+  'Monte Carlo': { objectPosition: '50% 55%', mobileObjectPosition: '58% 50%' },
+  'Madrid': { objectPosition: '50% 50%', mobileObjectPosition: '60% 48%' },
+  'Rome': { objectPosition: '50% 50%', mobileObjectPosition: '55% 48%' },
+  'Canada': { objectPosition: '50% 50%', mobileObjectPosition: '50% 48%' },
+  'Cincinnati': { objectPosition: '50% 48%', mobileObjectPosition: '58% 46%' },
+  'Paris': { objectPosition: '50% 52%', mobileObjectPosition: '52% 48%' },
+  'Shanghai': { objectPosition: '50% 45%', mobileObjectPosition: '52% 43%' },
+  'Australian Open': { objectPosition: '50% 52%', mobileObjectPosition: '52% 48%' },
+  'Roland Garros': { objectPosition: '50% 55%', mobileObjectPosition: '55% 50%' },
+  'Wimbledon': { objectPosition: '50% 48%', mobileObjectPosition: '54% 46%' },
+  'US Open': { objectPosition: '50% 52%', mobileObjectPosition: '54% 48%' },
+}
+export function courtPhoto(tournament: string) {
+  const photo = courtPhotos[tournament]
+  return photo ? { ...photo, ...(courtPhotoFocus[tournament] || {}) } : null
+}
 export function courtPhotoForEdition(tournament: string, year: number) {
   const photo = courtPhoto(tournament)
   return photo?.photoYear === year ? photo : null

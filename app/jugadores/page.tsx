@@ -56,7 +56,7 @@ export default async function Players({ searchParams }: {
   }) : players.slice((page-1)*25,page*25).map(player => {
     const photo=playerPhoto(player.name);
     const record=records.get(player.name);
-    return { id:player.name,title:player.name,image:photo?.src,alt:photo?.alt,imagePosition:photo?.objectPosition||'center top',fallback:player.name.split(/\s+/).map(part=>part[0]).slice(0,2).join(''),
+    return { id:player.name,title:player.name,image:photo?.src,alt:photo?.alt,imagePosition:photo?.objectPosition||'center top',imagePositionMobile:photo?.mobileObjectPosition||photo?.objectPosition||'center top',fallback:player.name.split(/\s+/).map(part=>part[0]).slice(0,2).join(''),
       eyebrow:`${number(record?.grandSlamFinalsWon || 0)} Grand Slam · ${number(player.won)} victorias`,
       meta:`${number(player.played ? 100*player.won/player.played : 0,1)} % de victorias · ${number(player.played)} partidos`,
       href:`/jugadores/${playerSlug(player.name)}`,actionLabel:'Ver perfil' };

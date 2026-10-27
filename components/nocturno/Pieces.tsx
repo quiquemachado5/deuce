@@ -6,6 +6,7 @@ import MatchRow from "./Row";
 import { number } from "@/lib/cuaderno/model";
 import type { Match } from "@/lib/types";
 import type { RecordPiece, RecordRow, Era } from "@/lib/revista/records";
+import { imageFocus } from "@/lib/image-focus";
 export function Portrait({
   name,
   large = false,
@@ -19,11 +20,13 @@ export function Portrait({
   return (
     <figure className="nc-portrait">
       <Image
+        className="art-directed-photo"
         src={p.src}
         alt={name}
         width={640}
         height={732}
         sizes="(max-width:759px) calc(100vw - 40px), 280px"
+        style={imageFocus(p.objectPosition||'center top',p.mobileObjectPosition||p.objectPosition||'center top')}
         priority={large}
       />
     </figure>

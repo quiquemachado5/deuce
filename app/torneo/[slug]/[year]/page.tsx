@@ -21,6 +21,7 @@ import { toMatchRecord } from "@/data/map-match";
 import { publishedMatchMinutes } from "@/lib/duration";
 import { mediaForEdition } from "@/lib/tournament-media";
 import TournamentEditionMediaView from "@/components/TournamentEditionMedia";
+import { imageFocus } from "@/lib/image-focus";
 
 type Props = {
   params: Promise<{ slug: string; year: string }>;
@@ -105,11 +106,13 @@ export default async function Edition({ params, searchParams }: Props) {
       >
         {photo && (
           <Image
+            className="art-directed-photo"
             src={photo.src}
             alt={photo.alt}
             fill
             sizes="100vw"
             priority
+            style={imageFocus(photo.objectPosition||"center",photo.mobileObjectPosition||photo.objectPosition||"center")}
           />
         )}
         <div className="td-edition-hero-copy">

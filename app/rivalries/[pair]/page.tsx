@@ -11,6 +11,7 @@ import { chronological, winnerName } from "@/lib/editorial";
 import { playerSlug } from "@/lib/explore";
 import { tiebreakCount } from "@/lib/archive-insights";
 import type { Match } from "@/lib/types";
+import { imageFocus } from "@/lib/image-focus";
 
 function RivalryTrajectory({
   names,
@@ -178,6 +179,7 @@ export default async function Pair({ params, searchParams }: Props) {
             {portraits[0] && (
               <div className="ry-pair-photo">
                 <Image
+                  className="art-directed-photo"
                   src={portraits[0].src}
                   alt={portraits[0].alt}
                   width={640}
@@ -185,6 +187,7 @@ export default async function Pair({ params, searchParams }: Props) {
                   sizes="(max-width: 649px) 44vw, (max-width: 1199px) 25vw, 320px"
                   priority
                   loading="eager"
+                  style={imageFocus(portraits[0].objectPosition||'center top',portraits[0].mobileObjectPosition||portraits[0].objectPosition||'center top')}
                 />
               </div>
             )}
@@ -211,6 +214,7 @@ export default async function Pair({ params, searchParams }: Props) {
             {portraits[1] && (
               <div className="ry-pair-photo">
                 <Image
+                  className="art-directed-photo"
                   src={portraits[1].src}
                   alt={portraits[1].alt}
                   width={640}
@@ -218,6 +222,7 @@ export default async function Pair({ params, searchParams }: Props) {
                   sizes="(max-width: 649px) 44vw, (max-width: 1199px) 25vw, 320px"
                   priority
                   loading="eager"
+                  style={imageFocus(portraits[1].objectPosition||'center top',portraits[1].mobileObjectPosition||portraits[1].objectPosition||'center top')}
                 />
               </div>
             )}

@@ -1,13 +1,13 @@
 DEUCE hero media
-Source supplied by DEUCE-frontend-handoff.zip:
-https://videos.pexels.com/video-files/35538977/15056130_1920_1080_30fps.mp4
-Video page: https://www.pexels.com/video/35538977/
+Source: https://www.pexels.com/video/aerial-view-of-tennis-player-serving-on-court-40482603/
+Direct source file: https://videos.pexels.com/video-files/40482603/17299453_1920_1080_24fps.mp4
+Author: Airlangga Jati
 License: https://www.pexels.com/license/
 
-Local adaptations: 1280px H.264 MP4 and VP9 WebM, without audio.
-Poster: frame at 00:02, 1600px WebP.
-The clip shows tennis on blue outdoor courts. No match, player or tournament
-identity is asserted. It is not the image of the separately featured match.
+Local adaptation: original 1920 × 1080 H.264 MP4, without audio.
+Poster: frame at 00:04, 1600 × 900 WebP.
+The clip shows an aerial view of an unidentified tennis player serving. No
+match, player or tournament identity is asserted.
 
 Playback pauses offscreen and in a hidden document. Reduced-motion, save-data
 and slow-2G/2G users see the poster without downloading the video.
