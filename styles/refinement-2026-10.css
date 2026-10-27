@@ -1625,6 +1625,7 @@ main:has(>.deuce-home)+.deuce-footer{margin-top:0}
 .global-scoreboard--overlay .global-player{grid-template-columns:22px minmax(0,1fr) 20px auto}
 
 .home-latest-results{padding-top:clamp(42px,5vw,68px)!important}
+.legacy-daily:has(+.home-latest-results){padding-bottom:clamp(36px,4vw,56px)}
 .home-archive-tools form,
 .home-archive-tools form .deuce-cta{border-radius:999px!important}
 
