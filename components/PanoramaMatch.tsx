@@ -325,7 +325,7 @@ function Summary({ match }: { match: Match }) {
         </div>
       </div>
       {metrics.length ? (
-        <div className="pm-key-comparison">
+        <div className={`pm-key-comparison pm-key-comparison-${Math.min(metrics.length, 3)}`}>
           {metrics.map((metric) => (
             <article key={metric.key}>
               <span>{metric.label}</span>
@@ -463,7 +463,11 @@ function HeadToHead({ rivalry, names }: { rivalry: RivalrySummary; names: [strin
       <div className="pm-h2h-card">
         <div className="pm-h2h-balance" aria-label={`${wins[0]} victorias a ${wins[1]}`}>
           {names.map((name, side) => (
-            <div className={`pm-h2h-player${leading === side ? " is-leading" : ""}`} key={name}>
+            <div
+              className={`pm-h2h-player${leading === side ? " is-leading" : ""}`}
+              data-wins={wins[side]}
+              key={name}
+            >
               <MatchFlag name={name} />
               <strong>{name}</strong>
               <small>{wins[side]} {wins[side] === 1 ? "victoria" : "victorias"}</small>
