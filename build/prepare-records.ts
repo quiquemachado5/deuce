@@ -5,22 +5,41 @@ import {gunzipSync} from 'node:zlib';
 import {assertPublishableArchive} from '../lib/dataset-summary';
 import {assertEditionCoverage,assertReleaseCoverage} from '../lib/revista/release-check';
 import type {EditionAudit} from '../lib/edition-audit';
+import type {Match} from '../lib/types';
+import type {RecordManifest} from '../lib/revista/snapshot';
+import {preservePublishedArchive} from '../lib/revista/release-source';
 loadEnvConfig(process.cwd());
 async function main(){
   const [{editorialArchive},{compileRecordSnapshot},{writeBundledSnapshot}]=await Promise.all([import('../lib/editorial-data'),import('../lib/revista/snapshot'),import('../lib/revista/publish-snapshot')]);
-  const matches=await editorialArchive();
+  let matches=await editorialArchive();
+  let previous:RecordManifest|undefined;
+  let previousAudit:EditionAudit[]|undefined;
+  let previousCompetition:Match[]|undefined;
+  let restoredPublishedArchive=false;
+  if(process.env.VERCEL_ENV==='production'){
+    const {cloudClient,cloudRead,cloudSnapshotBlob}=await import('../lib/cloud-archive');
+    if(!cloudClient())throw new Error('Production release requires the configured remote archive');
+    previous=await cloudRead('reading-v2-manifest') as RecordManifest|undefined;
+    if(!previous)throw new Error('Cannot verify the published archive baseline');
+    const localCount=matches.length;
+    matches=await preservePublishedArchive(matches,previous,version=>cloudSnapshotBlob<Match[]>(version,'matches'));
+    restoredPublishedArchive=matches.length>localCount;
+    if(restoredPublishedArchive)console.log(`Published archive preserved: restored ${matches.length} matches over ${localCount} bundled matches`);
+    previousAudit=typeof previous.version==='string' ? await cloudSnapshotBlob<EditionAudit[]>(previous.version,'audit') : undefined;
+    previousCompetition=restoredPublishedArchive&&typeof previous.version==='string' ? await cloudSnapshotBlob<Match[]>(previous.version,'competition') : undefined;
+    if(restoredPublishedArchive&&previous.editionCount&&previousAudit?.length!==previous.editionCount)throw new Error('Cannot restore the published edition audit');
+    if(restoredPublishedArchive&&previous.competitionCount&&previousCompetition?.length!==previous.competitionCount)throw new Error('Cannot restore the published competition archive');
+  }
   let previousCount=0;
   try{previousCount=JSON.parse(gunzipSync(await readFile('data/reading/manifest.json.gz')).toString()).matchCount||0;}catch{}
   assertPublishableArchive(matches,previousCount);
   const {competitionEntries,editionSourceAudit}=await import('../lib/live-tennis');
-  const snapshot=compileRecordSnapshot(matches,new Date(),await competitionEntries(),await editionSourceAudit());
+  const competition=restoredPublishedArchive ? previousCompetition||[] : await competitionEntries();
+  const audit=restoredPublishedArchive ? previousAudit||[] : await editionSourceAudit();
+  const snapshot=compileRecordSnapshot(matches,new Date(),competition,audit);
   if(process.env.VERCEL_ENV==='production'){
-    const {cloudClient,cloudRead,cloudSnapshotBlob}=await import('../lib/cloud-archive');
-    if(!cloudClient())throw new Error('Production release requires the configured remote archive');
-    const previous=await cloudRead('reading-v2-manifest');
     if(!previous)throw new Error('Cannot verify the published archive baseline');
     assertReleaseCoverage(previous,snapshot.manifest);
-    const previousAudit=typeof previous.version==='string' ? await cloudSnapshotBlob<EditionAudit[]>(previous.version,'audit') : undefined;
     if(previousAudit?.length)assertEditionCoverage(previousAudit,snapshot.audit);
     else console.log('Edition coverage baseline initialized from this release');
     snapshot.manifest=attachRecordChanges(previous,snapshot.manifest);

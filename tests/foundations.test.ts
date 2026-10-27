@@ -13,6 +13,7 @@ import { parseRepositoryQuery } from '../lib/repository-query';
 import type { Match } from '../lib/types';
 import { recordCatalog } from '../lib/revista/records';
 import { prepareMatch } from '../lib/quality';
+import { preservePublishedArchive } from '../lib/revista/release-source';
 
 test('demo is opt-in and cannot run in production or Vercel previews', () => {
   assert.equal(isDemoDataEnabled({}), false);
@@ -64,12 +65,15 @@ test('coverage distinguishes missing ranking and partial enrichment', () => {
   assert.equal(summarizeDataset([{ ...match, context: { rankLabel: 'Ranking al jugar', rank1: 1 } }]).years[0].ranking, 1);
 });
 
-test('publication blocks demo, small, truncated and duplicate-ID archives', () => {
+test('publication blocks bad archives and restores a newer immutable baseline', async () => {
   assert.throws(() => assertPublishableArchive(mockMatches), /demo/);
   assert.throws(() => assertPublishableArchive([]), /small/);
   const matches = Array.from({ length: 100_000 }, (_, i) => ({ ...mockMatches[0], data_source: 'api' as const, match_id: `test-${i}`, year: i ? 2026 : 1968 }));
   assert.doesNotThrow(() => assertPublishableArchive(matches, 100_000, 2026));
   assert.throws(() => assertPublishableArchive(matches, 120_000, 2026), /10%/);
+  const restored = await preservePublishedArchive(matches.slice(0, -1), { matchCount: matches.length, version: 'published-v1' }, async () => matches);
+  assert.equal(restored, matches);
+  await assert.rejects(() => preservePublishedArchive(matches.slice(0, -1), { matchCount: matches.length, version: 'published-v1' }, async () => matches.slice(0, -1)), /restore/);
   matches[1] = { ...matches[1], match_id: 'test-0' };
   assert.throws(() => assertPublishableArchive(matches, 100_000, 2026), /duplicate/);
 });
