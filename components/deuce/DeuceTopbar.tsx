@@ -75,8 +75,8 @@ export function DeuceTopbar() {
         <button className="topbar-spotlight-submit" type="submit" aria-label="Ver todos los resultados" tabIndex={searchOpen?0:-1}><ArrowRight size={18} aria-hidden="true"/></button>
         <button className="topbar-search-close" type="button" onClick={closeSearch} aria-label="Cerrar búsqueda" tabIndex={searchOpen?0:-1}><X size={18} aria-hidden="true"/></button>
       </form>
-      <button ref={trigger} className="search-trigger" type="button" onClick={openSearch} aria-label="Buscar en DEUCE" aria-expanded={searchOpen} tabIndex={searchOpen?-1:0}><Search size={18} aria-hidden="true"/><span>Buscar</span></button>
-      <button ref={menuTrigger} className="menu" type="button" aria-label={menu?'Cerrar menú':'Abrir menú'} aria-expanded={menu} aria-controls="deuce-navigation" tabIndex={searchOpen?-1:0} onClick={()=>{setNavHidden(false);setMenu(value=>!value)}}>{menu?<X size={18} aria-hidden="true"/>:<Menu size={18} aria-hidden="true"/>}</button>
+      <button ref={trigger} className="search-trigger" type="button" onClick={searchOpen?closeSearch:openSearch} aria-label={searchOpen?'Cerrar búsqueda':'Buscar en DEUCE'} aria-expanded={searchOpen}>{searchOpen?<X size={18} aria-hidden="true"/>:<Search size={18} aria-hidden="true"/>}<span>Buscar</span></button>
+      <button ref={menuTrigger} className="menu" type="button" aria-label={menu?'Cerrar menú':'Abrir menú'} aria-expanded={menu} aria-controls="deuce-navigation" onClick={()=>{setSearchOpen(false);setNavHidden(false);setMenu(value=>!value)}}>{menu?<X size={18} aria-hidden="true"/>:<Menu size={18} aria-hidden="true"/>}</button>
     </header>
     <section className={`topbar-spotlight-panel${searchOpen?' is-open':''}`} aria-label="Sugerencias de búsqueda" aria-live="polite" aria-busy={loading} aria-hidden={!searchOpen}>
       {!query.trim()?<div className="topbar-spotlight-empty"><span>Búsqueda rápida</span><p>Escribe un jugador, un torneo o una edición del archivo.</p><div>{navigation.slice(0,4).map(([label,href])=><Link key={href} href={href} onClick={()=>setSearchOpen(false)}>{label}</Link>)}</div></div>
