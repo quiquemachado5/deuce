@@ -258,7 +258,6 @@ async function RecordIndex({
   const marathon = insightById.get("mas-juegos");
   const finalsEfficiency = insightById.get("efectividad-finales");
   const comeback = insightById.get("remontada-dos-sets");
-  const aceRecord = insightById.get("aces");
   const finalsWon = finalsEfficiency?.leader
     ? Math.round(
         (finalsEfficiency.leader.value / 100) *
@@ -269,7 +268,6 @@ async function RecordIndex({
     ? Math.max(0, finalsEfficiency.leader.sample - finalsWon)
     : 0;
   const comebackPhoto = photoFor(comeback);
-  const aceRecordPhoto = photoFor(aceRecord);
   const marathonPhoto = photoFor(marathon);
   const familyPhotoRecords: Record<string, string> = {
     Victorias: "atp-500-victorias",
@@ -429,29 +427,6 @@ async function RecordIndex({
                   <b>{comeback.leader.name}</b>
                   <strong>
                     {recordValue(comeback.leader, comeback.percent, false)}
-                  </strong>
-                </span>
-              </RecordJumpLink>
-            )}
-            {aceRecord?.leader && aceRecordPhoto && (
-              <RecordJumpLink
-                className={redesign.fiveSetInsight}
-                recordId={aceRecord.id}
-              >
-                <Image
-                  className={redesign.recordImage}
-                  src={aceRecordPhoto.src}
-                  alt={aceRecordPhoto.alt}
-                  fill
-                  unoptimized
-                  sizes="(max-width: 759px) 100vw, 58vw"
-                  style={recordImageStyle(aceRecordPhoto)}
-                />
-                <span>
-                  <small>Saques directos medidos</small>
-                  <h3>{aceRecord.leader.name}</h3>
-                  <strong>
-                    {recordValue(aceRecord.leader, aceRecord.percent, false)}
                   </strong>
                 </span>
               </RecordJumpLink>

@@ -210,7 +210,14 @@
   background:
     radial-gradient(70% 110% at 92% 38%, rgb(200 255 50 / 0.08), transparent 58%),
     radial-gradient(72% 90% at 6% 76%, rgb(0 0 0 / 0.34), transparent 62%),
-    linear-gradient(108deg, #020705 0%, #030b08 34%, rgb(3 13 10 / 0.94) 52%, rgb(5 25 19 / 0.62) 72%, transparent 100%);
+    linear-gradient(
+      180deg,
+      transparent 0%,
+      rgb(6 24 19 / 0.18) 12%,
+      rgb(3 14 11 / 0.58) 38%,
+      rgb(2 9 7 / 0.9) 72%,
+      #020504 100%
+    );
   box-shadow: none;
 }
 
@@ -574,8 +581,7 @@
   background:
     radial-gradient(circle at 76% 10%, rgb(19 76 61 / 0.22), transparent 36%),
     radial-gradient(circle at 8% 72%, rgb(19 56 50 / 0.2), transparent 32%),
-    linear-gradient(108deg, #020705 0%, rgb(3 11 8 / 0.98) 46%, rgb(7 29 22 / 0.72) 72%, transparent 100%) top / 100% 18% no-repeat,
-    linear-gradient(180deg, #071710 0%, #020908 18%, #010605 76%, #020504 100%);
+    linear-gradient(180deg, #020504 0%, #020908 18%, #010605 76%, #020504 100%);
 }
 
 .insightsHead {
@@ -602,8 +608,7 @@
 .photoInsight,
 .surfaceInsight,
 .finalsInsight,
-.numberInsight,
-.fiveSetInsight {
+.numberInsight {
   position: relative;
   min-width: 0;
   overflow: hidden;
@@ -1058,21 +1063,18 @@
   color: #fff;
 }
 
-.numberInsight::after,
-.fiveSetInsight::after {
+.numberInsight::after {
   position: absolute;
   inset: 0;
   content: "";
   background: linear-gradient(90deg, rgb(2 20 15 / 0.94) 0%, rgb(2 20 15 / 0.62) 48%, rgb(2 20 15 / 0.18) 100%);
 }
 
-.numberInsight > img,
-.fiveSetInsight > img {
+.numberInsight > img {
   object-fit: cover;
 }
 
-.numberInsight > span,
-.fiveSetInsight > span {
+.numberInsight > span {
   position: absolute;
   z-index: 1;
   inset: auto 26px 24px;
@@ -1082,16 +1084,14 @@
   gap: 7px 20px;
 }
 
-.numberInsight small,
-.fiveSetInsight small {
+.numberInsight small {
   grid-column: 1 / -1;
   color: rgb(255 255 255 / 0.68);
   font-size: 10px;
   font-weight: 700;
 }
 
-.numberInsight strong,
-.fiveSetInsight strong {
+.numberInsight strong {
   grid-column: 2;
   grid-row: 2;
   color: var(--records-lime);
@@ -1099,28 +1099,19 @@
   letter-spacing: -0.055em;
 }
 
-.numberInsight b,
-.fiveSetInsight h3 {
+.numberInsight b {
   margin: 0;
   font: 680 28px/1 var(--font-display);
   letter-spacing: -0.035em;
 }
 
-.fiveSetInsight {
-  grid-column: 1 / -1;
-  min-height: 330px;
-  color: #fff;
-}
-
 .photoInsight:hover b,
-.numberInsight:hover b,
-.fiveSetInsight:hover h3 {
+.numberInsight:hover b {
   color: var(--records-lime);
 }
 
 .photoInsight:hover strong,
-.numberInsight:hover strong,
-.fiveSetInsight:hover strong {
+.numberInsight:hover strong {
   color: #fff;
 }
 
@@ -1499,8 +1490,14 @@
 .filteredPage .directory::before {
   background:
     radial-gradient(65% 48% at 88% 18%, rgb(33 105 79 / 0.2), transparent 64%),
-    linear-gradient(108deg, #020504 0%, #030b08 35%, rgb(3 14 10 / 0.93) 54%, rgb(8 37 28 / 0.5) 76%, transparent 100%) top / 100% clamp(320px, 34vw, 520px) no-repeat,
-    linear-gradient(180deg, transparent 0 clamp(220px, 24vw, 380px), #061711 clamp(430px, 42vw, 620px), #020504 100%);
+    linear-gradient(
+      180deg,
+      transparent 0%,
+      rgb(5 24 18 / 0.2) 12%,
+      rgb(3 13 10 / 0.7) 36%,
+      #061711 62%,
+      #020504 100%
+    );
 }
 
 .filteredPage .directoryHead {
@@ -1652,7 +1649,7 @@
 .family > header h3 {
   max-width: calc(100% - 100px);
   margin: 0;
-  font: 700 24px/1 var(--font-display);
+  font: 700 32px/0.96 var(--font-display);
   letter-spacing: -0.035em;
 }
 
@@ -2784,8 +2781,7 @@
   .photoInsight,
   .surfaceInsight,
   .finalsInsight,
-  .numberInsight,
-  .fiveSetInsight {
+  .numberInsight {
     grid-column: auto;
   }
 
@@ -3017,8 +3013,7 @@
   .photoInsight,
   .surfaceInsight,
   .finalsInsight,
-  .numberInsight,
-  .fiveSetInsight {
+  .numberInsight {
     grid-column: 1;
     border-radius: 22px;
   }
@@ -3116,8 +3111,7 @@
   }
 
   .finalsInsight,
-  .numberInsight,
-  .fiveSetInsight {
+  .numberInsight {
     min-height: 198px;
   }
 
@@ -3140,30 +3134,25 @@
     gap: 4px;
   }
 
-  .numberInsight,
-  .fiveSetInsight {
+  .numberInsight {
     min-height: 280px;
   }
 
-  .numberInsight::after,
-  .fiveSetInsight::after {
+  .numberInsight::after {
     background: linear-gradient(0deg, rgb(2 20 15 / 0.95), rgb(2 20 15 / 0.12) 85%);
   }
 
-  .numberInsight > span,
-  .fiveSetInsight > span {
+  .numberInsight > span {
     right: 19px;
     bottom: 18px;
     left: 19px;
   }
 
-  .numberInsight strong,
-  .fiveSetInsight strong {
+  .numberInsight strong {
     font-size: 52px;
   }
 
-  .numberInsight b,
-  .fiveSetInsight h3 {
+  .numberInsight b {
     font-size: 23px;
   }
 
@@ -3331,7 +3320,7 @@
   }
 
   .family > header h3 {
-    font-size: 21px;
+    font-size: 24px;
   }
 
   .family > header > span {
