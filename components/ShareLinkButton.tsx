@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, Link2, Share2 } from "lucide-react";
+import { Check, Share2 } from "lucide-react";
 import { useState } from "react";
 
 export default function ShareLinkButton({ title }: { title: string }) {
@@ -23,10 +23,9 @@ export default function ShareLinkButton({ title }: { title: string }) {
       } catch {}
     }
   };
-  const canShare = typeof navigator !== "undefined" && Boolean(navigator.share);
   return (
     <button type="button" className="share-link-button" onClick={share} aria-label={`${copied ? "Enlace copiado" : "Compartir"}: ${title}`}>
-      {copied ? <Check size={16} aria-hidden="true" /> : canShare ? <Share2 size={16} aria-hidden="true" /> : <Link2 size={16} aria-hidden="true" />}
+      {copied ? <Check size={16} aria-hidden="true" /> : <Share2 size={16} aria-hidden="true" />}
       <span aria-live="polite">{copied ? "Enlace copiado" : "Compartir estadística"}</span>
     </button>
   );
