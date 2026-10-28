@@ -308,10 +308,22 @@ async function RecordIndex({
     Golpes: "photoTop",
     Superficies: "slider",
   };
+  const familyKeys: Record<string, string> = {
+    Victorias: "wins",
+    "Remontadas y forma del partido": "comebacks",
+    "Títulos y finales": "finals",
+    Presión: "pressure",
+    "Tiempo, edad y calendario": "time",
+    Parejas: "doubles",
+    Saque: "serve",
+    Resto: "return",
+    Golpes: "shots",
+    Superficies: "surfaces",
+  };
   return (
     <ArchivePage
       title="Récords"
-      className={`records-page ${redesign.page}`}
+      className={`records-page ${redesign.page} ${!overview ? redesign.filteredPage : ""}`}
     >
       {overview && rankingSets.length > 0 && (
         <section
@@ -529,6 +541,7 @@ async function RecordIndex({
                 data-size={familyPhoto ? sizes[index] : sizes[index] || "standard"}
                 data-has-photo={familyPhoto && !hasVideo && !hasSlider ? "true" : "false"}
                 data-layout={mediaLayout}
+                data-family={familyKeys[group] || "other"}
               >
                 <header>
                   <h3>
@@ -550,10 +563,21 @@ async function RecordIndex({
                     className={redesign.familyVideo}
                     href={recordsUrl(recordFilters(query), { dato: "mas-largos" })}
                   >
+                    {familyPhoto && (
+                      <Image
+                        className={redesign.recordImage}
+                        src={familyPhoto.src}
+                        alt=""
+                        fill
+                        unoptimized
+                        sizes="(max-width: 759px) 100vw, 50vw"
+                        style={recordImageStyle(familyPhoto)}
+                      />
+                    )}
                     <iframe
                       src="https://www.youtube.com/embed/jUgyaoew8as?autoplay=1&mute=1&controls=0&loop=1&playlist=jUgyaoew8as&playsinline=1&rel=0"
                       title="Isner y Mahut disputan el partido más largo de Wimbledon"
-                      loading="lazy"
+                      loading="eager"
                       allow="autoplay; encrypted-media; picture-in-picture"
                     />
                     <span>
