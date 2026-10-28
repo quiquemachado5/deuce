@@ -193,7 +193,7 @@ export default function MatchSearchBar({ query, categories, rounds, years, activ
   </nav>;
 
   return <>
-    <button ref={launch} className={styles.mobileSearchLaunch} type="button" aria-controls="match-search-tools" aria-expanded={searchOpen} onClick={() => setSearchOpen(true)}><Search size={17} aria-hidden="true" />Buscar</button>
+    <button ref={launch} className={styles.mobileSearchLaunch} type="button" aria-label="Filtrar y organizar partidos" aria-controls="match-search-tools" aria-expanded={searchOpen} onClick={() => setSearchOpen(true)}><SlidersHorizontal size={17} aria-hidden="true" />Filtrar</button>
     <div ref={control} id="match-search-tools" className={styles.searchControl} data-search-open={searchOpen || undefined} data-filters-open={filtersOpen || undefined} aria-busy={pending || previewLoading} role={searchOpen && mobileDialog ? 'dialog' : undefined} aria-modal={searchOpen && mobileDialog ? true : undefined} aria-label={searchOpen ? 'Buscar partidos' : undefined}>
       <div className={styles.controlMain}>
         {viewSwitch}
