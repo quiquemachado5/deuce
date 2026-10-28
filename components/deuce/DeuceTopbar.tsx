@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
-import { ArrowRight, Search, X } from 'lucide-react';
+import { ArrowRight, Menu, Search, X } from 'lucide-react';
 
 const navigation = [['Partidos','/buscar'],['Récords','/records'],['Jugadores','/jugadores'],['Torneos','/torneos'],['Comparar','/comparar']] as const;
 type Result = { href: string; name: string; detail?: string; group: string };
@@ -13,8 +13,9 @@ export function DeuceTopbar() {
   const [scrolled,setScrolled]=useState(false), [navHidden,setNavHidden]=useState(false), [menu,setMenu]=useState(false), [searchOpen,setSearchOpen]=useState(false), [query,setQuery]=useState('');
   const [result,setResult]=useState<{query:string;items:Result[];error?:boolean}>({query:'',items:[]});
   const lastScroll=useRef(0);
+  const restoreSearchFocus=useRef(false);
   const menuTrigger=useRef<HTMLButtonElement>(null), field=useRef<HTMLInputElement>(null), trigger=useRef<HTMLButtonElement>(null);
-  const closeSearch=()=>{setSearchOpen(false);trigger.current?.focus();};
+  const closeSearch=()=>{restoreSearchFocus.current=true;setSearchOpen(false);};
   const openSearch=()=>{setMenu(false);setNavHidden(false);setSearchOpen(true);window.requestAnimationFrame(()=>field.current?.focus());};
 
   useEffect(()=>{
@@ -27,9 +28,8 @@ export function DeuceTopbar() {
     };
     const key=(event:KeyboardEvent)=>{
       if(event.key==='Escape'){
-        if(menuTrigger.current?.getAttribute('aria-expanded')==='true')menuTrigger.current.focus();
-        setMenu(false);
-        setSearchOpen(false);
+        if(searchOpen){event.preventDefault();restoreSearchFocus.current=true;setSearchOpen(false);}
+        else if(menu){event.preventDefault();setMenu(false);window.requestAnimationFrame(()=>menuTrigger.current?.focus());}
       }
     };
     const navigate=()=>{setMenu(false);setSearchOpen(false);};
@@ -38,7 +38,13 @@ export function DeuceTopbar() {
     window.addEventListener('scroll',scroll,{passive:true});
     document.addEventListener('keydown',key);
     return()=>{cancelAnimationFrame(frame);document.removeEventListener('deuce:navigate',navigate);window.removeEventListener('scroll',scroll);document.removeEventListener('keydown',key);};
-  },[]);
+  },[menu,searchOpen]);
+
+  useEffect(()=>{
+    if(searchOpen||!restoreSearchFocus.current)return;
+    const frame=window.requestAnimationFrame(()=>{trigger.current?.focus();restoreSearchFocus.current=false;});
+    return()=>window.cancelAnimationFrame(frame);
+  },[searchOpen]);
 
   useEffect(()=>{
     const text=query.trim();
@@ -70,7 +76,7 @@ export function DeuceTopbar() {
         <button className="topbar-search-close" type="button" onClick={closeSearch} aria-label="Cerrar búsqueda" tabIndex={searchOpen?0:-1}><X size={18} aria-hidden="true"/></button>
       </form>
       <button ref={trigger} className="search-trigger" type="button" onClick={openSearch} aria-label="Buscar en DEUCE" aria-expanded={searchOpen} tabIndex={searchOpen?-1:0}><Search size={18} aria-hidden="true"/><span>Buscar</span></button>
-      <button ref={menuTrigger} className="menu" type="button" aria-expanded={menu} aria-controls="deuce-navigation" tabIndex={searchOpen?-1:0} onClick={()=>{setNavHidden(false);setMenu(value=>!value)}}>{menu?'Cerrar':'Menú'}</button>
+      <button ref={menuTrigger} className="menu" type="button" aria-label={menu?'Cerrar menú':'Abrir menú'} aria-expanded={menu} aria-controls="deuce-navigation" tabIndex={searchOpen?-1:0} onClick={()=>{setNavHidden(false);setMenu(value=>!value)}}>{menu?<X size={18} aria-hidden="true"/>:<Menu size={18} aria-hidden="true"/>}</button>
     </header>
     <section className={`topbar-spotlight-panel${searchOpen?' is-open':''}`} aria-label="Sugerencias de búsqueda" aria-live="polite" aria-busy={loading} aria-hidden={!searchOpen}>
       {!query.trim()?<div className="topbar-spotlight-empty"><span>Búsqueda rápida</span><p>Escribe un jugador, un torneo o una edición del archivo.</p><div>{navigation.slice(0,4).map(([label,href])=><Link key={href} href={href} onClick={()=>setSearchOpen(false)}>{label}</Link>)}</div></div>
