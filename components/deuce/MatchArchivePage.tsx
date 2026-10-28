@@ -44,14 +44,14 @@ export function ArchiveMatchRow({ match, showContext = false }: { match: MatchRe
   </Link>;
 }
 
-export function ArchiveTournamentCard({ tournament, matches, showContext = false }: { tournament: string; matches: MatchRecord[]; showContext?: boolean }) {
+export function ArchiveTournamentCard({ tournament, matches, totalMatches = matches.length, href, showContext = false }: { tournament: string; matches: MatchRecord[]; totalMatches?: number; href?: string; showContext?: boolean }) {
   const category = matches.find(match => match.category)?.category || '';
   const round = [...new Set(matches.map(match => match.round).filter(Boolean))];
   const meta = showContext
-    ? `${matches.length} ${matches.length === 1 ? 'partido' : 'partidos'}`
-    : `${round.length === 1 ? `${round[0]} · ` : ''}${matches.length} ${matches.length === 1 ? 'partido' : 'partidos'}`;
+    ? `${totalMatches} ${totalMatches === 1 ? 'partido' : 'partidos'}`
+    : `${round.length === 1 ? `${round[0]} · ` : ''}${totalMatches} ${totalMatches === 1 ? 'partido' : 'partidos'}`;
   const initiallyVisible = showContext ? 4 : matches.length;
-  const remaining = Math.max(0, matches.length - initiallyVisible);
+  const remaining = Math.max(0, totalMatches - initiallyVisible);
 
   return <article className={styles.tournamentCard} data-category={category}>
     <header className={styles.tournamentHead}>
@@ -60,7 +60,7 @@ export function ArchiveTournamentCard({ tournament, matches, showContext = false
     </header>
     <div className={styles.tournamentMatches}>
       {matches.slice(0, initiallyVisible).map(match => <ArchiveMatchRow match={match} showContext={showContext} key={match.id} />)}
-      {remaining ? <details className={styles.revealMatches}>
+      {remaining && href ? <Link className={styles.revealMatchesLink} href={href}>Ver {remaining} más</Link> : remaining ? <details className={styles.revealMatches}>
         <summary>Ver {remaining} más</summary>
         <div>{matches.slice(initiallyVisible).map(match => <ArchiveMatchRow match={match} showContext={showContext} key={match.id} />)}</div>
       </details> : null}

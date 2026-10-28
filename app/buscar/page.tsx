@@ -65,23 +65,23 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
     (query.data !== 'measures' || match.statistics.length > 0) &&
     (query.data !== 'points' || match.point_tape.length > 0)
   ).sort((a, b) => chronological(b, a));
-  const editions = new Map<string, MatchEdition>();
-  for (const match of filtered) {
-    const key = `${match.year}|${match.tournament}`;
-    const edition = editions.get(key) || { key, href: `/${slugs.get(match.tournament)}/${match.year}`, matches: [] };
-    edition.matches.push(match);
-    editions.set(key, edition);
-  }
-  const groups = [...editions.values()];
   const requestedLimit = Number(query.limit);
   const dailyLimit = Number.isFinite(requestedLimit) && requestedLimit > 0 ? Math.max(2, Math.floor(requestedLimit)) : 2;
   const seasonLimit = Number.isFinite(requestedLimit) && requestedLimit > 0 ? Math.max(3, Math.floor(requestedLimit)) : 3;
   const matchDates = [...new Set(filtered.map(match => match.context?.date?.slice(0, 10) || `${match.year}-01-01`))];
   const visibleDates = new Set(matchDates.slice(0, dailyLimit));
   const visibleDailyMatches = filtered.filter(match => visibleDates.has(match.context?.date?.slice(0, 10) || `${match.year}-01-01`));
-  const editionYears = [...new Set(groups.map(group => group.matches[0]?.year).filter((year): year is number => Boolean(year)))].sort((a, b) => b - a);
+  const editionYears = [...new Set(filtered.map(match => match.year))].sort((a, b) => b - a);
   const visibleEditionYears = new Set(editionYears.slice(0, seasonLimit));
-  const visibleGroups = groups.filter(group => visibleEditionYears.has(group.matches[0]?.year));
+  const editions = new Map<string, MatchEdition>();
+  for (const match of filtered) {
+    if (query.vista === 'torneos' && !visibleEditionYears.has(match.year)) continue;
+    const key = `${match.year}|${match.tournament}`;
+    const edition = editions.get(key) || { key, href: `/${slugs.get(match.tournament)}/${match.year}`, matches: [] };
+    edition.matches.push(match);
+    editions.set(key, edition);
+  }
+  const groups = [...editions.values()];
   const suggestions = query.q ? await searchArchive(query.q, { includeMatches: false, data }) : [];
   const players = suggestions.filter(item => item.group === 'Jugadores');
   const related = suggestions.filter(item => ['Torneos', 'Récords', 'Parejas'].includes(item.group));
@@ -122,7 +122,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
 
     <section className={styles.season} aria-labelledby="match-season-title">
       <h2 className="nc-sr" id="match-season-title">{selectedYear ? `Partidos de ${selectedYear}` : 'Partidos por torneo'}</h2>
-      {query.vista === 'torneos' ? <EditionMatchGroups editions={visibleGroups} showYears /> : <MatchArchivePage matches={visibleDailyMatches.map(toMatchRecord)}/>}
+      {query.vista === 'torneos' ? <EditionMatchGroups editions={groups} query={query} showYears /> : <MatchArchivePage matches={visibleDailyMatches.map(toMatchRecord)}/>}
       {!filtered.length && <EmptyState title="No encontramos partidos" description="Prueba otro nombre o quita alguno de los filtros de la búsqueda." resetHref={matchSearchUrl({}, { q: query.q })} />}
       {!filtered.length && <nav className="archive-suggestions" aria-label="Alternativas de búsqueda">{chips.map(chip => <Link key={chip.key} href={matchSearchUrl(query,{[chip.key]:undefined})}>Quitar {chip.label}</Link>)}<Link href="/buscar">Empezar de nuevo</Link><Link href="/buscar?q=Nadal+Federer+Wimbledon+2008">Nadal · Federer · Wimbledon 2008</Link></nav>}
       {(query.vista === 'torneos' ? editionYears.length > seasonLimit : matchDates.length > dailyLimit) && <div className={styles.loadMore}><Link href={matchSearchUrl(query, { limit: String((query.vista === 'torneos' ? seasonLimit : dailyLimit) + (query.vista === 'torneos' ? 2 : 1)) })} scroll={false}>{query.vista === 'torneos' ? 'Cargar temporadas anteriores' : 'Cargar días anteriores'}<ChevronDown size={16} aria-hidden="true" /></Link></div>}
