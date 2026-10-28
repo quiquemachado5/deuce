@@ -5,45 +5,41 @@ import {
   ChevronRight,
   ExternalLink,
 } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 const videos = [
   {
     id: "jUgyaoew8as",
+    start: 73,
+    end: 103,
+    source: "Wimbledon",
     title: "11 horas y 5 minutos",
     description: "Isner–Mahut, Wimbledon 2010. El partido más largo del archivo.",
     href: "https://www.youtube.com/watch?v=jUgyaoew8as",
   },
   {
-    id: "f8YEiCAPAbg",
-    title: "La final que acabó de noche",
-    description: "Federer–Nadal, Wimbledon 2008. Cinco sets para cambiar la historia.",
-    href: "https://www.youtube.com/watch?v=f8YEiCAPAbg",
+    id: "S1NvoFyU22Q",
+    start: 16,
+    end: 42,
+    source: "US Open",
+    title: "5 horas y 35 minutos",
+    description: "Evans–Khachanov, US Open 2024. El partido más largo de Nueva York.",
+    href: "https://www.youtube.com/watch?v=S1NvoFyU22Q",
   },
   {
-    id: "mnLdAeSXZv0",
-    title: "La final más larga de Wimbledon",
-    description: "Djokovic–Federer, 2019. Cuatro horas y 57 minutos de tensión.",
-    href: "https://www.youtube.com/watch?v=mnLdAeSXZv0",
+    id: "bEPfMTfilIQ",
+    start: 44,
+    end: 74,
+    source: "Roland-Garros",
+    title: "14 títulos en París",
+    description: "Nadal–Djokovic, Roland-Garros 2022. El camino hacia su decimocuarta copa.",
+    href: "https://www.youtube.com/watch?v=bEPfMTfilIQ",
   },
 ] as const;
 
 export default function RecordsVideoCarousel() {
-  const rootRef = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
-  const [visible, setVisible] = useState(false);
   const video = videos[active];
-
-  useEffect(() => {
-    const root = rootRef.current;
-    if (!root) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setVisible(entry.isIntersecting),
-      { rootMargin: "160px 0px", threshold: 0.12 },
-    );
-    observer.observe(root);
-    return () => observer.disconnect();
-  }, []);
 
   const move = (direction: -1 | 1) => {
     setActive(
@@ -53,33 +49,25 @@ export default function RecordsVideoCarousel() {
 
   return (
     <section
-      ref={rootRef}
       className="records-video-carousel"
       aria-labelledby="records-video-title"
     >
-      <div
-        className="records-video-media"
-        style={{
-          backgroundImage: `linear-gradient(0deg, rgba(1, 14, 10, .9), rgba(1, 14, 10, .08) 70%), url(https://i.ytimg.com/vi/${video.id}/maxresdefault.jpg)`,
-        }}
-      >
-        {visible ? (
-          <iframe
-            key={video.id}
-            src={`https://www.youtube.com/embed/${video.id}?autoplay=1&mute=1&controls=0&loop=1&playlist=${video.id}&playsinline=1&rel=0`}
-            title={video.title}
-            loading="eager"
-            allow="autoplay; encrypted-media; picture-in-picture"
-            referrerPolicy="strict-origin-when-cross-origin"
-            allowFullScreen
-          />
-        ) : null}
+      <div className="records-video-media">
+        <iframe
+          key={video.id}
+          src={`https://www.youtube.com/embed/${video.id}?autoplay=1&mute=1&controls=0&disablekb=1&loop=1&playlist=${video.id}&playsinline=1&rel=0&iv_load_policy=3&cc_load_policy=0&start=${video.start}&end=${video.end}`}
+          title={video.title}
+          loading="eager"
+          allow="autoplay; encrypted-media; picture-in-picture"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
+        />
       </div>
       <div className="records-video-copy">
         <h2 id="records-video-title">{video.title}</h2>
         <p>{video.description}</p>
         <a href={video.href} target="_blank" rel="noreferrer">
-          Ver vídeo oficial de Wimbledon
+          Ver vídeo oficial de {video.source}
           <ExternalLink size={15} aria-hidden="true" />
         </a>
       </div>

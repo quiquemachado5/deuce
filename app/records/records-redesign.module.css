@@ -100,6 +100,10 @@
   .page {
     background-attachment: fixed;
   }
+
+  .insightsHead h2 {
+    white-space: nowrap;
+  }
 }
 
 .recordImage,
@@ -116,7 +120,7 @@
   width: min(1240px, calc(100% - 40px));
   max-width: none;
   margin: 0 auto;
-  padding: 110px 6px 56px;
+  padding: 110px 6px 26px;
 }
 
 .page :global(.inner-title h1) {
@@ -194,20 +198,39 @@
 }
 
 .rankings {
+  position: relative;
+  isolation: isolate;
   width: 100%;
   max-width: none;
-  margin-top: clamp(24px, 3.8vw, 54px);
-  padding: clamp(38px, 5vw, 66px) max(20px, calc((100vw - 1240px) / 2));
+  margin-top: 0;
+  padding: clamp(30px, 4vw, 54px) max(20px, calc((100vw - 1240px) / 2)) clamp(44px, 5vw, 68px);
+  overflow: hidden;
   border: 0;
   border-radius: 0;
   background:
-    radial-gradient(circle at 82% -12%, rgb(127 172 164 / 0.28), transparent 42%),
-    radial-gradient(circle at 6% 110%, rgb(75 112 119 / 0.34), transparent 40%),
-    linear-gradient(135deg, #425b5d 0%, #2b4346 48%, #172d30 100%);
-  box-shadow: inset 0 1px rgb(255 255 255 / 0.08);
+    radial-gradient(80% 110% at 100% 46%, rgb(200 255 50 / 0.1), transparent 54%),
+    radial-gradient(70% 95% at 8% 82%, rgb(30 95 72 / 0.2), transparent 58%),
+    linear-gradient(164deg, transparent 0 10%, rgb(4 14 11 / 0.6) 29%, #030a08 56%, #071710 100%);
+  box-shadow: none;
+}
+
+.rankings::before {
+  position: absolute;
+  z-index: -1;
+  inset: 18% -8% -12%;
+  pointer-events: none;
+  content: "";
+  background:
+    linear-gradient(90deg, transparent calc(50% - 0.5px), rgb(221 244 231 / 0.07) 50%, transparent calc(50% + 0.5px)),
+    linear-gradient(0deg, transparent 31%, rgb(221 244 231 / 0.06) 31.2%, transparent 31.4% 68%, rgb(221 244 231 / 0.06) 68.2%, transparent 68.4%);
+  mask-image: linear-gradient(90deg, transparent, #000 16% 84%, transparent);
+  transform: perspective(900px) rotateX(57deg) scale(1.2);
+  transform-origin: 50% 100%;
 }
 
 .page :global(.records-leaderboard) {
+  position: relative;
+  z-index: 1;
   width: min(1240px, 100%);
   margin-inline: auto;
   overflow: visible;
@@ -253,8 +276,8 @@
 }
 
 .page :global(.records-leaderboard-switch button[aria-pressed="true"]) {
-  background: #123c31;
-  color: #f7fbf8;
+  background: var(--records-lime);
+  color: #0b2119;
 }
 
 .page :global(.records-leaderboard-switch button:focus-visible),
@@ -551,15 +574,17 @@
   background:
     radial-gradient(circle at 76% 10%, rgb(19 76 61 / 0.22), transparent 36%),
     radial-gradient(circle at 8% 72%, rgb(19 56 50 / 0.2), transparent 32%),
-    linear-gradient(180deg, #06130f 0%, #020908 48%, #010605 100%);
+    linear-gradient(180deg, #071710 0%, #020908 18%, #010605 76%, #020504 100%);
 }
 
 .insightsHead {
-  margin-bottom: 24px;
+  width: 100%;
+  margin-bottom: 32px;
+  text-align: left;
 }
 
 .insightsHead h2 {
-  max-width: 13ch;
+  max-width: none;
   margin: 0;
   font: 700 clamp(38px, 4.7vw, 62px) / 0.92 var(--font-display);
   letter-spacing: -0.05em;
@@ -1131,7 +1156,7 @@
   pointer-events: none;
   content: "";
   background:
-    linear-gradient(90deg, rgb(0 9 6 / 0.58) 0%, rgb(0 9 6 / 0.22) 48%, transparent 76%),
+    linear-gradient(90deg, rgb(0 9 6 / 0.96) 0%, rgb(0 9 6 / 0.82) 30%, rgb(0 9 6 / 0.34) 58%, transparent 82%),
     linear-gradient(0deg, rgb(0 8 5 / 0.98) 0%, rgb(0 8 5 / 0.84) 22%, rgb(0 8 5 / 0.28) 56%, transparent 82%);
 }
 
@@ -1158,9 +1183,9 @@
 
 .page :global(.records-video-media iframe) {
   position: absolute;
-  inset: -7%;
-  width: 114%;
-  height: 114%;
+  inset: -12%;
+  width: 124%;
+  height: 124%;
   border: 0;
   z-index: 1;
   opacity: 0.76;
@@ -1449,12 +1474,27 @@
 }
 
 .directory {
+  position: relative;
+  z-index: 0;
+  isolation: isolate;
   padding-top: 92px;
   padding-bottom: 120px;
 }
 
+.directory::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0 calc(50% - 50vw);
+  content: "";
+  background:
+    radial-gradient(70% 45% at 88% 38%, rgb(29 92 67 / 0.18), transparent 62%),
+    linear-gradient(180deg, #020504 0%, #071913 18%, #0a2b22 48%, #06150f 76%, #020504 100%);
+}
+
 .directoryHead {
-  margin-bottom: 22px;
+  width: 100%;
+  margin-bottom: 28px;
+  text-align: left;
 }
 
 .directoryHead h2 {
@@ -2669,10 +2709,8 @@
 }
 
 @supports (animation-timeline: view()) {
-  .insightsHead,
   .page :global(.records-video-carousel),
-  .page :global(.records-surface-gallery > header),
-  .directoryHead {
+  .page :global(.records-surface-gallery > header) {
     animation: records-section-reveal linear both;
     animation-timeline: view();
     animation-range: entry 4% cover 30%;
@@ -2771,7 +2809,7 @@
 @media (max-width: 560px) {
   .page :global(.inner-title) {
     width: 100%;
-    padding: 22px 14px 32px;
+    padding: 22px 14px 12px;
   }
 
   .page :global(.inner-title h1) {
@@ -2808,8 +2846,8 @@
   }
 
   .rankings {
-    margin-top: 18px;
-    padding-block: 34px;
+    margin-top: 0;
+    padding-block: 26px 38px;
     border-radius: 0;
   }
 
@@ -2932,7 +2970,7 @@
   }
 
   .insightsHead h2 {
-    max-width: 11ch;
+    max-width: none;
     font-size: 36px;
   }
 
@@ -3107,12 +3145,12 @@
   }
 
   .page :global(.records-video-media iframe) {
-    top: 0;
+    top: -8%;
     bottom: auto;
     left: 50%;
     width: auto;
     min-width: 100%;
-    height: 100%;
+    height: 116%;
     aspect-ratio: 16 / 9;
     transform: translateX(-50%);
   }
