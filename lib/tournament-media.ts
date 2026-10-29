@@ -1,3 +1,5 @@
+import { playerDirectoryPhoto, playerPhoto } from './player-imagery';
+
 export type TournamentEditionMedia = {
   tournament: string;
   year: number;
@@ -63,6 +65,35 @@ export const championPhotos: Record<string, TournamentEditionMedia['trophy']> = 
 
 export function championPhotoForEdition(tournament: string, year: number) {
   return championPhotos[`${tournament}|${year}`] || mediaForEdition(tournament,year)?.trophy || null;
+}
+
+const tournamentPhotoAliases: Record<string, string[]> = {
+  'Australian Open': ['australian open', 'abierto de australia'],
+  'Roland Garros': ['roland garros', 'french open', 'abierto de francia'],
+  'US Open': ['us open', 'abierto de estados unidos'],
+  Wimbledon: ['wimbledon'],
+};
+
+function normalizedPhotoContext(value: string) {
+  return value.normalize('NFKD').replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+}
+
+/**
+ * Prefer a documented moment at this tournament. When none exists, fall back
+ * to the player's portrait: a recognisable face is better than an empty card.
+ */
+export function playerPhotoAtTournament(name: string, tournament: string, titleYears: number[] = []) {
+  for (const year of titleYears) {
+    const documentedChampion = championPhotoForEdition(tournament, year);
+    if (documentedChampion) return documentedChampion;
+  }
+  const candidate = playerDirectoryPhoto(name);
+  if (!candidate) return null;
+  const context = normalizedPhotoContext(`${candidate.alt} ${candidate.source}`);
+  const aliases = tournamentPhotoAliases[tournament] || [normalizedPhotoContext(tournament)];
+  if (aliases.some((alias) => context.includes(normalizedPhotoContext(alias)))) return candidate;
+  return playerPhoto(name) || candidate;
 }
 
 export function mediaForEdition(tournament: string, year: number) {

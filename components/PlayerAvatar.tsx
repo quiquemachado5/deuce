@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { playerPhoto } from "@/lib/player-imagery";
 import { avatarPhotoStyle } from "@/lib/photo-style";
+import type { Photo } from "@/lib/imagery";
 import { useState } from "react";
 
 function avatarColors(name: string) {
@@ -16,11 +17,13 @@ function avatarColors(name: string) {
 export default function PlayerAvatar({
   name,
   size = 36,
+  photo: suppliedPhoto,
 }: {
   name: string;
   size?: number;
+  photo?: Photo | null;
 }) {
-  const photo = playerPhoto(name);
+  const photo = suppliedPhoto === undefined ? playerPhoto(name) : suppliedPhoto;
   const hasThumbnail = Boolean(photo?.thumbnail);
   const [failed, setFailed] = useState(false);
   const [from, to] = avatarColors(name);

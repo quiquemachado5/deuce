@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 import { preparedTournamentArchive } from "@/lib/revista/read-records";
 import { tournamentName } from "@/lib/labels";
 import {
@@ -8,18 +9,21 @@ import {
   categoryYears,
   tournamentDirectory,
 } from "@/lib/tournament-directory";
-import { roundLabel, roundPosition, durationLabel, winnerName } from "@/lib/editorial";
+import { roundPosition, durationLabel, winnerName } from "@/lib/editorial";
 import { eligibleMatch } from "@/lib/quality";
 import { lostOpening } from "@/lib/archive-insights";
 import { closeness, number } from "@/lib/cuaderno/model";
 import { editionTournamentCourt } from "@/lib/tournament-presentation";
-import { courtPhoto, courtPhotoForEdition } from "@/lib/imagery";
+import { courtPhoto } from "@/lib/imagery";
 import TournamentFinal from "@/components/TournamentFinal";
-import EditionMatchExplorer from "@/components/EditionMatchExplorer";
-import { toMatchRecord } from "@/data/map-match";
+import TournamentBracket from "@/components/TournamentBracket";
 import { publishedMatchMinutes } from "@/lib/duration";
 import { imageFocus } from "@/lib/image-focus";
+import { playerPhoto } from "@/lib/player-imagery";
+import { championPhotoForEdition, playerPhotoAtTournament } from "@/lib/tournament-media";
 import TournamentEditionNav from "@/components/TournamentEditionNav";
+import styles from "@/components/tournament-detail.module.css";
+import { tournamentDetailFeaturePhoto, tournamentDetailPhoto } from "@/lib/tournament-detail-media";
 
 type Props = {
   params: Promise<{ slug: string; year: string }>;
@@ -80,81 +84,81 @@ export default async function Edition({ params, searchParams }: Props) {
   const timed = measuredMatches
     .filter((match) => publishedMatchMinutes(match) !== null)
     .sort((a, b) => publishedMatchMinutes(b)! - publishedMatchMinutes(a)!);
-  const photo = tournament.canonical
-    ? courtPhotoForEdition(tournament.name, Number(year)) || (Number(year)>=2023 ? courtPhoto(tournament.name) : null)
-    : null;
+  const champion=final?winnerName(final):null;
+  const heroPhoto = tournamentDetailPhoto(tournament.name) || courtPhoto(tournament.name);
+  const detailPhoto = tournamentDetailFeaturePhoto(tournament.name);
   const tiebreaks=measuredMatches.reduce((total,match)=>total+match.score_summary.games.filter(set=>set.length===2&&Math.max(...set)===7&&Math.min(...set)===6).length,0);
   const decidingMatches=measuredMatches.filter(match=>{
     const [one,two]=match.score_summary.sets;
     return Number.isFinite(one)&&Number.isFinite(two)&&Math.abs(one-two)===1;
   }).length;
   const straightSetWins=measuredMatches.filter(match=>match.score_summary.sets.some(value=>value>0)&&match.score_summary.sets.includes(0)).length;
-  const players=new Set(matches.flatMap(match=>[match.player1.name,match.player2.name])).size;
-  const champion=final?winnerName(final):null;
-  const editionResults=matches.filter(match=>roundPosition(match.round)>0).sort((a,b)=>roundPosition(b.round)-roundPosition(a.round)||b.score_summary.timestamp.localeCompare(a.score_summary.timestamp)).map(match=>({key:String(roundPosition(match.round)),label:roundLabel(match.round),position:roundPosition(match.round),championPath:Boolean(champion&&winnerName(match)===champion),match:toMatchRecord(match)}));
+  const totalSets = measuredMatches.reduce((total, match) => total + match.score_summary.games.length, 0);
+  const totalGames = measuredMatches.reduce((total, match) => total + match.score_summary.games.reduce((sum, set) => sum + set[0] + set[1], 0), 0);
+  const rounds = new Set(matches.map(match => roundPosition(match.round)).filter(Boolean)).size;
+  const averageGames = measuredMatches.length ? totalGames / measuredMatches.length : 0;
+  const averageDuration = timed.length
+    ? Math.round(timed.reduce((sum, match) => sum + publishedMatchMinutes(match)!, 0) / timed.length)
+    : null;
+  const championPath = champion ? matches.filter(match => winnerName(match) === champion).length : 0;
+  const editionPortrait = champion
+    ? championPhotoForEdition(tournament.name, Number(year)) || playerPhotoAtTournament(champion, tournament.name) || playerPhoto(champion)
+    : detailPhoto || heroPhoto;
+  const categoryOptions = tournament.categories.map((level) => ({
+    value: level,
+    label: categoryLabel(level),
+    years: categoryYears(tournament, level),
+  }));
   return (
     <div
-      className="nc-wrap ry-photo-edition td-edition"
+      className={`${styles.page} nc-wrap`}
       data-event-category={category}
       data-event-surface={court.surface}
+      data-tournament={slug}
+      data-grand-slam={category === "Grand Slam" ? "true" : undefined}
     >
-      <header
-        className={`td-edition-hero${photo ? " td-edition-hero-photo" : ""}`} data-grand-slam={category === "Grand Slam"}
-      >
-        {photo && (
-          <Image
-            className="art-directed-photo"
-            src={photo.src}
-            alt={photo.alt}
-            fill
-            sizes="100vw"
-            priority
-            style={imageFocus(photo.objectPosition||"center",photo.mobileObjectPosition||photo.objectPosition||"center")}
-          />
-        )}
-        <div className="td-edition-hero-copy td-venue-copy">
-          <div className="td-edition-title-row td-venue-title-row">
-            <h1>{tournamentName(tournament.name)} <span>{year}</span></h1>
-            <TournamentEditionNav slug={slug} years={categoryYears(tournament, category)} currentYear={Number(year)} masters={category === "Precursores de Masters"} category={tournament.categories.length > 1 ? category : undefined}/>
+      <header className={styles.editionHero} data-grand-slam={category === "Grand Slam"}>
+        {heroPhoto ? <Image className="art-directed-photo" src={heroPhoto.src} alt={heroPhoto.alt} fill sizes="100vw" priority style={imageFocus(heroPhoto.objectPosition||"center",heroPhoto.mobileObjectPosition||heroPhoto.objectPosition||"center")} unoptimized={heroPhoto.src.includes("/images/players/") || heroPhoto.src.startsWith("/images/tournaments/detail/")} /> : <span className={styles.heroFallback} aria-hidden="true" />}
+        <span className={styles.heroBackdrop} aria-hidden="true" />
+        <div className={styles.heroInner}>
+          <div className={styles.heroCopy}>
+            <div>
+              <h1 className={styles.heroTitle}><span className={styles.heroName}>{tournamentName(tournament.name)}</span><span className={styles.heroYear}>{year}</span></h1>
+            </div>
+            <div className={styles.heroNav}><TournamentEditionNav slug={slug} years={categoryYears(tournament, category)} currentYear={Number(year)} masters={category === "Precursores de Masters"} category={tournament.categories.length > 1 ? category : undefined} categories={categoryOptions}/></div>
           </div>
         </div>
       </header>
 
-      {categories.length > 1 && (
-        <nav
-          className="ry-tournament-levels"
-          aria-label="Categorías de esta edición"
-        >
-          {categories.map((level) => (
-            <Link
-              key={level}
-              data-event-category={level}
-              aria-current={level === category ? "page" : undefined}
-              href={`/torneos/${slug}/${year}?categoria=${encodeURIComponent(level)}`}
-            >
-              {categoryLabel(level)}
-            </Link>
-          ))}
-        </nav>
-      )}
       {final && <TournamentFinal match={final} />}
-      <EditionMatchExplorer results={editionResults} />
+      <TournamentBracket matches={matches} />
       {measuredMatches.length > 0 && (
-        <section className="nc-section nc-edition-facts td-edition-insights">
-          <div className="td-section-heading">
-            <div>
-              <h2>Lecturas de la edición</h2>
-              <p>Las cifras que explican el desarrollo del torneo, calculadas con sus resultados cerrados.</p>
+        <section className={styles.editionReadings} aria-labelledby="edition-insights-title">
+          <div className={styles.sectionHead}><div><h2 id="edition-insights-title">Lecturas de la edición</h2></div></div>
+          <div className={styles.editionStory}>
+            <article className={styles.editionLead}>
+              {editionPortrait && <Image className="art-directed-photo" src={editionPortrait.src} alt={editionPortrait.alt} fill sizes="(max-width:759px) 100vw, 54vw" style={imageFocus(editionPortrait.objectPosition || "center top", editionPortrait.mobileObjectPosition || editionPortrait.objectPosition || "center top")} unoptimized />}
+              <span className={styles.photoShade} aria-hidden="true" />
+              <div><span>El pulso de {year}</span><strong>{number(totalGames)}</strong><p>juegos. Una edición medida punto a punto, con la atmósfera que la hizo única.</p></div>
+            </article>
+            <div className={styles.editionFocus}>
+              <article><span>Camino del campeón</span><strong>{number(championPath)}</strong><p>{champion ? `${champion} firma los peldaños publicados hacia el título.` : "No hay campeón documentado en esta edición."}</p></article>
+              <article><span>Partido medio</span><strong>{number(averageGames, 1)}</strong><p>juegos · {number(totalSets)} sets disputados en total.</p></article>
             </div>
-          </div>
-          <div className="td-edition-insight-grid">
-            <article className="td-edition-insight td-edition-insight--hero"><span>Partidos cerrados</span><strong>{number(measuredMatches.length)}</strong><p>{number(players)} jugadores aparecen en la edición.</p></article>
-            <article className="td-edition-insight td-edition-insight--deciders"><span>Al set decisivo</span><strong>{number(decidingMatches)}</strong><p>partidos llegaron al último set de su formato.</p></article>
-            <article className="td-edition-insight td-edition-insight--tiebreak"><span>Tie-breaks</span><strong>{number(tiebreaks)}</strong><p>sets terminaron 7–6 o 6–7.</p></article>
-            <article className="td-edition-insight td-edition-insight--clean"><span>Sin ceder un set</span><strong>{number(straightSetWins)}</strong><p>victorias se resolvieron sin sets para el rival.</p></article>
-            <article className="td-edition-insight td-edition-insight--comeback"><span>Remontadas</span><strong>{number(comebacks.length)}</strong><p>ganadores perdieron el primer set.</p></article>
-            {closest&&<article className="td-edition-insight td-edition-insight--close"><span>Partido más ajustado</span><strong>{number(closeness(closest))}<small>/100</small></strong><p>{closest.player1.name} contra {closest.player2.name}.</p></article>}
-            {timed[0]&&<article className="td-edition-insight td-edition-insight--duration"><span>Mayor duración publicada</span><strong>{durationLabel(publishedMatchMinutes(timed[0])!)}</strong><p>{timed[0].player1.name} contra {timed[0].player2.name}.</p></article>}
+            <div className={styles.editionSignals} aria-label="Ritmo de la edición">
+              {[
+                ["Rondas", number(rounds)],
+                ["Al decisivo", number(decidingMatches)],
+                ["Tie-breaks", number(tiebreaks)],
+                ["Remontadas", number(comebacks.length)],
+                ["Sin ceder set", number(straightSetWins)],
+                ["Duración media", averageDuration ? durationLabel(averageDuration) : "—"],
+              ].map(([label, value], index) => <article key={label} data-signal={index+1}><span>{label}</span><strong>{value}</strong></article>)}
+            </div>
+            <div className={styles.editionMatches}>
+              {closest && <Link href={`/match/${closest.match_id}`}><span><small>El partido más ajustado</small><strong>{closest.player1.name} <i>contra</i> {closest.player2.name}</strong></span><b>{number(closeness(closest))}/100</b><ArrowRight size={20} aria-hidden="true" /></Link>}
+              {timed[0] && <Link href={`/match/${timed[0].match_id}`}><span><small>La mayor duración publicada</small><strong>{timed[0].player1.name} <i>contra</i> {timed[0].player2.name}</strong></span><b>{durationLabel(publishedMatchMinutes(timed[0])!)}</b><ArrowRight size={20} aria-hidden="true" /></Link>}
+            </div>
           </div>
         </section>
       )}

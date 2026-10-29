@@ -1,7 +1,7 @@
 .profilePage{
   width:100%;
   max-width:none;
-  padding:0 0 72px;
+  padding:0;
   overflow:clip;
   color:#13211d;
 }
@@ -274,10 +274,10 @@
 .profilePage :global(.pp-tournament-list>article>b svg){color:#b8891f;stroke-width:1.8}
 .profilePage :global(.pp-tournament-list>article>b .pp-tournament-trophy){width:17px;height:23px;object-fit:contain;filter:drop-shadow(0 1px 1px rgba(133,91,0,.2))}
 
-.profilePage :global(.pp-rivals){background:#0a3027;color:#fff}
+.profilePage :global(.pp-rivals){width:100vw;width:100dvw;margin-left:calc(50% - 50vw);margin-left:calc(50% - 50dvw);padding-inline:max(52px,calc((100vw - 1240px)/2 + 52px));border-radius:0;background:var(--deuce-action);color:#fff}
 .profilePage :global(.pp-rivals-heading),.profilePage :global(.pp-matches-heading){display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:28px}
 .profilePage :global(.pp-rivals-heading h2),.profilePage :global(.pp-matches-heading h2){max-width:none;margin:0;font:740 clamp(36px,4vw,56px)/.95 var(--font-display);letter-spacing:-.04em;white-space:nowrap}
-.profilePage :global(.pp-rivals .pp-segmented){flex:none;background:#163f35;--scroll-cue-bg:#163f35}
+.profilePage :global(.pp-rivals .pp-segmented){flex:none;background:color-mix(in srgb,var(--deuce-action) 82%,#fff);--scroll-cue-bg:color-mix(in srgb,var(--deuce-action) 82%,#fff)}
 .profilePage :global(.pp-rivals .pp-segmented button){color:rgba(255,255,255,.7)}
 .profilePage :global(.pp-rival-grid){grid-template-columns:repeat(3,minmax(0,1fr))}
 .profilePage :global(.pp-rival-grid>a){display:grid;min-height:138px;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-content:center;align-items:center;gap:6px 8px;padding:15px 16px;border:0;border-radius:18px;background:#fff;color:#13211d;transition:transform .2s cubic-bezier(.16,1,.3,1)}
@@ -296,7 +296,7 @@
 .profilePage :global(.pp-match-filters){flex:none;max-width:min(100%,670px);--scroll-cue-bg:#f0f3f1}
 .profilePage :global(.pp-recent-cards){display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;--search-green:#1c7a50;--search-muted:#66746f;--search-ink:#13211d;--search-quiet:#f3f6f4}
 .profilePage :global(.pp-recent-cards>a){min-width:0;margin:0;padding:18px 20px;border-radius:18px;background:#f3f6f4}
-.profilePage :global(.pp-all-matches){background:#0a3027;color:#fff}
+.profilePage :global(.pp-all-matches){background:var(--deuce-action);color:#fff}
 .profilePage :global(.pp-all-matches:hover){background:#c8ff32;color:#13211d}
 
 .mediaSection{background:#071d17!important;color:#fff}
@@ -318,7 +318,7 @@
 }
 
 @media(max-width:759px){
-  .profilePage{padding:0 0 46px}
+  .profilePage{padding:0}
   .profilePage :global(.pp-section-nav),.profilePage :global(.pp-content){width:calc(100% - 24px)}
   .heroStage{min-height:510px;margin-bottom:104px}
   .profilePage :global(.pp-hero){min-height:510px;border-radius:0}
@@ -403,12 +403,15 @@
   .profilePage :global(.pp-rivals-heading .pp-segmented),.profilePage :global(.pp-matches-heading .pp-segmented),.profilePage :global(.pp-tournaments-heading .pp-segmented){width:100%;max-width:100%;justify-content:flex-start;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none}
   .profilePage :global(.pp-rivals-heading .pp-segmented button),.profilePage :global(.pp-matches-heading .pp-segmented button),.profilePage :global(.pp-tournaments-heading .pp-segmented button){flex:0 0 auto}
   .profilePage :global(.pp-rival-grid){grid-template-columns:1fr}
+  .profilePage :global(.pp-rivals){padding-inline:31px;border-radius:0}
   .profilePage :global(.pp-rival-grid>a){min-height:132px}
   .profilePage :global(.pp-recent-cards>a){padding:14px 11px}
   .mediaGallery{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
   .mediaGallery::-webkit-scrollbar{display:none}
   .mediaGallery figure,.mediaGallery figure:not(:first-child){min-width:86%;min-height:340px;flex:0 0 86%;scroll-snap-align:start}
 }
+
+:global(body:has(.pp-page) .deuce-footer),:global(body:has(.player-directory) .deuce-footer){margin-top:24px!important}
 
 @media(hover:none){.profilePage :global(.pp-tournament-logo i){opacity:1}}
 

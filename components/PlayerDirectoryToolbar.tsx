@@ -7,7 +7,7 @@ import styles from './PlayerDirectoryToolbar.module.css';
 export default function PlayerDirectoryToolbar({ query, sort }: { query?:string; sort:string }) {
   return <div className={styles.toolbar}>
     <details className={styles.discovery}>
-      <summary aria-label="Buscar y ordenar jugadores"><Search size={18} aria-hidden="true"/></summary>
+      <summary aria-label="Buscar y ordenar jugadores"><Search size={18} aria-hidden="true"/><span className={styles.triggerLabel}>Buscar jugador</span></summary>
       <div className={styles.popover}>
         <FilterForm action="/jugadores">
           <label className={styles.query}><span>Buscar jugadores</span><Search size={16} aria-hidden="true"/><input name="q" type="search" defaultValue={query} placeholder="Buscar jugador" autoComplete="off"/></label>

@@ -7,18 +7,21 @@ export default function TournamentEditionNav({
   masters,
   category,
   currentYear,
+  categories = [],
 }: {
   slug: string;
   years: number[];
   masters: boolean;
   category?: string;
   currentYear?: number;
+  categories?: Array<{ value: string; label: string; count?: number; years: number[] }>;
 }) {
   const query = category ? `?categoria=${encodeURIComponent(category)}` : "";
   return (
     <nav className="tournament-edition-nav" aria-label="Ediciones del torneo">
       <Link className="tournament-summary-link" href={`/torneos/${slug}${query}`} aria-current={currentYear ? undefined : "page"}>
-        Resumen general
+        <span className="tournament-summary-full">Resumen general</span>
+        <span className="tournament-summary-short">Resumen</span>
       </Link>
       <EditionPicker
         slug={slug}
@@ -26,6 +29,7 @@ export default function TournamentEditionNav({
         masters={masters}
         category={category}
         currentYear={currentYear}
+        categories={categories}
       />
     </nav>
   );

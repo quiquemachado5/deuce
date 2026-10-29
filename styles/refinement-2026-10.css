@@ -1814,6 +1814,9 @@ main:has(>.deuce-home)+.deuce-footer{margin-top:0}
 .tournament-edition-nav .nc-edition-archive-select{margin:0}
 .tournament-edition-nav .nc-edition-archive-select>span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
 .tournament-edition-nav .nc-edition-archive-select select{width:112px;height:34px;min-height:34px;margin:0;padding:0 28px 0 11px;border:0;border-radius:999px;background:var(--bg-sunken);color:var(--ink);font-size:10px}
+.tournament-edition-nav .nc-edition-category-select{position:relative;display:block;flex:0 0 auto;margin:0}
+.tournament-edition-nav .nc-edition-category-select>span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+.tournament-edition-nav .nc-edition-category-select select{width:auto;max-width:190px;height:34px;min-height:34px;margin:0;padding:0 28px 0 11px;border:0;border-radius:999px;background:var(--ink);color:#fff;font-size:10px;font-weight:680}
 
 .td-effectiveness .td-rate-bars li,
 .td-effectiveness .td-rate-bars li:nth-child(4n+1),
@@ -2791,6 +2794,16 @@ body:has(.deuce-home) .ry-footer{margin-top:0!important;background:var(--ink)!im
   .td-tournament .td-venue-copy h1,.td-edition .td-edition-hero-copy h1{margin-top:clamp(150px,30vh,260px)!important;font-size:clamp(48px,15vw,72px)!important}
   .td-venue-title-row,.td-edition-title-row{align-items:flex-start;flex-direction:column;gap:15px}
   .tournament-edition-nav{max-width:calc(100vw - 32px)!important}
+  .tournament-edition-nav>.tournament-summary-link,
+  .tournament-edition-nav .nc-edition-recent a{
+    min-height:44px!important;
+    padding:9px 11px!important;
+  }
+  .tournament-edition-nav .nc-edition-archive-select,
+  .tournament-edition-nav .nc-edition-archive-select select{
+    height:44px!important;
+    min-height:44px!important;
+  }
   .player-directory .catalog-copy,.player-directory .catalog-card:nth-child(4n+2) .catalog-copy,.player-directory .catalog-card:nth-child(4n+3) .catalog-copy,.player-directory .catalog-card:hover .catalog-copy{height:164px!important;min-height:164px!important}
 }
 
@@ -2891,6 +2904,11 @@ body:has(.deuce-home) .ry-footer{margin-top:0!important;background:var(--ink)!im
   .simple-match-card,.simple-result.result-float-v2{padding:15px!important}
 }
 body:has(.deuce-home) .deuce-footer{margin-top:0!important;background:var(--ink)!important}
+body:has([data-tournament]) .deuce-footer{margin-top:0!important;clip-path:none!important;transform:none!important;filter:none!important}
+
+@media(max-width:759px){
+  .tournament-edition-nav .nc-edition-category-select select{max-width:116px;height:44px;min-height:44px;padding-left:10px;padding-right:22px}
+}
 
 /* Approved 2026-10-28 shell: liquid topbar and full-width archive footer. */
 .topbar,

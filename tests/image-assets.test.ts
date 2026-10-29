@@ -6,6 +6,7 @@ import refreshed from '../lib/player-photo-refresh.json'
 import imageLoader from '../lib/image-loader'
 import { courtPhoto, courtPhotoForEdition, courtPhotos, premiumCourtPhotoNames } from '../lib/imagery'
 import { playerPhoto, playerPhotos } from '../lib/player-imagery'
+import { playerPhotoAtTournament } from '../lib/tournament-media'
 
 test('the player directory serves cached local photos with their actual sources', () => {
   const restoredPortraits = new Set(['Jimmy Connors', 'Roger Federer', 'Ivan Lendl', 'John McEnroe'])
@@ -34,6 +35,14 @@ test('the player directory serves cached local photos with their actual sources'
   }
   assert.equal(playerPhoto('Marin Cilic')?.src, playerPhoto('Marin Čilić')?.src)
   assert.equal(playerPhoto('Felix Auger–Aliassime')?.src, playerPhoto('Félix Auger-Aliassime')?.src)
+})
+
+test('tournament pages prefer documented event photography and always fall back to a face', () => {
+  assert.match(playerPhotoAtTournament('Novak Djokovic', 'Wimbledon', [2019])?.alt || '', /Wimbledon 2019/)
+  assert.ok(playerPhotoAtTournament('Novak Djokovic', 'US Open'))
+  assert.match(playerPhotoAtTournament('Jannik Sinner', 'US Open')?.source || '', /US_Open/)
+  assert.ok(playerPhotoAtTournament('Rafael Nadal', 'US Open'))
+  assert.ok(playerPhotoAtTournament('Rafael Nadal', 'Wimbledon'))
 })
 
 test('court photos have real responsive files and edition photos never imply another year', () => {

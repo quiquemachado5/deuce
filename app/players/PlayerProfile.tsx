@@ -141,7 +141,11 @@ export default async function Player({params}:Props){
     participationLeader&&{kind:'appearances',label:'Más participaciones',value:participationLeader.name,detail:`${number(participationLeader.participations)} ediciones`,photo:courtPhoto(participationLeader.rawName)},
   ].filter((item):item is {kind:string;label:string;value:string;detail:string;photo:Photo|null}=>Boolean(item)).slice(0,5);
 
-  const galleryCandidates=[portrait,...Object.values(championPhotos).filter(photo=>photo.alt.includes(player.name)),playerEditionPhoto(player.name,1)].filter((photo):photo is Photo=>Boolean(photo));
+  const galleryCandidates=[
+    portrait,
+    ...Object.values(championPhotos).filter(photo=>photo.alt.includes(player.name)),
+    ...Array.from({length:5},(_,index)=>playerEditionPhoto(player.name,index)),
+  ].filter((photo):photo is Photo=>Boolean(photo));
   const galleryPhotos=[...new Map(galleryCandidates.map(photo=>[photo.src,photo])).values()].slice(0,3);
 
   const recent:RecentMatch[]=[...player.matches].sort((a,b)=>chronological(b,a)).slice(0,20).map(match=>({record:toMatchRecord(match),won:winnerName(match)===player.name,surface:surfaceLabel[match.surface],opponent:match.player1.name===player.name?match.player2.name:match.player1.name}));
@@ -183,7 +187,7 @@ export default async function Player({params}:Props){
         {rankingPoints.length?<PlayerRankingSlider points={rankingPoints}/>:null}
       </div>:null}
 
-      {galleryPhotos.length?<section className={`pp-section ${styles.mediaSection}`} aria-labelledby="pp-media-title"><div className="pp-section-heading"><div><h2 id="pp-media-title">Momentos del archivo</h2></div></div><div className={styles.mediaGallery}>{galleryPhotos.map((photo,index)=><figure key={photo.src} data-featured={index===0||undefined}><Image src={photo.src} alt={photo.alt} fill sizes={index===0?'(max-width: 759px) 100vw, 620px':'(max-width: 759px) 100vw, 310px'} style={{objectPosition:photo.objectPosition}}/><figcaption><span>{photo.alt}</span></figcaption></figure>)}</div></section>:null}
+      {galleryPhotos.length===3?<section className={`pp-section ${styles.mediaSection}`} aria-labelledby="pp-media-title"><div className="pp-section-heading"><div><h2 id="pp-media-title">Momentos del archivo</h2></div></div><div className={styles.mediaGallery}>{galleryPhotos.map((photo,index)=><figure key={photo.src} data-featured={index===0||undefined}><Image src={photo.src} alt={photo.alt} fill sizes={index===0?'(max-width: 759px) 100vw, 620px':'(max-width: 759px) 100vw, 310px'} style={{objectPosition:photo.objectPosition}}/><figcaption><span>{photo.alt}</span></figcaption></figure>)}</div></section>:null}
 
       {tournaments.length?<section className="pp-section pp-tournaments" id="torneos" aria-labelledby="pp-tournaments-title"><PlayerTournamentArchive tournaments={tournaments.slice(0,18).map(tournament=>{
         const branding=tournamentBrandingFor(tournament.rawName);
