@@ -15,6 +15,7 @@ export type MatchSearchPreview = {
   date: string;
   players: [{ name: string; countryCode: string }, { name: string; countryCode: string }];
   scores: [string[], string[]];
+  setWinners: Array<0 | 1 | null>;
   winnerIndex?: 0 | 1;
 };
 
@@ -39,8 +40,9 @@ function PreviewScore({ match }: { match: MatchSearchPreview }) {
       <span className={styles.previewSets} aria-label={`Sets de ${player.name}`}>
         {Array.from({ length: Math.max(5, match.scores[side].length) }, (_, index) => {
           const offset = Math.max(0, 5 - match.scores[side].length);
-          const value = index >= offset ? match.scores[side][index - offset] : '';
-          return <span key={index}>{value}</span>;
+          const scoreIndex = index - offset;
+          const value = scoreIndex >= 0 ? match.scores[side][scoreIndex] : '';
+          return <span data-set-won={match.setWinners[scoreIndex] === side || undefined} key={index}>{value}</span>;
         })}
       </span>
     </div>)}
@@ -197,7 +199,7 @@ export default function MatchSearchBar({ query, categories, rounds, years, activ
     <div ref={control} id="match-search-tools" className={styles.searchControl} data-search-open={searchOpen || undefined} data-filters-open={filtersOpen || undefined} aria-busy={pending || previewLoading} role={searchOpen && mobileDialog ? 'dialog' : undefined} aria-modal={searchOpen && mobileDialog ? true : undefined} aria-label={searchOpen ? 'Buscar partidos' : undefined}>
       <div className={styles.controlMain}>
         {viewSwitch}
-        <button className={styles.discoveryTrigger} type="button" aria-label="Buscar y filtrar partidos" aria-expanded={searchOpen} onClick={() => setSearchOpen(true)}><Search size={18} aria-hidden="true" /></button>
+        <button className={styles.discoveryTrigger} type="button" aria-label="Buscar y filtrar partidos" aria-expanded={searchOpen} onClick={() => setSearchOpen(true)}><span>Buscar</span><Search size={18} aria-hidden="true" /></button>
       </div>
 
       <div className={styles.searchPopover}>

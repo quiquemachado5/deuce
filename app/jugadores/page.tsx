@@ -77,7 +77,7 @@ export default async function Players({ searchParams }: {
       {!pairs && term && <p className="sr-only" aria-live="polite">{number(total)} {total === 1 ? 'jugador encontrado' : 'jugadores encontrados'}.</p>}
 
       {!pairs && visiblePlayers.length > 0 && <section className={styles.playerGrid} aria-label={term ? 'Resultados de jugadores' : 'Directorio de jugadores'}>
-        {visiblePlayers.map((player, index) => <Link className={`${styles.playerCard} ${styles.cardSwapPrototype}`} href={player.href} key={player.record.name}>
+        {visiblePlayers.map((player, index) => <Link className={`${styles.playerCard} ${styles.cardSwapPrototype}`} href={player.href} prefetch={true} key={player.record.name}>
           <div className={styles.photo} style={player.photo ? {
             '--photo-position': player.photo.objectPosition || 'center top',
             '--photo-mobile-position': player.photo.mobileObjectPosition || player.photo.objectPosition || 'center top',
@@ -91,7 +91,7 @@ export default async function Players({ searchParams }: {
           <div className={styles.cardBody}>
             <div className={styles.cardTitle}>
               <h2>{player.record.name}</h2>
-              <span className={styles.profileAction}><span className={styles.profileLabel}>Ver perfil</span><ArrowRight size={16} aria-hidden="true"/></span>
+              <span className={styles.profileAction} aria-hidden="true"><ArrowRight size={17} strokeWidth={2.7}/></span>
             </div>
             <dl className={styles.stats}>
               <div><dt>Victorias</dt><dd>{number(player.record.wins)}</dd></div>

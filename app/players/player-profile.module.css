@@ -241,12 +241,14 @@
 .profilePage :global(.pp-ranking-slider>button:nth-of-type(2)){right:16px}
 .profilePage :global(.pp-ranking-slider>button:hover){background:rgba(255,255,255,.82);color:#0a3027;transform:translateY(-50%)}
 .profilePage :global(.pp-ranking-slider>button:focus-visible){outline:3px solid #1c7a50;outline-offset:3px}
-.profilePage :global(.pp-ranking-slider>article){display:grid;min-height:350px;flex:1;grid-template-columns:repeat(2,minmax(0,1fr));align-items:center;padding:42px 82px;border-radius:24px;background:#f4f2eb;color:#13211d;animation:rankingSwap .36s cubic-bezier(.22,1,.36,1) both}
+.profilePage :global(.pp-ranking-slider>article){display:grid;min-height:350px;flex:1;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);align-items:center;gap:34px;padding:42px 82px;border-radius:24px;background:#f4f2eb;color:#13211d;animation:rankingSwap .36s cubic-bezier(.22,1,.36,1) both}
 .profilePage :global(.pp-ranking-slider>article>div){display:grid;gap:14px}
 .profilePage :global(.pp-ranking-slider>article>div:last-child){justify-items:end;text-align:right}
 .profilePage :global(.pp-ranking-slider>article span){color:#6d746f;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
 .profilePage :global(.pp-ranking-slider>article strong){color:#46514d;font:690 clamp(68px,6.4vw,104px)/.82 var(--font-display);letter-spacing:-.045em;font-variant-numeric:tabular-nums}
 .profilePage :global(.pp-ranking-slider>article>div:last-child strong){color:#4d5f58}
+.profilePage :global(.pp-ranking-slider>article[data-rank-digits="3"]>div:last-child strong){font-size:clamp(54px,5.2vw,82px)}
+.profilePage :global(.pp-ranking-slider>article[data-rank-digits="4"]>div:last-child strong){font-size:clamp(46px,4.4vw,70px)}
 .profilePage :global(.pp-ranking-slider>article[data-number-one] >div:last-child strong){color:#a7770b}
 @keyframes rankingSwap{from{opacity:.45;transform:translateY(5px)}to{opacity:1;transform:none}}
 
@@ -379,6 +381,8 @@
   .profilePage :global(.pp-ranking-slider>article>div),.profilePage :global(.pp-ranking-slider>article>div:last-child){justify-items:start;gap:9px;text-align:left}
   .profilePage :global(.pp-ranking-slider>article>div:last-child){justify-items:end;text-align:right}
   .profilePage :global(.pp-ranking-slider>article strong){font-size:clamp(38px,12vw,50px);white-space:nowrap}
+  .profilePage :global(.pp-ranking-slider>article[data-rank-digits="3"]>div:last-child strong){font-size:clamp(32px,10vw,43px)}
+  .profilePage :global(.pp-ranking-slider>article[data-rank-digits="4"]>div:last-child strong){font-size:clamp(28px,8.5vw,38px)}
   .profilePage :global(.pp-tournaments-heading){display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:22px}
   .profilePage :global(.pp-section.pp-tournaments){padding-inline:0}
   .profilePage :global(.pp-tournaments-heading h2){font-size:clamp(32px,9vw,42px);white-space:normal}

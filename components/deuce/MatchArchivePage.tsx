@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Check } from 'lucide-react';
 import PlayerFlag from '@/components/PlayerFlag';
 import type { MatchRecord } from '@/types/deuce';
-import { resolvedWinner } from '@/lib/deuce-score';
+import { resolvedSetClosed, resolvedWinner } from '@/lib/deuce-score';
 import { playerBiography } from '@/lib/player-bio';
 import styles from '@/app/buscar/search.module.css';
 
@@ -38,7 +38,8 @@ export function ArchiveMatchRow({ match, showContext = false, showTournamentCont
           const offset = Math.max(0, 5 - match.sets.length);
           const set = index >= offset ? match.sets[index - offset] : undefined;
           const tieBreak = set?.tieBreak?.[side];
-          return <span key={index}>{set ? set.games[side] : ''}{tieBreak != null ? <sup>{tieBreak}</sup> : null}</span>;
+          const setWon = Boolean(set && resolvedSetClosed(set) && set.games[side] > set.games[1 - side]);
+          return <span data-set-won={setWon || undefined} key={index}>{set ? set.games[side] : ''}{tieBreak != null ? <sup>{tieBreak}</sup> : null}</span>;
         })}
       </span>
     </div>})}

@@ -109,7 +109,7 @@ export function PlayerRankingSlider({points}:{points:RankingPoint[]}){
     <div className="pp-section-heading"><div><h2 id="pp-ranking-title">Ranking observado</h2></div></div>
     <div className="pp-ranking-slider" onPointerEnter={()=>setPaused(true)} onPointerLeave={()=>setPaused(false)} onFocusCapture={()=>setPaused(true)} onBlurCapture={()=>setPaused(false)}>
       <button type="button" onClick={()=>setIndex(value=>(value-1+points.length)%points.length)} aria-label="Temporada anterior"><ChevronLeft aria-hidden="true"/></button>
-      <article key={selected.year} data-number-one={selected.rank===1||undefined} aria-live="polite" aria-atomic="true" aria-label={`${selected.year}, ranking número ${selected.rank}`}><div><span>Año</span><strong>{selected.year}</strong></div><div><span>Ranking</span><strong>{selected.rank.toLocaleString('es-ES')}</strong></div></article>
+      <article key={selected.year} data-number-one={selected.rank===1||undefined} data-rank-digits={String(selected.rank).length} aria-live="polite" aria-atomic="true" aria-label={`${selected.year}, ranking número ${selected.rank}`}><div><span>Año</span><strong>{selected.year}</strong></div><div><span>Ranking</span><strong>{selected.rank.toLocaleString('es-ES')}</strong></div></article>
       <button type="button" onClick={()=>setIndex(value=>(value+1)%points.length)} aria-label="Temporada siguiente"><ChevronRight aria-hidden="true"/></button>
     </div>
   </section>;

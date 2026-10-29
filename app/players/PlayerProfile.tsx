@@ -17,12 +17,11 @@ import {
   type RivalCard,
 } from '@/components/player/PlayerProfileInteractive';
 import { toMatchRecord } from '@/data/map-match';
-import { notebook } from '@/lib/cuaderno/data';
+import { playerNotebook } from '@/lib/cuaderno/data';
 import { number, surfaceLabel } from '@/lib/cuaderno/model';
 import { chronological, roundLabel, roundPosition, winnerName } from '@/lib/editorial';
 import { pairSlug, playerSlug } from '@/lib/explore';
 import { tournamentName } from '@/lib/labels';
-import { canonicalName } from '@/lib/quality';
 import { courtPhoto, type Photo } from '@/lib/imagery';
 import { playerDirectoryPhoto, playerEditionPhoto } from '@/lib/player-imagery';
 import { handLabel, playerBiography } from '@/lib/player-bio';
@@ -58,25 +57,23 @@ function RankingHistory({matches,name}:{matches:Match[];name:string}){
 
 export async function generateMetadata({params,searchParams}:Props){
   const {slug}=await params,query=await searchParams;
-  const player=(await notebook()).players.find(entry=>playerSlug(entry.name)===slug);
+  const player=(await playerNotebook(slug))?.player;
   const title=`${player?.name||'Jugador'} — DEUCE`;
   const description=player?`${player.name}: carrera, rendimiento, temporadas, rivales y partidos en el archivo DEUCE.`:'Resultados de los torneos ATP guardados en DEUCE.';
   return {title,description,alternates:{canonical:`/jugadores/${slug}${query.year?`?year=${query.year}`:''}`},openGraph:{title,description,type:'profile',url:`/jugadores/${slug}`},twitter:{card:'summary_large_image',title,description}};
 }
 
 export default async function Player({params}:Props){
-  const {slug}=await params,data=await notebook();
-  const player=data.players.find(entry=>playerSlug(entry.name)===playerSlug(canonicalName(slug.replace(/-/g,' '))));
-  if(!player)notFound();
+  const {slug}=await params,data=await playerNotebook(slug);
+  if(!data)notFound();
+  const {player,record}=data;
   if(playerSlug(player.name)!==slug)permanentRedirect(`/jugadores/${playerSlug(player.name)}`);
-  const record=data.records.find(entry=>entry.name===player.name);
-  if(!record)notFound();
 
   const portrait=playerDirectoryPhoto(player.name),bio=playerBiography(player.name);
   const years=[...new Set(player.matches.map(match=>match.year))].sort((a,b)=>b-a);
   const latestYear=years[0],firstYear=years.at(-1)!;
   const activityLabel=firstYear===latestYear?String(firstYear):`${firstYear}–${latestYear}`;
-  const archiveYear=data.matches.reduce((maximum,match)=>Math.max(maximum,match.year),0);
+  const archiveYear=Math.max(...data.manifest.years);
   const status=latestYear>=archiveYear-1?'En activo':'Retirado';
   const winRate=player.played?player.won/player.played*100:0;
   const seasonMap=new Map<number,{wins:number;losses:number;titles:number;played:number}>();

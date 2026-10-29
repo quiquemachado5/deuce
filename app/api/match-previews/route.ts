@@ -19,6 +19,7 @@ export async function GET(request: Request) {
           record.sets.map(set => `${set.games[0]}${set.tieBreak?.[0] != null ? `⁽${set.tieBreak[0]}⁾` : ''}`),
           record.sets.map(set => `${set.games[1]}${set.tieBreak?.[1] != null ? `⁽${set.tieBreak[1]}⁾` : ''}`),
         ],
+        setWinners: record.sets.map(set => !set.completed || set.games[0] === set.games[1] ? null : set.games[0] > set.games[1] ? 0 : 1),
         winnerIndex: record.winnerIndex,
       };
     });
