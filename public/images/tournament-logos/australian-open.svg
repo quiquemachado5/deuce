@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 480" color="#d6ad4a" role="img" aria-labelledby="australian-title australian-desc">
+  <title id="australian-title">Norman Brookes Challenge Cup del Australian Open</title>
+  <desc id="australian-desc">Silueta dorada del trofeo masculino del Australian Open.</desc>
+  <defs>
+    <mask id="australian-silhouette">
+      <rect width="360" height="480" fill="black"/>
+      <path fill="white" d="M89 76C55 57 28 69 28 101c0 31 21 54 60 65l10-24c-28-9-43-23-43-40 0-13 9-20 20-17 9 2 14 11 11 20-2 7-8 12-16 14l9 20c24-7 37-23 36-43-1-9-9-16-26-20Z"/>
+      <path fill="black" d="M72 75c-21-1-34 9-34 27 0 23 17 41 53 52l3-8c-31-10-47-25-47-44 0-16 11-26 27-24l-2-3Z"/>
+      <path fill="white" d="M271 76c34-19 61-7 61 25 0 31-21 54-60 65l-10-24c28-9 43-23 43-40 0-13-9-20-20-17-9 2-14 11-11 20 2 7 8 12 16 14l-9 20c-24-7-37-23-36-43 1-9 9-16 26-20Z"/>
+      <path fill="black" d="M288 75c21-1 34 9 34 27 0 23-17 41-53 52l-3-8c31-10 47-25 47-44 0-16-11-26-27-24l2-3Z"/>
+      <path fill="white" d="M77 65h206l13 12-5 17H69l-5-17 13-12Z"/>
+      <path fill="white" d="M73 85h214c-4 70-38 111-107 111S77 155 73 85Z"/>
+      <path fill="black" d="M90 76c32-11 148-11 180 0-31 9-149 9-180 0Z"/>
+      <path fill="white" d="M144 187h72l11 17-10 16h-74l-10-16 11-17Z"/>
+      <path fill="white" d="M151 210h58l9 44h-76l9-44Z"/>
+      <path fill="white" d="M120 242h120l16 15-7 19H111l-7-19 16-15Z"/>
+      <path fill="white" d="M112 270h136l12 13-5 25H105l-5-25 12-13Z"/>
+      <path fill="white" d="M119 298h122l10 126H109l10-126Z"/>
+      <path fill="white" d="M101 414h158l13 17-7 22H95l-7-22 13-17Z"/>
+      <path fill="white" d="M84 445h192l14 15-8 15H78l-8-15 14-15Z"/>
+    </mask>
+  </defs>
+  <rect width="360" height="480" fill="currentColor" mask="url(#australian-silhouette)"/>
+</svg>

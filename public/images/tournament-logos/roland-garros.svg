@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 480" color="#d6ad4a" role="img" aria-labelledby="roland-title roland-desc">
+  <title id="roland-title">Copa de los Mosqueteros de Roland Garros</title>
+  <desc id="roland-desc">Silueta dorada del trofeo masculino de Roland Garros.</desc>
+  <defs>
+    <mask id="roland-silhouette">
+      <rect width="360" height="480" fill="black"/>
+      <path fill="white" d="M78 102C57 72 31 68 9 83c16 4 26 13 31 25-14-8-26-8-36-3 13 9 23 20 29 34 8 18 23 30 46 36l14-27c-18-6-28-16-31-30-2-10 2-20 16-16Z"/>
+      <path fill="black" d="M47 92c-10-5-19-5-27-3 17 10 26 24 28 42 2 15 13 27 29 34l5-10c-16-7-25-18-28-33-2-12-4-22-7-30Z"/>
+      <path fill="white" d="M282 102c21-30 47-34 69-19-16 4-26 13-31 25 14-8 26-8 36-3-13 9-23 20-29 34-8 18-23 30-46 36l-14-27c18-6 28-16 31-30 2-10-2-20-16-16Z"/>
+      <path fill="black" d="M313 92c10-5 19-5 27-3-17 10-26 24-28 42-2 15-13 27-29 34l-5-10c16-7 25-18 28-33 2-12 4-22 7-30Z"/>
+      <path fill="white" d="M48 107h264l10 15-8 18H46l-8-18 10-15Z"/>
+      <path fill="white" d="M52 132h256c-8 91-48 143-128 143S60 223 52 132Z"/>
+      <path fill="black" d="M69 124c29-16 193-16 222 0-28 13-194 13-222 0Z"/>
+      <path fill="white" d="M63 145h234v22H63z"/>
+      <path fill="white" d="M142 262h76l8 18-13 13h-66l-13-13 8-18Z"/>
+      <path fill="white" d="M147 282h66l15 55h-96l15-55Z"/>
+      <path fill="white" d="M120 326h120l14 14-7 19H113l-7-19 14-14Z"/>
+      <path fill="white" d="M83 354h194l13 16v82H70v-82l13-16Z"/>
+      <path fill="white" d="M63 440h234l13 16-8 19H58l-8-19 13-16Z"/>
+    </mask>
+  </defs>
+  <rect width="360" height="480" fill="currentColor" mask="url(#roland-silhouette)"/>
+</svg>

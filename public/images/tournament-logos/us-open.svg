@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 480" color="#d6ad4a" role="img" aria-labelledby="usopen-title usopen-desc">
+  <title id="usopen-title">Trofeo del US Open</title>
+  <desc id="usopen-desc">Silueta dorada del trofeo masculino del US Open.</desc>
+  <defs>
+    <mask id="usopen-silhouette">
+      <rect width="360" height="480" fill="black"/>
+      <circle fill="white" cx="180" cy="20" r="12"/>
+      <path fill="white" d="M169 28h22l6 28h-34l6-28ZM151 52h58l10 12-7 13h-64l-7-13 10-12Z"/>
+      <path fill="white" d="M137 70h86l13 18-7 15h-98l-7-15 13-18Z"/>
+      <path fill="white" d="M99 94h162l26 18-7 17H80l-7-17 26-18Z"/>
+      <path fill="white" d="M102 120h156v188c0 29-31 51-78 51s-78-22-78-51V120Z"/>
+      <path fill="white" d="M92 119h176l9 13-8 14H91l-8-14 9-13Z"/>
+      <path fill="white" d="M105 143C67 111 24 121 13 158c-12 42 11 83 69 130l18-20c-45-37-67-70-60-98 5-20 24-28 40-18 13 8 16 22 8 33-6 9-17 12-28 8l-7 22c26 9 51-1 62-22 10-20 5-37-10-50Z"/>
+      <path fill="black" d="M83 136c-23-12-49 0-57 26-10 36 11 73 62 115l6-7c-44-37-67-72-60-101 6-25 29-38 50-27l-1-6Z"/>
+      <path fill="white" d="M255 143c38-32 81-22 92 15 12 42-11 83-69 130l-18-20c45-37 67-70 60-98-5-20-24-28-40-18-13 8-16 22-8 33 6 9 17 12 28 8l7 22c-26 9-51-1-62-22-10-20-5-37 10-50Z"/>
+      <path fill="black" d="M277 136c23-12 49 0 57 26 10 36-11 73-62 115l-6-7c44-37 67-72 60-101-6-25-29-38-50-27l1-6Z"/>
+      <path fill="white" d="M150 346h60l13 17-10 19h-66l-10-19 13-17Z"/>
+      <path fill="white" d="M153 374h54l12 48h-78l12-48Z"/>
+      <path fill="white" d="M126 408h108l14 16-9 20H121l-9-20 14-16Z"/>
+      <path fill="white" d="M98 435h164l17 18-8 22H89l-8-22 17-18Z"/>
+    </mask>
+  </defs>
+  <rect width="360" height="480" fill="currentColor" mask="url(#usopen-silhouette)"/>
+</svg>

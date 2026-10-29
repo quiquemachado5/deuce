@@ -3,6 +3,7 @@ import { Check } from 'lucide-react';
 import PlayerFlag from '@/components/PlayerFlag';
 import type { MatchRecord } from '@/types/deuce';
 import { resolvedWinner } from '@/lib/deuce-score';
+import { playerBiography } from '@/lib/player-bio';
 import styles from '@/app/buscar/search.module.css';
 
 function dateKey(match: MatchRecord) {
@@ -22,13 +23,13 @@ function formatShortDate(value: string) {
   return new Intl.DateTimeFormat('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric', timeZone: 'UTC' }).format(parsed);
 }
 
-export function ArchiveMatchRow({ match, showContext = false }: { match: MatchRecord; showContext?: boolean }) {
+export function ArchiveMatchRow({ match, showContext = false, showTournamentContext = false }: { match: MatchRecord; showContext?: boolean; showTournamentContext?: boolean }) {
   const winner = resolvedWinner(match);
   return <Link className={styles.archiveMatch} href={match.href} prefetch={false} aria-label={`Ver ${match.players[0].name} contra ${match.players[1].name}`}>
-    {showContext ? <div className={styles.archiveMatchContext}>{match.round}{match.date ? ` · ${formatDate(match.date)}` : ''}</div> : null}
-    {match.players.map((player, side) => <div className={styles.archivePlayerRow} data-winner={winner === side || undefined} key={player.id}>
+    {showTournamentContext ? <div className={`${styles.archiveMatchContext} ${styles.archiveMatchContextProfile}`}><strong>{match.tournament}</strong><span>{match.round}{match.date ? ` · ${formatDate(match.date)}` : ''}</span></div> : showContext ? <div className={styles.archiveMatchContext}>{match.round}{match.date ? ` · ${formatDate(match.date)}` : ''}</div> : null}
+    {match.players.map((player, side) => {const countryCode=player.countryCode||playerBiography(player.name)?.country;return <div className={styles.archivePlayerRow} data-winner={winner === side || undefined} key={player.id}>
       <span className={styles.archivePlayer}>
-        <span className={styles.archiveFlag} aria-hidden="true">{player.countryCode ? <PlayerFlag code={player.countryCode} /> : null}</span>
+        <span className={styles.archiveFlag} aria-hidden="true">{countryCode ? <PlayerFlag code={countryCode} /> : null}</span>
         <strong>{player.name}</strong>
         {winner === side ? <Check className={styles.archiveWinnerMark} size={15} strokeWidth={2.5} aria-label="Ganador" /> : null}
       </span>
@@ -40,7 +41,7 @@ export function ArchiveMatchRow({ match, showContext = false }: { match: MatchRe
           return <span key={index}>{set ? set.games[side] : ''}{tieBreak != null ? <sup>{tieBreak}</sup> : null}</span>;
         })}
       </span>
-    </div>)}
+    </div>})}
   </Link>;
 }
 

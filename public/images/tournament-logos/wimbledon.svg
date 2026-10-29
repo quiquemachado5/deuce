@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 480" color="#d6ad4a" role="img" aria-labelledby="wimbledon-title wimbledon-desc">
+  <title id="wimbledon-title">Trofeo de Wimbledon</title>
+  <desc id="wimbledon-desc">Silueta dorada del trofeo masculino de Wimbledon.</desc>
+  <defs>
+    <mask id="wimbledon-silhouette">
+      <rect width="360" height="480" fill="black"/>
+      <path fill="white" d="M180 3l4 12 8-9-2 14 11-6-8 13c7 2 10 7 9 13 3 4 2 9-3 13-1 7-8 12-19 12s-18-5-19-12c-5-4-6-9-3-13-1-6 2-11 9-13l-8-13 11 6-2-14 8 9 4-12Z"/>
+      <path fill="white" d="M164 53h32l7 8-5 9h-36l-5-9 7-8Z"/>
+      <path fill="white" d="M130 61h100l12 10-5 12H123l-5-12 12-10Z"/>
+      <path fill="white" d="M111 82h138l17 14-4 13H98l-4-13 17-14Z"/>
+      <path fill="white" d="M86 105h188l14 14-6 13H78l-6-13 14-14Z"/>
+      <path fill="white" d="M91 126h178l-8 142c-2 40-34 72-81 72s-79-32-81-72L91 126Z"/>
+      <path fill="white" d="M85 132h190v24H85zM98 252h164v30H98z"/>
+      <path fill="white" d="M98 145C62 116 34 133 35 174c1 33 24 63 60 102l16-13c-31-36-51-62-52-88-1-18 8-27 21-25 11 2 16 13 10 22-4 7-12 9-20 7l-5 20c22 7 42-3 49-21 6-15 1-25-16-33Z"/>
+      <path fill="black" d="M77 141c-19-3-31 10-30 34 1 27 21 56 53 93l5-5c-29-34-48-62-49-87-1-20 10-33 26-31l-5-4Z"/>
+      <path fill="white" d="M262 145c36-29 64-12 63 29-1 33-24 63-60 102l-16-13c31-36 51-62 52-88 1-18-8-27-21-25-11 2-16 13-10 22 4 7 12 9 20 7l5 20c-22 7-42-3-49-21-6-15-1-25 16-33Z"/>
+      <path fill="black" d="M283 141c19-3 31 10 30 34-1 27-21 56-53 93l-5-5c29-34 48-62 49-87 1-20-10-33-26-31l5-4Z"/>
+      <path fill="white" d="M142 328h76l11 17-13 12h-72l-13-12 11-17Z"/>
+      <path fill="white" d="M155 352h50l9 47h-68l9-47Z"/>
+      <path fill="white" d="M135 390h90l18 16-7 17H124l-7-17 18-16Z"/>
+      <path fill="white" d="M108 416h144l14 11v37H94v-37l14-11Z"/>
+      <path fill="white" d="M82 455h196l13 10-7 10H76l-7-10 13-10Z"/>
+    </mask>
+  </defs>
+  <rect width="360" height="480" fill="currentColor" mask="url(#wimbledon-silhouette)"/>
+</svg>
