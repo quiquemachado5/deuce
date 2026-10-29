@@ -90,7 +90,7 @@ export default async function Player({params}:Props){
   const bestSeason=[...careerSeasons].sort((a,b)=>b.wins-a.wins||b.titles-a.titles)[0];
 
   const surfaceRows=SURFACES.flatMap(surface=>{const value=player.bySurface[surface];return value.played?[{key:surface,label:surfaceLabel[surface],played:value.played,wins:value.won,losses:value.played-value.won,rate:value.won/value.played*100}]:[];}).sort((a,b)=>b.played-a.played);
-  const displayedSurfaceRows=surfaceRows.filter(surface=>surface.key!=='carpet');
+  const displayedSurfaceRows=surfaceRows.filter(surface=>surface.key==='hard'||surface.key==='clay'||surface.key==='grass');
   const reliableSurfaces=surfaceRows.filter(surface=>surface.played>=10);
   const bestSurface=[...(reliableSurfaces.length?reliableSurfaces:surfaceRows)].sort((a,b)=>b.rate-a.rate||b.played-a.played)[0];
 
