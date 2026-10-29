@@ -1,0 +1,244 @@
+{
+  "Novak Djokovic": {
+    "src": "/images/players/directory/novak-djokovic.webp?v=53f8a06b",
+    "alt": "Novak Djokovic · 2024",
+    "credit": "Kuberzog · CC BY 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3ANovak_Djokovic_-_Roland-Garros_-_28.05.2024_croped.jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "photoYear": 2024,
+    "objectPosition": "50% 35%",
+    "mobileObjectPosition": "50% 35%"
+  },
+  "Rafael Nadal": {
+    "src": "/images/players/directory/rafael-nadal.webp?v=48e0d94a",
+    "alt": "Rafael Nadal · 2010",
+    "credit": "Christopher Johnson · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3ARafael_Nadal_-_Milos_Raonic_-_8500_Japan_Open_Tennis_Tokio_2010.jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+    "photoYear": 2010,
+    "objectPosition": "50% 33%",
+    "mobileObjectPosition": "50% 33%"
+  },
+  "Roger Federer": {
+    "src": "/images/players/directory/roger-federer.webp?v=2575e662",
+    "alt": "Roger Federer · 2012",
+    "credit": "Mike McCune · CC BY 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3ARoger_Federer_2012_Indian_Wells.jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+    "photoYear": 2012,
+    "objectPosition": "50% 32%",
+    "mobileObjectPosition": "50% 32%"
+  },
+  "Pete Sampras": {
+    "src": "/images/players/directory/pete-sampras.webp?v=22d2a0d4",
+    "alt": "Pete Sampras",
+    "credit": "Shinya Suzuki · CC BY 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3APete_Sampras_Champions_Shootout.jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+    "objectPosition": "50% 25%",
+    "mobileObjectPosition": "50% 25%"
+  },
+  "Bjorn Borg": {
+    "src": "/images/players/directory/bjorn-borg.webp?v=42cb6349",
+    "alt": "Bjorn Borg · 1979",
+    "credit": "Rob Croes / Anefo · CC0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3ABj%C3%B6rn_Borg_in_aktie%2C_Bestanddeelnr_930-2092.jpg",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "photoYear": 1979,
+    "objectPosition": "50% 40%",
+    "mobileObjectPosition": "50% 40%"
+  },
+  "Jimmy Connors": {
+    "src": "/images/players/directory/jimmy-connors.webp?v=5764a6de",
+    "alt": "Jimmy Connors · 1978",
+    "credit": "Koen Suyk / Anefo · CC BY 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AJimmy_Connors_2_(1978).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "photoYear": 1978,
+    "objectPosition": "50% 24%",
+    "mobileObjectPosition": "50% 24%"
+  },
+  "Andre Agassi": {
+    "src": "/images/players/directory/andre-agassi.webp?v=a8c638ab",
+    "alt": "Andre Agassi · 2006",
+    "credit": "Akademan · CC BY-SA 2.5 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AAndre_Agassi_Indian_Wells_2006.jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5/",
+    "photoYear": 2006,
+    "objectPosition": "50% 24%",
+    "mobileObjectPosition": "50% 24%"
+  },
+  "Ivan Lendl": {
+    "src": "/images/players/directory/ivan-lendl.webp?v=a5e5c444",
+    "alt": "Ivan Lendl · 1983",
+    "credit": "Rob Croes / Anefo · CC0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AFinale_ABN_Tennistoernooi_Rotterdam_Lendl_in_actie%2C_Bestanddeelnr_932-9002.jpg",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "photoYear": 1983,
+    "objectPosition": "50% 30%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "John McEnroe": {
+    "src": "/images/players/directory/john-mcenroe.webp?v=f87d2010",
+    "alt": "John McEnroe",
+    "credit": "Nrbelex · CC BY-SA 2.5 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AJohn_McEnroe_WTT.jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5/",
+    "objectPosition": "50% 24%",
+    "mobileObjectPosition": "50% 24%"
+  },
+  "Mats Wilander": {
+    "src": "/images/players/directory/mats-wilander.webp?v=40842b72",
+    "alt": "Mats Wilander",
+    "credit": "Robbie Mendelson · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AMats_Wilander.jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+    "objectPosition": "50% 30%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Carlos Alcaraz": {
+    "src": "/images/players/directory/carlos-alcaraz.webp?v=c7e36c7b",
+    "alt": "Carlos Alcaraz · 2026",
+    "credit": "Oleg Yunakov · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3ACarlos_Alcaraz_(2026_US_Open)_-_01.jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "photoYear": 2026,
+    "objectPosition": "50% 24%",
+    "mobileObjectPosition": "50% 24%"
+  },
+  "Stefan Edberg": {
+    "src": "/images/players/directory/stefan-edberg.webp?v=3d22df15",
+    "alt": "Stefan Edberg · 2009",
+    "credit": "Nuvolari72 · CC BY-SA 3.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AEdberg_2009.jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "photoYear": 2009,
+    "objectPosition": "50% 24%",
+    "mobileObjectPosition": "50% 24%"
+  },
+  "Boris Becker": {
+    "src": "/images/players/directory/boris-becker.webp?v=0d26109d",
+    "alt": "Boris Becker · 1988",
+    "credit": "Mauritz Antin · CC BY 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3ADavis_Cup_tennis_tournament_in_Frankfurt_in_1988_(JOKAMAA2C-1).tif",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "photoYear": 1988,
+    "objectPosition": "50% 26%",
+    "mobileObjectPosition": "50% 26%"
+  },
+  "Rod Laver": {
+    "src": "/images/players/directory/rod-laver.webp?v=a6b74423",
+    "alt": "Rod Laver · 1961",
+    "credit": "Anefo · CC0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3ARod_Laver_(Australi%C3%AB)_tennis%2C_Bestanddeelnr_912-6997.jpg",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "photoYear": 1961,
+    "objectPosition": "50% 24%",
+    "mobileObjectPosition": "50% 24%"
+  },
+  "John Newcombe": {
+    "src": "/images/players/directory/john-newcombe.webp?v=524dd1f4",
+    "alt": "John Newcombe",
+    "credit": "Anefo · CC0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AJohn_Newcombe_in_actie%2C_Bestanddeelnr_922-6010.jpg",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "objectPosition": "50% 38%",
+    "mobileObjectPosition": "50% 38%"
+  },
+  "Guillermo Vilas": {
+    "src": "/images/players/directory/guillermo-vilas.webp?v=2b14683d",
+    "alt": "Guillermo Vilas · 1975",
+    "credit": "Bert Verhoeff / Anefo · CC0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AGuillermo_Vilas_1975.jpg",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "photoYear": 1975,
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 28%"
+  },
+  "Ken Rosewall": {
+    "src": "/images/players/directory/ken-rosewall.webp?v=ee867042",
+    "alt": "Ken Rosewall",
+    "credit": "Anefo · CC0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3ADe_Australi%C3%ABr_Ken_Rosewall_in_actie_tegen_Tom_Okker%2C_Bestanddeelnr_923-6454.jpg",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "objectPosition": "50% 30%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Jim Courier": {
+    "src": "/images/players/directory/jim-courier.webp?v=aea003fc",
+    "alt": "Jim Courier · 2007",
+    "credit": "Wknight94 · CC BY-SA 3.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AJim_Courier_2007.jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "photoYear": 2007,
+    "objectPosition": "50% 24%",
+    "mobileObjectPosition": "50% 24%"
+  },
+  "Jannik Sinner": {
+    "src": "/images/players/directory/jannik-sinner.webp?v=60aa74e8",
+    "alt": "Jannik Sinner · 2024",
+    "credit": "Hameltion · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AJannik_Sinner_(2024_US_Open)_01.jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "photoYear": 2024,
+    "objectPosition": "50% 24%",
+    "mobileObjectPosition": "50% 24%"
+  },
+  "Arthur Ashe": {
+    "src": "/images/players/directory/arthur-ashe.webp?v=2fdaf19c",
+    "alt": "Arthur Ashe",
+    "credit": "Rob Bogaerts / Anefo · CC0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AABN-wereldtennistoernooi_in_Rotterdam_Arthur_Ashe_in_actie%2C_Bestanddeelnr_927-7839.jpg",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "objectPosition": "50% 38%",
+    "mobileObjectPosition": "50% 38%"
+  },
+  "Andy Murray": {
+    "src": "/images/players/directory/andy-murray.webp?v=5715f01b",
+    "alt": "Andy Murray · 2011",
+    "credit": "Christopher Johnson · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AAndy_Murray_Tokyo_2011.jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+    "photoYear": 2011,
+    "objectPosition": "50% 24%",
+    "mobileObjectPosition": "50% 24%"
+  },
+  "Stan Wawrinka": {
+    "src": "/images/players/directory/stan-wawrinka.webp?v=08909932",
+    "alt": "Stan Wawrinka · 2024",
+    "credit": "Peter Arnold · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AStan_Wawrinka%2C_Basel_2024.jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "photoYear": 2024,
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 28%"
+  },
+  "Gustavo Kuerten": {
+    "src": "/images/players/directory/gustavo-kuerten.webp?v=0db6d7e1",
+    "alt": "Gustavo Kuerten",
+    "credit": "Geraldo Magela / Agência Senado · CC BY 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AGuga_Kuerten.jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+    "objectPosition": "50% 24%",
+    "mobileObjectPosition": "50% 24%"
+  },
+  "Ilie Nastase": {
+    "src": "/images/players/directory/ilie-nastase.webp?v=dbd7715a",
+    "alt": "Ilie Nastase",
+    "credit": "Bert Verhoeff / Anefo · CC0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AIlie_N%C4%83stase_(Davis_Cup).jpg",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 28%"
+  },
+  "Stan Smith": {
+    "src": "/images/players/directory/stan-smith.webp?v=a67bf721",
+    "alt": "Stan Smith · 2009",
+    "credit": "Robbie Mendelson · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AStan_Smith_2009_US_Open_01.jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+    "photoYear": 2009,
+    "objectPosition": "50% 24%",
+    "mobileObjectPosition": "50% 24%"
+  }
+}

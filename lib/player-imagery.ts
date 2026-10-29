@@ -1,6 +1,7 @@
 import cached from './player-photo-manifest.json'
 import refreshed from './player-photo-refresh.json'
 import documented from './player-photo-additions.json'
+import directory from './player-directory-photo-manifest.json'
 import type { Photo } from './imagery'
 import { playerPhotoFocus } from './player-photo-focus'
 
@@ -19,7 +20,71 @@ const curated: Record<string, Photo> = {
     credit: '350z33 · adaptación WebP por DEUCE · CC BY-SA 4.0',
     source: 'https://commons.wikimedia.org/wiki/File:RafaelNadal2022USOpen_(cropped).jpg',
     licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
+    objectPosition: '50% 40%',
+    mobileObjectPosition: '50% 38%',
   },
+}
+
+// The directory gives its largest slots to a small set of familiar players.
+// These documented, higher-resolution moments avoid stretching their compact
+// profile portraits while keeping the same archive-led photographic language.
+export const directoryPlayerPhotos: Record<string, Photo> = {
+  'Novak Djokovic': {
+    src: '/images/editorial/champions/novak-djokovic-wimbledon-2019.webp',
+    alt: 'Novak Djokovic levanta el trofeo de Wimbledon 2019',
+    credit: 'Peter Menzel · CC BY-SA 2.0',
+    source: 'https://commons.wikimedia.org/wiki/File:Novak_Djokovic_Trophy_Wimbledon_2019_-edited.jpg',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/2.0/',
+    photoYear: 2019,
+    objectPosition: '50% 32%',
+    mobileObjectPosition: '50% 28%',
+  },
+  'Rafael Nadal': curated['Rafael Nadal'],
+  'Roger Federer': {
+    src: '/images/editorial/records/roger-federer-wimbledon-2005.webp',
+    alt: 'Roger Federer saluda al público sobre la hierba de Wimbledon 2005',
+    credit: 'Derek Holtham · CC BY-SA 3.0 · recorte editorial DEUCE',
+    source: 'https://commons.wikimedia.org/wiki/File:Roger_Federer_at_Wimbledon_2005.jpg',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/3.0/',
+    photoYear: 2005,
+    objectPosition: '50% 25%',
+    mobileObjectPosition: '50% 22%',
+  },
+  'Andy Murray': {
+    src: '/images/editorial/records/andy-murray-wimbledon-2013.webp',
+    alt: 'Andy Murray celebra con el trofeo de Wimbledon 2013',
+    credit: 'Robbie Dale · CC BY-SA 2.0',
+    source: 'https://commons.wikimedia.org/wiki/File:Murray_and_the_Wimbledon_Trophy.jpg',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/2.0/',
+    photoYear: 2013,
+    objectPosition: '50% 32%',
+    mobileObjectPosition: '52% 25%',
+  },
+  'Carlos Alcaraz': {
+    src: '/images/editorial/champions/carlos-alcaraz-wimbledon-2023.webp',
+    alt: 'Carlos Alcaraz levanta el trofeo de Wimbledon 2023',
+    credit: 'Daniel Cooper · CC BY-SA 2.0',
+    source: 'https://commons.wikimedia.org/wiki/File:Carlos_Alcaraz_Wimbledon_2023_Gentlemen%27s_Singles_Trophy.jpg',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/2.0/',
+    photoYear: 2023,
+    objectPosition: '50% 27%',
+    mobileObjectPosition: '50% 21%',
+  },
+  'Jannik Sinner': {
+    src: '/images/editorial/champions/jannik-sinner-wimbledon-2026.webp',
+    alt: 'Jannik Sinner sostiene el trofeo de Wimbledon 2026',
+    credit: 'Daniel Cooper · CC BY-SA 4.0',
+    source: 'https://commons.wikimedia.org/wiki/File:Jannik_Sinner_Wimbledon_2026_trophy_(cropped).jpg',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
+    photoYear: 2026,
+    objectPosition: '50% 27%',
+    mobileObjectPosition: '50% 22%',
+  },
+  ...(directory as Record<string, Photo>),
+}
+
+export function playerDirectoryPhoto(name: string): Photo | null {
+  return directoryPlayerPhotos[name] || playerPhoto(name)
 }
 
 // These final overrides favour the moment over the portrait: play, ceremony and
