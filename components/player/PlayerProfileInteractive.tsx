@@ -9,7 +9,7 @@ import PlayerFlag from '@/components/PlayerFlag';
 import { ArchiveMatchRow } from '@/components/deuce/MatchArchivePage';
 import type { MatchRecord } from '@/types/deuce';
 
-const sections=[['resumen','Resumen','always'],['rendimiento','Rendimiento','always'],['temporadas','Temporadas','always'],['torneos','Torneos','tournaments'],['enfrentamientos','Enfrentamientos','rivals'],['partidos','Partidos','always']] as const;
+const sections=[['resumen','Resumen','always'],['rendimiento','Rendimiento','always'],['temporadas','Temporadas','seasons'],['torneos','Torneos','tournaments'],['enfrentamientos','Enfrentamientos','rivals'],['partidos','Partidos','always']] as const;
 
 function useHorizontalScrollCue<T extends HTMLElement>(){
   const ref=useRef<T>(null);
@@ -33,10 +33,10 @@ function useHorizontalScrollCue<T extends HTMLElement>(){
   return ref;
 }
 
-export function PlayerProfileNav({hasRivals=true,hasTournaments=true}:{hasRivals?:boolean;hasTournaments?:boolean}){
+export function PlayerProfileNav({hasRivals=true,hasTournaments=true,hasSeasons=true}:{hasRivals?:boolean;hasTournaments?:boolean;hasSeasons?:boolean}){
   const [active,setActive]=useState('resumen');
   const scrollRef=useHorizontalScrollCue<HTMLElement>();
-  const visibleSections=useMemo(()=>sections.filter(([, ,condition])=>condition==='always'||condition==='rivals'&&hasRivals||condition==='tournaments'&&hasTournaments),[hasRivals,hasTournaments]);
+  const visibleSections=useMemo(()=>sections.filter(([, ,condition])=>condition==='always'||condition==='rivals'&&hasRivals||condition==='tournaments'&&hasTournaments||condition==='seasons'&&hasSeasons),[hasRivals,hasSeasons,hasTournaments]);
   useEffect(()=>{
     const observer=new IntersectionObserver(entries=>{
       const visible=entries.filter(entry=>entry.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];

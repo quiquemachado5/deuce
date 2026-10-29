@@ -214,6 +214,7 @@
 .archiveNotes small{display:block;margin-top:9px;color:#64716b;font-size:9px;line-height:1.4}
 
 .analysisGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:stretch}
+.analysisGrid>:only-child{grid-column:1/-1}
 .analysisGrid>:global(.pp-section){min-width:0;height:100%;padding:34px}
 .analysisGrid :global(.pp-section-heading h2),
 .analysisGrid :global(.pp-career-header h2){font-size:clamp(34px,3.2vw,48px)}

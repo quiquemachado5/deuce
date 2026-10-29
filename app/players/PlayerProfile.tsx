@@ -42,7 +42,7 @@ function categoryPriority(category:string){
   return 4;
 }
 
-function RankingHistory({matches,name}:{matches:Match[];name:string}){
+function rankingHistoryPoints(matches:Match[],name:string){
   const yearly=new Map<number,number>();
   for(const match of matches){
     if(match.context?.rankLabel!=='Ranking al jugar')continue;
@@ -51,8 +51,7 @@ function RankingHistory({matches,name}:{matches:Match[];name:string}){
       yearly.set(match.year,Math.min(yearly.get(match.year)||Infinity,rank));
     }
   }
-  const points:RankingPoint[]=[...yearly].sort((a,b)=>a[0]-b[0]).map(([year,rank])=>({year,rank}));
-  return points.length?<PlayerRankingSlider points={points}/>:null;
+  return [...yearly].sort((a,b)=>a[0]-b[0]).map(([year,rank]):RankingPoint=>({year,rank}));
 }
 
 export async function generateMetadata({params,searchParams}:Props){
@@ -84,6 +83,9 @@ export default async function Player({params}:Props){
     seasonMap.set(match.year,season);
   }
   const careerSeasons:CareerSeason[]=[...seasonMap].sort((a,b)=>a[0]-b[0]).map(([year,season])=>({year,...season}));
+  const rankingPoints=rankingHistoryPoints(player.matches,player.name);
+  const showCareerEvolution=careerSeasons.length>=2;
+  const showSeasonAnalysis=showCareerEvolution||rankingPoints.length>0;
   const bestSeason=[...careerSeasons].sort((a,b)=>b.wins-a.wins||b.titles-a.titles)[0];
 
   const surfaceRows=SURFACES.flatMap(surface=>{const value=player.bySurface[surface];return value.played?[{key:surface,label:surfaceLabel[surface],played:value.played,wins:value.won,losses:value.played-value.won,rate:value.won/value.played*100}]:[];}).sort((a,b)=>b.played-a.played);
@@ -161,7 +163,7 @@ export default async function Player({params}:Props){
       <section className={styles.careerBoard} aria-label="Resumen de carrera">{coreMetrics.map(metric=><article key={metric.label}><span>{metric.label}</span><strong>{metric.value}</strong><small>{metric.context}</small></article>)}</section>
     </div>
 
-    <PlayerProfileNav hasRivals={rivals.length>=2} hasTournaments={tournaments.length>0}/>
+    <PlayerProfileNav hasRivals={rivals.length>=2} hasTournaments={tournaments.length>0} hasSeasons={showSeasonAnalysis}/>
 
     <main className="pp-content">
       <section className={`pp-section pp-performance ${styles.careerSummary}`} id="rendimiento" aria-labelledby="pp-performance-title">
@@ -176,10 +178,10 @@ export default async function Player({params}:Props){
         {insights.length?<dl className={styles.archiveNotes}>{insights.map(insight=><div key={insight.label} data-kind={insight.kind} data-has-photo={Boolean(insight.photo)||undefined}>{insight.photo&&<><Image src={insight.photo.src} alt="" fill sizes="(max-width: 759px) 78vw, 240px" style={{objectPosition:insight.photo.objectPosition}}/><span aria-hidden="true"/></>}<dt>{insight.label}</dt><dd>{insight.value}</dd><small>{insight.detail}</small></div>)}</dl>:null}
       </section>
 
-      <div className={styles.analysisGrid}>
-        <section className="pp-section pp-seasons" id="temporadas" aria-labelledby="pp-seasons-title"><PlayerCareerTimeline seasons={careerSeasons}/></section>
-        <RankingHistory matches={player.matches} name={player.name}/>
-      </div>
+      {showSeasonAnalysis?<div className={styles.analysisGrid} id="temporadas">
+        {showCareerEvolution?<section className="pp-section pp-seasons" aria-labelledby="pp-seasons-title"><PlayerCareerTimeline seasons={careerSeasons}/></section>:null}
+        {rankingPoints.length?<PlayerRankingSlider points={rankingPoints}/>:null}
+      </div>:null}
 
       {galleryPhotos.length?<section className={`pp-section ${styles.mediaSection}`} aria-labelledby="pp-media-title"><div className="pp-section-heading"><div><h2 id="pp-media-title">Momentos del archivo</h2></div></div><div className={styles.mediaGallery}>{galleryPhotos.map((photo,index)=><figure key={photo.src} data-featured={index===0||undefined}><Image src={photo.src} alt={photo.alt} fill sizes={index===0?'(max-width: 759px) 100vw, 620px':'(max-width: 759px) 100vw, 310px'} style={{objectPosition:photo.objectPosition}}/><figcaption><span>{photo.alt}</span></figcaption></figure>)}</div></section>:null}
 

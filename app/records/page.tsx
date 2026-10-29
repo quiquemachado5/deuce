@@ -3,36 +3,23 @@ import type { CSSProperties } from "react";
 import { ArchivePage } from "@/components/deuce/ArchivePage";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import {
-  ChevronLeft,
-  ChevronRight,
-  Plus,
-} from "lucide-react";
-import { number } from "@/lib/cuaderno/model";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { recordView } from "@/lib/revista/read-records";
-import { description } from "@/lib/revista/records";
 import { RecordEras, recordValue } from "@/components/nocturno/RecordsViews";
 import { recordFilters, recordsUrl, type RecordQuery } from "@/lib/records-url";
 import { evidenceHref } from "@/lib/record-evidence";
 import ArchiveNotice from "@/components/nocturno/ArchiveNotice";
 import RecordsControls from "@/components/RecordsControls";
 import RecordsTable, { RecordsPagination } from "@/components/RecordsTable";
-import { canonicalSearchText } from "@/lib/search-text";
 import styles from "./records.module.css";
 import type { RecordMeta } from "@/lib/revista/snapshot";
 import redesign from "./records-redesign.module.css";
 import { recordPhoto } from "@/lib/editorial-imagery";
 import { playerEditionPhoto, playerPhoto } from "@/lib/player-imagery";
 import type { Photo } from "@/lib/imagery";
-import RecordsRankings, {
-  type RecordsRankingSet,
-} from "@/components/records/RecordsRankings";
-import RecordJumpLink from "@/components/records/RecordJumpLink";
-import RecordsAnimatedValue from "@/components/records/RecordsAnimatedValue";
-import RecordsSurfaceChart from "@/components/records/RecordsSurfaceChart";
-import RecordsVideoCarousel from "@/components/records/RecordsVideoCarousel";
-import RecordsFamilyNav from "@/components/records/RecordsFamilyNav";
-import RecordsSurfaceSlider from "@/components/records/RecordsSurfaceSlider";
+import RecordsRoom, { type RoomPiece } from "@/components/records/RecordsRoom";
+import RecordsBoard, { type BoardReading } from "@/components/records/RecordsBoard";
+import indexStyles from "./records-index.module.css";
 
 const families = [
   ["Títulos y finales", "Títulos y finales"],
@@ -121,575 +108,93 @@ async function RecordIndex({
   manifest: Awaited<ReturnType<typeof recordView>>["manifest"];
   query: RecordQuery;
 }) {
-  const groups = [...new Set(manifest.pieces.map((piece) => piece.group))];
-  const selected =
-    query.grupo && groups.includes(query.grupo) ? query.grupo : "";
-  const term = canonicalSearchText(query.q || "");
-  const pieces = manifest.pieces.filter(
-    (piece) =>
-      (!selected || piece.group === selected) &&
-      (!term ||
-        canonicalSearchText(
-          `${piece.title} ${piece.group} ${piece.leader?.name || ""}`,
-        ).includes(term)),
-  );
-  const visibleGroups = (selected ? [selected] : groups).filter((group) =>
-    pieces.some((piece) => piece.group === group),
-  );
-  const overview = !selected && !term;
-  const [rankingViews, insightViews] = overview
-    ? await Promise.all([
-        Promise.all(
-          ["victorias", "finales-ganadas", "efectividad-top-10"].map(
-            (dato) => recordView(JSON.stringify({ dato })),
-          ),
-        ),
-        Promise.all(
-          [
-            "efectividad-hard",
-            "efectividad-clay",
-            "efectividad-grass",
-            "mas-juegos",
-            "efectividad-finales",
-            "remontada-dos-sets",
-            "aces",
-            "titulos-grass",
-            "titulos-clay",
-            "titulos-hard",
-          ].map((dato) => recordView(JSON.stringify({ dato }))),
-        ),
-      ])
-    : [[], []];
-  const rankingSets: RecordsRankingSet[] = rankingViews.flatMap((ranking) =>
-    ranking.piece
-      ? (() => {
-          const rankingLeader = ranking.rows[0];
-          const photo = rankingLeader ? portraitFor(rankingLeader.name) : null;
-          return [
-            {
-            id: ranking.piece.id,
-            title: ranking.piece.title,
-            shortTitle:
-              ranking.piece.id === "victorias"
-                ? "Victorias"
-                : ranking.piece.id === "finales-ganadas"
-                  ? "Finales"
-                  : "Ante el top 10",
-            photo: photo
-              ? {
-                  src: photo.src,
-                  alt: photo.alt,
-                  objectPosition: photo.objectPosition,
-                  mobileObjectPosition: photo.mobileObjectPosition,
-                }
-              : undefined,
-            rows: ranking.rows.map((row) => ({
-              name: row.name,
-              href: row.href,
-              detail: row.detail,
-              value: row.value,
-              display: recordValue(
-                row,
-                ranking.piece!.percent,
-                ranking.piece!.id === "tal-dia-como-hoy",
-              ),
-            })),
-            },
-          ];
-        })()
-      : [],
-  );
-  const insightById = new Map(
-    insightViews.flatMap((view) =>
-      view.piece ? [[view.piece.id, view.piece] as const] : [],
-    ),
-  );
-  const manifestById = new Map(
-    manifest.pieces.map((piece) => [piece.id, piece] as const),
-  );
-  const surfaceSources: Array<[string, RecordMeta | undefined]> = [
-    [
-      "Dura",
-      insightById.get("efectividad-hard") ||
-        manifestById.get("efectividad-hard"),
-    ],
-    [
-      "Tierra",
-      insightById.get("efectividad-clay") ||
-        manifestById.get("efectividad-clay"),
-    ],
-    [
-      "Hierba",
-      insightById.get("efectividad-grass") ||
-        manifestById.get("efectividad-grass"),
-    ],
+  void manifest;
+  const filters = recordFilters(query);
+  const readingId = ["victorias", "finales-ganadas", "efectividad-top-10", "rachas"].includes(query.lectura || "")
+    ? query.lectura!
+    : "victorias";
+  const mode = ["leyendas", "anomalias", "punto"].includes(query.modo || "") ? query.modo! : "leyendas";
+  const roomIds = ["mas-juegos", "mas-largos", "victorias", "efectividad-hard", "efectividad-clay", "efectividad-grass"];
+  const boardIds = ["victorias", "finales-ganadas", "efectividad-top-10", "rachas"];
+  const [base, roomViews, boardViews] = await Promise.all([
+    recordView("{}"),
+    Promise.all(roomIds.map((dato) => recordView(JSON.stringify({ dato })))),
+    Promise.all(boardIds.map((dato) => recordView(JSON.stringify({ ...filters, dato, ...(dato === "efectividad-top-10" ? { min: "80" } : {}) })) )),
+  ]);
+  const baseById = new Map(base.manifest.pieces.map((piece) => [piece.id, piece] as const));
+  const roomById = new Map(roomViews.flatMap((view) => view.piece ? [[view.piece.id, view] as const] : []));
+  const formatPiece = (piece?: RecordMeta, row = piece?.leader) => row ? recordValue(row, piece?.percent, piece?.id === "tal-dia-como-hoy") : "—";
+  const games = roomById.get("mas-juegos");
+  const duration = roomById.get("mas-largos");
+  const wins = roomById.get("victorias");
+  const surfaceDefs = [
+    ["Dura", "efectividad-hard", "/images/courts/us-open-1440.webp", "Pista dura del Abierto de Estados Unidos"],
+    ["Tierra", "efectividad-clay", "/images/courts/roland-garros-1440.webp", "Pista de tierra batida de Roland Garros"],
+    ["Hierba", "efectividad-grass", "/images/courts/wimbledon-1440.webp", "Pista de hierba de Wimbledon"],
+  ] as const;
+  const winGap = wins?.rows[0] && wins.rows[1] ? wins.rows[0].value - wins.rows[1].value : 0;
+  const isnerImage = { src: "/images/editorial/records/isner-mahut-2010.webp", alt: "John Isner y Nicolas Mahut junto al marcador de 70 a 68 de Wimbledon 2010", objectPosition: "50% 50%" };
+  const roomPieces: RoomPiece[] = [
+    { id: "games", metric: formatPiece(games?.piece, games?.rows[0]), title: "John Isner–Nicolas Mahut", phrase: "La suma de los juegos de sus cinco sets.", sample: games?.rows[0]?.detail || "Wimbledon 2010 · 70–68", chips: ["un partido", "22 jun 2010", "hierba"], image: isnerImage, href: recordsUrl({}, { dato: "mas-juegos" }), matchHref: games?.rows[0]?.href, video: true },
+    { id: "duration", metric: formatPiece(duration?.piece, duration?.rows[0]), title: "El partido más largo del archivo", phrase: "La misma historia, leída por el reloj.", sample: duration?.rows[0]?.detail || "Un partido documentado", chips: ["Wimbledon 2010", "cinco sets"], image: isnerImage, href: recordsUrl({}, { dato: "mas-largos" }), matchHref: duration?.rows[0]?.href },
+    { id: "wins", metric: formatPiece(wins?.piece, wins?.rows[0]), title: wins?.rows[0]?.name || "Jimmy Connors", phrase: winGap ? `+${new Intl.NumberFormat("es-ES").format(winGap)} sobre ${wins?.rows[1]?.name}.` : "El mayor volumen de victorias del archivo.", sample: wins?.rows[0]?.detail || "Partidos en el archivo", chips: ["Era abierta", "Este archivo, no el palmarés oficial."], image: { src: "/images/players/editorial/jimmy-connors-action.webp", alt: "Jimmy Connors durante un partido", objectPosition: "52% 24%" }, href: recordsUrl({}, { dato: "victorias" }) },
+    { id: "surfaces", metric: "3 pistas", title: "Cada pista cambia el juego", phrase: "La tasa se lee siempre con su muestra.", sample: "Resultados completos; abandonos fuera del porcentaje.", chips: ["dura", "tierra", "hierba"], href: recordsUrl({}, { dato: "efectividad-clay" }), surfaces: surfaceDefs.flatMap(([label, id, src, alt]) => { const view = roomById.get(id); return view?.rows[0] ? [{ label, value: formatPiece(view.piece, view.rows[0]), name: view.rows[0].name, sample: view.rows[0].detail, image: { src, alt } }] : []; }) },
+    { id: "pair", metric: "52 y 28", title: "Novak Djokovic–Rafael Nadal", phrase: "El cruce con más partidos y más finales en este archivo.", sample: "52 partidos y 28 finales documentados en este archivo.", chips: ["52 partidos", "28 finales"], pairImages: [{ src: "/images/players/novak-djokovic.jpg", alt: "Novak Djokovic", objectPosition: "50% 20%" }, { src: "/images/players/optimized/rafael-nadal-2022.webp", alt: "Rafael Nadal", objectPosition: "50% 18%" }], href: recordsUrl({}, { dato: "parejas" }) },
   ];
-  const surfaceImages = {
-    Dura: {
-      src: "/images/courts/us-open-1440.webp",
-      alt: "Pista dura del Abierto de Estados Unidos vista desde la grada",
-      objectPosition: "50% 52%",
-    },
-    Tierra: {
-      src: "/images/courts/roland-garros-1440.webp",
-      alt: "Pista de tierra batida de Roland Garros",
-      objectPosition: "50% 48%",
-    },
-    Hierba: {
-      src: "/images/courts/wimbledon-1440.webp",
-      alt: "Pista central de Wimbledon sobre hierba",
-      objectPosition: "50% 46%",
-    },
-  } as const;
-  const surfaceRecords = surfaceSources.flatMap(([label, piece]) =>
-    piece?.leader
-      ? [
-          {
-            label,
-            id: piece.id,
-            player: piece.leader.name,
-            value: piece.leader.value,
-            display: recordValue(piece.leader, piece.percent, false),
-            image: surfaceImages[label as keyof typeof surfaceImages],
-          },
-        ]
-      : [],
-  );
-  const marathon = insightById.get("mas-juegos");
-  const finalsEfficiency = insightById.get("efectividad-finales");
-  const comeback = insightById.get("remontada-dos-sets");
-  const finalsWon = finalsEfficiency?.leader
-    ? Math.round(
-        (finalsEfficiency.leader.value / 100) *
-          finalsEfficiency.leader.sample,
-      )
-    : 0;
-  const finalsLost = finalsEfficiency?.leader
-    ? Math.max(0, finalsEfficiency.leader.sample - finalsWon)
-    : 0;
-  const comebackPhoto = photoFor(comeback);
-  const marathonPhoto = photoFor(marathon);
-  const familyPhotoRecords: Record<string, string> = {
-    Victorias: "atp-500-victorias",
-    "Remontadas y forma del partido": "remontada-dos-sets",
-    "Títulos y finales": "titulos-grass",
-    Presión: "breaks-salvados",
-    "Tiempo, edad y calendario": "mas-largos",
-    Parejas: "parejas",
-    Superficies: "efectividad-clay",
-    Saque: "first-in",
-    Resto: "return-won",
-    Golpes: "winners",
+
+  const boardLabels: Record<string, { label: string; title: string; minimum?: string }> = {
+    victorias: { label: "Victorias", title: "Victorias en el archivo" },
+    "finales-ganadas": { label: "Finales", title: "Finales ganadas" },
+    "efectividad-top-10": { label: "% ante el top 10", title: "% ante el top 10", minimum: "Desde 80 partidos con ranking del rival ese día." },
+    rachas: { label: "Rachas", title: "Rachas de victorias" },
   };
-  const familyPhotoFallbacks: Record<
-    string,
-    { recordId: string; playerName: string }
-  > = {
-    "Tiempo, edad y calendario": {
-      recordId: "mas-juegos",
-      playerName: "John Isner",
-    },
-    Parejas: {
-      recordId: "aces",
-      playerName: "Novak Djokovic",
-    },
+  const readings = boardViews.map((view, index): BoardReading => {
+    const id = boardIds[index];
+    const meta = view.piece || baseById.get(id);
+    const rows = view.rows.map((row) => ({ name: row.name, playerHref: row.href, recordHref: recordsUrl(filters, { dato: id, ...(id === "efectividad-top-10" ? { min: "80" } : {}) }), value: row.value, display: recordValue(row, meta?.percent, false), detail: row.detail }));
+    const leadPhoto = rows[0] ? portraitFor(rows[0].name) : null;
+    return { id, label: boardLabels[id].label, title: boardLabels[id].title, definition: meta?.definition || "", minimum: boardLabels[id].minimum, percent: meta?.percent, rows, photo: leadPhoto ? { src: leadPhoto.src, alt: leadPhoto.alt, objectPosition: leadPhoto.objectPosition } : undefined };
+  });
+  const activeReading = readings.find((reading) => reading.id === readingId) || readings[0];
+  const clearCuts = { year: undefined, surface: undefined, competition: undefined, era: undefined };
+  const cutLinks = [
+    { label: "Todas", href: recordsUrl(query, clearCuts), active: !query.year && !query.surface && !query.competition && !query.era },
+    ...[["Dura", "hard"], ["Tierra", "clay"], ["Hierba", "grass"]].map(([label, value]) => ({ label, href: recordsUrl(query, { ...clearCuts, surface: value }), active: query.surface === value && !query.year && !query.competition && !query.era })),
+    { label: "Grand Slam", href: recordsUrl(query, { ...clearCuts, competition: "Grand Slam" }), active: query.competition === "Grand Slam" && !query.year },
+    { label: "Últimos 20 años", href: recordsUrl(query, { ...clearCuts, era: "last20" }), active: query.era === "last20" },
+    { label: "Esta temporada", href: recordsUrl(query, { ...clearCuts, year: String(base.manifest.years[0] || new Date().getFullYear()) }), active: query.year === String(base.manifest.years[0]) },
+  ];
+
+  const archiveDefinitions: Record<string, Array<{ name: string; note: string; ids: string[] }>> = {
+    leyendas: [
+      { name: "Carrera", note: "Volumen y muestra grande.", ids: ["victorias", "top-10", "top-5", "finales-ganadas", "rachas", "numero-uno"] },
+      { name: "Superficies", note: "Victorias y títulos por pista.", ids: ["victorias-hard", "victorias-clay", "victorias-grass", "titulos-hard", "titulos-clay", "titulos-grass"] },
+    ],
+    anomalias: [
+      { name: "Una tarde", note: "Un partido que rompe la escala.", ids: ["mas-juegos", "mas-largos", "remontar-rosco", "remontada-dos-sets", "efectividad-finales"] },
+      { name: "Edad", note: "El calendario también deja extremos.", ids: ["finalistas-jovenes", "finalistas-veteranos", "diferencia-edad"] },
+    ],
+    punto: [
+      { name: "Volumen", note: "Solo partidos con la medida publicada.", ids: ["aces", "total-points", "winners", "breaks-convertidos", "breaks-salvados"] },
+      { name: "Tasa", note: "Mínimo 50 partidos con la estadística publicada.", ids: ["first-in", "first-won", "second-won", "service-won", "return-won", "holds", "return-games", "breaks-salvados", "30-30"] },
+    ],
   };
-  const familyLayouts: Record<string, string> = {
-    Victorias: "photoLeft",
-    "Remontadas y forma del partido": "photoBottom",
-    "Títulos y finales": "photoRight",
-    Presión: "photoTop",
-    "Tiempo, edad y calendario": "videoBottom",
-    Parejas: "photoRight",
-    Saque: "photoBottom",
-    Resto: "photoLeft",
-    Golpes: "photoTop",
-    Superficies: "slider",
-  };
-  const familyKeys: Record<string, string> = {
-    Victorias: "wins",
-    "Remontadas y forma del partido": "comebacks",
-    "Títulos y finales": "finals",
-    Presión: "pressure",
-    "Tiempo, edad y calendario": "time",
-    Parejas: "doubles",
-    Saque: "serve",
-    Resto: "return",
-    Golpes: "shots",
-    Superficies: "surfaces",
-  };
+  const validPiece = (piece?: RecordMeta) => Boolean(piece?.leader && piece.leader.value > 1 && !/sin muestra/i.test(`${piece.title} ${piece.leader.name}`));
+  const archiveGroups = archiveDefinitions[mode].map((group) => ({ ...group, pieces: group.ids.map((id) => baseById.get(id)).filter((piece): piece is RecordMeta => validPiece(piece)) })).filter((group) => group.pieces.length);
+  const featureId = mode === "leyendas" ? "victorias" : mode === "anomalias" ? "mas-juegos" : "winners";
+  const feature = baseById.get(featureId);
+  const featurePhoto = mode === "leyendas" ? { src: "/images/players/editorial/jimmy-connors-action.webp", alt: "Jimmy Connors durante un partido", objectPosition: "52% 24%" } : mode === "anomalias" ? isnerImage : photoFor(feature);
+  const coveragePieces = ["atp-500-victorias", "atp-500-titulos", "atp-500-finales", "atp-250-victorias", "atp-250-titulos", "atp-250-finales"].map((id) => baseById.get(id)).filter((piece): piece is RecordMeta => validPiece(piece));
   return (
     <ArchivePage
       title="Récords"
-      className={`records-page ${redesign.page} ${!overview ? redesign.filteredPage : ""}`}
+      className={`records-page ${redesign.page} ${indexStyles.page}`}
     >
-      {overview && rankingSets.length > 0 && (
-        <section
-          className={`${redesign.rankings} deuce-content`}
-          aria-label="Clasificaciones históricas"
-        >
-          <RecordsRankings sets={rankingSets} />
-        </section>
-      )}
-      {overview && (
-        <section
-          className={`${redesign.insights} deuce-content`}
-          aria-labelledby="records-insights-heading"
-        >
-          <header className={redesign.insightsHead}>
-            <h2 id="records-insights-heading">El archivo, desde otros ángulos</h2>
-          </header>
-          <div className={redesign.insightGrid}>
-            {marathon?.leader && marathonPhoto && (
-              <RecordJumpLink
-                className={redesign.photoInsight}
-                recordId={marathon.id}
-              >
-                <Image
-                  className={redesign.recordImage}
-                  src={marathonPhoto.src}
-                  alt={marathonPhoto.alt}
-                  fill
-                  unoptimized
-                  sizes="(max-width: 759px) 100vw, 56vw"
-                  style={recordImageStyle(marathonPhoto)}
-                />
-                <span>
-                  <strong>
-                    <RecordsAnimatedValue
-                      value={marathon.leader.value}
-                      display={recordValue(
-                        marathon.leader,
-                        marathon.percent,
-                        false,
-                      )}
-                    />
-                  </strong>
-                  <b>El partido con más juegos</b>
-                </span>
-              </RecordJumpLink>
-            )}
-            {surfaceRecords.length > 0 && (
-              <RecordsSurfaceChart records={surfaceRecords} />
-            )}
-            {finalsEfficiency?.leader && (
-              <RecordJumpLink
-                className={redesign.finalsInsight}
-                recordId={finalsEfficiency.id}
-              >
-                <span className={redesign.finalsCopy}>
-                  <h3>{finalsWon} de {finalsEfficiency.leader.sample} finales ganadas</h3>
-                  <p>{finalsEfficiency.leader.name}</p>
-                </span>
-                <strong className={redesign.finalsRate}>
-                  {recordValue(
-                    finalsEfficiency.leader,
-                    finalsEfficiency.percent,
-                    false,
-                  )}
-                </strong>
-                <div
-                  className={redesign.finalTicks}
-                  aria-label={`${finalsWon} victorias en ${finalsEfficiency.leader.sample} finales`}
-                >
-                  {Array.from(
-                    { length: finalsEfficiency.leader.sample },
-                    (_, index) => (
-                      <i
-                        key={index}
-                        data-won={index < finalsWon || undefined}
-                      />
-                    ),
-                  )}
-                </div>
-                <span className={redesign.finalsLegend}>
-                  <span><i data-won="true" />Ganadas {finalsWon}</span>
-                  <span><i />Perdidas {finalsLost}</span>
-                </span>
-              </RecordJumpLink>
-            )}
-            {comeback?.leader && comebackPhoto && (
-              <RecordJumpLink
-                className={redesign.numberInsight}
-                recordId={comeback.id}
-              >
-                <Image
-                  className={redesign.recordImage}
-                  src={comebackPhoto.src}
-                  alt={comebackPhoto.alt}
-                  fill
-                  unoptimized
-                  sizes="(max-width: 759px) 100vw, 42vw"
-                  style={recordImageStyle(comebackPhoto)}
-                />
-                <span>
-                  <small>Remontadas tras perder dos sets</small>
-                  <b>{comeback.leader.name}</b>
-                  <strong>
-                    {recordValue(comeback.leader, comeback.percent, false)}
-                  </strong>
-                </span>
-              </RecordJumpLink>
-            )}
-          </div>
-          <RecordsVideoCarousel />
-        </section>
-      )}
-      <section
-        className={`${redesign.directory} deuce-content`}
-        aria-labelledby="records-directory-heading"
-      >
-        <div className={redesign.directoryHead}>
-          <h2 id="records-directory-heading">
-            {selected ? "Estadísticas de la familia" : "Explorar el archivo"}
-          </h2>
-        </div>
-        <RecordsFamilyNav
-          className={redesign.familyNav}
-          activeKey={selected || "all"}
-        >
-          <Link
-            href={recordsUrl(recordFilters(query), { q: query.q })}
-            aria-current={!selected ? "page" : undefined}
-          >
-            Todo
-          </Link>
-          {groups.map((group) => (
-            <Link
-              key={group}
-              href={recordsUrl(recordFilters(query), {
-                grupo: group,
-                q: query.q,
-              })}
-              aria-current={selected === group ? "page" : undefined}
-            >
-              {families.find(([, value]) => value === group)?.[0] || group}
-            </Link>
-          ))}
-        </RecordsFamilyNav>
-        <div className={redesign.familyGrid} key={selected || term || "all"}>
-          {visibleGroups.map((group, index) => {
-            const groupPieces = pieces.filter((piece) => piece.group === group);
-            const photoPieceId = familyPhotoRecords[group];
-            const photoPiece = photoPieceId
-              ? groupPieces.find((piece) => piece.id === photoPieceId)
-              : undefined;
-            const fallbackPhoto = familyPhotoFallbacks[group];
-            const mediaLayout = familyLayouts[group] || "photoTop";
-            const hasVideo = mediaLayout === "videoBottom";
-            const hasSlider = mediaLayout === "slider";
-            const familyPhoto =
-              (photoPiece?.leader ? portraitFor(photoPiece.leader.name) : null) ||
-              (fallbackPhoto
-                ? portraitFor(fallbackPhoto.playerName) ||
-                  recordPhoto(fallbackPhoto.recordId, fallbackPhoto.playerName)
-                : null) ||
-              photoFor(photoPiece);
-            const ordered = photoPiece
-              ? [photoPiece, ...groupPieces.filter((piece) => piece.id !== photoPiece.id)]
-              : groupPieces;
-            const previewLimit = familyPhoto && index === 0 ? 7 : 4;
-            const visible =
-              selected || term ? ordered : ordered.slice(0, previewLimit);
-            const hidden = selected || term ? [] : ordered.slice(visible.length);
-            const lead = familyPhoto || hasVideo || hasSlider ? undefined : visible[0];
-            const sliderIds = new Set(surfaceRecords.map((record) => record.id));
-            const rest = hasSlider
-              ? visible.filter((piece) => !sliderIds.has(piece.id))
-              : visible.slice(1);
-            const sizes = [
-              "photoWide",
-              "compact",
-              "photoTall",
-              "wide",
-              "tall",
-              "compact",
-              "wide",
-              "compact",
-              "tall",
-              "photoWide",
-            ];
-            return (
-              <section
-                key={group}
-                className={redesign.family}
-                data-size={familyPhoto ? sizes[index] : sizes[index] || "standard"}
-                data-has-photo={familyPhoto && !hasVideo && !hasSlider ? "true" : "false"}
-                data-layout={mediaLayout}
-                data-family={familyKeys[group] || "other"}
-              >
-                <header>
-                  <h3>
-                    {families.find(([, value]) => value === group)?.[0] ||
-                      group}
-                  </h3>
-                  <span>{number(groupPieces.length)} estadísticas</span>
-                </header>
-                {hasSlider && surfaceRecords.length > 0 && (
-                  <RecordsSurfaceSlider
-                    slides={surfaceRecords.map((record) => ({
-                      ...record,
-                      href: recordsUrl(recordFilters(query), { dato: record.id }),
-                    }))}
-                  />
-                )}
-                {hasVideo && (
-                  <Link
-                    className={redesign.familyVideo}
-                    href={recordsUrl(recordFilters(query), { dato: "mas-largos" })}
-                  >
-                    {familyPhoto && (
-                      <Image
-                        className={redesign.recordImage}
-                        src={familyPhoto.src}
-                        alt=""
-                        fill
-                        unoptimized
-                        sizes="(max-width: 759px) 100vw, 50vw"
-                        style={recordImageStyle(familyPhoto)}
-                      />
-                    )}
-                    <iframe
-                      src="https://www.youtube.com/embed/jUgyaoew8as?autoplay=1&mute=1&controls=0&loop=1&playlist=jUgyaoew8as&playsinline=1&rel=0"
-                      title="Isner y Mahut disputan el partido más largo de Wimbledon"
-                      loading="eager"
-                      allow="autoplay; encrypted-media; picture-in-picture"
-                    />
-                    <span>
-                      <small>El partido más largo</small>
-                      <b>11 h 5 min</b>
-                    </span>
-                  </Link>
-                )}
-                {photoPiece?.leader && familyPhoto && !hasVideo && !hasSlider && (
-                  <Link
-                    id={`record-${photoPiece.id}`}
-                    className={redesign.familyPhoto}
-                    href={recordsUrl(recordFilters(query), {
-                      dato: photoPiece.id,
-                    })}
-                  >
-                    <Image
-                      className={redesign.recordImage}
-                      src={familyPhoto.src}
-                      alt={familyPhoto.alt}
-                      fill
-                      unoptimized
-                      sizes="(max-width: 759px) 100vw, 52vw"
-                      style={recordImageStyle(familyPhoto)}
-                    />
-                    <span>
-                      <strong>
-                        {recordValue(
-                          photoPiece.leader,
-                          photoPiece.percent,
-                          photoPiece.id === "tal-dia-como-hoy",
-                        )}
-                      </strong>
-                      <small>{photoPiece.leader.name}</small>
-                    </span>
-                  </Link>
-                )}
-                {lead && (
-                  <Link
-                    id={`record-${lead.id}`}
-                    className={redesign.familyLead}
-                    href={recordsUrl(recordFilters(query), { dato: lead.id })}
-                  >
-                    <span>
-                      {lead.title}
-                      <small>
-                        {lead.leader?.name || "Sin muestra suficiente"}
-                      </small>
-                    </span>
-                    <strong>
-                      {lead.leader
-                        ? recordValue(
-                            lead.leader,
-                            lead.percent,
-                            lead.id === "tal-dia-como-hoy",
-                          )
-                        : "—"}
-                    </strong>
-                  </Link>
-                )}
-                <div className={redesign.familyRows}>
-                  {rest.map((piece) => (
-                    <Link
-                      key={piece.id}
-                      id={`record-${piece.id}`}
-                      href={recordsUrl(recordFilters(query), {
-                        dato: piece.id,
-                      })}
-                    >
-                      <span>
-                        {piece.title}
-                        <small>
-                          {piece.leader?.name || "Sin muestra suficiente"}
-                        </small>
-                      </span>
-                      <strong>
-                        {piece.leader
-                          ? recordValue(
-                              piece.leader,
-                              piece.percent,
-                              piece.id === "tal-dia-como-hoy",
-                            )
-                          : "—"}
-                      </strong>
-                    </Link>
-                  ))}
-                </div>
-                {hidden.length > 0 && (
-                  <details className={redesign.familyMore}>
-                    <summary>
-                      <Plus size={14} aria-hidden="true" />
-                      <span>
-                        {number(hidden.length)}{" "}
-                        {hidden.length === 1 ? "estadística" : "estadísticas"} más
-                      </span>
-                    </summary>
-                    <div className={redesign.familyRows}>
-                      {hidden.map((piece) => (
-                        <Link
-                          key={piece.id}
-                          id={`record-${piece.id}`}
-                          href={recordsUrl(recordFilters(query), {
-                            dato: piece.id,
-                          })}
-                        >
-                          <span>
-                            {piece.title}
-                            <small>
-                              {piece.leader?.name || "Sin muestra suficiente"}
-                            </small>
-                          </span>
-                          <strong>
-                            {piece.leader
-                              ? recordValue(
-                                  piece.leader,
-                                  piece.percent,
-                                  piece.id === "tal-dia-como-hoy",
-                                )
-                              : "—"}
-                          </strong>
-                        </Link>
-                      ))}
-                    </div>
-                  </details>
-                )}
-              </section>
-            );
-          })}
-        </div>
-        {!pieces.length && (
-          <div className="deuce-empty" role="status">
-            <h2>Sin estadísticas coincidentes</h2>
-            <p>No hay resultados para «{query.q}» con estos filtros.</p>
-            <Link href="/records">Quitar filtros</Link>
-          </div>
-        )}
-      </section>
+      <p className={indexStyles.scope}>Era abierta, cuadro principal masculino, solo lo que este archivo puede demostrar.</p>
+      <section className={indexStyles.layer} aria-labelledby="records-room-heading"><header className={indexStyles.layerIntro}><div><span>01 · Sala</span><h2 id="records-room-heading">Cinco pruebas</h2></div><p>Lo extraordinario, sin separar la cifra de su alcance ni de la muestra que la sostiene.</p></header><RecordsRoom pieces={roomPieces} /></section>
+      <section className={indexStyles.layer} aria-labelledby="records-board-heading"><header className={indexStyles.layerIntro}><div><span>02 · Tablero</span><h2 id="records-board-heading">Quién lidera</h2></div><p>Una clasificación, dos decisiones: qué se mide y dónde se corta.</p></header><RecordsBoard key={`${activeReading.id}-${query.year || ""}-${query.surface || ""}-${query.competition || ""}-${query.era || ""}`} reading={activeReading} readings={readings.map((reading) => ({ label: reading.label, href: recordsUrl(query, { lectura: reading.id }), active: reading.id === activeReading.id }))} cuts={cutLinks} years={base.manifest.years} selectedYear={query.year} seasonHref={recordsUrl(query, { year: undefined })} /></section>
+      <section className={indexStyles.layer} aria-labelledby="records-archive-heading"><header className={indexStyles.layerIntro}><div><span>03 · Archivo</span><h2 id="records-archive-heading">Dónde está el dato</h2></div><p>Tres formas de entrar. Las muestras pequeñas no compiten con las carreras completas.</p></header><nav className={indexStyles.archiveTabs} aria-label="Modo del archivo">{[["leyendas", "Leyendas"], ["anomalias", "Anomalías"], ["punto", "El punto"]].map(([id, label]) => <Link key={id} href={recordsUrl(query, { modo: id })} aria-current={mode === id ? "page" : undefined}>{label}</Link>)}</nav><div className={indexStyles.archiveShell}>{feature?.leader && featurePhoto && <Link className={indexStyles.archiveFeature} href={recordsUrl({}, { dato: feature.id })}><Image src={featurePhoto.src} alt={featurePhoto.alt} fill sizes="(max-width: 900px) 100vw, 38vw" style={{ objectPosition: featurePhoto.objectPosition || "50% 25%" }} /><span><small>{mode === "leyendas" ? "Una carrera" : mode === "anomalias" ? "Un partido" : "Una medida publicada"}</small><strong>{feature.leader.name}</strong><b>{formatPiece(feature)}</b></span></Link>}<div className={indexStyles.archiveGroups}>{archiveGroups.map((group) => <section className={indexStyles.archiveGroup} key={group.name}><header><h3>{group.name}</h3><span>{group.note}</span></header><div className={indexStyles.archiveRows}>{group.pieces.slice(0, 3).map((piece) => <Link key={piece.id} href={recordsUrl({}, { dato: piece.id })}><span><strong>{piece.title}</strong><small>{piece.leader!.name} · {piece.leader!.detail}</small></span><b>{formatPiece(piece)}</b></Link>)}</div>{group.pieces.length > 3 && <details className={indexStyles.more}><summary>Ver las {group.pieces.length}</summary><div className={indexStyles.moreRows}>{group.pieces.slice(3).map((piece) => <Link key={piece.id} href={recordsUrl({}, { dato: piece.id })}><span><strong>{piece.title}</strong><small>{piece.leader!.name} · {piece.leader!.detail}</small></span><b>{formatPiece(piece)}</b></Link>)}</div></details>}</section>)}</div></div></section>
+      {coveragePieces.length > 0 && <section className={indexStyles.coverage} aria-labelledby="records-coverage-heading"><span>Cobertura corta</span><h2 id="records-coverage-heading">Desde que el archivo lo anota</h2><div className={indexStyles.coverageGrid}>{coveragePieces.map((piece) => <Link key={piece.id} href={recordsUrl({}, { dato: piece.id })}><span><strong>{piece.title}</strong><small>{piece.leader!.name} · {piece.leader!.detail}</small></span><b>{formatPiece(piece)}</b><em>Desde 2023.</em></Link>)}</div></section>}
     </ArchivePage>
   );
 }
@@ -706,14 +211,26 @@ export async function generateMetadata({
   const title =
     query.dato === "dos-epocas"
       ? "Efectividad en finales: dos épocas"
-      : piece?.title || "Récords";
+      : piece?.title || "Récords de la Era Abierta";
+  const metaDescription = piece?.definition ||
+    "Era abierta, cuadro principal masculino: récords que el archivo DEUCE puede demostrar partido a partido.";
+  const socialPhoto = piece?.leader
+    ? recordPhoto(piece.id, piece.leader.name)?.src
+    : "/images/editorial/records/isner-mahut-2010.webp";
   return {
     title: `${title} — DEUCE`,
-    description: piece?.definition || description,
+    description: metaDescription,
     alternates: { canonical: recordsUrl(query) },
     openGraph: {
       title: `${title} — DEUCE`,
-      description: piece?.definition || description,
+      description: metaDescription,
+      images: socialPhoto ? [socialPhoto] : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} — DEUCE`,
+      description: metaDescription,
+      images: socialPhoto ? [socialPhoto] : undefined,
     },
   };
 }

@@ -91,7 +91,7 @@ export default async function Players({ searchParams }: {
           <div className={styles.cardBody}>
             <div className={styles.cardTitle}>
               <h2>{player.record.name}</h2>
-              <span className={styles.profileAction} aria-hidden="true"><ArrowRight size={17} strokeWidth={2.7}/></span>
+              <span className={styles.profileAction} aria-hidden="true"><ArrowRight size={20} strokeWidth={2.4}/></span>
             </div>
             <dl className={styles.stats}>
               <div><dt>Victorias</dt><dd>{number(player.record.wins)}</dd></div>

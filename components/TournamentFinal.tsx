@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import type { Match } from '@/lib/types';
 import { toMatchRecord } from '@/data/map-match';
 import { MatchScoreboard } from './deuce/MatchScoreboard';
@@ -17,11 +17,11 @@ export default function TournamentFinal({match}:{match:Match;latest?:boolean}) {
     <h2>Final {match.year}</h2>
     <div className="td-final-layout">
       <MatchScoreboard match={toMatchRecord(match)}/>
-      {champion&&<Link className="td-final-editorial" href={`/jugadores/${playerSlug(champion)}`}>
+      {champion&&<Link className="td-final-editorial" href={`/jugadores/${playerSlug(champion)}`} aria-label={`Ver perfil de ${champion}`}>
         {photo&&<Image className="art-directed-photo" src={photo.src} alt={photo.alt} fill sizes="(max-width: 759px) 92vw, 31vw" style={imageFocus(photo.objectPosition||'center top',photo.mobileObjectPosition||photo.objectPosition||'center top')} unoptimized/>}
         <span className="td-final-editorial-shade" aria-hidden="true"/>
         <span className="td-final-editorial-copy"><small>Campeón · {match.year}</small><strong>{champion}</strong>{opponent&&<span>Final ante {opponent}</span>}</span>
-        <span className="td-final-editorial-action">Ver perfil <ArrowUpRight size={16} aria-hidden="true"/></span>
+        <span className="td-final-editorial-action" aria-hidden="true"><ArrowRight size={20}/></span>
       </Link>}
     </div>
   </section>;

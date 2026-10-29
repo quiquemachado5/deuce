@@ -39,6 +39,7 @@ export function Pagination({
   return (
     <nav className="nc-pagination" aria-label="Páginas de resultados">
       {page > 1 && <Link className="nc-pagination-direction" href={href(page - 1)} aria-label="Página anterior"><ChevronLeft size={17} aria-hidden="true"/><span>Anterior</span></Link>}
+      <span className="nc-pagination-mobile-status" aria-hidden="true">{page} / {pages}</span>
       <span className="nc-pagination-pages">
         {numbered.map((value, index) => <span key={value}>
           {index > 0 && value - numbered[index - 1] > 1 && <span className="nc-pagination-gap" aria-hidden="true">…</span>}

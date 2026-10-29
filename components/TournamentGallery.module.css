@@ -1,0 +1,49 @@
+.gallery{position:relative;min-width:0}
+.track{display:flex;gap:14px;min-width:0;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-inline:contain}
+.track::-webkit-scrollbar{display:none}
+.track:focus-visible{outline:3px solid var(--focus);outline-offset:4px;border-radius:24px}
+.card{position:relative;isolation:isolate;display:grid;flex:0 0 min(360px,31vw);grid-template-rows:230px minmax(120px,auto);min-width:280px;overflow:hidden;border:1px solid var(--line);border-radius:24px;background:var(--bg-raised);color:var(--ink);text-decoration:none;scroll-snap-align:start;box-shadow:0 1px 0 var(--line),0 14px 32px rgba(18,53,43,.045);transition:transform 180ms ease,box-shadow 180ms ease}
+.card:hover{transform:translateY(-3px);box-shadow:0 1px 0 var(--line),0 20px 44px rgba(18,53,43,.085)}
+.photo{position:relative;min-height:0;overflow:hidden;background:color-mix(in srgb,var(--winner) 16%,var(--bg-sunken))}
+.photo>img{object-fit:cover;object-position:var(--photo-position,center);transition:transform .5s cubic-bezier(.2,.8,.2,1),filter .3s ease}
+.card:hover .photo>img{transform:scale(1.025);filter:saturate(1.05)}
+.fallback{position:absolute;inset:0;background:linear-gradient(145deg,color-mix(in srgb,var(--event-accent,var(--winner)) 44%,var(--ink)),var(--ink))}
+.photoShade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,18,13,.03) 30%,rgba(3,18,13,.52) 100%);pointer-events:none}
+.court{position:absolute;right:14px;bottom:14px;display:inline-flex;min-height:30px;align-items:center;padding:0 11px;border:1px solid rgba(255,255,255,.26);border-radius:999px;background:rgba(4,24,18,.58);color:#fff;font-size:10px;font-weight:720;letter-spacing:.04em;backdrop-filter:blur(10px)}
+.body{display:grid;grid-template-rows:auto 1fr;gap:12px;padding:20px 20px 18px}
+.titleRow{display:flex;min-width:0;align-items:center;justify-content:space-between;gap:14px}
+.titleRow h3{min-width:0;margin:0;font:660 clamp(24px,2.4vw,32px)/.98 var(--font-display);letter-spacing:-.035em;text-wrap:balance}
+.action{display:grid;width:48px;height:48px;flex:none;place-items:center;border-radius:50%;background:var(--acid);color:var(--ink);transition:background 160ms ease,color 160ms ease,transform 160ms ease}
+.card:hover .action{background:var(--winner);color:#fff;transform:translateX(2px)}
+.champion{align-self:start;margin:0;color:var(--muted);font-size:12px;line-height:1.45}
+.champion strong{color:var(--ink);font-weight:680}
+.majors .track{display:grid;grid-template-columns:1.35fr .65fr;grid-template-rows:repeat(3,190px);gap:14px;overflow:visible}
+.majors .card{display:block;width:auto;min-width:0;height:auto;border:0;background:var(--ink);color:#fff}
+.majors .card:first-child{grid-row:1/4}
+.majors .photo{position:absolute;inset:0}
+.majors .photoShade{background:linear-gradient(180deg,rgba(3,18,13,.08) 28%,rgba(3,18,13,.88) 100%)}
+.majors .court{right:auto;bottom:auto;top:18px;left:18px}
+.majors .body{position:absolute;right:0;bottom:0;left:0;display:grid;gap:8px;padding:24px;color:#fff}
+.majors .titleRow{align-items:flex-end}
+.majors .titleRow h3{max-width:13ch;color:#fff;font-size:clamp(27px,3.1vw,45px)}
+.majors .card:not(:first-child) .titleRow h3{font-size:clamp(23px,2.5vw,32px)}
+.majors .champion{color:rgba(255,255,255,.72)}
+.majors .champion strong{color:#fff}
+.majors .action{width:48px;height:48px}
+.compact .card{flex-basis:min(310px,26vw);grid-template-rows:180px minmax(116px,auto)}
+.compact .titleRow h3{font-size:clamp(22px,2vw,28px)}
+.card:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+
+@media(max-width:900px){
+  .card{flex-basis:min(390px,48vw)}
+  .majors .track{grid-template-columns:1fr 1fr;grid-template-rows:430px 290px 290px}.majors .card:first-child{grid-column:1/-1;grid-row:auto}.majors .card:nth-child(n+2){grid-row:auto}
+  .compact .card{flex-basis:min(330px,39vw)}
+}
+@media(max-width:640px){
+  .track{gap:10px;padding:0 12px 8px;scroll-padding-inline:12px}
+  .card{flex-basis:82vw;min-width:0;grid-template-rows:204px minmax(116px,auto);border-radius:20px}
+  .body{gap:9px;padding:16px}.titleRow h3{font-size:26px}.champion{font-size:11px}.action{width:42px;height:42px}.action svg{width:18px;height:18px}
+  .majors .track{display:flex;overflow-x:auto}.majors .card{flex:0 0 84vw;height:390px}.majors .body{padding:19px}.majors .titleRow h3,.majors .card:not(:first-child) .titleRow h3{font-size:34px}.majors .court{top:14px;left:14px}
+  .compact .card{flex-basis:76vw;grid-template-rows:180px minmax(112px,auto)}
+}
+@media(prefers-reduced-motion:reduce){.card,.photo>img,.action{transition:none}.card:hover,.card:hover .photo>img,.card:hover .action{transform:none}}
