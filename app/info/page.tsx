@@ -21,8 +21,8 @@ export default function Info() {
       <section className="ry-help-scope" aria-labelledby="ry-help-scope-title">
         <h2 id="ry-help-scope-title">Qué entra en el archivo</h2>
         <div className="ry-help-prose">
-          <p>Individual masculino del cuadro principal: partidos terminados, sets cerrados y ganador coherente.</p>
-          <p>Grand Slams, Masters desde 1990 y ATP 500/250 desde 2023. El ATP Tour histórico sin nivel distinguible y los precursores de Masters aparecen identificados aparte.</p>
+          <p>Individuales ATP y WTA del cuadro principal: partidos terminados, sets cerrados y ganador coherente. Los cuadros se identifican por separado.</p>
+          <p>Grand Slams, Masters y torneos ATP/WTA según la categoría que documenta la fuente. Los niveles históricos que no pueden equipararse a las categorías actuales aparecen identificados aparte.</p>
           <p>Abandonos, incomparecencias y marcadores en revisión quedan fuera de los porcentajes y clasificaciones.</p>
         </div>
       </section>
@@ -46,7 +46,7 @@ export default function Info() {
         </div>
         <div className="ry-help-links">
           <Link href="/records">Ver clasificaciones</Link>
-          <Link href="/credits">Fotografías y licencias</Link>
+          <Link href="/licencias">Licencias</Link>
         </div>
       </section>
     </article>

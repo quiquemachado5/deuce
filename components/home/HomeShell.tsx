@@ -47,7 +47,7 @@ export default function HomeShell({ children }: { children: React.ReactNode }) {
         <div className={styles.footerColumns}>
           <nav aria-label="Archivo"><h2>Archivo</h2><Link href="/buscar">Partidos</Link><Link href="/jugadores">Jugadores</Link><Link href="/torneos">Torneos</Link></nav>
           <nav aria-label="Explorar"><h2>Explorar</h2><Link href="/records">Récords</Link><Link href="/comparar">Cara a cara</Link></nav>
-          <nav aria-label="El proyecto"><h2>El proyecto</h2><Link href="/info">Cómo se lee</Link><Link href="/cobertura">Cobertura del archivo</Link><Link href="/credits">Créditos de las fotos</Link></nav>
+          <nav aria-label="El proyecto"><h2>El proyecto</h2><Link href="/info">Cómo se lee</Link><Link href="/cobertura">Cobertura del archivo</Link><Link href="/licencias">Licencias</Link></nav>
         </div>
         <p className={styles.copyright}>Copyright © {new Date().getFullYear()} DEUCE. El archivo del tenis desde 1968.</p>
       </div>

@@ -43,17 +43,21 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
   query.q = (query.q || query.player || '').trim().slice(0, 180);
   if (query.round) query.round = ({ Octavos: 'Octavos de final', Cuartos: 'Cuartos de final', Semifinal: 'Semifinales', RR: 'Fase de grupos', BR: 'Partido por el bronce', ER: 'Rondas iniciales' } as Record<string, string>)[query.round] || query.round;
   if (query.category && /precursor|histórico|otro torneo/i.test(query.category)) query.category = 'Otros torneos';
-  const years = [...new Set(data.matches.map(match => match.year))].sort((a, b) => b - a);
+  query.tour = query.tour === 'wta' ? 'wta' : 'atp';
+  const tourMatches = data.matches.filter(match => (match.tour || 'atp') === query.tour);
+  const years = [...new Set(tourMatches.map(match => match.year))].sort((a, b) => b - a);
   if (query.year && query.year !== 'all' && !years.includes(Number(query.year))) delete query.year;
   const selectedYear = query.year === 'all' ? null : query.year ? Number(query.year) : query.q || query.vista === 'torneos' ? null : years[0];
-  const directory = tournamentDirectory(data.matches);
+  const directory = tournamentDirectory(tourMatches);
   const tournament = directory.find(entry => entry.slug === query.tournament);
   const slugs = new Map(directory.map(entry => [entry.name, entry.slug]));
-  const categories = [...new Set(data.matches.map(browserCategory).filter((category): category is string => Boolean(category)))].sort((a, b) => {
-    const priority = ['Grand Slam', 'Masters 1000', 'ATP 500', 'ATP 250', 'ATP Finals', 'Challenger', 'Copa Davis', 'Juegos Olímpicos', 'United Cup', 'Laver Cup', 'Next Gen Finals', 'Otros torneos'];
+  const categories = [...new Set(tourMatches.map(browserCategory).filter((category): category is string => Boolean(category)))].sort((a, b) => {
+    const priority = ['Grand Slam', 'Masters 1000', 'WTA 1000', 'ATP 500', 'WTA 500', 'ATP 250', 'WTA 250', 'WTA 125', 'ATP Finals', 'WTA Finals', 'Challenger', 'Copa Davis', 'Juegos Olímpicos', 'United Cup', 'Laver Cup', 'Next Gen Finals', 'Otros torneos'];
     return (priority.indexOf(a) < 0 ? 99 : priority.indexOf(a)) - (priority.indexOf(b) < 0 ? 99 : priority.indexOf(b)) || a.localeCompare(b, 'es');
   });
-  const filtered = matchingMatches(query.q || '', data.matches).filter(match =>
+  if (query.category && !categories.includes(query.category)) delete query.category;
+  if (query.tournament && !tournament) delete query.tournament;
+  const filtered = matchingMatches(query.q || '', tourMatches).filter(match =>
     (!selectedYear || match.year === selectedYear) &&
     (!query.age || (normalizeText(match.player1.name) === normalizeText(query.q || '') ? Math.floor(match.context?.age1 ?? -1) : normalizeText(match.player2.name) === normalizeText(query.q || '') ? Math.floor(match.context?.age2 ?? -1) : -1) === Number(query.age)) &&
     (!query.fromYear || match.year >= Number(query.fromYear)) && (!query.toYear || match.year <= Number(query.toYear)) &&
@@ -77,15 +81,17 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
   for (const match of filtered) {
     if (query.vista === 'torneos' && !visibleEditionYears.has(match.year)) continue;
     const key = `${match.year}|${match.tournament}`;
-    const edition = editions.get(key) || { key, href: `/${slugs.get(match.tournament)}/${match.year}`, matches: [] };
+    const edition = editions.get(key) || { key, href: `/torneos/${slugs.get(match.tournament)}/${match.year}${query.tour === 'wta' ? '?cuadro=wta' : ''}`, matches: [] };
     edition.matches.push(match);
     editions.set(key, edition);
   }
   const groups = [...editions.values()];
   const suggestions = query.q ? await searchArchive(query.q, { includeMatches: false, data }) : [];
-  const players = suggestions.filter(item => item.group === 'Jugadores');
+  const tourPlayers = new Set(tourMatches.flatMap(match => [normalizeText(match.player1.name), normalizeText(match.player2.name)]));
+  const players = suggestions.filter(item => item.group === 'Jugadores' && tourPlayers.has(normalizeText(item.name)));
   const related = suggestions.filter(item => ['Torneos', 'Récords', 'Parejas'].includes(item.group));
   const chips = [
+    query.tour ? { key: 'tour', label: query.tour.toUpperCase() } : null,
     query.year && query.year !== 'all' ? { key: 'year', label: `Temporada ${query.year}` } : null,
     query.surface ? { key: 'surface', label: ({ clay: 'Tierra', grass: 'Hierba', hard: 'Dura', carpet: 'Moqueta' } as Record<string,string>)[query.surface] || query.surface } : null,
     query.category ? { key: 'category', label: query.category } : null,
@@ -97,7 +103,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
     query.fiveSets === 'true' ? { key: 'fiveSets', label: 'Cinco sets' } : null,
     query.data === 'measures' ? { key: 'data', label: 'Con medidas' } : query.data === 'points' ? { key: 'data', label: 'Con puntos' } : null,
   ].filter((chip): chip is { key: string; label: string } => Boolean(chip));
-  const searchTools=<MatchSearchBar query={query} categories={categories} rounds={[...new Set([...browserRounds, ...data.matches.map(browserRound)])].filter(Boolean)} years={years} activeYear={selectedYear} />;
+  const searchTools=<MatchSearchBar query={query} categories={categories} rounds={[...new Set([...browserRounds, ...tourMatches.map(browserRound)])].filter(Boolean)} years={years} activeYear={selectedYear} />;
   return <div className={`deuce-search view-root ${styles.searchPage}`}>
     <header className={`inner-title ${styles.searchIntro}`}><h1>Partidos</h1><div className="inner-title-tools">{searchTools}</div></header>
     {invalidSurface && <p className={styles.queryNotice} role="status">«{invalidSurface}» no es una superficie válida. Mostramos el archivo sin ese filtro.</p>}

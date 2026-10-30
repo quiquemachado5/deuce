@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { mockMatches } from "../lib/mocks";
 import { prepareCompetitionMatch } from "../lib/competition";
 import { eligibleMatch } from "../lib/quality";
+import { resultIssue } from "../lib/quality";
 import { displaySetsWon, displayTotal } from "../lib/score-display";
 import { compileRecordSnapshot } from "../lib/revista/snapshot";
 import { selectGeneration } from "../lib/revista/generation";
@@ -100,6 +101,32 @@ test("a migrated current season polls old January corrections as well as recent 
   assert.match(calls[1], /restated_since=/);
 });
 
+test("women's seasons use their own provider query and publication scope", async () => {
+  const calls: string[] = [];
+  const result = await reconcileSeasonResults(
+    2025, 2026, null,
+    async path => { calls.push(path); return { data: [{ id: 42, tour: 'wta' }], meta: { has_more: false, limit: 200 } }; },
+    'wta',
+  );
+  assert.match(calls[0], /tour=wta/);
+  assert.equal(result.scope, 'wta-main-v2');
+  assert.equal(result.data[0].tour, 'wta');
+});
+test("a women's Grand Slam final is best of three and remains separate in edition audits", () => {
+  const women = {
+    ...mockMatches[0], match_id: 'wta-final', tour: 'wta' as const,
+    tournament: 'Wimbledon', category: 'Grand Slam', year: 2026, round: 'Final',
+    status: 'Finished', winner: 1 as const,
+    score_summary: { ...mockMatches[0].score_summary, games: [[6, 4], [6, 3]] },
+  };
+  const men = { ...women, match_id: 'atp-final', tour: 'atp' as const,
+    score_summary: { ...women.score_summary, games: [[6, 4], [6, 3], [6, 4]] } };
+  assert.equal(resultIssue(women), null);
+  const audits = auditEditions([women, men]);
+  assert.equal(audits.length, 2);
+  assert.deepEqual(new Set(audits.map(row => row.tour)), new Set(['atp', 'wta']));
+});
+
 import { auditEditions } from "../lib/edition-audit";
 test("edition audit distinguishes incomplete source results and walkovers without inventing a score", () => {
   const base = { ...mockMatches[0], data_source: "api" as const },
@@ -140,6 +167,7 @@ import {hasClosedModernResult,recoveredModernResult} from '../lib/modern-result'
 import {reconcileEditionSummaries} from '../lib/edition-reconcile';
 test('Australian Open 2026 has every round: 120 closed matches, six retirements and the documented Mensik walkover',async()=>{const rows=(await archiveMatches(2026,true)).filter(m=>m.tournament==='Australian Open'&&m.category==='Grand Slam');const [audit]=auditEditions(rows);assert.equal(rows.length,127);assert.equal(new Set(rows.map(m=>m.match_id)).size,127);assert.equal(audit.completed,120);assert.equal(audit.terminal,7);assert.equal(audit.pending,0);assert.deepEqual(audit.rounds,{'1':64,'2':32,'3':16,'4':8,'5':4,'6':2,'7':1});const final=rows.map(prepareMatch).find(m=>m.round==='Final')!;assert.equal(final.final_score,'2–6 6–2 6–3 7–5');assert.equal(final.player1.name,'Carlos Alcaraz');assert.equal(final.winner,1);assert.match(final.context?.resultSource||'',/ausopen.com/);assert.deepEqual(final.point_tape,[]);});
 test('a reference never duplicates a subsequently supplied provider contest',()=>{const final=editionReferenceMatches.find(m=>m.tournament==='Australian Open'&&m.round==='Final')!;const provider={...final,match_id:'live-123456',data_source:'api' as const};const result=mergeEditionReferences([provider],2026);assert.equal(result.filter(m=>m.tournament==='Australian Open'&&m.round==='Final').length,1);assert.equal(result.find(m=>m.tournament==='Australian Open'&&m.round==='Final')?.match_id,provider.match_id);});
+test('a verified 2025 walkover fills the bracket without becoming a played match',()=>{const row=editionReferenceMatches.find(m=>m.match_id==='reference-winston-salem-2025-korda-withdrawal')!;assert.equal(row.year,2025);assert.equal(row.tour||'atp','atp');assert.equal(row.winner,1);assert.equal(row.score_summary.games.length,0);assert.match(row.context?.resultSource||'',/atptour.com/);assert.match(row.context?.metadataSources?.[0]?.url||'',/winstonsalemopen.com/);assert.equal(eligibleMatch(prepareMatch(row)),false);const rows=mergeEditionReferences([],2025);assert.equal(rows.filter(m=>m.match_id===row.match_id).length,1);assert.equal(mergeEditionReferences([],2026).some(m=>m.match_id===row.match_id),false);});
 test('Miami 2026 has all 95 played draw slots and a documented final',async()=>{
   const rows=(await archiveMatches(2026,true)).filter(m=>m.tournament==='Miami'&&m.category==='Masters 1000');
   const [audit]=auditEditions(rows);

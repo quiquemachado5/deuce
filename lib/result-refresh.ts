@@ -8,9 +8,10 @@ export async function reconcileSeasonResults(
   request: (
     path: string,
   ) => Promise<{ data?: Row[]; meta?: { has_more?: boolean; limit?: number } }>,
+  tour: 'atp' | 'wta' = 'atp',
 ) {
   const last = Date.parse(previous?.at || ""),
-    migrated = previous?.scope === "atp-main-v2" && Number.isFinite(last);
+    migrated = previous?.scope === `${tour}-main-v2` && Number.isFinite(last);
   const full = `from=${season}-01-01&to=${season}-12-31`;
   const since = migrated
     ? `&restated_since=${encodeURIComponent(new Date(last - 86400000).toISOString())}`
@@ -27,7 +28,7 @@ export async function reconcileSeasonResults(
   for (const range of windows)
     for (let offset = 0; ;) {
       const page = await request(
-        `/history/matches?tour=atp&draw=singles&${range}&limit=200&offset=${offset}`,
+        `/history/matches?tour=${tour}&draw=singles&${range}&limit=200&offset=${offset}`,
       );
       if (!Array.isArray(page.data) || !page.meta)
         throw Error("Unexpected tennis list response");
@@ -45,7 +46,7 @@ export async function reconcileSeasonResults(
   return {
     data: [...merged.values()],
     fresh,
-    scope: "atp-main-v2" as const,
+    scope: `${tour}-main-v2` as const,
     at: new Date().toISOString(),
   };
 }

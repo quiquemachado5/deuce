@@ -134,12 +134,12 @@ export function PlayerRivals({rivals,player,compareHref}:{rivals:RivalCard[];pla
 }
 
 export type TournamentArchiveItem={slug:string;name:string;surfaceKey:string;category:string;titles:number;titleYears:number[];brandingSrc?:string;trophySrc?:string;href?:string};
-export function PlayerTournamentArchive({tournaments}:{tournaments:TournamentArchiveItem[]}){
+export function PlayerTournamentArchive({tournaments,tour='atp'}:{tournaments:TournamentArchiveItem[];tour?:'atp'|'wta'}){
   const [filter,setFilter]=useState<'all'|'slams'|'masters'|'500'>('all');
   const scrollRef=useHorizontalScrollCue<HTMLDivElement>();
-  const visible=tournaments.filter(tournament=>tournament.titles>0&&(filter==='all'||filter==='slams'&&tournament.category==='Grand Slam'||filter==='masters'&&(tournament.category==='Masters 1000'||tournament.category==='Precursores de Masters')||filter==='500'&&tournament.category==='ATP 500'));
+  const visible=tournaments.filter(tournament=>tournament.titles>0&&(filter==='all'||filter==='slams'&&tournament.category==='Grand Slam'||filter==='masters'&&(['Masters 1000','Precursores de Masters','WTA 1000','WTA · alto nivel histórico'].includes(tournament.category))||filter==='500'&&(['ATP 500','WTA 500'].includes(tournament.category))));
   return <>
-    <div className="pp-tournaments-heading"><h2 id="pp-tournaments-title">Torneos y palmarés</h2><div ref={scrollRef} className="pp-segmented" role="group" aria-label="Filtrar palmarés por categoría"><button aria-pressed={filter==='all'} onClick={()=>setFilter('all')}>Todos</button><button aria-pressed={filter==='slams'} onClick={()=>setFilter('slams')}>Grand Slam</button><button aria-pressed={filter==='masters'} onClick={()=>setFilter('masters')}>M1000</button><button aria-pressed={filter==='500'} onClick={()=>setFilter('500')}>ATP 500</button></div></div>
+    <div className="pp-tournaments-heading"><h2 id="pp-tournaments-title">Torneos y palmarés</h2><div ref={scrollRef} className="pp-segmented" role="group" aria-label="Filtrar palmarés por categoría"><button aria-pressed={filter==='all'} onClick={()=>setFilter('all')}>Todos</button><button aria-pressed={filter==='slams'} onClick={()=>setFilter('slams')}>Grand Slam</button><button aria-pressed={filter==='masters'} onClick={()=>setFilter('masters')}>1000</button><button aria-pressed={filter==='500'} onClick={()=>setFilter('500')}>{tour.toUpperCase()} 500</button></div></div>
     {visible.length?<div className="pp-tournament-list">{visible.map(tournament=>{
       const monochrome=Boolean(tournament.brandingSrc&&/hamburg|paris|shanghai/.test(tournament.brandingSrc));
       const logo=<>{tournament.brandingSrc?<Image src={tournament.brandingSrc} alt="" width={92} height={72} unoptimized/>:<span aria-hidden="true">{tournament.name.split(/\s+/).map(part=>part[0]).slice(0,2).join('')}</span>}{tournament.href?<i aria-hidden="true"><ArrowUpRight size={14}/></i>:null}</>;

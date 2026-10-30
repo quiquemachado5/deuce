@@ -17,9 +17,10 @@ export function toMatchRecord(match: Match): MatchRecord {
     id: match.match_id, tournament: tournamentName(match.tournament), round: browserRound(match), date,
     dateLabel: match.context?.dateLabel, year: match.year, status: match.status,
     category: browserCategory(match) || undefined,
+    tour: match.tour || 'atp',
     surface: match.surface,
     environment: match.context?.indoor === true ? 'Bajo techo' : match.context?.indoor === false ? 'Al aire libre' : undefined,
-    requiredSets: /(?:BO3|mejor de 3)/i.test(match.context?.format || '') ? 2 : /(?:BO5|mejor de 5)/i.test(match.context?.format || '') || match.category === 'Grand Slam' ? 3 : 2,
+    requiredSets: /(?:BO3|mejor de 3)/i.test(match.context?.format || '') ? 2 : /(?:BO5|mejor de 5)/i.test(match.context?.format || '') || (match.category === 'Grand Slam' && match.tour !== 'wta') ? 3 : 2,
     players: [match.player1,match.player2].map(player => ({ id: playerSlug(player.name), name: displayPlayerName(player.name), countryCode: playerBiography(player.name)?.country || '' })) as MatchRecord['players'],
     sets: match.score_summary.games.flatMap((games,index) => games.length === 2 && games.every(n => Number.isFinite(n) && n >= 0) ? [{
       games: [games[0],games[1]], completed: displaySetClosed(match,index),

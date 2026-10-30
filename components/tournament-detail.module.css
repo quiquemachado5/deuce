@@ -259,6 +259,35 @@
   font-size: 13px;
 }
 
+.editionTourSwitch {
+  display: flex;
+  flex: 0 0 auto;
+  width: fit-content;
+  gap: 4px;
+  margin: 28px max(24px, calc((100vw - 1600px) / 2)) 0;
+  padding: 4px;
+  border-radius: 999px;
+  background: var(--bg-sunken);
+}
+
+.editionTourSwitch a {
+  padding: 11px 17px;
+  border-radius: 999px;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.editionTourSwitch a[aria-current="page"] {
+  background: var(--detail-primary);
+  color: #fff;
+}
+
+.sectionHead .editionTourSwitch {
+  margin: 0;
+}
+
 .championSection {
   composes: section;
   margin-top: clamp(58px, 6vw, 82px);
@@ -2559,6 +2588,16 @@
   .sectionHead > span {
     display: block;
     margin-top: 8px;
+  }
+
+  .editionTourSwitch {
+    width: max-content;
+    max-width: 100%;
+    margin-top: 16px;
+  }
+
+  .sectionHead .editionTourSwitch {
+    margin-top: 16px;
   }
 
   .championRailToolbar {

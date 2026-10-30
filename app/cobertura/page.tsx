@@ -45,12 +45,13 @@ export default async function Coverage({ searchParams }: { searchParams: Promise
         <div><dt>Temporadas</dt><dd>{firstYear&&lastYear?`${firstYear}–${lastYear}`:"En revisión"}</dd></div>
       </dl>
       <p className="coverage-updated"><span aria-hidden="true"/>Actualizado {updated} · Madrid</p>
+      <p className="coverage-updated">ATP {number(manifest.summary.tours?.atp ?? manifest.matchCount)} · WTA {number(manifest.summary.tours?.wta ?? 0)} partidos. El histórico femenino se incorpora por temporadas verificadas.</p>
     </header>
 
     {selection?.piece&&<section className="coverage-piece" id="estadistica"><div><h2>{selection.piece.title}</h2><p>{selection.piece.definition}</p></div><dl><div><dt>Periodo</dt><dd>{selection.piece.years}</dd></div><div><dt>Muestra</dt><dd>{number(selection.piece.sample)}</dd></div><div><dt>Mínimo</dt><dd>{selection.piece.minimum} casos</dd></div></dl></section>}
 
     <section className="coverage-daily" aria-labelledby="coverage-daily-title">
-      <div className="coverage-section-copy"><h2 id="coverage-daily-title">Todo lo añadido, día a día</h2><p>Cada tarjeta muestra qué incorporó la consulta de las 04:00 UTC. La actualización validada se publica a las 05:00 UTC.</p></div>
+      <div className="coverage-section-copy"><h2 id="coverage-daily-title">Todo lo añadido, día a día</h2><p>ATP se consulta a las 04:00 UTC y WTA a las 04:30 UTC. La actualización validada se publica a las 05:00 UTC.</p></div>
       <div className="coverage-api-ledger">
         <ol className="coverage-api-days">{[...tracked].reverse().map((day,index)=>{
           const included=day.included||{...emptyBreakdown,matches:day.added};
@@ -60,6 +61,7 @@ export default async function Coverage({ searchParams }: { searchParams: Promise
             <header><time dateTime={day.date}>{new Date(`${day.date}T12:00:00Z`).toLocaleDateString("es-ES",{weekday:"short",day:"2-digit",month:"short",timeZone:"UTC"})}</time><span>{index===0?"Última publicación":"Publicada"}</span></header>
             <strong>{day.added>0?`+${number(day.added)}`:"Sin partidos nuevos"}</strong>
             <span className="coverage-api-total">{number(day.total)} partidos en el archivo</span>
+            {day.tourAdded&&<span className="coverage-api-total">ATP +{number(day.tourAdded.atp)} · WTA +{number(day.tourAdded.wta)}</span>}
             <dl>{apiSignals.map(signal=><div key={signal.key} data-signal={signal.key}><dt><i aria-hidden="true"/>{signal.label}</dt><dd><strong>{hasDetailedHistory?`+${number(included[signal.key])}`:"Sin detalle"}</strong>{hasDetailedHistory&&<span>{number(totals[signal.key])} en total</span>}</dd></div>)}</dl>
           </li>;
         })}</ol>

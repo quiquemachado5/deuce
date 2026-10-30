@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { toMatchRecord, resolvedWinner, resolvedSetClosed } from '../data/map-match';
-import { homeSelection } from '../lib/deuce-home';
+import { homeSelection, homeSelectionFromIndex, prepareHomeIndex } from '../lib/deuce-home';
 import type { Match } from '../lib/types';
 function match(overrides:Partial<Match>={}):Match {
   return {match_id:'example',tournament:'Wimbledon',surface:'grass',category:'Grand Slam',year:2025,
@@ -68,4 +68,16 @@ test('home anniversary selection spans decades when the date exists in several e
   assert.equal(selection.anniversaries.length,6);
   assert.equal(new Set(selection.anniversaries.map(row=>Math.floor(row.year/10))).size,6);
   assert.equal(selection.anniversary?.match_id,selection.anniversaries[0].match_id);
+});
+test('prepared home selection serves a later day without opening the full archive',()=>{
+  const source=[
+    match({match_id:'first',year:2024,context:{date:'2024-10-23',dateLabel:'Fecha del partido'}}),
+    match({match_id:'second',year:2025,context:{date:'2025-10-24',dateLabel:'Fecha del partido'}}),
+    match({match_id:'current',year:2026,round:'Semifinal',context:{date:'2026-10-25',dateLabel:'Fecha del partido'}}),
+  ];
+  const prepared=prepareHomeIndex(source);
+  const selection=homeSelectionFromIndex(prepared,new Date('2026-10-24T12:00:00Z'));
+  assert.equal(selection.anniversary?.match_id,'second');
+  assert.ok(selection.latest.every(row=>row.match_id!=='second'));
+  assert.deepEqual(prepared.latestPool[0].statistics,[]);
 });

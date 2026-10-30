@@ -23,7 +23,7 @@ export function ScoreRows({ match, playerLinks = false }: { match: MatchRecord; 
     {match.players.map((player, side) => <div className={`global-player${winner === side ? ' match-winner' : ''}`} key={player.id}>
       <span className="player-flag" aria-hidden="true">{player.countryCode && <PlayerFlag code={player.countryCode} />}</span>
       <strong className="global-player-name">
-        {playerLinks ? <Link href={`/jugadores/${player.id}`}>{player.name}</Link> : player.name}
+        {playerLinks ? <Link href={`/jugadores/${player.id}${match.tour==='wta'?'?tour=wta':''}`}>{player.name}</Link> : player.name}
         {winner === side && <span className="match-win-mark" aria-hidden="true"><Check size={13} strokeWidth={3} /></span>}
       </strong>
       <div className="global-sets">{match.sets.map((set,index) => {

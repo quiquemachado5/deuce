@@ -2,6 +2,9 @@ import cached from './player-photo-manifest.json'
 import refreshed from './player-photo-refresh.json'
 import documented from './player-photo-additions.json'
 import directory from './player-directory-photo-manifest.json'
+import discovered from './player-photo-discovery.json'
+import curatedSelections from './player-photo-curated.json'
+import wtaPortraits from './player-photo-wta.json'
 import type { Photo } from './imagery'
 import { playerPhotoFocus } from './player-photo-focus'
 
@@ -39,7 +42,7 @@ export const directoryPlayerPhotos: Record<string, Photo> = {
     objectPosition: '50% 32%',
     mobileObjectPosition: '50% 28%',
   },
-  'Rafael Nadal': curated['Rafael Nadal'],
+  'Rafael Nadal': curatedSelections['Rafael Nadal'],
   'Roger Federer': {
     src: '/images/editorial/records/roger-federer-wimbledon-2005.webp',
     alt: 'Roger Federer saluda al público sobre la hierba de Wimbledon 2005',
@@ -81,6 +84,7 @@ export const directoryPlayerPhotos: Record<string, Photo> = {
     mobileObjectPosition: '50% 22%',
   },
   ...(directory as Record<string, Photo>),
+  ...(curatedSelections as Record<string, Photo>),
 }
 
 export function playerDirectoryPhoto(name: string): Photo | null {
@@ -190,7 +194,7 @@ export const editorialPlayerPhotos: Record<string, Photo> = {
   },
 }
 
-export const playerPhotos: Record<string, Photo> = { ...(cached as Record<string, Photo>), ...curated, ...(refreshed as Record<string, Photo>), ...(documented as Record<string, Photo>), ...editorialPlayerPhotos }
+export const playerPhotos: Record<string, Photo> = { ...(cached as Record<string, Photo>), ...curated, ...(refreshed as Record<string, Photo>), ...(documented as Record<string, Photo>), ...(discovered as Record<string, Photo>), ...editorialPlayerPhotos, ...(curatedSelections as Record<string, Photo>), ...(wtaPortraits as Record<string, Photo>) }
 
 function normalizeName(name: string) {
   return name.normalize('NFKD').replace(/[\u0300-\u036f]/g, '')

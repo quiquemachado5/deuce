@@ -1,6 +1,8 @@
 import index from './player-bio-index.json';
+import wtaIndex from './wta-player-bio.json';
 import { playerSlug } from './explore';
 import { canonicalName } from './quality';
+const wtaBySlug=new Map(Object.entries(wtaIndex as Record<string,PlayerBio>).map(([name,bio])=>[playerSlug(canonicalName(name)),bio]));
 
 export type PlayerBio = {
   country?: string;
@@ -70,5 +72,5 @@ export function backhandLabel(backhand: 1 | 2): string { return backhand === 1 ?
 /** Read the compact provider-derived index without blocking a profile on a season blob. */
 export function playerBiography(name: string): PlayerBio | undefined {
   const key = bioKey(name);
-  return (index as Record<string, PlayerBio>)[key];
+  return (index as Record<string, PlayerBio>)[key] || wtaBySlug.get(key);
 }

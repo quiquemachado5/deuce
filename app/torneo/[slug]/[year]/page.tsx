@@ -6,7 +6,6 @@ import { preparedTournamentArchive } from "@/lib/revista/read-records";
 import { tournamentName } from "@/lib/labels";
 import {
   categoryLabel,
-  categoryYears,
   tournamentDirectory,
 } from "@/lib/tournament-directory";
 import { roundPosition, durationLabel, winnerName } from "@/lib/editorial";
@@ -28,7 +27,7 @@ import { tournamentDetailFeaturePhoto, tournamentDetailPhoto } from "@/lib/tourn
 
 type Props = {
   params: Promise<{ slug: string; year: string }>;
-  searchParams: Promise<{ categoria?: string }>;
+  searchParams: Promise<{ categoria?: string; cuadro?: string }>;
 };
 export async function generateMetadata({ params, searchParams }: Props) {
   const { slug, year } = await params;
@@ -38,23 +37,24 @@ export async function generateMetadata({ params, searchParams }: Props) {
   );
   const options =
     tournament?.matches.filter((match) => match.year === Number(year)) || [];
-  const level =
-    query.categoria &&
-    options.some((match) => match.category === query.categoria)
-      ? query.categoria
-      : options[0]?.category;
+  const men=options.filter(match=>(match.tour||'atp')==='atp');
+  const women=options.filter(match=>match.tour==='wta');
+  const requested=options.filter(match=>match.category===query.categoria);
+  const selected=query.cuadro==='wta'&&women.length?women:query.cuadro==='atp'&&men.length?men:requested.length&&requested.every(match=>match.tour==='wta')?women:men.length?men:women;
+  const level=query.categoria&&selected.some(match=>match.category===query.categoria)?query.categoria:selected[0]?.category;
   const canonicalParams = new URLSearchParams();
   if (level && new Set(options.map((match) => match.category)).size > 1)
     canonicalParams.set("categoria", level);
+  if (selected === women && women.length) canonicalParams.set("cuadro", "wta");
   const title = `${tournament ? tournamentName(tournament.name) : "Edición"} ${year}${level ? ` · ${categoryLabel(level)}` : ""} — DEUCE`;
-  const description = "La final, el camino del campeón y los resultados de esta edición.";
+  const description = `La final, el cuadro y los resultados ${selected === women ? 'femeninos' : 'masculinos'} de esta edición.`;
   return {
     title,
     description,
     alternates: {
       canonical: `/torneos/${slug}/${year}${canonicalParams.size ? `?${canonicalParams}` : ""}`,
     },
-    openGraph: { title, description, url: `/torneos/${slug}/${year}` },
+    openGraph: { title, description, url: `/torneos/${slug}/${year}${canonicalParams.size ? `?${canonicalParams}` : ""}` },
     twitter: { card: "summary_large_image", title, description },
   };
 }
@@ -71,12 +71,15 @@ export default async function Edition({ params, searchParams }: Props) {
     (match) => match.year === Number(year),
   );
   const categories = [...new Set(edition.map((match) => match.category))];
-  const category =
-    query.categoria && categories.includes(query.categoria)
-      ? query.categoria
-      : categories[0];
-  const matches = edition.filter((match) => match.category === category);
-  if (!matches.length) notFound();
+  const men=edition.filter(match=>(match.tour||'atp')==='atp');
+  const women=edition.filter(match=>match.tour==='wta');
+  if (!men.length && !women.length) notFound();
+  const requestedCategory=query.categoria&&categories.includes(query.categoria)?query.categoria:undefined;
+  const requestedMatches=edition.filter(match=>match.category===requestedCategory);
+  const selectedTour=query.cuadro==='wta'&&women.length?'wta':query.cuadro==='atp'&&men.length?'atp':requestedMatches.length&&requestedMatches.every(match=>match.tour==='wta')?'wta':men.length?'atp':'wta';
+  const selectedMatches=selectedTour==='wta'?women:men;
+  const category=requestedCategory&&selectedMatches.some(match=>match.category===requestedCategory)?requestedCategory:selectedMatches[0]?.category;
+  const matches=selectedMatches.filter(match=>match.category===category);
   const court = editionTournamentCourt(matches);
   const final = matches.find((match) => roundPosition(match.round) === 7);
   const measuredMatches=matches.filter(eligibleMatch);
@@ -141,11 +144,11 @@ export default async function Edition({ params, searchParams }: Props) {
     timed[0]&&{match:timed[0],label:"La mayor duración publicada",value:durationLabel(publishedMatchMinutes(timed[0])!)},
   ].filter((item):item is {match:typeof measuredMatches[number];label:string;value:string}=>Boolean(item));
   const editionPortrait = champion
-    ? championPhotoForEdition(tournament.name, Number(year)) || playerPhotoAtTournament(champion, tournament.name) || playerPhoto(champion)
+    ? (selectedTour==='atp'?championPhotoForEdition(tournament.name, Number(year)) || playerPhotoAtTournament(champion, tournament.name):null) || playerPhoto(champion)
     : detailPhoto || heroPhoto;
   const spotlightSlides: Extract<EditionInsightSlide,{kind:"photo"}>[] = editionSpotlights.slice(0,3).flatMap((item) => {
     const subject = winnerName(item.match) || item.match.player1.name;
-    const photo = playerPhotoAtTournament(subject, tournament.name) || playerPhoto(subject) || detailPhoto || heroPhoto;
+    const photo = (selectedTour==='atp'?playerPhotoAtTournament(subject, tournament.name):null) || playerPhoto(subject) || detailPhoto || heroPhoto;
     if (!photo) return [];
     return [{
       kind: "photo" as const,
@@ -177,17 +180,18 @@ export default async function Edition({ params, searchParams }: Props) {
       value: number(totalGames),
       detail: "juegos documentados de principio a fin.",
       facts: [
-        { value: number(playersInEdition), label: "jugadores" },
+        { value: number(playersInEdition), label: selectedTour==='wta'?"jugadoras":"jugadores" },
         { value: number(totalSets), label: "sets" },
         { value: number(rounds), label: "rondas" },
       ],
     },
     ...spotlightSlides.slice(1),
   ];
-  const categoryOptions = tournament.categories.map((level) => ({
+  const tourCategories=[...new Set(tournament.matches.filter(match=>(match.tour||'atp')===selectedTour).map(match=>match.category))];
+  const categoryOptions = tourCategories.map((level) => ({
     value: level,
     label: categoryLabel(level),
-    years: categoryYears(tournament, level),
+    years: [...new Set(tournament.matches.filter(match=>match.category===level&&(match.tour||'atp')===selectedTour).map(match=>match.year))].sort((a,b)=>b-a),
   }));
   const titleName = tournamentName(tournament.name);
   const heroTitleLines = slug === "us-open" ? ["Abierto de", "Estados Unidos"] : [titleName];
@@ -207,16 +211,17 @@ export default async function Edition({ params, searchParams }: Props) {
             <div>
               <h1 className={styles.heroTitle}><span className={styles.heroName}>{heroTitleLines.map((line) => <span className={styles.heroLine} key={line}>{line}</span>)}</span><span className={styles.heroYear}>{year}</span></h1>
             </div>
-            <div className={styles.heroNav}><TournamentEditionNav slug={slug} years={categoryYears(tournament, category)} currentYear={Number(year)} category={tournament.categories.length > 1 ? category : undefined} categories={categoryOptions}/></div>
+            <div className={styles.heroNav}><TournamentEditionNav slug={slug} years={categoryOptions.find(option=>option.value===category)?.years||[]} currentYear={Number(year)} category={tournament.categories.length > 1 ? category : undefined} categories={categoryOptions} tour={selectedTour}/></div>
           </div>
         </div>
       </header>
 
-      {final && <TournamentFinal match={final} />}
-      <TournamentBracket matches={matches} />
+      {men.length>0&&women.length>0?<nav className={styles.editionTourSwitch} aria-label="Cuadro de la edición"><Link href={`/torneos/${slug}/${year}?cuadro=atp`} aria-current={selectedTour==='atp'?'page':undefined} scroll={false}>ATP</Link><Link href={`/torneos/${slug}/${year}?cuadro=wta`} aria-current={selectedTour==='wta'?'page':undefined} scroll={false}>WTA</Link></nav>:null}
+      {final&&<TournamentFinal match={final} heading={men.length&&women.length?selectedTour==='wta'?'La final femenina':'La final masculina':'La final'}/>}
+      {matches.length>0&&<TournamentBracket matches={matches} heading={men.length&&women.length?selectedTour==='wta'?'El cuadro femenino':'El cuadro masculino':'El cuadro de la edición'}/>}
       {measuredMatches.length > 0 && (
         <section className={styles.editionReadings} aria-labelledby="edition-insights-title">
-          <div className={styles.sectionHead}><div><h2 id="edition-insights-title">Lecturas de la edición</h2></div></div>
+          <div className={styles.sectionHead}><div><h2 id="edition-insights-title">Lecturas de la edición{men.length&&women.length?selectedTour==='wta'?' · WTA':' · ATP':''}</h2></div></div>
           <div className={styles.editionStory}>
             <article className={styles.editionLead}>
               {editionPortrait && <Image className="art-directed-photo" src={editionPortrait.src} alt={editionPortrait.alt} fill sizes="(max-width:759px) 100vw, 54vw" style={imageFocus(editionPortrait.objectPosition || "center top", editionPortrait.mobileObjectPosition || editionPortrait.objectPosition || "center top")} unoptimized />}
@@ -224,8 +229,8 @@ export default async function Edition({ params, searchParams }: Props) {
               <div><span>El pulso de {year}</span><strong>{number(totalGames)}</strong><p>juegos. Una edición medida punto a punto, con la atmósfera que la hizo única.</p></div>
             </article>
             <div className={styles.editionFocus}>
-              <article><span>Camino del campeón</span><strong>{number(championPath)}</strong><p>{champion ? `${champion}: ${number(championSetsLost)} sets cedidos y balance de ${championGameBalance>=0?"+":""}${number(championGameBalance)} juegos.` : "No hay campeón documentado en esta edición."}</p></article>
-              <article><span>El cuadro completo</span><strong>{number(playersInEdition)}</strong><p>jugadores · {number(measuredMatches.length)} partidos · {number(rounds)} rondas documentadas.</p></article>
+              <article><span>Camino {selectedTour==='wta'?'de la campeona':'del campeón'}</span><strong>{number(championPath)}</strong><p>{champion ? `${champion}: ${number(championSetsLost)} sets cedidos y balance de ${championGameBalance>=0?"+":""}${number(championGameBalance)} juegos.` : `No hay ${selectedTour==='wta'?'campeona':'campeón'} documentado en esta edición.`}</p></article>
+              <article><span>El cuadro completo</span><strong>{number(playersInEdition)}</strong><p>{selectedTour==='wta'?'jugadoras':'jugadores'} · {number(measuredMatches.length)} partidos · {number(rounds)} rondas documentadas.</p></article>
             </div>
             <EditionInsightsRail slides={insightSlides} />
             <div className={styles.editionSignals} data-count={editionSignals.length} aria-label="Ritmo de la edición">

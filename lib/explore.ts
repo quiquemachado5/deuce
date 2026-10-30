@@ -1,4 +1,4 @@
-import type { Match, Surface } from './types'
+import type { Match, Surface, Tour } from './types'
 import { dramaIndex } from './analytics/drama'
 
 export function playerSlug(name: string) {
@@ -16,6 +16,7 @@ export function comparisonHref(first: string, second: string, anchor = 'cara-a-c
 
 export type PlayerSummary = {
   name: string
+  tour: Tour
   played: number
   won: number
   bySurface: Record<Surface, { played: number; won: number }>
@@ -28,10 +29,12 @@ export function playerDirectory(matches: Match[]): PlayerSummary[] {
     for (const side of [1, 2] as const) {
       const name = side === 1 ? match.player1.name : match.player2.name
       if (!name || !match.winner) continue
-      let entry = map.get(name)
+      const tour = match.tour || 'atp'
+      const key = `${tour}:${name}`
+      let entry = map.get(key)
       if (!entry) {
-        entry = { name, played: 0, won: 0, bySurface: { hard: { played: 0, won: 0 }, clay: { played: 0, won: 0 }, grass: { played: 0, won: 0 }, carpet: { played: 0, won: 0 }, unknown: { played: 0, won: 0 } }, matches: [] }
-        map.set(name, entry)
+        entry = { name, tour, played: 0, won: 0, bySurface: { hard: { played: 0, won: 0 }, clay: { played: 0, won: 0 }, grass: { played: 0, won: 0 }, carpet: { played: 0, won: 0 }, unknown: { played: 0, won: 0 } }, matches: [] }
+        map.set(key, entry)
       }
       entry.played++
       entry.won += Number(match.winner === side)
@@ -50,8 +53,9 @@ export function rivalryDirectory(matches: Match[]): RivalrySummary[] {
     if (!match.winner || !match.player1.name || !match.player2.name) continue
     const names = [match.player1.name, match.player2.name].sort((a, b) => a.localeCompare(b, 'es')) as [string, string]
     const slug = pairSlug(...names)
-    let entry = map.get(slug)
-    if (!entry) { entry = { names, wins: [0, 0], matches: [], slug }; map.set(slug, entry) }
+    const key = `${match.tour || 'atp'}:${slug}`
+    let entry = map.get(key)
+    if (!entry) { entry = { names, wins: [0, 0], matches: [], slug: key }; map.set(key, entry) }
     const winnerName = match.winner === 1 ? match.player1.name : match.player2.name
     entry.wins[winnerName === names[0] ? 0 : 1]++
     entry.matches.push(match)

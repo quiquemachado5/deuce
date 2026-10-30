@@ -102,6 +102,6 @@ function calculateSummary(input: Match[]) {
 }
 export function tournamentInsights(input: Match[]) {
  const groups=new Map<string,Match[]>()
- for(const match of input.filter(eligibleMatch)){const key=`${match.tournament}|${match.category}`; const rows=groups.get(key)||[];rows.push(match);groups.set(key,rows)}
+ for(const match of input.filter(eligibleMatch)){const key=`${match.tour||'atp'}|${match.tournament}|${match.category}`; const rows=groups.get(key)||[];rows.push(match);groups.set(key,rows)}
  return [...groups].map(([key,matches])=>({key,name:matches[0].tournament,category:matches[0].category,editions:new Set(matches.map(m=>m.year)).size,...archiveSummary(matches)}))
 }

@@ -5,7 +5,9 @@ export type YearCoverage = { year: number; matches: number; ranking: number; sta
 export function summarizeDataset(matches: Match[]) {
   const years = new Map<number, YearCoverage>();
   const surfaces = Object.fromEntries(SURFACES.map(surface => [surface, 0])) as Record<Surface, number>;
+  const tours={atp:0,wta:0};
   for (const match of matches) {
+    tours[match.tour==='wta'?'wta':'atp']++;
     const row = years.get(match.year) || { year: match.year, matches: 0, ranking: 0, statistics: 0, points: 0 };
     row.matches++;
     // At least one contemporary rank; metrics still require the rival's rank.
@@ -15,7 +17,7 @@ export function summarizeDataset(matches: Match[]) {
     years.set(match.year, row);
     surfaces[match.surface]++;
   }
-  return { tournaments: new Set(matches.map(match => match.tournament)).size, surfaces, years: [...years.values()].sort((a, b) => b.year - a.year) };
+  return { tournaments: new Set(matches.map(match => match.tournament)).size, tours, surfaces, years: [...years.values()].sort((a, b) => b.year - a.year) };
 }
 
 /** Publication gate for this full historical archive, not a generic dataset. */

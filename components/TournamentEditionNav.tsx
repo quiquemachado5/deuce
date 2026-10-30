@@ -6,12 +6,14 @@ export default function TournamentEditionNav({
   category,
   currentYear,
   categories = [],
+  tour,
 }: {
   slug: string;
   years: number[];
   category?: string;
   currentYear?: number;
   categories?: Array<{ value: string; label: string; count?: number; years: number[] }>;
+  tour?: 'atp' | 'wta';
 }) {
   return (
     <nav className="tournament-edition-nav" aria-label="Ediciones del torneo">
@@ -21,6 +23,7 @@ export default function TournamentEditionNav({
         category={category}
         currentYear={currentYear}
         categories={categories}
+        tour={tour}
       />
     </nav>
   );

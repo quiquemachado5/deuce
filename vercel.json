@@ -2,7 +2,8 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "crons": [
     { "path": "/api/cron/refresh", "schedule": "0 4 * * *" },
-    { "path": "/api/cron/publish", "schedule": "0 5 * * *" }
+    { "path": "/api/cron/publish", "schedule": "0 5 * * *" },
+    { "path": "/api/cron/wta", "schedule": "30 4 * * *" }
   ],
   "regions": ["cdg1"]
 }

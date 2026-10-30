@@ -1,8 +1,9 @@
-import type { Match } from "./types";
+import type { Match, Tour } from "./types";
 import { prepareMatch, eligibleMatch } from "./quality";
 import { roundPosition } from "./editorial";
 export type EditionAudit = {
   tournament: string;
+  tour?: Tour;
   year: number;
   category: string;
   sourceRows: number;
@@ -15,7 +16,7 @@ export type EditionAudit = {
   missingLateRounds: string[];
   completeDraw: boolean | null;
 };
-const knockoutCategories = new Set(["Grand Slam", "Masters 1000", "ATP 500", "ATP 250", "Precursores de Masters"]);
+const knockoutCategories = new Set(["Grand Slam", "Masters 1000", "ATP 500", "ATP 250", "Precursores de Masters", "WTA 1000", "WTA 500", "WTA 250", "WTA 125", "WTA · alto nivel histórico"]);
 const lateRounds = [{position:5,label:"cuartos",singular:"cuarto",expected:4},{position:6,label:"semifinales",singular:"semifinal",expected:2},{position:7,label:"finales",singular:"final",expected:1}] as const;
 
 export function editionCompleteness(audit: Pick<EditionAudit,"category"|"rounds"|"pending">) {
@@ -28,9 +29,10 @@ export function auditEditions(source: Match[]): EditionAudit[] {
   const groups = new Map<string, EditionAudit>();
   for (const row of source) {
     const m = prepareMatch(row),
-      key = [m.tournament, m.year, m.category].join("|");
+      key = [m.tournament, m.year, m.category, m.tour || 'atp'].join("|");
     const a = groups.get(key) || {
       tournament: m.tournament,
+      tour: m.tour || 'atp',
       year: m.year,
       category: m.category,
       sourceRows: 0,

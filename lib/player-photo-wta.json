@@ -1,0 +1,482 @@
+{
+  "Elena Rybakina": {
+    "src": "/images/players/wta/324166.webp",
+    "alt": "Elena Rybakina, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/324166/elena-rybakina",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Aryna Sabalenka": {
+    "src": "/images/players/wta/320760.webp",
+    "alt": "Aryna Sabalenka, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/320760/aryna-sabalenka",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Mirra Andreeva": {
+    "src": "/images/players/wta/331809.webp",
+    "alt": "Mirra Andreeva, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/331809/mirra-andreeva",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Jessica Pegula": {
+    "src": "/images/players/wta/316956.webp",
+    "alt": "Jessica Pegula, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/316956/jessica-pegula",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Coco Gauff": {
+    "src": "/images/players/wta/328560.webp",
+    "alt": "Coco Gauff, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/328560/coco-gauff",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Elina Svitolina": {
+    "src": "/images/players/wta/316738.webp",
+    "alt": "Elina Svitolina, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/316738/elina-svitolina",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Karolina Muchova": {
+    "src": "/images/players/wta/322191.webp",
+    "alt": "Karolina Muchova, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/322191/karolina-muchova",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Linda Noskova": {
+    "src": "/images/players/wta/329668.webp",
+    "alt": "Linda Noskova, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/329668/linda-noskova",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Gabriela Dabrowski": {
+    "src": "/images/players/wta/314445.webp",
+    "alt": "Gabriela Dabrowski, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/314445/gabriela-dabrowski",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Luisa Stefani": {
+    "src": "/images/players/wta/321047.webp",
+    "alt": "Luisa Stefani, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/321047/luisa-stefani",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Taylor Townsend": {
+    "src": "/images/players/wta/318609.webp",
+    "alt": "Taylor Townsend, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/318609/taylor-townsend",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Katerina Siniakova": {
+    "src": "/images/players/wta/320301.webp",
+    "alt": "Katerina Siniakova, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/320301/katerina-siniakova",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Anna Danilina": {
+    "src": "/images/players/wta/319731.webp",
+    "alt": "Anna Danilina, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/319731/anna-danilina",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Kristina Mladenovic": {
+    "src": "/images/players/wta/315616.webp",
+    "alt": "Kristina Mladenovic, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/315616/kristina-mladenovic",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Hanyu Guo": {
+    "src": "/images/players/wta/323087.webp",
+    "alt": "Hanyu Guo, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/323087/hanyu-guo",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Nicole Melichar-Martinez": {
+    "src": "/images/players/wta/316713.webp",
+    "alt": "Nicole Melichar-Martinez, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/316713/nicole-melichar-martinez",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Cristina Bucsa": {
+    "src": "/images/players/wta/321158.webp",
+    "alt": "Cristina Bucsa, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/321158/cristina-bucsa",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Jelena Ostapenko": {
+    "src": "/images/players/wta/319939.webp",
+    "alt": "Jelena Ostapenko, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/319939/jelena-ostapenko",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Demi Schuurs": {
+    "src": "/images/players/wta/317462.webp",
+    "alt": "Demi Schuurs, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/317462/demi-schuurs",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Ellen Perez": {
+    "src": "/images/players/wta/319960.webp",
+    "alt": "Ellen Perez, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/319960/ellen-perez",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Shuai Zhang": {
+    "src": "/images/players/wta/311779.webp",
+    "alt": "Shuai Zhang, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/311779/shuai-zhang",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Elise Mertens": {
+    "src": "/images/players/wta/317964.webp",
+    "alt": "Elise Mertens, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/317964/elise-mertens",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Iga Swiatek": {
+    "src": "/images/players/wta/326408.webp",
+    "alt": "Iga Swiatek, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/326408/iga-swiatek",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Marta Kostyuk": {
+    "src": "/images/players/wta/326482.webp",
+    "alt": "Marta Kostyuk, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/326482/marta-kostyuk",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Maja Chwalinska": {
+    "src": "/images/players/wta/325639.webp",
+    "alt": "Maja Chwalinska, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/325639/maja-chwalinska",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Iva Jovic": {
+    "src": "/images/players/wta/332285.webp",
+    "alt": "Iva Jovic, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/332285/iva-jovic",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Diana Shnaider": {
+    "src": "/images/players/wta/330482.webp",
+    "alt": "Diana Shnaider, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/330482/diana-shnaider",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Victoria Mboko": {
+    "src": "/images/players/wta/331006.webp",
+    "alt": "Victoria Mboko, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/331006/victoria-mboko",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Sorana Cirstea": {
+    "src": "/images/players/wta/312469.webp",
+    "alt": "Sorana Cirstea, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/312469/sorana-cirstea",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Amanda Anisimova": {
+    "src": "/images/players/wta/326384.webp",
+    "alt": "Amanda Anisimova, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/326384/amanda-anisimova",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Naomi Osaka": {
+    "src": "/images/players/wta/319998.webp",
+    "alt": "Naomi Osaka, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/319998/naomi-osaka",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Alexandra Eala": {
+    "src": "/images/players/wta/330332.webp",
+    "alt": "Alexandra Eala, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/330332/alexandra-eala",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Belinda Bencic": {
+    "src": "/images/players/wta/319001.webp",
+    "alt": "Belinda Bencic, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/319001/belinda-bencic",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Madison Keys": {
+    "src": "/images/players/wta/316959.webp",
+    "alt": "Madison Keys, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/316959/madison-keys",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Qinwen Zheng": {
+    "src": "/images/players/wta/328120.webp",
+    "alt": "Qinwen Zheng, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/328120/qinwen-zheng",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Leylah Fernandez": {
+    "src": "/images/players/wta/326735.webp",
+    "alt": "Leylah Fernandez, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/326735/leylah-fernandez",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Marie Bouzkova": {
+    "src": "/images/players/wta/320983.webp",
+    "alt": "Marie Bouzkova, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/320983/marie-bouzkova",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Anna Kalinskaya": {
+    "src": "/images/players/wta/323942.webp",
+    "alt": "Anna Kalinskaya, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/323942/anna-kalinskaya",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Anastasia Potapova": {
+    "src": "/images/players/wta/325601.webp",
+    "alt": "Anastasia Potapova, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/325601/anastasia-potapova",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Emma Navarro": {
+    "src": "/images/players/wta/325410.webp",
+    "alt": "Emma Navarro, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/325410/emma-navarro",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Nikola Bartunkova": {
+    "src": "/images/players/wta/330364.webp",
+    "alt": "Nikola Bartunkova, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/330364/nikola-bartunkova",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Maria Sakkari": {
+    "src": "/images/players/wta/318312.webp",
+    "alt": "Maria Sakkari, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/318312/maria-sakkari",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Ann Li": {
+    "src": "/images/players/wta/326096.webp",
+    "alt": "Ann Li, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/326096/ann-li",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Sara Bejlek": {
+    "src": "/images/players/wta/330375.webp",
+    "alt": "Sara Bejlek, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/330375/sara-bejlek",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Ekaterina Alexandrova": {
+    "src": "/images/players/wta/319007.webp",
+    "alt": "Ekaterina Alexandrova, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/319007/ekaterina-alexandrova",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Diane Parry": {
+    "src": "/images/players/wta/327077.webp",
+    "alt": "Diane Parry, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/327077/diane-parry",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Jasmine Paolini": {
+    "src": "/images/players/wta/319280.webp",
+    "alt": "Jasmine Paolini, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/319280/jasmine-paolini",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Donna Vekic": {
+    "src": "/images/players/wta/318516.webp",
+    "alt": "Donna Vekic, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/318516/donna-vekic",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Peyton Stearns": {
+    "src": "/images/players/wta/327573.webp",
+    "alt": "Peyton Stearns, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/327573/peyton-stearns",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Talia Gibson": {
+    "src": "/images/players/wta/329393.webp",
+    "alt": "Talia Gibson, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/329393/talia-gibson",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Xinyu Wang": {
+    "src": "/images/players/wta/326376.webp",
+    "alt": "Xinyu Wang, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/326376/xinyu-wang",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Daria Snigur": {
+    "src": "/images/players/wta/327845.webp",
+    "alt": "Daria Snigur, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/327845/daria-snigur",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Kimberly Birrell": {
+    "src": "/images/players/wta/320728.webp",
+    "alt": "Kimberly Birrell, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/320728/kimberly-birrell",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Liudmila Samsonova": {
+    "src": "/images/players/wta/322222.webp",
+    "alt": "Liudmila Samsonova, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/322222/liudmila-samsonova",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Ashlyn Krueger": {
+    "src": "/images/players/wta/329409.webp",
+    "alt": "Ashlyn Krueger, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/329409/ashlyn-krueger",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Hailey Baptiste": {
+    "src": "/images/players/wta/327101.webp",
+    "alt": "Hailey Baptiste, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/327101/hailey-baptiste",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Barbora Krejcikova": {
+    "src": "/images/players/wta/318314.webp",
+    "alt": "Barbora Krejcikova, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/318314/barbora-krejcikova",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Janice Tjen": {
+    "src": "/images/players/wta/328818.webp",
+    "alt": "Janice Tjen, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/328818/janice-tjen",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Katie Boulter": {
+    "src": "/images/players/wta/319125.webp",
+    "alt": "Katie Boulter, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/319125/katie-boulter",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  },
+  "Magdalena Frech": {
+    "src": "/images/players/wta/320277.webp",
+    "alt": "Magdalena Frech, tenista",
+    "credit": "WTA · adaptación WebP por DEUCE",
+    "source": "https://www.wtatennis.com/players/320277/magdalena-frech",
+    "objectPosition": "50% 20%",
+    "mobileObjectPosition": "50% 20%"
+  }
+}

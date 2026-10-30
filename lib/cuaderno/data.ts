@@ -32,15 +32,16 @@ type PlayerNotebook = Awaited<ReturnType<typeof preparedPlayerArchive>> & {
 const cachedPlayers = asyncCache<PlayerNotebook | null>(300_000, 32);
 
 /** Build only the requested career instead of materialising every player. */
-export const playerNotebook = cache(async (rawSlug: string) => {
+export const playerNotebook = cache(async (rawSlug: string, tour: 'atp' | 'wta' = 'atp') => {
   const archive = await preparedPlayerArchive();
   const requestedSlug = playerSlug(canonicalName(rawSlug.replace(/-/g, ' ')));
-  const cacheKey = `${archive.manifest.version}:${archive.source}:${archive.fallbackReason || ''}:${requestedSlug}`;
+  const cacheKey = `${archive.manifest.version}:${archive.source}:${archive.fallbackReason || ''}:${tour}:${requestedSlug}`;
   return cachedPlayers(cacheKey, async () => {
-    const record = archive.records.find(entry => playerSlug(entry.name) === requestedSlug);
+    const record = archive.records.find(entry => (entry.tour || 'atp') === tour && playerSlug(entry.name) === requestedSlug);
     if (!record) return null;
     const player: PlayerSummary = {
       name: record.name,
+      tour,
       played: 0,
       won: 0,
       bySurface: {
@@ -53,6 +54,7 @@ export const playerNotebook = cache(async (rawSlug: string) => {
       matches: [],
     };
     for (const match of archive.matches) {
+      if ((match.tour || 'atp') !== tour) continue;
       const side = match.player1.name === record.name ? 1 : match.player2.name === record.name ? 2 : null;
       if (!side || !match.winner) continue;
       player.played++;

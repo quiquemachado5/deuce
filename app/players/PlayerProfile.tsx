@@ -32,13 +32,13 @@ import type { Match } from '@/lib/types';
 import { SURFACES } from '@/lib/surface';
 import styles from './player-profile.module.css';
 
-type Props={params:Promise<{slug:string}>;searchParams:Promise<{year?:string}>};
+type Props={params:Promise<{slug:string}>;searchParams:Promise<{year?:string;tour?:string}>};
 
 function categoryPriority(category:string){
   if(category==='Grand Slam')return 0;
-  if(category==='Masters 1000'||category==='Precursores de Masters')return 1;
-  if(category==='ATP 500')return 2;
-  if(category==='ATP 250')return 3;
+  if(category==='Masters 1000'||category==='WTA 1000'||category==='Precursores de Masters'||category==='WTA · alto nivel histórico')return 1;
+  if(category==='ATP 500'||category==='WTA 500')return 2;
+  if(category==='ATP 250'||category==='WTA 250')return 3;
   return 4;
 }
 
@@ -56,17 +56,23 @@ function rankingHistoryPoints(matches:Match[],name:string){
 
 export async function generateMetadata({params,searchParams}:Props){
   const {slug}=await params,query=await searchParams;
-  const player=(await playerNotebook(slug))?.player;
+  const tour=query.tour==='wta'?'wta':'atp';
+  const player=(await playerNotebook(slug,tour))?.player;
   const title=`${player?.name||'Jugador'} — DEUCE`;
-  const description=player?`${player.name}: carrera, rendimiento, temporadas, rivales y partidos en el archivo DEUCE.`:'Resultados de los torneos ATP guardados en DEUCE.';
-  return {title,description,alternates:{canonical:`/jugadores/${slug}${query.year?`?year=${query.year}`:''}`},openGraph:{title,description,type:'profile',url:`/jugadores/${slug}`},twitter:{card:'summary_large_image',title,description}};
+  const description=player?`${player.name}: carrera, rendimiento, temporadas, rivales y partidos en el archivo DEUCE.`:'Resultados de los torneos ATP y WTA guardados en DEUCE.';
+  const canonicalParams=new URLSearchParams();if(tour==='wta')canonicalParams.set('tour','wta');if(query.year)canonicalParams.set('year',query.year);
+  const canonical=`/jugadores/${slug}${canonicalParams.size?`?${canonicalParams}`:''}`;
+  return {title,description,alternates:{canonical},openGraph:{title,description,type:'profile',url:canonical},twitter:{card:'summary_large_image',title,description}};
 }
 
-export default async function Player({params}:Props){
-  const {slug}=await params,data=await playerNotebook(slug);
+export default async function Player({params,searchParams}:Props){
+  const {slug}=await params,query=await searchParams;
+  const requestedTour=query.tour==='wta'?'wta':'atp';
+  const data=await playerNotebook(slug,requestedTour);
   if(!data)notFound();
   const {player,record}=data;
-  if(playerSlug(player.name)!==slug)permanentRedirect(`/jugadores/${playerSlug(player.name)}`);
+  const tour=player.matches[0]?.tour||'atp';
+  if(playerSlug(player.name)!==slug)permanentRedirect(`/jugadores/${playerSlug(player.name)}${requestedTour==='wta'?'?tour=wta':''}`);
 
   const portrait=playerDirectoryPhoto(player.name),bio=playerBiography(player.name);
   const years=[...new Set(player.matches.map(match=>match.year))].sort((a,b)=>b-a);
@@ -156,7 +162,7 @@ export default async function Player({params}:Props){
       <header className={`pp-hero${portrait?' has-photo':' no-photo'}`} id="resumen">
         {portrait?<PlayerPortrait photo={portrait} className="pp-hero-photo" preload/>:<div className="pp-hero-fallback" aria-label={`Sin fotografía disponible para ${player.name}`}><span>{initials}</span>{bio?.country&&<PlayerFlag code={bio.country}/>}<i/><i/></div>}
         <div className={styles.heroShade} aria-hidden="true"/>
-        <Link className={styles.backButton} href="/jugadores" aria-label="Volver a jugadores"><ArrowLeft size={19} aria-hidden="true"/></Link>
+        <Link className={styles.backButton} href={`/jugadores?tour=${tour}`} aria-label="Volver a jugadores"><ArrowLeft size={19} aria-hidden="true"/></Link>
         <div className="pp-hero-copy">
           <div className={styles.heroIdentity}>
             <div className={styles.playerTitle}>{bio?.country&&<PlayerFlag code={bio.country}/>}<h1>{player.name}</h1></div>
@@ -189,7 +195,7 @@ export default async function Player({params}:Props){
 
       {galleryPhotos.length===3?<section className={`pp-section ${styles.mediaSection}`} aria-labelledby="pp-media-title"><div className="pp-section-heading"><div><h2 id="pp-media-title">Momentos del archivo</h2></div></div><div className={styles.mediaGallery}>{galleryPhotos.map((photo,index)=><figure key={photo.src} data-featured={index===0||undefined}><Image src={photo.src} alt={photo.alt} fill sizes={index===0?'(max-width: 759px) 100vw, 620px':'(max-width: 759px) 100vw, 310px'} style={{objectPosition:photo.objectPosition}}/><figcaption><span>{photo.alt}</span></figcaption></figure>)}</div></section>:null}
 
-      {tournaments.length?<section className="pp-section pp-tournaments" id="torneos" aria-labelledby="pp-tournaments-title"><PlayerTournamentArchive tournaments={tournaments.slice(0,18).map(tournament=>{
+      {tournaments.length?<section className="pp-section pp-tournaments" id="torneos" aria-labelledby="pp-tournaments-title"><PlayerTournamentArchive tour={tour} tournaments={tournaments.slice(0,18).map(tournament=>{
         const branding=tournamentBrandingFor(tournament.rawName);
         const target=directory.get(tournament.rawName);
         return {slug:tournament.slug,name:tournament.name,surfaceKey:tournament.surfaceKey,category:tournament.category,titles:tournament.titles,titleYears:tournament.titleYears,brandingSrc:branding?.src,trophySrc:branding?.trophySrc,href:target?.slug?`/${target.slug}`:undefined};
@@ -197,7 +203,7 @@ export default async function Player({params}:Props){
 
       {rivals.length>=2?<section className="pp-section pp-rivals" id="enfrentamientos" aria-labelledby="pp-rivals-title"><PlayerRivals rivals={rivals} player={{name:player.name,country:bio?.country}} compareHref={`/comparar?a=${encodeURIComponent(player.name)}`}/></section>:null}
 
-      <section className="pp-section pp-matches" id="partidos" aria-labelledby="pp-matches-title"><PlayerRecentMatches matches={recent} allHref={`/buscar?player=${encodeURIComponent(player.name)}&scope=matches`}/></section>
+      <section className="pp-section pp-matches" id="partidos" aria-labelledby="pp-matches-title"><PlayerRecentMatches matches={recent} allHref={`/buscar?tour=${tour}&player=${encodeURIComponent(player.name)}&scope=matches`}/></section>
     </main>
   </div>;
 }

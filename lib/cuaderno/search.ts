@@ -25,7 +25,7 @@ export async function searchArchive(query: string, options: { includeMatches?: b
     .filter((s) => includes(`${s.title} ${s.id}`))
     .slice(0, 4))
     items.push({
-      href: `/records?dato=${s.id}`,
+      href: `/records?dato=${s.id}&tour=atp`,
       name: s.title,
       group: "Récords",
       detail: s.group,
@@ -36,9 +36,9 @@ export async function searchArchive(query: string, options: { includeMatches?: b
   const playerResults = exactPlayers.length ? exactPlayers : data.records.filter(p => approximateName(query, p.name));
   for (const p of playerResults.slice(0, 4))
     items.push({
-      href: `/jugadores/${playerSlug(p.name)}`,
+      href: `/jugadores/${playerSlug(p.name)}${p.tour==='wta'?'?tour=wta':''}`,
       name: p.name,
-      detail: `${exactPlayers.length ? '' : 'Coincidencia aproximada · '}${p.played.toLocaleString("es-ES")} partidos en el archivo`,
+      detail: `${p.tour==='wta'?'WTA':'ATP'} · ${exactPlayers.length ? '' : 'Coincidencia aproximada · '}${p.played.toLocaleString("es-ES")} partidos en el archivo`,
       group: "Jugadores",
     });
   const requestedYear = terms.find(term => /^\d{4}$/.test(term));
@@ -49,9 +49,14 @@ export async function searchArchive(query: string, options: { includeMatches?: b
     const events = tournamentDirectory(data.matches).filter(event => eventTerms.every(term => canonicalSearchText(`${event.name} ${tournamentName(event.name)}`).includes(canonicalSearchText(term))) || searchTermsMatch(eventTerms, `${event.name} ${tournamentName(event.name)}`) || approximateName(eventQuery, tournamentName(event.name))).slice(0, 3);
     foundEvent = events.length > 0;
     for (const event of events) {
-      if (!requestedYear) items.push({ href: `/torneos/${event.slug}`, name: tournamentName(event.name), group: 'Torneos', detail: `${event.matches.length.toLocaleString('es-ES')} partidos en el archivo` });
-      const years = [...new Set(event.matches.map(match => match.year))].sort((a, b) => b - a).filter(year => !requestedYear || year === Number(requestedYear)).slice(0, requestedYear ? 1 : 2);
-      for (const year of years) items.push({ href: `/${event.slug}/${year}`, name: `${tournamentName(event.name)} ${year}`, group: 'Ediciones', detail: 'Resultados y camino del campeón' });
+      for (const tour of ['atp','wta'] as const) {
+        const circuitMatches=event.matches.filter(match=>(match.tour||'atp')===tour);
+        if (!circuitMatches.length) continue;
+        const circuit=tour==='wta'?'WTA':'ATP', suffix=tour==='wta'?'?cuadro=wta':'';
+        if (!requestedYear) items.push({ href: `/torneos/${event.slug}${suffix}`, name: tournamentName(event.name), group: 'Torneos', detail: `${circuit} · ${circuitMatches.length.toLocaleString('es-ES')} partidos en el archivo` });
+        const years = [...new Set(circuitMatches.map(match => match.year))].sort((a, b) => b - a).filter(year => !requestedYear || year === Number(requestedYear)).slice(0, requestedYear ? 1 : 2);
+        for (const year of years) items.push({ href: `/torneos/${event.slug}/${year}${suffix}`, name: `${tournamentName(event.name)} ${year}`, group: 'Ediciones', detail: `${circuit} · Resultados y camino ${tour==='wta'?'de la campeona':'del campeón'}` });
+      }
     }
   }
   if (!foundEvent && !playerResults.length && terms.length > 1 && !requestedYear) {
@@ -71,7 +76,7 @@ export async function searchArchive(query: string, options: { includeMatches?: b
       items.push({
         href: `/match/${m.match_id}`,
         name: `${m.player1.name} contra ${m.player2.name}`,
-        detail: `${tournamentName(m.tournament)} · ${m.year} · ${round(m)} · ${score(m)}${sentence(m) ? ` · ${sentence(m)}` : ""}`,
+        detail: `${m.tour==='wta'?'WTA':'ATP'} · ${tournamentName(m.tournament)} · ${m.year} · ${round(m)} · ${score(m)}${sentence(m) ? ` · ${sentence(m)}` : ""}`,
         group: "Partidos",
       });
   }

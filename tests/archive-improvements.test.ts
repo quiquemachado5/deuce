@@ -69,10 +69,11 @@ test('daily ingestion history records positive additions and stays idempotent on
     date:'2026-10-26',added:0,total:1,
     included:{matches:0,ranking:0,statistics:0,points:0},
     totals:{matches:1,ranking:0,statistics:1,points:1},
+    tourAdded:{atp:0,wta:0},tourTotals:{atp:1,wta:0},
   }]);
-  const second={...first,generatedAt:'2026-10-27T05:00:00Z',matchCount:4};
+  const second={...first,generatedAt:'2026-10-27T05:00:00Z',matchCount:4,summary:{...first.summary,tours:{atp:3,wta:1}}};
   const published=attachIngestionHistory(baseline,second);
-  const expected={date:'2026-10-27',added:3,total:4,included:{matches:3,ranking:0,statistics:0,points:0},totals:{matches:4,ranking:0,statistics:1,points:1}};
+  const expected={date:'2026-10-27',added:3,total:4,included:{matches:3,ranking:0,statistics:0,points:0},totals:{matches:4,ranking:0,statistics:1,points:1},tourAdded:{atp:2,wta:1},tourTotals:{atp:3,wta:1}};
   assert.deepEqual(published.ingestionHistory?.at(-1),expected);
   assert.deepEqual(attachIngestionHistory(published,{...second,generatedAt:'2026-10-27T06:00:00Z'}).ingestionHistory?.at(-1),expected);
   let completeHistory=baseline;

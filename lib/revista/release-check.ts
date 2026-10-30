@@ -14,7 +14,7 @@ export function assertReleaseCoverage(previous: RecordManifest, current: RecordM
 
 /** A publication may add an edition in progress, but it cannot reopen a draw already verified as complete. */
 export function assertEditionCoverage(previous: EditionAudit[], current: EditionAudit[]) {
-  const key=(row:EditionAudit)=>`${row.tournament}|${row.year}|${row.category}`;
+  const key=(row:EditionAudit)=>`${row.tournament}|${row.year}|${row.category}|${row.tour||'atp'}`;
   const withStatus=(row:EditionAudit):EditionAudit=>({...row,...editionCompleteness(row)});
   const next=new Map(current.map(row=>withStatus(row)).map(row=>[key(row),row]));
   for(const baseline of previous.map(withStatus).filter(row=>row.completeDraw===true)){

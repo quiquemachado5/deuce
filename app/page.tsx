@@ -2,7 +2,7 @@ import { ArrowUpRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { preparedGeneration } from '@/lib/revista/read-records';
-import { homeSelection } from '@/lib/deuce-home';
+import { homeSelection, homeSelectionFromIndex } from '@/lib/deuce-home';
 import { HeroVideo } from '@/components/deuce/HeroVideo';
 import { OnThisDay } from '@/components/deuce/OnThisDay';
 import { ArchiveMatchRow } from '@/components/deuce/MatchArchivePage';
@@ -20,10 +20,12 @@ export const revalidate = 300;
 export const metadata = { title:'DEUCE — Todo el tenis, partido a partido', description:'Explora el archivo visual del tenis desde 1968: partidos, jugadores, torneos y récords con los datos que los cuentan.', alternates:{canonical:'/'} };
 export default async function Home() {
   const generation=await preparedGeneration();
-  const matches=await generation.matches();
-  const {anniversary,anniversaries,latest}=homeSelection(matches);
+  const today=new Date();
+  const prepared=generation.manifest.home?.daily||generation.manifest.home?.date===today.toISOString().slice(0,10)?generation.manifest.home:null;
+  const matches=prepared?null:await generation.matches();
+  const {anniversary,anniversaries,latest}=prepared?.daily?homeSelectionFromIndex(prepared.daily,today):prepared?.selection||homeSelection(matches||[],today);
   const records=['top-10','mas-juegos','remontada-dos-sets'].flatMap(id=>{const piece=generation.manifest.pieces.find(p=>p.id===id);return piece?.leader?[piece]:[];});
-  const tournamentsWithMatches=new Set(matches.map(match=>match.tournament));
+  const tournamentsWithMatches=new Set(prepared?.tournaments||matches?.map(match=>match.tournament)||[]);
   const slides: TournamentSlide[]=TOURNAMENTS.filter(t=>t.category==='Grand Slam'||t.category==='Masters 1000').flatMap(t=>{const image=courtPhoto(t.name);return image&&tournamentsWithMatches.has(t.name)?[{id:t.slug,name:tournamentName(t.name),city:'',surface:t.surface,description:'',image:image.src,alt:image.alt,imagePosition:image.objectPosition,imagePositionMobile:image.mobileObjectPosition,href:`/torneos/${t.slug}`,credit:image.credit,source:image.source}]:[];});
   return <div className="deuce-home">
     <HeroVideo count={generation.manifest.matchCount}/>

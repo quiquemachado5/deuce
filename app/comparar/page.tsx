@@ -35,7 +35,9 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
   const resolved = requested.map(resolvePlayer);
   const chosen = requested.map((name, index) => resolved[index] || name);
   const chosenNames=new Set(chosen);
-  const relevantMatches=matches.filter(match=>chosenNames.has(match.player1.name)||chosenNames.has(match.player2.name));
+  const selectedTours=new Set(matches.filter(match=>chosenNames.has(match.player1.name)||chosenNames.has(match.player2.name)).map(match=>match.tour||'atp'));
+  const selectedTour=selectedTours.size===1?[...selectedTours][0]:null;
+  const relevantMatches=matches.filter(match=>(!selectedTour||(match.tour||'atp')===selectedTour)&&(chosenNames.has(match.player1.name)||chosenNames.has(match.player2.name)));
   const window = sharedCareerWindow(relevantMatches, chosen);
   const cohort = q.period === 'shared' ? (window ? relevantMatches.filter(m=>m.year>=window.first&&m.year<=window.last) : []) : relevantMatches;
   const players = chosen.map(name => comparePlayer(cohort, name, q));
@@ -85,7 +87,7 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
         <label className="nc-field"><span>Periodo de comparación</span><select name="period" defaultValue={q.period || "career"}><option value="career">Carrera documentada</option><option value="shared">Periodo compartido</option></select></label>
         <label className="nc-field"><span>Temporada</span><select name="year" defaultValue={q.year || 'all'}><option value="all">Todas</option>{generation.manifest.years.map(year => <option key={year}>{year}</option>)}</select></label>
         <label className="nc-field"><span>Superficie</span><select name="surface" defaultValue={q.surface || 'all'}><option value="all">Todas</option>{SURFACES.map(s => <option value={s} key={s}>{surfaceLabel[s]}</option>)}</select></label>
-        <label className="nc-field"><span>Competición</span><select name="competition" defaultValue={q.competition || 'all'}><option value="all">Todas</option>{[...new Set(matches.map(m => m.category))].sort().filter(category => category !== 'ATP Tour · nivel no especificado').map(c => <option key={c}>{c}</option>)}</select></label>
+        <label className="nc-field"><span>Competición</span><select name="competition" defaultValue={q.competition || 'all'}><option value="all">Todas</option>{[...new Set(relevantMatches.map(m => m.category))].sort().filter(category => !/nivel no especificado/.test(category)).map(c => <option key={c}>{c}</option>)}</select></label>
         <label className="nc-field"><span>Edad al jugar</span><select name="age" defaultValue={q.age || 'all'}><option value="all">Todas las edades</option>{[['14-17','14–17'],['18-21','18–21'],['22-25','22–25'],['26-29','26–29'],['30-34','30–34'],['35+','35 o más']].map(([value,label]) => <option key={value} value={value}>{label} años</option>)}</select></label>
         <label className="nc-field"><span>Muestra mínima</span><select name="minimum" defaultValue={minimum}>{[5,20,50].map(n => <option key={n} value={n}>{n} partidos</option>)}</select></label>
       </CompareSampleFilters>
@@ -150,9 +152,9 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
           {[
             ['all', 'Todas'],
             ['Grand Slam', 'Grand Slam'],
-            ['Masters 1000', 'Masters 1000'],
-            ['ATP 500', 'ATP 500'],
-            ['ATP 250', 'ATP 250'],
+            [selectedTour==='wta'?'WTA 1000':'Masters 1000', selectedTour==='wta'?'WTA 1000':'Masters 1000'],
+            [selectedTour==='wta'?'WTA 500':'ATP 500', selectedTour==='wta'?'WTA 500':'ATP 500'],
+            [selectedTour==='wta'?'WTA 250':'ATP 250', selectedTour==='wta'?'WTA 250':'ATP 250'],
           ].map(([value, label]) => <Link href={`${compareHref({competition:value})}#comparison`} scroll={false} aria-current={(q.competition || 'all') === value ? 'page' : undefined} key={value}>{label}</Link>)}
         </nav>
       </section>

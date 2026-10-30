@@ -15,6 +15,9 @@
     "data:evidence": "node --import ./build/register.mjs --import tsx build/verify-evidence.ts",
     "data:restore-drill": "node build/restore-drill.mjs",
     "media:verify": "node --import ./build/register.mjs --import tsx build/audit-tournament-media.ts",
+    "media:players": "node build/discover-player-photos.mjs --scan=250 --max=100",
+    "media:wta": "node build/import-wta-player-photos.mjs --limit=50",
+    "media:wta:bios": "node build/import-wta-player-bios.mjs",
     "monitor:check": "node ops/monitor.mjs --check-only",
     "verify": "npm run test && npm run lint && npm run typecheck && npm run media:verify && npm run data:verify"
   },

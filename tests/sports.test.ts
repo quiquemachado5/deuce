@@ -20,6 +20,13 @@ test('activity requires a recent observed schedule; past archive results alone a
   assert.equal(tourActivity({checkedAt:now.toISOString(),fixtures,complete:true},[],now)[0].ongoing,false);
   assert.equal(tourActivity({checkedAt:now.toISOString(),fixtures:fixtures.map(f=>({...f,status:'live'})),complete:true},[],now)[0].ongoing,true);
 });
+test('shared tournament names remain separate across ATP and WTA fixtures',()=>{
+  const at='2026-10-21T15:00:00Z';
+  const fixture={id:1,tournament:'Rome',scheduled_time:at,players:{p1:{name:'A'},p2:{name:'B'}}};
+  const activity=tourActivity({checkedAt:'2026-10-21T12:00:00Z',fixtures:[...activityFixtures([fixture],'live','atp'),...activityFixtures([{...fixture,id:2}],'upcoming','wta')],complete:true},[],new Date('2026-10-21T12:00:00Z'));
+  assert.equal(activity.length,2);
+  assert.notEqual(activity[0].href,activity[1].href);
+});
 test('daily detail refresh prioritizes corrections and rotates already checked results',()=>{
   const rows=[{id:'a',outcome:'completed',scheduled_time:'2026-10-21'},{id:'b',outcome:'completed',scheduled_time:'2026-10-20'},{id:'c',outcome:'completed',scheduled_time:'2026-10-01'}];
   const previous=new Map(rows.map(r=>[r.id,r]));

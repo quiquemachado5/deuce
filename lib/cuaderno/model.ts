@@ -9,7 +9,7 @@ import {
 } from "../archive-insights";
 import { roundPosition } from "../editorial";
 export const description =
-  "Grand Slams y Masters, leídos por el dato.";
+  "Grand Slams y circuitos ATP y WTA, leídos por el dato.";
 export const number = (value: number, digits = 0) =>
   new Intl.NumberFormat("es-ES", {
     maximumFractionDigits: digits,

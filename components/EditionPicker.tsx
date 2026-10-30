@@ -8,15 +8,22 @@ export default function EditionPicker({
   category,
   currentYear,
   categories = [],
+  tour,
 }: {
   slug: string;
   years: number[];
   category?: string;
   currentYear?: number;
   categories?: Array<{ value: string; label: string; count?: number; years: number[] }>;
+  tour?: 'atp' | 'wta';
 }) {
   const router = useRouter();
-  const editionHref = (year: number, editionCategory = category) => `/torneos/${slug}/${year}${editionCategory ? `?categoria=${encodeURIComponent(editionCategory)}` : ""}`;
+  const editionHref = (year: number, editionCategory = category) => {
+    const params=new URLSearchParams();
+    if(editionCategory)params.set('categoria',editionCategory);
+    if(tour==='wta')params.set('cuadro','wta');
+    return `/torneos/${slug}/${year}${params.size?`?${params}`:''}`;
+  };
   const editions = [
       ...years.map((year) => ({ year, category })),
       ...categories.filter((option) => option.value !== category)
@@ -34,7 +41,7 @@ export default function EditionPicker({
         <span>Edición del torneo</span>
         <select aria-label="Edición del torneo" value={value} onChange={(event) => {
           if (event.target.value === "summary") {
-            router.push(`/torneos/${slug}`);
+            router.push(`/torneos/${slug}${tour==='wta'?'?cuadro=wta':''}`);
             return;
           }
           const [selectedYear, selectedCategory] = event.target.value.split("::");

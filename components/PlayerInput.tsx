@@ -17,6 +17,7 @@ export default function PlayerInput({ name, initial, options, label }: Props) {
   const [open, setOpen] = useState(false);
   const [showAll, setShowAll] = useState(false);
   const [active, setActive] = useState(-1);
+  const [visibleCount,setVisibleCount]=useState(80);
   const deferredValue = useDeferredValue(value);
   const matches = useMemo(() => {
     const query = showAll ? '' : deferredValue.trim().toLocaleLowerCase('es');
@@ -30,6 +31,7 @@ export default function PlayerInput({ name, initial, options, label }: Props) {
     setOpen(false);
     setShowAll(false);
     setActive(-1);
+    setVisibleCount(80);
     input.current?.focus();
   };
 
@@ -49,6 +51,7 @@ export default function PlayerInput({ name, initial, options, label }: Props) {
           setValue(event.target.value);
           setActive(-1);
           setShowAll(false);
+          setVisibleCount(80);
           setOpen(true);
         }}
         onFocus={() => {
@@ -59,7 +62,11 @@ export default function PlayerInput({ name, initial, options, label }: Props) {
           if (event.key === 'ArrowDown') {
             event.preventDefault();
             setOpen(true);
-            setActive((current) => Math.min(current + 1, matches.length - 1));
+            setActive((current) => {
+              const next=Math.min(current+1,matches.length-1);
+              if(next>=visibleCount)setVisibleCount(count=>Math.min(matches.length,count+80));
+              return next;
+            });
           } else if (event.key === 'ArrowUp') {
             event.preventDefault();
             setActive((current) => Math.max(current - 1, 0));
@@ -97,13 +104,16 @@ export default function PlayerInput({ name, initial, options, label }: Props) {
         <ChevronDown size={17} aria-hidden="true" />
       </button>
       {open ? (
-        <div className="player-combobox-menu" id={listId} role="listbox">
+        <div className="player-combobox-menu" id={listId} role="listbox" onScroll={event=>{
+          const list=event.currentTarget;
+          if(list.scrollTop+list.clientHeight>=list.scrollHeight-120)setVisibleCount(count=>Math.min(matches.length,count+80));
+        }}>
           <div className="player-combobox-count">
             {matches.length === options.length
               ? `${options.length} jugadores · orden alfabético`
               : `${matches.length} coincidencias`}
           </div>
-          {matches.length ? matches.map((player, index) => (
+          {matches.length ? matches.slice(0,visibleCount).map((player, index) => (
             <button
               id={`${listId}-${index}`}
               type="button"
@@ -118,6 +128,7 @@ export default function PlayerInput({ name, initial, options, label }: Props) {
               {player}
             </button>
           )) : <p>No hay jugadores que coincidan.</p>}
+          {matches.length>visibleCount?<p>Desplázate para ver más jugadores.</p>:null}
         </div>
       ) : null}
     </div>

@@ -66,7 +66,7 @@ export function DeuceFooter() {
         <strong>DEUCE</strong>
         <Link href="/info">Cómo se lee</Link>
         <Link href="/cobertura">Cobertura</Link>
-        <Link href="/credits">Fotografías</Link>
+        <Link href="/licencias">Licencias</Link>
         <Link href="/comparar">Comparar</Link>
       </div>
     </nav>

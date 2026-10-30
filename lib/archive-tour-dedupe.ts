@@ -1,4 +1,5 @@
 type ArchiveTourRow = {
+  tour?: 'atp' | 'wta';
   id?: number | string;
   source_id?: string | null;
   tournament?: string | null;
@@ -25,7 +26,7 @@ export function archiveTourDuplicateKey(row: ArchiveTourRow): string | null {
   if (!tournament || !event_date || !round || !score || !winner || !loser) return null;
   const pair = [nameKey(winner), nameKey(loser)].sort();
   if (!pair[0] || !pair[1]) return null;
-  return JSON.stringify([nameKey(tournament), event_date.slice(0, 10), round.toUpperCase(), pair, nameKey(winner), scoreKey(score)]);
+  return JSON.stringify([row.tour === 'wta' ? 'wta' : 'atp', nameKey(tournament), event_date.slice(0, 10), round.toUpperCase(), pair, nameKey(winner), scoreKey(score)]);
 }
 
 function sourceOrder(a: ArchiveTourRow, b: ArchiveTourRow) {

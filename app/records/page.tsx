@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import { number } from "@/lib/cuaderno/model";
 import { recordView } from "@/lib/revista/read-records";
-import { description } from "@/lib/revista/records";
+import { description, type RecordRow } from "@/lib/revista/records";
 import { RecordEras, recordValue } from "@/components/nocturno/RecordsViews";
 import { recordFilters, recordsUrl, type RecordQuery } from "@/lib/records-url";
 import { evidenceHref } from "@/lib/record-evidence";
@@ -33,6 +33,7 @@ import RecordsSurfaceChart from "@/components/records/RecordsSurfaceChart";
 import RecordsVideoCarousel from "@/components/records/RecordsVideoCarousel";
 import RecordsFamilyNav from "@/components/records/RecordsFamilyNav";
 import RecordsSurfaceSlider from "@/components/records/RecordsSurfaceSlider";
+import TournamentFilters from "@/components/TournamentFilters";
 
 const families = [
   ["Títulos y finales", "Títulos y finales"],
@@ -51,6 +52,12 @@ const families = [
 
 function photoFor(piece?: RecordMeta | null) {
   return piece?.leader ? recordPhoto(piece.id, piece.leader.name) : null;
+}
+
+function rowForTour(row: RecordRow, tour?: string): RecordRow {
+  return tour === 'wta' && row.href.startsWith('/jugadores/')
+    ? { ...row, href: `${row.href}${row.href.includes('?') ? '&' : '?'}tour=wta` }
+    : row;
 }
 
 const portraitFocus: Record<
@@ -136,12 +143,12 @@ async function RecordIndex({
   const visibleGroups = (selected ? [selected] : groups).filter((group) =>
     pieces.some((piece) => piece.group === group),
   );
-  const overview = !selected && !term;
+  const overview = !selected && !term && query.tour === 'atp';
   const [rankingViews, insightViews] = overview
     ? await Promise.all([
         Promise.all(
           ["victorias", "finales-ganadas", "efectividad-top-10"].map(
-            (dato) => recordView(JSON.stringify({ dato })),
+            (dato) => recordView(JSON.stringify({ dato, tour: query.tour })),
           ),
         ),
         Promise.all(
@@ -156,7 +163,7 @@ async function RecordIndex({
             "titulos-grass",
             "titulos-clay",
             "titulos-hard",
-          ].map((dato) => recordView(JSON.stringify({ dato }))),
+          ].map((dato) => recordView(JSON.stringify({ dato, tour: query.tour }))),
         ),
       ])
     : [[], []];
@@ -185,7 +192,7 @@ async function RecordIndex({
               : undefined,
             rows: ranking.rows.map((row) => ({
               name: row.name,
-              href: row.href,
+              href: rowForTour(row, query.tour).href,
               detail: row.detail,
               value: row.value,
               display: recordValue(
@@ -322,6 +329,10 @@ async function RecordIndex({
     <ArchivePage
       title="Récords"
       className={`records-page ${redesign.page} ${!overview ? redesign.filteredPage : ""}`}
+      tools={<TournamentFilters ariaLabel="Circuitos del archivo" items={[
+        {href:recordsUrl(query,{tour:'atp',page:undefined,smallPage:undefined}),label:'ATP',active:query.tour==='atp'},
+        {href:recordsUrl(query,{tour:'wta',page:undefined,smallPage:undefined}),label:'WTA',active:query.tour==='wta'},
+      ]}/>}
     >
       {overview && rankingSets.length > 0 && (
         <section
@@ -686,7 +697,7 @@ async function RecordIndex({
           <div className="deuce-empty" role="status">
             <h2>Sin estadísticas coincidentes</h2>
             <p>No hay resultados para «{query.q}» con estos filtros.</p>
-            <Link href="/records">Quitar filtros</Link>
+            <Link href={recordsUrl({tour:query.tour})}>Quitar filtros</Link>
           </div>
         )}
       </section>
@@ -699,7 +710,8 @@ export async function generateMetadata({
 }: {
   searchParams: Promise<RecordQuery>;
 }) {
-  const query = await searchParams;
+  const raw = await searchParams;
+  const query: RecordQuery = { ...raw, tour: raw.tour === 'wta' ? 'wta' : 'atp' };
   const view = await recordView(JSON.stringify(query));
   const piece =
     view.piece || view.manifest.pieces.find((entry) => entry.id === query.dato);
@@ -723,7 +735,8 @@ export default async function Records({
 }: {
   searchParams: Promise<RecordQuery>;
 }) {
-  const query = await searchParams;
+  const raw = await searchParams;
+  const query: RecordQuery = { ...raw, tour: raw.tour === 'wta' ? 'wta' : 'atp' };
   const view = await recordView(JSON.stringify(query));
   if (!query.dato)
     return (
@@ -818,6 +831,7 @@ export default async function Records({
     >
       {back}
       <ArchiveNotice status={view} />
+      <RecordsControls query={query} filters={[{key:'tour',label:'Circuito',options:[{value:'atp',label:'ATP'},{value:'wta',label:'WTA'}]}]}/>
       <header
         className={`${styles.heading} ${redesign.detailHero}`}
         data-has-leader={leader ? "true" : undefined}
@@ -867,7 +881,7 @@ export default async function Records({
               ? "Faltan posiciones históricas de ranking para calcular esta estadística. No significa que no hubiera victorias."
               : "Prueba otro periodo, superficie o categoría."}
           </p>
-          <Link href={recordsUrl({ dato: query.dato })}>
+          <Link href={recordsUrl({ dato: query.dato, tour: query.tour })}>
             Quitar filtros
             <ChevronRight size={15} aria-hidden="true" />
           </Link>
@@ -907,7 +921,7 @@ export default async function Records({
               <RecordsTable
                 id={piece.id}
                 query={query}
-                rows={marathonPreview ? view.rows.slice(0, 3) : view.rows}
+                rows={(marathonPreview ? view.rows.slice(0, 3) : view.rows).map(row => rowForTour(row, query.tour))}
                 percent={piece.percent}
                 asYear={asYear}
                 offset={(view.page - 1) * 25}
@@ -953,7 +967,7 @@ export default async function Records({
               <RecordsTable
                 id={piece.id}
                 query={query}
-                rows={view.smallRows}
+                rows={view.smallRows.map(row => rowForTour(row, query.tour))}
                 percent
                 small
                 offset={(view.smallPage - 1) * 25}

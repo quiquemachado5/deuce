@@ -5,7 +5,7 @@ import { isDemoDataEnabled } from '../lib/data-config';
 import { normalizeSurface, SURFACES } from '../lib/surface';
 import { summarizeDataset, assertPublishableArchive } from '../lib/dataset-summary';
 import { mockMatches } from '../lib/mocks';
-import { playerDirectory } from '../lib/explore';
+import { playerDirectory, rivalryDirectory } from '../lib/explore';
 import { buildSeasonAnalytics } from '../lib/season-analytics';
 import { approximateName, canonicalSearchText, searchText, withinOneEdit } from '../lib/search-text';
 import { compileRecordSnapshot } from '../lib/revista/snapshot';
@@ -54,6 +54,19 @@ test('new surfaces are counted by both player aggregation paths', () => {
   for (const player of players) for (const surface of SURFACES) assert.equal(player.bySurface[surface].played, 1);
   for (const player of analytics) for (const surface of SURFACES) assert.equal(player.surfaces[surface].played, 1);
   assert.deepEqual(summarizeDataset(matches).surfaces, { hard: 1, clay: 1, grass: 1, carpet: 1, unknown: 1 });
+});
+
+test('identical player names in ATP and WTA never share records or rivalries', () => {
+  const first = { ...mockMatches[0], match_id: 'atp-name-collision', tour: 'atp' as const };
+  const second = { ...mockMatches[0], match_id: 'wta-name-collision', tour: 'wta' as const, year: 2025 };
+  const matches = [first, second];
+  const players = playerDirectory(matches).filter(player => player.name === first.player1.name);
+  const records = buildSeasonAnalytics(matches).players.filter(player => player.name === first.player1.name);
+  assert.deepEqual(players.map(player => player.tour).sort(), ['atp', 'wta']);
+  assert.deepEqual(records.map(player => player.tour).sort(), ['atp', 'wta']);
+  assert.ok(players.every(player => player.played === 1));
+  assert.ok(records.every(player => player.played === 1));
+  assert.equal(rivalryDirectory(matches).length, 0);
 });
 
 test('coverage distinguishes missing ranking and partial enrichment', () => {

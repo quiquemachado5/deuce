@@ -83,11 +83,16 @@ async function cloudBlob<T>(version:string,id:string):Promise<T|undefined>{
 /** Request path only reads prepared data. No archive ingestion or tape analysis for unfiltered lists. */
 export const recordView=cache(async(encoded:string,recomputed=false):Promise<RecordView>=>{
  const q:Record<string,string|undefined>=JSON.parse(encoded),g=await preparedGeneration(),m=g.manifest;
- const filtered=!!([q.year,q.surface,q.competition,q.era].some(v=>v&&v!=='all'));
+ // A circuit filter matching the entire published snapshot needs no catalogue
+ // recomputation. This keeps the ATP landing page fast while WTA is backfilled.
+ const tourFiltered=(q.tour==='atp'||q.tour==='wta')
+   ? m.summary.tours?.[q.tour]!==m.matchCount
+   : !!(q.tour&&q.tour!=='all');
+ const filtered=tourFiltered||!!([q.year,q.surface,q.competition,q.era].some(v=>v&&v!=='all'));
  if(!q.dato){
    if(!filtered)return initial(g);
    const selected=await selectedArchive(g,q),catalog=await selectedCatalog(g,q);
-   const pieces=catalog.map(piece=>{const big=piece.rows.filter(r=>!piece.percent||r.sample>=50),small=piece.percent?piece.rows.filter(r=>r.sample<50):[];const {rows:_,...meta}=piece;void _;return {...meta,total:big.length,smallTotal:small.length,leader:big[0],pagePrior:pageBoundaryTies(big),smallPagePrior:pageBoundaryTies(small)};});
+   const pieces=catalog.filter(piece=>piece.rows.length>0).map(piece=>{const big=piece.rows.filter(r=>!piece.percent||r.sample>=50),small=piece.percent?piece.rows.filter(r=>r.sample<50):[];const {rows:_,...meta}=piece;void _;return {...meta,total:big.length,smallTotal:small.length,leader:big[0],pagePrior:pageBoundaryTies(big),smallPagePrior:pageBoundaryTies(small)};});
    return {...initial(g),filtered:true,manifest:{...m,pieces,matchCount:selected.length,years:[...new Set(selected.map(match=>match.year))].sort((a,b)=>b-a)}};
  }
  if(filtered||recomputed||q.sort||q.min){

@@ -7,7 +7,7 @@ import { roundLabel, roundPosition, winnerName } from "@/lib/editorial";
 import type { Match } from "@/lib/types";
 import styles from "./tournament-detail.module.css";
 
-export default function TournamentBracket({ matches }: { matches: Match[] }) {
+export default function TournamentBracket({ matches, heading = 'El cuadro de la edición' }: { matches: Match[]; heading?: string }) {
   const [expanded, setExpanded] = useState(false);
   const final = matches.find((match) => roundPosition(match.round) === 7 && match.winner);
   const champion = final ? winnerName(final) : null;
@@ -27,8 +27,9 @@ export default function TournamentBracket({ matches }: { matches: Match[] }) {
       {onPath && <span className={styles.championPath}>Camino de {champion}</span>}
     </li>;
   };
-  return <section className={styles.bracket} aria-labelledby="td-bracket-title">
-    <div className={styles.bracketHeader}><h2 id="td-bracket-title">El cuadro de la edición</h2></div>
+  const headingId=`td-bracket-${matches[0]?.tour||'atp'}`;
+  return <section className={styles.bracket} aria-labelledby={headingId}>
+    <div className={styles.bracketHeader}><h2 id={headingId}>{heading}</h2></div>
     <div className={styles.bracketViewport} tabIndex={0} aria-label="Cuadro por rondas, desplazable horizontalmente">
       <div className={styles.bracketColumns}>
         {rounds.map((round) => {

@@ -16,7 +16,7 @@ import { additionalRecords } from './additional-records';
 import { metricDefinition } from '../statistics-catalog';
 import { densityFields, hasDensityPair } from '../metric-density';
 export const description =
-  "Grand Slams, Masters y torneos ATP, leídos por el dato.";
+  "Grand Slams y torneos ATP y WTA, leídos por el dato.";
 export type RecordRow = {
   name: string;
   value: number;
@@ -463,6 +463,9 @@ export function recordCatalog(matches: Match[], now = new Date(), only?: string)
   for (const [category, slug] of [
     ["ATP 500", "atp-500"],
     ["ATP 250", "atp-250"],
+    ["WTA 1000", "wta-1000"],
+    ["WTA 500", "wta-500"],
+    ["WTA 250", "wta-250"],
   ] as const) {
     if (only && !only.startsWith(slug)) continue;
     const tierMatches = matches.filter(
@@ -470,10 +473,10 @@ export function recordCatalog(matches: Match[], now = new Date(), only?: string)
     );
     const tierFinals = tierMatches.filter(final);
     const tierPlayers = buildSeasonAnalytics(tierMatches).players;
-    const scope = `Solo ${category} con categoría confirmada para su temporada desde 2023; excluye Masters y torneos de nivel no especificado.`;
+    const scope = `Solo ${category} con categoría confirmada para su temporada desde 2023; excluye torneos de nivel no especificado.`;
     add(
       `${slug}-titulos`,
-      `Más títulos ATP ${category.slice(4)}`,
+      `Más títulos ${category}`,
       "Títulos y finales",
       `Finales ganadas. ${scope}`,
       tierPlayers.map((r) =>
@@ -491,7 +494,7 @@ export function recordCatalog(matches: Match[], now = new Date(), only?: string)
     );
     add(
       `${slug}-finales`,
-      `Más finales jugadas en ATP ${category.slice(4)}`,
+      `Más finales jugadas en ${category}`,
       "Títulos y finales",
       `Finales disputadas, ganadas o perdidas. ${scope}`,
       tierPlayers.map((r) =>
@@ -511,7 +514,7 @@ export function recordCatalog(matches: Match[], now = new Date(), only?: string)
     );
     add(
       `${slug}-titulos-un-torneo`,
-      `Más títulos en un mismo torneo ATP ${category.slice(4)}`,
+      `Más títulos en un mismo torneo ${category}`,
       "Títulos y finales",
       `Finales ganadas por jugador y torneo. ${scope}`,
       grouped(tierFinals, (m, n) => `${n} · ${tournamentName(m.tournament)}`),
@@ -521,7 +524,7 @@ export function recordCatalog(matches: Match[], now = new Date(), only?: string)
     );
     add(
       `${slug}-victorias`,
-      `Más victorias en ATP ${category.slice(4)}`,
+      `Más victorias en ${category}`,
       "Victorias",
       `Partidos ganados con resultado completo. ${scope}`,
       tierPlayers.map((r) =>

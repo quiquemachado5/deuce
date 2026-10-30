@@ -9,11 +9,11 @@ import styles from '@/app/buscar/search.module.css';
 
 type Option = { value: string; label: string };
 
-function FilterSelect({ label, value, options, onChange, allValue = '' }: { label: string; value: string; options: Option[]; onChange: (value: string) => void; allValue?: string }) {
+function FilterSelect({ label, value, options, onChange, allValue = '', noAll = false }: { label: string; value: string; options: Option[]; onChange: (value: string) => void; allValue?: string; noAll?: boolean }) {
   return <label className={styles.filterField}>
     <span>{label}</span>
     <select value={value} onChange={event => onChange(event.target.value)}>
-      <option value={allValue}>Todas</option>
+      {!noAll && <option value={allValue}>Todas</option>}
       {options.map(option => <option value={option.value} key={option.value}>{option.label}</option>)}
     </select>
   </label>;
@@ -73,6 +73,7 @@ export default function MatchSearchBar({ query, categories, rounds, years, activ
     <div className={styles.filters} aria-hidden={!filtersOpen}>
       <div className={styles.filterPanelHeader}><strong>Filtrar partidos</strong><button type="button" onClick={() => close()} aria-label="Cerrar filtros"><X size={17} aria-hidden="true"/></button></div>
       <div className={styles.mobileViewSwitch}>{viewSwitch}</div>
+      <FilterSelect label="Circuito" value={query.tour || 'atp'} noAll options={[{ value: 'atp', label: 'ATP · masculino' }, { value: 'wta', label: 'WTA · femenino' }]} onChange={tour => apply({ tour, category: undefined, tournament: undefined, year: undefined, limit: undefined })} />
       <FilterSelect label="Temporada" value={query.year || (activeYear ? String(activeYear) : 'all')} allValue="all" options={years.map(year => ({ value: String(year), label: String(year) }))} onChange={year => apply({ year })} />
       <FilterSelect label="Categoría" value={query.category || ''} options={categories.map(value => ({ value, label: value }))} onChange={category => apply({ category: category || undefined })} />
       <FilterSelect label="Superficie" value={query.surface || ''} options={[{ value: 'hard', label: 'Dura' }, { value: 'clay', label: 'Tierra' }, { value: 'grass', label: 'Hierba' }, { value: 'carpet', label: 'Moqueta' }]} onChange={surface => apply({ surface: surface || undefined })} />

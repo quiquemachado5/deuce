@@ -7,7 +7,7 @@ import { readdir, readFile } from 'node:fs/promises'
 import { existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { gunzipSync } from 'node:zlib'
-import type { Match, MatchStat, Point } from './types'
+import type { Match, MatchStat, Point, Tour } from './types'
 import { normalizeSurface as surface } from './surface'
 import { createLimiter } from './concurrency'
 import { cloudRead, cloudDetails } from './cloud-archive'
@@ -21,6 +21,9 @@ const listsDir = join(archive, 'lists')
 const detailsDir = join(archive, 'details')
 
 type Row = Record<string, any>
+const rowTour = (row: Row): Tour => row.tour === 'wta' ? 'wta' : 'atp'
+const rowKey = (row: Row) => `${rowTour(row)}:${row.id}`
+const detailKey = (kind: 'modern' | 'archive', row: Row) => `${rowTour(row) === 'wta' ? 'wta-' : ''}${kind}-${row.id}`
 const archiveIO = createLimiter(16)
 async function readZip(file: string): Promise<any> {
   return archiveIO(async () => JSON.parse(gunzipSync(await readFile(file)).toString()))
@@ -38,27 +41,46 @@ async function listFiles(prefix: string) {
 async function rowsFor(prefix: string): Promise<Row[]> {
   const season = prefix.match(/^modern-(\d{4})-$/)
   if (season) {
-    const cloud = await cloudRead(`season-${season[1]}`)
+    const [cloud, women] = await Promise.all([cloudRead(`season-${season[1]}`), cloudRead(`season-wta-${season[1]}`)])
     if (Array.isArray(cloud?.data)) {
-      if (['atp-main-v1','atp-main-v2'].includes(cloud.scope)) return cloud.data
+      if (['atp-main-v1','atp-main-v2'].includes(cloud.scope)) {
+        const merged = new Map<string, Row>(cloud.data.map((row: Row) => [rowKey(row), row]))
+        if (['wta-main-v1','wta-main-v2'].includes(women?.scope) && Array.isArray(women.data)) {
+          for (const row of women.data) merged.set(rowKey(row), row)
+        }
+        return [...merged.values()]
+      }
       // Older cloud snapshots contain only Slams and Masters. Add the new,
       // completely downloaded local tour cohort until the cron replaces them.
       const tour = (await listFiles(`modern-${season[1]}-tour-`))
       const pages = await Promise.all(tour.map(name => readZip(join(listsDir, name))))
-      const merged = new Map<string, Row>(cloud.data.map((row: Row) => [String(row.id), row]))
-      for (const page of pages) for (const row of Array.isArray(page.data) ? page.data : []) merged.set(String(row.id), row)
+      const merged = new Map<string, Row>(cloud.data.map((row: Row) => [rowKey(row), row]))
+      for (const page of pages) for (const row of Array.isArray(page.data) ? page.data : []) merged.set(rowKey(row), row)
+      if (['wta-main-v1','wta-main-v2'].includes(women?.scope) && Array.isArray(women.data)) {
+        for (const row of women.data) merged.set(rowKey(row), row)
+      }
       return [...merged.values()]
     }
   }
   const files = await listFiles(prefix)
   const pages = await Promise.all(files.map(name => readZip(join(listsDir, name))))
   const rows = pages.flatMap(page => Array.isArray(page.data) ? page.data : [])
+  if (season) {
+    const women = await cloudRead(`season-wta-${season[1]}`)
+    if (['wta-main-v1','wta-main-v2'].includes(women?.scope) && Array.isArray(women.data)) rows.push(...women.data)
+  }
   if (!season) return rows
   // The current-year refresh can include the tour cohort already stored in
   // separate pages. Keep the refreshed base row when an ID appears twice.
   const unique = new Map<string, Row>()
-  for (const row of rows) if (!unique.has(String(row.id))) unique.set(String(row.id), row)
+  for (const row of rows) if (!unique.has(rowKey(row))) unique.set(rowKey(row), row)
   return [...unique.values()]
+}
+async function wtaArchiveRows(year: number, level: string): Promise<Row[]> {
+  const index = await cloudRead('wta-archive-index')
+  if (!Array.isArray(index?.complete) || !index.complete.includes(`${year}-${level}`)) return []
+  const payload = await cloudRead(`archive-wta-${year}-${level}`)
+  return Array.isArray(payload?.data) && payload.complete === true ? payload.data : []
 }
 function numeric(value: unknown) { if (value === null || value === undefined || value === '') return null; const result = Number(value); return Number.isFinite(result) ? result : null }
 function player(number: 1 | 2, name: string, seed: unknown) { return { name: name || `Jugador ${number}`, seed: numeric(seed) } }
@@ -87,7 +109,7 @@ function tournamentName(name: string) {
   if (n.includes('cincinnati')) return 'Cincinnati'
   if (n.includes('shanghai')) return 'Shanghai'
   if (n.includes('paris')) return 'Paris'
-  return name.replace(/^ATP\s+/i, '')
+  return name.replace(/^(?:ATP|WTA)\s+/i, '')
 }
 function stat(playerIndex: 1 | 2, category: string, name: string, value: unknown, won: unknown = null, total: unknown = null): MatchStat | null {
   if (value === null || value === undefined) return null
@@ -268,9 +290,10 @@ function modern(row: Row, detail?: Row, summary = false): Match {
   const source = recoveredModernResult(row, detail)
   const games = gamesFromScore(source.score?.games)
   const year = Number(String(source.scheduled_time || source.created_at || '').slice(0, 4)) || 2026
+  const tour = rowTour(row)
   return {
-    match_id: `live-${row.id}`, tournament: tournamentName(row.tournament || ''), surface: surface(row.surface),
-    category: ['Australian Open','Roland Garros','Wimbledon','US Open'].includes(tournamentName(row.tournament||'')) ? 'Grand Slam' : modernTournamentCategory(row.tier, tournamentName(row.tournament || ''), year), year,
+    match_id: `${tour === 'wta' ? 'wta-' : ''}live-${row.id}`, tour, tournament: tournamentName(row.tournament || ''), surface: surface(row.surface),
+    category: ['Australian Open','Roland Garros','Wimbledon','US Open'].includes(tournamentName(row.tournament||'')) ? 'Grand Slam' : modernTournamentCategory(row.tier, tournamentName(row.tournament || ''), year, tour), year,
     player1: player(1, row.players?.p1?.name, null), player2: player(2, row.players?.p2?.name, null),
     score_summary: { sets: source.score?.sets || [], games, points: source.score?.points || [], server: source.score?.server ?? null, is_tiebreak: !!source.score?.is_tiebreak, win_probability_p1: source.score?.win_probability_p1 ?? null, timestamp: source.scheduled_time || `${year}-01-01T00:00:00Z` },
     final_score: games.map(([a, b], i) => { const end = detail?.tape?.find((p: Row) => Array.isArray(p.tiebreak_final) && gamesFromScore(p.games)[i]?.[0] === a && gamesFromScore(p.games)[i]?.[1] === b && gamesFromScore(p.games).length === i + 1); return `${a}–${b}${end && Math.max(a,b) === 7 && Math.min(a,b) === 6 ? `(${Math.min(...end.tiebreak_final)})` : ''}` }).join(' '), round: roundName(row.round_code || ''), winner: source.winner === 1 || source.winner === 2 ? source.winner : null,
@@ -284,8 +307,9 @@ function modern(row: Row, detail?: Row, summary = false): Match {
 function historical(row: Row, detail?: Row, summary = false): Match {
   const games = archiveGames(row.score || '')
   const year = Number(String(row.event_date || '').slice(0, 4)) || 0
+  const tour = rowTour(row)
   return {
-    match_id: `archive-${row.id}`, tournament: tournamentName(row.tournament || ''), surface: surface(row.surface), category: historicalTournamentCategory(row.level, year), year,
+    match_id: `${tour === 'wta' ? 'wta-' : ''}archive-${row.id}`, tour, tournament: tournamentName(row.tournament || ''), surface: surface(row.surface), category: historicalTournamentCategory(row.level, year, tour), year,
     player1: player(1, row.winner?.name, row.winner?.seed), player2: player(2, row.loser?.name, row.loser?.seed),
     score_summary: { sets: [games.filter(([a,b])=>a>b).length, games.filter(([a,b])=>b>a).length], games, points: [], server: null, is_tiebreak: false, win_probability_p1: null, timestamp: row.event_date ? `${row.event_date}T00:00:00Z` : `${year}-01-01T00:00:00Z` },
     final_score: row.score?.replace(/(\d)-(\d)/g, '$1–$2') || scoreFromGames(games), round: roundName(row.round || ''), winner: 1, status: row.outcome === 'completed' ? 'Finished' : row.outcome || 'Finished',
@@ -294,23 +318,24 @@ function historical(row: Row, detail?: Row, summary = false): Match {
     context: { date: row.event_date || null, dateLabel: 'Inicio del torneo', rank1: numeric(row.winner?.rank), rank2: numeric(row.loser?.rank), rankLabel: 'Ranking al jugar', age1: numeric(row.winner?.age), age2: numeric(row.loser?.age), minutes: numeric(row.minutes), format: row.best_of ? `Al mejor de ${row.best_of} sets` : null, indoor: null },
   }
 }
-async function readSavedDetail(kind: 'modern' | 'archive', id: string): Promise<Row | undefined> {
-  const file = join(detailsDir, `${kind}-${id}.json.gz`)
-  const remote=(await cloudDetails())[`${kind}-${id}`]
+async function readSavedDetail(kind: 'modern' | 'archive', row: Row): Promise<Row | undefined> {
+  const key = detailKey(kind, row)
+  const file = join(detailsDir, `${key}.json.gz`)
+  const remote=(await cloudDetails())[key]
   return remote || (existsSync(file) ? readZip(file) : undefined)
 }
 const pendingDetails = new Map<string, Promise<Row | undefined>>()
-function readDetail(kind: 'modern' | 'archive', id: string): Promise<Row | undefined> {
-  const key = `${kind}-${id}`
+function readDetail(kind: 'modern' | 'archive', row: Row): Promise<Row | undefined> {
+  const key = detailKey(kind, row)
   const existing = pendingDetails.get(key)
   if (existing) return existing
-  const promise = readDetailOnce(kind, id).finally(() => pendingDetails.delete(key))
+  const promise = readDetailOnce(kind, row).finally(() => pendingDetails.delete(key))
   pendingDetails.set(key, promise)
   return promise
 }
-async function readDetailOnce(kind: 'modern' | 'archive', id: string): Promise<Row | undefined> {
+async function readDetailOnce(kind: 'modern' | 'archive', row: Row): Promise<Row | undefined> {
   // Page navigation reads saved data only. The scheduled sync enriches missing details.
-  return readSavedDetail(kind,id)
+  return readSavedDetail(kind,row)
 }
 const archiveCache = new Map<string, { expires: number; value: Promise<Match[]> }>()
 export function invalidateArchiveCache() { archiveCache.clear(); filesPromise = undefined }
@@ -329,13 +354,14 @@ async function readArchiveMatches(year?: number, summary = false): Promise<Match
   const archiveYears = year ? (year < 2023 ? [year] : []) : Array.from({ length: 55 }, (_, i) => 1968 + i)
   const tasks = modernYears.map(async y => {
     const rows = (await rowsFor(`modern-${y}-`)).filter(row => row.is_qualifying !== true)
-    return Promise.all(rows.map(async row => modern(row, summary ? undefined : await readSavedDetail('modern', String(row.id)), summary)))
+    return Promise.all(rows.map(async row => modern(row, summary ? undefined : await readSavedDetail('modern', row), summary)))
   })
   const levels = existsSync(join(listsDir, 'archive-A.complete.json')) ? ['G', 'M', 'A'] : ['G', 'M']
   for (const y of archiveYears) for (const level of levels) tasks.push((async () => {
-    const source = await rowsFor(`archive-${y}-${level}-`)
+    const [men,women] = await Promise.all([rowsFor(`archive-${y}-${level}-`),wtaArchiveRows(y,level)])
+    const source = [...men,...women]
     const rows = (level === 'A' ? dedupeArchiveTourRows(source) : source).filter(row => !/^Q[1-4]$/.test(row.round || ''))
-    return Promise.all(rows.map(async row => historical(row, summary ? undefined : await readSavedDetail('archive', String(row.id)), summary)))
+    return Promise.all(rows.map(async row => historical(row, summary ? undefined : await readSavedDetail('archive', row), summary)))
   })())
   return mergeEditionReferences((await Promise.all(tasks)).flat(),year)
 }
@@ -348,15 +374,16 @@ async function readArchiveDetailedMatches(year?: number): Promise<Match[]> {
   const results: Match[] = []
   const remote = await cloudDetails()
   for (const y of years) {
-    const rows = (await rowsFor(`modern-${y}-`)).filter(row => row.is_qualifying !== true && (existsSync(join(detailsDir, `modern-${row.id}.json.gz`)) || remote[`modern-${row.id}`]))
-    for (const match of await Promise.all(rows.map(async row => modern(row, await readSavedDetail('modern', String(row.id)))))) results.push(match)
+    const rows = (await rowsFor(`modern-${y}-`)).filter(row => row.is_qualifying !== true && (existsSync(join(detailsDir, `${detailKey('modern', row)}.json.gz`)) || remote[detailKey('modern', row)]))
+    for (const match of await Promise.all(rows.map(async row => modern(row, await readSavedDetail('modern', row))))) results.push(match)
   }
   const archiveYears = year ? (year < 2023 ? [year] : []) : Array.from({ length: 55 }, (_, i) => 1968 + i)
   const levels = existsSync(join(listsDir, 'archive-A.complete.json')) ? ['G', 'M', 'A'] : ['G', 'M']
   for (const y of archiveYears) for (const level of levels) {
-    const source = await rowsFor(`archive-${y}-${level}-`)
-    const rows = (level === 'A' ? dedupeArchiveTourRows(source) : source).filter(row => !/^Q[1-4]$/.test(row.round || '') && (existsSync(join(detailsDir, `archive-${row.id}.json.gz`)) || remote[`archive-${row.id}`]))
-    for (const match of await Promise.all(rows.map(async row => historical(row, await readSavedDetail('archive', String(row.id)))))) results.push(match)
+    const [men,women] = await Promise.all([rowsFor(`archive-${y}-${level}-`),wtaArchiveRows(y,level)])
+    const source = [...men,...women]
+    const rows = (level === 'A' ? dedupeArchiveTourRows(source) : source).filter(row => !/^Q[1-4]$/.test(row.round || '') && (existsSync(join(detailsDir, `${detailKey('archive', row)}.json.gz`)) || remote[detailKey('archive', row)]))
+    for (const match of await Promise.all(rows.map(async row => historical(row, await readSavedDetail('archive', row))))) results.push(match)
   }
   return results
 }
@@ -367,25 +394,34 @@ async function matchIndex(): Promise<Record<string, string>> {
 }
 export async function archiveMatch(id: string): Promise<Match | undefined> {
   const reference=editionReferenceMatches.find(m=>m.match_id===id);if(reference)return reference
-  const matchId = id.match(/^(live|archive)-(\d+)$/)
+  const matchId = id.match(/^(wta-)?(live|archive)-(\d+)$/)
   if (!matchId) return undefined
-  const kind = matchId[1] === 'live' ? 'modern' : 'archive'
+  const tour: Tour = matchId[1] ? 'wta' : 'atp'
+  const kind = matchId[2] === 'live' ? 'modern' : 'archive'
+  const providerId = matchId[3]
   const indexedFile = (await matchIndex())[id]
   if (kind === 'modern') {
     const indexedYear = indexedFile ? Number(indexedFile.split('-')[1]) : undefined
     const years = indexedYear ? [indexedYear] : Array.from({length: Math.max(0, new Date().getUTCFullYear()-2022)}, (_,i)=>new Date().getUTCFullYear()-i)
     for (const year of years) {
-      const current = await cloudRead(`season-${year}`)
-      const row = current?.data?.find((item: Row) => String(item.id) === matchId[2])
-      if (row) return modern(row, await readDetail(kind, matchId[2]))
+      const cohort = await cloudRead(`${tour === 'wta' ? 'season-wta' : 'season'}-${year}`)
+      const row = (cohort?.data||[]).find((item: Row) => String(item.id) === providerId)
+      if (row) return modern(row, await readDetail(kind, row))
     }
+  }
+  if (kind === 'archive' && tour === 'wta') {
+    for (let year = new Date().getUTCFullYear() - 4; year >= 1968; year--) for (const level of ['G', 'M', 'A']) {
+      const row = (await wtaArchiveRows(year, level)).find(item => String(item.id) === providerId)
+      if (row) return historical(row, await readDetail(kind, row))
+    }
+    return undefined
   }
   const files = indexedFile ? [indexedFile] : await listFiles(`${kind}-`)
   for (const file of files) {
     const page = await readZip(join(listsDir, file))
-    const row = page.data?.find((item: Row) => String(item.id) === matchId[2])
+    const row = page.data?.find((item: Row) => String(item.id) === providerId)
     if (row) {
-      const detail = await readDetail(kind, matchId[2])
+      const detail = await readDetail(kind, row)
       return kind === 'modern' ? modern(row, detail) : historical(row, detail)
     }
   }

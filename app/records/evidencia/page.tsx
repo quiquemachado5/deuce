@@ -13,7 +13,7 @@ import { chronological } from '@/lib/editorial';
 import { recordFilters, recordsUrl } from '@/lib/records-url';
 export const metadata = { title: 'Los partidos detrás del dato — DEUCE', robots:{index:false,follow:true} };
 export default async function Evidence({searchParams}:{searchParams:Promise<Record<string,string|undefined>>}) {
-  const q = await searchParams, g = await preparedGeneration();
+  const raw = await searchParams, q: Record<string,string|undefined> = { ...raw, tour: raw.tour === 'wta' ? 'wta' : 'atp' }, g = await preparedGeneration();
   if(q.dato === 'dos-epocas') {
     const matches=await selectedArchive(g,q),cut=g.manifest.eraCuts.includes(Number(q.corte)) ? Number(q.corte):2020;
     const era=eraComparisons(matches,cut,q.nombre).find(e=>e.name===q.nombre);
@@ -35,7 +35,7 @@ export default async function Evidence({searchParams}:{searchParams:Promise<Reco
   const evidence = recordEvidence(await selectedArchive(g,q),piece.id,row);
   const page = Math.min(Math.max(1,Math.floor(Number(q.page))||1),Math.max(1,Math.ceil(evidence.matches.length/25)));
   const back = new URLSearchParams({dato:piece.id});
-  for (const key of ['year','surface','competition','era']) if(q[key])back.set(key,q[key]!);
+  for (const key of ['year','surface','competition','era','tour']) if(q[key])back.set(key,q[key]!);
   return <div className="nc-wrap dx-evidence"><ArchiveNotice status={g} />
     <Link className="dx-inline-link" href={'/records?'+back}>← Volver a la clasificación</Link>
     <header className="dx-page-heading"><p className="dx-eyebrow">DEL DATO AL PARTIDO</p><h1>{row.name}</h1><p>{piece.title}</p></header>

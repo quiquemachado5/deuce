@@ -10,7 +10,7 @@ test('record URLs omit defaults and reset pages without dropping filters', () =>
 });
 
 test('catalogue navigation keeps selection but removes detail-only parameters', () => {
-  assert.deepEqual(recordFilters({ dato: 'top-10', era: 'last20', year: '2024', surface: 'clay', sort: 'name' }), { era: 'last20', year: '2024', surface: 'clay', competition: undefined });
+  assert.deepEqual(recordFilters({ dato: 'top-10', era: 'last20', year: '2024', surface: 'clay', tour: 'wta', sort: 'name' }), { era: 'last20', year: '2024', surface: 'clay', competition: undefined, tour: 'wta' });
 });
 
 test('evidence links keep the era used to calculate the record', () => {

@@ -8,7 +8,7 @@ import type { Match, Point } from './types'
 import { normalizeSurface } from './surface'
 import { historicalClosedSet } from './historical-rules'
 
-export const ARCHIVE_CRITERIA = 'Individual masculino · cuadro principal · partidos terminados con sets cerrados y ganador coherente. Sin abandonos, incomparecencias ni marcadores en revisión. Cifras del archivo DEUCE, no de toda la carrera.'
+export const ARCHIVE_CRITERIA = 'Individuales ATP y WTA · cuadro principal · partidos terminados con sets cerrados y ganador coherente. Sin abandonos, incomparecencias ni marcadores en revisión. Cifras del archivo DEUCE, no de toda la carrera.'
 export function normalizeText(value: string) { return value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/ß/g, 'ss') }
 const names: Record<string, string> = {
   ...aliases,
@@ -45,7 +45,7 @@ export function resultIssue(match: Match): string | null {
   if (reference) return reference
   const sets = match.score_summary.games
   const format = match.context?.format || ''
-  const bestOf = /(?:BO5|mejor de 5)/i.test(format) ? 5 : /(?:BO3|mejor de 3)/i.test(format) ? 3 : match.category === 'Grand Slam' ? 5 : 3
+  const bestOf = /(?:BO5|mejor de 5)/i.test(format) ? 5 : /(?:BO3|mejor de 3)/i.test(format) ? 3 : match.category === 'Grand Slam' && match.tour !== 'wta' ? 5 : 3
   const target = bestOf === 5 ? 3 : 2
   const wins = [0, 0]
   if (!sets.length || sets.length > bestOf) return 'El número de sets no corresponde al formato.'

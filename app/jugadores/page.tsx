@@ -10,6 +10,7 @@ import { Pagination } from '@/components/nocturno/Row';
 import { normalizeText } from '@/lib/quality';
 import { playerDirectoryPhoto, playerPhoto } from '@/lib/player-imagery';
 import PairPicker from '@/components/analytics/PairPicker';
+import TournamentFilters from '@/components/TournamentFilters';
 import styles from './players.module.css';
 
 export const metadata = {
@@ -23,9 +24,10 @@ function Initials({ name }: { name: string }) {
 }
 
 export default async function Players({ searchParams }: {
-  searchParams: Promise<{ q?: string; page?: string; tipo?: string }>;
+  searchParams: Promise<{ q?: string; page?: string; tipo?: string; tour?: string }>;
 }) {
   const query = await searchParams;
+  query.tour = query.tour === 'wta' ? 'wta' : 'atp';
   const pairs = query.tipo === 'enfrentamientos' || query.tipo === 'parejas';
   if (pairs) redirect('/comparar');
   const generation = await preparedGeneration();
@@ -35,7 +37,7 @@ export default async function Players({ searchParams }: {
   ]);
   const term = normalizeText((query.q || '').trim());
   const players = recordSource
-    .filter(record => normalizeText(record.name).includes(term))
+    .filter(record => normalizeText(record.name).includes(term) && (record.tour || 'atp') === query.tour)
     .sort((a, b) => {
       const primary = b.grandSlamFinalsWon - a.grandSlamFinalsWon;
       return primary || b.wins - a.wins || a.name.localeCompare(b.name, 'es');
@@ -47,7 +49,7 @@ export default async function Players({ searchParams }: {
   const visiblePlayers = players.slice(pageStart, pageStart + 25).map(record => ({
     record,
     photo: playerDirectoryPhoto(record.name),
-    href: `/jugadores/${playerSlug(record.name)}`,
+    href: `/jugadores/${playerSlug(record.name)}${query.tour === 'wta' ? '?tour=wta' : ''}`,
     winRate: record.played ? 100 * record.wins / record.played : 0,
   }));
   const visibleDuels = duels.slice(pageStart, pageStart + 25);
@@ -63,6 +65,10 @@ export default async function Players({ searchParams }: {
   return <div className={`view-root player-directory ${styles.page}`}>
     <header className={`inner-title ${styles.intro}`}>
       <h1>Jugadores</h1>
+      <div className="inner-title-tools"><TournamentFilters ariaLabel="Circuitos de jugadores" items={[
+        {href:url({tour:'atp',page:'1'}),label:'ATP',active:query.tour==='atp'},
+        {href:url({tour:'wta',page:'1'}),label:'WTA',active:query.tour==='wta'},
+      ]}/></div>
     </header>
 
     <div className={styles.content}>

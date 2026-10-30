@@ -213,7 +213,7 @@ export default function Frame({ children }: { children: React.ReactNode }) {
       </main>
       <footer className="footer">
         <Link href="/info">Cómo se lee</Link>
-        <Link href="/credits">Fotografías</Link>
+        <Link href="/licencias">Licencias</Link>
         <button
           className="text-button"
           aria-expanded={themeOpen}

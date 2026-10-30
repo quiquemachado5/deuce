@@ -3,9 +3,10 @@ import assert from 'node:assert/strict'
 import { existsSync } from 'node:fs'
 import cached from '../lib/player-photo-manifest.json'
 import refreshed from '../lib/player-photo-refresh.json'
+import discovered from '../lib/player-photo-discovery.json'
 import imageLoader from '../lib/image-loader'
 import { courtPhoto, courtPhotoForEdition, courtPhotos, premiumCourtPhotoNames } from '../lib/imagery'
-import { playerPhoto, playerPhotos } from '../lib/player-imagery'
+import { playerDirectoryPhoto, playerPhoto, playerPhotos } from '../lib/player-imagery'
 import { playerPhotoAtTournament } from '../lib/tournament-media'
 
 test('the player directory serves cached local photos with their actual sources', () => {
@@ -27,11 +28,19 @@ test('the player directory serves cached local photos with their actual sources'
     assert.equal(playerPhoto(name)?.credit, cached[name as keyof typeof cached].credit)
   }
   assert.match(playerPhoto('Novak Djokovic')?.source || '', /2025_Miami_Open/)
-  assert.match(playerPhoto('Rafael Nadal')?.source || '', /2024/)
+  assert.match(playerPhoto('Rafael Nadal')?.source || '', /biografieonline/)
+  assert.match(playerDirectoryPhoto('Rafael Nadal')?.source || '', /biografieonline/)
+  assert.match(playerPhoto('Iga Świątek')?.source || '', /wtatennis\.com\/players/)
   for (const [name, photo] of Object.entries(refreshed)) {
-    assert.equal(playerPhoto(name)?.src, photo.src)
+    if (name !== 'Rafael Nadal') assert.equal(playerPhoto(name)?.src, photo.src)
     assert.ok(photo.photoYear >= 2024)
     assert.ok(photo.licenseUrl && photo.source)
+  }
+  for (const [name, photo] of Object.entries(discovered)) {
+    assert.ok(existsSync(`public${photo.src}`), `missing discovered ${name} portrait`)
+    assert.match(photo.source, /^https:\/\/commons\.wikimedia\.org\/wiki\/File:/)
+    assert.match(photo.licenseUrl, /^https?:\/\//)
+    assert.match(photo.credit, /CC(?:0| BY)/)
   }
   assert.equal(playerPhoto('Marin Cilic')?.src, playerPhoto('Marin Čilić')?.src)
   assert.equal(playerPhoto('Felix Auger–Aliassime')?.src, playerPhoto('Félix Auger-Aliassime')?.src)

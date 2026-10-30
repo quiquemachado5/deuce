@@ -4,7 +4,7 @@ export type MatchRecord = {
   sets: Array<{ games: [number, number]; tieBreak?: [number | null, number | null]; completed?: boolean }>;
   isFinal?: boolean; winnerIndex?: 0 | 1; tags?: string[];
   status?: string; requiredSets?: number; dateLabel?: string; year?: number;
-  category?: string; surface?: string; environment?: string;
+  category?: string; surface?: string; environment?: string; tour?: 'atp' | 'wta';
 };
 export type ArchiveCard = { surface?: string; id: string; title: string; eyebrow?: string; accentMeta?: string; mutedMeta?: string; titleMeta?: string; trophyCount?: string; meta?: string; image?: string; alt?: string; imagePosition?: string; imagePositionMobile?: string; href: string; value?: string; tags?: string[]; fallback?: string; actionLabel?: string };
 export type ArchiveSection = { title: string; cards: ArchiveCard[] };

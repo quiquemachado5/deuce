@@ -9,5 +9,5 @@ export function recordsUrl(query: RecordQuery, changes: RecordQuery = {}) {
 }
 
 export function recordFilters(query: RecordQuery): RecordQuery {
-  return { era: query.era, year: query.year, surface: query.surface, competition: query.competition };
+  return { era: query.era, year: query.year, surface: query.surface, competition: query.competition, tour: query.tour };
 }

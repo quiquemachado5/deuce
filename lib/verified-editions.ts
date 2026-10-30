@@ -49,6 +49,7 @@ const australianOpenReferences = [
   },
 ] as const;
 type EditionReference = {
+  year: number;
   id: string;
   first: string;
   second: string;
@@ -57,6 +58,7 @@ type EditionReference = {
   score: string;
   status: string;
   source: string;
+  corroboration?: string;
   tournament: string;
   category: string;
   surface: Match["surface"];
@@ -66,6 +68,7 @@ type EditionReference = {
 const references: EditionReference[] = [
   ...australianOpenReferences.map((r) => ({
     ...r,
+    year: 2026,
     tournament: "Australian Open",
     category: "Grand Slam",
     surface: "hard" as const,
@@ -75,6 +78,7 @@ const references: EditionReference[] = [
   })),
   ...miamiDraw.map((r) => ({
     ...r,
+    year: 2026,
     tournament: "Miami",
     category: "Masters 1000",
     surface: "hard" as const,
@@ -85,6 +89,7 @@ const references: EditionReference[] = [
   })),
   ...rolandGarrosDraw.map((r) => ({
     ...r,
+    year: 2026,
     tournament: "Roland Garros",
     category: "Grand Slam",
     surface: "clay" as const,
@@ -92,6 +97,23 @@ const references: EditionReference[] = [
     dateLabel: r.status === "Walkover" ? "Fecha programada" : "Fecha del partido",
     source: "https://www.rolandgarros.com/en-us/results/SM?round=1",
   })),
+  {
+    id: 'winston-salem-2025-korda-withdrawal',
+    year: 2025,
+    first: 'Marton Fucsovics',
+    second: 'Sebastian Korda',
+    round: 'Semifinal',
+    date: '2025-08-22',
+    score: '',
+    status: 'Walkover',
+    source: 'https://www.atptour.com/en/news/korda-winston-salem-2025-sf-withdrawal',
+    corroboration: 'https://www.winstonsalemopen.com/en/media/news/korda-withdraws-from-semis',
+    tournament: 'Winston-Salem',
+    category: 'ATP 250',
+    surface: 'hard',
+    format: 'BO3',
+    dateLabel: 'Fecha de la retirada',
+  },
 ];
 export const editionReferenceMatches: Match[] = references.map((r) => {
   const games = [...r.score.matchAll(/(\d+)–(\d+)/g)].map((m) => [
@@ -101,7 +123,7 @@ export const editionReferenceMatches: Match[] = references.map((r) => {
   return {
     match_id: `reference-${r.id}`,
     tournament: r.tournament,
-    year: 2026,
+    year: r.year,
     category: r.category,
     surface: r.surface,
     player1: { name: r.first, seed: null },
@@ -132,6 +154,7 @@ export const editionReferenceMatches: Match[] = references.map((r) => {
       dateLabel: r.dateLabel,
       format: r.format,
       resultSource: r.source,
+      ...(r.corroboration ? { metadataSources: [{ field: 'resultado', url: r.corroboration }] } : {}),
     },
   };
 });
@@ -151,6 +174,7 @@ const fold = (value: string) => {
 };
 const identity = (m: Match) =>
   [
+    m.tour || 'atp',
     m.tournament,
     m.year,
     roundPosition(m.round) || m.round,

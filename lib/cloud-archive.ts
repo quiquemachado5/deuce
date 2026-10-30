@@ -100,7 +100,7 @@ export async function cloudDetails(): Promise<Record<string, ArchiveRow>> {
     const keys: string[] = []
     for (let offset = 0; ; offset += 1000) {
       const data = await archiveGet(signal => client.from('deuce_archive_objects').select('key').like('key', 'detail-%').order('key').range(offset, offset + 999).abortSignal(signal).retry(false))
-      for (const row of data || []) if(/^detail-(modern|archive)-/.test(row.key))keys.push(row.key)
+      for (const row of data || []) if(/^detail-(?:wta-)?(modern|archive)-/.test(row.key))keys.push(row.key)
       if (!data || data.length < 1000) break
     }
     const files = await readdir(join(process.cwd(), 'data', 'archive', 'details')).catch(() => [])
@@ -204,10 +204,11 @@ export async function refreshCloudArchive() {
     }
     const activity: ReturnType<typeof activityFixtures> = []
     let activityComplete=true
-    for(const status of ['live','upcoming'] as const){
-      const page=await request(`/matches?status=${status}&tour=atp&draw=singles&tier=grand_slam,atp_1000,atp_500,atp_250&limit=200`)
+    for(const status of ['live','upcoming'] as const) for(const tour of ['atp','wta'] as const){
+      const tiers=tour==='atp'?'grand_slam,atp_1000,atp_500,atp_250':'grand_slam,wta_1000,wta_500,wta_250,wta_125'
+      const page=await request(`/matches?status=${status}&tour=${tour}&draw=singles&tier=${tiers}&limit=200`)
       if(!Array.isArray(page.data))throw new Error('Unexpected activity response')
-      activity.push(...activityFixtures(page.data,status))
+      activity.push(...activityFixtures(page.data,status,tour))
       if(page.meta?.has_more)activityComplete=false
     }
     await cloudWrite('tour-activity',{checkedAt:new Date().toISOString(),fixtures:activity,complete:activityComplete})
@@ -222,16 +223,17 @@ export async function refreshCloudArchive() {
     let detailsAdded = 0,detailsRefreshed=0
     const overrides = new Set<string>((await cloudRead('detail-overrides'))?.keys || [])
     const checked:Record<string,string>=(await cloudRead('refresh-detail-state'))?.checked || {}
-    const planned=detailRefreshPlan(detailCandidates as (ArchiveRow & {id:unknown})[],previousRows as Map<string,ArchiveRow & {id:unknown}>,id=>known.has(`modern-${id}`)||hasBundledDetail('modern',id),checked,Date.now(),row=>!hasClosedModernResult(row))
+    const planned=detailRefreshPlan(detailCandidates as (ArchiveRow & {id:unknown})[],previousRows as Map<string,ArchiveRow & {id:unknown}>,id=>id.startsWith('wta-')?known.has(`wta-modern-${id.slice(4)}`):known.has(`modern-${id}`)||hasBundledDetail('modern',id),checked,Date.now(),row=>!hasClosedModernResult(row),row=>row.tour==='wta'?`wta-${row.id}`:String(row.id))
     for (const row of planned) {
-      if (detailsAdded+detailsRefreshed >= 24 || calls >= 50 || Date.now() - started > 190_000) break
-      const existing=known.has(`modern-${row.id}`)||hasBundledDetail('modern',String(row.id))
+      if (detailsAdded+detailsRefreshed >= 24 || calls >= 88 || Date.now() - started > 190_000) break
+      const detailId=row.tour==='wta'?`wta-modern-${row.id}`:`modern-${row.id}`
+      const existing=known.has(detailId)||(row.tour!=='wta'&&hasBundledDetail('modern',String(row.id)))
       const detail = await request(`/history/matches/${row.id}?points=complete`)
       if (!detail.match && !detail.stats) continue
-      await cloudWrite(`detail-modern-${row.id}`, detail)
-      if(existing){detailsRefreshed++;overrides.add(`detail-modern-${row.id}`)}else detailsAdded++
-      known.add(`modern-${row.id}`)
-      checked[String(row.id)]=new Date().toISOString()
+      await cloudWrite(`detail-${detailId}`, detail)
+      if(existing){detailsRefreshed++;overrides.add(`detail-${detailId}`)}else detailsAdded++
+      known.add(detailId)
+      checked[row.tour==='wta'?`wta-${row.id}`:String(row.id)]=new Date().toISOString()
     }
     await cloudWriteMany([{key:'detail-overrides',payload:{keys:[...overrides],at:new Date().toISOString()}},{key:'refresh-detail-state',payload:{checked}}])
     let historicalAdded=0,archiveRecentAdded=0
@@ -253,4 +255,84 @@ export async function refreshCloudArchive() {
     await cloudWrite('sync-status', { status: 'error', at: new Date().toISOString(), lastSuccessAt: previous?.status === 'success' ? previous.at : previous?.lastSuccessAt, calls, message: error instanceof Error ? error.message : 'Sync failed' })
     throw error
   } finally { await release() }
+}
+
+/** Independent WTA backfill with its own request budget and checkpoints. */
+export async function refreshCloudWta() {
+  const release = await lease()
+  if (!release) return {status:'busy'}
+  const started=Date.now()
+  let calls=0
+  try {
+    const quota=await provider('/usage')
+    const remaining=Number(quota.today?.remaining_day||0)
+    if(remaining<35){
+      const result={status:'quota-reserve',at:new Date().toISOString(),remaining,calls}
+      await cloudWrite('wta-sync-status',result)
+      return result
+    }
+    const request=async(path:string)=>{
+      if(calls>=90||remaining-calls<=25||Date.now()-started>220_000)throw new Error('WTA sync safety budget reached')
+      await new Promise(resolve=>setTimeout(resolve,1300))
+      calls++
+      return provider(path)
+    }
+    const year=new Date().getUTCFullYear()
+    const state=await cloudRead('wta-season-state')||{}
+    const completed=new Set<number>(Array.isArray(state.completed)?state.completed:[])
+    const pending=Array.from({length:Math.max(0,year-2023)},(_,i)=>year-1-i).filter(season=>!completed.has(season))
+    const seasonsRefreshed:number[]=[]
+    let seasonMatches=0
+    for(const season of [year,...pending]){
+      if(calls>=65||remaining-calls<=45||Date.now()-started>160_000)break
+      const key=`season-wta-${season}`
+      const previous=await cloudRead(key)
+      const refreshed=await reconcileSeasonResults(season,year,previous,request,'wta')
+      const data=refreshed.data.map(row=>({...row,tour:'wta'}))
+      await cloudWrite(key,{data,scope:refreshed.scope,at:refreshed.at})
+      seasonsRefreshed.push(season)
+      seasonMatches+=data.length
+      if(season!==year){
+        completed.add(season)
+        await cloudWrite('wta-season-state',{completed:[...completed],at:new Date().toISOString()})
+      }
+    }
+    // Publish a historical cohort only after all of its pages have arrived.
+    const archiveIndex=await cloudRead('wta-archive-index')||{}
+    const complete=new Set<string>(Array.isArray(archiveIndex.complete)?archiveIndex.complete:[])
+    let historicalAdded=0,archivePages=0
+    for(let season=2022;season>=1968&&archivePages<40;season--)for(const level of ['G','M','A']){
+      const id=`${season}-${level}`
+      if(complete.has(id)||calls>=88||remaining-calls<=27||Date.now()-started>200_000)continue
+      const key=`archive-wta-${id}`
+      const saved=await cloudRead(key)
+      const found=new Map<string,ArchiveRow>((saved?.data||[]).map((row:ArchiveRow)=>[String(row.id),row]))
+      let offset=Number(saved?.nextOffset)||0
+      let finished=false
+      while(archivePages<40&&calls<88&&remaining-calls>27&&Date.now()-started<200_000){
+        const page=await request(`/history/archive/matches?tour=wta&level=${level}&from=${season}-01-01&to=${season}-12-31&limit=200&offset=${offset}`)
+        if(!Array.isArray(page.data)||!page.meta)throw new Error('Unexpected WTA archive response')
+        for(const row of page.data)found.set(String(row.id),{...row,tour:'wta'})
+        const step=Number(page.meta.limit)
+        if(!Number.isSafeInteger(step)||step<=0)throw new Error('Invalid WTA archive pagination')
+        offset+=step
+        archivePages++
+        finished=!page.meta.has_more
+        await cloudWrite(key,{data:[...found.values()],nextOffset:offset,complete:finished,at:new Date().toISOString()})
+        if(finished)break
+      }
+      if(finished){
+        complete.add(id)
+        historicalAdded+=found.size
+        await cloudWrite('wta-archive-index',{complete:[...complete],at:new Date().toISOString()})
+      }
+    }
+    const result={status:seasonsRefreshed.length||archivePages?'success':'quota-reserve',at:new Date().toISOString(),calls,seasonsRefreshed,seasonMatches,historicalAdded,archivePages,historicalCohorts:complete.size}
+    await cloudWrite('wta-sync-status',result)
+    return result
+  }catch(error){
+    const result={status:'error',at:new Date().toISOString(),calls,message:error instanceof Error?error.message:'WTA sync failed'}
+    await cloudWrite('wta-sync-status',result)
+    throw error
+  }finally{await release()}
 }

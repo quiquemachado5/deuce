@@ -6,31 +6,35 @@ import { courtPhoto } from "@/lib/imagery";
 import { number } from "@/lib/cuaderno/model";
 import { preparedArchive } from "@/lib/revista/read-records";
 import { tournamentName } from "@/lib/labels";
-import { categoryLabel, categoryYears, tournamentCategory, tournamentDirectory, tournamentRows } from "@/lib/tournament-directory";
+import { categoryLabel, tournamentCategory, tournamentDirectory, tournamentRows } from "@/lib/tournament-directory";
 import { latestTournamentCourt } from "@/lib/tournament-presentation";
 import { chronological, roundPosition, scoreFor, winnerName } from "@/lib/editorial";
 import PlayerAvatar from "@/components/PlayerAvatar";
 import TournamentChampionRail from "@/components/TournamentChampionRail";
 import { championPhotoForEdition, playerPhotoAtTournament } from "@/lib/tournament-media";
-import { playerEditionPhoto } from "@/lib/player-imagery";
+import { playerEditionPhoto, playerPhoto } from "@/lib/player-imagery";
 import { imageFocus } from "@/lib/image-focus";
 import TournamentEditionNav from "@/components/TournamentEditionNav";
 import styles from "@/components/tournament-detail.module.css";
 import { tournamentDetailPhoto } from "@/lib/tournament-detail-media";
 
-type Props = { params: Promise<{ slug: string }>; searchParams: Promise<{ categoria?: string }> };
+type Props = { params: Promise<{ slug: string }>; searchParams: Promise<{ categoria?: string; cuadro?: string }> };
 
 export async function generateMetadata({ params, searchParams }: Props) {
   const { slug } = await params;
-  const { categoria } = await searchParams;
+  const { categoria, cuadro } = await searchParams;
   const tournament = tournamentDirectory(await preparedArchive()).find((entry) => entry.slug === slug);
-  const category = categoria && tournament?.categories.includes(categoria)
-    ? categoria
-    : tournament ? tournamentCategory(tournament) : "";
-  const categoryQuery = categoria && tournament?.categories.includes(categoria)
-    ? `?categoria=${encodeURIComponent(categoria)}` : "";
+  const requested=tournament?.matches.filter(match=>match.category===categoria)||[];
+  const tour=cuadro==='wta'||(!cuadro&&requested.length>0&&requested.every(match=>match.tour==='wta'))||!tournament?.matches.some(match=>(match.tour||'atp')==='atp')?'wta':'atp';
+  const matches=tournament?.matches.filter(match=>(match.tour||'atp')===tour)||[];
+  const categories=[...new Set(matches.map(match=>match.category))];
+  const category=categoria&&categories.includes(categoria)?categoria:tournament&&matches.length?tournamentCategory({...tournament,matches,categories,latestYear:Math.max(...matches.map(match=>match.year))}):"";
+  const canonicalParams=new URLSearchParams();
+  if(categoria&&tournament?.categories.includes(categoria))canonicalParams.set('categoria',categoria);
+  if(cuadro==='wta')canonicalParams.set('cuadro','wta');
+  const categoryQuery=canonicalParams.size?`?${canonicalParams}`:'';
   const title = `${tournament ? tournamentName(tournament.name) : "Torneo"}${category ? ` · ${categoryLabel(category)}` : ""} — DEUCE`;
-  const description = "Títulos, finales y ediciones de este torneo en el archivo.";
+  const description = "Títulos, finales y ediciones masculinas y femeninas de este torneo en el archivo.";
   return {
     title,
     description,
@@ -42,17 +46,23 @@ export async function generateMetadata({ params, searchParams }: Props) {
 
 export default async function Tournament({ params, searchParams }: Props) {
   const { slug } = await params;
-  const { categoria } = await searchParams;
+  const { categoria, cuadro } = await searchParams;
   const archive = await preparedArchive();
   const tournament = tournamentDirectory(archive).find((entry) => entry.slug === slug);
   if (!tournament) notFound();
-  const category = categoria && tournament.categories.includes(categoria)
-    ? categoria : tournamentCategory(tournament);
-  const registered = tournament.matches.filter((match) => match.category === category);
+  const hasWomen=tournament.matches.some(match=>match.tour==='wta');
+  const hasMen=tournament.matches.some(match=>(match.tour||'atp')==='atp');
+  const requestedCategory=categoria&&tournament.categories.includes(categoria)?categoria:undefined;
+  const requestedRows=tournament.matches.filter(match=>match.category===requestedCategory);
+  const selectedTour=cuadro==='wta'&&hasWomen?'wta':cuadro==='atp'&&hasMen?'atp':requestedRows.length&&requestedRows.every(match=>match.tour==='wta')?'wta':hasMen?'atp':'wta';
+  const tourMatches=tournament.matches.filter(match=>(match.tour||'atp')===selectedTour);
+  const tourCategories=[...new Set(tourMatches.map(match=>match.category))];
+  const category=requestedCategory&&tourCategories.includes(requestedCategory)?requestedCategory:tournamentCategory({...tournament,matches:tourMatches,categories:tourCategories,latestYear:Math.max(...tourMatches.map(match=>match.year))});
+  const registered=tourMatches.filter(match=>match.category===category);
   if (!registered.length) notFound();
 
   const pieces = tournamentRows(registered);
-  const years = categoryYears(tournament, category);
+  const years = [...new Set(registered.map(match=>match.year))].sort((a,b)=>b-a);
   const court = latestTournamentCourt(registered);
   const photo = tournamentDetailPhoto(tournament.name) || courtPhoto(tournament.name);
   const rateRows = pieces.rate.slice(0, 6);
@@ -76,11 +86,13 @@ export default async function Tournament({ params, searchParams }: Props) {
     finalPairs.set(key, { names, count: (finalPairs.get(key)?.count || 0) + 1 });
   }
   const recurringFinal = [...finalPairs.values()].sort((a, b) => b.count - a.count)[0];
-  const editionHref = (year: number) => `/torneos/${slug}/${year}${tournament.categories.length > 1 ? `?categoria=${encodeURIComponent(category)}` : ""}`;
+  const editionHref = (year: number) => `/torneos/${slug}/${year}?categoria=${encodeURIComponent(category)}${selectedTour==='wta'?'&cuadro=wta':''}`;
   const championFinals = finals.slice(0, 10);
+  const playerHref = (href: string) => selectedTour === 'wta' && href.startsWith('/jugadores/')
+    ? `${href}${href.includes('?') ? '&' : '?'}tour=wta` : href;
   const tournamentPlayerPhoto = (name: string) => {
     const titleYears = finals.filter((match) => winnerName(match) === name).map((match) => match.year);
-    return playerPhotoAtTournament(name, tournament.name, titleYears);
+    return selectedTour==='wta'?playerPhoto(name):playerPhotoAtTournament(name, tournament.name, titleYears);
   };
   const titlePodium = pieces.titles.slice(0, 3).map((row) => {
     const podiumPhoto = tournamentPlayerPhoto(row.name);
@@ -97,23 +109,23 @@ export default async function Tournament({ params, searchParams }: Props) {
   const latestFinal = finals[0];
   const latestChampion = latestFinal ? winnerName(latestFinal) : null;
   const latestChampionPhoto = latestFinal && latestChampion
-    ? playerPhotoAtTournament(latestChampion, tournament.name, [latestFinal.year]) : null;
+    ? selectedTour==='wta'?playerPhoto(latestChampion):playerPhotoAtTournament(latestChampion, tournament.name, [latestFinal.year]) : null;
   const rateLeaderFinal = rateLeader ? finals.find((match) => winnerName(match) === rateLeader.name) : null;
   const rateLeaderPhoto = rateLeader
-    ? (rateLeaderFinal ? championPhotoForEdition(tournament.name, rateLeaderFinal.year) : null)
+    ? (selectedTour==='atp'&&rateLeaderFinal ? championPhotoForEdition(tournament.name, rateLeaderFinal.year) : null)
       || tournamentPlayerPhoto(rateLeader.name)
     : null;
   const longestChampion = longestFinal ? winnerName(longestFinal) : null;
   const durationPhoto = longestFinal
-    ? championPhotoForEdition(tournament.name, longestFinal.year) || (longestChampion ? tournamentPlayerPhoto(longestChampion) : null)
+    ? (selectedTour==='atp'?championPhotoForEdition(tournament.name, longestFinal.year):null) || (longestChampion ? tournamentPlayerPhoto(longestChampion) : null)
     : null;
   const titleName = tournamentName(tournament.name);
   const heroTitleLines = slug === "us-open" ? ["Abierto de", "Estados Unidos"] : [titleName];
-  const categoryOptions = tournament.categories.map((level) => ({
+  const categoryOptions = tourCategories.map((level) => ({
     value: level,
     label: categoryLabel(level),
-    count: categoryYears(tournament, level).length,
-    years: categoryYears(tournament, level),
+    count: [...new Set(tournament.matches.filter(match=>match.category===level&&(match.tour||'atp')===selectedTour).map(match=>match.year))].length,
+    years: [...new Set(tournament.matches.filter(match=>match.category===level&&(match.tour||'atp')===selectedTour).map(match=>match.year))].sort((a,b)=>b-a),
   }));
 
   return (
@@ -127,23 +139,25 @@ export default async function Tournament({ params, searchParams }: Props) {
               <h1 className={styles.heroTitle}><span className={styles.heroName}>{heroTitleLines.map((line) => <span className={styles.heroLine} key={line}>{line}</span>)}</span></h1>
             </div>
             <div className={styles.heroNav}>
-              <TournamentEditionNav slug={slug} years={years} category={tournament.categories.length > 1 ? category : undefined} categories={categoryOptions} />
+              <TournamentEditionNav slug={slug} years={years} category={tournament.categories.length > 1 ? category : undefined} categories={categoryOptions} tour={selectedTour} />
             </div>
           </div>
         </div>
       </header>
 
+      {hasMen&&hasWomen?<nav className={styles.editionTourSwitch} aria-label="Circuito del torneo"><Link href={`/torneos/${slug}?cuadro=atp`} aria-current={selectedTour==='atp'?'page':undefined} scroll={false}>ATP</Link><Link href={`/torneos/${slug}?cuadro=wta`} aria-current={selectedTour==='wta'?'page':undefined} scroll={false}>WTA</Link></nav>:null}
+
       {finals.length > 0 && <section className={styles.championSection} aria-labelledby="td-history-title">
-        <TournamentChampionRail title="Campeones de la historia" titleId="td-history-title">
+        <TournamentChampionRail title={selectedTour==='wta'?'Campeonas de la historia':'Campeones de la historia'} titleId="td-history-title">
           {championFinals.map((final, finalIndex) => {
             const champion = winnerName(final)!;
             const opponent = final.player1.name === champion ? final.player2.name : final.player1.name;
-            const titlePhoto = championPhotoForEdition(tournament.name, final.year);
+            const titlePhoto = selectedTour==='atp'?championPhotoForEdition(tournament.name, final.year):null;
             const occurrence = championFinals.slice(0, finalIndex).filter((item) =>
-              winnerName(item) === champion && !championPhotoForEdition(tournament.name, item.year)
+              winnerName(item) === champion && !(selectedTour==='atp'&&championPhotoForEdition(tournament.name, item.year))
             ).length;
             const championPhoto = titlePhoto || playerEditionPhoto(champion, occurrence) || tournamentPlayerPhoto(champion);
-            return <li key={final.match_id}><Link href={editionHref(final.year)} aria-label={`${champion}, campeón en ${final.year}. Final ante ${opponent}`}>
+            return <li key={final.match_id}><Link href={editionHref(final.year)} aria-label={`${champion}, ${selectedTour==='wta'?'campeona':'campeón'} en ${final.year}. Final ante ${opponent}`}>
               {championPhoto ? <Image className={`${styles.championPhoto} art-directed-photo`} src={championPhoto.src} alt={titlePhoto ? `${champion} con el trofeo de ${final.year}` : ""} fill sizes="(max-width: 759px) 78vw, 330px" style={imageFocus(championPhoto.objectPosition || "50% 20%", championPhoto.mobileObjectPosition || championPhoto.objectPosition || "50% 20%")} unoptimized /> : <PlayerAvatar name={champion} photo={null} size={80} />}
               <span className={styles.championShade} aria-hidden="true" /><span className={styles.championYear}>{final.year}</span><span className={styles.championCopy}><strong>{champion}</strong><span>Final ante {opponent}</span><small>{scoreFor(final, champion)}</small></span>
             </Link></li>;
@@ -155,14 +169,14 @@ export default async function Tournament({ params, searchParams }: Props) {
         <div className={styles.sectionHead}><div><h2 id="td-rankings-title">Nombres que definen el torneo</h2></div></div>
         <div className={styles.namesPodium}>
           <ol className={styles.namesTopThree} data-count={titlePodium.length}>
-            {titlePodium.map((row, index) => <li key={row.name} data-place={index + 1}><Link href={row.href} aria-label={`${row.name}: ${number(row.value)} títulos`}>
+            {titlePodium.map((row, index) => <li key={row.name} data-place={index + 1}><Link href={playerHref(row.href)} aria-label={`${row.name}: ${number(row.value)} títulos`}>
               {row.photo ? <Image className="art-directed-photo" src={row.photo.src} alt={row.photo.alt} fill sizes={index === 0 ? "(max-width:759px) 100vw, 56vw" : "(max-width:759px) 48vw, 36vw"} style={row.photoFocus} unoptimized /> : <span className={styles.podiumAvatar}><PlayerAvatar name={row.name} photo={null} size={96}/></span>}
               <span className={styles.podiumShade} aria-hidden="true" />
               <span className={styles.podiumCopy}><strong>{row.name}</strong><span><b>{number(row.value)}</b> títulos</span></span>
             </Link></li>)}
           </ol>
-          {pieces.titles.length > 3 && <div className={styles.namesChasers}><div><span>El siguiente escalón</span><strong>La persecución continúa</strong></div><ol>{pieces.titles.slice(3, 9).map((row) => <li key={row.name}><Link href={row.href}><PlayerAvatar name={row.name} photo={tournamentPlayerPhoto(row.name)} size={38}/><span><strong>{row.name}</strong></span><b>{number(row.value)}</b></Link></li>)}</ol></div>}
-          {pieces.played.length > 0 && <div className={styles.namesAppearances}><span>Más veces en la final</span><ol>{pieces.played.slice(0, 6).map((row) => <li key={row.name}><Link href={row.href}><PlayerAvatar name={row.name} photo={tournamentPlayerPhoto(row.name)} size={34}/><span><strong>{row.name}</strong><small>{number(row.value)} finales</small></span></Link></li>)}</ol></div>}
+          {pieces.titles.length > 3 && <div className={styles.namesChasers}><div><span>El siguiente escalón</span><strong>La persecución continúa</strong></div><ol>{pieces.titles.slice(3, 9).map((row) => <li key={row.name}><Link href={playerHref(row.href)}><PlayerAvatar name={row.name} photo={tournamentPlayerPhoto(row.name)} size={38}/><span><strong>{row.name}</strong></span><b>{number(row.value)}</b></Link></li>)}</ol></div>}
+          {pieces.played.length > 0 && <div className={styles.namesAppearances}><span>Más veces en la final</span><ol>{pieces.played.slice(0, 6).map((row) => <li key={row.name}><Link href={playerHref(row.href)}><PlayerAvatar name={row.name} photo={tournamentPlayerPhoto(row.name)} size={34}/><span><strong>{row.name}</strong><small>{number(row.value)} finales</small></span></Link></li>)}</ol></div>}
         </div>
       </section>}
 
@@ -170,7 +184,7 @@ export default async function Tournament({ params, searchParams }: Props) {
         <div className={styles.sectionHead}><div><h2 id="td-effectiveness-title">Efectividad en este torneo</h2></div></div>
         <div className={styles.rateEditorial}>
           <article className={styles.rateLeaderFeature}>{rateLeaderPhoto && <Image className="art-directed-photo" src={rateLeaderPhoto.src} alt={rateLeaderPhoto.alt} fill sizes="(max-width:759px) 100vw, 45vw" style={imageFocus(rateLeaderPhoto.objectPosition || "center top",rateLeaderPhoto.mobileObjectPosition || rateLeaderPhoto.objectPosition || "center top")} unoptimized/>}<span className={styles.photoShade} aria-hidden="true"/><div><strong>{number(rateLeader.value,1)}%</strong><Link href={rateLeader.href}>{rateLeader.name}<ArrowUpRight size={20} aria-hidden="true"/></Link><p>{rateLeader.detail}</p></div></article>
-          <div className={styles.rateMatrix}><ol>{rateRows.slice(1).map((row,index)=><li key={row.name} data-rank={index+2}><Link href={row.href} aria-label={`${row.name}: ${number(row.value,1)} %, ${row.detail}`}><span className={styles.ratePerson}><PlayerAvatar name={row.name} photo={tournamentPlayerPhoto(row.name)} size={42}/><span><strong>{row.name}</strong><small>{row.detail}</small></span></span><b>{number(row.value,1)}%</b><ArrowUpRight size={18} aria-hidden="true"/></Link></li>)}</ol></div>
+          <div className={styles.rateMatrix}><ol>{rateRows.slice(1).map((row,index)=><li key={row.name} data-rank={index+2}><Link href={playerHref(row.href)} aria-label={`${row.name}: ${number(row.value,1)} %, ${row.detail}`}><span className={styles.ratePerson}><PlayerAvatar name={row.name} photo={tournamentPlayerPhoto(row.name)} size={42}/><span><strong>{row.name}</strong><small>{row.detail}</small></span></span><b>{number(row.value,1)}%</b><ArrowUpRight size={18} aria-hidden="true"/></Link></li>)}</ol></div>
         </div>
       </section>}
 
@@ -183,9 +197,9 @@ export default async function Tournament({ params, searchParams }: Props) {
             {[
               ["Partidos registrados",number(registered.length)],
               ["Ediciones disponibles",number(distinctEditions)],
-              ["Jugadores distintos",number(distinctPlayers)],
+              [selectedTour==='wta'?"Jugadoras distintas":"Jugadores distintos",number(distinctPlayers)],
               ["Finales publicadas",number(finals.length)],
-              ["Campeones distintos",number(distinctChampions)],
+              [selectedTour==='wta'?"Campeonas distintas":"Campeones distintos",number(distinctChampions)],
               ["Sets por partido",number(registered.length?matchSets/registered.length:0,1)],
               ["Juegos por partido",number(registered.length?matchGames/registered.length:0,1)],
               ["Finales al decisivo",number(decidingFinals)],

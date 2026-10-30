@@ -18,11 +18,12 @@ export function archiveIndex(matches: Match[]) {
   if (!index) { index = createIndex(matches); indexes.set(matches, index); }
   return index;
 }
-export type ArchiveFilter = { year?: string; surface?: string; competition?: string; era?: string };
+export type ArchiveFilter = { year?: string; surface?: string; competition?: string; era?: string; tour?: string };
 export function filterArchive(matches: Match[], q: ArchiveFilter) {
   const source = q.year && q.year !== 'all' ? archiveIndex(matches).years.get(Number(q.year)) || [] : matches;
   const lastTwentyFrom = new Date().getUTCFullYear() - 19;
   return source.filter(m => (!q.era || q.era === 'all' || q.era !== 'last20' || m.year >= lastTwentyFrom)
+    && (!q.tour || q.tour === 'all' || (m.tour || 'atp') === q.tour)
     && (!q.surface || q.surface === 'all' || m.surface === q.surface)
     && (!q.competition || q.competition === 'all' || m.category === q.competition));
 }

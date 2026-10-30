@@ -157,7 +157,7 @@ function pageLabel(path: string) {
   if (path.startsWith("/match") || path === "/buscar" || path === "/partidos")
     return "Partidos";
   if (path === "/info") return "Cómo se lee";
-  if (path === "/credits") return "Créditos de las fotos";
+  if (path === "/licencias" || path === "/credits") return "Licencias";
   return "";
 }
 
@@ -385,7 +385,7 @@ function ArchiveFrame({ children }: { children: React.ReactNode }) {
           <div className="ry-footer-inner">
             <nav aria-label="Archivo"><strong>Archivo</strong><Link href="/buscar">Partidos</Link><Link href="/jugadores">Jugadores</Link><Link href="/torneos">Torneos</Link><Link href="/comparar">Cara a cara</Link></nav>
             <nav aria-label="Récords"><strong>Récords</strong><Link href="/records">Todos los récords</Link><Link href="/records?dato=top-10">Top 10</Link></nav>
-            <nav aria-label="El proyecto"><strong>El proyecto</strong><Link href="/info">Cómo se lee</Link><Link href="/cobertura">Cobertura</Link><Link href="/credits">Créditos de las fotos</Link></nav>
+            <nav aria-label="El proyecto"><strong>El proyecto</strong><Link href="/info">Cómo se lee</Link><Link href="/cobertura">Cobertura</Link><Link href="/licencias">Licencias</Link></nav>
             <span className="ry-copyright">
               © {new Date().getFullYear()} DEUCE
             </span>
