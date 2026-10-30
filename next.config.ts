@@ -11,7 +11,8 @@ const nextConfig: NextConfig = {
       {key:'Content-Security-Policy',value:"frame-ancestors 'self'; object-src 'none'; base-uri 'self'"},
       {key:'Permissions-Policy',value:'camera=(), microphone=(), geolocation=()'},
     ]},
-    {source:'/images/:path*',headers:[{key:'Cache-Control',value:'public, max-age=604800, stale-while-revalidate=86400'}]},
+    {source:'/images/:path*',headers:[{key:'Cache-Control',value:'public, max-age=2592000, stale-while-revalidate=604800'}]},
+    {source:'/videos/:path*',headers:[{key:'Cache-Control',value:'public, max-age=2592000, stale-while-revalidate=604800'}]},
     {source:'/fonts/:path*',headers:[{key:'Cache-Control',value:'public, max-age=31536000, immutable'}]},
   ] },
   async redirects() {

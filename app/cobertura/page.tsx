@@ -3,6 +3,7 @@ import ArchiveNotice from "@/components/nocturno/ArchiveNotice";
 import { number } from "@/lib/cuaderno/model";
 import { preparedGeneration, recordView } from "@/lib/revista/read-records";
 import { SURFACES, surfaceLabel } from "@/lib/surface";
+import type { IngestionBreakdown } from "@/lib/revista/snapshot";
 
 export const metadata = {
   title: "Cobertura del archivo — DEUCE",
@@ -20,8 +21,14 @@ export default async function Coverage({ searchParams }: { searchParams: Promise
   const manifest=generation.manifest,years=manifest.summary.years,yearValues=years.map(row=>row.year);
   const firstYear=yearValues.length?Math.min(...yearValues):undefined,lastYear=yearValues.length?Math.max(...yearValues):undefined;
   const totals=years.reduce((sum,row)=>({ranking:sum.ranking+row.ranking,statistics:sum.statistics+row.statistics,points:sum.points+row.points}),{ranking:0,statistics:0,points:0});
-  const tracked=manifest.ingestionHistory?.slice(-7)||[{date:manifest.generatedAt.slice(0,10),added:0,total:manifest.matchCount}];
-  const maxAdded=Math.max(1,...tracked.map(day=>day.added));
+  const tracked=manifest.ingestionHistory?.length?manifest.ingestionHistory:[{date:manifest.generatedAt.slice(0,10),added:0,total:manifest.matchCount}];
+  const emptyBreakdown:IngestionBreakdown={matches:0,ranking:0,statistics:0,points:0};
+  const apiSignals=[
+    {key:"matches" as const,label:"Partidos"},
+    {key:"ranking" as const,label:"Ranking"},
+    {key:"statistics" as const,label:"Estadísticas"},
+    {key:"points" as const,label:"Punto a punto"},
+  ];
   const updated=new Date(manifest.generatedAt).toLocaleString("es-ES",{dateStyle:"medium",timeStyle:"short",timeZone:"Europe/Madrid"});
   const coverage=[
     {label:"Ranking de la fecha",value:totals.ranking},
@@ -31,7 +38,7 @@ export default async function Coverage({ searchParams }: { searchParams: Promise
   return <main className="nc-wrap deuce-coverage coverage-brief">
     <ArchiveNotice status={generation}/>
     <header className="coverage-hero">
-      <div className="coverage-hero-copy"><span>Archivo vivo</span><h1>Cobertura,<br/>sin letra pequeña.</h1><p>Qué hay publicado, qué se incorporó cada día y hasta dónde llega cada lectura.</p></div>
+      <div className="coverage-hero-copy"><h1>Cobertura<br/>del archivo.</h1><p>Qué datos incluye el archivo y qué añade cada actualización diaria.</p></div>
       <dl className="coverage-hero-stats">
         <div><dt>Partidos</dt><dd>{number(manifest.matchCount)}</dd></div>
         <div><dt>Torneos</dt><dd>{number(manifest.summary.tournaments)}</dd></div>
@@ -40,21 +47,28 @@ export default async function Coverage({ searchParams }: { searchParams: Promise
       <p className="coverage-updated"><span aria-hidden="true"/>Actualizado {updated} · Madrid</p>
     </header>
 
-    {selection?.piece&&<section className="coverage-piece" id="estadistica"><div><span>Esta estadística</span><h2>{selection.piece.title}</h2><p>{selection.piece.definition}</p></div><dl><div><dt>Periodo</dt><dd>{selection.piece.years}</dd></div><div><dt>Muestra</dt><dd>{number(selection.piece.sample)}</dd></div><div><dt>Mínimo</dt><dd>{selection.piece.minimum} casos</dd></div></dl></section>}
+    {selection?.piece&&<section className="coverage-piece" id="estadistica"><div><h2>{selection.piece.title}</h2><p>{selection.piece.definition}</p></div><dl><div><dt>Periodo</dt><dd>{selection.piece.years}</dd></div><div><dt>Muestra</dt><dd>{number(selection.piece.sample)}</dd></div><div><dt>Mínimo</dt><dd>{selection.piece.minimum} casos</dd></div></dl></section>}
 
     <section className="coverage-daily" aria-labelledby="coverage-daily-title">
-      <div className="coverage-section-copy"><span>Actualización diaria</span><h2 id="coverage-daily-title">Lo nuevo, día a día</h2><p>La API se consulta a las 04:00 UTC. La publicación validada queda disponible a las 05:00 UTC.</p></div>
-      <ol className="coverage-daily-log">{tracked.map((day,index)=><li key={`${day.date}-${index}`}>
-        <time dateTime={day.date}>{new Date(`${day.date}T12:00:00Z`).toLocaleDateString("es-ES",{day:"2-digit",month:"short",timeZone:"UTC"})}</time>
-        <span className="coverage-daily-bar" aria-hidden="true"><i style={{width:`${Math.max(4,day.added/maxAdded*100)}%`}}/></span>
-        <strong>{day.added>0?`+${number(day.added)}`:"Base"}</strong>
-        <small>{number(day.total)} en total</small>
-      </li>)}</ol>
+      <div className="coverage-section-copy"><h2 id="coverage-daily-title">Todo lo añadido, día a día</h2><p>Cada tarjeta muestra qué incorporó la consulta de las 04:00 UTC. La actualización validada se publica a las 05:00 UTC.</p></div>
+      <div className="coverage-api-ledger">
+        <ol className="coverage-api-days">{[...tracked].reverse().map((day,index)=>{
+          const included=day.included||{...emptyBreakdown,matches:day.added};
+          const totals=day.totals||{...emptyBreakdown,matches:day.total};
+          const hasDetailedHistory=!!day.included;
+          return <li key={`${day.date}-${index}`} className={index===0?"is-latest":undefined}>
+            <header><time dateTime={day.date}>{new Date(`${day.date}T12:00:00Z`).toLocaleDateString("es-ES",{weekday:"short",day:"2-digit",month:"short",timeZone:"UTC"})}</time><span>{index===0?"Última publicación":"Publicada"}</span></header>
+            <strong>{day.added>0?`+${number(day.added)}`:"Sin partidos nuevos"}</strong>
+            <span className="coverage-api-total">{number(day.total)} partidos en el archivo</span>
+            <dl>{apiSignals.map(signal=><div key={signal.key} data-signal={signal.key}><dt><i aria-hidden="true"/>{signal.label}</dt><dd><strong>{hasDetailedHistory?`+${number(included[signal.key])}`:"Sin detalle"}</strong>{hasDetailedHistory&&<span>{number(totals[signal.key])} en total</span>}</dd></div>)}</dl>
+          </li>;
+        })}</ol>
+      </div>
     </section>
 
     <section className="coverage-snapshot" aria-labelledby="coverage-snapshot-title">
-      <div className="coverage-section-copy"><span>Alcance real</span><h2 id="coverage-snapshot-title">Una cifra solo aparece cuando existe el dato.</h2><p>Un campo vacío no cuenta como cero. Los porcentajes usan únicamente partidos con numerador y denominador válidos.</p></div>
-      <div className="coverage-data-bars">{coverage.map(item=>{const percent=manifest.matchCount?item.value/manifest.matchCount*100:0;return <div key={item.label}><span><b>{item.label}</b><strong>{number(item.value)}</strong></span><i aria-hidden="true"><span style={{width:`${percent}%`}}/></i><small>{number(percent,1)} % del archivo</small></div>})}</div>
+      <div className="coverage-section-copy"><h2 id="coverage-snapshot-title">Datos disponibles</h2><p>Un campo vacío no cuenta como cero. Cada porcentaje se calcula solo con información publicada.</p></div>
+      <div className="coverage-data-summary">{coverage.map(item=>{const percent=manifest.matchCount?item.value/manifest.matchCount*100:0;return <div key={item.label}><strong>{number(item.value)}</strong><span>{item.label}</span><small>{number(percent,1)} % del archivo</small></div>})}</div>
       <dl className="coverage-surface-strip">{SURFACES.map(surface=><div key={surface} data-event-surface={surface}><dt>{surfaceLabel[surface]}</dt><dd>{number(manifest.summary.surfaces[surface])}</dd></div>)}</dl>
     </section>
 

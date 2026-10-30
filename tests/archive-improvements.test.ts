@@ -65,11 +65,21 @@ test('leader observations preserve ties and are idempotent across publication re
 test('daily ingestion history records positive additions and stays idempotent on retries',()=>{
   const first=compileRecordSnapshot([base],new Date('2026-10-26T05:00:00Z')).manifest;
   const baseline=attachIngestionHistory(undefined,first);
-  assert.deepEqual(baseline.ingestionHistory,[{date:'2026-10-26',added:0,total:1}]);
+  assert.deepEqual(baseline.ingestionHistory,[{
+    date:'2026-10-26',added:0,total:1,
+    included:{matches:0,ranking:0,statistics:0,points:0},
+    totals:{matches:1,ranking:0,statistics:1,points:1},
+  }]);
   const second={...first,generatedAt:'2026-10-27T05:00:00Z',matchCount:4};
   const published=attachIngestionHistory(baseline,second);
-  assert.deepEqual(published.ingestionHistory?.at(-1),{date:'2026-10-27',added:3,total:4});
-  assert.deepEqual(attachIngestionHistory(published,{...second,generatedAt:'2026-10-27T06:00:00Z'}).ingestionHistory?.at(-1),{date:'2026-10-27',added:3,total:4});
+  const expected={date:'2026-10-27',added:3,total:4,included:{matches:3,ranking:0,statistics:0,points:0},totals:{matches:4,ranking:0,statistics:1,points:1}};
+  assert.deepEqual(published.ingestionHistory?.at(-1),expected);
+  assert.deepEqual(attachIngestionHistory(published,{...second,generatedAt:'2026-10-27T06:00:00Z'}).ingestionHistory?.at(-1),expected);
+  let completeHistory=baseline;
+  for(let day=27;day<=31;day++)completeHistory=attachIngestionHistory(completeHistory,{...first,generatedAt:`2026-10-${day}T05:00:00Z`,matchCount:day});
+  for(let day=1;day<=15;day++)completeHistory=attachIngestionHistory(completeHistory,{...first,generatedAt:`2026-11-${String(day).padStart(2,'0')}T05:00:00Z`,matchCount:31+day});
+  assert.equal(completeHistory.ingestionHistory?.length,21);
+  assert.equal(completeHistory.ingestionHistory?.[0].date,'2026-10-26');
 });
 test('publication rejects invalid ratios and non-finite statistics',()=>{
   const snapshot=compileRecordSnapshot([base]);assertSnapshotIntegrity(snapshot);
