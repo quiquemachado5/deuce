@@ -170,12 +170,12 @@ export default async function Player({params,searchParams}:Props){
           </div>
         </div>
       </header>
-      <section className={styles.careerBoard} aria-label="Resumen de carrera">{coreMetrics.map(metric=><article key={metric.label}><span>{metric.label}</span><strong>{metric.value}</strong><small>{metric.context}</small></article>)}</section>
+      <section className={styles.careerBoard} aria-label="Cifras principales de la carrera">{coreMetrics.map(metric=><article key={metric.label}><span>{metric.label}</span><strong>{metric.value}</strong><small>{metric.context}</small></article>)}</section>
     </div>
 
     <PlayerProfileNav hasRivals={rivals.length>=2} hasTournaments={tournaments.length>0} hasSeasons={showSeasonAnalysis}/>
 
-    <main className="pp-content">
+    <div className="pp-content">
       <section className={`pp-section pp-performance ${styles.careerSummary}`} id="rendimiento" aria-labelledby="pp-performance-title">
         <div className="pp-section-heading"><div><h2 id="pp-performance-title">Resumen de carrera</h2></div></div>
         <div className={styles.summaryGrid}>
@@ -185,7 +185,7 @@ export default async function Player({params,searchParams}:Props){
           </div>
           {displayedSurfaceRows.length?<div className="pp-surface-list">{displayedSurfaceRows.map(surface=><article key={surface.key} data-event-surface={surface.key} data-best={surface.key===bestSurface?.key||undefined}><div><span>{surface.label}</span><strong>{number(surface.rate,1)} %</strong></div><dl><div><dt>Victorias</dt><dd>{number(surface.wins)}</dd></div><div><dt>Derrotas</dt><dd>{number(surface.losses)}</dd></div><div><dt>Partidos</dt><dd>{number(surface.played)}</dd></div></dl></article>)}</div>:null}
         </div>
-        {insights.length?<dl className={styles.archiveNotes}>{insights.map(insight=><div key={insight.label} data-kind={insight.kind} data-has-photo={Boolean(insight.photo)||undefined}>{insight.photo&&<><Image src={insight.photo.src} alt="" fill sizes="(max-width: 759px) 78vw, 240px" style={{objectPosition:insight.photo.objectPosition}}/><span aria-hidden="true"/></>}<dt>{insight.label}</dt><dd>{insight.value}</dd><small>{insight.detail}</small></div>)}</dl>:null}
+        {insights.length?<ul className={styles.archiveNotes} tabIndex={0} aria-label="Momentos y cifras destacadas">{insights.map(insight=><li key={insight.label} data-kind={insight.kind} data-has-photo={Boolean(insight.photo)||undefined}>{insight.photo&&<><Image src={insight.photo.src} alt="" fill sizes="(max-width: 759px) 78vw, 240px" style={{objectPosition:insight.photo.objectPosition}}/><span aria-hidden="true"/></>}<p className={styles.archiveNoteLabel}>{insight.label}</p><strong className={styles.archiveNoteValue}>{insight.value}</strong><small>{insight.detail}</small></li>)}</ul>:null}
       </section>
 
       {showSeasonAnalysis?<div className={styles.analysisGrid} id="temporadas">
@@ -193,7 +193,7 @@ export default async function Player({params,searchParams}:Props){
         {rankingPoints.length?<PlayerRankingSlider points={rankingPoints}/>:null}
       </div>:null}
 
-      {galleryPhotos.length===3?<section className={`pp-section ${styles.mediaSection}`} aria-labelledby="pp-media-title"><div className="pp-section-heading"><div><h2 id="pp-media-title">Momentos del archivo</h2></div></div><div className={styles.mediaGallery}>{galleryPhotos.map((photo,index)=><figure key={photo.src} data-featured={index===0||undefined}><Image src={photo.src} alt={photo.alt} fill sizes={index===0?'(max-width: 759px) 100vw, 620px':'(max-width: 759px) 100vw, 310px'} style={{objectPosition:photo.objectPosition}}/><figcaption><span>{photo.alt}</span></figcaption></figure>)}</div></section>:null}
+      {galleryPhotos.length===3?<section className={`pp-section ${styles.mediaSection}`} aria-labelledby="pp-media-title"><div className="pp-section-heading"><div><h2 id="pp-media-title">Momentos del archivo</h2></div></div><div className={styles.mediaGallery} tabIndex={0} aria-label="Galería de momentos del archivo">{galleryPhotos.map((photo,index)=><figure key={photo.src} data-featured={index===0||undefined}><Image src={photo.src} alt={photo.alt} fill sizes={index===0?'(max-width: 759px) 100vw, 620px':'(max-width: 759px) 100vw, 310px'} style={{objectPosition:photo.objectPosition}}/><figcaption><span>{photo.alt}</span></figcaption></figure>)}</div></section>:null}
 
       {tournaments.length?<section className="pp-section pp-tournaments" id="torneos" aria-labelledby="pp-tournaments-title"><PlayerTournamentArchive tour={tour} tournaments={tournaments.slice(0,18).map(tournament=>{
         const branding=tournamentBrandingFor(tournament.rawName);
@@ -204,6 +204,6 @@ export default async function Player({params,searchParams}:Props){
       {rivals.length>=2?<section className="pp-section pp-rivals" id="enfrentamientos" aria-labelledby="pp-rivals-title"><PlayerRivals rivals={rivals} player={{name:player.name,country:bio?.country}} compareHref={`/comparar?a=${encodeURIComponent(player.name)}`}/></section>:null}
 
       <section className="pp-section pp-matches" id="partidos" aria-labelledby="pp-matches-title"><PlayerRecentMatches matches={recent} allHref={`/buscar?tour=${tour}&player=${encodeURIComponent(player.name)}&scope=matches`}/></section>
-    </main>
+    </div>
   </div>;
 }

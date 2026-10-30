@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { calendarOrder } from '@/lib/presentation-calendar';
 import { latestTournamentCourt } from '@/lib/tournament-presentation';
-import { preparedArchive } from '@/lib/revista/read-records';
+import { preparedTourArchive } from '@/lib/revista/read-records';
 import { courtPhoto } from '@/lib/imagery';
 import { tournamentName } from '@/lib/labels';
 import { surfaceLabel } from '@/lib/cuaderno/model';
@@ -10,7 +10,7 @@ import { tournamentDirectory } from '@/lib/tournament-directory';
 import { Pagination } from '@/components/nocturno/Row';
 import { ArchivePage } from '@/components/deuce/ArchivePage';
 import TournamentGallery, { type TournamentGalleryCard } from '@/components/TournamentGallery';
-import TournamentFilters from '@/components/TournamentFilters';
+import TournamentBrowsePicker from '@/components/TournamentBrowsePicker';
 import { winnerName, roundPosition } from '@/lib/editorial';
 import styles from './tournament-directory.module.css';
 
@@ -50,9 +50,9 @@ export async function generateMetadata({ searchParams }: Props) {
 }
 
 export default async function TournamentDirectory({ searchParams }: Props) {
-  const [query, allMatches] = await Promise.all([searchParams, preparedArchive()]);
+  const query = await searchParams;
   const tour = tourFrom(query.circuito);
-  const matches = allMatches.filter(match => (match.tour || 'atp') === tour);
+  const matches = await preparedTourArchive(tour);
   const latestArchiveYear = matches.reduce((latest, match) => Math.max(latest, match.year), 0);
   const entries = calendarOrder(tournamentDirectory(matches));
   const levels = categories[tour];
@@ -85,15 +85,13 @@ export default async function TournamentDirectory({ searchParams }: Props) {
       href: `/torneos/${entry.slug}?${params}`,
     };
   });
-  const tools = <div className={styles.toolStack}>
-    <nav className={styles.tourSwitch} aria-label="Circuito de torneos">
-      {(['atp', 'wta'] as const).map(value => <Link key={value} href={directoryUrl(value)} aria-current={tour === value ? 'page' : undefined}>{value.toUpperCase()}</Link>)}
-    </nav>
-    <TournamentFilters ariaLabel={`Categorías ${tour.toUpperCase()}`} items={[
-      { href: directoryUrl(tour), label: 'Principales', active: !chosen },
-      ...levels.map(category => ({ href: directoryUrl(tour, category), label: categoryLabel(category), active: chosen === category })),
-    ]} />
-  </div>;
+  const tools = <TournamentBrowsePicker selection={`${tour.toUpperCase()} · ${chosen ? categoryLabel(chosen) : 'Principales'}`} groups={(['atp', 'wta'] as const).map(value => ({
+    label: value.toUpperCase(),
+    items: [
+      { href: directoryUrl(value), label: 'Principales', active: tour === value && !chosen },
+      ...categories[value].map(category => ({ href: directoryUrl(value, category), label: categoryLabel(category), active: tour === value && chosen === category })),
+    ],
+  }))} />;
   const orderedCards = chosen ? cards.sort((a, b) => latestPlayed(entryBySlug.get(b.id)!, chosen) - latestPlayed(entryBySlug.get(a.id)!, chosen)) : cards;
 
   return <ArchivePage title="Torneos" className={styles.page} tools={tools}><div className={styles.content}>

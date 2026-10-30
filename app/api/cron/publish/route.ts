@@ -36,8 +36,9 @@ export async function GET(request: Request) {
     if(compatibleManifest(remote))assertReleaseCoverage(remote,snapshot.manifest)
     await publishRecordSnapshot(snapshot)
     const incompleteEditions=snapshot.audit.filter(edition=>edition.completeDraw===false).length
-    await cloudWrite('publish-status',{status:'success',at:new Date().toISOString(),version:snapshot.manifest.version,matches:snapshot.manifest.matchCount,lists:snapshot.manifest.pieces.length,incompleteEditions})
-    return Response.json({ status: 'success', at: new Date().toISOString(), matches: snapshot.manifest.matchCount, lists: snapshot.manifest.pieces.length, incompleteEditions, version:snapshot.manifest.version }, { headers: { 'Cache-Control': 'no-store' } })
+    const tours=snapshot.manifest.summary.tours
+    await cloudWrite('publish-status',{status:'success',at:new Date().toISOString(),version:snapshot.manifest.version,matches:snapshot.manifest.matchCount,tours,lists:snapshot.manifest.pieces.length,incompleteEditions})
+    return Response.json({ status: 'success', at: new Date().toISOString(), matches: snapshot.manifest.matchCount, tours, lists: snapshot.manifest.pieces.length, incompleteEditions, version:snapshot.manifest.version }, { headers: { 'Cache-Control': 'no-store' } })
   } catch (error) {
     const reason = error instanceof Error ? error.message : 'unknown error'
     await cloudWrite('publish-status',{status:'error',at:new Date().toISOString(),message:reason}).catch(()=>undefined)

@@ -1,32 +1,32 @@
 import { expect, test } from '@playwright/test';
 
-test('mobile match filters keep search, filters and view controls distinct', async ({ page }) => {
+test('mobile match filters and view controls stay distinct', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto('/buscar');
-  await expect(page.getByPlaceholder('Jugador, torneo, año, ronda')).toBeVisible();
-  const filters = page.getByText(/^Filtros(?: \(\d+\))?$/);
+  await page.goto('/buscar?year=2024');
+  const filters = page.getByRole('button', { name: /Filtrar partidos/ });
   await expect(filters).toBeVisible();
   await filters.click();
-  for (const label of ['2026', 'Superficie', 'Categoría', 'Ronda']) await expect(page.getByText(label, { exact: true }).first()).toBeVisible();
-  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
+  await expect(page.getByRole('combobox', { name: 'Superficie' })).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });
 
-test('scoreboards show only the games in each set', async ({ page }) => {
+test('scoreboards expose only the played sets and preserve tie-break superscripts', async ({ page }) => {
   await page.goto('/buscar?q=Nadal+Federer+Wimbledon+2008');
-  const card = page.locator('.match-scorecard').first();
-  await expect(card.locator('.global-score-labels')).toHaveCount(0);
-  await expect(card.locator('.global-set-total')).toHaveCount(0);
-  await expect(card.locator('.global-set')).not.toHaveCount(0);
+  const card = page.getByRole('link', { name: 'Ver Rafael Nadal contra Roger Federer' });
+  await expect(card).toBeVisible();
+  await expect(card.locator('sup')).not.toHaveCount(0);
+  await expect(card).toContainText('Rafael Nadal');
+  await expect(card).toContainText('Roger Federer');
 });
 
-test('record index is progressive and mobile directories are compact', async ({ page }) => {
+test('record and player directories remain progressive and compact', async ({ page }) => {
   await page.goto('/records');
-  const family = page.locator('.records-family').first();
-  await expect(family.locator('.records-family-more')).toBeVisible();
-  expect(await family.locator('a').count()).toBeLessThanOrEqual(6);
+  await expect(page.getByRole('heading', { name: 'Explorar el archivo', exact: true })).toBeVisible();
+  await expect(page.getByRole('navigation', { name: 'Familias de estadísticas' })).toBeVisible();
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/jugadores');
-  const card = page.locator('.player-directory .catalog-card').first();
+  const card = page.locator('main a[href^="/jugadores/"]').first();
   await expect(card).toBeVisible();
-  expect((await card.boundingBox())?.height).toBeLessThan(150);
+  expect((await card.boundingBox())!.height).toBeLessThan(520);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });

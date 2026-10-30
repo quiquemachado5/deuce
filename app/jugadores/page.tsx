@@ -13,11 +13,14 @@ import PairPicker from '@/components/analytics/PairPicker';
 import TournamentFilters from '@/components/TournamentFilters';
 import styles from './players.module.css';
 
-export const metadata = {
-  title: 'Jugadores del archivo — DEUCE',
-  description,
-  alternates: { canonical: '/jugadores' },
-};
+export async function generateMetadata({ searchParams }: {
+  searchParams: Promise<{ tour?: string }>;
+}) {
+  const tour=(await searchParams).tour==='wta'?'wta':'atp';
+  const title=`Jugadoras y jugadores ${tour.toUpperCase()} — DEUCE`;
+  const canonical=tour==='wta'?'/jugadores?tour=wta':'/jugadores';
+  return {title,description,alternates:{canonical},openGraph:{title,description,url:canonical}};
+}
 
 function Initials({ name }: { name: string }) {
   return <span className={styles.initials} aria-hidden="true">{name.split(/\s+/).map(part => part[0]).slice(0, 2).join('')}</span>;
@@ -75,7 +78,7 @@ export default async function Players({ searchParams }: {
       {!pairs && term && <p className="sr-only" aria-live="polite">{number(total)} {total === 1 ? 'jugador encontrado' : 'jugadores encontrados'}.</p>}
 
       {!pairs && visiblePlayers.length > 0 && <section className={styles.playerGrid} aria-label={term ? 'Resultados de jugadores' : 'Directorio de jugadores'}>
-        {visiblePlayers.map((player, index) => <Link className={`${styles.playerCard} ${styles.cardSwapPrototype}`} href={player.href} prefetch={true} key={player.record.name}>
+        {visiblePlayers.map((player, index) => <Link className={`${styles.playerCard} ${styles.cardSwapPrototype}`} href={player.href} prefetch={false} key={player.record.name}>
           <div className={styles.photo} style={player.photo ? {
             '--photo-position': player.photo.objectPosition || 'center top',
             '--photo-mobile-position': player.photo.mobileObjectPosition || player.photo.objectPosition || 'center top',

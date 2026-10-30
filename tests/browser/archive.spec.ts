@@ -9,9 +9,9 @@ test('overview is real, versioned and matches the public coverage page', async (
   expect(summary.matches).toBeGreaterThan(100_000);
   expect(summary.rulesVersion).toBeTruthy();
   await page.goto('/cobertura');
-  await expect(page.getByRole('heading', { name: 'Cobertura del archivo', exact: true })).toBeVisible();
-  await expect(page.locator('main')).toContainText(summary.version || summary.datasetVersion);
-  await expect(page.locator('main')).toContainText('Moqueta');
+  await expect(page.getByRole('heading', { name: /^Cobertura del archivo/ })).toBeVisible();
+  await expect(page.locator('#main-content')).toContainText(summary.version || summary.datasetVersion);
+  await expect(page.locator('#main-content')).toContainText('Moqueta');
   await page.setViewportSize({ width: 390, height: 844 });
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   const accessibility = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'best-practice']).analyze();
@@ -25,33 +25,33 @@ test('global search finds tournaments, editions and a player with a typo', async
   await trigger.click();
   const input = page.locator('#global-search');
   await input.fill('Wimbledon');
-  await expect(page.locator('dialog[open] a[href="/torneos/wimbledon"]')).toBeVisible();
+  await expect(page.locator('[data-search-result][href="/torneos/wimbledon"]')).toBeVisible({ timeout: 15_000 });
   await input.fill('Wimbledon 2008');
-  await expect(page.locator('dialog[open] a[href="/wimbledon/2008"]')).toBeVisible();
-  await page.locator('dialog[open] a[href="/wimbledon/2008"]').click();
-  await expect(page).toHaveURL(/\/wimbledon\/2008/);
+  await expect(page.locator('[data-search-result][href="/torneos/wimbledon/2008"]')).toBeVisible({ timeout: 15_000 });
+  await page.locator('[data-search-result][href="/torneos/wimbledon/2008"]').click();
+  await expect(page).toHaveURL(/\/torneos\/wimbledon\/2008/);
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Wimbledon');
-  await trigger.click();
+  await page.getByRole('button', { name: 'Buscar en DEUCE', exact: true }).click();
   await input.fill('Djokovich');
-  await expect(page.locator('dialog[open] a[href="/jugadores/novak-djokovic"]')).toBeVisible();
+  await expect(page.locator('[data-search-result][href="/jugadores/novak-djokovic"]')).toBeVisible({ timeout: 15_000 });
   await page.keyboard.press('Escape');
-  await expect(page.locator('dialog[open]')).toHaveCount(0);
-  await expect(trigger).toBeFocused();
+  await expect(page.locator('#global-search-results')).toHaveAttribute('aria-hidden', 'true');
+  await expect(page.getByRole('button', { name: 'Buscar en DEUCE', exact: true })).toBeFocused();
 });
 
-test('record year filters persist across navigation and reload', async ({ page }) => {
-  await page.goto('/records?dato=top-10&year=2023');
-  await page.locator('summary[aria-label="Temporada"]').click();
-  await page.getByRole('button',{name:'2019',exact:true}).click();
-  await expect(page).toHaveURL(/year=2019/);
-  await expect(page.getByRole('heading', { name: 'Clasificación', exact: true })).toBeVisible();
+test('record circuit filters persist across navigation and reload', async ({ page }) => {
+  await page.goto('/records?tour=atp');
+  await page.getByRole('navigation', { name: 'Circuitos del archivo' }).getByRole('link', { name: 'WTA', exact: true }).click();
+  await expect(page).toHaveURL(/tour=wta/);
+  await expect(page.getByRole('navigation', { name: 'Circuitos del archivo' }).getByRole('link', { name: 'WTA', exact: true })).toHaveAttribute('aria-current', 'page');
   await page.reload();
-  await expect(page.getByRole('button',{name:'Quitar filtro 2019'})).toBeVisible();
+  await expect(page).toHaveURL(/tour=wta/);
+  await expect(page.getByRole('navigation', { name: 'Circuitos del archivo' }).getByRole('link', { name: 'WTA', exact: true })).toHaveAttribute('aria-current', 'page');
 });
 
 test('moqueta can be selected and returned by the API', async ({ page, request }) => {
   await page.goto('/buscar?surface=carpet');
-  await expect(page.locator('summary[aria-label="Superficie"]')).toContainText('Moqueta');
+  await expect(page.getByRole('link', { name: 'Quitar Moqueta', exact: true })).toBeVisible();
   const response = await request.get('/api/matches?surface=carpet&limit=5');
   expect(response.status()).toBe(200);
   const body = await response.json();

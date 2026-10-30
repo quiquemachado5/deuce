@@ -8,6 +8,7 @@ async function load(archive: Awaited<ReturnType<typeof preparedPlayerArchive>>) 
   const {matches,records} = archive;
   let players: ReturnType<typeof playerDirectory> | undefined;
   let pairs: ReturnType<typeof rivalryDirectory> | undefined;
+  let matchesByTour: { atp: typeof matches; wta: typeof matches } | undefined;
   return {
     matches,
     records,
@@ -16,6 +17,12 @@ async function load(archive: Awaited<ReturnType<typeof preparedPlayerArchive>>) 
     fallbackReason: archive.fallbackReason,
     get players() { return players ?? (players = playerDirectory(matches)); },
     get pairs() { return pairs ?? (pairs = rivalryDirectory(matches)); },
+    get matchesByTour() {
+      return matchesByTour ?? (matchesByTour = {
+        atp: matches.filter(match => (match.tour || 'atp') === 'atp'),
+        wta: matches.filter(match => match.tour === 'wta'),
+      });
+    },
   };
 }
 const cached = asyncCache<Awaited<ReturnType<typeof load>>>(300_000, 1);

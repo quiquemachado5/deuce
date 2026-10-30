@@ -127,9 +127,9 @@
   color:#13211d;
 }
 .careerBoard article{display:flex;min-width:0;flex-direction:column;justify-content:center;padding:22px 23px;border:0;border-radius:21px;background:#f3f6f4}
-.careerBoard span{color:#64716b;font-size:10px;font-weight:740;text-transform:uppercase;letter-spacing:.07em}
+.careerBoard span{color:#53625c;font-size:10px;font-weight:740;text-transform:uppercase;letter-spacing:.07em}
 .careerBoard strong{margin-top:11px;font:700 clamp(31px,3vw,48px)/.94 var(--font-display);letter-spacing:-.04em;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
-.careerBoard small{margin-top:9px;color:#64716b;font-size:10px;line-height:1.4}
+.careerBoard small{margin-top:9px;color:#53625c;font-size:10px;line-height:1.4}
 .careerBoard article:first-child strong{color:#1c7a50}
 
 .profilePage :global(.pp-section-nav){
@@ -186,31 +186,30 @@
 .careerSummary :global(.pp-surface-list article>small){color:rgba(255,255,255,.68);font-size:9px}
 
 .archiveNotes{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:30px 0 0;padding:0;border:0}
-.archiveNotes>div{position:relative;display:flex;min-width:0;min-height:176px;flex-direction:column;justify-content:flex-end;padding:19px;overflow:hidden;border:0;border-radius:18px;background:#e4eee7;color:#13211d;isolation:isolate}
-.archiveNotes>div>img{z-index:-2;object-fit:cover;transition:transform .5s cubic-bezier(.16,1,.3,1)}
-.archiveNotes>div>span{position:absolute;z-index:-1;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(7,25,19,.18) 52%,rgba(7,25,19,.96) 100%)}
-.archiveNotes>div[data-has-photo]{color:#fff}
-.archiveNotes>div[data-has-photo]:hover>img{transform:scale(1.025)}
-.archiveNotes dt{color:#1c7a50;font-size:10px;font-weight:790;text-transform:uppercase;letter-spacing:.07em}
-.archiveNotes>div[data-has-photo] dt,.archiveNotes>div[data-has-photo] small{color:#fff;text-shadow:0 1px 16px rgba(0,0,0,.5)}
-.archiveNotes dd{margin:14px 0 0;font:700 clamp(23px,2.2vw,34px)/.94 var(--font-display);letter-spacing:-.04em;overflow-wrap:anywhere}
-.archiveNotes>div[data-has-photo] dd{margin-top:7px;color:#fff;text-shadow:0 2px 18px rgba(0,0,0,.58)}
-.archiveNotes>div[data-has-photo] small{margin-top:5px}
-.archiveNotes>div:not([data-has-photo]){background:#0a3027;color:#fff}
-.archiveNotes>div:not([data-has-photo])::after{position:absolute;z-index:-1;top:18px;right:18px;width:42px;height:7px;border-radius:2px;background:#c8ff32;content:""}
-.archiveNotes>div:not([data-has-photo]) dt{color:#c8ff32}
-.archiveNotes>div:not([data-has-photo]) small{color:rgba(255,255,255,.7)}
-.archiveNotes>div:not([data-has-photo]) dd{color:#fff;font-size:clamp(40px,4.4vw,64px)}
-.archiveNotes>div:not([data-has-photo]) dd{overflow-wrap:normal;white-space:nowrap}
-.archiveNotes>div[data-kind="season"]{background:#dfece2;color:#0a3027}
-.archiveNotes>div[data-kind="season"] dt{color:#1c7a50}
-.archiveNotes>div[data-kind="season"] dd{color:#0a3027}
-.archiveNotes>div[data-kind="season"] small{color:#52645c}
-.archiveNotes>div[data-kind="season"] dt,.archiveNotes>div[data-kind="streak"] dt{font-size:17px;line-height:1.05;letter-spacing:.035em}
-.archiveNotes>div[data-kind="streak"]{background:#c8ff32;color:#0a3027}
-.archiveNotes>div[data-kind="streak"]::after{background:#0a3027}
-.archiveNotes>div[data-kind="streak"] dt,.archiveNotes>div[data-kind="streak"] dd{color:#0a3027}
-.archiveNotes>div[data-kind="streak"] small{color:#355348}
+.archiveNotes>li{position:relative;display:flex;min-width:0;min-height:176px;flex-direction:column;justify-content:flex-end;padding:19px;overflow:hidden;border:0;border-radius:18px;background:#e4eee7;color:#13211d;isolation:isolate}
+.archiveNotes>li>img{z-index:-2;object-fit:cover;transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.archiveNotes>li>span{position:absolute;z-index:-1;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(7,25,19,.18) 52%,rgba(7,25,19,.96) 100%)}
+.archiveNotes>li[data-has-photo]{color:#fff}
+.archiveNotes>li[data-has-photo]:hover>img{transform:scale(1.025)}
+.archiveNoteLabel{margin:0;color:#1c7a50;font-size:10px;font-weight:790;text-transform:uppercase;letter-spacing:.07em}
+.archiveNotes>li[data-has-photo] .archiveNoteLabel,.archiveNotes>li[data-has-photo] small{color:#fff;text-shadow:0 1px 16px rgba(0,0,0,.5)}
+.archiveNoteValue{margin:14px 0 0;font:700 clamp(23px,2.2vw,34px)/.94 var(--font-display);letter-spacing:-.04em;overflow-wrap:anywhere}
+.archiveNotes>li[data-has-photo] .archiveNoteValue{margin-top:7px;color:#fff;text-shadow:0 2px 18px rgba(0,0,0,.58)}
+.archiveNotes>li[data-has-photo] small{margin-top:5px}
+.archiveNotes>li:not([data-has-photo]){background:#0a3027;color:#fff}
+.archiveNotes>li:not([data-has-photo])::after{position:absolute;z-index:-1;top:18px;right:18px;width:42px;height:7px;border-radius:2px;background:#c8ff32;content:""}
+.archiveNotes>li:not([data-has-photo]) .archiveNoteLabel{color:#c8ff32}
+.archiveNotes>li:not([data-has-photo]) small{color:rgba(255,255,255,.76)}
+.archiveNotes>li:not([data-has-photo]) .archiveNoteValue{color:#fff;font-size:clamp(40px,4.4vw,64px);overflow-wrap:normal;white-space:nowrap}
+.archiveNotes>li[data-kind="season"]{background:#dfece2;color:#0a3027}
+.archiveNotes>li[data-kind="season"] .archiveNoteLabel{color:#176842}
+.archiveNotes>li[data-kind="season"] .archiveNoteValue{color:#0a3027}
+.archiveNotes>li[data-kind="season"] small{color:#52645c}
+.archiveNotes>li[data-kind="season"] .archiveNoteLabel,.archiveNotes>li[data-kind="streak"] .archiveNoteLabel{font-size:17px;line-height:1.05;letter-spacing:.035em}
+.archiveNotes>li[data-kind="streak"]{background:#c8ff32;color:#0a3027}
+.archiveNotes>li[data-kind="streak"]::after{background:#0a3027}
+.archiveNotes>li[data-kind="streak"] .archiveNoteLabel,.archiveNotes>li[data-kind="streak"] .archiveNoteValue{color:#0a3027}
+.archiveNotes>li[data-kind="streak"] small{color:#355348}
 .archiveNotes small{display:block;margin-top:9px;color:#64716b;font-size:9px;line-height:1.4}
 
 .analysisGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:stretch}
@@ -245,7 +244,7 @@
 .profilePage :global(.pp-ranking-slider>article){display:grid;min-height:350px;flex:1;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);align-items:center;gap:34px;padding:42px 82px;border-radius:24px;background:#f4f2eb;color:#13211d;animation:rankingSwap .36s cubic-bezier(.22,1,.36,1) both}
 .profilePage :global(.pp-ranking-slider>article>div){display:grid;gap:14px}
 .profilePage :global(.pp-ranking-slider>article>div:last-child){justify-items:end;text-align:right}
-.profilePage :global(.pp-ranking-slider>article span){color:#6d746f;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.profilePage :global(.pp-ranking-slider>article span){color:#626963;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
 .profilePage :global(.pp-ranking-slider>article strong){color:#46514d;font:690 clamp(68px,6.4vw,104px)/.82 var(--font-display);letter-spacing:-.045em;font-variant-numeric:tabular-nums}
 .profilePage :global(.pp-ranking-slider>article>div:last-child strong){color:#4d5f58}
 .profilePage :global(.pp-ranking-slider>article[data-rank-digits="3"]>div:last-child strong){font-size:clamp(54px,5.2vw,82px)}
@@ -278,7 +277,7 @@
 .profilePage :global(.pp-rivals-heading),.profilePage :global(.pp-matches-heading){display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:28px}
 .profilePage :global(.pp-rivals-heading h2),.profilePage :global(.pp-matches-heading h2){max-width:none;margin:0;font:740 clamp(36px,4vw,56px)/.95 var(--font-display);letter-spacing:-.04em;white-space:nowrap}
 .profilePage :global(.pp-rivals .pp-segmented){flex:none;background:color-mix(in srgb,var(--deuce-action) 82%,#fff);--scroll-cue-bg:color-mix(in srgb,var(--deuce-action) 82%,#fff)}
-.profilePage :global(.pp-rivals .pp-segmented button){color:rgba(255,255,255,.7)}
+.profilePage :global(.pp-rivals .pp-segmented button){color:rgba(255,255,255,.84)}
 .profilePage :global(.pp-rival-grid){grid-template-columns:repeat(3,minmax(0,1fr))}
 .profilePage :global(.pp-rival-grid>a){display:grid;min-height:138px;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-content:center;align-items:center;gap:6px 8px;padding:15px 16px;border:0;border-radius:18px;background:#fff;color:#13211d;transition:transform .2s cubic-bezier(.16,1,.3,1)}
 .profilePage :global(.pp-rival-grid>a:hover){background:#fff;transform:translateY(-2px)}
@@ -289,7 +288,7 @@
 .profilePage :global(.pp-rival-side strong){max-width:100%;overflow:hidden;font-size:11px;text-overflow:ellipsis;white-space:nowrap}
 .profilePage :global(.pp-rival-side b){color:#65716c;font:720 32px/1 var(--font-display);font-variant-numeric:tabular-nums}
 .profilePage :global(.pp-rival-side[data-leading] b){color:#1c7a50}
-.profilePage :global(.pp-rival-grid>a>small){grid-column:1/-1;margin-top:2px;color:#7b8781;font-size:8px;font-weight:650;letter-spacing:.02em;text-align:center}
+.profilePage :global(.pp-rival-grid>a>small){grid-column:1/-1;margin-top:2px;color:#65716c;font-size:8px;font-weight:650;letter-spacing:.02em;text-align:center}
 .profilePage :global(.pp-compare-rivals),.profilePage :global(.pp-all-matches){display:flex;width:max-content;min-height:44px;align-items:center;gap:8px;margin:24px auto 0;padding:10px 17px;border-radius:999px;background:#c8ff32;color:#13211d;font-size:11px;font-weight:740}
 .profilePage :global(.pp-compare-rivals:hover),.profilePage :global(.pp-all-matches:hover){background:#fff}
 
@@ -362,10 +361,10 @@
   .careerSummary :global(.pp-surface-list article dt){overflow:visible;font-size:8px;text-overflow:clip;white-space:normal}
   .archiveNotes{display:flex;gap:8px;margin-top:20px;padding-bottom:4px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
   .archiveNotes::-webkit-scrollbar{display:none}
-  .archiveNotes>div{min-width:78%;min-height:184px;flex:0 0 78%;padding:18px;scroll-snap-align:start}
-  .archiveNotes dd{font-size:22px}
-  .archiveNotes>div:not([data-has-photo]) dd{font-size:43px}
-  .archiveNotes>div[data-kind="season"] dt,.archiveNotes>div[data-kind="streak"] dt{font-size:18px}
+  .archiveNotes>li{min-width:78%;min-height:184px;flex:0 0 78%;padding:18px;scroll-snap-align:start}
+  .archiveNoteValue{font-size:22px}
+  .archiveNotes>li:not([data-has-photo]) .archiveNoteValue{font-size:43px}
+  .archiveNotes>li[data-kind="season"] .archiveNoteLabel,.archiveNotes>li[data-kind="streak"] .archiveNoteLabel{font-size:18px}
   .analysisGrid>:global(.pp-section){padding:27px 19px}
   .analysisGrid :global(.pp-career-header){grid-template-columns:1fr;align-items:stretch;gap:17px;margin-bottom:18px}
   .analysisGrid :global(.pp-career-header h2){font-size:clamp(32px,9vw,42px);white-space:nowrap}

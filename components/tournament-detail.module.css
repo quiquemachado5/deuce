@@ -4613,6 +4613,10 @@
   color: color-mix(in srgb, var(--detail-secondary-ink) 72%, transparent);
 }
 
+.editionSignals article:is([data-signal="2"], [data-signal="3"], [data-signal="4"], [data-signal="6"], [data-signal="7"]) :is(span, small) {
+  color: #26342e;
+}
+
 .editionSignals article strong,
 .editionSignals article[data-signal="1"] strong,
 .editionSignals article[data-signal="2"] strong {

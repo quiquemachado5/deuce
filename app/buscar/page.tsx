@@ -19,12 +19,18 @@ import EmptyState from '@/components/EmptyState';
 import styles from './search.module.css';
 
 export async function generateMetadata({ searchParams }: { searchParams: Promise<MatchQuery> }) {
-  const query = await searchParams;
+  const raw = await searchParams;
+  const tour=raw.tour==='wta'?'wta':'atp';
+  const query={...raw,tour:tour==='wta'?'wta':undefined};
+  const filtered=Object.entries(raw).some(([key,value])=>key!=='tour'&&Boolean(value));
+  const title=`${raw.q ? `${raw.q} · ` : ''}Partidos ${tour.toUpperCase()} — DEUCE`;
+  const canonical=matchSearchUrl(query,{limit:undefined});
   return {
-    title: `${query.q ? `${query.q} · Partidos` : 'Partidos'} — DEUCE`,
-    description: 'Busca jugadores y torneos. Recorre los partidos de tenis por temporada, superficie y ronda desde 1968.',
-    alternates: { canonical: matchSearchUrl(query, { limit: undefined }) },
-    robots: Object.values(query).some(Boolean) ? { index: false, follow: true } : undefined,
+    title,
+    description: `Busca jugadoras, jugadores y torneos ${tour.toUpperCase()}. Recorre el archivo por temporada, superficie y ronda.`,
+    alternates: { canonical },
+    openGraph:{title,url:canonical},
+    robots: filtered ? { index: false, follow: true } : undefined,
   };
 }
 
@@ -43,8 +49,9 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
   query.q = (query.q || query.player || '').trim().slice(0, 180);
   if (query.round) query.round = ({ Octavos: 'Octavos de final', Cuartos: 'Cuartos de final', Semifinal: 'Semifinales', RR: 'Fase de grupos', BR: 'Partido por el bronce', ER: 'Rondas iniciales' } as Record<string, string>)[query.round] || query.round;
   if (query.category && /precursor|histórico|otro torneo/i.test(query.category)) query.category = 'Otros torneos';
-  query.tour = query.tour === 'wta' ? 'wta' : 'atp';
-  const tourMatches = data.matches.filter(match => (match.tour || 'atp') === query.tour);
+  const tour: 'atp' | 'wta' = query.tour === 'wta' ? 'wta' : 'atp';
+  query.tour = tour;
+  const tourMatches = data.matchesByTour[tour];
   const years = [...new Set(tourMatches.map(match => match.year))].sort((a, b) => b - a);
   if (query.year && query.year !== 'all' && !years.includes(Number(query.year))) delete query.year;
   const selectedYear = query.year === 'all' ? null : query.year ? Number(query.year) : query.q || query.vista === 'torneos' ? null : years[0];

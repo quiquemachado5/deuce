@@ -7,10 +7,11 @@ export const dynamic = "force-dynamic";
 export async function GET() {
   const headers = { "Cache-Control": "no-store" };
   try {
-    const [generation, editions, sync, publication] = await Promise.all([
+    const [generation, editions, sync, wtaSync, publication] = await Promise.all([
       preparedGeneration(),
       preparedEditionAudit(),
       cloudRead("sync-status"),
+      cloudRead("wta-sync-status"),
       cloudRead("publish-status"),
     ]);
     const auditedEditions = editions.map(edition => ({ ...edition, ...editionCompleteness(edition) }));
@@ -40,12 +41,16 @@ export async function GET() {
       };
     };
     const refresh = recentStatus(sync),
+      wtaRefresh = recentStatus(wtaSync),
       published = recentStatus(publication);
     const dailyIssue =
       Boolean(cloudClient()) &&
       (refresh.status !== "success" ||
         refresh.ageHours === null ||
         refresh.ageHours > 36 ||
+        wtaRefresh.status !== "success" ||
+        wtaRefresh.ageHours === null ||
+        wtaRefresh.ageHours > 36 ||
         published.status !== "success" ||
         published.ageHours === null ||
         published.ageHours > 36);
@@ -65,7 +70,13 @@ export async function GET() {
         },
         ageHours: Math.round(ageHours * 10) / 10,
         staleAfterHours: 72,
-        dailyUpdate: { refresh, publication: published, staleAfterHours: 36 },
+        dailyUpdate: {
+          refresh,
+          atp: refresh,
+          wta: wtaRefresh,
+          publication: published,
+          staleAfterHours: 36,
+        },
       },
       {
         headers: {

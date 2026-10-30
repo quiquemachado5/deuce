@@ -136,7 +136,7 @@ export default async function Tournament({ params, searchParams }: Props) {
         <div className={styles.heroInner}>
           <div className={styles.heroCopy}>
             <div>
-              <h1 className={styles.heroTitle}><span className={styles.heroName}>{heroTitleLines.map((line) => <span className={styles.heroLine} key={line}>{line}</span>)}</span></h1>
+              <h1 className={styles.heroTitle}><span className={styles.heroName} data-hero-tournament-name="">{heroTitleLines.map((line) => <span className={styles.heroLine} key={line}>{line}</span>)}</span></h1>
             </div>
             <div className={styles.heroNav}>
               <TournamentEditionNav slug={slug} years={years} category={tournament.categories.length > 1 ? category : undefined} categories={categoryOptions} tour={selectedTour} />

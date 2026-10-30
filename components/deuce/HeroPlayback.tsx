@@ -19,7 +19,7 @@ export function HeroPlayback() {
     observer.observe(node);motion.addEventListener('change',update);document.addEventListener('visibilitychange',update);update();
     return()=>{observer.disconnect();motion.removeEventListener('change',update);document.removeEventListener('visibilitychange',update);};
   },[]);
-  return <div ref={container} className={`hero-video hero-film${ready?' is-ready':''}`} aria-label="Partido de tenis visto desde el aire">
+  return <div ref={container} className={`hero-video hero-film${ready?' is-ready':''}`}>
     <Image src="/videos/tennis-hero-poster.webp" alt="" fill sizes="100vw" aria-hidden="true" priority unoptimized/>
     {active&&<video autoPlay muted loop playsInline preload="metadata" poster="/videos/tennis-hero-poster.webp" onCanPlay={()=>setReady(true)} aria-hidden="true" tabIndex={-1}>
       <source src="/videos/tennis-hero-mobile.mp4" media="(max-width: 759px)" type="video/mp4"/>

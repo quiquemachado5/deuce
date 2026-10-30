@@ -87,6 +87,9 @@ test('release gate rejects losses of published matches or measured coverage', ()
   assert.throws(() => assertReleaseCoverage(previous, { ...previous, matchCount: previous.matchCount - 1 }), /lose published matches/);
   assert.throws(() => assertReleaseCoverage(previous, { ...previous, pieces: [] }), /measured coverage/);
   assert.throws(() => assertReleaseCoverage(previous, { ...previous, pieces: [{ ...metric, sample: 9 }] }), /measured coverage/);
+  const mixed = { ...previous, matchCount: 30, summary: { ...previous.summary, tours: { atp: 20, wta: 10 } } };
+  assert.throws(() => assertReleaseCoverage(mixed, { ...mixed, summary: { ...mixed.summary, tours: { atp: 21, wta: 9 } } }), /lose published WTA matches/);
+  assert.throws(() => assertReleaseCoverage(mixed, { ...mixed, summary: { ...mixed.summary, tours: { atp: 19, wta: 11 } } }), /lose published ATP matches/);
 });
 test('release gate preserves editions whose late rounds were already complete',()=>{
   const complete:import('../lib/edition-audit').EditionAudit={tournament:'Madrid',year:2025,category:'Masters 1000',sourceRows:7,completed:7,terminal:0,pending:0,hasFinal:true,rounds:{'5':4,'6':2,'7':1},expectedLateRounds:true,missingLateRounds:[],completeDraw:true};

@@ -1,19 +1,20 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
-test('field coverage and reviewed finals expose real samples and evidence on mobile', async ({ page }) => {
+test('daily coverage and historical review expose real samples and evidence on mobile', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/cobertura');
-  await expect(page.getByRole('heading', { name: 'La muestra detrás de cada dato' })).toBeVisible();
-  await expect(page.locator('.coverage-field-group[open] li')).not.toHaveCount(0);
-  await page.locator('.coverage-field-group[open]').getByText('Temporadas y procedencia', { exact: true }).first().click();
-  await expect(page.locator('.coverage-field-detail[open]')).toContainText('Archivo histórico');
+  await expect(page.getByRole('heading', { name: 'Todo lo añadido, día a día' })).toBeVisible();
+  await expect(page.locator('.coverage-api-days > li')).not.toHaveCount(0);
+  await expect(page.getByText(/ATP \d+.*WTA \d+ partidos/)).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   const audit = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']).analyze();
   expect(audit.violations).toEqual([]);
-  await page.locator('.coverage-fields').scrollIntoViewIfNeeded();
-  await page.screenshot({ path: '/tmp/deuce-field-coverage-mobile.png' });
+  await page.locator('.coverage-daily').scrollIntoViewIfNeeded();
+  await page.screenshot({ path: '/tmp/deuce-daily-coverage-mobile.png' });
   await page.goto('/cobertura/revision');
+  await expect(page.getByRole('heading', { name: 'Ediciones que requieren contraste' })).toBeVisible();
+  await expect(page.locator('.coverage-edition-audit > ul > li')).not.toHaveCount(0);
   await expect(page.getByRole('heading', { name: 'Finales contrastadas con ATP' })).toBeVisible();
   await expect(page.locator('.coverage-reviewed li')).toHaveCount(11);
   await expect(page.locator('.coverage-reviewed').getByRole('link', { name: 'Fuente ATP' })).toHaveCount(11);
@@ -24,7 +25,7 @@ test('field coverage and reviewed finals expose real samples and evidence on mob
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.emulateMedia({ colorScheme: 'dark' });
   await page.goto('/cobertura');
-  await page.locator('.coverage-fields').scrollIntoViewIfNeeded();
-  await page.screenshot({ path: '/tmp/deuce-field-coverage-desktop.png' });
+  await page.locator('.coverage-daily').scrollIntoViewIfNeeded();
+  await page.screenshot({ path: '/tmp/deuce-daily-coverage-desktop.png' });
   expect((await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']).analyze()).violations).toEqual([]);
 });

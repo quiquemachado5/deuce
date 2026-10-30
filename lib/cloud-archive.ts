@@ -267,7 +267,8 @@ export async function refreshCloudWta() {
     const quota=await provider('/usage')
     const remaining=Number(quota.today?.remaining_day||0)
     if(remaining<35){
-      const result={status:'quota-reserve',at:new Date().toISOString(),remaining,calls}
+      const previous=await cloudRead('wta-sync-status').catch(()=>undefined)
+      const result={status:'quota-reserve',at:new Date().toISOString(),remaining,calls,lastSuccessAt:previous?.status==='success'?previous.at:previous?.lastSuccessAt}
       await cloudWrite('wta-sync-status',result)
       return result
     }
@@ -331,7 +332,8 @@ export async function refreshCloudWta() {
     await cloudWrite('wta-sync-status',result)
     return result
   }catch(error){
-    const result={status:'error',at:new Date().toISOString(),calls,message:error instanceof Error?error.message:'WTA sync failed'}
+    const previous=await cloudRead('wta-sync-status').catch(()=>undefined)
+    const result={status:'error',at:new Date().toISOString(),calls,lastSuccessAt:previous?.status==='success'?previous.at:previous?.lastSuccessAt,message:error instanceof Error?error.message:'WTA sync failed'}
     await cloudWrite('wta-sync-status',result)
     throw error
   }finally{await release()}

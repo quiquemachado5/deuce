@@ -1,6 +1,7 @@
 .page {
+  --muted: color-mix(in srgb, var(--ink) 84%, var(--bg-raised));
   --compare-pine: #0b382e;
-  --compare-green: #1b7f55;
+  --compare-green: #14613f;
   --compare-lime: #c7ff2f;
   --compare-soft: #e8edea;
   --search-quiet: #f4f7f5;
@@ -377,16 +378,16 @@
 }
 
 .surfaceCard {
-  --surface-strong: #245fa8;
-  --surface-soft: #86acd7;
+  --surface-strong: #1f568d;
+  --surface-soft: #365b7f;
   padding: 20px;
   border-radius: var(--radius-md);
   background: color-mix(in srgb, var(--surface-strong) 7%, var(--bg-raised));
 }
 
-.surfaceCard[data-surface="clay"] { --surface-strong: #aa3e2d; --surface-soft: #df8b7a; }
-.surfaceCard[data-surface="grass"] { --surface-strong: #247344; --surface-soft: #86b998; }
-.surfaceCard[data-surface="carpet"] { --surface-strong: #70458d; --surface-soft: #b79bc8; }
+.surfaceCard[data-surface="clay"] { --surface-strong: #8a2f22; --surface-soft: #75463e; }
+.surfaceCard[data-surface="grass"] { --surface-strong: #17603a; --surface-soft: #395c45; }
+.surfaceCard[data-surface="carpet"] { --surface-strong: #58306d; --surface-soft: #594361; }
 
 .surfaceCard h4 {
   margin: 0 0 16px;

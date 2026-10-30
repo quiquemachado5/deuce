@@ -1,4 +1,4 @@
-.searchPage{min-width:0;max-width:none;padding:0 0 50px;--search-bg:#f1f3f2;--search-panel:#fff;--search-quiet:#f7f8f7;--search-ink:#13211d;--search-muted:#69766f;--search-pine:#0d382f;--search-green:#1c7a50;--search-lime:#c8ff32;--search-line:rgba(18,53,43,.1)}
+.searchPage{min-width:0;max-width:none;padding:0 0 50px;--search-bg:#f1f3f2;--search-panel:#fff;--search-quiet:#f7f8f7;--search-ink:#13211d;--search-muted:#59665f;--search-pine:#0d382f;--search-green:#1c7a50;--search-lime:#c8ff32;--search-line:rgba(18,53,43,.1)}
 .searchIntro{display:grid!important;grid-template-columns:minmax(260px,auto) minmax(0,390px)!important;align-items:center!important;justify-content:space-between;gap:52px;width:min(1240px,calc(100% - 40px))!important;max-width:none!important;margin:0 auto!important;padding:140px 6px 50px!important}
 .searchIntro h1{margin:0!important;font:650 clamp(58px,7vw,86px)/.9 var(--font-display)!important;letter-spacing:-.04em!important}
 .searchIntro :global(.inner-title-tools){width:390px;max-width:100%}
@@ -59,7 +59,7 @@
 .archiveMatchContext{margin:0 0 2px;color:var(--search-muted);font-size:10px;font-weight:680;letter-spacing:.01em}
 .archiveMatchContextProfile{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:9px}
 .archiveMatchContextProfile strong{overflow:hidden;color:#53625c;font-size:11px;text-overflow:ellipsis;white-space:nowrap}
-.archiveMatchContextProfile span{flex:0 0 auto;text-align:right}
+.archiveMatchContextProfile span{flex:0 0 auto;color:#53625c;text-align:right}
 .archivePlayerRow{display:grid;grid-template-columns:minmax(0,1fr) 154px;align-items:center;gap:12px;min-height:26px}
 .archivePlayer{display:flex;align-items:center;gap:9px;min-width:0}
 .archiveFlag{display:grid;flex:0 0 auto;width:24px;height:18px;place-items:center;overflow:hidden;border:1px solid rgba(18,53,43,.12);border-radius:5px;background:#fff}

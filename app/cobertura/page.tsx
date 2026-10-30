@@ -35,7 +35,7 @@ export default async function Coverage({ searchParams }: { searchParams: Promise
     {label:"Estadísticas del partido",value:totals.statistics},
     {label:"Punto a punto",value:totals.points},
   ];
-  return <main className="nc-wrap deuce-coverage coverage-brief">
+  return <div className="nc-wrap deuce-coverage coverage-brief">
     <ArchiveNotice status={generation}/>
     <header className="coverage-hero">
       <div className="coverage-hero-copy"><h1>Cobertura<br/>del archivo.</h1><p>Qué datos incluye el archivo y qué añade cada actualización diaria.</p></div>
@@ -79,5 +79,5 @@ export default async function Coverage({ searchParams }: { searchParams: Promise
       <nav aria-label="Más información sobre los datos"><Link href="/cobertura/revision">Revisión histórica</Link><Link href="/info">Método y fuentes</Link><Link href="/records">Explorar récords</Link></nav>
       <small>Datos {manifest.version} · Reglas {manifest.rulesVersion} · {generation.source==="remote"?"generación remota validada":"copia validada del despliegue"}</small>
     </footer>
-  </main>;
+  </div>;
 }

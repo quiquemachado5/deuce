@@ -142,6 +142,13 @@ export const recordView=cache(async(encoded:string,recomputed=false):Promise<Rec
 export const preparedArchive = cache(async (): Promise<Match[]> => {
  return (await preparedGeneration()).matches();
 });
+const tourArchives=asyncCache<Match[]>(300_000,4);
+/** Stable per-circuit arrays avoid re-filtering the complete archive on every directory request. */
+export const preparedTourArchive=cache(async(tour:'atp'|'wta'):Promise<Match[]>=>{
+ const generation=await preparedGeneration();
+ return tourArchives(`${generation.manifest.version}:${generation.source}:${tour}`,async()=>
+   (await generation.matches()).filter(match=>(match.tour||'atp')===tour));
+});
 export const preparedMatch = cache(async (id:string) => {const g=await preparedGeneration();return archiveIndex(await g.matches()).ids.get(id) || (await g.competition?.())?.find(m=>m.match_id===id);});
 
 /** Matches and player aggregates always come from the same published generation. */

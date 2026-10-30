@@ -3316,6 +3316,27 @@ main:has(.deuce-comparison)+.deuce-footer{margin-top:22px!important}
 .coverage-piece h2{font-size:30px!important}.coverage-piece p{font-size:15px!important;line-height:1.55}.coverage-piece dt{font-size:12px}.coverage-piece dd{font-size:19px}
 .coverage-footer>p{font-size:14px!important;line-height:1.6}.coverage-footer nav a{padding:10px 14px;font-size:13px}.coverage-footer small{font-size:11px}
 
+/* Keep secondary copy readable in both themes without reintroducing rules or borders. */
+.coverage-hero-copy p,
+.coverage-hero-stats dt,
+.coverage-updated,
+.coverage-section-copy p,
+.coverage-api-days header>span,
+.coverage-api-total,
+.coverage-api-days dt,
+.coverage-api-days dd>span,
+.coverage-data-summary small,
+.coverage-footer>p,
+.coverage-footer small{
+  color:color-mix(in srgb,var(--ink) 90%,var(--bg-raised))!important;
+}
+.coverage-api-days .is-latest header>span,
+.coverage-api-days .is-latest .coverage-api-total,
+.coverage-api-days .is-latest dt,
+.coverage-api-days .is-latest dd>span{
+  color:rgba(255,255,255,.76)!important;
+}
+
 .deuce-home>section:not(.hero),
 .deuce-coverage>section,
 .deuce-footer{content-visibility:auto;contain-intrinsic-size:auto 760px}

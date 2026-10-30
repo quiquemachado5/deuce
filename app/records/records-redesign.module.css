@@ -2415,7 +2415,7 @@
 }
 
 .detailPage :global(.archive-filter-row) > span {
-  color: rgb(230 243 237 / 0.48);
+  color: #c1d3ca;
 }
 
 .detailPage :global(.archive-filter-row) details > summary {
@@ -2425,6 +2425,21 @@
 .detailPage :global(.archive-unified-toolbar) > div:not(.archive-filter-row) button {
   background: rgb(255 255 255 / 0.08);
   color: #f7fbf9;
+}
+
+.detailPage > :global(.archive-unified-toolbar) {
+  width: min(100%, 520px);
+  margin: 0 0 24px auto;
+  padding: 8px;
+  border: 1px solid rgb(235 249 242 / 0.12);
+  border-radius: 20px;
+  background: #123c31;
+  box-shadow: 0 18px 44px rgb(0 13 9 / 0.16);
+}
+
+.detailClassification :global([aria-label="Ordenar clasificación"]) a[aria-current="page"] {
+  background: var(--records-lime);
+  color: var(--records-pine);
 }
 
 .detailClassification {

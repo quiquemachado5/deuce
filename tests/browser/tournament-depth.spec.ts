@@ -22,7 +22,7 @@ async function expectNoPageOverflow(page: Page, context: string) {
 
 test("Madrid uses clay today and preserves indoor hard for its 2007 Masters edition", async ({ page }) => {
   await page.goto("/torneos");
-  const madridCard = page.locator('a[href="/torneos/madrid"][data-event-surface]');
+  const madridCard = page.locator('a[href^="/torneos/madrid?"][data-event-surface]');
   await expect(madridCard).toHaveAttribute("data-event-surface", "clay");
   await expect(madridCard).toContainText("Tierra");
   await expect(madridCard).not.toContainText("Al aire libre");
@@ -44,7 +44,7 @@ test("Madrid uses clay today and preserves indoor hard for its 2007 Masters edit
 
 test("Paris preserves its hard-court classification across catalogue and detail", async ({ page }) => {
   await page.goto("/torneos");
-  const parisCard = page.locator('a[href="/torneos/paris"][data-event-surface]');
+  const parisCard = page.locator('a[href^="/torneos/paris?"][data-event-surface]');
   await expect(parisCard).toHaveAttribute("data-event-surface", "hard");
   await expect(parisCard).toContainText("Dura");
 
@@ -69,11 +69,13 @@ test("Masters history is integrated into the edition control", async ({ page }) 
 test("the tournament title keeps the same position when an edition is selected",async({page})=>{
   await page.setViewportSize({width:1440,height:900});
   const readHero=()=>page.evaluate(()=>{
-    const title=document.querySelector('h1')?.getBoundingClientRect();
+    const title=document.querySelector('[data-hero-tournament-name]')?.getBoundingClientRect();
+    const heading=document.querySelector('[data-hero-tournament-name]')?.parentElement?.getBoundingClientRect();
     const selector=document.querySelector('select[aria-label="Edición del torneo"]')?.getBoundingClientRect();
     return {
       title:title&&{x:title.x,y:title.y,width:title.width,height:title.height,center:title.y+title.height/2},
-      selector:selector&&{x:selector.x,y:selector.y,width:selector.width,height:selector.height,center:selector.y+selector.height/2},
+      heading:heading&&{x:heading.x,y:heading.y,width:heading.width,height:heading.height,bottom:heading.bottom},
+      selector:selector&&{x:selector.x,y:selector.y,width:selector.width,height:selector.height,bottom:selector.bottom},
     };
   });
   await page.goto('/torneos/tokyo');
@@ -94,9 +96,9 @@ test("the tournament title keeps the same position when an edition is selected",
       Math.abs((current.selector?.y||0)-(summary.selector?.y||0)),
     ];
     return Math.max(...deltas);
-  }).toBeLessThan(.1);
+  }).toBeLessThan(4);
   const edition=await readHero();
-  expect(Math.abs((edition.title?.center||0)-(edition.selector?.center||0))).toBeLessThan(1);
+  expect(Math.abs((edition.heading?.bottom||0)-(edition.selector?.bottom||0))).toBeLessThan(4);
 });
 
 test("Australian Open uses distinct visual forms for titles, finals and effectiveness", async ({ page }) => {

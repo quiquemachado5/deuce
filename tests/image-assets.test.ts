@@ -8,6 +8,7 @@ import imageLoader from '../lib/image-loader'
 import { courtPhoto, courtPhotoForEdition, courtPhotos, premiumCourtPhotoNames } from '../lib/imagery'
 import { playerDirectoryPhoto, playerPhoto, playerPhotos } from '../lib/player-imagery'
 import { playerPhotoAtTournament } from '../lib/tournament-media'
+import { photoRightsStatus } from '../lib/photo-rights'
 
 test('the player directory serves cached local photos with their actual sources', () => {
   const restoredPortraits = new Set(['Jimmy Connors', 'Roger Federer', 'Ivan Lendl', 'John McEnroe'])
@@ -44,6 +45,17 @@ test('the player directory serves cached local photos with their actual sources'
   }
   assert.equal(playerPhoto('Marin Cilic')?.src, playerPhoto('Marin Čilić')?.src)
   assert.equal(playerPhoto('Felix Auger–Aliassime')?.src, playerPhoto('Félix Auger-Aliassime')?.src)
+})
+
+test('every published photograph has a source, credit and explicit audit state', () => {
+  const rows = [...Object.values(playerPhotos), ...Object.values(courtPhotos)]
+  for (const photo of rows) {
+    assert.ok(photo.source.startsWith('http'), `invalid photo source: ${photo.src}`)
+    assert.ok(photo.credit.trim(), `missing photo credit: ${photo.src}`)
+    assert.ok(['documented', 'source-only'].includes(photoRightsStatus(photo)))
+  }
+  assert.ok(rows.some(photo => photoRightsStatus(photo) === 'documented'))
+  assert.ok(rows.some(photo => photoRightsStatus(photo) === 'source-only'))
 })
 
 test('tournament pages prefer documented event photography and always fall back to a face', () => {

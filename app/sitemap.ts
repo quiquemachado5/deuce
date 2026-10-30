@@ -29,5 +29,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...players.map(player => `/jugadores/${playerSlug(player.name)}${player.tour === 'wta' ? '?tour=wta' : ''}`),
     ...editions,
   ];
-  return paths.map(path => ({ url: `https://deuce-archive.vercel.app${path}` }));
+  return [...new Set(paths)].map(path => ({ url: `https://deuce-archive.vercel.app${path}`, lastModified: generation.manifest.generatedAt }));
 }

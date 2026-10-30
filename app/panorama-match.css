@@ -25,12 +25,12 @@ html:has(.pm-page) {
   --pm-quiet: #f6f8f7;
   --pm-soft-panel: #e7ece9;
   --pm-ink: #13211d;
-  --pm-muted: #64716b;
+  --pm-muted: #53615a;
   --pm-pine: #0d382f;
-  --pm-win: #1c7a50;
+  --pm-win: #14613d;
   --pm-lime: #b8ed3b;
-  --pm-gold: #8a6516;
-  --pm-silver: #687573;
+  --pm-gold: #6b4c0b;
+  --pm-silver: #56635f;
   width: min(1240px, 100%);
   min-width: 0;
   margin-inline: auto;
