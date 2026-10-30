@@ -61,12 +61,11 @@ export default async function Tournament({ params, searchParams }: Props) {
     .filter((match) => roundPosition(match.round) === 7 && winnerName(match))
     .sort((a, b) => chronological(b, a));
   const distinctChampions = new Set(finals.map((match) => winnerName(match)).filter(Boolean)).size;
-  const distinctFinalists = new Set(finals.flatMap((match) => [match.player1.name, match.player2.name])).size;
+  const distinctPlayers = new Set(registered.flatMap((match) => [match.player1.name, match.player2.name])).size;
+  const distinctEditions = new Set(registered.map((match) => match.year)).size;
   const decidingFinals = finals.filter((match) => Math.abs(match.score_summary.sets[0] - match.score_summary.sets[1]) === 1).length;
-  const straightFinals = finals.filter((match) => Math.min(...match.score_summary.sets) === 0).length;
-  const finalSets = finals.reduce((total, match) => total + match.score_summary.games.length, 0);
-  const finalGames = finals.reduce((total, match) => total + match.score_summary.games.reduce((sum, set) => sum + set[0] + set[1], 0), 0);
-  const repeatChampions = pieces.titles.filter((row) => row.value > 1).length;
+  const matchSets = registered.reduce((total, match) => total + match.score_summary.games.length, 0);
+  const matchGames = registered.reduce((total, match) => total + match.score_summary.games.reduce((sum, set) => sum + set[0] + set[1], 0), 0);
   const longestFinal = [...finals]
     .filter((match) => match.context?.minutes)
     .sort((a, b) => (b.context?.minutes || 0) - (a.context?.minutes || 0))[0];
@@ -109,6 +108,7 @@ export default async function Tournament({ params, searchParams }: Props) {
     ? championPhotoForEdition(tournament.name, longestFinal.year) || (longestChampion ? tournamentPlayerPhoto(longestChampion) : null)
     : null;
   const titleName = tournamentName(tournament.name);
+  const heroTitleLines = slug === "us-open" ? ["Abierto de", "Estados Unidos"] : [titleName];
   const categoryOptions = tournament.categories.map((level) => ({
     value: level,
     label: categoryLabel(level),
@@ -124,10 +124,10 @@ export default async function Tournament({ params, searchParams }: Props) {
         <div className={styles.heroInner}>
           <div className={styles.heroCopy}>
             <div>
-              <h1 className={styles.heroTitle}><span className={styles.heroName}>{titleName}</span></h1>
+              <h1 className={styles.heroTitle}><span className={styles.heroName}>{heroTitleLines.map((line) => <span className={styles.heroLine} key={line}>{line}</span>)}</span></h1>
             </div>
             <div className={styles.heroNav}>
-              <TournamentEditionNav slug={slug} years={years} masters={category === "Precursores de Masters"} category={tournament.categories.length > 1 ? category : undefined} categories={categoryOptions} />
+              <TournamentEditionNav slug={slug} years={years} category={tournament.categories.length > 1 ? category : undefined} categories={categoryOptions} />
             </div>
           </div>
         </div>
@@ -169,7 +169,7 @@ export default async function Tournament({ params, searchParams }: Props) {
       {rateLeader && <section className={`${styles.section} ${styles.rateSection}`} aria-labelledby="td-effectiveness-title">
         <div className={styles.sectionHead}><div><h2 id="td-effectiveness-title">Efectividad en este torneo</h2></div></div>
         <div className={styles.rateEditorial}>
-          <article className={styles.rateLeaderFeature}>{rateLeaderPhoto && <Image className="art-directed-photo" src={rateLeaderPhoto.src} alt={rateLeaderPhoto.alt} fill sizes="(max-width:759px) 100vw, 45vw" style={imageFocus(rateLeaderPhoto.objectPosition || "center top",rateLeaderPhoto.mobileObjectPosition || rateLeaderPhoto.objectPosition || "center top")} unoptimized/>}<span className={styles.photoShade} aria-hidden="true"/><div><span>Mejor porcentaje</span><strong>{number(rateLeader.value,1)}%</strong><Link href={rateLeader.href}>{rateLeader.name}<ArrowUpRight size={20} aria-hidden="true"/></Link><p>{rateLeader.detail}</p></div></article>
+          <article className={styles.rateLeaderFeature}>{rateLeaderPhoto && <Image className="art-directed-photo" src={rateLeaderPhoto.src} alt={rateLeaderPhoto.alt} fill sizes="(max-width:759px) 100vw, 45vw" style={imageFocus(rateLeaderPhoto.objectPosition || "center top",rateLeaderPhoto.mobileObjectPosition || rateLeaderPhoto.objectPosition || "center top")} unoptimized/>}<span className={styles.photoShade} aria-hidden="true"/><div><strong>{number(rateLeader.value,1)}%</strong><Link href={rateLeader.href}>{rateLeader.name}<ArrowUpRight size={20} aria-hidden="true"/></Link><p>{rateLeader.detail}</p></div></article>
           <div className={styles.rateMatrix}><ol>{rateRows.slice(1).map((row,index)=><li key={row.name} data-rank={index+2}><Link href={row.href} aria-label={`${row.name}: ${number(row.value,1)} %, ${row.detail}`}><span className={styles.ratePerson}><PlayerAvatar name={row.name} photo={tournamentPlayerPhoto(row.name)} size={42}/><span><strong>{row.name}</strong><small>{row.detail}</small></span></span><b>{number(row.value,1)}%</b><ArrowUpRight size={18} aria-hidden="true"/></Link></li>)}</ol></div>
         </div>
       </section>}
@@ -181,14 +181,14 @@ export default async function Tournament({ params, searchParams }: Props) {
           {longestFinal && <article className={styles.dataLead}>{durationPhoto&&<Image className="art-directed-photo" src={durationPhoto.src} alt={durationPhoto.alt} fill sizes="(max-width:759px) 100vw, 55vw" style={imageFocus(durationPhoto.objectPosition||"center top",durationPhoto.mobileObjectPosition||durationPhoto.objectPosition||"center top")} unoptimized/>}<span className={styles.photoShade} aria-hidden="true"/><div><span>La final más larga documentada</span><strong>{Math.floor((longestFinal.context?.minutes || 0) / 60)} h {(longestFinal.context?.minutes || 0) % 60} min</strong><p>{longestFinal.player1.name} contra {longestFinal.player2.name} · {longestFinal.year}</p><Link href={`/match/${longestFinal.match_id}`}>Ver partido <ArrowRight size={16} aria-hidden="true"/></Link></div></article>}
           <div className={styles.dataLedger}>
             {[
+              ["Partidos registrados",number(registered.length)],
+              ["Ediciones disponibles",number(distinctEditions)],
+              ["Jugadores distintos",number(distinctPlayers)],
               ["Finales publicadas",number(finals.length)],
               ["Campeones distintos",number(distinctChampions)],
-              ["Finalistas distintos",number(distinctFinalists)],
+              ["Sets por partido",number(registered.length?matchSets/registered.length:0,1)],
+              ["Juegos por partido",number(registered.length?matchGames/registered.length:0,1)],
               ["Finales al decisivo",number(decidingFinals)],
-              ["Finales sin ceder set",number(straightFinals)],
-              ["Sets por final",number(finals.length?finalSets/finals.length:0,1)],
-              ["Juegos por final",number(finals.length?finalGames/finals.length:0,1)],
-              ["Campeones múltiples",number(repeatChampions)],
             ].map(([label,value],index)=><div key={label} data-stat={index+1}><span>{label}</span><strong>{value}</strong></div>)}
           </div>
           {recurringFinal&&<article className={styles.dataRivalry}><div className={styles.dataFaces}><PlayerAvatar name={recurringFinal.names[0]} photo={tournamentPlayerPhoto(recurringFinal.names[0])} size={58}/><PlayerAvatar name={recurringFinal.names[1]} photo={tournamentPlayerPhoto(recurringFinal.names[1])} size={58}/></div><span>La final que vuelve</span><strong>{recurringFinal.names[0]} <i>contra</i> {recurringFinal.names[1]}</strong><p>{number(recurringFinal.count)} enfrentamientos por el título.</p></article>}

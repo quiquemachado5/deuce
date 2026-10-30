@@ -41,8 +41,8 @@ export default function TournamentBracket({ matches }: { matches: Match[] }) {
       </div>
     </div>
     {!expanded && hiddenMatches > 0 && (
-      <button className={styles.bracketReveal} type="button" onClick={() => setExpanded(true)}>
-        Ver todos los partidos <span>{hiddenMatches} más</span>
+      <button className={styles.bracketReveal} type="button" onClick={() => setExpanded(true)} aria-label={`Ver todos los partidos, ${hiddenMatches} resultados adicionales`}>
+        Ver todos los partidos
       </button>
     )}
   </section>;

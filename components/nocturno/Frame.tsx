@@ -147,7 +147,6 @@ const destinations = [
 function pageLabel(path: string) {
   if (path === "/comparar" || path === "/compare") return "Comparar";
   if (path.startsWith("/records")) return "Récords";
-  if (path.startsWith("/rivalries")) return "Jugadores";
   if (path.startsWith("/jugadores") || path.startsWith("/players")) return "Jugadores";
   if (
     path.startsWith("/torneo") ||

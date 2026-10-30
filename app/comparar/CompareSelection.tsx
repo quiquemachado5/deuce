@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { avatarPhotoStyle } from "@/lib/photo-style";
+import PlayerFlag from "@/components/PlayerFlag";
 
 type Selection = {
   name: string;
@@ -132,6 +133,7 @@ export default function CompareSelection({
                 <div>
                   <span>Jugador {index + 1}</span>
                   <strong>
+                    {known?.country ? <PlayerFlag code={known.country} /> : null}
                     <span>{name.trim() || "Elige jugador"}</span>
                   </strong>
                 </div>

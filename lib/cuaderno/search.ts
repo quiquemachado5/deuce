@@ -3,7 +3,7 @@ import { notebook } from "./data";
 import type { Match } from "../types";
 import { shelves, shelfMatches } from "./shelves";
 import { normalizeText } from "../quality";
-import { playerSlug } from "../explore";
+import { comparisonHref, playerSlug } from "../explore";
 import { tournamentName } from "../labels";
 import { score, round, sentence } from "./model";
 import { tournamentDirectory } from '../tournament-directory';
@@ -59,7 +59,7 @@ export async function searchArchive(query: string, options: { includeMatches?: b
       .filter((p) => includes(p.names.join(" ")))
       .slice(0, 3))
       items.push({
-        href: `/rivalries/${p.slug}`,
+        href: comparisonHref(p.names[0], p.names[1]),
         name: p.names.join(" contra "),
         detail: `${p.wins.join("–")} · ${p.matches.length} partidos en este archivo`,
         group: "Parejas",

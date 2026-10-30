@@ -57,8 +57,46 @@ test("Paris preserves its hard-court classification across catalogue and detail"
 
 test("Masters history is integrated into the edition control", async ({ page }) => {
   await page.goto("/torneos/cincinnati");
-  await expect(page.getByRole("combobox", { name: "Etapa del torneo" })).toBeVisible();
+  const archive = page.getByRole("combobox", { name: "Edición del torneo" });
+  await expect(archive).toBeVisible();
+  await expect(archive.locator("option").first()).toHaveText("Resumen");
+  await expect(archive).toHaveValue("summary");
+  await expect(archive.locator("option").filter({ hasText: "1989" })).toHaveCount(1);
+  await expect(page.getByRole("combobox", { name: "Etapa del torneo" })).toHaveCount(0);
   await expect(page.getByRole("navigation", { name: "Categorías de este torneo" })).toHaveCount(0);
+});
+
+test("the tournament title keeps the same position when an edition is selected",async({page})=>{
+  await page.setViewportSize({width:1440,height:900});
+  const readHero=()=>page.evaluate(()=>{
+    const title=document.querySelector('h1')?.getBoundingClientRect();
+    const selector=document.querySelector('select[aria-label="Edición del torneo"]')?.getBoundingClientRect();
+    return {
+      title:title&&{x:title.x,y:title.y,width:title.width,height:title.height,center:title.y+title.height/2},
+      selector:selector&&{x:selector.x,y:selector.y,width:selector.width,height:selector.height,center:selector.y+selector.height/2},
+    };
+  });
+  await page.goto('/torneos/tokyo');
+  await page.evaluate(async()=>{await document.fonts.ready;});
+  await expect(page.getByRole('combobox',{name:'Edición del torneo'})).toHaveValue('summary');
+  const summary=await readHero();
+  await page.goto('/torneos/tokyo/2026?categoria=ATP%20500');
+  await page.evaluate(async()=>{await document.fonts.ready;});
+  await expect(page.getByRole('combobox',{name:'Edición del torneo'})).toHaveValue('2026::ATP 500');
+  await expect.poll(async()=>{
+    const current=await readHero();
+    const deltas=[
+      Math.abs((current.title?.x||0)-(summary.title?.x||0)),
+      Math.abs((current.title?.y||0)-(summary.title?.y||0)),
+      Math.abs((current.title?.width||0)-(summary.title?.width||0)),
+      Math.abs((current.title?.height||0)-(summary.title?.height||0)),
+      Math.abs((current.selector?.x||0)-(summary.selector?.x||0)),
+      Math.abs((current.selector?.y||0)-(summary.selector?.y||0)),
+    ];
+    return Math.max(...deltas);
+  }).toBeLessThan(.1);
+  const edition=await readHero();
+  expect(Math.abs((edition.title?.center||0)-(edition.selector?.center||0))).toBeLessThan(1);
 });
 
 test("Australian Open uses distinct visual forms for titles, finals and effectiveness", async ({ page }) => {

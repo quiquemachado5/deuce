@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { pairSlug } from "@/lib/explore";
+import { comparisonHref } from "@/lib/explore";
 export default function PairPicker() {
   const router = useRouter(),
     [first, setFirst] = useState(""),
@@ -49,7 +49,7 @@ export default function PairPicker() {
         onSubmit={(e) => {
           e.preventDefault();
           if (opponents.includes(second))
-            router.push(`/rivalries/${pairSlug(first, second)}`);
+            router.push(comparisonHref(first, second));
         }}
       >
         <label className="nc-field">

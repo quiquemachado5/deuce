@@ -46,6 +46,6 @@ test("home uses the handoff components without stale chapter UI", () => {
   const css = readFileSync("styles/deuce-system.css", "utf8");
   assert.match(css, /prefers-reduced-motion/);
   const page = readFileSync("app/page.tsx", "utf8");
-  for (const component of ["HeroVideo", "OnThisDay", "MatchScoreboard", "TournamentSlider"]) assert.ok(page.includes("<"+component));
+  for (const component of ["HeroVideo", "OnThisDay", "ArchiveMatchRow", "TournamentSlider"]) assert.ok(page.includes("<"+component));
   assert.doesNotMatch(page, /<HomeSearch|<QuickH2H|<HomeSeason/);
 });

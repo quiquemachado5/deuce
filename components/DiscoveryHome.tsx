@@ -6,7 +6,7 @@ import Repository from './Repository'
 import { getMatch } from '@/lib/data'
 import { editorialArchive } from '@/lib/editorial-data'
 import { buildSeasonAnalytics, leaders, rankingMetrics } from '@/lib/season-analytics'
-import { rivalryDirectory } from '@/lib/explore'
+import { comparisonHref, rivalryDirectory } from '@/lib/explore'
 import { matchStory } from '@/lib/editorial'
 import { parseRepositoryQuery, selectRepository } from '@/lib/repository-query'
 import { courtPhoto } from '@/lib/imagery'
@@ -34,7 +34,7 @@ export default async function DiscoveryHome() {
     <div className="page-frame"><section className="product-discoveries"><header className="section-heading"><h2>Tres historias del archivo</h2><Link href="/patterns">Todas las cifras <ArrowRight size={17}/></Link></header><div className="discovery-ledger">
       {pressure&&<article><p className="discovery-category">Después del 30–30</p><h3>{pressure.player.name}</h3><strong className="discovery-value">{pressure.value}%<span className="sample-inline">{metric.detail(pressure.player)}</span></strong><p>Juegos ganados tras ganar el punto del 30–30. En portada, mínimo de 50 juegos documentados por jugador.</p><Link href="/patterns?metric=thirty-all-games">Ver la cifra <ArrowRight size={16}/></Link></article>}
       {longest&&<article><p className="discovery-category">El partido más largo documentado</p><h3>{longest.player1.name}<span className="versus"> contra </span>{longest.player2.name}</h3><strong className="discovery-value">{longest.context!.minutes}<small> min</small></strong><p>{tournamentName(longest.tournament)} · {longest.year}. Entre {timed.length.toLocaleString('es-ES')} partidos con duración publicada.</p><Link href={`/match/${longest.match_id}`}>Leer el partido <ArrowRight size={16}/></Link></article>}
-      {rivalry&&<article><p className="discovery-category">Una rivalidad</p><h3>{rivalry.names[0]}<span className="versus"> contra </span>{rivalry.names[1]}</h3><strong className="discovery-value">{rivalry.wins.join('–')}</strong><p>En Grand Slams, Masters y precursores de este archivo; no el cara a cara completo.</p><Link href={`/rivalries/${rivalry.slug}`}>Seguir la historia <ArrowRight size={16}/></Link></article>}
+      {rivalry&&<article><p className="discovery-category">Una rivalidad</p><h3>{rivalry.names[0]}<span className="versus"> contra </span>{rivalry.names[1]}</h3><strong className="discovery-value">{rivalry.wins.join('–')}</strong><p>En Grand Slams, Masters y precursores de este archivo; no el cara a cara completo.</p><Link href={comparisonHref(rivalry.names[0],rivalry.names[1])}>Comparar el cruce <ArrowRight size={16}/></Link></article>}
     </div></section>
     <section className="tournament-gallery"><header className="section-heading"><h2>Los grandes escenarios</h2><Link href="/torneos">Todos los torneos <ArrowRight size={17}/></Link></header><div>{TOURNAMENTS.filter(t=>t.category==='Grand Slam').map(t=>{const photo=courtPhoto(t.name);return <Link href={`/torneos/${t.slug}`} key={t.slug}><figure>{photo&&<Image src={photo.src} alt={photo.alt} fill sizes="(max-width:760px) 78vw, 25vw"/>}</figure><h3>{tournamentName(t.name)}</h3><span>Explorar ediciones <ArrowRight size={15}/></span></Link>})}</div></section></div>
   </div></Shell>

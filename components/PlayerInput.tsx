@@ -1,20 +1,125 @@
 'use client';
-import {useEffect,useId,useState} from 'react';
-/** Native datalist keeps keyboard support; only a few names cross the server/client boundary. */
-export default function PlayerInput({name,initial}:{name:string;initial:string}) {
-  const id=useId(),[value,setValue]=useState(initial),[suggestions,setSuggestions]=useState<string[]>([initial]);
-  useEffect(()=>{
-    if(value.trim().length<2)return;
-    const controller=new AbortController();
-    const timer=setTimeout(async()=>{
-      try {
-        const response=await fetch('/api/search?q='+encodeURIComponent(value),{signal:controller.signal});
-        if(!response.ok)return;
-        const body=await response.json();
-        setSuggestions((body.items || []).filter((item:{group:string})=>item.group==='Jugadores').map((item:{name:string})=>item.name));
-      } catch { /* Input remains usable if suggestions are unavailable. */ }
-    },200);
-    return()=>{clearTimeout(timer);controller.abort();};
-  },[value]);
-  return <><input name={name} list={id} value={value} onChange={e=>setValue(e.target.value)} required maxLength={100} autoComplete="off" /><datalist id={id}>{suggestions.map(s=><option key={s} value={s}/>)}</datalist></>;
+
+import { ChevronDown } from 'lucide-react';
+import { useDeferredValue, useId, useMemo, useRef, useState } from 'react';
+
+type Props = {
+  name: string;
+  initial: string;
+  options: string[];
+  label: string;
+};
+
+export default function PlayerInput({ name, initial, options, label }: Props) {
+  const listId = useId();
+  const input = useRef<HTMLInputElement>(null);
+  const [value, setValue] = useState(initial);
+  const [open, setOpen] = useState(false);
+  const [showAll, setShowAll] = useState(false);
+  const [active, setActive] = useState(-1);
+  const deferredValue = useDeferredValue(value);
+  const matches = useMemo(() => {
+    const query = showAll ? '' : deferredValue.trim().toLocaleLowerCase('es');
+    return query
+      ? options.filter((player) => player.toLocaleLowerCase('es').includes(query))
+      : options;
+  }, [deferredValue, options, showAll]);
+
+  const choose = (player: string) => {
+    setValue(player);
+    setOpen(false);
+    setShowAll(false);
+    setActive(-1);
+    input.current?.focus();
+  };
+
+  return (
+    <div
+      className="player-combobox"
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false);
+      }}
+    >
+      <input
+        ref={input}
+        name={name}
+        aria-label={label}
+        value={value}
+        onChange={(event) => {
+          setValue(event.target.value);
+          setActive(-1);
+          setShowAll(false);
+          setOpen(true);
+        }}
+        onFocus={() => {
+          setShowAll(true);
+          setOpen(true);
+        }}
+        onKeyDown={(event) => {
+          if (event.key === 'ArrowDown') {
+            event.preventDefault();
+            setOpen(true);
+            setActive((current) => Math.min(current + 1, matches.length - 1));
+          } else if (event.key === 'ArrowUp') {
+            event.preventDefault();
+            setActive((current) => Math.max(current - 1, 0));
+          } else if (event.key === 'Enter' && open && active >= 0) {
+            event.preventDefault();
+            choose(matches[active]);
+          } else if (event.key === 'Escape') {
+            setOpen(false);
+          }
+        }}
+        role="combobox"
+        aria-autocomplete="list"
+        aria-controls={listId}
+        aria-expanded={open}
+        aria-activedescendant={active >= 0 ? `${listId}-${active}` : undefined}
+        required
+        maxLength={100}
+        autoComplete="off"
+      />
+      <button
+        type="button"
+        className="player-combobox-toggle"
+        aria-label={open ? 'Cerrar lista de jugadores' : 'Ver todos los jugadores'}
+        aria-expanded={open}
+        onClick={() => {
+          if (open) {
+            setOpen(false);
+            return;
+          }
+          setShowAll(true);
+          setOpen(true);
+          window.requestAnimationFrame(() => input.current?.focus());
+        }}
+      >
+        <ChevronDown size={17} aria-hidden="true" />
+      </button>
+      {open ? (
+        <div className="player-combobox-menu" id={listId} role="listbox">
+          <div className="player-combobox-count">
+            {matches.length === options.length
+              ? `${options.length} jugadores · orden alfabético`
+              : `${matches.length} coincidencias`}
+          </div>
+          {matches.length ? matches.map((player, index) => (
+            <button
+              id={`${listId}-${index}`}
+              type="button"
+              role="option"
+              aria-selected={player === value}
+              data-active={index === active ? 'true' : undefined}
+              key={player}
+              onMouseDown={(event) => event.preventDefault()}
+              onMouseEnter={() => setActive(index)}
+              onClick={() => choose(player)}
+            >
+              {player}
+            </button>
+          )) : <p>No hay jugadores que coincidan.</p>}
+        </div>
+      ) : null}
+    </div>
+  );
 }

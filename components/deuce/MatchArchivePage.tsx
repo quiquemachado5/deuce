@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Check } from 'lucide-react';
+import { ArrowRight, Check } from 'lucide-react';
 import PlayerFlag from '@/components/PlayerFlag';
 import type { MatchRecord } from '@/types/deuce';
 import { resolvedSetClosed, resolvedWinner } from '@/lib/deuce-score';
@@ -23,7 +23,7 @@ function formatShortDate(value: string) {
   return new Intl.DateTimeFormat('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric', timeZone: 'UTC' }).format(parsed);
 }
 
-export function ArchiveMatchRow({ match, showContext = false, showTournamentContext = false }: { match: MatchRecord; showContext?: boolean; showTournamentContext?: boolean }) {
+export function ArchiveMatchRow({ match, showContext = false, showTournamentContext = false, showAction = false }: { match: MatchRecord; showContext?: boolean; showTournamentContext?: boolean; showAction?: boolean }) {
   const winner = resolvedWinner(match);
   return <Link className={styles.archiveMatch} href={match.href} prefetch={false} aria-label={`Ver ${match.players[0].name} contra ${match.players[1].name}`}>
     {showTournamentContext ? <div className={`${styles.archiveMatchContext} ${styles.archiveMatchContextProfile}`}><strong>{match.tournament}</strong><span>{match.round}{match.date ? ` · ${formatDate(match.date)}` : ''}</span></div> : showContext ? <div className={styles.archiveMatchContext}>{match.round}{match.date ? ` · ${formatDate(match.date)}` : ''}</div> : null}
@@ -43,6 +43,7 @@ export function ArchiveMatchRow({ match, showContext = false, showTournamentCont
         })}
       </span>
     </div>})}
+    {showAction ? <span className={styles.archiveMatchAction} aria-hidden="true"><ArrowRight size={16} strokeWidth={2.2} /></span> : null}
   </Link>;
 }
 

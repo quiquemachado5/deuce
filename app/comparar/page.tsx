@@ -1,19 +1,20 @@
-import { ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
 import { preparedGeneration } from '@/lib/revista/read-records';
 import { comparePlayer, sharedCareerWindow } from '@/lib/player-comparison';
 import { playerPhoto } from '@/lib/player-imagery';
 import { playerSlug } from '@/lib/explore';
 import { SURFACES, surfaceLabel } from '@/lib/surface';
-import { number, round } from '@/lib/cuaderno/model';
+import { number } from '@/lib/cuaderno/model';
 import { eligibleMatch, normalizeText } from '@/lib/quality';
 import { chronological, winnerName } from '@/lib/editorial';
 import ArchiveNotice from '@/components/nocturno/ArchiveNotice';
 import PlayerInput from '@/components/PlayerInput';
 import CompareSelection, { CompareSampleFilters } from './CompareSelection';
-import PlayerAvatar from '@/components/PlayerAvatar';
-import { tournamentName } from '@/lib/labels';
-import SetScoreboard from '@/components/SetScoreboard';
+import PlayerFlag from '@/components/PlayerFlag';
+import { playerBiography } from '@/lib/player-bio';
+import { ArchiveMatchRow } from '@/components/deuce/MatchArchivePage';
+import { toMatchRecord } from '@/data/map-match';
+import styles from './compare.module.css';
 
 export const metadata = { title: 'Comparador de jugadores — DEUCE', alternates: { canonical: '/comparar' }, robots: { index: false, follow: true } };
 export const revalidate = 300;
@@ -42,14 +43,6 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
   const sufficient = !same && valid && players.every(p => p.sufficient);
   const minimum = ['5','20','50'].includes(q.minimum || '') ? q.minimum! : '20';
   const activeSampleFilters = [q.period && q.period !== 'career', q.year && q.year !== 'all', q.surface && q.surface !== 'all', q.competition && q.competition !== 'all', q.age && q.age !== 'all', q.minimum && q.minimum !== '20'].filter(Boolean).length;
-  const context = [
-    q.period === 'shared' ? (window ? `Periodo compartido documentado: ${window.first}–${window.last}` : 'Sin periodo compartido documentado') : 'Carrera documentada completa',
-    q.year && q.year !== 'all' ? `Temporada ${q.year}` : 'Todas las temporadas',
-    q.surface && q.surface !== 'all' ? surfaceLabel[q.surface as keyof typeof surfaceLabel] : 'Todas las superficies',
-    q.competition && q.competition !== 'all' ? q.competition : 'Todas las competiciones',
-    q.age && q.age !== 'all' ? `${q.age.replace('-', '–')} años al jugar` : 'Todas las edades',
-    `Mínimo ${minimum} partidos`,
-  ];
   const metrics = [
     { label: 'Victorias', values: players.map(player => player.won), percent: false, lowerIsBetter: false },
     { label: 'Derrotas', values: players.map(player => player.lost), percent: false, lowerIsBetter: true },
@@ -58,14 +51,10 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
     { label: 'Finales jugadas', values: players.map(player => player.finals), percent: false, lowerIsBetter: false },
     { label: 'Victorias ante top 10', values: players.map(player => player.top10Won), percent: false, lowerIsBetter: false },
   ];
-  const sampleHref = (name: string) => {
-    const params = new URLSearchParams({ player: name });
-    if (q.year && q.year !== 'all') params.set('year', q.year);
-    if (q.surface && q.surface !== 'all') params.set('surface', q.surface);
-    if (q.competition && q.competition !== 'all') params.set('category', q.competition);
-    if(q.period==='shared'&&window){params.set('fromYear',String(window.first));params.set('toYear',String(window.last));}
-    return `/buscar?${params}`;
-  };
+  const metricGroups = [
+    { title: 'Trayectoria', rows: metrics.slice(0, 3) },
+    { title: 'Rendimiento', rows: metrics.slice(3) },
+  ];
   const directMatches = matches.filter(match => chosen.includes(match.player1.name) && chosen.includes(match.player2.name))
     .filter(eligibleMatch)
     .filter(match => (!q.year || q.year === 'all' || match.year === Number(q.year)) && (!q.surface || q.surface === 'all' || match.surface === q.surface) && (!q.competition || q.competition === 'all' || match.category === q.competition))
@@ -79,19 +68,19 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
   };
   const surfacesToShow = q.surface && q.surface !== 'all' ? SURFACES.filter(surface => surface === q.surface) : SURFACES.filter(surface => surface !== 'unknown');
 
-  return <div className="nc-wrap dx-comparison deuce-comparison">
+  return <div className={`${styles.page} nc-wrap dx-comparison deuce-comparison`}>
     <ArchiveNotice status={generation} />
-    <header className="inner-title"><h1>Comparar</h1></header>
+    <header className={`inner-title ${styles.intro}`}><h1>Comparar</h1></header>
     <CompareSelection key={chosen.join('|')} initial={chosen.map(name => {
       const photo = playerPhoto(name);
       const hasThumbnail = Boolean(photo?.thumbnail);
-      return { name, photo: photo ? {
+      return { name, country: playerBiography(name)?.country, photo: photo ? {
         src: photo.thumbnail || photo.src,
         objectPosition: hasThumbnail ? '50% 20%' : photo.objectPosition,
         avatarCrop: hasThumbnail ? undefined : photo.avatarCrop,
       } : undefined };
     })}>
-      {['a','b'].map((key,index) => <label className="nc-field" key={key}><span>Jugador {index + 1}</span><PlayerInput key={chosen[index]} name={key} initial={chosen[index]} /></label>)}
+      {['a','b'].map((key,index) => <div className="nc-field" key={key}><span>Jugador {index + 1}</span><PlayerInput key={chosen[index]} name={key} initial={chosen[index]} options={names} label={`Jugador ${index + 1}`} /></div>)}
       <CompareSampleFilters summary={activeSampleFilters ? `${activeSampleFilters} activos` : 'Valores generales'}>
         <label className="nc-field"><span>Periodo de comparación</span><select name="period" defaultValue={q.period || "career"}><option value="career">Carrera documentada</option><option value="shared">Periodo compartido</option></select></label>
         <label className="nc-field"><span>Temporada</span><select name="year" defaultValue={q.year || 'all'}><option value="all">Todas</option>{generation.manifest.years.map(year => <option key={year}>{year}</option>)}</select></label>
@@ -102,47 +91,100 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
       </CompareSampleFilters>
       <button className="dx-button" type="submit">Comparar</button>
     </CompareSelection>
-    <nav className="dx-compare-shortcuts" aria-label="Atajos de comparación"><Link href={compareHref({period:'shared'})} aria-current={q.period === 'shared' ? 'page' : undefined}>Periodo compartido{window ? ` · ${window.first}–${window.last}` : ''}</Link><Link href={compareHref({competition:'Grand Slam'})} aria-current={q.competition === 'Grand Slam' ? 'page' : undefined}>Solo Grand Slam</Link></nav>
-    <p className="dx-comparison-context">{context.join(' · ')}</p>
     {!valid ? <p role="status" className="dx-notice">Selecciona dos nombres del archivo. No hay resultados para {chosen.filter(n => !names.includes(n)).join(', ')}.</p> : <>
       {(same || !sufficient) && <p role="status" className="dx-notice">{same ? 'Has elegido el mismo jugador. Selecciona dos jugadores distintos.' : 'La muestra no alcanza el mínimo elegido; las cifras se muestran sin declarar una ventaja.'}</p>}
-      <section className="dx-comparison-table" aria-labelledby="comparison-table-title">
-        <div className="dx-comparison-players"><h2 id="comparison-table-title" className="nc-sr">Comparación métrica</h2>{players.map(player => <Link href={`/jugadores/${playerSlug(player.name)}`} key={player.name}><PlayerAvatar name={player.name} size={64}/><strong>{player.name}</strong><span>{number(player.played)} partidos{window ? ` · periodo común ${window.first}–${window.last}` : ''}</span></Link>)}</div>
-        <div className="dx-shared-metrics" role="table" aria-label={`Comparación entre ${chosen[0]} y ${chosen[1]}`}>
-          <div className="dx-shared-metric-head" role="row"><span role="columnheader">Métrica</span><span role="columnheader">{chosen[0]}</span><span role="columnheader">{chosen[1]}</span><span role="columnheader">Diferencia</span></div>
-          {metrics.map(metric => {
-            const [a,b] = metric.values;
-            const difference = typeof a === 'number' && typeof b === 'number' ? Math.abs(a-b) : null;
-            const leader = sufficient && difference && a !== b ? ((a! > b!) !== metric.lowerIsBetter ? chosen[0] : chosen[1]) : '';
-            const format = (value: number | null) => value === null ? '—' : `${number(value, metric.percent ? 1 : undefined)}${metric.percent ? ' %' : ''}`;
-            return <div className="dx-shared-metric-row" role="row" key={metric.label}><strong role="rowheader">{metric.label}</strong><span role="cell">{format(a)}</span><span role="cell">{format(b)}</span><small role="cell">{difference === null ? 'Sin datos' : difference === 0 ? 'Igual' : `${metric.percent ? `${number(difference,1)} pp` : number(difference)}${leader ? ` · ${leader}` : ''}`}</small></div>;
+      <section className={styles.comparisonBoard} id="comparison" aria-labelledby="comparison-table-title">
+        <h2 id="comparison-table-title" className="nc-sr">Comparación métrica</h2>
+        <div className={styles.comparisonHeader}>
+          {players.map((player, index) => {
+            const country = playerBiography(player.name)?.country;
+            return <Link className={styles.playerHeading} data-side={index === 0 ? 'left' : 'right'} href={`/jugadores/${playerSlug(player.name)}`} key={player.name}>
+              <span className={styles.flag}>{country ? <PlayerFlag code={country}/> : null}</span>
+              <strong>{player.name}</strong>
+            </Link>;
           })}
+          <span className={styles.comparisonLabel}>Comparativa</span>
         </div>
-      </section>
-      <section className="dx-head-to-head" aria-labelledby="head-to-head-title"><div><h2 id="head-to-head-title">Entre ellos</h2><p>Solo partidos terminados del archivo con los filtros actuales.</p></div><div className="dx-head-to-head-score"><span>{chosen[0]}<strong>{number(directWins[0])}</strong></span><span>{chosen[1]}<strong>{number(directWins[1])}</strong></span></div>{directMatches.length ? <div className="dx-head-to-head-latest">{directMatches.slice(0,3).map(match => <article key={match.match_id}><Link href={`/match/${match.match_id}`}>{tournamentName(match.tournament)} · {match.year} · {round(match)} <ArrowUpRight size={15} aria-hidden="true"/></Link><SetScoreboard match={match} compact /></article>)}</div> : <p className="dx-notice">No hay enfrentamientos terminados con esta selección.</p>}<Link className="dx-sample-all" href={`/rivalries/${[playerSlug(chosen[0]),playerSlug(chosen[1])].sort().join('--')}`}>Abrir el historial del cruce</Link></section>
-      <section className="dx-surface-comparison" aria-labelledby="surface-comparison-title">
-        <div className="dx-section-heading"><h2 id="surface-comparison-title">Rendimiento por superficie</h2><span>Porcentaje de victorias en la muestra</span></div>
-        <div className="dx-surface-comparison-list">
-          {surfacesToShow.map((surface) => <article key={surface}>
-            <h3>{surfaceLabel[surface]}</h3>
-            {players.map((player) => {
-              const result = player.surfaces.find((entry) => entry.surface === surface)!;
-              return <div className="dx-surface-player" key={player.name}>
-                <span><strong>{player.name}</strong><small>{result.played ? `${number(result.won)}–${number(result.played - result.won)} · ${number(result.rate!, 1)} %` : "Sin partidos"}</small></span>
-                <span className="dx-surface-track" aria-hidden="true"><i style={{ width: `${result.rate || 0}%` }} /></span>
-              </div>;
-            })}
+        <div className={styles.statGroups} aria-label={`Comparación entre ${chosen[0]} y ${chosen[1]}`}>
+          {metricGroups.map(group => <article className={styles.statGroup} key={group.title}>
+            <h3>{group.title}</h3>
+            <div className={styles.statNames}><span>{chosen[0]}</span><span>{chosen[1]}</span></div>
+            <dl>
+              {group.rows.map(metric => {
+                const [a,b] = metric.values;
+                const leader = sufficient && typeof a === 'number' && typeof b === 'number' && a !== b ? ((a > b) !== metric.lowerIsBetter ? chosen[0] : chosen[1]) : '';
+                const format = (value: number | null) => value === null ? '—' : `${number(value, metric.percent ? 1 : undefined)}${metric.percent ? ' %' : ''}`;
+                return <div key={metric.label}>
+                  <dd className={leader === chosen[0] ? styles.statWinner : undefined}>{format(a)}</dd>
+                  <dt>{metric.label}</dt>
+                  <dd className={leader === chosen[1] ? styles.statWinner : undefined}>{format(b)}</dd>
+                </div>;
+              })}
+            </dl>
           </article>)}
         </div>
-        <div className="dx-finals-comparison" aria-label="Rendimiento en finales">
-          <h3>Finales</h3>
-          {players.map((player) => <p key={player.name}><span>{player.name}</span><strong>{player.finals ? `${number(player.titles)} de ${number(player.finals)} · ${number(player.titles / player.finals * 100, 1)} %` : "Sin finales"}</strong></p>)}
+        <section className={styles.surfaceComparison} aria-labelledby="surface-comparison-title">
+          <h3 id="surface-comparison-title">Rendimiento por superficie</h3>
+          <div className={styles.surfaceGrid}>
+            {surfacesToShow.map((surface) => {
+              const results=players.map(player=>player.surfaces.find(entry=>entry.surface===surface)!);
+              const leadingIndex=results.every(result=>result.played)&&results[0].rate!==results[1].rate
+                ? Number((results[1].rate||0)>(results[0].rate||0))
+                : -1;
+              return <article className={styles.surfaceCard} data-surface={surface} key={surface}>
+                <h4>{surfaceLabel[surface]}</h4>
+                {players.map((player,index)=>{
+                  const result=results[index];
+                  return <div className={styles.surfacePlayer} data-leading={leadingIndex===index?'true':undefined} key={player.name}>
+                    <span><strong>{player.name}</strong><b>{result.played?`${number(result.rate!,1)} %`:'—'}</b></span>
+                    <span className={styles.surfaceTrack} aria-hidden="true"><i style={{width:`${result.rate||0}%`}}/></span>
+                    <small>{result.played?`${number(result.won)} victorias · ${number(result.played-result.won)} derrotas`:'Sin partidos'}</small>
+                  </div>;
+                })}
+              </article>;
+            })}
+          </div>
+        </section>
+        <nav className={styles.scopeNav} aria-label="Comparar por competición">
+          <span>Competición</span>
+          {[
+            ['all', 'Todas'],
+            ['Grand Slam', 'Grand Slam'],
+            ['Masters 1000', 'Masters 1000'],
+            ['ATP 500', 'ATP 500'],
+            ['ATP 250', 'ATP 250'],
+          ].map(([value, label]) => <Link href={`${compareHref({competition:value})}#comparison`} scroll={false} aria-current={(q.competition || 'all') === value ? 'page' : undefined} key={value}>{label}</Link>)}
+        </nav>
+      </section>
+      <section className={styles.headToHead} id="cara-a-cara" aria-labelledby="head-to-head-title">
+        <div className={styles.h2hHeading}><h2 id="head-to-head-title">Cara a cara</h2><span>{number(directMatches.length)} {directMatches.length === 1 ? 'partido' : 'partidos'}</span></div>
+        <div className={styles.h2hCard}>
+          <div className={styles.h2hBalance}>
+            {players.map((player, index) => {
+              const country = playerBiography(player.name)?.country;
+              const leading = directWins[index] > directWins[1 - index];
+              return <div className={styles.h2hPlayer} data-leading={leading ? 'true' : undefined} data-side={index === 0 ? 'left' : 'right'} data-wins={directWins[index]} key={player.name}>
+                <span className={styles.h2hFlag}>{country ? <PlayerFlag code={country}/> : null}</span>
+                <strong>{player.name}</strong>
+                <small>{number(directWins[index])} {directWins[index] === 1 ? 'victoria' : 'victorias'}</small>
+              </div>;
+            })}
+            <div className={styles.h2hScore}><span>Balance</span><strong data-right-leading={directWins[1] > directWins[0] ? 'true' : undefined}><em>{number(directWins[0])}</em><i>—</i><b>{number(directWins[1])}</b></strong></div>
+          </div>
+          {directMatches.length ? <div className={styles.h2hHistory}>
+            {directMatches.slice(0,3).map(match => <ArchiveMatchRow key={match.match_id} match={toMatchRecord(match)} showTournamentContext />)}
+            {directMatches.length>3?<details className={styles.h2hMore}>
+              <summary>Ver todos los partidos</summary>
+              <div>{directMatches.slice(3).map(match=><ArchiveMatchRow key={match.match_id} match={toMatchRecord(match)} showTournamentContext />)}</div>
+            </details>:null}
+          </div> : <p className="dx-notice">No hay enfrentamientos terminados con esta selección.</p>}
         </div>
       </section>
-      <section className="dx-dual-sample" aria-labelledby="sample-title"><div className="dx-section-heading"><h2 id="sample-title">Partidos de la muestra</h2><span>Últimos dos de cada jugador</span></div><div className="dx-dual-sample-grid">{players.map(player => <div className="dx-sample-column" key={player.name}><h3>{player.name}</h3>{[...player.matches].slice(-2).reverse().map(match => <article className="dx-sample-match" key={match.match_id}><Link className="dx-sample-match-context" href={`/match/${match.match_id}`}>{tournamentName(match.tournament)} · {match.year} · {round(match)} <ArrowUpRight size={17} aria-hidden="true"/></Link><SetScoreboard match={match} compact /></article>)}<Link className="dx-sample-all" href={sampleHref(player.name)}>Ver toda la muestra</Link></div>)}</div></section>
     </>}
-    <p className="dx-provenance">Cobertura de ranking histórico: {players.map(player=>`${player.name}: ${number(player.ranking)} de ${number(player.played)} partidos`).join(" · ")}. Las victorias ante top 10 solo usan esa muestra.</p>
-    {q.age && q.age !== 'all' && <p className="dx-provenance">Cobertura de edad en la selección previa al rango: {players.map(player => `${player.name}: ${number(player.ageCoverage)} de ${number(player.base)} partidos`).join(' · ')}. Los partidos sin edad documentada no se asignan a ningún rango.</p>}
-    <p className="dx-provenance">Solo se comparan resultados completos. Los abandonos y encuentros en revisión quedan fuera de las cifras.</p>
+    <aside className={styles.methodNote} aria-label="Criterio de la comparación">
+      <strong>Criterio del archivo</strong>
+      <span>Ranking documentado: {players.map(player=>`${player.name} ${number(player.ranking)}/${number(player.played)}`).join(" · ")}. Top 10 usa esa cobertura; solo cuentan partidos finalizados.</span>
+      {q.age && q.age !== 'all' ? <span>Edad documentada: {players.map(player => `${player.name} ${number(player.ageCoverage)}/${number(player.base)}`).join(' · ')}.</span> : null}
+    </aside>
   </div>;
 }

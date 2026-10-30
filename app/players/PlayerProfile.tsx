@@ -20,7 +20,7 @@ import { toMatchRecord } from '@/data/map-match';
 import { playerNotebook } from '@/lib/cuaderno/data';
 import { number, surfaceLabel } from '@/lib/cuaderno/model';
 import { chronological, roundLabel, roundPosition, winnerName } from '@/lib/editorial';
-import { pairSlug, playerSlug } from '@/lib/explore';
+import { comparisonHref, playerSlug } from '@/lib/explore';
 import { tournamentName } from '@/lib/labels';
 import { courtPhoto, type Photo } from '@/lib/imagery';
 import { playerDirectoryPhoto, playerEditionPhoto } from '@/lib/player-imagery';
@@ -115,7 +115,7 @@ export default async function Player({params}:Props){
   },new Map<string,{name:string;matches:Match[];won:number}>()).values()].filter(rival=>rival.matches.length>=2);
   const rivals:RivalCard[]=rivalRows.map(rival=>{
     const surface=[...rival.matches.reduce((map,match)=>map.set(match.surface,(map.get(match.surface)||0)+1),new Map<string,number>())].sort((a,b)=>b[1]-a[1])[0]?.[0];
-    return {name:rival.name,href:`/rivalries/${pairSlug(player.name,rival.name)}`,country:playerBiography(rival.name)?.country,played:rival.matches.length,won:rival.won,surface:surfaceLabel[surface as keyof typeof surfaceLabel]||'Sin superficie'};
+    return {name:rival.name,href:comparisonHref(player.name,rival.name),country:playerBiography(rival.name)?.country,played:rival.matches.length,won:rival.won,surface:surfaceLabel[surface as keyof typeof surfaceLabel]||'Sin superficie'};
   });
   const frequentRival=[...rivals].sort((a,b)=>b.played-a.played)[0];
   const participationLeader=[...tournaments].sort((a,b)=>b.participations-a.participations||b.played-a.played)[0];

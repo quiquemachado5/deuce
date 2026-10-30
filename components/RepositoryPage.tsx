@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Shell from './Shell'
 import { dataMode } from '@/lib/data'
 import Repository from './Repository'
-import { rivalryDirectory } from '@/lib/explore'
+import { comparisonHref, rivalryDirectory } from '@/lib/explore'
 import { courtPhoto } from '@/lib/imagery'
 import { playerPhoto } from '@/lib/player-imagery'
 import { tournamentName } from '@/lib/labels'
@@ -24,7 +24,7 @@ export default async function RepositoryPage({ query = {}, indexOnly = false }: 
   const readings = [
     ...(pointMatch ? [{ href: `/match/${pointMatch.match_id}`, title: matchStory(pointMatch).headline, subtitle: `${pointMatch.player1.name} – ${pointMatch.player2.name} · ${tournamentName(pointMatch.tournament)} ${pointMatch.year}`, image: courtPhoto(pointMatch.tournament)?.src, alt: courtPhoto(pointMatch.tournament)?.alt || '', kind: 'Punto a punto' }] : []),
     ...(comeback ? [{ href: `/match/${comeback.match_id}`, title: matchStory(comeback).headline, subtitle: `${tournamentName(comeback.tournament)} · ${comeback.year} · ${comeback.final_score}`, image: playerPhoto(comeback.winner===1 ? comeback.player1.name : comeback.player2.name)?.src, alt: comeback.winner===1 ? comeback.player1.name : comeback.player2.name, kind: 'La remontada' }] : []),
-    ...(rivalry ? [{ href: `/rivalries/${rivalry.slug}`, title: rivalry.names.join(' – '), subtitle: 'Victorias en este archivo, no el cara a cara completo.', image: playerPhoto(rivalry.names[0])?.src, alt: rivalry.names[0], kind: 'Una rivalidad', facts: (['hard','clay','grass'] as const).flatMap(surface=>{const rows=rivalry.matches.filter(m=>m.surface===surface);const wins=rows.filter(m=>(m.winner===1?m.player1.name:m.player2.name)===rivalry.names[0]).length;return rows.length ? [`${({hard:'Dura',clay:'Tierra',grass:'Hierba'})[surface]} ${wins}–${rows.length-wins}`] : []}) }] : []),
+    ...(rivalry ? [{ href: comparisonHref(rivalry.names[0],rivalry.names[1]), title: rivalry.names.join(' – '), subtitle: 'Victorias en este archivo, no el cara a cara completo.', image: playerPhoto(rivalry.names[0])?.src, alt: rivalry.names[0], kind: 'Una rivalidad', facts: (['hard','clay','grass'] as const).flatMap(surface=>{const rows=rivalry.matches.filter(m=>m.surface===surface);const wins=rows.filter(m=>(m.winner===1?m.player1.name:m.player2.name)===rivalry.names[0]).length;return rows.length ? [`${({hard:'Dura',clay:'Tierra',grass:'Hierba'})[surface]} ${wins}–${rows.length-wins}`] : []}) }] : []),
   ]
   const enriched = indexOnly || filters.query ? await savedHighlights(result.matches) : result.matches
   return <Repository initialMatches={enriched} initialTotal={result.total} initialQuery={filters} indexOnly={indexOnly} readings={readings} />

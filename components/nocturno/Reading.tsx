@@ -5,7 +5,7 @@ import { durationLabel } from "@/lib/editorial";
 import {
   statLabel,
 } from "@/lib/statistics";
-import { type RivalrySummary } from "@/lib/explore";
+import { comparisonHref, type RivalrySummary } from "@/lib/explore";
 import {
   pressure,
   measuredValue,
@@ -208,7 +208,7 @@ function RivalrySnapshot({match,rivalry}:{match:Match;rivalry:RivalrySummary}) {
   return <section className="ry-match-h2h ry-match-h2h-integrated">
     <div><span>Cara a cara</span><h2>{match.player1.name} <i>VS</i> {match.player2.name}</h2></div>
     <p className="ry-match-h2h-score" aria-label={`${match.player1.name}: ${values[0]} victorias. ${match.player2.name}: ${values[1]} victorias.`}><strong className={values[0]>values[1]?'is-leading':undefined}>{number(values[0])}</strong><span>–</span><strong className={values[1]>values[0]?'is-leading':undefined}>{number(values[1])}</strong></p>
-    <Link href={`/rivalries/${rivalry.slug}`}>Ver enfrentamientos</Link>
+    <Link href={comparisonHref(match.player1.name,match.player2.name)}>Comparar jugadores</Link>
   </section>;
 }
 

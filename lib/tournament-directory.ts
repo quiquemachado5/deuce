@@ -90,6 +90,10 @@ export function categorySurfaces(entry: TournamentEntry, category: string): Surf
 export function tournamentRows(matches: Match[]) {
   const finals = matches.filter((match) => roundPosition(match.round) === 7);
   const players = buildSeasonAnalytics(matches).players;
+  const rateThresholds = [10, 5, 3, 2];
+  const rateMinimum = rateThresholds.find((minimum) => players.filter((player) => player.played >= minimum).length >= 6)
+    || rateThresholds.find((minimum) => players.filter((player) => player.played >= minimum).length >= 3)
+    || (players.some((player) => player.played >= 2) ? 2 : 1);
   const record = (name: string, value: number, sample: number, detail: string, proof?: Match): RecordRow => ({
     name, value, sample, detail, href: `/jugadores/${playerSlug(name)}`, photoName: name, proof,
   });
@@ -105,7 +109,7 @@ export function tournamentRows(matches: Match[]) {
       .map((player) => record(player.name, player.finalsPlayed, player.finalsPlayed,
         `${player.finalsWon} ${player.finalsWon === 1 ? "final ganada" : "finales ganadas"}`,
         finals.find((match) => match.player1.name === player.name || match.player2.name === player.name))),
-    rate: players.filter((player) => player.played >= 10)
+    rate: players.filter((player) => player.played >= rateMinimum)
       .sort((a, b) => b.wins / b.played - a.wins / a.played)
       .map((player) => record(player.name, player.wins / player.played * 100, player.played,
         `${player.wins} de ${player.played} partidos`,

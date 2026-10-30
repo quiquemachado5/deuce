@@ -2,7 +2,7 @@ import { eligibleMatch } from "../quality";
 import type { Match } from "../types";
 import { TOURNAMENTS } from "../types";
 import { buildSeasonAnalytics, rankingMetrics } from "../season-analytics";
-import { playerSlug, rivalryDirectory } from "../explore";
+import { comparisonHref, playerSlug, rivalryDirectory } from "../explore";
 import { chronological, winnerName, durationLabel } from "../editorial";
 import { lostOpening, isDeciding, gamesInMatch, statFraction, matchStat, statNumber } from "../archive-insights";
 import { number, score, closeness, formula } from "../cuaderno/model";
@@ -934,7 +934,7 @@ export function recordCatalog(matches: Match[], now = new Date(), only?: string)
           value: ms.length,
           sample: ms.length,
           detail: `${ms.filter((m) => winnerName(m) === p.names[0]).length}–${ms.filter((m) => winnerName(m) === p.names[1]).length} · solo este archivo`,
-          href: `/rivalries/${p.slug}`,
+          href: comparisonHref(p.names[0], p.names[1]),
           proof: ms.at(-1),
         };
       }),

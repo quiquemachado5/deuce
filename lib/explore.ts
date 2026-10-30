@@ -9,6 +9,11 @@ export function pairSlug(first: string, second: string) {
   return [playerSlug(first), playerSlug(second)].sort().join('--')
 }
 
+export function comparisonHref(first: string, second: string, anchor = 'cara-a-cara') {
+  const query = new URLSearchParams({ a: first, b: second }).toString()
+  return `/comparar?${query}${anchor ? `#${anchor}` : ''}`
+}
+
 export type PlayerSummary = {
   name: string
   played: number

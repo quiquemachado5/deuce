@@ -3,10 +3,9 @@ import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import type { CSSProperties } from 'react';
 import { ArrowRight, ArrowUpRight, Trophy } from 'lucide-react';
-import { playerSlug, rivalryDirectory } from '@/lib/explore';
+import { comparisonHref, playerSlug, rivalryDirectory } from '@/lib/explore';
 import { preparedGeneration } from '@/lib/revista/read-records';
 import { number, description } from '@/lib/cuaderno/model';
-import PlayerDirectoryToolbar from '@/components/PlayerDirectoryToolbar';
 import { Pagination } from '@/components/nocturno/Row';
 import { normalizeText } from '@/lib/quality';
 import { playerDirectoryPhoto, playerPhoto } from '@/lib/player-imagery';
@@ -24,7 +23,7 @@ function Initials({ name }: { name: string }) {
 }
 
 export default async function Players({ searchParams }: {
-  searchParams: Promise<{ q?: string; page?: string; tipo?: string; sort?: string }>;
+  searchParams: Promise<{ q?: string; page?: string; tipo?: string }>;
 }) {
   const query = await searchParams;
   const pairs = query.tipo === 'enfrentamientos' || query.tipo === 'parejas';
@@ -35,14 +34,10 @@ export default async function Players({ searchParams }: {
     pairs ? generation.matches() : Promise.resolve([]),
   ]);
   const term = normalizeText((query.q || '').trim());
-  const sort = query.sort === 'played' || query.sort === 'wins' || query.sort === 'finals' ? query.sort : 'slams';
   const players = recordSource
     .filter(record => normalizeText(record.name).includes(term))
     .sort((a, b) => {
-      const primary = sort === 'played' ? b.played - a.played
-        : sort === 'finals' ? b.finalsWon - a.finalsWon
-        : sort === 'wins' ? b.wins - a.wins
-        : b.grandSlamFinalsWon - a.grandSlamFinalsWon;
+      const primary = b.grandSlamFinalsWon - a.grandSlamFinalsWon;
       return primary || b.wins - a.wins || a.name.localeCompare(b.name, 'es');
     });
   const duels = pairs ? rivalryDirectory(pairSource).filter(pair => normalizeText(pair.names.join(' ')).includes(term)) : [];
@@ -65,12 +60,9 @@ export default async function Players({ searchParams }: {
     return `/jugadores${search ? `?${search}` : ''}`;
   };
 
-  const tools = <PlayerDirectoryToolbar query={query.q} sort={sort}/>;
-
   return <div className={`view-root player-directory ${styles.page}`}>
     <header className={`inner-title ${styles.intro}`}>
       <h1>Jugadores</h1>
-      <div className="inner-title-tools">{tools}</div>
     </header>
 
     <div className={styles.content}>
@@ -109,7 +101,7 @@ export default async function Players({ searchParams }: {
         {visibleDuels.length > 0 && <section className={styles.duelGrid} aria-label="Enfrentamientos">
           {visibleDuels.map(pair => {
             const leaderIndex = pair.wins[0] === pair.wins[1] ? -1 : pair.wins[0] > pair.wins[1] ? 0 : 1;
-            return <Link className={styles.duel} href={`/rivalries/${pair.slug}`} key={pair.slug}>
+            return <Link className={styles.duel} href={comparisonHref(pair.names[0],pair.names[1])} key={pair.slug}>
               <div className={styles.duelTop}><span>Cara a cara</span><small>{number(pair.matches.length)} partidos</small></div>
               {pair.names.map((name, playerIndex) => {
                 const photo = playerPhoto(name);

@@ -10,7 +10,7 @@ import { matchSearchUrl, type MatchQuery } from '@/lib/match-search-url';
 import { chronological } from '@/lib/editorial';
 import { number } from '@/lib/cuaderno/model';
 import EditionMatchGroups, { type MatchEdition } from '@/components/EditionMatchGroups';
-import MatchSearchBar, { type MatchSearchPreview } from '@/components/MatchSearchBar';
+import MatchSearchBar from '@/components/MatchSearchBar';
 import PlayerAvatar from '@/components/PlayerAvatar';
 import { MatchArchivePage } from '@/components/deuce/MatchArchivePage';
 import { toMatchRecord } from '@/data/map-match';
@@ -97,20 +97,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
     query.fiveSets === 'true' ? { key: 'fiveSets', label: 'Cinco sets' } : null,
     query.data === 'measures' ? { key: 'data', label: 'Con medidas' } : query.data === 'points' ? { key: 'data', label: 'Con puntos' } : null,
   ].filter((chip): chip is { key: string; label: string } => Boolean(chip));
-  const previews: MatchSearchPreview[] = filtered.slice(0, 24).map(match => {
-    const record = toMatchRecord(match);
-    return {
-      href: record.href,
-      tournament: record.tournament,
-      round: record.round,
-      date: record.date,
-      players: record.players.map(player => ({ name: player.name, countryCode: player.countryCode })) as MatchSearchPreview['players'],
-      scores: [record.sets.map(set => `${set.games[0]}${set.tieBreak?.[0] != null ? `⁽${set.tieBreak[0]}⁾` : ''}`), record.sets.map(set => `${set.games[1]}${set.tieBreak?.[1] != null ? `⁽${set.tieBreak[1]}⁾` : ''}`)],
-      setWinners: record.sets.map(set => !set.completed || set.games[0] === set.games[1] ? null : set.games[0] > set.games[1] ? 0 : 1),
-      winnerIndex: record.winnerIndex,
-    };
-  });
-  const searchTools=<MatchSearchBar query={query} chips={chips} categories={categories} rounds={[...new Set([...browserRounds, ...data.matches.map(browserRound)])].filter(Boolean)} years={years} activeYear={selectedYear} previews={previews} />;
+  const searchTools=<MatchSearchBar query={query} categories={categories} rounds={[...new Set([...browserRounds, ...data.matches.map(browserRound)])].filter(Boolean)} years={years} activeYear={selectedYear} />;
   return <div className={`deuce-search view-root ${styles.searchPage}`}>
     <header className={`inner-title ${styles.searchIntro}`}><h1>Partidos</h1><div className="inner-title-tools">{searchTools}</div></header>
     {invalidSurface && <p className={styles.queryNotice} role="status">«{invalidSurface}» no es una superficie válida. Mostramos el archivo sin ese filtro.</p>}
