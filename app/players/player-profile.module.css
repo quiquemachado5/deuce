@@ -127,9 +127,9 @@
   color:#13211d;
 }
 .careerBoard article{display:flex;min-width:0;flex-direction:column;justify-content:center;padding:22px 23px;border:0;border-radius:21px;background:#f3f6f4}
-.careerBoard span{color:#53625c;font-size:10px;font-weight:740;text-transform:uppercase;letter-spacing:.07em}
+.careerBoard span{color:#53625c;font-size:12px;font-weight:740;text-transform:uppercase;letter-spacing:.06em}
 .careerBoard strong{margin-top:11px;font:700 clamp(31px,3vw,48px)/.94 var(--font-display);letter-spacing:-.04em;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
-.careerBoard small{margin-top:9px;color:#53625c;font-size:10px;line-height:1.4}
+.careerBoard small{margin-top:9px;color:#53625c;font-size:12px;line-height:1.45}
 .careerBoard article:first-child strong{color:#1c7a50}
 
 .profilePage :global(.pp-section-nav){
@@ -232,6 +232,12 @@
 .profilePage :global(.pp-chart-dot){fill:#c8ff32;stroke:#0a3027;stroke-width:2;vector-effect:non-scaling-stroke}
 .profilePage :global(.pp-chart-tooltip){position:absolute;z-index:3;display:grid;gap:2px;min-width:76px;padding:8px 10px;border-radius:11px;background:#0a3027;color:#fff;font-size:9px;pointer-events:none;transform:translate(-50%,calc(-100% - 10px));box-shadow:0 8px 22px rgba(10,48,39,.16)}
 .profilePage :global(.pp-chart-tooltip strong){color:#c8ff32;font-size:13px;font-variant-numeric:tabular-nums}
+.profilePage :global(.pp-chart-reading){display:flex;width:fit-content;min-height:38px;align-items:center;gap:10px;margin:0 0 10px auto;padding:7px 11px;border-radius:999px;background:#0a3027;color:#fff;font-size:12px;font-variant-numeric:tabular-nums}
+.profilePage :global(.pp-chart-reading strong){color:#c8ff32;font-size:14px}
+.profilePage :global(.pp-chart-table){margin-top:14px;color:#53625c;font-size:12px}
+.profilePage :global(.pp-chart-table summary){width:fit-content;min-height:44px;align-content:center;cursor:pointer;font-weight:720}
+.profilePage :global(.pp-chart-table table){width:100%;border-collapse:collapse;background:#fff}
+.profilePage :global(.pp-chart-table :is(th,td)){padding:10px 12px;border-top:1px solid #e0e7e3;text-align:left;font-variant-numeric:tabular-nums}
 
 .analysisGrid :global(.pp-ranking){display:flex;flex-direction:column}
 .analysisGrid :global(.pp-ranking .pp-section-heading){margin-bottom:24px}
@@ -257,7 +263,7 @@
 .profilePage :global(.pp-tournaments-heading h2){max-width:none;margin:0;font:740 clamp(36px,4vw,56px)/.95 var(--font-display);letter-spacing:-.04em;white-space:nowrap}
 .profilePage :global(.pp-tournaments-heading .pp-segmented){flex:none;max-width:min(100%,520px);background:#fff;box-shadow:inset 0 0 0 1px #dbe4df;--scroll-cue-bg:#fff}
 .profilePage :global(.pp-tournament-list){display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;border:0}
-.profilePage :global(.pp-tournament-list>article){display:grid;min-height:104px;grid-template-columns:66px minmax(0,1fr) auto;align-items:center;gap:15px;padding:13px 16px;border:0;border-radius:17px;background:#fff}
+.profilePage :global(.pp-tournament-entry){display:grid;min-height:104px;grid-template-columns:66px minmax(0,1fr) auto;align-items:center;gap:15px;padding:13px 16px;border:0;border-radius:17px;background:#fff;color:#13211d;text-decoration:none}
 .profilePage :global(.pp-tournament-logo){position:relative;display:grid;width:60px;height:60px;place-items:center;overflow:hidden;border-radius:14px;background:#fff;color:#0a3027}
 .profilePage :global(.pp-tournament-logo img){width:52px;height:48px;object-fit:contain;filter:drop-shadow(0 1px 1px rgba(4,18,14,.18))}
 .profilePage :global(.pp-tournament-logo[data-monochrome] img){filter:brightness(0) saturate(100%) opacity(.82)}
@@ -266,12 +272,15 @@
 .profilePage :global(.pp-tournament-logo:hover i),.profilePage :global(.pp-tournament-logo:focus-visible i){transform:none}
 .profilePage :global(.pp-tournament-logo:focus-visible){outline:3px solid #1c7a50;outline-offset:3px}
 .profilePage :global(.pp-tournament-logo span){color:#52615b;font:760 15px/1 var(--font-display);letter-spacing:.04em}
-.profilePage :global(.pp-tournament-list>article>div:nth-child(2)){display:grid;gap:7px;min-width:0}
-.profilePage :global(.pp-tournament-list>article strong){overflow:hidden;font-size:15px;text-overflow:ellipsis;white-space:nowrap}
-.profilePage :global(.pp-tournament-list>article small){max-width:31ch;color:#64716b;font-size:10px;line-height:1.45;text-align:justify;text-align-last:left;text-justify:inter-word}
-.profilePage :global(.pp-tournament-list>article>b){display:flex;align-items:center;justify-content:flex-end;gap:6px;color:#a7770b;font:720 21px/1 var(--font-display);white-space:nowrap}
-.profilePage :global(.pp-tournament-list>article>b svg){color:#b8891f;stroke-width:1.8}
-.profilePage :global(.pp-tournament-list>article>b .pp-tournament-trophy){width:17px;height:23px;object-fit:contain;filter:drop-shadow(0 1px 1px rgba(133,91,0,.2))}
+.profilePage :global(.pp-tournament-entry>div:nth-child(2)){display:grid;gap:7px;min-width:0}
+.profilePage :global(.pp-tournament-entry strong){overflow:hidden;font-size:15px;text-overflow:ellipsis;white-space:nowrap}
+.profilePage :global(.pp-tournament-entry small){max-width:31ch;color:#64716b;font-size:12px;line-height:1.45;text-align:justify;text-align-last:left;text-justify:inter-word}
+.profilePage :global(.pp-tournament-entry>b){display:flex;align-items:center;justify-content:flex-end;gap:6px;color:#a7770b;font:720 21px/1 var(--font-display);white-space:nowrap}
+.profilePage :global(.pp-tournament-entry>b svg){color:#b8891f;stroke-width:1.8}
+.profilePage :global(.pp-tournament-entry>b .pp-tournament-trophy){width:17px;height:23px;object-fit:contain;filter:drop-shadow(0 1px 1px rgba(133,91,0,.2))}
+.profilePage :global(a.pp-tournament-entry:hover){background:#f7faf8;box-shadow:inset 0 0 0 1px #dbe4df}
+.profilePage :global(a.pp-tournament-entry:hover .pp-tournament-logo i){opacity:1;transform:none}
+.profilePage :global(a.pp-tournament-entry:focus-visible){outline:3px solid #1c7a50;outline-offset:3px}
 
 .profilePage :global(.pp-rivals){width:100vw;width:100dvw;margin-left:calc(50% - 50vw);margin-left:calc(50% - 50dvw);padding-inline:max(52px,calc((100vw - 1240px)/2 + 52px));border-radius:0;background:var(--deuce-action);color:#fff}
 .profilePage :global(.pp-rivals-heading),.profilePage :global(.pp-matches-heading){display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:28px}
@@ -333,9 +342,9 @@
   .profilePage :global(.pp-hero-facts){display:none}
   .careerBoard{bottom:-86px;width:calc(100% - 24px);min-height:178px;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;padding:6px;border-radius:22px}
   .careerBoard article{min-height:82px;padding:13px 14px;border-radius:16px}
-  .careerBoard span{font-size:8px}
+  .careerBoard span{font-size:11px}
   .careerBoard strong{margin-top:6px;font-size:clamp(27px,8vw,35px)}
-  .careerBoard small{margin-top:5px;font-size:8px}
+  .careerBoard small{margin-top:5px;font-size:11px}
   .profilePage :global(.pp-section-nav){position:relative;top:auto;width:calc(100% - 24px);max-width:none;justify-content:flex-start;margin-bottom:11px;padding:4px;overflow-x:auto;overscroll-behavior-x:contain}
   .profilePage :global(.pp-content){gap:9px}
   .profilePage :global(.pp-section){padding:27px 19px;border-radius:22px}
@@ -348,7 +357,7 @@
   .balanceHeading strong{flex:none;font-size:clamp(40px,12vw,52px)}
   .balanceTotals{width:100%;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;justify-self:stretch;margin:0}
   .balanceTotals>div{display:flex;min-width:0;flex-direction:column-reverse;align-items:flex-start;gap:5px}
-  .balanceTotals dt{overflow:visible;font-size:8px;text-overflow:clip;white-space:normal}
+  .balanceTotals dt{overflow:visible;font-size:12px;text-overflow:clip;white-space:normal}
   .balanceTotals dd{font-size:22px}
   .careerSummary :global(.pp-surface-list){grid-template-columns:1fr}
   .careerSummary :global(.pp-surface-list article),.careerSummary :global(.pp-surface-list article:first-child){min-height:0;grid-template-columns:1fr;align-items:stretch;align-content:stretch;gap:24px;padding:22px}
@@ -358,7 +367,7 @@
   .careerSummary :global(.pp-surface-list article>dl){width:100%;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;justify-self:stretch}
   .careerSummary :global(.pp-surface-list article>dl>div){display:flex;min-width:0;flex-direction:column-reverse;align-items:flex-start;gap:5px}
   .careerSummary :global(.pp-surface-list article dd){font-size:22px}
-  .careerSummary :global(.pp-surface-list article dt){overflow:visible;font-size:8px;text-overflow:clip;white-space:normal}
+  .careerSummary :global(.pp-surface-list article dt){overflow:visible;font-size:12px;text-overflow:clip;white-space:normal}
   .archiveNotes{display:flex;gap:8px;margin-top:20px;padding-bottom:4px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
   .archiveNotes::-webkit-scrollbar{display:none}
   .archiveNotes>li{min-width:78%;min-height:184px;flex:0 0 78%;padding:18px;scroll-snap-align:start}
@@ -371,7 +380,7 @@
   .profilePage :global(.pp-chart-switch){width:max-content;max-width:100%;justify-content:flex-start;margin-inline:auto;overflow-x:auto;scrollbar-width:none}
   .profilePage :global(.pp-chart-switch button){min-height:44px;flex:0 0 auto;padding-inline:16px}
   .profilePage :global(.pp-career-plot){height:280px;border-radius:16px}
-  .profilePage :global(.pp-career-plot text){font-size:10px}
+  .profilePage :global(.pp-career-plot text){font-size:12px}
   .profilePage :global(.pp-ranking-slider){min-height:194px}
   .profilePage :global(.pp-ranking-slider>button){top:auto;bottom:15px;width:42px;height:42px;background:rgba(255,255,255,.64);transform:none}
   .profilePage :global(.pp-ranking-slider>button:first-child){left:calc(50% - 48px)}
@@ -388,15 +397,15 @@
   .profilePage :global(.pp-tournaments-heading h2){font-size:clamp(32px,9vw,42px);white-space:normal}
   .profilePage :global(.pp-tournaments-heading .pp-segmented){width:100%;max-width:100%}
   .profilePage :global(.pp-tournament-list){grid-template-columns:1fr}
-  .profilePage :global(.pp-tournament-list>article){min-height:92px;grid-template-columns:56px minmax(0,1fr) auto;padding:11px 12px}
+  .profilePage :global(.pp-tournament-entry){min-height:92px;grid-template-columns:56px minmax(0,1fr) auto;padding:11px 12px}
   .profilePage :global(.pp-tournament-logo){width:52px;height:52px}
   .profilePage :global(.pp-tournament-logo img){width:46px;height:42px}
   .profilePage :global(.pp-tournament-logo i){right:3px;bottom:3px;left:auto;top:auto;width:20px;height:20px;border-radius:50%;opacity:1;transform:none}
   .profilePage :global(.pp-tournament-logo i svg){width:12px;height:12px}
-  .profilePage :global(.pp-tournament-list>article strong){line-height:1.05;overflow:visible;text-overflow:clip;white-space:normal}
-  .profilePage :global(.pp-tournament-list>article small){display:-webkit-box;max-width:none;overflow:hidden;font-size:8.5px;line-height:1.45;-webkit-box-orient:vertical;-webkit-line-clamp:3}
-  .profilePage :global(.pp-tournament-list>article>b){align-self:center;justify-self:end;margin-bottom:0}
-  .profilePage :global(.pp-tournament-list>article>b .pp-tournament-trophy){width:15px;height:21px}
+  .profilePage :global(.pp-tournament-entry strong){line-height:1.05;overflow:visible;text-overflow:clip;white-space:normal}
+  .profilePage :global(.pp-tournament-entry small){display:-webkit-box;max-width:none;overflow:hidden;font-size:12px;line-height:1.45;-webkit-box-orient:vertical;-webkit-line-clamp:3}
+  .profilePage :global(.pp-tournament-entry>b){align-self:center;justify-self:end;margin-bottom:0}
+  .profilePage :global(.pp-tournament-entry>b .pp-tournament-trophy){width:15px;height:21px}
   .profilePage :global(.pp-rivals-heading),.profilePage :global(.pp-matches-heading){display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:22px}
   .profilePage :global(.pp-rivals-heading h2),.profilePage :global(.pp-matches-heading h2){font-size:clamp(32px,9vw,42px);white-space:normal}
   .profilePage :global(.pp-rivals-heading .pp-segmented),.profilePage :global(.pp-matches-heading .pp-segmented),.profilePage :global(.pp-tournaments-heading .pp-segmented){width:100%;max-width:100%;justify-content:flex-start;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none}

@@ -3622,3 +3622,33 @@
     transition: none;
   }
 }
+
+.earlyNav {
+  display: flex;
+  width: min(1240px, calc(100% - 40px));
+  gap: 8px;
+  margin: 0 auto 18px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.earlyNav::-webkit-scrollbar { display: none; }
+
+.earlyNav a {
+  display: inline-flex;
+  min-height: 40px;
+  flex: 0 0 auto;
+  align-items: center;
+  padding: 0 14px;
+  border: 1px solid rgb(255 255 255 / 0.22);
+  border-radius: 999px;
+  background: rgb(1 12 9 / 0.32);
+  color: #f6fbf8;
+  font-size: 12px;
+  font-weight: 720;
+  text-decoration: none;
+}
+
+@media (max-width: 759px) {
+  .earlyNav { width: calc(100% - 28px); margin-bottom: 14px; }
+}

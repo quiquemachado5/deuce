@@ -24,6 +24,7 @@ import TournamentEditionNav from "@/components/TournamentEditionNav";
 import EditionInsightsRail, { type EditionInsightSlide } from "@/components/EditionInsightsRail";
 import styles from "@/components/tournament-detail.module.css";
 import { tournamentDetailFeaturePhoto, tournamentDetailPhoto } from "@/lib/tournament-detail-media";
+import { auditEditions } from "@/lib/edition-audit";
 
 type Props = {
   params: Promise<{ slug: string; year: string }>;
@@ -80,6 +81,7 @@ export default async function Edition({ params, searchParams }: Props) {
   const selectedMatches=selectedTour==='wta'?women:men;
   const category=requestedCategory&&selectedMatches.some(match=>match.category===requestedCategory)?requestedCategory:selectedMatches[0]?.category;
   const matches=selectedMatches.filter(match=>match.category===category);
+  const editionAudit=auditEditions(matches)[0];
   const court = editionTournamentCourt(matches);
   const final = matches.find((match) => roundPosition(match.round) === 7);
   const measuredMatches=matches.filter(eligibleMatch);
@@ -217,10 +219,11 @@ export default async function Edition({ params, searchParams }: Props) {
       </header>
 
       {men.length>0&&women.length>0?<nav className={styles.editionTourSwitch} aria-label="Cuadro de la edición"><Link href={`/torneos/${slug}/${year}?cuadro=atp`} aria-current={selectedTour==='atp'?'page':undefined} scroll={false}>ATP</Link><Link href={`/torneos/${slug}/${year}?cuadro=wta`} aria-current={selectedTour==='wta'?'page':undefined} scroll={false}>WTA</Link></nav>:null}
+      <nav className={styles.sectionIndex} aria-label="Secciones de la edición">{final&&<a href="#final-edition">Final</a>}<a href="#cuadro">Cuadro documentado</a>{measuredMatches.length>0&&<a href="#edition-insights-title">Lecturas</a>}</nav>
       {final&&<TournamentFinal match={final} heading={men.length&&women.length?selectedTour==='wta'?'La final femenina':'La final masculina':'La final'}/>}
-      {matches.length>0&&<TournamentBracket matches={matches} heading={men.length&&women.length?selectedTour==='wta'?'El cuadro femenino':'El cuadro masculino':'El cuadro de la edición'}/>}
+      {matches.length>0&&<><aside className={styles.drawCoverage} data-complete={editionAudit?.completeDraw===true||undefined}><strong>Cuadro documentado</strong><span>{editionAudit?.completeDraw===true?'Rondas finales completas en esta publicación.':editionAudit?.missingLateRounds.length?`Cobertura parcial: faltan ${editionAudit.missingLateRounds.join(', ')}.`:'La publicación conserva solo los partidos disponibles.'}</span><Link href="/cobertura/revision">Ver cobertura</Link></aside><TournamentBracket matches={matches} heading={men.length&&women.length?selectedTour==='wta'?'Cuadro femenino documentado':selectedTour==='atp'?'Cuadro masculino documentado':'Cuadro documentado':'Cuadro documentado de la edición'}/></>}
       {measuredMatches.length > 0 && (
-        <section className={styles.editionReadings} aria-labelledby="edition-insights-title">
+        <section className={styles.editionReadings} id="lecturas" aria-labelledby="edition-insights-title">
           <div className={styles.sectionHead}><div><h2 id="edition-insights-title">Lecturas de la edición{men.length&&women.length?selectedTour==='wta'?' · WTA':' · ATP':''}</h2></div></div>
           <div className={styles.editionStory}>
             <article className={styles.editionLead}>
@@ -230,7 +233,7 @@ export default async function Edition({ params, searchParams }: Props) {
             </article>
             <div className={styles.editionFocus}>
               <article><span>Camino {selectedTour==='wta'?'de la campeona':'del campeón'}</span><strong>{number(championPath)}</strong><p>{champion ? `${champion}: ${number(championSetsLost)} sets cedidos y balance de ${championGameBalance>=0?"+":""}${number(championGameBalance)} juegos.` : `No hay ${selectedTour==='wta'?'campeona':'campeón'} documentado en esta edición.`}</p></article>
-              <article><span>El cuadro completo</span><strong>{number(playersInEdition)}</strong><p>{selectedTour==='wta'?'jugadoras':'jugadores'} · {number(measuredMatches.length)} partidos · {number(rounds)} rondas documentadas.</p></article>
+              <article><span>Cuadro documentado</span><strong>{number(playersInEdition)}</strong><p>{selectedTour==='wta'?'jugadoras':'jugadores'} · {number(measuredMatches.length)} partidos · {number(rounds)} rondas documentadas.</p></article>
             </div>
             <EditionInsightsRail slides={insightSlides} />
             <div className={styles.editionSignals} data-count={editionSignals.length} aria-label="Ritmo de la edición">

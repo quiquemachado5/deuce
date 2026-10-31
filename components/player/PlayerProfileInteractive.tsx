@@ -63,7 +63,7 @@ function smoothPath(points:{x:number;y:number}[]){
 
 export function PlayerCareerTimeline({seasons}:{seasons:CareerSeason[]}){
   const [metric,setMetric]=useState<CareerMetric>('rate');
-  const [activeIndex,setActiveIndex]=useState<number|null>(null);
+  const [activeIndex,setActiveIndex]=useState(()=>Math.max(0,seasons.length-1));
   const scrollRef=useHorizontalScrollCue<HTMLDivElement>();
   const labels:{id:CareerMetric;label:string}[]=[{id:'rate',label:'Efectividad'},{id:'titles',label:'Títulos'},{id:'played',label:'Partidos'}];
   const values=seasons.map(season=>metric==='rate'?(season.played?season.wins/season.played*100:0):metric==='titles'?season.titles:season.played);
@@ -77,22 +77,25 @@ export function PlayerCareerTimeline({seasons}:{seasons:CareerSeason[]}){
   const area=`${line} L ${x(values.length-1).toFixed(2)} ${chart.bottom} L ${x(0).toFixed(2)} ${chart.bottom} Z`;
   const display=(value:number)=>metric==='rate'?`${value.toLocaleString('es-ES',{maximumFractionDigits:1})} %`:value.toLocaleString('es-ES');
   const yearTicks=useMemo(()=>{
-    const count=Math.min(7,seasons.length);
+    const count=Math.min(5,seasons.length);
     return [...new Set(Array.from({length:count},(_,tick)=>Math.round(tick*(seasons.length-1)/Math.max(1,count-1))))];
   },[seasons.length]);
-  const active=activeIndex==null?null:{season:seasons[activeIndex],value:values[activeIndex],point:primaryPoints[activeIndex]};
+  const active={season:seasons[activeIndex],value:values[activeIndex],point:primaryPoints[activeIndex]};
+  const selectPointer=(event:React.PointerEvent<HTMLDivElement>)=>{const bounds=event.currentTarget.getBoundingClientRect();const relative=Math.max(0,Math.min(1,(event.clientX-bounds.left)/bounds.width));setActiveIndex(Math.round(relative*(seasons.length-1)));};
   return <div className="pp-career-chart">
     <div className="pp-career-header"><h2 id="pp-seasons-title">Evolución temporal</h2><div ref={scrollRef} className="pp-chart-switch" role="group" aria-label="Dato mostrado en la evolución temporal">{labels.map(item=><button type="button" key={item.id} aria-pressed={metric===item.id} onClick={()=>setMetric(item.id)}>{item.label}</button>)}</div></div>
-    <div className="pp-career-plot" role="img" aria-label={`Evolución por temporada: ${labels.find(item=>item.id===metric)?.label}, de ${seasons[0]?.year} a ${seasons.at(-1)?.year}`} onPointerMove={event=>{const bounds=event.currentTarget.getBoundingClientRect();const relative=Math.max(0,Math.min(1,(event.clientX-bounds.left)/bounds.width));setActiveIndex(Math.round(relative*(seasons.length-1)));}} onPointerLeave={()=>setActiveIndex(null)}>
+    <output className="pp-chart-reading" aria-live="polite"><span>{active.season.year}</span><strong>{display(active.value)}</strong></output>
+    <div className="pp-career-plot" role="img" tabIndex={0} aria-label={`Evolución por temporada: ${labels.find(item=>item.id===metric)?.label}, de ${seasons[0]?.year} a ${seasons.at(-1)?.year}. Desliza o toca para consultar un año.`} onPointerDown={selectPointer} onPointerMove={selectPointer} onKeyDown={event=>{if(event.key==='ArrowLeft'||event.key==='ArrowRight'){event.preventDefault();setActiveIndex(index=>Math.max(0,Math.min(seasons.length-1,index+(event.key==='ArrowRight'?1:-1))));}}}>
       <svg viewBox="0 0 864 278" preserveAspectRatio="none" aria-hidden="true">
         <defs><linearGradient id="pp-timeline-area" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#1c7a50" stopOpacity=".18"/><stop offset="100%" stopColor="#1c7a50" stopOpacity="0"/></linearGradient></defs>
         {[0,.5,1].map(step=><g key={step}><line x1={chart.left} x2={chart.right} y1={y(domainMaximum*step)} y2={y(domainMaximum*step)} className="pp-chart-grid"/><text x="8" y={y(domainMaximum*step)+4}>{display(domainMaximum*step)}</text></g>)}
         <path d={area} className="pp-chart-area"/><path d={line} className="pp-chart-line"/>
-        {active?<><line x1={active.point.x} x2={active.point.x} y1={chart.top} y2={chart.bottom} className="pp-chart-cursor"/><circle cx={active.point.x} cy={active.point.y} r="5" className="pp-chart-dot"/></>:null}
+        <line x1={active.point.x} x2={active.point.x} y1={chart.top} y2={chart.bottom} className="pp-chart-cursor"/><circle cx={active.point.x} cy={active.point.y} r="5" className="pp-chart-dot"/>
         {yearTicks.map(index=><text key={seasons[index].year} x={x(index)} y="267" textAnchor={index===0?'start':index===seasons.length-1?'end':'middle'} className="pp-chart-year">{seasons[index].year}</text>)}
       </svg>
-      {active?<div className="pp-chart-tooltip" style={{left:`${active.point.x/864*100}%`,top:`${active.point.y/278*100}%`}}><span>{active.season.year}</span><strong>{display(active.value)}</strong></div>:null}
+      <div className="pp-chart-tooltip" style={{left:`${active.point.x/864*100}%`,top:`${active.point.y/278*100}%`}}><span>{active.season.year}</span><strong>{display(active.value)}</strong></div>
     </div>
+    <details className="pp-chart-table"><summary>Ver valores por temporada</summary><table><thead><tr><th>Año</th><th>{labels.find(item=>item.id===metric)?.label}</th></tr></thead><tbody>{seasons.map((season,index)=><tr key={season.year}><th>{season.year}</th><td>{display(values[index])}</td></tr>)}</tbody></table></details>
   </div>;
 }
 
@@ -143,11 +146,10 @@ export function PlayerTournamentArchive({tournaments,tour='atp'}:{tournaments:To
     {visible.length?<div className="pp-tournament-list">{visible.map(tournament=>{
       const monochrome=Boolean(tournament.brandingSrc&&/hamburg|paris|shanghai/.test(tournament.brandingSrc));
       const logo=<>{tournament.brandingSrc?<Image src={tournament.brandingSrc} alt="" width={92} height={72} unoptimized/>:<span aria-hidden="true">{tournament.name.split(/\s+/).map(part=>part[0]).slice(0,2).join('')}</span>}{tournament.href?<i aria-hidden="true"><ArrowUpRight size={14}/></i>:null}</>;
-      return <article key={tournament.slug} data-event-surface={tournament.surfaceKey} aria-label={`${tournament.name}, ${tournament.titles} ${tournament.titles===1?'título':'títulos'}`}>
-        {tournament.href?<Link className="pp-tournament-logo" data-monochrome={monochrome||undefined} href={tournament.href} aria-label={`Abrir ${tournament.name}`}>{logo}</Link>:<div className="pp-tournament-logo" data-monochrome={monochrome||undefined}>{logo}</div>}
+      const content=<><span className="pp-tournament-logo" data-monochrome={monochrome||undefined}>{logo}</span>
         <div><strong>{tournament.name}</strong><small>{tournament.titleYears.length?tournament.titleYears.join(', '):'Sin títulos en el archivo'}</small></div>
-        <b>{tournament.trophySrc?<Image className="pp-tournament-trophy" src={tournament.trophySrc} alt="" width={18} height={24} unoptimized/>:<Trophy size={16} aria-hidden="true"/>}<span className="nc-sr">Títulos:</span>{tournament.titles.toLocaleString('es-ES')}</b>
-      </article>;
+        <b>{tournament.trophySrc?<Image className="pp-tournament-trophy" src={tournament.trophySrc} alt="" width={18} height={24} unoptimized/>:<Trophy size={16} aria-hidden="true"/>}<span className="nc-sr">Títulos:</span>{tournament.titles.toLocaleString('es-ES')}</b></>;
+      return tournament.href?<Link className="pp-tournament-entry" href={tournament.href} key={tournament.slug} data-event-surface={tournament.surfaceKey} aria-label={`Abrir ${tournament.name}, ${tournament.titles} ${tournament.titles===1?'título':'títulos'}`}>{content}</Link>:<article className="pp-tournament-entry" key={tournament.slug} data-event-surface={tournament.surfaceKey} aria-label={`${tournament.name}, ${tournament.titles} ${tournament.titles===1?'título':'títulos'}`}>{content}</article>;
     })}</div>:<div className="pp-empty"><strong>No hay títulos en este corte</strong><p>Este archivo no conserva un torneo de esa categoría ganado por el jugador.</p></div>}
   </>;
 }

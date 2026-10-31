@@ -47,11 +47,11 @@ export default function EditionPicker({
           const [selectedYear, selectedCategory] = event.target.value.split("::");
           router.push(editionHref(Number(selectedYear), selectedCategory || undefined));
         }}>
-          <option value="summary">Resumen</option>
+          <option value="summary">Edición: Resumen</option>
           {decades.map((decade) => (
             <optgroup key={decade} label={`${decade}–${decade + 9}`}>
               {editions.filter(({ year }) => Math.floor(year / 10) * 10 === decade)
-                .map((entry) => <option key={`${entry.year}-${entry.category || "current"}`} value={`${entry.year}::${entry.category || ""}`}>{entry.year}</option>)}
+                .map((entry) => <option key={`${entry.year}-${entry.category || "current"}`} value={`${entry.year}::${entry.category || ""}`}>Edición: {entry.year}</option>)}
             </optgroup>
           ))}
         </select>

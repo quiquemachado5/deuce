@@ -198,7 +198,7 @@ export default async function Player({params,searchParams}:Props){
       {tournaments.length?<section className="pp-section pp-tournaments" id="torneos" aria-labelledby="pp-tournaments-title"><PlayerTournamentArchive tour={tour} tournaments={tournaments.slice(0,18).map(tournament=>{
         const branding=tournamentBrandingFor(tournament.rawName);
         const target=directory.get(tournament.rawName);
-        return {slug:tournament.slug,name:tournament.name,surfaceKey:tournament.surfaceKey,category:tournament.category,titles:tournament.titles,titleYears:tournament.titleYears,brandingSrc:branding?.src,trophySrc:branding?.trophySrc,href:target?.slug?`/${target.slug}`:undefined};
+        return {slug:tournament.slug,name:tournament.name,surfaceKey:tournament.surfaceKey,category:tournament.category,titles:tournament.titles,titleYears:tournament.titleYears,brandingSrc:branding?.src,trophySrc:branding?.trophySrc,href:target?.slug?`/torneos/${target.slug}`:undefined};
       })}/></section>:null}
 
       {rivals.length>=2?<section className="pp-section pp-rivals" id="enfrentamientos" aria-labelledby="pp-rivals-title"><PlayerRivals rivals={rivals} player={{name:player.name,country:bio?.country}} compareHref={`/comparar?a=${encodeURIComponent(player.name)}`}/></section>:null}

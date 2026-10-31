@@ -11,11 +11,11 @@ test('search and mobile navigation restore keyboard focus',async({page})=>{
   await expect(menu).toHaveAttribute('aria-expanded','false');await expect(menu).toBeFocused();
 });
 
-test('global search replaces local search bars and fills the topbar',async({page})=>{
+test('global search coexists with directory controls and fills the topbar',async({page})=>{
   await page.setViewportSize({width:1440,height:900});
   await page.goto('/jugadores');
-  await expect(page.locator('.player-directory input[type="search"]')).toHaveCount(0);
-  await expect(page.getByRole('combobox',{name:'Ordenar jugadores'})).toHaveCount(0);
+  await expect(page.locator('.player-directory input[type="search"]')).toHaveCount(1);
+  await expect(page.getByRole('combobox',{name:'Ordenar'})).toBeVisible();
   await page.getByRole('button',{name:'Buscar en DEUCE',exact:true}).click();
   await expect.poll(async()=>page.locator('.topbar, .topbar-spotlight-form').evaluateAll(nodes=>{
     const [topbar,form]=nodes.map(node=>node.getBoundingClientRect());
@@ -34,6 +34,6 @@ test('global search replaces local search bars and fills the topbar',async({page
   await expect(filters).toBeVisible();
   await filters.click();
   await expect(page.getByRole('button',{name:'Cerrar filtros',exact:true})).toBeVisible();
-  await expect(page.getByLabel('Temporada')).toBeVisible();
+  await expect(page.locator('[class*="portalFilters"][data-visible]').getByLabel('Temporada')).toBeVisible();
   expect(await page.evaluate(()=>document.documentElement.scrollWidth-window.innerWidth)).toBeLessThanOrEqual(1);
 });

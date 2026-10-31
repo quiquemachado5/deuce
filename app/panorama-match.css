@@ -198,6 +198,9 @@ html:has(.pm-page) {
   text-wrap: balance;
 }
 
+.pm-event h1 a { color: inherit; text-decoration: none; }
+.pm-event p a { color: #fff; font-weight: 700; text-underline-offset: 3px; }
+
 .pm-event p {
   margin: 0;
   color: rgba(255, 255, 255, .8);
@@ -244,6 +247,9 @@ html:has(.pm-page) {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.pm-player a { min-width: 0; overflow: hidden; color: inherit; text-decoration: none; }
+.pm-player a:hover { text-decoration: underline; text-underline-offset: 4px; }
 
 .pm-player > svg {
   flex: 0 0 auto;

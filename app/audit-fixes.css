@@ -1,0 +1,95 @@
+/* Focused audit corrections. These rules preserve the established visual system. */
+.deuce-archive-notice {
+  width: min(1240px, calc(100% - 40px));
+  margin: 0 auto 18px;
+  padding: 13px 16px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--bg-raised);
+  color: var(--ink-soft);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.deuce-archive-notice p { margin: 0; }
+.deuce-archive-notice strong { color: var(--ink); }
+.deuce-archive-notice a { color: var(--link); font-weight: 750; text-underline-offset: 3px; }
+
+.records-page .deuce-archive-notice {
+  border-color: rgb(255 255 255 / 0.18);
+  background: rgb(1 14 10 / 0.64);
+  color: #dce9e2;
+}
+
+.records-page .deuce-archive-notice strong { color: #fff; }
+.records-page .deuce-archive-notice a { color: #c8ff32; }
+
+.ry-help-page {
+  width: min(880px, calc(100% - 40px));
+  padding-top: 126px;
+  padding-bottom: 64px;
+}
+
+.archive-stories > .inner-title { padding-top: 126px; }
+
+.deuce-comparison:has(> .deuce-archive-notice) { padding-top: 96px; }
+.deuce-comparison > .deuce-archive-notice { width: 100%; }
+.deuce-comparison:has(> .deuce-archive-notice) > .inner-title { padding-top: 24px; }
+
+.dx-evidence-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 24px 0;
+}
+
+.dx-evidence-summary > div {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  min-width: 0;
+  padding: 22px;
+  border-radius: 20px;
+  background: var(--bg-raised);
+}
+
+.dx-evidence-summary span { color: var(--muted); font-size: 12px; font-weight: 720; }
+.dx-evidence-summary strong { color: var(--ink); font: 720 clamp(28px, 4vw, 48px) / 1 var(--font-display); }
+.dx-evidence-summary p { margin: 0; color: var(--ink-soft); font-size: 13px; line-height: 1.45; }
+
+.topbar-spotlight-groups strong {
+  display: -webkit-box;
+  overflow: hidden;
+  line-height: 1.25;
+  text-overflow: clip;
+  white-space: normal;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.topbar-spotlight-groups a { height: auto; }
+
+.ry-photo-page { padding-top: 126px; padding-bottom: 64px; }
+.ry-photo-filter-groups { display: grid; gap: 14px; margin-bottom: 30px; }
+.ry-photo-filter-group h2 { margin: 0 0 8px; color: var(--muted); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; }
+.ry-photo-filter-group .ry-photo-filters { margin: 0; }
+.ry-photo-filter-group .ry-photo-rights-filter { margin-top: 0; }
+
+@media (max-width: 600px) {
+  .hero { height: 92svh; min-height: 620px; }
+  .hero-copy { top: 53%; }
+  .hero-copy h1 { font-size: clamp(43px, 13.2vw, 61px); line-height: .83; letter-spacing: -.062em; }
+  .hero-copy p { margin: 24px 0 20px; font-size: 15px; }
+  .ry-help-page { width: calc(100% - 28px); padding-top: 104px; }
+  .archive-stories > .inner-title { padding-top: 104px; }
+  .deuce-comparison:has(> .deuce-archive-notice) { padding-top: 88px; }
+  .deuce-archive-notice { width: calc(100% - 28px); margin-bottom: 12px; padding: 12px 13px; }
+  .deuce-archive-notice span { display: inline; }
+  .dx-evidence-summary { grid-template-columns: 1fr; }
+  .ry-photo-page { width: calc(100% - 28px); padding-top: 104px; }
+  .ry-photo-filter-groups { margin-right: -14px; }
+  .ry-photo-filter-group { min-width: 0; }
+  .ry-photo-filter-group .ry-photo-filters { flex-wrap: nowrap; padding-right: 14px; overflow-x: auto; scrollbar-width: none; }
+  .ry-photo-filter-group .ry-photo-filters::-webkit-scrollbar { display: none; }
+  .ry-photo-filter-group .ry-photo-filters a { flex: 0 0 auto; }
+}

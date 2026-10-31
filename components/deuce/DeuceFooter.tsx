@@ -61,6 +61,7 @@ export function DeuceFooter() {
         <Link href="/records">Récords</Link>
         <Link href="/jugadores">Jugadores</Link>
         <Link href="/torneos">Torneos</Link>
+        <Link href="/historias">Historias</Link>
       </div>
       <div>
         <strong>DEUCE</strong>

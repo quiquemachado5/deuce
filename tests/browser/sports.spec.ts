@@ -55,7 +55,7 @@ test('match result links align both players without portrait placeholders', asyn
 
 test('Australian draw and walkover details remain truthful', async ({ page }) => {
   await page.goto('/torneos/australian-open/2026');
-  await expect(page.getByRole('region', { name: 'El cuadro de la edición' })).toBeVisible();
+  await expect(page.getByRole('region', { name: /Cuadro.*edición/i })).toBeVisible();
   for (const id of ['live-37395', 'reference-ao-2026-mensik-withdrawal', 'reference-ao-2026-ms701']) {
     const response = await page.goto(`/match/${id}`);
     expect(response?.status()).toBe(200);

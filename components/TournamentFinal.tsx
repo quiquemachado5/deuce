@@ -16,7 +16,7 @@ export default function TournamentFinal({match,heading='La final'}:{match:Match;
   const photo=champion
     ? match.tour==='wta'?playerPhoto(champion):playerPhotoAtTournament(champion,match.tournament,[match.year])
     : null;
-  return <section className={styles.finalSection} aria-label={`${heading} ${match.year}`}>
+  return <section className={styles.finalSection} id="final-edition" aria-label={`${heading} ${match.year}`}>
     <h2>{heading}</h2>
     <div className={styles.finalLayout}>
       {champion&&<Link className={styles.finalPortrait} href={`/jugadores/${playerSlug(champion)}${match.tour==='wta'?'?tour=wta':''}`} aria-label={`Ver perfil de ${champion}`}>

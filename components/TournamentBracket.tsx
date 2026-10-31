@@ -18,6 +18,7 @@ export default function TournamentBracket({ matches, heading = 'El cuadro de la 
     groups.set(position, [...(groups.get(position) || []), match]);
   }
   const rounds = [...groups].sort(([a], [b]) => a - b).map(([position, results]) => ({ position, label: roundLabel(results[0].round), results }));
+  const [activeRound, setActiveRound] = useState(() => rounds[0]?.position || 0);
   if (!rounds.length) return null;
   const hiddenMatches = rounds.reduce((total, round) => total + Math.max(0, round.results.length - 6), 0);
   const renderMatch = (match: Match) => {
@@ -28,13 +29,14 @@ export default function TournamentBracket({ matches, heading = 'El cuadro de la 
     </li>;
   };
   const headingId=`td-bracket-${matches[0]?.tour||'atp'}`;
-  return <section className={styles.bracket} aria-labelledby={headingId}>
-    <div className={styles.bracketHeader}><h2 id={headingId}>{heading}</h2></div>
+  return <section className={styles.bracket} id="cuadro" aria-labelledby={headingId}>
+    <div className={styles.bracketHeader}><h2 id={headingId}>{heading}</h2><p>Resultados documentados por ronda; los huecos permanecen visibles.</p></div>
+    <div className={styles.bracketRoundPicker} role="group" aria-label="Elegir ronda del cuadro">{rounds.map(round=><button type="button" aria-pressed={activeRound===round.position} onClick={()=>setActiveRound(round.position)} key={round.position}>{round.label}<span>{round.results.length}</span></button>)}</div>
     <div className={styles.bracketViewport} tabIndex={0} aria-label="Cuadro por rondas, desplazable horizontalmente">
       <div className={styles.bracketColumns}>
         {rounds.map((round) => {
           const visible = expanded ? round.results : round.results.slice(0, 6);
-          return <section className={styles.bracketRound} key={round.position} aria-label={round.label}>
+          return <section className={styles.bracketRound} data-active={activeRound===round.position||undefined} key={round.position} aria-label={round.label}>
             <div className={styles.bracketRoundHead}><h3>{round.label}</h3><span>{round.results.length} {round.results.length === 1 ? "partido" : "partidos"}</span></div>
             <ol className={styles.bracketResults}>{visible.map(renderMatch)}</ol>
           </section>;

@@ -72,19 +72,26 @@ export default async function Credits({ searchParams }: {
         </div>
       </form>
 
-      <nav className="ry-photo-filters" aria-label="Tipo de recurso">
-        {([
-          ["all", "Todo"],
-          ["players", "Jugadores"],
-          ["courts", "Pistas y torneos"],
-        ] as const).map(([value, label]) => <Link key={value} href={href(query, value, rights, 1)} aria-current={kind === value ? "page" : undefined}>
-          {label}<span>{number.format(value === "all" ? photos.length : photos.filter(entry => entry.kind === value).length)}</span>
-        </Link>)}
-      </nav>
-
-      <nav className="ry-photo-filters ry-photo-rights-filter" aria-label="Estado de derechos">
-        {([['all','Todas'],['documented','Derechos documentados'],['source-only','Fuente pendiente de detalle']] as const).map(([value,label])=><Link key={value} href={href(query,kind,value,1)} aria-current={rights===value?'page':undefined}>{label}<span>{number.format(value==='all'?photos.length:photos.filter(entry=>entry.rights===value).length)}</span></Link>)}
-      </nav>
+      <div className="ry-photo-filter-groups">
+        <section className="ry-photo-filter-group" aria-labelledby="photo-kind-label">
+          <h2 id="photo-kind-label">Tipo de recurso</h2>
+          <nav className="ry-photo-filters" aria-label="Tipo de recurso">
+            {([
+              ["all", "Todo"],
+              ["players", "Jugadores"],
+              ["courts", "Pistas y torneos"],
+            ] as const).map(([value, label]) => <Link key={value} href={href(query, value, rights, 1)} aria-current={kind === value ? "page" : undefined}>
+              {label}<span>{number.format(value === "all" ? photos.length : photos.filter(entry => entry.kind === value).length)}</span>
+            </Link>)}
+          </nav>
+        </section>
+        <section className="ry-photo-filter-group" aria-labelledby="photo-rights-label">
+          <h2 id="photo-rights-label">Estado de derechos</h2>
+          <nav className="ry-photo-filters ry-photo-rights-filter" aria-label="Estado de derechos">
+            {([['all','Todas'],['documented','Derechos documentados'],['source-only','Fuente pendiente de detalle']] as const).map(([value,label])=><Link key={value} href={href(query,kind,value,1)} aria-current={rights===value?'page':undefined}>{label}<span>{number.format(value==='all'?photos.length:photos.filter(entry=>entry.rights===value).length)}</span></Link>)}
+          </nav>
+        </section>
+      </div>
 
       <div className="ry-photo-result-head">
         <h2>{kind === "players" ? "Jugadores" : kind === "courts" ? "Pistas y torneos" : "Archivo de imágenes"}</h2>

@@ -59,7 +59,7 @@ test("Masters history is integrated into the edition control", async ({ page }) 
   await page.goto("/torneos/cincinnati");
   const archive = page.getByRole("combobox", { name: "Edición del torneo" });
   await expect(archive).toBeVisible();
-  await expect(archive.locator("option").first()).toHaveText("Resumen");
+  await expect(archive.locator("option").first()).toHaveText("Edición: Resumen");
   await expect(archive).toHaveValue("summary");
   await expect(archive.locator("option").filter({ hasText: "1989" })).toHaveCount(1);
   await expect(page.getByRole("combobox", { name: "Etapa del torneo" })).toHaveCount(0);
@@ -139,7 +139,7 @@ test("Australian Open uses distinct visual forms for titles, finals and effectiv
 
 test("mobile edition rounds keep the Partidos cards, tiebreaks and the champion path",async({page})=>{
  await page.setViewportSize({width:390,height:844});await page.goto('/torneos/roland-garros/2024');
- const bracket=page.getByRole('region',{name:'El cuadro de la edición',exact:true});
+ const bracket=page.getByRole('region',{name:/Cuadro.*edición/i});
  const firstRound=bracket.getByRole('region',{name:'Ronda de 128',exact:true});
  await expect(firstRound.locator('a:visible')).toHaveCount(6);
  const reveal=bracket.getByRole('button',{name:/Ver todos los partidos/});
@@ -148,12 +148,14 @@ test("mobile edition rounds keep the Partidos cards, tiebreaks and the champion 
  await expect(reveal).toHaveCount(0);
  expect(await firstRound.locator('a:visible').count()).toBeGreaterThan(6);
  await expect(bracket.getByText('Mostrar menos')).toHaveCount(0);
+ await bracket.getByRole('button',{name:/Cuartos de final/}).click();
  const quarterfinals=bracket.getByRole('region',{name:'Cuartos de final',exact:true});
  await expect(quarterfinals.getByRole('link')).toHaveCount(3);
  const alcaraz=quarterfinals.locator('a[href="/match/live-83847"]');
  await expect(alcaraz).toContainText('Carlos Alcaraz');
  await expect(alcaraz.locator('sup')).toHaveText('3');
  await expect(alcaraz.locator('..')).toHaveAttribute('data-champion-path','true');
+ await bracket.getByRole('button',{name:/^Final/}).click();
  const finalRound=bracket.getByRole('region',{name:'Final',exact:true});
  await expect(finalRound.getByRole('link')).toHaveCount(1);
  await expect(finalRound.getByRole('link')).toContainText('Carlos Alcaraz');

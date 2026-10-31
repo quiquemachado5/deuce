@@ -113,6 +113,12 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
   const searchTools=<MatchSearchBar query={query} categories={categories} rounds={[...new Set([...browserRounds, ...tourMatches.map(browserRound)])].filter(Boolean)} years={years} activeYear={selectedYear} />;
   return <div className={`deuce-search view-root ${styles.searchPage}`}>
     <header className={`inner-title ${styles.searchIntro}`}><h1>Partidos</h1><div className="inner-title-tools">{searchTools}</div></header>
+    {!!query.q && <form className={styles.visibleQuery} action="/buscar" method="get" role="search">
+      <label htmlFor="visible-match-query">Búsqueda actual</label>
+      <div><input id="visible-match-query" name="q" type="search" defaultValue={query.q} /><button type="submit">Buscar</button><Link href={matchSearchUrl(query, { q: undefined, limit: undefined })}>Borrar búsqueda</Link></div>
+      {Object.entries(query).filter(([key, value]) => key !== 'q' && key !== 'limit' && Boolean(value)).map(([key, value]) => <input type="hidden" name={key} value={value} key={key} />)}
+    </form>}
+    {chips.length > 0 && <nav className={styles.activeChips} aria-label="Filtros activos">{chips.map(chip => <Link key={chip.key} href={matchSearchUrl(query, { [chip.key]: undefined, limit: undefined })} aria-label={`Quitar filtro ${chip.label}`}>{chip.label}<span aria-hidden="true">×</span></Link>)}</nav>}
     {invalidSurface && <p className={styles.queryNotice} role="status">«{invalidSurface}» no es una superficie válida. Mostramos el archivo sin ese filtro.</p>}
     {translatedSurface && <p className={styles.queryNotice} role="status">El filtro «{translatedSurface}» se ha aplicado correctamente.</p>}
     {!!query.q && matchSearchIntent(query.q).labels.length > 0 && <p className="archive-freshness">Interpretamos: {matchSearchIntent(query.q).labels.join(' · ')}</p>}

@@ -14,6 +14,8 @@ import {
   playerBiography,
 } from "@/lib/player-bio";
 import type { RivalrySummary } from "@/lib/explore";
+import { playerSlug } from "@/lib/explore";
+import { tournamentDirectory } from "@/lib/tournament-directory";
 import { findStat, type StatRow } from "@/lib/statistics";
 import { pressure, sentence } from "@/lib/cuaderno/model";
 import PlayerFlag from "@/components/PlayerFlag";
@@ -274,7 +276,7 @@ function HeroScore({ match }: { match: Match }) {
           <div className={`pm-score-row${won ? " is-winner" : ""}`} key={name}>
             <div className="pm-player">
               <MatchFlag name={name} />
-              <strong>{name}</strong>
+              <Link href={`/jugadores/${playerSlug(name)}${match.tour === 'wta' ? '?tour=wta' : ''}`}><strong>{name}</strong></Link>
               {won ? <Check /> : null}
             </div>
             <div
@@ -451,14 +453,16 @@ function HeadToHead({ rivalry, names }: { rivalry: RivalrySummary; names: [strin
   const leading = wins[0] === wins[1] ? null : wins[0] > wins[1] ? 0 : 1;
   const visible = matches.slice(0, 3);
   const hidden = matches.slice(3);
+  const years = matches.map((match) => match.year);
+  const yearRange = years.length ? `${Math.min(...years)}–${Math.max(...years)}` : "sin fechas";
   return (
     <section className="pm-related" id="match-head-to-head" aria-labelledby="match-h2h-title">
       <div className="pm-h2h-heading">
         <h2 id="match-h2h-title">
-          Cara a cara
+          Cara a cara en todo el archivo
           <span className="pm-h2h-count" aria-hidden="true">{matches.length}</span>
         </h2>
-        <span>{matches.length} {matches.length === 1 ? "partido" : "partidos"} de muestra</span>
+        <span>{matches.length} {matches.length === 1 ? "partido" : "partidos"} · {yearRange}</span>
       </div>
       <div className="pm-h2h-card">
         <div className="pm-h2h-balance" aria-label={`${wins[0]} victorias a ${wins[1]}`}>
@@ -552,6 +556,8 @@ export default function PanoramaMatch({
   supplemental?: ReactNode;
 }) {
   const names = [match.player1.name, match.player2.name] as [string, string];
+  const event = tournamentDirectory([match])[0];
+  const eventHref = event ? `/torneos/${event.slug}/${match.year}${match.tour === 'wta' ? '?cuadro=wta' : ''}` : '/torneos';
   const photo = courtPhoto(match.tournament);
   const groups = comparisonRows(match);
   const hasPressure = groups.some((group) => group.key === "return-pressure");
@@ -590,8 +596,8 @@ export default function PanoramaMatch({
             <Link href="/buscar" aria-label="Volver a partidos"><ArrowLeft /></Link>
           </div>
           <div className="pm-event">
-            <h1 id="pm-title">{tournamentName(match.tournament)}</h1>
-            <p>{roundLabel(match.round)} · {matchDate(match)}</p>
+            <h1 id="pm-title"><Link href={eventHref}>{tournamentName(match.tournament)}</Link></h1>
+            <p>{roundLabel(match.round)} · {matchDate(match)} · <Link href={eventHref}>Ver edición</Link></p>
           </div>
           <HeroScore match={match} />
         </div>

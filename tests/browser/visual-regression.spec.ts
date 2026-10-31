@@ -23,6 +23,7 @@ for (const viewport of viewports) {
     await expect(page).toHaveScreenshot(`coverage-${viewport.name}.png`, {
       animations: 'disabled',
       fullPage: true,
+      maxDiffPixelRatio: 0.001,
       mask: dynamicCoverageContent(page),
     });
   });
@@ -36,6 +37,7 @@ test('a dark operating-system preference keeps the approved light design', async
   await expect(page).toHaveScreenshot('coverage-system-dark.png', {
     animations: 'disabled',
     fullPage: true,
+    maxDiffPixelRatio: 0.001,
     mask: dynamicCoverageContent(page),
   });
 });

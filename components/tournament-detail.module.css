@@ -4714,3 +4714,146 @@
     min-height: 210px;
   }
 }
+
+/* Audit fixes: keep the edition controls legible and the documented draw inside the viewport. */
+.sectionIndex {
+  display: flex;
+  width: min(100% - 64px, 1160px);
+  margin: 22px auto 0;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.sectionIndex::-webkit-scrollbar { display: none; }
+
+.sectionIndex a {
+  display: inline-flex;
+  min-height: 42px;
+  flex: 0 0 auto;
+  align-items: center;
+  padding: 0 15px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg-raised);
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 720;
+  text-decoration: none;
+}
+
+.drawCoverage {
+  display: flex;
+  width: min(100% - 64px, 1160px);
+  min-height: 52px;
+  align-items: center;
+  gap: 10px 18px;
+  margin: 58px auto -46px;
+  padding: 12px 16px;
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--detail-primary) 8%, var(--bg-raised));
+  color: var(--ink);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.drawCoverage strong { color: var(--detail-primary); white-space: nowrap; }
+.drawCoverage span { color: var(--muted); }
+.drawCoverage a { margin-left: auto; color: var(--detail-primary); font-weight: 720; white-space: nowrap; }
+.drawCoverage[data-complete] { background: color-mix(in srgb, var(--win) 8%, var(--bg-raised)); }
+
+.bracketRoundPicker { display: none; }
+
+@media (max-width: 759px) {
+  .heroCopy,
+  .editionHero .heroCopy { display: grid; gap: 18px; }
+
+  .heroTitle,
+  .editionHero .heroTitle { width: 100%; max-width: 100%; }
+
+  .heroNav,
+  .editionHero .heroNav {
+    position: static;
+    width: auto;
+    max-width: 100%;
+    justify-self: start;
+    margin: 0;
+  }
+
+  .heroNav :global(.tournament-edition-nav),
+  .heroNav :global(.nc-edition-picker),
+  .heroNav :global(.nc-edition-selector),
+  .heroNav :global(.tournament-edition-nav .nc-edition-selector select),
+  .page .heroNav :global(.tournament-edition-nav),
+  .page .heroNav :global(.nc-edition-picker),
+  .page .heroNav :global(.nc-edition-selector),
+  .page .heroNav :global(.tournament-edition-nav .nc-edition-selector select) {
+    width: 164px !important;
+    min-width: 164px !important;
+    max-width: 164px !important;
+  }
+
+  .heroNav :global(.nc-edition-selector),
+  .page .heroNav :global(.nc-edition-selector) { flex-basis: 164px !important; }
+
+  .heroNav :global(.tournament-edition-nav) {
+    height: 48px !important;
+    padding: 3px !important;
+    overflow: visible !important;
+  }
+
+  .heroNav :global(.tournament-edition-nav .nc-edition-selector select) {
+    position: relative;
+    z-index: 2;
+    height: 42px !important;
+    min-height: 42px !important;
+    padding: 0 34px 0 13px !important;
+    color: #fff !important;
+    font-size: 12px !important;
+  }
+
+  .heroNav :global(.nc-edition-selector)::after {
+    content: "⌄";
+    inset: auto 13px auto auto;
+    top: 50%;
+    display: block;
+    font-size: 18px;
+    transform: translateY(-58%);
+  }
+
+  .sectionIndex { width: calc(100% - 32px); margin-top: 16px; }
+  .drawCoverage { width: calc(100% - 32px); align-items: flex-start; flex-direction: column; margin: 44px auto -34px; }
+  .drawCoverage a { margin-left: 0; }
+  .bracket { width: calc(100% - 32px); }
+  .bracketHeader p { margin-top: 10px; color: var(--muted); font-size: 12px; line-height: 1.45; }
+  .bracketRoundPicker {
+    display: flex;
+    gap: 7px;
+    margin-bottom: 16px;
+    padding-bottom: 3px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .bracketRoundPicker::-webkit-scrollbar { display: none; }
+  .bracketRoundPicker button {
+    display: inline-flex;
+    min-height: 42px;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 7px;
+    padding: 0 13px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--bg-raised);
+    color: var(--ink);
+    font: 720 12px var(--font-body);
+  }
+  .bracketRoundPicker button[aria-pressed="true"] { border-color: var(--detail-primary); background: var(--detail-primary); color: #fff; }
+  .bracketRoundPicker button span { opacity: .68; font-variant-numeric: tabular-nums; }
+  .bracketViewport { width: 100%; overflow: visible; }
+  .bracketColumns { display: block; width: 100%; }
+  .bracketRound { display: none; width: 100%; min-width: 0; }
+  .bracketRound[data-active] { display: block; }
+  .bracketMatch,
+  .bracketMatch > a { width: 100%; min-width: 0; }
+}

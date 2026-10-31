@@ -51,9 +51,11 @@ const families = [
 async function RecordIndex({
   manifest,
   query,
+  status,
 }: {
   manifest: Awaited<ReturnType<typeof recordView>>["manifest"];
   query: RecordQuery;
+  status: Awaited<ReturnType<typeof recordView>>;
 }) {
   const groups = [...new Set(manifest.pieces.map((piece) => piece.group))];
   const selected =
@@ -261,6 +263,11 @@ async function RecordIndex({
         {href:recordsUrl(query,{tour:'wta',page:undefined,smallPage:undefined}),label:'WTA',active:query.tour==='wta'},
       ]}/>}
     >
+      <ArchiveNotice status={status} />
+      <nav className={redesign.earlyNav} aria-label="Atajos de récords">
+        <a href="#records-directory-heading">Explorar estadísticas</a>
+        {overview && rankingSets.length > 0 && <a href="#records-insights-heading">Ver otros ángulos</a>}
+      </nav>
       {overview && rankingSets.length > 0 && (
         <section
           className={`${redesign.rankings} deuce-content`}
@@ -666,12 +673,7 @@ export default async function Records({
   const query: RecordQuery = { ...raw, tour: raw.tour === 'wta' ? 'wta' : 'atp' };
   const view = await recordView(JSON.stringify(query));
   if (!query.dato)
-    return (
-      <>
-        <ArchiveNotice status={view} />
-        <RecordIndex manifest={view.manifest} query={query} />
-      </>
-    );
+    return <RecordIndex manifest={view.manifest} query={query} status={view} />;
   const back = (
     <Link
       className={`${styles.back} ${redesign.detailBack}`}
