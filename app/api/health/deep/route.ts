@@ -1,4 +1,4 @@
-import { cloudArchiveHasCapacity, cloudClient, cloudRead } from '@/lib/cloud-archive';
+import { cloudArchiveHasCapacity, cloudClient, cloudProbeRead } from '@/lib/cloud-archive';
 import { deploymentMetadata } from '@/lib/deployment';
 import { editionCompleteness } from '@/lib/edition-audit';
 import { generationMetadata } from '@/lib/revista/generation';
@@ -24,7 +24,7 @@ export async function GET(request: Request) {
   const headers = { 'Cache-Control': 'no-store', 'X-Request-Id': id };
   try {
     const [generation, editions, sync, wtaSync, publication, capacity] = await Promise.all([
-      preparedGeneration(), preparedEditionAudit(), cloudRead('sync-status'), cloudRead('wta-sync-status'), cloudRead('publish-status'), cloudArchiveHasCapacity(),
+      preparedGeneration(), preparedEditionAudit(), cloudProbeRead('sync-status'), cloudProbeRead('wta-sync-status'), cloudProbeRead('publish-status'), cloudArchiveHasCapacity(1_500),
     ]);
     const auditedEditions = editions.map(edition => ({ ...edition, ...editionCompleteness(edition) }));
     const ageHours = Math.max(0, (Date.now() - Date.parse(generation.manifest.generatedAt)) / 3_600_000);

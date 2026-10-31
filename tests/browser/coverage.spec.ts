@@ -7,6 +7,8 @@ test('daily coverage and historical review expose real samples and evidence on m
   await expect(page.getByRole('heading', { name: 'Todo lo añadido, día a día' })).toBeVisible();
   await expect(page.locator('.coverage-api-days > li')).not.toHaveCount(0);
   await expect(page.getByText(/ATP \d+.*WTA \d+ partidos/)).toBeVisible();
+  await expect(page.getByText('Publicación sin detalle', { exact: true })).toBeVisible();
+  await expect(page.getByText('Sin partidos nuevos', { exact: true })).toHaveCount(0);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   const audit = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']).analyze();
   expect(audit.violations).toEqual([]);

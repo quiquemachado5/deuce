@@ -63,7 +63,7 @@ export default async function Coverage({ searchParams }: { searchParams: Promise
           const hasDetailedHistory=!!day.included;
           return <li key={`${day.date}-${index}`} className={index===0?"is-latest":undefined}>
             <header><time dateTime={day.date}>{new Date(`${day.date}T12:00:00Z`).toLocaleDateString("es-ES",{weekday:"short",day:"2-digit",month:"short",timeZone:"UTC"})}</time><span>{index===0?"Última publicación":"Publicada"}</span></header>
-            <strong>{day.added>0?`+${number(day.added)}`:"Sin partidos nuevos"}</strong>
+            <strong>{day.added>0?`+${number(day.added)}`:hasDetailedHistory?"Sin partidos nuevos":"Publicación sin detalle"}</strong>
             <span className="coverage-api-total">{number(day.total)} partidos en el archivo</span>
             {day.tourAdded&&<span className="coverage-api-total">ATP +{number(day.tourAdded.atp)} · WTA +{number(day.tourAdded.wta)}</span>}
             <dl>{apiSignals.map(signal=><div key={signal.key} data-signal={signal.key}><dt><i aria-hidden="true"/>{signal.label}</dt><dd><strong>{hasDetailedHistory?`+${number(included[signal.key])}`:"Sin detalle"}</strong>{hasDetailedHistory&&<span>{number(totals[signal.key])} en total</span>}</dd></div>)}</dl>
