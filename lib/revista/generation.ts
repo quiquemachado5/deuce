@@ -21,6 +21,7 @@ export function compatibleManifest(value: unknown): value is RecordManifest {
     && typeof m.generatedAt === 'string' && Number.isFinite(Date.parse(m.generatedAt))
     && Number.isSafeInteger(m.matchCount) && m.matchCount > 0
     && Array.isArray(m.pieces) && Array.isArray(m.years) && Array.isArray(m.eraCuts)
+    && (!m.matchPartitions || (Array.isArray(m.matchPartitions) && m.matchPartitions.length > 0 && m.matchPartitions.every(part => typeof part.id === 'string' && /^matches-(atp|wta)-\d{4}s$/.test(part.id) && Number.isSafeInteger(part.count) && part.count > 0) && m.matchPartitions.reduce((sum, part) => sum + part.count, 0) === m.matchCount))
     && !!m.summary && Array.isArray(m.summary.years) && !!m.summary.surfaces;
 }
 

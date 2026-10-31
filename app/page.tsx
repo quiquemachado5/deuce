@@ -16,8 +16,11 @@ import { tournamentName } from '@/lib/labels';
 import { TOURNAMENTS } from '@/lib/types';
 import { canonicalName } from '@/lib/quality';
 import type { TournamentSlide } from '@/types/deuce';
-export const revalidate = 300;
-export const metadata = { title:'DEUCE — Todo el tenis, partido a partido', description:'Explora el archivo visual del tenis desde 1968: partidos, jugadores, torneos y récords con los datos que los cuentan.', alternates:{canonical:'/'} };
+import { StructuredData } from '@/components/StructuredData';
+// The calendar story must be correct for the first visitor after midnight;
+// stale-while-revalidate would deliberately serve the previous day once.
+export const dynamic = 'force-dynamic';
+export const metadata = { title:'DEUCE — El archivo del tenis, partido a partido', description:'Explora el archivo visual ATP y WTA desde 1968: partidos, jugadoras, jugadores, torneos y récords con los datos que los cuentan.', alternates:{canonical:'/'} };
 export default async function Home() {
   const generation=await preparedGeneration();
   const today=new Date();
@@ -28,6 +31,7 @@ export default async function Home() {
   const tournamentsWithMatches=new Set(prepared?.tournaments||matches?.map(match=>match.tournament)||[]);
   const slides: TournamentSlide[]=TOURNAMENTS.filter(t=>t.category==='Grand Slam'||t.category==='Masters 1000').flatMap(t=>{const image=courtPhoto(t.name);return image&&tournamentsWithMatches.has(t.name)?[{id:t.slug,name:tournamentName(t.name),city:'',surface:t.surface,description:'',image:image.src,alt:image.alt,imagePosition:image.objectPosition,imagePositionMobile:image.mobileObjectPosition,href:`/torneos/${t.slug}`,credit:image.credit,source:image.source}]:[];});
   return <div className="deuce-home">
+    <StructuredData value={{'@context':'https://schema.org','@type':'Dataset',name:'Archivo de partidos ATP y WTA de DEUCE',description:'Resultados y estadísticas documentadas del tenis profesional desde 1968.',url:'https://deuce-archive.vercel.app/cobertura',inLanguage:'es',dateModified:generation.manifest.generatedAt,version:generation.manifest.version,measurementTechnique:'Resultados publicados y datos del proveedor validados',variableMeasured:['resultado','superficie','ronda','ranking','estadísticas','punto a punto'],distribution:{'@type':'DataDownload',contentUrl:'https://deuce-archive.vercel.app/buscar',encodingFormat:'text/html'},size:generation.manifest.matchCount}}/>
     <HeroVideo count={generation.manifest.matchCount}/>
     <OnThisDay match={anniversary} matches={anniversaries}/>
     <section className="home-section home-latest-results"><div className="section-head"><h2>Últimos resultados</h2><Link className="deuce-cta" href="/buscar">Ver el archivo <ArrowUpRight size={17} aria-hidden="true"/></Link></div><div className="home-latest-archive">{latest.map(match=><ArchiveMatchRow key={match.match_id} match={toMatchRecord(match)} showTournamentContext showAction/>)}</div></section>

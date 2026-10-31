@@ -20,3 +20,4 @@ export function archiveExtent(matches: Match[], now = new Date()) {
   return { latestExactDate, latestEditionDate, exactDates };
 }
 export const archiveDate = (date: string) => new Intl.DateTimeFormat('es-ES', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(date));
+export const archiveAgeHours = (generatedAt:string, now=Date.now()) => Math.max(0,(now-Date.parse(generatedAt))/3_600_000);

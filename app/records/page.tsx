@@ -1,5 +1,4 @@
 import Image from "next/image";
-import type { CSSProperties } from "react";
 import { ArchivePage } from "@/components/deuce/ArchivePage";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -10,7 +9,7 @@ import {
 } from "lucide-react";
 import { number } from "@/lib/cuaderno/model";
 import { recordView } from "@/lib/revista/read-records";
-import { description, type RecordRow } from "@/lib/revista/records";
+import { description } from "@/lib/revista/records";
 import { RecordEras, recordValue } from "@/components/nocturno/RecordsViews";
 import { recordFilters, recordsUrl, type RecordQuery } from "@/lib/records-url";
 import { evidenceHref } from "@/lib/record-evidence";
@@ -21,9 +20,6 @@ import { canonicalSearchText } from "@/lib/search-text";
 import styles from "./records.module.css";
 import type { RecordMeta } from "@/lib/revista/snapshot";
 import redesign from "./records-redesign.module.css";
-import { recordPhoto } from "@/lib/editorial-imagery";
-import { playerEditionPhoto, playerPhoto } from "@/lib/player-imagery";
-import type { Photo } from "@/lib/imagery";
 import RecordsRankings, {
   type RecordsRankingSet,
 } from "@/components/records/RecordsRankings";
@@ -34,6 +30,8 @@ import RecordsVideoCarousel from "@/components/records/RecordsVideoCarousel";
 import RecordsFamilyNav from "@/components/records/RecordsFamilyNav";
 import RecordsSurfaceSlider from "@/components/records/RecordsSurfaceSlider";
 import TournamentFilters from "@/components/TournamentFilters";
+import { photoFor, portraitFor, recordImageStyle, rowForTour } from './record-media';
+import { recordPhoto } from '@/lib/editorial-imagery';
 
 const families = [
   ["Títulos y finales", "Títulos y finales"],
@@ -49,77 +47,6 @@ const families = [
   ["Resto", "Resto"],
   ["Golpes", "Golpes"],
 ] as const;
-
-function photoFor(piece?: RecordMeta | null) {
-  return piece?.leader ? recordPhoto(piece.id, piece.leader.name) : null;
-}
-
-function rowForTour(row: RecordRow, tour?: string): RecordRow {
-  return tour === 'wta' && row.href.startsWith('/jugadores/')
-    ? { ...row, href: `${row.href}${row.href.includes('?') ? '&' : '?'}tour=wta` }
-    : row;
-}
-
-const portraitFocus: Record<
-  string,
-  { objectPosition: string; mobileObjectPosition: string }
-> = {
-  "Alex De Minaur": {
-    objectPosition: "50% 24%",
-    mobileObjectPosition: "50% 18%",
-  },
-  "Andy Murray": {
-    objectPosition: "50% 20%",
-    mobileObjectPosition: "50% 15%",
-  },
-  "Roger Federer": {
-    objectPosition: "50% 20%",
-    mobileObjectPosition: "50% 16%",
-  },
-  "Novak Djokovic": {
-    objectPosition: "50% 16%",
-    mobileObjectPosition: "50% 12%",
-  },
-  "Rafael Nadal": {
-    objectPosition: "50% 20%",
-    mobileObjectPosition: "50% 16%",
-  },
-  "John Isner": {
-    objectPosition: "50% 20%",
-    mobileObjectPosition: "50% 16%",
-  },
-  "Ben Shelton": {
-    objectPosition: "50% 23%",
-    mobileObjectPosition: "50% 18%",
-  },
-  "Alexander Zverev": {
-    objectPosition: "50% 24%",
-    mobileObjectPosition: "50% 18%",
-  },
-};
-
-function portraitFor(name: string): Photo | null {
-  const photo = playerEditionPhoto(name, 1) || playerPhoto(name);
-  if (!photo) return null;
-  const fullPortrait = photo.thumbnail?.match(
-    /^\/images\/players\/optimized\/(.+)-small\.webp$/,
-  )?.[1];
-  return {
-    ...photo,
-    src: fullPortrait
-      ? `/images/players/optimized/${fullPortrait}.webp`
-      : photo.src,
-    ...(portraitFocus[name] || {}),
-  };
-}
-
-function recordImageStyle(photo: Photo): CSSProperties {
-  return {
-    "--record-photo-position": photo.objectPosition || "50% 28%",
-    "--record-photo-position-mobile":
-      photo.mobileObjectPosition || photo.objectPosition || "50% 22%",
-  } as CSSProperties;
-}
 
 async function RecordIndex({
   manifest,
@@ -328,7 +255,7 @@ async function RecordIndex({
   return (
     <ArchivePage
       title="Récords"
-      className={`records-page ${redesign.page} ${!overview ? redesign.filteredPage : ""}`}
+      className={`records-page ${redesign.scope} ${redesign.page} ${!overview ? redesign.filteredPage : ""}`}
       tools={<TournamentFilters ariaLabel="Circuitos del archivo" items={[
         {href:recordsUrl(query,{tour:'atp',page:undefined,smallPage:undefined}),label:'ATP',active:query.tour==='atp'},
         {href:recordsUrl(query,{tour:'wta',page:undefined,smallPage:undefined}),label:'WTA',active:query.tour==='wta'},
@@ -760,7 +687,7 @@ export default async function Records({
       : 2020;
     return (
       <div
-        className={`records-page nc-wrap ${styles.page} ${styles.detail} ${redesign.detailPage}`}
+        className={`records-page nc-wrap ${redesign.scope} ${styles.page} ${styles.detail} ${redesign.detailPage}`}
         data-record-tone="hard"
         data-record-detail="true"
       >
@@ -826,7 +753,7 @@ export default async function Records({
     families.find(([, value]) => value === piece?.group)?.[0] || piece?.group;
   return (
     <div
-      className={`records-page nc-wrap ${styles.page} ${styles.detail} ${redesign.detailPage}`}
+      className={`records-page nc-wrap ${redesign.scope} ${styles.page} ${styles.detail} ${redesign.detailPage}`}
       data-record-detail="true"
     >
       {back}

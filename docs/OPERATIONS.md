@@ -5,14 +5,16 @@
 1. Rama revisada: ejecutar `npm run test`, `npm run lint`, `npm run build`, `npm run typecheck`, `npm run data:verify`, `npm run data:evidence`, `npm run data:restore-drill`, `npm run test:browser`.
 2. Comprobar propietario/proyecto con `vercel project inspect --non-interactive --scope quiquemachado5s-projects`: debe ser `prj_zm1hdxkgG9NOOiTGkpwilP7H7nFO` / `deuce`.
 3. Preparar producción sin dominio: `vercel deploy --prod --skip-domain --scope quiquemachado5s-projects`. No promover una preview con variables distintas.
-4. Contrastar con el dominio público: volumen, catálogo, cobertura estadística por año, versión, partidos recientes, evidencia, comparador, filtros y aspecto en claro/oscuro. La copia local tiene menos enriquecimiento que producción; no es su sustituto.
+4. Contrastar con el dominio público: volumen, catálogo, cobertura estadística por año, versión, partidos recientes, evidencia, comparador, filtros y el único tema claro aprobado. La copia local puede tener menos enriquecimiento que producción; no es su sustituto.
 5. Solo con controles correctos: `vercel promote URL --scope quiquemachado5s-projects`. Conservar el identificador de la versión anterior.
-6. Integrar el mismo código en `main` mediante PR después de CI. Requerir el check `verify`, rama al día, sin force-push ni borrado. La existencia del YAML no activa por sí sola protección de rama: verificarlo en GitHub.
+6. Integrar el mismo código en `main` mediante PR después de CI. Requerir el check `verify`, rama al día, una aprobación, sin force-push ni borrado. La existencia del YAML no activa por sí sola protección de rama: verificarlo en GitHub. La release debe usar un entorno `production` con aprobador requerido.
 7. Aumentar los mínimos de `ops/release-baseline.json` tras una release validada; nunca reducirlos para hacer pasar un fallo.
 
 ## Supervisión externa
 
-`production-health.yml` consulta producción cada media hora desde GitHub Actions, una vez presente en la rama por defecto. Comprueba HTTP, estado, antigüedad (72 h), volumen, catálogo, respaldo y versión. Repite un fallo antes de declararlo. Crea una sola incidencia abierta identificada por marcador y autor, permanece silencioso si no cambia y la cierra al recuperarse. Las notificaciones dependen de las preferencias de GitHub del propietario; no se ha contratado correo/SMS ni un drain de logs. GitHub puede retrasar ejecuciones programadas; no es un SLA de disponibilidad.
+`production-health.yml` consulta `/api/health/deep` cada media hora desde GitHub Actions, una vez presente en la rama por defecto. Comprueba HTTP, estado, antigüedad (72 h), volumen, catálogo, respaldo, almacenamiento y versión. Repite un fallo antes de declararlo. Crea una sola incidencia abierta identificada por marcador y autor, permanece silencioso si no cambia y la cierra al recuperarse. Las notificaciones dependen de las preferencias de GitHub del propietario; no se ha contratado correo/SMS ni un drain de logs. GitHub puede retrasar ejecuciones programadas; no es un SLA de disponibilidad.
+
+`/api/health` es liveness rápida y no toca la base de datos. `/api/health/deep` puede tardar más y devuelve la versión de la aplicación, SHA/ID/URL del despliegue, generación de datos, fallback y capacidad del archivo. Cada respuesta incluye `X-Request-Id`; los logs JSON permiten seguir ese identificador sin registrar consultas de usuarios.
 
 `npm run monitor:check` es una comprobación de solo lectura y no crea incidencias. La alerta detecta efectos de un cron fallido por antigüedad, no confirma por sí sola cada invocación del cron ni el consumo del proveedor.
 
@@ -20,9 +22,30 @@
 
 `npm run data:restore-drill` copia únicamente `data/reading` a un directorio temporal nuevo, registra SHA-256, restaura a otro directorio nuevo y comprueba todos los archivos, identificadores, manifiesto, páginas estadísticas y referencias de jugadores. No sobrescribe producción, el árbol de trabajo, secretos ni datos ajenos. La ubicación aparece al terminar. Este ensayo verifica una generación publicada incluida en el despliegue, NO una copia física completa de Supabase.
 
-Para un incidente de código: usar una generación anterior conocida con `vercel rollback ID --scope quiquemachado5s-projects`, comprobar `/api/health` y las siete APIs. Rollback pausa la autoasignación de despliegues; `vercel promote` la restablece. No ejecutar como simulacro contra producción.
+Para un incidente de código: usar una generación anterior conocida con `vercel rollback ID --scope quiquemachado5s-projects`, comprobar `/api/health`, `/api/health/deep` y las APIs públicas. Rollback pausa la autoasignación de despliegues; `vercel promote` la restablece. No ejecutar como simulacro contra producción.
 
 Para un incidente de base de datos: primero confirmar backups/PITR disponibles en el proyecto `rmiltvmwdmfqzuoipfqs`, fecha de recuperación y recursos afectados. Ensayar en un destino aislado antes de restaurar producción. No se ha certificado PITR: la conexión MCP permite SQL/advisors pero la CLI no tiene sesión para listar backups. Nunca entregar tokens en el chat ni reutilizar secretos de producción localmente.
+
+## Incidente de capacidad de Supabase — 31/10/2026
+
+Síntoma confirmado: el panel marca el proyecto como `ACTIVE_HEALTHY`, pero SQL devuelve `57P03 database system is not accepting connections / Hot standby mode is disabled`. Los logs previos muestran `53100 No space left on device` al crear archivos temporales de `pg_wal`. La web conserva disponibilidad mediante el snapshot incluido, pero no puede ingerir ni publicar partidos nuevos.
+
+Orden de recuperación:
+
+1. Pausar cualquier invocación manual de refresh/publicación; los cron ya fallan sin cambiar el puntero activo.
+2. En Supabase, comprobar Disk y WAL. Ampliar capacidad o abrir incidencia de soporte; no borrar objetos a ciegas mientras PostgreSQL no acepta conexiones.
+3. Verificar backup diario y, si se ha contratado, el punto PITR anterior a la falta de espacio. Restaurar primero en un destino aislado.
+4. Cuando SQL acepte conexiones, inspeccionar tablas, advisors y tamaño de `deuce_archive_objects` antes de escribir.
+5. Aplicar `20261031103000_archive_capacity_guard.sql`, comprobar que `deuce_archive_storage_report()` solo sea ejecutable por `service_role` y ejecutar una publicación controlada.
+6. Confirmar que `/api/health/deep` cambia a `remote`, que Cobertura muestra la nueva hora y que ATP/WTA no pierden volumen.
+
+La publicación nueva particiona partidos por circuito y década, conserva solo la generación activa y la inmediatamente anterior y detiene refresh en `storage-reserve` al superar `DEUCE_ARCHIVE_MAX_BYTES` (1,5 GB por defecto). Esa retención no sustituye un backup. PITR es un servicio con coste: activarlo requiere aprobación explícita del propietario.
+
+## Límites y protección perimetral
+
+Las rutas de búsqueda y jugadores validan longitud, limitan carga y responden 429 mediante un token bucket por instancia. En producción debe existir además una regla distribuida en Vercel Firewall para `/api/search`, `/api/players` y `/api/telemetry`; el repositorio no puede demostrar esa configuración. Registrar la regla y su fecha aquí cuando se aplique.
+
+La CSP usa SRI para scripts externos, impide framing, objetos, atributos JavaScript inline y orígenes no declarados. `unsafe-inline` permanece únicamente en `script-src` porque la hidratación estática de Next inserta scripts inline. Eliminarlo exige nonces por petición y convertir las páginas afectadas en dinámicas; no hacer ese cambio sin medir CDN y TTFB.
 
 ## Seguridad verificada el 21/10/2026
 

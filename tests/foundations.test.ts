@@ -8,7 +8,7 @@ import { mockMatches } from '../lib/mocks';
 import { playerDirectory, rivalryDirectory } from '../lib/explore';
 import { buildSeasonAnalytics } from '../lib/season-analytics';
 import { approximateName, canonicalSearchText, searchText, withinOneEdit } from '../lib/search-text';
-import { compileRecordSnapshot } from '../lib/revista/snapshot';
+import { compileRecordSnapshot, partitionMatches } from '../lib/revista/snapshot';
 import { parseRepositoryQuery } from '../lib/repository-query';
 import type { Match } from '../lib/types';
 import { recordCatalog } from '../lib/revista/records';
@@ -113,6 +113,19 @@ test('snapshot identity is reproducible and includes the editorial day', () => {
   assert.notEqual(first.manifest.version, compileRecordSnapshot(mockMatches, new Date('2026-10-22T08:00:00Z')).manifest.version);
   assert.equal(first.manifest.mode, 'DEMO');
   assert.equal(first.manifest.summary.years.reduce((sum, row) => sum + row.matches, 0), mockMatches.length);
+});
+
+test('published match partitions stay complete and separate circuit and decade', () => {
+  const matches: Match[] = [
+    { ...mockMatches[0], match_id: 'atp-1968', year: 1968, tour: 'atp' },
+    { ...mockMatches[0], match_id: 'atp-1975', year: 1975, tour: 'atp' },
+    { ...mockMatches[0], match_id: 'wta-1975', year: 1975, tour: 'wta' },
+    { ...mockMatches[0], match_id: 'wta-2026', year: 2026, tour: 'wta' },
+  ];
+  const partitions = partitionMatches(matches);
+  assert.deepEqual(partitions.map(group => group.meta.id), ['matches-atp-1960s', 'matches-atp-1970s', 'matches-wta-1970s', 'matches-wta-2020s']);
+  assert.equal(partitions.reduce((sum, group) => sum + group.meta.count, 0), matches.length);
+  assert.deepEqual(partitions.flatMap(group => group.matches.map(match => match.match_id)).sort(), matches.map(match => match.match_id).sort());
 });
 
 test('anniversary content and its cache follow the requested editorial day', () => {

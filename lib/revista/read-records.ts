@@ -16,7 +16,10 @@ import {auditEditions} from '../edition-audit';
 const bundled=asyncCache<unknown>(3600_000,100);
 async function local<T>(id:string):Promise<T>{return await bundled(id,async()=>JSON.parse(gunzipSync(await readFile(join(process.cwd(),'data','reading',`${id}.json.gz`))).toString())) as T;}
 async function localOptional<T>(id:string,fallback:T):Promise<T>{try{return await local<T>(id);}catch{return fallback;}}
+// Projection strings produce heterogeneous Supabase response shapes.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const remote=asyncCache<any>(300_000,32);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- every caller validates its projected payload.
 async function query(key:string,projection='payload',budget=800):Promise<any>{
  try{return await remote(`${key}:${projection}`,async()=>{
   const db=cloudClient();if(!db)return null;
@@ -26,12 +29,16 @@ async function query(key:string,projection='payload',budget=800):Promise<any>{
  });}catch{return undefined;}
 }
 const generations=asyncCache<PreparedGeneration>(300_000,1,g=>g.fallbackReason?30_000:300_000);
+export const preparedBundledManifest=cache(async()=>{
+ const manifest=await local<RecordManifest>('manifest');
+ if(manifest.schema!==SNAPSHOT_SCHEMA||manifest.rulesVersion!==RULES_VERSION)throw new Error('Reading snapshot is incompatible; run npm run build');
+ return manifest;
+});
 export const preparedGeneration=cache(()=>generations('active',async()=>{
- const base=await local<RecordManifest>('manifest');
- if(base.schema!==SNAPSHOT_SCHEMA||base.rulesVersion!==RULES_VERSION)throw new Error('Reading snapshot is incompatible; run npm run build');
+ const base=await preparedBundledManifest();
  const fresh=await query('reading-v2-manifest','payload',5000);
  return selectGeneration({manifest:base,source:'bundled',matches:()=>local<Match[]>('matches'),records:()=>local<PlayerRecord[]>('players'),competition:()=>localOptional<Match[]>('competition',[])},fresh===null?null:fresh?.payload,
-   async m=>{const [matches,records,competition]=await Promise.all([cloudBlob<Match[]>(m.version,'matches'),cloudBlob<PlayerRecord[]>(m.version,'players'),cloudBlob<Match[]>(m.version,'competition')]);return {matches,records,competition};},!!cloudClient());
+   async m=>{const [matches,records,competition]=await Promise.all([cloudMatches(m),cloudBlob<PlayerRecord[]>(m.version,'players'),cloudBlob<Match[]>(m.version,'competition')]);return {matches,records,competition};},!!cloudClient());
 }));
 /** The bundled summary stays lightweight; a newer remote generation is validated before use. */
 export const preparedManifest=cache(async()=> (await preparedGeneration()).manifest);
@@ -79,6 +86,12 @@ async function cloudBlob<T>(version:string,id:string):Promise<T|undefined>{
   if(decoded===undefined)console.warn('Snapshot blob decode failed:',id);
   return decoded;
  }catch(error){console.warn('Snapshot blob read failed:',id,error instanceof Error?error.message:'unknown');return undefined;}
+}
+async function cloudMatches(manifest:RecordManifest):Promise<Match[]|undefined>{
+ if(!manifest.matchPartitions?.length)return cloudBlob<Match[]>(manifest.version,'matches');
+ const partitions=await Promise.all(manifest.matchPartitions.map(async part=>({part,rows:await cloudBlob<Match[]>(manifest.version,part.id)})));
+ if(partitions.some(({part,rows})=>!rows||rows.length!==part.count))return undefined;
+ return partitions.flatMap(({rows})=>rows!);
 }
 /** Request path only reads prepared data. No archive ingestion or tape analysis for unfiltered lists. */
 export const recordView=cache(async(encoded:string,recomputed=false):Promise<RecordView>=>{
@@ -156,6 +169,12 @@ export const preparedPlayerArchive = cache(async () => {
  const generation=await preparedGeneration();
  const [matches,records]=await Promise.all([generation.matches(),generation.records()]);
  return {matches,records,manifest:generation.manifest,source:generation.source,fallbackReason:generation.fallbackReason};
+});
+
+/** Player suggestions never need to inflate the complete match archive. */
+export const preparedPlayerRecords = cache(async () => {
+ const generation=await preparedGeneration();
+ return {records:await generation.records(),manifest:generation.manifest,source:generation.source,fallbackReason:generation.fallbackReason};
 });
 
 export const preparedTournamentArchive=cache(async()=>{const g=await preparedGeneration();const [matches,entries]=await Promise.all([g.matches(),g.competition?.()||Promise.resolve([])]);return [...matches,...entries];});

@@ -10,6 +10,31 @@ import { tournamentDirectory } from '../tournament-directory';
 import { matchSearchIntent, matchesIntent } from '../search-intent';
 import { approximateName, canonicalSearchText, searchTermsMatch } from '../search-text';
 import type { SearchItem } from "@/components/revista/Frame";
+import type { PlayerRecord } from '../season-analytics';
+import type { RecordManifest } from '../revista/snapshot';
+
+/** Compact suggestions for typeahead: never opens the 176k-match artifact. */
+export function quickSearchArchive(query: string, records: PlayerRecord[], manifest: Pick<RecordManifest, 'pieces'>) {
+  const raw = query.trim().slice(0, 100);
+  const terms = canonicalSearchText(raw).split(/\s+/).filter(Boolean);
+  if (terms.join('').length < 2) return [] as SearchItem[];
+  const includes = (value: string) => terms.every(term => canonicalSearchText(value).includes(term));
+  const items: SearchItem[] = [];
+  for (const piece of manifest.pieces.filter(piece => includes(`${piece.title} ${piece.id}`)).slice(0, 4)) {
+    items.push({ href: `/records?dato=${piece.id}`, name: piece.title, group: 'Récords', detail: piece.group });
+  }
+  const exact = records.filter(player => includes(player.name));
+  const players = exact.length ? exact : records.filter(player => approximateName(raw, player.name));
+  for (const player of players.slice(0, 12)) {
+    items.push({
+      href: `/jugadores/${playerSlug(player.name)}${player.tour === 'wta' ? '?tour=wta' : ''}`,
+      name: player.name,
+      group: 'Jugadores',
+      detail: `${player.tour === 'wta' ? 'WTA' : 'ATP'} · ${exact.length ? '' : 'Coincidencia aproximada · '}${player.played.toLocaleString('es-ES')} partidos en el archivo`,
+    });
+  }
+  return items;
+}
 export async function searchArchive(query: string, options: { includeMatches?: boolean; data?: Awaited<ReturnType<typeof notebook>> } = {}) {
   query = query.trim().slice(0, 180);
   if (!query) return [] as SearchItem[];

@@ -82,7 +82,7 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
         avatarCrop: hasThumbnail ? undefined : photo.avatarCrop,
       } : undefined };
     })}>
-      {['a','b'].map((key,index) => <div className="nc-field" key={key}><span>Jugador {index + 1}</span><PlayerInput key={chosen[index]} name={key} initial={chosen[index]} options={names} label={`Jugador ${index + 1}`} /></div>)}
+      {['a','b'].map((key,index) => <div className="nc-field" key={key}><span>Jugador {index + 1}</span><PlayerInput key={chosen[index]} name={key} initial={chosen[index]} label={`Jugador ${index + 1}`} /></div>)}
       <CompareSampleFilters summary={activeSampleFilters ? `${activeSampleFilters} activos` : 'Valores generales'}>
         <label className="nc-field"><span>Periodo de comparación</span><select name="period" defaultValue={q.period || "career"}><option value="career">Carrera documentada</option><option value="shared">Periodo compartido</option></select></label>
         <label className="nc-field"><span>Temporada</span><select name="year" defaultValue={q.year || 'all'}><option value="all">Todas</option>{generation.manifest.years.map(year => <option key={year}>{year}</option>)}</select></label>

@@ -12,6 +12,8 @@ import {reconcileSeasonResults} from './result-refresh'
 import { detailRefreshPlan } from './detail-refresh-plan'
 import { hasClosedModernResult } from './modern-result'
 
+// Provider payloads are schemaless until they are normalized into Match.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ArchiveRow = Record<string, any>
 const base = 'https://api.livetennisapi.com/api/public/v1'
 let clientInstance: SupabaseClient | null = null
@@ -21,12 +23,15 @@ export function cloudClient() {
   if (url && key) clientInstance = createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } })
   return clientInstance
 }
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- cache stores heterogeneous archive JSON.
 const cache = new Map<string, { at: number; value: Promise<any> }>()
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- callers validate each object contract.
 export async function cloudRead(key: string): Promise<any> {
   const client = cloudClient()
   if (!client) return undefined
   const saved = cache.get(key)
   if (saved && Date.now() - saved.at < 300_000) return saved.value
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- see cloudRead contract above.
   const pending: { value?: Promise<any> } = {}
   pending.value = (async () => {
     try {
@@ -90,6 +95,37 @@ export async function cloudWriteMany(entries: readonly ArchiveWrite[]) {
 }
 export async function cloudWrite(key: string, payload: unknown) {
   await cloudWriteMany([{ key, payload }])
+}
+export type ArchiveStorageReport={relationBytes:number;payloadBytes:number;objects:number;snapshots:number;details:number};
+export async function cloudArchiveStorageReport():Promise<ArchiveStorageReport|undefined>{
+  const client=cloudClient();if(!client)return undefined;
+  const {data,error}=await client.rpc('deuce_archive_storage_report').abortSignal(AbortSignal.timeout(5_000));
+  if(error||!Array.isArray(data)||!data[0])return undefined;
+  const row=data[0] as Record<string,unknown>;
+  const number=(key:string)=>Number(row[key])||0;
+  return {relationBytes:number('relation_bytes'),payloadBytes:number('payload_bytes'),objects:number('object_count'),snapshots:number('snapshot_count'),details:number('detail_count')};
+}
+export async function cloudArchiveHasCapacity(){
+  const report=await cloudArchiveStorageReport();
+  const configured=Number(process.env.DEUCE_ARCHIVE_MAX_BYTES),maximum=Number.isFinite(configured)&&configured>0?configured:1_500_000_000;
+  return {report,maximum,available:!report||report.relationBytes<maximum};
+}
+
+/** Keep the active and immediately previous immutable generations only. */
+export async function cloudPruneSnapshotGenerations(keepVersions:readonly string[]){
+  const client=cloudClient();if(!client)return 0;
+  const keep=new Set(keepVersions.filter(version=>/^[a-f0-9]{20}$/.test(version))),obsolete:string[]=[];
+  for(let offset=0;;offset+=1000){
+    const {data,error}=await client.from('deuce_archive_objects').select('key').like('key','reading-v2-%').order('key').range(offset,offset+999).abortSignal(AbortSignal.timeout(10_000));
+    if(error)throw error;
+    for(const row of data||[]){const version=/^reading-v2-([a-f0-9]{20})-/.exec(row.key)?.[1];if(version&&!keep.has(version))obsolete.push(row.key);}
+    if(!data||data.length<1000)break;
+  }
+  for(let offset=0;offset<obsolete.length;offset+=250){
+    const {error}=await client.from('deuce_archive_objects').delete().in('key',obsolete.slice(offset,offset+250)).abortSignal(AbortSignal.timeout(15_000));
+    if(error)throw error;
+  }
+  return obsolete.length;
 }
 export async function cloudDetails(): Promise<Record<string, ArchiveRow>> {
   const client = cloudClient()
@@ -170,6 +206,12 @@ export async function refreshCloudArchive() {
   const started = Date.now()
   let calls = 0
   try {
+    const capacity=await cloudArchiveHasCapacity()
+    if(!capacity.available){
+      const result={status:'storage-reserve',at:new Date().toISOString(),calls,relationBytes:capacity.report?.relationBytes,maximumBytes:capacity.maximum}
+      await cloudWrite('sync-status',result)
+      return result
+    }
     const quota = await provider('/usage')
     const remaining = Number(quota.today?.remaining_day || 0)
     if (remaining < 120) {
@@ -264,6 +306,12 @@ export async function refreshCloudWta() {
   const started=Date.now()
   let calls=0
   try {
+    const capacity=await cloudArchiveHasCapacity()
+    if(!capacity.available){
+      const result={status:'storage-reserve',at:new Date().toISOString(),calls,relationBytes:capacity.report?.relationBytes,maximumBytes:capacity.maximum}
+      await cloudWrite('wta-sync-status',result)
+      return result
+    }
     const quota=await provider('/usage')
     const remaining=Number(quota.today?.remaining_day||0)
     if(remaining<35){

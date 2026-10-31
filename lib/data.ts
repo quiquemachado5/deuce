@@ -24,6 +24,8 @@ function compact(match: Match): Match { return { ...match, point_tape: [], stati
 async function stored(year?: number): Promise<Match[]> {
   const client = db()
   if (!client) return []
+  // Supabase joins are normalized into Match immediately below.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const rows: any[] = []
   for (let start = 0;; start += 500) {
     let query = client.from('matches').select('id,player1,player2,score_summary,final_score,round,winner,status,statistics,raw_fixture,tournaments!inner(name,category,surface,season),point_tapes(points,raw_tape)')

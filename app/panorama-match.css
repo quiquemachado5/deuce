@@ -374,7 +374,7 @@ html:has(.pm-page) {
   justify-self: end;
   max-width: 52ch;
   margin: 0;
-  color: var(--pm-muted);
+  color: #4f5d57;
   font-size: 17px;
   font-weight: 500;
   line-height: 1.55;

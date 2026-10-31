@@ -75,7 +75,7 @@ export function SearchResults({
     };
   }, [searchQuery, attempt]);
 
-  if (!searchQuery) return null;
+  if (!searchQuery || searchQuery.length < 2) return null;
   return (
     <div className="ry-search-results" aria-busy={loading}>
       {loading && (

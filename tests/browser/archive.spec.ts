@@ -81,12 +81,12 @@ test('API validation, protected cron and security headers remain intact', async 
   expect((await request.get('/api/cron/refresh')).status()).toBe(401);
   const response = await request.get('/');
   expect(response.headers()['x-content-type-options']).toBe('nosniff');
-  expect(response.headers()['content-security-policy']).toContain("frame-ancestors 'self'");
+  expect(response.headers()['content-security-policy']).toContain("frame-ancestors 'none'");
 });
 
 test('overview, matches, search and rivals identify the same validated generation', async ({ request }) => {
   const matchList = await (await request.get('/api/matches?limit=1')).json();
-  const paths = ['/api/overview', '/api/matches?limit=1', `/api/matches/${matchList.matches[0].match_id}`, '/api/featured', '/api/search?q=Wimbledon', '/api/rivals?player=Novak%20Djokovic', '/api/health'];
+  const paths = ['/api/overview', '/api/matches?limit=1', `/api/matches/${matchList.matches[0].match_id}`, '/api/featured', '/api/search?q=Wimbledon', '/api/rivals?player=Novak%20Djokovic', '/api/health/deep'];
   const versions: string[] = [];
   for (const path of paths) {
     const response = await request.get(path);

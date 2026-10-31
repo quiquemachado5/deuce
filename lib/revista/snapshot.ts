@@ -24,7 +24,8 @@ export type IngestionDay = {
   tourAdded?: { atp: number; wta: number };
   tourTotals?: { atp: number; wta: number };
 };
-export type RecordManifest = { schema: number; rulesVersion: string; version: string; generatedAt: string; extent?: ReturnType<typeof archiveExtent>; leaderChanges?: LeaderChange[]; ingestionHistory?: IngestionDay[]; home?: { date: string; selection: ReturnType<typeof homeSelection>; tournaments: string[]; daily?: PreparedHomeIndex }; years: number[]; pieces: RecordMeta[]; eraCuts: number[]; matchCount: number; competitionCount?:number; editionCount?:number; mode: 'DEMO' | 'ARCHIVO REAL'; summary: ReturnType<typeof summarizeDataset> };
+export type MatchPartition = { id:string; tour:'atp'|'wta'; fromYear:number; toYear:number; count:number };
+export type RecordManifest = { schema: number; rulesVersion: string; version: string; generatedAt: string; extent?: ReturnType<typeof archiveExtent>; leaderChanges?: LeaderChange[]; ingestionHistory?: IngestionDay[]; matchPartitions?:MatchPartition[]; home?: { date: string; selection: ReturnType<typeof homeSelection>; tournaments: string[]; daily?: PreparedHomeIndex }; years: number[]; pieces: RecordMeta[]; eraCuts: number[]; matchCount: number; competitionCount?:number; editionCount?:number; mode: 'DEMO' | 'ARCHIVO REAL'; summary: ReturnType<typeof summarizeDataset> };
 export type RecordPages = { pages: Record<string, RecordRow[]>; smallPages: Record<string, RecordRow[]> };
 export type Snapshot = { manifest: RecordManifest; pieces: Record<string, RecordPages>; eras: Record<string, Era[]>; matches: Match[]; players: PlayerRecord[]; competition:Match[]; audit:EditionAudit[] };
 export function stripSource(m: Match): Match {
@@ -44,6 +45,15 @@ export function pageBoundaryTies(rows: RecordRow[]): Record<number, number> {
     if (rows[start - 1].value === rows[start].value) ties[start / PAGE_SIZE + 1] = rows[start - 1].value;
   }
   return ties;
+}
+export function partitionMatches(matches:Match[]) {
+  const groups=new Map<string,{meta:MatchPartition;matches:Match[]}>();
+  for(const match of matches){
+    const tour=match.tour==='wta'?'wta':'atp',fromYear=Math.floor(match.year/10)*10,toYear=fromYear+9,id=`matches-${tour}-${fromYear}s`;
+    const group=groups.get(id)||{meta:{id,tour,fromYear,toYear,count:0},matches:[]};
+    group.matches.push(match);group.meta.count++;groups.set(id,group);
+  }
+  return [...groups.values()].sort((a,b)=>a.meta.id.localeCompare(b.meta.id));
 }
 export function attachIngestionHistory(previous: RecordManifest | undefined, next: RecordManifest): RecordManifest {
   const date=next.generatedAt.slice(0,10),history=(previous?.ingestionHistory||[]).filter(entry=>/^\d{4}-\d{2}-\d{2}$/.test(entry.date)&&Number.isSafeInteger(entry.added)&&Number.isSafeInteger(entry.total));
@@ -117,6 +127,6 @@ export function compileRecordSnapshot(input: Match[], now = new Date(), competit
   const hash=createHash('sha256').update(JSON.stringify([SNAPSHOT_SCHEMA,RULES_VERSION,now.toISOString().slice(0,10)]).slice(0,-1)+',[');
   matches.forEach((match,i)=>{if(i)hash.update(',');hash.update(JSON.stringify(match));});
   const version=hash.update('],').update(JSON.stringify(competition)).update(',').update(JSON.stringify(audit)).update(']').digest('hex').slice(0,20);
-  return {manifest:{schema:SNAPSHOT_SCHEMA,rulesVersion:RULES_VERSION,version,generatedAt:now.toISOString(),extent:archiveExtent(matches,now),home:{date:now.toISOString().slice(0,10),selection:homeSelection(matches,now),daily:prepareHomeIndex(matches),tournaments:[...new Set(matches.map(m=>m.tournament))]},years:[...new Set(matches.map(m=>m.year))].sort((a,b)=>b-a),pieces:metas,eraCuts:Object.keys(eras).map(Number),matchCount:matches.length,competitionCount:competition.length,editionCount:audit.length,mode:matches.some(m=>m.data_source==='mock')?'DEMO':'ARCHIVO REAL',summary:summarizeDataset(matches)},pieces,eras,matches,competition,audit,players:buildSeasonAnalytics(matches).players};
+  return {manifest:{schema:SNAPSHOT_SCHEMA,rulesVersion:RULES_VERSION,version,generatedAt:now.toISOString(),extent:archiveExtent(matches,now),matchPartitions:partitionMatches(matches).map(group=>group.meta),home:{date:now.toISOString().slice(0,10),selection:homeSelection(matches,now),daily:prepareHomeIndex(matches),tournaments:[...new Set(matches.map(m=>m.tournament))]},years:[...new Set(matches.map(m=>m.year))].sort((a,b)=>b-a),pieces:metas,eraCuts:Object.keys(eras).map(Number),matchCount:matches.length,competitionCount:competition.length,editionCount:audit.length,mode:matches.some(m=>m.data_source==='mock')?'DEMO':'ARCHIVO REAL',summary:summarizeDataset(matches)},pieces,eras,matches,competition,audit,players:buildSeasonAnalytics(matches).players};
 }
 export const clampPage=(value:unknown,total:number)=>Math.min(Math.max(1,Math.floor(Number(value)||1)),Math.max(1,Math.ceil(total/PAGE_SIZE)));

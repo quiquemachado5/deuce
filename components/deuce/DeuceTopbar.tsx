@@ -40,6 +40,16 @@ export function DeuceTopbar() {
         if(searchOpen){event.preventDefault();restoreSearchFocus.current=true;setSearchOpen(false);}
         else if(menu){event.preventDefault();setMenu(false);window.requestAnimationFrame(()=>menuTrigger.current?.focus());}
       }
+      if(event.key==='Tab'&&(searchOpen||menu)){
+        const roots:HTMLElement[]=[];
+        if(searchOpen){const form=field.current?.closest<HTMLElement>('form');if(form)roots.push(form);if(panel.current)roots.push(panel.current);}
+        else {const nav=document.getElementById('deuce-navigation');if(nav)roots.push(nav);if(menuTrigger.current)roots.push(menuTrigger.current);}
+        const focusable=roots.flatMap(root=>[...root.querySelectorAll<HTMLElement>('a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),[tabindex]:not([tabindex="-1"])')]).filter(node=>!node.hidden&&node.getAttribute('aria-hidden')!=='true');
+        if(!focusable.length)return;
+        const first=focusable[0],last=focusable.at(-1)!;
+        if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}
+        else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
+      }
     };
     const navigate=()=>{setMenu(false);setSearchOpen(false);};
     const frame=requestAnimationFrame(scroll);
@@ -50,6 +60,12 @@ export function DeuceTopbar() {
   },[menu,searchOpen]);
 
   useEffect(()=>{
+    const blocked=[document.getElementById('main-content'),document.querySelector<HTMLElement>('.deuce-footer')].filter((node):node is HTMLElement=>Boolean(node));
+    for(const node of blocked)node.inert=searchOpen||menu;
+    return()=>{for(const node of blocked)node.inert=false;};
+  },[menu,searchOpen]);
+
+  useEffect(()=>{
     if(searchOpen||!restoreSearchFocus.current)return;
     const frame=window.requestAnimationFrame(()=>{trigger.current?.focus();restoreSearchFocus.current=false;});
     return()=>window.cancelAnimationFrame(frame);
@@ -57,7 +73,7 @@ export function DeuceTopbar() {
 
   useEffect(()=>{
     const text=query.trim();
-    if(!text)return;
+    if(text.length<2)return;
     const abort=new AbortController();
     const timer=setTimeout(async()=>{try{const response=await fetch(`/api/search?q=${encodeURIComponent(text)}`,{signal:abort.signal});if(!response.ok)throw Error('search');const data=await response.json();setResult({query:text,items:Array.isArray(data.items)?data.items.slice(0,24):[]});}catch(error){if(!(error instanceof Error&&error.name==='AbortError'))setResult({query:text,items:[],error:true});}},120);
     return()=>{clearTimeout(timer);abort.abort();};

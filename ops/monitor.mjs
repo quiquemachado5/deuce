@@ -5,7 +5,7 @@ const repository = 'quiquemachado5/deuce';
 async function check() {
   const failures = [];
   try {
-    const response = await fetch(baseline.productionUrl+'/api/health',{signal:AbortSignal.timeout(25000),cache:'no-store'});
+    const response = await fetch(baseline.productionUrl+'/api/health/deep',{signal:AbortSignal.timeout(30000),cache:'no-store'});
     if(!response.ok) return ['Health endpoint: HTTP '+response.status];
     const h = await response.json();
     if(h.status !== 'healthy') failures.push('Estado '+String(h.status).slice(0,30));
@@ -37,7 +37,7 @@ else {
     if(incident || issues.length < 100) break;
     if(page===10) throw new Error('Issue pagination limit reached; refusing to create a possible duplicate');
   }
-  if(failures.length && !incident) await api('/issues','POST',{title:'[DEUCE] Incidencia de salud en producción',body:marker+'\n\n'+failures.map(f => '- '+f).join('\n')+'\n\nVerificar /api/health, ejecución de cron, generación activa y logs de Vercel. No publicar una generación con menor cobertura.\n\n'+baseline.productionUrl+'/cobertura'});
+  if(failures.length && !incident) await api('/issues','POST',{title:'[DEUCE] Incidencia de salud en producción',body:marker+'\n\n'+failures.map(f => '- '+f).join('\n')+'\n\nVerificar /api/health/deep, capacidad de Supabase, ejecución de cron, generación activa y logs de Vercel. No publicar una generación con menor cobertura.\n\n'+baseline.productionUrl+'/cobertura'});
   else if(!failures.length && incident) {
     await api('/issues/'+incident.number+'/comments','POST',{body:'Recuperación verificada: endpoint saludable, volumen y catálogo por encima de la última release validada.'});
     await api('/issues/'+incident.number,'PATCH',{state:'closed',state_reason:'completed'});

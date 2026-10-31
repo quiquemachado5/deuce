@@ -1,1 +1,2 @@
-export default { plugins: { tailwindcss: {}, autoprefixer: {} } }
+const config={ plugins: { autoprefixer: {} } }
+export default config

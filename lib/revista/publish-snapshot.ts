@@ -6,8 +6,8 @@ import {pipeline} from 'node:stream/promises';
 import {mkdir,writeFile,rename} from 'node:fs/promises';
 import {join} from 'node:path';
 import {isDeepStrictEqual} from 'node:util';
-import {cloudRead,cloudWrite,cloudWriteMany,type ArchiveWrite} from '../cloud-archive';
-import {attachIngestionHistory,pieceChunk,type Snapshot,type RecordPages,type RecordManifest} from './snapshot';
+import {cloudPruneSnapshotGenerations,cloudRead,cloudWrite,cloudWriteMany,type ArchiveWrite} from '../cloud-archive';
+import {attachIngestionHistory,partitionMatches,pieceChunk,type Snapshot,type RecordPages,type RecordManifest} from './snapshot';
 import {assertPublishableArchive} from '../dataset-summary';
 function compressedPages(id:string,piece:RecordPages):Array<[string,unknown]> {
  const chunks=new Map<number,{encoding:string;pages:Record<string,string>;smallPages:Record<string,string>}>([[0,{encoding:'gzip-base64',pages:{},smallPages:{}}]]);
@@ -41,7 +41,7 @@ export async function writeBundledSnapshot(snapshot:Snapshot) {
     const path=join(dir,`${id}.json.gz`);await writeFile(`${path}.tmp`,gzipSync(JSON.stringify(value)));await rename(`${path}.tmp`,path);
   }
 }
-type SnapshotStorage={read:(key:string)=>Promise<unknown>;write:(key:string,payload:unknown)=>Promise<void>;writeMany?:(entries:readonly ArchiveWrite[])=>Promise<void>};
+type SnapshotStorage={read:(key:string)=>Promise<unknown>;write:(key:string,payload:unknown)=>Promise<void>;writeMany?:(entries:readonly ArchiveWrite[])=>Promise<void>;prune?:(keepVersions:readonly string[])=>Promise<number>};
 function publishedGeneration(manifest:RecordManifest) {
   // Compare the stored JSON representation, which omits optional undefined fields.
   const generation=JSON.parse(JSON.stringify(manifest));
@@ -49,7 +49,7 @@ function publishedGeneration(manifest:RecordManifest) {
   return generation;
 }
 /** A published pointer proves all artifacts exist. A new pointer is written last. */
-export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotStorage={read:cloudRead,write:cloudWrite,writeMany:cloudWriteMany}) {
+export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotStorage={read:cloudRead,write:cloudWrite,writeMany:cloudWriteMany,prune:cloudPruneSnapshotGenerations}) {
   assertSnapshotIntegrity(snapshot);
   const {pieces,eras,matches,players,competition,audit}=snapshot;
   const published=await storage.read('reading-v2-manifest');
@@ -59,9 +59,13 @@ export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotSt
     if(Date.parse(manifest.generatedAt)>Date.parse((published as RecordManifest).generatedAt))await storage.write('reading-v2-manifest',manifest);
     return;
   }
+  if(storage.prune&&published&&typeof published==='object'&&typeof (published as RecordManifest).version==='string'){
+    await storage.prune([(published as RecordManifest).version]).catch(error=>console.warn('Snapshot retention preflight failed:',error instanceof Error?error.name:'unknown'));
+  }
   async function* artifacts():AsyncGenerator<[string,unknown]> {
     for(const [id,piece] of Object.entries(pieces))yield* compressedPages(id,piece);
-    for(const [id,value] of [['eras',eras],['matches',matches],['players',players],['competition',competition],['audit',audit]] as const)yield* await compressedBlob(id,value);
+    for(const group of partitionMatches(matches))yield* await compressedBlob(group.meta.id,group.matches);
+    for(const [id,value] of [['eras',eras],['players',players],['competition',competition],['audit',audit]] as const)yield* await compressedBlob(id,value);
   }
   const batches:ArchiveWrite[][]=[];
   const flush=async()=>{
@@ -84,4 +88,8 @@ export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotSt
   // the cron budget, but never expose the new manifest until all settle.
   await flush();
   await storage.write('reading-v2-manifest',manifest);
+  if(storage.prune){
+    const previous=published&&typeof published==='object'?(published as RecordManifest).version:undefined;
+    await storage.prune([manifest.version,...(previous?[previous]:[])]).catch(error=>console.warn('Snapshot retention cleanup failed:',error instanceof Error?error.name:'unknown'));
+  }
 }

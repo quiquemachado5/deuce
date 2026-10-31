@@ -22,7 +22,15 @@ async function main(){
     previous=await cloudRead('reading-v2-manifest') as RecordManifest|undefined;
     if(!previous)throw new Error('Cannot verify the published archive baseline');
     const localCount=matches.length;
-    matches=await preservePublishedArchive(matches,previous,version=>cloudSnapshotBlob<Match[]>(version,'matches'));
+    matches=await preservePublishedArchive(matches,previous,async version=>{
+      if(!previous?.matchPartitions?.length)return cloudSnapshotBlob<Match[]>(version,'matches');
+      const groups=await Promise.all(previous.matchPartitions.map(async partition=>({
+        partition,
+        rows:await cloudSnapshotBlob<Match[]>(version,partition.id),
+      })));
+      if(groups.some(group=>!group.rows||group.rows.length!==group.partition.count))return undefined;
+      return groups.flatMap(group=>group.rows!);
+    });
     restoredPublishedArchive=matches.length>localCount;
     if(restoredPublishedArchive)console.log(`Published archive preserved: restored ${matches.length} matches over ${localCount} bundled matches`);
     previousAudit=typeof previous.version==='string' ? await cloudSnapshotBlob<EditionAudit[]>(previous.version,'audit') : undefined;

@@ -26,6 +26,12 @@ export async function GET(request: Request) {
     ])
     const bundled=JSON.parse(gunzipSync(await readFile(join(process.cwd(),'data/reading/manifest.json.gz'))).toString()) as RecordManifest
     const remote=await cloudRead('reading-v2-manifest')
+    const wtaRefresh=await cloudRead('wta-sync-status')
+    const publishedWta=compatibleManifest(remote)?remote.summary.tours.wta:bundled.summary.tours.wta
+    if(publishedWta>0){
+      const lastSuccessfulWta=wtaRefresh?.status==='success'?wtaRefresh.at:wtaRefresh?.lastSuccessAt
+      if(!Number.isFinite(Date.parse(lastSuccessfulWta))||Date.now()-Date.parse(lastSuccessfulWta)>30*3_600_000)throw new Error('No recent successful WTA refresh; keeping the previous publication')
+    }
     const [input,previousAudit]=await Promise.all([publicationArchive(),preparedEditionAudit()])
     console.info('Daily publication: archive loaded',input.length,Math.round(process.memoryUsage().rss/1048576))
     const snapshot = compileRecordSnapshot(input,new Date(),await competitionEntries(),await editionSourceAudit())

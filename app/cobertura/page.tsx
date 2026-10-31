@@ -4,6 +4,7 @@ import { number } from "@/lib/cuaderno/model";
 import { preparedGeneration, recordView } from "@/lib/revista/read-records";
 import { SURFACES, surfaceLabel } from "@/lib/surface";
 import type { IngestionBreakdown } from "@/lib/revista/snapshot";
+import { archiveAgeHours } from '@/lib/archive-freshness';
 
 export const metadata = {
   title: "Cobertura del archivo — DEUCE",
@@ -30,6 +31,7 @@ export default async function Coverage({ searchParams }: { searchParams: Promise
     {key:"points" as const,label:"Punto a punto"},
   ];
   const updated=new Date(manifest.generatedAt).toLocaleString("es-ES",{dateStyle:"medium",timeStyle:"short",timeZone:"Europe/Madrid"});
+  const ageHours=archiveAgeHours(manifest.generatedAt),stale=ageHours>36||Boolean(generation.fallbackReason);
   const coverage=[
     {label:"Ranking de la fecha",value:totals.ranking},
     {label:"Estadísticas del partido",value:totals.statistics},
@@ -47,6 +49,8 @@ export default async function Coverage({ searchParams }: { searchParams: Promise
       <p className="coverage-updated"><span aria-hidden="true"/>Actualizado {updated} · Madrid</p>
       <p className="coverage-updated">ATP {number(manifest.summary.tours?.atp ?? manifest.matchCount)} · WTA {number(manifest.summary.tours?.wta ?? 0)} partidos. El histórico femenino se incorpora por temporadas verificadas.</p>
     </header>
+
+    {stale&&<section className="coverage-piece" aria-labelledby="coverage-stale-title"><div><h2 id="coverage-stale-title">La última actualización no está disponible</h2><p>Cobertura muestra la generación validada de {updated}. No interpretamos la ausencia de una publicación nueva como un día sin partidos.</p></div><dl><div><dt>Estado</dt><dd>Archivo de respaldo</dd></div><div><dt>Antigüedad</dt><dd>{number(ageHours,1)} horas</dd></div></dl></section>}
 
     {selection?.piece&&<section className="coverage-piece" id="estadistica"><div><h2>{selection.piece.title}</h2><p>{selection.piece.definition}</p></div><dl><div><dt>Periodo</dt><dd>{selection.piece.years}</dd></div><div><dt>Muestra</dt><dd>{number(selection.piece.sample)}</dd></div><div><dt>Mínimo</dt><dd>{selection.piece.minimum} casos</dd></div></dl></section>}
 

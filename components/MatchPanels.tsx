@@ -1,13 +1,14 @@
 'use client'
 
-import { useEffect, useState, type ReactNode } from 'react'
+import { useEffect, useMemo, useState, type ReactNode } from 'react'
 
 type Panel = 'resumen' | 'puntos' | 'cifras'
 const labels: Record<Panel, string> = { resumen: 'Resumen', puntos: 'Puntos', cifras: 'Cifras' }
 const order: Panel[] = ['resumen', 'puntos', 'cifras']
 
 export default function MatchPanels({ overview, dna, stats, points }: { overview: ReactNode; dna?: ReactNode; stats?: ReactNode; points?: ReactNode }) {
-  const available = order.filter(key => key === 'resumen' || (key === 'puntos' && dna) || (key === 'cifras' && stats))
+  const hasDna=Boolean(dna),hasStats=Boolean(stats)
+  const available = useMemo(()=>order.filter(key => key === 'resumen' || (key === 'puntos' && hasDna) || (key === 'cifras' && hasStats)),[hasDna,hasStats])
   const [selected, setSelected] = useState<Panel>('resumen')
 
   useEffect(() => {
@@ -19,7 +20,7 @@ export default function MatchPanels({ overview, dna, stats, points }: { overview
     sync()
     window.addEventListener('hashchange', sync)
     return () => window.removeEventListener('hashchange', sync)
-  }, [available.join('|')])
+  }, [available])
 
   function select(key: Panel) {
     setSelected(key)

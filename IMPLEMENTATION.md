@@ -102,3 +102,26 @@ No promocionar solo porque compila: ejecutar build, pruebas, verificación del a
 - WAF/rate limiting distribuido, CSP estricta, avisos del proveedor/costes y los avisos de dependencias de desarrollo siguen fuera de esta entrega.
 
 Procedimientos, fuentes y límites: [docs/OPERATIONS.md](docs/OPERATIONS.md).
+
+## Cuarta entrega: frescura, capacidad y regresión (31/10/2026)
+
+- Cobertura ya no presenta una publicación ausente como «sin partidos nuevos»: muestra la fecha de la generación validada y un aviso de respaldo.
+- Liveness rápida separada de diagnóstico profundo; versión de aplicación/SHA/despliegue, request IDs, logs estructurados, Web Vitals y errores de cliente.
+- Búsqueda con mínimo, 429, límite de CPU, caché e índice por generación; nombres del comparador bajo demanda, sin directorio completo en el HTML cliente.
+- Publicación de partidos particionada por ATP/WTA y década, retención de dos generaciones, informe de capacidad y reserva de escritura a 1,5 GB.
+- Puerta WTA adicional, portada consciente del día editorial, promesa ATP/WTA corregida, canonical/sitemaps enriquecidos y JSON-LD de sitio/dataset.
+- Vídeo principal reducido de 17,0 a 5,7 MB y móvil de 4,8 a 1,0 MB; presupuestos de build y regresión visual en cinco anchos, preferencia oscura y movimiento reducido.
+- Trampas y retorno de foco, reflow equivalente al 200 %, Axe, LCP, CSP/SRI/cabeceras, eliminación de código/estilos/dependencias muertos y excepciones ESLint locales.
+- Build, 103 pruebas unitarias, integridad de 176.370 partidos/122 listas, 362 evidencias y simulacro de restauración verificados localmente.
+
+### Incidente que impide recuperar datos recientes
+
+Supabase agotó el disco escribiendo WAL y PostgreSQL permanece en recuperación sin aceptar conexiones, aunque la API de gestión diga `ACTIVE_HEALTHY`. La producción conserva una generación más nueva que el repositorio, pero no puede publicarla ni exportarla mientras la base esté caída. La migración de capacidad está preparada, no aplicada.
+
+### Configuración externa aún necesaria
+
+- Recuperar o ampliar el almacenamiento de Supabase; después aplicar y verificar la migración de capacidad.
+- Confirmar backups y aprobar, si se desea, el coste de PITR antes de activarlo.
+- Activar Vercel Firewall distribuido para las APIs públicas.
+- Proteger `main` con `verify`, rama actualizada, una aprobación, sin force-push/borrado, y exigir aprobación del entorno `production`.
+- Una CSP de nonce sin `unsafe-inline` exigiría abandonar la prerenderización de las rutas afectadas; queda como decisión de arquitectura, no como cambio silencioso.

@@ -20,11 +20,14 @@ const archive = join(process.cwd(), 'data', 'archive')
 const listsDir = join(archive, 'lists')
 const detailsDir = join(archive, 'details')
 
+// Raw provider rows are validated and normalized before publication.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Row = Record<string, any>
 const rowTour = (row: Row): Tour => row.tour === 'wta' ? 'wta' : 'atp'
 const rowKey = (row: Row) => `${rowTour(row)}:${row.id}`
 const detailKey = (kind: 'modern' | 'archive', row: Row) => `${rowTour(row) === 'wta' ? 'wta-' : ''}${kind}-${row.id}`
 const archiveIO = createLimiter(16)
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- archive files contain several provider schemas.
 async function readZip(file: string): Promise<any> {
   return archiveIO(async () => JSON.parse(gunzipSync(await readFile(file)).toString()))
 }

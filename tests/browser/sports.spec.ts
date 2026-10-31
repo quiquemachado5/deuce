@@ -4,7 +4,7 @@ import AxeBuilder from '@axe-core/playwright';
 test('home exposes useful archive entry points without repeating its content', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/');
-  await expect(page.locator('h1')).toContainText('TODO EL TENIS');
+  await expect(page.locator('h1')).toContainText('ARCHIVO DEL TENIS');
   await expect(page.getByRole('heading', { name: 'Últimos resultados' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Récords que explican el juego' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Grandes escenarios' })).toBeVisible();

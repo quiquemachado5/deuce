@@ -410,7 +410,7 @@
   .mediaGallery figure,.mediaGallery figure:not(:first-child){min-width:86%;min-height:340px;flex:0 0 86%;scroll-snap-align:start}
 }
 
-:global(body:has(.pp-page) .deuce-footer),:global(body:has(.player-directory) .deuce-footer){margin-top:24px!important}
+:global(body):has(.profilePage) :global(.deuce-footer){margin-top:24px!important}
 
 @media(hover:none){.profilePage :global(.pp-tournament-logo i){opacity:1}}
 
