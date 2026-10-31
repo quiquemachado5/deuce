@@ -18,6 +18,10 @@ export type ArchiveRow = Record<string, any>
 const base = 'https://api.livetennisapi.com/api/public/v1'
 let clientInstance: SupabaseClient | null = null
 export function cloudClient() {
+  // Vercel and GitHub expose CI only during their build steps. Builds must be
+  // reproducible from the validated bundled generation even when Supabase is
+  // unavailable; deployed functions do not receive CI and still use it.
+  if (process.env.CI === '1' || process.env.CI === 'true') return null
   if (clientInstance) return clientInstance
   const url = process.env.SUPABASE_URL, key = process.env.SUPABASE_SECRET_KEY
   if (url && key) clientInstance = createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } })
