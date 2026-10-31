@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
 
 const viewports = [
   { name: 'phone-320', width: 320, height: 800 },
@@ -8,6 +8,13 @@ const viewports = [
   { name: 'desktop-1440', width: 1440, height: 900 },
 ] as const;
 
+const dynamicCoverageContent = (page: Page) => [
+  page.locator('.coverage-updated'),
+  page.locator('.coverage-piece dd'),
+  page.locator('.coverage-api-days time'),
+  page.locator('.coverage-footer small'),
+];
+
 for (const viewport of viewports) {
   test(`coverage keeps the approved layout at ${viewport.name}`, async ({ page }) => {
     await page.setViewportSize(viewport);
@@ -16,7 +23,7 @@ for (const viewport of viewports) {
     await expect(page).toHaveScreenshot(`coverage-${viewport.name}.png`, {
       animations: 'disabled',
       fullPage: true,
-      mask: [page.locator('.coverage-updated'), page.locator('.coverage-piece dd')],
+      mask: dynamicCoverageContent(page),
     });
   });
 }
@@ -29,7 +36,7 @@ test('a dark operating-system preference keeps the approved light design', async
   await expect(page).toHaveScreenshot('coverage-system-dark.png', {
     animations: 'disabled',
     fullPage: true,
-    mask: [page.locator('.coverage-updated'), page.locator('.coverage-piece dd')],
+    mask: dynamicCoverageContent(page),
   });
 });
 
