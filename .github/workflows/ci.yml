@@ -31,3 +31,11 @@ jobs:
       - run: npm run data:restore-drill
       - run: npx playwright install --with-deps chromium
       - run: npm run test:browser
+      - name: Preserve browser failure evidence
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: playwright-failure-${{ github.run_id }}
+          path: test-results
+          if-no-files-found: ignore
+          retention-days: 7
