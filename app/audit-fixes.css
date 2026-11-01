@@ -15,7 +15,8 @@
 .deuce-archive-notice strong { color: var(--ink); }
 .deuce-archive-notice a { color: var(--link); font-weight: 750; text-underline-offset: 3px; }
 
-.records-page .deuce-archive-notice {
+.records-page .nc-wrap.deuce-archive-notice {
+  padding: 13px 16px;
   border-color: rgb(255 255 255 / 0.18);
   background: rgb(1 14 10 / 0.64);
   color: #dce9e2;
