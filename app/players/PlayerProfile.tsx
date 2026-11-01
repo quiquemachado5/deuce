@@ -74,7 +74,7 @@ export default async function Player({params,searchParams}:Props){
   const tour=player.matches[0]?.tour||'atp';
   if(playerSlug(player.name)!==slug)permanentRedirect(`/jugadores/${playerSlug(player.name)}${requestedTour==='wta'?'?tour=wta':''}`);
 
-  const portrait=playerDirectoryPhoto(player.name),bio=playerBiography(player.name);
+  const portrait=playerDirectoryPhoto(player.name,tour),bio=playerBiography(player.name,tour);
   const years=[...new Set(player.matches.map(match=>match.year))].sort((a,b)=>b-a);
   const latestYear=years[0],firstYear=years.at(-1)!;
   const activityLabel=firstYear===latestYear?String(firstYear):`${firstYear}–${latestYear}`;
@@ -121,7 +121,7 @@ export default async function Player({params,searchParams}:Props){
   },new Map<string,{name:string;matches:Match[];won:number}>()).values()].filter(rival=>rival.matches.length>=2);
   const rivals:RivalCard[]=rivalRows.map(rival=>{
     const surface=[...rival.matches.reduce((map,match)=>map.set(match.surface,(map.get(match.surface)||0)+1),new Map<string,number>())].sort((a,b)=>b[1]-a[1])[0]?.[0];
-    return {name:rival.name,href:comparisonHref(player.name,rival.name),country:playerBiography(rival.name)?.country,played:rival.matches.length,won:rival.won,surface:surfaceLabel[surface as keyof typeof surfaceLabel]||'Sin superficie'};
+    return {name:rival.name,href:comparisonHref(player.name,rival.name,'cara-a-cara',tour),country:playerBiography(rival.name,tour)?.country,played:rival.matches.length,won:rival.won,surface:surfaceLabel[surface as keyof typeof surfaceLabel]||'Sin superficie'};
   });
   const frequentRival=[...rivals].sort((a,b)=>b.played-a.played)[0];
   const participationLeader=[...tournaments].sort((a,b)=>b.participations-a.participations||b.played-a.played)[0];
@@ -142,7 +142,7 @@ export default async function Player({params,searchParams}:Props){
   const insights=[
     bestSeason&&{kind:'season',label:'Mejor temporada',value:String(bestSeason.year),detail:`${number(bestSeason.wins)} victorias · ${number(bestSeason.titles)} títulos`,photo:null},
     bestSurface&&{kind:'surface',label:'Mejor superficie registrada',value:bestSurface.label,detail:`${number(bestSurface.rate,1)} % en ${number(bestSurface.played)} partidos${bestSurface.played<10?' · muestra pequeña':''}`,photo:surfaceImage},
-    frequentRival&&{kind:'rival',label:'Rival más frecuente',value:frequentRival.name,detail:`${number(frequentRival.played)} enfrentamientos`,photo:playerDirectoryPhoto(frequentRival.name)},
+    frequentRival&&{kind:'rival',label:'Rival más frecuente',value:frequentRival.name,detail:`${number(frequentRival.played)} enfrentamientos`,photo:playerDirectoryPhoto(frequentRival.name,tour)},
     record.longestWinStreak>1&&{kind:'streak',label:'Mayor racha',value:number(record.longestWinStreak),detail:'victorias consecutivas',photo:null},
     participationLeader&&{kind:'appearances',label:'Más participaciones',value:participationLeader.name,detail:`${number(participationLeader.participations)} ediciones`,photo:courtPhoto(participationLeader.rawName)},
   ].filter((item):item is {kind:string;label:string;value:string;detail:string;photo:Photo|null}=>Boolean(item)).slice(0,5);
@@ -150,7 +150,7 @@ export default async function Player({params,searchParams}:Props){
   const galleryCandidates=[
     portrait,
     ...Object.values(championPhotos).filter(photo=>photo.alt.includes(player.name)),
-    ...Array.from({length:5},(_,index)=>playerEditionPhoto(player.name,index)),
+    ...Array.from({length:5},(_,index)=>playerEditionPhoto(player.name,index,tour)),
   ].filter((photo):photo is Photo=>Boolean(photo));
   const galleryPhotos=[...new Map(galleryCandidates.map(photo=>[photo.src,photo])).values()].slice(0,3);
 

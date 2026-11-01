@@ -75,7 +75,7 @@ export function DeuceTopbar() {
     const text=query.trim();
     if(text.length<2)return;
     const abort=new AbortController();
-    const timer=setTimeout(async()=>{try{const response=await fetch(`/api/search?q=${encodeURIComponent(text)}`,{signal:abort.signal});if(!response.ok)throw Error('search');const data=await response.json();setResult({query:text,items:Array.isArray(data.items)?data.items.slice(0,24):[]});}catch(error){if(!(error instanceof Error&&error.name==='AbortError'))setResult({query:text,items:[],error:true});}},120);
+    const timer=setTimeout(async()=>{try{const response=await fetch(`/api/search?tour=${new URLSearchParams(window.location.search).get('tour')==='wta'||new URLSearchParams(window.location.search).get('cuadro')==='wta'||new URLSearchParams(window.location.search).get('circuito')==='wta'?'wta':'atp'}&q=${encodeURIComponent(text)}`,{signal:abort.signal});if(!response.ok)throw Error('search');const data=await response.json();setResult({query:text,items:Array.isArray(data.items)?data.items.slice(0,24):[]});}catch(error){if(!(error instanceof Error&&error.name==='AbortError'))setResult({query:text,items:[],error:true});}},120);
     return()=>{clearTimeout(timer);abort.abort();};
   },[query]);
 

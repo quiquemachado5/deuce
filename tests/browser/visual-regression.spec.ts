@@ -8,11 +8,23 @@ const viewports = [
   { name: 'desktop-1440', width: 1440, height: 900 },
 ] as const;
 
+async function revealSections(page: Page) {
+  await page.evaluate(async () => {
+    for (const section of document.querySelectorAll('main section, footer')) {
+      section.scrollIntoView(); await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    }
+    scrollTo(0, 0);
+  });
+  await page.addStyleTag({content:'main section, footer { content-visibility: visible !important; } [data-reveal] { opacity: 1 !important; transform: none !important; }'});
+}
+
 const dynamicCoverageContent = (page: Page) => [
   page.locator('.coverage-updated'),
   page.locator('.coverage-piece dd'),
   page.locator('.coverage-api-days time'),
   page.locator('.coverage-footer small'),
+  page.locator('[class*=publication] dd'),
+  page.locator('[class*=publication] code'),
 ];
 
 for (const viewport of viewports) {
@@ -20,6 +32,7 @@ for (const viewport of viewports) {
     await page.setViewportSize(viewport);
     await page.goto('/cobertura');
     await expect(page.getByRole('heading', { name: /^Cobertura del archivo/ })).toBeVisible();
+    await revealSections(page);
     await expect(page).toHaveScreenshot(`coverage-${viewport.name}.png`, {
       animations: 'disabled',
       fullPage: true,
@@ -34,6 +47,7 @@ test('a dark operating-system preference keeps the approved light design', async
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/cobertura');
   await expect(page.locator('html')).not.toHaveAttribute('data-theme', 'dark');
+  await revealSections(page);
   await expect(page).toHaveScreenshot('coverage-system-dark.png', {
     animations: 'disabled',
     fullPage: true,
@@ -47,6 +61,7 @@ test('reduced motion preserves the home composition without video', async ({ pag
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
   await expect(page.locator('.hero-film video')).toHaveCount(0);
+  await revealSections(page);
   await expect(page).toHaveScreenshot('home-reduced-motion.png', {
     animations: 'disabled',
     fullPage: true,

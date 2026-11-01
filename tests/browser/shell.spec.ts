@@ -21,7 +21,7 @@ test('global search coexists with directory controls and fills the topbar',async
     const [topbar,form]=nodes.map(node=>node.getBoundingClientRect());
     return form.width>topbar.width-20&&Math.abs(form.left-topbar.left)<12;
   })).toBe(true);
-  const results=page.waitForResponse(response=>response.url().includes('/api/search?q=Nadal')&&response.ok());
+  const results=page.waitForResponse(response=>new URL(response.url()).pathname==='/api/search'&&new URL(response.url()).searchParams.get('q')==='Nadal'&&response.ok());
   await page.locator('#global-search').fill('Nadal');
   await results;
   await expect(page.getByRole('region',{name:'Jugadores',exact:true})).toBeVisible();

@@ -145,11 +145,11 @@ export default async function Edition({ params, searchParams }: Props) {
     timed[0]&&{match:timed[0],label:"La mayor duración publicada",value:durationLabel(publishedMatchMinutes(timed[0])!)},
   ].filter((item):item is {match:typeof measuredMatches[number];label:string;value:string}=>Boolean(item));
   const editionPortrait = champion
-    ? (selectedTour==='atp'?championPhotoForEdition(tournament.name, Number(year)) || playerPhotoAtTournament(champion, tournament.name):null) || playerPhoto(champion)
+    ? (selectedTour==='atp'?championPhotoForEdition(tournament.name, Number(year)) || playerPhotoAtTournament(champion, tournament.name):null) || playerPhoto(champion,selectedTour)
     : detailPhoto || heroPhoto;
   const spotlightSlides: Extract<EditionInsightSlide,{kind:"photo"}>[] = editionSpotlights.slice(0,3).flatMap((item) => {
     const subject = winnerName(item.match) || item.match.player1.name;
-    const photo = (selectedTour==='atp'?playerPhotoAtTournament(subject, tournament.name):null) || playerPhoto(subject) || detailPhoto || heroPhoto;
+    const photo = (selectedTour==='atp'?playerPhotoAtTournament(subject, tournament.name):null) || playerPhoto(subject,selectedTour) || detailPhoto || heroPhoto;
     if (!photo) return [];
     return [{
       kind: "photo" as const,

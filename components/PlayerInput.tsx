@@ -3,9 +3,9 @@
 import { ChevronDown } from 'lucide-react';
 import { useDeferredValue, useEffect, useId, useRef, useState } from 'react';
 
-type Props = { name: string; initial: string; label: string };
+type Props = { tour?:'atp'|'wta'; name: string; initial: string; label: string };
 
-export default function PlayerInput({ name, initial, label }: Props) {
+export default function PlayerInput({ name, initial, label, tour='atp' }: Props) {
   const listId = useId(), input = useRef<HTMLInputElement>(null);
   const [value, setValue] = useState(initial), deferredValue = useDeferredValue(value);
   const [open, setOpen] = useState(false), [showAll, setShowAll] = useState(false);
@@ -20,7 +20,7 @@ export default function PlayerInput({ name, initial, label }: Props) {
     const timer = window.setTimeout(async () => {
       setLoading(true);
       try {
-        const response = await fetch(`/api/players?q=${encodeURIComponent(query)}`, { signal: controller.signal });
+        const response = await fetch(`/api/players?tour=${tour}&q=${encodeURIComponent(query)}`, { signal: controller.signal });
         if (!response.ok) throw new Error('players');
         const body = await response.json();
         setOptions(Array.isArray(body.items) ? body.items : []);
@@ -30,7 +30,7 @@ export default function PlayerInput({ name, initial, label }: Props) {
       } finally { if (!controller.signal.aborted) setLoading(false); }
     }, 120);
     return () => { window.clearTimeout(timer); controller.abort(); };
-  }, [deferredValue, open, showAll]);
+  }, [deferredValue, open, showAll,tour]);
 
   const choose = (player: string) => {
     setValue(player); setOpen(false); setShowAll(false); setActive(-1);

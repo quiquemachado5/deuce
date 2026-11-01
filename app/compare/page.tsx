@@ -6,12 +6,12 @@ import { playerPhoto } from "@/lib/player-imagery";
 import { normalizeText } from "@/lib/quality";
 import { lineData, number, round, score, surfaceLabel } from "@/lib/cuaderno/model";
 import { tournamentName } from "@/lib/labels";
-import type { Match } from "@/lib/types";
+import type { Match, Tour } from "@/lib/types";
 import SetScoreboard from "@/components/SetScoreboard";
 import MatchRow from "@/components/nocturno/Row";
 import GameFlow from "@/components/nocturno/GameFlow";
 
-type Query = { left?: string; right?: string; q?: string; side?: string };
+type Query = { tour?:string; left?: string; right?: string; q?: string; side?: string };
 type Props = { searchParams: Promise<Query> };
 const examples = ["archive-148401", "live-95178"] as const;
 const games = (match: Match) => match.score_summary.games.reduce((sum, [a, b]) => sum + a + b, 0);
@@ -19,7 +19,7 @@ const tieBreaks = (match: Match) => match.score_summary.games.filter(([a, b]) =>
 const lastSetGames = (match: Match) => match.score_summary.games.at(-1)?.reduce((sum, value) => sum + value, 0) || 0;
 const winner = (match: Match) => match.winner === 2 ? match.player2.name : match.player1.name;
 const matchTitle = (match: Match) => match.player1.name + " contra " + match.player2.name;
-const address = (left: string, right: string) => "/compare?" + new URLSearchParams({ left, right });
+const address = (left: string, right: string, tour:Tour='atp') => "/compare?" + new URLSearchParams({ left, right, tour });
 const samePair = (left: Match, right: Match) =>
   [left.player1.name, left.player2.name].every((name) => name === right.player1.name || name === right.player2.name);
 const sharedPlayer = (left: Match, right: Match) =>
@@ -48,7 +48,7 @@ function relationship(left: Match, right: Match) {
 }
 
 function MatchIdentity({ match, position }: { match: Match; position: string }) {
-  const name = winner(match), portrait = playerPhoto(name);
+  const name = winner(match), portrait = playerPhoto(name,match.tour||'atp');
   return <section className="ry-compare-identity" data-event-surface={match.surface} data-event-category={match.category} aria-label={position + ": " + matchTitle(match)}>
     <div className="ry-compare-identity-copy">
       <p className="ry-compare-ordinal">{position} · {tournamentName(match.tournament)} {match.year} · {round(match)} <span className={"ry-compare-surface ry-compare-surface--" + match.surface} aria-hidden="true" /> {surfaceLabel[match.surface]}</p>
@@ -90,20 +90,23 @@ function Measure({ label, left, right, maximum }: { label: string; left: number;
 
 export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
   const query = await searchParams;
-  if (!query.left && !query.right) return { title: "Comparar partidos — DEUCE", description: "Dos partidos, el mismo criterio y sus resultados por sets.", alternates: { canonical: "/compare" } };
+  if (!query.left && !query.right) return { title: "Comparar partidos — DEUCE", description: "Dos partidos, el mismo criterio y sus resultados por sets.", alternates: { canonical: query.tour==='wta'?'/compare?tour=wta':'/compare' } };
   const matches = await preparedArchive();
-  const left = matches.find((match) => match.match_id === query.left), right = matches.find((match) => match.match_id === query.right);
-  return { title: left && right ? winner(left) + " y " + winner(right) + " · Comparar partidos — DEUCE" : "Comparar partidos — DEUCE", alternates: { canonical: left && right ? address(left.match_id, right.match_id) : "/compare" } };
+  const left = matches.find(match => match.match_id === query.left && (!query.tour || (match.tour||'atp')===query.tour)), right = matches.find(match => match.match_id === query.right && (match.tour||'atp')===(left?.tour||'atp'));
+  return { title: left && right ? winner(left) + " y " + winner(right) + " · Comparar partidos — DEUCE" : "Comparar partidos — DEUCE", alternates: { canonical: left && right ? address(left.match_id, right.match_id, left.tour||'atp') : "/compare" } };
 }
 
 export default async function ComparePage({ searchParams }: Props) {
-  const query = await searchParams, matches = await preparedArchive();
-  const left = matches.find((match) => match.match_id === query.left) || matches.find((match) => match.match_id === examples[0]);
+  const query = await searchParams, allMatches = await preparedArchive();
+  const requested=allMatches.find(m=>m.match_id===query.left);
+  const tour=query.tour==='atp'?'atp':query.tour==='wta'||requested?.tour==='wta'?'wta':'atp';
+  const matches=allMatches.filter(m=>(m.tour||'atp')===tour);
+  const left = matches.find((match) => match.match_id === query.left) || (tour==='atp'?matches.find((match) => match.match_id === examples[0]):matches[0]);
   const right = matches.find((match) => match.match_id === query.right && match.match_id !== left?.match_id)
     || (query.left && left ? relatedMatch(left, matches) : null)
     || matches.find((match) => match.match_id === examples[1] && match.match_id !== left?.match_id)
     || matches.find((match) => match.match_id === examples[0] && match.match_id !== left?.match_id);
-  if (!left || !right) return <main className="nc-wrap ry-compare-page"><h1>No se pudo abrir la comparación.</h1><p>Elige dos partidos del archivo para leerlos juntos.</p><Link href="/buscar">Buscar partidos</Link></main>;
+  if (!left || !right) return <main className="nc-wrap ry-compare-page"><h1>No se pudo abrir la comparación.</h1><p>Elige dos partidos del archivo para leerlos juntos.</p><Link href={`/buscar?tour=${tour}`}>Buscar partidos</Link></main>;
   const changing = query.side === "left" ? "left" : "right";
   const term = normalizeText(query.q || "").trim();
   const results = term ? matches.filter((match) => match.match_id !== (changing === "left" ? right.match_id : left.match_id) && normalizeText(match.player1.name + " " + match.player2.name + " " + tournamentName(match.tournament) + " " + match.year + " " + round(match)).includes(term)).slice(0, 25) : [];
@@ -139,9 +142,9 @@ export default async function ComparePage({ searchParams }: Props) {
     </section>}
     <section className="ry-compare-choice" aria-labelledby="ry-compare-choice-title">
       <div><h2 id="ry-compare-choice-title">Cambiar un partido</h2><p>Busca por jugador, torneo o año. El otro permanece fijo.</p></div>
-      <div className="ry-compare-change"><Link href={address(left.match_id, right.match_id) + "&side=left#elegir"} aria-current={changing === "left" ? "true" : undefined}>Cambiar el primero</Link><Link href={address(left.match_id, right.match_id) + "&side=right#elegir"} aria-current={changing === "right" ? "true" : undefined}>Cambiar el segundo</Link></div>
-      <form id="elegir" action="/compare" method="get" role="search"><input type="hidden" name="left" value={left.match_id}/><input type="hidden" name="right" value={right.match_id}/><input type="hidden" name="side" value={changing}/><label htmlFor="ry-compare-query">Buscar partido</label><div><input id="ry-compare-query" name="q" defaultValue={query.q || ""} type="search" placeholder="Jugador, torneo o año"/><button type="submit">Buscar</button></div></form>
-      {term && <div className="ry-compare-found"><p>{results.length ? "Resultados para «" + query.q + "»" : "Nada con ese nombre en el archivo."}</p>{results.length ? <ol>{results.map((match) => <li key={match.match_id}><MatchRow match={match} href={changing === "left" ? address(match.match_id, right.match_id) : address(left.match_id, match.match_id)} /></li>)}</ol> : <Link href={address(left.match_id, right.match_id) + "&side=" + changing + "#elegir"}>Limpiar búsqueda</Link>}</div>}
+      <div className="ry-compare-change"><Link href={address(left.match_id, right.match_id, left.tour||'atp') + "&side=left#elegir"} aria-current={changing === "left" ? "true" : undefined}>Cambiar el primero</Link><Link href={address(left.match_id, right.match_id, left.tour||'atp') + "&side=right#elegir"} aria-current={changing === "right" ? "true" : undefined}>Cambiar el segundo</Link></div>
+      <form id="elegir" action="/compare" method="get" role="search"><input type="hidden" name="tour" value={tour}/><input type="hidden" name="left" value={left.match_id}/><input type="hidden" name="right" value={right.match_id}/><input type="hidden" name="side" value={changing}/><label htmlFor="ry-compare-query">Buscar partido</label><div><input id="ry-compare-query" name="q" defaultValue={query.q || ""} type="search" placeholder="Jugador, torneo o año"/><button type="submit">Buscar</button></div></form>
+      {term && <div className="ry-compare-found"><p>{results.length ? "Resultados para «" + query.q + "»" : "Nada con ese nombre en el archivo."}</p>{results.length ? <ol>{results.map((match) => <li key={match.match_id}><MatchRow match={match} href={changing === "left" ? address(match.match_id, right.match_id, tour) : address(left.match_id, match.match_id, tour)} /></li>)}</ol> : <Link href={address(left.match_id, right.match_id, left.tour||'atp') + "&side=" + changing + "#elegir"}>Limpiar búsqueda</Link>}</div>}
     </section>
   </main>;
 }

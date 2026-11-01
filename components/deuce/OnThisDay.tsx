@@ -13,12 +13,12 @@ export function OnThisDay({ match, matches = [] }: { match?:Match; matches?:Matc
     .map(item=>{
       const winner=winnerName(item)!;
       const loser=item.player1.name===winner?item.player2.name:item.player1.name;
-      const photo=playerPhoto(winner);
+      const photo=playerPhoto(winner,item.tour||'atp');
       return {
         id:item.match_id,
         year:item.year,
         date:new Intl.DateTimeFormat('es-ES',{day:'numeric',month:'long',timeZone:'UTC'}).format(new Date(item.context!.date!)),
-        context:`${tournamentName(item.tournament)} · ${browserRound(item)}`,
+        context:`${(item.tour||'atp').toUpperCase()} · ${tournamentName(item.tournament)} · ${browserRound(item)}`,
         winner:canonicalName(winner),
         loser:canonicalName(loser),
         score:scoreFor(item,winner),

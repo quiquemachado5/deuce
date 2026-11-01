@@ -21,7 +21,7 @@ export function ArchiveMatchRow({ match, showContext = false, showTournamentCont
   const date = matchDate(match);
   return <Link className={styles.archiveMatch} href={match.href} prefetch={false} aria-label={`Ver ${match.players[0].name} contra ${match.players[1].name}`}>
     {showTournamentContext ? <div className={`${styles.archiveMatchContext} ${styles.archiveMatchContextProfile}`}><strong>{match.tournament}</strong><span>{match.round} · {date.long}</span></div> : showContext ? <div className={styles.archiveMatchContext}>{match.round} · {date.long}</div> : null}
-    {match.players.map((player, side) => {const countryCode=player.countryCode||playerBiography(player.name)?.country;return <div className={styles.archivePlayerRow} data-winner={winner === side || undefined} key={player.id}>
+    {match.players.map((player, side) => {const countryCode=player.countryCode||playerBiography(player.name,match.tour||'atp')?.country;return <div className={styles.archivePlayerRow} data-winner={winner === side || undefined} key={player.id}>
       <span className={styles.archivePlayer}>
         <span className={styles.archiveFlag} aria-hidden="true">{countryCode ? <PlayerFlag code={countryCode} /> : null}</span>
         <strong>{player.name}</strong>

@@ -15,12 +15,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const hasWomen = matches.some(match => match.tour === 'wta');
   const editions = new Set(events.flatMap(event => tournamentEditionCanonicalPaths(event.slug, event.matches)));
   const eventPages = events.flatMap(event => [
-    `/torneos/${event.slug}`,
+    ...(event.matches.some(match=>match.tour!=='wta')?[`/torneos/${event.slug}`]:[]),
     ...(event.matches.some(match => match.tour === 'wta') ? [`/torneos/${event.slug}?cuadro=wta`] : []),
   ]);
   const recordPages = generation.manifest.pieces.flatMap(piece => [
     recordsCanonical({dato:piece.id,tour:'atp'}),
-    ...(hasWomen ? [recordsCanonical({dato:piece.id,tour:'wta'})] : []),
+    ...(hasWomen&&generation.manifest.circuitPieces?.wta.some(p=>p.id===piece.id)?[recordsCanonical({dato:piece.id,tour:'wta'})]:[]),
   ]);
   const paths = [
     ...SITEMAP_STATIC_PATHS,

@@ -427,8 +427,8 @@ async function RecordIndex({
             const hasVideo = mediaLayout === "videoBottom";
             const hasSlider = mediaLayout === "slider";
             const familyPhoto =
-              (photoPiece?.leader ? portraitFor(photoPiece.leader.name) : null) ||
-              (fallbackPhoto
+              (photoPiece?.leader ? portraitFor(photoPiece.leader.name,query.tour==='wta'?'wta':'atp') : null) ||
+              (fallbackPhoto&&query.tour!=='wta'
                 ? portraitFor(fallbackPhoto.playerName) ||
                   recordPhoto(fallbackPhoto.recordId, fallbackPhoto.playerName)
                 : null) ||
@@ -753,7 +753,7 @@ export default async function Records({
   if (!piece && !view.exists) notFound();
   const leader = piece?.leader;
   const detailPhoto =
-    leader && piece ? portraitFor(leader.name) || photoFor(piece) : null;
+    leader && piece ? portraitFor(leader.name,query.tour==='wta'?'wta':'atp') || photoFor(piece) : null;
   const asYear = query.dato === "tal-dia-como-hoy";
   const title =
     piece?.title ||

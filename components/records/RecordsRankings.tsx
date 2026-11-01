@@ -97,7 +97,7 @@ export default function RecordsRankings({ sets }: { sets: RecordsRankingSet[] })
                 }
               />
             ) : (
-              <PlayerAvatar name={leader.name} size={184} />
+              <PlayerAvatar tour={leader.href.includes('tour=wta')?'wta':'atp'} name={leader.name} size={184} />
             )}
           </span>
           <span className="records-ranking-leader-copy">
@@ -116,7 +116,7 @@ export default function RecordsRankings({ sets }: { sets: RecordsRankingSet[] })
                 key={row.href}
                 style={{ "--rank-index": index } as React.CSSProperties}
               >
-                <PlayerAvatar name={row.name} size={46} />
+                <PlayerAvatar tour={row.href.includes('tour=wta')?'wta':'atp'} name={row.name} size={46} />
                 <Link href={row.href}>
                   <strong>{row.name}</strong>
                 </Link>

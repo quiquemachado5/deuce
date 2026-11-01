@@ -16,13 +16,12 @@ const portraitFocus:Record<string,{objectPosition:string;mobileObjectPosition:st
   'Alexander Zverev':{objectPosition:'50% 24%',mobileObjectPosition:'50% 18%'},
 };
 
-export const photoFor=(piece?:RecordMeta|null)=>piece?.leader?recordPhoto(piece.id,piece.leader.name):null;
-export const rowForTour=(row:RecordRow,tour?:string):RecordRow=>tour==='wta'&&row.href.startsWith('/jugadores/')
+export const photoFor=(piece?:RecordMeta|null)=>piece?.leader?(piece.leader.proof?.tour==='wta'?playerPhoto(piece.leader.photoName||piece.leader.name,'wta'):recordPhoto(piece.id,piece.leader.name)):null;
+export const rowForTour=(row:RecordRow,tour?:string):RecordRow=>tour==='wta'&&row.href.startsWith('/jugadores/')&&!row.href.includes('tour=wta')
   ?{...row,href:`${row.href}${row.href.includes('?')?'&':'?'}tour=wta`}:row;
-export function portraitFor(name:string):Photo|null{
-  const photo=playerEditionPhoto(name,1)||playerPhoto(name);if(!photo)return null;
-  const fullPortrait=photo.thumbnail?.match(/^\/images\/players\/optimized\/(.+)-small\.webp$/)?.[1];
-  return {...photo,src:fullPortrait?`/images/players/optimized/${fullPortrait}.webp`:photo.src,...(portraitFocus[name]||{})};
+export function portraitFor(name:string,tour:'atp'|'wta'='atp'):Photo|null{
+  const photo=playerEditionPhoto(name,1,tour)||playerPhoto(name,tour);if(!photo)return null;
+  return {...photo,...(tour==='atp'?portraitFocus[name]||{}:{})};
 }
 export const recordImageStyle=(photo:Photo)=>({
   '--record-photo-position':photo.objectPosition||'50% 28%',

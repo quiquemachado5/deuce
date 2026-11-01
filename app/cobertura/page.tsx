@@ -1,4 +1,6 @@
-import Link from "next/link";
+import Link from 'next/link';
+import {Suspense} from 'react';
+import Operations from './Operations';
 import type { Metadata } from 'next';
 import ArchiveNotice from "@/components/nocturno/ArchiveNotice";
 import { number } from "@/lib/cuaderno/model";
@@ -8,7 +10,7 @@ import type { IngestionBreakdown } from "@/lib/revista/snapshot";
 import { archiveDate, archiveFreshnessSummary } from '@/lib/archive-freshness';
 
 const title = 'Cobertura y frescura del archivo — DEUCE';
-const description = 'Consulta cuándo se generó la copia de DEUCE, hasta qué partido llega y qué datos ATP están disponibles; WTA está en preparación.';
+const description = 'Consulta cuándo se generó la copia de DEUCE, hasta qué partido llega y qué datos ATP y WTA están publicados y qué lagunas siguen abiertas.';
 
 export const metadata: Metadata = {
   title,
@@ -57,12 +59,13 @@ export default async function Coverage({ searchParams }: { searchParams: Promise
       <p className="coverage-updated">ATP {number(manifest.summary.tours?.atp ?? manifest.matchCount)} · WTA {number(manifest.summary.tours?.wta ?? 0)} partidos. El histórico femenino se incorpora por temporadas verificadas.</p>
     </header>
 
-    {stale&&<section className="coverage-piece" aria-labelledby="coverage-stale-title"><div><h2 id="coverage-stale-title">La última actualización no está disponible</h2><p>Cobertura muestra la copia validada generada el {updated}. No interpretamos la ausencia de una publicación nueva como un día sin partidos.</p></div><dl><div><dt>Estado</dt><dd>Archivo de respaldo</dd></div><div><dt>Antigüedad de la copia</dt><dd>{number(ageHours,1)} horas</dd></div><div><dt>Último partido con fecha exacta</dt><dd>{latestExact}</dd></div></dl></section>}
+    <Suspense fallback={<p role="status">Consultando el estado de las actualizaciones…</p>}><Operations manifest={manifest} source={generation.source}/></Suspense>
+    {stale&&<section className="coverage-piece" aria-labelledby="coverage-stale-title"><div><h2 id="coverage-stale-title">La última actualización no está disponible</h2><p>Cobertura muestra la copia validada generada el {updated}. No interpretamos la ausencia de una publicación nueva como un día sin partidos.</p></div><dl><div><dt>Estado</dt><dd>{generation.fallbackReason?'Archivo de respaldo':'Publicación pendiente de actualizar'}</dd></div><div><dt>Antigüedad de la copia</dt><dd>{number(ageHours,1)} horas</dd></div><div><dt>Último partido con fecha exacta</dt><dd>{latestExact}</dd></div></dl></section>}
 
     {selection?.piece&&<section className="coverage-piece" id="estadistica"><div><h2>{selection.piece.title}</h2><p>{selection.piece.definition}</p></div><dl><div><dt>Periodo</dt><dd>{selection.piece.years}</dd></div><div><dt>Muestra</dt><dd>{number(selection.piece.sample)}</dd></div><div><dt>Mínimo</dt><dd>{selection.piece.minimum} casos</dd></div></dl></section>}
 
     <section className="coverage-daily" aria-labelledby="coverage-daily-title">
-      <div className="coverage-section-copy"><h2 id="coverage-daily-title">Todo lo añadido, día a día</h2><p>ATP se consulta a las 04:00 UTC y WTA a las 04:30 UTC. La actualización validada se publica a las 05:00 UTC.</p></div>
+      <div className="coverage-section-copy"><h2 id="coverage-daily-title">Todo lo añadido, día a día</h2><p>ATP se consulta entre las 04:00 y las 04:59 UTC; WTA entre las 06:00 y las 06:59 UTC. La validación y publicación se intentan entre las 08:00 y las 08:59 UTC.</p></div>
       <div className="coverage-api-ledger">
         <ol className="coverage-api-days">{[...tracked].reverse().map((day,index)=>{
           const included=day.included||{...emptyBreakdown,matches:day.added};
@@ -71,6 +74,7 @@ export default async function Coverage({ searchParams }: { searchParams: Promise
           return <li key={`${day.date}-${index}`} className={index===0?"is-latest":undefined}>
             <header><time dateTime={day.date}>{new Date(`${day.date}T12:00:00Z`).toLocaleDateString("es-ES",{weekday:"short",day:"2-digit",month:"short",timeZone:"UTC"})}</time><span>{index===0?"Última publicación":"Publicada"}</span></header>
             <strong>{day.added>0?`+${number(day.added)}`:hasDetailedHistory?"Sin partidos nuevos":"Publicación sin detalle"}</strong>
+            <span className="coverage-api-total">{day.corrected===undefined?"Correcciones: sin medición registrada":`${number(day.corrected)} partidos corregidos`}</span>
             <span className="coverage-api-total">{number(day.total)} partidos en el archivo</span>
             {day.tourAdded&&<span className="coverage-api-total">ATP +{number(day.tourAdded.atp)} · WTA +{number(day.tourAdded.wta)}</span>}
             <dl>{apiSignals.map(signal=><div key={signal.key} data-signal={signal.key}><dt><i aria-hidden="true"/>{signal.label}</dt><dd><strong>{hasDetailedHistory?`+${number(included[signal.key])}`:"Sin detalle"}</strong>{hasDetailedHistory&&<span>{number(totals[signal.key])} en total</span>}</dd></div>)}</dl>

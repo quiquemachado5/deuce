@@ -45,7 +45,7 @@ export function RecordRanking({
           <li key={`${row.href}-${row.name}-${index}`}>
             <span className="rv-ranking-place">{place}</span>
             <div className="rv-ranking-person" data-has-avatar={row.href.startsWith('/jugadores/') || undefined}>
-                <Link href={row.href} className="rv-ranking-name">{row.href.startsWith('/jugadores/') && <PlayerAvatar name={row.name} size={40} />}{row.name}</Link>
+                <Link href={row.href} className="rv-ranking-name">{row.href.startsWith('/jugadores/') && <PlayerAvatar tour={row.href.includes('tour=wta')?'wta':'atp'} name={row.name} size={40} />}{row.name}</Link>
               <span className="rv-ranking-detail">{row.detail}</span>
             </div>
             <div className="rv-ranking-evidence">{evidence && !row.href.startsWith('/match/') ? (

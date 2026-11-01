@@ -97,7 +97,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
     editions.set(key, edition);
   }
   const groups = [...editions.values()];
-  const suggestions = query.q ? await searchArchive(query.q, { includeMatches: false, data }) : [];
+  const suggestions = query.q ? await searchArchive(query.q, { includeMatches: false, data,tour }) : [];
   const tourPlayers = new Set(tourMatches.flatMap(match => [normalizeText(match.player1.name), normalizeText(match.player2.name)]));
   const players = suggestions.filter(item => item.group === 'Jugadores' && tourPlayers.has(normalizeText(item.name)));
   const related = suggestions.filter(item => ['Torneos', 'Récords', 'Parejas'].includes(item.group));
@@ -127,7 +127,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
     {translatedSurface && <p className={styles.queryNotice} role="status">El filtro «{translatedSurface}» se ha aplicado correctamente.</p>}
     {!!query.q && matchSearchIntent(query.q).labels.length > 0 && <p className="archive-freshness">Interpretamos: {matchSearchIntent(query.q).labels.join(' · ')}</p>}
     {query.scope !== 'matches' && players.length > 0 && <section className={styles.playerResults} aria-label="Jugadores encontrados">{players.map(player => <Link className={styles.playerResult} href={player.href} key={player.href}>
-      <PlayerAvatar name={player.name} size={60} /><span><strong>{player.name}</strong><small>{players.length === 1 ? `${number(filtered.length)} partidos` : 'Ver ficha del jugador'}</small></span><ArrowUpRight size={18} aria-hidden="true" />
+      <PlayerAvatar tour={tour} name={player.name} size={60} /><span><strong>{player.name}</strong><small>{players.length === 1 ? `${number(filtered.length)} partidos` : 'Ver ficha del jugador'}</small></span><ArrowUpRight size={18} aria-hidden="true" />
     </Link>)}</section>}
     {related.length > 0 && <nav className={styles.relatedResults} aria-label="También en el archivo">{related.map(item => <Link href={item.href} key={item.href}>{item.name}<ArrowUpRight size={14} aria-hidden="true" /></Link>)}</nav>}
 
@@ -137,7 +137,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
       {!filtered.length && <EmptyState
         title={tour === 'wta' && !tourMatches.length ? 'El archivo WTA todavía no tiene temporadas publicadas' : 'No encontramos partidos'}
         description={tour === 'wta' && !tourMatches.length ? 'No mostramos resultados ATP como si fueran WTA. Puedes consultar la cobertura o continuar en el archivo ATP.' : 'Prueba otro nombre o quita alguno de los filtros de la búsqueda.'}
-        resetHref={tour === 'wta' && !tourMatches.length ? '/buscar' : matchSearchUrl({}, { q: query.q })}
+        resetHref={tour === 'wta' && !tourMatches.length ? '/buscar' : matchSearchUrl({}, { q: query.q,tour })}
       />}
       {!filtered.length && <nav className="archive-suggestions" aria-label="Alternativas de búsqueda">{chips.map(chip => <Link key={chip.key} href={matchSearchUrl(query,{[chip.key]:undefined})}>Quitar {chip.label}</Link>)}{tour === 'wta' && !tourMatches.length ? <><Link href="/buscar">Ver partidos ATP</Link><Link href="/cobertura">Consultar cobertura</Link></> : <><Link href="/buscar">Empezar de nuevo</Link><Link href="/buscar?q=Nadal+Federer+Wimbledon+2008">Nadal · Federer · Wimbledon 2008</Link></>}</nav>}
       {(query.vista === 'torneos' ? editionYears.length > seasonLimit : matchDates.length > dailyLimit) && <div className={styles.loadMore}><Link href={matchSearchUrl(query, { limit: String((query.vista === 'torneos' ? seasonLimit : dailyLimit) + (query.vista === 'torneos' ? 2 : 1)) })} scroll={false}>{query.vista === 'torneos' ? 'Cargar temporadas anteriores' : 'Cargar días anteriores'}<ChevronDown size={16} aria-hidden="true" /></Link></div>}

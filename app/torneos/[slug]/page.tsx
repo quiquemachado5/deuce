@@ -12,7 +12,7 @@ import { chronological, roundPosition, scoreFor, winnerName } from "@/lib/editor
 import PlayerAvatar from "@/components/PlayerAvatar";
 import TournamentChampionRail from "@/components/TournamentChampionRail";
 import { championPhotoForEdition, playerPhotoAtTournament } from "@/lib/tournament-media";
-import { playerEditionPhoto, playerPhoto } from "@/lib/player-imagery";
+import { playerPhoto } from "@/lib/player-imagery";
 import { imageFocus } from "@/lib/image-focus";
 import TournamentEditionNav from "@/components/TournamentEditionNav";
 import styles from "@/components/tournament-detail.module.css";
@@ -92,7 +92,7 @@ export default async function Tournament({ params, searchParams }: Props) {
     ? `${href}${href.includes('?') ? '&' : '?'}tour=wta` : href;
   const tournamentPlayerPhoto = (name: string) => {
     const titleYears = finals.filter((match) => winnerName(match) === name).map((match) => match.year);
-    return selectedTour==='wta'?playerPhoto(name):playerPhotoAtTournament(name, tournament.name, titleYears);
+    return selectedTour==='wta'?playerPhoto(name,selectedTour):playerPhotoAtTournament(name, tournament.name, titleYears);
   };
   const titlePodium = pieces.titles.slice(0, 3).map((row) => {
     const podiumPhoto = tournamentPlayerPhoto(row.name);
@@ -109,7 +109,7 @@ export default async function Tournament({ params, searchParams }: Props) {
   const latestFinal = finals[0];
   const latestChampion = latestFinal ? winnerName(latestFinal) : null;
   const latestChampionPhoto = latestFinal && latestChampion
-    ? selectedTour==='wta'?playerPhoto(latestChampion):playerPhotoAtTournament(latestChampion, tournament.name, [latestFinal.year]) : null;
+    ? selectedTour==='wta'?playerPhoto(latestChampion,selectedTour):playerPhotoAtTournament(latestChampion, tournament.name, [latestFinal.year]) : null;
   const rateLeaderFinal = rateLeader ? finals.find((match) => winnerName(match) === rateLeader.name) : null;
   const rateLeaderPhoto = rateLeader
     ? (selectedTour==='atp'&&rateLeaderFinal ? championPhotoForEdition(tournament.name, rateLeaderFinal.year) : null)
@@ -149,14 +149,11 @@ export default async function Tournament({ params, searchParams }: Props) {
 
       {finals.length > 0 && <section className={styles.championSection} aria-labelledby="td-history-title">
         <TournamentChampionRail title={selectedTour==='wta'?'Campeonas de la historia':'Campeones de la historia'} titleId="td-history-title">
-          {championFinals.map((final, finalIndex) => {
+          {championFinals.map((final) => {
             const champion = winnerName(final)!;
             const opponent = final.player1.name === champion ? final.player2.name : final.player1.name;
             const titlePhoto = selectedTour==='atp'?championPhotoForEdition(tournament.name, final.year):null;
-            const occurrence = championFinals.slice(0, finalIndex).filter((item) =>
-              winnerName(item) === champion && !(selectedTour==='atp'&&championPhotoForEdition(tournament.name, item.year))
-            ).length;
-            const championPhoto = titlePhoto || playerEditionPhoto(champion, occurrence) || tournamentPlayerPhoto(champion);
+            const championPhoto = titlePhoto;
             return <li key={final.match_id}><Link href={editionHref(final.year)} aria-label={`${champion}, ${selectedTour==='wta'?'campeona':'campeón'} en ${final.year}. Final ante ${opponent}`}>
               {championPhoto ? <Image className={`${styles.championPhoto} art-directed-photo`} src={championPhoto.src} alt={titlePhoto ? `${champion} con el trofeo de ${final.year}` : ""} fill sizes="(max-width: 759px) 78vw, 330px" style={imageFocus(championPhoto.objectPosition || "50% 20%", championPhoto.mobileObjectPosition || championPhoto.objectPosition || "50% 20%")} unoptimized /> : <PlayerAvatar name={champion} photo={null} size={80} />}
               <span className={styles.championShade} aria-hidden="true" /><span className={styles.championYear}>{final.year}</span><span className={styles.championCopy}><strong>{champion}</strong><span>Final ante {opponent}</span><small>{scoreFor(final, champion)}</small></span>

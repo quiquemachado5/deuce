@@ -28,7 +28,7 @@ export default async function Evidence({searchParams}:{searchParams:Promise<Reco
       {finals.length>25&&<Pagination page={page} total={finals.length} href={p=>'/records/evidencia?'+new URLSearchParams({...Object.fromEntries(Object.entries(recordFilters(q)).filter(([,value])=>value)) as Record<string,string>,dato:'dos-epocas',nombre:era.name,corte:String(cut),page:String(p)})}/>}
       <p className="dx-provenance">{number(finals.length)} finales · Versión {g.manifest.version} · Reglas {g.manifest.rulesVersion}</p></div>;
   }
-  if (!q.dato || !g.manifest.pieces.some(p => p.id === q.dato)) notFound();
+  if (!q.dato || !(q.tour==='wta'?g.manifest.circuitPieces?.wta||g.manifest.pieces:g.manifest.pieces).some(p => p.id === q.dato)) notFound();
   const catalog = await selectedCatalog(g,q,q.dato), piece = catalog.find(p => p.id === q.dato);
   const row = piece?.rows.find(r => r.name === q.nombre && r.detail === q.detalle && r.href === q.entrada);
   if (!row || !piece) notFound();

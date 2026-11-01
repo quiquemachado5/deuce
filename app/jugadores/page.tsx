@@ -59,7 +59,7 @@ export default async function Players({ searchParams }: {
   const pageStart = (page - 1) * 25;
   const visiblePlayers = players.slice(pageStart, pageStart + 25).map(record => ({
     record,
-    photo: playerDirectoryPhoto(record.name),
+    photo: playerDirectoryPhoto(record.name,query.tour==='wta'?'wta':'atp'),
     href: `/jugadores/${playerSlug(record.name)}${query.tour === 'wta' ? '?tour=wta' : ''}`,
     winRate: record.played ? 100 * record.wins / record.played : 0,
   }));
@@ -139,7 +139,7 @@ export default async function Players({ searchParams }: {
             return <Link className={styles.duel} href={comparisonHref(pair.names[0],pair.names[1])} key={pair.slug}>
               <div className={styles.duelTop}><span>Cara a cara</span><small>{number(pair.matches.length)} partidos</small></div>
               {pair.names.map((name, playerIndex) => {
-                const photo = playerPhoto(name);
+                const photo = playerPhoto(name,query.tour==='wta'?'wta':'atp');
                 return <div className={styles.duelPlayer} data-leader={leaderIndex === playerIndex ? '' : undefined} key={name}>
                   <span className={styles.avatar}>{photo ? <Image src={photo.thumbnail || photo.src} alt="" fill sizes="48px" style={{ objectPosition: photo.mobileObjectPosition || photo.objectPosition || 'center top' }}/> : <Initials name={name}/>}</span>
                   <strong>{name}</strong><b>{number(pair.wins[playerIndex])}</b>

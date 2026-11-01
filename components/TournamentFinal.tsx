@@ -14,7 +14,7 @@ import styles from './tournament-detail.module.css';
 export default function TournamentFinal({match,heading='La final'}:{match:Match;heading?:string;latest?:boolean}) {
   const champion=winnerName(match);
   const photo=champion
-    ? match.tour==='wta'?playerPhoto(champion):playerPhotoAtTournament(champion,match.tournament,[match.year])
+    ? match.tour==='wta'?playerPhoto(champion,'wta'):playerPhotoAtTournament(champion,match.tournament,[match.year])
     : null;
   return <section className={styles.finalSection} id="final-edition" aria-label={`${heading} ${match.year}`}>
     <h2>{heading}</h2>

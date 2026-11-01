@@ -396,8 +396,8 @@ html[data-theme="dark"]{--p1:#86c9ae;--p2:#9fb9aa;--metric-strong:#86c9ae;--metr
 }
 
 /* 2026-10-27 · compact live archive, global scorecards and route motion. */
-.deuce-page-transition{min-height:100%;animation:deuce-page-enter .42s var(--ease) both}
-@keyframes deuce-page-enter{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+.deuce-page-transition{min-height:100%;animation:deuce-page-enter .28s var(--ease) both}
+@keyframes deuce-page-enter{from{transform:translateY(4px)}to{transform:none}}
 
 .hero-youtube{overflow:hidden;background:#071b15}
 .hero-youtube>img,.hero-youtube>iframe{position:absolute;inset:50% auto auto 50%;width:auto;min-width:100%;height:100%;min-height:100%;aspect-ratio:16/9;border:0;transform:translate(-50%,-50%) scale(1.04)}
@@ -3389,3 +3389,6 @@ main:has(.deuce-comparison)+.deuce-footer{margin-top:22px!important}
   .topbar>.search-trigger:hover{background:rgba(232,238,235,.94)!important;color:var(--ink)!important}
   .topbar>.menu:hover,.topbar-spotlight-groups a:hover{background:transparent!important;color:var(--ink)!important}
 }
+
+/* Measured AA contrast on the pale match-statistic panels. */
+.pm-summary-intro>p,.pm-metric-pair small,.pm-h2h-meeting header>span,.pm-h2h-meeting header>strong.is-masters{color:#526259}

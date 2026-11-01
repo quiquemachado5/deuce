@@ -16,7 +16,7 @@ import { ArchiveMatchRow } from '@/components/deuce/MatchArchivePage';
 import { toMatchRecord } from '@/data/map-match';
 import styles from './compare.module.css';
 
-export const metadata = {
+const baseMetadata = {
   title: 'Comparador de jugadores — DEUCE',
   description: 'Compara dos jugadores del archivo DEUCE por trayectoria, rendimiento, superficie y enfrentamientos directos.',
   alternates: { canonical: '/comparar' },
@@ -32,12 +32,21 @@ export const metadata = {
   },
   robots: { index: false, follow: true },
 };
+export async function generateMetadata({searchParams}:{searchParams:Promise<Query>}) {
+  const q=await searchParams, tour=q.tour==='wta'?'wta':'atp';
+  const canonical='/comparar?'+new URLSearchParams({tour,...(q.a?{a:q.a}:{}),...(q.b?{b:q.b}:{})});
+  const title=tour==='wta'?'Comparador de jugadoras WTA — DEUCE':'Comparador de jugadores ATP — DEUCE';
+  return {...baseMetadata,title,alternates:{canonical},openGraph:{...baseMetadata.openGraph,title,url:canonical}};
+}
 export const revalidate = 300;
 type Query = Record<string, string | undefined>;
 
 export default async function Compare({ searchParams }: { searchParams: Promise<Query> }) {
   const q = await searchParams, generation = await preparedGeneration();
-  const [matches,recordSource]=await Promise.all([generation.matches(),generation.records()]);
+  const [allMatches,allRecords]=await Promise.all([generation.matches(),generation.records()]);
+  const tour=q.tour==='wta'?'wta':'atp';
+  q.tour=tour;
+  const matches=allMatches.filter(m=>(m.tour||'atp')===tour),recordSource=allRecords.filter(p=>(p.tour||'atp')===tour);
   const names = recordSource.map(player=>player.name).sort((a,b) => a.localeCompare(b,'es'));
   const resolvePlayer = (value: string) => {
     const exact = names.find(name => playerSlug(name) === playerSlug(value) || normalizeText(name) === normalizeText(value));
@@ -46,10 +55,10 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
     const surnames = names.filter(name => normalizeText(name).split(/\s+/).at(-1) === token);
     return surnames.length === 1 ? surnames[0] : '';
   };
-  const firstRequested = q.a || 'Novak Djokovic';
+  const firstRequested = q.a || (tour==='wta'?names[0]||'':'Novak Djokovic');
   const firstResolved = resolvePlayer(firstRequested);
   const defaultSecond = playerSlug(firstResolved || firstRequested) === playerSlug('Rafael Nadal') ? 'Novak Djokovic' : 'Rafael Nadal';
-  const requested = [firstRequested, q.b || defaultSecond];
+  const requested = [firstRequested, q.b || (tour==='wta'?names.find(n=>n!==firstResolved)||'':defaultSecond)];
   const resolved = [firstResolved, resolvePlayer(requested[1])];
   const chosen = requested.map((name, index) => resolved[index] || name);
   const same = chosen[0] === chosen[1], valid = resolved.every(Boolean);
@@ -95,15 +104,16 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
     <header className={`inner-title ${styles.intro}`}><h1>Comparar</h1></header>
     <ArchiveNotice status={generation} />
     <CompareSelection key={chosen.join('|')} initial={chosen.map(name => {
-      const photo = playerPhoto(name);
+      const photo = playerPhoto(name,q.tour==='wta'?'wta':'atp');
       const hasThumbnail = Boolean(photo?.thumbnail);
-      return { name, country: playerBiography(name)?.country, photo: photo ? {
+      return { name, country: playerBiography(name,q.tour==='wta'?'wta':'atp')?.country, photo: photo ? {
         src: photo.thumbnail || photo.src,
         objectPosition: hasThumbnail ? '50% 20%' : photo.objectPosition,
         avatarCrop: hasThumbnail ? undefined : photo.avatarCrop,
       } : undefined };
     })}>
-      {['a','b'].map((key,index) => <div className="nc-field" key={key}><span>Jugador {index + 1}</span><PlayerInput key={chosen[index]} name={key} initial={chosen[index]} label={`Jugador ${index + 1}`} /></div>)}
+      <input type="hidden" name="tour" value={tour}/><nav aria-label="Circuito del comparador"><Link href="/comparar?tour=atp" aria-current={tour==='atp'?'page':undefined}>ATP</Link> · <Link href="/comparar?tour=wta" aria-current={tour==='wta'?'page':undefined}>WTA</Link></nav>
+      {['a','b'].map((key,index) => <div className="nc-field" key={key}><span>Jugador {index + 1}</span><PlayerInput tour={tour} key={chosen[index]} name={key} initial={chosen[index]} label={`Jugador ${index + 1}`} /></div>)}
       <CompareSampleFilters summary={activeSampleFilters ? `${activeSampleFilters} activos` : 'Valores generales'}>
         <label className="nc-field"><span>Periodo de comparación</span><select name="period" defaultValue={q.period || "career"}><option value="career">Carrera documentada</option><option value="shared">Periodo compartido</option></select></label>
         <label className="nc-field"><span>Temporada</span><select name="year" defaultValue={q.year || 'all'}><option value="all">Todas</option>{generation.manifest.years.map(year => <option key={year}>{year}</option>)}</select></label>
@@ -120,7 +130,7 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
         <h2 id="comparison-table-title" className="nc-sr">Comparación métrica</h2>
         <div className={styles.comparisonHeader}>
           {players.map((player, index) => {
-            const country = playerBiography(player.name)?.country;
+            const country = playerBiography(player.name,q.tour==='wta'?'wta':'atp')?.country;
             return <Link className={styles.playerHeading} data-side={index === 0 ? 'left' : 'right'} href={`/jugadores/${playerSlug(player.name)}`} key={player.name}>
               <span className={styles.flag}>{country ? <PlayerFlag code={country}/> : null}</span>
               <strong>{player.name}</strong>
@@ -188,7 +198,7 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
         <div className={styles.h2hCard}>
           <div className={styles.h2hBalance}>
             {players.map((player, index) => {
-              const country = playerBiography(player.name)?.country;
+              const country = playerBiography(player.name,q.tour==='wta'?'wta':'atp')?.country;
               const leading = directWins[index] > directWins[1 - index];
               return <div className={styles.h2hPlayer} data-leading={leading ? 'true' : undefined} data-side={index === 0 ? 'left' : 'right'} data-wins={directWins[index]} key={player.name}>
                 <span className={styles.h2hFlag}>{country ? <PlayerFlag code={country}/> : null}</span>
