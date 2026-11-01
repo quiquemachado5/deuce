@@ -1,4 +1,4 @@
-import { cloudArchiveHasCapacity, cloudClient, cloudProbeRead } from '@/lib/cloud-archive';
+import { cloudArchiveConfigured, cloudArchiveHasCapacity, cloudProbeRead } from '@/lib/cloud-archive';
 import { deploymentMetadata } from '@/lib/deployment';
 import { editionCompleteness } from '@/lib/edition-audit';
 import { generationMetadata } from '@/lib/revista/generation';
@@ -29,7 +29,7 @@ export async function GET(request: Request) {
     const auditedEditions = editions.map(edition => ({ ...edition, ...editionCompleteness(edition) }));
     const ageHours = Math.max(0, (Date.now() - Date.parse(generation.manifest.generatedAt)) / 3_600_000);
     const refresh = recentStatus(sync), wtaRefresh = recentStatus(wtaSync), published = recentStatus(publication);
-    const configured = Boolean(cloudClient());
+    const configured = cloudArchiveConfigured();
     const dailyIssue = configured && [refresh, wtaRefresh, published].some(row => row.status !== 'success' || row.ageHours === null || row.ageHours > 36);
     const status = generation.fallbackReason || ageHours > 72 || dailyIssue || !capacity.available ? 'degraded' : 'healthy';
     const elapsedMs = Math.round(performance.now() - started);

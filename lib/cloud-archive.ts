@@ -1,11 +1,20 @@
 import 'server-only'
-import { createClient, type SupabaseClient } from '@supabase/supabase-js'
-import { randomUUID } from 'node:crypto'
 import { readdir } from 'node:fs/promises'
 import { join } from 'node:path'
 import { gunzipSync } from 'node:zlib'
 import { loadMissingDetails } from './archive-detail-batches'
-import { archiveGet, archiveReadFailure } from './archive-get'
+import { archiveReadFailure } from './archive-get'
+import {
+  acquireArchiveLease,
+  archiveStoreBackend,
+  archiveStoreConfigured,
+  archiveStoreReport,
+  deleteArchiveKeys,
+  legacyArchiveClient,
+  listArchiveKeys,
+  readArchiveObject,
+  writeArchiveObjects,
+} from './archive-store'
 import { enrichmentPlan } from './enrichment-plan'
 import { activityFixtures } from './tour-activity'
 import {reconcileSeasonResults} from './result-refresh'
@@ -16,31 +25,27 @@ import { hasClosedModernResult } from './modern-result'
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ArchiveRow = Record<string, any>
 const base = 'https://api.livetennisapi.com/api/public/v1'
-let clientInstance: SupabaseClient | null = null
+/** Legacy Supabase access remains available until the Blob cutover is complete. */
 export function cloudClient() {
-  // Vercel and GitHub expose CI only during their build steps. Builds must be
-  // reproducible from the validated bundled generation even when Supabase is
-  // unavailable; deployed functions do not receive CI and still use it.
   if (process.env.CI === '1' || process.env.CI === 'true') return null
-  if (clientInstance) return clientInstance
-  const url = process.env.SUPABASE_URL, key = process.env.SUPABASE_SECRET_KEY
-  if (url && key) clientInstance = createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } })
-  return clientInstance
+  return legacyArchiveClient()
+}
+export function cloudArchiveConfigured() {
+  if (process.env.CI === '1' || process.env.CI === 'true') return false
+  return archiveStoreConfigured()
 }
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- cache stores heterogeneous archive JSON.
 const cache = new Map<string, { at: number; value: Promise<any> }>()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- callers validate each object contract.
 export async function cloudRead(key: string): Promise<any> {
-  const client = cloudClient()
-  if (!client) return undefined
+  if (!cloudArchiveConfigured()) return undefined
   const saved = cache.get(key)
   if (saved && Date.now() - saved.at < 300_000) return saved.value
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- see cloudRead contract above.
   const pending: { value?: Promise<any> } = {}
   pending.value = (async () => {
     try {
-      const data = await archiveGet(signal => client.from('deuce_archive_objects').select('payload').eq('key', key).abortSignal(signal).maybeSingle().retry(false))
-      return data?.payload
+      return await readArchiveObject(key)
     } catch (error) {
       console.error('Cloud archive read failed:', archiveReadFailure(error))
     }
@@ -56,15 +61,8 @@ export async function cloudRead(key: string): Promise<any> {
 /** A health probe must fail fast instead of consuming the whole function budget. */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- health payloads are validated by their caller.
 export async function cloudProbeRead(key: string, budget = 1_500): Promise<any> {
-  const client = cloudClient()
-  if (!client) return undefined
-  try {
-    const { data, error } = await client.from('deuce_archive_objects').select('payload').eq('key', key)
-      .abortSignal(AbortSignal.timeout(Math.max(1, budget))).maybeSingle()
-    return error ? undefined : data?.payload
-  } catch {
-    return undefined
-  }
+  if (!cloudArchiveConfigured()) return undefined
+  return readArchiveObject(key, budget)
 }
 
 /** Read one immutable artifact from a published records generation. */
@@ -90,97 +88,68 @@ export async function cloudSnapshotBlob<T>(version: string, id: string): Promise
 export type ArchiveWrite = { key: string; payload: unknown }
 export async function cloudWriteMany(entries: readonly ArchiveWrite[]) {
   if (!entries.length) return
-  const client = cloudClient()
-  if (!client) throw new Error('Cloud archive is not configured')
-  const rows = entries.map(entry => ({ ...entry, updated_at: new Date().toISOString() }))
-  for (let attempt = 0; attempt < 2; attempt++) {
-    let result
-    try {
-      result = await client.from('deuce_archive_objects').upsert(rows).abortSignal(AbortSignal.timeout(15_000))
-    } catch (error) {
-      if (attempt === 0 && error instanceof Error && ['AbortError', 'TimeoutError', 'TypeError'].includes(error.name)) continue
-      throw error
-    }
-    const { error, status } = result
-    if (!error) {
-      for (const { key } of entries) cache.delete(key)
-      return
-    }
-    if (attempt === 0 && (error.code === '57014' || status === 0 || status === 429 || status >= 500)) continue
-    // Object keys and size identify the failed stage without exposing payloads.
-    throw new Error(`Archive write failed: ${error.code || status}; keys=${entries.map(entry => entry.key).join(',')}; bytes=${Buffer.byteLength(JSON.stringify(rows))}`)
-  }
+  await writeArchiveObjects(entries)
+  for (const { key } of entries) cache.delete(key)
 }
 export async function cloudWrite(key: string, payload: unknown) {
   await cloudWriteMany([{ key, payload }])
 }
 export type ArchiveStorageReport={relationBytes:number;payloadBytes:number;objects:number;snapshots:number;details:number};
+export type ArchiveCapacityStatus='available'|'full'|'unknown';
+export function archiveCapacityStatus(report:ArchiveStorageReport|undefined,maximum:number):ArchiveCapacityStatus{
+  if(!report||!Number.isFinite(maximum)||maximum<=0||Object.values(report).some(value=>!Number.isFinite(value)||value<0))return 'unknown';
+  return report.relationBytes<maximum?'available':'full';
+}
+export function parseArchiveStorageReport(value:unknown):ArchiveStorageReport|undefined{
+  if(!Array.isArray(value)||!value[0]||typeof value[0]!=='object')return undefined;
+  const row=value[0] as Record<string,unknown>;
+  const keys=['relation_bytes','payload_bytes','object_count','snapshot_count','detail_count'] as const;
+  const raw=keys.map(key=>row[key]);
+  if(raw.some(metric=>metric===null||metric===undefined||(typeof metric==='string'&&!metric.trim())))return undefined;
+  const values=raw.map(Number);
+  if(values.some(metric=>!Number.isFinite(metric)||metric<0))return undefined;
+  return {relationBytes:values[0],payloadBytes:values[1],objects:values[2],snapshots:values[3],details:values[4]};
+}
 export async function cloudArchiveStorageReport(budget=5_000):Promise<ArchiveStorageReport|undefined>{
-  const client=cloudClient();if(!client)return undefined;
-  try{
-    const {data,error}=await client.rpc('deuce_archive_storage_report').abortSignal(AbortSignal.timeout(Math.max(1,budget)));
-    if(error||!Array.isArray(data)||!data[0])return undefined;
-    const row=data[0] as Record<string,unknown>;
-    const number=(key:string)=>Number(row[key])||0;
-    return {relationBytes:number('relation_bytes'),payloadBytes:number('payload_bytes'),objects:number('object_count'),snapshots:number('snapshot_count'),details:number('detail_count')};
-  }catch{return undefined;}
+  return archiveStoreReport(budget)
 }
 export async function cloudArchiveHasCapacity(budget?:number){
   const report=await cloudArchiveStorageReport(budget);
-  const configured=Number(process.env.DEUCE_ARCHIVE_MAX_BYTES),maximum=Number.isFinite(configured)&&configured>0?configured:1_500_000_000;
-  return {report,maximum,available:!report||report.relationBytes<maximum};
+  const configured=Number(process.env.DEUCE_ARCHIVE_MAX_BYTES);
+  const defaultMaximum=archiveStoreBackend()==='vercel-blob'?800_000_000:450_000_000;
+  const maximum=Number.isFinite(configured)&&configured>0?configured:defaultMaximum;
+  const status=archiveCapacityStatus(report,maximum);
+  return {report,maximum,status,available:status==='available'};
 }
 
 /** Keep the active and immediately previous immutable generations only. */
 export async function cloudPruneSnapshotGenerations(keepVersions:readonly string[]){
-  const client=cloudClient();if(!client)return 0;
+  if(!cloudArchiveConfigured())return 0;
   const keep=new Set(keepVersions.filter(version=>/^[a-f0-9]{20}$/.test(version))),obsolete:string[]=[];
-  for(let offset=0;;offset+=1000){
-    const {data,error}=await client.from('deuce_archive_objects').select('key').like('key','reading-v2-%').order('key').range(offset,offset+999).abortSignal(AbortSignal.timeout(10_000));
-    if(error)throw error;
-    for(const row of data||[]){const version=/^reading-v2-([a-f0-9]{20})-/.exec(row.key)?.[1];if(version&&!keep.has(version))obsolete.push(row.key);}
-    if(!data||data.length<1000)break;
-  }
-  for(let offset=0;offset<obsolete.length;offset+=250){
-    const {error}=await client.from('deuce_archive_objects').delete().in('key',obsolete.slice(offset,offset+250)).abortSignal(AbortSignal.timeout(15_000));
-    if(error)throw error;
-  }
+  for(const key of await listArchiveKeys('reading-v2-')){const version=/^reading-v2-([a-f0-9]{20})-/.exec(key)?.[1];if(version&&!keep.has(version))obsolete.push(key);}
+  await deleteArchiveKeys(obsolete)
   return obsolete.length;
 }
 export async function cloudDetails(): Promise<Record<string, ArchiveRow>> {
-  const client = cloudClient()
-  if (!client) return {}
+  if (!cloudArchiveConfigured()) return {}
   const saved = cache.get('detail-index')
   if (saved && Date.now() - saved.at < 300_000) return saved.value
   const value = (async () => {
-    const keys: string[] = []
-    for (let offset = 0; ; offset += 1000) {
-      const data = await archiveGet(signal => client.from('deuce_archive_objects').select('key').like('key', 'detail-%').order('key').range(offset, offset + 999).abortSignal(signal).retry(false))
-      for (const row of data || []) if(/^detail-(?:wta-)?(modern|archive)-/.test(row.key))keys.push(row.key)
-      if (!data || data.length < 1000) break
-    }
+    const keys = (await listArchiveKeys('detail-')).filter(key => /^detail-(?:wta-)?(modern|archive)-/.test(key))
     const files = await readdir(join(process.cwd(), 'data', 'archive', 'details')).catch(() => [])
     const bundled = new Set(files.filter(f => f.endsWith('.json.gz')).map(f => `detail-${f.slice(0, -8)}`))
     const overrides = await cloudRead('detail-overrides')
     for(const key of overrides?.keys || []) if(typeof key==='string')bundled.delete(key)
     return loadMissingDetails<ArchiveRow>(keys, bundled, async batch => {
-      const data = await archiveGet(signal => client.from('deuce_archive_objects').select('key,payload').in('key', batch).abortSignal(signal).retry(false))
-      return data || []
+      const rows=await Promise.all(batch.map(async key=>({key,payload:await readArchiveObject(key)})))
+      return rows.filter((row):row is {key:string;payload:ArchiveRow}=>row.payload!==undefined&&!!row.payload&&typeof row.payload==='object')
     })
   })().catch(error => { cache.delete('detail-index'); console.error('Cloud details read failed:', archiveReadFailure(error)); return {} })
   cache.set('detail-index', { at: Date.now(), value })
   return value
 }
 async function lease() {
-  const client = cloudClient()
-  if (!client) throw new Error('Cloud archive is not configured')
-  const owner = randomUUID()
-  const { data, error } = await client.rpc('deuce_acquire_lease', { lease_name: 'tennis-provider', lease_owner: owner, ttl_seconds: 300 })
-  if (error) throw new Error(`Sync lease failed: ${error.code}`)
-  if (!data) return null
-  return async () => {
-    await client.from('deuce_sync_lease').update({ expires_at: new Date(Date.now() + 1500).toISOString() }).eq('name', 'tennis-provider').eq('owner', owner)
-  }
+  return acquireArchiveLease('tennis-provider',300)
 }
 async function provider(path: string) {
   if (!process.env.TENNIS_API_KEY) throw new Error('Tennis provider is not configured')
@@ -203,7 +172,7 @@ export async function downloadCloudDetail(kind: 'modern' | 'archive', id: string
   const key = `detail-${kind}-${id}`
   const saved = await cloudRead(key)
   if (saved) return saved
-  if (!process.env.TENNIS_API_KEY || !cloudClient()) return undefined
+  if (!process.env.TENNIS_API_KEY || !cloudArchiveConfigured()) return undefined
   const release = await lease()
   if (!release) return undefined
   try {
@@ -228,7 +197,7 @@ export async function refreshCloudArchive() {
   try {
     const capacity=await cloudArchiveHasCapacity()
     if(!capacity.available){
-      const result={status:'storage-reserve',at:new Date().toISOString(),calls,relationBytes:capacity.report?.relationBytes,maximumBytes:capacity.maximum}
+      const result={status:capacity.status==='full'?'storage-reserve':'storage-unverified',at:new Date().toISOString(),calls,relationBytes:capacity.report?.relationBytes,maximumBytes:capacity.maximum}
       await cloudWrite('sync-status',result)
       return result
     }
@@ -277,11 +246,7 @@ export async function refreshCloudArchive() {
     const { hasBundledDetail, bundledEnrichmentCandidates } = await import('./live-tennis')
     // Only keys are needed to avoid downloading the growing payload archive during sync.
     const known = new Set<string>()
-    for(let offset=0;;offset+=1000){
-      const keys=await archiveGet(signal=>cloudClient()!.from('deuce_archive_objects').select('key').like('key','detail-%').order('key').range(offset,offset+999).abortSignal(signal).retry(false))
-      for(const row of keys||[])known.add(row.key.slice(7))
-      if(!keys||keys.length<1000)break
-    }
+    for(const key of await listArchiveKeys('detail-'))known.add(key.slice(7))
     let detailsAdded = 0,detailsRefreshed=0
     const overrides = new Set<string>((await cloudRead('detail-overrides'))?.keys || [])
     const checked:Record<string,string>=(await cloudRead('refresh-detail-state'))?.checked || {}
@@ -328,7 +293,7 @@ export async function refreshCloudWta() {
   try {
     const capacity=await cloudArchiveHasCapacity()
     if(!capacity.available){
-      const result={status:'storage-reserve',at:new Date().toISOString(),calls,relationBytes:capacity.report?.relationBytes,maximumBytes:capacity.maximum}
+      const result={status:capacity.status==='full'?'storage-reserve':'storage-unverified',at:new Date().toISOString(),calls,relationBytes:capacity.report?.relationBytes,maximumBytes:capacity.maximum}
       await cloudWrite('wta-sync-status',result)
       return result
     }

@@ -59,6 +59,12 @@ El 31/10/2026 el proyecto Supabase `rmiltvmwdmfqzuoipfqs` figura `ACTIVE_HEALTHY
 
 La solución operativa requiere liberar o ampliar almacenamiento desde Supabase y confirmar backups/PITR antes de una restauración. PITR es una opción de pago y no se activa desde este repositorio sin aprobación expresa. El procedimiento está en [docs/OPERATIONS.md](docs/OPERATIONS.md).
 
+La migración sin coste está preparada para usar un Blob privado de Vercel como
+archivo principal. El snapshot incluido permite sembrarlo aunque PostgreSQL no
+arranque; la generación más reciente que solo exista en Supabase seguirá
+pendiente de recuperación. El adaptador mantiene fallback local, retención de
+dos generaciones, límite preventivo de 800 MB y lease condicional para cron.
+
 ## Rendimiento, accesibilidad y diseño
 
 La búsqueda exige dos caracteres, limita frecuencia y CPU y reutiliza un índice por generación. El comparador descarga nombres bajo demanda. Los vídeos de portada pesan como máximo 7 MB en escritorio y 1,5 MB en móvil. CI cubre 320, 390, 768, 1024 y 1440 px, reflow al 200 %, teclado, reducción de movimiento y Axe.

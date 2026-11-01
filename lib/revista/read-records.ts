@@ -3,7 +3,7 @@ import {readFile} from 'node:fs/promises';
 import {join} from 'node:path';
 import {gunzipSync} from 'node:zlib';
 import {cache} from 'react';
-import {cloudClient} from '../cloud-archive';
+import {cloudArchiveConfigured,cloudProbeRead} from '../cloud-archive';
 import {asyncCache} from '../async-cache';
 import type {Match} from '../types';
 import type {PlayerRecord} from '../season-analytics';
@@ -22,12 +22,36 @@ const remote=asyncCache<any>(300_000,32);
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- every caller validates its projected payload.
 async function query(key:string,projection='payload',budget=800):Promise<any>{
  try{return await remote(`${key}:${projection}`,async()=>{
-  const db=cloudClient();if(!db)return null;
-  const {data,error}=await db.from('deuce_archive_objects').select(projection).eq('key',key).abortSignal(AbortSignal.timeout(budget)).maybeSingle();
-  if(error)throw error;
-  return data;
+  if(!cloudArchiveConfigured())return null;
+  const payload=await cloudProbeRead(key,budget);
+  if(payload===undefined)return undefined;
+  if(projection==='payload')return {payload};
+  const selected:Record<string,unknown>={};
+  for(const field of projection.split(',')){
+   const match=/^([a-zA-Z0-9_]+):payload->([a-zA-Z0-9_]+)->([a-zA-Z0-9_]+)$/.exec(field.trim());
+   if(!match)throw new Error('Unsupported archive projection');
+   const group=payload&&typeof payload==='object'?(payload as Record<string,unknown>)[match[2]]:undefined;
+   selected[match[1]]=group&&typeof group==='object'?(group as Record<string,unknown>)[match[3]]:undefined;
+  }
+  return selected;
  });}catch{return undefined;}
 }
+export type RemoteProbeCircuit = {
+ canAttempt:()=>boolean;
+ succeeded:()=>void;
+ failed:()=>void;
+ state:()=>{failures:number;retryAt:number};
+};
+export function createRemoteProbeCircuit(now:()=>number=Date.now,delays:readonly number[]=[60_000,300_000,900_000]):RemoteProbeCircuit {
+ let failures=0,retryAt=0;
+ return {
+  canAttempt:()=>now()>=retryAt,
+  succeeded:()=>{failures=0;retryAt=0;},
+  failed:()=>{failures++;retryAt=now()+(delays[Math.min(failures-1,delays.length-1)]??300_000);},
+  state:()=>({failures,retryAt}),
+ };
+}
+const manifestCircuit=createRemoteProbeCircuit();
 const generations=asyncCache<PreparedGeneration>(300_000,1,g=>g.fallbackReason?30_000:300_000);
 export const preparedBundledManifest=cache(async()=>{
  const manifest=await local<RecordManifest>('manifest');
@@ -36,9 +60,22 @@ export const preparedBundledManifest=cache(async()=>{
 });
 export const preparedGeneration=cache(()=>generations('active',async()=>{
  const base=await preparedBundledManifest();
- const fresh=await query('reading-v2-manifest','payload',5000);
- return selectGeneration({manifest:base,source:'bundled',matches:()=>local<Match[]>('matches'),records:()=>local<PlayerRecord[]>('players'),competition:()=>localOptional<Match[]>('competition',[])},fresh===null?null:fresh?.payload,
-   async m=>{const [matches,records,competition]=await Promise.all([cloudMatches(m),cloudBlob<PlayerRecord[]>(m.version,'players'),cloudBlob<Match[]>(m.version,'competition')]);return {matches,records,competition};},!!cloudClient());
+ const configured=cloudArchiveConfigured();
+ let fresh:unknown=null,attempted=false;
+ if(configured){
+  if(manifestCircuit.canAttempt()){
+   attempted=true;
+   const row=await query('reading-v2-manifest','payload',1200);
+   fresh=row===undefined?undefined:row===null?null:row?.payload;
+  }else fresh=undefined;
+ }
+ const generation=await selectGeneration({manifest:base,source:'bundled',matches:()=>local<Match[]>('matches'),records:()=>local<PlayerRecord[]>('players'),competition:()=>localOptional<Match[]>('competition',[])},fresh,
+   async m=>{const [matches,records,competition]=await Promise.all([cloudMatches(m),cloudBlob<PlayerRecord[]>(m.version,'players'),cloudBlob<Match[]>(m.version,'competition')]);return {matches,records,competition};},configured);
+ if(attempted){
+  if(generation.fallbackReason&&generation.fallbackReason!=='not-published')manifestCircuit.failed();
+  else manifestCircuit.succeeded();
+ }
+ return generation;
 }));
 /** The bundled summary stays lightweight; a newer remote generation is validated before use. */
 export const preparedManifest=cache(async()=> (await preparedGeneration()).manifest);
@@ -72,13 +109,12 @@ async function cloudBlob<T>(version:string,id:string):Promise<T|undefined>{
  const index=row.payload as {encoding?:unknown;chunks?:unknown};
  if(index.encoding!=='gzip-chunks')return decodeCloudBlob<T>(row.payload,async()=>undefined,remaining());
  if(!Number.isInteger(index.chunks)||Number(index.chunks)<1||Number(index.chunks)>256)return undefined;
- const db=cloudClient();if(!db)return undefined;
  const keys=Array.from({length:Number(index.chunks)},(_,i)=>key(version,`${id}-chunk${i}`));
  const groups=Array.from({length:Math.ceil(keys.length/8)},(_,i)=>keys.slice(i*8,i*8+8));
  try{
   const rows=await Promise.all(groups.map(async group=>{
-   const {data,error}=await db.from('deuce_archive_objects').select('key,payload').in('key',group).abortSignal(AbortSignal.timeout(remaining()));
-   if(error||!data||data.length!==group.length)throw new Error('Incomplete snapshot blob');
+   const data=await Promise.all(group.map(async partKey=>({key:partKey,payload:await cloudProbeRead(partKey,remaining())})));
+   if(data.some(row=>row.payload===undefined))throw new Error('Incomplete snapshot blob');
    return data;
   }));
   const parts=new Map(rows.flat().map(part=>[part.key,part.payload]));
