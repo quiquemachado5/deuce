@@ -23,8 +23,9 @@ export default function PlayerPortrait({
         style={imageFocus(photo.objectPosition || "50% 20%",photo.mobileObjectPosition||photo.objectPosition||"50% 20%")}
         loading={preload ? "eager" : "lazy"}
         fetchPriority={preload ? "high" : "auto"}
-        unoptimized
+        unoptimized={!photo.responsive}
       />
+      <figcaption className="nc-sr"><a href={photo.source}>{photo.credit}</a>{photo.licenseUrl&&<> · <a href={photo.licenseUrl}>Licencia de reutilización</a></>}</figcaption>
     </figure>
   );
 }

@@ -8,12 +8,33 @@
     "mobileObjectPosition": "50% 20%"
   },
   "Aryna Sabalenka": {
-    "src": "/images/players/wta/320760.webp",
-    "alt": "Aryna Sabalenka, tenista",
-    "credit": "WTA · adaptación WebP por DEUCE",
-    "source": "https://www.wtatennis.com/players/320760/aryna-sabalenka",
-    "objectPosition": "50% 20%",
-    "mobileObjectPosition": "50% 20%"
+    "src": "/images/players/wta-licensed/aryna-sabalenka-detail.webp",
+    "thumbnail": "/images/players/wta-licensed/aryna-sabalenka-small.webp",
+    "alt": "Aryna Sabalenka en el US Open 2024",
+    "credit": "Ocoudis · CC0 · conversión WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Aryna_Sabalenka_US_Open_2024.jpg",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "photoYear": 2024,
+    "objectPosition": "50% 32%",
+    "mobileObjectPosition": "50% 32%",
+    "tour": "wta",
+    "reviewedAt": "2026-11-01",
+    "auditStatus": "verified",
+    "identityUrl": "https://commons.wikimedia.org/wiki/File:Aryna_Sabalenka_US_Open_2024.jpg",
+    "responsive": [
+      {
+        "src": "/images/players/wta-licensed/aryna-sabalenka-small.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/players/wta-licensed/aryna-sabalenka-medium.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/players/wta-licensed/aryna-sabalenka-detail.webp",
+        "width": 960
+      }
+    ]
   },
   "Mirra Andreeva": {
     "src": "/images/players/wta/331809.webp",
@@ -176,12 +197,33 @@
     "mobileObjectPosition": "50% 20%"
   },
   "Iga Swiatek": {
-    "src": "/images/players/wta/326408.webp",
-    "alt": "Iga Swiatek, tenista",
-    "credit": "WTA · adaptación WebP por DEUCE",
-    "source": "https://www.wtatennis.com/players/326408/iga-swiatek",
+    "src": "/images/players/wta-licensed/iga-swiatek-detail.webp",
+    "thumbnail": "/images/players/wta-licensed/iga-swiatek-small.webp",
+    "alt": "Iga Swiatek durante los entrenamientos del US Open 2023",
+    "credit": "Hameltion · CC BY-SA 4.0 · conversión WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Iga_%C5%9Awi%C4%85tek_(2023_US_Open)_10_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "photoYear": 2023,
     "objectPosition": "50% 20%",
-    "mobileObjectPosition": "50% 20%"
+    "mobileObjectPosition": "50% 20%",
+    "tour": "wta",
+    "reviewedAt": "2026-11-01",
+    "auditStatus": "verified",
+    "identityUrl": "https://commons.wikimedia.org/wiki/File:Iga_%C5%9Awi%C4%85tek_(2023_US_Open)_10_(cropped).jpg",
+    "responsive": [
+      {
+        "src": "/images/players/wta-licensed/iga-swiatek-small.webp",
+        "width": 160
+      },
+      {
+        "src": "/images/players/wta-licensed/iga-swiatek-medium.webp",
+        "width": 480
+      },
+      {
+        "src": "/images/players/wta-licensed/iga-swiatek-detail.webp",
+        "width": 960
+      }
+    ]
   },
   "Marta Kostyuk": {
     "src": "/images/players/wta/326482.webp",

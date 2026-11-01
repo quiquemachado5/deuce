@@ -3,6 +3,7 @@
 import type { ImageLoaderProps } from 'next/image'
 
 export default function imageLoader({ src, width }: ImageLoaderProps) {
+  if(/^\/images\/players\/wta-licensed\/.+-detail\.webp$/.test(src))return src.replace('-detail.webp',width<=160?'-small.webp':width<=480?'-medium.webp':'-detail.webp');
   if (/^\/images\/home-materials\/(clay|grass|hard)\.webp$/.test(src)) {
     const size = width <= 768 ? 768 : width <= 1440 ? 1440 : 2400
     return src.replace(/\.webp$/, `-${size}.webp`)

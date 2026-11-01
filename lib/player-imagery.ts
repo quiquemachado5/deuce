@@ -93,8 +93,8 @@ export const directoryPlayerPhotos: Record<string, Photo> = {
   ...publishableCuratedSelections,
 }
 
-export function playerDirectoryPhoto(name: string): Photo | null {
-  return directoryPlayerPhotos[name] || playerPhoto(name)
+export function playerDirectoryPhoto(name: string, tour: 'atp'|'wta' = 'atp'): Photo | null {
+  return (tour==='atp'?directoryPlayerPhotos[name]:null) || playerPhoto(name,tour)
 }
 
 // These final overrides favour the moment over the portrait: play, ceremony and
@@ -210,7 +210,7 @@ export const publishableWtaPortraits: Record<string, Photo> = Object.fromEntries
     .filter(([, photo]) => photoRightsStatus(photo) === 'documented'),
 )
 
-export const playerPhotos: Record<string, Photo> = { ...(cached as Record<string, Photo>), ...curated, ...(refreshed as Record<string, Photo>), ...(documented as Record<string, Photo>), ...(discovered as Record<string, Photo>), ...editorialPlayerPhotos, ...publishableCuratedSelections, ...publishableWtaPortraits }
+export const playerPhotos: Record<string, Photo> = { ...(cached as Record<string, Photo>), ...curated, ...(refreshed as Record<string, Photo>), ...(documented as Record<string, Photo>), ...(discovered as Record<string, Photo>), ...editorialPlayerPhotos, ...publishableCuratedSelections }
 
 function normalizeName(name: string) {
   return name.normalize('NFKD').replace(/[\u0300-\u036f]/g, '')
@@ -221,8 +221,8 @@ const normalizedPhotos = new Map(
   Object.entries(playerPhotos).map(([name, photo]) => [normalizeName(name), photo]),
 )
 
-export function playerPhoto(name: string): Photo | null {
-  const photo = playerPhotos[name] || normalizedPhotos.get(normalizeName(name))
+export function playerPhoto(name: string, tour: 'atp'|'wta' = 'atp'): Photo | null {
+  const photo = tour==='wta'?(publishableWtaPortraits[name]||Object.entries(publishableWtaPortraits).find(([key])=>normalizeName(key)===normalizeName(name))?.[1]):playerPhotos[name] || normalizedPhotos.get(normalizeName(name))
   if (!photo) return null
   const focus = playerPhotoFocus[name]
   return {
@@ -237,20 +237,7 @@ export function playerPhoto(name: string): Photo | null {
   }
 }
 
-const editionPhotoVariants: Record<string,string[]> = {
-  'Carlos Alcaraz': ['/images/players/refreshed/carlos-alcaraz-379d5255.webp','/images/players/optimized/carlos-alcaraz.webp'],
-  'Jannik Sinner': ['/images/players/jannik-sinner.jpg','/images/players/optimized/jannik-sinner.webp'],
-  'Novak Djokovic': ['/images/players/novak-djokovic.jpg','/images/players/refreshed/novak-djokovic-692d5ed1.webp','/images/players/optimized/novak-djokovic.webp'],
-  'Rafael Nadal': ['/images/players/optimized/rafael-nadal-2022.webp','/images/players/refreshed/rafael-nadal-70eb65d8.webp','/images/players/rafael-nadal.jpg','/images/players/optimized/rafael-nadal.webp'],
-  'Roger Federer': ['/images/players/roger-federer.jpg','/images/players/optimized/roger-federer.webp'],
-  'Andy Murray': ['/images/players/andy-murray.jpg','/images/players/optimized/andy-murray.webp'],
-  'Stan Wawrinka': ['/images/players/stan-wawrinka.jpg','/images/players/optimized/stan-wawrinka.webp'],
-};
-
-export function playerEditionPhoto(name: string, occurrence: number): Photo | null {
-  const base=playerPhoto(name);
-  if(!base)return null;
-  const variants=editionPhotoVariants[name];
-  if(!variants?.[occurrence])return occurrence===0?base:null;
-  return {...base,src:variants[occurrence],thumbnail:variants[occurrence]};
+/** A generic portrait is not evidence of attendance at a particular edition. */
+export function playerEditionPhoto(name: string, occurrence: number, tour: 'atp'|'wta' = 'atp'): Photo | null {
+  return occurrence===0?playerPhoto(name,tour):null;
 }

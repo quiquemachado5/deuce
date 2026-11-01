@@ -70,7 +70,7 @@ export function handLabel(hand: 'L' | 'R'): string { return hand === 'L' ? 'Zurd
 export function backhandLabel(backhand: 1 | 2): string { return backhand === 1 ? 'A una mano' : 'A dos manos'; }
 
 /** Read the compact provider-derived index without blocking a profile on a season blob. */
-export function playerBiography(name: string): PlayerBio | undefined {
+export function playerBiography(name: string, tour: 'atp'|'wta' = 'atp'): PlayerBio | undefined {
   const key = bioKey(name);
-  return (index as Record<string, PlayerBio>)[key] || wtaBySlug.get(key);
+  return tour==='wta'?wtaBySlug.get(key):(index as Record<string, PlayerBio>)[key];
 }

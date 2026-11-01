@@ -16,14 +16,16 @@ function avatarColors(name: string) {
 /** Local, licensed, size-limited portraits. The adjacent name provides the label. */
 export default function PlayerAvatar({
   name,
+  tour = 'atp',
   size = 36,
   photo: suppliedPhoto,
 }: {
   name: string;
+  tour?: 'atp'|'wta';
   size?: number;
   photo?: Photo | null;
 }) {
-  const photo = suppliedPhoto === undefined ? playerPhoto(name) : suppliedPhoto;
+  const photo = suppliedPhoto === undefined ? playerPhoto(name,tour) : suppliedPhoto;
   const hasThumbnail = Boolean(photo?.thumbnail);
   const [failed, setFailed] = useState(false);
   const [from, to] = avatarColors(name);
