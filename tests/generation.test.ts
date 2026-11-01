@@ -103,5 +103,7 @@ test('release gate rejects losses of published matches or measured coverage', ()
 test('release gate preserves editions whose late rounds were already complete',()=>{
   const complete:import('../lib/edition-audit').EditionAudit={tournament:'Madrid',year:2025,category:'Masters 1000',sourceRows:7,completed:7,terminal:0,pending:0,hasFinal:true,rounds:{'5':4,'6':2,'7':1},expectedLateRounds:true,missingLateRounds:[],completeDraw:true};
   assert.doesNotThrow(()=>assertEditionCoverage([complete],[complete]));
+  assert.doesNotThrow(()=>assertEditionCoverage([complete],[{...complete,sourceRows:10,pending:3,completeDraw:false}]));
+  assert.throws(()=>assertEditionCoverage([complete],[{...complete,sourceRows:10,completed:6,pending:4,completeDraw:false}]),/complete edition incomplete/);
   assert.throws(()=>assertEditionCoverage([complete],[{...complete,rounds:{'5':4,'6':1,'7':1},missingLateRounds:['1 semifinal'],completeDraw:false}]),/complete edition incomplete/);
 });

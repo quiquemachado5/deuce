@@ -24,7 +24,14 @@ export function assertEditionCoverage(previous: EditionAudit[], current: Edition
   const next=new Map(current.map(row=>withStatus(row)).map(row=>[key(row),row]));
   for(const baseline of previous.map(withStatus).filter(row=>row.completeDraw===true)){
     const candidate=next.get(key(baseline));
-    if(!candidate||candidate.completeDraw!==true)throw new Error(`Release would make a complete edition incomplete: ${baseline.tournament} ${baseline.year}`);
-    for(const round of ['5','6','7'])if((candidate.rounds[round]||0)<(baseline.rounds[round]||0))throw new Error(`Release would lose late-round coverage: ${baseline.tournament} ${baseline.year}`);
+    if(!candidate)throw new Error(`Release would make a complete edition incomplete: ${baseline.tournament} ${baseline.year}`);
+    const lateRoundsPreserved=['5','6','7'].every(round=>(candidate.rounds[round]||0)>=(baseline.rounds[round]||0));
+    const resolvedPreserved=candidate.completed+candidate.terminal>=baseline.completed+baseline.terminal;
+    // Providers can append incomplete duplicate rows after a draw was already
+    // verified. They must not erase that verified baseline, while any actual
+    // loss of resolved matches or late rounds still blocks publication.
+    const onlyAddsPendingRows=candidate.sourceRows>baseline.sourceRows&&resolvedPreserved&&lateRoundsPreserved;
+    if(candidate.completeDraw!==true&&!onlyAddsPendingRows)throw new Error(`Release would make a complete edition incomplete: ${baseline.tournament} ${baseline.year}`);
+    if(!lateRoundsPreserved)throw new Error(`Release would lose late-round coverage: ${baseline.tournament} ${baseline.year}`);
   }
 }
