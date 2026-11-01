@@ -4,7 +4,9 @@ export const runtime = 'nodejs'
 export const maxDuration = 300
 export const dynamic = 'force-dynamic'
 export async function GET(request: Request) {
-  if (!authorizedCronRequest(request)) return Response.json({ error: 'Unauthorized' }, { status: 401 })
+  const authorized = authorizedCronRequest(request)
+    || authorizedCronRequest(request, process.env.WTA_BACKFILL_SECRET)
+  if (!authorized) return Response.json({ error: 'Unauthorized' }, { status: 401 })
   try {
     const result=await refreshCloudArchive();
     if(result.status==='success'){

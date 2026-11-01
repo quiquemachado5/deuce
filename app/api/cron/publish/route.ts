@@ -13,12 +13,23 @@ export const maxDuration = 300
 export const dynamic = 'force-dynamic'
 
 export async function GET(request: Request) {
-  if (!authorizedCronRequest(request)) return Response.json({ error: 'Unauthorized' }, { status: 401 })
+  const cronAuthorized = authorizedCronRequest(request)
+  const backfillAuthorized = authorizedCronRequest(request, process.env.WTA_BACKFILL_SECRET)
+  if (!cronAuthorized && !backfillAuthorized) return Response.json({ error: 'Unauthorized' }, { status: 401 })
   try {
     console.info('Daily publication: started')
     const refresh=await cloudRead('sync-status')
     const lastSuccessfulRefresh = refresh?.status === 'success' ? refresh.at : refresh?.lastSuccessAt
-    if(!Number.isFinite(Date.parse(lastSuccessfulRefresh))||Date.now()-Date.parse(lastSuccessfulRefresh)>30*3600000)throw new Error('No recent successful provider refresh; keeping the previous publication')
+    const publishesCompletedWtaBackfill = backfillAuthorized && new URL(request.url).searchParams.get('wtaBackfill') === '1'
+    if(publishesCompletedWtaBackfill){
+      const [index,state]=await Promise.all([cloudRead('wta-archive-index'),cloudRead('wta-season-state')])
+      const historical=new Set(Array.isArray(index?.complete)?index.complete:[])
+      const modern=new Set(Array.isArray(state?.completed)?state.completed:[])
+      const expectedHistorical=(2022-1968+1)*3
+      const expectedModern=Array.from({length:Math.max(0,new Date().getUTCFullYear()-2023)},(_,i)=>2023+i)
+      if(historical.size!==expectedHistorical||expectedModern.some(year=>!modern.has(year)))throw new Error('WTA backfill is incomplete; keeping the previous publication')
+    }
+    if(!publishesCompletedWtaBackfill&&(!Number.isFinite(Date.parse(lastSuccessfulRefresh))||Date.now()-Date.parse(lastSuccessfulRefresh)>30*3600000))throw new Error('No recent successful provider refresh; keeping the previous publication')
     const [{ publicationArchive, competitionEntries, editionSourceAudit }, { compileRecordSnapshot }, { publishRecordSnapshot }] = await Promise.all([
       import('@/lib/live-tennis'),
       import('@/lib/revista/snapshot'),
