@@ -19,6 +19,8 @@ export const matchContextReferences:Reference[]=[
   {tournament:'Vienna',year:1986,players:['Brad Gilbert','Karel Novacek'],games:[[3,6],[6,3],[7,5],[6,0]],date:'1986-10-26',source:'https://www.atptour.com/en/scores/results-archive?year=1986'},
   {tournament:'Lyon',year:2008,players:['Julien Benneteau','Robin Soderling'],games:[[3,6],[7,6],[1,6]],date:'2008-10-26',source:'https://www.atptour.com/en/scores/results-archive?year=2008'},
   {tournament:'Basel',year:2014,players:['David Goffin','Roger Federer'],games:[[2,6],[2,6]],date:'2014-10-26',source:'https://www.atptour.com/en/scores/results-archive?year=2014'},
+  {tournament:'Roland Garros',year:2021,players:['Novak Djokovic','Rafael Nadal'],games:[[3,6],[6,3],[7,6],[6,2]],date:'2021-06-11',source:'https://www.rolandgarros.com/en-us/article/rg2021-day-13-zverev-tsitsipas-nadal-djokovic'},
+  {tournament:'Roland Garros',year:2022,players:['Novak Djokovic','Rafael Nadal'],games:[[2,6],[6,4],[2,6],[6,7]],date:'2022-05-31',source:'https://www.rolandgarros.com/en-us/matches/2022/SM004/'},
   {tournament:'Bucharest',year:2026,players:['Daniel Merida Aguilar','Otto Virtanen'],games:[[7,6],[5,7],[7,5]],round:'Ronda de 32',source:'https://www.tennis.com/tournaments/tiriac-open/matches/o-virtanen-vs-d-merida-2026-03-31'},
 ];
 const referencesByEdition=new Map<string,Reference[]>();

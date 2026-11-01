@@ -1,6 +1,24 @@
 import type { Match } from './types';
 import { eligibleMatch } from './quality';
 import { chronological, roundPosition } from './editorial';
+
+function homeHighlights(sorted: Match[], anniversaries: Match[], anniversary?: Match) {
+  const anniversaryIds = new Set([
+    anniversary?.match_id,
+    ...anniversaries.map(match => match.match_id),
+  ].filter((id): id is string => Boolean(id)));
+  // "Últimos resultados" is chronological. A separate editorial feature must
+  // never remove the newest match from this list when the feature falls back.
+  const latest = sorted.filter(match => !anniversaryIds.has(match.match_id)).slice(0, 3);
+  const excluded = new Set([...anniversaryIds, ...latest.map(match => match.match_id)]);
+  const featured = sorted.find(match =>
+    roundPosition(match.round) === 7
+    && ['Grand Slam', 'Masters 1000', 'WTA 1000'].includes(match.category)
+    && !excluded.has(match.match_id),
+  ) || sorted.find(match => !excluded.has(match.match_id));
+  return { featured, latest };
+}
+
 /** Exact match dates only: a tournament's start is never an anniversary. */
 export function homeSelection(matches:Match[],today=new Date()) {
   const stamp=today.toISOString().slice(0,10),year=today.getUTCFullYear();
@@ -13,8 +31,7 @@ export function homeSelection(matches:Match[],today=new Date()) {
   }
   const anniversaries=[...anniversaryByDecade.values()].sort((a,b)=>chronological(b,a)).slice(0,8);
   const anniversary=anniversaries[0] || sameDay[0];
-  const featured=sorted.find(m=>roundPosition(m.round)===7&&['Grand Slam','Masters 1000'].includes(m.category)&&m.match_id!==anniversary?.match_id)||sorted.find(m=>m.match_id!==anniversary?.match_id);
-  return {anniversary,anniversaries,featured,latest:sorted.filter(m=>m.match_id!==featured?.match_id&&m.match_id!==anniversary?.match_id&&!anniversaries.some(item=>item.match_id===m.match_id)).slice(0,3)};
+  return {anniversary,anniversaries,...homeHighlights(sorted,anniversaries,anniversary)};
 }
 
 export type PreparedHomeIndex = { byDay: Record<string, Match[]>; latestPool: Match[] };
@@ -51,8 +68,5 @@ export function homeSelectionFromIndex(index:PreparedHomeIndex,today=new Date())
   }
   const anniversaries=[...perDecade.values()].sort((a,b)=>chronological(b,a)).slice(0,8);
   const anniversary=anniversaries[0];
-  const featured=index.latestPool.find(m=>roundPosition(m.round)===7&&['Grand Slam','Masters 1000','WTA 1000'].includes(m.category)&&m.match_id!==anniversary?.match_id)||index.latestPool.find(m=>m.match_id!==anniversary?.match_id);
-  const excluded=new Set([featured?.match_id,anniversary?.match_id,...anniversaries.map(m=>m.match_id)]);
-  const latest=index.latestPool.filter(m=>!excluded.has(m.match_id)).slice(0,3);
-  return {anniversary,anniversaries,featured,latest};
+  return {anniversary,anniversaries,...homeHighlights(index.latestPool,anniversaries,anniversary)};
 }

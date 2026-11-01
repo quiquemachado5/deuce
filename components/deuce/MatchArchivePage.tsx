@@ -4,29 +4,23 @@ import PlayerFlag from '@/components/PlayerFlag';
 import type { MatchRecord } from '@/types/deuce';
 import { resolvedSetClosed, resolvedWinner } from '@/lib/deuce-score';
 import { playerBiography } from '@/lib/player-bio';
+import { matchDatePresentation } from '@/lib/match-date';
 import styles from '@/app/buscar/search.module.css';
 
-function dateKey(match: MatchRecord) {
-  return match.date || `${match.year || 0}-01-01`;
-}
-
-function formatDate(value: string) {
-  const parsed = new Date(`${value}T12:00:00Z`);
-  if (!Number.isFinite(parsed.getTime())) return value;
-  const formatted = new Intl.DateTimeFormat('es-ES', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(parsed);
-  return formatted.charAt(0).toLocaleUpperCase('es') + formatted.slice(1);
-}
-
-function formatShortDate(value: string) {
-  const parsed = new Date(`${value}T12:00:00Z`);
-  if (!Number.isFinite(parsed.getTime())) return value;
-  return new Intl.DateTimeFormat('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric', timeZone: 'UTC' }).format(parsed);
+function matchDate(match: MatchRecord) {
+  return matchDatePresentation({
+    date: match.date,
+    dateLabel: match.dateLabel,
+    year: match.year,
+    tournament: match.tournament,
+  });
 }
 
 export function ArchiveMatchRow({ match, showContext = false, showTournamentContext = false, showAction = false }: { match: MatchRecord; showContext?: boolean; showTournamentContext?: boolean; showAction?: boolean }) {
   const winner = resolvedWinner(match);
+  const date = matchDate(match);
   return <Link className={styles.archiveMatch} href={match.href} prefetch={false} aria-label={`Ver ${match.players[0].name} contra ${match.players[1].name}`}>
-    {showTournamentContext ? <div className={`${styles.archiveMatchContext} ${styles.archiveMatchContextProfile}`}><strong>{match.tournament}</strong><span>{match.round}{match.date ? ` · ${formatDate(match.date)}` : ''}</span></div> : showContext ? <div className={styles.archiveMatchContext}>{match.round}{match.date ? ` · ${formatDate(match.date)}` : ''}</div> : null}
+    {showTournamentContext ? <div className={`${styles.archiveMatchContext} ${styles.archiveMatchContextProfile}`}><strong>{match.tournament}</strong><span>{match.round} · {date.long}</span></div> : showContext ? <div className={styles.archiveMatchContext}>{match.round} · {date.long}</div> : null}
     {match.players.map((player, side) => {const countryCode=player.countryCode||playerBiography(player.name)?.country;return <div className={styles.archivePlayerRow} data-winner={winner === side || undefined} key={player.id}>
       <span className={styles.archivePlayer}>
         <span className={styles.archiveFlag} aria-hidden="true">{countryCode ? <PlayerFlag code={countryCode} /> : null}</span>
@@ -72,19 +66,21 @@ export function ArchiveTournamentCard({ tournament, matches, totalMatches = matc
 }
 
 export function MatchArchivePage({ matches }: { matches: MatchRecord[] }) {
-  const dates = new Map<string, MatchRecord[]>();
+  const dates = new Map<string, { date: ReturnType<typeof matchDate>; matches: MatchRecord[] }>();
   for (const match of matches) {
-    const key = dateKey(match);
-    dates.set(key, [...(dates.get(key) || []), match]);
+    const date = matchDate(match);
+    const group = dates.get(date.key);
+    dates.set(date.key, { date, matches: [...(group?.matches || []), match] });
   }
 
   return <div className={styles.resultList}>
-    {[...dates].map(([date, day]) => {
+    {[...dates].map(([key, group]) => {
+      const { date, matches: day } = group;
       const tournaments = new Map<string, MatchRecord[]>();
       for (const match of day) tournaments.set(match.tournament, [...(tournaments.get(match.tournament) || []), match]);
-      return <section className={styles.dayGroup} key={date}>
+      return <section className={styles.dayGroup} key={key}>
         <header className={styles.groupHead}>
-          <h2><span className={styles.dateLong}>{formatDate(date)}</span><span className={styles.dateShort}>{formatShortDate(date)}</span></h2>
+          <h2>{date.exact && date.dateTime ? <time dateTime={date.dateTime}><span className={styles.dateLong}>{date.long}</span><span className={styles.dateShort}>{date.short}</span></time> : <><span className={styles.dateLong}>{date.long}</span><span className={styles.dateShort}>{date.short}</span></>}</h2>
           <p>{day.length} {day.length === 1 ? 'partido' : 'partidos'}</p>
         </header>
         <div className={styles.archiveBoard}>{[...tournaments].map(([tournament, tournamentMatches]) => <ArchiveTournamentCard tournament={tournament} matches={tournamentMatches} key={tournament} />)}</div>

@@ -11,7 +11,7 @@ import { number } from "@/lib/cuaderno/model";
 import { recordView } from "@/lib/revista/read-records";
 import { description } from "@/lib/revista/records";
 import { RecordEras, recordValue } from "@/components/nocturno/RecordsViews";
-import { recordFilters, recordsUrl, type RecordQuery } from "@/lib/records-url";
+import { recordFilters, recordsCanonical, recordsHaveTransientState, recordsUrl, type RecordQuery } from "@/lib/records-url";
 import { evidenceHref } from "@/lib/record-evidence";
 import ArchiveNotice from "@/components/nocturno/ArchiveNotice";
 import RecordsControls from "@/components/RecordsControls";
@@ -32,6 +32,7 @@ import RecordsSurfaceSlider from "@/components/records/RecordsSurfaceSlider";
 import TournamentFilters from "@/components/TournamentFilters";
 import { photoFor, portraitFor, recordImageStyle, rowForTour } from './record-media';
 import { recordPhoto } from '@/lib/editorial-imagery';
+import { hasPublishedTour, noIndexFollow, robotsForUnavailableTour } from '@/lib/seo-metadata';
 
 const families = [
   ["Títulos y finales", "Títulos y finales"],
@@ -69,6 +70,7 @@ async function RecordIndex({
           `${piece.title} ${piece.group} ${piece.leader?.name || ""}`,
         ).includes(term)),
   );
+  const wtaUnavailable = query.tour === 'wta' && !manifest.pieces.some((piece) => piece.leader);
   const visibleGroups = (selected ? [selected] : groups).filter((group) =>
     pieces.some((piece) => piece.group === group),
   );
@@ -183,6 +185,7 @@ async function RecordIndex({
           {
             label,
             id: piece.id,
+            href: recordsUrl(recordFilters(query), { dato: piece.id }),
             player: piece.leader.name,
             value: piece.leader.value,
             display: recordValue(piece.leader, piece.percent, false),
@@ -389,7 +392,7 @@ async function RecordIndex({
             {selected ? "Estadísticas de la familia" : "Explorar el archivo"}
           </h2>
         </div>
-        <RecordsFamilyNav
+        {!wtaUnavailable && <RecordsFamilyNav
           className={redesign.familyNav}
           activeKey={selected || "all"}
         >
@@ -411,8 +414,8 @@ async function RecordIndex({
               {families.find(([, value]) => value === group)?.[0] || group}
             </Link>
           ))}
-        </RecordsFamilyNav>
-        <div className={redesign.familyGrid} key={selected || term || "all"}>
+        </RecordsFamilyNav>}
+        {!wtaUnavailable && <div className={redesign.familyGrid} key={selected || term || "all"}>
           {visibleGroups.map((group, index) => {
             const groupPieces = pieces.filter((piece) => piece.group === group);
             const photoPieceId = familyPhotoRecords[group];
@@ -479,15 +482,12 @@ async function RecordIndex({
                   />
                 )}
                 {hasVideo && (
-                  <Link
-                    className={redesign.familyVideo}
-                    href={recordsUrl(recordFilters(query), { dato: "mas-largos" })}
-                  >
+                  <div className={redesign.familyVideo}>
                     {familyPhoto && (
                       <Image
                         className={redesign.recordImage}
                         src={familyPhoto.src}
-                        alt=""
+                        alt={familyPhoto.alt}
                         fill
                         unoptimized
                         sizes="(max-width: 759px) 100vw, 50vw"
@@ -495,16 +495,19 @@ async function RecordIndex({
                       />
                     )}
                     <iframe
-                      src="https://www.youtube.com/embed/jUgyaoew8as?autoplay=1&mute=1&controls=0&loop=1&playlist=jUgyaoew8as&playsinline=1&rel=0"
+                      src="https://www.youtube-nocookie.com/embed/jUgyaoew8as?autoplay=1&mute=1&controls=0&loop=1&playlist=jUgyaoew8as&playsinline=1&rel=0"
                       title="Isner y Mahut disputan el partido más largo de Wimbledon"
+                      aria-hidden="true"
+                      tabIndex={-1}
                       loading="eager"
                       allow="autoplay; encrypted-media; picture-in-picture"
                     />
                     <span>
-                      <small>El partido más largo</small>
+                      <small><Link href={recordsUrl(recordFilters(query), { dato: "mas-largos" })}>El partido más largo</Link></small>
                       <b>11 h 5 min</b>
                     </span>
-                  </Link>
+                    <a className={redesign.familyVideoFallback} href="https://www.youtube.com/watch?v=jUgyaoew8as" target="_blank" rel="noreferrer">Abrir vídeo</a>
+                  </div>
                 )}
                 {photoPiece?.leader && familyPhoto && !hasVideo && !hasSlider && (
                   <Link
@@ -626,8 +629,14 @@ async function RecordIndex({
               </section>
             );
           })}
-        </div>
-        {!pieces.length && (
+        </div>}
+        {wtaUnavailable ? (
+          <div className="deuce-empty" role="status">
+            <h2>El archivo WTA todavía no tiene temporadas publicadas</h2>
+            <p>No presentamos estadísticas ATP como si fueran WTA. Puedes continuar en el archivo disponible o consultar el estado de la cobertura.</p>
+            <nav className={redesign.emptyActions} aria-label="Alternativas del archivo WTA"><Link href="/records">Ver récords ATP</Link><Link href="/cobertura">Consultar cobertura</Link></nav>
+          </div>
+        ) : !pieces.length && (
           <div className="deuce-empty" role="status">
             <h2>Sin estadísticas coincidentes</h2>
             <p>No hay resultados para «{query.q}» con estos filtros.</p>
@@ -645,22 +654,32 @@ export async function generateMetadata({
   searchParams: Promise<RecordQuery>;
 }) {
   const raw = await searchParams;
-  const query: RecordQuery = { ...raw, tour: raw.tour === 'wta' ? 'wta' : 'atp' };
+  const tour = raw.tour === 'wta' ? 'wta' : 'atp';
+  const query: RecordQuery = { ...raw, tour };
   const view = await recordView(JSON.stringify(query));
   const piece =
     view.piece || view.manifest.pieces.find((entry) => entry.id === query.dato);
+  const unavailableWta = tour === 'wta' && !hasPublishedTour(view.manifest.summary, 'wta');
   const title =
     query.dato === "dos-epocas"
       ? "Efectividad en finales: dos épocas"
       : piece?.title || "Récords";
+  const metadataDescription = unavailableWta
+    ? 'El archivo de récords WTA está en preparación. Los datos ATP publicados permanecen disponibles por separado.'
+    : piece?.definition || (tour === 'wta'
+      ? 'Récords y estadísticas WTA documentados en el archivo DEUCE.'
+      : description.replace('ATP y WTA', 'ATP'));
+  const canonical = recordsCanonical(query);
   return {
     title: `${title} — DEUCE`,
-    description: piece?.definition || description,
-    alternates: { canonical: recordsUrl(query) },
+    description: metadataDescription,
+    alternates: { canonical },
     openGraph: {
       title: `${title} — DEUCE`,
-      description: piece?.definition || description,
+      description: metadataDescription,
+      url: canonical,
     },
+    robots: recordsHaveTransientState(raw) ? noIndexFollow : robotsForUnavailableTour(view.manifest.summary, tour),
   };
 }
 
@@ -769,6 +788,7 @@ export default async function Records({
         <div className={redesign.detailHeroCopy}>
           <h1>{title}</h1>
           <p>{detailDefinition}</p>
+          {piece && <Link className={redesign.detailMethodLink} href={`/cobertura?dato=${encodeURIComponent(piece.id)}#estadistica`}>Sobre los datos y el cálculo</Link>}
         </div>
         {leader && piece && (
           <div className={redesign.detailHeroRecord}>

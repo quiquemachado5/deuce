@@ -1,20 +1,25 @@
-// Import official WTA player portraits shown in the current player directory.
-// Run with `node build/import-wta-player-photos.mjs --limit=50`.
+// Collect official WTA player portraits for an internal rights review. A source
+// page is not a republication licence, so this command must never write into
+// `public/` or the manifest consumed by the site.
+// Run with `node build/import-wta-player-photos.mjs --review-only --limit=50`.
 import fs from 'node:fs/promises';
 import sharp from 'sharp';
 
-const manifestPath = 'lib/player-photo-wta.json';
-const outputDirectory = 'public/images/players/wta';
+if (!process.argv.includes('--review-only')) {
+  throw new Error('WTA provider portraits are review-only until an exact reuse licence is documented');
+}
+const manifestPath = 'data/media-review/player-photo-wta.json';
+const outputDirectory = 'data/media-review/wta';
 const limit = Math.max(1, Number(process.argv.find(arg => arg.startsWith('--limit='))?.split('=')[1]) || 50);
 const hub = await (await fetch('https://www.wtatennis.com/players', { signal: AbortSignal.timeout(30_000) })).text();
 const profiles = [...new Map([...hub.matchAll(/\/players\/(\d+)\/([a-z0-9-]+)/g)]
   .map(([, id, slug]) => [id, `https://www.wtatennis.com/players/${id}/${slug}`])).values()].slice(0, limit);
-const manifest = JSON.parse(await fs.readFile(manifestPath, 'utf8'));
+const manifest = JSON.parse(await fs.readFile(manifestPath, 'utf8').catch(() => '{}'));
 await fs.mkdir(outputDirectory, { recursive: true });
 for (const [index, profile] of profiles.entries()) {
   try {
     const id = profile.match(/\/players\/(\d+)\//)?.[1];
-    if (id && Object.values(manifest).some(photo => photo.src === `/images/players/wta/${id}.webp`)) {
+    if (id && Object.values(manifest).some(photo => photo.reviewPath === `${outputDirectory}/${id}.webp`)) {
       console.log(`[${index + 1}/${profiles.length}] already imported ${id}`);
       continue;
     }
@@ -33,9 +38,9 @@ for (const [index, profile] of profiles.entries()) {
     const path = `${outputDirectory}/${id}.webp`;
     await sharp(buffer).rotate().webp({ quality: 84 }).toFile(path);
     manifest[name] = {
-      src: `/${path.replace(/^public\//, '')}`,
+      reviewPath: path,
       alt: `${name}, tenista`,
-      credit: 'WTA · adaptación WebP por DEUCE',
+      credit: 'WTA · copia local pendiente de revisión de derechos',
       source: profile,
       objectPosition: '50% 20%',
       mobileObjectPosition: '50% 20%',
@@ -46,4 +51,4 @@ for (const [index, profile] of profiles.entries()) {
   }
 }
 await fs.writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
-console.log(`${Object.keys(manifest).length} WTA portraits in manifest`);
+console.log(`${Object.keys(manifest).length} WTA portraits in the private review inventory; none were published`);

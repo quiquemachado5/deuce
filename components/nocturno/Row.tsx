@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
 import type { Match } from '@/lib/types';
 import { number } from '@/lib/cuaderno/model';
 import { toMatchRecord } from '@/data/map-match';
@@ -26,10 +26,12 @@ export function Pagination({
   page,
   total,
   href,
+  mobileJumps = false,
 }: {
   page: number;
   total: number;
   href: (page: number) => string;
+  mobileJumps?: boolean;
 }) {
   const pages = Math.max(1, Math.ceil(total / 25));
   if (pages <= 1) return null;
@@ -38,8 +40,12 @@ export function Pagination({
     .sort((a, b) => a - b);
   return (
     <nav className="nc-pagination" aria-label="Páginas de resultados">
+      {mobileJumps && page > 1 && <Link className="nc-pagination-mobile-jump" href={href(1)} aria-label="Ir a la primera página"><ChevronsLeft size={17} aria-hidden="true"/></Link>}
       {page > 1 && <Link className="nc-pagination-direction" href={href(page - 1)} aria-label="Página anterior"><ChevronLeft size={17} aria-hidden="true"/><span>Anterior</span></Link>}
-      <span className="nc-pagination-mobile-status" aria-hidden="true">{page} / {pages}</span>
+      <span className="nc-pagination-mobile-status" aria-current="page">
+        <span aria-hidden="true">{number(page)} / {number(pages)}</span>
+        <span className="nc-sr">Página {number(page)} de {number(pages)}</span>
+      </span>
       <span className="nc-pagination-pages">
         {numbered.map((value, index) => <span key={value}>
           {index > 0 && value - numbered[index - 1] > 1 && <span className="nc-pagination-gap" aria-hidden="true">…</span>}
@@ -47,6 +53,7 @@ export function Pagination({
         </span>)}
       </span>
       {page < pages && <Link className="nc-pagination-direction" href={href(page + 1)} aria-label="Página siguiente"><span>Siguiente</span><ChevronRight size={17} aria-hidden="true"/></Link>}
+      {mobileJumps && page < pages && <Link className="nc-pagination-mobile-jump" href={href(pages)} aria-label={`Ir a la última página, ${pages}`}><ChevronsRight size={17} aria-hidden="true"/></Link>}
     </nav>
   );
 }

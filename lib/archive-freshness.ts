@@ -21,3 +21,21 @@ export function archiveExtent(matches: Match[], now = new Date()) {
 }
 export const archiveDate = (date: string) => new Intl.DateTimeFormat('es-ES', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(date));
 export const archiveAgeHours = (generatedAt:string, now=Date.now()) => Math.max(0,(now-Date.parse(generatedAt))/3_600_000);
+
+export type FreshnessManifest = {
+  generatedAt: string;
+  extent?: {
+    latestExactDate: string | null;
+    latestEditionDate: string | null;
+  };
+};
+
+/** Publication time and data extent are deliberately separate signals. */
+export function archiveFreshnessSummary(manifest: FreshnessManifest, now = Date.now()) {
+  return {
+    copyGeneratedAt: manifest.generatedAt,
+    copyAgeHours: archiveAgeHours(manifest.generatedAt, now),
+    latestExactDate: manifest.extent?.latestExactDate || null,
+    latestEditionDate: manifest.extent?.latestEditionDate || null,
+  };
+}

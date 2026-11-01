@@ -1,15 +1,21 @@
 import Link from "next/link";
+import type { Metadata } from 'next';
 import ArchiveNotice from "@/components/nocturno/ArchiveNotice";
 import { number } from "@/lib/cuaderno/model";
 import { preparedGeneration, recordView } from "@/lib/revista/read-records";
 import { SURFACES, surfaceLabel } from "@/lib/surface";
 import type { IngestionBreakdown } from "@/lib/revista/snapshot";
-import { archiveAgeHours } from '@/lib/archive-freshness';
+import { archiveDate, archiveFreshnessSummary } from '@/lib/archive-freshness';
 
-export const metadata = {
-  title: "Cobertura del archivo — DEUCE",
-  description: "Estado, actualización diaria y alcance de los datos del archivo de tenis.",
+const title = 'Cobertura y frescura del archivo — DEUCE';
+const description = 'Consulta cuándo se generó la copia de DEUCE, hasta qué partido llega y qué datos ATP están disponibles; WTA está en preparación.';
+
+export const metadata: Metadata = {
+  title,
+  description,
   alternates: { canonical: "/cobertura" },
+  openGraph: { title, description, url: '/cobertura', type: 'website', images: ['/opengraph-image'] },
+  twitter: { card: 'summary_large_image', title, description, images: ['/opengraph-image'] },
 };
 export const revalidate = 300;
 
@@ -31,7 +37,8 @@ export default async function Coverage({ searchParams }: { searchParams: Promise
     {key:"points" as const,label:"Punto a punto"},
   ];
   const updated=new Date(manifest.generatedAt).toLocaleString("es-ES",{dateStyle:"medium",timeStyle:"short",timeZone:"Europe/Madrid"});
-  const ageHours=archiveAgeHours(manifest.generatedAt),stale=ageHours>36||Boolean(generation.fallbackReason);
+  const freshness=archiveFreshnessSummary(manifest),ageHours=freshness.copyAgeHours,stale=ageHours>36||Boolean(generation.fallbackReason);
+  const latestExact=freshness.latestExactDate?archiveDate(freshness.latestExactDate):'Pendiente de fecha exacta verificada';
   const coverage=[
     {label:"Ranking de la fecha",value:totals.ranking},
     {label:"Estadísticas del partido",value:totals.statistics},
@@ -46,11 +53,11 @@ export default async function Coverage({ searchParams }: { searchParams: Promise
         <div><dt>Torneos</dt><dd>{number(manifest.summary.tournaments)}</dd></div>
         <div><dt>Temporadas</dt><dd>{firstYear&&lastYear?`${firstYear}–${lastYear}`:"En revisión"}</dd></div>
       </dl>
-      <p className="coverage-updated"><span aria-hidden="true"/>Actualizado {updated} · Madrid</p>
+      <p className="coverage-updated"><span aria-hidden="true"/>{`Copia generada ${updated} · Madrid · Último partido con fecha exacta: ${latestExact}`}</p>
       <p className="coverage-updated">ATP {number(manifest.summary.tours?.atp ?? manifest.matchCount)} · WTA {number(manifest.summary.tours?.wta ?? 0)} partidos. El histórico femenino se incorpora por temporadas verificadas.</p>
     </header>
 
-    {stale&&<section className="coverage-piece" aria-labelledby="coverage-stale-title"><div><h2 id="coverage-stale-title">La última actualización no está disponible</h2><p>Cobertura muestra la generación validada de {updated}. No interpretamos la ausencia de una publicación nueva como un día sin partidos.</p></div><dl><div><dt>Estado</dt><dd>Archivo de respaldo</dd></div><div><dt>Antigüedad</dt><dd>{number(ageHours,1)} horas</dd></div></dl></section>}
+    {stale&&<section className="coverage-piece" aria-labelledby="coverage-stale-title"><div><h2 id="coverage-stale-title">La última actualización no está disponible</h2><p>Cobertura muestra la copia validada generada el {updated}. No interpretamos la ausencia de una publicación nueva como un día sin partidos.</p></div><dl><div><dt>Estado</dt><dd>Archivo de respaldo</dd></div><div><dt>Antigüedad de la copia</dt><dd>{number(ageHours,1)} horas</dd></div><div><dt>Último partido con fecha exacta</dt><dd>{latestExact}</dd></div></dl></section>}
 
     {selection?.piece&&<section className="coverage-piece" id="estadistica"><div><h2>{selection.piece.title}</h2><p>{selection.piece.definition}</p></div><dl><div><dt>Periodo</dt><dd>{selection.piece.years}</dd></div><div><dt>Muestra</dt><dd>{number(selection.piece.sample)}</dd></div><div><dt>Mínimo</dt><dd>{selection.piece.minimum} casos</dd></div></dl></section>}
 

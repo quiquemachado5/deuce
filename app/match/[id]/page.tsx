@@ -15,6 +15,7 @@ import { tournamentName } from "@/lib/labels";
 import { score } from "@/lib/cuaderno/model";
 import { pairSlug, rivalryDirectory } from "@/lib/explore";
 import Row from "@/components/nocturno/Row";
+import { matchCanonicalPath, matchHasTransientState, noIndexFollow } from "@/lib/seo-metadata";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -34,19 +35,20 @@ export async function generateMetadata({
   searchParams,
 }: Props): Promise<Metadata> {
   const { id } = await params,
-    { junto } = await searchParams,
+    query = await searchParams,
     { match } = await pageMatch(id);
   if (!match) return { title: "Página no encontrada — DEUCE" };
   const title = `${match.player1.name} – ${match.player2.name} · ${score(match)} · ${tournamentName(match.tournament)} ${match.year} — DEUCE`,
     description =
       "Grand Slams, Masters 1000, ATP 500 y ATP 250, leídos por el dato.",
-    canonical = `/match/${id}${junto && junto !== "elige" ? `?junto=${encodeURIComponent(junto)}` : ""}`;
+    canonical = matchCanonicalPath(id);
   return {
     title,
     description: `${title.replace(" — DEUCE", "")}. ${description}`,
     alternates: { canonical },
     openGraph: { title, description, images: [`/match/${id}/opengraph-image`], type: "article", url: canonical },
     twitter: { card: "summary_large_image", title, description, images: [`/match/${id}/opengraph-image`] },
+    robots: matchHasTransientState(query) ? noIndexFollow : undefined,
   };
 }
 

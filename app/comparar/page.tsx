@@ -16,7 +16,22 @@ import { ArchiveMatchRow } from '@/components/deuce/MatchArchivePage';
 import { toMatchRecord } from '@/data/map-match';
 import styles from './compare.module.css';
 
-export const metadata = { title: 'Comparador de jugadores — DEUCE', alternates: { canonical: '/comparar' }, robots: { index: false, follow: true } };
+export const metadata = {
+  title: 'Comparador de jugadores — DEUCE',
+  description: 'Compara dos jugadores del archivo DEUCE por trayectoria, rendimiento, superficie y enfrentamientos directos.',
+  alternates: { canonical: '/comparar' },
+  openGraph: {
+    title: 'Comparador de jugadores — DEUCE',
+    description: 'Trayectoria, superficies y cara a cara de dos jugadores en una lectura común.',
+    url: '/comparar',
+  },
+  twitter: {
+    card: 'summary_large_image' as const,
+    title: 'Comparador de jugadores — DEUCE',
+    description: 'Trayectoria, superficies y cara a cara de dos jugadores en una lectura común.',
+  },
+  robots: { index: false, follow: true },
+};
 export const revalidate = 300;
 type Query = Record<string, string | undefined>;
 
@@ -31,18 +46,22 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
     const surnames = names.filter(name => normalizeText(name).split(/\s+/).at(-1) === token);
     return surnames.length === 1 ? surnames[0] : '';
   };
-  const requested = [q.a || 'Novak Djokovic', q.b || 'Rafael Nadal'];
-  const resolved = requested.map(resolvePlayer);
+  const firstRequested = q.a || 'Novak Djokovic';
+  const firstResolved = resolvePlayer(firstRequested);
+  const defaultSecond = playerSlug(firstResolved || firstRequested) === playerSlug('Rafael Nadal') ? 'Novak Djokovic' : 'Rafael Nadal';
+  const requested = [firstRequested, q.b || defaultSecond];
+  const resolved = [firstResolved, resolvePlayer(requested[1])];
   const chosen = requested.map((name, index) => resolved[index] || name);
+  const same = chosen[0] === chosen[1], valid = resolved.every(Boolean);
+  const canCompare = valid && !same;
   const chosenNames=new Set(chosen);
   const selectedTours=new Set(matches.filter(match=>chosenNames.has(match.player1.name)||chosenNames.has(match.player2.name)).map(match=>match.tour||'atp'));
   const selectedTour=selectedTours.size===1?[...selectedTours][0]:null;
   const relevantMatches=matches.filter(match=>(!selectedTour||(match.tour||'atp')===selectedTour)&&(chosenNames.has(match.player1.name)||chosenNames.has(match.player2.name)));
-  const window = sharedCareerWindow(relevantMatches, chosen);
-  const cohort = q.period === 'shared' ? (window ? relevantMatches.filter(m=>m.year>=window.first&&m.year<=window.last) : []) : relevantMatches;
-  const players = chosen.map(name => comparePlayer(cohort, name, q));
-  const same = chosen[0] === chosen[1], valid = resolved.every(Boolean);
-  const sufficient = !same && valid && players.every(p => p.sufficient);
+  const window = canCompare ? sharedCareerWindow(relevantMatches, chosen) : null;
+  const cohort = canCompare ? (q.period === 'shared' ? (window ? relevantMatches.filter(m=>m.year>=window.first&&m.year<=window.last) : []) : relevantMatches) : [];
+  const players = canCompare ? chosen.map(name => comparePlayer(cohort, name, q)) : [];
+  const sufficient = canCompare && players.every(p => p.sufficient);
   const minimum = ['5','20','50'].includes(q.minimum || '') ? q.minimum! : '20';
   const activeSampleFilters = [q.period && q.period !== 'career', q.year && q.year !== 'all', q.surface && q.surface !== 'all', q.competition && q.competition !== 'all', q.age && q.age !== 'all', q.minimum && q.minimum !== '20'].filter(Boolean).length;
   const metrics = [
@@ -57,12 +76,14 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
     { title: 'Trayectoria', rows: metrics.slice(0, 3) },
     { title: 'Rendimiento', rows: metrics.slice(3) },
   ];
-  const directMatches = matches.filter(match => chosen.includes(match.player1.name) && chosen.includes(match.player2.name))
-    .filter(eligibleMatch)
-    .filter(match => (!q.year || q.year === 'all' || match.year === Number(q.year)) && (!q.surface || q.surface === 'all' || match.surface === q.surface) && (!q.competition || q.competition === 'all' || match.category === q.competition))
-    .filter(match => q.period !== 'shared' || !window || (match.year >= window.first && match.year <= window.last))
-    .sort((a,b) => chronological(b,a));
-  const directWins = chosen.map(name => directMatches.filter(match => winnerName(match) === name).length);
+  const directMatches = canCompare
+    ? matches.filter(match => chosen.includes(match.player1.name) && chosen.includes(match.player2.name))
+      .filter(eligibleMatch)
+      .filter(match => (!q.year || q.year === 'all' || match.year === Number(q.year)) && (!q.surface || q.surface === 'all' || match.surface === q.surface) && (!q.competition || q.competition === 'all' || match.category === q.competition))
+      .filter(match => q.period !== 'shared' || !window || (match.year >= window.first && match.year <= window.last))
+      .sort((a,b) => chronological(b,a))
+    : [];
+  const directWins = canCompare ? chosen.map(name => directMatches.filter(match => winnerName(match) === name).length) : [0, 0];
   const compareHref = (changes: Query) => {
     const params = new URLSearchParams();
     Object.entries({ ...q, a: chosen[0], b: chosen[1], ...changes }).forEach(([key,value]) => { if (value && value !== 'all') params.set(key,value); });
@@ -71,8 +92,8 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
   const surfacesToShow = q.surface && q.surface !== 'all' ? SURFACES.filter(surface => surface === q.surface) : SURFACES.filter(surface => surface !== 'unknown');
 
   return <div className={`${styles.page} nc-wrap dx-comparison deuce-comparison`}>
-    <ArchiveNotice status={generation} />
     <header className={`inner-title ${styles.intro}`}><h1>Comparar</h1></header>
+    <ArchiveNotice status={generation} />
     <CompareSelection key={chosen.join('|')} initial={chosen.map(name => {
       const photo = playerPhoto(name);
       const hasThumbnail = Boolean(photo?.thumbnail);
@@ -93,8 +114,8 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
       </CompareSampleFilters>
       <button className="dx-button" type="submit">Comparar</button>
     </CompareSelection>
-    {!valid ? <p role="status" className="dx-notice">Selecciona dos nombres del archivo. No hay resultados para {chosen.filter(n => !names.includes(n)).join(', ')}.</p> : <>
-      {(same || !sufficient) && <p role="status" className="dx-notice">{same ? 'Has elegido el mismo jugador. Selecciona dos jugadores distintos.' : 'La muestra no alcanza el mínimo elegido; las cifras se muestran sin declarar una ventaja.'}</p>}
+    {!valid ? <p role="status" className="dx-notice">Selecciona dos nombres del archivo. No hay resultados para {chosen.filter(n => !names.includes(n)).join(', ')}.</p> : same ? <p role="status" className="dx-notice">Has elegido el mismo jugador. Selecciona dos jugadores distintos para construir una comparación.</p> : <>
+      {!sufficient && <p role="status" className="dx-notice">La muestra no alcanza el mínimo elegido; las cifras se muestran sin declarar una ventaja.</p>}
       <section className={styles.comparisonBoard} id="comparison" aria-labelledby="comparison-table-title">
         <h2 id="comparison-table-title" className="nc-sr">Comparación métrica</h2>
         <div className={styles.comparisonHeader}>
@@ -111,18 +132,22 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
           {metricGroups.map(group => <article className={styles.statGroup} key={group.title}>
             <h3>{group.title}</h3>
             <div className={styles.statNames}><span>{chosen[0]}</span><span>{chosen[1]}</span></div>
-            <dl>
+            <table className={styles.statTable}>
+              <caption className="nc-sr">{group.title}: {chosen[0]} frente a {chosen[1]}</caption>
+              <thead className="nc-sr"><tr><th scope="col">{chosen[0]}</th><th scope="col">Métrica</th><th scope="col">{chosen[1]}</th></tr></thead>
+              <tbody>
               {group.rows.map(metric => {
                 const [a,b] = metric.values;
                 const leader = sufficient && typeof a === 'number' && typeof b === 'number' && a !== b ? ((a > b) !== metric.lowerIsBetter ? chosen[0] : chosen[1]) : '';
                 const format = (value: number | null) => value === null ? '—' : `${number(value, metric.percent ? 1 : undefined)}${metric.percent ? ' %' : ''}`;
-                return <div key={metric.label}>
-                  <dd className={leader === chosen[0] ? styles.statWinner : undefined}>{format(a)}</dd>
-                  <dt>{metric.label}</dt>
-                  <dd className={leader === chosen[1] ? styles.statWinner : undefined}>{format(b)}</dd>
-                </div>;
+                return <tr key={metric.label}>
+                  <td className={leader === chosen[0] ? styles.statWinner : undefined}>{format(a)}</td>
+                  <th scope="row">{metric.label}</th>
+                  <td className={leader === chosen[1] ? styles.statWinner : undefined}>{format(b)}</td>
+                </tr>;
               })}
-            </dl>
+              </tbody>
+            </table>
           </article>)}
         </div>
         <section className={styles.surfaceComparison} aria-labelledby="surface-comparison-title">
@@ -183,10 +208,10 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
         </div>
       </section>
     </>}
-    <aside className={styles.methodNote} aria-label="Criterio de la comparación">
+    {valid && !same && <aside className={styles.methodNote} aria-label="Criterio de la comparación">
       <strong>Criterio del archivo</strong>
       <span>Ranking documentado: {players.map(player=>`${player.name} ${number(player.ranking)}/${number(player.played)}`).join(" · ")}. Top 10 usa esa cobertura; solo cuentan partidos finalizados.</span>
       {q.age && q.age !== 'all' ? <span>Edad documentada: {players.map(player => `${player.name} ${number(player.ageCoverage)}/${number(player.base)}`).join(' · ')}.</span> : null}
-    </aside>
+    </aside>}
   </div>;
 }

@@ -1,8 +1,9 @@
 import Image from "next/image";
-import RecordJumpLink from "./RecordJumpLink";
+import Link from "next/link";
 
 export type SurfaceRecord = {
   id: string;
+  href: string;
   label: string;
   player: string;
   value: number;
@@ -31,9 +32,9 @@ export default function RecordsSurfaceChart({
       </header>
       <div>
         {records.map((record) => (
-          <RecordJumpLink
+          <Link
             key={record.id}
-            recordId={record.id}
+            href={record.href}
             className="records-surface-photo"
           >
             <Image
@@ -49,7 +50,7 @@ export default function RecordsSurfaceChart({
               <b>{record.player}</b>
               <strong>{record.display}</strong>
             </span>
-          </RecordJumpLink>
+          </Link>
         ))}
       </div>
     </section>

@@ -201,7 +201,7 @@ export default async function Player({params,searchParams}:Props){
         return {slug:tournament.slug,name:tournament.name,surfaceKey:tournament.surfaceKey,category:tournament.category,titles:tournament.titles,titleYears:tournament.titleYears,brandingSrc:branding?.src,trophySrc:branding?.trophySrc,href:target?.slug?`/torneos/${target.slug}`:undefined};
       })}/></section>:null}
 
-      {rivals.length>=2?<section className="pp-section pp-rivals" id="enfrentamientos" aria-labelledby="pp-rivals-title"><PlayerRivals rivals={rivals} player={{name:player.name,country:bio?.country}} compareHref={`/comparar?a=${encodeURIComponent(player.name)}`}/></section>:null}
+      {rivals.length>=2&&frequentRival?<section className="pp-section pp-rivals" id="enfrentamientos" aria-labelledby="pp-rivals-title"><PlayerRivals rivals={rivals} player={{name:player.name,country:bio?.country}} compareHref={comparisonHref(player.name,frequentRival.name)}/></section>:null}
 
       <section className="pp-section pp-matches" id="partidos" aria-labelledby="pp-matches-title"><PlayerRecentMatches matches={recent} allHref={`/buscar?tour=${tour}&player=${encodeURIComponent(player.name)}&scope=matches`}/></section>
     </div>

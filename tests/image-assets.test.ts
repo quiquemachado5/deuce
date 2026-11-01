@@ -4,9 +4,10 @@ import { existsSync } from 'node:fs'
 import cached from '../lib/player-photo-manifest.json'
 import refreshed from '../lib/player-photo-refresh.json'
 import discovered from '../lib/player-photo-discovery.json'
+import wtaPortraits from '../lib/player-photo-wta.json'
 import imageLoader from '../lib/image-loader'
 import { courtPhoto, courtPhotoForEdition, courtPhotos, premiumCourtPhotoNames } from '../lib/imagery'
-import { playerDirectoryPhoto, playerPhoto, playerPhotos } from '../lib/player-imagery'
+import { playerDirectoryPhoto, playerPhoto, playerPhotos, publishableWtaPortraits } from '../lib/player-imagery'
 import { playerPhotoAtTournament } from '../lib/tournament-media'
 import { photoRightsStatus } from '../lib/photo-rights'
 
@@ -29,9 +30,9 @@ test('the player directory serves cached local photos with their actual sources'
     assert.equal(playerPhoto(name)?.credit, cached[name as keyof typeof cached].credit)
   }
   assert.match(playerPhoto('Novak Djokovic')?.source || '', /2025_Miami_Open/)
-  assert.match(playerPhoto('Rafael Nadal')?.source || '', /biografieonline/)
-  assert.match(playerDirectoryPhoto('Rafael Nadal')?.source || '', /biografieonline/)
-  assert.match(playerPhoto('Iga Świątek')?.source || '', /wtatennis\.com\/players/)
+  assert.match(playerPhoto('Rafael Nadal')?.source || '', /commons\.wikimedia\.org/)
+  assert.match(playerDirectoryPhoto('Rafael Nadal')?.source || '', /commons\.wikimedia\.org/)
+  assert.equal(playerPhoto('Iga Świątek'), null)
   for (const [name, photo] of Object.entries(refreshed)) {
     if (name !== 'Rafael Nadal') assert.equal(playerPhoto(name)?.src, photo.src)
     assert.ok(photo.photoYear >= 2024)
@@ -47,15 +48,25 @@ test('the player directory serves cached local photos with their actual sources'
   assert.equal(playerPhoto('Felix Auger–Aliassime')?.src, playerPhoto('Félix Auger-Aliassime')?.src)
 })
 
+test('provider portraits without documented reuse rights stay unpublished', () => {
+  const undocumented = Object.entries(wtaPortraits).filter(([, photo]) => !('licenseUrl' in photo) || !photo.licenseUrl)
+  assert.ok(undocumented.length > 0)
+  for (const [name, photo] of undocumented) {
+    assert.equal(publishableWtaPortraits[name], undefined, name)
+    assert.equal(existsSync(`public${photo.src}`), false, `${name} must remain outside public/ until licensed`)
+  }
+  for (const photo of Object.values(publishableWtaPortraits)) assert.equal(photoRightsStatus(photo), 'documented')
+  for (const photo of Object.values(playerPhotos)) assert.equal(photoRightsStatus(photo), 'documented', photo.src)
+})
+
 test('every published photograph has a source, credit and explicit audit state', () => {
   const rows = [...Object.values(playerPhotos), ...Object.values(courtPhotos)]
   for (const photo of rows) {
     assert.ok(photo.source.startsWith('http'), `invalid photo source: ${photo.src}`)
     assert.ok(photo.credit.trim(), `missing photo credit: ${photo.src}`)
-    assert.ok(['documented', 'source-only'].includes(photoRightsStatus(photo)))
+    assert.equal(photoRightsStatus(photo), 'documented', photo.src)
   }
   assert.ok(rows.some(photo => photoRightsStatus(photo) === 'documented'))
-  assert.ok(rows.some(photo => photoRightsStatus(photo) === 'source-only'))
 })
 
 test('tournament pages prefer documented event photography and always fall back to a face', () => {

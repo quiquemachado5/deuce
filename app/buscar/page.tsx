@@ -16,21 +16,25 @@ import { MatchArchivePage } from '@/components/deuce/MatchArchivePage';
 import { toMatchRecord } from '@/data/map-match';
 import { matchSearchIntent } from '@/lib/search-intent';
 import EmptyState from '@/components/EmptyState';
+import { preparedManifest } from '@/lib/revista/read-records';
+import { noIndexFollow, robotsForUnavailableTour } from '@/lib/seo-metadata';
 import styles from './search.module.css';
 
 export async function generateMetadata({ searchParams }: { searchParams: Promise<MatchQuery> }) {
-  const raw = await searchParams;
+  const [raw,manifest] = await Promise.all([searchParams,preparedManifest()]);
   const tour=raw.tour==='wta'?'wta':'atp';
-  const query={...raw,tour:tour==='wta'?'wta':undefined};
   const filtered=Object.entries(raw).some(([key,value])=>key!=='tour'&&Boolean(value));
   const title=`${raw.q ? `${raw.q} · ` : ''}Partidos ${tour.toUpperCase()} — DEUCE`;
-  const canonical=matchSearchUrl(query,{limit:undefined});
+  const canonical=tour==='wta'?'/buscar?tour=wta':'/buscar';
+  const unavailableTour=robotsForUnavailableTour(manifest.summary,tour);
   return {
     title,
-    description: `Busca jugadoras, jugadores y torneos ${tour.toUpperCase()}. Recorre el archivo por temporada, superficie y ronda.`,
+    description: tour === 'wta'
+      ? 'Consulta el estado del archivo WTA y accede al archivo ATP disponible por temporada, superficie y ronda.'
+      : 'Busca jugadores y torneos ATP. Recorre el archivo por temporada, superficie y ronda.',
     alternates: { canonical },
     openGraph:{title,url:canonical},
-    robots: filtered ? { index: false, follow: true } : undefined,
+    robots: filtered ? noIndexFollow : unavailableTour,
   };
 }
 
@@ -98,7 +102,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
   const players = suggestions.filter(item => item.group === 'Jugadores' && tourPlayers.has(normalizeText(item.name)));
   const related = suggestions.filter(item => ['Torneos', 'Récords', 'Parejas'].includes(item.group));
   const chips = [
-    query.tour ? { key: 'tour', label: query.tour.toUpperCase() } : null,
+    query.tour === 'wta' ? { key: 'tour', label: 'WTA' } : null,
     query.year && query.year !== 'all' ? { key: 'year', label: `Temporada ${query.year}` } : null,
     query.surface ? { key: 'surface', label: ({ clay: 'Tierra', grass: 'Hierba', hard: 'Dura', carpet: 'Moqueta' } as Record<string,string>)[query.surface] || query.surface } : null,
     query.category ? { key: 'category', label: query.category } : null,
@@ -130,8 +134,12 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
     <section className={styles.season} aria-labelledby="match-season-title">
       <h2 className="nc-sr" id="match-season-title">{selectedYear ? `Partidos de ${selectedYear}` : 'Partidos por torneo'}</h2>
       {query.vista === 'torneos' ? <EditionMatchGroups editions={groups} query={query} showYears /> : <MatchArchivePage matches={visibleDailyMatches.map(toMatchRecord)}/>}
-      {!filtered.length && <EmptyState title="No encontramos partidos" description="Prueba otro nombre o quita alguno de los filtros de la búsqueda." resetHref={matchSearchUrl({}, { q: query.q })} />}
-      {!filtered.length && <nav className="archive-suggestions" aria-label="Alternativas de búsqueda">{chips.map(chip => <Link key={chip.key} href={matchSearchUrl(query,{[chip.key]:undefined})}>Quitar {chip.label}</Link>)}<Link href="/buscar">Empezar de nuevo</Link><Link href="/buscar?q=Nadal+Federer+Wimbledon+2008">Nadal · Federer · Wimbledon 2008</Link></nav>}
+      {!filtered.length && <EmptyState
+        title={tour === 'wta' && !tourMatches.length ? 'El archivo WTA todavía no tiene temporadas publicadas' : 'No encontramos partidos'}
+        description={tour === 'wta' && !tourMatches.length ? 'No mostramos resultados ATP como si fueran WTA. Puedes consultar la cobertura o continuar en el archivo ATP.' : 'Prueba otro nombre o quita alguno de los filtros de la búsqueda.'}
+        resetHref={tour === 'wta' && !tourMatches.length ? '/buscar' : matchSearchUrl({}, { q: query.q })}
+      />}
+      {!filtered.length && <nav className="archive-suggestions" aria-label="Alternativas de búsqueda">{chips.map(chip => <Link key={chip.key} href={matchSearchUrl(query,{[chip.key]:undefined})}>Quitar {chip.label}</Link>)}{tour === 'wta' && !tourMatches.length ? <><Link href="/buscar">Ver partidos ATP</Link><Link href="/cobertura">Consultar cobertura</Link></> : <><Link href="/buscar">Empezar de nuevo</Link><Link href="/buscar?q=Nadal+Federer+Wimbledon+2008">Nadal · Federer · Wimbledon 2008</Link></>}</nav>}
       {(query.vista === 'torneos' ? editionYears.length > seasonLimit : matchDates.length > dailyLimit) && <div className={styles.loadMore}><Link href={matchSearchUrl(query, { limit: String((query.vista === 'torneos' ? seasonLimit : dailyLimit) + (query.vista === 'torneos' ? 2 : 1)) })} scroll={false}>{query.vista === 'torneos' ? 'Cargar temporadas anteriores' : 'Cargar días anteriores'}<ChevronDown size={16} aria-hidden="true" /></Link></div>}
     </section>
   </div>;

@@ -7,6 +7,7 @@ import curatedSelections from './player-photo-curated.json'
 import wtaPortraits from './player-photo-wta.json'
 import type { Photo } from './imagery'
 import { playerPhotoFocus } from './player-photo-focus'
+import { photoRightsStatus } from './photo-rights'
 
 // Curated replacements must carry the source and licence of that exact image.
 const curated: Record<string, Photo> = {
@@ -28,6 +29,11 @@ const curated: Record<string, Photo> = {
   },
 }
 
+const publishableCuratedSelections: Record<string, Photo> = Object.fromEntries(
+  Object.entries(curatedSelections as Record<string, Photo>)
+    .filter(([, photo]) => photoRightsStatus(photo) === 'documented'),
+)
+
 // The directory gives its largest slots to a small set of familiar players.
 // These documented, higher-resolution moments avoid stretching their compact
 // profile portraits while keeping the same archive-led photographic language.
@@ -42,7 +48,7 @@ export const directoryPlayerPhotos: Record<string, Photo> = {
     objectPosition: '50% 32%',
     mobileObjectPosition: '50% 28%',
   },
-  'Rafael Nadal': curatedSelections['Rafael Nadal'],
+  'Rafael Nadal': curated['Rafael Nadal'],
   'Roger Federer': {
     src: '/images/editorial/records/roger-federer-wimbledon-2005.webp',
     alt: 'Roger Federer saluda al público sobre la hierba de Wimbledon 2005',
@@ -84,7 +90,7 @@ export const directoryPlayerPhotos: Record<string, Photo> = {
     mobileObjectPosition: '50% 22%',
   },
   ...(directory as Record<string, Photo>),
-  ...(curatedSelections as Record<string, Photo>),
+  ...publishableCuratedSelections,
 }
 
 export function playerDirectoryPhoto(name: string): Photo | null {
@@ -194,7 +200,17 @@ export const editorialPlayerPhotos: Record<string, Photo> = {
   },
 }
 
-export const playerPhotos: Record<string, Photo> = { ...(cached as Record<string, Photo>), ...curated, ...(refreshed as Record<string, Photo>), ...(documented as Record<string, Photo>), ...(discovered as Record<string, Photo>), ...editorialPlayerPhotos, ...(curatedSelections as Record<string, Photo>), ...(wtaPortraits as Record<string, Photo>) }
+// Provider profile pages identify a source, but do not by themselves grant a
+// republication licence. Keep those files in the editorial inventory while
+// withholding them from the public site until the exact asset has documented
+// reuse terms. PlayerAvatar then falls back to initials instead of publishing
+// an image with unknown rights.
+export const publishableWtaPortraits: Record<string, Photo> = Object.fromEntries(
+  Object.entries(wtaPortraits as Record<string, Photo>)
+    .filter(([, photo]) => photoRightsStatus(photo) === 'documented'),
+)
+
+export const playerPhotos: Record<string, Photo> = { ...(cached as Record<string, Photo>), ...curated, ...(refreshed as Record<string, Photo>), ...(documented as Record<string, Photo>), ...(discovered as Record<string, Photo>), ...editorialPlayerPhotos, ...publishableCuratedSelections, ...publishableWtaPortraits }
 
 function normalizeName(name: string) {
   return name.normalize('NFKD').replace(/[\u0300-\u036f]/g, '')

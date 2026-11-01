@@ -55,7 +55,7 @@ export default function RecordsVideoCarousel() {
       <div className="records-video-media">
         <iframe
           key={video.id}
-          src={`https://www.youtube.com/embed/${video.id}?autoplay=1&mute=1&controls=0&disablekb=1&loop=1&playlist=${video.id}&playsinline=1&rel=0&iv_load_policy=3&cc_load_policy=0&start=${video.start}&end=${video.end}`}
+          src={`https://www.youtube-nocookie.com/embed/${video.id}?autoplay=1&mute=1&controls=0&disablekb=1&loop=1&playlist=${video.id}&playsinline=1&rel=0&iv_load_policy=3&cc_load_policy=0&start=${video.start}&end=${video.end}`}
           title={video.title}
           loading="eager"
           allow="autoplay; encrypted-media; picture-in-picture"

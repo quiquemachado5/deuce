@@ -14,11 +14,11 @@ const editorial = Newsreader({ subsets:['latin'], variable:'--deuce-editorial', 
 export const metadata: Metadata = {
   metadataBase: new URL("https://deuce-archive.vercel.app"),
   title: "DEUCE — Datos del archivo de tenis",
-  description: "Explora partidos, jugadoras, jugadores y récords ATP y WTA desde 1968 en el archivo visual de DEUCE.",
+  description: "Explora el archivo ATP de DEUCE desde 1968: partidos, jugadores, torneos y récords. El histórico WTA está en preparación.",
   alternates: { canonical: "/" },
   openGraph: {
     title: "DEUCE — Datos del archivo de tenis",
-    description: "Explora partidos, jugadoras, jugadores y récords ATP y WTA desde 1968 en el archivo visual de DEUCE.",
+    description: "Explora el archivo ATP de DEUCE desde 1968: partidos, jugadores, torneos y récords. El histórico WTA está en preparación.",
     siteName: "DEUCE",
     locale: "es_ES",
     type: "website",

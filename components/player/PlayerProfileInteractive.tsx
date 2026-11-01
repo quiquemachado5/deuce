@@ -88,11 +88,12 @@ export function PlayerCareerTimeline({seasons}:{seasons:CareerSeason[]}){
     <div className="pp-career-plot" role="img" tabIndex={0} aria-label={`Evolución por temporada: ${labels.find(item=>item.id===metric)?.label}, de ${seasons[0]?.year} a ${seasons.at(-1)?.year}. Desliza o toca para consultar un año.`} onPointerDown={selectPointer} onPointerMove={selectPointer} onKeyDown={event=>{if(event.key==='ArrowLeft'||event.key==='ArrowRight'){event.preventDefault();setActiveIndex(index=>Math.max(0,Math.min(seasons.length-1,index+(event.key==='ArrowRight'?1:-1))));}}}>
       <svg viewBox="0 0 864 278" preserveAspectRatio="none" aria-hidden="true">
         <defs><linearGradient id="pp-timeline-area" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#1c7a50" stopOpacity=".18"/><stop offset="100%" stopColor="#1c7a50" stopOpacity="0"/></linearGradient></defs>
-        {[0,.5,1].map(step=><g key={step}><line x1={chart.left} x2={chart.right} y1={y(domainMaximum*step)} y2={y(domainMaximum*step)} className="pp-chart-grid"/><text x="8" y={y(domainMaximum*step)+4}>{display(domainMaximum*step)}</text></g>)}
+        {[0,.5,1].map(step=><line key={step} x1={chart.left} x2={chart.right} y1={y(domainMaximum*step)} y2={y(domainMaximum*step)} className="pp-chart-grid"/>)}
         <path d={area} className="pp-chart-area"/><path d={line} className="pp-chart-line"/>
         <line x1={active.point.x} x2={active.point.x} y1={chart.top} y2={chart.bottom} className="pp-chart-cursor"/><circle cx={active.point.x} cy={active.point.y} r="5" className="pp-chart-dot"/>
-        {yearTicks.map(index=><text key={seasons[index].year} x={x(index)} y="267" textAnchor={index===0?'start':index===seasons.length-1?'end':'middle'} className="pp-chart-year">{seasons[index].year}</text>)}
       </svg>
+      <div className="pp-chart-y-axis" aria-hidden="true">{[0,.5,1].map(step=><span key={step} style={{top:`${y(domainMaximum*step)/278*100}%`}}>{display(domainMaximum*step)}</span>)}</div>
+      <div className="pp-chart-x-axis" aria-hidden="true">{yearTicks.map((index,tickIndex)=><span key={seasons[index].year} data-edge={tickIndex===0?'start':tickIndex===yearTicks.length-1?'end':undefined} data-compact-hide={tickIndex>0&&tickIndex<yearTicks.length-1&&tickIndex%2===1?'':undefined} style={{left:`${x(index)/864*100}%`}}>{seasons[index].year}</span>)}</div>
       <div className="pp-chart-tooltip" style={{left:`${active.point.x/864*100}%`,top:`${active.point.y/278*100}%`}}><span>{active.season.year}</span><strong>{display(active.value)}</strong></div>
     </div>
     <details className="pp-chart-table"><summary>Ver valores por temporada</summary><table><thead><tr><th>Año</th><th>{labels.find(item=>item.id===metric)?.label}</th></tr></thead><tbody>{seasons.map((season,index)=><tr key={season.year}><th>{season.year}</th><td>{display(values[index])}</td></tr>)}</tbody></table></details>

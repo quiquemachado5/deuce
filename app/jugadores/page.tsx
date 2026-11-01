@@ -5,21 +5,26 @@ import type { CSSProperties } from 'react';
 import { ArrowRight, ArrowUpRight, Trophy } from 'lucide-react';
 import { comparisonHref, playerSlug, rivalryDirectory } from '@/lib/explore';
 import { preparedGeneration } from '@/lib/revista/read-records';
-import { number, description } from '@/lib/cuaderno/model';
+import { number } from '@/lib/cuaderno/model';
 import { Pagination } from '@/components/nocturno/Row';
 import { normalizeText } from '@/lib/quality';
 import { playerDirectoryPhoto, playerPhoto } from '@/lib/player-imagery';
 import PairPicker from '@/components/analytics/PairPicker';
 import TournamentFilters from '@/components/TournamentFilters';
+import { robotsForUnavailableTour } from '@/lib/seo-metadata';
 import styles from './players.module.css';
 
 export async function generateMetadata({ searchParams }: {
   searchParams: Promise<{ tour?: string }>;
 }) {
-  const tour=(await searchParams).tour==='wta'?'wta':'atp';
+  const [query,generation]=await Promise.all([searchParams,preparedGeneration()]);
+  const tour=query.tour==='wta'?'wta':'atp';
   const title=`Jugadoras y jugadores ${tour.toUpperCase()} — DEUCE`;
+  const description=tour==='wta'&&generation.manifest.summary.tours.wta===0
+    ? 'El directorio WTA de DEUCE está en preparación. Consulta mientras tanto los jugadores y partidos ATP publicados.'
+    : `Jugadoras y jugadores ${tour.toUpperCase()} del archivo DEUCE, con temporadas, resultados y rendimiento documentados.`;
   const canonical=tour==='wta'?'/jugadores?tour=wta':'/jugadores';
-  return {title,description,alternates:{canonical},openGraph:{title,description,url:canonical}};
+  return {title,description,alternates:{canonical},openGraph:{title,description,url:canonical},robots:robotsForUnavailableTour(generation.manifest.summary,tour)};
 }
 
 function Initials({ name }: { name: string }) {
@@ -78,7 +83,7 @@ export default async function Players({ searchParams }: {
     </header>
 
     <div className={styles.content}>
-      <form className={styles.directoryTools} action="/jugadores" method="get" role="search">
+      <form key={`${query.tour}|${query.q || ''}|${order}`} className={styles.directoryTools} action="/jugadores" method="get" role="search">
         <label>
           <span>Buscar en el directorio</span>
           <input name="q" type="search" defaultValue={query.q || ''} placeholder={query.tour === 'wta' ? 'Nombre de jugadora' : 'Nombre de jugador'} />
@@ -150,6 +155,6 @@ export default async function Players({ searchParams }: {
         ? <div className={styles.empty}><h2>El archivo WTA todavía no tiene temporadas publicadas</h2><p>Esta sección se activará cuando haya partidos WTA validados en la copia disponible.</p><Link href="/cobertura">Consultar cobertura</Link><Link className={styles.secondaryEmptyLink} href="/jugadores">Ver jugadores ATP</Link></div>
         : !total && <div className={styles.empty}><h2>No hay resultados</h2><p>No encontramos {pairs ? 'enfrentamientos' : query.tour === 'wta' ? 'jugadoras' : 'jugadores'} con esta búsqueda.</p><Link href={pairs ? '/jugadores?tipo=enfrentamientos' : query.tour === 'wta' ? '/jugadores?tour=wta' : '/jugadores'}>Quitar filtros</Link></div>}
     </div>
-    <Pagination page={page} total={total} href={next => url({ page: String(next) })}/>
+    <Pagination page={page} total={total} href={next => url({ page: String(next) })} mobileJumps/>
   </div>;
 }

@@ -17,10 +17,14 @@ export function matchStory(match:Match) {
   return chooseSocialHighlight(match,analyzePointTape(match.point_tape))
 }
 export function chronological(a:Match,b:Match) {
-  // Source dates can be tournament starts: order tied editions by round, never by opaque provider ID.
-  const dateA=(a.context?.date || a.score_summary.timestamp).slice(0,10);
-  const dateB=(b.context?.date || b.score_summary.timestamp).slice(0,10);
-  return a.year-b.year || dateA.localeCompare(dateB) || roundPosition(a.round)-roundPosition(b.round) || a.match_id.localeCompare(b.match_id);
+  // Exact dates keep their intraday order; approximate tournament dates fall back to round order.
+  const sourceA=a.context?.date || a.score_summary.timestamp;
+  const sourceB=b.context?.date || b.score_summary.timestamp;
+  const dateA=sourceA.slice(0,10),dateB=sourceB.slice(0,10);
+  const exactA=a.context?.dateLabel==='Fecha del partido'?Date.parse(sourceA):NaN;
+  const exactB=b.context?.dateLabel==='Fecha del partido'?Date.parse(sourceB):NaN;
+  const exactOrder=Number.isFinite(exactA)&&Number.isFinite(exactB)?exactA-exactB:0;
+  return a.year-b.year || dateA.localeCompare(dateB) || exactOrder || roundPosition(a.round)-roundPosition(b.round) || a.match_id.localeCompare(b.match_id);
 }
 export function neighboringMeetings(matches:Match[],match:Match) {
   const names=[match.player1.name,match.player2.name]

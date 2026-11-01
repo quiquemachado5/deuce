@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { calendarOrder } from '@/lib/presentation-calendar';
 import { latestTournamentCourt } from '@/lib/tournament-presentation';
-import { preparedTourArchive } from '@/lib/revista/read-records';
+import { preparedManifest, preparedTourArchive } from '@/lib/revista/read-records';
 import { courtPhoto } from '@/lib/imagery';
 import { tournamentName } from '@/lib/labels';
 import { surfaceLabel } from '@/lib/cuaderno/model';
@@ -12,6 +12,8 @@ import { ArchivePage } from '@/components/deuce/ArchivePage';
 import TournamentGallery, { type TournamentGalleryCard } from '@/components/TournamentGallery';
 import TournamentBrowsePicker from '@/components/TournamentBrowsePicker';
 import { winnerName, roundPosition } from '@/lib/editorial';
+import { robotsForUnavailableTour } from '@/lib/seo-metadata';
+import { tournamentDirectoryUrl } from '@/lib/tournament-url';
 import styles from './tournament-directory.module.css';
 
 type Tour = 'atp' | 'wta';
@@ -23,13 +25,6 @@ const categories: Record<Tour, readonly string[]> = {
 };
 const categoryLabel = (category: string) => category === 'Grand Slam' ? 'Grand Slams' : category;
 const tourFrom = (value?: string): Tour => value === 'wta' ? 'wta' : 'atp';
-const directoryUrl = (tour: Tour, category?: string, page = 1) => {
-  const params = new URLSearchParams();
-  params.set('circuito', tour);
-  if (category) params.set('categoria', category);
-  if (page > 1) params.set('page', String(page));
-  return `/torneos?${params}`;
-};
 
 function latestPlayed(entry: ReturnType<typeof tournamentDirectory>[number], category: string) {
   return entry.matches.filter(match => match.category === category).reduce((latest, match) => {
@@ -39,14 +34,14 @@ function latestPlayed(entry: ReturnType<typeof tournamentDirectory>[number], cat
 }
 
 export async function generateMetadata({ searchParams }: Props) {
-  const query = await searchParams;
+  const [query, manifest] = await Promise.all([searchParams, preparedManifest()]);
   const tour = tourFrom(query.circuito);
   const category = categories[tour].find(value => value === query.categoria);
   const title = `${category ? `${categoryLabel(category)} · ` : ''}Torneos ${tour.toUpperCase()} — DEUCE`;
   const description = `Torneos y ediciones ${tour.toUpperCase()} del archivo, sin mezclar los resultados de ambos circuitos.`;
   const page = Math.max(1, Math.floor(Number(query.page) || 1));
-  const canonical = directoryUrl(tour, category, page);
-  return { title, description, alternates: { canonical }, openGraph: { title, description, url: canonical }, twitter: { card: 'summary_large_image', title, description } };
+  const canonical = tournamentDirectoryUrl(tour, category, page);
+  return { title, description, alternates: { canonical }, openGraph: { title, description, url: canonical }, twitter: { card: 'summary_large_image', title, description }, robots: robotsForUnavailableTour(manifest.summary, tour) };
 }
 
 export default async function TournamentDirectory({ searchParams }: Props) {
@@ -88,8 +83,8 @@ export default async function TournamentDirectory({ searchParams }: Props) {
   const tools = <TournamentBrowsePicker selection={`${tour.toUpperCase()} · ${chosen ? categoryLabel(chosen) : 'Principales'}`} groups={(['atp', 'wta'] as const).map(value => ({
     label: value.toUpperCase(),
     items: [
-      { href: directoryUrl(value), label: 'Principales', active: tour === value && !chosen },
-      ...categories[value].map(category => ({ href: directoryUrl(value, category), label: categoryLabel(category), active: tour === value && chosen === category })),
+      { href: tournamentDirectoryUrl(value), label: 'Principales', active: tour === value && !chosen },
+      ...categories[value].map(category => ({ href: tournamentDirectoryUrl(value, category), label: categoryLabel(category), active: tour === value && chosen === category })),
     ],
   }))} />;
   const orderedCards = chosen ? cards.sort((a, b) => latestPlayed(entryBySlug.get(b.id)!, chosen) - latestPlayed(entryBySlug.get(a.id)!, chosen)) : cards;
@@ -102,11 +97,11 @@ export default async function TournamentDirectory({ searchParams }: Props) {
       const group = cards.filter(card => primaryLevelBySlug.get(card.id) === category)
         .sort((a, b) => latestPlayed(entryBySlug.get(b.id)!, category) - latestPlayed(entryBySlug.get(a.id)!, category));
       return group.length ? <section className={styles.group} key={category} aria-labelledby={`group-${index}`}>
-        <div className={styles.groupHeader}><h2 id={`group-${index}`}>{categoryLabel(category)}</h2><Link className={styles.allLink} href={directoryUrl(tour, category)}><span>Ver todos</span><ArrowRight size={16} aria-hidden="true" /></Link></div>
+        <div className={styles.groupHeader}><h2 id={`group-${index}`}>{categoryLabel(category)}</h2><Link className={styles.allLink} href={tournamentDirectoryUrl(tour, category)}><span>Ver todos</span><ArrowRight size={16} aria-hidden="true" /></Link></div>
         <TournamentGallery cards={group} variant={index === 0 ? 'majors' : index === 1 ? 'rail' : 'compact'} label={categoryLabel(category)} />
       </section> : null;
     })}</div>}
-    {!selected.length ? <div className={styles.empty}><h2>Sin torneos {tour.toUpperCase()} disponibles</h2><p>{tour === 'wta' ? 'La importación de este circuito sigue en curso. Ningún resultado ATP se muestra como WTA.' : 'Prueba otra categoría del circuito.'}</p><Link href={directoryUrl(tour)}>Ver categorías {tour.toUpperCase()}</Link></div> : null}
-    {chosen ? <Pagination page={page} total={selected.length} href={next => directoryUrl(tour, chosen, next)} /> : null}
+    {!selected.length ? <div className={styles.empty}><h2>Sin torneos {tour.toUpperCase()} disponibles</h2><p>{tour === 'wta' ? 'La importación de este circuito sigue en curso. Ningún resultado ATP se muestra como WTA.' : 'Prueba otra categoría del circuito.'}</p>{tour === 'wta' && !entries.length ? <><Link href={tournamentDirectoryUrl('atp')}>Ver torneos ATP</Link><Link className={styles.secondaryEmptyLink} href="/cobertura">Consultar cobertura</Link></> : <Link href={tournamentDirectoryUrl(tour)}>Quitar categoría</Link>}</div> : null}
+    {chosen ? <Pagination page={page} total={selected.length} href={next => tournamentDirectoryUrl(tour, chosen, next)} /> : null}
   </div></ArchivePage>;
 }

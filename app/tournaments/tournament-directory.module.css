@@ -30,15 +30,15 @@
 .allLink:hover{transform:translateY(-2px);background:var(--acid);color:var(--ink)}.allLink:hover svg{transform:translateX(2px)}
 .selected{min-width:0;margin-bottom:70px}
 .count{color:var(--muted);font-size:11px;font-weight:680}
-.empty{padding:70px 28px;border-radius:24px;background:var(--bg-raised);text-align:center}.empty h2{margin:0;font:650 34px/1 var(--font-display)}.empty p{margin:12px 0 22px;color:var(--muted)}.empty a{display:inline-flex;min-height:44px;align-items:center;padding:0 18px;border-radius:999px;background:var(--ink);color:var(--bg-raised);text-decoration:none}
+.empty{padding:70px 28px;border-radius:24px;background:var(--bg-raised);text-align:center}.empty h2{margin:0;font:650 34px/1 var(--font-display)}.empty p{margin:12px 0 22px;color:var(--muted)}.empty a{display:inline-flex;min-height:44px;align-items:center;padding:0 18px;border-radius:999px;background:var(--ink);color:var(--bg-raised);text-decoration:none}.empty .secondaryEmptyLink{margin-left:8px;background:var(--bg-sunken);color:var(--ink)}
 .page :global(.nc-pagination){flex-wrap:nowrap}.page :global(.nc-pagination>.nc-pagination-pages){order:0;flex-basis:auto}
 .allLink:focus-visible,.filterLink:focus-visible,.filterTrigger:focus-visible,.empty a:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
 
 @media(max-width:900px){.page :global(.inner-title){grid-template-columns:1fr!important;align-items:start!important;gap:26px;padding-top:122px!important}.page :global(.inner-title-tools){width:100%;max-width:100%}.filterMenu{justify-self:start}}
 @media(max-width:640px){
-  .page{padding-bottom:24px}.page :global(.inner-title){gap:17px;width:100%!important;padding:22px 12px 26px!important}.page :global(.inner-title h1){font-size:clamp(44px,13vw,54px)!important}.page :global(.inner-title-tools){width:100%}
+  .page{padding-bottom:24px}.page :global(.inner-title){gap:17px;width:100%!important;padding:104px 12px 26px!important}.page :global(.inner-title h1){font-size:clamp(44px,13vw,54px)!important}.page :global(.inner-title-tools){width:100%}
   .filterMenu{width:100%}.filterTrigger{min-height:44px}.filterPanel{right:auto;left:0;grid-template-columns:1fr;width:100%;max-height:55vh;padding:12px}.filterGroup+.filterGroup{padding-top:12px;border-top:1px solid var(--line)}
   .content{width:100%;padding:0}.group{margin-bottom:58px}.groupHeader{margin:0 12px 16px}.groupHeader h2{font-size:35px}.allLink{min-height:42px;padding-inline:15px 13px}.selected{margin-bottom:52px}.count{font-size:10px}
-  .empty{margin:0 12px;padding:54px 20px}
+  .empty{margin:0 12px;padding:54px 20px}.empty a{display:flex;width:fit-content;margin-inline:auto}.empty .secondaryEmptyLink{margin:8px auto 0}
 }
 @media(prefers-reduced-motion:reduce){.filterLink,.filterTrigger svg,.allLink,.allLink svg{transition:none}.allLink:hover,.allLink:hover svg{transform:none}}

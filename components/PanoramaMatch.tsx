@@ -19,6 +19,7 @@ import { tournamentDirectory } from "@/lib/tournament-directory";
 import { findStat, type StatRow } from "@/lib/statistics";
 import { pressure, sentence } from "@/lib/cuaderno/model";
 import PlayerFlag from "@/components/PlayerFlag";
+import { compactMatchDate } from "@/lib/match-date";
 
 const geist = Geist({
   subsets: ["latin"],
@@ -80,17 +81,12 @@ function ChevronDown() {
 }
 
 function matchDate(match: Match) {
-  const value = match.context?.date || match.score_summary.timestamp;
-  const date = new Date(value);
-  if (Number.isNaN(date.valueOf())) return String(match.year);
-  return new Intl.DateTimeFormat("es-ES", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-    timeZone: "UTC",
-  })
-    .format(date)
-    .replaceAll(".", "");
+  return compactMatchDate({
+    date: match.context?.date,
+    dateLabel: match.context?.dateLabel,
+    year: match.year,
+    tournament: match.tournament,
+  });
 }
 
 function MatchFlag({ name, compact = false }: { name: string; compact?: boolean }) {
@@ -371,19 +367,24 @@ function Statistics({ match, groups }: { match: Match; groups: ComparisonGroup[]
               <span>{names[1]}</span>
             </div>
             <dl>
-              {group.rows.map((row) => (
-                <div key={row.key}>
-                  <dd className={isHigher(row.first, row.second) ? "is-stat-winner" : undefined}>
-                    {row.first.main}
-                    {row.first.detail ? <small>{row.first.detail}</small> : null}
-                  </dd>
-                  <dt>{row.label}</dt>
-                  <dd className={isHigher(row.second, row.first) ? "is-stat-winner" : undefined}>
-                    {row.second.main}
-                    {row.second.detail ? <small>{row.second.detail}</small> : null}
-                  </dd>
-                </div>
-              ))}
+              {group.rows.map((row) => {
+                const termId = `pm-stat-${group.key}-${row.key}`;
+                return (
+                  <div key={row.key}>
+                    <dt id={termId}>{row.label}</dt>
+                    <dd aria-describedby={termId} className={isHigher(row.first, row.second) ? "is-stat-winner" : undefined}>
+                      <span className="nc-sr">{names[0]}: </span>
+                      {row.first.main}
+                      {row.first.detail ? <small>{row.first.detail}</small> : null}
+                    </dd>
+                    <dd aria-describedby={termId} className={isHigher(row.second, row.first) ? "is-stat-winner" : undefined}>
+                      <span className="nc-sr">{names[1]}: </span>
+                      {row.second.main}
+                      {row.second.detail ? <small>{row.second.detail}</small> : null}
+                    </dd>
+                  </div>
+                );
+              })}
             </dl>
           </article>
         ))}

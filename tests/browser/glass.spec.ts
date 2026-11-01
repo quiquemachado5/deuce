@@ -14,7 +14,7 @@ test('tournament directory prioritizes the four Grand Slams and preserves catego
   }
   await page.locator('summary[aria-label^="Filtrar torneos:"]').click();
   await page.getByRole('link',{name:'ATP 250',exact:true}).click();
-  await expect(page).toHaveURL(/circuito=atp.*categoria=ATP(?:\+|%20)250/);
+  await expect(page).toHaveURL(/categoria=ATP(?:\+|%20)250/);
   await expect(page.locator('main a[href*="cuadro=atp"]').first()).toBeVisible();
 });
 test('edition presents the final, draw and data readings without a legacy media block',async({page})=>{

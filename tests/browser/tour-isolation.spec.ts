@@ -32,6 +32,5 @@ test('WTA landing routes expose their own canonical and never fall back to ATP r
   }
   await page.goto('/buscar?tour=wta');
   await expect(page.locator('.match-scorecard')).toHaveCount(0);
-  await expect(page.getByText(/No encontramos partidos|Sin partidos WTA/i).first()).toBeVisible();
+  await expect(page.getByText(/El archivo WTA todavía no tiene temporadas publicadas|No encontramos partidos|Sin partidos WTA/i).first()).toBeVisible();
 });
-

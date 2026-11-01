@@ -6,6 +6,7 @@ import { tournamentName } from '@/lib/labels';
 import { reviewedFinals, referenceFinal, referenceIssue } from '@/lib/reviewed-finals';
 import { tournamentDirectory } from '@/lib/tournament-directory';
 import { Pagination } from '@/components/nocturno/Row';
+import { reviewMatchDate } from '@/lib/match-date';
 export const metadata = {title:'Revisión histórica — DEUCE',alternates:{canonical:'/cobertura/revision'}};
 export const revalidate = 300;
 export default async function Review({searchParams}:{searchParams:Promise<{circuito?:string;page?:string}>}) {
@@ -33,7 +34,7 @@ export default async function Review({searchParams}:{searchParams:Promise<{circu
       })}</ul>
     </section>
     <aside className="dx-notice">Criterio: mismo año, torneo, ronda y pareja de jugadores. Una ciudad puede celebrar más de una edición; algunas fechas representan el inicio del torneo. Se conservan identificadores, resultados y procedencia hasta contrastar una fuente.</aside>
-    {groups.map(group => <section className="dx-evidence-list" key={group.key}><p className="dx-eyebrow">PENDIENTE DE CONTRASTE · {group.kind}</p><h2>{group.rows[0].player1.name} / {group.rows[0].player2.name}</h2><p>{tournamentName(group.rows[0].tournament)} · {group.rows[0].year} · {group.rows[0].round}</p><ul>{group.rows.map(m => <li key={m.match_id}><Link className="dx-inline-link" href={`/match/${m.match_id}`}>{m.final_score} · {(m.context?.date || m.score_summary.timestamp).slice(0,10)}</Link> — {m.context?.dateLabel || 'Precisión de fecha no documentada'} <small>({m.match_id})</small></li>)}</ul></section>)}
+    {groups.map(group => <section className="dx-evidence-list" key={group.key}><p className="dx-eyebrow">PENDIENTE DE CONTRASTE · {group.kind}</p><h2>{group.rows[0].player1.name} / {group.rows[0].player2.name}</h2><p>{tournamentName(group.rows[0].tournament)} · {group.rows[0].year} · {group.rows[0].round}</p><ul>{group.rows.map(m => <li key={m.match_id}><Link className="dx-inline-link" href={`/match/${m.match_id}`}>{m.final_score} · {reviewMatchDate({date:m.context?.date,dateLabel:m.context?.dateLabel,year:m.year,tournament:m.tournament})}</Link> — {m.context?.dateLabel || 'Precisión de fecha no documentada'} <small>({m.match_id})</small></li>)}</ul></section>)}
     <p className="dx-provenance">Versión {g.manifest.version}. Revisión no destructiva; ningún candidato se ha fusionado automáticamente.</p>
   </div>;
 }

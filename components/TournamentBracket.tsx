@@ -1,34 +1,22 @@
 "use client";
 
 import { useState } from "react";
-import { toMatchRecord } from '@/data/map-match';
 import { ArchiveMatchRow } from './deuce/MatchArchivePage';
-import { roundLabel, roundPosition, winnerName } from "@/lib/editorial";
-import type { Match } from "@/lib/types";
+import type { TournamentBracketMatch, TournamentBracketRound } from '@/lib/tournament-bracket';
 import styles from "./tournament-detail.module.css";
 
-export default function TournamentBracket({ matches, heading = 'El cuadro de la edición' }: { matches: Match[]; heading?: string }) {
+export default function TournamentBracket({ rounds, heading = 'El cuadro de la edición' }: { rounds: TournamentBracketRound[]; heading?: string }) {
   const [expanded, setExpanded] = useState(false);
-  const final = matches.find((match) => roundPosition(match.round) === 7 && match.winner);
-  const champion = final ? winnerName(final) : null;
-  const groups = new Map<number, Match[]>();
-  for (const match of matches) {
-    const position = roundPosition(match.round);
-    if (!position) continue;
-    groups.set(position, [...(groups.get(position) || []), match]);
-  }
-  const rounds = [...groups].sort(([a], [b]) => a - b).map(([position, results]) => ({ position, label: roundLabel(results[0].round), results }));
   const [activeRound, setActiveRound] = useState(() => rounds[0]?.position || 0);
   if (!rounds.length) return null;
   const hiddenMatches = rounds.reduce((total, round) => total + Math.max(0, round.results.length - 6), 0);
-  const renderMatch = (match: Match) => {
-    const onPath = champion !== null && winnerName(match) === champion;
-    return <li className={styles.bracketMatch} key={match.match_id} data-champion-path={onPath}>
-      <ArchiveMatchRow match={toMatchRecord(match)} showContext />
-      {onPath && <span className={styles.championPath}>Camino de {champion}</span>}
+  const renderMatch = (entry: TournamentBracketMatch) => {
+    return <li className={styles.bracketMatch} key={entry.match.id} data-champion-path={entry.champion ? true : undefined}>
+      <ArchiveMatchRow match={entry.match} showContext />
+      {entry.champion && <span className={styles.championPath}>Camino de {entry.champion}</span>}
     </li>;
   };
-  const headingId=`td-bracket-${matches[0]?.tour||'atp'}`;
+  const headingId=`td-bracket-${rounds[0]?.results[0]?.match.tour||'atp'}`;
   return <section className={styles.bracket} id="cuadro" aria-labelledby={headingId}>
     <div className={styles.bracketHeader}><h2 id={headingId}>{heading}</h2><p>Resultados documentados por ronda; los huecos permanecen visibles.</p></div>
     <div className={styles.bracketRoundPicker} role="group" aria-label="Elegir ronda del cuadro">{rounds.map(round=><button type="button" aria-pressed={activeRound===round.position} onClick={()=>setActiveRound(round.position)} key={round.position}>{round.label}<span>{round.results.length}</span></button>)}</div>

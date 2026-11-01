@@ -538,6 +538,8 @@ html:has(.pm-page) {
 }
 
 .pm-stat-group dt {
+  grid-column: 2;
+  grid-row: 1;
   color: var(--pm-muted);
   font-size: 12px;
   text-align: center;
@@ -549,6 +551,9 @@ html:has(.pm-page) {
   font-size: 24px;
   font-variant-numeric: tabular-nums;
 }
+
+.pm-stat-group dd:first-of-type { grid-column: 1; grid-row: 1; }
+.pm-stat-group dd:last-of-type { grid-column: 3; grid-row: 1; }
 
 .pm-stat-group dd:last-child { text-align: right; }
 

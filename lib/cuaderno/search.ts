@@ -50,7 +50,7 @@ export async function searchArchive(query: string, options: { includeMatches?: b
     .filter((s) => includes(`${s.title} ${s.id}`))
     .slice(0, 4))
     items.push({
-      href: `/records?dato=${s.id}&tour=atp`,
+      href: `/records?dato=${s.id}`,
       name: s.title,
       group: "Récords",
       detail: s.group,

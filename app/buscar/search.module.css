@@ -120,11 +120,13 @@
   [data-filter-only] .mobileViewSwitch .viewSwitch{width:100%}
 }
 
-.portalFilters{display:none}
+.portalFilters{display:none;--search-bg:#f1f3f2;--search-panel:#fff;--search-quiet:#f7f8f7;--search-ink:#13211d;--search-muted:#59665f;--search-pine:#0d382f;--search-green:#1c7a50;--search-lime:#c8ff32;--search-line:rgba(18,53,43,.1)}
 @media(max-width:560px){
   [data-filter-only] .inlineFilters{display:none!important}
   .portalFilters[data-visible]{position:fixed;z-index:120;top:auto;right:14px;bottom:max(14px,env(safe-area-inset-bottom));left:14px;display:grid;grid-template-columns:1fr 1fr;width:auto;max-height:calc(100dvh - 28px - env(safe-area-inset-bottom));padding:16px;overflow-y:auto;overscroll-behavior:contain;border:1px solid rgba(255,255,255,.94);border-radius:24px;background:rgba(250,252,251,.98);box-shadow:0 0 0 100vmax rgba(4,25,19,.18),inset 0 1px 0 rgba(255,255,255,.98),0 24px 70px rgba(18,53,43,.2);backdrop-filter:blur(28px) saturate(150%)}
   .portalFilters .mobileViewSwitch{grid-column:1/-1;display:block;position:static;padding:0;background:transparent}
   .portalFilters .mobileViewSwitch .viewSwitch{width:100%}
+  .archivePlayer strong,.previewIdentity strong{display:-webkit-box;overflow:hidden;line-height:1.15;text-overflow:clip;white-space:normal;-webkit-box-orient:vertical;-webkit-line-clamp:2}
+  .archivePlayerRow{min-height:34px}
 }
 @media(max-width:360px){.portalFilters[data-visible]{grid-template-columns:1fr}}
