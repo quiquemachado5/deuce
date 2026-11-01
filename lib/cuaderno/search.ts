@@ -35,7 +35,7 @@ export function quickSearchArchive(query: string, records: PlayerRecord[], manif
   }
   return items;
 }
-export async function searchArchive(query: string, options: { includeMatches?: boolean; data?: Awaited<ReturnType<typeof notebook>> } = {}) {
+export async function searchArchive(query: string, options: { tour?:'atp'|'wta'; includeMatches?: boolean; data?: Awaited<ReturnType<typeof notebook>> } = {}) {
   query = query.trim().slice(0, 180);
   if (!query) return [] as SearchItem[];
   const data = options.data || await notebook(),
@@ -44,21 +44,24 @@ export async function searchArchive(query: string, options: { includeMatches?: b
   if (!terms.length) return [] as SearchItem[];
   const includes = (v: string) =>
     terms.every((t) => canonicalSearchText(v).replace(/[–—]/g, "-").includes(t));
-  const records = data.manifest.pieces,
+  const tour=options.tour;
+  const circuitMatches=tour?data.matchesByTour[tour]:data.matches;
+  const circuitPlayers=tour?data.records.filter(p=>(p.tour||'atp')===tour):data.records;
+  const records = tour==='wta'?data.manifest.circuitPieces?.wta||[]:data.manifest.pieces,
     items: SearchItem[] = [];
   for (const s of records
     .filter((s) => includes(`${s.title} ${s.id}`))
     .slice(0, 4))
     items.push({
-      href: `/records?dato=${s.id}`,
+      href: `/records?dato=${s.id}${tour==='wta'?'&tour=wta':''}`,
       name: s.title,
       group: "Récords",
       detail: s.group,
     });
   // The prepared player rows already carry these counts. Building the full
   // player directory here makes the first keystroke scan the entire archive.
-  const exactPlayers = data.records.filter(p => includes(p.name));
-  const playerResults = exactPlayers.length ? exactPlayers : data.records.filter(p => approximateName(query, p.name));
+  const exactPlayers = circuitPlayers.filter(p => includes(p.name));
+  const playerResults = exactPlayers.length ? exactPlayers : circuitPlayers.filter(p => approximateName(query, p.name));
   for (const p of playerResults.slice(0, 4))
     items.push({
       href: `/jugadores/${playerSlug(p.name)}${p.tour==='wta'?'?tour=wta':''}`,
@@ -71,10 +74,10 @@ export async function searchArchive(query: string, options: { includeMatches?: b
   let foundEvent = false;
   if (eventTerms.length) {
     const eventQuery = eventTerms.join(' ');
-    const events = tournamentDirectory(data.matches).filter(event => eventTerms.every(term => canonicalSearchText(`${event.name} ${tournamentName(event.name)}`).includes(canonicalSearchText(term))) || searchTermsMatch(eventTerms, `${event.name} ${tournamentName(event.name)}`) || approximateName(eventQuery, tournamentName(event.name))).slice(0, 3);
+    const events = tournamentDirectory(circuitMatches).filter(event => eventTerms.every(term => canonicalSearchText(`${event.name} ${tournamentName(event.name)}`).includes(canonicalSearchText(term))) || searchTermsMatch(eventTerms, `${event.name} ${tournamentName(event.name)}`) || approximateName(eventQuery, tournamentName(event.name))).slice(0, 3);
     foundEvent = events.length > 0;
     for (const event of events) {
-      for (const tour of ['atp','wta'] as const) {
+      for (const tour of options.tour?[options.tour]:['atp','wta'] as const) {
         const circuitMatches=event.matches.filter(match=>(match.tour||'atp')===tour);
         if (!circuitMatches.length) continue;
         const circuit=tour==='wta'?'WTA':'ATP', suffix=tour==='wta'?'?cuadro=wta':'';
@@ -86,17 +89,17 @@ export async function searchArchive(query: string, options: { includeMatches?: b
   }
   if (!foundEvent && !playerResults.length && terms.length > 1 && !requestedYear) {
     for (const p of data.pairs
-      .filter((p) => includes(p.names.join(" ")))
+      .filter((p) => (!tour||(p.matches[0]?.tour||'atp')===tour)&&includes(p.names.join(" ")))
       .slice(0, 3))
       items.push({
-        href: comparisonHref(p.names[0], p.names[1]),
+        href: comparisonHref(p.names[0], p.names[1],'cara-a-cara',p.matches[0]?.tour||'atp'),
         name: p.names.join(" contra "),
         detail: `${p.wins.join("–")} · ${p.matches.length} partidos en este archivo`,
         group: "Parejas",
       });
   }
   if (options.includeMatches !== false) {
-    const matches = matchingMatches(query, data.matches, Math.max(0, 25 - items.length));
+    const matches = matchingMatches(query, circuitMatches, Math.max(0, 25 - items.length));
     for (const m of matches.slice(0, 25 - items.length))
       items.push({
         href: `/match/${m.match_id}`,

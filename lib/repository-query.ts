@@ -7,7 +7,7 @@ import { tournamentDirectory } from './tournament-directory'
 import { verifiedTournamentCategory } from './tournament-tier'
 
 export function parseRepositoryQuery(params: URLSearchParams) {
-  const allowed = ['q','search','player','round','year','tournament','category','surface','fiveSets','view','page','limit','kind']
+  const allowed = ['tour','q','search','player','round','year','tournament','category','surface','fiveSets','view','page','limit','kind']
   for (const key of params.keys()) { if (!allowed.includes(key)) throw new Error(`Filtro no reconocido: ${key}`); if (params.getAll(key).length > 1) throw new Error(`Filtro repetido: ${key}`) }
   if (params.has('q') && params.has('search') && params.get('q') !== params.get('search')) throw new Error('Usa q o search para la búsqueda, no valores distintos en ambos')
   const integer = (key: string, fallback: number, min: number, max: number) => {
@@ -15,6 +15,8 @@ export function parseRepositoryQuery(params: URLSearchParams) {
     const value = Number(raw); if (!Number.isInteger(value) || value < min || value > max) throw new Error(`${key}: valor no válido`)
     return value
   }
+  const tour=params.get('tour')||'atp';
+  if(tour!=='atp'&&tour!=='wta')throw new Error('Circuito no válido');
   const year = integer('year', 0, 1968, new Date().getUTCFullYear())
   const token = normalizeText(params.get('tournament') || '').replace(/\s+/g, '-')
   if (token && token !== 'all' && !/^[a-z0-9-]{2,100}$/.test(token)) throw new Error('Torneo no válido')
@@ -22,17 +24,18 @@ export function parseRepositoryQuery(params: URLSearchParams) {
   const surface = params.get('surface') || 'all'
   if (!['all','hard','clay','grass','carpet','unknown'].includes(surface)) throw new Error('Superficie no válida')
   const category = params.get('category') || 'all'
-  if (!['all','Grand Slam','Masters 1000','Precursores de Masters','ATP 500','ATP 250','ATP Tour · nivel no especificado'].includes(category)) throw new Error('Categoría no válida')
+  if (!['all','Grand Slam','Masters 1000','Precursores de Masters','ATP 500','ATP 250','ATP Tour · nivel no especificado','WTA 1000','WTA 500','WTA 250','WTA 125','WTA · alto nivel histórico'].includes(category)) throw new Error('Categoría no válida')
   if (params.has('fiveSets') && !['true','false'].includes(params.get('fiveSets')!)) throw new Error('fiveSets debe ser true o false')
   if (params.has('view') && params.get('view') !== 'summary') throw new Error('La vista pública es summary')
   const kind = params.get('kind') || ''
   if (kind && !MATCH_TYPES.some(t=>t===kind)) throw new Error('Tipo de partido no válido')
-  return { kind, year, slug: tournament?.slug || (token && token !== 'all' ? token : 'all'), category, surface, fiveSets: params.get('fiveSets') === 'true',
+  return { tour,kind, year, slug: tournament?.slug || (token && token !== 'all' ? token : 'all'), category, surface, fiveSets: params.get('fiveSets') === 'true',
     query: (params.get('q') || params.get('search') || '').slice(0,180), player: (params.get('player') || '').slice(0,100), round: params.get('round') || '',
     page: integer('page',1,1,100000), limit: integer('limit',25,1,50) }
 }
 export type RepositoryQuery = ReturnType<typeof parseRepositoryQuery>
 export function selectRepository(matches: Match[], query: RepositoryQuery) {
+  matches=matches.filter(m=>(m.tour||'atp')===query.tour);
   const requestedTournament = query.slug === 'all' ? undefined : tournamentDirectory(matches).find(t =>
     [t.slug, normalizeText(t.name).replace(/\s+/g, '-'), normalizeText(tournamentName(t.name)).replace(/\s+/g, '-')].includes(query.slug))
   const requestedName = requestedTournament?.name || TOURNAMENTS.find(t => t.slug === query.slug)?.name

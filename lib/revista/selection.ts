@@ -9,7 +9,7 @@ const selections = asyncCache<Match[]>(300_000, 8);
 const catalogs = asyncCache<RecordPiece[]>(300_000, 24);
 export async function selectedArchive(g: PreparedGeneration, q: ArchiveFilter) {
   const key = JSON.stringify([g.manifest.version,g.source,q.year || 'all',q.surface || 'all',q.competition || 'all',q.era || 'all',q.tour || 'all']);
-  return selections(key,async () => filterArchive(await g.matches(),q));
+  return selections(key,async () => filterArchive(await g.matches(),{...q,tour:q.tour==='wta'?'wta':'atp'}));
 }
 export async function selectedCatalog(g: PreparedGeneration, q: ArchiveFilter, id?:string) {
   const key = JSON.stringify([g.manifest.version,g.source,q.year || 'all',q.surface || 'all',q.competition || 'all',q.era || 'all',q.tour || 'all',id]);

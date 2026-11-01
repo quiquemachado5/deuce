@@ -1,4 +1,5 @@
 import 'server-only';
+import {registerArtifactPacks,readSnapshotArtifact,clearArtifactPacks} from './artifact-packs';
 import {readFile} from 'node:fs/promises';
 import {join} from 'node:path';
 import {gunzipSync} from 'node:zlib';
@@ -23,7 +24,7 @@ const remote=asyncCache<any>(300_000,32);
 async function query(key:string,projection='payload',budget=800):Promise<any>{
  try{return await remote(`${key}:${projection}`,async()=>{
   if(!cloudArchiveConfigured())return null;
-  const payload=await cloudProbeRead(key,budget);
+  const payload=await readSnapshotArtifact(key,physical=>cloudProbeRead(physical,budget));
   if(payload===undefined)return undefined;
   if(projection==='payload')return {payload};
   const selected:Record<string,unknown>={};
@@ -70,7 +71,7 @@ export const preparedGeneration=cache(()=>generations('active',async()=>{
   }else fresh=undefined;
  }
  const generation=await selectGeneration({manifest:base,source:'bundled',matches:()=>local<Match[]>('matches'),records:()=>local<PlayerRecord[]>('players'),competition:()=>localOptional<Match[]>('competition',[])},fresh,
-   async m=>{const [matches,records,competition]=await Promise.all([cloudMatches(m),cloudBlob<PlayerRecord[]>(m.version,'players'),cloudBlob<Match[]>(m.version,'competition')]);return {matches,records,competition};},configured);
+   async m=>{registerArtifactPacks(m.version,m.artifactPacks);const [matches,records,competition]=await Promise.all([cloudMatches(m),cloudBlob<PlayerRecord[]>(m.version,'players'),cloudBlob<Match[]>(m.version,'competition')]);return {matches,records,competition};},configured);
  if(attempted){
   if(generation.fallbackReason&&generation.fallbackReason!=='not-published')manifestCircuit.failed();
   else manifestCircuit.succeeded();
@@ -113,7 +114,7 @@ async function cloudBlob<T>(version:string,id:string):Promise<T|undefined>{
  const groups=Array.from({length:Math.ceil(keys.length/8)},(_,i)=>keys.slice(i*8,i*8+8));
  try{
   const rows=await Promise.all(groups.map(async group=>{
-   const data=await Promise.all(group.map(async partKey=>({key:partKey,payload:await cloudProbeRead(partKey,remaining())})));
+   const data=await Promise.all(group.map(async partKey=>({key:partKey,payload:await readSnapshotArtifact(partKey,physical=>cloudProbeRead(physical,remaining()))})));
    if(data.some(row=>row.payload===undefined))throw new Error('Incomplete snapshot blob');
    return data;
   }));
@@ -131,15 +132,15 @@ async function cloudMatches(manifest:RecordManifest):Promise<Match[]|undefined>{
 }
 /** Request path only reads prepared data. No archive ingestion or tape analysis for unfiltered lists. */
 export const recordView=cache(async(encoded:string,recomputed=false):Promise<RecordView>=>{
- const q:Record<string,string|undefined>=JSON.parse(encoded),g=await preparedGeneration(),m=g.manifest;
+ const q:Record<string,string|undefined>={tour:'atp',...JSON.parse(encoded)},g=await preparedGeneration(),base=g.manifest,m=q.tour==='wta'&&base.circuitPieces?{...base,pieces:base.circuitPieces.wta}:base;
  // A circuit filter matching the entire published snapshot needs no catalogue
  // recomputation. This keeps the ATP landing page fast while WTA is backfilled.
  const tourFiltered=(q.tour==='atp'||q.tour==='wta')
-   ? m.summary.tours?.[q.tour]!==m.matchCount
+   ? q.tour==='wta'&&(!base.circuitPieces||q.dato==='dos-epocas')
    : !!(q.tour&&q.tour!=='all');
  const filtered=tourFiltered||!!([q.year,q.surface,q.competition,q.era].some(v=>v&&v!=='all'));
  if(!q.dato){
-   if(!filtered)return initial(g);
+   if(!filtered)return {...initial(g),manifest:m};
    const selected=await selectedArchive(g,q),catalog=await selectedCatalog(g,q);
    const pieces=catalog.filter(piece=>piece.rows.length>0).map(piece=>{const big=piece.rows.filter(r=>!piece.percent||r.sample>=50),small=piece.percent?piece.rows.filter(r=>r.sample<50):[];const {rows:_,...meta}=piece;void _;return {...meta,total:big.length,smallTotal:small.length,leader:big[0],pagePrior:pageBoundaryTies(big),smallPagePrior:pageBoundaryTies(small)};});
    return {...initial(g),filtered:true,manifest:{...m,pieces,matchCount:selected.length,years:[...new Set(selected.map(match=>match.year))].sort((a,b)=>b-a)}};
@@ -169,8 +170,8 @@ export const recordView=cache(async(encoded:string,recomputed=false):Promise<Rec
  if(g.source==='remote'){
    const mainChunk=pieceChunk(page),smallChunk=pieceChunk(smallPage);
    const [main,small]=mainChunk===smallChunk
-     ? await query(key(m.version,`piece-${meta.id}-chunk${mainChunk}`),`main:payload->pages->p${page},small:payload->smallPages->p${smallPage}`,1200).then(row=>[row,row])
-     : await Promise.all([query(key(m.version,`piece-${meta.id}-chunk${mainChunk}`),`main:payload->pages->p${page}`,1200),query(key(m.version,`piece-${meta.id}-chunk${smallChunk}`),`small:payload->smallPages->p${smallPage}`,1200)]);
+     ? await query(key(m.version,`piece-${q.tour==='wta'?'wta-':''}${meta.id}-chunk${mainChunk}`),`main:payload->pages->p${page},small:payload->smallPages->p${smallPage}`,1200).then(row=>[row,row])
+     : await Promise.all([query(key(m.version,`piece-${q.tour==='wta'?'wta-':''}${meta.id}-chunk${mainChunk}`),`main:payload->pages->p${page}`,1200),query(key(m.version,`piece-${q.tour==='wta'?'wta-':''}${meta.id}-chunk${smallChunk}`),`small:payload->smallPages->p${smallPage}`,1200)]);
    if(main&&small&&(meta.total===0||typeof main.main==='string'||Array.isArray(main.main))&&(meta.smallTotal===0||typeof small.small==='string'||Array.isArray(small.small))){
      try{
        const decode=(page:RecordRow[]|string|null)=>typeof page==='string'?JSON.parse(gunzipSync(Buffer.from(page,'base64')).toString()):page||[];
@@ -182,9 +183,9 @@ export const recordView=cache(async(encoded:string,recomputed=false):Promise<Rec
  if(!rows){
    if(g.source==='remote')return recordView(encoded,true);
    page=clampPage(q.page,meta.total);smallPage=clampPage(q.smallPage,meta.smallTotal);
-   const piece=await local<RecordPages>(`piece-${meta.id}`);rows=piece.pages[String(page)]||[];smallRows=piece.smallPages[String(smallPage)]||[];
+   const piece=await local<RecordPages>(`piece-${q.tour==='wta'?'wta-':''}${meta.id}`);rows=piece.pages[String(page)]||[];smallRows=piece.smallPages[String(smallPage)]||[];
  }
- return {...initial(g),piece:meta,page,smallPage,rows,smallRows:smallRows||[]};
+ return {...initial(g),manifest:m,piece:meta,page,smallPage,rows,smallRows:smallRows||[]};
 });
 
 /** Same validated snapshot as Records; never opens the raw provider archive on navigation. */
@@ -216,3 +217,5 @@ export const preparedPlayerRecords = cache(async () => {
 export const preparedTournamentArchive=cache(async()=>{const g=await preparedGeneration();const [matches,entries]=await Promise.all([g.matches(),g.competition?.()||Promise.resolve([])]);return [...matches,...entries];});
 
 export const preparedEditionAudit=cache(async()=>{const g=await preparedGeneration();const stored=g.source==='remote' ? await cloudBlob<import('../edition-audit').EditionAudit[]>(g.manifest.version,'audit') : await localOptional<import('../edition-audit').EditionAudit[]>('audit',[]);if(stored?.length)return stored;const [matches,competition]=await Promise.all([g.matches(),g.competition?.()||Promise.resolve([])]);return auditEditions([...matches,...competition]);});
+
+export function invalidatePreparedGeneration() { generations.clear(); remote.clear(); clearArtifactPacks(); manifestCircuit.succeeded(); }

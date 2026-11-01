@@ -14,7 +14,8 @@ export async function GET(request: Request) {
     // The prepared notebook inflates the archive once per validated generation.
     // Subsequent queries reuse both the data and the bounded text index.
     const data = await notebook();
-    const items = await searchArchive(query, { data });
+    const tour=new URL(request.url).searchParams.get('tour')==='wta'?'wta':'atp';
+    const items = await searchArchive(query, { data,tour });
     const elapsedMs = Math.round(performance.now() - started);
     if (elapsedMs > 250) logEvent('warn', 'search.slow', { requestId: id, elapsedMs, queryLength: query.length });
     return Response.json({ items, ...generationMetadata(data) }, { headers: {

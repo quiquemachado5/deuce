@@ -23,9 +23,9 @@ export function attachRecordChanges(previous: RecordManifest | null | undefined,
 }
 
 export function assertSnapshotIntegrity(snapshot: Pick<Snapshot, 'manifest' | 'pieces'>) {
-  for (const meta of snapshot.manifest.pieces) {
+  for (const {meta,prefix} of [...snapshot.manifest.pieces.map(meta=>({meta,prefix:''})),...(snapshot.manifest.circuitPieces?.wta||[]).map(meta=>({meta,prefix:'wta-'}))]) {
     if (!Number.isFinite(meta.sample) || meta.sample < 0 || !Number.isFinite(meta.minimum) || meta.minimum < 0) throw new Error(`Invalid sample: ${meta.id}`);
-    const piece = snapshot.pieces[meta.id];
+    const piece = snapshot.pieces[prefix+meta.id];
     if (!piece) throw new Error(`Missing statistic: ${meta.id}`);
     for (const rows of [piece.pages, piece.smallPages]) for (const page of Object.values(rows)) for (const row of page) {
       if (!Number.isFinite(row.value) || !Number.isFinite(row.sample) || row.sample < 0) throw new Error(`Non-finite statistic: ${meta.id}`);

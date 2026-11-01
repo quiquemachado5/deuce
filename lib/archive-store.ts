@@ -62,7 +62,7 @@ export function legacyArchiveClient() {
 async function blobJson(key: string, budget: number) {
   const result = await get(archiveBlobPath(key), {
     access: 'private',
-    useCache: false,
+    useCache: /^reading-v2-[a-f0-9]{20}-/.test(key),
     abortSignal: AbortSignal.timeout(Math.max(1, budget)),
   })
   if (!result || result.statusCode !== 200) return undefined

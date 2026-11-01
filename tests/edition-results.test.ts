@@ -132,6 +132,7 @@ test("edition audit distinguishes incomplete source results and walkovers withou
   const base = { ...mockMatches[0], data_source: "api" as const },
     wo = {
       ...base,
+      match_id:"walkover",
       status: "Walkover",
       winner: 1 as const,
       score_summary: { ...base.score_summary, games: [] },
@@ -141,6 +142,7 @@ test("edition audit distinguishes incomplete source results and walkovers withou
     wo,
     {
       ...base,
+      match_id:"pending",
       status: "Finished",
       score_summary: { ...base.score_summary, games: [[2, 1]] },
     },

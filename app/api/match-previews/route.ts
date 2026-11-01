@@ -6,11 +6,12 @@ export async function GET(request: Request) {
   try {
     const q = new URL(request.url).searchParams.get('q')?.trim().slice(0, 180) || '';
     if (!q) return Response.json({ items: [] });
+    const tour=new URL(request.url).searchParams.get('tour')==='wta'?'wta':'atp';
     const data = await notebook();
-    const items = matchingMatches(q, data.matches, 12).map(match => {
+    const items = matchingMatches(q, data.matchesByTour[tour], 12).map(match => {
       const record = toMatchRecord(match);
       return {
-        href: record.href,
+        href: record.href,tour,
         tournament: record.tournament,
         round: record.round,
         date: record.date,

@@ -12,7 +12,6 @@ export async function preservePublishedArchive(
   published: Pick<RecordManifest, 'matchCount' | 'version'>,
   loadPublished: (version: string) => Promise<Match[] | undefined>,
 ) {
-  if (local.length >= published.matchCount) return local;
   if (!Number.isSafeInteger(published.matchCount) || published.matchCount < 100_000
     || typeof published.version !== 'string' || !published.version) {
     throw new Error('Published archive baseline is invalid');
@@ -22,5 +21,9 @@ export async function preservePublishedArchive(
     throw new Error('Cannot restore the published archive baseline');
   }
   assertPublishableArchive(restored, published.matchCount);
-  return restored;
+  const restoredIds=new Set(restored.map(m=>`${m.tour||'atp'}:${m.match_id}`));
+  if(local.every(m=>restoredIds.has(`${m.tour||'atp'}:${m.match_id}`)))return restored;
+  const rows=new Map(local.map(m=>[`${m.tour||'atp'}:${m.match_id}`,m]));
+  for(const m of restored)rows.set(`${m.tour||'atp'}:${m.match_id}`,m);
+  return [...rows.values()];
 }

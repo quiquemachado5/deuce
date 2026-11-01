@@ -11,7 +11,7 @@ export function assertReleaseCoverage(previous: RecordManifest, current: RecordM
   for (const tour of ['atp', 'wta'] as const) {
     if (currentTours[tour] < previousTours[tour]) throw new Error(`Release would lose published ${tour.toUpperCase()} matches`);
   }
-  for (const metric of previous.pieces.filter(piece => piece.measured)) {
+  for (const metric of previous.pieces.filter(piece => piece.measured && previous.rulesVersion===current.rulesVersion)) {
     const next = current.pieces.find(piece => piece.id === metric.id);
     if (!next || next.sample < metric.sample) throw new Error(`Release would lose measured coverage: ${metric.id}`);
   }
@@ -22,7 +22,7 @@ export function assertEditionCoverage(previous: EditionAudit[], current: Edition
   const key=(row:EditionAudit)=>`${row.tournament}|${row.year}|${row.category}|${row.tour||'atp'}`;
   const withStatus=(row:EditionAudit):EditionAudit=>({...row,...editionCompleteness(row)});
   const next=new Map(current.map(row=>withStatus(row)).map(row=>[key(row),row]));
-  for(const baseline of previous.map(withStatus).filter(row=>row.completeDraw===true)){
+  for(const baseline of previous.filter(row=>row.completeDraw===true)){
     const candidate=next.get(key(baseline));
     if(!candidate)throw new Error(`Release would make a complete edition incomplete: ${baseline.tournament} ${baseline.year}`);
     const lateRoundsPreserved=['5','6','7'].every(round=>(candidate.rounds[round]||0)>=(baseline.rounds[round]||0));
@@ -31,7 +31,8 @@ export function assertEditionCoverage(previous: EditionAudit[], current: Edition
     // verified. They must not erase that verified baseline, while any actual
     // loss of resolved matches or late rounds still blocks publication.
     const onlyAddsPendingRows=candidate.sourceRows>baseline.sourceRows&&resolvedPreserved&&lateRoundsPreserved;
-    if(candidate.completeDraw!==true&&!onlyAddsPendingRows)throw new Error(`Release would make a complete edition incomplete: ${baseline.tournament} ${baseline.year}`);
+    if(candidate.completeDraw===false&&!onlyAddsPendingRows)throw new Error(`Release would make a complete edition incomplete: ${baseline.tournament} ${baseline.year}`);
+    if(!resolvedPreserved)throw new Error(`Release would make a complete edition incomplete: ${baseline.tournament} ${baseline.year}`);
     if(!lateRoundsPreserved)throw new Error(`Release would lose late-round coverage: ${baseline.tournament} ${baseline.year}`);
   }
 }

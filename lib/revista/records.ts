@@ -162,6 +162,7 @@ function grouped(
 }
 const cache = new WeakMap<Match[], { day: string; pieces: RecordPiece[] }>();
 export function recordCatalog(matches: Match[], now = new Date(), only?: string): RecordPiece[] {
+  if (new Set(matches.map(m=>m.tour||'atp')).size>1) throw new Error('Statistics require one explicit circuit');
   const day = now.toISOString().slice(0, 10);
   const cached = cache.get(matches);
   if (cached?.day === day) return only ? cached.pieces.filter(p => p.id === only) : cached.pieces;
@@ -1013,6 +1014,9 @@ export function recordCatalog(matches: Match[], now = new Date(), only?: string)
         const value = spec.denominator ? numerator / sample * 100 : numerator;
         return [person(r.name, value, sample, spec.denominator ? `${number(numerator)} de ${number(sample)} casos documentados` : `${number(sample)} partidos en la selección`, proofs.get(r.name))];
       }), spec.minimum, !!spec.denominator, source);
+  }
+  if(cacheKey[0]?.tour==='wta')for(const piece of result)for(const row of piece.rows){
+    if(row.href.startsWith('/jugadores/')||row.href.startsWith('/comparar?')){const url=new URL(row.href,'https://deuce-archive.vercel.app');url.searchParams.set('tour','wta');row.href=url.pathname+url.search+url.hash;}
   }
   if (!only) cache.set(cacheKey, { day, pieces: result });
   return result;

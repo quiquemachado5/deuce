@@ -7,6 +7,9 @@ export type EditionAudit = {
   year: number;
   category: string;
   sourceRows: number;
+  drawSize?: number;
+  duplicateIds?: number;
+  drawSizeSource?: string;
   completed: number;
   terminal: number;
   pending: number;
@@ -19,14 +22,21 @@ export type EditionAudit = {
 const knockoutCategories = new Set(["Grand Slam", "Masters 1000", "ATP 500", "ATP 250", "Precursores de Masters", "WTA 1000", "WTA 500", "WTA 250", "WTA 125", "WTA · alto nivel histórico"]);
 const lateRounds = [{position:5,label:"cuartos",singular:"cuarto",expected:4},{position:6,label:"semifinales",singular:"semifinal",expected:2},{position:7,label:"finales",singular:"final",expected:1}] as const;
 
-export function editionCompleteness(audit: Pick<EditionAudit,"category"|"rounds"|"pending">) {
+export function editionCompleteness(audit: Pick<EditionAudit,"category"|"rounds"|"pending"|"drawSize"|"duplicateIds"|"drawSizeSource">) {
   const hasLateRound=lateRounds.some(({position})=>(audit.rounds[String(position)]||0)>0);
   const expected=knockoutCategories.has(audit.category)&&hasLateRound;
   const missing=expected?lateRounds.flatMap(({position,label,singular,expected:count})=>{const actual=audit.rounds[String(position)]||0,difference=count-actual;return difference>0?[`${difference} ${difference===1?singular:label}`]:[];}):[];
-  return {expectedLateRounds:expected,missingLateRounds:missing,completeDraw:expected?missing.length===0&&audit.pending===0:null};
+  const overfull=lateRounds.some(({position,expected:count})=>(audit.rounds[String(position)]||0)>count);
+  let completeDraw:boolean|null=null;
+  if(expected&&(missing.length||audit.pending||overfull||audit.duplicateIds))completeDraw=false;
+  else if(expected&&audit.drawSizeSource&&audit.drawSize&&[8,16,32,64,128].includes(audit.drawSize)){
+    completeDraw=Array.from({length:Math.log2(audit.drawSize)},(_,i)=>i).every(i=>(audit.rounds[String(7-i)]||0)===2**i);
+  }
+  return {expectedLateRounds:expected,missingLateRounds:missing,completeDraw};
 }
 export function auditEditions(source: Match[]): EditionAudit[] {
   const groups = new Map<string, EditionAudit>();
+  const ids = new Set<string>();
   for (const row of source) {
     const m = prepareMatch(row),
       key = [m.tournament, m.year, m.category, m.tour || 'atp'].join("|");
@@ -45,6 +55,9 @@ export function auditEditions(source: Match[]): EditionAudit[] {
       missingLateRounds: [],
       completeDraw: null,
     };
+    const identity=`${m.tour||'atp'}:${m.match_id}`;
+    if(ids.has(identity)){a.duplicateIds=(a.duplicateIds||0)+1;groups.set(key,a);continue;}
+    ids.add(identity);
     a.sourceRows++;
     if (eligibleMatch(m)) a.completed++;
     else if (/retired|abandoned|walkover|cancelled/i.test(row.status))

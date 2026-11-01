@@ -1,4 +1,5 @@
 import 'server-only'
+import { registerArtifactPacks, readSnapshotArtifact } from './revista/artifact-packs'
 import { readdir } from 'node:fs/promises'
 import { join } from 'node:path'
 import { gunzipSync } from 'node:zlib'
@@ -68,7 +69,9 @@ export async function cloudProbeRead(key: string, budget = 1_500): Promise<any> 
 /** Read one immutable artifact from a published records generation. */
 export async function cloudSnapshotBlob<T>(version: string, id: string): Promise<T | undefined> {
   const key = `reading-v2-${version}-${id}`
-  const index = await cloudRead(key)
+  const manifest = await cloudRead('reading-v2-manifest')
+  if(manifest?.version===version)registerArtifactPacks(version,manifest.artifactPacks)
+  const index = await readSnapshotArtifact(key,cloudRead) as ArchiveRow | undefined
   if (!index || typeof index !== 'object') return undefined
   try {
     let encoded: string
@@ -76,7 +79,7 @@ export async function cloudSnapshotBlob<T>(version: string, id: string): Promise
     else {
       const chunks = Number(index.chunks)
       if (index.encoding !== 'gzip-chunks' || !Number.isInteger(chunks) || chunks < 1 || chunks > 256) return undefined
-      const parts = await Promise.all(Array.from({ length: chunks }, (_, part) => cloudRead(`${key}-chunk${part}`)))
+      const parts = await Promise.all(Array.from({ length: chunks }, (_, part) => readSnapshotArtifact(`${key}-chunk${part}`,cloudRead) as Promise<ArchiveRow>))
       if (parts.some(value => typeof value?.chunk !== 'string' || !value.chunk.length)) return undefined
       encoded = parts.map(value => value.chunk).join('')
     }
@@ -119,7 +122,9 @@ export async function cloudArchiveHasCapacity(budget?:number){
   const defaultMaximum=archiveStoreBackend()==='vercel-blob'?800_000_000:450_000_000;
   const maximum=Number.isFinite(configured)&&configured>0?configured:defaultMaximum;
   const status=archiveCapacityStatus(report,maximum);
-  return {report,maximum,status,available:status==='available'};
+  const result={report,maximum,status,available:status==='available'};
+  if(report)await cloudWrite('storage-capacity-status',{...result,checkedAt:new Date().toISOString()});
+  return result;
 }
 
 /** Keep the active and immediately previous immutable generations only. */
@@ -194,10 +199,14 @@ export async function refreshCloudArchive() {
   if (!release) return { status: 'busy' }
   const started = Date.now()
   let calls = 0
+  const priorStatus=await cloudRead('sync-status').catch(()=>undefined)
+  const lastSuccessAt=priorStatus?.status==='success'?priorStatus.at:priorStatus?.lastSuccessAt
+  const attemptAt=new Date(started).toISOString()
   try {
+    await cloudWrite('sync-status',{status:'running',at:attemptAt,attemptAt,lastSuccessAt})
     const capacity=await cloudArchiveHasCapacity()
     if(!capacity.available){
-      const result={status:capacity.status==='full'?'storage-reserve':'storage-unverified',at:new Date().toISOString(),calls,relationBytes:capacity.report?.relationBytes,maximumBytes:capacity.maximum}
+      const result={status:capacity.status==='full'?'storage-reserve':'storage-unverified',attemptAt,lastSuccessAt,at:new Date().toISOString(),calls,relationBytes:capacity.report?.relationBytes,maximumBytes:capacity.maximum}
       await cloudWrite('sync-status',result)
       return result
     }
@@ -252,7 +261,7 @@ export async function refreshCloudArchive() {
     const checked:Record<string,string>=(await cloudRead('refresh-detail-state'))?.checked || {}
     const planned=detailRefreshPlan(detailCandidates as (ArchiveRow & {id:unknown})[],previousRows as Map<string,ArchiveRow & {id:unknown}>,id=>id.startsWith('wta-')?known.has(`wta-modern-${id.slice(4)}`):known.has(`modern-${id}`)||hasBundledDetail('modern',id),checked,Date.now(),row=>!hasClosedModernResult(row),row=>row.tour==='wta'?`wta-${row.id}`:String(row.id))
     for (const row of planned) {
-      if (detailsAdded+detailsRefreshed >= 24 || calls >= 88 || Date.now() - started > 190_000) break
+      if (detailsAdded+detailsRefreshed >= 4 || calls >= 88 || Date.now() - started > 190_000) break
       const detailId=row.tour==='wta'?`wta-modern-${row.id}`:`modern-${row.id}`
       const existing=known.has(detailId)||(row.tour!=='wta'&&hasBundledDetail('modern',String(row.id)))
       const detail = await request(`/history/matches/${row.id}?points=complete`)
@@ -264,7 +273,7 @@ export async function refreshCloudArchive() {
     }
     await cloudWriteMany([{key:'detail-overrides',payload:{keys:[...overrides],at:new Date().toISOString()}},{key:'refresh-detail-state',payload:{checked}}])
     let historicalAdded=0,archiveRecentAdded=0
-    const backfill=enrichmentPlan(await bundledEnrichmentCandidates(),known,90)
+    const backfill=enrichmentPlan(await bundledEnrichmentCandidates(),known,2)
     for(const row of backfill){
       if(calls>=95||remaining-calls<=101||Date.now()-started>190_000)break
       const detail=await request(row.kind==='archive'?`/history/archive/matches/${row.id}`:`/history/matches/${row.id}?points=complete`)
@@ -274,7 +283,7 @@ export async function refreshCloudArchive() {
       if(row.kind==='archive')historicalAdded++;else archiveRecentAdded++
     }
     cache.delete('detail-index')
-    const result = { status: 'success', at: new Date().toISOString(), lastSuccessAt: new Date().toISOString(), year, matches: data.length, updated: rows.length, seasonsRefreshed, detailsAdded, detailsRefreshed, historicalAdded, archiveRecentAdded, calls, activityFixtures:activity.length }
+    const result = { status: 'success', attemptAt, at: new Date().toISOString(), lastSuccessAt: new Date().toISOString(), year, matches: data.length, updated: rows.length, seasonsRefreshed, detailsAdded, detailsRefreshed, historicalAdded, archiveRecentAdded, calls, activityFixtures:activity.length }
     await cloudWrite('sync-status', result)
     return result
   } catch (error) {
@@ -290,10 +299,14 @@ export async function refreshCloudWta() {
   if (!release) return {status:'busy'}
   const started=Date.now()
   let calls=0
+  const priorStatus=await cloudRead('wta-sync-status').catch(()=>undefined)
+  const lastSuccessAt=priorStatus?.status==='success'?priorStatus.at:priorStatus?.lastSuccessAt
+  const attemptAt=new Date(started).toISOString()
   try {
+    await cloudWrite('wta-sync-status',{status:'running',at:attemptAt,attemptAt,lastSuccessAt})
     const capacity=await cloudArchiveHasCapacity()
     if(!capacity.available){
-      const result={status:capacity.status==='full'?'storage-reserve':'storage-unverified',at:new Date().toISOString(),calls,relationBytes:capacity.report?.relationBytes,maximumBytes:capacity.maximum}
+      const result={status:capacity.status==='full'?'storage-reserve':'storage-unverified',attemptAt,lastSuccessAt,at:new Date().toISOString(),calls,relationBytes:capacity.report?.relationBytes,maximumBytes:capacity.maximum}
       await cloudWrite('wta-sync-status',result)
       return result
     }
@@ -317,11 +330,14 @@ export async function refreshCloudWta() {
     const pending=Array.from({length:Math.max(0,year-2023)},(_,i)=>year-1-i).filter(season=>!completed.has(season))
     const seasonsRefreshed:number[]=[]
     let seasonMatches=0
-    for(const season of [year,...pending]){
+    for(const season of [...new Set([year,...pending,...[...completed].sort((a,b)=>b-a)])]){
       if(calls>=65||remaining-calls<=45||Date.now()-started>160_000)break
       const key=`season-wta-${season}`
       const previous=await cloudRead(key)
-      const refreshed=await reconcileSeasonResults(season,year,previous,request,'wta')
+      const progressKey=`wta-season-progress-${season}`
+      const refreshed=await reconcileSeasonResults(season,year,previous,request,'wta',{
+        resume:await cloudRead(progressKey),save:checkpoint=>cloudWrite(progressKey,checkpoint),
+      })
       const data=refreshed.data.map(row=>({...row,tour:'wta'}))
       await cloudWrite(key,{data,scope:refreshed.scope,at:refreshed.at})
       seasonsRefreshed.push(season)
@@ -345,8 +361,8 @@ export async function refreshCloudWta() {
       let finished=false
       while(archivePages<40&&calls<88&&remaining-calls>27&&Date.now()-started<200_000){
         const page=await request(`/history/archive/matches?tour=wta&level=${level}&from=${season}-01-01&to=${season}-12-31&limit=200&offset=${offset}`)
-        if(!Array.isArray(page.data)||!page.meta)throw new Error('Unexpected WTA archive response')
-        for(const row of page.data)found.set(String(row.id),{...row,tour:'wta'})
+        if(!Array.isArray(page.data)||!page.meta||typeof page.meta.has_more!=='boolean')throw new Error('Unexpected WTA archive response')
+        for(const row of page.data){if(row.tour&&row.tour!=='wta')throw new Error('Provider returned another circuit in WTA backfill');found.set(String(row.id),{...row,tour:'wta'})}
         const step=Number(page.meta.limit)
         if(!Number.isSafeInteger(step)||step<=0)throw new Error('Invalid WTA archive pagination')
         offset+=step
@@ -361,7 +377,7 @@ export async function refreshCloudWta() {
         await cloudWrite('wta-archive-index',{complete:[...complete],at:new Date().toISOString()})
       }
     }
-    const result={status:seasonsRefreshed.length||archivePages?'success':'quota-reserve',at:new Date().toISOString(),calls,seasonsRefreshed,seasonMatches,historicalAdded,archivePages,historicalCohorts:complete.size}
+    const result={status:seasonsRefreshed.includes(year)?'success':archivePages?'backfill-progress':'quota-reserve',attemptAt,lastSuccessAt:seasonsRefreshed.includes(year)?new Date().toISOString():lastSuccessAt,at:new Date().toISOString(),calls,seasonsRefreshed,seasonMatches,historicalAdded,archivePages,historicalCohorts:complete.size}
     await cloudWrite('wta-sync-status',result)
     return result
   }catch(error){
@@ -370,4 +386,11 @@ export async function refreshCloudWta() {
     await cloudWrite('wta-sync-status',result)
     throw error
   }finally{await release()}
+}
+
+/** Health checks must not spend a Blob list operation on every poll. */
+export async function cloudArchiveLastCapacity(budget=1_500){
+  const saved=await cloudProbeRead('storage-capacity-status',budget);
+  if(saved?.report&&Date.now()-Date.parse(saved.checkedAt)<36*3600000)return saved as {report:ArchiveStorageReport;maximum:number;status:ArchiveCapacityStatus;available:boolean;checkedAt:string};
+  return {report:undefined,maximum:800_000_000,status:'unknown' as ArchiveCapacityStatus,available:false,checkedAt:undefined};
 }

@@ -8,10 +8,11 @@ export async function GET(request: Request) {
     opponent = params.get("opponent")?.slice(0, 100).trim(),
     data = await notebook();
 
+  const tour=params.get('tour')==='wta'?'wta':'atp';
   if (player && opponent) {
     const firstKey = normalizeText(player);
     const secondKey = normalizeText(opponent);
-    const matches = data.matches.filter((match) => {
+    const matches = data.matchesByTour[tour].filter((match) => {
       const names = [normalizeText(match.player1.name), normalizeText(match.player2.name)];
       return names.includes(firstKey) && names.includes(secondKey);
     });
@@ -32,7 +33,7 @@ export async function GET(request: Request) {
   const names = [
     ...new Set(
       data.pairs
-        .filter((p) => !player || p.names.includes(player))
+        .filter((p) => (p.matches[0]?.tour||'atp')===tour&&(!player || p.names.includes(player)))
         .flatMap((p) => p.names)
         .filter((n) => n !== player),
     ),

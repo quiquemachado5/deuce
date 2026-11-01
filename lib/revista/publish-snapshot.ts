@@ -1,4 +1,5 @@
 import 'server-only';
+import {packArtifacts} from './artifact-packs';
 import { attachRecordChanges, assertSnapshotIntegrity } from './record-changes';
 import {gzipSync,createGzip} from 'node:zlib';
 import {Readable} from 'node:stream';
@@ -46,6 +47,7 @@ function publishedGeneration(manifest:RecordManifest) {
   // Compare the stored JSON representation, which omits optional undefined fields.
   const generation=JSON.parse(JSON.stringify(manifest));
   delete generation.generatedAt;
+  delete generation.artifactPacks;
   return generation;
 }
 /** A published pointer proves all artifacts exist. A new pointer is written last. */
@@ -53,11 +55,12 @@ export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotSt
   assertSnapshotIntegrity(snapshot);
   const {pieces,eras,matches,players,competition,audit}=snapshot;
   const published=await storage.read('reading-v2-manifest');
+  if((published as RecordManifest|undefined)?.version===snapshot.manifest.version&&(published as RecordManifest).artifactPacks)return published as RecordManifest;
   assertPublishableArchive(matches,(published as RecordManifest|undefined)?.matchCount);
   const manifest=attachIngestionHistory(published as RecordManifest | undefined,attachRecordChanges(published as RecordManifest | undefined,snapshot.manifest));
-  if(published&&typeof published==='object'&&isDeepStrictEqual(publishedGeneration(published as RecordManifest),publishedGeneration(manifest))){
-    if(Date.parse(manifest.generatedAt)>Date.parse((published as RecordManifest).generatedAt))await storage.write('reading-v2-manifest',manifest);
-    return;
+  if((published as RecordManifest|undefined)?.artifactPacks&&published&&typeof published==='object'&&isDeepStrictEqual(publishedGeneration(published as RecordManifest),publishedGeneration(manifest))){
+    if(Date.parse(manifest.generatedAt)>Date.parse((published as RecordManifest).generatedAt))await storage.write('reading-v2-manifest',{...manifest,artifactPacks:(published as RecordManifest).artifactPacks});
+    return manifest;
   }
   if(storage.prune&&published&&typeof published==='object'&&typeof (published as RecordManifest).version==='string'){
     await storage.prune([(published as RecordManifest).version]).catch(error=>console.warn('Snapshot retention preflight failed:',error instanceof Error?error.name:'unknown'));
@@ -67,29 +70,19 @@ export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotSt
     for(const group of partitionMatches(matches))yield* await compressedBlob(group.meta.id,group.matches);
     for(const [id,value] of [['eras',eras],['players',players],['competition',competition],['audit',audit]] as const)yield* await compressedBlob(id,value);
   }
-  const batches:ArchiveWrite[][]=[];
-  const flush=async()=>{
-    const settled=await Promise.allSettled(batches.splice(0).map(async entries=>{
-      if(storage.writeMany)await storage.writeMany(entries);
-      else for(const {key,payload} of entries)await storage.write(key,payload);
-    }));
-    const failed=settled.find(result=>result.status==='rejected');
-    if(failed?.status==='rejected')throw failed.reason;
-  };
-  let batch:ArchiveWrite[]=[],bytes=2;
-  for await(const [id,payload] of artifacts()){
-    const entry={key:snapshotKey(manifest.version,id),payload},size=Buffer.byteLength(JSON.stringify({...entry,updated_at:'0000-00-00T00:00:00.000Z'}));
-    if(batch.length&&(batch.length===8||bytes+size+1>1_000_000)){batches.push(batch);batch=[];bytes=2;if(batches.length===4)await flush();}
-    bytes+=size+(batch.length?1:0);batch.push(entry);
+  const artifactPacks: Record<string,string> = {};
+  let uploads = 0;
+  for await (const pack of packArtifacts(artifacts())) {
+    // A hard publication budget leaves room for daily ingestion in Hobby.
+    if (++uploads > 24) throw new Error('Publication exceeds the free-plan upload budget');
+    await storage.write(snapshotKey(manifest.version,pack.id),pack.payload);
+    for (const id of Object.keys(pack.payload.artifacts)) artifactPacks[id] = pack.id;
   }
-  if(batch.length)batches.push(batch);
-  // Versioned artifact keys make a failed upload safe to retry. Run a small
-  // number of independent batches together so a large archive stays within
-  // the cron budget, but never expose the new manifest until all settle.
-  await flush();
+  manifest.artifactPacks = artifactPacks;
   await storage.write('reading-v2-manifest',manifest);
   if(storage.prune){
     const previous=published&&typeof published==='object'?(published as RecordManifest).version:undefined;
     await storage.prune([manifest.version,...(previous?[previous]:[])]).catch(error=>console.warn('Snapshot retention cleanup failed:',error instanceof Error?error.name:'unknown'));
   }
+  return manifest;
 }

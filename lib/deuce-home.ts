@@ -1,6 +1,20 @@
 import type { Match } from './types';
 import { eligibleMatch } from './quality';
-import { chronological, roundPosition } from './editorial';
+import { chronological, roundPosition, winnerName } from './editorial';
+import { buildSeasonAnalytics } from './season-analytics';
+
+export function prepareCircuitHome(matches: Match[]) {
+  const summary = (tour: 'atp'|'wta') => {
+    const rows=matches.filter(m=>(m.tour||'atp')===tour&&m.data_source!=='mock'&&eligibleMatch(m));
+    const sorted=[...rows].sort((a,b)=>chronological(b,a));
+    const compact=(m:Match)=>({...m,point_tape:[],statistics:[],raw_fixture:undefined,raw_point_tape:undefined});
+    const leader=buildSeasonAnalytics(rows).players.sort((a,b)=>b.wins-a.wins||a.name.localeCompare(b.name))[0];
+    const evidence=leader?sorted.find(m=>winnerName(m)===leader.name):undefined;
+    const final=sorted.find(m=>roundPosition(m.round)===7);
+    return {count:rows.length,latest:sorted.slice(0,3).map(compact),edition:final?compact(final):undefined,leader:leader&&evidence?{name:leader.name,wins:leader.wins,played:leader.played,evidenceId:evidence.match_id}:undefined};
+  };
+  return {atp:summary('atp'),wta:summary('wta')};
+}
 
 function homeHighlights(sorted: Match[], anniversaries: Match[], anniversary?: Match) {
   const anniversaryIds = new Set([

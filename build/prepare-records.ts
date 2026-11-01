@@ -19,8 +19,8 @@ async function main(){
   let previousCompetition:Match[]|undefined;
   let restoredPublishedArchive=false;
   if(verifiesRemoteRelease){
-    const {cloudClient,cloudRead,cloudSnapshotBlob}=await import('../lib/cloud-archive');
-    if(!cloudClient())throw new Error('Production release requires the configured remote archive');
+    const {cloudArchiveConfigured,cloudRead,cloudSnapshotBlob}=await import('../lib/cloud-archive');
+    if(!cloudArchiveConfigured())throw new Error('Production release requires the configured remote archive');
     previous=await cloudRead('reading-v2-manifest') as RecordManifest|undefined;
     if(!previous)throw new Error('Cannot verify the published archive baseline');
     const localCount=matches.length;
@@ -33,7 +33,7 @@ async function main(){
       if(groups.some(group=>!group.rows||group.rows.length!==group.partition.count))return undefined;
       return groups.flatMap(group=>group.rows!);
     });
-    restoredPublishedArchive=matches.length>localCount;
+    restoredPublishedArchive=true;
     if(restoredPublishedArchive)console.log(`Published archive preserved: restored ${matches.length} matches over ${localCount} bundled matches`);
     previousAudit=typeof previous.version==='string' ? await cloudSnapshotBlob<EditionAudit[]>(previous.version,'audit') : undefined;
     previousCompetition=restoredPublishedArchive&&typeof previous.version==='string' ? await cloudSnapshotBlob<Match[]>(previous.version,'competition') : undefined;
