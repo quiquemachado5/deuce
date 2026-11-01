@@ -17,6 +17,7 @@ export default defineConfig({
   webServer: remote ? undefined : {
     command: `"${process.execPath}" node_modules/next/dist/bin/next start --hostname 127.0.0.1 --port 3100`,
     url: 'http://127.0.0.1:3100',
+    env: { DEUCE_E2E_DATE: '2026-10-31T12:00:00Z' },
     reuseExistingServer: false,
     timeout: 60_000,
   },

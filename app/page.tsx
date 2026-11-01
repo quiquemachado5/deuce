@@ -23,7 +23,8 @@ export const dynamic = 'force-dynamic';
 export const metadata = { title:'DEUCE — El archivo del tenis, partido a partido', description:'Explora el archivo visual ATP y WTA desde 1968: partidos, jugadoras, jugadores, torneos y récords con los datos que los cuentan.', alternates:{canonical:'/'} };
 export default async function Home() {
   const generation=await preparedGeneration();
-  const today=new Date();
+  const e2eDate=process.env.DEUCE_E2E_DATE;
+  const today=e2eDate&&Number.isFinite(Date.parse(e2eDate))?new Date(e2eDate):new Date();
   const prepared=generation.manifest.home?.daily||generation.manifest.home?.date===today.toISOString().slice(0,10)?generation.manifest.home:null;
   const matches=prepared?null:await generation.matches();
   const {anniversary,anniversaries,latest}=prepared?.daily?homeSelectionFromIndex(prepared.daily,today):prepared?.selection||homeSelection(matches||[],today);
