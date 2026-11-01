@@ -40,7 +40,7 @@ test('desktop match filters close without stealing focus from the outside contro
   const outsideControl = page.locator('.topbar > .search-trigger');
   await outsideControl.click();
   await expect(trigger).toHaveAttribute('aria-expanded', 'false');
-  await expect(outsideControl).toBeFocused();
+  await expect(page.getByLabel('Buscar jugadores, partidos o torneos')).toBeFocused();
 });
 
 test('comparison defaults to two players, rejects identical pairs and uses semantic metrics', async ({ page }) => {
