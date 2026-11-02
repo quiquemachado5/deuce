@@ -24,7 +24,7 @@ test('coverage distinguishes operational clocks and remains accessible on a phon
   await expect(page.getByRole('heading',{name:'Lo que ha cambiado hoy.'})).toBeVisible();
   await expect(page.getByText('Resultados obtenidos',{exact:true})).toBeVisible();
   await expect(page.getByRole('heading',{name:'Cada día, en claro.'})).toBeVisible();
-  await expect(page.getByText('Archivo WTA',{exact:true})).toBeVisible();
+  await expect(page.getByRole('region',{name:'Archivo histórico y revisión'}).getByText('Archivo WTA',{exact:true})).toBeVisible();
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   expect((await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa']).analyze()).violations).toEqual([]);
 });
