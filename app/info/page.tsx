@@ -1,55 +1,63 @@
 import Link from "next/link";
+import styles from "./info.module.css";
 
 export const metadata = {
   title: "Cómo se lee — DEUCE",
-  description: "Qué partidos de Grand Slam, 1000, 500 y 250 entran en DEUCE y cómo se leen sus datos.",
+  description: "Qué partidos entran en DEUCE, qué significan sus niveles de detalle y cómo se interpretan las estadísticas.",
   alternates: { canonical: "/info" },
 };
 
 const readings = [
-  { title: "Con puntos", description: "La secuencia conserva el orden de los puntos y cuadra con el resultado. Permite seguir los juegos, las bolas de break y las bolas de partido." },
-  { title: "Secuencia incompleta", description: "Hay puntos que no cuadran con el marcador o sus totales. Se muestran los juegos que sí cierran y las medidas publicadas, sin rellenar los huecos." },
-  { title: "Solo marcador", description: "No hay cinta de puntos. Se muestran los sets y las medidas que publicó la fuente. No se reconstruyen puntos que no existen." },
+  { number: "01", title: "Con puntos", description: "La secuencia conserva el orden de los puntos y cuadra con el marcador. Permite seguir juegos, breaks y bolas de partido." },
+  { number: "02", title: "Secuencia parcial", description: "Faltan puntos o algún total no cuadra. DEUCE muestra únicamente los juegos y medidas que sí están documentados." },
+  { number: "03", title: "Solo marcador", description: "No existe una cinta de puntos. Se publican los sets y las estadísticas disponibles, sin reconstruir información." },
 ];
+
+const measures = [
+  ["Muestra", "Cada porcentaje conserva su denominador: solo cuenta partidos donde esa medida existe."],
+  ["Comparación", "Las barras comparten escala y la mediana representa a jugadores con una muestra suficiente."],
+  ["Ausencias", "Un hueco significa que no hay registro. Nunca se interpreta como un cero."],
+] as const;
 
 export default function Info() {
   return (
-    <article className="ry-help-page">
-      <header className="ry-help-intro">
+    <article className={styles.page}>
+      <header className={styles.hero}>
+        <p className={styles.eyebrow}>GUÍA DEL ARCHIVO</p>
         <h1>Cómo se lee DEUCE</h1>
+        <p className={styles.lead}>Una guía breve para saber qué entra, cuánto detalle tiene cada partido y qué significa cada cifra.</p>
+        <div className={styles.scopeLine} aria-label="Alcance principal">
+          <span>ATP + WTA</span><span>Individuales</span><span>Cuadro principal</span><span>Partidos terminados</span>
+        </div>
       </header>
-      <section className="ry-help-scope" aria-labelledby="ry-help-scope-title">
-        <h2 id="ry-help-scope-title">Qué entra en el archivo</h2>
-        <div className="ry-help-prose">
-          <p>Individuales ATP y WTA del cuadro principal: partidos terminados, sets cerrados y ganador coherente. Los cuadros se identifican por separado.</p>
-          <p>La copia publicada incluye exclusivamente Grand Slam, Masters 1000, ATP 500 y ATP 250; en WTA, Grand Slam, WTA 1000, WTA 500 y WTA 250.</p>
-          <p>El resto de categorías queda fuera de resultados, perfiles, comparaciones y récords.</p>
-          <p>Abandonos, incomparecencias y marcadores en revisión quedan fuera de los porcentajes y clasificaciones.</p>
+
+      <section className={styles.coverage} aria-labelledby="info-coverage-title">
+        <div className={styles.sectionHeading}><p>01 · COBERTURA</p><h2 id="info-coverage-title">Qué entra en el archivo</h2></div>
+        <div className={styles.tourCards}>
+          <div><span>ATP</span><strong>Grand Slam</strong><p>Masters 1000 · ATP 500 · ATP 250</p></div>
+          <div><span>WTA</span><strong>Grand Slam</strong><p>WTA 1000 · WTA 500 · WTA 250</p></div>
+        </div>
+        <p className={styles.exclusion}>Quedan fuera las demás categorías, los abandonos, las incomparecencias y los marcadores todavía en revisión.</p>
+      </section>
+
+      <section className={styles.readings} aria-labelledby="info-readings-title">
+        <div className={styles.sectionHeading}><p>02 · NIVEL DE DETALLE</p><h2 id="info-readings-title">Tres lecturas posibles</h2></div>
+        <div className={styles.readingGrid}>
+          {readings.map(({ number, title, description }) => <article key={title}><span>{number}</span><h3>{title}</h3><p>{description}</p></article>)}
         </div>
       </section>
-      <section className="ry-help-reading" aria-labelledby="ry-help-reading-title">
-        <h2 id="ry-help-reading-title">Tres lecturas posibles</h2>
-        <div className="ry-help-reading-list">
-          {readings.map(({ title, description }) => (
-            <div className="ry-help-reading-row" key={title}>
-              <h3>{title}</h3>
-              <p>{description}</p>
-            </div>
-          ))}
+
+      <section className={styles.measures} aria-labelledby="info-measures-title">
+        <div className={styles.sectionHeading}><p>03 · ESTADÍSTICAS</p><h2 id="info-measures-title">Qué cuenta una cifra</h2></div>
+        <div className={styles.measureList}>
+          {measures.map(([title, description]) => <div key={title}><strong>{title}</strong><p>{description}</p></div>)}
         </div>
       </section>
-      <section className="ry-help-scope ry-help-measures" aria-labelledby="ry-help-measures-title">
-        <h2 id="ry-help-measures-title">Qué cuenta una cifra</h2>
-        <div className="ry-help-prose">
-          <p>El enlace «Sobre los datos» de cada estadística abre su periodo, exclusiones, tamaño de muestra y mínimo en Cobertura. Los porcentajes conservan su denominador.</p>
-          <p>En las comparaciones, la marca de mediana representa a los jugadores con muestra suficiente. Las barras de cada medida comparten escala. Un hueco en una serie indica ausencia de registro, no un cero.</p>
-          <p>Aces, saques y golpes solo cuentan los partidos donde la fuente publicó esa medida. Un ranking histórico aparece únicamente cuando corresponde a la fecha del encuentro.</p>
-        </div>
-        <div className="ry-help-links">
-          <Link href="/records">Ver clasificaciones</Link>
-          <Link href="/licencias">Licencias</Link>
-        </div>
-      </section>
+
+      <nav className={styles.links} aria-label="Continuar desde la guía">
+        <Link className={styles.primaryLink} href="/cobertura">Ver cobertura exacta <span aria-hidden="true">↗</span></Link>
+        <Link href="/records">Explorar récords</Link><Link href="/licencias">Consultar licencias</Link>
+      </nav>
     </article>
   );
 }

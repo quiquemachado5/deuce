@@ -1,0 +1,66 @@
+.page {
+  width: min(1120px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 136px 0 84px;
+  color: var(--ink);
+}
+
+.hero { display: grid; gap: 20px; padding-bottom: 56px; border-bottom: 1px solid var(--line); }
+.eyebrow, .sectionHeading > p { margin: 0; color: var(--muted); font-size: 10px; font-weight: 800; letter-spacing: .11em; }
+.hero h1 { max-width: 10ch; margin: 0; font: 760 clamp(54px, 8vw, 102px) / .88 var(--font-display); letter-spacing: -.07em; }
+.lead { max-width: 660px; margin: 2px 0 4px; color: var(--ink-soft); font-size: clamp(17px, 2vw, 22px); line-height: 1.45; }
+.scopeLine { display: flex; flex-wrap: wrap; gap: 8px; }
+.scopeLine span { display: inline-flex; min-height: 34px; align-items: center; padding: 7px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--bg-raised); color: var(--ink-soft); font-size: 12px; font-weight: 700; }
+
+.coverage, .readings, .measures { display: grid; grid-template-columns: minmax(180px, .34fr) minmax(0, 1fr); gap: clamp(28px, 6vw, 88px); padding: 64px 0; border-bottom: 1px solid var(--line); }
+.sectionHeading { display: grid; align-content: start; gap: 10px; }
+.sectionHeading h2 { max-width: 9ch; margin: 0; font: 720 clamp(28px, 4vw, 46px) / .98 var(--font-display); letter-spacing: -.045em; }
+.tourCards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.tourCards > div { display: grid; align-content: start; min-height: 190px; padding: 24px; border-radius: 24px; background: var(--ink); color: white; }
+.tourCards span { width: fit-content; padding: 5px 9px; border-radius: 999px; background: var(--acid); color: var(--ink); font-size: 10px; font-weight: 850; }
+.tourCards strong { margin-top: auto; font: 720 clamp(24px, 3vw, 34px) / 1 var(--font-display); letter-spacing: -.04em; }
+.tourCards p { margin: 8px 0 0; color: rgb(255 255 255 / .68); font-size: 13px; }
+.exclusion { grid-column: 2; margin: -42px 0 0; padding-top: 18px; color: var(--muted); font-size: 13px; line-height: 1.6; }
+
+.readingGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.readingGrid article { display: grid; align-content: start; min-height: 250px; padding: 22px; border: 1px solid var(--line); border-radius: 22px; background: var(--bg-raised); }
+.readingGrid span { color: var(--muted); font-size: 11px; font-weight: 800; }
+.readingGrid h3 { margin: auto 0 12px; font: 720 24px/1 var(--font-display); letter-spacing: -.035em; }
+.readingGrid p, .measureList p { margin: 0; color: var(--ink-soft); font-size: 13px; line-height: 1.55; }
+.measureList { display: grid; }
+.measureList > div { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 24px; padding: 20px 0; border-top: 1px solid var(--line); }
+.measureList > div:first-child { border-top: 0; padding-top: 0; }
+.measureList strong { font-size: 14px; }
+.measureList p { max-width: 590px; }
+
+.links { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding-top: 38px; }
+.links a { display: inline-flex; min-height: 44px; align-items: center; gap: 12px; padding: 10px 16px; border: 1px solid var(--line); border-radius: 999px; background: var(--bg-raised); color: var(--ink); font-size: 13px; font-weight: 750; transition: transform .2s ease; }
+.links .primaryLink { border-color: var(--acid); background: var(--acid); }
+.links a:hover { transform: translateY(-2px); }
+
+@media (max-width: 760px) {
+  .page { width: calc(100% - 28px); padding: 108px 0 54px; }
+  .hero { gap: 16px; padding-bottom: 38px; }
+  .hero h1 { font-size: clamp(49px, 16vw, 70px); }
+  .coverage, .readings, .measures { grid-template-columns: 1fr; gap: 26px; padding: 42px 0; }
+  .sectionHeading h2 { max-width: 13ch; }
+  .tourCards { grid-template-columns: 1fr 1fr; }
+  .tourCards > div { min-height: 170px; padding: 18px; }
+  .tourCards p { line-height: 1.45; }
+  .exclusion { grid-column: 1; margin: -10px 0 0; }
+  .readingGrid { grid-template-columns: 1fr; }
+  .readingGrid article { min-height: 180px; }
+  .readingGrid h3 { margin-top: 42px; }
+  .measureList > div { grid-template-columns: 92px minmax(0, 1fr); gap: 14px; }
+  .links { align-items: stretch; flex-direction: column; }
+  .links a { justify-content: space-between; }
+}
+
+@media (max-width: 430px) {
+  .tourCards { grid-template-columns: 1fr; }
+  .tourCards > div { min-height: 154px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .links a:hover { transform: none; }
+}
