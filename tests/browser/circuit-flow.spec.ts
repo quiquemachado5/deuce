@@ -10,7 +10,7 @@ test('circuit-specific suggestions cannot leak the opposite circuit',async({requ
   }
 });
 
-test('neutral search covers ATP and WTA while archive search keeps its circuit',async({page,request})=>{
+test('global search covers ATP and WTA from every section',async({page,request})=>{
   for(const query of ['Djokovic','Sabalenka']){
     const response=await request.get(`/api/search?tour=all&q=${query}`);
     expect(response.ok()).toBe(true);
@@ -27,7 +27,9 @@ test('neutral search covers ATP and WTA while archive search keeps its circuit',
 
   await page.goto('/buscar');
   await page.getByRole('button',{name:'Buscar en DEUCE'}).click();
-  await expect(page.getByText('Buscar en DEUCE · ATP',{exact:true})).toBeVisible();
+  await expect(page.getByText('Buscar en ATP y WTA',{exact:true})).toBeVisible();
+  await page.locator('#global-search').fill('Swiatek');
+  await expect(page.locator('[data-search-result][href*="iga-swiatek"]')).toHaveAttribute('href','/jugadores/iga-swiatek?tour=wta');
 });
 
 test('archive filters never inherit an invisible latest season',async({page})=>{
@@ -80,10 +82,10 @@ test('WTA directory, tournament leaders and quick record suggestions retain WTA 
 
 test('coverage distinguishes operational clocks and remains accessible on a phone',async({page})=>{
   await page.setViewportSize({width:390,height:844});await page.goto('/cobertura');
-  await expect(page.getByRole('heading',{name:'Qué se obtiene cada día.'})).toBeVisible();
+  await expect(page.getByRole('heading',{name:'Actividad diaria.'})).toBeVisible();
   await expect(page.locator('.coverage-hero-stats dt').filter({hasText:/^Partidos ATP$/})).toBeVisible();
   await expect(page.locator('.coverage-hero-stats dt').filter({hasText:/^Partidos WTA$/})).toBeVisible();
-  await expect(page.locator('.coverage-hero-stats').getByText(/^Hasta /)).toHaveCount(2);
+  await expect(page.getByText(/^Hasta /)).toHaveCount(2);
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   expect((await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa']).analyze()).violations).toEqual([]);
 });
@@ -111,13 +113,17 @@ test('the WTA entry opens the integrated match archive and keeps its circuit acr
   await page.getByRole('button',{name:'Buscar en DEUCE'}).click();
   await page.getByRole('search').getByRole('searchbox').fill('Swiatek');
   await page.getByRole('button',{name:'Ver todos los resultados'}).click();
-  await expect(page).toHaveURL(/\/buscar\?q=Swiatek&tour=wta$/);
+  await expect(page).toHaveURL(/\/buscar\?q=Swiatek&tour=all$/);
 });
 
-test('match organization remains visible on a phone before opening filters',async({page})=>{
+test('match circuit is compact and organization lives inside filters',async({page})=>{
   await page.setViewportSize({width:390,height:844});
   await page.goto('/buscar?tour=wta');
-  const organization=page.getByRole('navigation',{name:'Organización de los partidos'});
-  await expect(organization.getByRole('link',{name:'Día a día'})).toBeVisible();
-  await expect(organization.getByRole('link',{name:'Por torneo'})).toBeVisible();
+  await expect(page.getByRole('navigation',{name:'Circuito de partidos'})).toBeVisible();
+  await expect(page.getByRole('navigation',{name:'Organización de los partidos'})).toHaveCount(0);
+  await page.getByRole('button',{name:/Filtrar partidos/}).click();
+  const organization=page.getByRole('combobox',{name:'Organizar por'});
+  await expect(organization).toBeVisible();
+  await organization.selectOption('torneos');
+  await expect(page).toHaveURL(/vista=torneos/);
 });

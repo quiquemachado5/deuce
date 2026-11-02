@@ -134,3 +134,16 @@
   .archivePlayerRow{min-height:34px}
 }
 @media(max-width:360px){.portalFilters[data-visible]{grid-template-columns:1fr}}
+
+/* One compact circuit control; secondary choices live inside Filters. */
+.searchIntro{grid-template-columns:minmax(0,1fr) auto!important}
+.searchIntro :global(.inner-title-tools){width:auto}
+.searchControl,.searchControl[data-filter-only]{width:fit-content;max-width:100%;padding:0;border:0;background:transparent;box-shadow:none}
+.searchControl[data-filter-only] .controlMain{display:flex;gap:10px}
+.searchControl .filters{top:calc(100% + 10px)}
+@media(max-width:560px){
+ .searchIntro{grid-template-columns:1fr!important}
+ .searchControl[data-filter-only]{display:block;width:fit-content}
+ .searchControl[data-filter-only] .discoveryTrigger{display:inline-flex;width:auto;height:42px;min-width:96px;padding:0 14px;border-radius:999px;font-size:11px}
+ .searchControl[data-filter-only] .discoveryTrigger b{position:static}
+}

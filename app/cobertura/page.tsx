@@ -1,94 +1,63 @@
-import {Suspense} from 'react';
-import Operations from './Operations';
+import { Suspense } from 'react';
+import Link from 'next/link';
 import type { Metadata } from 'next';
-import ArchiveNotice from "@/components/nocturno/ArchiveNotice";
-import { number } from "@/lib/cuaderno/model";
-import { preparedGeneration } from "@/lib/revista/read-records";
-import { SURFACES, surfaceLabel } from "@/lib/surface";
-import { archiveDate, archiveFreshnessSummary } from '@/lib/archive-freshness';
-import { summarizeCircuits, type YearCoverage } from '@/lib/dataset-summary';
-import styles from './coverage.module.css';
-
-const title = 'Cobertura y frescura del archivo — DEUCE';
-const description = 'Consulta la cobertura ATP y WTA publicada de Grand Slam y categorías 1000, 500 y 250, y qué datos incorpora DEUCE cada día.';
+import Operations from './Operations';
+import { number } from '@/lib/cuaderno/model';
+import { preparedGeneration } from '@/lib/revista/read-records';
+import { summarizeCircuits } from '@/lib/dataset-summary';
+import { archiveDate } from '@/lib/archive-freshness';
+import { SURFACES, surfaceLabel } from '@/lib/surface';
+import styles from './overview.module.css';
 
 export const metadata: Metadata = {
-  title,
-  description,
-  alternates: { canonical: "/cobertura" },
-  openGraph: { title, description, url: '/cobertura', type: 'website', images: ['/opengraph-image'] },
-  twitter: { card: 'summary_large_image', title, description, images: ['/opengraph-image'] },
+  title: 'Cobertura del archivo — DEUCE',
+  description: 'Partidos, temporadas y actualización del archivo ATP y WTA.',
+  alternates: { canonical: '/cobertura' },
 };
 export const revalidate = 300;
 
-type Circuit = 'atp' | 'wta';
-
-function coverageTotals(years: YearCoverage[]) {
-  return years.reduce((sum,row)=>({
-    matches:sum.matches+row.matches,
-    ranking:sum.ranking+row.ranking,
-    statistics:sum.statistics+row.statistics,
-    points:sum.points+row.points,
-  }),{matches:0,ranking:0,statistics:0,points:0});
-}
-
-function percentage(value:number,total:number){
-  return total?`${number(value/total*100,value&&value/total*100<1?2:1)} %`:'—';
-}
-
 export default async function Coverage() {
-  const generation=await preparedGeneration();
-  const manifest=generation.manifest;
-  const circuits=manifest.circuitSummary ?? summarizeCircuits(await generation.matches());
-  const updated=new Date(manifest.generatedAt).toLocaleString("es-ES",{dateStyle:"medium",timeStyle:"short",timeZone:"Europe/Madrid"});
-  const freshness=archiveFreshnessSummary(manifest);
-  const latestExact=freshness.latestExactDate?archiveDate(freshness.latestExactDate):'Pendiente de fecha exacta verificada';
-  const circuitDate=(tour:Circuit)=>{
-    const date=manifest.circuitFreshness?.[tour].latestExactDate;
-    return date?`Hasta ${archiveDate(date)}`:'Sin fecha exacta registrada';
-  };
-  const circuitCards=(['atp','wta'] as const).map(tour=>{
-    const summary=circuits[tour],totals=coverageTotals(summary.years);
-    const first=summary.years.at(-1)?.year,last=summary.years[0]?.year;
-    return {tour,summary,totals,range:first&&last?first===last?String(first):`${first}–${last}`:'Sin temporadas'};
-  });
-  return <div className="nc-wrap deuce-coverage coverage-brief">
-    <ArchiveNotice status={generation}/>
-    <header className="coverage-hero">
-      <div className="coverage-hero-copy"><span>Archivo publicado</span><h1>Cobertura.</h1><p>Individuales ATP y WTA de Grand Slam y categorías 1000, 500 y 250, con los datos que se incorporan cada día.</p></div>
-      <dl className="coverage-hero-stats">
-        <div><dt>Partidos ATP</dt><dd>{number(manifest.summary.tours?.atp ?? manifest.matchCount)}<small>{circuitDate('atp')}</small></dd></div>
-        <div><dt>Partidos WTA</dt><dd>{number(manifest.summary.tours?.wta ?? 0)}<small>{circuitDate('wta')}</small></dd></div>
-        <div><dt>Total publicado</dt><dd>{number(manifest.matchCount)}<small>Último partido: {latestExact}</small></dd></div>
-      </dl>
-      <p className="coverage-updated"><span aria-hidden="true"/>{`Copia regenerada ${updated}`}</p>
+  const generation = await preparedGeneration();
+  const manifest = generation.manifest;
+  const circuits = manifest.circuitSummary ?? summarizeCircuits(await generation.matches());
+  const updated = new Date(manifest.generatedAt).toLocaleString('es-ES', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Europe/Madrid' });
+  return <div className={styles.page}>
+    <header className={styles.hero}>
+      <div><span className={styles.eyebrow}>El archivo DEUCE</span><h1>Cobertura.</h1><p>Grand Slam, 1000, 500 y 250. Individuales ATP y WTA.</p></div>
+      <div className={styles.total}><strong>{number(manifest.matchCount)}</strong><span>partidos publicados</span></div>
     </header>
-
-    <Suspense fallback={<p role="status">Consultando las actualizaciones…</p>}><Operations manifest={manifest}/></Suspense>
-
-    <section className={`coverage-snapshot ${styles.circuitCoverage}`} aria-labelledby="coverage-snapshot-title">
-      <div className="coverage-section-copy"><h2 id="coverage-snapshot-title">Qué contiene cada circuito</h2><p>ATP y WTA se miden por separado. La selección se limita a Grand Slam, 1000, 500 y 250. Cero significa que la copia publicada no contiene ese tipo de dato; un campo vacío nunca se interpreta como cero.</p></div>
-      <div className={styles.circuitGrid}>{circuitCards.map(({tour,summary,totals,range})=><article className={styles.circuitCard} key={tour}>
-        <header><div><span>{tour.toUpperCase()}</span><h3>{number(totals.matches)} partidos</h3></div><p>{range}<small>{circuitDate(tour)}</small></p></header>
-        <dl className={styles.dataGrid}>
-          <div><dt>Ranking al jugar</dt><dd>{number(totals.ranking)}<small>{percentage(totals.ranking,totals.matches)}</small></dd></div>
-          <div><dt>Estadísticas</dt><dd>{number(totals.statistics)}<small>{percentage(totals.statistics,totals.matches)}</small></dd></div>
-          <div><dt>Punto a punto</dt><dd>{number(totals.points)}<small>{percentage(totals.points,totals.matches)}</small></dd></div>
-          <div><dt>Torneos</dt><dd>{number(summary.tournaments)}<small>nombres publicados</small></dd></div>
-        </dl>
-        {tour==='wta'&&totals.statistics===0&&totals.points===0?<p className={styles.circuitNote}>La muestra WTA publicada contiene resultados y marcadores. No atribuye estadísticas ni secuencias punto a punto que el proveedor no ha entregado.</p>:null}
-        <details className={styles.seasons} open>
-          <summary>Cobertura por temporada <span>{summary.years.length}</span></summary>
-          <div className={styles.tableScroll} role="region" aria-label={`Cobertura ${tour.toUpperCase()} por temporada`} tabIndex={0}><table><thead><tr><th>Temporada</th><th>Partidos</th><th>Ranking</th><th>Estadísticas</th><th>Puntos</th></tr></thead><tbody>{summary.years.map(row=><tr key={row.year}><th>{row.year}</th><td>{number(row.matches)}</td><td>{number(row.ranking)}</td><td>{number(row.statistics)}</td><td>{number(row.points)}</td></tr>)}</tbody></table></div>
-        </details>
-      </article>)}</div>
-      <div className="coverage-section-copy"><h2>Superficies del archivo conjunto</h2><p>Este reparto suma ATP y WTA; los campos de ranking, estadísticas y puntos se mantienen separados arriba.</p></div>
-      <dl className="coverage-surface-strip">{SURFACES.map(surface=><div key={surface} data-event-surface={surface}><dt>{surfaceLabel[surface]}</dt><dd>{number(manifest.summary.surfaces[surface])}</dd></div>)}</dl>
+    <section className={styles.circuits} aria-label="Cobertura por circuito">
+      {(['atp', 'wta'] as const).map(tour => {
+        const summary = circuits[tour];
+        const totals = summary.years.reduce((sum, year) => ({ matches: sum.matches + year.matches, statistics: sum.statistics + year.statistics, points: sum.points + year.points }), { matches: 0, statistics: 0, points: 0 });
+        const first = summary.years.at(-1)?.year;
+        const last = summary.years[0]?.year;
+        const date = manifest.circuitFreshness?.[tour].latestExactDate;
+        return <article className={styles.card} key={tour}>
+          <header><span className={styles.tour}>{tour.toUpperCase()}</span><span>{first}—{last}</span></header>
+          <dl className="coverage-hero-stats"><dt>Partidos {tour.toUpperCase()}</dt><dd>{number(totals.matches)}</dd></dl>
+          <p className={styles.date}>{date ? `Hasta ${archiveDate(date)}` : 'Sin fecha exacta registrada'}</p>
+          <div className={styles.metrics}>
+            <div><strong>{number(summary.tournaments)}</strong><span>torneos</span></div>
+            <div><strong>{number(totals.statistics)}</strong><span>con estadísticas</span></div>
+            <div><strong>{number(totals.points)}</strong><span>con puntos</span></div>
+          </div>
+          {totals.statistics === 0 && <p className={styles.note}>Resultados y marcadores; estadísticas de juego aún no disponibles.</p>}
+          <Link className={styles.link} href={tour === 'wta' ? '/buscar?tour=wta' : '/buscar'}>Explorar {tour.toUpperCase()} <span aria-hidden="true">↗</span></Link>
+          <details className={styles.seasons}>
+            <summary>Por temporada <span>{summary.years.length}</span></summary>
+            <div className={styles.table} role="region" aria-label={`Cobertura ${tour.toUpperCase()} por temporada`} tabIndex={0}>
+              <table><thead><tr><th>Año</th><th>Partidos</th><th>Estadísticas</th><th>Puntos</th></tr></thead><tbody>{summary.years.map(year => <tr key={year.year}><th>{year.year}</th><td>{number(year.matches)}</td><td>{number(year.statistics)}</td><td>{number(year.points)}</td></tr>)}</tbody></table>
+            </div>
+          </details>
+        </article>;
+      })}
     </section>
-
-    <footer className="coverage-footer">
-      <p>Las retiradas y los partidos sin jugar pueden conservarse en los cuadros, pero no cuentan como resultados ni en las estadísticas. Las categorías fuera del alcance no entran en la copia publicada. Las lagunas históricas permanecen visibles; no se completan con estimaciones.</p>
-      <small>Datos calculados sobre la copia publicada el {updated}.</small>
-    </footer>
+    <Suspense fallback={<p role="status">Consultando actualizaciones…</p>}><Operations manifest={manifest}/></Suspense>
+    <section className={styles.surfaces} aria-labelledby="surfaces-title">
+      <h2 id="surfaces-title">Por superficie</h2>
+      <div>{SURFACES.filter(surface => manifest.summary.surfaces[surface] > 0).map(surface => <div className={styles.surface} key={surface} data-event-surface={surface}><span>{surfaceLabel[surface]}</span><strong>{number(manifest.summary.surfaces[surface])}</strong><i style={{width:`${manifest.summary.surfaces[surface]/manifest.matchCount*100}%`}}/></div>)}</div>
+    </section>
+    <footer className={styles.footer}><p>Actualizado: <time>{updated}</time></p><p>El archivo puede tener huecos. Un dato ausente nunca se estima.</p><Link href="/cobertura/revision">Ver revisión de cuadros ↗</Link></footer>
   </div>;
 }

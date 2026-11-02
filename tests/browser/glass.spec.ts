@@ -12,8 +12,8 @@ test('tournament directory prioritizes the four Grand Slams and preserves catego
   for(const slug of ['australian-open','roland-garros','wimbledon','us-open']){
     await expect(page.locator(`main a[href^="/torneos/${slug}?"]`).first()).toBeVisible();
   }
-  await page.locator('summary[aria-label^="Filtrar torneos:"]').click();
-  await page.getByRole('link',{name:'ATP 250',exact:true}).click();
+  await expect(page.locator('summary[aria-label^="Filtrar torneos:"]')).toHaveCount(0);
+  await page.getByRole('region',{name:'ATP 250',exact:true}).getByRole('link',{name:'Ver todos',exact:true}).click();
   await expect(page).toHaveURL(/categoria=ATP(?:\+|%20)250/);
   await expect(page.locator('main a[href*="cuadro=atp"]').first()).toBeVisible();
 });

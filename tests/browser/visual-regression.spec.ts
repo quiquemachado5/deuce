@@ -25,6 +25,7 @@ async function hideDynamicCoverageSurfaces(page: Page) {
 }
 
 const dynamicCoverageContent = (page: Page) => [
+  page.locator('main footer time'),
   page.locator('.coverage-updated'),
   page.locator('.coverage-piece dd'),
   page.locator('table time'),

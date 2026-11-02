@@ -48,6 +48,7 @@ export function collectPlayerBios(matches: RawMatch[]): Record<string, PlayerBio
 }
 
 const countries: Record<string, string> = {
+  and:'Andorra', bdi:'Burundi', cyp:'Chipre', egy:'Egipto', ina:'Indonesia', isr:'Israel', lat:'Letonia', mkd:'Macedonia del Norte', mlt:'Malta', mne:'Montenegro', phi:'Filipinas', pur:'Puerto Rico', tpe:'Taipéi Chino',
   arg: 'Argentina', arm: 'Armenia', aus: 'Australia', aut: 'Austria', bel: 'Bélgica', bih: 'Bosnia y Herzegovina',
   blr: 'Bielorrusia', bol: 'Bolivia', bra: 'Brasil', bul: 'Bulgaria', can: 'Canadá', chi: 'Chile', chn: 'China',
   col: 'Colombia', cro: 'Croacia', cze: 'Chequia', den: 'Dinamarca', dom: 'República Dominicana', ecu: 'Ecuador',

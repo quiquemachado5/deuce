@@ -4,7 +4,8 @@ import AxeBuilder from '@axe-core/playwright';
 test('daily coverage stays compact and historical evidence remains accessible on mobile', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/cobertura');
-  await expect(page.getByRole('heading', { name: 'Qué se obtiene cada día.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Actividad diaria.' })).toBeVisible();
+  await page.getByText('Ver últimas actualizaciones',{exact:true}).click();
   await expect(page.getByRole('list', { name: 'Actividad diaria de la API' })).toBeAttached();
   await expect(page.getByRole('list', { name: 'Actividad diaria de la API' }).getByText('ATP', { exact: true }).first()).toBeVisible();
   await expect(page.getByRole('list', { name: 'Actividad diaria de la API' }).getByText('WTA', { exact: true }).first()).toBeVisible();
@@ -13,7 +14,7 @@ test('daily coverage stays compact and historical evidence remains accessible on
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   const audit = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']).analyze();
   expect(audit.violations).toEqual([]);
-  await page.getByRole('heading', { name: 'Qué se obtiene cada día.' }).scrollIntoViewIfNeeded();
+  await page.getByRole('heading', { name: 'Actividad diaria.' }).scrollIntoViewIfNeeded();
   await page.screenshot({ path: '/tmp/deuce-daily-coverage-mobile.png' });
   await page.goto('/cobertura/revision');
   await expect(page.getByRole('heading', { name: 'Ediciones que requieren contraste' })).toBeVisible();
@@ -28,7 +29,7 @@ test('daily coverage stays compact and historical evidence remains accessible on
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.emulateMedia({ colorScheme: 'dark' });
   await page.goto('/cobertura');
-  await page.getByRole('heading', { name: 'Qué se obtiene cada día.' }).scrollIntoViewIfNeeded();
+  await page.getByRole('heading', { name: 'Actividad diaria.' }).scrollIntoViewIfNeeded();
   await page.screenshot({ path: '/tmp/deuce-daily-coverage-desktop.png' });
   expect((await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']).analyze()).violations).toEqual([]);
 });

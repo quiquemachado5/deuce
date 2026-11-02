@@ -7,7 +7,6 @@ import { matchSearchUrl, type MatchQuery } from '@/lib/match-search-url';
 import { number } from '@/lib/cuaderno/model';
 import EditionMatchGroups, { type MatchEdition } from '@/components/EditionMatchGroups';
 import MatchSearchBar from '@/components/MatchSearchBar';
-import TournamentFilters from '@/components/TournamentFilters';
 import PlayerAvatar from '@/components/PlayerAvatar';
 import { MatchArchivePage } from '@/components/deuce/MatchArchivePage';
 import { toMatchRecord } from '@/data/map-match';
@@ -156,13 +155,10 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
     data:undefined,
     limit:undefined,
   });
-  const searchTools=<div className={styles.searchHeaderTools}>
-    <TournamentFilters ariaLabel="Circuito de partidos" items={[
-      {href:circuitHref('atp'),label:'ATP',active:tour==='atp'},
-      {href:circuitHref('wta'),label:'WTA',active:tour==='wta'},
-    ]}/>
-    <MatchSearchBar query={query} categories={categories} rounds={rounds} surfaces={surfaces} years={years} activeYear={selectedYear} />
-  </div>;
+  const searchTools=<MatchSearchBar circuits={[
+    {href:circuitHref('atp'),label:'ATP',active:tour==='atp'},
+    {href:circuitHref('wta'),label:'WTA',active:tour==='wta'},
+  ]} query={query} categories={categories} rounds={rounds} surfaces={surfaces} years={years} activeYear={selectedYear} />;
   return <div className={`deuce-search view-root ${styles.searchPage}`}>
     <header className={`inner-title ${styles.searchIntro}`}><h1>Partidos</h1><div className="inner-title-tools">{searchTools}</div></header>
     {!!query.q && <form className={styles.visibleQuery} action="/buscar" method="get" role="search">

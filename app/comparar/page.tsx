@@ -7,7 +7,6 @@ import { SURFACES, surfaceLabel } from '@/lib/surface';
 import { number } from '@/lib/cuaderno/model';
 import { normalizeText } from '@/lib/quality';
 import { winnerName } from '@/lib/editorial';
-import ArchiveNotice from '@/components/nocturno/ArchiveNotice';
 import PlayerInput from '@/components/PlayerInput';
 import CompareSelection, { CompareSampleFilters } from './CompareSelection';
 import PlayerFlag from '@/components/PlayerFlag';
@@ -110,7 +109,6 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
       {href:'/comparar',label:'ATP',active:tour==='atp'},
       {href:'/comparar?tour=wta',label:'WTA',active:tour==='wta'},
     ]}/></div></header>
-    <ArchiveNotice status={playerArchive} />
     <CompareSelection key={chosen.join('|')} tour={tour} initial={chosen.map(name => {
       const photo = playerPhoto(name,q.tour==='wta'?'wta':'atp');
       const hasThumbnail = Boolean(photo?.thumbnail);

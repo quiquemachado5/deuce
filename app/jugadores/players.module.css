@@ -54,3 +54,9 @@
 }
 @media(max-width:360px){.intro h1{font-size:40px!important}.directoryTools{grid-template-columns:1fr}.playerCard{grid-template-columns:102px minmax(0,1fr);grid-template-rows:184px}.playerCard:not(.cardSwapPrototype){grid-template-columns:128px minmax(0,1fr)}.cardSwapPrototype{grid-template-columns:140px minmax(0,1fr);grid-template-rows:176px}.cardTitle h2{font-size:21px}.playerCard:not(.cardSwapPrototype) .cardTitle h2{font-size:21px}.cardSwapPrototype .cardTitle h2{font-size:21px}.slamCount b{font-size:18px}.cardTitle{gap:6px}.empty .secondaryEmptyLink{margin:8px 0 0}}
 @media(prefers-reduced-motion:reduce){.playerCard,.playerCard .photo>img,.profileAction,.duel{transition:none}.playerCard:hover,.playerCard:hover .photo>img,.duel:hover{transform:none}}
+
+.directoryTools{width:fit-content;max-width:100%;grid-template-columns:minmax(160px,280px) 150px auto auto;padding:0;border:0;border-radius:0;background:transparent;gap:8px;margin-bottom:14px}
+.directoryTools label{gap:5px;font-size:10px}
+.directoryTools input,.directoryTools select{height:40px;border-radius:12px;background:var(--players-panel);font-size:12px}
+.directoryTools button,.directoryClear{min-height:40px;font-size:11px;padding-inline:14px}
+@media(max-width:560px){.directoryTools{width:100%;grid-template-columns:minmax(0,1fr) 130px}.directoryTools button{justify-self:start}.directoryTools input{font-size:16px}}

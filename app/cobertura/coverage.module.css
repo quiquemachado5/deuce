@@ -31,3 +31,9 @@
 @media(max-width:900px){.circuitGrid{grid-template-columns:1fr}}
 @media(max-width:760px){.providerGrid{grid-template-columns:1fr}}
 @media(max-width:460px){.operations{padding:2rem 0}.tourRows>div{grid-template-columns:2.5rem repeat(3,minmax(0,1fr));gap:.38rem;padding:.7rem .65rem}.tourRows span{display:grid;gap:.15rem;font-size:.58rem;white-space:normal}.tourRows b{font-size:.92rem}.days>li{padding:1rem;border-radius:19px}.circuitCard>header{align-items:flex-start;padding:1.1rem;flex-direction:column}.circuitCard>header p{text-align:left}.dataGrid>div{padding:.85rem}.tableScroll th,.tableScroll td{padding:.55rem}.providerCard{padding:1rem}}
+
+.operations{padding:24px 0 0;margin-top:28px;border-top:0}
+.heading{margin-bottom:16px}.heading h2{font-size:26px;letter-spacing:-.03em}.heading>div>span{display:none}
+.providerCard{padding:18px;border-radius:18px}.providerCard dl{margin-top:16px}
+.activityDetails{margin-top:14px;padding:16px 18px;background:var(--bg-raised,#fff);border:1px solid var(--line);border-radius:18px}
+.activityDetails>summary{cursor:pointer;font-size:12px;font-weight:650}.activityDetails .days{margin-top:16px}

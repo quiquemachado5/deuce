@@ -6,21 +6,14 @@ test('the tournament circuit and category selectors stay isolated and responsive
     await page.setViewportSize({ width, height: width < 700 ? 844 : 1000 });
     await page.goto('/torneos?circuito=wta');
     await expect(page.getByRole('navigation',{name:'Circuito de torneos'}).getByRole('link',{name:'WTA',exact:true})).toHaveAttribute('aria-current','page');
-    const picker=page.getByLabel(/Filtrar torneos: Categoría · Todas/);
-    await expect(picker).toBeVisible();
-    await picker.click();
-    const wtaCategories=page.getByRole('group',{name:'Categorías WTA'});
-    await expect(wtaCategories).toBeVisible();
-    await expect(wtaCategories.getByRole('link')).toHaveText(['Todas','Grand Slams','WTA 1000','WTA 500','WTA 250']);
-    await expect(page.getByRole('group',{name:'Categorías ATP'})).toHaveCount(0);
+    await expect(page.getByLabel(/Filtrar torneos: Categoría/)).toHaveCount(0);
+    for(const name of ['Grand Slams','WTA 1000','WTA 500','WTA 250']) await expect(page.getByRole('heading',{name,exact:true})).toBeVisible();
     if(width===320){
       const previewSizes=await page.locator('main div[tabindex][aria-label]').evaluateAll(nodes=>nodes.map(node=>node.querySelectorAll(':scope > a').length).filter(Boolean));
       expect(previewSizes.length).toBeGreaterThan(0);
       expect(Math.max(...previewSizes)).toBeLessThanOrEqual(10);
     }
     expect(await page.evaluate(()=>document.documentElement.scrollWidth-window.innerWidth)).toBeLessThanOrEqual(1);
-    await page.keyboard.press('Escape');
-    await expect(picker).toBeFocused();
   }
   expect((await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa']).analyze()).violations).toEqual([]);
 });

@@ -2,8 +2,8 @@ import { Flag } from "lucide-react";
 import { countryLabel, playerBiography } from "@/lib/player-bio";
 import PlayerFlag from "@/components/PlayerFlag";
 
-export default function PlayerCountryFlag({ name }: { name: string }) {
-  const country = playerBiography(name)?.country;
+export default function PlayerCountryFlag({ name, tour = 'atp' }: { name: string; tour?: 'atp'|'wta' }) {
+  const country = playerBiography(name,tour)?.country;
   if (!country) {
     return (
       <span className="player-country-badge player-country-badge-missing" role="img" aria-label="País no disponible">

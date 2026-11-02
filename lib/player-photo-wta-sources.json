@@ -1,0 +1,893 @@
+[
+  {
+    "name": "Naomi Osaka",
+    "wikidataId": "Q17466583",
+    "title": "File:Naomi Osaka 2017 Wimbledon.jpg",
+    "author": "si.robi",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Naomi_Osaka_2017_Wimbledon.jpg"
+  },
+  {
+    "name": "Elena Rybakina",
+    "wikidataId": "Q42055714",
+    "title": "File:Elena Rybakina (2025 DC Open) 07 (cropped2).jpg",
+    "author": "Hameltion derivative work: Kacir",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Elena_Rybakina_(2025_DC_Open)_07_(cropped2).jpg"
+  },
+  {
+    "name": "Ashleigh Barty",
+    "wikidataId": "Q84056",
+    "title": "File:Sydney International WTA Players Cruise (31974227527) (cropped).jpg",
+    "author": "Rob Keating from Canberra, Australia, Australia",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Sydney_International_WTA_Players_Cruise_(31974227527)_(cropped).jpg"
+  },
+  {
+    "name": "Coco Gauff",
+    "wikidataId": "Q39263365",
+    "title": "File:Coco Gauff Miami Open.jpg",
+    "author": "Rick Munroe",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Coco_Gauff_Miami_Open.jpg"
+  },
+  {
+    "name": "Barbora Krejcikova",
+    "wikidataId": "Q11052500",
+    "title": "File:Barbora Krejčíková (2023 US Open) 03 (cropped).jpg",
+    "author": "Hameltion",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Barbora_Krej%C4%8D%C3%ADkov%C3%A1_(2023_US_Open)_03_(cropped).jpg"
+  },
+  {
+    "name": "Madison Keys",
+    "wikidataId": "Q34403",
+    "title": "File:Madison Keys (2023 DC Open) 01a (cropped2).jpg",
+    "author": "Hameltion",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Madison_Keys_(2023_DC_Open)_01a_(cropped2).jpg"
+  },
+  {
+    "name": "Mirra Andreeva",
+    "wikidataId": "Q114402278",
+    "title": "File:Andreeva M. WMQ23 (53062105200).jpg",
+    "author": "si.robi",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Andreeva_M._WMQ23_(53062105200).jpg"
+  },
+  {
+    "name": "Linda Noskova",
+    "wikidataId": "Q106354932",
+    "title": "File:Linda Nosková (2023 US Open) 01 (cropped2).jpg",
+    "author": "Hameltion",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Linda_Noskov%C3%A1_(2023_US_Open)_01_(cropped2).jpg"
+  },
+  {
+    "name": "Sofia Kenin",
+    "wikidataId": "Q18679122",
+    "title": "File:Sofia Kenin (2025 DC Open) 05 (edited and cropped).jpg",
+    "author": "Hameltion",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Sofia_Kenin_(2025_DC_Open)_05_(edited_and_cropped).jpg"
+  },
+  {
+    "name": "Marketa Vondrousova",
+    "wikidataId": "Q18918709",
+    "title": "File:Marketa Vondrousova 9.2021 (cropped).jpg",
+    "author": "Jck.rhn",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Marketa_Vondrousova_9.2021_(cropped).jpg"
+  },
+  {
+    "name": "Emma Raducanu",
+    "wikidataId": "Q64849968",
+    "title": "File:Transylvania Open 2026 - Emma Raducanu vs Greet Minnen 6-0, 6-4 - 01.02.2026 (55077278835) (cropped).jpg",
+    "author": "Nuță Lucian from Cluj-Napoca, Romania",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Transylvania_Open_2026_-_Emma_Raducanu_vs_Greet_Minnen_6-0%2C_6-4_-_01.02.2026_(55077278835)_(cropped).jpg"
+  },
+  {
+    "name": "Bianca Andreescu",
+    "wikidataId": "Q22957410",
+    "title": "File:Bianca Andreescu, 2019 U.S. Open Women's Singles Champion (cropped).jpg",
+    "author": "JazzyJoeyD",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Bianca_Andreescu%2C_2019_U.S._Open_Women's_Singles_Champion_(cropped).jpg"
+  },
+  {
+    "name": "Simona Halep",
+    "wikidataId": "Q230156",
+    "title": "File:Halep RG18 (25) (42929445712).jpg",
+    "author": "si.robi",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Halep_RG18_(25)_(42929445712).jpg"
+  },
+  {
+    "name": "Angelique Kerber",
+    "wikidataId": "Q77178",
+    "title": "File:Australian Open 2020 (49836755508) (cropped).jpg",
+    "author": "Rob Keating from Canberra, Australia, Australia",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Australian_Open_2020_(49836755508)_(cropped).jpg"
+  },
+  {
+    "name": "Jessica Pegula",
+    "wikidataId": "Q24159",
+    "title": "File:Jessica Pegula (2025 DC Open) 05 (cropped).jpg",
+    "author": "Hameltion",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Jessica_Pegula_(2025_DC_Open)_05_(cropped).jpg"
+  },
+  {
+    "name": "Elise Mertens",
+    "wikidataId": "Q17381675",
+    "title": "File:Elise Mertens (2023 US Open) 23 (cropped) 2.jpg",
+    "author": "Hameltion",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Elise_Mertens_(2023_US_Open)_23_(cropped)_2.jpg"
+  },
+  {
+    "name": "Elina Svitolina",
+    "wikidataId": "Q270249",
+    "title": "File:Ukraine at the 2020 Summer Olympics016.jpg",
+    "author": "Власність Міністерства молоді та спорту України",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Ukraine_at_the_2020_Summer_Olympics016.jpg"
+  },
+  {
+    "name": "Karolina Muchova",
+    "wikidataId": "Q23661750",
+    "title": "File:Karolína Muchová (2023 US Open) 04 (cropped2).jpg",
+    "author": "Hameltion derivative work: Kacir",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Karol%C3%ADna_Muchov%C3%A1_(2023_US_Open)_04_(cropped2).jpg"
+  },
+  {
+    "name": "Jelena Ostapenko",
+    "wikidataId": "Q5551564",
+    "title": "File:Ostapenko RG22 (4) (52144317609).jpg",
+    "author": "si.robi",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Ostapenko_RG22_(4)_(52144317609).jpg"
+  },
+  {
+    "name": "Maria Sakkari",
+    "wikidataId": "Q6761562",
+    "title": "File:Maria Sakkari (2023 DC Open) 01a (cropped).jpg",
+    "author": "Hameltion",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Maria_Sakkari_(2023_DC_Open)_01a_(cropped).jpg"
+  },
+  {
+    "name": "Marta Kostyuk",
+    "wikidataId": "Q28535267",
+    "title": "File:Marta Kostyuk (2023 US Open) 20 (cropped).jpg",
+    "author": "Hameltion",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Marta_Kostyuk_(2023_US_Open)_20_(cropped).jpg"
+  },
+  {
+    "name": "Diana Shnaider",
+    "wikidataId": "Q107183075",
+    "title": "File:Shnaider WMQ23 (53062168393).jpg",
+    "author": "si.robi",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Shnaider_WMQ23_(53062168393).jpg"
+  },
+  {
+    "name": "Sorana Cirstea",
+    "wikidataId": "Q230242",
+    "title": "File:Sorana Cîrstea 2025 Transylvania Open (cropped).jpg",
+    "author": "Nuță Lucian from Cluj-Napoca, Romania derivative work: Kacir",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Sorana_C%C3%AErstea_2025_Transylvania_Open_(cropped).jpg"
+  },
+  {
+    "name": "Jasmine Paolini",
+    "wikidataId": "Q19973674",
+    "title": "File:Transylvania Open 2022 WTA 250 (52503041088) (Paolini).jpg",
+    "author": "Nuță Lucian from Cluj-Napoca, Romania",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Transylvania_Open_2022_WTA_250_(52503041088)_(Paolini).jpg"
+  },
+  {
+    "name": "Belinda Bencic",
+    "wikidataId": "Q509903",
+    "title": "File:Belinda Bencic (2023 US Open) 09.jpg",
+    "author": "Hameltion",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Belinda_Bencic_(2023_US_Open)_09.jpg"
+  },
+  {
+    "name": "Marie Bouzkova",
+    "wikidataId": "Q18003204",
+    "title": "File:Marie Bouzková (2024 DC Open) 01 (cropped2).jpg",
+    "author": "Hameltion derivative work: Kacir",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Marie_Bouzkov%C3%A1_(2024_DC_Open)_01_(cropped2).jpg"
+  },
+  {
+    "name": "Paula Badosa",
+    "wikidataId": "Q19560013",
+    "title": "File:Paula Badosa (2024 DC Open) 04 (cropped).jpg",
+    "author": "Hameltion",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Paula_Badosa_(2024_DC_Open)_04_(cropped).jpg"
+  },
+  {
+    "name": "Anastasia Potapova",
+    "wikidataId": "Q24955766",
+    "title": "File:Transilvania Open Anastasia Potapova (54321093385).jpg",
+    "author": "Nuță Lucian from Cluj-Napoca, Romania",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Transilvania_Open_Anastasia_Potapova_(54321093385).jpg"
+  },
+  {
+    "name": "Amanda Anisimova",
+    "wikidataId": "Q24456716",
+    "title": "File:Anisimova RG19 (32) (48199400552).jpg",
+    "author": "si.robi",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Anisimova_RG19_(32)_(48199400552).jpg"
+  },
+  {
+    "name": "Anna Kalinskaya",
+    "wikidataId": "Q20088944",
+    "title": "File:Anna Kalinskaya (2025 DC Open) 01 (cropped).jpg",
+    "author": "Hameltion",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Anna_Kalinskaya_(2025_DC_Open)_01_(cropped).jpg"
+  },
+  {
+    "name": "Magda Linette",
+    "wikidataId": "Q722311",
+    "title": "File:Linette RG21 (31) (51376169766) (cropped).jpg",
+    "author": "si.robi",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Linette_RG21_(31)_(51376169766)_(cropped).jpg"
+  },
+  {
+    "name": "Katerina Siniakova",
+    "wikidataId": "Q3720044",
+    "title": "File:2021-06 Kateřina Siniaková (cropped).jpg",
+    "author": "Pulv",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:2021-06_Kate%C5%99ina_Siniakov%C3%A1_(cropped).jpg"
+  },
+  {
+    "name": "Ons Jabeur",
+    "wikidataId": "Q290212",
+    "title": "File:Ons Jabeur (2023 US Open) 02 (cropped).jpg",
+    "author": "Hameltion",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Ons_Jabeur_(2023_US_Open)_02_(cropped).jpg"
+  },
+  {
+    "name": "Yulia Putintseva",
+    "wikidataId": "Q2429984",
+    "title": "File:Putintseva RG22 (45) (52143028257).jpg",
+    "author": "si.robi",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Putintseva_RG22_(45)_(52143028257).jpg"
+  },
+  {
+    "name": "Danielle Collins",
+    "wikidataId": "Q17523802",
+    "title": "File:Danielle Collins (2025 DC Open) 02 (cropped).jpg",
+    "author": "Hameltion",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Danielle_Collins_(2025_DC_Open)_02_(cropped).jpg"
+  },
+  {
+    "name": "Veronika Kudermetova",
+    "wikidataId": "Q14618664",
+    "title": "File:Veronika Kudermetova (2023 US Open) 37.jpg",
+    "author": "Hameltion",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Veronika_Kudermetova_(2023_US_Open)_37.jpg"
+  },
+  {
+    "name": "Victoria Azarenka",
+    "wikidataId": "Q10118",
+    "title": "File:Victoria Azarenka (41705054005).jpg",
+    "author": "Carine06 from UK",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Victoria_Azarenka_(41705054005).jpg"
+  },
+  {
+    "name": "Beatriz Haddad Maia",
+    "wikidataId": "Q2380901",
+    "title": "File:Haddad Maia RG22 (26) (52144575210).jpg",
+    "author": "si.robi",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Haddad_Maia_RG22_(26)_(52144575210).jpg"
+  },
+  {
+    "name": "Clara Tauson",
+    "wikidataId": "Q42675013",
+    "title": "File:Tauson WMQ23 (53061681066) cropped.jpg",
+    "author": "si.robi",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Tauson_WMQ23_(53061681066)_cropped.jpg"
+  },
+  {
+    "name": "Caroline Garcia",
+    "wikidataId": "Q258877",
+    "title": "File:Caroline Garcia (2023 DC Open) 01 (cropped).jpg",
+    "author": "Hameltion",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Caroline_Garcia_(2023_DC_Open)_01_(cropped).jpg"
+  },
+  {
+    "name": "Liudmila Samsonova",
+    "wikidataId": "Q26416429",
+    "title": "File:Liudmila Samsonova (2023 DC Open) 01.jpg",
+    "author": "Hameltion",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Liudmila_Samsonova_(2023_DC_Open)_01.jpg"
+  },
+  {
+    "name": "Katie Boulter",
+    "wikidataId": "Q16979848",
+    "title": "File:00001Canberra- 7 January 2023 – Britain's Katie Boulter after winning the final at the Canberra International tournament. Photo by Rob Keating, http---robiciatennisphotography.com2023 (cropped).jpg",
+    "author": "Robkeating66",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:00001Canberra-_7_January_2023_%E2%80%93_Britain's_Katie_Boulter_after_winning_the_final_at_the_Canberra_International_tournament._Photo_by_Rob_Keating%2C_http---robiciatennisphotography.com2023_(cropped).jpg"
+  },
+  {
+    "name": "Magdalena Frech",
+    "wikidataId": "Q10636559",
+    "title": "File:Magdalena Fręch (2023 DC Open) 02 (cropped).jpg",
+    "author": "Hameltion",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Magdalena_Fr%C4%99ch_(2023_DC_Open)_02_(cropped).jpg"
+  },
+  {
+    "name": "Anastasia Pavlyuchenkova",
+    "wikidataId": "Q487182",
+    "title": "File:Pavlyuchenkova RG18 (32) (42978776221).jpg",
+    "author": "si.robi",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Pavlyuchenkova_RG18_(32)_(42978776221).jpg"
+  },
+  {
+    "name": "Ann Li",
+    "wikidataId": "Q39074494",
+    "title": "File:Li RG21 (10) (51376168176).jpg",
+    "author": "si.robi",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Li_RG21_(10)_(51376168176).jpg"
+  },
+  {
+    "name": "Camila Osorio",
+    "wikidataId": "Q29052147",
+    "title": "File:Osorio Serrano WM21 (51281034182) (cropped).jpg",
+    "author": "Carine06",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Osorio_Serrano_WM21_(51281034182)_(cropped).jpg"
+  },
+  {
+    "name": "Dayana Yastremska",
+    "wikidataId": "Q23888026",
+    "title": "File:Yastremska WMQ23 (53061681226).jpg",
+    "author": "si.robi",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Yastremska_WMQ23_(53061681226).jpg"
+  },
+  {
+    "name": "Tatjana Maria",
+    "wikidataId": "Q57942",
+    "title": "File:Tatjana Maria (Roland Garros 2023) 01 (cropped).jpg",
+    "author": "Hameltion",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Tatjana_Maria_(Roland_Garros_2023)_01_(cropped).jpg"
+  },
+  {
+    "name": "Elisabetta Cocciaretto",
+    "wikidataId": "Q48528654",
+    "title": "File:Cocciaretto RGQ22 (19) (52130125890).jpg",
+    "author": "si.robi",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Cocciaretto_RGQ22_(19)_(52130125890).jpg"
+  },
+  {
+    "name": "Varvara Gracheva",
+    "wikidataId": "Q50332038",
+    "title": "File:Gracheva RG21 (28) (51377154655).jpg",
+    "author": "si.robi",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Gracheva_RG21_(28)_(51377154655).jpg"
+  },
+  {
+    "name": "Anhelina Kalinina",
+    "wikidataId": "Q15642606",
+    "title": "File:Kalinina RG22 (13) (52144115143) (cropped).jpg",
+    "author": "si.robi",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Kalinina_RG22_(13)_(52144115143)_(cropped).jpg"
+  },
+  {
+    "name": "Ashlyn Krueger",
+    "wikidataId": "Q105825572",
+    "title": "File:Ashlyn Krueger (2023 DC Open) 01 (cropped).jpg",
+    "author": "Hameltion",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Ashlyn_Krueger_(2023_DC_Open)_01_(cropped).jpg"
+  },
+  {
+    "name": "Diane Parry",
+    "wikidataId": "Q30082774",
+    "title": "File:Diane Parry, Roma 2026 (cropped3).jpg",
+    "author": "Raffaele Di Buono derivative work: Kacir",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Diane_Parry%2C_Roma_2026_(cropped3).jpg"
+  },
+  {
+    "name": "Laura Siegemund",
+    "wikidataId": "Q89128",
+    "title": "File:Siegemund WMQ23 (53061863984) (cropped).jpg",
+    "author": "si.robi",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Siegemund_WMQ23_(53061863984)_(cropped).jpg"
+  },
+  {
+    "name": "Ajla Tomljanovic",
+    "wikidataId": "Q2712407",
+    "title": "File:Ajla Tomljanović (2023 US Open) 58 (cropped).jpg",
+    "author": "Hameltion",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Ajla_Tomljanovi%C4%87_(2023_US_Open)_58_(cropped).jpg"
+  },
+  {
+    "name": "Cristina Bucsa",
+    "wikidataId": "Q56702741",
+    "title": "File:Cristina Bucșa (53002855843) (cropped).jpg",
+    "author": "Peter Menzel",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Cristina_Buc%C8%99a_(53002855843)_(cropped).jpg"
+  },
+  {
+    "name": "Iva Jovic",
+    "wikidataId": "Q122216464",
+    "title": "File:Iva Jovic (2024 US Open) 01.jpg",
+    "author": "Hameltion",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Iva_Jovic_(2024_US_Open)_01.jpg"
+  },
+  {
+    "name": "Aliaksandra Sasnovich",
+    "wikidataId": "Q4725560",
+    "title": "File:Sasnovich RG21 (24) (51376296148).jpg",
+    "author": "si.robi",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Sasnovich_RG21_(24)_(51376296148).jpg"
+  },
+  {
+    "name": "Karolína Plíšková",
+    "wikidataId": "Q289365",
+    "title": "File:Karolína Plíšková (2023 DC Open) 03 (cropped).jpg",
+    "author": "Hameltion",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Karol%C3%ADna_Pl%C3%AD%C5%A1kov%C3%A1_(2023_DC_Open)_03_(cropped).jpg"
+  },
+  {
+    "name": "Petra Martic",
+    "wikidataId": "Q232553",
+    "title": "File:Martic RG19 (16) (48199197307).jpg",
+    "author": "si.robi",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Martic_RG19_(16)_(48199197307).jpg"
+  },
+  {
+    "name": "Kamilla Rakhimova",
+    "wikidataId": "Q65769637",
+    "title": "File:Kamilla Rakhimova (2024 DC Open) 05 (cropped).jpg",
+    "author": "Hameltion",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Kamilla_Rakhimova_(2024_DC_Open)_05_(cropped).jpg"
+  },
+  {
+    "name": "Kimberly Birrell",
+    "wikidataId": "Q15635268",
+    "title": "File:Kim Birrell (2023 US Open) 02 (cropped).jpg",
+    "author": "Hameltion",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Kim_Birrell_(2023_US_Open)_02_(cropped).jpg"
+  },
+  {
+    "name": "Serena Williams",
+    "wikidataId": "Q11459",
+    "title": "File:Serena Williams at 2013 US Open.jpg",
+    "author": "Edwin Martinez",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Serena_Williams_at_2013_US_Open.jpg"
+  },
+  {
+    "name": "Anna Bondar",
+    "wikidataId": "Q19281715",
+    "title": "File:Transylvania Open 2026 - Anna Bondar v Ella Seidel 4-6, 7-6 (8-6), 6-0 01.01.2026 (55078278088) (cropped).jpg",
+    "author": "Nuță Lucian from Cluj-Napoca, Romania",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Transylvania_Open_2026_-_Anna_Bondar_v_Ella_Seidel_4-6%2C_7-6_(8-6)%2C_6-0_01.01.2026_(55078278088)_(cropped).jpg"
+  },
+  {
+    "name": "Elina Avanesyan",
+    "wikidataId": "Q106312033",
+    "title": "File:Elina Avanesyan (2023 US Open) 12.jpg",
+    "author": "Hameltion",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Elina_Avanesyan_(2023_US_Open)_12.jpg"
+  },
+  {
+    "name": "Alycia Parks",
+    "wikidataId": "Q105745525",
+    "title": "File:Transylvania Open 2024 - Ana Bogdan vs Alycia Parks ( 7-5, 7-5) (53511538506).jpg",
+    "author": "Nuță Lucian from Cluj-Napoca, Romania",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Transylvania_Open_2024_-_Ana_Bogdan_vs_Alycia_Parks_(_7-5%2C_7-5)_(53511538506).jpg"
+  },
+  {
+    "name": "McCartney Kessler",
+    "wikidataId": "Q121770120",
+    "title": "File:McCartney Kessler (2024 DC Open) 04 (cropped).jpg",
+    "author": "Hameltion",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:McCartney_Kessler_(2024_DC_Open)_04_(cropped).jpg"
+  },
+  {
+    "name": "Taylor Townsend",
+    "wikidataId": "Q766964",
+    "title": "File:Taylor Townsend (2025 DC Open) 01.jpg",
+    "author": "Hameltion",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Taylor_Townsend_(2025_DC_Open)_01.jpg"
+  },
+  {
+    "name": "Hailey Baptiste",
+    "wikidataId": "Q58628835",
+    "title": "File:Baptiste RG21 (28) (51377189675).jpg",
+    "author": "si.robi",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Baptiste_RG21_(28)_(51377189675).jpg"
+  },
+  {
+    "name": "Sara Sorribes Tormo",
+    "wikidataId": "Q17750103",
+    "title": "File:Sorribes Tormo RG21 (20) (51376076476) (cropped).jpg",
+    "author": "si.robi",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Sorribes_Tormo_RG21_(20)_(51376076476)_(cropped).jpg"
+  },
+  {
+    "name": "Viktorija Golubic",
+    "wikidataId": "Q7929924",
+    "title": "File:Golubic RG22 (10) (52144330099) (cropped).jpg",
+    "author": "si.robi",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Golubic_RG22_(10)_(52144330099)_(cropped).jpg"
+  },
+  {
+    "name": "Katie Volynets",
+    "wikidataId": "Q61889608",
+    "title": "File:Katie Volynets (2023 US Open) 11 (cropped).jpg",
+    "author": "Hameltion",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Katie_Volynets_(2023_US_Open)_11_(cropped).jpg"
+  },
+  {
+    "name": "Maya Joint",
+    "wikidataId": "Q123615700",
+    "title": "File:Maya Joint (2024 Cary) 01.jpg",
+    "author": "Hameltion",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Maya_Joint_(2024_Cary)_01.jpg"
+  },
+  {
+    "name": "Rebecca Šramková",
+    "wikidataId": "Q15867627",
+    "title": "File:Rebecca Šramková (2023 US Open) 10 (cropped).jpg",
+    "author": "Hameltion",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Rebecca_%C5%A0ramkov%C3%A1_(2023_US_Open)_10_(cropped).jpg"
+  },
+  {
+    "name": "Camila Giorgi",
+    "wikidataId": "Q34248",
+    "title": "File:Giorgi RG22 (10) (52144109648).jpg",
+    "author": "si.robi",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Giorgi_RG22_(10)_(52144109648).jpg"
+  },
+  {
+    "name": "Eva Lys",
+    "wikidataId": "Q86838090",
+    "title": "File:Eva Lys at Wimbledon 2024 (cropped2).jpg",
+    "author": "Photosheikh",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Eva_Lys_at_Wimbledon_2024_(cropped2).jpg"
+  },
+  {
+    "name": "Bernarda Pera",
+    "wikidataId": "Q13850958",
+    "title": "File:Bernarda Pera (2023 US Open) 01 (cropped).jpg",
+    "author": "Hameltion",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Bernarda_Pera_(2023_US_Open)_01_(cropped).jpg"
+  },
+  {
+    "name": "Caty McNally",
+    "wikidataId": "Q27537235",
+    "title": "File:McNally RGQ22 (13) (52128520717) (cropped).jpg",
+    "author": "si.robi",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:McNally_RGQ22_(13)_(52128520717)_(cropped).jpg"
+  },
+  {
+    "name": "Jessica Bouzas Maneiro",
+    "wikidataId": "Q96069911",
+    "title": "File:Bouzas Maneiro WMQ23 (53061717336).jpg",
+    "author": "si.robi",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Bouzas_Maneiro_WMQ23_(53061717336).jpg"
+  },
+  {
+    "name": "Lesia Tsurenko",
+    "wikidataId": "Q289378",
+    "title": "File:Lesia Tsurenko (2023 US Open) 09 (cropped).jpg",
+    "author": "Hameltion",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Lesia_Tsurenko_(2023_US_Open)_09_(cropped).jpg"
+  },
+  {
+    "name": "Caroline Dolehide",
+    "wikidataId": "Q34114014",
+    "title": "File:Caroline Dolehide (2024 DC Open) 01.jpg",
+    "author": "Hameltion",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Caroline_Dolehide_(2024_DC_Open)_01.jpg"
+  },
+  {
+    "name": "Olga Danilovic",
+    "wikidataId": "Q22679891",
+    "title": "File:Danilovic WMQ23 (53061130692).jpg",
+    "author": "si.robi",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Danilovic_WMQ23_(53061130692).jpg"
+  },
+  {
+    "name": "Nadia Podoroska",
+    "wikidataId": "Q16496064",
+    "title": "File:Podoroska RG21 (36) (51376343798).jpg",
+    "author": "si.robi",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Podoroska_RG21_(36)_(51376343798).jpg"
+  },
+  {
+    "name": "Sonay Kartal",
+    "wikidataId": "Q110904224",
+    "title": "File:Kartal RGQ23.jpg",
+    "author": "si.robi",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Kartal_RGQ23.jpg"
+  },
+  {
+    "name": "Alize Cornet",
+    "wikidataId": "Q229002",
+    "title": "File:Transylvania Open 2024 - Alize Cornet vs Mara Gae 6-2, 6-2 (53506558646) (cropped).jpg",
+    "author": "Nuță Lucian from Cluj-Napoca, Romania",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Transylvania_Open_2024_-_Alize_Cornet_vs_Mara_Gae_6-2%2C_6-2_(53506558646)_(cropped).jpg"
+  },
+  {
+    "name": "Clara Burel",
+    "wikidataId": "Q54086890",
+    "title": "File:Burel RG22 (1) (52144106503) (cropped).jpg",
+    "author": "si.robi",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Burel_RG22_(1)_(52144106503)_(cropped).jpg"
+  },
+  {
+    "name": "Harriet Dart",
+    "wikidataId": "Q20026221",
+    "title": "File:Dart WM19 (9) (48521880041).jpg",
+    "author": "si.robi",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Dart_WM19_(9)_(48521880041).jpg"
+  },
+  {
+    "name": "Martina Trevisan",
+    "wikidataId": "Q28758348",
+    "title": "File:Trevisan WMQ18 (28) (29680365228) (cropped).jpg",
+    "author": "si.robi",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Trevisan_WMQ18_(28)_(29680365228)_(cropped).jpg"
+  },
+  {
+    "name": "Viktoriya Tomova",
+    "wikidataId": "Q10996110",
+    "title": "File:Tomova RG22 (20) (52144295919) (cropped).jpg",
+    "author": "si.robi",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Tomova_RG22_(20)_(52144295919)_(cropped).jpg"
+  },
+  {
+    "name": "Sara Bejlek",
+    "wikidataId": "Q107640117",
+    "title": "File:Sára Bejlek (2023 US Open) 10 (cropped3).jpg",
+    "author": "Hameltion",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:S%C3%A1ra_Bejlek_(2023_US_Open)_10_(cropped3).jpg"
+  },
+  {
+    "name": "Shelby Rogers",
+    "wikidataId": "Q377658",
+    "title": "File:Rogers RG19 (27) (48199062276).jpg",
+    "author": "si.robi",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Rogers_RG19_(27)_(48199062276).jpg"
+  },
+  {
+    "name": "Anastasija Sevastova",
+    "wikidataId": "Q232445",
+    "title": "File:Sevastova WM16 (28418717365).jpg",
+    "author": "si.robi",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Sevastova_WM16_(28418717365).jpg"
+  },
+  {
+    "name": "Garbine Muguruza",
+    "wikidataId": "Q34276",
+    "title": "File:25th Laureus World Sports Awards - Red Carpet - Garbiñe Muguruza - 240422 182724-2 (cropped).jpg",
+    "author": "Barcex",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:25th_Laureus_World_Sports_Awards_-_Red_Carpet_-_Garbi%C3%B1e_Muguruza_-_240422_182724-2_(cropped).jpg"
+  },
+  {
+    "name": "Mayar Sherif",
+    "wikidataId": "Q19577829",
+    "title": "File:Sherif RG22 (37) (52144293999).jpg",
+    "author": "si.robi",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Sherif_RG22_(37)_(52144293999).jpg"
+  },
+  {
+    "name": "Nikola Bartunkova",
+    "wikidataId": "Q106522281",
+    "title": "File:Nikola Bartůňková Birmingham 2026 (cropped).jpg",
+    "author": "Daniel Cooper derivative work: Kacir",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Nikola_Bart%C5%AF%C5%88kov%C3%A1_Birmingham_2026_(cropped).jpg"
+  },
+  {
+    "name": "Ana Bogdan",
+    "wikidataId": "Q3614850",
+    "title": "File:LUK1420-Enhanced-NR (54320392151).jpg",
+    "author": "Nuță Lucian from Cluj-Napoca, Romania",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:LUK1420-Enhanced-NR_(54320392151).jpg"
+  },
+  {
+    "name": "Anett Kontaveit",
+    "wikidataId": "Q639366",
+    "title": "File:Kontaveit RG19 (29) (48199186817).jpg",
+    "author": "si.robi",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Kontaveit_RG19_(29)_(48199186817).jpg"
+  },
+  {
+    "name": "Greet Minnen",
+    "wikidataId": "Q23059523",
+    "title": "File:Minnen RG22 (16) (52143055392) (cropped).jpg",
+    "author": "si.robi",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Minnen_RG22_(16)_(52143055392)_(cropped).jpg"
+  },
+  {
+    "name": "Kaia Kanepi",
+    "wikidataId": "Q211428",
+    "title": "File:Kanepi WM13-005 (9489757960) (cropped).jpg",
+    "author": "si.robi",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Kanepi_WM13-005_(9489757960)_(cropped).jpg"
+  }
+]

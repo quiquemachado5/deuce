@@ -10,9 +10,10 @@ const sharp = createRequire(require.resolve('next/package.json'))('sharp');
 const userAgent = 'DEUCEArchive/1.0 (github.com/quiquemachado5/deuce)';
 const wikidataQuery = 'https://query.wikidata.org/sparql';
 const commonsApi = 'https://commons.wikimedia.org/w/api.php';
-const outputDirectory = 'public/images/players/discovered';
-const manifestFile = 'lib/player-photo-discovery.json';
-const sourcesFile = 'lib/player-photo-discovery-sources.json';
+const tour = process.argv.includes('--tour=wta') ? 'wta' : 'atp';
+const outputDirectory = tour === 'wta' ? 'public/images/players/wta-discovered' : 'public/images/players/discovered';
+const manifestFile = tour === 'wta' ? 'lib/player-photo-wta.json' : 'lib/player-photo-discovery.json';
+const sourcesFile = tour === 'wta' ? 'lib/player-photo-wta-sources.json' : 'lib/player-photo-discovery-sources.json';
 
 const numericArgument = (name, fallback) => {
   const raw = process.argv.find(argument => argument.startsWith(`--${name}=`))?.split('=')[1];
@@ -57,7 +58,7 @@ async function readJson(file, fallback) {
 
 const playerPayload = JSON.parse(gunzipSync(await fs.readFile('data/reading/players.json.gz')).toString());
 const players = Array.isArray(playerPayload) ? playerPayload : playerPayload.players || playerPayload.data || [];
-const photoFiles = [
+const photoFiles = tour === 'wta' ? [manifestFile] : [
   'lib/player-photo-manifest.json',
   'lib/player-photo-refresh.json',
   'lib/player-photo-additions.json',
@@ -67,9 +68,9 @@ const photoFiles = [
 const knownNames = new Set();
 for (const file of photoFiles) {
   const entries = await readJson(file, {});
-  for (const name of Object.keys(entries)) knownNames.add(normalize(name));
+  for (const [name, photo] of Object.entries(entries)) if (tour !== 'wta' || photo.licenseUrl) knownNames.add(normalize(name));
 }
-const candidates = [...players]
+const candidates = players.filter(player => (player.tour || 'atp') === tour)
   .sort((a, b) => (b.grandSlamFinalsWon || 0) - (a.grandSlamFinalsWon || 0)
     || (b.wins || 0) - (a.wins || 0)
     || a.name.localeCompare(b.name, 'es'))
@@ -95,7 +96,7 @@ const roster = new Map(rosterPayload.results.bindings.map(row => [normalize(row.
   id: row.item.value.split('/').at(-1),
   title: decodeURIComponent(new URL(row.image.value).pathname.split('/').at(-1)),
 }]));
-const matched = candidates.map((player, index) => ({ player, index, entity: roster.get(normalize(player.name)) }))
+const matched = candidates.map((player, index) => ({ player, index, entity: roster.get(normalize(player.name)) || (tour === 'wta' ? roster.get(normalize(({ 'Leylah Fernandez': 'Leylah Annie Fernandez', 'Qinwen Zheng': 'Zheng Qinwen' })[player.name] || player.name)) : undefined) }))
   .filter(entry => entry.entity);
 
 const commonsPages = new Map();
@@ -133,6 +134,7 @@ for (const { player, index, entity } of matched) {
       for (const imageUrl of [...new Set([info.thumburl, info.url].filter(Boolean))]) {
         response = await fetch(imageUrl, { headers: { 'User-Agent': userAgent }, signal: AbortSignal.timeout(45_000) });
         if (response.ok) break;
+        if (response.status === 429) { console.warn('Commons image quota reached; keeping downloaded portraits.'); process.exit(0); }
         if (response.status !== 429 && response.status < 500) break;
         await sleep(1_200);
       }
@@ -150,9 +152,12 @@ for (const { player, index, entity } of matched) {
         .webp({ quality: 84 }).toFile(output);
     }
   }
+  const thumbnail = output.replace(/\.webp$/, '-small.webp');
+  if (!dryRun) await sharp(output).resize({width:160,height:220,fit:'inside',withoutEnlargement:true}).webp({quality:78}).toFile(thumbnail);
   const source = `https://commons.wikimedia.org/wiki/File:${encodeURIComponent(page.title.replace(/^File:/, '')).replace(/%20/g, '_')}`;
   discovered[player.name] = {
     src: output.replace(/^public/, ''),
+    thumbnail: thumbnail.replace(/^public/, ''),
     alt: `${player.name}, tenista`,
     credit: `${author} · ${license} · adaptación WebP por DEUCE`,
     source,

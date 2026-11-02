@@ -1,11 +1,13 @@
 {
   "Elena Rybakina": {
-    "src": "/images/players/wta/324166.webp",
+    "src": "/images/players/wta-discovered/elena-rybakina.webp",
     "alt": "Elena Rybakina, tenista",
-    "credit": "WTA · adaptación WebP por DEUCE",
-    "source": "https://www.wtatennis.com/players/324166/elena-rybakina",
-    "objectPosition": "50% 20%",
-    "mobileObjectPosition": "50% 20%"
+    "credit": "Hameltion derivative work: Kacir · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Elena_Rybakina_(2025_DC_Open)_07_(cropped2).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/elena-rybakina-small.webp"
   },
   "Aryna Sabalenka": {
     "src": "/images/players/wta-licensed/aryna-sabalenka-detail.webp",
@@ -37,52 +39,64 @@
     ]
   },
   "Mirra Andreeva": {
-    "src": "/images/players/wta/331809.webp",
+    "src": "/images/players/wta-discovered/mirra-andreeva.webp",
     "alt": "Mirra Andreeva, tenista",
-    "credit": "WTA · adaptación WebP por DEUCE",
-    "source": "https://www.wtatennis.com/players/331809/mirra-andreeva",
-    "objectPosition": "50% 20%",
-    "mobileObjectPosition": "50% 20%"
+    "credit": "si.robi · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Andreeva_M._WMQ23_(53062105200).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/mirra-andreeva-small.webp"
   },
   "Jessica Pegula": {
-    "src": "/images/players/wta/316956.webp",
+    "src": "/images/players/wta-discovered/jessica-pegula.webp",
     "alt": "Jessica Pegula, tenista",
-    "credit": "WTA · adaptación WebP por DEUCE",
-    "source": "https://www.wtatennis.com/players/316956/jessica-pegula",
-    "objectPosition": "50% 20%",
-    "mobileObjectPosition": "50% 20%"
+    "credit": "Hameltion · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Jessica_Pegula_(2025_DC_Open)_05_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/jessica-pegula-small.webp"
   },
   "Coco Gauff": {
-    "src": "/images/players/wta/328560.webp",
+    "src": "/images/players/wta-discovered/coco-gauff.webp",
     "alt": "Coco Gauff, tenista",
-    "credit": "WTA · adaptación WebP por DEUCE",
-    "source": "https://www.wtatennis.com/players/328560/coco-gauff",
-    "objectPosition": "50% 20%",
-    "mobileObjectPosition": "50% 20%"
+    "credit": "Rick Munroe · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Coco_Gauff_Miami_Open.jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/coco-gauff-small.webp"
   },
   "Elina Svitolina": {
-    "src": "/images/players/wta/316738.webp",
+    "src": "/images/players/wta-discovered/elina-svitolina.webp",
     "alt": "Elina Svitolina, tenista",
-    "credit": "WTA · adaptación WebP por DEUCE",
-    "source": "https://www.wtatennis.com/players/316738/elina-svitolina",
-    "objectPosition": "50% 20%",
-    "mobileObjectPosition": "50% 20%"
+    "credit": "Власність Міністерства молоді та спорту України · CC BY 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Ukraine_at_the_2020_Summer_Olympics016.jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/elina-svitolina-small.webp"
   },
   "Karolina Muchova": {
-    "src": "/images/players/wta/322191.webp",
+    "src": "/images/players/wta-discovered/karolina-muchova.webp",
     "alt": "Karolina Muchova, tenista",
-    "credit": "WTA · adaptación WebP por DEUCE",
-    "source": "https://www.wtatennis.com/players/322191/karolina-muchova",
-    "objectPosition": "50% 20%",
-    "mobileObjectPosition": "50% 20%"
+    "credit": "Hameltion derivative work: Kacir · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Karol%C3%ADna_Muchov%C3%A1_(2023_US_Open)_04_(cropped2).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/karolina-muchova-small.webp"
   },
   "Linda Noskova": {
-    "src": "/images/players/wta/329668.webp",
+    "src": "/images/players/wta-discovered/linda-noskova.webp",
     "alt": "Linda Noskova, tenista",
-    "credit": "WTA · adaptación WebP por DEUCE",
-    "source": "https://www.wtatennis.com/players/329668/linda-noskova",
-    "objectPosition": "50% 20%",
-    "mobileObjectPosition": "50% 20%"
+    "credit": "Hameltion · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Linda_Noskov%C3%A1_(2023_US_Open)_01_(cropped2).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/linda-noskova-small.webp"
   },
   "Gabriela Dabrowski": {
     "src": "/images/players/wta/314445.webp",
@@ -101,20 +115,24 @@
     "mobileObjectPosition": "50% 20%"
   },
   "Taylor Townsend": {
-    "src": "/images/players/wta/318609.webp",
+    "src": "/images/players/wta-discovered/taylor-townsend.webp",
     "alt": "Taylor Townsend, tenista",
-    "credit": "WTA · adaptación WebP por DEUCE",
-    "source": "https://www.wtatennis.com/players/318609/taylor-townsend",
-    "objectPosition": "50% 20%",
-    "mobileObjectPosition": "50% 20%"
+    "credit": "Hameltion · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Taylor_Townsend_(2025_DC_Open)_01.jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/taylor-townsend-small.webp"
   },
   "Katerina Siniakova": {
-    "src": "/images/players/wta/320301.webp",
+    "src": "/images/players/wta-discovered/katerina-siniakova.webp",
     "alt": "Katerina Siniakova, tenista",
-    "credit": "WTA · adaptación WebP por DEUCE",
-    "source": "https://www.wtatennis.com/players/320301/katerina-siniakova",
-    "objectPosition": "50% 20%",
-    "mobileObjectPosition": "50% 20%"
+    "credit": "Pulv · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:2021-06_Kate%C5%99ina_Siniakov%C3%A1_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/katerina-siniakova-small.webp"
   },
   "Anna Danilina": {
     "src": "/images/players/wta/319731.webp",
@@ -149,20 +167,24 @@
     "mobileObjectPosition": "50% 20%"
   },
   "Cristina Bucsa": {
-    "src": "/images/players/wta/321158.webp",
+    "src": "/images/players/wta-discovered/cristina-bucsa.webp",
     "alt": "Cristina Bucsa, tenista",
-    "credit": "WTA · adaptación WebP por DEUCE",
-    "source": "https://www.wtatennis.com/players/321158/cristina-bucsa",
-    "objectPosition": "50% 20%",
-    "mobileObjectPosition": "50% 20%"
+    "credit": "Peter Menzel · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Cristina_Buc%C8%99a_(53002855843)_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/cristina-bucsa-small.webp"
   },
   "Jelena Ostapenko": {
-    "src": "/images/players/wta/319939.webp",
+    "src": "/images/players/wta-discovered/jelena-ostapenko.webp",
     "alt": "Jelena Ostapenko, tenista",
-    "credit": "WTA · adaptación WebP por DEUCE",
-    "source": "https://www.wtatennis.com/players/319939/jelena-ostapenko",
-    "objectPosition": "50% 20%",
-    "mobileObjectPosition": "50% 20%"
+    "credit": "si.robi · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Ostapenko_RG22_(4)_(52144317609).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/jelena-ostapenko-small.webp"
   },
   "Demi Schuurs": {
     "src": "/images/players/wta/317462.webp",
@@ -189,12 +211,14 @@
     "mobileObjectPosition": "50% 20%"
   },
   "Elise Mertens": {
-    "src": "/images/players/wta/317964.webp",
+    "src": "/images/players/wta-discovered/elise-mertens.webp",
     "alt": "Elise Mertens, tenista",
-    "credit": "WTA · adaptación WebP por DEUCE",
-    "source": "https://www.wtatennis.com/players/317964/elise-mertens",
-    "objectPosition": "50% 20%",
-    "mobileObjectPosition": "50% 20%"
+    "credit": "Hameltion · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Elise_Mertens_(2023_US_Open)_23_(cropped)_2.jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/elise-mertens-small.webp"
   },
   "Iga Swiatek": {
     "src": "/images/players/wta-licensed/iga-swiatek-detail.webp",
@@ -226,12 +250,14 @@
     ]
   },
   "Marta Kostyuk": {
-    "src": "/images/players/wta/326482.webp",
+    "src": "/images/players/wta-discovered/marta-kostyuk.webp",
     "alt": "Marta Kostyuk, tenista",
-    "credit": "WTA · adaptación WebP por DEUCE",
-    "source": "https://www.wtatennis.com/players/326482/marta-kostyuk",
-    "objectPosition": "50% 20%",
-    "mobileObjectPosition": "50% 20%"
+    "credit": "Hameltion · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Marta_Kostyuk_(2023_US_Open)_20_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/marta-kostyuk-small.webp"
   },
   "Maja Chwalinska": {
     "src": "/images/players/wta/325639.webp",
@@ -242,20 +268,24 @@
     "mobileObjectPosition": "50% 20%"
   },
   "Iva Jovic": {
-    "src": "/images/players/wta/332285.webp",
+    "src": "/images/players/wta-discovered/iva-jovic.webp",
     "alt": "Iva Jovic, tenista",
-    "credit": "WTA · adaptación WebP por DEUCE",
-    "source": "https://www.wtatennis.com/players/332285/iva-jovic",
-    "objectPosition": "50% 20%",
-    "mobileObjectPosition": "50% 20%"
+    "credit": "Hameltion · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Iva_Jovic_(2024_US_Open)_01.jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/iva-jovic-small.webp"
   },
   "Diana Shnaider": {
-    "src": "/images/players/wta/330482.webp",
+    "src": "/images/players/wta-discovered/diana-shnaider.webp",
     "alt": "Diana Shnaider, tenista",
-    "credit": "WTA · adaptación WebP por DEUCE",
-    "source": "https://www.wtatennis.com/players/330482/diana-shnaider",
-    "objectPosition": "50% 20%",
-    "mobileObjectPosition": "50% 20%"
+    "credit": "si.robi · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Shnaider_WMQ23_(53062168393).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/diana-shnaider-small.webp"
   },
   "Victoria Mboko": {
     "src": "/images/players/wta/331006.webp",
@@ -266,28 +296,34 @@
     "mobileObjectPosition": "50% 20%"
   },
   "Sorana Cirstea": {
-    "src": "/images/players/wta/312469.webp",
+    "src": "/images/players/wta-discovered/sorana-cirstea.webp",
     "alt": "Sorana Cirstea, tenista",
-    "credit": "WTA · adaptación WebP por DEUCE",
-    "source": "https://www.wtatennis.com/players/312469/sorana-cirstea",
-    "objectPosition": "50% 20%",
-    "mobileObjectPosition": "50% 20%"
+    "credit": "Nuță Lucian from Cluj-Napoca, Romania derivative work: Kacir · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Sorana_C%C3%AErstea_2025_Transylvania_Open_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/sorana-cirstea-small.webp"
   },
   "Amanda Anisimova": {
-    "src": "/images/players/wta/326384.webp",
+    "src": "/images/players/wta-discovered/amanda-anisimova.webp",
     "alt": "Amanda Anisimova, tenista",
-    "credit": "WTA · adaptación WebP por DEUCE",
-    "source": "https://www.wtatennis.com/players/326384/amanda-anisimova",
-    "objectPosition": "50% 20%",
-    "mobileObjectPosition": "50% 20%"
+    "credit": "si.robi · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Anisimova_RG19_(32)_(48199400552).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/amanda-anisimova-small.webp"
   },
   "Naomi Osaka": {
-    "src": "/images/players/wta/319998.webp",
+    "src": "/images/players/wta-discovered/naomi-osaka.webp",
     "alt": "Naomi Osaka, tenista",
-    "credit": "WTA · adaptación WebP por DEUCE",
-    "source": "https://www.wtatennis.com/players/319998/naomi-osaka",
-    "objectPosition": "50% 20%",
-    "mobileObjectPosition": "50% 20%"
+    "credit": "si.robi · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Naomi_Osaka_2017_Wimbledon.jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/naomi-osaka-small.webp"
   },
   "Alexandra Eala": {
     "src": "/images/players/wta/330332.webp",
@@ -298,20 +334,24 @@
     "mobileObjectPosition": "50% 20%"
   },
   "Belinda Bencic": {
-    "src": "/images/players/wta/319001.webp",
+    "src": "/images/players/wta-discovered/belinda-bencic.webp",
     "alt": "Belinda Bencic, tenista",
-    "credit": "WTA · adaptación WebP por DEUCE",
-    "source": "https://www.wtatennis.com/players/319001/belinda-bencic",
-    "objectPosition": "50% 20%",
-    "mobileObjectPosition": "50% 20%"
+    "credit": "Hameltion · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Belinda_Bencic_(2023_US_Open)_09.jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/belinda-bencic-small.webp"
   },
   "Madison Keys": {
-    "src": "/images/players/wta/316959.webp",
+    "src": "/images/players/wta-discovered/madison-keys.webp",
     "alt": "Madison Keys, tenista",
-    "credit": "WTA · adaptación WebP por DEUCE",
-    "source": "https://www.wtatennis.com/players/316959/madison-keys",
-    "objectPosition": "50% 20%",
-    "mobileObjectPosition": "50% 20%"
+    "credit": "Hameltion · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Madison_Keys_(2023_DC_Open)_01a_(cropped2).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/madison-keys-small.webp"
   },
   "Qinwen Zheng": {
     "src": "/images/players/wta/328120.webp",
@@ -330,28 +370,34 @@
     "mobileObjectPosition": "50% 20%"
   },
   "Marie Bouzkova": {
-    "src": "/images/players/wta/320983.webp",
+    "src": "/images/players/wta-discovered/marie-bouzkova.webp",
     "alt": "Marie Bouzkova, tenista",
-    "credit": "WTA · adaptación WebP por DEUCE",
-    "source": "https://www.wtatennis.com/players/320983/marie-bouzkova",
-    "objectPosition": "50% 20%",
-    "mobileObjectPosition": "50% 20%"
+    "credit": "Hameltion derivative work: Kacir · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Marie_Bouzkov%C3%A1_(2024_DC_Open)_01_(cropped2).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/marie-bouzkova-small.webp"
   },
   "Anna Kalinskaya": {
-    "src": "/images/players/wta/323942.webp",
+    "src": "/images/players/wta-discovered/anna-kalinskaya.webp",
     "alt": "Anna Kalinskaya, tenista",
-    "credit": "WTA · adaptación WebP por DEUCE",
-    "source": "https://www.wtatennis.com/players/323942/anna-kalinskaya",
-    "objectPosition": "50% 20%",
-    "mobileObjectPosition": "50% 20%"
+    "credit": "Hameltion · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Anna_Kalinskaya_(2025_DC_Open)_01_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/anna-kalinskaya-small.webp"
   },
   "Anastasia Potapova": {
-    "src": "/images/players/wta/325601.webp",
+    "src": "/images/players/wta-discovered/anastasia-potapova.webp",
     "alt": "Anastasia Potapova, tenista",
-    "credit": "WTA · adaptación WebP por DEUCE",
-    "source": "https://www.wtatennis.com/players/325601/anastasia-potapova",
-    "objectPosition": "50% 20%",
-    "mobileObjectPosition": "50% 20%"
+    "credit": "Nuță Lucian from Cluj-Napoca, Romania · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Transilvania_Open_Anastasia_Potapova_(54321093385).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/anastasia-potapova-small.webp"
   },
   "Emma Navarro": {
     "src": "/images/players/wta/325410.webp",
@@ -362,36 +408,44 @@
     "mobileObjectPosition": "50% 20%"
   },
   "Nikola Bartunkova": {
-    "src": "/images/players/wta/330364.webp",
+    "src": "/images/players/wta-discovered/nikola-bartunkova.webp",
     "alt": "Nikola Bartunkova, tenista",
-    "credit": "WTA · adaptación WebP por DEUCE",
-    "source": "https://www.wtatennis.com/players/330364/nikola-bartunkova",
-    "objectPosition": "50% 20%",
-    "mobileObjectPosition": "50% 20%"
+    "credit": "Daniel Cooper derivative work: Kacir · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Nikola_Bart%C5%AF%C5%88kov%C3%A1_Birmingham_2026_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/nikola-bartunkova-small.webp"
   },
   "Maria Sakkari": {
-    "src": "/images/players/wta/318312.webp",
+    "src": "/images/players/wta-discovered/maria-sakkari.webp",
     "alt": "Maria Sakkari, tenista",
-    "credit": "WTA · adaptación WebP por DEUCE",
-    "source": "https://www.wtatennis.com/players/318312/maria-sakkari",
-    "objectPosition": "50% 20%",
-    "mobileObjectPosition": "50% 20%"
+    "credit": "Hameltion · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Maria_Sakkari_(2023_DC_Open)_01a_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/maria-sakkari-small.webp"
   },
   "Ann Li": {
-    "src": "/images/players/wta/326096.webp",
+    "src": "/images/players/wta-discovered/ann-li.webp",
     "alt": "Ann Li, tenista",
-    "credit": "WTA · adaptación WebP por DEUCE",
-    "source": "https://www.wtatennis.com/players/326096/ann-li",
-    "objectPosition": "50% 20%",
-    "mobileObjectPosition": "50% 20%"
+    "credit": "si.robi · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Li_RG21_(10)_(51376168176).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/ann-li-small.webp"
   },
   "Sara Bejlek": {
-    "src": "/images/players/wta/330375.webp",
+    "src": "/images/players/wta-discovered/sara-bejlek.webp",
     "alt": "Sara Bejlek, tenista",
-    "credit": "WTA · adaptación WebP por DEUCE",
-    "source": "https://www.wtatennis.com/players/330375/sara-bejlek",
-    "objectPosition": "50% 20%",
-    "mobileObjectPosition": "50% 20%"
+    "credit": "Hameltion · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:S%C3%A1ra_Bejlek_(2023_US_Open)_10_(cropped3).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/sara-bejlek-small.webp"
   },
   "Ekaterina Alexandrova": {
     "src": "/images/players/wta/319007.webp",
@@ -402,20 +456,24 @@
     "mobileObjectPosition": "50% 20%"
   },
   "Diane Parry": {
-    "src": "/images/players/wta/327077.webp",
+    "src": "/images/players/wta-discovered/diane-parry.webp",
     "alt": "Diane Parry, tenista",
-    "credit": "WTA · adaptación WebP por DEUCE",
-    "source": "https://www.wtatennis.com/players/327077/diane-parry",
-    "objectPosition": "50% 20%",
-    "mobileObjectPosition": "50% 20%"
+    "credit": "Raffaele Di Buono derivative work: Kacir · CC0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Diane_Parry%2C_Roma_2026_(cropped3).jpg",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/diane-parry-small.webp"
   },
   "Jasmine Paolini": {
-    "src": "/images/players/wta/319280.webp",
+    "src": "/images/players/wta-discovered/jasmine-paolini.webp",
     "alt": "Jasmine Paolini, tenista",
-    "credit": "WTA · adaptación WebP por DEUCE",
-    "source": "https://www.wtatennis.com/players/319280/jasmine-paolini",
-    "objectPosition": "50% 20%",
-    "mobileObjectPosition": "50% 20%"
+    "credit": "Nuță Lucian from Cluj-Napoca, Romania · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Transylvania_Open_2022_WTA_250_(52503041088)_(Paolini).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/jasmine-paolini-small.webp"
   },
   "Donna Vekic": {
     "src": "/images/players/wta/318516.webp",
@@ -458,44 +516,54 @@
     "mobileObjectPosition": "50% 20%"
   },
   "Kimberly Birrell": {
-    "src": "/images/players/wta/320728.webp",
+    "src": "/images/players/wta-discovered/kimberly-birrell.webp",
     "alt": "Kimberly Birrell, tenista",
-    "credit": "WTA · adaptación WebP por DEUCE",
-    "source": "https://www.wtatennis.com/players/320728/kimberly-birrell",
-    "objectPosition": "50% 20%",
-    "mobileObjectPosition": "50% 20%"
+    "credit": "Hameltion · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Kim_Birrell_(2023_US_Open)_02_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/kimberly-birrell-small.webp"
   },
   "Liudmila Samsonova": {
-    "src": "/images/players/wta/322222.webp",
+    "src": "/images/players/wta-discovered/liudmila-samsonova.webp",
     "alt": "Liudmila Samsonova, tenista",
-    "credit": "WTA · adaptación WebP por DEUCE",
-    "source": "https://www.wtatennis.com/players/322222/liudmila-samsonova",
-    "objectPosition": "50% 20%",
-    "mobileObjectPosition": "50% 20%"
+    "credit": "Hameltion · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Liudmila_Samsonova_(2023_DC_Open)_01.jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/liudmila-samsonova-small.webp"
   },
   "Ashlyn Krueger": {
-    "src": "/images/players/wta/329409.webp",
+    "src": "/images/players/wta-discovered/ashlyn-krueger.webp",
     "alt": "Ashlyn Krueger, tenista",
-    "credit": "WTA · adaptación WebP por DEUCE",
-    "source": "https://www.wtatennis.com/players/329409/ashlyn-krueger",
-    "objectPosition": "50% 20%",
-    "mobileObjectPosition": "50% 20%"
+    "credit": "Hameltion · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Ashlyn_Krueger_(2023_DC_Open)_01_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/ashlyn-krueger-small.webp"
   },
   "Hailey Baptiste": {
-    "src": "/images/players/wta/327101.webp",
+    "src": "/images/players/wta-discovered/hailey-baptiste.webp",
     "alt": "Hailey Baptiste, tenista",
-    "credit": "WTA · adaptación WebP por DEUCE",
-    "source": "https://www.wtatennis.com/players/327101/hailey-baptiste",
-    "objectPosition": "50% 20%",
-    "mobileObjectPosition": "50% 20%"
+    "credit": "si.robi · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Baptiste_RG21_(28)_(51377189675).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/hailey-baptiste-small.webp"
   },
   "Barbora Krejcikova": {
-    "src": "/images/players/wta/318314.webp",
+    "src": "/images/players/wta-discovered/barbora-krejcikova.webp",
     "alt": "Barbora Krejcikova, tenista",
-    "credit": "WTA · adaptación WebP por DEUCE",
-    "source": "https://www.wtatennis.com/players/318314/barbora-krejcikova",
-    "objectPosition": "50% 20%",
-    "mobileObjectPosition": "50% 20%"
+    "credit": "Hameltion · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Barbora_Krej%C4%8D%C3%ADkov%C3%A1_(2023_US_Open)_03_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/barbora-krejcikova-small.webp"
   },
   "Janice Tjen": {
     "src": "/images/players/wta/328818.webp",
@@ -506,19 +574,663 @@
     "mobileObjectPosition": "50% 20%"
   },
   "Katie Boulter": {
-    "src": "/images/players/wta/319125.webp",
+    "src": "/images/players/wta-discovered/katie-boulter.webp",
     "alt": "Katie Boulter, tenista",
-    "credit": "WTA · adaptación WebP por DEUCE",
-    "source": "https://www.wtatennis.com/players/319125/katie-boulter",
-    "objectPosition": "50% 20%",
-    "mobileObjectPosition": "50% 20%"
+    "credit": "Robkeating66 · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:00001Canberra-_7_January_2023_%E2%80%93_Britain's_Katie_Boulter_after_winning_the_final_at_the_Canberra_International_tournament._Photo_by_Rob_Keating%2C_http---robiciatennisphotography.com2023_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/katie-boulter-small.webp"
   },
   "Magdalena Frech": {
-    "src": "/images/players/wta/320277.webp",
+    "src": "/images/players/wta-discovered/magdalena-frech.webp",
     "alt": "Magdalena Frech, tenista",
-    "credit": "WTA · adaptación WebP por DEUCE",
-    "source": "https://www.wtatennis.com/players/320277/magdalena-frech",
-    "objectPosition": "50% 20%",
-    "mobileObjectPosition": "50% 20%"
+    "credit": "Hameltion · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Magdalena_Fr%C4%99ch_(2023_DC_Open)_02_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/magdalena-frech-small.webp"
+  },
+  "Ashleigh Barty": {
+    "src": "/images/players/wta-discovered/ashleigh-barty.webp",
+    "alt": "Ashleigh Barty, tenista",
+    "credit": "Rob Keating from Canberra, Australia, Australia · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Sydney_International_WTA_Players_Cruise_(31974227527)_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/ashleigh-barty-small.webp"
+  },
+  "Sofia Kenin": {
+    "src": "/images/players/wta-discovered/sofia-kenin.webp",
+    "alt": "Sofia Kenin, tenista",
+    "credit": "Hameltion · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Sofia_Kenin_(2025_DC_Open)_05_(edited_and_cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/sofia-kenin-small.webp"
+  },
+  "Marketa Vondrousova": {
+    "src": "/images/players/wta-discovered/marketa-vondrousova.webp",
+    "alt": "Marketa Vondrousova, tenista",
+    "credit": "Jck.rhn · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Marketa_Vondrousova_9.2021_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/marketa-vondrousova-small.webp"
+  },
+  "Emma Raducanu": {
+    "src": "/images/players/wta-discovered/emma-raducanu.webp",
+    "alt": "Emma Raducanu, tenista",
+    "credit": "Nuță Lucian from Cluj-Napoca, Romania · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Transylvania_Open_2026_-_Emma_Raducanu_vs_Greet_Minnen_6-0%2C_6-4_-_01.02.2026_(55077278835)_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/emma-raducanu-small.webp"
+  },
+  "Bianca Andreescu": {
+    "src": "/images/players/wta-discovered/bianca-andreescu.webp",
+    "alt": "Bianca Andreescu, tenista",
+    "credit": "JazzyJoeyD · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Bianca_Andreescu%2C_2019_U.S._Open_Women's_Singles_Champion_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/bianca-andreescu-small.webp"
+  },
+  "Simona Halep": {
+    "src": "/images/players/wta-discovered/simona-halep.webp",
+    "alt": "Simona Halep, tenista",
+    "credit": "si.robi · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Halep_RG18_(25)_(42929445712).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/simona-halep-small.webp"
+  },
+  "Angelique Kerber": {
+    "src": "/images/players/wta-discovered/angelique-kerber.webp",
+    "alt": "Angelique Kerber, tenista",
+    "credit": "Rob Keating from Canberra, Australia, Australia · CC BY 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Australian_Open_2020_(49836755508)_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/angelique-kerber-small.webp"
+  },
+  "Paula Badosa": {
+    "src": "/images/players/wta-discovered/paula-badosa.webp",
+    "alt": "Paula Badosa, tenista",
+    "credit": "Hameltion · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Paula_Badosa_(2024_DC_Open)_04_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/paula-badosa-small.webp"
+  },
+  "Magda Linette": {
+    "src": "/images/players/wta-discovered/magda-linette.webp",
+    "alt": "Magda Linette, tenista",
+    "credit": "si.robi · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Linette_RG21_(31)_(51376169766)_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/magda-linette-small.webp"
+  },
+  "Ons Jabeur": {
+    "src": "/images/players/wta-discovered/ons-jabeur.webp",
+    "alt": "Ons Jabeur, tenista",
+    "credit": "Hameltion · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Ons_Jabeur_(2023_US_Open)_02_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/ons-jabeur-small.webp"
+  },
+  "Yulia Putintseva": {
+    "src": "/images/players/wta-discovered/yulia-putintseva.webp",
+    "alt": "Yulia Putintseva, tenista",
+    "credit": "si.robi · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Putintseva_RG22_(45)_(52143028257).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/yulia-putintseva-small.webp"
+  },
+  "Danielle Collins": {
+    "src": "/images/players/wta-discovered/danielle-collins.webp",
+    "alt": "Danielle Collins, tenista",
+    "credit": "Hameltion · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Danielle_Collins_(2025_DC_Open)_02_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/danielle-collins-small.webp"
+  },
+  "Veronika Kudermetova": {
+    "src": "/images/players/wta-discovered/veronika-kudermetova.webp",
+    "alt": "Veronika Kudermetova, tenista",
+    "credit": "Hameltion · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Veronika_Kudermetova_(2023_US_Open)_37.jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/veronika-kudermetova-small.webp"
+  },
+  "Victoria Azarenka": {
+    "src": "/images/players/wta-discovered/victoria-azarenka.webp",
+    "alt": "Victoria Azarenka, tenista",
+    "credit": "Carine06 from UK · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Victoria_Azarenka_(41705054005).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/victoria-azarenka-small.webp"
+  },
+  "Beatriz Haddad Maia": {
+    "src": "/images/players/wta-discovered/beatriz-haddad-maia.webp",
+    "alt": "Beatriz Haddad Maia, tenista",
+    "credit": "si.robi · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Haddad_Maia_RG22_(26)_(52144575210).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/beatriz-haddad-maia-small.webp"
+  },
+  "Clara Tauson": {
+    "src": "/images/players/wta-discovered/clara-tauson.webp",
+    "alt": "Clara Tauson, tenista",
+    "credit": "si.robi · CC BY 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Tauson_WMQ23_(53061681066)_cropped.jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/clara-tauson-small.webp"
+  },
+  "Caroline Garcia": {
+    "src": "/images/players/wta-discovered/caroline-garcia.webp",
+    "alt": "Caroline Garcia, tenista",
+    "credit": "Hameltion · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Caroline_Garcia_(2023_DC_Open)_01_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/caroline-garcia-small.webp"
+  },
+  "Anastasia Pavlyuchenkova": {
+    "src": "/images/players/wta-discovered/anastasia-pavlyuchenkova.webp",
+    "alt": "Anastasia Pavlyuchenkova, tenista",
+    "credit": "si.robi · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Pavlyuchenkova_RG18_(32)_(42978776221).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/anastasia-pavlyuchenkova-small.webp"
+  },
+  "Camila Osorio": {
+    "src": "/images/players/wta-discovered/camila-osorio.webp",
+    "alt": "Camila Osorio, tenista",
+    "credit": "Carine06 · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Osorio_Serrano_WM21_(51281034182)_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/camila-osorio-small.webp"
+  },
+  "Dayana Yastremska": {
+    "src": "/images/players/wta-discovered/dayana-yastremska.webp",
+    "alt": "Dayana Yastremska, tenista",
+    "credit": "si.robi · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Yastremska_WMQ23_(53061681226).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/dayana-yastremska-small.webp"
+  },
+  "Tatjana Maria": {
+    "src": "/images/players/wta-discovered/tatjana-maria.webp",
+    "alt": "Tatjana Maria, tenista",
+    "credit": "Hameltion · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Tatjana_Maria_(Roland_Garros_2023)_01_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/tatjana-maria-small.webp"
+  },
+  "Elisabetta Cocciaretto": {
+    "src": "/images/players/wta-discovered/elisabetta-cocciaretto.webp",
+    "alt": "Elisabetta Cocciaretto, tenista",
+    "credit": "si.robi · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Cocciaretto_RGQ22_(19)_(52130125890).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/elisabetta-cocciaretto-small.webp"
+  },
+  "Varvara Gracheva": {
+    "src": "/images/players/wta-discovered/varvara-gracheva.webp",
+    "alt": "Varvara Gracheva, tenista",
+    "credit": "si.robi · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Gracheva_RG21_(28)_(51377154655).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/varvara-gracheva-small.webp"
+  },
+  "Anhelina Kalinina": {
+    "src": "/images/players/wta-discovered/anhelina-kalinina.webp",
+    "alt": "Anhelina Kalinina, tenista",
+    "credit": "si.robi · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Kalinina_RG22_(13)_(52144115143)_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/anhelina-kalinina-small.webp"
+  },
+  "Laura Siegemund": {
+    "src": "/images/players/wta-discovered/laura-siegemund.webp",
+    "alt": "Laura Siegemund, tenista",
+    "credit": "si.robi · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Siegemund_WMQ23_(53061863984)_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/laura-siegemund-small.webp"
+  },
+  "Ajla Tomljanovic": {
+    "src": "/images/players/wta-discovered/ajla-tomljanovic.webp",
+    "alt": "Ajla Tomljanovic, tenista",
+    "credit": "Hameltion · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Ajla_Tomljanovi%C4%87_(2023_US_Open)_58_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/ajla-tomljanovic-small.webp"
+  },
+  "Aliaksandra Sasnovich": {
+    "src": "/images/players/wta-discovered/aliaksandra-sasnovich.webp",
+    "alt": "Aliaksandra Sasnovich, tenista",
+    "credit": "si.robi · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Sasnovich_RG21_(24)_(51376296148).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/aliaksandra-sasnovich-small.webp"
+  },
+  "Karolína Plíšková": {
+    "src": "/images/players/wta-discovered/karolina-pliskova.webp",
+    "alt": "Karolína Plíšková, tenista",
+    "credit": "Hameltion · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Karol%C3%ADna_Pl%C3%AD%C5%A1kov%C3%A1_(2023_DC_Open)_03_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/karolina-pliskova-small.webp"
+  },
+  "Petra Martic": {
+    "src": "/images/players/wta-discovered/petra-martic.webp",
+    "alt": "Petra Martic, tenista",
+    "credit": "si.robi · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Martic_RG19_(16)_(48199197307).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/petra-martic-small.webp"
+  },
+  "Kamilla Rakhimova": {
+    "src": "/images/players/wta-discovered/kamilla-rakhimova.webp",
+    "alt": "Kamilla Rakhimova, tenista",
+    "credit": "Hameltion · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Kamilla_Rakhimova_(2024_DC_Open)_05_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/kamilla-rakhimova-small.webp"
+  },
+  "Serena Williams": {
+    "src": "/images/players/wta-discovered/serena-williams.webp",
+    "alt": "Serena Williams, tenista",
+    "credit": "Edwin Martinez · CC BY 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Serena_Williams_at_2013_US_Open.jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/serena-williams-small.webp"
+  },
+  "Anna Bondar": {
+    "src": "/images/players/wta-discovered/anna-bondar.webp",
+    "alt": "Anna Bondar, tenista",
+    "credit": "Nuță Lucian from Cluj-Napoca, Romania · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Transylvania_Open_2026_-_Anna_Bondar_v_Ella_Seidel_4-6%2C_7-6_(8-6)%2C_6-0_01.01.2026_(55078278088)_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/anna-bondar-small.webp"
+  },
+  "Elina Avanesyan": {
+    "src": "/images/players/wta-discovered/elina-avanesyan.webp",
+    "alt": "Elina Avanesyan, tenista",
+    "credit": "Hameltion · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Elina_Avanesyan_(2023_US_Open)_12.jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/elina-avanesyan-small.webp"
+  },
+  "Alycia Parks": {
+    "src": "/images/players/wta-discovered/alycia-parks.webp",
+    "alt": "Alycia Parks, tenista",
+    "credit": "Nuță Lucian from Cluj-Napoca, Romania · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Transylvania_Open_2024_-_Ana_Bogdan_vs_Alycia_Parks_(_7-5%2C_7-5)_(53511538506).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/alycia-parks-small.webp"
+  },
+  "McCartney Kessler": {
+    "src": "/images/players/wta-discovered/mccartney-kessler.webp",
+    "alt": "McCartney Kessler, tenista",
+    "credit": "Hameltion · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:McCartney_Kessler_(2024_DC_Open)_04_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/mccartney-kessler-small.webp"
+  },
+  "Sara Sorribes Tormo": {
+    "src": "/images/players/wta-discovered/sara-sorribes-tormo.webp",
+    "alt": "Sara Sorribes Tormo, tenista",
+    "credit": "si.robi · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Sorribes_Tormo_RG21_(20)_(51376076476)_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/sara-sorribes-tormo-small.webp"
+  },
+  "Viktorija Golubic": {
+    "src": "/images/players/wta-discovered/viktorija-golubic.webp",
+    "alt": "Viktorija Golubic, tenista",
+    "credit": "si.robi · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Golubic_RG22_(10)_(52144330099)_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/viktorija-golubic-small.webp"
+  },
+  "Karolina Pliskova": {
+    "src": "/images/players/wta-discovered/karolina-pliskova.webp",
+    "alt": "Karolina Pliskova, tenista",
+    "credit": "Hameltion · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Karol%C3%ADna_Pl%C3%AD%C5%A1kov%C3%A1_(2023_DC_Open)_03_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/karolina-pliskova-small.webp"
+  },
+  "Katie Volynets": {
+    "src": "/images/players/wta-discovered/katie-volynets.webp",
+    "alt": "Katie Volynets, tenista",
+    "credit": "Hameltion · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Katie_Volynets_(2023_US_Open)_11_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/katie-volynets-small.webp"
+  },
+  "Maya Joint": {
+    "src": "/images/players/wta-discovered/maya-joint.webp",
+    "alt": "Maya Joint, tenista",
+    "credit": "Hameltion · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Maya_Joint_(2024_Cary)_01.jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/maya-joint-small.webp"
+  },
+  "Rebecca Šramková": {
+    "src": "/images/players/wta-discovered/rebecca-sramkova.webp",
+    "alt": "Rebecca Šramková, tenista",
+    "credit": "Hameltion · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Rebecca_%C5%A0ramkov%C3%A1_(2023_US_Open)_10_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/rebecca-sramkova-small.webp"
+  },
+  "Camila Giorgi": {
+    "src": "/images/players/wta-discovered/camila-giorgi.webp",
+    "alt": "Camila Giorgi, tenista",
+    "credit": "si.robi · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Giorgi_RG22_(10)_(52144109648).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/camila-giorgi-small.webp"
+  },
+  "Eva Lys": {
+    "src": "/images/players/wta-discovered/eva-lys.webp",
+    "alt": "Eva Lys, tenista",
+    "credit": "Photosheikh · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Eva_Lys_at_Wimbledon_2024_(cropped2).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/eva-lys-small.webp"
+  },
+  "Bernarda Pera": {
+    "src": "/images/players/wta-discovered/bernarda-pera.webp",
+    "alt": "Bernarda Pera, tenista",
+    "credit": "Hameltion · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Bernarda_Pera_(2023_US_Open)_01_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/bernarda-pera-small.webp"
+  },
+  "Caty McNally": {
+    "src": "/images/players/wta-discovered/caty-mcnally.webp",
+    "alt": "Caty McNally, tenista",
+    "credit": "si.robi · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:McNally_RGQ22_(13)_(52128520717)_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/caty-mcnally-small.webp"
+  },
+  "Jessica Bouzas Maneiro": {
+    "src": "/images/players/wta-discovered/jessica-bouzas-maneiro.webp",
+    "alt": "Jessica Bouzas Maneiro, tenista",
+    "credit": "si.robi · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Bouzas_Maneiro_WMQ23_(53061717336).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/jessica-bouzas-maneiro-small.webp"
+  },
+  "Lesia Tsurenko": {
+    "src": "/images/players/wta-discovered/lesia-tsurenko.webp",
+    "alt": "Lesia Tsurenko, tenista",
+    "credit": "Hameltion · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Lesia_Tsurenko_(2023_US_Open)_09_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/lesia-tsurenko-small.webp"
+  },
+  "Caroline Dolehide": {
+    "src": "/images/players/wta-discovered/caroline-dolehide.webp",
+    "alt": "Caroline Dolehide, tenista",
+    "credit": "Hameltion · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Caroline_Dolehide_(2024_DC_Open)_01.jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/caroline-dolehide-small.webp"
+  },
+  "Olga Danilovic": {
+    "src": "/images/players/wta-discovered/olga-danilovic.webp",
+    "alt": "Olga Danilovic, tenista",
+    "credit": "si.robi · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Danilovic_WMQ23_(53061130692).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/olga-danilovic-small.webp"
+  },
+  "Nadia Podoroska": {
+    "src": "/images/players/wta-discovered/nadia-podoroska.webp",
+    "alt": "Nadia Podoroska, tenista",
+    "credit": "si.robi · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Podoroska_RG21_(36)_(51376343798).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/nadia-podoroska-small.webp"
+  },
+  "Sonay Kartal": {
+    "src": "/images/players/wta-discovered/sonay-kartal.webp",
+    "alt": "Sonay Kartal, tenista",
+    "credit": "si.robi · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Kartal_RGQ23.jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/sonay-kartal-small.webp"
+  },
+  "Alize Cornet": {
+    "src": "/images/players/wta-discovered/alize-cornet.webp",
+    "alt": "Alize Cornet, tenista",
+    "credit": "Nuță Lucian from Cluj-Napoca, Romania · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Transylvania_Open_2024_-_Alize_Cornet_vs_Mara_Gae_6-2%2C_6-2_(53506558646)_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/alize-cornet-small.webp"
+  },
+  "Clara Burel": {
+    "src": "/images/players/wta-discovered/clara-burel.webp",
+    "alt": "Clara Burel, tenista",
+    "credit": "si.robi · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Burel_RG22_(1)_(52144106503)_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/clara-burel-small.webp"
+  },
+  "Harriet Dart": {
+    "src": "/images/players/wta-discovered/harriet-dart.webp",
+    "alt": "Harriet Dart, tenista",
+    "credit": "si.robi · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Dart_WM19_(9)_(48521880041).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/harriet-dart-small.webp"
+  },
+  "Martina Trevisan": {
+    "src": "/images/players/wta-discovered/martina-trevisan.webp",
+    "alt": "Martina Trevisan, tenista",
+    "credit": "si.robi · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Trevisan_WMQ18_(28)_(29680365228)_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/martina-trevisan-small.webp"
+  },
+  "Viktoriya Tomova": {
+    "src": "/images/players/wta-discovered/viktoriya-tomova.webp",
+    "alt": "Viktoriya Tomova, tenista",
+    "credit": "si.robi · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Tomova_RG22_(20)_(52144295919)_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/viktoriya-tomova-small.webp"
+  },
+  "Shelby Rogers": {
+    "src": "/images/players/wta-discovered/shelby-rogers.webp",
+    "alt": "Shelby Rogers, tenista",
+    "credit": "si.robi · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Rogers_RG19_(27)_(48199062276).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/shelby-rogers-small.webp"
+  },
+  "Anastasija Sevastova": {
+    "src": "/images/players/wta-discovered/anastasija-sevastova.webp",
+    "alt": "Anastasija Sevastova, tenista",
+    "credit": "si.robi · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Sevastova_WM16_(28418717365).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/anastasija-sevastova-small.webp"
+  },
+  "Garbine Muguruza": {
+    "src": "/images/players/wta-discovered/garbine-muguruza.webp",
+    "alt": "Garbine Muguruza, tenista",
+    "credit": "Barcex · CC BY-SA 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:25th_Laureus_World_Sports_Awards_-_Red_Carpet_-_Garbi%C3%B1e_Muguruza_-_240422_182724-2_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/garbine-muguruza-small.webp"
+  },
+  "Mayar Sherif": {
+    "src": "/images/players/wta-discovered/mayar-sherif.webp",
+    "alt": "Mayar Sherif, tenista",
+    "credit": "si.robi · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Sherif_RG22_(37)_(52144293999).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/mayar-sherif-small.webp"
+  },
+  "Ana Bogdan": {
+    "src": "/images/players/wta-discovered/ana-bogdan.webp",
+    "alt": "Ana Bogdan, tenista",
+    "credit": "Nuță Lucian from Cluj-Napoca, Romania · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:LUK1420-Enhanced-NR_(54320392151).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/ana-bogdan-small.webp"
+  },
+  "Anett Kontaveit": {
+    "src": "/images/players/wta-discovered/anett-kontaveit.webp",
+    "alt": "Anett Kontaveit, tenista",
+    "credit": "si.robi · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Kontaveit_RG19_(29)_(48199186817).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/anett-kontaveit-small.webp"
+  },
+  "Greet Minnen": {
+    "src": "/images/players/wta-discovered/greet-minnen.webp",
+    "alt": "Greet Minnen, tenista",
+    "credit": "si.robi · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Minnen_RG22_(16)_(52143055392)_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/greet-minnen-small.webp"
+  },
+  "Kaia Kanepi": {
+    "src": "/images/players/wta-discovered/kaia-kanepi.webp",
+    "alt": "Kaia Kanepi, tenista",
+    "credit": "si.robi · CC BY-SA 2.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File:Kanepi_WM13-005_(9489757960)_(cropped).jpg",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "objectPosition": "50% 28%",
+    "mobileObjectPosition": "50% 24%",
+    "thumbnail": "/images/players/wta-discovered/kaia-kanepi-small.webp"
   }
 }

@@ -98,22 +98,22 @@ export default async function Operations({manifest}:{manifest:RecordManifest}){
   const providers=(['atp','wta'] as const).map(tour=>({tour,status:operationStatus(tour==='atp'?atpRaw:wtaRaw),freshness:manifest.circuitFreshness?.[tour]}));
   return <section className={styles.operations} aria-labelledby="operations-title">
     <header className={styles.heading}>
-      <div><span>Actividad diaria</span><h2 id="operations-title">Qué se obtiene cada día.</h2></div>
-      <p>Llamadas, resultados recibidos y partidos que ya se han incorporado al archivo.</p>
+      <div><span>Actualizaciones</span><h2 id="operations-title">Actividad diaria.</h2></div>
+
     </header>
     <div className={styles.providerGrid} aria-label="Estado de ingestión por circuito">{providers.map(({tour,status,freshness})=><article className={styles.providerCard} key={tour}>
       <header><strong>{tour.toUpperCase()}</strong><span className={styles.providerStatus} data-tone={statusTone(status.status)}>{statusCopy(status.status)}</span></header>
-      <p>{status.status==='error'&&status.reason?status.reason:'El estado corresponde al último intento registrado; la frescura indica hasta dónde llega la copia publicada.'}</p>
+
       <dl><div><dt>Último intento</dt><dd>{dateTime(status.attemptAt)}</dd></div><div><dt>Último éxito</dt><dd>{dateTime(status.successAt)}</dd></div><div><dt>Último partido publicado</dt><dd>{freshness?.latestExactDate||'Sin fecha exacta'}</dd></div></dl>
     </article>)}</div>
-    <ol className={styles.days} aria-label="Actividad diaria de la API">{days.map(day=><li key={day.date}>
+    <details className={styles.activityDetails}><summary>Ver últimas actualizaciones</summary><ol className={styles.days} aria-label="Actividad diaria de la API">{days.map(day=><li key={day.date}>
       <header><time dateTime={day.date}>{day.date===todayKey?'Hoy · ':''}{dayLabel(day.date)}</time><span className={styles.dayStatus}>{activityStatus(day)}</span></header>
       <div className={styles.tourRows}>
         <div><strong>ATP</strong><span><b>{value(day.atpCallsMeasured,day.atpCalls)}</b> llamadas</span><span><b>{value(day.atpMeasured,day.atpExtracted)}</b> obtenidos</span><span><b>{value(day.splitMeasured,day.atpAdded)}</b> añadidos</span></div>
         <div><strong>WTA</strong><span><b>{value(day.wtaCallsMeasured,day.wtaCalls)}</b> llamadas</span><span><b>{value(day.wtaMeasured,day.wtaExtracted)}</b> obtenidos</span><span><b>{value(day.splitMeasured,day.wtaAdded)}</b> añadidos</span></div>
       </div>
       <p className={styles.daySummary}>{day.publicationMeasured?<><strong>{number(day.published)}</strong> partidos publicados · {number(day.corrected)} corregidos</>:'Aún no hay una publicación medible para este día.'}</p>
-    </li>)}</ol>
-    <p className={styles.source}>Un guion indica que todavía no existe una medición verificable; no equivale a cero.</p>
+    </li>)}</ol></details>
+
   </section>;
 }

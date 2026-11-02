@@ -2,10 +2,10 @@
 .page :global(.inner-title){position:relative;z-index:10;display:grid!important;grid-template-columns:minmax(240px,1fr) auto!important;align-items:end!important;gap:28px;width:min(1240px,calc(100% - 40px))!important;max-width:none!important;margin:0 auto!important;padding:140px 0 54px!important}
 .page :global(.inner-title h1){margin:0!important;font:650 clamp(58px,7vw,86px)/.9 var(--font-display)!important;letter-spacing:-.04em!important}
 .page :global(.inner-title-tools){width:min(310px,66vw);min-width:0;overflow:visible!important}
-.filterShell{max-width:100%;padding:5px;overflow-x:auto;border:1px solid var(--line);border-radius:999px;background:var(--bg-raised);box-shadow:0 8px 24px rgba(18,53,43,.04);scrollbar-width:none}
+.filterShell{width:fit-content;max-width:100%;padding:3px;overflow-x:auto;border:1px solid var(--line);border-radius:999px;background:var(--bg-raised);box-shadow:0 8px 24px rgba(18,53,43,.04);scrollbar-width:none}
 .filterShell::-webkit-scrollbar{display:none}
 .filters{display:flex;width:max-content;min-width:100%;gap:2px}
-.filterLink{display:inline-flex;min-height:42px;align-items:center;justify-content:center;padding:8px 15px;border-radius:999px;color:var(--muted);font-size:12px;font-weight:680;text-decoration:none;white-space:nowrap;transition:background 160ms ease,color 160ms ease}
+.filterLink{display:inline-flex;min-height:36px;align-items:center;justify-content:center;padding:5px 14px;border-radius:999px;color:var(--muted);font-size:12px;font-weight:680;text-decoration:none;white-space:nowrap;transition:background 160ms ease,color 160ms ease}
 .filterLink:hover{color:var(--ink)}
 .filterLink[aria-current="page"]{background:var(--deuce-action);color:#fff}
 .filterMenu{position:relative;justify-self:end;width:min(100%,310px)}

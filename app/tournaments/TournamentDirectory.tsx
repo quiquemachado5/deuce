@@ -10,7 +10,6 @@ import { tournamentDirectory } from '@/lib/tournament-directory';
 import { Pagination } from '@/components/nocturno/Row';
 import { ArchivePage } from '@/components/deuce/ArchivePage';
 import TournamentGallery, { type TournamentGalleryCard } from '@/components/TournamentGallery';
-import TournamentBrowsePicker from '@/components/TournamentBrowsePicker';
 import TournamentFilters from '@/components/TournamentFilters';
 import { winnerName, roundPosition } from '@/lib/editorial';
 import { robotsForUnavailableTour } from '@/lib/seo-metadata';
@@ -85,17 +84,9 @@ export default async function TournamentDirectory({ searchParams }: Props) {
     {tour:'atp',label:'ATP'},
     {tour:'wta',label:'WTA'},
   ] as const).map(item=>({href:tournamentDirectoryUrl(item.tour),label:item.label,active:tour===item.tour}))}/>;
-  const categoryTools=<TournamentBrowsePicker selection={`Categoría · ${chosen ? categoryLabel(chosen) : 'Todas'}`} groups={[{
-    label:`Categorías ${tour.toUpperCase()}`,
-    items:[
-      {href:tournamentDirectoryUrl(tour),label:'Todas',active:!chosen},
-      ...levels.map(category=>({href:tournamentDirectoryUrl(tour,category),label:categoryLabel(category),active:chosen===category})),
-    ],
-  }]}/>;
   const orderedCards = chosen ? cards.sort((a, b) => latestPlayed(entryBySlug.get(b.id)!, chosen) - latestPlayed(entryBySlug.get(a.id)!, chosen)) : cards;
 
   return <ArchivePage title="Torneos" className={styles.page} tools={tools}><div className={styles.content}>
-    <div className={styles.categoryTools}>{categoryTools}</div>
     {chosen ? <section className={styles.selected} aria-labelledby="selected-tournaments">
       <div className={styles.groupHeader}><h2 id="selected-tournaments">{categoryLabel(chosen)}</h2><span className={styles.count}>{selected.length} torneos · {tour.toUpperCase()}</span></div>
       <TournamentGallery cards={orderedCards} variant={chosen === 'Grand Slam' ? 'majors' : chosen.endsWith('250') ? 'compact' : 'rail'} label={categoryLabel(chosen)} />

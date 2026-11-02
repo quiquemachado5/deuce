@@ -2,6 +2,7 @@ import Image from 'next/image';
 
 /** Provider country codes only. Local SVGs: lipis/flag-icons, MIT. */
 const countryIso: Record<string, string> = {
+  and: 'ad', bdi: 'bi', cyp: 'cy', egy: 'eg', ina: 'id', isr: 'il', lat: 'lv', mkd: 'mk', mlt: 'mt', mne: 'me', phi: 'ph', pur: 'pr', tpe: 'tw',
   arg: 'ar', arm: 'am', aus: 'au', aut: 'at', bel: 'be', bih: 'ba', blr: 'by',
   bol: 'bo', bra: 'br', bul: 'bg', can: 'ca', chi: 'cl', chn: 'cn', col: 'co',
   cro: 'hr', cze: 'cz', den: 'dk', dom: 'do', ecu: 'ec', esp: 'es', spa: 'es',

@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import TournamentFilters, { type TournamentFilterItem } from '@/components/TournamentFilters';
 import { useCallback, useEffect, useId, useRef, useState, useSyncExternalStore, useTransition } from 'react';
 import { createPortal } from 'react-dom';
 import { useRouter } from 'next/navigation';
@@ -21,7 +21,8 @@ function FilterSelect({ label, value, options, onChange, allValue = '', noAll = 
   </label>;
 }
 
-export default function MatchSearchBar({ query, categories, rounds, surfaces, years, activeYear }: {
+export default function MatchSearchBar({ query, categories, rounds, surfaces, years, activeYear, circuits }: {
+  circuits: TournamentFilterItem[];
   query: MatchQuery;
   categories: string[];
   rounds: string[];
@@ -114,11 +115,6 @@ export default function MatchSearchBar({ query, categories, rounds, surfaces, ye
     };
   }, [close, filtersOpen, isMobile]);
 
-  const viewSwitch = <nav className={styles.viewSwitch} aria-label="Organización de los partidos">
-    <Link href={matchSearchUrl(query, { vista: undefined, limit: undefined })} aria-current={query.vista !== 'torneos' ? 'page' : undefined} scroll={false} onClick={() => close(false)}><span className={styles.labelFull}>Día a día</span><span className={styles.labelShort}>Día</span></Link>
-    <Link href={matchSearchUrl(query, { vista: 'torneos', limit: undefined })} aria-current={query.vista === 'torneos' ? 'page' : undefined} scroll={false} onClick={() => close(false)}><span className={styles.labelFull}>Por torneo</span><span className={styles.labelShort}>Torneos</span></Link>
-  </nav>;
-
   const filterPanel = (portal = false) => <div
     ref={portal ? portalPanel : undefined}
     className={`${styles.filters} ${portal ? styles.portalFilters : styles.inlineFilters}`}
@@ -130,6 +126,7 @@ export default function MatchSearchBar({ query, categories, rounds, surfaces, ye
     data-visible={filtersOpen || undefined}
   >
     <div className={styles.filterPanelHeader}><strong id={portal ? panelTitleId : undefined}>Filtrar partidos</strong><button ref={portal ? portalClose : undefined} type="button" onClick={() => close()} aria-label="Cerrar filtros"><X size={17} aria-hidden="true"/></button></div>
+    <FilterSelect label="Organizar por" value={query.vista || 'dias'} noAll options={[{value:'dias',label:'Día a día'},{value:'torneos',label:'Torneo'}]} onChange={vista => apply({vista: vista === 'dias' ? undefined : vista})} />
     <FilterSelect label="Temporada" value={query.year || (activeYear ? String(activeYear) : 'all')} allValue="all" options={years.map(year => ({ value: String(year), label: String(year) }))} onChange={year => apply({ year })} />
     <FilterSelect label="Categoría" value={query.category || ''} options={categories.map(value => ({ value, label: value }))} onChange={category => apply({ category: category || undefined })} />
     <FilterSelect label="Superficie" value={query.surface || ''} options={surfaces.map(value=>({value,label:({hard:'Dura',clay:'Tierra',grass:'Hierba',carpet:'Moqueta',unknown:'Sin documentar'} as Record<string,string>)[value]||value}))} onChange={surface => apply({ surface: surface || undefined })} />
@@ -138,7 +135,7 @@ export default function MatchSearchBar({ query, categories, rounds, surfaces, ye
 
   return <div ref={control} className={styles.searchControl} data-filter-only="" data-filters-open={filtersOpen || undefined} aria-busy={pending}>
     <div className={styles.controlMain}>
-      {viewSwitch}
+      <TournamentFilters ariaLabel="Circuito de partidos" items={circuits}/>
       <button ref={trigger} className={styles.discoveryTrigger} type="button" aria-label={`Filtrar partidos${activeFilterCount ? `, ${activeFilterCount} filtros activos` : ''}`} aria-expanded={filtersOpen} onClick={() => setFiltersOpen(open => !open)}><span>Filtros</span><SlidersHorizontal size={18} aria-hidden="true" />{activeFilterCount ? <b>{activeFilterCount}</b> : null}</button>
     </div>
     {filterPanel()}
