@@ -9,4 +9,6 @@ Use a European VPS with at least 2 vCPU, 4 GB RAM, 40 GB persistent disk and a p
 5. Run `ops/vps/deploy.sh` as `deuce`.
 6. Restore the latest archive backup into the `deuce_archive` Docker volume before enabling the scheduler when a newer filesystem snapshot exists.
 
-Caddy provisions and renews HTTPS automatically. The compose stack keeps the web process, scheduler and reverse proxy running after restarts. The archive remains in the named Docker volume.
+Caddy provisions and renews HTTPS automatically. The compose stack keeps the web process, scheduler and reverse proxy running after restarts. A systemd watchdog checks the stack every two minutes and restores unhealthy services. The archive remains in the named Docker volume, with seven days of compressed local backups under `/opt/deuce/backups`.
+
+The VPS 500 G12.5 monthly configuration provides the required 2 vCPU, 4 GB RAM, public IPv4 and 64 GB persistent SSD. Set `DEUCE_ARCHIVE_MAX_BYTES` below 40 GB so Docker images, builds and backups retain safe disk headroom.
