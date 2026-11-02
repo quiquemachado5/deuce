@@ -19,14 +19,21 @@ if [[ ! -f .env.production ]]; then
 fi
 
 docker compose --env-file .env.production up -d --build --remove-orphans
+ready=false
 for attempt in {1..30}; do
-  if docker compose --env-file .env.production exec -T web node -e "fetch('http://127.0.0.1:3000/api/health/deep').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"; then
-    docker compose --env-file .env.production ps
-    exit 0
+  if docker compose --env-file .env.production exec -T web node -e "fetch('http://127.0.0.1:3000/api/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"; then
+    ready=true
+    break
   fi
   sleep 5
 done
 
-docker compose --env-file .env.production logs --tail=150 web caddy scheduler
-echo "Deployment did not become healthy in time." >&2
-exit 1
+if [[ "${ready}" != true ]]; then
+  docker compose --env-file .env.production logs --tail=150 web caddy scheduler
+  echo "Deployment did not become healthy in time." >&2
+  exit 1
+fi
+
+docker compose --env-file .env.production exec -T web node -e "fetch('http://127.0.0.1:3000/api/cron/seed',{headers:{Authorization:'Bearer '+process.env.CRON_SECRET}}).then(async r=>{const body=await r.text();console.log(body);if(!r.ok)process.exit(1)}).catch(error=>{console.error(error);process.exit(1)})"
+docker compose --env-file .env.production exec -T web node -e "fetch('http://127.0.0.1:3000/api/health/deep').then(async r=>{const body=await r.text();console.log(body);if(!r.ok)process.exit(1)}).catch(error=>{console.error(error);process.exit(1)})"
+docker compose --env-file .env.production ps

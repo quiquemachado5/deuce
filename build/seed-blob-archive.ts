@@ -12,9 +12,8 @@ async function read<T>(id: string): Promise<T> {
 }
 
 async function main() {
-  if (archiveStoreBackend() !== 'vercel-blob') {
-    throw new Error('Connect a private Vercel Blob store before seeding the archive')
-  }
+  const backend = archiveStoreBackend()
+  if (backend !== 'vercel-blob' && backend !== 'filesystem') throw new Error('Configure Vercel Blob or the self-hosted filesystem archive before seeding')
 
   const manifest = await read<Snapshot['manifest']>('manifest')
   const pieceEntries = await Promise.all(manifest.pieces.map(async piece => [piece.id, await read<Snapshot['pieces'][string]>(`piece-${piece.id}`)] as const))
@@ -33,10 +32,10 @@ async function main() {
   }
 
   await publishRecordSnapshot(snapshot)
-  console.log(JSON.stringify({ status: 'seeded', backend: 'vercel-blob', version: manifest.version, matches: manifest.matchCount, pieces: manifest.pieces.length }))
+  console.log(JSON.stringify({ status: 'seeded', backend, version: manifest.version, matches: manifest.matchCount, pieces: manifest.pieces.length }))
 }
 
 main().catch(error => {
-  console.error(error instanceof Error ? error.message : 'Blob seed failed')
+  console.error(error instanceof Error ? error.message : 'Archive seed failed')
   process.exitCode = 1
 })
