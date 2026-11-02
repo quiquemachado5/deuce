@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
-test('overview is real, versioned and matches the public coverage page', async ({ page, request }) => {
+test('overview is real and matches the public coverage totals', async ({ page, request }) => {
   const response = await request.get('/api/overview');
   expect(response.status()).toBe(200);
   const summary = await response.json();
@@ -10,7 +10,7 @@ test('overview is real, versioned and matches the public coverage page', async (
   expect(summary.rulesVersion).toBeTruthy();
   await page.goto('/cobertura');
   await expect(page.getByRole('heading', { level: 1, name: 'Cobertura.' })).toBeVisible();
-  await expect(page.locator('#main-content')).toContainText(summary.version || summary.datasetVersion);
+  await expect(page.locator('.coverage-hero-stats')).toContainText(new Intl.NumberFormat('es-ES').format(summary.matches));
   await expect(page.locator('#main-content')).toContainText('Moqueta');
   await page.setViewportSize({ width: 390, height: 844 });
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);

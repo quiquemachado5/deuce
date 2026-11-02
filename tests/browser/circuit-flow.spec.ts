@@ -21,10 +21,16 @@ test('WTA comparator persists its circuit and never defaults to ATP champions',a
 
 test('coverage distinguishes operational clocks and remains accessible on a phone',async({page})=>{
   await page.setViewportSize({width:390,height:844});await page.goto('/cobertura');
-  await expect(page.getByRole('heading',{name:'Lo que ha cambiado hoy.'})).toBeVisible();
-  await expect(page.getByText('Resultados obtenidos',{exact:true})).toBeVisible();
-  await expect(page.getByRole('heading',{name:'Cada día, en claro.'})).toBeVisible();
-  await expect(page.getByRole('region',{name:'Archivo histórico y revisión'}).getByText('Archivo WTA',{exact:true})).toBeVisible();
+  await expect(page.getByRole('heading',{name:'Qué se obtiene cada día.'})).toBeVisible();
+  await expect(page.locator('.coverage-hero-stats dt').filter({hasText:/^Partidos ATP$/})).toBeVisible();
+  await expect(page.locator('.coverage-hero-stats dt').filter({hasText:/^Partidos WTA$/})).toBeVisible();
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   expect((await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa']).analyze()).violations).toEqual([]);
+});
+
+test('the retired WTA page opens the integrated WTA match archive',async({page})=>{
+  await page.goto('/wta');
+  await expect(page).toHaveURL(/\/buscar\?tour=wta$/);
+  await expect(page.getByRole('navigation',{name:'Filtros activos'}).getByRole('link',{name:'Quitar filtro WTA'})).toBeVisible();
+  await expect(page.getByRole('navigation',{name:'Principal'}).getByRole('link',{name:'WTA',exact:true})).toHaveCount(0);
 });
