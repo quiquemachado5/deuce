@@ -18,6 +18,12 @@ async function revealSections(page: Page) {
   await page.addStyleTag({content:'main section, footer { content-visibility: visible !important; } [data-reveal] { opacity: 1 !important; transform: none !important; }'});
 }
 
+async function hideDynamicCoverageSurfaces(page: Page) {
+  await page.addStyleTag({
+    content: '.deuce-archive-notice, [aria-labelledby="operations-title"] { display: none !important; }',
+  });
+}
+
 const dynamicCoverageContent = (page: Page) => [
   page.locator('.coverage-updated'),
   page.locator('.coverage-piece dd'),
@@ -32,6 +38,7 @@ for (const viewport of viewports) {
     await page.setViewportSize(viewport);
     await page.goto('/cobertura');
     await expect(page.getByRole('heading', { name: /^Cobertura\./ })).toBeVisible();
+    await hideDynamicCoverageSurfaces(page);
     await revealSections(page);
     await expect(page).toHaveScreenshot(`coverage-${viewport.name}.png`, {
       animations: 'disabled',
@@ -47,6 +54,7 @@ test('a dark operating-system preference keeps the approved light design', async
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/cobertura');
   await expect(page.locator('html')).not.toHaveAttribute('data-theme', 'dark');
+  await hideDynamicCoverageSurfaces(page);
   await revealSections(page);
   await expect(page).toHaveScreenshot('coverage-system-dark.png', {
     animations: 'disabled',
