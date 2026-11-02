@@ -37,10 +37,10 @@ const firstYear = Math.max(WTA_HISTORICAL_FIRST_YEAR, Math.min(
 ));
 const requestedLevels = process.argv.find(arg => arg.startsWith('--levels='))?.split('=')[1]
   ?.split(',').map(value => value.trim().toUpperCase()).filter(Boolean);
-const historicalLevels = (requestedLevels?.length ? requestedLevels : [...WTA_HISTORICAL_ARCHIVE_LEVELS])
+const historicalLevels = (requestedLevels?.length ? requestedLevels : [])
   .filter((value): value is WtaHistoricalArchiveLevel => WTA_HISTORICAL_ARCHIVE_LEVELS.includes(value as WtaHistoricalArchiveLevel));
-if (!historicalLevels.length || (requestedLevels && historicalLevels.length !== requestedLevels.length)) {
-  throw new Error('Historical levels must be a comma-separated subset of G,M,A');
+if (requestedLevels && (!historicalLevels.length || historicalLevels.length !== requestedLevels.length)) {
+  throw new Error(`Historical levels must be a comma-separated subset of ${WTA_HISTORICAL_ARCHIVE_LEVELS.join(',')}`);
 }
 const pause = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 let calls = 0;
@@ -147,7 +147,8 @@ async function main() {
   allowance = Math.max(0, Math.min(Number.isFinite(requested) ? requested : 90, remaining - 5));
   const report: Record<string, unknown> = {
     startedAt: new Date().toISOString(), availableAtStart: remaining, callBudget: allowance,
-    scope: { tour: 'wta', historyOnly, firstYear, maximumYear, priorityThroughYear, levels: historicalLevels },
+    scope: { tour: 'wta', historyOnly, firstYear, maximumYear, priorityThroughYear,
+      levels: historicalLevels.length ? historicalLevels : 'seasonal-provider-levels' },
     modern: [], archive: [],
   };
   const currentYear = new Date().getUTCFullYear();
@@ -157,14 +158,12 @@ async function main() {
         (report.modern as unknown[]).push({ season, ...await modernSeason(season, currentYear) });
       }
     }
-    // Keep the provider's broad historical cohorts locally. Publication later
-    // applies the strict Grand Slam/1000/500/250 singles contract; retaining
-    // G/M/A here lets future, evidence-backed tier mappings recover eligible
-    // WTA events without another multi-year download.
+    // Keep the provider's era-specific historical cohorts locally. Publication
+    // later applies the strict Grand Slam/1000/500/250 singles contract.
     const completed = new Set((await readdir(outputRoot))
-      .map(file => /^archive-(\d{4}-[GMA])\.json\.gz$/.exec(file)?.[1])
+      .map(file => /^archive-(\d{4}-(?:G|W|T[1-5]|PM|P|I|F))\.json\.gz$/.exec(file)?.[1])
       .filter((value): value is string => !!value));
-    const plan = wtaHistoricalCohortPlan(completed, priorityThroughYear, historicalLevels)
+    const plan = wtaHistoricalCohortPlan(completed, priorityThroughYear, historicalLevels.length ? historicalLevels : undefined)
       .filter(cohort => cohort.season >= firstYear && cohort.season <= maximumYear);
     report.pendingHistoricalCohortsAtStart = plan.length;
     for (const { season, level } of plan) {
@@ -178,7 +177,7 @@ async function main() {
   report.calls = calls;
   report.finishedAt = new Date().toISOString();
   const checkpoint = await readGzip<SeasonCheckpoint>(join(checkpointRoot, `modern-${currentYear}.json.gz`));
-  const completedFiles = (await readdir(outputRoot)).filter(file => /^archive-\d{4}-[GMA]\.json\.gz$/.test(file));
+  const completedFiles = (await readdir(outputRoot)).filter(file => /^archive-\d{4}-(?:G|W|T[1-5]|PM|P|I|F)\.json\.gz$/.test(file));
   report.active = checkpoint ? { kind: 'modern', season: currentYear, rows: checkpoint.rows.length, offset: checkpoint.offset, complete: false } : null;
   report.completedHistoricalCohorts = completedFiles.length;
   await writeFile(join(checkpointRoot, 'last-run.json'), JSON.stringify(report, null, 2));

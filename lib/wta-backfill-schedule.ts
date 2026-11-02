@@ -1,14 +1,27 @@
 type StatusRow = Record<string, unknown> | undefined;
 
-/** Raw provider cohorts retained before the stricter public-scope filter. */
-export const WTA_HISTORICAL_ARCHIVE_LEVELS = ['G', 'M', 'A'] as const;
+/** Raw WTA source tiers retained before the stricter public-scope filter. */
+export const WTA_HISTORICAL_ARCHIVE_LEVELS = ['G', 'W', 'T1', 'T2', 'T3', 'T4', 'T5', 'PM', 'P', 'I', 'F'] as const;
 export const WTA_HISTORICAL_FIRST_YEAR = 1968;
 export const WTA_HISTORICAL_LAST_YEAR = 2022;
 export const WTA_HISTORICAL_PRIORITY_THROUGH_YEAR = 2019;
-export const WTA_HISTORICAL_COHORTS = (WTA_HISTORICAL_LAST_YEAR - WTA_HISTORICAL_FIRST_YEAR + 1)
-  * WTA_HISTORICAL_ARCHIVE_LEVELS.length;
 
 export type WtaHistoricalArchiveLevel = typeof WTA_HISTORICAL_ARCHIVE_LEVELS[number];
+
+export function wtaHistoricalLevelsForSeason(season: number): readonly WtaHistoricalArchiveLevel[] {
+  if (season >= 2009) return ['G', 'PM', 'P', 'I', 'F'];
+  if (season >= 1995) return ['G', 'W', 'T1', 'T2', 'T3', 'T4', 'T5', 'F'];
+  return ['G', 'W', 'F'];
+}
+
+export function wtaHistoricalCohortIds() {
+  return Array.from(
+    { length: WTA_HISTORICAL_LAST_YEAR - WTA_HISTORICAL_FIRST_YEAR + 1 },
+    (_, index) => WTA_HISTORICAL_FIRST_YEAR + index,
+  ).flatMap(season => wtaHistoricalLevelsForSeason(season).map(level => `${season}-${level}`));
+}
+
+export const WTA_HISTORICAL_COHORTS = wtaHistoricalCohortIds().length;
 
 /**
  * Finish the requested historical era first, then fill the remaining recent
@@ -18,14 +31,15 @@ export type WtaHistoricalArchiveLevel = typeof WTA_HISTORICAL_ARCHIVE_LEVELS[num
 export function wtaHistoricalCohortPlan(
   completed: ReadonlySet<string>,
   priorityThroughYear = WTA_HISTORICAL_PRIORITY_THROUGH_YEAR,
-  levels: readonly WtaHistoricalArchiveLevel[] = WTA_HISTORICAL_ARCHIVE_LEVELS,
+  levels?: readonly WtaHistoricalArchiveLevel[],
 ) {
   const through = Math.max(WTA_HISTORICAL_FIRST_YEAR, Math.min(WTA_HISTORICAL_LAST_YEAR, priorityThroughYear));
   const years = [
     ...Array.from({ length: through - WTA_HISTORICAL_FIRST_YEAR + 1 }, (_, index) => through - index),
     ...Array.from({ length: WTA_HISTORICAL_LAST_YEAR - through }, (_, index) => WTA_HISTORICAL_LAST_YEAR - index),
   ];
-  return years.flatMap(season => levels.map(level => ({ season, level, id: `${season}-${level}` })))
+  return years.flatMap(season => (levels || wtaHistoricalLevelsForSeason(season))
+    .map(level => ({ season, level, id: `${season}-${level}` })))
     .filter(cohort => !completed.has(cohort.id));
 }
 

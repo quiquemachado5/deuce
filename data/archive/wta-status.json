@@ -1,18 +1,1499 @@
 {
-  "startedAt": "2026-11-02T10:31:54.361Z",
-  "availableAtStart": 77,
-  "callBudget": 1,
-  "modern": [],
-  "archive": [],
-  "paused": "free-history-limit",
-  "calls": 1,
-  "finishedAt": "2026-11-02T10:31:54.615Z",
-  "active": {
-    "kind": "modern",
-    "season": 2026,
-    "rows": 4200,
-    "offset": 4200,
-    "complete": false
+  "startedAt": "2026-11-02T22:55:07.281Z",
+  "availableAtStart": 618,
+  "callBudget": 560,
+  "scope": {
+    "tour": "wta",
+    "historyOnly": true,
+    "firstYear": 1968,
+    "maximumYear": 2019,
+    "priorityThroughYear": 2019,
+    "levels": "seasonal-provider-levels"
   },
-  "completedHistoricalCohorts": 0
+  "modern": [],
+  "archive": [
+    {
+      "season": 2019,
+      "level": "PM",
+      "skipped": true,
+      "rows": 432,
+      "matches": 432,
+      "players": 165,
+      "tournaments": 4
+    },
+    {
+      "season": 2019,
+      "level": "P",
+      "skipped": true,
+      "rows": 919,
+      "matches": 919,
+      "players": 282,
+      "tournaments": 14
+    },
+    {
+      "season": 2019,
+      "level": "I",
+      "skipped": true,
+      "rows": 1616,
+      "matches": 1616,
+      "players": 468,
+      "tournaments": 32
+    },
+    {
+      "season": 2019,
+      "level": "F",
+      "skipped": true,
+      "rows": 30,
+      "matches": 30,
+      "players": 20,
+      "tournaments": 2
+    },
+    {
+      "season": 2018,
+      "level": "PM",
+      "skipped": true,
+      "rows": 181,
+      "matches": 181,
+      "players": 112,
+      "tournaments": 2
+    },
+    {
+      "season": 2018,
+      "level": "P",
+      "skipped": true,
+      "rows": 455,
+      "matches": 455,
+      "players": 221,
+      "tournaments": 8
+    },
+    {
+      "season": 2018,
+      "level": "I",
+      "skipped": true,
+      "rows": 814,
+      "matches": 814,
+      "players": 359,
+      "tournaments": 16
+    },
+    {
+      "season": 2018,
+      "level": "F",
+      "skipped": true,
+      "rows": 30,
+      "matches": 30,
+      "players": 20,
+      "tournaments": 2
+    },
+    {
+      "season": 2017,
+      "level": "PM",
+      "skipped": false,
+      "rows": 437,
+      "matches": 437,
+      "players": 172,
+      "tournaments": 4
+    },
+    {
+      "season": 2017,
+      "level": "P",
+      "skipped": false,
+      "rows": 969,
+      "matches": 969,
+      "players": 278,
+      "tournaments": 14
+    },
+    {
+      "season": 2017,
+      "level": "I",
+      "skipped": false,
+      "rows": 1913,
+      "matches": 1913,
+      "players": 495,
+      "tournaments": 37
+    },
+    {
+      "season": 2017,
+      "level": "F",
+      "skipped": false,
+      "rows": 30,
+      "matches": 30,
+      "players": 20,
+      "tournaments": 2
+    },
+    {
+      "season": 2016,
+      "level": "PM",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 2016,
+      "level": "P",
+      "skipped": false,
+      "rows": 1469,
+      "matches": 1469,
+      "players": 313,
+      "tournaments": 20
+    },
+    {
+      "season": 2016,
+      "level": "I",
+      "skipped": false,
+      "rows": 1824,
+      "matches": 1824,
+      "players": 498,
+      "tournaments": 35
+    },
+    {
+      "season": 2016,
+      "level": "F",
+      "skipped": false,
+      "rows": 30,
+      "matches": 30,
+      "players": 20,
+      "tournaments": 2
+    },
+    {
+      "season": 2015,
+      "level": "PM",
+      "skipped": false,
+      "rows": 432,
+      "matches": 432,
+      "players": 177,
+      "tournaments": 4
+    },
+    {
+      "season": 2015,
+      "level": "P",
+      "skipped": false,
+      "rows": 1159,
+      "matches": 1159,
+      "players": 283,
+      "tournaments": 18
+    },
+    {
+      "season": 2015,
+      "level": "I",
+      "skipped": false,
+      "rows": 1654,
+      "matches": 1654,
+      "players": 467,
+      "tournaments": 32
+    },
+    {
+      "season": 2015,
+      "level": "F",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 2014,
+      "level": "PM",
+      "skipped": false,
+      "rows": 424,
+      "matches": 424,
+      "players": 163,
+      "tournaments": 4
+    },
+    {
+      "season": 2014,
+      "level": "P",
+      "skipped": false,
+      "rows": 1042,
+      "matches": 1042,
+      "players": 280,
+      "tournaments": 16
+    },
+    {
+      "season": 2014,
+      "level": "I",
+      "skipped": false,
+      "rows": 1428,
+      "matches": 1428,
+      "players": 450,
+      "tournaments": 29
+    },
+    {
+      "season": 2014,
+      "level": "F",
+      "skipped": false,
+      "rows": 30,
+      "matches": 30,
+      "players": 17,
+      "tournaments": 2
+    },
+    {
+      "season": 2013,
+      "level": "PM",
+      "skipped": false,
+      "rows": 432,
+      "matches": 432,
+      "players": 166,
+      "tournaments": 4
+    },
+    {
+      "season": 2013,
+      "level": "P",
+      "skipped": false,
+      "rows": 1137,
+      "matches": 1137,
+      "players": 319,
+      "tournaments": 17
+    },
+    {
+      "season": 2013,
+      "level": "I",
+      "skipped": false,
+      "rows": 1621,
+      "matches": 1621,
+      "players": 503,
+      "tournaments": 30
+    },
+    {
+      "season": 2013,
+      "level": "F",
+      "skipped": false,
+      "rows": 30,
+      "matches": 30,
+      "players": 17,
+      "tournaments": 2
+    },
+    {
+      "season": 2012,
+      "level": "PM",
+      "skipped": false,
+      "rows": 432,
+      "matches": 432,
+      "players": 168,
+      "tournaments": 4
+    },
+    {
+      "season": 2012,
+      "level": "P",
+      "skipped": false,
+      "rows": 1164,
+      "matches": 1164,
+      "players": 311,
+      "tournaments": 17
+    },
+    {
+      "season": 2012,
+      "level": "I",
+      "skipped": false,
+      "rows": 1682,
+      "matches": 1682,
+      "players": 499,
+      "tournaments": 30
+    },
+    {
+      "season": 2012,
+      "level": "F",
+      "skipped": false,
+      "rows": 30,
+      "matches": 30,
+      "players": 18,
+      "tournaments": 2
+    },
+    {
+      "season": 2011,
+      "level": "PM",
+      "skipped": false,
+      "rows": 432,
+      "matches": 432,
+      "players": 169,
+      "tournaments": 4
+    },
+    {
+      "season": 2011,
+      "level": "P",
+      "skipped": false,
+      "rows": 1086,
+      "matches": 1086,
+      "players": 324,
+      "tournaments": 16
+    },
+    {
+      "season": 2011,
+      "level": "I",
+      "skipped": false,
+      "rows": 1709,
+      "matches": 1709,
+      "players": 517,
+      "tournaments": 31
+    },
+    {
+      "season": 2011,
+      "level": "F",
+      "skipped": false,
+      "rows": 22,
+      "matches": 22,
+      "players": 16,
+      "tournaments": 2
+    },
+    {
+      "season": 2010,
+      "level": "PM",
+      "skipped": false,
+      "rows": 308,
+      "matches": 308,
+      "players": 126,
+      "tournaments": 4
+    },
+    {
+      "season": 2010,
+      "level": "P",
+      "skipped": false,
+      "rows": 607,
+      "matches": 607,
+      "players": 160,
+      "tournaments": 15
+    },
+    {
+      "season": 2010,
+      "level": "I",
+      "skipped": false,
+      "rows": 1016,
+      "matches": 1016,
+      "players": 265,
+      "tournaments": 32
+    },
+    {
+      "season": 2010,
+      "level": "F",
+      "skipped": false,
+      "rows": 22,
+      "matches": 22,
+      "players": 16,
+      "tournaments": 2
+    },
+    {
+      "season": 2009,
+      "level": "PM",
+      "skipped": false,
+      "rows": 308,
+      "matches": 308,
+      "players": 120,
+      "tournaments": 4
+    },
+    {
+      "season": 2009,
+      "level": "P",
+      "skipped": false,
+      "rows": 633,
+      "matches": 633,
+      "players": 153,
+      "tournaments": 15
+    },
+    {
+      "season": 2009,
+      "level": "I",
+      "skipped": false,
+      "rows": 954,
+      "matches": 954,
+      "players": 286,
+      "tournaments": 30
+    },
+    {
+      "season": 2009,
+      "level": "F",
+      "skipped": false,
+      "rows": 27,
+      "matches": 27,
+      "players": 21,
+      "tournaments": 2
+    },
+    {
+      "season": 2008,
+      "level": "W",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 2008,
+      "level": "T1",
+      "skipped": false,
+      "rows": 521,
+      "matches": 521,
+      "players": 157,
+      "tournaments": 9
+    },
+    {
+      "season": 2008,
+      "level": "T2",
+      "skipped": false,
+      "rows": 473,
+      "matches": 473,
+      "players": 152,
+      "tournaments": 14
+    },
+    {
+      "season": 2008,
+      "level": "T3",
+      "skipped": false,
+      "rows": 510,
+      "matches": 510,
+      "players": 218,
+      "tournaments": 16
+    },
+    {
+      "season": 2008,
+      "level": "T4",
+      "skipped": false,
+      "rows": 356,
+      "matches": 356,
+      "players": 182,
+      "tournaments": 12
+    },
+    {
+      "season": 2008,
+      "level": "T5",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 2008,
+      "level": "F",
+      "skipped": false,
+      "rows": 15,
+      "matches": 15,
+      "players": 10,
+      "tournaments": 1
+    },
+    {
+      "season": 2007,
+      "level": "W",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 2007,
+      "level": "T1",
+      "skipped": false,
+      "rows": 549,
+      "matches": 549,
+      "players": 153,
+      "tournaments": 10
+    },
+    {
+      "season": 2007,
+      "level": "T2",
+      "skipped": false,
+      "rows": 473,
+      "matches": 473,
+      "players": 140,
+      "tournaments": 15
+    },
+    {
+      "season": 2007,
+      "level": "T3",
+      "skipped": false,
+      "rows": 574,
+      "matches": 574,
+      "players": 224,
+      "tournaments": 18
+    },
+    {
+      "season": 2007,
+      "level": "T4",
+      "skipped": false,
+      "rows": 418,
+      "matches": 418,
+      "players": 193,
+      "tournaments": 13
+    },
+    {
+      "season": 2007,
+      "level": "T5",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 2007,
+      "level": "F",
+      "skipped": false,
+      "rows": 15,
+      "matches": 15,
+      "players": 9,
+      "tournaments": 1
+    },
+    {
+      "season": 2006,
+      "level": "W",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 2006,
+      "level": "T1",
+      "skipped": false,
+      "rows": 549,
+      "matches": 549,
+      "players": 157,
+      "tournaments": 10
+    },
+    {
+      "season": 2006,
+      "level": "T2",
+      "skipped": false,
+      "rows": 472,
+      "matches": 472,
+      "players": 138,
+      "tournaments": 15
+    },
+    {
+      "season": 2006,
+      "level": "T3",
+      "skipped": false,
+      "rows": 543,
+      "matches": 543,
+      "players": 233,
+      "tournaments": 17
+    },
+    {
+      "season": 2006,
+      "level": "T4",
+      "skipped": false,
+      "rows": 418,
+      "matches": 418,
+      "players": 187,
+      "tournaments": 14
+    },
+    {
+      "season": 2006,
+      "level": "T5",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 2006,
+      "level": "F",
+      "skipped": false,
+      "rows": 15,
+      "matches": 15,
+      "players": 8,
+      "tournaments": 1
+    },
+    {
+      "season": 2005,
+      "level": "W",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 2005,
+      "level": "T1",
+      "skipped": false,
+      "rows": 549,
+      "matches": 549,
+      "players": 154,
+      "tournaments": 10
+    },
+    {
+      "season": 2005,
+      "level": "T2",
+      "skipped": false,
+      "rows": 500,
+      "matches": 500,
+      "players": 148,
+      "tournaments": 16
+    },
+    {
+      "season": 2005,
+      "level": "T3",
+      "skipped": false,
+      "rows": 512,
+      "matches": 512,
+      "players": 217,
+      "tournaments": 16
+    },
+    {
+      "season": 2005,
+      "level": "T4",
+      "skipped": false,
+      "rows": 418,
+      "matches": 418,
+      "players": 180,
+      "tournaments": 14
+    },
+    {
+      "season": 2005,
+      "level": "T5",
+      "skipped": false,
+      "rows": 62,
+      "matches": 62,
+      "players": 64,
+      "tournaments": 2
+    },
+    {
+      "season": 2005,
+      "level": "F",
+      "skipped": false,
+      "rows": 15,
+      "matches": 15,
+      "players": 8,
+      "tournaments": 1
+    },
+    {
+      "season": 2004,
+      "level": "W",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 2004,
+      "level": "T1",
+      "skipped": false,
+      "rows": 549,
+      "matches": 549,
+      "players": 152,
+      "tournaments": 10
+    },
+    {
+      "season": 2004,
+      "level": "T2",
+      "skipped": false,
+      "rows": 487,
+      "matches": 487,
+      "players": 157,
+      "tournaments": 15
+    },
+    {
+      "season": 2004,
+      "level": "T3",
+      "skipped": false,
+      "rows": 490,
+      "matches": 490,
+      "players": 191,
+      "tournaments": 16
+    },
+    {
+      "season": 2004,
+      "level": "T4",
+      "skipped": false,
+      "rows": 186,
+      "matches": 186,
+      "players": 133,
+      "tournaments": 6
+    },
+    {
+      "season": 2004,
+      "level": "T5",
+      "skipped": false,
+      "rows": 200,
+      "matches": 200,
+      "players": 127,
+      "tournaments": 7
+    },
+    {
+      "season": 2004,
+      "level": "F",
+      "skipped": false,
+      "rows": 15,
+      "matches": 15,
+      "players": 8,
+      "tournaments": 1
+    },
+    {
+      "season": 2003,
+      "level": "W",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 2003,
+      "level": "T1",
+      "skipped": false,
+      "rows": 494,
+      "matches": 494,
+      "players": 140,
+      "tournaments": 9
+    },
+    {
+      "season": 2003,
+      "level": "T2",
+      "skipped": false,
+      "rows": 544,
+      "matches": 544,
+      "players": 145,
+      "tournaments": 17
+    },
+    {
+      "season": 2003,
+      "level": "T3",
+      "skipped": false,
+      "rows": 461,
+      "matches": 461,
+      "players": 192,
+      "tournaments": 15
+    },
+    {
+      "season": 2003,
+      "level": "T4",
+      "skipped": false,
+      "rows": 155,
+      "matches": 155,
+      "players": 111,
+      "tournaments": 5
+    },
+    {
+      "season": 2003,
+      "level": "T5",
+      "skipped": false,
+      "rows": 186,
+      "matches": 186,
+      "players": 119,
+      "tournaments": 6
+    },
+    {
+      "season": 2003,
+      "level": "F",
+      "skipped": false,
+      "rows": 15,
+      "matches": 15,
+      "players": 8,
+      "tournaments": 1
+    },
+    {
+      "season": 2002,
+      "level": "W",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 2002,
+      "level": "T1",
+      "skipped": false,
+      "rows": 494,
+      "matches": 494,
+      "players": 138,
+      "tournaments": 9
+    },
+    {
+      "season": 2002,
+      "level": "T2",
+      "skipped": false,
+      "rows": 553,
+      "matches": 553,
+      "players": 137,
+      "tournaments": 17
+    },
+    {
+      "season": 2002,
+      "level": "T3",
+      "skipped": false,
+      "rows": 521,
+      "matches": 521,
+      "players": 202,
+      "tournaments": 17
+    },
+    {
+      "season": 2002,
+      "level": "T4",
+      "skipped": false,
+      "rows": 279,
+      "matches": 279,
+      "players": 173,
+      "tournaments": 9
+    },
+    {
+      "season": 2002,
+      "level": "T5",
+      "skipped": false,
+      "rows": 217,
+      "matches": 217,
+      "players": 150,
+      "tournaments": 7
+    },
+    {
+      "season": 2002,
+      "level": "F",
+      "skipped": false,
+      "rows": 15,
+      "matches": 15,
+      "players": 16,
+      "tournaments": 1
+    },
+    {
+      "season": 2001,
+      "level": "W",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 2001,
+      "level": "T1",
+      "skipped": false,
+      "rows": 494,
+      "matches": 494,
+      "players": 150,
+      "tournaments": 9
+    },
+    {
+      "season": 2001,
+      "level": "T2",
+      "skipped": false,
+      "rows": 545,
+      "matches": 545,
+      "players": 149,
+      "tournaments": 17
+    },
+    {
+      "season": 2001,
+      "level": "T3",
+      "skipped": false,
+      "rows": 519,
+      "matches": 519,
+      "players": 207,
+      "tournaments": 17
+    },
+    {
+      "season": 2001,
+      "level": "T4",
+      "skipped": false,
+      "rows": 248,
+      "matches": 248,
+      "players": 144,
+      "tournaments": 8
+    },
+    {
+      "season": 2001,
+      "level": "T5",
+      "skipped": false,
+      "rows": 217,
+      "matches": 217,
+      "players": 124,
+      "tournaments": 7
+    },
+    {
+      "season": 2001,
+      "level": "F",
+      "skipped": false,
+      "rows": 15,
+      "matches": 15,
+      "players": 16,
+      "tournaments": 1
+    },
+    {
+      "season": 2000,
+      "level": "W",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 2000,
+      "level": "T1",
+      "skipped": false,
+      "rows": 478,
+      "matches": 478,
+      "players": 133,
+      "tournaments": 9
+    },
+    {
+      "season": 2000,
+      "level": "T2",
+      "skipped": false,
+      "rows": 485,
+      "matches": 485,
+      "players": 131,
+      "tournaments": 16
+    },
+    {
+      "season": 2000,
+      "level": "T3",
+      "skipped": false,
+      "rows": 432,
+      "matches": 432,
+      "players": 175,
+      "tournaments": 13
+    },
+    {
+      "season": 2000,
+      "level": "T4",
+      "skipped": false,
+      "rows": 434,
+      "matches": 434,
+      "players": 185,
+      "tournaments": 14
+    },
+    {
+      "season": 2000,
+      "level": "T5",
+      "skipped": false,
+      "rows": 31,
+      "matches": 31,
+      "players": 32,
+      "tournaments": 1
+    },
+    {
+      "season": 2000,
+      "level": "F",
+      "skipped": false,
+      "rows": 15,
+      "matches": 15,
+      "players": 16,
+      "tournaments": 1
+    },
+    {
+      "season": 1999,
+      "level": "W",
+      "skipped": false,
+      "rows": 1797,
+      "matches": 1797,
+      "players": 259,
+      "tournaments": 52
+    },
+    {
+      "season": 1999,
+      "level": "T1",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 1999,
+      "level": "T2",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 1999,
+      "level": "T3",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 1999,
+      "level": "T4",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 1999,
+      "level": "T5",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 1999,
+      "level": "F",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 1998,
+      "level": "W",
+      "skipped": false,
+      "rows": 1628,
+      "matches": 1628,
+      "players": 231,
+      "tournaments": 47
+    },
+    {
+      "season": 1998,
+      "level": "T1",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 1998,
+      "level": "T2",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 1998,
+      "level": "T3",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 1998,
+      "level": "T4",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 1998,
+      "level": "T5",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 1998,
+      "level": "F",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 1997,
+      "level": "W",
+      "skipped": false,
+      "rows": 1538,
+      "matches": 1538,
+      "players": 232,
+      "tournaments": 43
+    },
+    {
+      "season": 1997,
+      "level": "T1",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 1997,
+      "level": "T2",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 1997,
+      "level": "T3",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 1997,
+      "level": "T4",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 1997,
+      "level": "T5",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 1997,
+      "level": "F",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 1996,
+      "level": "W",
+      "skipped": false,
+      "rows": 1641,
+      "matches": 1641,
+      "players": 268,
+      "tournaments": 45
+    },
+    {
+      "season": 1996,
+      "level": "T1",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 1996,
+      "level": "T2",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 1996,
+      "level": "T3",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 1996,
+      "level": "T4",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 1996,
+      "level": "T5",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 1996,
+      "level": "F",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 1995,
+      "level": "W",
+      "skipped": false,
+      "rows": 1650,
+      "matches": 1650,
+      "players": 300,
+      "tournaments": 43
+    },
+    {
+      "season": 1995,
+      "level": "T1",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 1995,
+      "level": "T2",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 1995,
+      "level": "T3",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 1995,
+      "level": "T4",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 1995,
+      "level": "T5",
+      "skipped": false,
+      "rows": 55,
+      "matches": 55,
+      "players": 56,
+      "tournaments": 1
+    },
+    {
+      "season": 1995,
+      "level": "F",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 1994,
+      "level": "W",
+      "skipped": false,
+      "rows": 2967,
+      "matches": 2967,
+      "players": 562,
+      "tournaments": 51
+    },
+    {
+      "season": 1994,
+      "level": "F",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 1993,
+      "level": "W",
+      "skipped": false,
+      "rows": 3354,
+      "matches": 3354,
+      "players": 615,
+      "tournaments": 56
+    },
+    {
+      "season": 1993,
+      "level": "F",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 1992,
+      "level": "W",
+      "skipped": false,
+      "rows": 2943,
+      "matches": 2943,
+      "players": 588,
+      "tournaments": 51
+    },
+    {
+      "season": 1992,
+      "level": "F",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 1991,
+      "level": "W",
+      "skipped": false,
+      "rows": 3329,
+      "matches": 3329,
+      "players": 632,
+      "tournaments": 56
+    },
+    {
+      "season": 1991,
+      "level": "F",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 1990,
+      "level": "W",
+      "skipped": false,
+      "rows": 3336,
+      "matches": 3336,
+      "players": 629,
+      "tournaments": 55
+    },
+    {
+      "season": 1990,
+      "level": "F",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 1989,
+      "level": "W",
+      "skipped": false,
+      "rows": 3434,
+      "matches": 3434,
+      "players": 663,
+      "tournaments": 58
+    },
+    {
+      "season": 1989,
+      "level": "F",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 1988,
+      "level": "W",
+      "skipped": false,
+      "rows": 3319,
+      "matches": 3319,
+      "players": 609,
+      "tournaments": 56
+    },
+    {
+      "season": 1988,
+      "level": "F",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 1987,
+      "level": "W",
+      "skipped": false,
+      "rows": 3099,
+      "matches": 3099,
+      "players": 540,
+      "tournaments": 50
+    },
+    {
+      "season": 1987,
+      "level": "F",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 1986,
+      "level": "W",
+      "skipped": false,
+      "rows": 3197,
+      "matches": 3197,
+      "players": 471,
+      "tournaments": 52
+    },
+    {
+      "season": 1986,
+      "level": "F",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 1985,
+      "level": "W",
+      "skipped": false,
+      "rows": 3260,
+      "matches": 3260,
+      "players": 482,
+      "tournaments": 58
+    },
+    {
+      "season": 1985,
+      "level": "F",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    },
+    {
+      "season": 1984,
+      "level": "W",
+      "skipped": false,
+      "rows": 2689,
+      "matches": 2689,
+      "players": 346,
+      "tournaments": 50
+    },
+    {
+      "season": 1984,
+      "level": "F",
+      "skipped": false,
+      "rows": 0,
+      "matches": 0,
+      "players": 0,
+      "tournaments": 0
+    }
+  ],
+  "pendingHistoricalCohortsAtStart": 196,
+  "paused": "daily-quota-checkpoint",
+  "retryAt": "2026-11-03T00:05:00.000Z",
+  "calls": 560,
+  "finishedAt": "2026-11-02T23:17:33.124Z",
+  "active": null,
+  "completedHistoricalCohorts": 219
 }

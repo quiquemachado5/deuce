@@ -17,12 +17,12 @@ async function fixture(files: Record<string, unknown>) {
 test('bundled complete WTA cohorts are materialized and indexed before provider work', async t => {
   const root = await fixture({
     'archive-2022-G.json.gz': { complete: true, at: '2026-11-01T00:00:00Z', data: [{ id: 1, tour: 'wta' }] },
-    'archive-2022-A.json.gz': { complete: true, at: '2026-11-01T00:00:00Z', data: [{ id: 2, tour: 'wta', value: 'bundle' }] },
+    'archive-2022-P.json.gz': { complete: true, at: '2026-11-01T00:00:00Z', data: [{ id: 2, tour: 'wta', value: 'bundle' }] },
   });
   t.after(() => rm(root, { recursive: true, force: true }));
   const stored = new Map<string, unknown>([
     ['wta-archive-index', { complete: ['2021-G'], at: '2026-10-01T00:00:00Z' }],
-    ['archive-wta-2022-A', { complete: false, nextOffset: 200, data: [{ id: 2, tour: 'wta', value: 'provider' }, { id: 3, tour: 'wta' }] }],
+    ['archive-wta-2022-P', { complete: false, nextOffset: 200, data: [{ id: 2, tour: 'wta', value: 'provider' }, { id: 3, tour: 'wta' }] }],
   ]);
   const writes: string[] = [];
   const report = await materializeBundledWtaArchive(
@@ -32,7 +32,7 @@ test('bundled complete WTA cohorts are materialized and indexed before provider 
     '2026-11-02T12:00:00Z',
   );
 
-  assert.deepEqual(writes, ['archive-wta-2022-A', 'archive-wta-2022-G', 'wta-archive-index']);
+  assert.deepEqual(writes, ['archive-wta-2022-G', 'archive-wta-2022-P', 'wta-archive-index']);
   assert.deepEqual(report, {
     bundledModernSeasons: [],
     completedModernSeasons: [],
@@ -49,12 +49,12 @@ test('bundled complete WTA cohorts are materialized and indexed before provider 
     materializedRows: 3,
     indexUpdated: true,
   });
-  const merged = stored.get('archive-wta-2022-A') as { complete: boolean; nextOffset: number; total: number; data: Array<{ id: number; value?: string }> };
+  const merged = stored.get('archive-wta-2022-P') as { complete: boolean; nextOffset: number; total: number; data: Array<{ id: number; value?: string }> };
   assert.equal(merged.complete, true);
   assert.equal(merged.nextOffset, 0);
   assert.equal(merged.total, 2);
   assert.equal(merged.data.find(row => row.id === 2)?.value, 'provider');
-  assert.deepEqual((stored.get('wta-archive-index') as { complete: string[] }).complete, ['2021-G', '2022-A', '2022-G']);
+  assert.deepEqual((stored.get('wta-archive-index') as { complete: string[] }).complete, ['2021-G', '2022-G', '2022-P']);
 });
 
 test('an existing complete cohort is adopted into an empty index without rewriting its rows', async t => {

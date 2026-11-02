@@ -17,7 +17,7 @@
 
 `npm run monitor:check` es una comprobación de solo lectura y no crea incidencias. La alerta detecta efectos de un cron fallido por antigüedad, no confirma por sí sola cada invocación del cron ni el consumo del proveedor.
 
-El scheduler conserva el `retryAt` comunicado por el proveedor. Si ATP, WTA o el histórico agotan la cuota, reanuda esa misma publicación después del reinicio diario sin esperar al pipeline del día siguiente. El histórico prioriza 2019 hacia atrás y conserva los niveles amplios G/M/A; el filtro de publicación sigue admitiendo únicamente individuales Grand Slam, WTA 1000, WTA 500 y WTA 250.
+El scheduler conserva el `retryAt` comunicado por el proveedor. Si ATP, WTA o el histórico agotan la cuota, reanuda esa misma publicación después del reinicio diario sin esperar al pipeline del día siguiente. El histórico prioriza 2019 hacia atrás y consulta los códigos WTA propios de cada era (`W`, `T1`–`T5`, `PM`, `P`, `I`, además de `G` y `F`); el filtro de publicación sigue admitiendo únicamente individuales Grand Slam, WTA 1000, WTA 500 y WTA 250.
 
 Para una recuperación local reanudable del tramo prioritario se usa `npm run data:wta:backfill:historical`. Los checkpoints quedan en `.deuce-cache/wta`; una interrupción no publica cohortes incompletas ni repite las ya cerradas.
 

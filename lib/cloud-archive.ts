@@ -24,7 +24,7 @@ import { hasClosedModernResult } from './modern-result'
 import { withOperationHistory } from './archive-operations'
 import { latestProviderResultDate } from './circuit-freshness'
 import { PROVIDER_PUBLICATION_TIERS } from './publication-scope'
-import { WTA_HISTORICAL_COHORTS, wtaBackfillCycle, wtaHistoricalCohortPlan } from './wta-backfill-schedule'
+import { WTA_HISTORICAL_COHORTS, wtaBackfillCycle, wtaHistoricalCohortIds, wtaHistoricalCohortPlan } from './wta-backfill-schedule'
 import { isProviderFreeHistoryLimit, providerHasRequestAfterUsage, providerQuotaRetryAt, providerRemainingCalls } from './provider-quota'
 import { materializeBundledWtaArchive } from './wta-archive-bootstrap'
 
@@ -447,7 +447,8 @@ export async function backfillCloudWtaHistory() {
       }
       if(finished){complete.add(id);historicalAdded+=found.size;await cloudWrite('wta-archive-index',{complete:[...complete],at:new Date().toISOString()})}
     }
-    const pendingModern=Math.max(0,pending.length-seasonsRefreshed.length),historicalCohorts=[...complete].filter(id=>/^\d{4}-[GMA]$/.test(id)).length
+    const expectedHistorical=new Set(wtaHistoricalCohortIds())
+    const pendingModern=Math.max(0,pending.length-seasonsRefreshed.length),historicalCohorts=[...complete].filter(id=>expectedHistorical.has(id)).length
     const totalHistoricalCohorts=WTA_HISTORICAL_COHORTS,finished=pendingModern===0&&historicalCohorts>=totalHistoricalCohorts,at=new Date().toISOString()
     const result={status:finished?'success':'backfill-progress',phase:'historical-backfill',attemptAt,lastSuccessAt:finished?at:lastSuccessAt,at,calls,seasonsRefreshed,seasonMatches,updated:modernUpdated,extracted:modernUpdated+historicalAdded,historicalAdded,archivePages,historicalCohorts,pendingModern,totalHistoricalCohorts,bundledArchive,probe:{usage:'ok',history:'ok'}}
     await save(result);return result

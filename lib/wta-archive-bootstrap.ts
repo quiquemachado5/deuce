@@ -16,7 +16,7 @@ type ArchivePayload = Record<string, unknown> & {
 type ArchiveReader = (key: string) => Promise<unknown>;
 type ArchiveWriter = (key: string, payload: unknown) => Promise<void>;
 
-const cohortFile = /^archive-(\d{4})-([GMA])\.json\.gz$/;
+const cohortFile = /^archive-(\d{4})-(G|W|T[1-5]|PM|P|I|F)\.json\.gz$/;
 const modernFile = /^modern-(\d{4})\.json\.gz$/;
 const allowedLevels = new Set<string>(WTA_HISTORICAL_ARCHIVE_LEVELS);
 
@@ -40,7 +40,7 @@ function archivePayload(value: unknown, id: string, requireComplete: boolean): A
 }
 
 function expectedCohort(id: string) {
-  const match = /^(\d{4})-([GMA])$/.exec(id);
+  const match = /^(\d{4})-(G|W|T[1-5]|PM|P|I|F)$/.exec(id);
   if (!match) return false;
   const year = Number(match[1]);
   return year >= WTA_HISTORICAL_FIRST_YEAR

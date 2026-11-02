@@ -72,9 +72,9 @@ test('packed artifacts preserve identities, validate checksums and fail closed',
 
 test('progress uses only the configured cohorts and failure retains last successful attempt',()=>{
   assert.equal(wtaBackfillProgress(undefined),undefined);
-  const progress=wtaBackfillProgress({complete:['1968-G','1968-G','1968-M','9999-G']})!;
-  assert.equal(progress.completed,2);assert.equal(progress.total,165);assert.equal(progress.pending.length,163);
-  assert.ok(progress.pending.includes('1968-A'));
+  const progress=wtaBackfillProgress({complete:['1968-G','1968-G','1968-W','9999-G']})!;
+  assert.equal(progress.completed,2);assert.equal(progress.total,263);assert.equal(progress.pending.length,261);
+  assert.ok(progress.pending.includes('1968-F'));
   assert.equal(operationStatus({status:'error',at:'2026-11-01T08:00:00Z',lastSuccessAt:'2026-10-31T08:00:00Z'}).successAt,'2026-10-31T08:00:00Z');
   assert.equal(operationStatus(undefined).found,undefined);
 });
