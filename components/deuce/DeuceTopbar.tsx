@@ -1,18 +1,21 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { ArrowRight, Menu, Search, X } from 'lucide-react';
 
-const navigation = [['Partidos','/buscar'],['Récords','/records'],['Jugadores','/jugadores'],['Torneos','/torneos'],['Comparar','/comparar']] as const;
+const navigation = [['Partidos','/buscar'],['WTA','/buscar?tour=wta'],['Récords','/records'],['Jugadores','/jugadores'],['Torneos','/torneos'],['Comparar','/comparar']] as const;
 type Result = { href: string; name: string; detail?: string; group: string };
+type SearchResult = { query:string; tour:'atp'|'wta'; items:Result[]; error?:boolean };
 const groupOrder = ['Jugadores','Torneos','Ediciones','Partidos','Parejas','Récords'];
 
 export function DeuceTopbar() {
-  const pathname=usePathname(), router=useRouter();
+  const pathname=usePathname(), router=useRouter(), searchParams=useSearchParams();
+  const wtaContext=searchParams.get('tour')==='wta'||searchParams.get('cuadro')==='wta'||searchParams.get('circuito')==='wta'||pathname.startsWith('/match/wta-');
+  const searchTour=wtaContext?'wta':'atp';
   const [scrolled,setScrolled]=useState(false), [navHidden,setNavHidden]=useState(false), [menu,setMenu]=useState(false), [searchOpen,setSearchOpen]=useState(false), [query,setQuery]=useState('');
-  const [result,setResult]=useState<{query:string;items:Result[];error?:boolean}>({query:'',items:[]});
+  const [result,setResult]=useState<SearchResult>({query:'',tour:'atp',items:[]});
   const lastScroll=useRef(0);
   const restoreSearchFocus=useRef(false);
   const menuTrigger=useRef<HTMLButtonElement>(null), field=useRef<HTMLInputElement>(null), trigger=useRef<HTMLButtonElement>(null), panel=useRef<HTMLElement>(null);
@@ -75,18 +78,42 @@ export function DeuceTopbar() {
     const text=query.trim();
     if(text.length<2)return;
     const abort=new AbortController();
-    const timer=setTimeout(async()=>{try{const response=await fetch(`/api/search?tour=${new URLSearchParams(window.location.search).get('tour')==='wta'||new URLSearchParams(window.location.search).get('cuadro')==='wta'||new URLSearchParams(window.location.search).get('circuito')==='wta'?'wta':'atp'}&q=${encodeURIComponent(text)}`,{signal:abort.signal});if(!response.ok)throw Error('search');const data=await response.json();setResult({query:text,items:Array.isArray(data.items)?data.items.slice(0,24):[]});}catch(error){if(!(error instanceof Error&&error.name==='AbortError'))setResult({query:text,items:[],error:true});}},120);
-    return()=>{clearTimeout(timer);abort.abort();};
-  },[query]);
+    let fullTimer:ReturnType<typeof setTimeout>|undefined;
+    const loadFull=async(quickItems:Result[])=>{
+      try{
+        const full=await fetch(`/api/search?tour=${searchTour}&q=${encodeURIComponent(text)}`,{signal:abort.signal});
+        if(!full.ok)return;
+        const fullData=await full.json();
+        setResult({query:text,tour:searchTour,items:Array.isArray(fullData.items)?fullData.items.slice(0,24):quickItems});
+      }catch(error){if(!(error instanceof Error&&error.name==='AbortError'))return;}
+    };
+    const load=async()=>{
+      let quickLoaded=false;
+      try{
+        const quick=await fetch(`/api/search?mode=quick&tour=${searchTour}&q=${encodeURIComponent(text)}`,{signal:abort.signal});
+        if(!quick.ok)throw Error('search');
+        const quickData=await quick.json(),quickItems=Array.isArray(quickData.items)?quickData.items.slice(0,24):[];
+        setResult({query:text,tour:searchTour,items:quickItems});
+        quickLoaded=quick.headers.get('X-DEUCE-Search-Mode')==='quick';
+        if(!quickLoaded)return;
+        fullTimer=setTimeout(()=>{void loadFull(quickItems);},500);
+      }catch(error){
+        if(!(error instanceof Error&&error.name==='AbortError')&&!quickLoaded)setResult({query:text,tour:searchTour,items:[],error:true});
+      }
+    };
+    const timer=setTimeout(load,120);
+    return()=>{clearTimeout(timer);if(fullTimer)clearTimeout(fullTimer);abort.abort();};
+  },[query,searchTour]);
 
   const submit=()=>{
     const text=query.trim();
     if(!text)return;
     setSearchOpen(false);
-    router.push(`/buscar?q=${encodeURIComponent(text)}`);
+    router.push(`/buscar?q=${encodeURIComponent(text)}${wtaContext?'&tour=wta':''}`);
   };
-  const loading=!!query.trim()&&result.query!==query.trim();
-  const visibleItems=result.items;
+  const queryLength=query.trim().length;
+  const loading=queryLength>=2&&(result.query!==query.trim()||result.tour!==searchTour);
+  const visibleItems=result.tour===searchTour&&result.query===query.trim()?result.items:[];
   const groups=[...new Set(visibleItems.map(item=>item.group))].sort((a,b)=>groupOrder.indexOf(a)-groupOrder.indexOf(b));
   const moveResult=(direction:1|-1)=>{
     const links=[...(panel.current?.querySelectorAll<HTMLAnchorElement>('[data-search-result]')||[])];
@@ -99,7 +126,7 @@ export function DeuceTopbar() {
   return <>
     <header className={`topbar${scrolled?' is-scrolled':''}${navHidden&&!menu&&!searchOpen?' nav-hidden':''}${searchOpen?' search-open':''}`}>
       <Link className="logo" href="/" aria-label="DEUCE, inicio" onClick={()=>{setMenu(false);setSearchOpen(false);}}><span aria-hidden="true"/>DEUCE</Link>
-      <nav id="deuce-navigation" className={menu?'mobile-open':''} aria-label="Principal" aria-hidden={searchOpen}>{navigation.map(([label,href])=>{const active=href==='/buscar'?pathname==='/buscar'||pathname.startsWith('/match/'):href==='/jugadores'?pathname.startsWith('/jugadores')||pathname.startsWith('/players/'):href==='/torneos'?pathname.startsWith('/torneos')||/^\/[a-z0-9-]+\/\d{4}$/.test(pathname):href==='/comparar'?pathname==='/comparar'||pathname==='/compare':pathname===href||pathname.startsWith(`${href}/`);return <Link prefetch={true} className={active?'active':''} aria-current={active?'page':undefined} href={href} key={href} tabIndex={searchOpen?-1:undefined} onClick={()=>setMenu(false)}>{label}</Link>;})}</nav>
+      <nav id="deuce-navigation" className={menu?'mobile-open':''} aria-label="Principal" aria-hidden={searchOpen}>{navigation.map(([label,href])=>{const archivePath=pathname==='/buscar'||pathname.startsWith('/match/');const active=label==='WTA'?wtaContext&&archivePath:href==='/buscar'?!wtaContext&&archivePath:href==='/jugadores'?pathname.startsWith('/jugadores')||pathname.startsWith('/players/'):href==='/torneos'?pathname.startsWith('/torneos')||/^\/[a-z0-9-]+\/\d{4}$/.test(pathname):href==='/comparar'?pathname==='/comparar'||pathname==='/compare':pathname===href||pathname.startsWith(`${href}/`);return <Link prefetch={true} className={active?'active':''} aria-current={active?'page':undefined} href={href} key={href} tabIndex={searchOpen?-1:undefined} onClick={()=>setMenu(false)}>{label}</Link>;})}</nav>
       <form className="topbar-spotlight-form" role="search" aria-hidden={!searchOpen} onSubmit={event=>{event.preventDefault();submit();}}>
         <Search size={19} aria-hidden="true"/>
         <label className="nc-sr" htmlFor="global-search">Buscar jugadores, partidos o torneos</label>
@@ -113,6 +140,7 @@ export function DeuceTopbar() {
     </header>
     <section ref={panel} id="global-search-results" className={`topbar-spotlight-panel${searchOpen?' is-open':''}`} aria-label="Sugerencias de búsqueda" aria-live="polite" aria-busy={loading} aria-hidden={!searchOpen} onKeyDown={event=>{if(event.key==='ArrowDown'||event.key==='ArrowUp'){event.preventDefault();moveResult(event.key==='ArrowDown'?1:-1);}}}>
       {!query.trim()?<div className="topbar-spotlight-empty"><span>Buscar en todo DEUCE</span><p>Encuentra jugadores, partidos, torneos, ediciones y récords desde un único lugar.</p><div>{navigation.slice(0,4).map(([label,href])=><Link key={href} href={href} onClick={()=>setSearchOpen(false)}>{label}</Link>)}</div></div>
+      :queryLength<2?<p className="topbar-spotlight-status">Escribe al menos dos caracteres.</p>
       :loading?<p className="topbar-spotlight-status">Buscando…</p>
       :result.error?<p className="topbar-spotlight-status">No se pudieron cargar las sugerencias. Pulsa Intro para buscar.</p>
       :visibleItems.length?<div className="topbar-spotlight-groups">{groups.map(group=><section key={group} aria-label={group}><h2>{group}</h2>{visibleItems.filter(item=>item.group===group).slice(0,6).map(item=><Link href={item.href} key={item.href} data-search-result="" onClick={()=>setSearchOpen(false)}><span><strong>{item.name}</strong>{item.detail&&<small>{item.detail}</small>}</span><ArrowRight size={15} aria-hidden="true"/></Link>)}</section>)}</div>

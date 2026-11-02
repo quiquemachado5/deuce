@@ -52,7 +52,7 @@ export function DeuceFooter() {
   return <footer className="deuce-footer" ref={footer}>
     <div className="footer-brand">
       <Link className="logo footer-logo" href="/" aria-label="DEUCE, inicio"><span aria-hidden="true" />DEUCE</Link>
-      <p>Resultados, contexto y estadísticas del tenis profesional desde 1968.</p>
+      <p>Resultados, contexto y estadísticas: ATP desde 1968 y WTA desde 2018.</p>
     </div>
     <nav className="footer-navigation" aria-label="Navegación del pie">
       <div>

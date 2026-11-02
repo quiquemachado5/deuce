@@ -18,7 +18,7 @@ import {
 } from './archive-store'
 import { enrichmentPlan } from './enrichment-plan'
 import { activityFixtures } from './tour-activity'
-import {reconcileSeasonResults} from './result-refresh'
+import {mergeSeasonBaseline,reconcileSeasonResults,type Season} from './result-refresh'
 import { detailRefreshPlan } from './detail-refresh-plan'
 import { hasClosedModernResult } from './modern-result'
 import { withOperationHistory } from './archive-operations'
@@ -229,7 +229,7 @@ export async function refreshCloudArchive() {
     }
     const year = new Date().getUTCFullYear()
     const {bundledTourSeason}=await import('./live-tennis')
-    const old = await cloudRead(`season-${year}`) || await bundledTourSeason(year)
+    const old = mergeSeasonBaseline(await bundledTourSeason(year) as Season,await cloudRead(`season-${year}`))
     const seasonsRefreshed:number[]=[]
     const detailCandidates:ArchiveRow[]=[]
     const previousRows=new Map<string,ArchiveRow>()
@@ -237,7 +237,7 @@ export async function refreshCloudArchive() {
     // Migrate every saved modern season once. Afterwards, poll result restatements
     // across all years as well as the current fixture window.
     for(const season of [year,...Array.from({length:Math.max(0,year-2023)},(_,i)=>2023+i)]){
-      const previous=season===year?old:await cloudRead(`season-${season}`)||await bundledTourSeason(season)
+      const previous=season===year?old:mergeSeasonBaseline(await bundledTourSeason(season) as Season,await cloudRead(`season-${season}`))
       for (const row of previous?.data || []) previousRows.set(String(row.id), row)
       const refreshed=await reconcileSeasonResults(season,year,previous,request)
       const fresh=refreshed.fresh,complete=refreshed.data

@@ -37,7 +37,7 @@ export default async function Players({ searchParams }: {
   const query = await searchParams;
   query.tour = query.tour === 'wta' ? 'wta' : 'atp';
   const pairs = query.tipo === 'enfrentamientos' || query.tipo === 'parejas';
-  if (pairs) redirect('/comparar');
+  if (pairs) redirect(query.tour === 'wta' ? '/comparar?tour=wta' : '/comparar');
   const generation = await preparedGeneration();
   const [recordSource, pairSource] = await Promise.all([
     pairs ? Promise.resolve([]) : generation.records(),

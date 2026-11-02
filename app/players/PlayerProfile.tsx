@@ -20,7 +20,7 @@ import { toMatchRecord } from '@/data/map-match';
 import { playerNotebook } from '@/lib/cuaderno/data';
 import { number, surfaceLabel } from '@/lib/cuaderno/model';
 import { chronological, roundLabel, roundPosition, winnerName } from '@/lib/editorial';
-import { comparisonHref, playerSlug } from '@/lib/explore';
+import { comparisonHref, playerSlug, tournamentHref } from '@/lib/explore';
 import { tournamentName } from '@/lib/labels';
 import { courtPhoto, type Photo } from '@/lib/imagery';
 import { playerDirectoryPhoto, playerEditionPhoto } from '@/lib/player-imagery';
@@ -198,10 +198,10 @@ export default async function Player({params,searchParams}:Props){
       {tournaments.length?<section className="pp-section pp-tournaments" id="torneos" aria-labelledby="pp-tournaments-title"><PlayerTournamentArchive tour={tour} tournaments={tournaments.slice(0,18).map(tournament=>{
         const branding=tournamentBrandingFor(tournament.rawName);
         const target=directory.get(tournament.rawName);
-        return {slug:tournament.slug,name:tournament.name,surfaceKey:tournament.surfaceKey,category:tournament.category,titles:tournament.titles,titleYears:tournament.titleYears,brandingSrc:branding?.src,trophySrc:branding?.trophySrc,href:target?.slug?`/torneos/${target.slug}`:undefined};
+        return {slug:tournament.slug,name:tournament.name,surfaceKey:tournament.surfaceKey,category:tournament.category,titles:tournament.titles,titleYears:tournament.titleYears,brandingSrc:branding?.src,trophySrc:branding?.trophySrc,href:target?.slug?tournamentHref(target.slug,tour):undefined};
       })}/></section>:null}
 
-      {rivals.length>=2&&frequentRival?<section className="pp-section pp-rivals" id="enfrentamientos" aria-labelledby="pp-rivals-title"><PlayerRivals rivals={rivals} player={{name:player.name,country:bio?.country}} compareHref={comparisonHref(player.name,frequentRival.name)}/></section>:null}
+      {rivals.length>=2&&frequentRival?<section className="pp-section pp-rivals" id="enfrentamientos" aria-labelledby="pp-rivals-title"><PlayerRivals rivals={rivals} player={{name:player.name,country:bio?.country}} compareHref={comparisonHref(player.name,frequentRival.name,'cara-a-cara',tour)}/></section>:null}
 
       <section className="pp-section pp-matches" id="partidos" aria-labelledby="pp-matches-title"><PlayerRecentMatches matches={recent} allHref={`/buscar?tour=${tour}&player=${encodeURIComponent(player.name)}&scope=matches`}/></section>
     </div>

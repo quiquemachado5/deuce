@@ -30,7 +30,7 @@ import RecordsVideoCarousel from "@/components/records/RecordsVideoCarousel";
 import RecordsFamilyNav from "@/components/records/RecordsFamilyNav";
 import RecordsSurfaceSlider from "@/components/records/RecordsSurfaceSlider";
 import TournamentFilters from "@/components/TournamentFilters";
-import { photoFor, portraitFor, recordImageStyle, rowForTour } from './record-media';
+import { photoFor, portraitFor, recordFamilyMediaLayout, recordImageStyle, rowForTour } from './record-media';
 import { recordPhoto } from '@/lib/editorial-imagery';
 import { hasPublishedTour, noIndexFollow, robotsForUnavailableTour } from '@/lib/seo-metadata';
 
@@ -423,7 +423,7 @@ async function RecordIndex({
               ? groupPieces.find((piece) => piece.id === photoPieceId)
               : undefined;
             const fallbackPhoto = familyPhotoFallbacks[group];
-            const mediaLayout = familyLayouts[group] || "photoTop";
+            const mediaLayout = recordFamilyMediaLayout(familyLayouts[group] || "photoTop",query.tour==='wta'?'wta':'atp');
             const hasVideo = mediaLayout === "videoBottom";
             const hasSlider = mediaLayout === "slider";
             const familyPhoto =

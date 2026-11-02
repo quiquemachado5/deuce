@@ -14,6 +14,7 @@ import TournamentBrowsePicker from '@/components/TournamentBrowsePicker';
 import { winnerName, roundPosition } from '@/lib/editorial';
 import { robotsForUnavailableTour } from '@/lib/seo-metadata';
 import { tournamentDirectoryUrl } from '@/lib/tournament-url';
+import { singlesMatches } from '@/lib/match-discipline';
 import styles from './tournament-directory.module.css';
 
 type Tour = 'atp' | 'wta';
@@ -38,7 +39,7 @@ export async function generateMetadata({ searchParams }: Props) {
   const tour = tourFrom(query.circuito);
   const category = categories[tour].find(value => value === query.categoria);
   const title = `${category ? `${categoryLabel(category)} · ` : ''}Torneos ${tour.toUpperCase()} — DEUCE`;
-  const description = `Torneos y ediciones ${tour.toUpperCase()} del archivo, sin mezclar los resultados de ambos circuitos.`;
+  const description = `Torneos y ediciones individuales ${tour.toUpperCase()} del archivo, sin mezclar circuitos ni modalidades.`;
   const page = Math.max(1, Math.floor(Number(query.page) || 1));
   const canonical = tournamentDirectoryUrl(tour, category, page);
   return { title, description, alternates: { canonical }, openGraph: { title, description, url: canonical }, twitter: { card: 'summary_large_image', title, description }, robots: robotsForUnavailableTour(manifest.summary, tour) };
@@ -47,7 +48,7 @@ export async function generateMetadata({ searchParams }: Props) {
 export default async function TournamentDirectory({ searchParams }: Props) {
   const query = await searchParams;
   const tour = tourFrom(query.circuito);
-  const matches = await preparedTourArchive(tour);
+  const matches = singlesMatches(await preparedTourArchive(tour));
   const latestArchiveYear = matches.reduce((latest, match) => Math.max(latest, match.year), 0);
   const entries = calendarOrder(tournamentDirectory(matches));
   const levels = categories[tour];

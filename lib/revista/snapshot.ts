@@ -9,7 +9,7 @@ import { homeSelection, prepareCircuitHome, prepareHomeIndex, type PreparedHomeI
 import { recordCatalog, eraComparisons, type RecordPiece, type RecordRow, type Era } from './records';
 export const SNAPSHOT_SCHEMA = 7;
 // Bump whenever derivation rules change, even if source matches do not.
-export const RULES_VERSION = '2026-11-circuit-statistics-v11';
+export const RULES_VERSION = '2026-11-circuit-statistics-v12';
 export const PAGE_SIZE = 25;
 export const PIECE_CHUNK_PAGES = 50;
 export const pieceChunk = (page:number) => Math.floor((page-1)/PIECE_CHUNK_PAGES);
@@ -27,7 +27,7 @@ export type IngestionDay = {
 };
 export type MatchPartition = { id:string; tour:'atp'|'wta'; fromYear:number; toYear:number; count:number };
 export type CircuitCoverage = { matches:number; firstYear:number|null; lastYear:number|null; tournaments:number };
-export type RecordManifest = { publicationDelta?: import('../publication-delta').PublicationDelta; circuitCoverage?:{atp:CircuitCoverage;wta:CircuitCoverage}; circuitPieces?: {atp:RecordMeta[];wta:RecordMeta[]}; artifactPacks?: import('./artifact-packs').ArtifactPacks; schema: number; rulesVersion: string; version: string; generatedAt: string; extent?: ReturnType<typeof archiveExtent>; leaderChanges?: LeaderChange[]; ingestionHistory?: IngestionDay[]; matchPartitions?:MatchPartition[]; home?: { circuits?: ReturnType<typeof prepareCircuitHome>; date: string; selection: ReturnType<typeof homeSelection>; tournaments: string[]; daily?: PreparedHomeIndex }; years: number[]; pieces: RecordMeta[]; eraCuts: number[]; matchCount: number; competitionCount?:number; editionCount?:number; mode: 'DEMO' | 'ARCHIVO REAL'; summary: ReturnType<typeof summarizeDataset> };
+export type RecordManifest = { publicationDelta?: import('../publication-delta').PublicationDelta; circuitCoverage?:{atp:CircuitCoverage;wta:CircuitCoverage}; circuitFreshness?:{atp:ReturnType<typeof archiveExtent>;wta:ReturnType<typeof archiveExtent>}; circuitPieces?: {atp:RecordMeta[];wta:RecordMeta[]}; artifactPacks?: import('./artifact-packs').ArtifactPacks; schema: number; rulesVersion: string; version: string; generatedAt: string; extent?: ReturnType<typeof archiveExtent>; leaderChanges?: LeaderChange[]; ingestionHistory?: IngestionDay[]; matchPartitions?:MatchPartition[]; home?: { circuits?: ReturnType<typeof prepareCircuitHome>; date: string; selection: ReturnType<typeof homeSelection>; tournaments: string[]; daily?: PreparedHomeIndex }; years: number[]; pieces: RecordMeta[]; eraCuts: number[]; matchCount: number; competitionCount?:number; editionCount?:number; mode: 'DEMO' | 'ARCHIVO REAL'; summary: ReturnType<typeof summarizeDataset> };
 export type RecordPages = { pages: Record<string, RecordRow[]>; smallPages: Record<string, RecordRow[]> };
 export type Snapshot = { manifest: RecordManifest; pieces: Record<string, RecordPages>; eras: Record<string, Era[]>; matches: Match[]; players: PlayerRecord[]; competition:Match[]; audit:EditionAudit[] };
 function circuitCoverage(matches:Match[],tour:'atp'|'wta'):CircuitCoverage {
@@ -110,7 +110,7 @@ export function attachIngestionHistory(previous: RecordManifest | undefined, nex
 export function compileRecordSnapshot(input: Match[], now = new Date(), competitionInput:Match[]=[],audit:EditionAudit[]=[]): Snapshot {
   audit=audit.map(row=>({...row,...editionCompleteness(row)}));
   const competition=competitionInput.map(m=>proofSummary({...m,tour:m.tour||'atp'}));
-  const matches=input.map(m=>stripSource({...m,tour:m.tour||'atp'})), atp=matches.filter(m=>m.tour==='atp'), catalog=recordCatalog(atp,now), wtaCatalog=recordCatalog(matches.filter(m=>m.tour==='wta'),now), wtaMetas:RecordMeta[]=[], pieces:Snapshot['pieces']={}, metas:RecordMeta[]=[];
+  const matches=input.map(m=>stripSource({...m,tour:m.tour||'atp'})), atp=matches.filter(m=>m.tour==='atp'), wta=matches.filter(m=>m.tour==='wta'), catalog=recordCatalog(atp,now), wtaCatalog=recordCatalog(wta,now), wtaMetas:RecordMeta[]=[], pieces:Snapshot['pieces']={}, metas:RecordMeta[]=[];
   // A match can substantiate many rankings. Share its compact proof instead of
   // retaining hundreds of thousands of duplicate property dictionaries.
   const proofs=new WeakMap<Match,Match>();
@@ -136,6 +136,6 @@ export function compileRecordSnapshot(input: Match[], now = new Date(), competit
   const hash=createHash('sha256').update(JSON.stringify([SNAPSHOT_SCHEMA,RULES_VERSION,now.toISOString().slice(0,10)]).slice(0,-1)+',[');
   matches.forEach((match,i)=>{if(i)hash.update(',');hash.update(JSON.stringify(match));});
   const version=hash.update('],').update(JSON.stringify(competition)).update(',').update(JSON.stringify(audit)).update(']').digest('hex').slice(0,20);
-  return {manifest:{circuitCoverage:{atp:circuitCoverage(matches,'atp'),wta:circuitCoverage(matches,'wta')},circuitPieces:{atp:metas,wta:wtaMetas},schema:SNAPSHOT_SCHEMA,rulesVersion:RULES_VERSION,version,generatedAt:now.toISOString(),extent:archiveExtent(matches,now),matchPartitions:partitionMatches(matches).map(group=>group.meta),home:{circuits:prepareCircuitHome(matches),date:now.toISOString().slice(0,10),selection:homeSelection(matches,now),daily:prepareHomeIndex(matches),tournaments:[...new Set(matches.map(m=>m.tournament))]},years:[...new Set(matches.map(m=>m.year))].sort((a,b)=>b-a),pieces:metas,eraCuts:Object.keys(eras).map(Number),matchCount:matches.length,competitionCount:competition.length,editionCount:audit.length,mode:matches.some(m=>m.data_source==='mock')?'DEMO':'ARCHIVO REAL',summary:summarizeDataset(matches)},pieces,eras,matches,competition,audit,players:buildSeasonAnalytics(matches).players};
+  return {manifest:{circuitCoverage:{atp:circuitCoverage(matches,'atp'),wta:circuitCoverage(matches,'wta')},circuitFreshness:{atp:archiveExtent(atp,now),wta:archiveExtent(wta,now)},circuitPieces:{atp:metas,wta:wtaMetas},schema:SNAPSHOT_SCHEMA,rulesVersion:RULES_VERSION,version,generatedAt:now.toISOString(),extent:archiveExtent(matches,now),matchPartitions:partitionMatches(matches).map(group=>group.meta),home:{circuits:prepareCircuitHome(matches),date:now.toISOString().slice(0,10),selection:homeSelection(matches,now),daily:prepareHomeIndex(matches),tournaments:[...new Set(matches.map(m=>m.tournament))]},years:[...new Set(matches.map(m=>m.year))].sort((a,b)=>b-a),pieces:metas,eraCuts:Object.keys(eras).map(Number),matchCount:matches.length,competitionCount:competition.length,editionCount:audit.length,mode:matches.some(m=>m.data_source==='mock')?'DEMO':'ARCHIVO REAL',summary:summarizeDataset(matches)},pieces,eras,matches,competition,audit,players:buildSeasonAnalytics(matches).players};
 }
 export const clampPage=(value:unknown,total:number)=>Math.min(Math.max(1,Math.floor(Number(value)||1)),Math.max(1,Math.ceil(total/PAGE_SIZE)));

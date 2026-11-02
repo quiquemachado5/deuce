@@ -14,7 +14,7 @@ import {
   playerBiography,
 } from "@/lib/player-bio";
 import type { RivalrySummary } from "@/lib/explore";
-import { playerSlug } from "@/lib/explore";
+import { matchArchiveHref, playerSlug, tournamentHref } from "@/lib/explore";
 import { tournamentDirectory } from "@/lib/tournament-directory";
 import { findStat, type StatRow } from "@/lib/statistics";
 import { pressure, sentence } from "@/lib/cuaderno/model";
@@ -556,9 +556,10 @@ export default function PanoramaMatch({
   active?: PanoramaSection;
   supplemental?: ReactNode;
 }) {
+  const tour = match.tour === 'wta' ? 'wta' : 'atp';
   const names = [match.player1.name, match.player2.name] as [string, string];
   const event = tournamentDirectory([match])[0];
-  const eventHref = event ? `/torneos/${event.slug}/${match.year}${match.tour === 'wta' ? '?cuadro=wta' : ''}` : '/torneos';
+  const eventHref = event ? tournamentHref(event.slug, tour, match.year) : '/torneos';
   const photo = courtPhoto(match.tournament);
   const groups = comparisonRows(match);
   const hasPressure = groups.some((group) => group.key === "return-pressure");
@@ -594,7 +595,7 @@ export default function PanoramaMatch({
         <div className="pm-photo-shade" aria-hidden="true" />
         <div className="pm-hero-inner">
           <div className="pm-hero-actions">
-            <Link href="/buscar" aria-label="Volver a partidos"><ArrowLeft /></Link>
+            <Link href={matchArchiveHref(tour)} aria-label="Volver a partidos"><ArrowLeft /></Link>
           </div>
           <div className="pm-event">
             <h1 id="pm-title"><Link href={eventHref}>{tournamentName(match.tournament)}</Link></h1>

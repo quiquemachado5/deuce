@@ -15,11 +15,11 @@ const editorial = Newsreader({ subsets:['latin'], variable:'--deuce-editorial', 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_ORIGIN),
   title: "DEUCE — Datos del archivo de tenis",
-  description: "Explora el archivo ATP y la nueva instantánea WTA de DEUCE: partidos, jugadoras, jugadores, torneos y récords con cobertura documentada.",
+  description: "Explora el archivo ATP y WTA de DEUCE: partidos, jugadoras, jugadores, torneos y récords con cobertura documentada.",
   alternates: { canonical: "/" },
   openGraph: {
     title: "DEUCE — Datos del archivo de tenis",
-    description: "Explora el archivo ATP y la nueva instantánea WTA de DEUCE: partidos, jugadoras, jugadores, torneos y récords con cobertura documentada.",
+    description: "Explora el archivo ATP y WTA de DEUCE: partidos, jugadoras, jugadores, torneos y récords con cobertura documentada.",
     siteName: "DEUCE",
     locale: "es_ES",
     type: "website",

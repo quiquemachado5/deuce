@@ -1767,6 +1767,7 @@ main:has(>.deuce-home)+.deuce-footer{margin-top:0}
 .global-scoreboard--overlay .global-player{grid-template-columns:22px minmax(0,1fr) 20px auto}
 
 .home-latest-results{padding-top:clamp(42px,5vw,68px)!important}
+.home-latest-results+.home-latest-results{padding-top:clamp(22px,3vw,38px)!important}
 .legacy-daily:has(+.home-latest-results){padding-bottom:clamp(36px,4vw,56px)}
 .home-archive-tools form,
 .home-archive-tools form .deuce-cta{border-radius:999px!important}
@@ -3299,7 +3300,8 @@ main:has(.deuce-comparison)+.deuce-footer{margin-top:22px!important}
 .coverage-hero-stats>div{display:grid;gap:8px;padding:18px;border:0;border-radius:18px;background:var(--bg-sunken)}
 .coverage-hero-stats>div:last-child{grid-column:1/-1}
 .coverage-hero-stats dt{font-size:13px}
-.coverage-hero-stats dd{font-size:clamp(25px,2.6vw,38px)}
+.coverage-hero-stats dd{display:grid;gap:8px;font-size:clamp(25px,2.6vw,38px)}
+.coverage-hero-stats small{color:var(--muted);font-size:11px;font-weight:650;line-height:1.35}
 .coverage-updated{font-size:13px!important}
 .coverage-daily,.coverage-snapshot{gap:clamp(34px,6vw,78px);padding:clamp(34px,5vw,60px)}
 .coverage-section-copy h2{margin-top:0!important;font-size:clamp(38px,4vw,58px)!important;letter-spacing:-.04em}

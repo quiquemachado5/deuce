@@ -11,6 +11,8 @@ import {packArtifacts,registerArtifactPacks,readSnapshotArtifact,clearArtifactPa
 import {wtaBackfillProgress,operationHistory,operationStatus,withOperationHistory} from '../lib/archive-operations';
 import {evidenceHref} from '../lib/record-evidence';
 import {playerPhoto} from '../lib/player-imagery';
+import {comparisonHref,matchArchiveHref,tournamentHref} from '../lib/explore';
+import {recordFamilyMediaLayout} from '../app/records/record-media';
 
 const atp={...mockMatches[0],match_id:'same-id',tour:'atp' as const,data_source:'api' as const};
 const wta={...atp,match_id:'wta-same-id',tour:'wta' as const};
@@ -93,6 +95,15 @@ test('WTA evidence URLs and portraits cannot fall through to ATP',()=>{
   assert.equal(playerPhoto('Novak Djokovic','wta'),null);
   assert.equal(playerPhoto('Iga Swiatek','atp'),null);
   assert.equal(playerPhoto('Iga Swiatek','wta')?.auditStatus,'verified');
+});
+
+test('WTA navigation and record media keep their circuit context',()=>{
+  assert.equal(matchArchiveHref('wta'),'/buscar?tour=wta');
+  assert.equal(tournamentHref('roland-garros','wta'),'/torneos/roland-garros?cuadro=wta');
+  assert.equal(tournamentHref('roland-garros','wta',2026),'/torneos/roland-garros/2026?cuadro=wta');
+  assert.equal(comparisonHref('Iga Swiatek','Coco Gauff','cara-a-cara','wta'),'/comparar?a=Iga+Swiatek&b=Coco+Gauff&tour=wta#cara-a-cara');
+  assert.equal(recordFamilyMediaLayout('videoBottom','wta'),'photoTop');
+  assert.equal(recordFamilyMediaLayout('videoBottom','atp'),'videoBottom');
 });
 
 

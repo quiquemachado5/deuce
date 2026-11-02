@@ -131,7 +131,7 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
         <div className={styles.comparisonHeader}>
           {players.map((player, index) => {
             const country = playerBiography(player.name,q.tour==='wta'?'wta':'atp')?.country;
-            return <Link className={styles.playerHeading} data-side={index === 0 ? 'left' : 'right'} href={`/jugadores/${playerSlug(player.name)}`} key={player.name}>
+            return <Link className={styles.playerHeading} data-side={index === 0 ? 'left' : 'right'} href={`/jugadores/${playerSlug(player.name)}${tour === 'wta' ? '?tour=wta' : ''}`} key={player.name}>
               <span className={styles.flag}>{country ? <PlayerFlag code={country}/> : null}</span>
               <strong>{player.name}</strong>
             </Link>;

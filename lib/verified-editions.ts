@@ -122,6 +122,7 @@ export const editionReferenceMatches: Match[] = references.map((r) => {
   ]);
   return {
     match_id: `reference-${r.id}`,
+    tour: 'atp',
     tournament: r.tournament,
     year: r.year,
     category: r.category,

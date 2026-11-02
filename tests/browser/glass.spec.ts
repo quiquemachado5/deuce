@@ -19,7 +19,7 @@ test('tournament directory prioritizes the four Grand Slams and preserves catego
 });
 test('edition presents the final, draw and data readings without a legacy media block',async({page})=>{
   await page.goto('/torneos/roland-garros/2024');
-  await expect(page.getByRole('heading',{name:'La final',exact:true})).toBeVisible();
+  await expect(page.getByRole('heading',{name:'La final masculina',exact:true})).toBeVisible();
   await expect(page.getByRole('heading',{name:/Cuadro documentado de la edición/i})).toBeVisible();
   await expect(page.getByRole('heading',{name:'Lecturas de la edición',exact:true})).toBeVisible();
   await expect(page.getByRole('button',{name:/Ver todos los partidos/})).toBeVisible();

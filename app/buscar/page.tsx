@@ -30,7 +30,7 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
   return {
     title,
     description: tour === 'wta'
-      ? 'Consulta el estado del archivo WTA y accede al archivo ATP disponible por temporada, superficie y ronda.'
+      ? 'Busca jugadoras, torneos y resultados WTA por temporada, superficie y ronda.'
       : 'Busca jugadores y torneos ATP. Recorre el archivo por temporada, superficie y ronda.',
     alternates: { canonical },
     openGraph:{title,url:canonical},

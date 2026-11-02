@@ -14,6 +14,15 @@ export function comparisonHref(first: string, second: string, anchor = 'cara-a-c
   return `/comparar?${query}${anchor ? `#${anchor}` : ''}`
 }
 
+export function matchArchiveHref(tour: Tour) {
+  return tour === 'wta' ? '/buscar?tour=wta' : '/buscar'
+}
+
+export function tournamentHref(slug: string, tour: Tour, year?: number) {
+  const path = `/torneos/${slug}${year === undefined ? '' : `/${year}`}`
+  return tour === 'wta' ? `${path}?cuadro=wta` : path
+}
+
 export type PlayerSummary = {
   name: string
   tour: Tour

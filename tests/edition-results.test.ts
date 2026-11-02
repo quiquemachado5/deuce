@@ -55,7 +55,29 @@ test("draw results are versioned separately and a missing competition artifact c
   );
   assert.equal(chosen.fallbackReason, "remote-incomplete");
 });
-import { reconcileSeasonResults } from "../lib/result-refresh";
+import { mergeSeasonBaseline, reconcileSeasonResults } from "../lib/result-refresh";
+import {bundledTourSeason} from '../lib/live-tennis';
+test('the bundled ATP seed joins the major and tour cohorts without duplicate matches',async()=>{
+  const season=await bundledTourSeason(2026);
+  assert.ok(season);
+  assert.equal(season.scope,'atp-main-v2');
+  assert.equal(new Set(season.data.map(row=>String(row.id))).size,season.data.length);
+  const tiers=new Set(season.data.map(row=>String(row.tier)));
+  assert.ok(tiers.has('grand_slam'));
+  assert.ok(tiers.has('atp_1000'));
+  assert.ok(tiers.has('atp_500'));
+  assert.ok(tiers.has('atp_250'));
+});
+test('a saved ATP season repairs and overrides its complete bundled baseline',()=>{
+  const baseline=mergeSeasonBaseline(
+    {scope:'atp-main-v2',at:'2026-10-20T00:00:00Z',data:[{id:1,tour:'atp'},{id:2,tour:'atp',winner:1}]},
+    {scope:'atp-main-v2',at:'2026-11-02T00:00:00Z',data:[{id:2,tour:'atp',winner:2},{id:3,tour:'atp'}]},
+  );
+  assert.deepEqual(baseline?.data?.map(row=>row.id),[1,2,3]);
+  assert.equal(baseline?.data?.find(row=>row.id===2)?.winner,2);
+  assert.equal(baseline?.at,'2026-11-02T00:00:00Z');
+  assert.throws(()=>mergeSeasonBaseline({data:[{id:1,tour:'wta'}]},undefined),/another circuit/);
+});
 test("modern migration follows empty intermediate pages and preserves all rows until a complete query succeeds", async () => {
   const calls: string[] = [];
   const result = await reconcileSeasonResults(
@@ -167,11 +189,11 @@ import {prepareMatch} from '../lib/quality';
 import {editionReferenceMatches,mergeEditionReferences} from '../lib/verified-editions';
 import {hasClosedModernResult,recoveredModernResult} from '../lib/modern-result';
 import {reconcileEditionSummaries} from '../lib/edition-reconcile';
-test('Australian Open 2026 has every round: 120 closed matches, six retirements and the documented Mensik walkover',async()=>{const rows=(await archiveMatches(2026,true)).filter(m=>m.tournament==='Australian Open'&&m.category==='Grand Slam');const [audit]=auditEditions(rows);assert.equal(rows.length,127);assert.equal(new Set(rows.map(m=>m.match_id)).size,127);assert.equal(audit.completed,120);assert.equal(audit.terminal,7);assert.equal(audit.pending,0);assert.deepEqual(audit.rounds,{'1':64,'2':32,'3':16,'4':8,'5':4,'6':2,'7':1});const final=rows.map(prepareMatch).find(m=>m.round==='Final')!;assert.equal(final.final_score,'2–6 6–2 6–3 7–5');assert.equal(final.player1.name,'Carlos Alcaraz');assert.equal(final.winner,1);assert.match(final.context?.resultSource||'',/ausopen.com/);assert.deepEqual(final.point_tape,[]);});
+test('Australian Open 2026 has every round: 120 closed matches, six retirements and the documented Mensik walkover',async()=>{const rows=(await archiveMatches(2026,true)).filter(m=>m.tour==='atp'&&m.tournament==='Australian Open'&&m.category==='Grand Slam');const [audit]=auditEditions(rows);assert.equal(rows.length,127);assert.equal(new Set(rows.map(m=>m.match_id)).size,127);assert.equal(audit.completed,120);assert.equal(audit.terminal,7);assert.equal(audit.pending,0);assert.deepEqual(audit.rounds,{'1':64,'2':32,'3':16,'4':8,'5':4,'6':2,'7':1});const final=rows.map(prepareMatch).find(m=>m.round==='Final')!;assert.equal(final.final_score,'2–6 6–2 6–3 7–5');assert.equal(final.player1.name,'Carlos Alcaraz');assert.equal(final.winner,1);assert.match(final.context?.resultSource||'',/ausopen.com/);assert.deepEqual(final.point_tape,[]);});
 test('a reference never duplicates a subsequently supplied provider contest',()=>{const final=editionReferenceMatches.find(m=>m.tournament==='Australian Open'&&m.round==='Final')!;const provider={...final,match_id:'live-123456',data_source:'api' as const};const result=mergeEditionReferences([provider],2026);assert.equal(result.filter(m=>m.tournament==='Australian Open'&&m.round==='Final').length,1);assert.equal(result.find(m=>m.tournament==='Australian Open'&&m.round==='Final')?.match_id,provider.match_id);});
 test('a verified 2025 walkover fills the bracket without becoming a played match',()=>{const row=editionReferenceMatches.find(m=>m.match_id==='reference-winston-salem-2025-korda-withdrawal')!;assert.equal(row.year,2025);assert.equal(row.tour||'atp','atp');assert.equal(row.winner,1);assert.equal(row.score_summary.games.length,0);assert.match(row.context?.resultSource||'',/atptour.com/);assert.match(row.context?.metadataSources?.[0]?.url||'',/winstonsalemopen.com/);assert.equal(eligibleMatch(prepareMatch(row)),false);const rows=mergeEditionReferences([],2025);assert.equal(rows.filter(m=>m.match_id===row.match_id).length,1);assert.equal(mergeEditionReferences([],2026).some(m=>m.match_id===row.match_id),false);});
 test('Miami 2026 has all 95 played draw slots and a documented final',async()=>{
-  const rows=(await archiveMatches(2026,true)).filter(m=>m.tournament==='Miami'&&m.category==='Masters 1000');
+  const rows=(await archiveMatches(2026,true)).filter(m=>m.tour==='atp'&&m.tournament==='Miami'&&m.category==='Masters 1000');
   const [audit]=auditEditions(rows);
   assert.equal(rows.length,95);
   assert.equal(new Set(rows.map(m=>m.match_id)).size,95);
@@ -186,7 +208,7 @@ test('Miami 2026 has all 95 played draw slots and a documented final',async()=>{
   assert.match(final.context?.resultSource||'',/miamiopen.com\/draws/);
 });
 test('Roland Garros 2026 reconciles every official draw slot without counting retirements as statistical wins',async()=>{
-  const rows=(await archiveMatches(2026,true)).filter(m=>m.tournament==='Roland Garros'&&m.category==='Grand Slam');
+  const rows=(await archiveMatches(2026,true)).filter(m=>m.tour==='atp'&&m.tournament==='Roland Garros'&&m.category==='Grand Slam');
   const [audit]=auditEditions(rows);
   assert.equal(rows.length,127);
   assert.equal(new Set(rows.map(m=>m.match_id)).size,127);

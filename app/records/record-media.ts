@@ -19,6 +19,7 @@ const portraitFocus:Record<string,{objectPosition:string;mobileObjectPosition:st
 export const photoFor=(piece?:RecordMeta|null)=>piece?.leader?(piece.leader.proof?.tour==='wta'?playerPhoto(piece.leader.photoName||piece.leader.name,'wta'):recordPhoto(piece.id,piece.leader.name)):null;
 export const rowForTour=(row:RecordRow,tour?:string):RecordRow=>tour==='wta'&&row.href.startsWith('/jugadores/')&&!row.href.includes('tour=wta')
   ?{...row,href:`${row.href}${row.href.includes('?')?'&':'?'}tour=wta`}:row;
+export const recordFamilyMediaLayout=(layout:string,tour:'atp'|'wta')=>tour==='wta'&&layout==='videoBottom'?'photoTop':layout;
 export function portraitFor(name:string,tour:'atp'|'wta'='atp'):Photo|null{
   const photo=playerEditionPhoto(name,1,tour)||playerPhoto(name,tour);if(!photo)return null;
   return {...photo,...(tour==='atp'?portraitFocus[name]||{}:{})};

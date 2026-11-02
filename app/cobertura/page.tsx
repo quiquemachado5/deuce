@@ -26,6 +26,10 @@ export default async function Coverage() {
   const updated=new Date(manifest.generatedAt).toLocaleString("es-ES",{dateStyle:"medium",timeStyle:"short",timeZone:"Europe/Madrid"});
   const freshness=archiveFreshnessSummary(manifest);
   const latestExact=freshness.latestExactDate?archiveDate(freshness.latestExactDate):'Pendiente de fecha exacta verificada';
+  const circuitDate=(tour:'atp'|'wta')=>{
+    const date=manifest.circuitFreshness?.[tour].latestExactDate;
+    return date?`Hasta ${archiveDate(date)}`:'Sin fecha exacta registrada';
+  };
   const coverage=[
     {label:"Ranking de la fecha",value:totals.ranking},
     {label:"Estadísticas del partido",value:totals.statistics},
@@ -36,11 +40,11 @@ export default async function Coverage() {
     <header className="coverage-hero">
       <div className="coverage-hero-copy"><span>Archivo publicado</span><h1>Cobertura.</h1><p>Totales ATP y WTA, y los datos que se incorporan cada día.</p></div>
       <dl className="coverage-hero-stats">
-        <div><dt>Partidos ATP</dt><dd>{number(manifest.summary.tours?.atp ?? manifest.matchCount)}</dd></div>
-        <div><dt>Partidos WTA</dt><dd>{number(manifest.summary.tours?.wta ?? 0)}</dd></div>
-        <div><dt>Total publicado</dt><dd>{number(manifest.matchCount)}</dd></div>
+        <div><dt>Partidos ATP</dt><dd>{number(manifest.summary.tours?.atp ?? manifest.matchCount)}<small>{circuitDate('atp')}</small></dd></div>
+        <div><dt>Partidos WTA</dt><dd>{number(manifest.summary.tours?.wta ?? 0)}<small>{circuitDate('wta')}</small></dd></div>
+        <div><dt>Total publicado</dt><dd>{number(manifest.matchCount)}<small>Último partido: {latestExact}</small></dd></div>
       </dl>
-      <p className="coverage-updated"><span aria-hidden="true"/>{`Actualizado ${updated} · Último partido: ${latestExact}`}</p>
+      <p className="coverage-updated"><span aria-hidden="true"/>{`Copia regenerada ${updated}`}</p>
     </header>
 
     <Suspense fallback={<p role="status">Consultando las actualizaciones…</p>}><Operations manifest={manifest}/></Suspense>

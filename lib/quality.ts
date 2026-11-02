@@ -30,8 +30,14 @@ const tourVenueAliases: Record<string,string> = {
   'Stuttgart, Germany': 'Stuttgart',
   'Winston Salem, USA': 'Winston-Salem',
 }
+const tournamentAliases: Record<string,string> = {
+  'Bad Homburg, Germany': 'Bad Homburg',
+  'Bad Homburg Open': 'Bad Homburg',
+  'Bad Homburg, Germany, Doubles': 'Bad Homburg',
+}
 export function canonicalTournamentName(name:string,year:number,category:string) {
-  return year>=2023 && (category==='ATP 500'||category==='ATP 250') ? tourVenueAliases[name] || name : name
+  const canonical=tournamentAliases[name] || name
+  return year>=2023 && (category==='ATP 500'||category==='ATP 250') ? tourVenueAliases[canonical] || canonical : canonical
 }
 export function closedSet(pair: number[]) {
   if (pair.length !== 2 || pair.some(n => !Number.isInteger(n) || n < 0)) return false

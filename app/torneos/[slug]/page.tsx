@@ -17,6 +17,7 @@ import { imageFocus } from "@/lib/image-focus";
 import TournamentEditionNav from "@/components/TournamentEditionNav";
 import styles from "@/components/tournament-detail.module.css";
 import { tournamentDetailPhoto } from "@/lib/tournament-detail-media";
+import { singlesMatches } from "@/lib/match-discipline";
 
 type Props = { params: Promise<{ slug: string }>; searchParams: Promise<{ categoria?: string; cuadro?: string }> };
 
@@ -24,17 +25,18 @@ export async function generateMetadata({ params, searchParams }: Props) {
   const { slug } = await params;
   const { categoria, cuadro } = await searchParams;
   const tournament = tournamentDirectory(await preparedArchive()).find((entry) => entry.slug === slug);
-  const requested=tournament?.matches.filter(match=>match.category===categoria)||[];
-  const tour=cuadro==='wta'||(!cuadro&&requested.length>0&&requested.every(match=>match.tour==='wta'))||!tournament?.matches.some(match=>(match.tour||'atp')==='atp')?'wta':'atp';
-  const matches=tournament?.matches.filter(match=>(match.tour||'atp')===tour)||[];
+  const singles=singlesMatches(tournament?.matches||[]);
+  const requested=singles.filter(match=>match.category===categoria);
+  const tour=cuadro==='wta'||(!cuadro&&requested.length>0&&requested.every(match=>match.tour==='wta'))||!singles.some(match=>(match.tour||'atp')==='atp')?'wta':'atp';
+  const matches=singles.filter(match=>(match.tour||'atp')===tour);
   const categories=[...new Set(matches.map(match=>match.category))];
   const category=categoria&&categories.includes(categoria)?categoria:tournament&&matches.length?tournamentCategory({...tournament,matches,categories,latestYear:Math.max(...matches.map(match=>match.year))}):"";
   const canonicalParams=new URLSearchParams();
-  if(categoria&&tournament?.categories.includes(categoria))canonicalParams.set('categoria',categoria);
+  if(categoria&&categories.includes(categoria))canonicalParams.set('categoria',categoria);
   if(cuadro==='wta')canonicalParams.set('cuadro','wta');
   const categoryQuery=canonicalParams.size?`?${canonicalParams}`:'';
   const title = `${tournament ? tournamentName(tournament.name) : "Torneo"}${category ? ` · ${categoryLabel(category)}` : ""} — DEUCE`;
-  const description = "Títulos, finales y ediciones masculinas y femeninas de este torneo en el archivo.";
+  const description = "Títulos, finales y ediciones individuales masculinas y femeninas de este torneo en el archivo.";
   return {
     title,
     description,
@@ -50,12 +52,14 @@ export default async function Tournament({ params, searchParams }: Props) {
   const archive = await preparedArchive();
   const tournament = tournamentDirectory(archive).find((entry) => entry.slug === slug);
   if (!tournament) notFound();
-  const hasWomen=tournament.matches.some(match=>match.tour==='wta');
-  const hasMen=tournament.matches.some(match=>(match.tour||'atp')==='atp');
-  const requestedCategory=categoria&&tournament.categories.includes(categoria)?categoria:undefined;
-  const requestedRows=tournament.matches.filter(match=>match.category===requestedCategory);
+  const singles=singlesMatches(tournament.matches);
+  const hasWomen=singles.some(match=>match.tour==='wta');
+  const hasMen=singles.some(match=>(match.tour||'atp')==='atp');
+  const singlesCategories=[...new Set(singles.map(match=>match.category))];
+  const requestedCategory=categoria&&singlesCategories.includes(categoria)?categoria:undefined;
+  const requestedRows=singles.filter(match=>match.category===requestedCategory);
   const selectedTour=cuadro==='wta'&&hasWomen?'wta':cuadro==='atp'&&hasMen?'atp':requestedRows.length&&requestedRows.every(match=>match.tour==='wta')?'wta':hasMen?'atp':'wta';
-  const tourMatches=tournament.matches.filter(match=>(match.tour||'atp')===selectedTour);
+  const tourMatches=singles.filter(match=>(match.tour||'atp')===selectedTour);
   const tourCategories=[...new Set(tourMatches.map(match=>match.category))];
   const category=requestedCategory&&tourCategories.includes(requestedCategory)?requestedCategory:tournamentCategory({...tournament,matches:tourMatches,categories:tourCategories,latestYear:Math.max(...tourMatches.map(match=>match.year))});
   const registered=tourMatches.filter(match=>match.category===category);
@@ -124,8 +128,8 @@ export default async function Tournament({ params, searchParams }: Props) {
   const categoryOptions = tourCategories.map((level) => ({
     value: level,
     label: categoryLabel(level),
-    count: [...new Set(tournament.matches.filter(match=>match.category===level&&(match.tour||'atp')===selectedTour).map(match=>match.year))].length,
-    years: [...new Set(tournament.matches.filter(match=>match.category===level&&(match.tour||'atp')===selectedTour).map(match=>match.year))].sort((a,b)=>b-a),
+    count: [...new Set(tourMatches.filter(match=>match.category===level).map(match=>match.year))].length,
+    years: [...new Set(tourMatches.filter(match=>match.category===level).map(match=>match.year))].sort((a,b)=>b-a),
   }));
 
   return (
@@ -139,7 +143,7 @@ export default async function Tournament({ params, searchParams }: Props) {
               <h1 className={styles.heroTitle}><span className={styles.heroName} data-hero-tournament-name="">{heroTitleLines.map((line) => <span className={styles.heroLine} key={line}>{line}</span>)}</span></h1>
             </div>
             <div className={styles.heroNav}>
-              <TournamentEditionNav slug={slug} years={years} category={tournament.categories.length > 1 ? category : undefined} categories={categoryOptions} tour={selectedTour} />
+              <TournamentEditionNav slug={slug} years={years} category={tourCategories.length > 1 ? category : undefined} categories={categoryOptions} tour={selectedTour} />
             </div>
           </div>
         </div>
@@ -180,7 +184,7 @@ export default async function Tournament({ params, searchParams }: Props) {
       {rateLeader && <section className={`${styles.section} ${styles.rateSection}`} aria-labelledby="td-effectiveness-title">
         <div className={styles.sectionHead}><div><h2 id="td-effectiveness-title">Efectividad en este torneo</h2></div></div>
         <div className={styles.rateEditorial}>
-          <article className={styles.rateLeaderFeature}>{rateLeaderPhoto && <Image className="art-directed-photo" src={rateLeaderPhoto.src} alt={rateLeaderPhoto.alt} fill sizes="(max-width:759px) 100vw, 45vw" style={imageFocus(rateLeaderPhoto.objectPosition || "center top",rateLeaderPhoto.mobileObjectPosition || rateLeaderPhoto.objectPosition || "center top")} unoptimized/>}<span className={styles.photoShade} aria-hidden="true"/><div><strong>{number(rateLeader.value,1)}%</strong><Link href={rateLeader.href}>{rateLeader.name}<ArrowUpRight size={20} aria-hidden="true"/></Link><p>{rateLeader.detail}</p></div></article>
+          <article className={styles.rateLeaderFeature}>{rateLeaderPhoto && <Image className="art-directed-photo" src={rateLeaderPhoto.src} alt={rateLeaderPhoto.alt} fill sizes="(max-width:759px) 100vw, 45vw" style={imageFocus(rateLeaderPhoto.objectPosition || "center top",rateLeaderPhoto.mobileObjectPosition || rateLeaderPhoto.objectPosition || "center top")} unoptimized/>}<span className={styles.photoShade} aria-hidden="true"/><div><strong>{number(rateLeader.value,1)}%</strong><Link href={playerHref(rateLeader.href)}>{rateLeader.name}<ArrowUpRight size={20} aria-hidden="true"/></Link><p>{rateLeader.detail}</p></div></article>
           <div className={styles.rateMatrix}><ol>{rateRows.slice(1).map((row,index)=><li key={row.name} data-rank={index+2}><Link href={playerHref(row.href)} aria-label={`${row.name}: ${number(row.value,1)} %, ${row.detail}`}><span className={styles.ratePerson}><PlayerAvatar name={row.name} photo={tournamentPlayerPhoto(row.name)} size={42}/><span><strong>{row.name}</strong><small>{row.detail}</small></span></span><b>{number(row.value,1)}%</b><ArrowUpRight size={18} aria-hidden="true"/></Link></li>)}</ol></div>
         </div>
       </section>}

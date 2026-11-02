@@ -1,6 +1,19 @@
 type Row = { id: unknown; [key: string]: unknown };
 export type SeasonCheckpoint = { season: number; tour: 'atp' | 'wta'; baselineAt?: string; startedAt: string; windows: string[]; windowIndex: number; offset: number; rows: Row[] };
-type Season = { scope?: string; at?: string; data?: Row[] } | null;
+export type Season = { scope?: string; at?: string; data?: Row[] } | null | undefined;
+
+/** A saved incremental season overlays the complete bundled baseline by ID. */
+export function mergeSeasonBaseline(bundled:Season,saved:Season,tour:'atp'|'wta'='atp'):Season {
+  if(!bundled)return saved;
+  const rows=new Map<string,Row>();
+  for(const row of [...(bundled.data||[]),...(saved?.data||[])]){
+    if(row.tour&&row.tour!==tour)throw Error('Season baseline contains another circuit');
+    rows.set(String(row.id),{...row,tour});
+  }
+  const dates=[bundled.at,saved?.at].filter((value):value is string=>typeof value==='string'&&Number.isFinite(Date.parse(value)));
+  const at=dates.sort((a,b)=>Date.parse(b)-Date.parse(a))[0];
+  return {data:[...rows.values()],scope:`${tour}-main-v2`,...(at?{at}:{})};
+}
 /** Fully page every query. A short filtered page is not an end-of-data signal. */
 export async function reconcileSeasonResults(
   season: number,

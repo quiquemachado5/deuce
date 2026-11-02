@@ -19,6 +19,7 @@ services:
 
   scheduler:
     image: node:24-bookworm-slim
+    user: "1001:1001"
     restart: unless-stopped
     depends_on:
       web:
@@ -27,9 +28,11 @@ services:
       - .env.production
     environment:
       DEUCE_INTERNAL_URL: http://web:3000
+      DEUCE_ARCHIVE_DIR: /app/.deuce-archive
     command: ["node", "/app/scheduler.mjs"]
     volumes:
       - ./ops/oracle/scheduler.mjs:/app/scheduler.mjs:ro
+      - archive:/app/.deuce-archive
 
   caddy:
     image: caddy:2-alpine

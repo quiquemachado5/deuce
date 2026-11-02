@@ -15,6 +15,7 @@ import { modernTournamentCategory, historicalTournamentCategory } from './tourna
 import { dedupeArchiveTourRows } from './archive-tour-dedupe'
 import { recoveredModernResult } from './modern-result'
 import { reconcileEditionSummaries } from './edition-reconcile'
+import { providerRoundName, publishableWtaArchiveRow, publishableWtaModernRow } from './provider-publication'
 
 const archive = join(process.cwd(), 'data', 'archive')
 const listsDir = join(archive, 'lists')
@@ -56,6 +57,7 @@ async function rowsFor(prefix: string): Promise<Row[]> {
     const addWomen = (merged: Map<string, Row>) => {
       for (const source of womenSources) for (const row of source.data) {
         if (row.tour && row.tour !== 'wta') throw new Error(`Local WTA ${season[1]} contains another circuit`)
+        if (!publishableWtaModernRow(row)) continue
         merged.set(rowKey({ ...row, tour: 'wta' }), { ...row, tour: 'wta' })
       }
     }
@@ -89,6 +91,7 @@ async function rowsFor(prefix: string): Promise<Row[]> {
       .sort((a, b) => Date.parse(a?.at || '') - Date.parse(b?.at || ''))
     for (const source of sources) for (const row of source.data) {
       if (row.tour && row.tour !== 'wta') throw new Error(`Local WTA ${season[1]} contains another circuit`)
+      if (!publishableWtaModernRow(row)) continue
       merged.set(rowKey({ ...row, tour: 'wta' }), { ...row, tour: 'wta' })
     }
     rows.splice(0, rows.length, ...merged.values())
@@ -105,12 +108,30 @@ async function rowsFor(prefix: string): Promise<Row[]> {
 export async function bundledTourSeason(season:number,tour:Tour='atp') {
   if(tour!=='atp')return undefined
   try{
-    const marker=JSON.parse(await readFile(join(listsDir,`modern-${season}-tour.complete.json`),'utf8')) as {count?:unknown;at?:unknown}
-    const files=await listFiles(`modern-${season}-tour-`)
-    const pages=await Promise.all(files.map(name=>readZip(join(listsDir,name))))
-    const data=pages.flatMap(page=>Array.isArray(page.data)?page.data:[]).filter(row=>rowTour(row)===tour)
-    if(!Number.isSafeInteger(marker.count)||marker.count!==data.length||typeof marker.at!=='string'||!Number.isFinite(Date.parse(marker.at)))throw new Error('Incomplete bundled tour season')
-    return {data,scope:`${tour}-main-v2` as const,at:marker.at}
+    const marker=JSON.parse(await readFile(join(listsDir,`modern-${season}-tour.complete.json`),'utf8')) as {count?:unknown;pages?:unknown;at?:unknown}
+    const all=await listFiles(`modern-${season}-`)
+    const baseFiles=all.filter(name=>new RegExp(`^modern-${season}-\\d+\\.json\\.gz$`).test(name))
+    const tourFiles=all.filter(name=>new RegExp(`^modern-${season}-tour-\\d+\\.json\\.gz$`).test(name))
+    const readComplete=async(files:string[])=>{
+      if(!files.length)throw new Error('Missing bundled season pages')
+      const pages=await Promise.all(files.map(name=>readZip(join(listsDir,name))))
+      let nextOffset=0
+      for(const [index,page] of pages.entries()){
+        const meta=page?.meta,limit=Number(meta?.limit),offset=Number(meta?.offset)
+        if(!Number.isSafeInteger(limit)||limit<=0||offset!==nextOffset||typeof meta?.has_more!=='boolean')throw new Error('Invalid bundled season pagination')
+        if((index<pages.length-1&&meta.has_more!==true)||(index===pages.length-1&&meta.has_more!==false))throw new Error('Incomplete bundled season pagination')
+        nextOffset+=limit
+      }
+      return pages.flatMap(page=>Array.isArray(page.data)?page.data:[])
+    }
+    const [baseRows,tourRows]=await Promise.all([readComplete(baseFiles),readComplete(tourFiles)])
+    if(!Number.isSafeInteger(marker.count)||marker.count!==tourRows.length||marker.pages!==tourFiles.length||typeof marker.at!=='string'||!Number.isFinite(Date.parse(marker.at)))throw new Error('Incomplete bundled tour season')
+    const merged=new Map<string,Row>()
+    for(const row of [...baseRows,...tourRows]){
+      if(rowTour(row)!==tour)throw new Error('Bundled ATP season contains another circuit')
+      merged.set(String(row.id),{...row,tour})
+    }
+    return {data:[...merged.values()],scope:`${tour}-main-v2` as const,at:marker.at}
   }catch{return undefined}
 }
 async function wtaArchiveRows(year: number, level: string): Promise<Row[]> {
@@ -127,7 +148,7 @@ async function wtaArchiveRows(year: number, level: string): Promise<Row[]> {
   const selected = candidates.at(-1)
   if (!selected) return []
   if (selected.data.some((row: Row) => row.tour && row.tour !== 'wta')) throw new Error(`WTA archive ${year}-${level} contains another circuit`)
-  return selected.data.map((row: Row) => ({ ...row, tour: 'wta' }))
+  return selected.data.filter((row: Row) => publishableWtaArchiveRow(row)).map((row: Row) => ({ ...row, tour: 'wta' }))
 }
 function numeric(value: unknown) { if (value === null || value === undefined || value === '') return null; const result = Number(value); return Number.isFinite(result) ? result : null }
 function player(number: 1 | 2, name: string, seed: unknown) { return { name: name || `Jugador ${number}`, seed: numeric(seed) } }
@@ -140,7 +161,7 @@ function archiveGames(score: string): number[][] {
   return score.split(/\s+/).map(part => part.match(/^(\d+)-(\d+)/)).filter(Boolean).map(match => [Number(match![1]), Number(match![2])])
 }
 // The API supplies draw size, not a universal "first/second/third round" label.
-function roundName(code: string) { return ({ F: 'Final', SF: 'Semifinal', QF: 'Cuartos de final', R16: 'Octavos de final', R32: 'Ronda de 32', R64: 'Ronda de 64', R128: 'Ronda de 128' } as Record<string, string>)[code] || code }
+function roundName(code: string) { return providerRoundName(code) }
 function tournamentName(name: string) {
   const n = name.toLowerCase()
   if ((n.includes('australian open') || n.includes('australian chps'))) return 'Australian Open'

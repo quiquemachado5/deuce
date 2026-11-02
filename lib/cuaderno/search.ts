@@ -14,14 +14,14 @@ import type { PlayerRecord } from '../season-analytics';
 import type { RecordManifest } from '../revista/snapshot';
 
 /** Compact suggestions for typeahead: never opens the 176k-match artifact. */
-export function quickSearchArchive(query: string, records: PlayerRecord[], manifest: Pick<RecordManifest, 'pieces'>) {
+export function quickSearchArchive(query: string, records: PlayerRecord[], manifest: Pick<RecordManifest, 'pieces'> & { tour?: 'atp' | 'wta' }) {
   const raw = query.trim().slice(0, 100);
   const terms = canonicalSearchText(raw).split(/\s+/).filter(Boolean);
   if (terms.join('').length < 2) return [] as SearchItem[];
   const includes = (value: string) => terms.every(term => canonicalSearchText(value).includes(term));
   const items: SearchItem[] = [];
   for (const piece of manifest.pieces.filter(piece => includes(`${piece.title} ${piece.id}`)).slice(0, 4)) {
-    items.push({ href: `/records?dato=${piece.id}`, name: piece.title, group: 'Récords', detail: piece.group });
+    items.push({ href: `/records?dato=${piece.id}${manifest.tour === 'wta' ? '&tour=wta' : ''}`, name: piece.title, group: 'Récords', detail: piece.group });
   }
   const exact = records.filter(player => includes(player.name));
   const players = exact.length ? exact : records.filter(player => approximateName(raw, player.name));
@@ -61,6 +61,10 @@ export async function searchArchive(query: string, options: { tour?:'atp'|'wta';
   // The prepared player rows already carry these counts. Building the full
   // player directory here makes the first keystroke scan the entire archive.
   const exactPlayers = circuitPlayers.filter(p => includes(p.name));
+  const foreignExactPlayer = Boolean(tour) && !exactPlayers.length && data.records.some(player =>
+    (player.tour || 'atp') !== tour && canonicalSearchText(player.name) === q,
+  );
+  if (foreignExactPlayer) return items;
   const playerResults = exactPlayers.length ? exactPlayers : circuitPlayers.filter(p => approximateName(query, p.name));
   for (const p of playerResults.slice(0, 4))
     items.push({
