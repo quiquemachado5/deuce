@@ -21,10 +21,11 @@ function FilterSelect({ label, value, options, onChange, allValue = '', noAll = 
   </label>;
 }
 
-export default function MatchSearchBar({ query, categories, rounds, years, activeYear }: {
+export default function MatchSearchBar({ query, categories, rounds, surfaces, years, activeYear }: {
   query: MatchQuery;
   categories: string[];
   rounds: string[];
+  surfaces: string[];
   years: number[];
   activeYear: number | null;
 }) {
@@ -128,11 +129,9 @@ export default function MatchSearchBar({ query, categories, rounds, years, activ
     data-visible={filtersOpen || undefined}
   >
     <div className={styles.filterPanelHeader}><strong id={portal ? panelTitleId : undefined}>Filtrar partidos</strong><button ref={portal ? portalClose : undefined} type="button" onClick={() => close()} aria-label="Cerrar filtros"><X size={17} aria-hidden="true"/></button></div>
-    <div className={styles.mobileViewSwitch}>{viewSwitch}</div>
-    <FilterSelect label="Circuito" value={query.tour || 'atp'} noAll options={[{ value: 'atp', label: 'ATP · masculino' }, { value: 'wta', label: 'WTA · femenino' }]} onChange={tour => apply({ tour, category: undefined, tournament: undefined, year: undefined, limit: undefined })} />
     <FilterSelect label="Temporada" value={query.year || (activeYear ? String(activeYear) : 'all')} allValue="all" options={years.map(year => ({ value: String(year), label: String(year) }))} onChange={year => apply({ year })} />
     <FilterSelect label="Categoría" value={query.category || ''} options={categories.map(value => ({ value, label: value }))} onChange={category => apply({ category: category || undefined })} />
-    <FilterSelect label="Superficie" value={query.surface || ''} options={[{ value: 'hard', label: 'Dura' }, { value: 'clay', label: 'Tierra' }, { value: 'grass', label: 'Hierba' }, { value: 'carpet', label: 'Moqueta' }]} onChange={surface => apply({ surface: surface || undefined })} />
+    <FilterSelect label="Superficie" value={query.surface || ''} options={surfaces.map(value=>({value,label:({hard:'Dura',clay:'Tierra',grass:'Hierba',carpet:'Moqueta',unknown:'Sin documentar'} as Record<string,string>)[value]||value}))} onChange={surface => apply({ surface: surface || undefined })} />
     <FilterSelect label="Ronda" value={query.round || ''} options={rounds.map(value => ({ value, label: value }))} onChange={round => apply({ round: round || undefined })} />
   </div>;
 

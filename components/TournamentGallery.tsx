@@ -65,7 +65,7 @@ export default function TournamentGallery({ cards, variant = "rail", label }: {
 
   return <div className={`${styles.gallery} ${styles[variant]}`} onPointerEnter={() => { paused.current = true; }} onPointerLeave={() => { paused.current = false; }} onFocusCapture={() => { paused.current = true; }} onBlurCapture={() => { paused.current = false; }}>
     <div ref={viewport} className={styles.track} tabIndex={variant === "majors" ? -1 : 0} onKeyDown={onKeyDown} aria-label={label}>
-      {cards.map((card, index) => <Link href={card.href} className={styles.card} key={card.id} prefetch={false} data-event-surface={card.surface}>
+      {cards.map((card, index) => {const women=/[?&]cuadro=wta(?:&|$)/.test(card.href);return <Link href={card.href} className={styles.card} key={card.id} prefetch={false} data-event-surface={card.surface}>
         <div className={styles.photo}>
           {card.image ? <Image className="art-directed-photo" src={card.image} alt={card.alt || card.title} fill priority={variant === "majors" && index === 0} sizes={variant === "majors" && index === 0 ? "(max-width:640px) 84vw, 52vw" : "(max-width:640px) 82vw, 31vw"} unoptimized={card.image.includes("/images/players/")} style={imageFocus(card.imagePosition || "center", card.imagePositionMobile || card.imagePosition || "center")} /> : <span className={styles.fallback} aria-hidden="true" />}
           <span className={styles.photoShade} aria-hidden="true" />
@@ -73,9 +73,9 @@ export default function TournamentGallery({ cards, variant = "rail", label }: {
         </div>
         <div className={styles.body}>
           <div className={styles.titleRow}><h3>{card.title}</h3><span className={styles.action} aria-hidden="true"><ArrowRight size={18} /></span></div>
-          <p className={styles.champion}>{card.champion ? <>Campeón {card.championYear}: <strong>{card.champion}</strong></> : card.court}</p>
+          <p className={styles.champion}>{card.champion ? <>{women?'Campeona':'Campeón'} {card.championYear}: <strong>{card.champion}</strong></> : card.court}</p>
         </div>
-      </Link>)}
+      </Link>})}
     </div>
   </div>;
 }

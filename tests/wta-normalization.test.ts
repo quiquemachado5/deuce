@@ -2,8 +2,10 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { mockMatches } from '../lib/mocks';
 import { browserCategory, browserRound } from '../lib/match-browser';
-import { canonicalTournamentName } from '../lib/quality';
+import { canonicalTournamentName, prepareMatch } from '../lib/quality';
 import { providerRoundName, providerTeamCompetition, publishableWtaArchiveRow, publishableWtaModernRow } from '../lib/provider-publication';
+import { providerTournamentName } from '../lib/tournament-identity';
+import { historicalTournamentCategory } from '../lib/tournament-tier';
 
 const match = mockMatches[0];
 
@@ -55,4 +57,41 @@ test('known Bad Homburg provider aliases share one tournament identity', () => {
   for (const name of ['Bad Homburg', 'Bad Homburg, Germany', 'Bad Homburg Open', 'Bad Homburg, Germany, Doubles']) {
     assert.equal(canonicalTournamentName(name, 2026, 'WTA 500'), 'Bad Homburg');
   }
+});
+
+test('WTA identities join country aliases without merging 125 or ITF events', () => {
+  assert.equal(canonicalTournamentName('WTA Berlin', 2026, 'WTA 500', 'wta'), 'Berlin');
+  assert.equal(canonicalTournamentName('Berlin, Germany', 2026, 'WTA 500', 'wta'), 'Berlin');
+  assert.equal(canonicalTournamentName('Madrid (Spain)', 2026, 'WTA 1000', 'wta'), 'Madrid');
+  assert.equal(canonicalTournamentName('Madrid (Spain)', 2026, 'WTA 125', 'wta'), 'Madrid 125');
+  assert.equal(canonicalTournamentName('Rome', 2026, 'WTA 125', 'wta'), 'Rome 125');
+  assert.equal(providerTournamentName('W15 Madrid', { tour: 'wta', level: 15 }), 'W15 Madrid');
+  assert.equal(providerTournamentName('Rome $60K', { tour: 'wta', level: 60 }), 'Rome $60K');
+});
+
+test('historical WTA levels publish conservative circuit categories', () => {
+  assert.equal(historicalTournamentCategory('PM', 2019, 'wta'), 'WTA · alto nivel histórico');
+  assert.equal(historicalTournamentCategory('P', 2021, 'wta'), 'WTA · alto nivel histórico');
+  assert.equal(historicalTournamentCategory('I', 2019, 'wta'), 'WTA Tour histórico');
+  assert.equal(historicalTournamentCategory('C', 2019, 'wta'), 'WTA 125');
+  assert.equal(historicalTournamentCategory(25, 2019, 'wta'), 'Circuito ITF femenino');
+});
+
+test('reviewed WTA editions repair only year- and level-specific surfaces', () => {
+  const edition = (tournament: string, year: number, category: string, surface: typeof match.surface) => prepareMatch({
+    ...match, match_id: `wta-${tournament}-${year}-${category}`, tour: 'wta', tournament, year, category, surface,
+    context: { ...match.context },
+  });
+  const berlin = edition('Berlin, Germany', 2026, 'WTA 500', 'clay');
+  assert.equal(berlin.tournament, 'Berlin');
+  assert.equal(berlin.surface, 'grass');
+  assert.ok(berlin.context?.metadataSources?.some(source => source.field === 'Superficie' && source.url.includes('/berlin/')));
+  const stuttgart = edition('WTA Stuttgart', 2026, 'WTA 500', 'grass');
+  assert.equal(stuttgart.surface, 'clay');
+  assert.equal(stuttgart.context?.indoor, true);
+  assert.equal(edition('Madrid', 2026, 'WTA 1000', 'hard').surface, 'clay');
+  assert.equal(edition('Rome', 2026, 'WTA 1000', 'hard').surface, 'clay');
+  assert.equal(edition('Berlin', 2019, 'WTA · alto nivel histórico', 'clay').surface, 'clay');
+  assert.equal(edition('Stuttgart', 2008, 'WTA · alto nivel histórico', 'hard').surface, 'hard');
+  assert.equal(edition('W15 Madrid', 2020, 'Circuito ITF femenino', 'hard').tournament, 'W15 Madrid');
 });

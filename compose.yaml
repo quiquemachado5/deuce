@@ -6,6 +6,9 @@ services:
       context: .
       args:
         NEXT_PUBLIC_SITE_ORIGIN: ${NEXT_PUBLIC_SITE_ORIGIN}
+        SOURCE_COMMIT: ${SOURCE_COMMIT:-unknown}
+        DEUCE_SNAPSHOT_MANIFEST_URL: ${DEUCE_SNAPSHOT_MANIFEST_URL:-}
+        DEUCE_EXPECTED_SNAPSHOT_COMMIT: ${DEUCE_EXPECTED_SNAPSHOT_COMMIT:-}
     restart: unless-stopped
     env_file:
       - .env.production
@@ -29,10 +32,17 @@ services:
     environment:
       DEUCE_INTERNAL_URL: http://web:3000
       DEUCE_ARCHIVE_DIR: /app/.deuce-archive
-    command: ["node", "/app/scheduler.mjs"]
+    command: ["node", "/app/ops/oracle/scheduler.mjs"]
     volumes:
-      - ./ops/oracle/scheduler.mjs:/app/scheduler.mjs:ro
+      - ./ops/oracle/scheduler.mjs:/app/ops/oracle/scheduler.mjs:ro
+      - ./ops/scheduler-core.mjs:/app/ops/scheduler-core.mjs:ro
       - archive:/app/.deuce-archive
+    healthcheck:
+      test: ["CMD", "node", "-e", "const fs=require('node:fs');const p=(process.env.DEUCE_ARCHIVE_DIR||'/app/.deuce-archive')+'/.scheduler/state.json';const s=JSON.parse(fs.readFileSync(p,'utf8'));if(!s.heartbeatAt||Date.now()-Date.parse(s.heartbeatAt)>180000)process.exit(1)"]
+      interval: 60s
+      timeout: 5s
+      start_period: 2m
+      retries: 3
 
   caddy:
     image: caddy:2-alpine

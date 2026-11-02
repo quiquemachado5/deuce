@@ -9,7 +9,7 @@ test('player profile remains useful without JavaScript', async ({ browser, baseU
     const page = await context.newPage();
     await page.goto(profile);
     await expect(page.getByRole('heading', { level: 1, name: 'Novak Djokovic' })).toBeVisible();
-    await expect(page.getByRole('region', { name: 'Cifras principales de la carrera' })).toBeVisible();
+    await expect(page.getByRole('region', { name: 'Cifras principales de la muestra publicada' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Torneos y palmarés' })).toBeVisible();
     await expect(page.locator('main a[href^="/match/"]').first()).toBeVisible();
   } finally {
@@ -20,7 +20,7 @@ test('player profile remains useful without JavaScript', async ({ browser, baseU
 test('player profile keeps career sections and season context readable on mobile', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(profile);
-  for (const heading of ['Resumen de carrera', 'Evolución temporal', 'Ranking observado', 'Torneos y palmarés', 'Rivales y enfrentamientos', 'Últimos partidos']) {
+  for (const heading of ['Resumen en el archivo', 'Evolución temporal', 'Ranking observado', 'Torneos y palmarés', 'Rivales y enfrentamientos', 'Últimos partidos']) {
     await expect(page.getByRole('heading', { name: heading, exact: true })).toBeVisible();
   }
   await expect(page.getByRole('button', { name: 'Temporada anterior' })).toBeVisible();

@@ -28,5 +28,7 @@ test("singles tournament views exclude pair rows without changing their order", 
     { id: "single-semi", ...match("Diana Shnaider", "Maja Chwalinska") },
   ];
 
-  assert.deepEqual(singlesMatches(rows).map((row) => row.id), ["single-final", "single-semi"]);
+  const selected = singlesMatches(rows);
+  assert.deepEqual(selected.map((row) => row.id), ["single-final", "single-semi"]);
+  assert.equal(singlesMatches(rows), selected);
 });

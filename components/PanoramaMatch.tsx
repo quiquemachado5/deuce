@@ -1,3 +1,4 @@
+import "@/app/panorama-match.css";
 import Image from "next/image";
 import Link from "next/link";
 import { Bricolage_Grotesque, Geist } from "next/font/google";
@@ -89,8 +90,8 @@ function matchDate(match: Match) {
   });
 }
 
-function MatchFlag({ name, compact = false }: { name: string; compact?: boolean }) {
-  const code = playerBiography(name)?.country;
+function MatchFlag({ name, tour, compact = false }: { name: string; tour: 'atp'|'wta'; compact?: boolean }) {
+  const code = playerBiography(name,tour)?.country;
   return code ? (
     <span className={`pm-flag${compact ? " pm-flag-compact" : ""}`} aria-hidden="true">
       <PlayerFlag code={code} />
@@ -271,7 +272,7 @@ function HeroScore({ match }: { match: Match }) {
         return (
           <div className={`pm-score-row${won ? " is-winner" : ""}`} key={name}>
             <div className="pm-player">
-              <MatchFlag name={name} />
+              <MatchFlag name={name} tour={match.tour==='wta'?'wta':'atp'} />
               <Link href={`/jugadores/${playerSlug(name)}${match.tour === 'wta' ? '?tour=wta' : ''}`}><strong>{name}</strong></Link>
               {won ? <Check /> : null}
             </div>
@@ -419,7 +420,7 @@ function Meeting({ match, names }: { match: Match; names: [string, string] }) {
           return (
             <div className={`pm-mini-row${won ? " is-winner" : ""}`} key={name}>
               <span>
-                <MatchFlag name={name} compact />
+                <MatchFlag name={name} tour={match.tour==='wta'?'wta':'atp'} compact />
                 <strong>{name}</strong>
                 {won ? <Check /> : null}
               </span>
@@ -448,7 +449,7 @@ function Meeting({ match, names }: { match: Match; names: [string, string] }) {
   );
 }
 
-function HeadToHead({ rivalry, names }: { rivalry: RivalrySummary; names: [string, string] }) {
+function HeadToHead({ rivalry, names, tour }: { rivalry: RivalrySummary; names: [string, string]; tour:'atp'|'wta' }) {
   const wins = names.map((name) => rivalry.wins[rivalry.names.indexOf(name)]) as [number, number];
   const matches = [...rivalry.matches].sort((a, b) => chronological(b, a));
   const leading = wins[0] === wins[1] ? null : wins[0] > wins[1] ? 0 : 1;
@@ -473,7 +474,7 @@ function HeadToHead({ rivalry, names }: { rivalry: RivalrySummary; names: [strin
               data-wins={wins[side]}
               key={name}
             >
-              <MatchFlag name={name} />
+              <MatchFlag name={name} tour={tour} />
               <strong>{name}</strong>
               <small>{wins[side]} {wins[side] === 1 ? "victoria" : "victorias"}</small>
             </div>
@@ -563,6 +564,11 @@ export default function PanoramaMatch({
   const photo = courtPhoto(match.tournament);
   const groups = comparisonRows(match);
   const hasPressure = groups.some((group) => group.key === "return-pressure");
+  const dataScope=match.point_tape.length
+    ?{label:'Punto a punto disponible',copy:`Esta ficha incluye ${match.point_tape.length} ${match.point_tape.length===1?'punto publicado':'puntos publicados'} y muestra las estadísticas disponibles.`}
+    :match.statistics.length
+      ?{label:'Estadísticas disponibles',copy:'Esta ficha incluye medidas del partido. El proveedor no publicó una secuencia punto a punto.'}
+      :{label:'Solo resultado',copy:'La ficha se limita al marcador y al contexto publicado. No se atribuyen estadísticas ni una secuencia punto a punto inexistentes.'};
   const current = active === "estadisticas" && !groups.length
     ? "resumen"
     : active === "presion" && !hasPressure
@@ -612,9 +618,10 @@ export default function PanoramaMatch({
         hasPressure={hasPressure}
         hasHeadToHead={Boolean(rivalry)}
       />
+      <aside className="pm-data-scope" aria-label="Cobertura de datos del partido"><strong>{dataScope.label}</strong><span>{dataScope.copy}</span></aside>
       <Summary match={match} />
       <Statistics match={match} groups={groups} />
-      {rivalry ? <HeadToHead rivalry={rivalry} names={names} /> : null}
+      {rivalry ? <HeadToHead rivalry={rivalry} names={names} tour={tour} /> : null}
       {supplemental ? <section className="pm-supplemental">{supplemental}</section> : null}
     </article>
   );

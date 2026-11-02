@@ -57,6 +57,11 @@
   z-index: 1;
 }
 
+.page :global(.dx-notice),
+.detailPage :global(.dx-notice) {
+  color: #13211d;
+}
+
 :global(html):has(.scope),
 :global(body):has(.scope) {
   background: #020504;

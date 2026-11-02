@@ -14,8 +14,9 @@ import {selectGeneration,type PreparedGeneration,type GenerationStatus} from './
 import {selectedArchive, selectedCatalog} from './selection';
 import {archiveIndex} from '../archive-index';
 import {auditEditions} from '../edition-audit';
+import {readingDirectory} from '../reading-directory';
 const bundled=asyncCache<unknown>(3600_000,100);
-async function local<T>(id:string):Promise<T>{return await bundled(id,async()=>JSON.parse(gunzipSync(await readFile(join(process.cwd(),'data','reading',`${id}.json.gz`))).toString())) as T;}
+async function local<T>(id:string):Promise<T>{return await bundled(id,async()=>JSON.parse(gunzipSync(await readFile(join(readingDirectory(),`${id}.json.gz`))).toString())) as T;}
 async function localOptional<T>(id:string,fallback:T):Promise<T>{try{return await local<T>(id);}catch{return fallback;}}
 // Projection strings produce heterogeneous Supabase response shapes.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -11,6 +11,7 @@ import { Pagination } from '@/components/nocturno/Row';
 import { ArchivePage } from '@/components/deuce/ArchivePage';
 import TournamentGallery, { type TournamentGalleryCard } from '@/components/TournamentGallery';
 import TournamentBrowsePicker from '@/components/TournamentBrowsePicker';
+import TournamentFilters from '@/components/TournamentFilters';
 import { winnerName, roundPosition } from '@/lib/editorial';
 import { robotsForUnavailableTour } from '@/lib/seo-metadata';
 import { tournamentDirectoryUrl } from '@/lib/tournament-url';
@@ -81,25 +82,31 @@ export default async function TournamentDirectory({ searchParams }: Props) {
       href: `/torneos/${entry.slug}?${params}`,
     };
   });
-  const tools = <TournamentBrowsePicker selection={`${tour.toUpperCase()} · ${chosen ? categoryLabel(chosen) : 'Principales'}`} groups={(['atp', 'wta'] as const).map(value => ({
-    label: value.toUpperCase(),
-    items: [
-      { href: tournamentDirectoryUrl(value), label: 'Principales', active: tour === value && !chosen },
-      ...categories[value].map(category => ({ href: tournamentDirectoryUrl(value, category), label: categoryLabel(category), active: tour === value && chosen === category })),
+  const tools = <TournamentFilters ariaLabel="Circuito de torneos" items={([
+    {tour:'atp',label:'ATP'},
+    {tour:'wta',label:'WTA'},
+  ] as const).map(item=>({href:tournamentDirectoryUrl(item.tour),label:item.label,active:tour===item.tour}))}/>;
+  const categoryTools=<TournamentBrowsePicker selection={`Categoría · ${chosen ? categoryLabel(chosen) : 'Principales'}`} groups={[{
+    label:`Categorías ${tour.toUpperCase()}`,
+    items:[
+      {href:tournamentDirectoryUrl(tour),label:'Principales',active:!chosen},
+      ...levels.map(category=>({href:tournamentDirectoryUrl(tour,category),label:categoryLabel(category),active:chosen===category})),
     ],
-  }))} />;
+  }]}/>;
   const orderedCards = chosen ? cards.sort((a, b) => latestPlayed(entryBySlug.get(b.id)!, chosen) - latestPlayed(entryBySlug.get(a.id)!, chosen)) : cards;
 
   return <ArchivePage title="Torneos" className={styles.page} tools={tools}><div className={styles.content}>
+    <div className={styles.categoryTools}>{categoryTools}</div>
     {chosen ? <section className={styles.selected} aria-labelledby="selected-tournaments">
       <div className={styles.groupHeader}><h2 id="selected-tournaments">{categoryLabel(chosen)}</h2><span className={styles.count}>{selected.length} torneos · {tour.toUpperCase()}</span></div>
       <TournamentGallery cards={orderedCards} variant={chosen === 'Grand Slam' ? 'majors' : chosen.endsWith('250') ? 'compact' : 'rail'} label={categoryLabel(chosen)} />
     </section> : <div className={styles.groups}>{levels.map((category, index) => {
       const group = cards.filter(card => primaryLevelBySlug.get(card.id) === category)
         .sort((a, b) => latestPlayed(entryBySlug.get(b.id)!, category) - latestPlayed(entryBySlug.get(a.id)!, category));
+      const preview = group.slice(0, 10);
       return group.length ? <section className={styles.group} key={category} aria-labelledby={`group-${index}`}>
         <div className={styles.groupHeader}><h2 id={`group-${index}`}>{categoryLabel(category)}</h2><Link className={styles.allLink} href={tournamentDirectoryUrl(tour, category)}><span>Ver todos</span><ArrowRight size={16} aria-hidden="true" /></Link></div>
-        <TournamentGallery cards={group} variant={index === 0 ? 'majors' : index === 1 ? 'rail' : 'compact'} label={categoryLabel(category)} />
+        <TournamentGallery cards={preview} variant={index === 0 ? 'majors' : index === 1 ? 'rail' : 'compact'} label={categoryLabel(category)} />
       </section> : null;
     })}</div>}
     {!selected.length ? <div className={styles.empty}><h2>Sin torneos {tour.toUpperCase()} disponibles</h2><p>{tour === 'wta' ? 'La importación de este circuito sigue en curso. Ningún resultado ATP se muestra como WTA.' : 'Prueba otra categoría del circuito.'}</p>{tour === 'wta' && !entries.length ? <><Link href={tournamentDirectoryUrl('atp')}>Ver torneos ATP</Link><Link className={styles.secondaryEmptyLink} href="/cobertura">Consultar cobertura</Link></> : <Link href={tournamentDirectoryUrl(tour)}>Quitar categoría</Link>}</div> : null}

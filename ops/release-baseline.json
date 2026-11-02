@@ -1,6 +1,15 @@
 {
-  "minimumMatches": 176267,
-  "minimumStatistics": 94,
+  "minimumMatches": 257194,
+  "minimumTours": { "atp": 176370, "wta": 80824 },
+  "minimumStatistics": 122,
+  "maximumDataAgeHours": 72,
+  "requiredRulesVersion": "2026-11-wta-integrity-v13",
+  "requireCommit": true,
+  "requireStorage": true,
+  "requireScheduler": true,
+  "maximumSchedulerHeartbeatSeconds": 180,
+  "expectedDatasetVersion": null,
+  "expectedCommit": null,
   "productionUrl": "https://deuce-archivo.netlify.app",
   "previousDeployment": "netlify:6ae8707aec8a406ea0fc4c36"
 }

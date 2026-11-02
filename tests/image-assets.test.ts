@@ -82,6 +82,9 @@ test('court photos have real responsive files and edition photos never imply ano
     assert.ok(courtPhoto(tournament), `missing premium tournament venue: ${tournament}`)
   }
   for (const [tournament, photo] of Object.entries(courtPhotos)) {
+    if (/\.jpg$/i.test(photo.src)) {
+      assert.equal(existsSync(`public${photo.src}`), false, `${tournament} should ship responsive WebP files, not the source JPG`)
+    }
     for (const width of [734, 1068, 1440]) {
       const source = imageLoader({ src: photo.src, width })
       assert.ok(existsSync(`public${source}`), `missing ${tournament} ${width}px photo`)

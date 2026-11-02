@@ -39,8 +39,11 @@ export async function generateMetadata({
     { match } = await pageMatch(id);
   if (!match) return { title: "Página no encontrada — DEUCE" };
   const title = `${match.player1.name} – ${match.player2.name} · ${score(match)} · ${tournamentName(match.tournament)} ${match.year} — DEUCE`,
-    description =
-      "Grand Slams, Masters 1000, ATP 500 y ATP 250, leídos por el dato.",
+    description = match.point_tape.length
+      ? `Partido ${match.tour==='wta'?'WTA':'ATP'} con marcador, estadísticas disponibles y secuencia punto a punto publicada.`
+      : match.statistics.length
+        ? `Partido ${match.tour==='wta'?'WTA':'ATP'} con marcador y estadísticas publicadas; sin secuencia punto a punto.`
+        : `Resultado ${match.tour==='wta'?'WTA':'ATP'} documentado con su marcador; sin estadísticas ni secuencia punto a punto publicadas.`,
     canonical = matchCanonicalPath(id);
   return {
     title,
@@ -115,7 +118,7 @@ export default async function MatchPage({ params, searchParams }: Props) {
           </section>
         </div>
       )}
-      {!neighbors.previous && !neighbors.next && <p className="match-history-empty match-history-empty--standalone">No hay otros partidos registrados entre estos dos jugadores.</p>}
+      {!neighbors.previous && !neighbors.next && <p className="match-history-empty match-history-empty--standalone">No hay otros partidos registrados entre {match.tour==='wta'?'estas dos jugadoras':'estos dos jugadores'}.</p>}
       {junto && (
         <section id="comparar" className="nc-match-compare">
           {other ? (

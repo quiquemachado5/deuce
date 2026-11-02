@@ -28,8 +28,14 @@ fi
 
 for service in scheduler caddy; do
   service_id="$("${compose[@]}" ps -q "${service}")"
-  if [[ -z "${service_id}" ]] || [[ "$(docker inspect --format '{{.State.Running}}' "${service_id}")" != "true" ]]; then
+  service_running="false"
+  service_health="none"
+  if [[ -n "${service_id}" ]]; then
+    service_running="$(docker inspect --format '{{.State.Running}}' "${service_id}")"
+    service_health="$(docker inspect --format '{{if .State.Health}}{{.State.Health.Status}}{{else}}none{{end}}' "${service_id}")"
+  fi
+  if [[ "${service_running}" != "true" || "${service_health}" == "unhealthy" ]]; then
     echo "DEUCE ${service} container is absent or stopped; restoring it."
-    "${compose[@]}" up -d --no-build "${service}"
+    "${compose[@]}" up -d --no-build --force-recreate "${service}"
   fi
 done

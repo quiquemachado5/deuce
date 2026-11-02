@@ -7,5 +7,5 @@ export default async function sitemap({id}:{id:Promise<string>}): Promise<Metada
   const year=Number(await id)
   if (!Number.isInteger(year)||year<1968||year>new Date().getUTCFullYear()) return []
   const generation=await preparedGeneration()
-  return matchSitemapEntries(await generation.matches(),year,generation.manifest.generatedAt)
+  return matchSitemapEntries(await generation.matches(),year)
 }

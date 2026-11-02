@@ -19,10 +19,10 @@ export async function generateMetadata({ searchParams }: {
 }) {
   const [query,generation]=await Promise.all([searchParams,preparedGeneration()]);
   const tour=query.tour==='wta'?'wta':'atp';
-  const title=`Jugadoras y jugadores ${tour.toUpperCase()} — DEUCE`;
+  const title=`${tour==='wta'?'Jugadoras':'Jugadores'} ${tour.toUpperCase()} — DEUCE`;
   const description=tour==='wta'&&generation.manifest.summary.tours.wta===0
     ? 'El directorio WTA de DEUCE está en preparación. Consulta mientras tanto los jugadores y partidos ATP publicados.'
-    : `Jugadoras y jugadores ${tour.toUpperCase()} del archivo DEUCE, con temporadas, resultados y rendimiento documentados.`;
+    : `${tour==='wta'?'Jugadoras':'Jugadores'} ${tour.toUpperCase()} del archivo DEUCE, con temporadas, resultados y rendimiento documentados.`;
   const canonical=tour==='wta'?'/jugadores?tour=wta':'/jugadores';
   return {title,description,alternates:{canonical},openGraph:{title,description,url:canonical},robots:robotsForUnavailableTour(generation.manifest.summary,tour)};
 }
@@ -34,7 +34,7 @@ function Initials({ name }: { name: string }) {
 export default async function Players({ searchParams }: {
   searchParams: Promise<{ q?: string; page?: string; tipo?: string; tour?: string; orden?: string }>;
 }) {
-  const query = await searchParams;
+  const query = { ...await searchParams };
   query.tour = query.tour === 'wta' ? 'wta' : 'atp';
   const pairs = query.tipo === 'enfrentamientos' || query.tipo === 'parejas';
   if (pairs) redirect(query.tour === 'wta' ? '/comparar?tour=wta' : '/comparar');
@@ -67,7 +67,7 @@ export default async function Players({ searchParams }: {
   const url = (params: Record<string, string>) => {
     const next = new URLSearchParams();
     Object.entries({ ...query, ...params }).forEach(([key, value]) => {
-      if (value && value !== 'all' && !(key === 'page' && value === '1')) next.set(key, value);
+      if (value && value !== 'all' && !(key === 'page' && value === '1') && !(key === 'tour' && value === 'atp')) next.set(key, value);
     });
     const search = next.toString();
     return `/jugadores${search ? `?${search}` : ''}`;
@@ -76,7 +76,7 @@ export default async function Players({ searchParams }: {
   return <div className={`view-root player-directory ${styles.page}`}>
     <header className={`inner-title ${styles.intro}`}>
       <h1>{query.tour === 'wta' ? 'Jugadoras' : 'Jugadores'}</h1>
-      <div className="inner-title-tools"><TournamentFilters ariaLabel="Circuitos de jugadores" items={[
+      <div className="inner-title-tools"><TournamentFilters ariaLabel={query.tour==='wta'?'Circuito de jugadoras':'Circuito de jugadores'} items={[
         {href:url({tour:'atp',page:'1'}),label:'ATP',active:query.tour==='atp'},
         {href:url({tour:'wta',page:'1'}),label:'WTA',active:query.tour==='wta'},
       ]}/></div>
@@ -101,9 +101,9 @@ export default async function Players({ searchParams }: {
         {(query.q || order !== 'relevance') && <Link className={styles.directoryClear} href={query.tour === 'wta' ? '/jugadores?tour=wta' : '/jugadores'}>Limpiar</Link>}
       </form>
       <p className={styles.directoryStatus} aria-live="polite">{number(total)} {query.tour === 'wta' ? (total === 1 ? 'jugadora' : 'jugadoras') : (total === 1 ? 'jugador' : 'jugadores')} · página {number(page)} de {number(Math.max(1, Math.ceil(total / 25)))}</p>
-      {!pairs && term && <p className="sr-only" aria-live="polite">{number(total)} {total === 1 ? 'jugador encontrado' : 'jugadores encontrados'}.</p>}
+      {!pairs && term && <p className="sr-only" aria-live="polite">{number(total)} {query.tour==='wta'?(total===1?'jugadora encontrada':'jugadoras encontradas'):(total === 1 ? 'jugador encontrado' : 'jugadores encontrados')}.</p>}
 
-      {!pairs && visiblePlayers.length > 0 && <section className={styles.playerGrid} aria-label={term ? 'Resultados de jugadores' : 'Directorio de jugadores'}>
+      {!pairs && visiblePlayers.length > 0 && <section className={styles.playerGrid} aria-label={term?(query.tour==='wta'?'Resultados de jugadoras':'Resultados de jugadores'):(query.tour==='wta'?'Directorio de jugadoras':'Directorio de jugadores')}>
         {visiblePlayers.map((player, index) => <Link className={`${styles.playerCard} ${styles.cardSwapPrototype}`} href={player.href} prefetch={false} key={player.record.name}>
           <div className={styles.photo} style={player.photo ? {
             '--photo-position': player.photo.objectPosition || 'center top',

@@ -7,6 +7,10 @@ export const contextSources = {
   davis: 'https://davis-cup-web-prod.stadion.io/en/about/format',
   laver: 'https://lavercup.com/how-the-laver-cup-works',
   united: 'https://www.wtatennis.com/news/2989339/united-cup-2023-draw-format-prize-money-and-everything-you-need-to-know',
+  wtaBerlin: 'https://www.wtatennis.com/tournaments/2012/berlin/2026',
+  wtaStuttgart: 'https://www.wtatennis.com/tournaments/1051/stuttgart/2026',
+  wtaMadrid: 'https://www.wtatennis.com/tournaments/1038/mutua-madrid-open-madrid-esp/2026',
+  wtaRome: 'https://www.wtatennis.com/tournaments/709/internazionali-bnl-d-italia-rome-ita/2026',
 } as const;
 const fold=(value:string)=>value.normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');
 type Reference={tournament:string;year:number;players:[string,string];games:number[][];date?:string;endDate?:string;minutes?:number;round?:string;source:string};
@@ -33,6 +37,7 @@ export function verifiedContext(input:Match):Match {
   };
   const category=(value:string,url:string)=>{if(!match.category||/nivel no especificado|Otro torneo ATP/i.test(match.category)){match={...match,category:value};evidence('Categoría',url);}};
   const surface=(value:Match['surface'],url:string)=>{if(match.surface==='unknown'){match={...match,surface:value};evidence('Superficie',url);}};
+  const reviewedSurface=(value:Match['surface'],url:string)=>{if(match.surface!==value){match={...match,surface:value};evidence('Superficie',url);}};
   if(match.tour!=='wta'&&match.year===2026&&match.tournament==='Canada'){category('Masters 1000',contextSources.canada2026);surface('hard',contextSources.canada2026);}
   if(match.tour!=='wta'&&match.year>=2021&&match.year<=2025&&/^(Finals - Turin|ATP Finals|Tour Finals)$/.test(match.tournament)){
     category('ATP Finals',contextSources.finals);surface('hard',contextSources.finals);
@@ -42,6 +47,15 @@ export function verifiedContext(input:Match):Match {
     if(match.tour!=='wta'&&/^Davis Cup(?: - | Single Matches)/.test(match.tournament))category('Copa Davis',contextSources.davis);
     if(match.tournament==='United Cup'){category('United Cup',contextSources.united);if(match.year===2023)surface('hard',contextSources.united);}
     if(match.tour!=='wta'&&match.tournament==='Laver Cup'){category('Laver Cup',contextSources.laver);surface('hard',contextSources.laver);}
+  }
+  if(match.tour==='wta'){
+    if(match.tournament==='Berlin'&&match.year>=2021&&match.year<=2026&&['WTA 500','WTA · alto nivel histórico'].includes(match.category))reviewedSurface('grass',contextSources.wtaBerlin);
+    if(match.tournament==='Stuttgart'&&match.year>=2009&&match.year<=2026&&['WTA 500','WTA · alto nivel histórico'].includes(match.category)){
+      reviewedSurface('clay',contextSources.wtaStuttgart);
+      if(match.context?.indoor!==true){match={...match,context:{...match.context,indoor:true}};evidence('Bajo techo',contextSources.wtaStuttgart);}
+    }
+    if(match.tournament==='Madrid'&&match.year>=2009&&match.year<=2026&&['WTA 1000','WTA · alto nivel histórico'].includes(match.category))reviewedSurface('clay',contextSources.wtaMadrid);
+    if(match.tournament==='Rome'&&match.year>=2009&&match.year<=2026&&['WTA 1000','WTA · alto nivel histórico'].includes(match.category))reviewedSurface('clay',contextSources.wtaRome);
   }
   for(const reference of referencesByEdition.get(match.tournament+'|'+match.year)||[]){
     const players=[fold(match.player1.name),fold(match.player2.name)],names=reference.players.map(fold);

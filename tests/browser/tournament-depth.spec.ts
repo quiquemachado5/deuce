@@ -139,7 +139,7 @@ test("Australian Open uses distinct visual forms for titles, finals and effectiv
 
 test("mobile edition rounds keep the Partidos cards, tiebreaks and the champion path",async({page})=>{
  await page.setViewportSize({width:390,height:844});await page.goto('/torneos/roland-garros/2024');
- const bracket=page.getByRole('region',{name:/Cuadro.*edición/i});
+ const bracket=page.getByRole('region',{name:/Cuadro.*documentado/i});
  const firstRound=bracket.getByRole('region',{name:'Ronda de 128',exact:true});
  await expect(firstRound.locator('a:visible')).toHaveCount(6);
  const reveal=bracket.getByRole('button',{name:/Ver todos los partidos/});
@@ -159,7 +159,7 @@ test("mobile edition rounds keep the Partidos cards, tiebreaks and the champion 
  const finalRound=bracket.getByRole('region',{name:'Final',exact:true});
  await expect(finalRound.getByRole('link')).toHaveCount(1);
  await expect(finalRound.getByRole('link')).toContainText('Carlos Alcaraz');
- const score=page.getByRole('region',{name:'Final 2024'}).getByRole('link',{name:/Ver Alexander Zverev contra Carlos Alcaraz/});
+ const score=page.getByRole('region',{name:/La final.*2024/i}).getByRole('link',{name:/Ver Alexander Zverev contra Carlos Alcaraz/});
  await expect(score).toContainText('Carlos Alcaraz');
  await expectNoPageOverflow(page,'Mobile edition');
 });

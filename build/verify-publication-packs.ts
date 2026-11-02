@@ -4,9 +4,11 @@ import {gunzipSync} from 'node:zlib';
 import {publishRecordSnapshot} from '../lib/revista/publish-snapshot';
 import {clearArtifactPacks,registerArtifactPacks,readSnapshotArtifact,type ArtifactPack} from '../lib/revista/artifact-packs';
 import type {Snapshot,RecordManifest,RecordPages} from '../lib/revista/snapshot';
+import {readingSource} from './reading-source';
 
 async function main(){
-const read=async<T>(id:string):Promise<T>=>JSON.parse(gunzipSync(await readFile(`data/reading/${id}.json.gz`)).toString());
+const root=readingSource();
+const read=async<T>(id:string):Promise<T>=>JSON.parse(gunzipSync(await readFile(`${root}/${id}.json.gz`)).toString());
 const manifest=await read<RecordManifest>('manifest');
 const ids=[...manifest.pieces.map(p=>p.id),...(manifest.circuitPieces?.wta||[]).map(p=>`wta-${p.id}`)];
 const snapshot:Snapshot={manifest,pieces:Object.fromEntries(await Promise.all(ids.map(async id=>[id,await read<RecordPages>(`piece-${id}`)]))),

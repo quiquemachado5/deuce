@@ -46,6 +46,12 @@ export function matchesByDiscipline<T extends DisciplineMatch>(matches: readonly
   return matches.filter((match) => matchDiscipline(match) === discipline);
 }
 
+const singlesCache = new WeakMap<readonly DisciplineMatch[], readonly DisciplineMatch[]>();
+
 export function singlesMatches<T extends DisciplineMatch>(matches: readonly T[]): T[] {
-  return matchesByDiscipline(matches, "singles");
+  const cached = singlesCache.get(matches);
+  if (cached) return cached as T[];
+  const selected = matchesByDiscipline(matches, "singles");
+  singlesCache.set(matches, selected);
+  return selected;
 }

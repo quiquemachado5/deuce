@@ -2,6 +2,8 @@
 .searchIntro{display:grid!important;grid-template-columns:minmax(260px,auto) minmax(0,390px)!important;align-items:center!important;justify-content:space-between;gap:52px;width:min(1240px,calc(100% - 40px))!important;max-width:none!important;margin:0 auto!important;padding:140px 6px 50px!important}
 .searchIntro h1{margin:0!important;font:650 clamp(58px,7vw,86px)/.9 var(--font-display)!important;letter-spacing:-.04em!important}
 .searchIntro :global(.inner-title-tools){width:390px;max-width:100%}
+.searchHeaderTools{display:grid;width:390px;max-width:100%;gap:8px}
+.searchHeaderTools>div{width:100%}
 .searchControl{position:relative;z-index:8;width:390px;max-width:100%;padding:6px;border:1px solid rgba(255,255,255,.82);border-radius:21px;background:#fff;box-shadow:0 14px 38px rgba(18,53,43,.08)}
 .controlMain{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px;align-items:center}
 .viewSwitch{display:grid;grid-template-columns:1fr 1fr;width:100%;padding:4px;border-radius:999px;background:var(--search-bg)}
@@ -89,7 +91,7 @@
 
 @media(max-width:560px){
   :global(body.match-search-active):has(.searchPage){overflow:hidden}
-  .searchPage{width:100%!important;margin-inline:0!important;padding-bottom:0}.searchIntro{grid-template-columns:minmax(0,1fr) auto!important;align-items:center!important;gap:14px 12px;width:100%!important;padding-block:110px 28px!important}.searchIntro h1{min-width:0;margin-left:0!important;font-size:clamp(42px,12vw,48px)!important}.searchIntro :global(.inner-title-tools){width:auto;max-width:none}
+  .searchPage{width:100%!important;margin-inline:0!important;padding-bottom:0}.searchIntro{grid-template-columns:1fr!important;align-items:start!important;gap:16px;width:100%!important;padding-block:110px 28px!important}.searchIntro h1{min-width:0;margin-left:0!important;font-size:clamp(42px,12vw,48px)!important}.searchIntro :global(.inner-title-tools),.searchHeaderTools{width:100%;max-width:none}
   .mobileSearchLaunch{display:inline-flex;width:44px;min-width:44px;min-height:44px;align-items:center;justify-content:center;gap:0;margin-right:0;padding:0;border:1px solid rgba(255,255,255,.9);border-radius:50%;background:rgba(255,255,255,.72);color:var(--search-pine);font-size:0;font-weight:720;box-shadow:inset 0 1px 0 rgba(255,255,255,.96),0 10px 24px rgba(18,53,43,.07);backdrop-filter:blur(18px) saturate(135%);cursor:pointer}
   .searchControl{display:none}.searchControl[data-search-open]{position:fixed;z-index:100;inset:0;display:block;width:100%;max-width:none;min-height:100dvh;padding:max(14px,env(safe-area-inset-top)) 14px max(20px,env(safe-area-inset-bottom));overflow:auto;border:0;border-radius:0;background:#f4f7f5;box-shadow:none;overscroll-behavior:contain;animation:mobile-search-enter .42s cubic-bezier(.16,1,.3,1) both}
   .controlMain{display:none}.searchPopover{position:sticky;z-index:4;top:0;display:grid;grid-template-columns:minmax(0,1fr) 50px;gap:8px;width:100%;padding:0 0 10px;border:0;border-radius:0;background:linear-gradient(to bottom,rgba(244,247,245,.99) 78%,rgba(244,247,245,0));box-shadow:none;opacity:1;visibility:visible;pointer-events:auto;transform:none}
@@ -110,9 +112,11 @@
 [data-filter-only] .filters{top:calc(100% + 10px)}
 [data-filter-only] .mobileViewSwitch{display:none}
 @media(max-width:560px){
-  [data-filter-only].searchControl{display:block;width:44px;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none}
-  [data-filter-only] .controlMain{display:block}
-  [data-filter-only] .controlMain>.viewSwitch{display:none}
+  [data-filter-only].searchControl{display:block;width:100%;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none}
+  [data-filter-only] .controlMain{display:grid;grid-template-columns:minmax(0,1fr) 44px;gap:6px}
+  [data-filter-only] .controlMain>.viewSwitch{display:grid}
+  [data-filter-only] .labelFull{display:inline}
+  [data-filter-only] .labelShort{display:none}
   [data-filter-only] .discoveryTrigger{position:relative;display:grid;width:44px;min-width:44px;height:44px;padding:0;place-items:center;border-radius:50%;font-size:0;box-shadow:0 10px 24px rgba(18,53,43,.08)}
   [data-filter-only] .discoveryTrigger b{position:absolute;top:-4px;right:-4px;font-size:9px}
   [data-filter-only] .filters{position:fixed;z-index:120;top:auto;right:14px;bottom:max(14px,env(safe-area-inset-bottom));left:14px;grid-template-columns:1fr 1fr;width:auto;padding:16px;border:1px solid rgba(255,255,255,.94);border-radius:24px;background:rgba(250,252,251,.98);box-shadow:0 0 0 100vmax rgba(4,25,19,.18),inset 0 1px 0 rgba(255,255,255,.98),0 24px 70px rgba(18,53,43,.2);backdrop-filter:blur(28px) saturate(150%)}

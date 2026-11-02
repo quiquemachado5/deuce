@@ -1,4 +1,5 @@
 import { readFile } from 'node:fs/promises';
+import { releaseFailures } from './release-policy.mjs';
 const baseline = JSON.parse(await readFile(new URL('./release-baseline.json',import.meta.url),'utf8'));
 const marker = '<!-- deuce-production-health-v1 -->';
 const repository = 'quiquemachado5/deuce';
@@ -8,17 +9,7 @@ async function check() {
     const response = await fetch(baseline.productionUrl+'/api/health/deep',{signal:AbortSignal.timeout(30000),cache:'no-store'});
     if(!response.ok) return ['Health endpoint: HTTP '+response.status];
     const h = await response.json();
-    // The free deployment may serve the validated bundled archive when the
-    // optional remote archive is unavailable. Keep every integrity guard below
-    // active and only tolerate that single, explicit fallback mode.
-    const validatedBundledFallback = h.status === 'degraded' && h.source === 'bundled' && h.fallbackReason === 'remote-unavailable' && h.storage?.available === true;
-    if(h.status !== 'healthy' && !validatedBundledFallback) failures.push('Estado '+String(h.status).slice(0,30));
-    if(!Number.isFinite(h.ageHours) || h.ageHours > 72) failures.push('Datos sin actualización comprobable en 72 horas');
-    if(!Number.isSafeInteger(h.matches) || h.matches < baseline.minimumMatches) failures.push('Pérdida de volumen frente a la última release validada');
-    if(!Number.isSafeInteger(h.statistics) || h.statistics < baseline.minimumStatistics) failures.push('Pérdida de catálogo frente a la última release validada');
-    if(h.storage?.available !== true) failures.push('Capacidad del archivo no verificada');
-    if(h.fallbackReason && !validatedBundledFallback) failures.push('Respaldo activado por fallo de generación remota');
-    if(!/^[a-f0-9]{20}$/.test(h.datasetVersion || '')) failures.push('Versión de datos ausente o inválida');
+    failures.push(...releaseFailures(h,baseline));
   } catch { failures.push('No se pudo consultar producción dentro del tiempo límite'); }
   return failures;
 }
@@ -42,7 +33,7 @@ else {
     if(incident || issues.length < 100) break;
     if(page===10) throw new Error('Issue pagination limit reached; refusing to create a possible duplicate');
   }
-  if(failures.length && !incident) await api('/issues','POST',{title:'[DEUCE] Incidencia de salud en producción',body:marker+'\n\n'+failures.map(f => '- '+f).join('\n')+'\n\nVerificar /api/health/deep, capacidad de Supabase, ejecución de cron, generación activa y logs de Vercel. No publicar una generación con menor cobertura.\n\n'+baseline.productionUrl+'/cobertura'});
+  if(failures.length && !incident) await api('/issues','POST',{title:'[DEUCE] Incidencia de salud en producción',body:marker+'\n\n'+failures.map(f => '- '+f).join('\n')+'\n\nVerificar /api/health/deep, almacenamiento, scheduler, generación activa y logs del servidor. No publicar una generación con menor cobertura por circuito.\n\n'+baseline.productionUrl+'/cobertura'});
   else if(!failures.length && incident) {
     await api('/issues/'+incident.number+'/comments','POST',{body:'Recuperación verificada: producción operativa con archivo validado, volumen y catálogo por encima de la última release validada.'});
     await api('/issues/'+incident.number,'PATCH',{state:'closed',state_reason:'completed'});

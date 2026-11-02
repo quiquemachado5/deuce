@@ -20,6 +20,7 @@
 .majors .track{display:grid;grid-template-columns:1.35fr .65fr;grid-template-rows:repeat(3,190px);gap:14px;overflow:visible}
 .majors .card{display:block;width:auto;min-width:0;height:auto;border:0;background:var(--ink);color:#fff}
 .majors .card:first-child{grid-row:1/4}
+.majors .card:only-child{grid-column:1/-1}
 .majors .photo{position:absolute;inset:0}
 .majors .photoShade{background:linear-gradient(180deg,rgba(3,18,13,.08) 28%,rgba(3,18,13,.88) 100%)}
 .majors .court{right:auto;bottom:auto;top:18px;left:18px}
@@ -31,6 +32,7 @@
 .majors .champion strong{color:#fff}
 .majors .action{width:48px;height:48px}
 .compact .card{flex-basis:min(310px,26vw);grid-template-rows:180px minmax(116px,auto)}
+.track>.card:only-child{flex-basis:min(100%,520px)}
 .compact .titleRow h3{font-size:clamp(22px,2vw,28px)}
 .card:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
 

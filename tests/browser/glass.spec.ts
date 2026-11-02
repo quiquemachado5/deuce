@@ -27,7 +27,7 @@ test('edition presents the final, draw and data readings without a legacy media 
 });
 test('player directory stays compact with contextual directory controls',async({page})=>{
   await page.goto('/jugadores');
-  await expect(page.getByRole('navigation',{name:'Circuitos de jugadores'})).toBeVisible();
+  await expect(page.getByRole('navigation',{name:'Circuito de jugadores'})).toBeVisible();
   await expect(page.locator('main a[href^="/jugadores/"]').first()).toBeVisible();
   await expect(page.locator('main').getByRole('searchbox',{name:'Buscar en el directorio'})).toBeVisible();
   await expect(page.getByRole('combobox',{name:'Ordenar'})).toBeVisible();

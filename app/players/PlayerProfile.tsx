@@ -56,10 +56,13 @@ function rankingHistoryPoints(matches:Match[],name:string){
 
 export async function generateMetadata({params,searchParams}:Props){
   const {slug}=await params,query=await searchParams;
-  const tour=query.tour==='wta'?'wta':'atp';
-  const player=(await playerNotebook(slug,tour))?.player;
+  const requestedTour=query.tour==='wta'?'wta':'atp';
+  const requested=await playerNotebook(slug,requestedTour);
+  const fallback=!requested&&!query.tour?await playerNotebook(slug,'wta'):null;
+  const tour=fallback?'wta':requestedTour;
+  const player=(requested||fallback)?.player;
   const title=`${player?.name||'Jugador'} — DEUCE`;
-  const description=player?`${player.name}: carrera, rendimiento, temporadas, rivales y partidos en el archivo DEUCE.`:'Resultados de los torneos ATP y WTA guardados en DEUCE.';
+  const description=player?`${player.name}: resultados, temporadas, rivales y rendimiento dentro de la muestra publicada en DEUCE.`:'Resultados de los torneos ATP y WTA guardados en DEUCE.';
   const canonicalParams=new URLSearchParams();if(tour==='wta')canonicalParams.set('tour','wta');if(query.year)canonicalParams.set('year',query.year);
   const canonical=`/jugadores/${slug}${canonicalParams.size?`?${canonicalParams}`:''}`;
   return {title,description,alternates:{canonical},openGraph:{title,description,type:'profile',url:canonical},twitter:{card:'summary_large_image',title,description}};
@@ -69,6 +72,10 @@ export default async function Player({params,searchParams}:Props){
   const {slug}=await params,query=await searchParams;
   const requestedTour=query.tour==='wta'?'wta':'atp';
   const data=await playerNotebook(slug,requestedTour);
+  if(!data&&!query.tour){
+    const wta=await playerNotebook(slug,'wta');
+    if(wta)permanentRedirect(`/jugadores/${playerSlug(wta.player.name)}?tour=wta`);
+  }
   if(!data)notFound();
   const {player,record}=data;
   const tour=player.matches[0]?.tour||'atp';
@@ -78,8 +85,6 @@ export default async function Player({params,searchParams}:Props){
   const years=[...new Set(player.matches.map(match=>match.year))].sort((a,b)=>b-a);
   const latestYear=years[0],firstYear=years.at(-1)!;
   const activityLabel=firstYear===latestYear?String(firstYear):`${firstYear}–${latestYear}`;
-  const archiveYear=Math.max(...data.manifest.years);
-  const status=latestYear>=archiveYear-1?'En activo':'Retirado';
   const winRate=player.played?player.won/player.played*100:0;
   const seasonMap=new Map<number,{wins:number;losses:number;titles:number;played:number}>();
   for(const match of player.matches){
@@ -108,7 +113,7 @@ export default async function Player({params,searchParams}:Props){
     const titles=titleMatches.length;
     const titleYears=[...new Set(titleMatches.map(match=>match.year))].sort((a,b)=>a-b);
     const best=[...matches].sort((a,b)=>roundPosition(b.round)-roundPosition(a.round)||Number(winnerName(b)===player.name)-Number(winnerName(a)===player.name)||b.year-a.year)[0];
-    const bestResult=roundPosition(best.round)===7&&winnerName(best)===player.name?'Campeón':roundLabel(best.round);
+    const bestResult=roundPosition(best.round)===7&&winnerName(best)===player.name?(tour==='wta'?'Campeona':'Campeón'):roundLabel(best.round);
     const latest=[...matches].sort((a,b)=>b.year-a.year)[0];
     return [{name:tournamentName(name),rawName:name,slug:directory.get(name)?.slug||playerSlug(name),surface:surfaceLabel[latest.surface],surfaceKey:latest.surface,category:latest.category||'Sin categoría registrada',played:matches.length,wins:matches.filter(match=>winnerName(match)===player.name).length,finals:finalMatches.length,titles,titleYears,participations:new Set(matches.map(match=>match.year)).size,bestResult,bestYear:best.year}];
   }).sort((a,b)=>categoryPriority(a.category)-categoryPriority(b.category)||b.titles-a.titles||b.wins-a.wins);
@@ -162,25 +167,25 @@ export default async function Player({params,searchParams}:Props){
       <header className={`pp-hero${portrait?' has-photo':' no-photo'}`} id="resumen">
         {portrait?<PlayerPortrait photo={portrait} className="pp-hero-photo" preload/>:<div className="pp-hero-fallback" aria-label={`Sin fotografía disponible para ${player.name}`}><span>{initials}</span>{bio?.country&&<PlayerFlag code={bio.country}/>}<i/><i/></div>}
         <div className={styles.heroShade} aria-hidden="true"/>
-        <Link className={styles.backButton} href={`/jugadores?tour=${tour}`} aria-label="Volver a jugadores"><ArrowLeft size={19} aria-hidden="true"/></Link>
+        <Link className={styles.backButton} href={`/jugadores?tour=${tour}`} aria-label={tour==='wta'?'Volver a jugadoras':'Volver a jugadores'}><ArrowLeft size={19} aria-hidden="true"/></Link>
         <div className="pp-hero-copy">
           <div className={styles.heroIdentity}>
             <div className={styles.playerTitle}>{bio?.country&&<PlayerFlag code={bio.country}/>}<h1>{player.name}</h1></div>
-            <dl className="pp-hero-facts"><div><dt>Actividad</dt><dd>{activityLabel}</dd></div>{bio?.hand&&<div><dt>Mano</dt><dd>{handLabel(bio.hand)}</dd></div>}<div data-status={status==='En activo'?'active':'retired'}><dt>Estado</dt><dd>{status}</dd></div></dl>
+            <dl className="pp-hero-facts"><div><dt>Actividad en DEUCE</dt><dd>{activityLabel}</dd></div>{bio?.hand&&<div><dt>Mano</dt><dd>{handLabel(bio.hand)}</dd></div>}<div><dt>Circuito</dt><dd>{tour.toUpperCase()}</dd></div></dl>
           </div>
         </div>
       </header>
-      <section className={styles.careerBoard} aria-label="Cifras principales de la carrera">{coreMetrics.map(metric=><article key={metric.label}><span>{metric.label}</span><strong>{metric.value}</strong><small>{metric.context}</small></article>)}</section>
+      <section className={styles.careerBoard} aria-label="Cifras principales de la muestra publicada">{coreMetrics.map(metric=><article key={metric.label}><span>{metric.label}</span><strong>{metric.value}</strong><small>{metric.context}</small></article>)}</section>
     </div>
 
     <PlayerProfileNav hasRivals={rivals.length>=2} hasTournaments={tournaments.length>0} hasSeasons={showSeasonAnalysis}/>
 
     <div className="pp-content">
       <section className={`pp-section pp-performance ${styles.careerSummary}`} id="rendimiento" aria-labelledby="pp-performance-title">
-        <div className="pp-section-heading"><div><h2 id="pp-performance-title">Resumen de carrera</h2></div></div>
+        <div className="pp-section-heading"><div><h2 id="pp-performance-title">Resumen en el archivo</h2></div></div>
         <div className={styles.summaryGrid}>
           <div className={styles.balanceBlock} aria-label={`${number(player.won)} victorias y ${number(player.played-player.won)} derrotas`}>
-            <div className={styles.balanceHeading}><span>Carrera</span><strong>{number(winRate,1)} %</strong></div>
+            <div className={styles.balanceHeading}><span>Muestra publicada</span><strong>{number(winRate,1)} %</strong></div>
             <dl className={styles.balanceTotals}><div><dt>Victorias</dt><dd>{number(player.won)}</dd></div><div><dt>Derrotas</dt><dd>{number(player.played-player.won)}</dd></div><div><dt>Partidos</dt><dd>{number(player.played)}</dd></div></dl>
           </div>
           {displayedSurfaceRows.length?<div className="pp-surface-list">{displayedSurfaceRows.map(surface=><article key={surface.key} data-event-surface={surface.key} data-best={surface.key===bestSurface?.key||undefined}><div><span>{surface.label}</span><strong>{number(surface.rate,1)} %</strong></div><dl><div><dt>Victorias</dt><dd>{number(surface.wins)}</dd></div><div><dt>Derrotas</dt><dd>{number(surface.losses)}</dd></div><div><dt>Partidos</dt><dd>{number(surface.played)}</dd></div></dl></article>)}</div>:null}

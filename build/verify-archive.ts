@@ -6,9 +6,11 @@ import { RULES_VERSION, SNAPSHOT_SCHEMA, type RecordManifest, type RecordPages }
 import type { Match } from '../lib/types';
 import { reviewedFinals, referenceFinal, referenceIssue } from '../lib/reviewed-finals';
 import { editionCompleteness, type EditionAudit } from '../lib/edition-audit';
+import { readingSource } from './reading-source';
 
 async function main() {
-  const read = async (name: string) => JSON.parse(gunzipSync(await readFile(`data/reading/${name}.json.gz`)).toString());
+  const root = readingSource();
+  const read = async (name: string) => JSON.parse(gunzipSync(await readFile(`${root}/${name}.json.gz`)).toString());
   const manifest: RecordManifest = await read('manifest');
   const matches: Match[] = await read('matches');
   assertPublishableArchive(matches);

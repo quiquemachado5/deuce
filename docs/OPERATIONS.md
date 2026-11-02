@@ -3,24 +3,31 @@
 ## Contrato de publicación
 
 1. Rama revisada: ejecutar `npm run test`, `npm run lint`, `npm run build`, `npm run typecheck`, `npm run data:verify`, `npm run data:evidence`, `npm run data:restore-drill`, `npm run test:browser`.
-2. Comprobar propietario/proyecto con `vercel project inspect --non-interactive --scope quiquemachado5s-projects`: debe ser `prj_zm1hdxkgG9NOOiTGkpwilP7H7nFO` / `deuce`.
-3. Preparar producción sin dominio: `vercel deploy --prod --skip-domain --scope quiquemachado5s-projects`. No promover una preview con variables distintas.
-4. Contrastar con el dominio público: volumen, catálogo, cobertura estadística por año, versión, partidos recientes, evidencia, comparador, filtros y el único tema claro aprobado. La copia local puede tener menos enriquecimiento que producción; no es su sustituto.
-5. Solo con controles correctos: `vercel promote URL --scope quiquemachado5s-projects`. Conservar el identificador de la versión anterior.
-6. Integrar el mismo código en `main` mediante PR después de CI. Requerir el check `verify`, rama al día, una aprobación, sin force-push ni borrado. La existencia del YAML no activa por sí sola protección de rama: verificarlo en GitHub. La release debe usar un entorno `production` con aprobador requerido.
-7. Aumentar los mínimos de `ops/release-baseline.json` tras una release validada; nunca reducirlos para hacer pasar un fallo.
+2. La compilación ejecuta `data:ensure`: reutiliza una generación compatible, restaura un snapshot HTTPS configurado o reconstruye desde los archivos fuente compactos. Debe alcanzar los mínimos ATP y WTA de `ops/release-baseline.json` y la versión de reglas indicada allí.
+3. En el VPS, `ops/vps/deploy.sh` asocia la imagen al SHA de Git y no termina hasta que `/api/health/deep` acredita ese commit, la versión de datos, los mínimos por circuito, almacenamiento y heartbeat del scheduler. Un estado degradado bloquea la release.
+4. Contrastar con el dominio público: volumen, catálogo, cobertura estadística por año, versión, partidos recientes, evidencia, comparador y filtros.
+5. Integrar el mismo código en `main` mediante PR después de CI. Requerir el check `verify`, rama al día, una aprobación, sin force-push ni borrado. La existencia del YAML no activa por sí sola protección de rama: verificarlo en GitHub.
+6. Aumentar los mínimos de `ops/release-baseline.json` tras una release validada; nunca reducirlos para hacer pasar un fallo.
 
 ## Supervisión externa
 
-`production-health.yml` consulta `/api/health/deep` cada media hora desde GitHub Actions, una vez presente en la rama por defecto. Comprueba HTTP, estado, antigüedad (72 h), volumen, catálogo, respaldo, almacenamiento y versión. Repite un fallo antes de declararlo. Crea una sola incidencia abierta identificada por marcador y autor, permanece silencioso si no cambia y la cierra al recuperarse. Las notificaciones dependen de las preferencias de GitHub del propietario; no se ha contratado correo/SMS ni un drain de logs. GitHub puede retrasar ejecuciones programadas; no es un SLA de disponibilidad.
+`production-health.yml` consulta `/api/health/deep` cada media hora desde GitHub Actions, una vez presente en la rama por defecto. Reutiliza la misma política que el despliegue: comprueba HTTP, estado, antigüedad, volumen total, mínimos ATP/WTA, coherencia de sus sumas, catálogo, versión de reglas y datos, commit, almacenamiento y scheduler. Crea una sola incidencia abierta identificada por marcador y autor, permanece silencioso si no cambia y la cierra al recuperarse. Las notificaciones dependen de las preferencias de GitHub del propietario; GitHub puede retrasar ejecuciones programadas y no constituye un SLA de disponibilidad.
 
-`/api/health` es liveness rápida y no toca la base de datos. `/api/health/deep` puede tardar más y devuelve la versión de la aplicación, SHA/ID/URL del despliegue, generación de datos, fallback y capacidad del archivo. Cada respuesta incluye `X-Request-Id`; los logs JSON permiten seguir ese identificador sin registrar consultas de usuarios.
+`/api/health` es liveness rápida y no toca el archivo. `/api/health/deep` puede tardar más y devuelve la versión de la aplicación, SHA/ID/URL del despliegue, generación de datos, totales por circuito, fallback, capacidad y estado del scheduler. El scheduler persiste en `.deuce-archive/.scheduler/state.json` un heartbeat y el estado separado de ATP, WTA y publicación. Cada etapa transitoria reintenta a 1, 5, 15 y 60 minutos; los bloqueos por cuota o reserva esperan al siguiente ciclo diario. La publicación solo se ejecuta cuando ATP y WTA han terminado correctamente.
 
 `npm run monitor:check` es una comprobación de solo lectura y no crea incidencias. La alerta detecta efectos de un cron fallido por antigüedad, no confirma por sí sola cada invocación del cron ni el consumo del proveedor.
 
 ## Recuperación
 
-`npm run data:restore-drill` copia únicamente `data/reading` a un directorio temporal nuevo, registra SHA-256, restaura a otro directorio nuevo y comprueba todos los archivos, identificadores, manifiesto, páginas estadísticas y referencias de jugadores. No sobrescribe producción, el árbol de trabajo, secretos ni datos ajenos. La ubicación aparece al terminar. Este ensayo verifica una generación publicada incluida en el despliegue, NO una copia física completa de Supabase.
+`npm run data:restore-drill` crea un `tar.gz`, calcula SHA-256, lo extrae en un directorio temporal y comprueba todos los archivos, identificadores, manifiesto, páginas estadísticas y referencias de jugadores. Para ensayar una copia real del volumen, ejecutar `DEUCE_RESTORE_ARCHIVE=/ruta/deuce-archive-fecha.tar.gz npm run data:restore-drill`; también valida el `.sha256` adyacente, el manifiesto físico, cada pack por hash, sus mapeos y todas las particiones de partidos. Nunca sobrescribe producción ni el árbol de trabajo.
+
+`ops/vps/backup.sh` conserva copias locales rotatorias y, si `DEUCE_BACKUP_REMOTE` está definido, sube el archivo y su checksum mediante `rclone` a S3, B2, SFTP u otro remoto configurado. Una copia externa solo cuenta como recuperable después de ejecutar el restore drill contra un archivo descargado desde ese remoto.
+
+### Snapshot reproducible sin historial Git pesado
+
+Los 14 ficheros comprimidos de `data/archive/wta` son la fuente WTA compacta y versionada. `data/reading` es una generación derivada: `npm run build` la reconstruye cuando no cumple los mínimos y, en una máquina local, restaura al final la copia de trabajo para evitar diffs de decenas de MB. De este modo otro ordenador puede clonar el mismo commit y producir la misma entrada ATP/WTA sin descargar de nuevo la API.
+
+Para conservar una generación ya compilada, ejecutar `npm run data:snapshot:export -- --output=/ruta/inmutable/<commit>`. `snapshot-manifest.json` registra commit fuente, versión, reglas, conteos por circuito, tamaño y SHA-256 de cada fichero. Tras publicar ese directorio por HTTPS, configurar `DEUCE_SNAPSHOT_MANIFEST_URL` y `DEUCE_EXPECTED_SNAPSHOT_COMMIT`; la compilación Docker restaura y valida el snapshot dentro de su etapa efímera. Si no está disponible o no supera la política, reconstruye desde las fuentes compactas. No introducir credenciales en la URL ni commitear el directorio exportado.
 
 Para un incidente de código: usar una generación anterior conocida con `vercel rollback ID --scope quiquemachado5s-projects`, comprobar `/api/health`, `/api/health/deep` y las APIs públicas. Rollback pausa la autoasignación de despliegues; `vercel promote` la restablece. No ejecutar como simulacro contra producción.
 

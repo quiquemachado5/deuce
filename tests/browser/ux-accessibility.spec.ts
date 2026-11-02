@@ -38,6 +38,9 @@ test('desktop match filters close without stealing focus from the outside contro
   await expect(trigger).toHaveAttribute('aria-expanded', 'true');
 
   const outsideControl = page.locator('.topbar > .search-trigger');
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
+  await expect(page.locator('.topbar')).not.toHaveClass(/nav-hidden/);
+  await expect(outsideControl).toBeInViewport();
   await outsideControl.click();
   await expect(trigger).toHaveAttribute('aria-expanded', 'false');
   await expect(page.getByLabel('Buscar jugadores, partidos o torneos')).toBeFocused();
@@ -58,13 +61,13 @@ test('mobile directory openings, profile facts and pagination stay usable', asyn
   await page.setViewportSize({ width: 390, height: 844 });
   for (const path of ['/jugadores', '/torneos']) {
     await page.goto(path);
-    const topbarBottom = await page.locator('.topbar').evaluate((node) => node.getBoundingClientRect().bottom);
+    const topbarBottom = await page.locator('header.topbar:visible').last().evaluate((node) => node.getBoundingClientRect().bottom);
     const headingTop = await page.getByRole('heading', { level: 1 }).evaluate((node) => node.getBoundingClientRect().top);
     expect(headingTop, path).toBeGreaterThanOrEqual(topbarBottom - 1);
   }
 
   await page.goto('/jugadores/novak-djokovic');
-  for (const label of ['Actividad', 'Mano', 'Estado']) await expect(page.locator('.pp-hero-facts').getByText(label, { exact: true })).toBeVisible();
+  for (const label of ['Actividad en DEUCE', 'Mano', 'Circuito']) await expect(page.locator('.pp-hero-facts').getByText(label, { exact: true })).toBeVisible();
   await expect(page.locator('.pp-chart-x-axis')).toBeVisible();
 
   await page.goto('/jugadores?orden=wins');

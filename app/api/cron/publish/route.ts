@@ -11,6 +11,7 @@ import {join} from 'node:path'
 import {compatibleManifest} from '@/lib/revista/generation'
 import type {RecordManifest} from '@/lib/revista/snapshot'
 import {withOperationHistory} from '@/lib/archive-operations'
+import {readingDirectory} from '@/lib/reading-directory'
 
 export const runtime = 'nodejs'
 export const maxDuration = 300
@@ -34,7 +35,7 @@ export async function GET(request: Request) {
       import('@/lib/revista/snapshot'),
       import('@/lib/revista/publish-snapshot'),
     ])
-    const bundled=JSON.parse(gunzipSync(await readFile(join(process.cwd(),'data/reading/manifest.json.gz'))).toString()) as RecordManifest
+    const bundled=JSON.parse(gunzipSync(await readFile(join(readingDirectory(),'manifest.json.gz'))).toString()) as RecordManifest
     const remote=await cloudRead('reading-v2-manifest')
     const wtaRefresh=await cloudRead('wta-sync-status')
     const publishedWta=compatibleManifest(remote)?remote.summary.tours.wta:bundled.summary.tours.wta

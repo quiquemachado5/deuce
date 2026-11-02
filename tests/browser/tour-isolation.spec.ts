@@ -1,15 +1,21 @@
 import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
-test('the single tournament selector keeps ATP and WTA categories isolated and responsive', async ({ page }) => {
+test('the tournament circuit and category selectors stay isolated and responsive', async ({ page }) => {
   for (const width of [320, 390, 768, 1440]) {
     await page.setViewportSize({ width, height: width < 700 ? 844 : 1000 });
     await page.goto('/torneos?circuito=wta');
-    const picker=page.getByLabel(/Filtrar torneos: WTA · Principales/);
+    await expect(page.getByRole('navigation',{name:'Circuito de torneos'}).getByRole('link',{name:'WTA',exact:true})).toHaveAttribute('aria-current','page');
+    const picker=page.getByLabel(/Filtrar torneos: Categoría · Principales/);
     await expect(picker).toBeVisible();
     await picker.click();
-    await expect(page.getByRole('group',{name:'ATP'})).toBeVisible();
-    await expect(page.getByRole('group',{name:'WTA'})).toBeVisible();
+    await expect(page.getByRole('group',{name:'Categorías WTA'})).toBeVisible();
+    await expect(page.getByRole('group',{name:'Categorías ATP'})).toHaveCount(0);
+    if(width===320){
+      const previewSizes=await page.locator('main div[tabindex][aria-label]').evaluateAll(nodes=>nodes.map(node=>node.querySelectorAll(':scope > a').length).filter(Boolean));
+      expect(previewSizes.length).toBeGreaterThan(0);
+      expect(Math.max(...previewSizes)).toBeLessThanOrEqual(10);
+    }
     expect(await page.evaluate(()=>document.documentElement.scrollWidth-window.innerWidth)).toBeLessThanOrEqual(1);
     await page.keyboard.press('Escape');
     await expect(picker).toBeFocused();
@@ -31,6 +37,7 @@ test('WTA landing routes expose their own canonical and never fall back to ATP r
     expect(await page.evaluate(()=>document.documentElement.scrollWidth-window.innerWidth)).toBeLessThanOrEqual(1);
   }
   await page.goto('/buscar?tour=wta');
-  await expect(page.locator('.match-scorecard')).toHaveCount(0);
-  await expect(page.getByText(/El archivo WTA todavía no tiene temporadas publicadas|No encontramos partidos|Sin partidos WTA/i).first()).toBeVisible();
+  const wtaMatches=page.locator('main a[href^="/match/"]');
+  await expect(wtaMatches.first()).toBeVisible();
+  expect(await wtaMatches.evaluateAll(links=>links.every(link=>link.getAttribute('href')?.startsWith('/match/wta-')))).toBe(true);
 });

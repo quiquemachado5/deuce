@@ -20,6 +20,14 @@ export function summarizeDataset(matches: Match[]) {
   return { tournaments: new Set(matches.map(match => match.tournament)).size, tours, surfaces, years: [...years.values()].sort((a, b) => b.year - a.year) };
 }
 
+/** Keep field coverage attributable to its circuit instead of blending ATP and WTA. */
+export function summarizeCircuits(matches: Match[]) {
+  return {
+    atp: summarizeDataset(matches.filter(match => match.tour !== 'wta')),
+    wta: summarizeDataset(matches.filter(match => match.tour === 'wta')),
+  };
+}
+
 /** Publication gate for this full historical archive, not a generic dataset. */
 export function assertPublishableArchive(matches: Match[], previousCount = 0, currentYear = new Date().getUTCFullYear()) {
   if (matches.some(match => match.data_source === 'mock')) throw new Error('Refusing to publish demo matches');

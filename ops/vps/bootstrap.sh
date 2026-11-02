@@ -8,7 +8,7 @@ fi
 
 export DEBIAN_FRONTEND=noninteractive
 apt-get update
-apt-get install -y ca-certificates curl docker.io docker-compose-v2 git ufw unattended-upgrades
+apt-get install -y ca-certificates curl docker.io docker-compose-v2 git rclone ufw unattended-upgrades
 
 if [[ ! -f /etc/docker/daemon.json ]]; then
   cat >/etc/docker/daemon.json <<'JSON'
@@ -79,6 +79,7 @@ After=docker.service
 
 [Service]
 Type=oneshot
+EnvironmentFile=-/opt/deuce/app/.env.production
 ExecStart=/opt/deuce/app/ops/vps/backup.sh
 UNIT
 

@@ -7,6 +7,9 @@ import { verifiedContext } from './verified-context'
 import type { Match, Point } from './types'
 import { normalizeSurface } from './surface'
 import { historicalClosedSet } from './historical-rules'
+import { canonicalTournamentName } from './tournament-identity'
+
+export { canonicalTournamentName } from './tournament-identity'
 
 export const ARCHIVE_CRITERIA = 'Individuales ATP y WTA · cuadro principal · partidos terminados con sets cerrados y ganador coherente. Sin abandonos, incomparecencias ni marcadores en revisión. Cifras del archivo DEUCE, no de toda la carrera.'
 export function normalizeText(value: string) { return value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/ß/g, 'ss') }
@@ -19,26 +22,6 @@ const names: Record<string, string> = {
   'joao fonseca': 'João Fonseca',
 }
 export function canonicalName(name: string) { return names[normalizeText(name).replace(/-/g, ' ').trim()] || name.trim() }
-const tourVenueAliases: Record<string,string> = {
-  'Eastbourne, Great Britain': 'Eastbourne',
-  'Geneva, Switzerland': 'Geneva',
-  'Halle, Germany': 'Halle',
-  'Hamburg, Germany': 'Hamburg',
-  'London, Great Britain': 'London',
-  'Mallorca, Spain': 'Mallorca',
-  'S-Hertogenbosch, Netherlands': 'Hertogenbosch',
-  'Stuttgart, Germany': 'Stuttgart',
-  'Winston Salem, USA': 'Winston-Salem',
-}
-const tournamentAliases: Record<string,string> = {
-  'Bad Homburg, Germany': 'Bad Homburg',
-  'Bad Homburg Open': 'Bad Homburg',
-  'Bad Homburg, Germany, Doubles': 'Bad Homburg',
-}
-export function canonicalTournamentName(name:string,year:number,category:string) {
-  const canonical=tournamentAliases[name] || name
-  return year>=2023 && (category==='ATP 500'||category==='ATP 250') ? tourVenueAliases[canonical] || canonical : canonical
-}
 export function closedSet(pair: number[]) {
   if (pair.length !== 2 || pair.some(n => !Number.isInteger(n) || n < 0)) return false
   const high = Math.max(...pair), low = Math.min(...pair)
@@ -69,8 +52,8 @@ export function pointHeight(point: Point) {
   return point.is_match_point ? 95 : point.is_break_point ? 75 : 38
 }
 export function prepareMatch(match: Match): Match {
+  match = { ...match, surface: normalizeSurface(match.surface), tournament: canonicalTournamentName(match.tournament,match.year,match.category,match.tour) }
   match = verifiedContext(verifiedResult(match))
-  match = { ...match, surface: normalizeSurface(match.surface), tournament: canonicalTournamentName(match.tournament,match.year,match.category) }
   match = orientMatch(match)
   match = { ...match, point_tape: normalizePointTape(match.point_tape) }
   const issue = resultIssue(match)

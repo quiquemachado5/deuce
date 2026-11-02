@@ -4,16 +4,23 @@ import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { ArrowRight, Menu, Search, X } from 'lucide-react';
+import { circuitSectionHref, navigationCircuit, type CircuitSection } from '@/lib/circuit-navigation';
 
-const navigation = [['Partidos','/buscar'],['WTA','/buscar?tour=wta'],['Récords','/records'],['Jugadores','/jugadores'],['Torneos','/torneos'],['Comparar','/comparar']] as const;
+const navigation: ReadonlyArray<{ label:string; section:CircuitSection }> = [
+  {label:'Partidos',section:'matches'},
+  {label:'Récords',section:'records'},
+  {label:'Jugadores',section:'players'},
+  {label:'Torneos',section:'tournaments'},
+  {label:'Comparar',section:'compare'},
+];
 type Result = { href: string; name: string; detail?: string; group: string };
 type SearchResult = { query:string; tour:'atp'|'wta'; items:Result[]; error?:boolean };
 const groupOrder = ['Jugadores','Torneos','Ediciones','Partidos','Parejas','Récords'];
 
 export function DeuceTopbar() {
   const pathname=usePathname(), router=useRouter(), searchParams=useSearchParams();
-  const wtaContext=searchParams.get('tour')==='wta'||searchParams.get('cuadro')==='wta'||searchParams.get('circuito')==='wta'||pathname.startsWith('/match/wta-');
-  const searchTour=wtaContext?'wta':'atp';
+  const searchTour=navigationCircuit(pathname,searchParams);
+  const navigationItems=navigation.map(item=>({...item,href:circuitSectionHref(item.section,searchTour)}));
   const [scrolled,setScrolled]=useState(false), [navHidden,setNavHidden]=useState(false), [menu,setMenu]=useState(false), [searchOpen,setSearchOpen]=useState(false), [query,setQuery]=useState('');
   const [result,setResult]=useState<SearchResult>({query:'',tour:'atp',items:[]});
   const lastScroll=useRef(0);
@@ -109,7 +116,9 @@ export function DeuceTopbar() {
     const text=query.trim();
     if(!text)return;
     setSearchOpen(false);
-    router.push(`/buscar?q=${encodeURIComponent(text)}${wtaContext?'&tour=wta':''}`);
+    const params=new URLSearchParams({q:text});
+    if(searchTour==='wta')params.set('tour','wta');
+    router.push(`/buscar?${params}`);
   };
   const queryLength=query.trim().length;
   const loading=queryLength>=2&&(result.query!==query.trim()||result.tour!==searchTour);
@@ -126,7 +135,7 @@ export function DeuceTopbar() {
   return <>
     <header className={`topbar${scrolled?' is-scrolled':''}${navHidden&&!menu&&!searchOpen?' nav-hidden':''}${searchOpen?' search-open':''}`}>
       <Link className="logo" href="/" aria-label="DEUCE, inicio" onClick={()=>{setMenu(false);setSearchOpen(false);}}><span aria-hidden="true"/>DEUCE</Link>
-      <nav id="deuce-navigation" className={menu?'mobile-open':''} aria-label="Principal" aria-hidden={searchOpen}>{navigation.map(([label,href])=>{const archivePath=pathname==='/buscar'||pathname.startsWith('/match/');const active=label==='WTA'?wtaContext&&archivePath:href==='/buscar'?!wtaContext&&archivePath:href==='/jugadores'?pathname.startsWith('/jugadores')||pathname.startsWith('/players/'):href==='/torneos'?pathname.startsWith('/torneos')||/^\/[a-z0-9-]+\/\d{4}$/.test(pathname):href==='/comparar'?pathname==='/comparar'||pathname==='/compare':pathname===href||pathname.startsWith(`${href}/`);return <Link prefetch={true} className={active?'active':''} aria-current={active?'page':undefined} href={href} key={href} tabIndex={searchOpen?-1:undefined} onClick={()=>setMenu(false)}>{label}</Link>;})}</nav>
+      <nav id="deuce-navigation" className={menu?'mobile-open':''} aria-label="Principal" aria-hidden={searchOpen}>{navigationItems.map(({label,section,href})=>{const active=section==='matches'?pathname==='/buscar'||pathname.startsWith('/match/'):section==='players'?pathname.startsWith('/jugadores')||pathname.startsWith('/players/'):section==='tournaments'?pathname.startsWith('/torneos')||/^\/[a-z0-9-]+\/\d{4}$/.test(pathname):section==='compare'?pathname==='/comparar'||pathname==='/compare':pathname==='/records'||pathname.startsWith('/records/');return <Link prefetch={true} className={active?'active':''} aria-current={active?'page':undefined} href={href} key={section} tabIndex={searchOpen?-1:undefined} onClick={()=>setMenu(false)}>{label}</Link>;})}</nav>
       <form className="topbar-spotlight-form" role="search" aria-hidden={!searchOpen} onSubmit={event=>{event.preventDefault();submit();}}>
         <Search size={19} aria-hidden="true"/>
         <label className="nc-sr" htmlFor="global-search">Buscar jugadores, partidos o torneos</label>
@@ -139,7 +148,7 @@ export function DeuceTopbar() {
       <button ref={menuTrigger} className="menu" type="button" aria-label={menu?'Cerrar menú':'Abrir menú'} aria-expanded={menu} aria-controls="deuce-navigation" onClick={()=>{setSearchOpen(false);setNavHidden(false);setMenu(value=>!value)}}>{menu?<X size={18} aria-hidden="true"/>:<Menu size={18} aria-hidden="true"/>}</button>
     </header>
     <section ref={panel} id="global-search-results" className={`topbar-spotlight-panel${searchOpen?' is-open':''}`} aria-label="Sugerencias de búsqueda" aria-live="polite" aria-busy={loading} aria-hidden={!searchOpen} onKeyDown={event=>{if(event.key==='ArrowDown'||event.key==='ArrowUp'){event.preventDefault();moveResult(event.key==='ArrowDown'?1:-1);}}}>
-      {!query.trim()?<div className="topbar-spotlight-empty"><span>Buscar en todo DEUCE</span><p>Encuentra jugadores, partidos, torneos, ediciones y récords desde un único lugar.</p><div>{navigation.slice(0,4).map(([label,href])=><Link key={href} href={href} onClick={()=>setSearchOpen(false)}>{label}</Link>)}</div></div>
+      {!query.trim()?<div className="topbar-spotlight-empty"><span>Buscar en todo DEUCE · {searchTour.toUpperCase()}</span><p>Encuentra jugadores, partidos, torneos, ediciones y récords del circuito activo.</p><div>{navigationItems.slice(0,4).map(({label,section,href})=><Link key={section} href={href} onClick={()=>setSearchOpen(false)}>{label}</Link>)}</div></div>
       :queryLength<2?<p className="topbar-spotlight-status">Escribe al menos dos caracteres.</p>
       :loading?<p className="topbar-spotlight-status">Buscando…</p>
       :result.error?<p className="topbar-spotlight-status">No se pudieron cargar las sugerencias. Pulsa Intro para buscar.</p>

@@ -131,6 +131,7 @@ export default async function Tournament({ params, searchParams }: Props) {
     count: [...new Set(tourMatches.filter(match=>match.category===level).map(match=>match.year))].length,
     years: [...new Set(tourMatches.filter(match=>match.category===level).map(match=>match.year))].sort((a,b)=>b-a),
   }));
+  const usedChampionPhotos = new Set<string>();
 
   return (
     <div className={`${styles.page} nc-wrap`} data-event-category={category} data-event-surface={court.surface} data-tournament={slug} data-grand-slam={category === "Grand Slam" ? "true" : undefined}>
@@ -157,9 +158,12 @@ export default async function Tournament({ params, searchParams }: Props) {
             const champion = winnerName(final)!;
             const opponent = final.player1.name === champion ? final.player2.name : final.player1.name;
             const titlePhoto = selectedTour==='atp'?championPhotoForEdition(tournament.name, final.year):null;
-            const championPhoto = titlePhoto;
+            const candidatePhoto = titlePhoto || playerPhoto(champion,selectedTour);
+            const photoKey = candidatePhoto ? `${champion}|${candidatePhoto.src}` : '';
+            const championPhoto = candidatePhoto && !usedChampionPhotos.has(photoKey) ? candidatePhoto : null;
+            if (championPhoto) usedChampionPhotos.add(photoKey);
             return <li key={final.match_id}><Link href={editionHref(final.year)} aria-label={`${champion}, ${selectedTour==='wta'?'campeona':'campeón'} en ${final.year}. Final ante ${opponent}`}>
-              {championPhoto ? <Image className={`${styles.championPhoto} art-directed-photo`} src={championPhoto.src} alt={titlePhoto ? `${champion} con el trofeo de ${final.year}` : ""} fill sizes="(max-width: 759px) 78vw, 330px" style={imageFocus(championPhoto.objectPosition || "50% 20%", championPhoto.mobileObjectPosition || championPhoto.objectPosition || "50% 20%")} unoptimized /> : <PlayerAvatar name={champion} photo={null} size={80} />}
+              {championPhoto ? <Image className={`${styles.championPhoto} art-directed-photo`} src={championPhoto.src} alt={titlePhoto ? `${champion} con el trofeo de ${final.year}` : championPhoto.alt} fill sizes="(max-width: 759px) 78vw, 330px" style={imageFocus(championPhoto.objectPosition || "50% 20%", championPhoto.mobileObjectPosition || championPhoto.objectPosition || "50% 20%")} unoptimized /> : <PlayerAvatar name={champion} tour={selectedTour} photo={null} size={80} />}
               <span className={styles.championShade} aria-hidden="true" /><span className={styles.championYear}>{final.year}</span><span className={styles.championCopy}><strong>{champion}</strong><span>Final ante {opponent}</span><small>{scoreFor(final, champion)}</small></span>
             </Link></li>;
           })}

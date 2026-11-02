@@ -7,12 +7,13 @@ import { withOperationHistory } from '@/lib/archive-operations'
 import { readFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { gunzipSync } from 'node:zlib'
+import { readingDirectory } from '@/lib/reading-directory'
 
 export const runtime = 'nodejs'
 export const maxDuration = 300
 export const dynamic = 'force-dynamic'
 
-const root = join(process.cwd(), 'data', 'reading')
+const root = readingDirectory()
 
 async function readBundled<T>(id: string): Promise<T> {
   return JSON.parse(gunzipSync(await readFile(join(root, `${id}.json.gz`))).toString()) as T

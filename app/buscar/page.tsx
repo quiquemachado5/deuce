@@ -11,6 +11,7 @@ import { chronological } from '@/lib/editorial';
 import { number } from '@/lib/cuaderno/model';
 import EditionMatchGroups, { type MatchEdition } from '@/components/EditionMatchGroups';
 import MatchSearchBar from '@/components/MatchSearchBar';
+import TournamentFilters from '@/components/TournamentFilters';
 import PlayerAvatar from '@/components/PlayerAvatar';
 import { MatchArchivePage } from '@/components/deuce/MatchArchivePage';
 import { toMatchRecord } from '@/data/map-match';
@@ -56,7 +57,16 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
   const tour: 'atp' | 'wta' = query.tour === 'wta' ? 'wta' : 'atp';
   query.tour = tour;
   const tourMatches = data.matchesByTour[tour];
+  const rejectedCapabilities:string[]=[];
+  if(query.data==='measures'&&!tourMatches.some(match=>match.statistics.length>0)){delete query.data;rejectedCapabilities.push('estadísticas de partido');}
+  if(query.data==='points'&&!tourMatches.some(match=>match.point_tape.length>0)){delete query.data;rejectedCapabilities.push('punto a punto');}
+  if(query.fiveSets==='true'&&!tourMatches.some(match=>match.score_summary.games.length===5)){delete query.fiveSets;rejectedCapabilities.push('partidos a cinco sets');}
   const years = [...new Set(tourMatches.map(match => match.year))].sort((a, b) => b - a);
+  const surfaces=[...new Set(tourMatches.map(match=>match.surface))].filter(surface=>allowedSurfaces.has(surface));
+  if(query.surface&&!surfaces.includes(query.surface as typeof surfaces[number])){rejectedCapabilities.push(`partidos en ${rawSurface||query.surface}`);delete query.surface;}
+  const availableRoundSet=new Set(tourMatches.map(browserRound).filter(Boolean));
+  const rounds=[...browserRounds.filter(round=>availableRoundSet.has(round)),...availableRoundSet].filter((round,index,all)=>all.indexOf(round)===index);
+  if(query.round&&!rounds.some(round=>normalizeText(round)===normalizeText(query.round!))){rejectedCapabilities.push(`la ronda ${query.round}`);delete query.round;}
   if (query.year && query.year !== 'all' && !years.includes(Number(query.year))) delete query.year;
   const selectedYear = query.year === 'all' ? null : query.year ? Number(query.year) : query.q || query.vista === 'torneos' ? null : years[0];
   const directory = tournamentDirectory(tourMatches);
@@ -102,7 +112,6 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
   const players = suggestions.filter(item => item.group === 'Jugadores' && tourPlayers.has(normalizeText(item.name)));
   const related = suggestions.filter(item => ['Torneos', 'Récords', 'Parejas'].includes(item.group));
   const chips = [
-    query.tour === 'wta' ? { key: 'tour', label: 'WTA' } : null,
     query.year && query.year !== 'all' ? { key: 'year', label: `Temporada ${query.year}` } : null,
     query.surface ? { key: 'surface', label: ({ clay: 'Tierra', grass: 'Hierba', hard: 'Dura', carpet: 'Moqueta' } as Record<string,string>)[query.surface] || query.surface } : null,
     query.category ? { key: 'category', label: query.category } : null,
@@ -114,20 +123,41 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
     query.fiveSets === 'true' ? { key: 'fiveSets', label: 'Cinco sets' } : null,
     query.data === 'measures' ? { key: 'data', label: 'Con medidas' } : query.data === 'points' ? { key: 'data', label: 'Con puntos' } : null,
   ].filter((chip): chip is { key: string; label: string } => Boolean(chip));
-  const searchTools=<MatchSearchBar query={query} categories={categories} rounds={[...new Set([...browserRounds, ...tourMatches.map(browserRound)])].filter(Boolean)} years={years} activeYear={selectedYear} />;
+  const circuitHref=(nextTour:'atp'|'wta')=>matchSearchUrl(query,{
+    tour:nextTour,
+    year:undefined,
+    category:undefined,
+    tournament:undefined,
+    surface:undefined,
+    round:undefined,
+    age:undefined,
+    fromYear:undefined,
+    toYear:undefined,
+    fiveSets:undefined,
+    data:undefined,
+    limit:undefined,
+  });
+  const searchTools=<div className={styles.searchHeaderTools}>
+    <TournamentFilters ariaLabel="Circuito de partidos" items={[
+      {href:circuitHref('atp'),label:'ATP',active:tour==='atp'},
+      {href:circuitHref('wta'),label:'WTA',active:tour==='wta'},
+    ]}/>
+    <MatchSearchBar query={query} categories={categories} rounds={rounds} surfaces={surfaces} years={years} activeYear={selectedYear} />
+  </div>;
   return <div className={`deuce-search view-root ${styles.searchPage}`}>
     <header className={`inner-title ${styles.searchIntro}`}><h1>Partidos</h1><div className="inner-title-tools">{searchTools}</div></header>
     {!!query.q && <form className={styles.visibleQuery} action="/buscar" method="get" role="search">
       <label htmlFor="visible-match-query">Búsqueda actual</label>
       <div><input id="visible-match-query" name="q" type="search" defaultValue={query.q} /><button type="submit">Buscar</button><Link href={matchSearchUrl(query, { q: undefined, limit: undefined })}>Borrar búsqueda</Link></div>
-      {Object.entries(query).filter(([key, value]) => key !== 'q' && key !== 'limit' && Boolean(value)).map(([key, value]) => <input type="hidden" name={key} value={value} key={key} />)}
+      {Object.entries(query).filter(([key, value]) => key !== 'q' && key !== 'limit' && !(key === 'tour' && value === 'atp') && Boolean(value)).map(([key, value]) => <input type="hidden" name={key} value={value} key={key} />)}
     </form>}
     {chips.length > 0 && <nav className={styles.activeChips} aria-label="Filtros activos">{chips.map(chip => <Link key={chip.key} href={matchSearchUrl(query, { [chip.key]: undefined, limit: undefined })} aria-label={`Quitar filtro ${chip.label}`}>{chip.label}<span aria-hidden="true">×</span></Link>)}</nav>}
     {invalidSurface && <p className={styles.queryNotice} role="status">«{invalidSurface}» no es una superficie válida. Mostramos el archivo sin ese filtro.</p>}
     {translatedSurface && <p className={styles.queryNotice} role="status">El filtro «{translatedSurface}» se ha aplicado correctamente.</p>}
+    {rejectedCapabilities.length>0&&<p className={styles.queryNotice} role="status">La muestra {tour.toUpperCase()} actual no publica {rejectedCapabilities.join(' ni ')}. Mostramos los resultados disponibles sin ese filtro.</p>}
     {!!query.q && matchSearchIntent(query.q).labels.length > 0 && <p className="archive-freshness">Interpretamos: {matchSearchIntent(query.q).labels.join(' · ')}</p>}
-    {query.scope !== 'matches' && players.length > 0 && <section className={styles.playerResults} aria-label="Jugadores encontrados">{players.map(player => <Link className={styles.playerResult} href={player.href} key={player.href}>
-      <PlayerAvatar tour={tour} name={player.name} size={60} /><span><strong>{player.name}</strong><small>{players.length === 1 ? `${number(filtered.length)} partidos` : 'Ver ficha del jugador'}</small></span><ArrowUpRight size={18} aria-hidden="true" />
+    {query.scope !== 'matches' && players.length > 0 && <section className={styles.playerResults} aria-label={tour==='wta'?'Jugadoras encontradas':'Jugadores encontrados'}>{players.map(player => <Link className={styles.playerResult} href={player.href} key={player.href}>
+      <PlayerAvatar tour={tour} name={player.name} size={60} /><span><strong>{player.name}</strong><small>{players.length === 1 ? `${number(filtered.length)} partidos` : tour==='wta'?'Ver ficha de la jugadora':'Ver ficha del jugador'}</small></span><ArrowUpRight size={18} aria-hidden="true" />
     </Link>)}</section>}
     {related.length > 0 && <nav className={styles.relatedResults} aria-label="También en el archivo">{related.map(item => <Link href={item.href} key={item.href}>{item.name}<ArrowUpRight size={14} aria-hidden="true" /></Link>)}</nav>}
 
@@ -139,7 +169,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
         description={tour === 'wta' && !tourMatches.length ? 'No mostramos resultados ATP como si fueran WTA. Puedes consultar la cobertura o continuar en el archivo ATP.' : 'Prueba otro nombre o quita alguno de los filtros de la búsqueda.'}
         resetHref={tour === 'wta' && !tourMatches.length ? '/buscar' : matchSearchUrl({}, { q: query.q,tour })}
       />}
-      {!filtered.length && <nav className="archive-suggestions" aria-label="Alternativas de búsqueda">{chips.map(chip => <Link key={chip.key} href={matchSearchUrl(query,{[chip.key]:undefined})}>Quitar {chip.label}</Link>)}{tour === 'wta' && !tourMatches.length ? <><Link href="/buscar">Ver partidos ATP</Link><Link href="/cobertura">Consultar cobertura</Link></> : <><Link href="/buscar">Empezar de nuevo</Link><Link href="/buscar?q=Nadal+Federer+Wimbledon+2008">Nadal · Federer · Wimbledon 2008</Link></>}</nav>}
+      {!filtered.length && <nav className="archive-suggestions" aria-label="Alternativas de búsqueda">{chips.map(chip => <Link key={chip.key} href={matchSearchUrl(query,{[chip.key]:undefined})}>Quitar {chip.label}</Link>)}{tour === 'wta' && !tourMatches.length ? <><Link href="/buscar">Cambiar a ATP</Link><Link href="/cobertura">Consultar cobertura</Link></> : <><Link href={matchSearchUrl({}, {tour})}>Empezar de nuevo</Link><Link href={tour === 'wta' ? '/buscar?q=Swiatek+Sabalenka&tour=wta' : '/buscar?q=Nadal+Federer+Wimbledon+2008'}>{tour === 'wta' ? 'Swiatek · Sabalenka' : 'Nadal · Federer · Wimbledon 2008'}</Link></>}</nav>}
       {(query.vista === 'torneos' ? editionYears.length > seasonLimit : matchDates.length > dailyLimit) && <div className={styles.loadMore}><Link href={matchSearchUrl(query, { limit: String((query.vista === 'torneos' ? seasonLimit : dailyLimit) + (query.vista === 'torneos' ? 2 : 1)) })} scroll={false}>{query.vista === 'torneos' ? 'Cargar temporadas anteriores' : 'Cargar días anteriores'}<ChevronDown size={16} aria-hidden="true" /></Link></div>}
     </section>
   </div>;

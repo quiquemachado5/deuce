@@ -11,9 +11,12 @@ test('circuit-specific suggestions cannot leak the opposite circuit',async({requ
 });
 
 test('WTA comparator persists its circuit and never defaults to ATP champions',async({page})=>{
-  await page.goto('/comparar?tour=wta');
+  await page.goto('/comparar?tour=wta&year=1900');
   await expect(page.locator('input[name="tour"]')).toHaveValue('wta');
+  await expect(page.locator('select[name="year"]')).toHaveValue('all');
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href',/tour=wta/);
+  await expect(page.getByRole('combobox',{name:'Jugadora 1'})).toBeVisible();
+  await expect(page.getByRole('combobox',{name:'Jugadora 2'})).toBeVisible();
   const names=await page.locator('input[name="a"],input[name="b"]').evaluateAll(nodes=>nodes.map(node=>(node as HTMLInputElement).value));
   expect(names).not.toContain('Novak Djokovic');expect(names).not.toContain('Rafael Nadal');
   expect(await page.locator('main').innerText()).not.toContain('Novak Djokovic');
@@ -43,9 +46,36 @@ test('coverage distinguishes operational clocks and remains accessible on a phon
   expect((await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa']).analyze()).violations).toEqual([]);
 });
 
-test('the WTA entry opens the integrated WTA match archive and stays active',async({page})=>{
+test('the WTA entry opens the integrated match archive and keeps its circuit across sections',async({page})=>{
   await page.goto('/wta');
   await expect(page).toHaveURL(/\/buscar\?tour=wta$/);
-  await expect(page.getByRole('navigation',{name:'Filtros activos'}).getByRole('link',{name:'Quitar filtro WTA'})).toBeVisible();
-  await expect(page.getByRole('navigation',{name:'Principal'}).getByRole('link',{name:'WTA',exact:true})).toHaveAttribute('aria-current','page');
+  const primary=page.getByRole('navigation',{name:'Principal',exact:true});
+  await expect(primary.getByRole('link',{name:'WTA',exact:true})).toHaveCount(0);
+  await expect(primary.getByRole('link',{name:'Partidos',exact:true})).toHaveAttribute('aria-current','page');
+  await expect(page.getByRole('navigation',{name:'Circuito de partidos'}).getByRole('link',{name:'WTA',exact:true})).toHaveAttribute('aria-current','page');
+
+  await primary.getByRole('link',{name:'Torneos',exact:true}).click();
+  await expect(page).toHaveURL(/\/torneos\?circuito=wta$/);
+  await expect(page.getByRole('navigation',{name:'Circuito de torneos'}).getByRole('link',{name:'WTA',exact:true})).toHaveAttribute('aria-current','page');
+
+  await page.getByRole('navigation',{name:'Principal',exact:true}).getByRole('link',{name:'Jugadores',exact:true}).click();
+  await expect(page).toHaveURL(/\/jugadores\?tour=wta$/);
+  await expect(page.getByRole('navigation',{name:'Circuito de jugadoras'}).getByRole('link',{name:'WTA',exact:true})).toHaveAttribute('aria-current','page');
+
+  await page.getByRole('navigation',{name:'Principal',exact:true}).getByRole('link',{name:'Comparar',exact:true}).click();
+  await expect(page).toHaveURL(/\/comparar\?tour=wta$/);
+  await expect(page.getByRole('navigation',{name:'Circuito del comparador'}).getByRole('link',{name:'WTA',exact:true})).toHaveAttribute('aria-current','page');
+
+  await page.getByRole('button',{name:'Buscar en DEUCE'}).click();
+  await page.getByRole('search').getByRole('searchbox').fill('Swiatek');
+  await page.getByRole('button',{name:'Ver todos los resultados'}).click();
+  await expect(page).toHaveURL(/\/buscar\?q=Swiatek&tour=wta$/);
+});
+
+test('match organization remains visible on a phone before opening filters',async({page})=>{
+  await page.setViewportSize({width:390,height:844});
+  await page.goto('/buscar?tour=wta');
+  const organization=page.getByRole('navigation',{name:'Organización de los partidos'});
+  await expect(organization.getByRole('link',{name:'Día a día'})).toBeVisible();
+  await expect(organization.getByRole('link',{name:'Por torneo'})).toBeVisible();
 });

@@ -38,6 +38,22 @@ test('surface ratios do not count matches on a different surface', () => {
   assert.equal(piece.rows[0].value, 100);
   assert.equal(recordEvidence(matches, piece.id, piece.rows[0]).matches.length, 10);
 });
+test('WTA tier records expose the exact contributing matches', () => {
+  const matches = Array.from({ length: 3 }, (_, index) => ({
+    ...fixture(index),
+    tour: 'wta' as const,
+    category: 'WTA 1000',
+    tournament: index === 2 ? 'Rome' : 'Madrid',
+    winner: index === 1 ? 2 as const : 1 as const,
+  }));
+  for (const id of ['wta-1000-titulos', 'wta-1000-finales', 'wta-1000-titulos-un-torneo', 'wta-1000-victorias']) {
+    const piece = recordCatalog(matches, new Date(), id)[0];
+    assert.ok(piece, id);
+    assert.doesNotThrow(() => recordEvidence(matches, id, piece.rows[0]), id);
+  }
+  const titles = recordCatalog(matches, new Date(), 'wta-1000-titulos')[0];
+  assert.equal(recordEvidence(matches, titles.id, titles.rows[0]).matches.length, titles.rows[0].value);
+});
 test('ace density threshold counts paired service points, not matches', () => {
   const stat = (name: string, value: number): MatchStat => ({ name, value: String(value), player: 1, period: 'match', category: 'Service', won: value, total: null });
   const matches = [0,1].map(i => ({ ...fixture(i), statistics: [stat('Aces', 5), stat('Service points played', 60)] }));

@@ -64,20 +64,19 @@ test('edition sitemap paths match every canonical category and circuit variant',
   ]));
 });
 
-test('match sitemap lastmod is the real snapshot modification time, not a sporting date', () => {
-  const generatedAt = '2026-11-01T10:43:14.938Z';
+test('match sitemap lastmod uses the verified sporting date and omits approximate dates', () => {
   const matches: Match[] = [
     { ...base, match_id: 'approximate', year: 2022, context: { date: '2022-05-23', dateLabel: 'Inicio del torneo' } },
     { ...base, match_id: 'exact', year: 2022, context: { date: '2022-05-31', dateLabel: 'Fecha del partido' } },
     { ...base, match_id: 'other-year', year: 2021 },
   ];
-  const entries = matchSitemapEntries(matches, 2022, generatedAt);
+  const entries = matchSitemapEntries(matches, 2022);
   assert.equal(entries.length, 2);
   assert.deepEqual(entries.map(entry => entry.url), [
     `${SITE_ORIGIN}/match/approximate`,
     `${SITE_ORIGIN}/match/exact`,
   ]);
-  assert.deepEqual(entries.map(entry => entry.lastModified), [generatedAt, generatedAt]);
+  assert.deepEqual(entries.map(entry => entry.lastModified), [undefined, '2022-05-31T12:00:00.000Z']);
   assert.ok(entries.every(entry => entry.changeFrequency === 'never' && entry.priority === 0.5));
 });
 

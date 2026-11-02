@@ -4,6 +4,7 @@ import { editionCompleteness } from '@/lib/edition-audit';
 import { generationMetadata } from '@/lib/revista/generation';
 import { preparedEditionAudit, preparedGeneration } from '@/lib/revista/read-records';
 import { logEvent, requestId } from '@/lib/structured-log';
+import { readSchedulerHealth } from '@/lib/scheduler-health';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 30;
@@ -23,24 +24,26 @@ export async function GET(request: Request) {
   const started = performance.now(), id = requestId(request);
   const headers = { 'Cache-Control': 'no-store', 'X-Request-Id': id };
   try {
-    const [generation, editions, sync, wtaSync, publication, capacity] = await Promise.all([
-      preparedGeneration(), preparedEditionAudit(), cloudProbeRead('sync-status'), cloudProbeRead('wta-sync-status'), cloudProbeRead('publish-status'), cloudArchiveLastCapacity(1_500),
+    const [generation, editions, sync, wtaSync, publication, capacity, scheduler] = await Promise.all([
+      preparedGeneration(), preparedEditionAudit(), cloudProbeRead('sync-status'), cloudProbeRead('wta-sync-status'), cloudProbeRead('publish-status'), cloudArchiveLastCapacity(1_500), readSchedulerHealth(),
     ]);
     const auditedEditions = editions.map(edition => ({ ...edition, ...editionCompleteness(edition) }));
     const ageHours = Math.max(0, (Date.now() - Date.parse(generation.manifest.generatedAt)) / 3_600_000);
     const refresh = recentStatus(sync), wtaRefresh = recentStatus(wtaSync), published = recentStatus(publication);
     const configured = cloudArchiveConfigured();
     const dailyIssue = configured && [refresh, wtaRefresh, published].some(row => row.status !== 'success' || row.ageHours === null || row.ageHours > 36);
-    const status = generation.fallbackReason || ageHours > 72 || dailyIssue || !capacity.available ? 'degraded' : 'healthy';
+    const schedulerIssue = scheduler.configured && scheduler.status !== 'healthy';
+    const status = generation.fallbackReason || ageHours > 72 || dailyIssue || schedulerIssue || !capacity.available ? 'degraded' : 'healthy';
     const elapsedMs = Math.round(performance.now() - started);
     logEvent(status === 'healthy' ? 'info' : 'warn', 'health.deep', { requestId: id, status, elapsedMs, source: generation.source, fallbackReason: generation.fallbackReason });
     return Response.json({
       status, ...generationMetadata(generation), deployment: deploymentMetadata(),
-      matches: generation.manifest.matchCount, statistics: generation.manifest.pieces.length,
+      matches: generation.manifest.matchCount, tours: generation.manifest.summary.tours, statistics: generation.manifest.pieces.length,
       editionCoverage: { audited: auditedEditions.length, incomplete: auditedEditions.filter(edition => edition.completeDraw === false).length, pendingResults: auditedEditions.reduce((sum, edition) => sum + edition.pending, 0) },
       ageHours: Math.round(ageHours * 10) / 10, staleAfterHours: 72, elapsedMs,
       remoteArchive: { configured, reachable: !generation.fallbackReason },
       storage: { ...capacity.report, maximumBytes: capacity.maximum, available: capacity.available },
+      scheduler,
       dailyUpdate: { refresh, atp: refresh, wta: wtaRefresh, publication: published, staleAfterHours: 36 },
     }, { headers: { ...headers, 'X-DEUCE-Dataset-Version': generation.manifest.version } });
   } catch (error) {

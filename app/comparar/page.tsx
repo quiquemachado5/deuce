@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { preparedGeneration } from '@/lib/revista/read-records';
+import { preparedPlayerRecords, preparedTourArchive } from '@/lib/revista/read-records';
 import { comparePlayer, sharedCareerWindow } from '@/lib/player-comparison';
 import { playerPhoto } from '@/lib/player-imagery';
 import { playerSlug } from '@/lib/explore';
@@ -14,6 +14,7 @@ import PlayerFlag from '@/components/PlayerFlag';
 import { playerBiography } from '@/lib/player-bio';
 import { ArchiveMatchRow } from '@/components/deuce/MatchArchivePage';
 import { toMatchRecord } from '@/data/map-match';
+import TournamentFilters from '@/components/TournamentFilters';
 import styles from './compare.module.css';
 
 const baseMetadata = {
@@ -34,20 +35,29 @@ const baseMetadata = {
 };
 export async function generateMetadata({searchParams}:{searchParams:Promise<Query>}) {
   const q=await searchParams, tour=q.tour==='wta'?'wta':'atp';
-  const canonical='/comparar?'+new URLSearchParams({tour,...(q.a?{a:q.a}:{}),...(q.b?{b:q.b}:{})});
+  const params=new URLSearchParams({...(tour==='wta'?{tour}:{}),...(q.a?{a:q.a}:{}),...(q.b?{b:q.b}:{})});
+  const canonical=`/comparar${params.size?`?${params}`:''}`;
   const title=tour==='wta'?'Comparador de jugadoras WTA — DEUCE':'Comparador de jugadores ATP — DEUCE';
-  return {...baseMetadata,title,alternates:{canonical},openGraph:{...baseMetadata.openGraph,title,url:canonical}};
+  const description=tour==='wta'
+    ? 'Compara dos jugadoras WTA del archivo DEUCE por trayectoria, rendimiento, superficie y enfrentamientos directos.'
+    : baseMetadata.description;
+  return {...baseMetadata,title,description,alternates:{canonical},openGraph:{...baseMetadata.openGraph,title,description,url:canonical},twitter:{...baseMetadata.twitter,title,description}};
 }
 export const revalidate = 300;
 type Query = Record<string, string | undefined>;
 
 export default async function Compare({ searchParams }: { searchParams: Promise<Query> }) {
-  const q = await searchParams, generation = await preparedGeneration();
-  const [allMatches,allRecords]=await Promise.all([generation.matches(),generation.records()]);
+  const q = { ...await searchParams };
   const tour=q.tour==='wta'?'wta':'atp';
   q.tour=tour;
-  const matches=allMatches.filter(m=>(m.tour||'atp')===tour),recordSource=allRecords.filter(p=>(p.tour||'atp')===tour);
+  const [matches,playerArchive]=await Promise.all([preparedTourArchive(tour),preparedPlayerRecords()]);
+  const recordSource=playerArchive.records.filter(p=>(p.tour||'atp')===tour);
+  const circuitYears=[...new Set(matches.map(match=>match.year))].sort((a,b)=>b-a);
+  if(q.year&&q.year!=='all'&&!circuitYears.includes(Number(q.year)))q.year='all';
   const names = recordSource.map(player=>player.name).sort((a,b) => a.localeCompare(b,'es'));
+  const defaultNames=[...recordSource]
+    .sort((a,b)=>b.grandSlamFinalsWon-a.grandSlamFinalsWon||b.wins-a.wins||b.played-a.played||a.name.localeCompare(b.name,'es'))
+    .map(player=>player.name);
   const resolvePlayer = (value: string) => {
     const exact = names.find(name => playerSlug(name) === playerSlug(value) || normalizeText(name) === normalizeText(value));
     if (exact) return exact;
@@ -55,18 +65,16 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
     const surnames = names.filter(name => normalizeText(name).split(/\s+/).at(-1) === token);
     return surnames.length === 1 ? surnames[0] : '';
   };
-  const firstRequested = q.a || (tour==='wta'?names[0]||'':'Novak Djokovic');
+  const firstRequested = q.a || (tour==='wta'?defaultNames[0]||'':'Novak Djokovic');
   const firstResolved = resolvePlayer(firstRequested);
   const defaultSecond = playerSlug(firstResolved || firstRequested) === playerSlug('Rafael Nadal') ? 'Novak Djokovic' : 'Rafael Nadal';
-  const requested = [firstRequested, q.b || (tour==='wta'?names.find(n=>n!==firstResolved)||'':defaultSecond)];
+  const requested = [firstRequested, q.b || (tour==='wta'?defaultNames.find(name=>name!==firstResolved)||'':defaultSecond)];
   const resolved = [firstResolved, resolvePlayer(requested[1])];
   const chosen = requested.map((name, index) => resolved[index] || name);
   const same = chosen[0] === chosen[1], valid = resolved.every(Boolean);
   const canCompare = valid && !same;
   const chosenNames=new Set(chosen);
-  const selectedTours=new Set(matches.filter(match=>chosenNames.has(match.player1.name)||chosenNames.has(match.player2.name)).map(match=>match.tour||'atp'));
-  const selectedTour=selectedTours.size===1?[...selectedTours][0]:null;
-  const relevantMatches=matches.filter(match=>(!selectedTour||(match.tour||'atp')===selectedTour)&&(chosenNames.has(match.player1.name)||chosenNames.has(match.player2.name)));
+  const relevantMatches=matches.filter(match=>chosenNames.has(match.player1.name)||chosenNames.has(match.player2.name));
   const window = canCompare ? sharedCareerWindow(relevantMatches, chosen) : null;
   const cohort = canCompare ? (q.period === 'shared' ? (window ? relevantMatches.filter(m=>m.year>=window.first&&m.year<=window.last) : []) : relevantMatches) : [];
   const players = canCompare ? chosen.map(name => comparePlayer(cohort, name, q)) : [];
@@ -95,14 +103,18 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
   const directWins = canCompare ? chosen.map(name => directMatches.filter(match => winnerName(match) === name).length) : [0, 0];
   const compareHref = (changes: Query) => {
     const params = new URLSearchParams();
-    Object.entries({ ...q, a: chosen[0], b: chosen[1], ...changes }).forEach(([key,value]) => { if (value && value !== 'all') params.set(key,value); });
-    return `/comparar?${params}`;
+    Object.entries({ ...q, a: chosen[0], b: chosen[1], ...changes }).forEach(([key,value]) => { if (value && value !== 'all' && !(key==='tour'&&value==='atp')) params.set(key,value); });
+    const search=params.toString();
+    return `/comparar${search?`?${search}`:''}`;
   };
   const surfacesToShow = q.surface && q.surface !== 'all' ? SURFACES.filter(surface => surface === q.surface) : SURFACES.filter(surface => surface !== 'unknown');
 
   return <div className={`${styles.page} nc-wrap dx-comparison deuce-comparison`}>
-    <header className={`inner-title ${styles.intro}`}><h1>Comparar</h1></header>
-    <ArchiveNotice status={generation} />
+    <header className={`inner-title ${styles.intro}`}><h1>Comparar</h1><div className="inner-title-tools"><TournamentFilters ariaLabel="Circuito del comparador" items={[
+      {href:'/comparar',label:'ATP',active:tour==='atp'},
+      {href:'/comparar?tour=wta',label:'WTA',active:tour==='wta'},
+    ]}/></div></header>
+    <ArchiveNotice status={playerArchive} />
     <CompareSelection key={chosen.join('|')} initial={chosen.map(name => {
       const photo = playerPhoto(name,q.tour==='wta'?'wta':'atp');
       const hasThumbnail = Boolean(photo?.thumbnail);
@@ -112,11 +124,14 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
         avatarCrop: hasThumbnail ? undefined : photo.avatarCrop,
       } : undefined };
     })}>
-      <input type="hidden" name="tour" value={tour}/><nav aria-label="Circuito del comparador"><Link href="/comparar?tour=atp" aria-current={tour==='atp'?'page':undefined}>ATP</Link> · <Link href="/comparar?tour=wta" aria-current={tour==='wta'?'page':undefined}>WTA</Link></nav>
-      {['a','b'].map((key,index) => <div className="nc-field" key={key}><span>Jugador {index + 1}</span><PlayerInput tour={tour} key={chosen[index]} name={key} initial={chosen[index]} label={`Jugador ${index + 1}`} /></div>)}
+      {tour==='wta'?<input type="hidden" name="tour" value="wta"/>:null}
+      {['a','b'].map((key,index) => {
+        const label=`${tour==='wta'?'Jugadora':'Jugador'} ${index+1}`;
+        return <div className="nc-field" key={key}><span>{label}</span><PlayerInput tour={tour} key={chosen[index]} name={key} initial={chosen[index]} label={label} /></div>;
+      })}
       <CompareSampleFilters summary={activeSampleFilters ? `${activeSampleFilters} activos` : 'Valores generales'}>
         <label className="nc-field"><span>Periodo de comparación</span><select name="period" defaultValue={q.period || "career"}><option value="career">Carrera documentada</option><option value="shared">Periodo compartido</option></select></label>
-        <label className="nc-field"><span>Temporada</span><select name="year" defaultValue={q.year || 'all'}><option value="all">Todas</option>{generation.manifest.years.map(year => <option key={year}>{year}</option>)}</select></label>
+        <label className="nc-field"><span>Temporada</span><select name="year" defaultValue={q.year || 'all'}><option value="all">Todas</option>{circuitYears.map(year => <option key={year}>{year}</option>)}</select></label>
         <label className="nc-field"><span>Superficie</span><select name="surface" defaultValue={q.surface || 'all'}><option value="all">Todas</option>{SURFACES.map(s => <option value={s} key={s}>{surfaceLabel[s]}</option>)}</select></label>
         <label className="nc-field"><span>Competición</span><select name="competition" defaultValue={q.competition || 'all'}><option value="all">Todas</option>{[...new Set(relevantMatches.map(m => m.category))].sort().filter(category => !/nivel no especificado/.test(category)).map(c => <option key={c}>{c}</option>)}</select></label>
         <label className="nc-field"><span>Edad al jugar</span><select name="age" defaultValue={q.age || 'all'}><option value="all">Todas las edades</option>{[['14-17','14–17'],['18-21','18–21'],['22-25','22–25'],['26-29','26–29'],['30-34','30–34'],['35+','35 o más']].map(([value,label]) => <option key={value} value={value}>{label} años</option>)}</select></label>
@@ -124,7 +139,7 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
       </CompareSampleFilters>
       <button className="dx-button" type="submit">Comparar</button>
     </CompareSelection>
-    {!valid ? <p role="status" className="dx-notice">Selecciona dos nombres del archivo. No hay resultados para {chosen.filter(n => !names.includes(n)).join(', ')}.</p> : same ? <p role="status" className="dx-notice">Has elegido el mismo jugador. Selecciona dos jugadores distintos para construir una comparación.</p> : <>
+    {!valid ? <p role="status" className="dx-notice">Selecciona dos nombres del archivo. No hay resultados para {chosen.filter(n => !names.includes(n)).join(', ')}.</p> : same ? <p role="status" className="dx-notice">Has elegido {tour==='wta'?'la misma jugadora':'el mismo jugador'}. Selecciona {tour==='wta'?'dos jugadoras distintas':'dos jugadores distintos'} para construir una comparación.</p> : <>
       {!sufficient && <p role="status" className="dx-notice">La muestra no alcanza el mínimo elegido; las cifras se muestran sin declarar una ventaja.</p>}
       <section className={styles.comparisonBoard} id="comparison" aria-labelledby="comparison-table-title">
         <h2 id="comparison-table-title" className="nc-sr">Comparación métrica</h2>
@@ -187,9 +202,9 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
           {[
             ['all', 'Todas'],
             ['Grand Slam', 'Grand Slam'],
-            [selectedTour==='wta'?'WTA 1000':'Masters 1000', selectedTour==='wta'?'WTA 1000':'Masters 1000'],
-            [selectedTour==='wta'?'WTA 500':'ATP 500', selectedTour==='wta'?'WTA 500':'ATP 500'],
-            [selectedTour==='wta'?'WTA 250':'ATP 250', selectedTour==='wta'?'WTA 250':'ATP 250'],
+            [tour==='wta'?'WTA 1000':'Masters 1000', tour==='wta'?'WTA 1000':'Masters 1000'],
+            [tour==='wta'?'WTA 500':'ATP 500', tour==='wta'?'WTA 500':'ATP 500'],
+            [tour==='wta'?'WTA 250':'ATP 250', tour==='wta'?'WTA 250':'ATP 250'],
           ].map(([value, label]) => <Link href={`${compareHref({competition:value})}#comparison`} scroll={false} aria-current={(q.competition || 'all') === value ? 'page' : undefined} key={value}>{label}</Link>)}
         </nav>
       </section>

@@ -66,8 +66,12 @@ export function recordEvidence(matches: Match[], id: string, row: RecordRow): { 
     if (id.includes('masters')) result = result.filter(m => m.category === 'Masters 1000' && m.year >= 1990);
     const surface = id.split('-').at(-1);
     if (['hard','clay','grass','carpet'].includes(surface!)) result = result.filter(m => m.surface === surface);
-  } else if (/^atp-(250|500)-/.test(id)) {
-    const category = id.startsWith('atp-250') ? 'ATP 250' : 'ATP 500';
+  } else if (/^(atp-(250|500)|wta-(250|500|1000))-/.test(id)) {
+    const category = id.startsWith('atp-250') ? 'ATP 250'
+      : id.startsWith('atp-500') ? 'ATP 500'
+      : id.startsWith('wta-250') ? 'WTA 250'
+      : id.startsWith('wta-500') ? 'WTA 500'
+      : 'WTA 1000';
     result = subject.filter(m => m.category === category && m.year >= 2023 && (id.endsWith('victorias') || final(m)) && (id.endsWith('finales') || win(m)));
     if (id.endsWith('un-torneo')) result = result.filter(m => tournamentName(m.tournament) === row.detail);
   } else if (['victorias-temporada','temporadas-finales','temporadas-titulos'].includes(id)) {

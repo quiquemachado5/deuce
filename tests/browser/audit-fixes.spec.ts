@@ -50,7 +50,7 @@ test('player directory title, filters and empty WTA state are explicit', async (
     await page.setViewportSize({ width, height: 844 });
     await page.goto('/jugadores');
     const title = await page.getByRole('heading', { level: 1, name: 'Jugadores' }).boundingBox();
-    const circuit = await page.getByRole('navigation', { name: 'Circuitos de jugadores' }).boundingBox();
+    const circuit = await page.getByRole('navigation', { name: 'Circuito de jugadores' }).boundingBox();
     expect(title).not.toBeNull();
     expect(circuit).not.toBeNull();
     expect(circuit!.y).toBeGreaterThanOrEqual(title!.y + title!.height - 1);
@@ -58,6 +58,9 @@ test('player directory title, filters and empty WTA state are explicit', async (
   }
   await page.goto('/jugadores?tour=wta');
   await expect(page.getByRole('heading', { level: 1, name: 'Jugadoras' })).toBeVisible();
+  await expect(page.getByRole('navigation', { name: 'Circuito de jugadoras' })).toBeVisible();
+  await expect(page).toHaveTitle(/Jugadoras WTA/);
+  await expect(page.locator('[class*="directoryStatus"]')).toContainText(/jugadoras/);
   if (!(await page.locator('main a[href^="/jugadores/"]').count())) {
     await expect(page.getByRole('heading', { name: 'El archivo WTA todavía no tiene temporadas publicadas' })).toBeVisible();
   }
@@ -69,7 +72,7 @@ test('search shows its query and tournament rounds fit a phone', async ({ page }
   await expect(page.getByRole('searchbox', { name: 'Búsqueda actual' })).toHaveValue('Nadal');
   await expect(page.getByRole('link', { name: 'Borrar búsqueda' })).toBeVisible();
   await page.goto('/torneos/roland-garros/2024');
-  const bracket = page.getByRole('region', { name: /Cuadro.*edición/i });
+  const bracket = page.getByRole('region', { name: /Cuadro.*documentado/i });
   await expect(bracket.getByRole('button', { name: /Ronda de 128/ })).toHaveAttribute('aria-pressed', 'true');
   const dimensions = await bracket.evaluate((node) => ({ width: node.clientWidth, scrollWidth: node.scrollWidth }));
   expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.width + 1);

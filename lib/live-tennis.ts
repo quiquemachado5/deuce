@@ -16,6 +16,7 @@ import { dedupeArchiveTourRows } from './archive-tour-dedupe'
 import { recoveredModernResult } from './modern-result'
 import { reconcileEditionSummaries } from './edition-reconcile'
 import { providerRoundName, publishableWtaArchiveRow, publishableWtaModernRow } from './provider-publication'
+import { providerTournamentName } from './tournament-identity'
 
 const archive = join(process.cwd(), 'data', 'archive')
 const listsDir = join(archive, 'lists')
@@ -162,23 +163,6 @@ function archiveGames(score: string): number[][] {
 }
 // The API supplies draw size, not a universal "first/second/third round" label.
 function roundName(code: string) { return providerRoundName(code) }
-function tournamentName(name: string) {
-  const n = name.toLowerCase()
-  if ((n.includes('australian open') || n.includes('australian chps'))) return 'Australian Open'
-  if (n.includes('roland') || n.includes('french open')) return 'Roland Garros'
-  if (n.includes('wimbledon')) return 'Wimbledon'
-  if (n.includes('us open')) return 'US Open'
-  if (n.includes('indian wells')) return 'Indian Wells'
-  if (n.includes('miami')) return 'Miami'
-  if (n.includes('monte')) return 'Monte Carlo'
-  if (n.includes('madrid')) return 'Madrid'
-  if (n.includes('rome') || n.includes('roma')) return 'Rome'
-  if (n.includes('canad') || n.includes('toronto') || n.includes('montreal')) return 'Canada'
-  if (n.includes('cincinnati')) return 'Cincinnati'
-  if (n.includes('shanghai')) return 'Shanghai'
-  if (n.includes('paris')) return 'Paris'
-  return name.replace(/^(?:ATP|WTA)\s+/i, '')
-}
 function stat(playerIndex: 1 | 2, category: string, name: string, value: unknown, won: unknown = null, total: unknown = null): MatchStat | null {
   if (value === null || value === undefined) return null
   return { player: playerIndex, period: 'match', category, name, value: String(value), won: numeric(won), total: numeric(total) }
@@ -359,9 +343,10 @@ function modern(row: Row, detail?: Row, summary = false): Match {
   const games = gamesFromScore(source.score?.games)
   const year = Number(String(source.scheduled_time || source.created_at || '').slice(0, 4)) || 2026
   const tour = rowTour(row)
+  const tournament = providerTournamentName(row.tournament || '', { tour, tier: row.tier })
   return {
-    match_id: `${tour === 'wta' ? 'wta-' : ''}live-${row.id}`, tour, tournament: tournamentName(row.tournament || ''), surface: surface(row.surface),
-    category: ['Australian Open','Roland Garros','Wimbledon','US Open'].includes(tournamentName(row.tournament||'')) ? 'Grand Slam' : modernTournamentCategory(row.tier, tournamentName(row.tournament || ''), year, tour), year,
+    match_id: `${tour === 'wta' ? 'wta-' : ''}live-${row.id}`, tour, tournament, surface: surface(row.surface),
+    category: ['Australian Open','Roland Garros','Wimbledon','US Open'].includes(tournament) ? 'Grand Slam' : modernTournamentCategory(row.tier, tournament, year, tour), year,
     player1: player(1, row.players?.p1?.name, null), player2: player(2, row.players?.p2?.name, null),
     score_summary: { sets: source.score?.sets || [], games, points: source.score?.points || [], server: source.score?.server ?? null, is_tiebreak: !!source.score?.is_tiebreak, win_probability_p1: source.score?.win_probability_p1 ?? null, timestamp: source.scheduled_time || `${year}-01-01T00:00:00Z` },
     final_score: games.map(([a, b], i) => { const end = detail?.tape?.find((p: Row) => Array.isArray(p.tiebreak_final) && gamesFromScore(p.games)[i]?.[0] === a && gamesFromScore(p.games)[i]?.[1] === b && gamesFromScore(p.games).length === i + 1); return `${a}–${b}${end && Math.max(a,b) === 7 && Math.min(a,b) === 6 ? `(${Math.min(...end.tiebreak_final)})` : ''}` }).join(' '), round: roundName(row.round_code || ''), winner: source.winner === 1 || source.winner === 2 ? source.winner : null,
@@ -376,8 +361,9 @@ function historical(row: Row, detail?: Row, summary = false): Match {
   const games = archiveGames(row.score || '')
   const year = Number(String(row.event_date || '').slice(0, 4)) || 0
   const tour = rowTour(row)
+  const tournament = providerTournamentName(row.tournament || '', { tour, level: row.level })
   return {
-    match_id: `${tour === 'wta' ? 'wta-' : ''}archive-${row.id}`, tour, tournament: tournamentName(row.tournament || ''), surface: surface(row.surface), category: historicalTournamentCategory(row.level, year, tour), year,
+    match_id: `${tour === 'wta' ? 'wta-' : ''}archive-${row.id}`, tour, tournament, surface: surface(row.surface), category: historicalTournamentCategory(row.level, year, tour), year,
     player1: player(1, row.winner?.name, row.winner?.seed), player2: player(2, row.loser?.name, row.loser?.seed),
     score_summary: { sets: [games.filter(([a,b])=>a>b).length, games.filter(([a,b])=>b>a).length], games, points: [], server: null, is_tiebreak: false, win_probability_p1: null, timestamp: row.event_date ? `${row.event_date}T00:00:00Z` : `${year}-01-01T00:00:00Z` },
     final_score: row.score?.replace(/(\d)-(\d)/g, '$1–$2') || scoreFromGames(games), round: roundName(row.round || ''), winner: 1, status: row.outcome === 'completed' ? 'Finished' : row.outcome || 'Finished',

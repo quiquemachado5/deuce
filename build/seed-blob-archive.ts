@@ -4,8 +4,9 @@ import { gunzipSync } from 'node:zlib'
 import { archiveStoreBackend } from '../lib/archive-store'
 import { publishRecordSnapshot } from '../lib/revista/publish-snapshot'
 import type { Snapshot } from '../lib/revista/snapshot'
+import { readingSource } from './reading-source'
 
-const root = join(process.cwd(), 'data', 'reading')
+const root = readingSource()
 
 async function read<T>(id: string): Promise<T> {
   return JSON.parse(gunzipSync(await readFile(join(root, `${id}.json.gz`))).toString()) as T

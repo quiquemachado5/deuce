@@ -49,6 +49,16 @@ const families = [
   ["Golpes", "Golpes"],
 ] as const;
 
+function recordScope(manifest:Awaited<ReturnType<typeof recordView>>['manifest'],tour:'atp'|'wta'){
+  const coverage=manifest.circuitCoverage?.[tour];
+  const range=coverage?.firstYear&&coverage.lastYear
+    ?coverage.firstYear===coverage.lastYear?String(coverage.firstYear):`${coverage.firstYear}–${coverage.lastYear}`
+    :'temporadas publicadas';
+  return tour==='wta'
+    ?`Muestra WTA ${range}: ${number(coverage?.matches||0)} resultados. No contiene estadísticas de saque ni secuencias punto a punto; estos récords se calculan con los marcadores y el contexto realmente publicados.`
+    :`Muestra ATP ${range}: ${number(coverage?.matches||manifest.matchCount)} resultados. Las estadísticas y el punto a punto solo intervienen en los récords que documentan esos campos.`;
+}
+
 async function RecordIndex({
   manifest,
   query,
@@ -74,35 +84,28 @@ async function RecordIndex({
   const visibleGroups = (selected ? [selected] : groups).filter((group) =>
     pieces.some((piece) => piece.group === group),
   );
-  const overview = !selected && !term && query.tour === 'atp';
+  const overview = !selected && !term && !recordsHaveTransientState(query);
+  const rankingIds=query.tour==='wta'
+    ?["victorias", "finales-ganadas", "partidos-disputados"]
+    :["victorias", "finales-ganadas", "efectividad-top-10"];
+  const insightIds=query.tour==='wta'
+    ?["efectividad-hard","efectividad-clay","efectividad-grass","mas-juegos","remontada-primer-set","titulos-grass","titulos-clay","titulos-hard"]
+    :["efectividad-hard","efectividad-clay","efectividad-grass","mas-juegos","efectividad-finales","remontada-dos-sets","aces","titulos-grass","titulos-clay","titulos-hard"];
   const [rankingViews, insightViews] = overview
     ? await Promise.all([
         Promise.all(
-          ["victorias", "finales-ganadas", "efectividad-top-10"].map(
+          rankingIds.map(
             (dato) => recordView(JSON.stringify({ dato, tour: query.tour })),
           ),
         ),
-        Promise.all(
-          [
-            "efectividad-hard",
-            "efectividad-clay",
-            "efectividad-grass",
-            "mas-juegos",
-            "efectividad-finales",
-            "remontada-dos-sets",
-            "aces",
-            "titulos-grass",
-            "titulos-clay",
-            "titulos-hard",
-          ].map((dato) => recordView(JSON.stringify({ dato, tour: query.tour }))),
-        ),
+        Promise.all(insightIds.map((dato) => recordView(JSON.stringify({ dato, tour: query.tour })))),
       ])
     : [[], []];
   const rankingSets: RecordsRankingSet[] = rankingViews.flatMap((ranking) =>
     ranking.piece
       ? (() => {
           const rankingLeader = ranking.rows[0];
-          const photo = rankingLeader ? portraitFor(rankingLeader.name) : null;
+          const photo = rankingLeader ? portraitFor(rankingLeader.name,query.tour==='wta'?'wta':'atp') : null;
           return [
             {
             id: ranking.piece.id,
@@ -112,7 +115,9 @@ async function RecordIndex({
                 ? "Victorias"
                 : ranking.piece.id === "finales-ganadas"
                   ? "Finales"
-                  : "Ante el top 10",
+                  : ranking.piece.id === "partidos-disputados"
+                    ? "Partidos"
+                    : "Ante el top 10",
             photo: photo
               ? {
                   src: photo.src,
@@ -196,7 +201,7 @@ async function RecordIndex({
   );
   const marathon = insightById.get("mas-juegos");
   const finalsEfficiency = insightById.get("efectividad-finales");
-  const comeback = insightById.get("remontada-dos-sets");
+  const comeback = insightById.get(query.tour==='wta'?"remontada-primer-set":"remontada-dos-sets");
   const finalsWon = finalsEfficiency?.leader
     ? Math.round(
         (finalsEfficiency.leader.value / 100) *
@@ -208,7 +213,12 @@ async function RecordIndex({
     : 0;
   const comebackPhoto = photoFor(comeback);
   const marathonPhoto = photoFor(marathon);
-  const familyPhotoRecords: Record<string, string> = {
+  const familyPhotoRecords: Record<string, string> = query.tour==='wta'?{
+    Victorias:"victorias",
+    "Remontadas y forma del partido":"remontada-primer-set",
+    "Títulos y finales":"titulos-clay",
+    Superficies:"efectividad-clay",
+  }:{
     Victorias: "atp-500-victorias",
     "Remontadas y forma del partido": "remontada-dos-sets",
     "Títulos y finales": "titulos-grass",
@@ -267,6 +277,7 @@ async function RecordIndex({
       ]}/>}
     >
       <ArchiveNotice status={status} />
+      <aside className="dx-notice" role="note">{recordScope(manifest,query.tour==='wta'?'wta':'atp')}</aside>
       <nav className={redesign.earlyNav} aria-label="Atajos de récords">
         <a href="#records-directory-heading">Explorar estadísticas</a>
         {overview && rankingSets.length > 0 && <a href="#records-insights-heading">Ver otros ángulos</a>}
@@ -371,7 +382,7 @@ async function RecordIndex({
                   style={recordImageStyle(comebackPhoto)}
                 />
                 <span>
-                  <small>Remontadas tras perder dos sets</small>
+                  <small>{query.tour==='wta'?'Remontadas tras perder el primer set':'Remontadas tras perder dos sets'}</small>
                   <b>{comeback.leader.name}</b>
                   <strong>
                     {recordValue(comeback.leader, comeback.percent, false)}
@@ -380,7 +391,7 @@ async function RecordIndex({
               </RecordJumpLink>
             )}
           </div>
-          <RecordsVideoCarousel />
+          {query.tour==='atp'?<RecordsVideoCarousel />:null}
         </section>
       )}
       <section
@@ -667,7 +678,7 @@ export async function generateMetadata({
   const metadataDescription = unavailableWta
     ? 'El archivo de récords WTA está en preparación. Los datos ATP publicados permanecen disponibles por separado.'
     : piece?.definition || (tour === 'wta'
-      ? 'Récords y estadísticas WTA documentados en el archivo DEUCE.'
+      ? recordScope(view.manifest,'wta')
       : description.replace('ATP y WTA', 'ATP'));
   const canonical = recordsCanonical(query);
   return {
@@ -714,9 +725,10 @@ export default async function Records({
       >
         {back}
         <ArchiveNotice status={view} />
+        <aside className="dx-notice" role="note">{recordScope(view.manifest,'atp')}</aside>
         <header className={`${styles.heading} ${redesign.detailHero}`}>
           <h1>Efectividad en finales</h1>
-          <p>Antes y desde {cutoff}. Al menos cinco finales en cada periodo.</p>
+          <p>Antes y desde {cutoff}, dentro del archivo publicado. Al menos cinco finales en cada periodo.</p>
         </header>
         <RecordsControls
           query={{ ...query, corte: String(cutoff) }}
@@ -772,6 +784,7 @@ export default async function Records({
     : [];
   const relatedLabel =
     families.find(([, value]) => value === piece?.group)?.[0] || piece?.group;
+  const tourOptions=(['atp','wta'] as const).filter(tour=>view.manifest.circuitPieces?.[tour]?.some(entry=>entry.id===query.dato)??true).map(value=>({value,label:value.toUpperCase()}));
   return (
     <div
       className={`records-page nc-wrap ${redesign.scope} ${styles.page} ${styles.detail} ${redesign.detailPage}`}
@@ -779,7 +792,8 @@ export default async function Records({
     >
       {back}
       <ArchiveNotice status={view} />
-      <RecordsControls query={query} filters={[{key:'tour',label:'Circuito',options:[{value:'atp',label:'ATP'},{value:'wta',label:'WTA'}]}]}/>
+      <aside className="dx-notice" role="note">{recordScope(view.manifest,query.tour==='wta'?'wta':'atp')}</aside>
+      {tourOptions.length>1?<RecordsControls query={query} filters={[{key:'tour',label:'Circuito',options:tourOptions}]}/>:null}
       <header
         className={`${styles.heading} ${redesign.detailHero}`}
         data-has-leader={leader ? "true" : undefined}

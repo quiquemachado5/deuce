@@ -1,0 +1,2 @@
+.recordCircuit{position:relative;z-index:1}
+.recordCircuit+.recordCircuit{margin-top:clamp(72px,8vw,118px)}

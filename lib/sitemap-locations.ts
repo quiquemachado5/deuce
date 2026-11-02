@@ -1,5 +1,6 @@
 import type { Match } from './types';
 import { SITE_ORIGIN } from './site-origin';
+import { exactDay } from './archive-freshness';
 
 export const SITEMAP_ORIGIN = SITE_ORIGIN;
 
@@ -31,11 +32,16 @@ export function sitemapLocation(path: string) {
   })[character]!);
 }
 
-export function matchSitemapEntries(matches: Match[], year: number, lastModified: string) {
-  return matches.filter(match => match.year === year).map(match => ({
-    url: `${SITEMAP_ORIGIN}/match/${match.match_id}`,
-    lastModified,
-    changeFrequency: 'never' as const,
-    priority: 0.5,
-  }));
+export function matchSitemapEntries(matches: Match[], year: number) {
+  return matches.filter(match => match.year === year).map(match => {
+    const playedOn = match.context?.dateLabel === 'Fecha del partido'
+      ? exactDay(match.context.date)
+      : null;
+    return {
+      url: `${SITEMAP_ORIGIN}/match/${match.match_id}`,
+      ...(playedOn ? { lastModified: `${playedOn}T12:00:00.000Z` } : {}),
+      changeFrequency: 'never' as const,
+      priority: 0.5,
+    };
+  });
 }

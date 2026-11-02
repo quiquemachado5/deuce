@@ -27,6 +27,18 @@ docker compose --env-file .env.production exec -T web \
   tar -czf - -C /app/.deuce-archive . >"${temporary}"
 mv "${temporary}" "${destination}"
 sha256sum "${destination}" >"${destination}.sha256"
+sha256sum -c "${destination}.sha256"
+
+if [[ -n "${DEUCE_BACKUP_REMOTE:-}" ]]; then
+  if ! command -v rclone >/dev/null 2>&1; then
+    echo "DEUCE_BACKUP_REMOTE is configured but rclone is unavailable." >&2
+    exit 1
+  fi
+  remote="${DEUCE_BACKUP_REMOTE%/}"
+  rclone copyto "${destination}" "${remote}/$(basename "${destination}")" --checksum
+  rclone copyto "${destination}.sha256" "${remote}/$(basename "${destination}.sha256")" --checksum
+  echo "Copied backup and checksum to ${remote}."
+fi
 
 find "${BACKUP_DIR}" -type f -name 'deuce-archive-*.tar.gz' -mtime "+${KEEP_DAYS}" -delete
 find "${BACKUP_DIR}" -type f -name 'deuce-archive-*.tar.gz.sha256' -mtime "+${KEEP_DAYS}" -delete

@@ -1,5 +1,5 @@
 import {cloudProbeRead} from '@/lib/cloud-archive';
-import {operationHistory} from '@/lib/archive-operations';
+import {operationHistory,operationStatus} from '@/lib/archive-operations';
 import type {IngestionDay,RecordManifest} from '@/lib/revista/snapshot';
 import styles from './coverage.module.css';
 
@@ -71,6 +71,20 @@ function activityStatus(day:DailyActivity){
   return 'Sin detalle';
 }
 const value=(measured:boolean,total:number)=>measured?number(total):'—';
+const statusCopy=(status:string)=>({
+  success:'Actualización completada',
+  'backfill-progress':'Histórico en ampliación',
+  'free-history-limit':'Límite histórico del plan',
+  'quota-reserve':'En espera por cuota',
+  'storage-reserve':'Almacenamiento en reserva',
+  'storage-unverified':'Almacenamiento por verificar',
+  running:'Actualizando ahora',
+  busy:'Actualización ya en curso',
+  error:'Incidencia en el último intento',
+  unavailable:'Estado no disponible',
+}[status]||status);
+const statusTone=(status:string)=>status==='success'?'active':status==='error'?'error':['free-history-limit','quota-reserve','storage-reserve','storage-unverified'].includes(status)?'warning':'neutral';
+const dateTime=(value?:string)=>value?new Date(value).toLocaleString('es-ES',{dateStyle:'medium',timeStyle:'short',timeZone:'Europe/Madrid'}):'Sin registro';
 
 export default async function Operations({manifest}:{manifest:RecordManifest}){
   const [atpRaw,wtaRaw,publishRaw]=await Promise.all([
@@ -81,11 +95,17 @@ export default async function Operations({manifest}:{manifest:RecordManifest}){
   const history=dailyActivity(atpRaw,wtaRaw,publishRaw,manifest.ingestionHistory);
   const todayKey=new Date().toISOString().slice(0,10),today=history.find(day=>day.date===todayKey)||emptyDay(todayKey);
   const days=[today,...history.filter(day=>day.date!==todayKey)].slice(0,7);
+  const providers=(['atp','wta'] as const).map(tour=>({tour,status:operationStatus(tour==='atp'?atpRaw:wtaRaw),freshness:manifest.circuitFreshness?.[tour]}));
   return <section className={styles.operations} aria-labelledby="operations-title">
     <header className={styles.heading}>
       <div><span>Actividad diaria</span><h2 id="operations-title">Qué se obtiene cada día.</h2></div>
       <p>Llamadas, resultados recibidos y partidos que ya se han incorporado al archivo.</p>
     </header>
+    <div className={styles.providerGrid} aria-label="Estado de ingestión por circuito">{providers.map(({tour,status,freshness})=><article className={styles.providerCard} key={tour}>
+      <header><strong>{tour.toUpperCase()}</strong><span className={styles.providerStatus} data-tone={statusTone(status.status)}>{statusCopy(status.status)}</span></header>
+      <p>{status.status==='error'&&status.reason?status.reason:'El estado corresponde al último intento registrado; la frescura indica hasta dónde llega la copia publicada.'}</p>
+      <dl><div><dt>Último intento</dt><dd>{dateTime(status.attemptAt)}</dd></div><div><dt>Último éxito</dt><dd>{dateTime(status.successAt)}</dd></div><div><dt>Último partido publicado</dt><dd>{freshness?.latestExactDate||'Sin fecha exacta'}</dd></div></dl>
+    </article>)}</div>
     <ol className={styles.days} aria-label="Actividad diaria de la API">{days.map(day=><li key={day.date}>
       <header><time dateTime={day.date}>{day.date===todayKey?'Hoy · ':''}{dayLabel(day.date)}</time><span className={styles.dayStatus}>{activityStatus(day)}</span></header>
       <div className={styles.tourRows}>

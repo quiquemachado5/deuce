@@ -84,6 +84,14 @@ export default async function Edition({ params, searchParams }: Props) {
   const court = editionTournamentCourt(matches);
   const final = matches.find((match) => roundPosition(match.round) === 7);
   const measuredMatches=matches.filter(eligibleMatch);
+  const statisticsMatches=measuredMatches.filter(match=>match.statistics.length>0).length;
+  const pointMatches=measuredMatches.filter(match=>match.point_tape.length>0).length;
+  const dataMatchLabel=`${number(measuredMatches.length)} ${measuredMatches.length===1?'partido':'partidos'} con marcador válido`;
+  const editionPulse=pointMatches
+    ?`juegos calculados desde los marcadores. ${number(pointMatches)} ${pointMatches===1?'partido incorpora':'partidos incorporan'} secuencia punto a punto.`
+    :statisticsMatches
+      ?`juegos calculados desde los marcadores. ${number(statisticsMatches)} ${statisticsMatches===1?'partido incorpora':'partidos incorporan'} estadísticas, sin secuencia punto a punto.`
+      :'juegos calculados desde los marcadores publicados. Esta muestra no incluye estadísticas ni secuencia punto a punto.';
   const summary=archiveSummary(measuredMatches);
   const observation=(key:string)=>summary.observations.find(item=>item.metric.key===key);
   const comebacks=measuredMatches.filter(match=>lostOpening(match));
@@ -179,7 +187,7 @@ export default async function Edition({ params, searchParams }: Props) {
       label: "Escala de la edición",
       title: "Una radiografía compacta del torneo",
       value: number(totalGames),
-      detail: "juegos documentados de principio a fin.",
+      detail: "juegos sumados a partir de los marcadores publicados.",
       facts: [
         { value: number(playersInEdition), label: selectedTour==='wta'?"jugadoras":"jugadores" },
         { value: number(totalSets), label: "sets" },
@@ -220,7 +228,7 @@ export default async function Edition({ params, searchParams }: Props) {
       {men.length>0&&women.length>0?<nav className={styles.editionTourSwitch} aria-label="Cuadro de la edición"><Link href={`/torneos/${slug}/${year}?cuadro=atp`} aria-current={selectedTour==='atp'?'page':undefined} scroll={false}>ATP</Link><Link href={`/torneos/${slug}/${year}?cuadro=wta`} aria-current={selectedTour==='wta'?'page':undefined} scroll={false}>WTA</Link></nav>:null}
       <nav className={styles.sectionIndex} aria-label="Secciones de la edición">{final&&<a href="#final-edition">Final</a>}<a href="#cuadro">Cuadro documentado</a>{measuredMatches.length>0&&<a href="#edition-insights-title">Lecturas</a>}</nav>
       {final&&<TournamentFinal match={final} heading={men.length&&women.length?selectedTour==='wta'?'La final femenina':'La final masculina':'La final'}/>}
-      {matches.length>0&&<><aside className={styles.drawCoverage} data-complete={editionAudit?.completeDraw===true||undefined}><strong>Cuadro documentado</strong><span>{editionAudit?.completeDraw===true?'Cuartos, semifinales y final completos en esta publicación.':editionAudit?.missingLateRounds.length?`Huecos detectados en rondas finales: faltan ${editionAudit.missingLateRounds.join(', ')}. Las primeras rondas no se auditan de forma exhaustiva.`:'La publicación conserva solo los partidos disponibles; la comprobación automática se limita a las rondas finales.'}</span><Link href="/cobertura/revision">Ver cobertura</Link></aside><TournamentBracket rounds={bracketRounds} heading={men.length&&women.length?selectedTour==='wta'?'Cuadro femenino documentado':selectedTour==='atp'?'Cuadro masculino documentado':'Cuadro documentado':'Cuadro documentado de la edición'}/></>}
+      {matches.length>0&&<><aside className={styles.drawCoverage} aria-label="Estado del cuadro documentado" data-complete={editionAudit?.completeDraw===true||undefined}><strong>Cuadro documentado</strong><span>{editionAudit?.completeDraw===true?'Cuartos, semifinales y final completos en esta publicación.':editionAudit?.missingLateRounds.length?`Huecos detectados en rondas finales: faltan ${editionAudit.missingLateRounds.join(', ')}. Las primeras rondas no se auditan de forma exhaustiva.`:'La publicación conserva solo los partidos disponibles; la comprobación automática se limita a las rondas finales.'}</span><Link href="/cobertura/revision">Ver cobertura</Link></aside><aside className={styles.drawCoverage} aria-label="Cobertura de datos de la edición"><strong>Cobertura del dato</strong><span>{dataMatchLabel} · {number(statisticsMatches)} con estadísticas · {number(pointMatches)} con punto a punto. Un cero indica que ese campo no está publicado para esta edición.</span><Link href="/cobertura">Ver metodología</Link></aside><TournamentBracket rounds={bracketRounds} heading={men.length&&women.length?selectedTour==='wta'?'Cuadro femenino documentado':selectedTour==='atp'?'Cuadro masculino documentado':'Cuadro documentado':'Cuadro documentado de la edición'}/></>}
       {measuredMatches.length > 0 && (
         <section className={styles.editionReadings} id="lecturas" aria-labelledby="edition-insights-title">
           <div className={styles.sectionHead}><div><h2 id="edition-insights-title">Lecturas de la edición{men.length&&women.length?selectedTour==='wta'?' · WTA':' · ATP':''}</h2></div></div>
@@ -228,7 +236,7 @@ export default async function Edition({ params, searchParams }: Props) {
             <article className={styles.editionLead}>
               {editionPortrait && <Image className="art-directed-photo" src={editionPortrait.src} alt={editionPortrait.alt} fill sizes="(max-width:759px) 100vw, 54vw" style={imageFocus(editionPortrait.objectPosition || "center top", editionPortrait.mobileObjectPosition || editionPortrait.objectPosition || "center top")} unoptimized />}
               <span className={styles.photoShade} aria-hidden="true" />
-              <div><span>El pulso de {year}</span><strong>{number(totalGames)}</strong><p>juegos. Una edición medida punto a punto, con la atmósfera que la hizo única.</p></div>
+              <div><span>El pulso de {year}</span><strong>{number(totalGames)}</strong><p>{editionPulse}</p></div>
             </article>
             <div className={styles.editionFocus}>
               <article><span>Camino {selectedTour==='wta'?'de la campeona':'del campeón'}</span><strong>{number(championPath)}</strong><p>{champion ? `partidos documentados de ${champion}. Sets y balance en ${number(championMatches.length)} resultados medibles: ${number(championSetsLost)} cedidos y ${championGameBalance>=0?"+":""}${number(championGameBalance)} juegos.` : `No hay ${selectedTour==='wta'?'campeona':'campeón'} documentado en esta edición.`}</p></article>

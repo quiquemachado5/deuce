@@ -5,8 +5,10 @@ test('home exposes useful archive entry points without repeating its content', a
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/');
   await expect(page.locator('h1')).toContainText('ARCHIVO DEL TENIS');
-  await expect(page.getByRole('heading', { name: 'Últimos resultados' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Récords que explican el juego' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Últimos resultados ATP', exact: true })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Últimos resultados WTA', exact: true })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Récords ATP en el archivo', exact: true })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Récords WTA en la muestra 2018–2026', exact: true })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Grandes escenarios' })).toBeVisible();
   await expect(page.locator('main a[href^="/match/"]')).not.toHaveCount(0);
   await expect(page.locator('main a[href^="/records?dato="]')).not.toHaveCount(0);
@@ -55,7 +57,7 @@ test('match result links align both players without portrait placeholders', asyn
 
 test('Australian draw and walkover details remain truthful', async ({ page }) => {
   await page.goto('/torneos/australian-open/2026');
-  await expect(page.getByRole('region', { name: /Cuadro.*edición/i })).toBeVisible();
+  await expect(page.getByRole('region', { name: /Cuadro.*documentado/i })).toBeVisible();
   for (const id of ['live-37395', 'reference-ao-2026-mensik-withdrawal', 'reference-ao-2026-ms701']) {
     const response = await page.goto(`/match/${id}`);
     expect(response?.status()).toBe(200);

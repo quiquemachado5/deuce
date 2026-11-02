@@ -36,7 +36,14 @@ export function modernTournamentCategory(tier: unknown, tournament = '', year = 
 /** The older results archive only distinguishes Slam, Masters and general tour. */
 export function historicalTournamentCategory(level: unknown, year: number, tour: 'atp' | 'wta' = 'atp'): string {
   if (level === 'G') return 'Grand Slam'
-  if (level === 'M') return tour === 'wta' ? 'WTA · alto nivel histórico' : year < 1990 ? 'Precursores de Masters' : 'Masters 1000'
-  if (level === 'A') return tour === 'wta' ? 'WTA Tour histórico' : 'ATP Tour · nivel no especificado'
-  return tour === 'wta' ? 'Otro torneo WTA' : 'Otro torneo ATP'
+  if (tour === 'wta') {
+    if (level === 'PM' || level === 'P' || level === 'F') return 'WTA · alto nivel histórico'
+    if (level === 'I' || level === 'W' || level === 'A') return 'WTA Tour histórico'
+    if (level === 'C') return 'WTA 125'
+    if (typeof level === 'number' || /^\d+$/.test(String(level || ''))) return 'Circuito ITF femenino'
+    return 'Otro torneo WTA'
+  }
+  if (level === 'M') return year < 1990 ? 'Precursores de Masters' : 'Masters 1000'
+  if (level === 'A') return 'ATP Tour · nivel no especificado'
+  return 'Otro torneo ATP'
 }
