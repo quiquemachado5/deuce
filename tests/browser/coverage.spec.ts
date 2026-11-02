@@ -6,7 +6,8 @@ test('daily coverage and historical review expose real samples and evidence on m
   await page.goto('/cobertura');
   await expect(page.getByRole('heading', { name: 'Cada día, en claro.' })).toBeVisible();
   await expect(page.getByText('Consultas a la API', { exact: true })).toBeVisible();
-  await expect(page.getByRole('list', { name: 'Actividad diaria de la API' }).locator('li')).not.toHaveCount(0);
+  await expect(page.getByRole('article', { name: 'Actividad de hoy' })).toBeVisible();
+  await expect(page.getByRole('list', { name: 'Actividad diaria de la API' })).toBeVisible();
   await expect(page.locator('.coverage-hero-stats dt').filter({ hasText: /^ATP$/ })).toBeVisible();
   await expect(page.locator('.coverage-hero-stats dt').filter({ hasText: /^WTA$/ })).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
