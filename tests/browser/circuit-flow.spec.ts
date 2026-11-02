@@ -52,6 +52,17 @@ test('WTA comparator persists its circuit and never defaults to ATP champions',a
   await expect(page.locator('#comparison').getByRole('link').first()).toHaveAttribute('href',/tour=wta/);
 });
 
+test('WTA match comparison opens with two published WTA matches',async({page})=>{
+  await page.goto('/compare?tour=wta');
+  await expect(page.getByRole('heading',{name:'Comparar partidos',level:1})).toBeVisible();
+  await expect(page.getByRole('heading',{name:'No se pudo abrir la comparación.'})).toHaveCount(0);
+  const matches=page.locator('.ry-compare-identity');
+  await expect(matches).toHaveCount(2);
+  const categories=await matches.evaluateAll(nodes=>nodes.map(node=>node.getAttribute('data-event-category')));
+  expect(categories.every(category=>category==='Grand Slam'||/^WTA (1000|500|250)$/.test(category||''))).toBe(true);
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href',/\/compare\?tour=wta$/);
+});
+
 test('WTA directory, tournament leaders and quick record suggestions retain WTA context',async({page,request})=>{
   await page.goto('/jugadores?tour=wta&tipo=enfrentamientos');
   await expect(page).toHaveURL(/\/comparar\?tour=wta$/);

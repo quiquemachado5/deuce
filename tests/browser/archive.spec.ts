@@ -51,11 +51,11 @@ test('record circuit filters persist across navigation and reload', async ({ pag
 
 test('moqueta can be selected and returned by the API', async ({ page, request }) => {
   await page.goto('/buscar?surface=carpet');
-  await expect(page.getByRole('link', { name: 'Quitar Moqueta', exact: true })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Quitar filtro Moqueta', exact: true })).toBeVisible();
   const response = await request.get('/api/matches?surface=carpet&limit=5');
   expect(response.status()).toBe(200);
   const body = await response.json();
-  expect(body.total).toBeGreaterThan(1_000);
+  expect(body.total).toBe(1_138);
   expect(body.matches).toHaveLength(5);
   for (const match of body.matches) expect(match.surface).toBe('carpet');
 });

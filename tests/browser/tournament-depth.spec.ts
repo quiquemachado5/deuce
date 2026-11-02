@@ -55,13 +55,14 @@ test("Paris preserves its hard-court classification across catalogue and detail"
   await expect(page.locator('[data-event-surface="indoor"]')).toHaveCount(0);
 });
 
-test("Masters history is integrated into the edition control", async ({ page }) => {
+test("Masters history starts at the requested 1990 scope in the edition control", async ({ page }) => {
   await page.goto("/torneos/cincinnati");
   const archive = page.getByRole("combobox", { name: "Edición del torneo" });
   await expect(archive).toBeVisible();
   await expect(archive.locator("option").first()).toHaveText("Edición: Resumen");
   await expect(archive).toHaveValue("summary");
-  await expect(archive.locator("option").filter({ hasText: "1989" })).toHaveCount(1);
+  await expect(archive.locator("option").filter({ hasText: "1990" })).toHaveCount(1);
+  await expect(archive.locator("option").filter({ hasText: "1989" })).toHaveCount(0);
   await expect(page.getByRole("combobox", { name: "Etapa del torneo" })).toHaveCount(0);
   await expect(page.getByRole("navigation", { name: "Categorías de este torneo" })).toHaveCount(0);
 });
