@@ -24,6 +24,7 @@ services:
       NODE_ENV: production
     volumes:
       - archive:/app/.deuce-archive
+      - next_cache:/app/.next/cache
     expose:
       - "3000"
     logging: *deuce-logging
@@ -74,5 +75,6 @@ services:
 
 volumes:
   archive:
+  next_cache:
   caddy_data:
   caddy_config:

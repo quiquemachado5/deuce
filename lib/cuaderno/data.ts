@@ -25,7 +25,8 @@ async function load(archive: Awaited<ReturnType<typeof preparedPlayerArchive>>) 
     },
   };
 }
-const cached = asyncCache<Awaited<ReturnType<typeof load>>>(300_000, 1);
+const VERSIONED_CACHE_MS = 3_600_000;
+const cached = asyncCache<Awaited<ReturnType<typeof load>>>(VERSIONED_CACHE_MS, 1);
 export const notebook = cache(async () => {
   const archive = await preparedPlayerArchive();
   return cached(`${archive.manifest.version}:${archive.source}:${archive.fallbackReason || ''}`, () => load(archive));
@@ -36,7 +37,7 @@ type PlayerNotebook = Awaited<ReturnType<typeof preparedPlayerArchive>> & {
   record: Awaited<ReturnType<typeof preparedPlayerArchive>>['records'][number];
 };
 
-const cachedPlayers = asyncCache<PlayerNotebook | null>(300_000, 32);
+const cachedPlayers = asyncCache<PlayerNotebook | null>(VERSIONED_CACHE_MS, 32);
 
 /** Build only the requested career instead of materialising every player. */
 export const playerNotebook = cache(async (rawSlug: string, tour: 'atp' | 'wta' = 'atp') => {

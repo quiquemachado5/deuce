@@ -4,8 +4,30 @@ type StatusRow = Record<string, unknown> | undefined;
 export const WTA_HISTORICAL_ARCHIVE_LEVELS = ['G', 'M', 'A'] as const;
 export const WTA_HISTORICAL_FIRST_YEAR = 1968;
 export const WTA_HISTORICAL_LAST_YEAR = 2022;
+export const WTA_HISTORICAL_PRIORITY_THROUGH_YEAR = 2019;
 export const WTA_HISTORICAL_COHORTS = (WTA_HISTORICAL_LAST_YEAR - WTA_HISTORICAL_FIRST_YEAR + 1)
   * WTA_HISTORICAL_ARCHIVE_LEVELS.length;
+
+export type WtaHistoricalArchiveLevel = typeof WTA_HISTORICAL_ARCHIVE_LEVELS[number];
+
+/**
+ * Finish the requested historical era first, then fill the remaining recent
+ * cohorts. Provider levels stay broad here; publication applies the strict
+ * Grand Slam/WTA 1000/WTA 500/WTA 250 contract afterwards.
+ */
+export function wtaHistoricalCohortPlan(
+  completed: ReadonlySet<string>,
+  priorityThroughYear = WTA_HISTORICAL_PRIORITY_THROUGH_YEAR,
+  levels: readonly WtaHistoricalArchiveLevel[] = WTA_HISTORICAL_ARCHIVE_LEVELS,
+) {
+  const through = Math.max(WTA_HISTORICAL_FIRST_YEAR, Math.min(WTA_HISTORICAL_LAST_YEAR, priorityThroughYear));
+  const years = [
+    ...Array.from({ length: through - WTA_HISTORICAL_FIRST_YEAR + 1 }, (_, index) => through - index),
+    ...Array.from({ length: WTA_HISTORICAL_LAST_YEAR - through }, (_, index) => WTA_HISTORICAL_LAST_YEAR - index),
+  ];
+  return years.flatMap(season => levels.map(level => ({ season, level, id: `${season}-${level}` })))
+    .filter(cohort => !completed.has(cohort.id));
+}
 
 const validDate = (value: unknown) => typeof value === 'string' && Number.isFinite(Date.parse(value))
   ? value
@@ -44,8 +66,13 @@ export function wtaBackfillCycle(
     return { status: 'waiting-current-publication' as const, reason: 'publication-not-current' as const };
   }
   const backfillDay = publishedAt.slice(0, 10);
-  if (previousBackfill?.publicationCycle === publicationCycle || previousBackfill?.backfillDay === backfillDay) {
+  const retryAt = validDate(previousBackfill?.retryAt);
+  const providerResetReached = ['quota-reserve', 'free-history-limit'].includes(String(previousBackfill?.status))
+    && retryAt !== undefined
+    && Date.parse(retryAt) <= now;
+  if ((previousBackfill?.publicationCycle === publicationCycle || previousBackfill?.backfillDay === backfillDay)
+    && !providerResetReached) {
     return { status: 'already-attempted' as const, publicationCycle, backfillDay };
   }
-  return { status: 'ready' as const, publicationCycle, backfillDay };
+  return { status: 'ready' as const, publicationCycle, backfillDay, ...(providerResetReached ? { resumedAfter: retryAt } : {}) };
 }

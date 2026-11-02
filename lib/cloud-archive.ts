@@ -24,7 +24,7 @@ import { hasClosedModernResult } from './modern-result'
 import { withOperationHistory } from './archive-operations'
 import { latestProviderResultDate } from './circuit-freshness'
 import { PROVIDER_PUBLICATION_TIERS } from './publication-scope'
-import { WTA_HISTORICAL_ARCHIVE_LEVELS, WTA_HISTORICAL_COHORTS, WTA_HISTORICAL_FIRST_YEAR, WTA_HISTORICAL_LAST_YEAR, wtaBackfillCycle } from './wta-backfill-schedule'
+import { WTA_HISTORICAL_COHORTS, wtaBackfillCycle, wtaHistoricalCohortPlan } from './wta-backfill-schedule'
 import { isProviderFreeHistoryLimit, providerHasRequestAfterUsage, providerQuotaRetryAt, providerRemainingCalls } from './provider-quota'
 import { materializeBundledWtaArchive } from './wta-archive-bootstrap'
 
@@ -431,9 +431,8 @@ export async function backfillCloudWtaHistory() {
     const archiveIndex=await cloudRead('wta-archive-index')||{}
     const complete=new Set<string>(Array.isArray(archiveIndex.complete)?archiveIndex.complete:[])
     let historicalAdded=0,archivePages=0
-    for(let season=WTA_HISTORICAL_LAST_YEAR;season>=WTA_HISTORICAL_FIRST_YEAR&&archivePages<40;season--)for(const level of WTA_HISTORICAL_ARCHIVE_LEVELS){
-      const id=`${season}-${level}`
-      if(complete.has(id)||calls>=callLimit||Date.now()-started>200_000)continue
+    for(const {season,level,id} of wtaHistoricalCohortPlan(complete)){
+      if(archivePages>=40||calls>=callLimit||Date.now()-started>200_000)break
       const key=`archive-wta-${id}`,saved=await cloudRead(key)
       const found=new Map<string,ArchiveRow>((saved?.data||[]).map((row:ArchiveRow)=>[String(row.id),row]))
       let offset=Number(saved?.nextOffset)||0,finished=false
@@ -454,7 +453,7 @@ export async function backfillCloudWtaHistory() {
     await save(result);return result
   }catch(error){
     if(error instanceof TennisProviderError&&isProviderFreeHistoryLimit(error.status,error.payload)){
-      const result={status:'free-history-limit',phase:'historical-backfill',attemptAt,at:new Date().toISOString(),calls,extracted:0,lastSuccessAt,probe:{usage:quota?'ok':'unknown',history:'plan-limit'},message:error.message}
+      const result={status:'free-history-limit',phase:'historical-backfill',attemptAt,at:new Date().toISOString(),calls,extracted:0,lastSuccessAt,retryAt:providerQuotaRetryAt(error.payload||quota),probe:{usage:quota?'ok':'unknown',history:'plan-limit'},message:error.message}
       await save(result);return result
     }
     if(error instanceof TennisProviderError&&error.status===429){

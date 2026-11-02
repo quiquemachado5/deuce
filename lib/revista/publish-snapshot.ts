@@ -79,13 +79,22 @@ export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotSt
     for(const [id,value] of [['browser-index',browser.index],['eras',eras],['players',players],['competition',competition],['audit',audit]] as const)yield* await compressedBlob(id,value);
   }
   const artifactPacks: Record<string,string> = {};
-  let uploads = 0;
+  let uploads = 0, pending: ArchiveWrite[] = [];
+  const flush = async () => {
+    if (!pending.length) return;
+    const entries = pending;
+    pending = [];
+    if (storage.writeMany) await storage.writeMany(entries);
+    else for (const entry of entries) await storage.write(entry.key, entry.payload);
+  };
   for await (const pack of packArtifacts(artifacts())) {
     // A hard publication budget leaves room for daily ingestion in Hobby.
     if (++uploads > 24) throw new Error('Publication exceeds the free-plan upload budget');
-    await storage.write(snapshotKey(manifest.version,pack.id),pack.payload);
+    pending.push({key:snapshotKey(manifest.version,pack.id),payload:pack.payload});
     for (const id of Object.keys(pack.payload.artifacts)) artifactPacks[id] = pack.id;
+    if (pending.length >= 4) await flush();
   }
+  await flush();
   manifest.artifactPacks = artifactPacks;
   await storage.write('reading-v2-manifest',manifest);
   if(storage.prune){

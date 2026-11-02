@@ -129,13 +129,14 @@ async function putBlobEntry(entry: ArchiveStoreEntry, budget: number): Promise<P
 
 export async function writeArchiveObjects(entries: readonly ArchiveStoreEntry[], budget = 20_000) {
   if (!entries.length) return
+  const unique = [...new Map(entries.map(entry => [entry.key, entry])).values()]
   if (archiveStoreBackend() === 'filesystem') {
-    for (const entry of entries) await writeFilesystemObject(entry)
+    await Promise.all(unique.map(writeFilesystemObject))
     reportCache = undefined
     return
   }
   if (archiveStoreBackend() === 'vercel-blob') {
-    const settled = await Promise.allSettled(entries.map(entry => putBlobEntry(entry, budget)))
+    const settled = await Promise.allSettled(unique.map(entry => putBlobEntry(entry, budget)))
     const failed = settled.find(result => result.status === 'rejected')
     if (failed?.status === 'rejected') throw failed.reason
     reportCache = undefined
@@ -143,7 +144,7 @@ export async function writeArchiveObjects(entries: readonly ArchiveStoreEntry[],
   }
   const client = legacyArchiveClient()
   if (!client) throw new Error('Cloud archive is not configured')
-  const rows = entries.map(entry => ({ ...entry, updated_at: new Date().toISOString() }))
+  const rows = unique.map(entry => ({ ...entry, updated_at: new Date().toISOString() }))
   const { error, status } = await client.from('deuce_archive_objects').upsert(rows)
     .abortSignal(AbortSignal.timeout(Math.max(1, budget)))
   if (error) throw new Error(`Archive write failed: ${error.code || status}`)

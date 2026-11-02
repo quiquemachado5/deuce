@@ -2,6 +2,7 @@ import type { NextConfig } from 'next'
 const youtubeEmbedOrigin = 'https://www.youtube-nocookie.com'
 const nextConfig: NextConfig = {
   output: 'standalone',
+  cacheMaxMemorySize: 128 * 1024 * 1024,
   poweredByHeader: false,
   reactStrictMode: true,
   compress: true,

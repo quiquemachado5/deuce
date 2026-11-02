@@ -22,9 +22,9 @@ import { StructuredData } from '@/components/StructuredData';
 import { SITE_ORIGIN } from '@/lib/site-origin';
 import type { Metadata } from 'next';
 import editorial from './home-editorial.module.css';
-// The calendar story must be correct for the first visitor after midnight;
-// stale-while-revalidate would deliberately serve the previous day once.
-export const dynamic = 'force-dynamic';
+// Publication invalidates the route on demand; this bounds any midnight-only
+// calendar drift while keeping the expensive archive shell out of hot requests.
+export const revalidate = 300;
 const title='DEUCE — El archivo ATP y WTA, partido a partido';
 const description='Explora los partidos ATP y WTA publicados en DEUCE: resultados, protagonistas, torneos y récords con evidencia y cobertura visible.';
 export const metadata: Metadata = {

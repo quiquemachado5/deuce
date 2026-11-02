@@ -114,10 +114,11 @@ async function runJob(job, { oncePerCycle = false } = {}) {
     const result = parseJobResponse(response.status, body)
     const canRetry = !oncePerCycle && !result.ok && result.retryable && attempt < maximumAttempts
     const deferred = !result.ok && result.deferred === true
+    const retryAfterReset = deferred && result.retryAt
     state.stages[job.path] = {
-      status: result.ok ? 'success' : deferred && oncePerCycle ? 'deferred-cycle' : deferred ? 'deferred' : canRetry ? 'retrying' : 'blocked',
+      status: result.ok ? 'success' : retryAfterReset ? 'deferred' : deferred && oncePerCycle ? 'deferred-cycle' : deferred ? 'deferred' : canRetry ? 'retrying' : 'blocked',
       attempts: attempt, lastAttemptAt: startedAt, operationStatus: result.operationStatus,
-      nextAttemptAt: deferred && !oncePerCycle ? result.retryAt || new Date(Date.now() + retryDelay(attempt)).toISOString() : canRetry ? new Date(Date.now() + retryDelay(attempt)).toISOString() : undefined,
+      nextAttemptAt: retryAfterReset ? result.retryAt : deferred && !oncePerCycle ? new Date(Date.now() + retryDelay(attempt)).toISOString() : canRetry ? new Date(Date.now() + retryDelay(attempt)).toISOString() : undefined,
       error: result.ok || deferred ? undefined : `HTTP ${response.status}`,
     }
     console.log(JSON.stringify({ event: 'deuce.scheduler', job: job.name, startedAt, finishedAt: new Date().toISOString(), status: response.status, outcome: state.stages[job.path].status, body: body.slice(0, 500) }))

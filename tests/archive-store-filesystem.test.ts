@@ -18,10 +18,12 @@ test('filesystem archive writes atomically, reports usage and excludes concurren
   process.env.DEUCE_ARCHIVE_DIR = root
   try {
     await writeArchiveObjects([{ key: 'sync-status', payload: { status: 'success' } }, { key: 'detail-modern-1', payload: { id: 1 } }])
+    await writeArchiveObjects([{ key: 'deduplicated', payload: { version: 1 } }, { key: 'deduplicated', payload: { version: 2 } }])
     assert.deepEqual(await readArchiveObject('sync-status'), { status: 'success' })
+    assert.deepEqual(await readArchiveObject('deduplicated'), { version: 2 })
     assert.deepEqual(await listArchiveKeys('detail-'), ['detail-modern-1'])
     const report = await archiveStoreReport()
-    assert.equal(report?.objects, 2)
+    assert.equal(report?.objects, 3)
     assert.equal(report?.details, 1)
     assert.ok((report?.payloadBytes || 0) > 0)
 

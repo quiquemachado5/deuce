@@ -16,15 +16,19 @@ import {archiveIndex} from '../archive-index';
 import {auditEditions} from '../edition-audit';
 import {readingDirectory} from '../reading-directory';
 import {MATCH_BROWSER_DICTIONARIES,MATCH_BROWSER_ROW_LENGTH,MATCH_BROWSER_SCHEMA,matchBrowserArtifact,type MatchBrowserIndex,type MatchBrowserPartition} from '../match-browser-snapshot';
-const bundled=asyncCache<unknown>(3600_000,100);
+const IMMUTABLE_CACHE_MS = 86_400_000;
+const bundled=asyncCache<unknown>(IMMUTABLE_CACHE_MS,100);
 async function local<T>(id:string):Promise<T>{return await bundled(id,async()=>JSON.parse(gunzipSync(await readFile(join(readingDirectory(),`${id}.json.gz`))).toString())) as T;}
 async function localOptional<T>(id:string,fallback:T):Promise<T>{try{return await local<T>(id);}catch{return fallback;}}
 // Projection strings produce heterogeneous Supabase response shapes.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const remote=asyncCache<any>(300_000,32);
+const remotePointers=asyncCache<any>(300_000,4);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const remoteArtifacts=asyncCache<any>(IMMUTABLE_CACHE_MS,64);
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- every caller validates its projected payload.
 async function query(key:string,projection='payload',budget=800):Promise<any>{
- try{return await remote(`${key}:${projection}`,async()=>{
+ const cache=/^reading-v2-[a-f0-9]{20}-/.test(key)?remoteArtifacts:remotePointers;
+ try{return await cache(`${key}:${projection}`,async()=>{
   if(!cloudArchiveConfigured())return null;
   const payload=await readSnapshotArtifact(key,physical=>cloudProbeRead(physical,budget));
   if(payload===undefined)return undefined;
@@ -85,7 +89,8 @@ function rejectRemoteSnapshot(){
  manifestCircuit.failed();
  snapshotSources.clear();
  generations.clear();
- remote.clear();
+ remotePointers.clear();
+ remoteArtifacts.clear();
  browserIndexes.clear();
  browserPartitions.clear();
  clearArtifactPacks();
@@ -237,8 +242,8 @@ export const preparedPlayerRecords = cache(async () => {
  return {records:await generation.records(),manifest:generation.manifest,source:generation.source,fallbackReason:generation.fallbackReason};
 });
 
-const browserIndexes=asyncCache<MatchBrowserIndex>(300_000,2);
-const browserPartitions=asyncCache<MatchBrowserPartition>(300_000,18);
+const browserIndexes=asyncCache<MatchBrowserIndex>(IMMUTABLE_CACHE_MS,2);
+const browserPartitions=asyncCache<MatchBrowserPartition>(IMMUTABLE_CACHE_MS,18);
 type BrowserSource={manifest:RecordManifest;index:MatchBrowserIndex;source:'bundled'|'remote';fallbackReason?:FallbackReason};
 function validBrowserCircuit(value:MatchBrowserIndex['circuits']['atp']|undefined) {
  return !!value&&Array.isArray(value.years)&&Array.isArray(value.surfaces)&&Array.isArray(value.categories)
@@ -307,4 +312,4 @@ export const preparedTournamentArchive=cache(async()=>{const g=await preparedGen
 
 export const preparedEditionAudit=cache(async()=>{const g=await preparedGeneration();const stored=g.source==='remote' ? await cloudBlob<import('../edition-audit').EditionAudit[]>(g.manifest.version,'audit') : await localOptional<import('../edition-audit').EditionAudit[]>('audit',[]);if(stored?.length)return stored;const [matches,competition]=await Promise.all([g.matches(),g.competition?.()||Promise.resolve([])]);return auditEditions([...matches,...competition]);});
 
-export function invalidatePreparedGeneration() { generations.clear(); snapshotSources.clear(); browserIndexes.clear(); browserPartitions.clear(); remote.clear(); clearArtifactPacks(); manifestCircuit.succeeded(); }
+export function invalidatePreparedGeneration() { generations.clear(); snapshotSources.clear(); browserIndexes.clear(); browserPartitions.clear(); remotePointers.clear(); remoteArtifacts.clear(); clearArtifactPacks(); manifestCircuit.succeeded(); }

@@ -3,8 +3,15 @@ import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { gzipSync, gunzipSync } from 'node:zlib';
 import { reconcileSeasonResults, type SeasonCheckpoint } from '../lib/result-refresh';
-import { isProviderFreeHistoryLimit } from '../lib/provider-quota';
-import { WTA_HISTORICAL_ARCHIVE_LEVELS, WTA_HISTORICAL_FIRST_YEAR, WTA_HISTORICAL_LAST_YEAR } from '../lib/wta-backfill-schedule';
+import { isProviderFreeHistoryLimit, providerQuotaRetryAt } from '../lib/provider-quota';
+import {
+  WTA_HISTORICAL_ARCHIVE_LEVELS,
+  WTA_HISTORICAL_FIRST_YEAR,
+  WTA_HISTORICAL_LAST_YEAR,
+  WTA_HISTORICAL_PRIORITY_THROUGH_YEAR,
+  wtaHistoricalCohortPlan,
+  type WtaHistoricalArchiveLevel,
+} from '../lib/wta-backfill-schedule';
 
 type Row = { id: unknown; [key: string]: unknown };
 type SavedCohort = { data: Row[]; complete: boolean; at: string; scope?: string; nextOffset?: number; total?: number | null };
@@ -13,6 +20,28 @@ const outputRoot = join(process.cwd(), 'data', 'archive', 'wta');
 const checkpointRoot = join(process.cwd(), '.deuce-cache', 'wta');
 const key = process.env.TENNIS_API_KEY;
 const requested = Number(process.argv.find(arg => arg.startsWith('--max-calls='))?.split('=')[1] || 90);
+const historyOnly = process.argv.includes('--history-only');
+const integerArgument = (name: string, fallback: number) => {
+  const value = Number(process.argv.find(arg => arg.startsWith(`--${name}=`))?.split('=')[1]);
+  return Number.isSafeInteger(value) ? value : fallback;
+};
+const throughYearArgument = process.argv.find(arg => arg.startsWith('--through-year='));
+const maximumYear = Math.max(WTA_HISTORICAL_FIRST_YEAR, Math.min(
+  WTA_HISTORICAL_LAST_YEAR,
+  integerArgument('through-year', WTA_HISTORICAL_LAST_YEAR),
+));
+const priorityThroughYear = throughYearArgument ? maximumYear : WTA_HISTORICAL_PRIORITY_THROUGH_YEAR;
+const firstYear = Math.max(WTA_HISTORICAL_FIRST_YEAR, Math.min(
+  maximumYear,
+  integerArgument('first-year', WTA_HISTORICAL_FIRST_YEAR),
+));
+const requestedLevels = process.argv.find(arg => arg.startsWith('--levels='))?.split('=')[1]
+  ?.split(',').map(value => value.trim().toUpperCase()).filter(Boolean);
+const historicalLevels = (requestedLevels?.length ? requestedLevels : [...WTA_HISTORICAL_ARCHIVE_LEVELS])
+  .filter((value): value is WtaHistoricalArchiveLevel => WTA_HISTORICAL_ARCHIVE_LEVELS.includes(value as WtaHistoricalArchiveLevel));
+if (!historicalLevels.length || (requestedLevels && historicalLevels.length !== requestedLevels.length)) {
+  throw new Error('Historical levels must be a comma-separated subset of G,M,A');
+}
 const pause = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 let calls = 0;
 let allowance = 0;
@@ -45,6 +74,20 @@ async function usage() {
   return response.json();
 }
 
+function historicalCoverage(rows: Row[]) {
+  const players = new Set<string>();
+  const tournaments = new Set<string>();
+  for (const row of rows) {
+    for (const side of [row.winner, row.loser]) {
+      if (side && typeof side === 'object' && typeof (side as { name?: unknown }).name === 'string') {
+        players.add((side as { name: string }).name);
+      }
+    }
+    if (typeof row.tournament === 'string') tournaments.add(row.tournament);
+  }
+  return { matches: rows.length, players: players.size, tournaments: tournaments.size };
+}
+
 async function modernSeason(season: number, currentYear: number) {
   const destination = join(outputRoot, `modern-${season}.json.gz`);
   const saved = await readGzip<SavedCohort>(destination);
@@ -66,7 +109,7 @@ async function archiveCohort(season: number, level: string) {
   const id = `${season}-${level}`;
   const destination = join(outputRoot, `archive-${id}.json.gz`);
   const saved = await readGzip<SavedCohort>(destination);
-  if (saved?.complete) return { skipped: true, rows: saved.data.length };
+  if (saved?.complete) return { skipped: true, rows: saved.data.length, ...historicalCoverage(saved.data) };
   const checkpointFile = join(checkpointRoot, `archive-${id}.json.gz`);
   const checkpoint = await readGzip<SavedCohort>(checkpointFile);
   const rows = new Map<string, Row>((checkpoint?.data || []).map(row => [String(row.id), row]));
@@ -89,7 +132,8 @@ async function archiveCohort(season: number, level: string) {
       if (total !== null && rows.size !== total) throw new Error(`Incomplete archive cohort ${id}: ${rows.size}/${total}`);
       await writeGzip(destination, state);
       await rm(checkpointFile, { force: true });
-      return { skipped: false, rows: rows.size };
+      const data = [...rows.values()];
+      return { skipped: false, rows: rows.size, ...historicalCoverage(data) };
     }
   }
 }
@@ -101,23 +145,35 @@ async function main() {
   const quota = await usage();
   const remaining = Number(quota.today?.remaining_day || 0);
   allowance = Math.max(0, Math.min(Number.isFinite(requested) ? requested : 90, remaining - 5));
-  const report: Record<string, unknown> = { startedAt: new Date().toISOString(), availableAtStart: remaining, callBudget: allowance, modern: [], archive: [] };
+  const report: Record<string, unknown> = {
+    startedAt: new Date().toISOString(), availableAtStart: remaining, callBudget: allowance,
+    scope: { tour: 'wta', historyOnly, firstYear, maximumYear, priorityThroughYear, levels: historicalLevels },
+    modern: [], archive: [],
+  };
   const currentYear = new Date().getUTCFullYear();
   try {
-    for (let season = currentYear; season >= 2023; season--) {
-      (report.modern as unknown[]).push({ season, ...await modernSeason(season, currentYear) });
+    if (!historyOnly) {
+      for (let season = currentYear; season >= 2023; season--) {
+        (report.modern as unknown[]).push({ season, ...await modernSeason(season, currentYear) });
+      }
     }
     // Keep the provider's broad historical cohorts locally. Publication later
     // applies the strict Grand Slam/1000/500/250 singles contract; retaining
     // G/M/A here lets future, evidence-backed tier mappings recover eligible
     // WTA events without another multi-year download.
-    for (let season = WTA_HISTORICAL_LAST_YEAR; season >= WTA_HISTORICAL_FIRST_YEAR; season--)
-      for (const level of WTA_HISTORICAL_ARCHIVE_LEVELS) {
+    const completed = new Set((await readdir(outputRoot))
+      .map(file => /^archive-(\d{4}-[GMA])\.json\.gz$/.exec(file)?.[1])
+      .filter((value): value is string => !!value));
+    const plan = wtaHistoricalCohortPlan(completed, priorityThroughYear, historicalLevels)
+      .filter(cohort => cohort.season >= firstYear && cohort.season <= maximumYear);
+    report.pendingHistoricalCohortsAtStart = plan.length;
+    for (const { season, level } of plan) {
       (report.archive as unknown[]).push({ season, level, ...await archiveCohort(season, level) });
     }
   } catch (error) {
     if (!(error instanceof Error) || !['DAILY_BUDGET_REACHED','HISTORY_LIMIT_REACHED'].includes(error.message)) throw error;
     report.paused = error.message === 'HISTORY_LIMIT_REACHED' ? 'free-history-limit' : 'daily-quota-checkpoint';
+    report.retryAt = providerQuotaRetryAt(quota);
   }
   report.calls = calls;
   report.finishedAt = new Date().toISOString();

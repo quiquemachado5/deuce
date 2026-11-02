@@ -21,6 +21,7 @@
     "data:evidence": "node --import ./build/register.mjs --import tsx build/verify-evidence.ts",
     "data:restore-drill": "node build/restore-drill.mjs",
     "data:wta:backfill": "node --env-file=.env.local --import ./build/register.mjs --import tsx build/backfill-wta-local.ts",
+    "data:wta:backfill:historical": "npm run data:wta:backfill -- --history-only --through-year=2019",
     "storage:seed": "node --import ./build/register.mjs --import tsx build/seed-blob-archive.ts",
     "media:verify": "node --import ./build/register.mjs --import tsx build/audit-tournament-media.ts",
     "media:players": "node build/discover-player-photos.mjs --scan=250 --max=100",
