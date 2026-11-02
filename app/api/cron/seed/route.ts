@@ -3,6 +3,7 @@ import { archiveStoreBackend } from '@/lib/archive-store'
 import { cloudRead, cloudWrite } from '@/lib/cloud-archive'
 import { publishRecordSnapshot } from '@/lib/revista/publish-snapshot'
 import type { Snapshot } from '@/lib/revista/snapshot'
+import { withOperationHistory } from '@/lib/archive-operations'
 import { readFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { gunzipSync } from 'node:zlib'
@@ -51,7 +52,8 @@ export async function GET(request: Request) {
 
     const published = await publishRecordSnapshot(snapshot)
     const completedAt = new Date().toISOString()
-    await cloudWrite('publish-status', {
+    const previousPublication = await cloudRead('publish-status').catch(() => undefined)
+    await cloudWrite('publish-status', withOperationHistory(previousPublication, {
       status: 'success',
       attemptAt,
       lastSuccessAt: completedAt,
@@ -63,7 +65,7 @@ export async function GET(request: Request) {
       lists: published.pieces.length,
       incompleteEditions: snapshot.audit.filter(edition => edition.completeDraw === false).length,
       initialSeed: true,
-    })
+    }))
     await cloudWrite('seed-status', {
       status: 'success',
       attemptAt,

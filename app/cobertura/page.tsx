@@ -7,7 +7,6 @@ import { number } from "@/lib/cuaderno/model";
 import { preparedGeneration, recordView } from "@/lib/revista/read-records";
 import { SURFACES, surfaceLabel } from "@/lib/surface";
 import { archiveDate, archiveFreshnessSummary } from '@/lib/archive-freshness';
-import styles from './coverage.module.css';
 
 const title = 'Cobertura y frescura del archivo — DEUCE';
 const description = 'Consulta cuándo se generó la copia de DEUCE, hasta qué partido llega y qué datos ATP y WTA están publicados y qué lagunas siguen abiertas.';
@@ -30,7 +29,6 @@ export default async function Coverage({ searchParams }: { searchParams: Promise
   const manifest=generation.manifest,years=manifest.summary.years,yearValues=years.map(row=>row.year);
   const firstYear=yearValues.length?Math.min(...yearValues):undefined,lastYear=yearValues.length?Math.max(...yearValues):undefined;
   const totals=years.reduce((sum,row)=>({ranking:sum.ranking+row.ranking,statistics:sum.statistics+row.statistics,points:sum.points+row.points}),{ranking:0,statistics:0,points:0});
-  const tracked=manifest.ingestionHistory?.length?manifest.ingestionHistory:[{date:manifest.generatedAt.slice(0,10),added:0,total:manifest.matchCount}];
   const updated=new Date(manifest.generatedAt).toLocaleString("es-ES",{dateStyle:"medium",timeStyle:"short",timeZone:"Europe/Madrid"});
   const freshness=archiveFreshnessSummary(manifest),ageHours=freshness.copyAgeHours,stale=ageHours>36||Boolean(generation.fallbackReason);
   const latestExact=freshness.latestExactDate?archiveDate(freshness.latestExactDate):'Pendiente de fecha exacta verificada';
@@ -55,15 +53,6 @@ export default async function Coverage({ searchParams }: { searchParams: Promise
     {stale&&<section className="coverage-piece" aria-labelledby="coverage-stale-title"><div><h2 id="coverage-stale-title">La última actualización no está disponible</h2><p>Cobertura muestra la copia validada generada el {updated}. No interpretamos la ausencia de una publicación nueva como un día sin partidos.</p></div><dl><div><dt>Estado</dt><dd>{generation.fallbackReason?'Archivo de respaldo':'Publicación pendiente de actualizar'}</dd></div><div><dt>Antigüedad de la copia</dt><dd>{number(ageHours,1)} horas</dd></div><div><dt>Último partido con fecha exacta</dt><dd>{latestExact}</dd></div></dl></section>}
 
     {selection?.piece&&<section className="coverage-piece" id="estadistica"><div><h2>{selection.piece.title}</h2><p>{selection.piece.definition}</p></div><dl><div><dt>Periodo</dt><dd>{selection.piece.years}</dd></div><div><dt>Muestra</dt><dd>{number(selection.piece.sample)}</dd></div><div><dt>Mínimo</dt><dd>{selection.piece.minimum} casos</dd></div></dl></section>}
-
-    <section className={styles.history} aria-labelledby="coverage-daily-title">
-      <header><span>Historial de publicaciones</span><h2 id="coverage-daily-title">Qué cambió cada día</h2><p>Solo aparecen incorporaciones publicadas. Una fecha sin detalle no se interpreta como cero.</p></header>
-      <div className={styles.tableWrap} role="region" aria-label="Historial diario de publicaciones" tabIndex={0}><table><thead><tr><th>Fecha</th><th>Nuevos</th><th>Corregidos</th><th>ATP / WTA</th><th>Total</th></tr></thead><tbody>{[...tracked].reverse().slice(0,10).map((day,index)=><tr key={`${day.date}-${index}`}>
-        <th scope="row"><time dateTime={day.date}>{new Date(`${day.date}T12:00:00Z`).toLocaleDateString('es-ES',{day:'2-digit',month:'short',year:'numeric',timeZone:'UTC'})}</time>{index===0&&<small>Última</small>}</th>
-        <td>{day.included?number(day.added):'—'}</td><td>{day.corrected===undefined?'—':number(day.corrected)}</td>
-        <td>{day.tourAdded?`${number(day.tourAdded.atp)} / ${number(day.tourAdded.wta)}`:'—'}</td><td>{number(day.total)}</td>
-      </tr>)}</tbody></table></div>
-    </section>
 
     <section className="coverage-snapshot" aria-labelledby="coverage-snapshot-title">
       <div className="coverage-section-copy"><h2 id="coverage-snapshot-title">Datos disponibles</h2><p>Un campo vacío no cuenta como cero. Cada porcentaje se calcula solo con información publicada.</p></div>

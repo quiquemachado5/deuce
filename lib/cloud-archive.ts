@@ -21,6 +21,7 @@ import { activityFixtures } from './tour-activity'
 import {reconcileSeasonResults} from './result-refresh'
 import { detailRefreshPlan } from './detail-refresh-plan'
 import { hasClosedModernResult } from './modern-result'
+import { withOperationHistory } from './archive-operations'
 
 // Provider payloads are schemaless until they are normalized into Match.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -204,20 +205,20 @@ export async function refreshCloudArchive() {
   const lastSuccessAt=priorStatus?.status==='success'?priorStatus.at:priorStatus?.lastSuccessAt
   const attemptAt=new Date(started).toISOString()
   try {
-    await cloudWrite('sync-status',{status:'running',at:attemptAt,attemptAt,lastSuccessAt})
+    await cloudWrite('sync-status',withOperationHistory(priorStatus,{status:'running',at:attemptAt,attemptAt,lastSuccessAt}))
     const capacity=await cloudArchiveHasCapacity()
     if(!capacity.available){
       const result={status:capacity.status==='full'?'storage-reserve':'storage-unverified',attemptAt,lastSuccessAt,at:new Date().toISOString(),calls,relationBytes:capacity.report?.relationBytes,maximumBytes:capacity.maximum}
-      await cloudWrite('sync-status',result)
+      await cloudWrite('sync-status',withOperationHistory(priorStatus,result))
       return result
     }
+    calls++
     const quota = await provider('/usage')
     const remaining = Number(quota.today?.remaining_day || 0)
     const wtaReserve=40,callLimit=35
     if (remaining <= wtaReserve) {
-      const previous = await cloudRead('sync-status')
-      const result = { status: 'quota-reserve', at: new Date().toISOString(), remaining, lastSuccessAt: previous?.status === 'success' ? previous.at : previous?.lastSuccessAt }
-      await cloudWrite('sync-status', result)
+      const result = { status: 'quota-reserve', attemptAt, at: new Date().toISOString(), remaining, calls, extracted:0, lastSuccessAt }
+      await cloudWrite('sync-status', withOperationHistory(priorStatus,result))
       return result
     }
     const request = async (path: string) => {
@@ -286,12 +287,11 @@ export async function refreshCloudArchive() {
       if(row.kind==='archive')historicalAdded++;else archiveRecentAdded++
     }
     cache.delete('detail-index')
-    const result = { status: 'success', attemptAt, at: new Date().toISOString(), lastSuccessAt: new Date().toISOString(), year, matches: data.length, updated: rows.length, seasonsRefreshed, detailsAdded, detailsRefreshed, historicalAdded, archiveRecentAdded, calls, activityFixtures:activity.length }
-    await cloudWrite('sync-status', result)
+    const result = { status: 'success', attemptAt, at: new Date().toISOString(), lastSuccessAt: new Date().toISOString(), year, matches: data.length, updated: rows.length, extracted:rows.length, enriched:detailsAdded+detailsRefreshed+historicalAdded+archiveRecentAdded, seasonsRefreshed, detailsAdded, detailsRefreshed, historicalAdded, archiveRecentAdded, calls, activityFixtures:activity.length }
+    await cloudWrite('sync-status', withOperationHistory(priorStatus,result))
     return result
   } catch (error) {
-    const previous = await cloudRead('sync-status').catch(() => undefined)
-    await cloudWrite('sync-status', { status: 'error', at: new Date().toISOString(), lastSuccessAt: previous?.status === 'success' ? previous.at : previous?.lastSuccessAt, calls, message: error instanceof Error ? error.message : 'Sync failed' })
+    await cloudWrite('sync-status', withOperationHistory(priorStatus,{ status: 'error', attemptAt, at: new Date().toISOString(), lastSuccessAt, calls, message: error instanceof Error ? error.message : 'Sync failed' }))
     throw error
   } finally { await release() }
 }
@@ -306,19 +306,19 @@ export async function refreshCloudWta() {
   const lastSuccessAt=priorStatus?.status==='success'?priorStatus.at:priorStatus?.lastSuccessAt
   const attemptAt=new Date(started).toISOString()
   try {
-    await cloudWrite('wta-sync-status',{status:'running',at:attemptAt,attemptAt,lastSuccessAt})
+    await cloudWrite('wta-sync-status',withOperationHistory(priorStatus,{status:'running',at:attemptAt,attemptAt,lastSuccessAt}))
     const capacity=await cloudArchiveHasCapacity()
     if(!capacity.available){
       const result={status:capacity.status==='full'?'storage-reserve':'storage-unverified',attemptAt,lastSuccessAt,at:new Date().toISOString(),calls,relationBytes:capacity.report?.relationBytes,maximumBytes:capacity.maximum}
-      await cloudWrite('wta-sync-status',result)
+      await cloudWrite('wta-sync-status',withOperationHistory(priorStatus,result))
       return result
     }
+    calls++
     const quota=await provider('/usage')
     const remaining=Number(quota.today?.remaining_day||0)
     if(remaining<35){
-      const previous=await cloudRead('wta-sync-status').catch(()=>undefined)
-      const result={status:'quota-reserve',at:new Date().toISOString(),remaining,calls,lastSuccessAt:previous?.status==='success'?previous.at:previous?.lastSuccessAt}
-      await cloudWrite('wta-sync-status',result)
+      const result={status:'quota-reserve',attemptAt,at:new Date().toISOString(),remaining,calls,extracted:0,lastSuccessAt}
+      await cloudWrite('wta-sync-status',withOperationHistory(priorStatus,result))
       return result
     }
     const request=async(path:string)=>{
@@ -332,7 +332,7 @@ export async function refreshCloudWta() {
     const completed=new Set<number>(Array.isArray(state.completed)?state.completed:[])
     const pending=Array.from({length:Math.max(0,year-2023)},(_,i)=>year-1-i).filter(season=>!completed.has(season))
     const seasonsRefreshed:number[]=[]
-    let seasonMatches=0
+    let seasonMatches=0,modernUpdated=0
     for(const season of [...new Set([year,...pending,...[...completed].sort((a,b)=>b-a)])]){
       if(calls>=65||remaining-calls<=45||Date.now()-started>160_000)break
       const key=`season-wta-${season}`
@@ -345,6 +345,7 @@ export async function refreshCloudWta() {
       await cloudWrite(key,{data,scope:refreshed.scope,at:refreshed.at})
       seasonsRefreshed.push(season)
       seasonMatches+=data.length
+      modernUpdated+=refreshed.fresh.length
       if(season!==year){
         completed.add(season)
         await cloudWrite('wta-season-state',{completed:[...completed],at:new Date().toISOString()})
@@ -380,13 +381,12 @@ export async function refreshCloudWta() {
         await cloudWrite('wta-archive-index',{complete:[...complete],at:new Date().toISOString()})
       }
     }
-    const result={status:seasonsRefreshed.includes(year)?'success':archivePages?'backfill-progress':'quota-reserve',attemptAt,lastSuccessAt:seasonsRefreshed.includes(year)?new Date().toISOString():lastSuccessAt,at:new Date().toISOString(),calls,seasonsRefreshed,seasonMatches,historicalAdded,archivePages,historicalCohorts:complete.size}
-    await cloudWrite('wta-sync-status',result)
+    const result={status:seasonsRefreshed.includes(year)?'success':archivePages?'backfill-progress':'quota-reserve',attemptAt,lastSuccessAt:seasonsRefreshed.includes(year)?new Date().toISOString():lastSuccessAt,at:new Date().toISOString(),calls,seasonsRefreshed,seasonMatches,updated:modernUpdated,extracted:modernUpdated+historicalAdded,historicalAdded,archivePages,historicalCohorts:complete.size}
+    await cloudWrite('wta-sync-status',withOperationHistory(priorStatus,result))
     return result
   }catch(error){
-    const previous=await cloudRead('wta-sync-status').catch(()=>undefined)
-    const result={status:'error',at:new Date().toISOString(),calls,lastSuccessAt:previous?.status==='success'?previous.at:previous?.lastSuccessAt,message:error instanceof Error?error.message:'WTA sync failed'}
-    await cloudWrite('wta-sync-status',result)
+    const result={status:'error',attemptAt,at:new Date().toISOString(),calls,lastSuccessAt,message:error instanceof Error?error.message:'WTA sync failed'}
+    await cloudWrite('wta-sync-status',withOperationHistory(priorStatus,result))
     throw error
   }finally{await release()}
 }

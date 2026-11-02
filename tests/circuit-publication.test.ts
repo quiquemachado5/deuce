@@ -8,7 +8,7 @@ import {comparePublishedMatches} from '../lib/publication-delta';
 import {reconcileSeasonResults,type SeasonCheckpoint} from '../lib/result-refresh';
 import {editionCompleteness} from '../lib/edition-audit';
 import {packArtifacts,registerArtifactPacks,readSnapshotArtifact,clearArtifactPacks} from '../lib/revista/artifact-packs';
-import {wtaBackfillProgress,operationStatus} from '../lib/archive-operations';
+import {wtaBackfillProgress,operationHistory,operationStatus,withOperationHistory} from '../lib/archive-operations';
 import {evidenceHref} from '../lib/record-evidence';
 import {playerPhoto} from '../lib/player-imagery';
 
@@ -74,6 +74,17 @@ test('progress uses only the configured cohorts and failure retains last success
   assert.equal(progress.completed,1);assert.equal(progress.total,165);assert.equal(progress.pending.length,164);
   assert.equal(operationStatus({status:'error',at:'2026-11-01T08:00:00Z',lastSuccessAt:'2026-10-31T08:00:00Z'}).successAt,'2026-10-31T08:00:00Z');
   assert.equal(operationStatus(undefined).found,undefined);
+});
+
+test('operation status retains completed attempts for the daily API journal',()=>{
+  const first=withOperationHistory(undefined,{status:'error',attemptAt:'2026-11-01T04:00:00Z',at:'2026-11-01T04:00:03Z',calls:2,message:'HTTP 403'});
+  const running=withOperationHistory(first,{status:'running',attemptAt:'2026-11-02T04:00:00Z',at:'2026-11-02T04:00:00Z'});
+  const second=withOperationHistory(running,{status:'success',attemptAt:'2026-11-02T04:00:00Z',at:'2026-11-02T04:01:00Z',calls:7,extracted:12});
+  const history=operationHistory(second);
+  assert.equal(history.length,2);
+  assert.deepEqual(history.map(row=>row.status),['error','success']);
+  assert.deepEqual(history.map(row=>row.calls),[2,7]);
+  assert.equal(history[1].extracted,12);
 });
 
 test('WTA evidence URLs and portraits cannot fall through to ATP',()=>{

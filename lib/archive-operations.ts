@@ -11,6 +11,42 @@ export function operationStatus(value: unknown) {
     seasons: Array.isArray(row.seasonsRefreshed)?row.seasonsRefreshed.filter((v):v is number=>typeof v==='number'):[],
   };
 }
+
+type OperationRecord = Record<string, unknown>;
+
+const dated = (value: unknown) => typeof value === 'string' && Number.isFinite(Date.parse(value));
+const terminal = (row: OperationRecord) => typeof row.status === 'string' && !['running', 'busy', 'unavailable'].includes(row.status);
+const withoutHistory = (row: OperationRecord) => {
+  const { history: _history, ...entry } = row;
+  void _history;
+  return entry;
+};
+const operationIdentity = (row: OperationRecord) => `${String(row.attemptAt || row.at || '')}:${String(row.status || '')}`;
+
+/**
+ * Status objects are intentionally small, so retaining the last 45 completed
+ * attempts beside the current status gives Coverage a durable daily audit
+ * without adding another database or one object per API request.
+ */
+export function operationHistory(value: unknown): OperationRecord[] {
+  if (!value || typeof value !== 'object') return [];
+  const current = value as OperationRecord;
+  const saved = Array.isArray(current.history)
+    ? current.history.filter((row): row is OperationRecord => !!row && typeof row === 'object')
+    : [];
+  const candidates = [...saved, withoutHistory(current)].filter(row => terminal(row) && (dated(row.attemptAt) || dated(row.at)));
+  const unique = new Map<string, OperationRecord>();
+  for (const row of candidates) unique.set(operationIdentity(row), withoutHistory(row));
+  return [...unique.values()].sort((a, b) => Date.parse(String(a.attemptAt || a.at)) - Date.parse(String(b.attemptAt || b.at)));
+}
+
+export function withOperationHistory(previous: unknown, next: OperationRecord, limit = 45): OperationRecord {
+  const history = [...operationHistory(previous), ...operationHistory(next)];
+  const unique = new Map<string, OperationRecord>();
+  for (const row of history) unique.set(operationIdentity(row), row);
+  return { ...withoutHistory(next), history: [...unique.values()].slice(-Math.max(1, limit)) };
+}
+
 export function wtaBackfillProgress(value: unknown) {
   if (!value || typeof value!=='object' || !Array.isArray((value as {complete?:unknown}).complete)) return undefined;
   const complete = new Set((value as {complete:unknown[]}).complete);

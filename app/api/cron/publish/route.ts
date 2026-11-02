@@ -10,6 +10,7 @@ import {gunzipSync} from 'node:zlib'
 import {join} from 'node:path'
 import {compatibleManifest} from '@/lib/revista/generation'
 import type {RecordManifest} from '@/lib/revista/snapshot'
+import {withOperationHistory} from '@/lib/archive-operations'
 
 export const runtime = 'nodejs'
 export const maxDuration = 300
@@ -23,7 +24,7 @@ export async function GET(request: Request) {
   const attemptAt=new Date().toISOString()
   const lastSuccessAt=previousStatus?.status==='success'?previousStatus.at:previousStatus?.lastSuccessAt
   try {
-    await cloudWrite('publish-status',{status:'running',at:attemptAt,attemptAt,lastSuccessAt})
+    await cloudWrite('publish-status',withOperationHistory(previousStatus,{status:'running',at:attemptAt,attemptAt,lastSuccessAt}))
     console.info('Daily publication: started')
     const refresh=await cloudRead('sync-status')
     const lastSuccessfulRefresh = refresh?.status === 'success' ? refresh.at : refresh?.lastSuccessAt
@@ -61,11 +62,11 @@ export async function GET(request: Request) {
 
     const incompleteEditions=snapshot.audit.filter(edition=>edition.completeDraw===false).length
     const tours=snapshot.manifest.summary.tours
-    await cloudWrite('publish-status',{status:'success',attemptAt,lastSuccessAt:new Date().toISOString(),delta,publicationAt:published.generatedAt,at:new Date().toISOString(),version:snapshot.manifest.version,matches:snapshot.manifest.matchCount,tours,lists:snapshot.manifest.pieces.length,incompleteEditions})
+    await cloudWrite('publish-status',withOperationHistory(previousStatus,{status:'success',attemptAt,lastSuccessAt:new Date().toISOString(),delta,publicationAt:published.generatedAt,at:new Date().toISOString(),version:snapshot.manifest.version,matches:snapshot.manifest.matchCount,tours,lists:snapshot.manifest.pieces.length,incompleteEditions}))
     return Response.json({ status: 'success', at: new Date().toISOString(), matches: snapshot.manifest.matchCount, tours, lists: snapshot.manifest.pieces.length, incompleteEditions, version:snapshot.manifest.version }, { headers: { 'Cache-Control': 'no-store' } })
   } catch (error) {
     const reason = error instanceof Error ? error.message : 'unknown error'
-    await cloudWrite('publish-status',{status:'error',attemptAt,lastSuccessAt,at:new Date().toISOString(),message:reason}).catch(()=>undefined)
+    await cloudWrite('publish-status',withOperationHistory(previousStatus,{status:'error',attemptAt,lastSuccessAt,at:new Date().toISOString(),message:reason})).catch(()=>undefined)
     console.error('Daily reading snapshot publication failed:', reason)
     return Response.json({ error: 'Publish failed; the saved archive remains available' }, { status: 503, headers: { 'Cache-Control': 'no-store' } })
   }

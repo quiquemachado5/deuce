@@ -1,62 +1,130 @@
 import Link from 'next/link';
 import {cloudProbeRead} from '@/lib/cloud-archive';
-import {operationStatus,wtaBackfillProgress} from '@/lib/archive-operations';
+import {operationHistory,operationStatus,wtaBackfillProgress} from '@/lib/archive-operations';
+import {editionCompleteness} from '@/lib/edition-audit';
 import {preparedEditionAudit} from '@/lib/revista/read-records';
-import type {RecordManifest} from '@/lib/revista/snapshot';
+import type {IngestionDay,RecordManifest} from '@/lib/revista/snapshot';
 import {readFile} from 'node:fs/promises';
 import {join} from 'node:path';
 import styles from './coverage.module.css';
 
+type Entry=Record<string,unknown>;
+type DailyActivity={
+  date:string;
+  atpCalls:number;wtaCalls:number;
+  atpExtracted:number;wtaExtracted:number;
+  atpMeasured:boolean;wtaMeasured:boolean;
+  published:number;corrected:number;publicationMeasured:boolean;
+  statuses:string[];initialSeed:boolean;
+};
+
+const number=(value:number)=>value.toLocaleString('es-ES');
+const numeric=(value:unknown)=>typeof value==='number'&&Number.isFinite(value)?value:undefined;
+const iso=(entry:Entry)=>typeof (entry.attemptAt||entry.at)==='string'?String(entry.attemptAt||entry.at):undefined;
+const dateKey=(entry:Entry)=>iso(entry)?.slice(0,10);
 const stamp=(date?:string)=>date?new Date(date).toLocaleString('es-ES',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit',timeZone:'UTC'})+' UTC':'Sin registro';
-const labels:Record<string,string>={success:'Correcto',running:'En curso',error:'Con error','quota-reserve':'Esperando cuota','storage-reserve':'Sin espacio','storage-unverified':'Sin verificar',unavailable:'Sin registro',busy:'En curso'};
+const dayLabel=(date:string)=>new Date(`${date}T12:00:00Z`).toLocaleDateString('es-ES',{day:'2-digit',month:'short',year:'numeric',timeZone:'UTC'});
+const labels:Record<string,string>={success:'Correcto',running:'En curso',error:'Con error','quota-reserve':'Esperando cuota','free-history-limit':'Cuota agotada','backfill-progress':'En progreso','storage-reserve':'Sin espacio','storage-unverified':'Sin verificar',unavailable:'Sin registro',busy:'En curso'};
+const friendlyReason=(reason?:string)=>{
+  if(!reason)return undefined;
+  if(/HTTP 403/i.test(reason))return 'El proveedor rechazó la consulta (HTTP 403).';
+  if(/free monthly history|history allowance/i.test(reason))return 'La cuota histórica gratuita está agotada. El progreso está guardado.';
+  if(/quota/i.test(reason))return 'La consulta espera a que vuelva a haber cuota.';
+  return reason;
+};
+const emptyDay=(date:string):DailyActivity=>({date,atpCalls:0,wtaCalls:0,atpExtracted:0,wtaExtracted:0,atpMeasured:false,wtaMeasured:false,published:0,corrected:0,publicationMeasured:false,statuses:[],initialSeed:false});
+
+function dailyActivity(atpRaw:unknown,wtaRaw:unknown,publishRaw:unknown,ingestion:IngestionDay[]|undefined){
+  const days=new Map<string,DailyActivity>();
+  const get=(date:string)=>{const saved=days.get(date)||emptyDay(date);days.set(date,saved);return saved};
+  const addProvider=(raw:unknown,tour:'atp'|'wta')=>{
+    for(const entry of operationHistory(raw)){
+      const date=dateKey(entry);if(!date)continue;
+      const day=get(date),calls=numeric(entry.calls),extracted=numeric(entry.extracted)??numeric(entry.updated);
+      if(calls!==undefined)day[tour==='atp'?'atpCalls':'wtaCalls']+=calls;
+      if(extracted!==undefined){day[tour==='atp'?'atpExtracted':'wtaExtracted']+=extracted;day[tour==='atp'?'atpMeasured':'wtaMeasured']=true;}
+      if(typeof entry.status==='string')day.statuses.push(entry.status);
+    }
+  };
+  addProvider(atpRaw,'atp');addProvider(wtaRaw,'wta');
+  for(const entry of operationHistory(publishRaw)){
+    const date=dateKey(entry);if(!date)continue;
+    const day=get(date),delta=entry.delta&&typeof entry.delta==='object'?entry.delta as Entry:undefined;
+    day.initialSeed=day.initialSeed||entry.initialSeed===true;
+    if(!day.initialSeed&&delta){
+      const added=numeric(delta.added),corrected=numeric(delta.corrected);
+      if(added!==undefined&&corrected!==undefined){day.published+=added;day.corrected+=corrected;day.publicationMeasured=true;}
+    }
+    if(typeof entry.status==='string')day.statuses.push(entry.status);
+  }
+  for(const entry of ingestion||[]){
+    const day=get(entry.date);
+    if(!day.publicationMeasured&&!day.initialSeed&&entry.included){day.published=entry.added;day.corrected=entry.corrected||0;day.publicationMeasured=true;}
+  }
+  return [...days.values()].sort((a,b)=>b.date.localeCompare(a.date)).slice(0,14);
+}
+
+function activityStatus(day:DailyActivity){
+  if(day.statuses.includes('error'))return 'Con incidencia';
+  if(day.statuses.includes('free-history-limit')||day.statuses.includes('quota-reserve'))return 'Esperando cuota';
+  if(day.initialSeed)return 'Copia inicial';
+  if(day.statuses.includes('running')||day.statuses.includes('busy'))return 'En curso';
+  if(day.statuses.includes('success'))return 'Completado';
+  return 'Sin detalle';
+}
+const value=(measured:boolean,total:number)=>measured?number(total):'—';
 
 export default async function Operations({manifest,source}:{manifest:RecordManifest;source:'bundled'|'remote'}){
   const [atpRaw,wtaRaw,publishRaw,index,editions,localBackfill]=await Promise.all([
     cloudProbeRead('sync-status'),cloudProbeRead('wta-sync-status'),cloudProbeRead('publish-status'),cloudProbeRead('wta-archive-index'),preparedEditionAudit(),
     readFile(join(process.cwd(),'data','archive','wta-status.json'),'utf8').then(JSON.parse).catch(()=>undefined),
   ]);
-  const operations=[
-    {name:'ATP',window:'04:00–04:59',...operationStatus(atpRaw)},
-    {name:'WTA',window:'06:00–06:59',...operationStatus(wtaRaw)},
-    {name:'Publicación',window:'08:00–08:59',...operationStatus(publishRaw)},
+  const current=[
+    {name:'ATP',kind:'provider',raw:atpRaw,...operationStatus(atpRaw)},
+    {name:'WTA',kind:'provider',raw:wtaRaw,...operationStatus(wtaRaw)},
+    {name:'Web',kind:'publication',raw:publishRaw,...operationStatus(publishRaw)},
   ];
+  const days=dailyActivity(atpRaw,wtaRaw,publishRaw,manifest.ingestionHistory);
+  const todayKey=new Date().toISOString().slice(0,10),today=days.find(day=>day.date===todayKey)||emptyDay(todayKey);
   const progress=wtaBackfillProgress(index);
   const completed=progress?.completed??(typeof localBackfill?.completedHistoricalCohorts==='number'?localBackfill.completedHistoricalCohorts:undefined);
   const total=progress?.total??165;
   const partial=localBackfill?.active?.complete===false?localBackfill.active:undefined;
-  const today=manifest.ingestionHistory?.find(day=>day.date===new Date().toISOString().slice(0,10));
-  const review=editions.filter(row=>row.completeDraw!==true).length;
+  const review=editions.filter(row=>editionCompleteness(row).completeDraw===false).length;
   return <>
     <section className={styles.operations} aria-labelledby="operations-title">
       <header className={styles.heading}>
-        <div><span>Actualización diaria</span><h2 id="operations-title">Tres pasos. Una sola publicación.</h2></div>
-        <p>DEUCE consulta cada circuito por separado y solo cambia la web cuando la generación completa supera las validaciones.</p>
+        <div><span>Actualización diaria</span><h2 id="operations-title">Lo que ha cambiado hoy.</h2></div>
+        <p>Cada consulta y cada incorporación quedan registradas. Solo contamos como publicado lo que ya puede verse en DEUCE.</p>
       </header>
-      <ol className={styles.flow}>{operations.map((operation,index)=><li key={operation.name} data-status={operation.status}>
-        <span className={styles.number}>0{index+1}</span>
-        <div className={styles.stage}><strong>{operation.name}</strong><small>{operation.window} UTC</small></div>
-        <span className={styles.status}><i aria-hidden="true"/>{labels[operation.status]||operation.status}</span>
-        <dl><div><dt>Último intento</dt><dd>{stamp(operation.attemptAt)}</dd></div><div><dt>Último éxito</dt><dd>{stamp(operation.successAt)}</dd></div></dl>
-        {operation.reason&&<p className={styles.error}>{operation.reason}</p>}
-      </li>)}</ol>
-      <dl className={styles.today}>
-        <div><dt>Nuevos hoy</dt><dd>{today?.included?today.added.toLocaleString('es-ES'):'—'}</dd></div>
-        <div><dt>Corregidos hoy</dt><dd>{today?.corrected===undefined?'—':today.corrected.toLocaleString('es-ES')}</dd></div>
-        <div><dt>Última publicación</dt><dd>{stamp(operations[2].publicationAt||operations[2].successAt)}</dd></div>
-        <div><dt>Generación</dt><dd><code>{manifest.version.slice(0,8)}</code></dd></div>
-      </dl>
-      <p className={styles.source}>{source==='remote'?'Generación principal remota':'Copia validada incluida en el despliegue'}. Un guion significa que todavía no existe una medición verificable; no equivale a cero.</p>
+
+      <article className={styles.todayCard} aria-label="Actividad de hoy">
+        <header><div><span>Hoy · {dayLabel(today.date)}</span><h3>{today.publicationMeasured?`${number(today.published)} partidos nuevos publicados.`:'Aún no hay una publicación nueva verificada.'}</h3></div><span className={styles.dayStatus}>{activityStatus(today)}</span></header>
+        <dl className={styles.todayNumbers}>
+          <div><dt>Consultas a la API</dt><dd>{number(today.atpCalls+today.wtaCalls)}<small>ATP {number(today.atpCalls)} · WTA {number(today.wtaCalls)}</small></dd></div>
+          <div><dt>Resultados obtenidos</dt><dd>{today.atpMeasured||today.wtaMeasured?number(today.atpExtracted+today.wtaExtracted):'—'}<small>ATP {value(today.atpMeasured,today.atpExtracted)} · WTA {value(today.wtaMeasured,today.wtaExtracted)}</small></dd></div>
+          <div><dt>Añadidos a DEUCE</dt><dd>{value(today.publicationMeasured,today.published)}<small>{today.publicationMeasured?`${number(today.corrected)} corregidos`:'Pendiente de una publicación medible'}</small></dd></div>
+        </dl>
+        <ul className={styles.current}>{current.map(operation=>{
+        const raw=operation.raw&&typeof operation.raw==='object'?operation.raw as Entry:{};
+        const calls=numeric(raw.calls),extracted=numeric(raw.extracted)??numeric(raw.updated);
+        return <li key={operation.name} data-status={operation.status}><strong>{operation.name}</strong><span>{operation.kind==='provider'?`${calls===undefined?'—':number(calls)} consultas · ${extracted===undefined?'—':number(extracted)} resultados`:`Última publicación ${stamp(operation.publicationAt||operation.successAt)}`}</span><span className={styles.status}><i aria-hidden="true"/>{labels[operation.status]||operation.status}</span>{friendlyReason(operation.reason)&&<small>{friendlyReason(operation.reason)}</small>}</li>;
+      })}</ul>
+        <p className={styles.source}>{source==='remote'?'Datos servidos desde la generación principal.':'Datos servidos desde la copia validada.'} Un guion indica que el intento no dejó una cifra verificable.</p>
+      </article>
     </section>
 
-    <section className={styles.archive} aria-labelledby="wta-progress-title">
-      <article>
-        <span>Archivo WTA</span><h2 id="wta-progress-title">Progreso verificable</h2>
-        {completed!==undefined?<><p><strong>{completed}</strong> de {total} cohortes históricas configuradas.</p><progress value={completed} max={total} aria-label="Cohortes WTA descargadas"/><small>{partial?`${partial.rows.toLocaleString('es-ES')} filas de ${partial.season} guardadas en un checkpoint; aún no se publican.`:progress?.pending.length?`${progress.pending.length} pendientes; cada página conserva su checkpoint.`:'Sin descarga parcial activa.'}</small>{localBackfill?.paused==='free-history-limit'&&<p className={styles.limit}>Pausado al agotarse las llamadas gratuitas de History.</p>}</>:<p>No hay un punto de control verificable. La generación activa sigue indicando cuántos partidos WTA contiene.</p>}
-      </article>
-      <article>
-        <span>Integridad</span><h2>Revisión pendiente</h2><p><strong>{review.toLocaleString('es-ES')}</strong> ediciones incompletas o sin tamaño de cuadro verificable.</p>
-        <Link href="/cobertura/revision">Ver torneos y motivos →</Link>
-      </article>
+    <section className={styles.history} aria-labelledby="coverage-daily-title">
+      <header><span>Historial público</span><h2 id="coverage-daily-title">Cada día, en claro.</h2><p>Consultas realizadas, resultados obtenidos y partidos que finalmente se incorporaron al archivo.</p></header>
+      <ol className={styles.days} aria-label="Actividad diaria de la API">{days.map(day=><li key={day.date}>
+        <header><time dateTime={day.date}>{dayLabel(day.date)}</time><span className={styles.dayStatus}>{activityStatus(day)}</span></header>
+        <dl><div><dt>Consultas</dt><dd>{number(day.atpCalls+day.wtaCalls)}<small>ATP {number(day.atpCalls)} · WTA {number(day.wtaCalls)}</small></dd></div><div><dt>Obtenidos</dt><dd>{day.atpMeasured||day.wtaMeasured?number(day.atpExtracted+day.wtaExtracted):'—'}<small>ATP {value(day.atpMeasured,day.atpExtracted)} · WTA {value(day.wtaMeasured,day.wtaExtracted)}</small></dd></div><div><dt>Añadidos</dt><dd>{value(day.publicationMeasured,day.published)}<small>{day.publicationMeasured?`${number(day.corrected)} corregidos`:'Sin medición verificable'}</small></dd></div></dl>
+      </li>)}</ol>
+    </section>
+
+    <section className={styles.archive} aria-label="Archivo histórico y revisión">
+      <article><div><span>Archivo WTA</span><strong>{completed===undefined?'—':`${number(completed)} / ${number(total)}`}</strong></div><p>{partial?`${number(partial.rows)} filas de ${partial.season} guardadas; todavía no se publican.`:progress?.pending.length?`${number(progress.pending.length)} cohortes pendientes; el proceso continuará desde el último punto guardado.`:'Sin descarga parcial activa.'}</p>{localBackfill?.paused==='free-history-limit'&&<small>En pausa hasta que vuelva la cuota histórica gratuita.</small>}</article>
+      <article><div><span>Revisión histórica</span><strong>{number(review)}</strong></div><p>Ediciones incompletas o cuyo cuadro todavía necesita contraste.</p><Link href="/cobertura/revision">Ver revisión →</Link></article>
     </section>
   </>;
 }

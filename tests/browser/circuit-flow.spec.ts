@@ -21,10 +21,10 @@ test('WTA comparator persists its circuit and never defaults to ATP champions',a
 
 test('coverage distinguishes operational clocks and remains accessible on a phone',async({page})=>{
   await page.setViewportSize({width:390,height:844});await page.goto('/cobertura');
-  await expect(page.getByRole('heading',{name:'Tres pasos. Una sola publicación.'})).toBeVisible();
-  await expect(page.getByText('Corregidos hoy',{exact:true})).toBeVisible();
-  await expect(page.getByRole('heading',{name:'Progreso verificable'})).toBeVisible();
-  await expect(page.getByRole('heading',{name:'Revisión pendiente'})).toBeVisible();
+  await expect(page.getByRole('heading',{name:'Lo que ha cambiado hoy.'})).toBeVisible();
+  await expect(page.getByText('Resultados obtenidos',{exact:true})).toBeVisible();
+  await expect(page.getByRole('heading',{name:'Cada día, en claro.'})).toBeVisible();
+  await expect(page.getByText('Archivo WTA',{exact:true})).toBeVisible();
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   expect((await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa']).analyze()).violations).toEqual([]);
 });
