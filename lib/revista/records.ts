@@ -15,6 +15,7 @@ import { isRecordedTiebreak } from '../historical-rules';
 import { additionalRecords } from './additional-records';
 import { metricDefinition } from '../statistics-catalog';
 import { densityFields, hasDensityPair } from '../metric-density';
+import { SITE_ORIGIN } from '../site-origin';
 export const description =
   "Grand Slams y torneos ATP y WTA, leídos por el dato.";
 export type RecordRow = {
@@ -1016,7 +1017,7 @@ export function recordCatalog(matches: Match[], now = new Date(), only?: string)
       }), spec.minimum, !!spec.denominator, source);
   }
   if(cacheKey[0]?.tour==='wta')for(const piece of result)for(const row of piece.rows){
-    if(row.href.startsWith('/jugadores/')||row.href.startsWith('/comparar?')){const url=new URL(row.href,'https://deuce-archive.vercel.app');url.searchParams.set('tour','wta');row.href=url.pathname+url.search+url.hash;}
+    if(row.href.startsWith('/jugadores/')||row.href.startsWith('/comparar?')){const url=new URL(row.href,SITE_ORIGIN);url.searchParams.set('tour','wta');row.href=url.pathname+url.search+url.hash;}
   }
   if (!only) cache.set(cacheKey, { day, pieces: result });
   return result;

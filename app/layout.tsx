@@ -8,11 +8,12 @@ import { DM_Sans, Manrope, Newsreader } from 'next/font/google';
 import { DeuceShell } from '@/components/deuce/DeuceShell';
 import { WebVitals } from '@/components/WebVitals';
 import { StructuredData } from '@/components/StructuredData';
+import { SITE_ORIGIN } from '@/lib/site-origin';
 const body = DM_Sans({ subsets:['latin'], variable:'--deuce-body', display:'swap' });
 const display = Manrope({ subsets:['latin'], variable:'--deuce-display', display:'swap' });
 const editorial = Newsreader({ subsets:['latin'], variable:'--deuce-editorial', style:['normal','italic'], display:'swap' });
 export const metadata: Metadata = {
-  metadataBase: new URL("https://deuce-archive.vercel.app"),
+  metadataBase: new URL(SITE_ORIGIN),
   title: "DEUCE — Datos del archivo de tenis",
   description: "Explora el archivo ATP de DEUCE desde 1968: partidos, jugadores, torneos y récords. El histórico WTA está en preparación.",
   alternates: { canonical: "/" },
@@ -34,8 +35,8 @@ export default function RootLayout({
     <html lang="es" className={`${body.variable} ${display.variable} ${editorial.variable}`}>
       <body>
         <StructuredData value={{
-          '@context':'https://schema.org','@type':'WebSite',name:'DEUCE',url:'https://deuce-archive.vercel.app/',inLanguage:'es',
-          potentialAction:{'@type':'SearchAction',target:'https://deuce-archive.vercel.app/buscar?q={search_term_string}','query-input':'required name=search_term_string'},
+          '@context':'https://schema.org','@type':'WebSite',name:'DEUCE',url:`${SITE_ORIGIN}/`,inLanguage:'es',
+          potentialAction:{'@type':'SearchAction',target:`${SITE_ORIGIN}/buscar?q={search_term_string}`,'query-input':'required name=search_term_string'},
         }}/>
         <WebVitals />
         <DeuceShell>{children}</DeuceShell>

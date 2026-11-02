@@ -1,6 +1,7 @@
 import type { Match } from './types';
+import { SITE_ORIGIN } from './site-origin';
 
-export const SITEMAP_ORIGIN = 'https://deuce-archive.vercel.app';
+export const SITEMAP_ORIGIN = SITE_ORIGIN;
 
 /** Public, indexable routes that do not depend on the generated archive. */
 export const SITEMAP_STATIC_PATHS = [

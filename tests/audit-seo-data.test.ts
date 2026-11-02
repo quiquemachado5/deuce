@@ -12,6 +12,7 @@ import { matchCanonicalPath, matchHasTransientState, robotsForUnavailableTour } 
 import { tournamentDirectoryUrl, tournamentEditionCanonicalPaths } from '../lib/tournament-url';
 import { matchContextReferences, verifiedContext } from '../lib/verified-context';
 import type { Match } from '../lib/types';
+import { SITE_ORIGIN } from '../lib/site-origin';
 
 const requireFromTest = createRequire(import.meta.url);
 const { resolveSitemap } = requireFromTest('../node_modules/next/dist/build/webpack/loaders/metadata/resolve-route-data.js') as {
@@ -23,7 +24,7 @@ const base = { ...mockMatches[0], data_source: 'reference' as const };
 test('Next sitemap serialization keeps query URLs valid and excludes the noindex comparison route', () => {
   const url = sitemapLocation('/records?dato=top-10&tour=wta');
   const xml = resolveSitemap([{ url }]);
-  assert.match(xml, /<loc>https:\/\/deuce-archive\.vercel\.app\/records\?dato=top-10&amp;tour=wta<\/loc>/);
+  assert.ok(xml.includes(`<loc>${SITE_ORIGIN}/records?dato=top-10&amp;tour=wta</loc>`));
   assert.doesNotMatch(xml, /&(?!(?:amp|lt|gt|quot|apos);)/);
   assert.equal((SITEMAP_STATIC_PATHS as readonly string[]).includes('/comparar'), false);
 });
@@ -73,8 +74,8 @@ test('match sitemap lastmod is the real snapshot modification time, not a sporti
   const entries = matchSitemapEntries(matches, 2022, generatedAt);
   assert.equal(entries.length, 2);
   assert.deepEqual(entries.map(entry => entry.url), [
-    'https://deuce-archive.vercel.app/match/approximate',
-    'https://deuce-archive.vercel.app/match/exact',
+    `${SITE_ORIGIN}/match/approximate`,
+    `${SITE_ORIGIN}/match/exact`,
   ]);
   assert.deepEqual(entries.map(entry => entry.lastModified), [generatedAt, generatedAt]);
   assert.ok(entries.every(entry => entry.changeFrequency === 'never' && entry.priority === 0.5));

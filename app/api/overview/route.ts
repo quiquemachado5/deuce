@@ -6,14 +6,14 @@ export const revalidate = 60
 export async function GET(request:Request) {
   const generation = await preparedGeneration(), manifest = generation.manifest
   const tour=new URL(request.url).searchParams.get('tour')==='wta'?'wta':'atp';
-  const matches=(await generation.matches()).filter(m=>(m.tour||'atp')===tour);
-  const years=matches.map(m=>m.year);
+  const coverage=manifest.circuitCoverage?.[tour];
+  const matches=coverage?.matches??manifest.summary.tours[tour];
   return Response.json({
     tour,
-    matches: matches.length,
-    firstYear: years.length ? years.reduce((a,b)=>Math.min(a,b),Infinity) : null,
-    lastYear: years.length ? years.reduce((a,b)=>Math.max(a,b),-Infinity) : null,
-    tournaments: new Set(matches.map(m=>m.tournament)).size,
+    matches,
+    firstYear: coverage?.firstYear??null,
+    lastYear: coverage?.lastYear??null,
+    tournaments: coverage?.tournaments??0,
     mode: manifest.mode,
     ...generationMetadata(generation),
   }, { headers: { 'X-DEUCE-Dataset-Version': manifest.version } })
