@@ -3,7 +3,7 @@ import { notebook } from '@/lib/cuaderno/data';
 import { rateLimit } from '@/lib/rate-limit';
 import { generationMetadata } from '@/lib/revista/generation';
 import { preparedPlayerRecords } from '@/lib/revista/read-records';
-import { canonicalSearchText } from '@/lib/search-text';
+import { exactPlayerSearch } from '@/lib/search-text';
 import { logEvent, requestId } from '@/lib/structured-log';
 
 export async function GET(request: Request) {
@@ -23,7 +23,8 @@ export async function GET(request: Request) {
       const data = await preparedPlayerRecords();
       const players = data.records.filter(player => (player.tour || 'atp') === tour);
       const pieces = tour === 'wta' ? data.manifest.circuitPieces?.wta || [] : data.manifest.pieces;
-      const foreignExactPlayer=data.records.some(player=>(player.tour||'atp')!==tour&&canonicalSearchText(player.name)===canonicalSearchText(query));
+      const selectedExactPlayer=players.some(player=>exactPlayerSearch(query,player.name));
+      const foreignExactPlayer=!selectedExactPlayer&&data.records.some(player=>(player.tour||'atp')!==tour&&exactPlayerSearch(query,player.name));
       const items = foreignExactPlayer ? [] : quickSearchArchive(query, players, { pieces, tour });
       const elapsedMs = Math.round(performance.now() - started);
       if (items.length) {

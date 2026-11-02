@@ -44,6 +44,13 @@ export function approximateName(query: string, name: string) {
   return terms.length > 0 && terms.every(term => words.some(word => word.startsWith(term) || withinOneEdit(term, word)));
 }
 
+/** Exact full-name or name-token match, used to prevent cross-circuit typos. */
+export function exactPlayerSearch(query: string, name: string) {
+  const needle = canonicalSearchText(query), candidate = canonicalSearchText(name);
+  if (!needle) return false;
+  return candidate === needle || (!needle.includes(' ') && candidate.split(' ').includes(needle));
+}
+
 export function searchTermsMatch(terms: string[], value: string) {
   const words = canonicalSearchText(value).split(' ').filter(Boolean);
   return terms.every(term => words.some(word => word === term || word.startsWith(term) || withinOneEdit(term, word)));

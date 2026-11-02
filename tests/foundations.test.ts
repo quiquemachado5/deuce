@@ -7,7 +7,7 @@ import { summarizeDataset, assertPublishableArchive } from '../lib/dataset-summa
 import { mockMatches } from '../lib/mocks';
 import { playerDirectory, rivalryDirectory } from '../lib/explore';
 import { buildSeasonAnalytics } from '../lib/season-analytics';
-import { approximateName, canonicalSearchText, searchText, withinOneEdit } from '../lib/search-text';
+import { approximateName, canonicalSearchText, exactPlayerSearch, searchText, withinOneEdit } from '../lib/search-text';
 import { compileRecordSnapshot, partitionMatches } from '../lib/revista/snapshot';
 import { parseRepositoryQuery } from '../lib/repository-query';
 import type { Match } from '../lib/types';
@@ -97,6 +97,8 @@ test('search suggestions tolerate a single typo but not unrelated names', () => 
   assert.equal(approximateName('Federar', 'Roger Federer'), true);
   assert.equal(approximateName('Novak Djokovic', 'Novak Djokovic'), true);
   assert.equal(approximateName('Nadal', 'Novak Djokovic'), false);
+  assert.equal(exactPlayerSearch('Djokovic', 'Novak Djokovic'), true);
+  assert.equal(exactPlayerSearch('Djokovic', 'Mihaela Djakovic'), false);
   assert.equal(withinOneEdit('abc', 'abd'), false);
   assert.equal(canonicalSearchText('Australian Open quarterfinal'), 'abierto de australia cuartos de final');
   assert.equal(canonicalSearchText('Lyon, Francia'), 'lyon france');

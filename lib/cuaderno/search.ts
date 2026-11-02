@@ -8,7 +8,7 @@ import { tournamentName } from "../labels";
 import { score, round, sentence } from "./model";
 import { tournamentDirectory } from '../tournament-directory';
 import { matchSearchIntent, matchesIntent } from '../search-intent';
-import { approximateName, canonicalSearchText, searchTermsMatch } from '../search-text';
+import { approximateName, canonicalSearchText, exactPlayerSearch, searchTermsMatch } from '../search-text';
 import type { SearchItem } from "@/components/revista/Frame";
 import type { PlayerRecord } from '../season-analytics';
 import type { RecordManifest } from '../revista/snapshot';
@@ -62,7 +62,7 @@ export async function searchArchive(query: string, options: { tour?:'atp'|'wta';
   // player directory here makes the first keystroke scan the entire archive.
   const exactPlayers = circuitPlayers.filter(p => includes(p.name));
   const foreignExactPlayer = Boolean(tour) && !exactPlayers.length && data.records.some(player =>
-    (player.tour || 'atp') !== tour && canonicalSearchText(player.name) === q,
+    (player.tour || 'atp') !== tour && exactPlayerSearch(q,player.name),
   );
   if (foreignExactPlayer) return items;
   const playerResults = exactPlayers.length ? exactPlayers : circuitPlayers.filter(p => approximateName(query, p.name));
