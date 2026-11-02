@@ -5,7 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { ArrowRight, Menu, Search, X } from 'lucide-react';
 
-const navigation = [['Partidos','/buscar'],['Récords','/records'],['Jugadores','/jugadores'],['Torneos','/torneos'],['Comparar','/comparar']] as const;
+const navigation = [['Partidos','/buscar'],['WTA','/wta'],['Récords','/records'],['Jugadores','/jugadores'],['Torneos','/torneos'],['Comparar','/comparar']] as const;
 type Result = { href: string; name: string; detail?: string; group: string };
 const groupOrder = ['Jugadores','Torneos','Ediciones','Partidos','Parejas','Récords'];
 

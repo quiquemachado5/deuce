@@ -13,6 +13,7 @@ export const SITEMAP_STATIC_PATHS = [
   '/info',
   '/licencias',
   '/cobertura',
+  '/wta',
   '/historias',
 ] as const;
 

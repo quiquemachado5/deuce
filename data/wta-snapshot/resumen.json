@@ -1,0 +1,169 @@
+{
+  "generado": "2026-11-02T14:12:44.431456+00:00",
+  "corte_historico": "2026-11-02T12:25:22.361072+00:00",
+  "plan_detectado": "basic",
+  "descarga_completa": false,
+  "motivo_fin": "presupuesto_de_cuota_alcanzado",
+  "consultas_en_esta_ejecucion": 900,
+  "datasets": {
+    "archivo_detalles": 1,
+    "archivo_jugadoras_wta": 800,
+    "archivo_resultados_wta": 116000,
+    "cobertura": 1,
+    "enfrentamientos": 1,
+    "incidencias": 1,
+    "jugadoras_directorio": 10895,
+    "jugadoras_fichas": 1,
+    "jugadoras_recopiladas": 12520,
+    "partidos_live_wta": 1,
+    "partidos_upcoming_wta": 40,
+    "punto_a_punto": 1,
+    "resultados_wta": 22468,
+    "resultados_wta125": 8454,
+    "torneos_wta": 455,
+    "torneos_wta125": 108
+  },
+  "jugadoras_individuales": 6969,
+  "parejas_dobles": 5551,
+  "estado_consultas": [
+    {
+      "dataset": "archivo_carreras",
+      "state": "done",
+      "consultas": 1
+    },
+    {
+      "dataset": "archivo_carreras",
+      "state": "pending",
+      "consultas": 769
+    },
+    {
+      "dataset": "archivo_detalles",
+      "state": "done",
+      "consultas": 1
+    },
+    {
+      "dataset": "archivo_detalles",
+      "state": "pending",
+      "consultas": 115999
+    },
+    {
+      "dataset": "archivo_jugadoras_wta",
+      "state": "done",
+      "consultas": 4
+    },
+    {
+      "dataset": "archivo_jugadoras_wta",
+      "state": "pending",
+      "consultas": 1
+    },
+    {
+      "dataset": "archivo_resultados_wta",
+      "state": "done",
+      "consultas": 580
+    },
+    {
+      "dataset": "archivo_resultados_wta",
+      "state": "pending",
+      "consultas": 1
+    },
+    {
+      "dataset": "cobertura",
+      "state": "done",
+      "consultas": 1
+    },
+    {
+      "dataset": "enfrentamientos",
+      "state": "done",
+      "consultas": 1
+    },
+    {
+      "dataset": "enfrentamientos",
+      "state": "pending",
+      "consultas": 18865
+    },
+    {
+      "dataset": "incidencias",
+      "state": "done",
+      "consultas": 1
+    },
+    {
+      "dataset": "jugadoras_directorio",
+      "state": "done",
+      "consultas": 210
+    },
+    {
+      "dataset": "jugadoras_fichas",
+      "state": "done",
+      "consultas": 1
+    },
+    {
+      "dataset": "jugadoras_fichas",
+      "state": "pending",
+      "consultas": 6968
+    },
+    {
+      "dataset": "partidos_live_wta",
+      "state": "done",
+      "consultas": 1
+    },
+    {
+      "dataset": "partidos_live_wta125",
+      "state": "done",
+      "consultas": 1
+    },
+    {
+      "dataset": "partidos_upcoming_wta",
+      "state": "done",
+      "consultas": 1
+    },
+    {
+      "dataset": "partidos_upcoming_wta125",
+      "state": "done",
+      "consultas": 1
+    },
+    {
+      "dataset": "punto_a_punto",
+      "state": "done",
+      "consultas": 1
+    },
+    {
+      "dataset": "punto_a_punto",
+      "state": "pending",
+      "consultas": 30658
+    },
+    {
+      "dataset": "resultados_wta",
+      "state": "done",
+      "consultas": 113
+    },
+    {
+      "dataset": "resultados_wta125",
+      "state": "done",
+      "consultas": 43
+    },
+    {
+      "dataset": "torneos_wta",
+      "state": "done",
+      "consultas": 3
+    },
+    {
+      "dataset": "torneos_wta125",
+      "state": "done",
+      "consultas": 1
+    }
+  ],
+  "alcance": "WTA y WTA125; archivo histórico WTA según clasificación del proveedor. Sin ITF femenino independiente.",
+  "notas": [
+    "Directorio /players filtrado localmente por tour=wta.",
+    "Los IDs de archivo y de jugadoras actuales pertenecen a espacios distintos.",
+    "No interpretar null ni datos ausentes como cero.",
+    "H2H enumerados para parejas encontradas en partidos, no todas las combinaciones posibles.",
+    "Instantánea con paginación por offset; los cambios del proveedor pueden desplazar páginas.",
+    "Se detiene ante denegación de históricos, límite de cuota o error de autenticación."
+  ],
+  "consultas_descarga_acumuladas": 966,
+  "torneos_unicos": 560,
+  "partidos_recopilados": 146963,
+  "siguiente_offset_archivo": 116000,
+  "limitacion_historico": "Plan BASIC activo: el histórico está disponible. La descarga reanudable sigue en curso con un límite de 1.000 consultas diarias."
+}

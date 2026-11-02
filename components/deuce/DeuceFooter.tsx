@@ -58,6 +58,7 @@ export function DeuceFooter() {
       <div>
         <strong>Explorar</strong>
         <Link href="/buscar">Partidos</Link>
+        <Link href="/wta">Archivo WTA</Link>
         <Link href="/records">Récords</Link>
         <Link href="/jugadores">Jugadores</Link>
         <Link href="/torneos">Torneos</Link>
