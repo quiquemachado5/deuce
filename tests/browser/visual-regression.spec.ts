@@ -21,7 +21,7 @@ async function revealSections(page: Page) {
 const dynamicCoverageContent = (page: Page) => [
   page.locator('.coverage-updated'),
   page.locator('.coverage-piece dd'),
-  page.locator('.coverage-api-days time'),
+  page.locator('table time'),
   page.locator('.coverage-footer small'),
   page.locator('[class*=publication] dd'),
   page.locator('[class*=publication] code'),
@@ -31,7 +31,7 @@ for (const viewport of viewports) {
   test(`coverage keeps the approved layout at ${viewport.name}`, async ({ page }) => {
     await page.setViewportSize(viewport);
     await page.goto('/cobertura');
-    await expect(page.getByRole('heading', { name: /^Cobertura del archivo/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /^Cobertura\./ })).toBeVisible();
     await revealSections(page);
     await expect(page).toHaveScreenshot(`coverage-${viewport.name}.png`, {
       animations: 'disabled',

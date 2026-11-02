@@ -3,23 +3,60 @@ import {cloudProbeRead} from '@/lib/cloud-archive';
 import {operationStatus,wtaBackfillProgress} from '@/lib/archive-operations';
 import {preparedEditionAudit} from '@/lib/revista/read-records';
 import type {RecordManifest} from '@/lib/revista/snapshot';
+import {readFile} from 'node:fs/promises';
+import {join} from 'node:path';
 import styles from './coverage.module.css';
 
-const stamp=(date?:string)=>date?new Date(date).toLocaleString('es-ES',{dateStyle:'medium',timeStyle:'short',timeZone:'UTC'})+' UTC':'Sin registro verificable';
-const label:Record<string,string>={success:'Correcto',running:'En ejecución',error:'Ha fallado','quota-reserve':'Esperando cuota','storage-reserve':'Reserva de almacenamiento','storage-unverified':'Almacenamiento sin verificar',unavailable:'Sin registro',busy:'Otra ejecución en curso'};
+const stamp=(date?:string)=>date?new Date(date).toLocaleString('es-ES',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit',timeZone:'UTC'})+' UTC':'Sin registro';
+const labels:Record<string,string>={success:'Correcto',running:'En curso',error:'Con error','quota-reserve':'Esperando cuota','storage-reserve':'Sin espacio','storage-unverified':'Sin verificar',unavailable:'Sin registro',busy:'En curso'};
 
 export default async function Operations({manifest,source}:{manifest:RecordManifest;source:'bundled'|'remote'}){
-  const [atp,wta,publication,index,editions]=await Promise.all([cloudProbeRead('sync-status'),cloudProbeRead('wta-sync-status'),cloudProbeRead('publish-status'),cloudProbeRead('wta-archive-index'),preparedEditionAudit()]);
-  const operations=[{name:'ATP',window:'04:00–04:59',...operationStatus(atp)},{name:'WTA',window:'06:00–06:59',...operationStatus(wta)},{name:'Publicación',window:'08:00–08:59',...operationStatus(publication)}];
+  const [atpRaw,wtaRaw,publishRaw,index,editions,localBackfill]=await Promise.all([
+    cloudProbeRead('sync-status'),cloudProbeRead('wta-sync-status'),cloudProbeRead('publish-status'),cloudProbeRead('wta-archive-index'),preparedEditionAudit(),
+    readFile(join(process.cwd(),'data','archive','wta-status.json'),'utf8').then(JSON.parse).catch(()=>undefined),
+  ]);
+  const operations=[
+    {name:'ATP',window:'04:00–04:59',...operationStatus(atpRaw)},
+    {name:'WTA',window:'06:00–06:59',...operationStatus(wtaRaw)},
+    {name:'Publicación',window:'08:00–08:59',...operationStatus(publishRaw)},
+  ];
   const progress=wtaBackfillProgress(index);
+  const completed=progress?.completed??(typeof localBackfill?.completedHistoricalCohorts==='number'?localBackfill.completedHistoricalCohorts:undefined);
+  const total=progress?.total??165;
+  const partial=localBackfill?.active?.complete===false?localBackfill.active:undefined;
   const today=manifest.ingestionHistory?.find(day=>day.date===new Date().toISOString().slice(0,10));
-  const review=editions.filter(row=>row.completeDraw!==true);
+  const review=editions.filter(row=>row.completeDraw!==true).length;
   return <>
     <section className={styles.operations} aria-labelledby="operations-title">
-      <div className={styles.intro}><span>El archivo, al día</span><h2 id="operations-title">Consultar. Validar. Publicar.</h2><p>Hay consultas de resultados programadas todos los días. Las ventanas son UTC y pueden variar dentro de la hora. Solo una generación validada llega a la web.</p></div>
-      <div className={styles.steps}>{operations.map((op,i)=><article key={op.name} data-status={op.status}><span className={styles.stepNumber}>0{i+1}</span><header><h3>{op.name}</h3><span>{label[op.status]||op.status}</span></header><p className={styles.window}>{op.window} <small>UTC</small></p><dl><div><dt>Último intento</dt><dd>{stamp(op.attemptAt)}</dd></div><div><dt>Última ejecución correcta</dt><dd>{stamp(op.successAt)}</dd></div>{op.found!==undefined&&<div><dt>Partidos en las temporadas consultadas</dt><dd>{op.found.toLocaleString('es-ES')}</dd></div>}{op.seasons.length>0&&<div><dt>Temporadas actualizadas</dt><dd>{op.seasons.join(', ')}</dd></div>}</dl>{op.reason&&<p className={styles.error}>{op.reason}</p>}</article>)}</div>
-      <div className={styles.publication}><dl><div><dt>Partidos nuevos hoy</dt><dd>{today?.included?today.added.toLocaleString('es-ES'):'Sin publicación registrada'}</dd></div><div><dt>Partidos corregidos hoy</dt><dd>{today?.corrected===undefined?'Sin medición registrada':today.corrected.toLocaleString('es-ES')}</dd></div><div><dt>Última publicación</dt><dd>{stamp(operations[2].publicationAt||operations[2].successAt)}</dd></div><div><dt>Copia generada</dt><dd>{stamp(manifest.generatedAt)}</dd></div></dl><p>Generación activa <code>{manifest.version}</code> · {source==='remote'?'Principal remota':'Copia validada del despliegue'}. La consulta al proveedor y la publicación son operaciones diferentes. No publicar no significa que no hubiera resultados nuevos.</p></div>
+      <header className={styles.heading}>
+        <div><span>Actualización diaria</span><h2 id="operations-title">Tres pasos. Una sola publicación.</h2></div>
+        <p>DEUCE consulta cada circuito por separado y solo cambia la web cuando la generación completa supera las validaciones.</p>
+      </header>
+      <ol className={styles.flow}>{operations.map((operation,index)=><li key={operation.name} data-status={operation.status}>
+        <span className={styles.number}>0{index+1}</span>
+        <div className={styles.stage}><strong>{operation.name}</strong><small>{operation.window} UTC</small></div>
+        <span className={styles.status}><i aria-hidden="true"/>{labels[operation.status]||operation.status}</span>
+        <dl><div><dt>Último intento</dt><dd>{stamp(operation.attemptAt)}</dd></div><div><dt>Último éxito</dt><dd>{stamp(operation.successAt)}</dd></div></dl>
+        {operation.reason&&<p className={styles.error}>{operation.reason}</p>}
+      </li>)}</ol>
+      <dl className={styles.today}>
+        <div><dt>Nuevos hoy</dt><dd>{today?.included?today.added.toLocaleString('es-ES'):'—'}</dd></div>
+        <div><dt>Corregidos hoy</dt><dd>{today?.corrected===undefined?'—':today.corrected.toLocaleString('es-ES')}</dd></div>
+        <div><dt>Última publicación</dt><dd>{stamp(operations[2].publicationAt||operations[2].successAt)}</dd></div>
+        <div><dt>Generación</dt><dd><code>{manifest.version.slice(0,8)}</code></dd></div>
+      </dl>
+      <p className={styles.source}>{source==='remote'?'Generación principal remota':'Copia validada incluida en el despliegue'}. Un guion significa que todavía no existe una medición verificable; no equivale a cero.</p>
     </section>
-    <section className={styles.backfill} aria-labelledby="wta-progress-title"><div><span>Archivo femenino</span><h2 id="wta-progress-title">Historia conservada.<br/>Lagunas visibles.</h2><p>{progress?`${progress.completed} de ${progress.total} cohortes históricas configuradas descargadas. Una cohorte es un año y un nivel del proveedor, entre 1968 y 2022.`:'No se ha podido consultar el punto de control del backfill. Solo se muestran los datos verificables de la generación activa.'}</p>{progress&&<><progress value={progress.completed} max={progress.total} aria-label="Cohortes WTA descargadas"/><p>{progress.pending.length?'El proceso guarda cada página y reanuda las pendientes al recuperar cuota.':'La descarga inicial de estas cohortes terminó. No se repite; las actualizaciones modernas son incrementales.'}</p></>}<p>Esto no certifica que todas las temporadas estén completas. Una respuesta vacía del proveedor no demuestra ausencia de partidos.</p>{progress&&progress.pending.length>0&&<details><summary>Años y niveles pendientes ({progress.pending.length})</summary><p>{progress.pending.join(' · ')}</p></details>}</div><div><h3>Cuadros bajo revisión</h3><strong className={styles.reviewCount}>{review.length.toLocaleString('es-ES')}</strong><p>Ediciones incompletas o sin tamaño de cuadro verificable. Se conserva la evidencia; no se reconstruyen partidos.</p><Link href="/cobertura/revision">Examinar torneos y fuentes →</Link><details><summary>Cómo se interpreta una temporada</summary><p>Contar partidos, tener una final o terminar una descarga no equivale a verificar un cuadro completo. La revisión de cada edición registra rondas ausentes y resultados pendientes. Las fechas históricas sin día exacto permanecen sin día.</p></details></div></section>
+
+    <section className={styles.archive} aria-labelledby="wta-progress-title">
+      <article>
+        <span>Archivo WTA</span><h2 id="wta-progress-title">Progreso verificable</h2>
+        {completed!==undefined?<><p><strong>{completed}</strong> de {total} cohortes históricas configuradas.</p><progress value={completed} max={total} aria-label="Cohortes WTA descargadas"/><small>{partial?`${partial.rows.toLocaleString('es-ES')} filas de ${partial.season} guardadas en un checkpoint; aún no se publican.`:progress?.pending.length?`${progress.pending.length} pendientes; cada página conserva su checkpoint.`:'Sin descarga parcial activa.'}</small>{localBackfill?.paused==='free-history-limit'&&<p className={styles.limit}>Pausado al agotarse las llamadas gratuitas de History.</p>}</>:<p>No hay un punto de control verificable. La generación activa sigue indicando cuántos partidos WTA contiene.</p>}
+      </article>
+      <article>
+        <span>Integridad</span><h2>Revisión pendiente</h2><p><strong>{review.toLocaleString('es-ES')}</strong> ediciones incompletas o sin tamaño de cuadro verificable.</p>
+        <Link href="/cobertura/revision">Ver torneos y motivos →</Link>
+      </article>
+    </section>
   </>;
 }

@@ -9,7 +9,7 @@ test('overview is real, versioned and matches the public coverage page', async (
   expect(summary.matches).toBeGreaterThan(100_000);
   expect(summary.rulesVersion).toBeTruthy();
   await page.goto('/cobertura');
-  await expect(page.getByRole('heading', { name: /^Cobertura del archivo/ })).toBeVisible();
+  await expect(page.getByRole('heading', { level: 1, name: 'Cobertura.' })).toBeVisible();
   await expect(page.locator('#main-content')).toContainText(summary.version || summary.datasetVersion);
   await expect(page.locator('#main-content')).toContainText('Moqueta');
   await page.setViewportSize({ width: 390, height: 844 });
