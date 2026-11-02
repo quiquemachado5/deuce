@@ -1,0 +1,18 @@
+{
+  "startedAt": "2026-11-02T10:31:54.361Z",
+  "availableAtStart": 77,
+  "callBudget": 1,
+  "modern": [],
+  "archive": [],
+  "paused": "free-history-limit",
+  "calls": 1,
+  "finishedAt": "2026-11-02T10:31:54.615Z",
+  "active": {
+    "kind": "modern",
+    "season": 2026,
+    "rows": 4200,
+    "offset": 4200,
+    "complete": false
+  },
+  "completedHistoricalCohorts": 0
+}

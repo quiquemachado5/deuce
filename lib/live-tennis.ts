@@ -19,6 +19,7 @@ import { reconcileEditionSummaries } from './edition-reconcile'
 const archive = join(process.cwd(), 'data', 'archive')
 const listsDir = join(archive, 'lists')
 const detailsDir = join(archive, 'details')
+const localWtaDir = join(archive, 'wta')
 
 // Raw provider rows are validated and normalized before publication.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -44,13 +45,24 @@ async function listFiles(prefix: string) {
 async function rowsFor(prefix: string): Promise<Row[]> {
   const season = prefix.match(/^modern-(\d{4})-$/)
   if (season) {
-    const [cloud, women] = await Promise.all([cloudRead(`season-${season[1]}`), cloudRead(`season-wta-${season[1]}`)])
+    const [cloud, women, localWomen] = await Promise.all([
+      cloudRead(`season-${season[1]}`),
+      cloudRead(`season-wta-${season[1]}`),
+      readZip(join(localWtaDir, `modern-${season[1]}.json.gz`)).catch(() => undefined),
+    ])
+    const womenSources = [women, localWomen]
+      .filter(source => ['wta-main-v1','wta-main-v2'].includes(source?.scope) && source?.complete !== false && Array.isArray(source?.data))
+      .sort((a, b) => Date.parse(a?.at || '') - Date.parse(b?.at || ''))
+    const addWomen = (merged: Map<string, Row>) => {
+      for (const source of womenSources) for (const row of source.data) {
+        if (row.tour && row.tour !== 'wta') throw new Error(`Local WTA ${season[1]} contains another circuit`)
+        merged.set(rowKey({ ...row, tour: 'wta' }), { ...row, tour: 'wta' })
+      }
+    }
     if (Array.isArray(cloud?.data)) {
       if (['atp-main-v1','atp-main-v2'].includes(cloud.scope)) {
         const merged = new Map<string, Row>(cloud.data.map((row: Row) => [rowKey(row), row]))
-        if (['wta-main-v1','wta-main-v2'].includes(women?.scope) && Array.isArray(women.data)) {
-          for (const row of women.data) merged.set(rowKey(row), row)
-        }
+        addWomen(merged)
         return [...merged.values()]
       }
       // Older cloud snapshots contain only Slams and Masters. Add the new,
@@ -59,9 +71,7 @@ async function rowsFor(prefix: string): Promise<Row[]> {
       const pages = await Promise.all(tour.map(name => readZip(join(listsDir, name))))
       const merged = new Map<string, Row>(cloud.data.map((row: Row) => [rowKey(row), row]))
       for (const page of pages) for (const row of Array.isArray(page.data) ? page.data : []) merged.set(rowKey(row), row)
-      if (['wta-main-v1','wta-main-v2'].includes(women?.scope) && Array.isArray(women.data)) {
-        for (const row of women.data) merged.set(rowKey(row), row)
-      }
+      addWomen(merged)
       return [...merged.values()]
     }
   }
@@ -69,8 +79,19 @@ async function rowsFor(prefix: string): Promise<Row[]> {
   const pages = await Promise.all(files.map(name => readZip(join(listsDir, name))))
   const rows = pages.flatMap(page => Array.isArray(page.data) ? page.data : [])
   if (season) {
-    const women = await cloudRead(`season-wta-${season[1]}`)
-    if (['wta-main-v1','wta-main-v2'].includes(women?.scope) && Array.isArray(women.data)) rows.push(...women.data)
+    const merged = new Map(rows.map(row => [rowKey(row), row]))
+    const [women, localWomen] = await Promise.all([
+      cloudRead(`season-wta-${season[1]}`),
+      readZip(join(localWtaDir, `modern-${season[1]}.json.gz`)).catch(() => undefined),
+    ])
+    const sources = [women, localWomen]
+      .filter(source => ['wta-main-v1','wta-main-v2'].includes(source?.scope) && source?.complete !== false && Array.isArray(source?.data))
+      .sort((a, b) => Date.parse(a?.at || '') - Date.parse(b?.at || ''))
+    for (const source of sources) for (const row of source.data) {
+      if (row.tour && row.tour !== 'wta') throw new Error(`Local WTA ${season[1]} contains another circuit`)
+      merged.set(rowKey({ ...row, tour: 'wta' }), { ...row, tour: 'wta' })
+    }
+    rows.splice(0, rows.length, ...merged.values())
   }
   if (!season) return rows
   // The current-year refresh can include the tour cohort already stored in
@@ -80,10 +101,20 @@ async function rowsFor(prefix: string): Promise<Row[]> {
   return [...unique.values()]
 }
 async function wtaArchiveRows(year: number, level: string): Promise<Row[]> {
-  const index = await cloudRead('wta-archive-index')
-  if (!Array.isArray(index?.complete) || !index.complete.includes(`${year}-${level}`)) return []
-  const payload = await cloudRead(`archive-wta-${year}-${level}`)
-  return Array.isArray(payload?.data) && payload.complete === true ? payload.data : []
+  const [index, cloud, local] = await Promise.all([
+    cloudRead('wta-archive-index'),
+    cloudRead(`archive-wta-${year}-${level}`),
+    readZip(join(localWtaDir, `archive-${year}-${level}.json.gz`)).catch(() => undefined),
+  ])
+  const candidates = [
+    Array.isArray(index?.complete) && index.complete.includes(`${year}-${level}`) ? cloud : undefined,
+    local,
+  ].filter(payload => payload?.complete === true && Array.isArray(payload?.data))
+    .sort((a, b) => Date.parse(a?.at || '') - Date.parse(b?.at || ''))
+  const selected = candidates.at(-1)
+  if (!selected) return []
+  if (selected.data.some((row: Row) => row.tour && row.tour !== 'wta')) throw new Error(`WTA archive ${year}-${level} contains another circuit`)
+  return selected.data.map((row: Row) => ({ ...row, tour: 'wta' }))
 }
 function numeric(value: unknown) { if (value === null || value === undefined || value === '') return null; const result = Number(value); return Number.isFinite(result) ? result : null }
 function player(number: 1 | 2, name: string, seed: unknown) { return { name: name || `Jugador ${number}`, seed: numeric(seed) } }
@@ -407,8 +438,7 @@ export async function archiveMatch(id: string): Promise<Match | undefined> {
     const indexedYear = indexedFile ? Number(indexedFile.split('-')[1]) : undefined
     const years = indexedYear ? [indexedYear] : Array.from({length: Math.max(0, new Date().getUTCFullYear()-2022)}, (_,i)=>new Date().getUTCFullYear()-i)
     for (const year of years) {
-      const cohort = await cloudRead(`${tour === 'wta' ? 'season-wta' : 'season'}-${year}`)
-      const row = (cohort?.data||[]).find((item: Row) => String(item.id) === providerId)
+      const row = (await rowsFor(`modern-${year}-`)).find((item: Row) => rowTour(item) === tour && String(item.id) === providerId)
       if (row) return modern(row, await readDetail(kind, row))
     }
   }
