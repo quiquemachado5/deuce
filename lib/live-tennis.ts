@@ -100,6 +100,19 @@ async function rowsFor(prefix: string): Promise<Row[]> {
   for (const row of rows) if (!unique.has(rowKey(row))) unique.set(rowKey(row), row)
   return [...unique.values()]
 }
+
+/** Complete bundled tour seasons seed a new writable store without re-downloading them. */
+export async function bundledTourSeason(season:number,tour:Tour='atp') {
+  if(tour!=='atp')return undefined
+  try{
+    const marker=JSON.parse(await readFile(join(listsDir,`modern-${season}-tour.complete.json`),'utf8')) as {count?:unknown;at?:unknown}
+    const files=await listFiles(`modern-${season}-tour-`)
+    const pages=await Promise.all(files.map(name=>readZip(join(listsDir,name))))
+    const data=pages.flatMap(page=>Array.isArray(page.data)?page.data:[]).filter(row=>rowTour(row)===tour)
+    if(!Number.isSafeInteger(marker.count)||marker.count!==data.length||typeof marker.at!=='string'||!Number.isFinite(Date.parse(marker.at)))throw new Error('Incomplete bundled tour season')
+    return {data,scope:`${tour}-main-v2` as const,at:marker.at}
+  }catch{return undefined}
+}
 async function wtaArchiveRows(year: number, level: string): Promise<Row[]> {
   const [index, cloud, local] = await Promise.all([
     cloudRead('wta-archive-index'),

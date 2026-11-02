@@ -213,20 +213,22 @@ export async function refreshCloudArchive() {
     }
     const quota = await provider('/usage')
     const remaining = Number(quota.today?.remaining_day || 0)
-    if (remaining < 120) {
+    const wtaReserve=40,callLimit=35
+    if (remaining <= wtaReserve) {
       const previous = await cloudRead('sync-status')
       const result = { status: 'quota-reserve', at: new Date().toISOString(), remaining, lastSuccessAt: previous?.status === 'success' ? previous.at : previous?.lastSuccessAt }
       await cloudWrite('sync-status', result)
       return result
     }
     const request = async (path: string) => {
-      if (calls >= 96 || remaining - calls <= 100 || Date.now() - started > 220_000) throw new Error('Sync safety budget reached')
+      if (calls >= callLimit || remaining - calls <= wtaReserve || Date.now() - started > 220_000) throw new Error('Sync safety budget reached')
       await new Promise(resolve => setTimeout(resolve, 1300))
       calls++
       return provider(path)
     }
     const year = new Date().getUTCFullYear()
-    const old = await cloudRead(`season-${year}`)
+    const {bundledTourSeason}=await import('./live-tennis')
+    const old = await cloudRead(`season-${year}`) || await bundledTourSeason(year)
     const seasonsRefreshed:number[]=[]
     const detailCandidates:ArchiveRow[]=[]
     const previousRows=new Map<string,ArchiveRow>()
@@ -234,7 +236,7 @@ export async function refreshCloudArchive() {
     // Migrate every saved modern season once. Afterwards, poll result restatements
     // across all years as well as the current fixture window.
     for(const season of [year,...Array.from({length:Math.max(0,year-2023)},(_,i)=>2023+i)]){
-      const previous=season===year?old:await cloudRead(`season-${season}`)
+      const previous=season===year?old:await cloudRead(`season-${season}`)||await bundledTourSeason(season)
       for (const row of previous?.data || []) previousRows.set(String(row.id), row)
       const refreshed=await reconcileSeasonResults(season,year,previous,request)
       const fresh=refreshed.fresh,complete=refreshed.data
@@ -262,7 +264,7 @@ export async function refreshCloudArchive() {
     const checked:Record<string,string>=(await cloudRead('refresh-detail-state'))?.checked || {}
     const planned=detailRefreshPlan(detailCandidates as (ArchiveRow & {id:unknown})[],previousRows as Map<string,ArchiveRow & {id:unknown}>,id=>id.startsWith('wta-')?known.has(`wta-modern-${id.slice(4)}`):known.has(`modern-${id}`)||hasBundledDetail('modern',id),checked,Date.now(),row=>!hasClosedModernResult(row),row=>row.tour==='wta'?`wta-${row.id}`:String(row.id))
     for (const row of planned) {
-      if (detailsAdded+detailsRefreshed >= 4 || calls >= 88 || Date.now() - started > 190_000) break
+      if (detailsAdded+detailsRefreshed >= 4 || calls >= callLimit-3 || remaining-calls<=wtaReserve+2 || Date.now() - started > 190_000) break
       const detailId=row.tour==='wta'?`wta-modern-${row.id}`:`modern-${row.id}`
       const existing=known.has(detailId)||(row.tour!=='wta'&&hasBundledDetail('modern',String(row.id)))
       const detail = await request(`/history/matches/${row.id}?points=complete`)
@@ -276,7 +278,7 @@ export async function refreshCloudArchive() {
     let historicalAdded=0,archiveRecentAdded=0
     const backfill=enrichmentPlan(await bundledEnrichmentCandidates(),known,2)
     for(const row of backfill){
-      if(calls>=95||remaining-calls<=101||Date.now()-started>190_000)break
+      if(calls>=callLimit-1||remaining-calls<=wtaReserve+1||Date.now()-started>190_000)break
       const detail=await request(row.kind==='archive'?`/history/archive/matches/${row.id}`:`/history/matches/${row.id}?points=complete`)
       if(!detail.match&&!detail.stats)continue
       await cloudWrite(`detail-${row.kind}-${row.id}`,detail)
