@@ -50,10 +50,24 @@ export async function GET(request: Request) {
     }
 
     const published = await publishRecordSnapshot(snapshot)
+    const completedAt = new Date().toISOString()
+    await cloudWrite('publish-status', {
+      status: 'success',
+      attemptAt,
+      lastSuccessAt: completedAt,
+      publicationAt: published.generatedAt,
+      at: completedAt,
+      version: published.version,
+      matches: published.matchCount,
+      tours: published.summary.tours,
+      lists: published.pieces.length,
+      incompleteEditions: snapshot.audit.filter(edition => edition.completeDraw === false).length,
+      initialSeed: true,
+    })
     await cloudWrite('seed-status', {
       status: 'success',
       attemptAt,
-      at: new Date().toISOString(),
+      at: completedAt,
       version: published.version,
       matches: published.matchCount,
       pieces: published.pieces.length,
