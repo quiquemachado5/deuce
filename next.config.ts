@@ -1,6 +1,7 @@
 import type { NextConfig } from 'next'
 const youtubeEmbedOrigin = 'https://www.youtube-nocookie.com'
 const nextConfig: NextConfig = {
+  output: 'standalone',
   poweredByHeader: false,
   reactStrictMode: true,
   compress: true,

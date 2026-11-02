@@ -119,7 +119,8 @@ export async function cloudArchiveStorageReport(budget=5_000):Promise<ArchiveSto
 export async function cloudArchiveHasCapacity(budget?:number){
   const report=await cloudArchiveStorageReport(budget);
   const configured=Number(process.env.DEUCE_ARCHIVE_MAX_BYTES);
-  const defaultMaximum=archiveStoreBackend()==='vercel-blob'?800_000_000:450_000_000;
+  const backend=archiveStoreBackend();
+  const defaultMaximum=backend==='vercel-blob'?800_000_000:backend==='filesystem'?150_000_000_000:450_000_000;
   const maximum=Number.isFinite(configured)&&configured>0?configured:defaultMaximum;
   const status=archiveCapacityStatus(report,maximum);
   const result={report,maximum,status,available:status==='available'};
@@ -392,5 +393,7 @@ export async function refreshCloudWta() {
 export async function cloudArchiveLastCapacity(budget=1_500){
   const saved=await cloudProbeRead('storage-capacity-status',budget);
   if(saved?.report&&Date.now()-Date.parse(saved.checkedAt)<36*3600000)return saved as {report:ArchiveStorageReport;maximum:number;status:ArchiveCapacityStatus;available:boolean;checkedAt:string};
-  return {report:undefined,maximum:800_000_000,status:'unknown' as ArchiveCapacityStatus,available:false,checkedAt:undefined};
+  if(archiveStoreBackend()==='filesystem')return {...await cloudArchiveHasCapacity(budget),checkedAt:new Date().toISOString()};
+  const maximum=archiveStoreBackend()==='filesystem'?150_000_000_000:800_000_000;
+  return {report:undefined,maximum,status:'unknown' as ArchiveCapacityStatus,available:false,checkedAt:undefined};
 }

@@ -72,6 +72,7 @@ test('compressed cloud reads require every chunk and respect a bounded wait', as
 });
 
 test('the archive prefers Blob and rejects paths outside its private namespace',()=>{
+  assert.equal(archiveStoreBackend({DEUCE_ARCHIVE_DIR:'/var/lib/deuce/archive',BLOB_STORE_ID:'store_example'}),'filesystem');
   assert.equal(archiveStoreBackend({BLOB_STORE_ID:'store_example',SUPABASE_URL:'https://example.supabase.co',SUPABASE_SECRET_KEY:'secret'}),'vercel-blob');
   assert.equal(archiveStoreBackend({SUPABASE_URL:'https://example.supabase.co',SUPABASE_SECRET_KEY:'secret'}),'supabase');
   assert.equal(archiveStoreBackend({}),null);

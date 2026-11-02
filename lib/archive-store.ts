@@ -10,8 +10,10 @@ import {
 } from '@vercel/blob'
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 import { randomUUID } from 'node:crypto'
+import { mkdir, open, readFile, readdir, rename, stat, unlink } from 'node:fs/promises'
+import { join } from 'node:path'
 
-export type ArchiveStoreBackend = 'vercel-blob' | 'supabase' | null
+export type ArchiveStoreBackend = 'filesystem' | 'vercel-blob' | 'supabase' | null
 export type ArchiveStoreEntry = { key: string; payload: unknown }
 export type ArchiveStoreReport = {
   relationBytes: number
@@ -42,9 +44,39 @@ function keyFromBlobPath(pathname: string) {
 }
 
 export function archiveStoreBackend(env: Readonly<Record<string,string|undefined>> = process.env): ArchiveStoreBackend {
+  if (env.DEUCE_ARCHIVE_DIR) return 'filesystem'
   if (env.BLOB_READ_WRITE_TOKEN || env.BLOB_STORE_ID) return 'vercel-blob'
   if (env.SUPABASE_URL && env.SUPABASE_SECRET_KEY) return 'supabase'
   return null
+}
+
+function filesystemRoot() {
+  const root = process.env.DEUCE_ARCHIVE_DIR
+  if (!root) throw new Error('Filesystem archive is not configured')
+  return root
+}
+
+function filesystemPath(key: string) {
+  return join(filesystemRoot(), `${validatedKey(key)}.json`)
+}
+
+async function readFilesystemObject(key: string) {
+  try { return JSON.parse(await readFile(filesystemPath(key), 'utf8')) as unknown }
+  catch (error) {
+    if ((error as NodeJS.ErrnoException).code === 'ENOENT') return undefined
+    throw error
+  }
+}
+
+async function writeFilesystemObject(entry: ArchiveStoreEntry) {
+  const root = filesystemRoot()
+  await mkdir(root, { recursive: true, mode: 0o700 })
+  const destination = filesystemPath(entry.key)
+  const temporary = join(root, `.${validatedKey(entry.key)}.${randomUUID()}.tmp`)
+  const handle = await open(temporary, 'wx', 0o600)
+  try { await handle.writeFile(JSON.stringify(entry.payload)); await handle.sync() }
+  finally { await handle.close() }
+  await rename(temporary, destination)
 }
 
 export function archiveStoreConfigured() {
@@ -71,6 +103,7 @@ async function blobJson(key: string, budget: number) {
 
 export async function readArchiveObject(key: string, budget = 8_000): Promise<unknown> {
   const backend = archiveStoreBackend()
+  if (backend === 'filesystem') return readFilesystemObject(key)
   if (backend === 'vercel-blob') {
     try { return await blobJson(key, budget) } catch { return undefined }
   }
@@ -96,6 +129,11 @@ async function putBlobEntry(entry: ArchiveStoreEntry, budget: number): Promise<P
 
 export async function writeArchiveObjects(entries: readonly ArchiveStoreEntry[], budget = 20_000) {
   if (!entries.length) return
+  if (archiveStoreBackend() === 'filesystem') {
+    for (const entry of entries) await writeFilesystemObject(entry)
+    reportCache = undefined
+    return
+  }
   if (archiveStoreBackend() === 'vercel-blob') {
     const settled = await Promise.allSettled(entries.map(entry => putBlobEntry(entry, budget)))
     const failed = settled.find(result => result.status === 'rejected')
@@ -131,7 +169,15 @@ async function listBlobKeys(prefix: string, budget: number) {
 }
 
 export async function listArchiveKeys(prefix: string, budget = 10_000) {
-  validatedKey(prefix)
+  if (prefix) validatedKey(prefix)
+  if (archiveStoreBackend() === 'filesystem') {
+    const files = await readdir(filesystemRoot()).catch(error => {
+      if ((error as NodeJS.ErrnoException).code === 'ENOENT') return []
+      throw error
+    })
+    return files.filter(file => file.endsWith('.json') && file.slice(0, -5).startsWith(prefix))
+      .map(file => file.slice(0, -5)).filter(key => KEY.test(key)).sort()
+  }
   if (archiveStoreBackend() === 'vercel-blob') return listBlobKeys(prefix, budget)
   const client = legacyArchiveClient()
   if (!client) return []
@@ -148,6 +194,13 @@ export async function listArchiveKeys(prefix: string, budget = 10_000) {
 
 export async function deleteArchiveKeys(keys: readonly string[], budget = 15_000) {
   if (!keys.length) return
+  if (archiveStoreBackend() === 'filesystem') {
+    await Promise.all(keys.map(key => unlink(filesystemPath(key)).catch(error => {
+      if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error
+    })))
+    reportCache = undefined
+    return
+  }
   if (archiveStoreBackend() === 'vercel-blob') {
     for (let offset = 0; offset < keys.length; offset += 250) {
       await del(keys.slice(offset, offset + 250).map(archiveBlobPath), {
@@ -167,6 +220,19 @@ export async function deleteArchiveKeys(keys: readonly string[], budget = 15_000
 }
 
 export async function archiveStoreReport(budget = 10_000): Promise<ArchiveStoreReport | undefined> {
+  if (archiveStoreBackend() === 'filesystem') {
+    if (reportCache && Date.now() - reportCache.at < 60_000) return reportCache.value
+    const keys = await listArchiveKeys('')
+    let bytes = 0, snapshots = 0, details = 0
+    for (const key of keys) {
+      bytes += (await stat(filesystemPath(key))).size
+      if (key.startsWith('reading-v2-')) snapshots++
+      if (key.startsWith('detail-')) details++
+    }
+    const value = { relationBytes: bytes, payloadBytes: bytes, objects: keys.length, snapshots, details }
+    reportCache = { at: Date.now(), value }
+    return value
+  }
   if (archiveStoreBackend() === 'vercel-blob') {
     if (reportCache && Date.now() - reportCache.at < 900_000) return reportCache.value
     try {
@@ -236,7 +302,38 @@ async function acquireBlobLease(name: string, ttlSeconds: number) {
   }
 }
 
+async function acquireFilesystemLease(name: string, ttlSeconds: number) {
+  const root = filesystemRoot()
+  await mkdir(root, { recursive: true, mode: 0o700 })
+  const path = join(root, `.lease-${validatedKey(name)}.lock`)
+  const owner = randomUUID()
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      const handle = await open(path, 'wx', 0o600)
+      await handle.writeFile(JSON.stringify({ owner, expiresAt: new Date(Date.now() + ttlSeconds * 1000).toISOString() }))
+      await handle.close()
+      return async () => {
+        try {
+          const current = JSON.parse(await readFile(path, 'utf8')) as Partial<LeasePayload>
+          if (current.owner === owner) await unlink(path)
+        } catch { /* the lease expired or was already released */ }
+      }
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== 'EEXIST') throw error
+      try {
+        const current = JSON.parse(await readFile(path, 'utf8')) as Partial<LeasePayload>
+        if (typeof current.expiresAt !== 'string' || Date.parse(current.expiresAt) > Date.now()) return null
+        await unlink(path)
+      } catch (readError) {
+        if ((readError as NodeJS.ErrnoException).code !== 'ENOENT') return null
+      }
+    }
+  }
+  return null
+}
+
 export async function acquireArchiveLease(name: string, ttlSeconds = 300) {
+  if (archiveStoreBackend() === 'filesystem') return acquireFilesystemLease(name, Math.min(600, Math.max(1, ttlSeconds)))
   if (archiveStoreBackend() === 'vercel-blob') return acquireBlobLease(validatedKey(name), Math.min(600, Math.max(1, ttlSeconds)))
   const client = legacyArchiveClient()
   if (!client) throw new Error('Cloud archive is not configured')

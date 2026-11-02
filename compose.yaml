@@ -1,0 +1,54 @@
+name: deuce
+
+services:
+  web:
+    build:
+      context: .
+      args:
+        NEXT_PUBLIC_SITE_ORIGIN: ${NEXT_PUBLIC_SITE_ORIGIN}
+    restart: unless-stopped
+    env_file:
+      - .env.production
+    environment:
+      DEUCE_ARCHIVE_DIR: /app/.deuce-archive
+      NODE_ENV: production
+    volumes:
+      - archive:/app/.deuce-archive
+    expose:
+      - "3000"
+
+  scheduler:
+    image: node:24-bookworm-slim
+    restart: unless-stopped
+    depends_on:
+      web:
+        condition: service_healthy
+    env_file:
+      - .env.production
+    environment:
+      DEUCE_INTERNAL_URL: http://web:3000
+    command: ["node", "/app/scheduler.mjs"]
+    volumes:
+      - ./ops/oracle/scheduler.mjs:/app/scheduler.mjs:ro
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    depends_on:
+      web:
+        condition: service_healthy
+    env_file:
+      - .env.production
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./ops/oracle/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  archive:
+  caddy_data:
+  caddy_config:

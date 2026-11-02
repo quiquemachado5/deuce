@@ -1,0 +1,15 @@
+.git
+.github
+.next
+.vercel
+.deuce-cache
+node_modules
+playwright-report
+test-results
+*.log
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
+!.env.production.example
+supabase/.temp
