@@ -49,9 +49,11 @@ export function CompareSampleFilters({
 /** The submitted filters stay native; the mobile dock keeps the current pair in sight. */
 export default function CompareSelection({
   initial,
+  tour,
   children,
 }: {
   initial: Selection[];
+  tour: 'atp'|'wta';
   children: ReactNode;
 }) {
   const form = useRef<HTMLFormElement>(null);
@@ -131,10 +133,10 @@ export default function CompareSelection({
                   )}
                 </span>
                 <div>
-                  <span>Jugador {index + 1}</span>
+                  <span>{tour==='wta'?'Jugadora':'Jugador'} {index + 1}</span>
                   <strong>
                     {known?.country ? <PlayerFlag code={known.country} /> : null}
-                    <span>{name.trim() || "Elige jugador"}</span>
+                    <span>{name.trim() || `Elige ${tour==='wta'?'jugadora':'jugador'}`}</span>
                   </strong>
                 </div>
               </div>

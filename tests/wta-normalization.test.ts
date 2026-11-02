@@ -5,7 +5,7 @@ import { browserCategory, browserRound } from '../lib/match-browser';
 import { canonicalTournamentName, prepareMatch } from '../lib/quality';
 import { providerRoundName, providerTeamCompetition, publishableWtaArchiveRow, publishableWtaModernRow } from '../lib/provider-publication';
 import { providerTournamentName } from '../lib/tournament-identity';
-import { historicalTournamentCategory } from '../lib/tournament-tier';
+import { historicalTournamentCategory, modernTournamentCategory } from '../lib/tournament-tier';
 
 const match = mockMatches[0];
 
@@ -75,6 +75,18 @@ test('historical WTA levels publish conservative circuit categories', () => {
   assert.equal(historicalTournamentCategory('I', 2019, 'wta'), 'WTA Tour histórico');
   assert.equal(historicalTournamentCategory('C', 2019, 'wta'), 'WTA 125');
   assert.equal(historicalTournamentCategory(25, 2019, 'wta'), 'Circuito ITF femenino');
+});
+
+test('official 2026 WTA calendar repairs the provider tier gaps without widening unknown events', () => {
+  const expected = new Map([
+    ['Osaka', 'WTA 250'], ['Ningbo', 'WTA 500'], ['Tokyo', 'WTA 500'],
+    ['Guangzhou', 'WTA 250'], ['Hong Kong', 'WTA 250'], ['Chennai', 'WTA 250'],
+  ]);
+  for (const [tournament, category] of expected) {
+    assert.equal(modernTournamentCategory(null, tournament, 2026, 'wta'), category);
+  }
+  assert.equal(modernTournamentCategory(null, 'Vancouver, Canada', 2026, 'wta'), 'WTA · nivel no especificado');
+  assert.equal(modernTournamentCategory(null, 'Tokyo', 2025, 'wta'), 'WTA · nivel no especificado');
 });
 
 test('reviewed WTA editions repair only year- and level-specific surfaces', () => {

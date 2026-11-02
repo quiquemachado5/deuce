@@ -44,7 +44,13 @@ ufw allow 443/tcp
 ufw allow 443/udp
 ufw --force enable
 
-install -d -o deuce -g deuce /opt/deuce /opt/deuce/backups
+install -d -o deuce -g deuce /opt/deuce /opt/deuce/backups /opt/deuce/deployments /opt/deuce/logs
+if [[ ! -e /opt/deuce/deployments/deploy.lock ]]; then
+  install -m 0660 -o deuce -g deuce /dev/null /opt/deuce/deployments/deploy.lock
+else
+  chown deuce:deuce /opt/deuce/deployments/deploy.lock
+  chmod 0660 /opt/deuce/deployments/deploy.lock
+fi
 
 cat >/etc/systemd/system/deuce-watchdog.service <<'UNIT'
 [Unit]
@@ -54,6 +60,8 @@ After=docker.service
 
 [Service]
 Type=oneshot
+User=deuce
+Group=deuce
 ExecStart=/opt/deuce/app/ops/vps/watchdog.sh
 UNIT
 
@@ -73,13 +81,16 @@ UNIT
 
 cat >/etc/systemd/system/deuce-backup.service <<'UNIT'
 [Unit]
-Description=Create a local DEUCE archive backup
+Description=Create and verify the mandatory offsite DEUCE archive backup
 ConditionPathExists=/opt/deuce/app/ops/vps/backup.sh
 After=docker.service
 
 [Service]
 Type=oneshot
-EnvironmentFile=-/opt/deuce/app/.env.production
+User=deuce
+Group=deuce
+Environment=RCLONE_CONFIG=/home/deuce/.config/rclone/rclone.conf
+EnvironmentFile=/opt/deuce/app/.env.production
 ExecStart=/opt/deuce/app/ops/vps/backup.sh
 UNIT
 
@@ -96,8 +107,36 @@ Persistent=true
 WantedBy=timers.target
 UNIT
 
+cat >/etc/systemd/system/deuce-restore-drill.service <<'UNIT'
+[Unit]
+Description=Download and verify restoration of the latest DEUCE offsite backup
+ConditionPathExists=/opt/deuce/app/ops/vps/restore-drill.sh
+After=docker.service deuce-backup.service
+
+[Service]
+Type=oneshot
+User=deuce
+Group=deuce
+Environment=RCLONE_CONFIG=/home/deuce/.config/rclone/rclone.conf
+EnvironmentFile=/opt/deuce/app/.env.production
+ExecStart=/opt/deuce/app/ops/vps/restore-drill.sh
+UNIT
+
+cat >/etc/systemd/system/deuce-restore-drill.timer <<'UNIT'
+[Unit]
+Description=Run a real DEUCE offsite restore drill every week
+
+[Timer]
+OnCalendar=Sun *-*-* 04:35:00 UTC
+RandomizedDelaySec=20min
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+UNIT
+
 systemctl daemon-reload
-systemctl enable --now deuce-watchdog.timer deuce-backup.timer
+systemctl enable --now deuce-watchdog.timer deuce-backup.timer deuce-restore-drill.timer
 dpkg-reconfigure -f noninteractive unattended-upgrades
 
-echo "DEUCE VPS bootstrap complete. Docker, firewall, swap, watchdog, backups and security updates are active."
+echo "DEUCE VPS bootstrap complete. Docker, firewall, swap, watchdog, offsite backups, restore drills and security updates are active."

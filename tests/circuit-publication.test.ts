@@ -15,7 +15,7 @@ import {comparisonHref,matchArchiveHref,tournamentHref} from '../lib/explore';
 import {recordFamilyMediaLayout} from '../app/records/record-media';
 
 const atp={...mockMatches[0],match_id:'same-id',tour:'atp' as const,data_source:'api' as const};
-const wta={...atp,match_id:'wta-same-id',tour:'wta' as const};
+const wta={...atp,match_id:'wta-same-id',tour:'wta' as const,category:'WTA 1000'};
 
 test('identical player names remain separate in selection, prepared records and home',()=>{
   const rows=[atp,wta];
@@ -72,8 +72,9 @@ test('packed artifacts preserve identities, validate checksums and fail closed',
 
 test('progress uses only the configured cohorts and failure retains last successful attempt',()=>{
   assert.equal(wtaBackfillProgress(undefined),undefined);
-  const progress=wtaBackfillProgress({complete:['1968-G','1968-G','9999-G']})!;
-  assert.equal(progress.completed,1);assert.equal(progress.total,165);assert.equal(progress.pending.length,164);
+  const progress=wtaBackfillProgress({complete:['1968-G','1968-G','1968-M','9999-G']})!;
+  assert.equal(progress.completed,2);assert.equal(progress.total,165);assert.equal(progress.pending.length,163);
+  assert.ok(progress.pending.includes('1968-A'));
   assert.equal(operationStatus({status:'error',at:'2026-11-01T08:00:00Z',lastSuccessAt:'2026-10-31T08:00:00Z'}).successAt,'2026-10-31T08:00:00Z');
   assert.equal(operationStatus(undefined).found,undefined);
 });

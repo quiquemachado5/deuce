@@ -1,13 +1,37 @@
 function integer(value) { return Number.isSafeInteger(value) ? value : undefined }
 
+function initialDailyBootstrapReady(health) {
+  const daily = health?.dailyUpdate
+  if (!daily || typeof daily !== 'object') return false
+  const unavailable = row =>
+    row && typeof row === 'object' && row.status === 'unavailable'
+      && (row.at === null || row.at === undefined)
+      && (row.ageHours === null || row.ageHours === undefined)
+  const refreshesUnavailable = unavailable(daily.atp) && unavailable(daily.wta)
+  if (!refreshesUnavailable) return false
+  if (unavailable(daily.publication)) return true
+  const staleAfterHours = Number.isFinite(daily.staleAfterHours) ? daily.staleAfterHours : 36
+  return daily.publication && typeof daily.publication === 'object'
+    && daily.publication.status === 'success' && daily.publication.initialSeed === true
+    && Number.isFinite(daily.publication.ageHours) && daily.publication.ageHours <= staleAfterHours
+}
+
 export function releaseFailures(health, baseline, options = {}) {
   const failures = []
   const allowDegraded = options.allowDegraded === true
   if (!health || typeof health !== 'object') return ['Respuesta de salud ausente o inválida']
-  if (health.status !== 'healthy' && !(allowDegraded && health.status === 'degraded')) failures.push(`Estado ${String(health.status).slice(0, 30)}`)
+  // Before the first provider run, accept only absent circuit refreshes plus
+  // a recent, explicitly marked seed publication (or no publication row yet).
+  // Stale/error rows and every other release check remain blocking.
+  const initialDailyBootstrap = options.allowInitialDailyUnavailable === true
+    && health.status === 'degraded' && initialDailyBootstrapReady(health)
+  if (health.status !== 'healthy' && !(allowDegraded && health.status === 'degraded') && !initialDailyBootstrap) failures.push(`Estado ${String(health.status).slice(0, 30)}`)
   if (!Number.isFinite(health.ageHours) || health.ageHours > (baseline.maximumDataAgeHours || 72)) failures.push('Datos fuera de la ventana de frescura permitida')
   if ((integer(health.matches) || 0) < baseline.minimumMatches) failures.push('Pérdida de volumen frente a la última release validada')
   if ((integer(health.statistics) || 0) < baseline.minimumStatistics) failures.push('Pérdida de catálogo frente a la última release validada')
+  for (const [tour, minimum] of Object.entries(baseline.minimumStatisticsByTour || {})) {
+    if ((integer(health.statisticsByTour?.[tour]) || 0) < minimum) failures.push(`Pérdida de catálogo ${tour.toUpperCase()}`)
+  }
   for (const [tour, minimum] of Object.entries(baseline.minimumTours || {})) {
     if ((integer(health.tours?.[tour]) || 0) < minimum) failures.push(`Pérdida de cobertura ${tour.toUpperCase()}`)
   }

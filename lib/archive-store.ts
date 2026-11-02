@@ -307,12 +307,32 @@ async function acquireFilesystemLease(name: string, ttlSeconds: number) {
   await mkdir(root, { recursive: true, mode: 0o700 })
   const path = join(root, `.lease-${validatedKey(name)}.lock`)
   const owner = randomUUID()
+  const payload = (): LeasePayload => ({ owner, expiresAt: new Date(Date.now() + ttlSeconds * 1000).toISOString() })
   for (let attempt = 0; attempt < 2; attempt++) {
     try {
       const handle = await open(path, 'wx', 0o600)
-      await handle.writeFile(JSON.stringify({ owner, expiresAt: new Date(Date.now() + ttlSeconds * 1000).toISOString() }))
+      await handle.writeFile(JSON.stringify(payload()))
       await handle.close()
+      let renewal = Promise.resolve()
+      const timer = setInterval(() => {
+        renewal = renewal.then(async () => {
+          let leaseHandle
+          try {
+            leaseHandle = await open(path, 'r+')
+            const current = JSON.parse(await leaseHandle.readFile('utf8')) as Partial<LeasePayload>
+            if (current.owner !== owner) return
+            const encoded = Buffer.from(JSON.stringify(payload()))
+            await leaseHandle.truncate(0)
+            await leaseHandle.write(encoded, 0, encoded.length, 0)
+            await leaseHandle.sync()
+          } catch { /* a replacement owner or storage failure invalidates this renewal */ }
+          finally { await leaseHandle?.close().catch(() => undefined) }
+        })
+      }, Math.max(100, Math.floor(ttlSeconds * 1000 / 3)))
+      timer.unref()
       return async () => {
+        clearInterval(timer)
+        await renewal
         try {
           const current = JSON.parse(await readFile(path, 'utf8')) as Partial<LeasePayload>
           if (current.owner === owner) await unlink(path)

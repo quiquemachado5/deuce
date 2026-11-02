@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { ArrowRight, Menu, Search, X } from 'lucide-react';
-import { circuitSectionHref, navigationCircuit, type CircuitSection } from '@/lib/circuit-navigation';
+import { circuitSectionHref, globalSearchCircuit, navigationCircuit, type CircuitSection, type SearchCircuit } from '@/lib/circuit-navigation';
 
 const navigation: ReadonlyArray<{ label:string; section:CircuitSection }> = [
   {label:'Partidos',section:'matches'},
@@ -14,15 +14,16 @@ const navigation: ReadonlyArray<{ label:string; section:CircuitSection }> = [
   {label:'Comparar',section:'compare'},
 ];
 type Result = { href: string; name: string; detail?: string; group: string };
-type SearchResult = { query:string; tour:'atp'|'wta'; items:Result[]; error?:boolean };
+type SearchResult = { query:string; tour:SearchCircuit; items:Result[]; error?:boolean };
 const groupOrder = ['Jugadores','Torneos','Ediciones','Partidos','Parejas','Récords'];
 
 export function DeuceTopbar() {
   const pathname=usePathname(), router=useRouter(), searchParams=useSearchParams();
-  const searchTour=navigationCircuit(pathname,searchParams);
-  const navigationItems=navigation.map(item=>({...item,href:circuitSectionHref(item.section,searchTour)}));
+  const navigationTour=navigationCircuit(pathname,searchParams);
+  const searchTour=globalSearchCircuit(pathname,searchParams);
+  const navigationItems=navigation.map(item=>({...item,href:circuitSectionHref(item.section,navigationTour)}));
   const [scrolled,setScrolled]=useState(false), [navHidden,setNavHidden]=useState(false), [menu,setMenu]=useState(false), [searchOpen,setSearchOpen]=useState(false), [query,setQuery]=useState('');
-  const [result,setResult]=useState<SearchResult>({query:'',tour:'atp',items:[]});
+  const [result,setResult]=useState<SearchResult>({query:'',tour:'all',items:[]});
   const lastScroll=useRef(0);
   const restoreSearchFocus=useRef(false);
   const menuTrigger=useRef<HTMLButtonElement>(null), field=useRef<HTMLInputElement>(null), trigger=useRef<HTMLButtonElement>(null), panel=useRef<HTMLElement>(null);
@@ -117,7 +118,7 @@ export function DeuceTopbar() {
     if(!text)return;
     setSearchOpen(false);
     const params=new URLSearchParams({q:text});
-    if(searchTour==='wta')params.set('tour','wta');
+    if(searchTour!=='atp')params.set('tour',searchTour);
     router.push(`/buscar?${params}`);
   };
   const queryLength=query.trim().length;
@@ -148,7 +149,7 @@ export function DeuceTopbar() {
       <button ref={menuTrigger} className="menu" type="button" aria-label={menu?'Cerrar menú':'Abrir menú'} aria-expanded={menu} aria-controls="deuce-navigation" onClick={()=>{setSearchOpen(false);setNavHidden(false);setMenu(value=>!value)}}>{menu?<X size={18} aria-hidden="true"/>:<Menu size={18} aria-hidden="true"/>}</button>
     </header>
     <section ref={panel} id="global-search-results" className={`topbar-spotlight-panel${searchOpen?' is-open':''}`} aria-label="Sugerencias de búsqueda" aria-live="polite" aria-busy={loading} aria-hidden={!searchOpen} onKeyDown={event=>{if(event.key==='ArrowDown'||event.key==='ArrowUp'){event.preventDefault();moveResult(event.key==='ArrowDown'?1:-1);}}}>
-      {!query.trim()?<div className="topbar-spotlight-empty"><span>Buscar en todo DEUCE · {searchTour.toUpperCase()}</span><p>Encuentra jugadores, partidos, torneos, ediciones y récords del circuito activo.</p><div>{navigationItems.slice(0,4).map(({label,section,href})=><Link key={section} href={href} onClick={()=>setSearchOpen(false)}>{label}</Link>)}</div></div>
+      {!query.trim()?<div className="topbar-spotlight-empty"><span>{searchTour==='all'?'Buscar en ATP y WTA':`Buscar en DEUCE · ${searchTour.toUpperCase()}`}</span><p>{searchTour==='all'?'Encuentra resultados de ambos circuitos.':`Encuentra jugadores, partidos, torneos, ediciones y récords del circuito ${searchTour.toUpperCase()}.`}</p><div>{navigationItems.slice(0,4).map(({label,section,href})=><Link key={section} href={href} onClick={()=>setSearchOpen(false)}>{label}</Link>)}</div></div>
       :queryLength<2?<p className="topbar-spotlight-status">Escribe al menos dos caracteres.</p>
       :loading?<p className="topbar-spotlight-status">Buscando…</p>
       :result.error?<p className="topbar-spotlight-status">No se pudieron cargar las sugerencias. Pulsa Intro para buscar.</p>

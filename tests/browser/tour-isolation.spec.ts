@@ -6,10 +6,12 @@ test('the tournament circuit and category selectors stay isolated and responsive
     await page.setViewportSize({ width, height: width < 700 ? 844 : 1000 });
     await page.goto('/torneos?circuito=wta');
     await expect(page.getByRole('navigation',{name:'Circuito de torneos'}).getByRole('link',{name:'WTA',exact:true})).toHaveAttribute('aria-current','page');
-    const picker=page.getByLabel(/Filtrar torneos: Categoría · Principales/);
+    const picker=page.getByLabel(/Filtrar torneos: Categoría · Todas/);
     await expect(picker).toBeVisible();
     await picker.click();
-    await expect(page.getByRole('group',{name:'Categorías WTA'})).toBeVisible();
+    const wtaCategories=page.getByRole('group',{name:'Categorías WTA'});
+    await expect(wtaCategories).toBeVisible();
+    await expect(wtaCategories.getByRole('link')).toHaveText(['Todas','Grand Slams','WTA 1000','WTA 500','WTA 250']);
     await expect(page.getByRole('group',{name:'Categorías ATP'})).toHaveCount(0);
     if(width===320){
       const previewSizes=await page.locator('main div[tabindex][aria-label]').evaluateAll(nodes=>nodes.map(node=>node.querySelectorAll(':scope > a').length).filter(Boolean));

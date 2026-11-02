@@ -35,7 +35,7 @@ export default function RootLayout({
       <body>
         <StructuredData value={{
           '@context':'https://schema.org','@type':'WebSite',name:'DEUCE',url:`${SITE_ORIGIN}/`,inLanguage:'es',
-          potentialAction:{'@type':'SearchAction',target:`${SITE_ORIGIN}/buscar?q={search_term_string}`,'query-input':'required name=search_term_string'},
+          potentialAction:{'@type':'SearchAction',target:`${SITE_ORIGIN}/buscar?tour=all&q={search_term_string}`,'query-input':'required name=search_term_string'},
         }}/>
         <WebVitals />
         <DeuceShell>{children}</DeuceShell>

@@ -51,7 +51,8 @@ export default function MatchSearchBar({ query, categories, rounds, surfaces, ye
   const isMobile = useSyncExternalStore(subscribeToMobileViewport, () => window.matchMedia(mobileFilterQuery).matches, () => false);
   const portalRoot = typeof document === 'undefined' ? null : document.body;
   const [pending, startTransition] = useTransition();
-  const activeFilterCount = [query.year, query.surface, query.category, query.round, query.data, query.fiveSets === 'true' ? 'fiveSets' : ''].filter(Boolean).length;
+  const effectiveYear = query.year === 'all' ? '' : query.year || (activeYear ? String(activeYear) : '');
+  const activeFilterCount = [effectiveYear, query.surface, query.category, query.round, query.data, query.fiveSets === 'true' ? 'fiveSets' : ''].filter(Boolean).length;
 
   const apply = (changes: MatchQuery) => {
     startTransition(() => router.replace(matchSearchUrl(query, { limit: undefined, ...changes }), { scroll: false }));

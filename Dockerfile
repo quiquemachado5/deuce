@@ -21,6 +21,9 @@ RUN npm run build
 FROM node:24-bookworm-slim AS runner
 WORKDIR /app
 ARG SOURCE_COMMIT
+LABEL org.opencontainers.image.title="DEUCE" \
+  org.opencontainers.image.source="https://github.com/quiquemachado5/deuce" \
+  org.opencontainers.image.revision="${SOURCE_COMMIT}"
 ENV NODE_ENV=production
 ENV COMMIT_REF=${SOURCE_COMMIT}
 ENV NEXT_TELEMETRY_DISABLED=1
@@ -33,12 +36,16 @@ RUN groupadd --system --gid 1001 nodejs \
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/data/archive/wta ./data/archive/wta
 COPY --from=builder --chown=nextjs:nodejs /app/ops/railway/start.mjs ./ops/railway/start.mjs
 COPY --from=builder --chown=nextjs:nodejs /app/ops/oracle/scheduler.mjs ./ops/oracle/scheduler.mjs
 COPY --from=builder --chown=nextjs:nodejs /app/ops/scheduler-core.mjs ./ops/scheduler-core.mjs
 COPY --from=builder --chown=nextjs:nodejs /app/ops/release-policy.mjs ./ops/release-policy.mjs
 COPY --from=builder --chown=nextjs:nodejs /app/ops/release-baseline.json ./ops/release-baseline.json
 COPY --from=builder --chown=nextjs:nodejs /app/ops/verify-release.mjs ./ops/verify-release.mjs
+COPY --from=builder --chown=nextjs:nodejs /app/build/restore-drill.mjs ./build/restore-drill.mjs
+COPY --from=builder --chown=nextjs:nodejs /app/build/restore-validation.mjs ./build/restore-validation.mjs
+COPY --from=builder --chown=nextjs:nodejs /app/lib/match-browser-contract.json ./lib/match-browser-contract.json
 RUN mkdir -p /app/.deuce-archive /app/.next/cache \
   && chown -R nextjs:nodejs /app/.deuce-archive /app/.next
 

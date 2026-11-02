@@ -6,6 +6,7 @@ import { tournamentName } from "@/lib/labels";
 import { playerSlug } from "@/lib/explore";
 import type { Era, RecordRow } from "@/lib/revista/records";
 import { evidenceHref } from '@/lib/record-evidence';
+import { recordEraEvidenceUrl, recordEraPlayerUrl } from '@/lib/records-url';
 
 export function recordValue(row: RecordRow, percent = false, asYear = false) {
   return row.display || (asYear ? String(row.value) : `${number(row.value, percent ? 1 : 0)}${percent ? " %" : ""}`);
@@ -72,7 +73,7 @@ export function RecordEras({ eras, cut = 2020, filters = {} }: { eras: Era[]; cu
       {eras.map((era) => (
         <article className="rv-era" key={era.name}>
           <div className="rv-era-head">
-            <h2><Link href={`/jugadores/${playerSlug(era.name)}`}>{era.name}</Link></h2>
+            <h2><Link href={recordEraPlayerUrl(playerSlug(era.name), filters)}>{era.name}</Link></h2>
             <Link href={`/match/${era.proof.match_id}`}>{tournamentName(era.proof.tournament)} {era.proof.year}</Link>
           </div>
           <div className="rv-era-values">
@@ -88,7 +89,7 @@ export function RecordEras({ eras, cut = 2020, filters = {} }: { eras: Era[]; cu
               );
             })}
           </div>
-          <Link className="dx-inline-link" href={'/records/evidencia?'+new URLSearchParams({...Object.fromEntries(Object.entries(filters).filter(([key,value])=>['year','surface','competition','era'].includes(key)&&value)) as Record<string,string>,dato:'dos-epocas',nombre:era.name,corte:String(cut)})}>Ver todas las finales de ambos periodos</Link>
+          <Link className="dx-inline-link" href={recordEraEvidenceUrl(era.name, cut, filters)}>Ver todas las finales de ambos periodos</Link>
         </article>
       ))}
     </div>

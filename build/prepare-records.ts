@@ -6,8 +6,9 @@ import {assertPublishableArchive} from '../lib/dataset-summary';
 import {assertEditionCoverage,assertReleaseCoverage} from '../lib/revista/release-check';
 import type {EditionAudit} from '../lib/edition-audit';
 import type {Match} from '../lib/types';
-import type {RecordManifest} from '../lib/revista/snapshot';
+import {RULES_VERSION,type RecordManifest} from '../lib/revista/snapshot';
 import {preservePublishedArchive} from '../lib/revista/release-source';
+import {publishedMatches} from '../lib/publication-scope';
 loadEnvConfig(process.cwd());
 const isCiBuild=process.env.CI==='1'||process.env.CI==='true';
 const verifiesRemoteRelease=process.env.VERCEL_ENV==='production'&&!isCiBuild;
@@ -35,22 +36,25 @@ async function main(){
     });
     restoredPublishedArchive=true;
     if(restoredPublishedArchive)console.log(`Published archive preserved: restored ${matches.length} matches over ${localCount} bundled matches`);
-    previousAudit=typeof previous.version==='string' ? await cloudSnapshotBlob<EditionAudit[]>(previous.version,'audit') : undefined;
+    previousAudit=previous.rulesVersion===RULES_VERSION&&typeof previous.version==='string' ? await cloudSnapshotBlob<EditionAudit[]>(previous.version,'audit') : undefined;
     previousCompetition=restoredPublishedArchive&&typeof previous.version==='string' ? await cloudSnapshotBlob<Match[]>(previous.version,'competition') : undefined;
-    if(restoredPublishedArchive&&previous.editionCount&&previousAudit?.length!==previous.editionCount)throw new Error('Cannot restore the published edition audit');
-    if(restoredPublishedArchive&&previous.competitionCount&&previousCompetition?.length!==previous.competitionCount)throw new Error('Cannot restore the published competition archive');
+    if(restoredPublishedArchive&&previous.rulesVersion===RULES_VERSION&&previous.editionCount&&previousAudit?.length!==previous.editionCount)throw new Error('Cannot restore the published edition audit');
+    if(restoredPublishedArchive&&previous.rulesVersion===RULES_VERSION&&previous.competitionCount&&previousCompetition?.length!==previous.competitionCount)throw new Error('Cannot restore the published competition archive');
   }
-  let previousCount=0;
-  try{previousCount=JSON.parse(gunzipSync(await readFile('data/reading/manifest.json.gz')).toString()).matchCount||0;}catch{}
-  assertPublishableArchive(matches,previousCount);
+  matches=publishedMatches(matches);
+  let bundledPrevious:RecordManifest|undefined;
+  try{bundledPrevious=JSON.parse(gunzipSync(await readFile('data/reading/manifest.json.gz')).toString()) as RecordManifest;}catch{}
+  const comparablePreviousCount=previous?.rulesVersion===RULES_VERSION?previous.matchCount:bundledPrevious?.rulesVersion===RULES_VERSION?bundledPrevious.matchCount:0;
+  assertPublishableArchive(matches,comparablePreviousCount);
   const {competitionEntries,editionSourceAudit}=await import('../lib/live-tennis');
-  const competition=restoredPublishedArchive ? previousCompetition||[] : await competitionEntries();
-  const audit=restoredPublishedArchive ? previousAudit||[] : await editionSourceAudit();
+  const canReuseDerived=restoredPublishedArchive&&previous?.rulesVersion===RULES_VERSION;
+  const competition=canReuseDerived ? previousCompetition||[] : await competitionEntries();
+  const audit=canReuseDerived ? previousAudit||[] : await editionSourceAudit();
   const snapshot=compileRecordSnapshot(matches,new Date(),competition,audit);
   if(verifiesRemoteRelease){
     if(!previous)throw new Error('Cannot verify the published archive baseline');
     assertReleaseCoverage(previous,snapshot.manifest);
-    if(previousAudit?.length)assertEditionCoverage(previousAudit,snapshot.audit);
+    if(previous.rulesVersion===RULES_VERSION&&previousAudit?.length)assertEditionCoverage(previousAudit,snapshot.audit);
     else console.log('Edition coverage baseline initialized from this release');
     snapshot.manifest=attachIngestionHistory(previous,attachRecordChanges(previous,snapshot.manifest));
     console.log(`Release baseline verified: ${previous.matchCount} published matches; ${snapshot.manifest.matchCount} prepared; measured coverage preserved`);

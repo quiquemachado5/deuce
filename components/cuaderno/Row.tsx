@@ -8,7 +8,6 @@ export default function Row({ match }: { match: Match }) {
     <Link className="row" href={`/match/${match.match_id}`}>
       <span className="row-meta">
         {tournamentName(match.tournament)} · {match.year} · {round(match)}
-        {match.category.startsWith("Precursores") && " · Precursor"}
       </span>
       <span className="row-names">
         <span className={match.winner === 1 ? "row-name" : ""}>

@@ -23,7 +23,7 @@ type Query = { circuito?: string; categoria?: string; page?: string };
 type Props = { searchParams: Promise<Query> };
 const categories: Record<Tour, readonly string[]> = {
   atp: ['Grand Slam', 'Masters 1000', 'ATP 500', 'ATP 250'],
-  wta: ['Grand Slam', 'WTA 1000', 'WTA 500', 'WTA 250', 'WTA 125', 'WTA · alto nivel histórico', 'WTA Tour histórico'],
+  wta: ['Grand Slam', 'WTA 1000', 'WTA 500', 'WTA 250'],
 };
 const categoryLabel = (category: string) => category === 'Grand Slam' ? 'Grand Slams' : category;
 const tourFrom = (value?: string): Tour => value === 'wta' ? 'wta' : 'atp';
@@ -40,7 +40,7 @@ export async function generateMetadata({ searchParams }: Props) {
   const tour = tourFrom(query.circuito);
   const category = categories[tour].find(value => value === query.categoria);
   const title = `${category ? `${categoryLabel(category)} · ` : ''}Torneos ${tour.toUpperCase()} — DEUCE`;
-  const description = `Torneos y ediciones individuales ${tour.toUpperCase()} del archivo, sin mezclar circuitos ni modalidades.`;
+  const description = `Torneos individuales ${tour.toUpperCase()} de Grand Slam y categorías 1000, 500 y 250, sin mezclar circuitos ni modalidades.`;
   const page = Math.max(1, Math.floor(Number(query.page) || 1));
   const canonical = tournamentDirectoryUrl(tour, category, page);
   return { title, description, alternates: { canonical }, openGraph: { title, description, url: canonical }, twitter: { card: 'summary_large_image', title, description }, robots: robotsForUnavailableTour(manifest.summary, tour) };
@@ -50,12 +50,11 @@ export default async function TournamentDirectory({ searchParams }: Props) {
   const query = await searchParams;
   const tour = tourFrom(query.circuito);
   const matches = singlesMatches(await preparedTourArchive(tour));
-  const latestArchiveYear = matches.reduce((latest, match) => Math.max(latest, match.year), 0);
   const entries = calendarOrder(tournamentDirectory(matches));
   const levels = categories[tour];
   const chosen = levels.find(category => category === query.categoria);
   const belongsToLevel = (entry: typeof entries[number], level: string) =>
-    entry.categories.includes(level) && (tour === 'wta' || level === 'Grand Slam' || level === 'Masters 1000' || entry.latestYear >= latestArchiveYear - 1);
+    entry.categories.includes(level);
   const primaryLevelBySlug = new Map(entries.map(entry => [entry.slug, levels.find(level => belongsToLevel(entry, level))]));
   const selected = chosen
     ? entries.filter(entry => belongsToLevel(entry, chosen))
@@ -86,10 +85,10 @@ export default async function TournamentDirectory({ searchParams }: Props) {
     {tour:'atp',label:'ATP'},
     {tour:'wta',label:'WTA'},
   ] as const).map(item=>({href:tournamentDirectoryUrl(item.tour),label:item.label,active:tour===item.tour}))}/>;
-  const categoryTools=<TournamentBrowsePicker selection={`Categoría · ${chosen ? categoryLabel(chosen) : 'Principales'}`} groups={[{
+  const categoryTools=<TournamentBrowsePicker selection={`Categoría · ${chosen ? categoryLabel(chosen) : 'Todas'}`} groups={[{
     label:`Categorías ${tour.toUpperCase()}`,
     items:[
-      {href:tournamentDirectoryUrl(tour),label:'Principales',active:!chosen},
+      {href:tournamentDirectoryUrl(tour),label:'Todas',active:!chosen},
       ...levels.map(category=>({href:tournamentDirectoryUrl(tour,category),label:categoryLabel(category),active:chosen===category})),
     ],
   }]}/>;

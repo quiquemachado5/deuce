@@ -26,7 +26,7 @@ export type RecordsRankingSet = {
   };
 };
 
-export default function RecordsRankings({ sets }: { sets: RecordsRankingSet[] }) {
+export default function RecordsRankings({ sets, heading = 'Clasificaciones históricas' }: { sets: RecordsRankingSet[]; heading?: string }) {
   const [activeId, setActiveId] = useState(sets[0]?.id || "");
   const [page, setPage] = useState(0);
   const active = useMemo(
@@ -54,7 +54,7 @@ export default function RecordsRankings({ sets }: { sets: RecordsRankingSet[] })
   return (
     <div className="records-leaderboard">
       <header className="records-leaderboard-head">
-        <h2>Clasificaciones históricas</h2>
+        <h2>{heading}</h2>
         <div
           className="records-leaderboard-switch"
           role="group"

@@ -1,18 +1,43 @@
-# DEUCE on a fixed-price VPS
+# DEUCE en un VPS de precio fijo
 
-Use a European VPS with at least 2 vCPU, 4 GB RAM, 40 GB persistent disk and a public IPv4 address.
+Usa un VPS europeo con al menos 2 vCPU, 4 GB de RAM, 64 GB de SSD persistente, IPv4 pública y Ubuntu o Debian. La aplicación se sirve con Caddy y HTTPS automático.
 
-1. Install Ubuntu or Debian and run `ops/vps/bootstrap.sh` as `root`.
-2. Copy the deployment SSH public key to `/home/deuce/.ssh/authorized_keys`.
-3. Clone the repository into `/opt/deuce/app` as the `deuce` user.
-4. Create `/opt/deuce/app/.env.production` from `.env.production.example`. Use a DNS name that resolves to the server IP; an `sslip.io` hostname works without buying a domain.
-5. Run `ops/vps/deploy.sh` as `deuce`.
-6. If a newer filesystem backup exists, validate it first with `DEUCE_RESTORE_ARCHIVE=/path/to/backup.tar.gz npm run data:restore-drill`, then restore it into the `deuce_archive` Docker volume before enabling the scheduler.
+## Preparación
 
-Caddy provisions and renews HTTPS automatically. The compose stack keeps the web process, scheduler and reverse proxy running after restarts. A systemd watchdog checks the stack every two minutes and recreates unhealthy services. The scheduler writes a heartbeat plus independent ATP, WTA and publication stages to the shared archive volume; publication waits for both circuits and transient failures retry with exponential delays.
+1. Ejecuta `ops/vps/bootstrap.sh` como `root`.
+2. Añade la clave SSH de despliegue a `/home/deuce/.ssh/authorized_keys`.
+3. Clona el repositorio en `/opt/deuce/app` como usuario `deuce`.
+4. Crea `/opt/deuce/app/.env.production` desde `.env.production.example`.
+5. Configura el remoto de `rclone` como el usuario del servicio: `sudo -u deuce rclone --config /home/deuce/.config/rclone/rclone.conf config`. `DEUCE_BACKUP_REMOTE` debe usar ese remoto; la copia externa es obligatoria.
+6. Configura en GitHub la variable de repositorio `DEUCE_MONITOR_URL` con el mismo origen HTTPS de producción.
+7. Ejecuta `ops/vps/deploy.sh` como usuario `deuce`.
+8. Tras la primera promoción, ejecuta `sudo systemctl start deuce-backup.service` y después `sudo systemctl start deuce-restore-drill.service`; el monitor exige una copia restaurable de menos de 36 horas y un simulacro de menos de 8 días.
 
-The archive remains in the named Docker volume, with seven days of compressed local backups under `/opt/deuce/backups`. Configure an `rclone` remote and set `DEUCE_BACKUP_REMOTE` in `.env.production` to copy every backup and checksum off the server. Periodically download one of those remote files and run the restore drill above.
+`DEUCE_HOST`, `NEXT_PUBLIC_SITE_ORIGIN` y `DEUCE_MONITOR_URL` deben apuntar al dominio real. Un nombre `sslip.io` permite preparar el servidor antes de comprar un dominio.
 
-The build gate requires the ATP and WTA minimums, dataset and rules versions, source commit, storage headroom and a fresh scheduler heartbeat. An optional immutable reading snapshot can be exported with `npm run data:snapshot:export`; publish its directory over HTTPS and set `DEUCE_SNAPSHOT_MANIFEST_URL` plus `DEUCE_EXPECTED_SNAPSHOT_COMMIT`. Docker restores it only inside the build stage, verifies every SHA-256 and falls back to rebuilding from the compact versioned archives.
+## Publicación y rollback
 
-The VPS 500 G12.5 monthly configuration provides the required 2 vCPU, 4 GB RAM, public IPv4 and 64 GB persistent SSD. Set `DEUCE_ARCHIVE_MAX_BYTES` below 40 GB so Docker images, builds and backups retain safe disk headroom.
+Cada despliegue toma un bloqueo exclusivo en `/opt/deuce/deployments/deploy.lock`, crea una imagen `deuce-web:<commit completo>` y comprueba que su etiqueta OCI coincide con el commit. El bloqueo impide dos despliegues simultáneos y hace que el watchdog se retire durante seed, gates y promoción. Después arranca un contenedor candidato aislado sobre el volumen real, espera su salud normal y ejecuta el gate profundo, que valida datos, circuito, almacenamiento, commit y heartbeat del scheduler. Solo entonces recrea `web` y `scheduler` con esa imagen.
+
+En la primera instalación el script detecta que no hay una imagen activa, deja que Compose cree y etiquete la red y el volumen, llama de forma autenticada a `/api/cron/seed` y copia al volumen persistente el snapshot validado, incluidas las piezas ATP y WTA. La semilla registra `publish-status` con `initialSeed: true`. El scheduler funciona en modo de solo heartbeat durante el gate del candidato y el gate posterior a la promoción, de modo que ninguna descarga, hora programada o reserva de cuota puede alterar ese arranque. Solo después de superar ambos gates se recrea en modo normal y se comprueba su salud. Durante esos dos gates solo se admite ATP y WTA todavía ausentes junto a esa publicación inicial reciente, o los tres estados aún ausentes. Una fila con error u obsoleta, una semilla sin marcar o cualquier fallo de datos, almacenamiento, commit o scheduler sigue bloqueando. Desde la segunda release el gate vuelve a exigir los tres estados diarios recientes sin excepción.
+
+La imagen activa y la anterior quedan registradas en `/opt/deuce/deployments`. Si la comprobación posterior a la promoción falla, el script restaura automáticamente la imagen anterior. Los contenedores escriben logs rotados en el host; Caddy conserva sus accesos JSON bajo `/opt/deuce/logs`.
+
+El snapshot opcional puede publicarse por HTTPS con `npm run data:snapshot:export`. Define `DEUCE_SNAPSHOT_MANIFEST_URL` y `DEUCE_EXPECTED_SNAPSHOT_COMMIT` para que la construcción restaure únicamente el snapshot firmado por sus SHA-256 y por el commit aprobado.
+
+## Copias y restauración
+
+`deuce-backup.timer` comprime a diario el volumen físico y, antes de subirlo, usa la imagen activa para descomprimirlo y validar manifiesto, packs, piezas ATP/WTA, índices y todas las particiones. Si una publicación cambia el volumen durante la lectura, repite hasta tres veces el tar y la restauración. Solo una copia restaurable recibe su SHA-256 y se transfiere fuera del servidor; después se descarga por streaming el tar remoto real y se vuelve a calcular su hash, además de comprobar el sidecar. Un fallo de restauración, local, remoto o de configuración hace fallar la unidad; no se acepta una copia solo local. El resultado de esta validación previa queda en `/opt/deuce/backups/last-backup-validation.json`.
+
+`deuce-restore-drill.timer` descarga semanalmente la copia externa más reciente y ejecuta `build/restore-drill.mjs` dentro de la imagen activa. Rechaza una copia con más de 192 horas, salvo que `DEUCE_RESTORE_MAX_AGE_HOURS` configure otra ventana. El simulacro descomprime en un directorio temporal y comprueba manifiesto, particiones, packs, recuentos e identificadores sin tocar el volumen de producción. Sus últimos resultados quedan en `/opt/deuce/backups/last-restore-drill.json` y `last-restore-drill.log`; salud profunda y monitor leen también los estados atómicos del volumen.
+
+Comandos útiles:
+
+```bash
+sudo systemctl start deuce-backup.service
+sudo systemctl start deuce-restore-drill.service
+sudo systemctl status deuce-watchdog.timer deuce-backup.timer deuce-restore-drill.timer
+journalctl -u deuce-backup.service -u deuce-restore-drill.service --since today
+```
+
+Mantén `DEUCE_ARCHIVE_MAX_BYTES` por debajo del espacio total para reservar capacidad a imágenes, compilaciones, logs y copias locales rotatorias.

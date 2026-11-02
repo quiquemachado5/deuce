@@ -5,6 +5,9 @@ import { archiveStoreBackend } from '../lib/archive-store'
 import { publishRecordSnapshot } from '../lib/revista/publish-snapshot'
 import type { Snapshot } from '../lib/revista/snapshot'
 import { readingSource } from './reading-source'
+import { expectedBundledPieceCount, loadBundledSnapshotPieces } from '../lib/revista/seed-snapshot'
+import { cloudRead, cloudWrite } from '../lib/cloud-archive'
+import { materializeBundledWtaArchive } from '../lib/wta-archive-bootstrap'
 
 const root = readingSource()
 
@@ -17,10 +20,10 @@ async function main() {
   if (backend !== 'vercel-blob' && backend !== 'filesystem') throw new Error('Configure Vercel Blob or the self-hosted filesystem archive before seeding')
 
   const manifest = await read<Snapshot['manifest']>('manifest')
-  const pieceEntries = await Promise.all(manifest.pieces.map(async piece => [piece.id, await read<Snapshot['pieces'][string]>(`piece-${piece.id}`)] as const))
+  const pieces = await loadBundledSnapshotPieces(manifest, read)
   const snapshot: Snapshot = {
     manifest,
-    pieces: Object.fromEntries(pieceEntries),
+    pieces,
     eras: await read('eras'),
     matches: await read('matches'),
     players: await read('players'),
@@ -28,12 +31,14 @@ async function main() {
     audit: await read('audit'),
   }
 
-  if (snapshot.matches.length !== manifest.matchCount || Object.keys(snapshot.pieces).length !== manifest.pieces.length) {
+  if (snapshot.matches.length !== manifest.matchCount || Object.keys(snapshot.pieces).length !== expectedBundledPieceCount(manifest)) {
     throw new Error('Bundled snapshot is incomplete; run npm run data:verify before seeding')
   }
 
+  const bundledArchive = await materializeBundledWtaArchive(cloudRead, cloudWrite)
   await publishRecordSnapshot(snapshot)
-  console.log(JSON.stringify({ status: 'seeded', backend, version: manifest.version, matches: manifest.matchCount, pieces: manifest.pieces.length }))
+  console.log(JSON.stringify({ status: 'seeded', backend, version: manifest.version, matches: manifest.matchCount,
+    pieces: Object.keys(snapshot.pieces).length, atpPieces: manifest.pieces.length, wtaPieces: manifest.circuitPieces?.wta.length || 0, bundledArchive }))
 }
 
 main().catch(error => {

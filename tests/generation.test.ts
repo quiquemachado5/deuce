@@ -5,7 +5,7 @@ import {createHash} from 'node:crypto';
 import {compressedJson} from '../lib/revista/publish-snapshot';
 import { mockMatches } from '../lib/mocks';
 import { compileRecordSnapshot } from '../lib/revista/snapshot';
-import { selectGeneration, generationMetadata, type PreparedGeneration } from '../lib/revista/generation';
+import { assertGenerationCoherence, selectGeneration, generationMetadata, type PreparedGeneration } from '../lib/revista/generation';
 import { decodeCloudBlob } from '../lib/revista/read-records';
 import { assertEditionCoverage, assertReleaseCoverage } from '../lib/revista/release-check';
 import { asyncCache } from '../lib/async-cache';
@@ -46,6 +46,15 @@ test('partial, corrupt or unavailable remote payloads fall back as a whole', asy
     assert.deepEqual(await chosen.matches(), before.matches);
     assert.deepEqual(await chosen.records(), before.players);
   }
+});
+
+test('a transient artifact failure cannot mix a remote browser decision with bundled detail', async () => {
+  const decision = { manifest: after.manifest, source: 'remote' as const };
+  const fallback = await selectGeneration(base, after.manifest, async () => { throw new Error('transient read failure'); }, true);
+  assert.equal(fallback.source, 'bundled');
+  assert.throws(() => assertGenerationCoherence(decision, fallback), /Snapshot generation changed after selection/);
+  const coherent = { ...base, manifest: after.manifest, source: 'remote' as const };
+  assert.equal(assertGenerationCoherence(decision, coherent), coherent);
 });
 
 test('schema, summary and demo corruption are rejected without changing generations', async () => {
@@ -100,6 +109,13 @@ test('release gate rejects losses of published matches or measured coverage', ()
   const mixed = { ...previous, matchCount: 30, summary: { ...previous.summary, tours: { atp: 20, wta: 10 } } };
   assert.throws(() => assertReleaseCoverage(mixed, { ...mixed, summary: { ...mixed.summary, tours: { atp: 21, wta: 9 } } }), /lose published WTA matches/);
   assert.throws(() => assertReleaseCoverage(mixed, { ...mixed, summary: { ...mixed.summary, tours: { atp: 19, wta: 11 } } }), /lose published ATP matches/);
+  const wtaMetric = { ...metric, id: 'wta-metric', measured: true, sample: 8 };
+  const withWta = { ...previous, circuitPieces: { atp: previous.pieces, wta: [wtaMetric] } };
+  const wtaUnmeasured = { ...wtaMetric, measured: false };
+  const withWtaUnmeasured = { ...previous, circuitPieces: { atp: previous.pieces, wta: [wtaUnmeasured] } };
+  assert.throws(() => assertReleaseCoverage(withWtaUnmeasured, { ...withWtaUnmeasured, circuitPieces: { atp: withWtaUnmeasured.pieces, wta: [] } }), /lose WTA record catalogue/);
+  assert.throws(() => assertReleaseCoverage(withWta, { ...withWta, circuitPieces: { atp: withWta.pieces, wta: [] } }), /measured WTA coverage/);
+  assert.throws(() => assertReleaseCoverage(withWta, { ...withWta, circuitPieces: { atp: withWta.pieces, wta: [{ ...wtaMetric, sample: 7 }] } }), /measured WTA coverage/);
 });
 test('release gate preserves editions whose late rounds were already complete',()=>{
   const complete:import('../lib/edition-audit').EditionAudit={tournament:'Madrid',year:2025,category:'Masters 1000',sourceRows:7,completed:7,terminal:0,pending:0,hasFinal:true,rounds:{'5':4,'6':2,'7':1},expectedLateRounds:true,missingLateRounds:[],completeDraw:true};

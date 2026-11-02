@@ -8,6 +8,7 @@ export default function HomeSearch() {
   const [query, setQuery] = useState('');
   return <div className="home-search">
     <form action="/buscar" role="search">
+      <input type="hidden" name="tour" value="all" />
       <Search size={20} aria-hidden="true" />
       <label className="ry-sr" htmlFor="home-search-query">Buscar en el archivo</label>
       <input id="home-search-query" name="q" type="search" value={query} onChange={event => setQuery(event.target.value)} placeholder="Jugador o torneo" autoComplete="off" />

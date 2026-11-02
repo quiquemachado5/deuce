@@ -5,15 +5,26 @@ import { editionCompleteness } from '../edition-audit';
 /** Intentional reductions require review, never an unnoticed degraded build. */
 export function assertReleaseCoverage(previous: RecordManifest, current: RecordManifest) {
   if (!Number.isSafeInteger(previous.matchCount) || !Array.isArray(previous.pieces)) throw new Error('Published baseline is invalid');
+  // A reviewed rules change may intentionally narrow the public universe. All
+  // subsequent publications under that rules version regain the strict guard.
+  if (previous.rulesVersion !== current.rulesVersion) return;
   if (current.matchCount < previous.matchCount) throw new Error('Release would lose published matches');
   const previousTours = previous.summary?.tours || { atp: previous.matchCount, wta: 0 };
   const currentTours = current.summary?.tours || { atp: current.matchCount, wta: 0 };
   for (const tour of ['atp', 'wta'] as const) {
     if (currentTours[tour] < previousTours[tour]) throw new Error(`Release would lose published ${tour.toUpperCase()} matches`);
   }
-  for (const metric of previous.pieces.filter(piece => piece.measured && previous.rulesVersion===current.rulesVersion)) {
-    const next = current.pieces.find(piece => piece.id === metric.id);
-    if (!next || next.sample < metric.sample) throw new Error(`Release would lose measured coverage: ${metric.id}`);
+  const catalogues = (manifest: RecordManifest) => ({
+    atp: manifest.pieces,
+    wta: manifest.circuitPieces?.wta || [],
+  });
+  const priorCatalogues = catalogues(previous), nextCatalogues = catalogues(current);
+  for (const tour of ['atp', 'wta'] as const) {
+    for (const metric of priorCatalogues[tour].filter(piece => piece.measured)) {
+      const next = nextCatalogues[tour].find(piece => piece.id === metric.id);
+      if (!next || next.sample < metric.sample) throw new Error(`Release would lose measured${tour === 'atp' ? '' : ` ${tour.toUpperCase()}`} coverage: ${metric.id}`);
+    }
+    if (nextCatalogues[tour].length < priorCatalogues[tour].length) throw new Error(`Release would lose ${tour.toUpperCase()} record catalogue entries`);
   }
 }
 

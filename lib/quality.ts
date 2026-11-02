@@ -11,7 +11,7 @@ import { canonicalTournamentName } from './tournament-identity'
 
 export { canonicalTournamentName } from './tournament-identity'
 
-export const ARCHIVE_CRITERIA = 'Individuales ATP y WTA · cuadro principal · partidos terminados con sets cerrados y ganador coherente. Sin abandonos, incomparecencias ni marcadores en revisión. Cifras del archivo DEUCE, no de toda la carrera.'
+export const ARCHIVE_CRITERIA = 'Individuales ATP y WTA · Grand Slam y categorías 1000, 500 y 250 · cuadro principal · partidos terminados con sets cerrados y ganador coherente. Sin abandonos, incomparecencias ni marcadores en revisión. Cifras del archivo DEUCE, no de toda la carrera.'
 export function normalizeText(value: string) { return value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/ß/g, 'ss') }
 const names: Record<string, string> = {
   ...aliases,

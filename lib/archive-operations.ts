@@ -1,3 +1,5 @@
+import { WTA_HISTORICAL_ARCHIVE_LEVELS, WTA_HISTORICAL_FIRST_YEAR, WTA_HISTORICAL_LAST_YEAR } from './wta-backfill-schedule';
+
 export function operationStatus(value: unknown) {
   const row = value && typeof value === 'object' ? value as Record<string,unknown> : {};
   const date = (v:unknown) => typeof v==='string'&&Number.isFinite(Date.parse(v))?v:undefined;
@@ -50,6 +52,7 @@ export function withOperationHistory(previous: unknown, next: OperationRecord, l
 export function wtaBackfillProgress(value: unknown) {
   if (!value || typeof value!=='object' || !Array.isArray((value as {complete?:unknown}).complete)) return undefined;
   const complete = new Set((value as {complete:unknown[]}).complete);
-  const expected = Array.from({length:55},(_,i)=>1968+i).flatMap(year=>['G','M','A'].map(level=>`${year}-${level}`));
+  const expected = Array.from({length:WTA_HISTORICAL_LAST_YEAR-WTA_HISTORICAL_FIRST_YEAR+1},(_,i)=>WTA_HISTORICAL_FIRST_YEAR+i)
+    .flatMap(year=>WTA_HISTORICAL_ARCHIVE_LEVELS.map(level=>`${year}-${level}`));
   return { total:expected.length, completed:expected.filter(id=>complete.has(id)).length, pending:expected.filter(id=>!complete.has(id)) };
 }

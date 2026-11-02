@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useRef } from 'react';
 import { circuitSectionHref, navigationCircuit, type Circuit } from '@/lib/circuit-navigation';
+import { FooterCircuitNavigationFallback } from './CircuitNavigationFallback';
 
 function FooterNavigationLinks({ circuit }: { circuit: Circuit }) {
   return <nav className="footer-navigation" aria-label="Navegación del pie">
@@ -81,7 +82,7 @@ export function DeuceFooter() {
       <Link className="logo footer-logo" href="/" aria-label="DEUCE, inicio"><span aria-hidden="true" />DEUCE</Link>
       <p>Resultados, contexto y estadísticas: ATP desde 1968 y WTA desde 2018.</p>
     </div>
-    <Suspense fallback={<FooterNavigationLinks circuit="atp"/>}><CircuitAwareFooterNavigation/></Suspense>
+    <Suspense fallback={<FooterCircuitNavigationFallback />}><CircuitAwareFooterNavigation/></Suspense>
     <div className="footer-bottom">
       <span>© {new Date().getUTCFullYear()} DEUCE · Archivo en construcción continua</span>
       <span className="footer-credit">Made by quiquicius</span>

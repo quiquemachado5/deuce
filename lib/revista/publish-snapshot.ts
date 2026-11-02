@@ -4,12 +4,13 @@ import { attachRecordChanges, assertSnapshotIntegrity } from './record-changes';
 import {gzipSync,createGzip} from 'node:zlib';
 import {Readable} from 'node:stream';
 import {pipeline} from 'node:stream/promises';
-import {mkdir,writeFile,rename} from 'node:fs/promises';
+import {mkdir,writeFile,rename,readdir,unlink} from 'node:fs/promises';
 import {join} from 'node:path';
 import {isDeepStrictEqual} from 'node:util';
 import {cloudPruneSnapshotGenerations,cloudRead,cloudWrite,cloudWriteMany,type ArchiveWrite} from '../cloud-archive';
 import {attachIngestionHistory,partitionMatches,pieceChunk,type Snapshot,type RecordPages,type RecordManifest} from './snapshot';
 import {assertPublishableArchive} from '../dataset-summary';
+import {compileMatchBrowser,matchBrowserArtifact} from '../match-browser-snapshot';
 function compressedPages(id:string,piece:RecordPages):Array<[string,unknown]> {
  const chunks=new Map<number,{encoding:string;pages:Record<string,string>;smallPages:Record<string,string>}>([[0,{encoding:'gzip-base64',pages:{},smallPages:{}}]]);
  for(const group of ['pages','smallPages'] as const)for(const [page,rows] of Object.entries(piece[group])){
@@ -37,10 +38,13 @@ export const snapshotKey=(version:string,id:string)=>`reading-v2-${version}-${id
 export async function writeBundledSnapshot(snapshot:Snapshot) {
   const dir=join(process.cwd(),'data','reading');await mkdir(dir,{recursive:true});
   assertPublishableArchive(snapshot.matches);
-  const artifacts:Record<string,unknown>={eras:snapshot.eras,matches:snapshot.matches,players:snapshot.players,competition:snapshot.competition,audit:snapshot.audit,...Object.fromEntries(Object.entries(snapshot.pieces).map(([id,p])=>[`piece-${id}`,p])),manifest:snapshot.manifest};
+  const browser=compileMatchBrowser(snapshot.matches);
+  const artifacts:Record<string,unknown>={eras:snapshot.eras,matches:snapshot.matches,players:snapshot.players,competition:snapshot.competition,audit:snapshot.audit,'browser-index':browser.index,...Object.fromEntries(browser.partitions.map(partition=>[matchBrowserArtifact(partition.id),partition])),...Object.fromEntries(Object.entries(snapshot.pieces).map(([id,p])=>[`piece-${id}`,p])),manifest:snapshot.manifest};
   for(const [id,value] of Object.entries(artifacts)) {
     const path=join(dir,`${id}.json.gz`);await writeFile(`${path}.tmp`,gzipSync(JSON.stringify(value)));await rename(`${path}.tmp`,path);
   }
+  const expected=new Set(Object.keys(artifacts).map(id=>`${id}.json.gz`));
+  for(const file of await readdir(dir))if(file.endsWith('.json.gz')&&!expected.has(file))await unlink(join(dir,file));
 }
 type SnapshotStorage={read:(key:string)=>Promise<unknown>;write:(key:string,payload:unknown)=>Promise<void>;writeMany?:(entries:readonly ArchiveWrite[])=>Promise<void>;prune?:(keepVersions:readonly string[])=>Promise<number>};
 function publishedGeneration(manifest:RecordManifest) {
@@ -56,7 +60,9 @@ export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotSt
   const {pieces,eras,matches,players,competition,audit}=snapshot;
   const published=await storage.read('reading-v2-manifest');
   if((published as RecordManifest|undefined)?.version===snapshot.manifest.version&&(published as RecordManifest).artifactPacks)return published as RecordManifest;
-  assertPublishableArchive(matches,(published as RecordManifest|undefined)?.matchCount);
+  const previousCount=(published as RecordManifest|undefined)?.rulesVersion===snapshot.manifest.rulesVersion
+    ? (published as RecordManifest).matchCount : 0;
+  assertPublishableArchive(matches,previousCount);
   const manifest=attachIngestionHistory(published as RecordManifest | undefined,attachRecordChanges(published as RecordManifest | undefined,snapshot.manifest));
   if((published as RecordManifest|undefined)?.artifactPacks&&published&&typeof published==='object'&&isDeepStrictEqual(publishedGeneration(published as RecordManifest),publishedGeneration(manifest))){
     if(Date.parse(manifest.generatedAt)>Date.parse((published as RecordManifest).generatedAt))await storage.write('reading-v2-manifest',{...manifest,artifactPacks:(published as RecordManifest).artifactPacks});
@@ -66,9 +72,11 @@ export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotSt
     await storage.prune([(published as RecordManifest).version]).catch(error=>console.warn('Snapshot retention preflight failed:',error instanceof Error?error.name:'unknown'));
   }
   async function* artifacts():AsyncGenerator<[string,unknown]> {
+    const browser=compileMatchBrowser(matches);
     for(const [id,piece] of Object.entries(pieces))yield* compressedPages(id,piece);
     for(const group of partitionMatches(matches))yield* await compressedBlob(group.meta.id,group.matches);
-    for(const [id,value] of [['eras',eras],['players',players],['competition',competition],['audit',audit]] as const)yield* await compressedBlob(id,value);
+    for(const partition of browser.partitions)yield* await compressedBlob(matchBrowserArtifact(partition.id),partition);
+    for(const [id,value] of [['browser-index',browser.index],['eras',eras],['players',players],['competition',competition],['audit',audit]] as const)yield* await compressedBlob(id,value);
   }
   const artifactPacks: Record<string,string> = {};
   let uploads = 0;

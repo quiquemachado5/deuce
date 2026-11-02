@@ -10,6 +10,7 @@ import type { Match, Tour } from "@/lib/types";
 import SetScoreboard from "@/components/SetScoreboard";
 import MatchRow from "@/components/nocturno/Row";
 import GameFlow from "@/components/nocturno/GameFlow";
+import { comparisonArchiveHref } from "@/lib/match-comparison";
 
 type Query = { tour?:string; left?: string; right?: string; q?: string; side?: string };
 type Props = { searchParams: Promise<Query> };
@@ -122,7 +123,7 @@ export default async function ComparePage({ searchParams }: Props) {
   const connection = relationship(left, right);
   return <main className="nc-wrap ry-compare-page">
     <header className="ry-compare-intro">
-      <div><Link href="/buscar" className="ry-compare-back">Partidos</Link><h1>Comparar partidos</h1>{connection && <p>{connection}</p>}</div>
+      <div><Link href={comparisonArchiveHref(tour)} className="ry-compare-back">Partidos</Link><h1>Comparar partidos</h1>{connection && <p>{connection}</p>}</div>
     </header>
     <div className="ry-compare-identities"><MatchIdentity match={left} position="Partido 1" /><MatchIdentity match={right} position="Partido 2" /></div>
     <section className="ry-compare-analysis" aria-labelledby="ry-compare-analysis-title">

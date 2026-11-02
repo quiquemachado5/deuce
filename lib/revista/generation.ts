@@ -6,6 +6,7 @@ import { SNAPSHOT_SCHEMA, RULES_VERSION, type RecordManifest } from './snapshot'
 
 export type FallbackReason = 'remote-unavailable' | 'remote-incompatible' | 'remote-incomplete' | 'not-published';
 export type GenerationStatus = { source: 'bundled' | 'remote'; fallbackReason?: FallbackReason };
+export type GenerationSourceDecision = GenerationStatus & { manifest: RecordManifest };
 export type PreparedGeneration = GenerationStatus & {
   manifest: RecordManifest;
   matches: () => Promise<Match[]>;
@@ -50,6 +51,21 @@ export async function selectGeneration(
       || !isDeepStrictEqual(summarizeDataset(rows), candidate.summary)) return fallback('remote-incomplete');
     return { manifest: candidate, source: 'remote', matches: async () => rows, records: async () => players,competition:async()=>Array.isArray(competition)?competition:[] };
   } catch { return fallback('remote-incomplete'); }
+}
+
+/**
+ * A list index and the complete generation must follow the same manifest
+ * decision. Fail closed when a remote artifact disappears after its manifest
+ * was selected; serving the bundled detail would mix two dataset versions.
+ */
+export function assertGenerationCoherence(
+  decision: GenerationSourceDecision,
+  generation: PreparedGeneration,
+): PreparedGeneration {
+  if (decision.source !== generation.source || decision.manifest.version !== generation.manifest.version) {
+    throw new Error(`Snapshot generation changed after selection: ${decision.manifest.version} -> ${generation.manifest.version}`);
+  }
+  return generation;
 }
 
 export function generationMetadata(generation: Pick<PreparedGeneration, 'manifest' | 'source' | 'fallbackReason'>) {

@@ -1,7 +1,14 @@
 name: deuce
 
+x-logging: &deuce-logging
+  driver: local
+  options:
+    max-size: "20m"
+    max-file: "5"
+
 services:
   web:
+    image: ${DEUCE_WEB_IMAGE:-deuce-web:local}
     build:
       context: .
       args:
@@ -19,9 +26,10 @@ services:
       - archive:/app/.deuce-archive
     expose:
       - "3000"
+    logging: *deuce-logging
 
   scheduler:
-    image: node:24-bookworm-slim
+    image: ${DEUCE_WEB_IMAGE:-deuce-web:local}
     user: "1001:1001"
     restart: unless-stopped
     depends_on:
@@ -32,10 +40,10 @@ services:
     environment:
       DEUCE_INTERNAL_URL: http://web:3000
       DEUCE_ARCHIVE_DIR: /app/.deuce-archive
+      DEUCE_SCHEDULER_HEARTBEAT_ONLY: ${DEUCE_SCHEDULER_HEARTBEAT_ONLY:-0}
+      DEUCE_SCHEDULER_PIPELINE_DELAY_MS: ${DEUCE_SCHEDULER_PIPELINE_DELAY_MS:-0}
     command: ["node", "/app/ops/oracle/scheduler.mjs"]
     volumes:
-      - ./ops/oracle/scheduler.mjs:/app/ops/oracle/scheduler.mjs:ro
-      - ./ops/scheduler-core.mjs:/app/ops/scheduler-core.mjs:ro
       - archive:/app/.deuce-archive
     healthcheck:
       test: ["CMD", "node", "-e", "const fs=require('node:fs');const p=(process.env.DEUCE_ARCHIVE_DIR||'/app/.deuce-archive')+'/.scheduler/state.json';const s=JSON.parse(fs.readFileSync(p,'utf8'));if(!s.heartbeatAt||Date.now()-Date.parse(s.heartbeatAt)>180000)process.exit(1)"]
@@ -43,6 +51,7 @@ services:
       timeout: 5s
       start_period: 2m
       retries: 3
+    logging: *deuce-logging
 
   caddy:
     image: caddy:2-alpine
@@ -58,8 +67,10 @@ services:
       - "443:443/udp"
     volumes:
       - ./ops/oracle/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ${DEUCE_LOG_DIR:-/opt/deuce/logs}:/var/log/deuce
       - caddy_data:/data
       - caddy_config:/config
+    logging: *deuce-logging
 
 volumes:
   archive:

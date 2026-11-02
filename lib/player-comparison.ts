@@ -41,6 +41,16 @@ export function comparePlayer(matches: Match[], name: string, q: ComparisonFilte
   };
 }
 
+/** Head-to-head rows are the intersection of both players' filtered samples. */
+export function comparisonHeadToHead(matches: Match[], names: string[], samples: Match[][]) {
+  const sampleIds=samples.map(sample=>new Set(sample.map(match=>match.match_id)));
+  return matches
+    .filter(match=>names.includes(match.player1.name)&&names.includes(match.player2.name))
+    .filter(eligibleMatch)
+    .filter(match=>sampleIds.every(ids=>ids.has(match.match_id)))
+    .sort((a,b)=>chronological(b,a));
+}
+
 /** Intersection of documented seasons, not a claim about retirement or professional debut. */
 export function sharedCareerWindow(matches: Match[], names: string[]) {
   const periods=names.map(name=>archiveIndex(matches).players.get(name)||[]);

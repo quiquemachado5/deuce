@@ -10,6 +10,35 @@ test('circuit-specific suggestions cannot leak the opposite circuit',async({requ
   }
 });
 
+test('neutral search covers ATP and WTA while archive search keeps its circuit',async({page,request})=>{
+  for(const query of ['Djokovic','Sabalenka']){
+    const response=await request.get(`/api/search?tour=all&q=${query}`);
+    expect(response.ok()).toBe(true);
+    expect((await response.json()).items.length).toBeGreaterThan(0);
+  }
+  await page.goto('/info');
+  await page.getByRole('button',{name:'Buscar en DEUCE'}).click();
+  await expect(page.getByText('Buscar en ATP y WTA',{exact:true})).toBeVisible();
+  await page.locator('#global-search').fill('Sabalenka');
+  await page.getByRole('button',{name:'Ver todos los resultados'}).click();
+  await expect(page).toHaveURL(/\/buscar\?q=Sabalenka&tour=all$/);
+  await expect(page.getByText('Resultados publicados de ATP y WTA. Elige un circuito para continuar solo en su archivo.')).toBeVisible();
+  await expect(page.getByRole('link',{name:/Aryna Sabalenka/}).first()).toBeVisible();
+
+  await page.goto('/buscar');
+  await page.getByRole('button',{name:'Buscar en DEUCE'}).click();
+  await expect(page.getByText('Buscar en DEUCE · ATP',{exact:true})).toBeVisible();
+});
+
+test('archive filters never inherit an invisible latest season',async({page})=>{
+  await page.goto('/buscar');
+  await expect(page.getByRole('link',{name:/Quitar filtro Temporada \d{4}/})).toBeVisible();
+  await page.goto('/buscar?surface=clay');
+  await expect(page.getByRole('link',{name:/Quitar filtro Temporada/})).toHaveCount(0);
+  await page.getByRole('button',{name:/Filtrar partidos/}).click();
+  await expect(page.getByLabel('Temporada')).toHaveValue('all');
+});
+
 test('WTA comparator persists its circuit and never defaults to ATP champions',async({page})=>{
   await page.goto('/comparar?tour=wta&year=1900');
   await expect(page.locator('input[name="tour"]')).toHaveValue('wta');
@@ -27,6 +56,8 @@ test('WTA directory, tournament leaders and quick record suggestions retain WTA 
   await page.goto('/jugadores?tour=wta&tipo=enfrentamientos');
   await expect(page).toHaveURL(/\/comparar\?tour=wta$/);
   await page.goto('/torneos/roland-garros?cuadro=wta');
+  await expect(page.getByRole('heading',{name:'Campeonas en la muestra publicada'})).toBeVisible();
+  await expect(page.getByRole('heading',{name:'Campeonas de la historia'})).toHaveCount(0);
   const effectiveness=page.locator('section').filter({has:page.getByRole('heading',{name:'Efectividad en este torneo'})});
   await expect(effectiveness.getByRole('link').first()).toHaveAttribute('href',/tour=wta/);
   const response=await request.get('/api/search?mode=quick&tour=wta&q=victorias');

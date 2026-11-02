@@ -104,7 +104,7 @@ export default async function Players({ searchParams }: {
       {!pairs && term && <p className="sr-only" aria-live="polite">{number(total)} {query.tour==='wta'?(total===1?'jugadora encontrada':'jugadoras encontradas'):(total === 1 ? 'jugador encontrado' : 'jugadores encontrados')}.</p>}
 
       {!pairs && visiblePlayers.length > 0 && <section className={styles.playerGrid} aria-label={term?(query.tour==='wta'?'Resultados de jugadoras':'Resultados de jugadores'):(query.tour==='wta'?'Directorio de jugadoras':'Directorio de jugadores')}>
-        {visiblePlayers.map((player, index) => <Link className={`${styles.playerCard} ${styles.cardSwapPrototype}`} href={player.href} prefetch={false} key={player.record.name}>
+        {visiblePlayers.map((player, index) => <Link className={`${styles.playerCard} ${styles.cardSwapPrototype}`} data-has-photo={player.photo?'true':'false'} href={player.href} prefetch={false} key={player.record.name}>
           <div className={styles.photo} style={player.photo ? {
             '--photo-position': player.photo.objectPosition || 'center top',
             '--photo-mobile-position': player.photo.mobileObjectPosition || player.photo.objectPosition || 'center top',

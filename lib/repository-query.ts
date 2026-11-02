@@ -5,6 +5,7 @@ import { tournamentName } from './labels'
 import { normalizeText } from './quality'
 import { tournamentDirectory } from './tournament-directory'
 import { verifiedTournamentCategory } from './tournament-tier'
+import { PUBLICATION_CATEGORIES } from './publication-scope'
 
 export function parseRepositoryQuery(params: URLSearchParams) {
   const allowed = ['tour','q','search','player','round','year','tournament','category','surface','fiveSets','view','page','limit','kind']
@@ -24,7 +25,7 @@ export function parseRepositoryQuery(params: URLSearchParams) {
   const surface = params.get('surface') || 'all'
   if (!['all','hard','clay','grass','carpet','unknown'].includes(surface)) throw new Error('Superficie no válida')
   const category = params.get('category') || 'all'
-  if (!['all','Grand Slam','Masters 1000','Precursores de Masters','ATP 500','ATP 250','ATP Tour · nivel no especificado','WTA 1000','WTA 500','WTA 250','WTA 125','WTA · alto nivel histórico'].includes(category)) throw new Error('Categoría no válida')
+  if (category !== 'all' && !PUBLICATION_CATEGORIES[tour].has(category)) throw new Error('Categoría no válida')
   if (params.has('fiveSets') && !['true','false'].includes(params.get('fiveSets')!)) throw new Error('fiveSets debe ser true o false')
   if (params.has('view') && params.get('view') !== 'summary') throw new Error('La vista pública es summary')
   const kind = params.get('kind') || ''

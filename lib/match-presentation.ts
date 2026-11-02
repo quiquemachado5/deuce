@@ -13,13 +13,17 @@ export function orientMatch(match: Match): Match {
   }
 }
 export const MATCH_TYPES = ['Cerrado','Roto','Remontada','Al límite'] as const
-export function matchType(match: Match): typeof MATCH_TYPES[number] {
-  const games=match.score_summary.games, side=match.winner===2?1:0
+export type MatchType = typeof MATCH_TYPES[number]
+export function matchTypeFromScore(games: number[][], winner: Match['winner']): MatchType {
+  const side=winner===2?1:0
   if (!games.length) return 'Cerrado'
   if (games[0][side] < games[0][1-side]) return 'Remontada'
   const wins=[games.filter(([a,b])=>a>b).length,games.filter(([a,b])=>b>a).length]
   if (games.length===Math.max(...wins)*2-1 || games.some(([a,b])=>Math.max(a,b)>7)) return 'Al límite'
   const loserGames=games.reduce((sum,g)=>sum+g[1-side],0),winnerGames=games.reduce((sum,g)=>sum+g[side],0)
   return loserGames/winnerGames<=.5?'Roto':'Cerrado'
+}
+export function matchType(match: Match): MatchType {
+  return matchTypeFromScore(match.score_summary.games, match.winner)
 }
 export const MATCH_TYPE_DEFINITION='Remontada: el ganador perdió el primer set. Al límite: manga decisiva o set de más de siete juegos. Roto: el perdedor ganó como máximo la mitad de juegos que el ganador. Cerrado: el resto.'

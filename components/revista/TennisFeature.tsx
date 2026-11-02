@@ -28,7 +28,7 @@ export function TennisFeature({match}:{match:Match}) {
 export function RecordsMasthead({matches}:{matches:number}) {
  const photo=courtPhoto('Roland Garros')!;
  return <header className="records-masthead">
-  <div><p className="small">Grand Slams · Masters · Precursores</p><h1>El archivo, bajo otra mirada.</h1><p>Encuentra líderes, compara épocas y descubre patrones. Cada lista incluye su definición, muestra y partidos.</p><p className="scope">{matches.toLocaleString('es-ES',{useGrouping:'always'})} partidos del archivo.</p></div>
+  <div><p className="small">Grand Slam · 1000 · 500 · 250 · ATP y WTA</p><h1>El archivo, bajo otra mirada.</h1><p>Encuentra líderes, compara épocas y descubre patrones. Cada lista incluye su definición, muestra y partidos.</p><p className="scope">{matches.toLocaleString('es-ES',{useGrouping:'always'})} partidos del archivo.</p></div>
   <figure><Image src={photo.src} alt={photo.alt} width={734} height={560} sizes="(max-width:759px) 100vw, 45vw" priority/><figcaption><span>Philippe-Chatrier · 2024</span><a href={photo.source}>{photo.credit}</a></figcaption></figure>
  </header>;
 }

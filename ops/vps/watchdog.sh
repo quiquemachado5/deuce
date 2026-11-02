@@ -2,12 +2,31 @@
 set -euo pipefail
 
 ROOT="${DEUCE_ROOT:-/opt/deuce/app}"
+STATE_DIR="${DEUCE_DEPLOY_STATE_DIR:-/opt/deuce/deployments}"
+LOCK_FILE="${DEUCE_DEPLOY_LOCK_FILE:-${STATE_DIR}/deploy.lock}"
 cd "${ROOT}"
+
+if [[ ! -e "${LOCK_FILE}" ]]; then
+  echo "DEUCE watchdog skipped: deployment lock is not initialized."
+  exit 0
+fi
+exec 9<"${LOCK_FILE}"
+if ! flock -n -s 9; then
+  echo "DEUCE watchdog skipped: a deployment is active."
+  exit 0
+fi
+if [[ ! -s "${STATE_DIR}/active-image" ]]; then
+  echo "DEUCE watchdog skipped: no release has been promoted yet."
+  exit 0
+fi
 
 if [[ ! -f .env.production ]]; then
   echo "DEUCE watchdog skipped: ${ROOT}/.env.production is missing."
   exit 0
 fi
+
+export DEUCE_WEB_IMAGE="$(<"${STATE_DIR}/active-image")"
+export SOURCE_COMMIT="$(docker image inspect --format '{{index .Config.Labels "org.opencontainers.image.revision"}}' "${DEUCE_WEB_IMAGE}")"
 
 compose=(docker compose --env-file .env.production)
 web_id="$("${compose[@]}" ps -q web)"

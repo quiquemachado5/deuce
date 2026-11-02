@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { recordsUrl, recordFilters } from '../lib/records-url';
+import { recordEraEvidenceUrl, recordEraPlayerUrl, recordsUrl, recordFilters } from '../lib/records-url';
 import { evidenceHref } from '../lib/record-evidence';
 
 test('record URLs omit defaults and reset pages without dropping filters', () => {
@@ -18,4 +18,12 @@ test('evidence links keep the era used to calculate the record', () => {
   const params = new URL(url, 'https://example.com').searchParams;
   assert.equal(params.get('era'), 'last20');
   assert.equal(params.get('surface'), 'clay');
+});
+
+test('two-era records retain WTA in player and evidence links', () => {
+  assert.equal(recordEraPlayerUrl('aryna-sabalenka', { tour: 'wta' }), '/jugadores/aryna-sabalenka?tour=wta');
+  const url = new URL(recordEraEvidenceUrl('Aryna Sabalenka', 2020, { tour: 'wta', surface: 'hard' }), 'https://example.com');
+  assert.equal(url.searchParams.get('dato'), 'dos-epocas');
+  assert.equal(url.searchParams.get('tour'), 'wta');
+  assert.equal(url.searchParams.get('surface'), 'hard');
 });

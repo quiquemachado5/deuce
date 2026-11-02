@@ -10,7 +10,8 @@ export default function HomeSearch({ id, onSearch }: { id: string; onSearch?: ()
     const query = String(new FormData(event.currentTarget).get("q") || "").trim();
     if (!query) return;
     onSearch?.();
-    router.push(`/buscar?${/^\d{4}$/.test(query) ? "year" : "q"}=${encodeURIComponent(query)}`);
+    const params = new URLSearchParams({ tour: "all", [/^\d{4}$/.test(query) ? "year" : "q"]: query });
+    router.push(`/buscar?${params}`);
   }}>
     <label className={styles.srOnly} htmlFor={id}>Buscar un partido por jugador, torneo o año</label>
     <input id={id} name="q" type="search" placeholder="Jugador, torneo o año" autoComplete="off" enterKeyHint="search" required maxLength={100} />

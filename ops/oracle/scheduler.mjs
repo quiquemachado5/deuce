@@ -1,6 +1,6 @@
 import { mkdir, readFile, rename, writeFile } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
-import { dueStages, nextRetryAt, parseJobResponse, publicationReady, retryDelay } from '../scheduler-core.mjs'
+import { dueStages, heartbeatBootstrapState, nextRetryAt, parseJobResponse, publicationReady, retryDelay } from '../scheduler-core.mjs'
 
 const base = process.env.DEUCE_INTERNAL_URL || 'http://web:3000'
 const secret = process.env.CRON_SECRET
@@ -11,12 +11,15 @@ const refreshJobs = [
   { name: 'WTA refresh', path: '/api/cron/wta' },
 ]
 const publicationJob = { name: 'validated publication', path: '/api/cron/publish' }
-const jobs = [...refreshJobs, publicationJob]
+const backfillJob = { name: 'optional WTA history', path: '/api/cron/wta-backfill' }
+const jobs = [...refreshJobs, publicationJob, backfillJob]
 const pipelineHour = Number(process.env.DEUCE_PIPELINE_HOUR_UTC || 22)
 const pipelineMinute = Number(process.env.DEUCE_PIPELINE_MINUTE_UTC || 5)
 const catchUpWindow = 12 * 60 * 60 * 1000
 const maximumAttempts = Math.max(1, Number(process.env.DEUCE_SCHEDULER_MAX_ATTEMPTS || 5))
 const heartbeatEvery = Math.max(30_000, Number(process.env.DEUCE_SCHEDULER_HEARTBEAT_MS || 60_000))
+const heartbeatOnly = process.env.DEUCE_SCHEDULER_HEARTBEAT_ONLY === '1'
+const pipelineStartupDelay = Math.min(600_000, Math.max(0, Number(process.env.DEUCE_SCHEDULER_PIPELINE_DELAY_MS || 0) || 0))
 const statePath = process.env.DEUCE_SCHEDULER_STATE || (process.env.DEUCE_ARCHIVE_DIR
   ? join(process.env.DEUCE_ARCHIVE_DIR, '.scheduler', 'state.json')
   : join(process.cwd(), '.deuce-scheduler', 'state.json'))
@@ -27,7 +30,7 @@ function cleanStages(value) {
   return Object.fromEntries(Object.entries(source).filter(([path]) => jobPaths.has(path)).map(([path, stage]) => {
     const row = stage && typeof stage === 'object' ? stage : {}
     return [path, {
-      status: ['pending', 'running', 'retrying', 'blocked', 'success'].includes(row.status) ? row.status : 'pending',
+      status: ['pending', 'running', 'retrying', 'deferred', 'deferred-cycle', 'blocked', 'success'].includes(row.status) ? row.status : 'pending',
       attempts: Number.isSafeInteger(row.attempts) ? row.attempts : 0,
       lastAttemptAt: typeof row.lastAttemptAt === 'string' ? row.lastAttemptAt : undefined,
       nextAttemptAt: typeof row.nextAttemptAt === 'string' ? row.nextAttemptAt : undefined,
@@ -67,7 +70,9 @@ function targetFor(date) {
   return target
 }
 const dayKey = date => date.toISOString().slice(0, 10)
-const pipelineComplete = value => jobs.every(job => value.stages?.[job.path]?.status === 'success')
+const pipelineComplete = value => refreshJobs.every(job => value.stages?.[job.path]?.status === 'success')
+  && value.stages?.[publicationJob.path]?.status === 'success'
+  && ['success', 'deferred-cycle', 'blocked'].includes(value.stages?.[backfillJob.path]?.status)
 
 function freshState(day, scheduledAt) {
   return {
@@ -94,7 +99,7 @@ function pipelinePlan(allowCatchUp) {
   return { wait: Math.max(1_000, next.getTime() - now.getTime()), day: dayKey(next), scheduledAt: next.getTime() }
 }
 
-async function runJob(job) {
+async function runJob(job, { oncePerCycle = false } = {}) {
   const previous = state.stages[job.path] || { status: 'pending', attempts: 0 }
   const attempt = previous.attempts + 1
   const startedAt = new Date().toISOString()
@@ -107,18 +112,19 @@ async function runJob(job) {
     })
     const body = await response.text()
     const result = parseJobResponse(response.status, body)
-    const canRetry = !result.ok && result.retryable && attempt < maximumAttempts
+    const canRetry = !oncePerCycle && !result.ok && result.retryable && attempt < maximumAttempts
+    const deferred = !result.ok && result.deferred === true
     state.stages[job.path] = {
-      status: result.ok ? 'success' : canRetry ? 'retrying' : 'blocked',
+      status: result.ok ? 'success' : deferred && oncePerCycle ? 'deferred-cycle' : deferred ? 'deferred' : canRetry ? 'retrying' : 'blocked',
       attempts: attempt, lastAttemptAt: startedAt, operationStatus: result.operationStatus,
-      nextAttemptAt: canRetry ? new Date(Date.now() + retryDelay(attempt)).toISOString() : undefined,
-      error: result.ok ? undefined : `HTTP ${response.status}`,
+      nextAttemptAt: deferred && !oncePerCycle ? result.retryAt || new Date(Date.now() + retryDelay(attempt)).toISOString() : canRetry ? new Date(Date.now() + retryDelay(attempt)).toISOString() : undefined,
+      error: result.ok || deferred ? undefined : `HTTP ${response.status}`,
     }
     console.log(JSON.stringify({ event: 'deuce.scheduler', job: job.name, startedAt, finishedAt: new Date().toISOString(), status: response.status, outcome: state.stages[job.path].status, body: body.slice(0, 500) }))
     await persist()
     return result.ok
   } catch (error) {
-    const canRetry = attempt < maximumAttempts
+    const canRetry = !oncePerCycle && attempt < maximumAttempts
     state.stages[job.path] = {
       status: canRetry ? 'retrying' : 'blocked', attempts: attempt, lastAttemptAt: startedAt,
       nextAttemptAt: canRetry ? new Date(Date.now() + retryDelay(attempt)).toISOString() : undefined,
@@ -140,6 +146,9 @@ async function runPipeline(day, scheduledAt) {
   if (publicationReady(state, refreshJobs.map(job => job.path))) {
     for (const job of dueStages([publicationJob], state)) await runJob(job)
   }
+  if (state.stages?.[publicationJob.path]?.status === 'success') {
+    for (const job of dueStages([backfillJob], state)) await runJob(job, { oncePerCycle: true })
+  }
   console.log(JSON.stringify({ event: 'deuce.scheduler.pipeline.finished', day, complete: pipelineComplete(state), stages: state.stages, at: new Date().toISOString() }))
   void schedulePipeline(true)
 }
@@ -157,5 +166,17 @@ async function schedulePipeline(allowCatchUp) {
   }, plan.wait)
 }
 
-setInterval(() => { void persist() }, heartbeatEvery).unref()
-await schedulePipeline(true)
+if (heartbeatOnly) {
+  state = heartbeatBootstrapState()
+  await persist()
+  console.log(JSON.stringify({ event: 'deuce.scheduler.bootstrap-heartbeat', at: state.heartbeatAt }))
+  setInterval(() => { void persist() }, heartbeatEvery)
+} else {
+  setInterval(() => { void persist() }, heartbeatEvery).unref()
+  if (pipelineStartupDelay > 0) {
+    state.nextRunAt = new Date(Date.now() + pipelineStartupDelay).toISOString()
+    await persist()
+    console.log(JSON.stringify({ event: 'deuce.scheduler.pipeline-delayed', delayMs: pipelineStartupDelay, at: state.nextRunAt }))
+    timer = setTimeout(() => { void schedulePipeline(true) }, pipelineStartupDelay)
+  } else await schedulePipeline(true)
+}

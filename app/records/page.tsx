@@ -285,9 +285,9 @@ async function RecordIndex({
       {overview && rankingSets.length > 0 && (
         <section
           className={`${redesign.rankings} deuce-content`}
-          aria-label="Clasificaciones históricas"
+          aria-label={query.tour==='wta'?'Clasificaciones de la muestra publicada':'Clasificaciones históricas'}
         >
-          <RecordsRankings sets={rankingSets} />
+          <RecordsRankings sets={rankingSets} heading={query.tour==='wta'?'Clasificaciones de la muestra publicada':undefined} />
         </section>
       )}
       {overview && (
@@ -725,7 +725,7 @@ export default async function Records({
       >
         {back}
         <ArchiveNotice status={view} />
-        <aside className="dx-notice" role="note">{recordScope(view.manifest,'atp')}</aside>
+        <aside className="dx-notice" role="note">{recordScope(view.manifest,query.tour === 'wta' ? 'wta' : 'atp')}</aside>
         <header className={`${styles.heading} ${redesign.detailHero}`}>
           <h1>Efectividad en finales</h1>
           <p>Antes y desde {cutoff}, dentro del archivo publicado. Al menos cinco finales en cada periodo.</p>

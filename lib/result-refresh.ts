@@ -1,3 +1,5 @@
+import { PROVIDER_PUBLICATION_TIERS } from './publication-scope';
+
 type Row = { id: unknown; [key: string]: unknown };
 export type SeasonCheckpoint = { season: number; tour: 'atp' | 'wta'; baselineAt?: string; startedAt: string; windows: string[]; windowIndex: number; offset: number; rows: Row[] };
 export type Season = { scope?: string; at?: string; data?: Row[] } | null | undefined;
@@ -55,7 +57,7 @@ export async function reconcileSeasonResults(
     let offset = windowIndex === resume?.windowIndex ? resume.offset : 0;
     for (;;) {
       const page = await request(
-        `/history/matches?tour=${tour}&draw=singles&${windows[windowIndex]}&limit=200&offset=${offset}`,
+        `/history/matches?tour=${tour}&draw=singles&tier=${PROVIDER_PUBLICATION_TIERS[tour]}&${windows[windowIndex]}&limit=200&offset=${offset}`,
       );
       if (!Array.isArray(page.data) || !page.meta || typeof page.meta.has_more !== 'boolean')
         throw Error('Unexpected tennis list response');

@@ -33,6 +33,12 @@ test('filesystem archive writes atomically, reports usage and excludes concurren
     assert.equal(typeof nextRelease, 'function')
     await nextRelease?.()
 
+    const renewable = await acquireArchiveLease('renewable-provider', 1)
+    assert.equal(typeof renewable, 'function')
+    await new Promise(resolve => setTimeout(resolve, 1_250))
+    assert.equal(await acquireArchiveLease('renewable-provider', 1), null)
+    await renewable?.()
+
     await deleteArchiveKeys(['detail-modern-1'])
     assert.equal(await readArchiveObject('detail-modern-1'), undefined)
   } finally {

@@ -10,11 +10,12 @@ import type {Match} from '../types';
 import type {PlayerRecord} from '../season-analytics';
 import {eraComparisons,type Era,type RecordRow} from './records';
 import {clampPage,pageBoundaryTies,pieceChunk,PAGE_SIZE,SNAPSHOT_SCHEMA,RULES_VERSION,type RecordManifest,type RecordMeta,type RecordPages} from './snapshot';
-import {selectGeneration,type PreparedGeneration,type GenerationStatus} from './generation';
+import {assertGenerationCoherence,compatibleManifest,selectGeneration,type PreparedGeneration,type GenerationStatus,type GenerationSourceDecision,type FallbackReason} from './generation';
 import {selectedArchive, selectedCatalog} from './selection';
 import {archiveIndex} from '../archive-index';
 import {auditEditions} from '../edition-audit';
 import {readingDirectory} from '../reading-directory';
+import {MATCH_BROWSER_DICTIONARIES,MATCH_BROWSER_ROW_LENGTH,MATCH_BROWSER_SCHEMA,matchBrowserArtifact,type MatchBrowserIndex,type MatchBrowserPartition} from '../match-browser-snapshot';
 const bundled=asyncCache<unknown>(3600_000,100);
 async function local<T>(id:string):Promise<T>{return await bundled(id,async()=>JSON.parse(gunzipSync(await readFile(join(readingDirectory(),`${id}.json.gz`))).toString())) as T;}
 async function localOptional<T>(id:string,fallback:T):Promise<T>{try{return await local<T>(id);}catch{return fallback;}}
@@ -55,29 +56,50 @@ export function createRemoteProbeCircuit(now:()=>number=Date.now,delays:readonly
 }
 const manifestCircuit=createRemoteProbeCircuit();
 const generations=asyncCache<PreparedGeneration>(300_000,1,g=>g.fallbackReason?30_000:300_000);
+const snapshotSources=asyncCache<GenerationSourceDecision>(300_000,1,source=>source.fallbackReason?30_000:300_000);
 export const preparedBundledManifest=cache(async()=>{
  const manifest=await local<RecordManifest>('manifest');
  if(manifest.schema!==SNAPSHOT_SCHEMA||manifest.rulesVersion!==RULES_VERSION)throw new Error('Reading snapshot is incompatible; run npm run build');
  return manifest;
 });
+async function selectedSnapshotSource(){return snapshotSources('active',async()=>{
+ const base=await preparedBundledManifest();
+ const bundled=(fallbackReason?:FallbackReason):GenerationSourceDecision=>({manifest:base,source:'bundled',fallbackReason});
+ if(!cloudArchiveConfigured())return bundled();
+ if(!manifestCircuit.canAttempt())return bundled('remote-unavailable');
+ const row=await query('reading-v2-manifest','payload',1200);
+ const fresh=row===undefined?undefined:row===null?null:row?.payload;
+ if(fresh===undefined){manifestCircuit.failed();return bundled('remote-unavailable');}
+ if(fresh===null){manifestCircuit.succeeded();return bundled('not-published');}
+ if(!compatibleManifest(fresh)){manifestCircuit.failed();return bundled('remote-incompatible');}
+ if(fresh.version===base.version||Date.parse(fresh.generatedAt)<=Date.parse(base.generatedAt)){
+  manifestCircuit.succeeded();
+  return bundled();
+ }
+ registerArtifactPacks(fresh.version,fresh.artifactPacks);
+ manifestCircuit.succeeded();
+ return {manifest:fresh,source:'remote'};
+});}
+
+function rejectRemoteSnapshot(){
+ manifestCircuit.failed();
+ snapshotSources.clear();
+ generations.clear();
+ remote.clear();
+ browserIndexes.clear();
+ browserPartitions.clear();
+ clearArtifactPacks();
+}
+
 export const preparedGeneration=cache(()=>generations('active',async()=>{
  const base=await preparedBundledManifest();
- const configured=cloudArchiveConfigured();
- let fresh:unknown=null,attempted=false;
- if(configured){
-  if(manifestCircuit.canAttempt()){
-   attempted=true;
-   const row=await query('reading-v2-manifest','payload',1200);
-   fresh=row===undefined?undefined:row===null?null:row?.payload;
-  }else fresh=undefined;
- }
- const generation=await selectGeneration({manifest:base,source:'bundled',matches:()=>local<Match[]>('matches'),records:()=>local<PlayerRecord[]>('players'),competition:()=>localOptional<Match[]>('competition',[])},fresh,
-   async m=>{registerArtifactPacks(m.version,m.artifactPacks);const [matches,records,competition]=await Promise.all([cloudMatches(m),cloudBlob<PlayerRecord[]>(m.version,'players'),cloudBlob<Match[]>(m.version,'competition')]);return {matches,records,competition};},configured);
- if(attempted){
-  if(generation.fallbackReason&&generation.fallbackReason!=='not-published')manifestCircuit.failed();
-  else manifestCircuit.succeeded();
- }
- return generation;
+ const decision=await selectedSnapshotSource();
+ const bundledGeneration:PreparedGeneration={manifest:base,source:'bundled',matches:()=>local<Match[]>('matches'),records:()=>local<PlayerRecord[]>('players'),competition:()=>localOptional<Match[]>('competition',[])};
+ if(decision.source==='bundled')return {...bundledGeneration,fallbackReason:decision.fallbackReason};
+ const generation=await selectGeneration(bundledGeneration,decision.manifest,
+   async m=>{const [matches,records,competition]=await Promise.all([cloudMatches(m),cloudBlob<PlayerRecord[]>(m.version,'players'),cloudBlob<Match[]>(m.version,'competition')]);return {matches,records,competition};},true);
+ try{return assertGenerationCoherence(decision,generation);}
+ catch(error){rejectRemoteSnapshot();throw error;}
 }));
 /** The bundled summary stays lightweight; a newer remote generation is validated before use. */
 export const preparedManifest=cache(async()=> (await preparedGeneration()).manifest);
@@ -215,8 +237,74 @@ export const preparedPlayerRecords = cache(async () => {
  return {records:await generation.records(),manifest:generation.manifest,source:generation.source,fallbackReason:generation.fallbackReason};
 });
 
+const browserIndexes=asyncCache<MatchBrowserIndex>(300_000,2);
+const browserPartitions=asyncCache<MatchBrowserPartition>(300_000,18);
+type BrowserSource={manifest:RecordManifest;index:MatchBrowserIndex;source:'bundled'|'remote';fallbackReason?:FallbackReason};
+function validBrowserCircuit(value:MatchBrowserIndex['circuits']['atp']|undefined) {
+ return !!value&&Array.isArray(value.years)&&Array.isArray(value.surfaces)&&Array.isArray(value.categories)
+  &&Array.isArray(value.rounds)&&Array.isArray(value.events)&&Array.isArray(value.players)
+  &&!!value.capabilities&&['statistics','points','fiveSets'].every(key=>typeof value.capabilities[key as keyof typeof value.capabilities]==='boolean');
+}
+function validBrowserIndex(value:MatchBrowserIndex|undefined,matchCount:number):value is MatchBrowserIndex {
+ return value?.schema===MATCH_BROWSER_SCHEMA&&value.count===matchCount&&Array.isArray(value.partitions)&&value.partitions.length>0
+  &&value.partitions.every(partition=>typeof partition.id==='string'&&(partition.tour==='atp'||partition.tour==='wta')&&Number.isSafeInteger(partition.count)&&partition.count>0)
+  &&new Set(value.partitions.map(partition=>partition.id)).size===value.partitions.length
+  &&value.partitions.reduce((sum,partition)=>sum+partition.count,0)===matchCount
+  &&validBrowserCircuit(value.circuits?.atp)&&validBrowserCircuit(value.circuits?.wta);
+}
+function validBrowserPartition(value:MatchBrowserPartition|undefined,id:string,count:number):value is MatchBrowserPartition {
+ return value?.schema===MATCH_BROWSER_SCHEMA&&value.id===id&&value.count===count
+  &&!!value.dictionaries&&MATCH_BROWSER_DICTIONARIES.every(key=>Array.isArray(value.dictionaries[key as keyof typeof value.dictionaries]))
+  &&Array.isArray(value.rows)&&value.rows.length===count
+  &&value.rows.every(row=>Array.isArray(row)&&row.length===MATCH_BROWSER_ROW_LENGTH&&typeof row[0]==='string');
+}
+async function selectedBrowserSource(){
+ const decision=await selectedSnapshotSource();
+ const base=decision.manifest;
+ const localIndex=async()=>browserIndexes(`${base.version}:bundled`,async()=>{
+   const stored=await localOptional<MatchBrowserIndex|undefined>('browser-index',undefined);
+   if(validBrowserIndex(stored,base.matchCount))return stored;
+   throw new Error('Bundled match browser index is missing or incompatible');
+ });
+ if(decision.source==='bundled')return {...decision,index:await localIndex()};
+ const index=await browserIndexes(`${base.version}:remote`,async()=>await cloudBlob<MatchBrowserIndex>(base.version,'browser-index') as MatchBrowserIndex);
+ if(!validBrowserIndex(index,base.matchCount)){
+  rejectRemoteSnapshot();
+  throw new Error(`Incomplete remote match browser index: ${base.version}`);
+ }
+ return {...decision,index};
+}
+
+export const preparedMatchBrowserIndex=cache(selectedBrowserSource);
+
+/** Compact navigation data; match details stay compressed until their page is opened. */
+export const preparedMatchBrowser=cache(async(tour:'atp'|'wta'|'all',fromYear?:number,toYear?:number)=>{
+ const selected=await selectedBrowserSource();
+ const loadPartitions=async(source:BrowserSource)=>{
+   const cacheKey=`${source.manifest.version}:${source.source}`;
+   const metas=source.index.partitions.filter(partition=>(tour==='all'||partition.tour===tour)
+   &&(fromYear===undefined||partition.toYear>=fromYear)&&(toYear===undefined||partition.fromYear<=toYear));
+   return Promise.all(metas.map(meta=>browserPartitions(`${cacheKey}:${meta.id}`,async()=>{
+     const id=matchBrowserArtifact(meta.id);
+     const stored=source.source==='remote'
+       ? await cloudBlob<MatchBrowserPartition>(source.manifest.version,id)
+       : await localOptional<MatchBrowserPartition|undefined>(id,undefined);
+     if(validBrowserPartition(stored,meta.id,meta.count))return stored;
+     if(source.source==='remote')throw new Error(`Incomplete remote match browser partition: ${meta.id}`);
+     throw new Error(`Missing match browser partition: ${meta.id}`);
+   })));
+ };
+ try{return {...selected,partitions:await loadPartitions(selected)};}
+ catch(error){
+   if(selected.source==='remote')rejectRemoteSnapshot();
+   throw new Error(selected.source==='remote'
+     ? `Remote match browser does not match selected generation ${selected.manifest.version}`
+     : 'Bundled match browser is incomplete',{cause:error});
+ }
+});
+
 export const preparedTournamentArchive=cache(async()=>{const g=await preparedGeneration();const [matches,entries]=await Promise.all([g.matches(),g.competition?.()||Promise.resolve([])]);return [...matches,...entries];});
 
 export const preparedEditionAudit=cache(async()=>{const g=await preparedGeneration();const stored=g.source==='remote' ? await cloudBlob<import('../edition-audit').EditionAudit[]>(g.manifest.version,'audit') : await localOptional<import('../edition-audit').EditionAudit[]>('audit',[]);if(stored?.length)return stored;const [matches,competition]=await Promise.all([g.matches(),g.competition?.()||Promise.resolve([])]);return auditEditions([...matches,...competition]);});
 
-export function invalidatePreparedGeneration() { generations.clear(); remote.clear(); clearArtifactPacks(); manifestCircuit.succeeded(); }
+export function invalidatePreparedGeneration() { generations.clear(); snapshotSources.clear(); browserIndexes.clear(); browserPartitions.clear(); remote.clear(); clearArtifactPacks(); manifestCircuit.succeeded(); }

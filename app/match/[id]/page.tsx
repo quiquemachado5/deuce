@@ -16,6 +16,7 @@ import { score } from "@/lib/cuaderno/model";
 import { pairSlug, rivalryDirectory } from "@/lib/explore";
 import Row from "@/components/nocturno/Row";
 import { matchCanonicalPath, matchHasTransientState, noIndexFollow } from "@/lib/seo-metadata";
+import { comparisonPageHref, findCircuitMatch, matchCircuit } from "@/lib/match-comparison";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -82,7 +83,7 @@ export default async function MatchPage({ params, searchParams }: Props) {
     neighbors = neighboringMeetings(matches, match),
     other =
       junto && junto !== "elige" && junto !== id
-        ? matches.find((item) => item.match_id === junto)
+        ? findCircuitMatch(matches, junto, matchCircuit(match))
         : null,
     initial = (
       {
@@ -135,7 +136,7 @@ export default async function MatchPage({ params, searchParams }: Props) {
                   </div>
                 ))}
               </div>
-              <Link href={`/compare?left=${encodeURIComponent(id)}`}>
+              <Link href={comparisonPageHref(id, matchCircuit(match))}>
                 Elegir otro segundo partido
               </Link>
             </>

@@ -6,10 +6,11 @@ import {editionCompleteness,type EditionAudit} from '../edition-audit';
 import type { Match } from '../types';
 import { buildSeasonAnalytics, type PlayerRecord } from '../season-analytics';
 import { homeSelection, prepareCircuitHome, prepareHomeIndex, type PreparedHomeIndex } from '../deuce-home';
+import { isInPublicationScope, publishedMatches } from '../publication-scope';
 import { recordCatalog, eraComparisons, type RecordPiece, type RecordRow, type Era } from './records';
 export const SNAPSHOT_SCHEMA = 7;
 // Bump whenever derivation rules change, even if source matches do not.
-export const RULES_VERSION = '2026-11-wta-integrity-v13';
+export const RULES_VERSION = '2026-11-major-tours-v16';
 export const PAGE_SIZE = 25;
 export const PIECE_CHUNK_PAGES = 50;
 export const pieceChunk = (page:number) => Math.floor((page-1)/PIECE_CHUNK_PAGES);
@@ -109,8 +110,8 @@ export function attachIngestionHistory(previous: RecordManifest | undefined, nex
 }
 export function compileRecordSnapshot(input: Match[], now = new Date(), competitionInput:Match[]=[],audit:EditionAudit[]=[]): Snapshot {
   audit=audit.map(row=>({...row,...editionCompleteness(row)}));
-  const competition=competitionInput.map(m=>proofSummary({...m,tour:m.tour||'atp'}));
-  const matches=input.map(m=>stripSource({...m,tour:m.tour||'atp'})), atp=matches.filter(m=>m.tour==='atp'), wta=matches.filter(m=>m.tour==='wta'), catalog=recordCatalog(atp,now), wtaCatalog=recordCatalog(wta,now), wtaMetas:RecordMeta[]=[], pieces:Snapshot['pieces']={}, metas:RecordMeta[]=[];
+  const competition=competitionInput.filter(isInPublicationScope).map(m=>proofSummary({...m,tour:m.tour||'atp'}));
+  const matches=publishedMatches(input).map(m=>stripSource({...m,tour:m.tour||'atp'})), atp=matches.filter(m=>m.tour==='atp'), wta=matches.filter(m=>m.tour==='wta'), catalog=recordCatalog(atp,now), wtaCatalog=recordCatalog(wta,now), wtaMetas:RecordMeta[]=[], pieces:Snapshot['pieces']={}, metas:RecordMeta[]=[];
   // A match can substantiate many rankings. Share its compact proof instead of
   // retaining hundreds of thousands of duplicate property dictionaries.
   const proofs=new WeakMap<Match,Match>();

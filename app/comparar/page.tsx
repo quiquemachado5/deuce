@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import { preparedPlayerRecords, preparedTourArchive } from '@/lib/revista/read-records';
-import { comparePlayer, sharedCareerWindow } from '@/lib/player-comparison';
+import { comparePlayer, comparisonHeadToHead, sharedCareerWindow } from '@/lib/player-comparison';
 import { playerPhoto } from '@/lib/player-imagery';
 import { playerSlug } from '@/lib/explore';
 import { SURFACES, surfaceLabel } from '@/lib/surface';
 import { number } from '@/lib/cuaderno/model';
-import { eligibleMatch, normalizeText } from '@/lib/quality';
-import { chronological, winnerName } from '@/lib/editorial';
+import { normalizeText } from '@/lib/quality';
+import { winnerName } from '@/lib/editorial';
 import ArchiveNotice from '@/components/nocturno/ArchiveNotice';
 import PlayerInput from '@/components/PlayerInput';
 import CompareSelection, { CompareSampleFilters } from './CompareSelection';
@@ -94,11 +94,7 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
     { title: 'Rendimiento', rows: metrics.slice(3) },
   ];
   const directMatches = canCompare
-    ? matches.filter(match => chosen.includes(match.player1.name) && chosen.includes(match.player2.name))
-      .filter(eligibleMatch)
-      .filter(match => (!q.year || q.year === 'all' || match.year === Number(q.year)) && (!q.surface || q.surface === 'all' || match.surface === q.surface) && (!q.competition || q.competition === 'all' || match.category === q.competition))
-      .filter(match => q.period !== 'shared' || !window || (match.year >= window.first && match.year <= window.last))
-      .sort((a,b) => chronological(b,a))
+    ? comparisonHeadToHead(matches,chosen,players.map(player=>player.matches))
     : [];
   const directWins = canCompare ? chosen.map(name => directMatches.filter(match => winnerName(match) === name).length) : [0, 0];
   const compareHref = (changes: Query) => {
@@ -115,7 +111,7 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
       {href:'/comparar?tour=wta',label:'WTA',active:tour==='wta'},
     ]}/></div></header>
     <ArchiveNotice status={playerArchive} />
-    <CompareSelection key={chosen.join('|')} initial={chosen.map(name => {
+    <CompareSelection key={chosen.join('|')} tour={tour} initial={chosen.map(name => {
       const photo = playerPhoto(name,q.tour==='wta'?'wta':'atp');
       const hasThumbnail = Boolean(photo?.thumbnail);
       return { name, country: playerBiography(name,q.tour==='wta'?'wta':'atp')?.country, photo: photo ? {
@@ -146,8 +142,8 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
         <div className={styles.comparisonHeader}>
           {players.map((player, index) => {
             const country = playerBiography(player.name,q.tour==='wta'?'wta':'atp')?.country;
-            return <Link className={styles.playerHeading} data-side={index === 0 ? 'left' : 'right'} href={`/jugadores/${playerSlug(player.name)}${tour === 'wta' ? '?tour=wta' : ''}`} key={player.name}>
-              <span className={styles.flag}>{country ? <PlayerFlag code={country}/> : null}</span>
+            return <Link className={styles.playerHeading} data-side={index === 0 ? 'left' : 'right'} data-has-country={country?'true':'false'} href={`/jugadores/${playerSlug(player.name)}${tour === 'wta' ? '?tour=wta' : ''}`} key={player.name}>
+              {country?<span className={styles.flag}><PlayerFlag code={country}/></span>:null}
               <strong>{player.name}</strong>
             </Link>;
           })}
@@ -215,8 +211,8 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
             {players.map((player, index) => {
               const country = playerBiography(player.name,q.tour==='wta'?'wta':'atp')?.country;
               const leading = directWins[index] > directWins[1 - index];
-              return <div className={styles.h2hPlayer} data-leading={leading ? 'true' : undefined} data-side={index === 0 ? 'left' : 'right'} data-wins={directWins[index]} key={player.name}>
-                <span className={styles.h2hFlag}>{country ? <PlayerFlag code={country}/> : null}</span>
+              return <div className={styles.h2hPlayer} data-leading={leading ? 'true' : undefined} data-side={index === 0 ? 'left' : 'right'} data-has-country={country?'true':'false'} data-wins={directWins[index]} key={player.name}>
+                {country?<span className={styles.h2hFlag}><PlayerFlag code={country}/></span>:null}
                 <strong>{player.name}</strong>
                 <small>{number(directWins[index])} {directWins[index] === 1 ? 'victoria' : 'victorias'}</small>
               </div>;

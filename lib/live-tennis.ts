@@ -2,7 +2,7 @@ import 'server-only'
 import {mergeEditionReferences,editionReferenceMatches} from './verified-editions'
 import {isCompetitionOnly,prepareCompetitionMatch} from './competition'
 import { pointPosition } from './point-position'
-import { closedSet,prepareMatch,eligibleMatch } from './quality'
+import { closedSet,prepareMatch } from './quality'
 import { readdir, readFile } from 'node:fs/promises'
 import { existsSync } from 'node:fs'
 import { join } from 'node:path'
@@ -17,6 +17,7 @@ import { recoveredModernResult } from './modern-result'
 import { reconcileEditionSummaries } from './edition-reconcile'
 import { providerRoundName, publishableWtaArchiveRow, publishableWtaModernRow } from './provider-publication'
 import { providerTournamentName } from './tournament-identity'
+import { isInPublicationScope, publishedMatches } from './publication-scope'
 
 const archive = join(process.cwd(), 'data', 'archive')
 const listsDir = join(archive, 'lists')
@@ -107,7 +108,14 @@ async function rowsFor(prefix: string): Promise<Row[]> {
 
 /** Complete bundled tour seasons seed a new writable store without re-downloading them. */
 export async function bundledTourSeason(season:number,tour:Tour='atp') {
-  if(tour!=='atp')return undefined
+  if(tour==='wta'){
+    try{
+      const saved=await readZip(join(localWtaDir,`modern-${season}.json.gz`));
+      if(saved?.complete===false||!Array.isArray(saved?.data)||!['wta-main-v1','wta-main-v2'].includes(saved.scope))return undefined;
+      if(saved.data.some((row:Row)=>row.tour&&row.tour!=='wta'))throw new Error('Bundled WTA season contains another circuit');
+      return {data:saved.data.map((row:Row)=>({...row,tour:'wta'})),scope:'wta-main-v2' as const,at:saved.at};
+    }catch{return undefined}
+  }
   try{
     const marker=JSON.parse(await readFile(join(listsDir,`modern-${season}-tour.complete.json`),'utf8')) as {count?:unknown;pages?:unknown;at?:unknown}
     const all=await listFiles(`modern-${season}-`)
@@ -488,9 +496,9 @@ export async function publicationArchive():Promise<Match[]> {
   const result:Match[]=[]
   for(const year of years){
     const [summaries,details]=await Promise.all([readArchiveMatches(year,true),archiveDetailedMatches(year)])
-    for(const row of reconcileEditionSummaries(summaries,details)){const m=prepareMatch(row);if(eligibleMatch(m))result.push(m)}
+    for(const row of reconcileEditionSummaries(summaries,details))result.push(prepareMatch(row))
   }
-  return result
+  return publishedMatches(result)
 }
 
 export function hasBundledDetail(kind: 'modern' | 'archive', id: string) { return existsSync(join(detailsDir, `${kind}-${id}.json.gz`)) }
@@ -517,7 +525,9 @@ export async function bundledEnrichmentCandidates(): Promise<import('./enrichmen
 /** Terminal draw entries are visible in editions but never enter statistical rankings. */
 export async function competitionEntries():Promise<Match[]> {
  const entries:Match[]=[];
- for(let year=1968;year<=new Date().getUTCFullYear();year++)for(const match of await readArchiveMatches(year,true))if(isCompetitionOnly(match))entries.push(prepareCompetitionMatch(match));
+ for(let year=1968;year<=new Date().getUTCFullYear();year++)for(const match of await readArchiveMatches(year,true))if(isCompetitionOnly(match)){
+  const prepared=prepareCompetitionMatch(match);if(isInPublicationScope(prepared))entries.push(prepared);
+ }
  return entries;
 }
 
@@ -525,7 +535,8 @@ export async function editionSourceAudit(){
  const {auditEditions}=await import('./edition-audit');const result=[];
  for(let year=1968;year<=new Date().getUTCFullYear();year++){
   const [summaries,details]=await Promise.all([readArchiveMatches(year,true),archiveDetailedMatches(year)]);
-  result.push(...auditEditions(reconcileEditionSummaries(summaries,details)));
+  const scoped=reconcileEditionSummaries(summaries,details).filter(match=>isInPublicationScope(prepareMatch(match)));
+  result.push(...auditEditions(scoped));
  }
  return result.sort((a,b)=>b.year-a.year||b.pending-a.pending||a.tournament.localeCompare(b.tournament,'es'));
 }

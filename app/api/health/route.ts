@@ -13,7 +13,9 @@ export async function GET(request: Request) {
     return Response.json({
       status: 'ok', service: 'deuce', datasetVersion: manifest.version,
       generatedAt: manifest.generatedAt, matches: manifest.matchCount,
-      statistics: manifest.pieces.length, deployment: deploymentMetadata(),
+      statistics: manifest.pieces.length + (manifest.circuitPieces?.wta.length || 0),
+      statisticsByTour: { atp: manifest.pieces.length, wta: manifest.circuitPieces?.wta.length || 0 },
+      deployment: deploymentMetadata(),
       deepHealth: '/api/health/deep',
     }, { headers: { ...headers, 'X-DEUCE-Dataset-Version': manifest.version } });
   } catch {

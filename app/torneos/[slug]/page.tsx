@@ -6,7 +6,7 @@ import { courtPhoto } from "@/lib/imagery";
 import { number } from "@/lib/cuaderno/model";
 import { preparedArchive } from "@/lib/revista/read-records";
 import { tournamentName } from "@/lib/labels";
-import { categoryLabel, tournamentCategory, tournamentDirectory, tournamentRows } from "@/lib/tournament-directory";
+import { categoryLabel, recurringFinalPair, tournamentCategory, tournamentDirectory, tournamentRows } from "@/lib/tournament-directory";
 import { latestTournamentCourt } from "@/lib/tournament-presentation";
 import { chronological, roundPosition, scoreFor, winnerName } from "@/lib/editorial";
 import PlayerAvatar from "@/components/PlayerAvatar";
@@ -83,13 +83,7 @@ export default async function Tournament({ params, searchParams }: Props) {
   const longestFinal = [...finals]
     .filter((match) => match.context?.minutes)
     .sort((a, b) => (b.context?.minutes || 0) - (a.context?.minutes || 0))[0];
-  const finalPairs = new Map<string, { names: [string, string]; count: number }>();
-  for (const match of finals) {
-    const names = [match.player1.name, match.player2.name].sort((a, b) => a.localeCompare(b, "es")) as [string, string];
-    const key = names.join("|");
-    finalPairs.set(key, { names, count: (finalPairs.get(key)?.count || 0) + 1 });
-  }
-  const recurringFinal = [...finalPairs.values()].sort((a, b) => b.count - a.count)[0];
+  const recurringFinal = recurringFinalPair(finals);
   const editionHref = (year: number) => `/torneos/${slug}/${year}?categoria=${encodeURIComponent(category)}${selectedTour==='wta'?'&cuadro=wta':''}`;
   const championFinals = finals.slice(0, 10);
   const playerHref = (href: string) => selectedTour === 'wta' && href.startsWith('/jugadores/')
@@ -153,7 +147,7 @@ export default async function Tournament({ params, searchParams }: Props) {
       {hasMen&&hasWomen?<nav className={styles.editionTourSwitch} aria-label="Circuito del torneo"><Link href={`/torneos/${slug}?cuadro=atp`} aria-current={selectedTour==='atp'?'page':undefined} scroll={false}>ATP</Link><Link href={`/torneos/${slug}?cuadro=wta`} aria-current={selectedTour==='wta'?'page':undefined} scroll={false}>WTA</Link></nav>:null}
 
       {finals.length > 0 && <section className={styles.championSection} aria-labelledby="td-history-title">
-        <TournamentChampionRail title={selectedTour==='wta'?'Campeonas de la historia':'Campeones de la historia'} titleId="td-history-title">
+        <TournamentChampionRail title={selectedTour==='wta'?'Campeonas en la muestra publicada':'Campeones de la historia'} titleId="td-history-title">
           {championFinals.map((final) => {
             const champion = winnerName(final)!;
             const opponent = final.player1.name === champion ? final.player2.name : final.player1.name;
@@ -210,7 +204,7 @@ export default async function Tournament({ params, searchParams }: Props) {
               ["Finales al decisivo",number(decidingFinals)],
             ].map(([label,value],index)=><div key={label} data-stat={index+1}><span>{label}</span><strong>{value}</strong></div>)}
           </div>
-          {recurringFinal&&<article className={styles.dataRivalry}><div className={styles.dataFaces}><PlayerAvatar name={recurringFinal.names[0]} photo={tournamentPlayerPhoto(recurringFinal.names[0])} size={58}/><PlayerAvatar name={recurringFinal.names[1]} photo={tournamentPlayerPhoto(recurringFinal.names[1])} size={58}/></div><span>La final que vuelve</span><strong>{recurringFinal.names[0]} <i>contra</i> {recurringFinal.names[1]}</strong><p>{number(recurringFinal.count)} enfrentamientos por el título.</p></article>}
+          {recurringFinal&&<article className={styles.dataRivalry}><div className={styles.dataFaces}><PlayerAvatar name={recurringFinal.names[0]} photo={tournamentPlayerPhoto(recurringFinal.names[0])} size={58}/><PlayerAvatar name={recurringFinal.names[1]} photo={tournamentPlayerPhoto(recurringFinal.names[1])} size={58}/></div><span>La final que vuelve</span><strong>{recurringFinal.names[0]} <i>contra</i> {recurringFinal.names[1]}</strong><p>{number(recurringFinal.count)} {recurringFinal.count===1?'enfrentamiento':'enfrentamientos'} por el título.</p></article>}
           {latestFinal&&latestChampion&&<article className={styles.dataLatest}>{latestChampionPhoto&&<Image className="art-directed-photo" src={latestChampionPhoto.src} alt={latestChampionPhoto.alt} fill sizes="(max-width:759px) 100vw, 45vw" style={imageFocus(latestChampionPhoto.objectPosition||"center top",latestChampionPhoto.mobileObjectPosition||latestChampionPhoto.objectPosition||"center top")} unoptimized/>}<span className={styles.photoShade} aria-hidden="true"/><div><span>Última final registrada · {latestFinal.year}</span><strong>{latestChampion}</strong><p>{scoreFor(latestFinal,latestChampion)}</p><Link href={editionHref(latestFinal.year)}>Abrir edición <ArrowRight size={16} aria-hidden="true"/></Link></div></article>}
           </div>
         </div>

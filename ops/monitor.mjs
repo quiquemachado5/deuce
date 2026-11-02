@@ -1,21 +1,24 @@
 import { readFile } from 'node:fs/promises';
 import { releaseFailures } from './release-policy.mjs';
+import { recoveryFailures } from './recovery-policy.mjs';
 const baseline = JSON.parse(await readFile(new URL('./release-baseline.json',import.meta.url),'utf8'));
 const marker = '<!-- deuce-production-health-v1 -->';
 const repository = 'quiquemachado5/deuce';
+const productionUrl = String(process.env.DEUCE_MONITOR_URL || baseline.productionUrl).replace(/\/$/, '');
 async function check() {
   const failures = [];
   try {
-    const response = await fetch(baseline.productionUrl+'/api/health/deep',{signal:AbortSignal.timeout(30000),cache:'no-store'});
+    const response = await fetch(productionUrl+'/api/health/deep',{signal:AbortSignal.timeout(30000),cache:'no-store'});
     if(!response.ok) return ['Health endpoint: HTTP '+response.status];
     const h = await response.json();
     failures.push(...releaseFailures(h,baseline));
+    failures.push(...recoveryFailures(h));
   } catch { failures.push('No se pudo consultar producción dentro del tiempo límite'); }
   return failures;
 }
 let failures = await check();
 if (failures.length) { await new Promise(resolve => setTimeout(resolve,5000)); failures = await check(); }
-console.log(failures.length ? 'DEUCE: '+failures.join('; ') : 'DEUCE: producción operativa; archivo validado, volumen y catálogo conservados');
+console.log(failures.length ? 'DEUCE: '+failures.join('; ') : 'DEUCE: producción operativa; archivo, copia externa y restauración verificados');
 if(process.argv.includes('--check-only')) { process.exitCode = failures.length ? 1:0; }
 else {
   if(!process.env.GITHUB_TOKEN) throw new Error('GITHUB_TOKEN is required for incident delivery');
@@ -33,7 +36,7 @@ else {
     if(incident || issues.length < 100) break;
     if(page===10) throw new Error('Issue pagination limit reached; refusing to create a possible duplicate');
   }
-  if(failures.length && !incident) await api('/issues','POST',{title:'[DEUCE] Incidencia de salud en producción',body:marker+'\n\n'+failures.map(f => '- '+f).join('\n')+'\n\nVerificar /api/health/deep, almacenamiento, scheduler, generación activa y logs del servidor. No publicar una generación con menor cobertura por circuito.\n\n'+baseline.productionUrl+'/cobertura'});
+  if(failures.length && !incident) await api('/issues','POST',{title:'[DEUCE] Incidencia de salud en producción',body:marker+'\n\n'+failures.map(f => '- '+f).join('\n')+'\n\nVerificar /api/health/deep, almacenamiento, scheduler, copia externa, simulacro de restauración, generación activa y logs del servidor. No publicar una generación con menor cobertura por circuito.\n\n'+productionUrl+'/cobertura'});
   else if(!failures.length && incident) {
     await api('/issues/'+incident.number+'/comments','POST',{body:'Recuperación verificada: producción operativa con archivo validado, volumen y catálogo por encima de la última release validada.'});
     await api('/issues/'+incident.number,'PATCH',{state:'closed',state_reason:'completed'});

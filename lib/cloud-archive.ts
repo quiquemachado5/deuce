@@ -22,6 +22,11 @@ import {mergeSeasonBaseline,reconcileSeasonResults,type Season} from './result-r
 import { detailRefreshPlan } from './detail-refresh-plan'
 import { hasClosedModernResult } from './modern-result'
 import { withOperationHistory } from './archive-operations'
+import { latestProviderResultDate } from './circuit-freshness'
+import { PROVIDER_PUBLICATION_TIERS } from './publication-scope'
+import { WTA_HISTORICAL_ARCHIVE_LEVELS, WTA_HISTORICAL_COHORTS, WTA_HISTORICAL_FIRST_YEAR, WTA_HISTORICAL_LAST_YEAR, wtaBackfillCycle } from './wta-backfill-schedule'
+import { isProviderFreeHistoryLimit, providerHasRequestAfterUsage, providerQuotaRetryAt, providerRemainingCalls } from './provider-quota'
+import { materializeBundledWtaArchive } from './wta-archive-bootstrap'
 
 // Provider payloads are schemaless until they are normalized into Match.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -158,15 +163,28 @@ export async function cloudDetails(): Promise<Record<string, ArchiveRow>> {
 async function lease() {
   return acquireArchiveLease('tennis-provider',300)
 }
+class TennisProviderError extends Error {
+  constructor(readonly status:number,detail:string,readonly payload:ArchiveRow={},readonly retryAt?:string){super(`Tennis provider HTTP ${status}: ${detail}`);this.name='TennisProviderError'}
+}
+function retryAfter(value:string|null){
+  if(!value)return undefined
+  const seconds=Number(value);if(Number.isFinite(seconds)&&seconds>=0)return new Date(Date.now()+seconds*1_000).toISOString()
+  const parsed=Date.parse(value);return Number.isFinite(parsed)?new Date(parsed).toISOString():undefined
+}
 async function provider(path: string) {
   if (!process.env.TENNIS_API_KEY) throw new Error('Tennis provider is not configured')
   let lastError: unknown
   for (let attempt = 0; attempt < 2; attempt++) {
     try {
       const response = await fetch(`${base}${path}`, { headers: { 'X-API-Key': process.env.TENNIS_API_KEY }, cache: 'no-store', signal: AbortSignal.timeout(20_000) })
-      if (response.ok) return response.json()
-      if (response.status !== 429 && response.status < 500) throw new Error(`Tennis provider HTTP ${response.status}`)
-      lastError = new Error(`Tennis provider HTTP ${response.status}`)
+      const text=await response.text()
+      let payload:ArchiveRow={}
+      try{payload=JSON.parse(text)}catch{}
+      if (response.ok) return payload
+      const detail=String(payload.detail||payload.message||response.statusText||'request failed').slice(0,160)
+      const failure=new TennisProviderError(response.status,detail,payload,retryAfter(response.headers.get('retry-after')))
+      if (response.status !== 429 && response.status < 500) throw failure
+      lastError = failure
     } catch (error) {
       lastError = error
       if (error instanceof Error && !['AbortError', 'TimeoutError', 'TypeError'].includes(error.name)) throw error
@@ -201,6 +219,7 @@ export async function refreshCloudArchive() {
   if (!release) return { status: 'busy' }
   const started = Date.now()
   let calls = 0
+  let quota:ArchiveRow|undefined
   const priorStatus=await cloudRead('sync-status').catch(()=>undefined)
   const lastSuccessAt=priorStatus?.status==='success'?priorStatus.at:priorStatus?.lastSuccessAt
   const attemptAt=new Date(started).toISOString()
@@ -213,11 +232,11 @@ export async function refreshCloudArchive() {
       return result
     }
     calls++
-    const quota = await provider('/usage')
-    const remaining = Number(quota.today?.remaining_day || 0)
+    quota = await provider('/usage')
+    const remaining = providerRemainingCalls(quota)
     const wtaReserve=40,callLimit=35
     if (remaining <= wtaReserve) {
-      const result = { status: 'quota-reserve', attemptAt, at: new Date().toISOString(), remaining, calls, extracted:0, lastSuccessAt }
+      const result = { status: 'quota-reserve', phase:'current-season', attemptAt, at: new Date().toISOString(), remaining, calls, extracted:0, lastSuccessAt, retryAt:providerQuotaRetryAt(quota), probe:{usage:'ok',currentSeason:'deferred'} }
       await cloudWrite('sync-status', withOperationHistory(priorStatus,result))
       return result
     }
@@ -249,7 +268,7 @@ export async function refreshCloudArchive() {
     const activity: ReturnType<typeof activityFixtures> = []
     let activityComplete=true
     for(const status of ['live','upcoming'] as const) for(const tour of ['atp','wta'] as const){
-      const tiers=tour==='atp'?'grand_slam,atp_1000,atp_500,atp_250':'grand_slam,wta_1000,wta_500,wta_250,wta_125'
+      const tiers=PROVIDER_PUBLICATION_TIERS[tour]
       const page=await request(`/matches?status=${status}&tour=${tour}&draw=singles&tier=${tiers}&limit=200`)
       if(!Array.isArray(page.data))throw new Error('Unexpected activity response')
       activity.push(...activityFixtures(page.data,status,tour))
@@ -287,45 +306,110 @@ export async function refreshCloudArchive() {
       if(row.kind==='archive')historicalAdded++;else archiveRecentAdded++
     }
     cache.delete('detail-index')
-    const result = { status: 'success', attemptAt, at: new Date().toISOString(), lastSuccessAt: new Date().toISOString(), year, matches: data.length, updated: rows.length, extracted:rows.length, enriched:detailsAdded+detailsRefreshed+historicalAdded+archiveRecentAdded, seasonsRefreshed, detailsAdded, detailsRefreshed, historicalAdded, archiveRecentAdded, calls, activityFixtures:activity.length }
+    const result = { status: 'success', attemptAt, at: new Date().toISOString(), lastSuccessAt: new Date().toISOString(), year, matches: data.length, updated: rows.length, extracted:rows.length, enriched:detailsAdded+detailsRefreshed+historicalAdded+archiveRecentAdded, seasonsRefreshed, detailsAdded, detailsRefreshed, historicalAdded, archiveRecentAdded, calls, activityFixtures:activity.length, latestProviderDate:latestProviderResultDate(detailCandidates) }
     await cloudWrite('sync-status', withOperationHistory(priorStatus,result))
     return result
   } catch (error) {
+    if(error instanceof TennisProviderError&&error.status===429){
+      const result={status:'quota-reserve',phase:'current-season',attemptAt,at:new Date().toISOString(),remaining:providerRemainingCalls(quota),calls,extracted:0,lastSuccessAt,retryAt:error.retryAt||providerQuotaRetryAt(error.payload||quota),probe:{usage:quota?'ok':'unknown',currentSeason:'rate-limited'},message:error.message}
+      await cloudWrite('sync-status',withOperationHistory(priorStatus,result));return result
+    }
     await cloudWrite('sync-status', withOperationHistory(priorStatus,{ status: 'error', attemptAt, at: new Date().toISOString(), lastSuccessAt, calls, message: error instanceof Error ? error.message : 'Sync failed' }))
     throw error
   } finally { await release() }
 }
 
-/** Independent WTA backfill with its own request budget and checkpoints. */
+/** Current WTA results are refreshed independently from all historical work. */
 export async function refreshCloudWta() {
-  const release = await lease()
-  if (!release) return {status:'busy'}
-  const started=Date.now()
-  let calls=0
+  const release=await lease()
+  if(!release)return {status:'busy'}
+  const started=Date.now(),attemptAt=new Date(started).toISOString()
+  let calls=0,quota:ArchiveRow|undefined
   const priorStatus=await cloudRead('wta-sync-status').catch(()=>undefined)
   const lastSuccessAt=priorStatus?.status==='success'?priorStatus.at:priorStatus?.lastSuccessAt
-  const attemptAt=new Date(started).toISOString()
-  try {
-    await cloudWrite('wta-sync-status',withOperationHistory(priorStatus,{status:'running',at:attemptAt,attemptAt,lastSuccessAt}))
+  const save=(result:ArchiveRow)=>cloudWrite('wta-sync-status',withOperationHistory(priorStatus,result))
+  try{
+    await save({status:'running',phase:'current-season',at:attemptAt,attemptAt,lastSuccessAt})
     const capacity=await cloudArchiveHasCapacity()
     if(!capacity.available){
-      const result={status:capacity.status==='full'?'storage-reserve':'storage-unverified',attemptAt,lastSuccessAt,at:new Date().toISOString(),calls,relationBytes:capacity.report?.relationBytes,maximumBytes:capacity.maximum}
-      await cloudWrite('wta-sync-status',withOperationHistory(priorStatus,result))
-      return result
+      const result={status:capacity.status==='full'?'storage-reserve':'storage-unverified',phase:'current-season',attemptAt,lastSuccessAt,at:new Date().toISOString(),calls,relationBytes:capacity.report?.relationBytes,maximumBytes:capacity.maximum}
+      await save(result);return result
     }
-    calls++
-    const quota=await provider('/usage')
-    const remaining=Number(quota.today?.remaining_day||0)
-    if(remaining<35){
-      const result={status:'quota-reserve',attemptAt,at:new Date().toISOString(),remaining,calls,extracted:0,lastSuccessAt}
-      await cloudWrite('wta-sync-status',withOperationHistory(priorStatus,result))
-      return result
+    calls++;quota=await provider('/usage')
+    const remaining=providerRemainingCalls(quota)
+    if(!providerHasRequestAfterUsage(quota)){
+      const result={status:'quota-reserve',phase:'current-season',attemptAt,at:new Date().toISOString(),remaining,calls,extracted:0,lastSuccessAt,retryAt:providerQuotaRetryAt(quota),probe:{usage:'ok',currentSeason:'deferred'}}
+      await save(result);return result
     }
+    const callLimit=Math.min(30,remaining)
     const request=async(path:string)=>{
-      if(calls>=90||remaining-calls<=25||Date.now()-started>220_000)throw new Error('WTA sync safety budget reached')
-      await new Promise(resolve=>setTimeout(resolve,1300))
-      calls++
-      return provider(path)
+      if(calls>=callLimit||Date.now()-started>220_000)throw new Error('WTA current sync safety budget reached')
+      await new Promise(resolve=>setTimeout(resolve,1300));calls++;return provider(path)
+    }
+    const year=new Date().getUTCFullYear()
+    const {bundledTourSeason}=await import('./live-tennis')
+    const previous=mergeSeasonBaseline(await bundledTourSeason(year,'wta') as Season,await cloudRead(`season-wta-${year}`),'wta')
+    const progressKey=`wta-current-progress-${year}`
+    const refreshed=await reconcileSeasonResults(year,year,previous,request,'wta',{
+      resume:await cloudRead(progressKey),save:checkpoint=>cloudWrite(progressKey,checkpoint),
+    })
+    const data:ArchiveRow[]=refreshed.data.map(row=>({...row,tour:'wta'}))
+    const at=new Date().toISOString()
+    await cloudWrite(`season-wta-${year}`,{data,scope:refreshed.scope,at:refreshed.at})
+    const priorSeason=mergeSeasonBaseline(await bundledTourSeason(year-1,'wta') as Season,await cloudRead(`season-wta-${year-1}`),'wta')
+    const providerRows=[...data,...(priorSeason?.data||[])]
+    const result={status:'success',phase:'current-season',attemptAt,lastSuccessAt:at,at,calls,year,seasonsRefreshed:[year],seasonMatches:data.length,updated:refreshed.fresh.length,extracted:refreshed.fresh.length,latestProviderDate:latestProviderResultDate(providerRows),probe:{usage:'ok',currentSeason:'ok'}}
+    await save(result);return result
+  }catch(error){
+    if(error instanceof TennisProviderError&&error.status===429){
+      const result={status:'quota-reserve',phase:'current-season',attemptAt,at:new Date().toISOString(),remaining:providerRemainingCalls(quota),calls,extracted:0,lastSuccessAt,retryAt:error.retryAt||providerQuotaRetryAt(error.payload||quota),probe:{usage:quota?'ok':'unknown',currentSeason:'rate-limited'},message:error.message}
+      await save(result);return result
+    }
+    const result={status:'error',phase:'current-season',attemptAt,at:new Date().toISOString(),calls,lastSuccessAt,message:error instanceof Error?error.message:'WTA current sync failed'}
+    await save(result);throw error
+  }finally{await release()}
+}
+
+/** Historical WTA expansion is optional and can never gate daily publication. */
+export async function backfillCloudWtaHistory() {
+  const release=await lease()
+  if(!release)return {status:'busy'}
+  const started=Date.now(),attemptAt=new Date(started).toISOString()
+  let calls=0,quota:ArchiveRow|undefined
+  const priorStatus=await cloudRead('wta-backfill-status').catch(()=>undefined)
+  const lastSuccessAt=priorStatus?.status==='success'?priorStatus.at:priorStatus?.lastSuccessAt
+  let cycle:ReturnType<typeof wtaBackfillCycle>|undefined
+  const save=(result:ArchiveRow)=>cloudWrite('wta-backfill-status',withOperationHistory(priorStatus,{
+    ...result,
+    ...(cycle?.status==='ready'?{publicationCycle:cycle.publicationCycle,backfillDay:cycle.backfillDay}:{}),
+  }))
+  try{
+    const [atpRefresh,wtaRefresh,publication]=await Promise.all([
+      cloudRead('sync-status'),cloudRead('wta-sync-status'),cloudRead('publish-status'),
+    ])
+    cycle=wtaBackfillCycle(atpRefresh,wtaRefresh,publication,priorStatus)
+    if(cycle.status==='already-attempted')return {status:'already-attempted',phase:'historical-backfill',publicationCycle:cycle.publicationCycle,backfillDay:cycle.backfillDay,calls:0}
+    if(cycle.status==='waiting-current-publication'){
+      const result={status:cycle.status,phase:'historical-backfill',attemptAt,at:attemptAt,lastSuccessAt,calls:0,reason:cycle.reason,publicationCycle:priorStatus?.publicationCycle,backfillDay:priorStatus?.backfillDay,probe:{history:'waiting-current-publication'}}
+      await cloudWrite('wta-backfill-status',withOperationHistory(priorStatus,result));return result
+    }
+    await save({status:'running',phase:'historical-backfill',at:attemptAt,attemptAt,lastSuccessAt})
+    const capacity=await cloudArchiveHasCapacity()
+    if(!capacity.available){
+      const result={status:capacity.status==='full'?'storage-reserve':'storage-unverified',phase:'historical-backfill',attemptAt,lastSuccessAt,at:new Date().toISOString(),calls,relationBytes:capacity.report?.relationBytes,maximumBytes:capacity.maximum}
+      await save(result);return result
+    }
+    const bundledArchive=await materializeBundledWtaArchive(cloudRead,cloudWrite)
+    calls++;quota=await provider('/usage')
+    const remaining=providerRemainingCalls(quota)
+    if(!providerHasRequestAfterUsage(quota)){
+      const result={status:'quota-reserve',phase:'historical-backfill',attemptAt,at:new Date().toISOString(),remaining,calls,extracted:0,lastSuccessAt,retryAt:providerQuotaRetryAt(quota),bundledArchive,probe:{usage:'ok',history:'deferred'}}
+      await save(result);return result
+    }
+    const callLimit=Math.min(90,remaining)
+    const request=async(path:string)=>{
+      if(calls>=callLimit||Date.now()-started>220_000)throw new Error('WTA historical sync safety budget reached')
+      await new Promise(resolve=>setTimeout(resolve,1300));calls++;return provider(path)
     }
     const year=new Date().getUTCFullYear()
     const state=await cloudRead('wta-season-state')||{}
@@ -333,61 +417,52 @@ export async function refreshCloudWta() {
     const pending=Array.from({length:Math.max(0,year-2023)},(_,i)=>year-1-i).filter(season=>!completed.has(season))
     const seasonsRefreshed:number[]=[]
     let seasonMatches=0,modernUpdated=0
-    for(const season of [...new Set([year,...pending,...[...completed].sort((a,b)=>b-a)])]){
-      if(calls>=65||remaining-calls<=45||Date.now()-started>160_000)break
-      const key=`season-wta-${season}`
-      const previous=await cloudRead(key)
-      const progressKey=`wta-season-progress-${season}`
-      const refreshed=await reconcileSeasonResults(season,year,previous,request,'wta',{
-        resume:await cloudRead(progressKey),save:checkpoint=>cloudWrite(progressKey,checkpoint),
-      })
-      const data=refreshed.data.map(row=>({...row,tour:'wta'}))
+    for(const season of pending){
+      if(calls>=Math.min(callLimit,65)||Date.now()-started>155_000)break
+      const key=`season-wta-${season}`,progressKey=`wta-season-progress-${season}`
+      const {bundledTourSeason}=await import('./live-tennis')
+      const previous=mergeSeasonBaseline(await bundledTourSeason(season,'wta') as Season,await cloudRead(key),'wta')
+      const refreshed=await reconcileSeasonResults(season,year,previous,request,'wta',{resume:await cloudRead(progressKey),save:checkpoint=>cloudWrite(progressKey,checkpoint)})
+      const data:ArchiveRow[]=refreshed.data.map(row=>({...row,tour:'wta'}))
       await cloudWrite(key,{data,scope:refreshed.scope,at:refreshed.at})
-      seasonsRefreshed.push(season)
-      seasonMatches+=data.length
-      modernUpdated+=refreshed.fresh.length
-      if(season!==year){
-        completed.add(season)
-        await cloudWrite('wta-season-state',{completed:[...completed],at:new Date().toISOString()})
-      }
+      seasonsRefreshed.push(season);seasonMatches+=data.length;modernUpdated+=refreshed.fresh.length
+      completed.add(season);await cloudWrite('wta-season-state',{completed:[...completed],at:new Date().toISOString()})
     }
-    // Publish a historical cohort only after all of its pages have arrived.
     const archiveIndex=await cloudRead('wta-archive-index')||{}
     const complete=new Set<string>(Array.isArray(archiveIndex.complete)?archiveIndex.complete:[])
     let historicalAdded=0,archivePages=0
-    for(let season=2022;season>=1968&&archivePages<40;season--)for(const level of ['G','M','A']){
+    for(let season=WTA_HISTORICAL_LAST_YEAR;season>=WTA_HISTORICAL_FIRST_YEAR&&archivePages<40;season--)for(const level of WTA_HISTORICAL_ARCHIVE_LEVELS){
       const id=`${season}-${level}`
-      if(complete.has(id)||calls>=88||remaining-calls<=27||Date.now()-started>200_000)continue
-      const key=`archive-wta-${id}`
-      const saved=await cloudRead(key)
+      if(complete.has(id)||calls>=callLimit||Date.now()-started>200_000)continue
+      const key=`archive-wta-${id}`,saved=await cloudRead(key)
       const found=new Map<string,ArchiveRow>((saved?.data||[]).map((row:ArchiveRow)=>[String(row.id),row]))
-      let offset=Number(saved?.nextOffset)||0
-      let finished=false
-      while(archivePages<40&&calls<88&&remaining-calls>27&&Date.now()-started<200_000){
+      let offset=Number(saved?.nextOffset)||0,finished=false
+      while(archivePages<40&&calls<callLimit&&Date.now()-started<200_000){
         const page=await request(`/history/archive/matches?tour=wta&level=${level}&from=${season}-01-01&to=${season}-12-31&limit=200&offset=${offset}`)
         if(!Array.isArray(page.data)||!page.meta||typeof page.meta.has_more!=='boolean')throw new Error('Unexpected WTA archive response')
         for(const row of page.data){if(row.tour&&row.tour!=='wta')throw new Error('Provider returned another circuit in WTA backfill');found.set(String(row.id),{...row,tour:'wta'})}
-        const step=Number(page.meta.limit)
-        if(!Number.isSafeInteger(step)||step<=0)throw new Error('Invalid WTA archive pagination')
-        offset+=step
-        archivePages++
-        finished=!page.meta.has_more
+        const step=Number(page.meta.limit);if(!Number.isSafeInteger(step)||step<=0)throw new Error('Invalid WTA archive pagination')
+        offset+=step;archivePages++;finished=!page.meta.has_more
         await cloudWrite(key,{data:[...found.values()],nextOffset:offset,complete:finished,at:new Date().toISOString()})
         if(finished)break
       }
-      if(finished){
-        complete.add(id)
-        historicalAdded+=found.size
-        await cloudWrite('wta-archive-index',{complete:[...complete],at:new Date().toISOString()})
-      }
+      if(finished){complete.add(id);historicalAdded+=found.size;await cloudWrite('wta-archive-index',{complete:[...complete],at:new Date().toISOString()})}
     }
-    const result={status:seasonsRefreshed.includes(year)?'success':archivePages?'backfill-progress':'quota-reserve',attemptAt,lastSuccessAt:seasonsRefreshed.includes(year)?new Date().toISOString():lastSuccessAt,at:new Date().toISOString(),calls,seasonsRefreshed,seasonMatches,updated:modernUpdated,extracted:modernUpdated+historicalAdded,historicalAdded,archivePages,historicalCohorts:complete.size}
-    await cloudWrite('wta-sync-status',withOperationHistory(priorStatus,result))
-    return result
+    const pendingModern=Math.max(0,pending.length-seasonsRefreshed.length),historicalCohorts=[...complete].filter(id=>/^\d{4}-[GMA]$/.test(id)).length
+    const totalHistoricalCohorts=WTA_HISTORICAL_COHORTS,finished=pendingModern===0&&historicalCohorts>=totalHistoricalCohorts,at=new Date().toISOString()
+    const result={status:finished?'success':'backfill-progress',phase:'historical-backfill',attemptAt,lastSuccessAt:finished?at:lastSuccessAt,at,calls,seasonsRefreshed,seasonMatches,updated:modernUpdated,extracted:modernUpdated+historicalAdded,historicalAdded,archivePages,historicalCohorts,pendingModern,totalHistoricalCohorts,bundledArchive,probe:{usage:'ok',history:'ok'}}
+    await save(result);return result
   }catch(error){
-    const result={status:'error',attemptAt,at:new Date().toISOString(),calls,lastSuccessAt,message:error instanceof Error?error.message:'WTA sync failed'}
-    await cloudWrite('wta-sync-status',withOperationHistory(priorStatus,result))
-    throw error
+    if(error instanceof TennisProviderError&&isProviderFreeHistoryLimit(error.status,error.payload)){
+      const result={status:'free-history-limit',phase:'historical-backfill',attemptAt,at:new Date().toISOString(),calls,extracted:0,lastSuccessAt,probe:{usage:quota?'ok':'unknown',history:'plan-limit'},message:error.message}
+      await save(result);return result
+    }
+    if(error instanceof TennisProviderError&&error.status===429){
+      const result={status:'quota-reserve',phase:'historical-backfill',attemptAt,at:new Date().toISOString(),remaining:providerRemainingCalls(quota),calls,extracted:0,lastSuccessAt,retryAt:error.retryAt||providerQuotaRetryAt(error.payload||quota),probe:{usage:quota?'ok':'unknown',history:'rate-limited'},message:error.message}
+      await save(result);return result
+    }
+    const result={status:'error',phase:'historical-backfill',attemptAt,at:new Date().toISOString(),calls,lastSuccessAt,message:error instanceof Error?error.message:'WTA historical sync failed'}
+    await save(result);throw error
   }finally{await release()}
 }
 

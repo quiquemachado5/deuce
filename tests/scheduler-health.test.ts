@@ -11,4 +11,25 @@ test('scheduler health detects a stale heartbeat and blocked stages', () => {
   }, now)
   assert.equal(degraded.status, 'degraded')
   assert.equal(degraded.stages['/api/cron/wta'].attempts, 4)
+  const waiting=schedulerStateHealth({
+    heartbeatAt:'2026-11-02T12:04:00.000Z',
+    stages:{'/api/cron/wta':{status:'deferred',attempts:1,nextAttemptAt:'2026-11-03T00:05:00.000Z',operationStatus:'quota-reserve'}},
+  },now)
+  assert.equal(waiting.status,'healthy')
+  assert.equal(waiting.stages['/api/cron/wta'].operationStatus,'quota-reserve')
+  assert.equal(schedulerStateHealth({
+    heartbeatAt:'2026-11-02T12:04:00.000Z',
+    stages:{'/api/cron/wta-backfill':{status:'deferred-cycle',attempts:1,operationStatus:'quota-reserve'}},
+  },now).status,'healthy')
+  const optionalBlocked=schedulerStateHealth({
+    heartbeatAt:'2026-11-02T12:04:00.000Z',
+    stages:{
+      '/api/cron/publish':{status:'success',attempts:1},
+      '/api/cron/wta-backfill':{status:'blocked',attempts:1,error:'HTTP 503'},
+    },
+  },now)
+  assert.equal(optionalBlocked.status,'healthy')
+  assert.equal(optionalBlocked.stages['/api/cron/wta-backfill'].status,'blocked')
+  assert.equal(optionalBlocked.stages['/api/cron/wta-backfill'].optional,true)
+  assert.equal(optionalBlocked.stages['/api/cron/wta-backfill'].error,'HTTP 503')
 })

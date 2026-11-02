@@ -10,7 +10,7 @@ import { summarizeCircuits, type YearCoverage } from '@/lib/dataset-summary';
 import styles from './coverage.module.css';
 
 const title = 'Cobertura y frescura del archivo — DEUCE';
-const description = 'Consulta cuántos partidos ATP y WTA están publicados y qué datos incorpora DEUCE cada día.';
+const description = 'Consulta la cobertura ATP y WTA publicada de Grand Slam y categorías 1000, 500 y 250, y qué datos incorpora DEUCE cada día.';
 
 export const metadata: Metadata = {
   title,
@@ -55,7 +55,7 @@ export default async function Coverage() {
   return <div className="nc-wrap deuce-coverage coverage-brief">
     <ArchiveNotice status={generation}/>
     <header className="coverage-hero">
-      <div className="coverage-hero-copy"><span>Archivo publicado</span><h1>Cobertura.</h1><p>Totales ATP y WTA, y los datos que se incorporan cada día.</p></div>
+      <div className="coverage-hero-copy"><span>Archivo publicado</span><h1>Cobertura.</h1><p>Individuales ATP y WTA de Grand Slam y categorías 1000, 500 y 250, con los datos que se incorporan cada día.</p></div>
       <dl className="coverage-hero-stats">
         <div><dt>Partidos ATP</dt><dd>{number(manifest.summary.tours?.atp ?? manifest.matchCount)}<small>{circuitDate('atp')}</small></dd></div>
         <div><dt>Partidos WTA</dt><dd>{number(manifest.summary.tours?.wta ?? 0)}<small>{circuitDate('wta')}</small></dd></div>
@@ -67,7 +67,7 @@ export default async function Coverage() {
     <Suspense fallback={<p role="status">Consultando las actualizaciones…</p>}><Operations manifest={manifest}/></Suspense>
 
     <section className={`coverage-snapshot ${styles.circuitCoverage}`} aria-labelledby="coverage-snapshot-title">
-      <div className="coverage-section-copy"><h2 id="coverage-snapshot-title">Qué contiene cada circuito</h2><p>ATP y WTA se miden por separado. Cero significa que la copia publicada no contiene ese tipo de dato; un campo vacío nunca se interpreta como cero.</p></div>
+      <div className="coverage-section-copy"><h2 id="coverage-snapshot-title">Qué contiene cada circuito</h2><p>ATP y WTA se miden por separado. La selección se limita a Grand Slam, 1000, 500 y 250. Cero significa que la copia publicada no contiene ese tipo de dato; un campo vacío nunca se interpreta como cero.</p></div>
       <div className={styles.circuitGrid}>{circuitCards.map(({tour,summary,totals,range})=><article className={styles.circuitCard} key={tour}>
         <header><div><span>{tour.toUpperCase()}</span><h3>{number(totals.matches)} partidos</h3></div><p>{range}<small>{circuitDate(tour)}</small></p></header>
         <dl className={styles.dataGrid}>
@@ -87,7 +87,7 @@ export default async function Coverage() {
     </section>
 
     <footer className="coverage-footer">
-      <p>Las retiradas y los partidos sin jugar se conservan con su estado. Las lagunas históricas permanecen visibles; no se completan con estimaciones.</p>
+      <p>Las retiradas y los partidos sin jugar pueden conservarse en los cuadros, pero no cuentan como resultados ni en las estadísticas. Las categorías fuera del alcance no entran en la copia publicada. Las lagunas históricas permanecen visibles; no se completan con estimaciones.</p>
       <small>Datos calculados sobre la copia publicada el {updated}.</small>
     </footer>
   </div>;

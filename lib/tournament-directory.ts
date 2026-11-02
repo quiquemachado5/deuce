@@ -116,3 +116,13 @@ export function tournamentRows(matches: Match[]) {
         matches.find((match) => match.player1.name === player.name || match.player2.name === player.name))),
   };
 }
+
+export function recurringFinalPair(finals: Match[]) {
+  const pairs=new Map<string,{names:[string,string];count:number}>();
+  for(const match of finals){
+    const names=[match.player1.name,match.player2.name].sort((a,b)=>a.localeCompare(b,'es')) as [string,string];
+    const key=names.join('|');
+    pairs.set(key,{names,count:(pairs.get(key)?.count||0)+1});
+  }
+  return [...pairs.values()].sort((a,b)=>b.count-a.count||a.names.join('|').localeCompare(b.names.join('|'),'es')).find(pair=>pair.count>=2);
+}

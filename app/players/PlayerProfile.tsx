@@ -36,7 +36,7 @@ type Props={params:Promise<{slug:string}>;searchParams:Promise<{year?:string;tou
 
 function categoryPriority(category:string){
   if(category==='Grand Slam')return 0;
-  if(category==='Masters 1000'||category==='WTA 1000'||category==='Precursores de Masters'||category==='WTA · alto nivel histórico')return 1;
+  if(category==='Masters 1000'||category==='WTA 1000')return 1;
   if(category==='ATP 500'||category==='WTA 500')return 2;
   if(category==='ATP 250'||category==='WTA 250')return 3;
   return 4;

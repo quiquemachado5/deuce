@@ -1,0 +1,23 @@
+{
+  "schema": 2,
+  "rowLength": 43,
+  "dictionaries": [
+    "players",
+    "tournaments",
+    "categories",
+    "rounds",
+    "statuses",
+    "dateLabels",
+    "formats",
+    "rankLabels",
+    "resultSources",
+    "metadataSources",
+    "dataSources",
+    "coverages",
+    "qualityResults",
+    "qualityReasons",
+    "tapeIssues",
+    "tapeStates",
+    "highlights"
+  ]
+}

@@ -42,7 +42,7 @@ export default async function Image() {
             {match && <div style={{ display: "flex", fontSize: 33, fontWeight: 600, marginTop: 25 }}>{match.player1.name} y {match.player2.name}</div>}
           </div>
           <div style={{ display: "flex", fontSize: 21, color: "#64646a" }}>
-            {match ? `${tournamentName(match.tournament)} · ${match.year} · ${score(match)}` : "Grand Slams, Masters y ATP"}
+            {match ? `${tournamentName(match.tournament)} · ${match.year} · ${score(match)}` : "Grand Slam · 1000 · 500 · 250 · ATP y WTA"}
           </div>
         </div>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "27%", background: "#1c1c1e", color: "#fff" }}>

@@ -1,0 +1,25 @@
+import test from 'node:test'
+import assert from 'node:assert/strict'
+import { readFile } from 'node:fs/promises'
+
+const source = await readFile(new URL('../ops/vps/backup.sh', import.meta.url), 'utf8')
+const restore = await readFile(new URL('../ops/vps/restore-drill.sh', import.meta.url), 'utf8')
+const bootstrap = await readFile(new URL('../ops/vps/bootstrap.sh', import.meta.url), 'utf8')
+
+test('offsite backup validates a frozen restore before checksum and upload', () => {
+  const restore = source.indexOf('node /app/build/restore-drill.mjs')
+  const checksum = source.indexOf('sha256sum "${destination}"')
+  const upload = source.indexOf('rclone copyto "${destination}"')
+  assert.ok(restore >= 0 && restore < checksum && checksum < upload)
+  assert.match(source, /last-backup-validation\.json/)
+  assert.match(source, /for attempt in \{1\.\.3\}/)
+  assert.match(source, /rclone cat "\$\{remote\}\/\$\(basename "\$\{destination\}"\)" \| sha256sum/)
+  assert.match(source, /backup-status\.json/)
+})
+
+test('restore drill rejects stale backups and services use the deuce rclone account', () => {
+  assert.match(restore, /DEUCE_RESTORE_MAX_AGE_HOURS:-192/)
+  assert.match(restore, /restore-drill-status\.json/)
+  assert.ok((bootstrap.match(/User=deuce/g) || []).length >= 3)
+  assert.ok((bootstrap.match(/RCLONE_CONFIG=\/home\/deuce\/\.config\/rclone\/rclone\.conf/g) || []).length >= 2)
+})

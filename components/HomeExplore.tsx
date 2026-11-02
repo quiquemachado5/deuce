@@ -8,7 +8,15 @@ import { verifiedTournamentCategory } from "@/lib/tournament-tier";
 import type { Match, Surface } from "@/lib/types";
 
 const surfaces: Surface[] = ["clay", "grass", "hard"];
-const categories = ["Grand Slam", "Masters 1000", "ATP 500", "ATP 250"];
+const categories = [
+  { category: "Grand Slam", tour: "all" },
+  { category: "Masters 1000", tour: "atp" },
+  { category: "WTA 1000", tour: "wta" },
+  { category: "ATP 500", tour: "atp" },
+  { category: "WTA 500", tour: "wta" },
+  { category: "ATP 250", tour: "atp" },
+  { category: "WTA 250", tour: "wta" },
+] as const;
 const surfacePhotos: Partial<Record<Surface, (typeof courtPhotos)[string]>> = { hard: courtPhotos['US Open'], clay: courtPhotos['Roland Garros'], grass: courtPhotos.Wimbledon };
 
 export default function HomeExplore({ matches }: { matches: Match[] }) {
@@ -51,7 +59,7 @@ export default function HomeExplore({ matches }: { matches: Match[] }) {
         ))}
       </div>
       <div className="home-category-list" aria-label="Explorar por categoría">
-        {categories.filter(category => (categoryCounts.get(category) || 0) > 0).map(category => <Link href={`/buscar?category=${encodeURIComponent(category)}`} key={category}><span>{category}</span><strong>{number(categoryCounts.get(category) || 0)} partidos</strong><ArrowUpRight size={16} aria-hidden="true" /></Link>)}
+        {categories.filter(item => (categoryCounts.get(item.category) || 0) > 0).map(item => <Link href={`/buscar?tour=${item.tour}&category=${encodeURIComponent(item.category)}`} key={`${item.tour}-${item.category}`}><span>{item.category}</span><strong>{number(categoryCounts.get(item.category) || 0)} partidos</strong><ArrowUpRight size={16} aria-hidden="true" /></Link>)}
       </div>
     </section>
   );

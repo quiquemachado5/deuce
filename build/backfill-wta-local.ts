@@ -3,6 +3,8 @@ import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { gzipSync, gunzipSync } from 'node:zlib';
 import { reconcileSeasonResults, type SeasonCheckpoint } from '../lib/result-refresh';
+import { isProviderFreeHistoryLimit } from '../lib/provider-quota';
+import { WTA_HISTORICAL_ARCHIVE_LEVELS, WTA_HISTORICAL_FIRST_YEAR, WTA_HISTORICAL_LAST_YEAR } from '../lib/wta-backfill-schedule';
 
 type Row = { id: unknown; [key: string]: unknown };
 type SavedCohort = { data: Row[]; complete: boolean; at: string; scope?: string; nextOffset?: number; total?: number | null };
@@ -32,7 +34,7 @@ async function request(path: string) {
   const body = await response.json().catch(() => ({}));
   if (!response.ok) {
     const detail = String(body?.detail || body?.message || 'request failed');
-    if (response.status === 403 && /history plan|free history calls/i.test(detail)) throw new Error('HISTORY_LIMIT_REACHED');
+    if (isProviderFreeHistoryLimit(response.status, body)) throw new Error('HISTORY_LIMIT_REACHED');
     throw new Error(`Provider ${response.status}: ${detail}`);
   }
   return body;
@@ -105,7 +107,12 @@ async function main() {
     for (let season = currentYear; season >= 2023; season--) {
       (report.modern as unknown[]).push({ season, ...await modernSeason(season, currentYear) });
     }
-    for (let season = 2022; season >= 1968; season--) for (const level of ['G', 'M', 'A']) {
+    // Keep the provider's broad historical cohorts locally. Publication later
+    // applies the strict Grand Slam/1000/500/250 singles contract; retaining
+    // G/M/A here lets future, evidence-backed tier mappings recover eligible
+    // WTA events without another multi-year download.
+    for (let season = WTA_HISTORICAL_LAST_YEAR; season >= WTA_HISTORICAL_FIRST_YEAR; season--)
+      for (const level of WTA_HISTORICAL_ARCHIVE_LEVELS) {
       (report.archive as unknown[]).push({ season, level, ...await archiveCohort(season, level) });
     }
   } catch (error) {

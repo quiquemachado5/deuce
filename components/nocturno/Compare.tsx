@@ -2,10 +2,12 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { comparisonSearchUrl, matchCircuit } from "@/lib/match-comparison";
 import type { Match } from "@/lib/types";
 
 type Result = { href: string; name: string; detail?: string; group: string };
 export default function ComparePicker({ match }: { match: Match }) {
+  const tour = matchCircuit(match);
   const [query, setQuery] = useState(""),
     [results, setResults] = useState<Result[]>([]),
     [busy, setBusy] = useState(false),
@@ -15,7 +17,7 @@ export default function ComparePicker({ match }: { match: Match }) {
     if (!query.trim()) return;
     const abort = new AbortController();
     const timer = setTimeout(() => {
-      fetch(`/api/search?q=${encodeURIComponent(query)}`, {
+      fetch(comparisonSearchUrl(query, tour), {
         signal: abort.signal,
       })
         .then(async (response) => {
@@ -43,7 +45,7 @@ export default function ComparePicker({ match }: { match: Match }) {
       clearTimeout(timer);
       abort.abort();
     };
-  }, [query, match.match_id, attempt]);
+  }, [query, match.match_id, tour, attempt]);
   return (
     <div className="ry-compare-picker">
       <h2>Elige el segundo partido</h2>

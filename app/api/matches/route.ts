@@ -2,10 +2,10 @@ import { NextRequest } from 'next/server'
 import { dataMode, getMatches } from '@/lib/data'
 import { parseRepositoryQuery, selectRepository } from '@/lib/repository-query'
 import { savedHighlights } from '@/lib/editorial-data'
-import { preparedGeneration } from '@/lib/revista/read-records'
+import { preparedMatchBrowser } from '@/lib/revista/read-records'
 import { generationMetadata } from '@/lib/revista/generation'
 import { proofSummary } from '@/lib/revista/snapshot'
-import { sentence } from '@/lib/cuaderno/model'
+import { queryMatchBrowserPage } from '@/lib/match-browser-snapshot'
 import { ARCHIVE_CRITERIA } from '@/lib/quality'
 export async function GET(request: NextRequest) {
   let query
@@ -13,15 +13,28 @@ export async function GET(request: NextRequest) {
   catch (error) { return Response.json({ error: error instanceof Error ? error.message : 'Filtros no válidos' }, { status: 400 }) }
   try {
     const mode = dataMode()
-    const generation = mode === 'ARCHIVO REAL' ? await preparedGeneration() : undefined
-    const source = mode === 'ARCHIVO REAL'
-      ? await generation!.matches()
-      : await getMatches(query.year || undefined, undefined, true)
-    const result = selectRepository(source, query)
+    const browser = mode === 'ARCHIVO REAL'
+      ? await preparedMatchBrowser(query.tour as 'atp'|'wta',query.year||undefined,query.year||undefined)
+      : undefined
+    let result
+    if(browser){
+      const circuit=browser.index.circuits[query.tour as 'atp'|'wta']
+      const tournament=query.slug==='all'?undefined:circuit.events.find(event=>event.slug===query.slug)
+      if(query.slug!=='all'&&!tournament)throw new RangeError('Torneo no válido')
+      result=queryMatchBrowserPage(browser.partitions,{
+        q:query.query,player:query.player,year:query.year||undefined,tournament:tournament?.name,
+        category:query.category==='all'?undefined:query.category,surface:query.surface==='all'?undefined:query.surface,
+        round:query.round,fiveSets:query.fiveSets,kind:query.kind||undefined,
+      },query.page,query.limit)
+    }else{
+      const source = await getMatches(query.year || undefined, undefined, true)
+      result = selectRepository(source, query)
+    }
     const matches = mode === 'ARCHIVO REAL'
-      ? result.matches.map(match => ({ ...proofSummary(match), editorial_highlight: sentence(match) }))
+      ? result.matches.map(proofSummary)
       : await savedHighlights(result.matches)
-    return Response.json({ ...result, matches, mode, criteria: ARCHIVE_CRITERIA, ...(generation ? generationMetadata(generation) : {}) }, { headers: { 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300', ...(generation ? { 'X-DEUCE-Dataset-Version': generation.manifest.version } : {}) } })
+    const selectedGeneration=browser
+    return Response.json({ ...result, matches, mode, criteria: ARCHIVE_CRITERIA, ...(selectedGeneration ? generationMetadata(selectedGeneration) : {}) }, { headers: { 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300', ...(selectedGeneration ? { 'X-DEUCE-Dataset-Version': selectedGeneration.manifest.version } : {}) } })
   } catch (error) {
     if (error instanceof RangeError) return Response.json({ error: error.message }, { status: 400 })
     return Response.json({ error: 'No se pudo leer el repositorio. Inténtalo de nuevo.' }, { status: 503 })

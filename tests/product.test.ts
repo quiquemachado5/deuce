@@ -4,13 +4,14 @@ import { mockMatches } from '../lib/mocks';
 import type { Match } from '../lib/types';
 import { recordCatalog } from '../lib/revista/records';
 import { recordEvidence, bestRun } from '../lib/record-evidence';
-import { comparePlayer } from '../lib/player-comparison';
+import { comparePlayer, comparisonHeadToHead } from '../lib/player-comparison';
 import { chronological } from '../lib/editorial';
 import { conflictCandidates } from '../lib/archive-review';
 import { archiveIndex } from '../lib/archive-index';
 import { resultIssue } from '../lib/quality';
 import { isRecordedTiebreak, tiebreakTarget } from '../lib/historical-rules';
 import { matchingMatches } from '../lib/cuaderno/search';
+import { recurringFinalPair } from '../lib/tournament-directory';
 const fixture = (extra: Partial<Match> = {}):Match => ({...mockMatches[0],match_id:'evidence',category:'ATP 500',surface:'hard',year:2020,player1:{name:'One',seed:null},player2:{name:'Two',seed:null},winner:1,status:'Finished',round:'Final',point_tape:[],statistics:[],context:{date:'2020-01-01',dateLabel:'Inicio del torneo',format:'BO3'},score_summary:{...mockMatches[0].score_summary,sets:[2,0],games:[[6,3],[6,4]],timestamp:'2020-01-01'},...extra});
 test('comparison applies the same filters and never estimates absent ages/rankings',() => {
   const matches=[fixture({context:{age1:22.9,rankLabel:'Ranking al jugar',rank2:4,format:'BO3'}}),fixture({match_id:'clay',surface:'clay'}),fixture({match_id:'missing-age'})];
@@ -20,6 +21,19 @@ test('comparison applies the same filters and never estimates absent ages/rankin
   assert.equal(comparePlayer([fixture({context:{rankLabel:'Ranking en la descarga',rank2:1}})],'One',{}).ranking,0);
   assert.equal(comparePlayer(matches,'One',{surface:'hard',age:'22-25'}).played,1);
   assert.equal(comparePlayer(matches,'One',{surface:'hard',age:'23-25'}).played,0);
+});
+test('head to head is the exact intersection of both filtered player samples',()=>{
+  const direct=fixture({context:{age1:22.4,age2:24.8,format:'BO3'}});
+  const outside=fixture({match_id:'outside',context:{age1:22.4,age2:27.1,format:'BO3'}});
+  const matches=[direct,outside];
+  const one=comparePlayer(matches,'One',{age:'22-25'});
+  const two=comparePlayer(matches,'Two',{age:'22-25'});
+  assert.deepEqual(comparisonHeadToHead(matches,['One','Two'],[one.matches,two.matches]).map(match=>match.match_id),['evidence']);
+});
+test('a recurring final requires at least two title matches',()=>{
+  const single=fixture();
+  assert.equal(recurringFinalPair([single]),undefined);
+  assert.deepEqual(recurringFinalPair([single,{...single,match_id:'repeat',year:2021}]),{names:['One','Two'],count:2});
 });
 test('bounded search keeps the same newest-first order as the full result',() => {
   const matches = ['2020-02-01','2020-01-01','2020-03-01','2020-03-01']

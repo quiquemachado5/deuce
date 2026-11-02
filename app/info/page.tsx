@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export const metadata = {
   title: "Cómo se lee — DEUCE",
-  description: "Qué partidos entran en DEUCE y cómo se leen sus datos.",
+  description: "Qué partidos de Grand Slam, 1000, 500 y 250 entran en DEUCE y cómo se leen sus datos.",
   alternates: { canonical: "/info" },
 };
 
@@ -22,7 +22,8 @@ export default function Info() {
         <h2 id="ry-help-scope-title">Qué entra en el archivo</h2>
         <div className="ry-help-prose">
           <p>Individuales ATP y WTA del cuadro principal: partidos terminados, sets cerrados y ganador coherente. Los cuadros se identifican por separado.</p>
-          <p>Grand Slams, Masters y torneos ATP/WTA según la categoría que documenta la fuente. Los niveles históricos que no pueden equipararse a las categorías actuales aparecen identificados aparte.</p>
+          <p>La copia publicada incluye exclusivamente Grand Slam, Masters 1000, ATP 500 y ATP 250; en WTA, Grand Slam, WTA 1000, WTA 500 y WTA 250.</p>
+          <p>El resto de categorías queda fuera de resultados, perfiles, comparaciones y récords.</p>
           <p>Abandonos, incomparecencias y marcadores en revisión quedan fuera de los porcentajes y clasificaciones.</p>
         </div>
       </section>

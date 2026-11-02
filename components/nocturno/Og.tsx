@@ -57,7 +57,7 @@ export default function Og({ match }: { match?: Match }) {
         </>
       ) : (
         <div style={{ display: "flex", fontSize: 64, marginTop: 48 }}>
-          Grand Slams y Masters, leídos por el dato.
+          Grand Slam, 1000, 500 y 250, leídos por el dato.
         </div>
       )}
     </div>

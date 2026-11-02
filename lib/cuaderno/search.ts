@@ -14,7 +14,7 @@ import type { PlayerRecord } from '../season-analytics';
 import type { RecordManifest } from '../revista/snapshot';
 
 /** Compact suggestions for typeahead: never opens the 176k-match artifact. */
-export function quickSearchArchive(query: string, records: PlayerRecord[], manifest: Pick<RecordManifest, 'pieces'> & { tour?: 'atp' | 'wta' }) {
+export function quickSearchArchive(query: string, records: Array<Pick<PlayerRecord, 'name' | 'tour' | 'played'>>, manifest: Pick<RecordManifest, 'pieces'> & { tour?: 'atp' | 'wta' }) {
   const raw = query.trim().slice(0, 100);
   const terms = canonicalSearchText(raw).split(/\s+/).filter(Boolean);
   if (terms.join('').length < 2) return [] as SearchItem[];
@@ -47,13 +47,18 @@ export async function searchArchive(query: string, options: { tour?:'atp'|'wta';
   const tour=options.tour;
   const circuitMatches=tour?data.matchesByTour[tour]:data.matches;
   const circuitPlayers=tour?data.records.filter(p=>(p.tour||'atp')===tour):data.records;
-  const records = tour==='wta'?data.manifest.circuitPieces?.wta||[]:data.manifest.pieces,
-    items: SearchItem[] = [];
-  for (const s of records
-    .filter((s) => includes(`${s.title} ${s.id}`))
-    .slice(0, 4))
+  const records = tour
+    ? (tour==='wta'?data.manifest.circuitPieces?.wta||[]:data.manifest.pieces).map(piece=>({piece,tour}))
+    : [
+        ...data.manifest.pieces.map(piece=>({piece,tour:'atp' as const})),
+        ...(data.manifest.circuitPieces?.wta||[]).map(piece=>({piece,tour:'wta' as const})),
+      ];
+  const items: SearchItem[] = [];
+  for (const {piece:s,tour:recordTour} of records
+    .filter(({piece:s}) => includes(`${s.title} ${s.id}`))
+    .slice(0, 6))
     items.push({
-      href: `/records?dato=${s.id}${tour==='wta'?'&tour=wta':''}`,
+      href: `/records?dato=${s.id}${recordTour==='wta'?'&tour=wta':''}`,
       name: s.title,
       group: "Récords",
       detail: s.group,
