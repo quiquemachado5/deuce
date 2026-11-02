@@ -47,7 +47,7 @@ export default async function WtaPage({searchParams}: {searchParams: Promise<Rec
   return <div className={styles.page}>
     <header className={styles.hero}>
       <div className={styles.heroCopy}><span>DEUCE · Circuito femenino</span><h1>WTA, dentro del archivo.</h1><p>Una muestra consultable de jugadoras, dobles, torneos y partidos. Publicamos también sus límites para que un dato ausente nunca parezca un cero.</p><div><a className={styles.download} href="#directorio">Explorar muestra WTA</a><Link className={styles.secondary} href="/cobertura">Ver cobertura</Link></div></div>
-      <aside className={styles.status}><span>Descarga BASIC en curso</span><strong>{captured}</strong><p>El histórico está habilitado. DEUCE ha llegado al offset {number(data.summary.siguiente_offset_archivo || 0)} y continuará con el siguiente cupo diario.</p></aside>
+      <aside className={styles.status}><span>Descarga BASIC en curso</span><strong>{captured}</strong><p>El histórico está habilitado. DEUCE lo recorre por temporadas y niveles con el mismo método rápido utilizado para el archivo ATP.</p></aside>
     </header>
 
     <dl className={styles.metrics}>
@@ -76,6 +76,6 @@ export default async function WtaPage({searchParams}: {searchParams: Promise<Rec
       {!visibleTournaments.length && <p className={styles.empty}>No hay torneos que coincidan con esta búsqueda.</p>}
     </section>
 
-    <section className={styles.provenance} aria-labelledby="wta-source-title"><div><span>Alcance y procedencia</span><h2 id="wta-source-title">Datos útiles, límites visibles.</h2></div><div><p>{data.summary.alcance}</p><p>El plan BASIC permite consultar el histórico y la descarga reanudable ya conserva {number(data.summary.datasets.archivo_resultados_wta || 0)} partidos del archivo. Aún es parcial por el límite diario de 1.000 consultas. DEUCE publica una muestra transformada y totales agregados; el volcado bruto permanece en el entorno de trabajo conforme a las condiciones del proveedor.</p><a href="https://livetennisapi.com/terms">Condiciones de Live Tennis API <ArrowUpRight size={16} aria-hidden="true"/></a></div></section>
+    <section className={styles.provenance} aria-labelledby="wta-source-title"><div><span>Alcance y procedencia</span><h2 id="wta-source-title">Datos útiles, límites visibles.</h2></div><div><p>{data.summary.alcance}</p><p>El plan BASIC permite consultar el histórico y la captura local ya conserva {number(data.summary.datasets.archivo_resultados_wta || 0)} filas históricas, además de los resultados modernos. La descarga principal está segmentada como ATP para terminar en pocas jornadas y evita una llamada individual innecesaria por cada partido. DEUCE publica una muestra transformada y totales agregados; el volcado bruto permanece en el entorno de trabajo conforme a las condiciones del proveedor.</p><a href="https://livetennisapi.com/terms">Condiciones de Live Tennis API <ArrowUpRight size={16} aria-hidden="true"/></a></div></section>
   </div>;
 }
