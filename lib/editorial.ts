@@ -62,13 +62,13 @@ export const CIRCUIT = ['Australian Open','Indian Wells','Miami','Monte Carlo','
 export function playerSeason(matches:Match[],name:string,year:number) {
   const season=matches.filter(m=>m.year===year&&(m.player1.name===name||m.player2.name===name))
   // Keep the core calendar visible while admitting the ATP 500/250 events
-  // actually present in this season. An absent event remains "Sin registro".
+  // actually present in this season. An absent event stays neutral.
   const tournaments=[...new Set([...CIRCUIT,...season.map(m=>m.tournament)])]
   return tournaments.map(tournament=>{
     const fixtures=matches.filter(m=>m.year===year&&m.tournament===tournament&&(m.player1.name===name||m.player2.name===name)).sort((a,b)=>roundPosition(b.round)-roundPosition(a.round)||chronological(b,a))
     const last=fixtures[0]
     const date=fixtures.reduce((earliest,m)=>{const current=m.context?.date||m.score_summary.timestamp;return current&&(!earliest||current<earliest)?current:earliest},'')
-    return {tournament,last,played:fixtures.length,won:fixtures.filter(m=>winnerName(m)===name).length,outcome:!last ? 'Sin registro' : roundPosition(last.round)===7&&winnerName(last)===name ? 'Campeón' : winnerName(last)!==name ? `Cayó en ${roundLabel(last.round).toLowerCase()}` : `Último registro: ${roundLabel(last.round).toLowerCase()}`,date}
+    return {tournament,last,played:fixtures.length,won:fixtures.filter(m=>winnerName(m)===name).length,outcome:!last ? '—' : roundPosition(last.round)===7&&winnerName(last)===name ? 'Campeón' : winnerName(last)!==name ? `Cayó en ${roundLabel(last.round).toLowerCase()}` : `Último registro: ${roundLabel(last.round).toLowerCase()}`,date}
   }).sort((a,b)=>a.played&&b.played ? a.date.localeCompare(b.date)||a.tournament.localeCompare(b.tournament,'es') : a.played ? -1 : b.played ? 1 : CIRCUIT.indexOf(a.tournament)-CIRCUIT.indexOf(b.tournament))
 }
 

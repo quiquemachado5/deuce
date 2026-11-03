@@ -88,7 +88,7 @@ export default async function Credits({ searchParams }: {
         <section className="ry-photo-filter-group" aria-labelledby="photo-rights-label">
           <h2 id="photo-rights-label">Estado de derechos</h2>
           <nav className="ry-photo-filters ry-photo-rights-filter" aria-label="Estado de derechos">
-            {([['all','Todas'],['documented','Derechos documentados'],['source-only','Fuente pendiente de detalle']] as const).map(([value,label])=><Link key={value} href={href(query,kind,value,1)} aria-current={rights===value?'page':undefined}>{label}<span>{number.format(value==='all'?photos.length:photos.filter(entry=>entry.rights===value).length)}</span></Link>)}
+            {([['all','Todas'],['documented','Derechos documentados'],['source-only','Solo fuente registrada']] as const).map(([value,label])=><Link key={value} href={href(query,kind,value,1)} aria-current={rights===value?'page':undefined}>{label}<span>{number.format(value==='all'?photos.length:photos.filter(entry=>entry.rights===value).length)}</span></Link>)}
           </nav>
         </section>
       </div>

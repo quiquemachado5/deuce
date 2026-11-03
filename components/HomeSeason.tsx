@@ -65,7 +65,7 @@ export default function HomeSeason({ matches, featuredId }: { matches: Match[]; 
               <small>{m.label}</small>
             </div>
           ))}
-        </div></> : <p className="home-season-coverage">La cobertura por meses es irregular; no se presenta como evolución de toda la temporada.</p>}
+        </div></> : null}
       </section>
       <section
         className="home-season-finals"

@@ -58,7 +58,7 @@ export function prepareMatch(match: Match): Match {
   match = { ...match, point_tape: normalizePointTape(match.point_tape) }
   const issue = resultIssue(match)
   const tape = tapeIntegrity(match)
-  const tapeIssue = tape.state === 'partial' ? 'Secuencia incompleta. Solo se muestran juegos con todos sus puntos registrados; no se reconstruye el desarrollo completo.' : undefined
+  const tapeIssue = tape.state === 'partial' ? 'Solo se muestran juegos completos validados.' : undefined
   const points = issue ? [] : tape.state === 'partial' ? tape.usable : match.point_tape
   const tiebreaks=recordedTiebreaks({...match,point_tape:points})
   const score=referenceScore(match).split(/\s+/).map((token,i)=>{const game=tiebreaks.find(rows=>rows[0].set===i+1);return game&&!token.includes('(')?`${token}(${Math.min(game.filter(p=>p.winner===1).length,game.filter(p=>p.winner===2).length)})`:token}).join(' ')

@@ -85,7 +85,7 @@ export default function SeasonMatrix({
                       ) : (
                         <span
                           className="matrix-cell no-record"
-                          aria-label={`${t} ${year}: sin registro`}
+                          aria-label={`${t} ${year}: no publicado`}
                         >
                           —
                         </span>
@@ -100,8 +100,7 @@ export default function SeasonMatrix({
       </div>
       <p className="micro">
         C: campeón · F: final · SF: semifinal · CF: cuartos · OF: octavos. R128,
-        R64 y R32 indican el tamaño del cuadro en esa ronda. Sin registro no
-        significa que no participase.
+        R64 y R32 indican el tamaño del cuadro en esa ronda.
       </p>
     </section>
   );

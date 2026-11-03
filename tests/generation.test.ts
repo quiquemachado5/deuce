@@ -105,7 +105,20 @@ test('bounded caches expose hit, miss, eviction and failure diagnostics',async()
   assert.equal(await values('first',async()=>2),1);
   assert.equal(await values('second',async()=>2),2);
   await assert.rejects(()=>values('broken',async()=>{throw new Error('broken')}),/broken/);
-  assert.deepEqual(values.stats(),{hits:1,misses:3,evictions:2,failures:1,entries:0,capacity:1});
+  assert.deepEqual(values.stats(),{hits:1,misses:3,evictions:2,failures:1,entries:0,capacity:1,weight:0,maxWeight:0});
+});
+
+test('bounded caches use LRU order and enforce a value-weight budget',async()=>{
+  const values=asyncCache<string>(10_000,4,undefined,{maxWeight:6,weight:value=>value.length});
+  await values('a',async()=>'aa');
+  await values('b',async()=>'bb');
+  await values('a',async()=>'unused');
+  await values('c',async()=>'cccc');
+  assert.equal(values.stats().weight,6);
+  assert.equal(values.stats().entries,2);
+  assert.equal(await values('a',async()=>'aa'),'aa');
+  assert.equal(values.stats().hits,2);
+  assert.equal(values.stats().evictions,1);
 });
 
 test('release gate rejects losses of published matches or measured coverage', () => {

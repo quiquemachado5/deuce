@@ -325,6 +325,16 @@ for attempt in {1..60}; do
   sleep 5
 done
 
+if ! docker exec "${candidate}" node -e '
+  const secret=process.env.METRICS_SECRET;
+  if(!secret){console.error("METRICS_SECRET is required");process.exit(1)}
+  fetch("http://127.0.0.1:3000/api/metrics",{headers:{Authorization:"Bearer "+secret},signal:AbortSignal.timeout(10000)})
+    .then(async response=>{const body=await response.text();if(!response.ok||!body.includes("deuce_process_memory_bytes")||!body.includes("deuce_cache_entries"))process.exit(1)})
+    .catch(()=>process.exit(1));'; then
+  echo "Candidate metrics endpoint failed its authenticated probe." >&2
+  exit 1
+fi
+
 # Stop the previously promoted scheduler before taking the migration snapshot.
 # Any request already in flight must finish and release the shared archive lease
 # before the candidate may back up or mutate the pointer.

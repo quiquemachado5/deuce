@@ -99,7 +99,7 @@ export default async function TournamentDirectory({ searchParams }: Props) {
         <TournamentGallery cards={preview} variant={index === 0 ? 'majors' : index === 1 ? 'rail' : 'compact'} label={categoryLabel(category)} />
       </section> : null;
     })}</div>}
-    {!selected.length ? <div className={styles.empty}><h2>Sin torneos {tour.toUpperCase()} disponibles</h2><p>{tour === 'wta' ? 'La importación de este circuito sigue en curso. Ningún resultado ATP se muestra como WTA.' : 'Prueba otra categoría del circuito.'}</p>{tour === 'wta' && !entries.length ? <><Link href={tournamentDirectoryUrl('atp')}>Ver torneos ATP</Link><Link className={styles.secondaryEmptyLink} href="/cobertura">Consultar cobertura</Link></> : <Link href={tournamentDirectoryUrl(tour)}>Quitar categoría</Link>}</div> : null}
+    {!selected.length ? <div className={styles.empty}><h2>Sin torneos en esta selección</h2><p>Prueba otra categoría del circuito.</p>{tour === 'wta' && !entries.length ? <Link href={tournamentDirectoryUrl('atp')}>Ver torneos ATP</Link> : <Link href={tournamentDirectoryUrl(tour)}>Quitar categoría</Link>}</div> : null}
     {chosen ? <Pagination page={page} total={selected.length} href={next => tournamentDirectoryUrl(tour, chosen, next)} /> : null}
   </div></ArchivePage>;
 }

@@ -4,7 +4,7 @@ import { normalizeText } from './quality';
 export function conflictCandidates(matches: Match[]) {
   const groups = new Map<string,Match[]>();
   for (const m of matches) {
-    const key = [m.year,normalizeText(m.tournament),normalizeText(m.round),...[m.player1.name,m.player2.name].map(normalizeText).sort()].join('|');
+    const key = [m.tour||'atp',m.year,normalizeText(m.tournament),normalizeText(m.round),...[m.player1.name,m.player2.name].map(normalizeText).sort()].join('|');
     const rows = groups.get(key) || []; rows.push(m); groups.set(key,rows);
   }
   return [...groups].filter(([,rows]) => rows.length > 1).map(([key,rows]) => {

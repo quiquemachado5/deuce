@@ -182,7 +182,7 @@ export function PlayerRecentMatches({matches,allHref}:{matches:RecentMatch[];all
   const surfaceOptions=[...new Set(matches.map(item=>item.record.surface).filter(Boolean))];
   return <>
     <div className="pp-matches-heading"><h2 id="pp-matches-title">Últimos partidos</h2><div ref={scrollRef} className="pp-segmented pp-match-filters" role="group" aria-label="Filtrar últimos partidos"><button aria-pressed={filter==='recent'} onClick={()=>setFilter('recent')}>Más recientes</button><button aria-pressed={filter==='slams'} onClick={()=>setFilter('slams')}>Grand Slam</button>{surfaceOptions.slice(0,3).map(surface=><button key={surface} aria-pressed={filter===surface} onClick={()=>setFilter(surface!)}>{matches.find(item=>item.record.surface===surface)?.surface}</button>)}</div></div>
-    {visible.length?<div className="pp-recent-cards">{visible.slice(0,5).map(({record})=><ArchiveMatchRow key={record.id} match={record} showTournamentContext/>)}</div>:<div className="pp-empty"><strong>No hay partidos en esta selección</strong><p>Este dato todavía no está disponible en el archivo.</p></div>}
+    {visible.length?<div className="pp-recent-cards">{visible.slice(0,5).map(({record})=><ArchiveMatchRow key={record.id} match={record} showTournamentContext/>)}</div>:<div className="pp-empty"><strong>No hay partidos en esta selección</strong><p>Ajusta los filtros para continuar.</p></div>}
     <Link className="pp-all-matches" href={allHref}>Ver todos los partidos <ArrowUpRight size={15} aria-hidden="true"/></Link>
   </>;
 }

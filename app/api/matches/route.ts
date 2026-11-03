@@ -7,7 +7,9 @@ import { generationMetadata } from '@/lib/revista/generation'
 import { proofSummary } from '@/lib/revista/snapshot'
 import { queryMatchBrowserPage } from '@/lib/match-browser-snapshot'
 import { ARCHIVE_CRITERIA } from '@/lib/quality'
+import { requestCacheScope, versionedJson } from '@/lib/http-cache'
 export async function GET(request: NextRequest) {
+  const started=performance.now()
   let query
   try { query = parseRepositoryQuery(request.nextUrl.searchParams) }
   catch (error) { return Response.json({ error: error instanceof Error ? error.message : 'Filtros no válidos' }, { status: 400 }) }
@@ -34,7 +36,10 @@ export async function GET(request: NextRequest) {
       ? result.matches.map(proofSummary)
       : await savedHighlights(result.matches)
     const selectedGeneration=browser
-    return Response.json({ ...result, matches, mode, criteria: ARCHIVE_CRITERIA, ...(selectedGeneration ? generationMetadata(selectedGeneration) : {}) }, { headers: { 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300', ...(selectedGeneration ? { 'X-DEUCE-Dataset-Version': selectedGeneration.manifest.version } : {}) } })
+    const payload={ ...result, matches, mode, criteria: ARCHIVE_CRITERIA, ...(selectedGeneration ? generationMetadata(selectedGeneration) : {}) }
+    return selectedGeneration
+      ? versionedJson(request,payload,{version:selectedGeneration.manifest.version,scope:requestCacheScope(request,'matches'),route:'matches',started})
+      : Response.json(payload,{headers:{'Cache-Control':'public, s-maxage=60, stale-while-revalidate=300'}})
   } catch (error) {
     if (error instanceof RangeError) return Response.json({ error: error.message }, { status: 400 })
     return Response.json({ error: 'No se pudo leer el repositorio. Inténtalo de nuevo.' }, { status: 503 })

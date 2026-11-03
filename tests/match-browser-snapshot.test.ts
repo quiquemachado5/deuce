@@ -112,13 +112,20 @@ test('match browser player suggestions merge spelling variants only inside their
     fixture('atp-same-slugs','atp',2025,'2025-01-02',{player1:{name:'Su Wei Hsieh',seed:null},player2:{name:'Karolina Pliskova',seed:null}}),
   ]);
   assert.deepEqual(browser.index.circuits.wta.players,[
-    {name:'Karolína Plíšková',played:2},
-    {name:'Su-Wei Hsieh',played:2},
+    {name:'Karolína Plíšková',played:2,search:'karolina pliskova'},
+    {name:'Su-Wei Hsieh',played:2,search:'su wei hsieh'},
   ]);
   assert.deepEqual(browser.index.circuits.atp.players,[
-    {name:'Karolina Pliskova',played:1},
-    {name:'Su Wei Hsieh',played:1},
+    {name:'Karolina Pliskova',played:1,search:'karolina pliskova'},
+    {name:'Su Wei Hsieh',played:1,search:'su wei hsieh'},
   ]);
+});
+
+test('match browser publishes canonical search dictionaries at build time',()=>{
+  const browser=compileMatchBrowser([fixture('indexed','wta',2026,'2026-11-02')]);
+  const partition=browser.partitions[0];
+  assert.equal(partition.search!.players[partition.dictionaries.players.indexOf('Aryna Sabalenka')],'aryna sabalenka');
+  assert.match(browser.index.circuits.wta.events[0].search!,/abierto de estados unidos/);
 });
 
 test('match browser applies semantic search and stable offset pagination', () => {

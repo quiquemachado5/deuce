@@ -152,7 +152,7 @@ export default async function Players({ searchParams }: {
       </>}
 
       {!total && query.tour === 'wta' && !term
-        ? <div className={styles.empty}><h2>El archivo WTA todavía no tiene temporadas publicadas</h2><p>Esta sección se activará cuando haya partidos WTA validados en la copia disponible.</p><Link href="/cobertura">Consultar cobertura</Link><Link className={styles.secondaryEmptyLink} href="/jugadores">Ver jugadores ATP</Link></div>
+        ? <div className={styles.empty}><h2>No hay jugadoras en esta selección</h2><p>Prueba otra temporada o consulta el circuito ATP.</p><Link className={styles.secondaryEmptyLink} href="/jugadores">Ver jugadores ATP</Link></div>
         : !total && <div className={styles.empty}><h2>No hay resultados</h2><p>No encontramos {pairs ? 'enfrentamientos' : query.tour === 'wta' ? 'jugadoras' : 'jugadores'} con esta búsqueda.</p><Link href={pairs ? '/jugadores?tipo=enfrentamientos' : query.tour === 'wta' ? '/jugadores?tour=wta' : '/jugadores'}>Quitar filtros</Link></div>}
     </div>
     <Pagination page={page} total={total} href={next => url({ page: String(next) })} mobileJumps/>

@@ -42,7 +42,7 @@ export function round(match: Match) {
 }
 export const tapeState = (m: Match) =>
   m.quality?.tape === "partial"
-    ? "Secuencia incompleta"
+    ? "Juegos validados"
     : m.point_tape.length
       ? "Con puntos"
       : "Solo marcador";

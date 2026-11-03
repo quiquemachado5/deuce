@@ -1,8 +1,10 @@
 import { toMatchRecord } from '@/data/map-match';
 import { queryMatchBrowserPage } from '@/lib/match-browser-snapshot';
 import { preparedMatchBrowser } from '@/lib/revista/read-records';
+import { requestCacheScope, versionedJson } from '@/lib/http-cache';
 
 export async function GET(request: Request) {
+  const started=performance.now();
   try {
     const q = new URL(request.url).searchParams.get('q')?.trim().slice(0, 180) || '';
     if (!q) return Response.json({ items: [] });
@@ -24,7 +26,7 @@ export async function GET(request: Request) {
         winnerIndex: record.winnerIndex,
       };
     });
-    return Response.json({ items }, { headers: { 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300' } });
+    return versionedJson(request,{items},{version:data.manifest.version,scope:requestCacheScope(request,'match-previews'),route:'match-previews',started});
   } catch {
     return Response.json({ error: 'No se pudieron cargar los partidos.' }, { status: 503 });
   }

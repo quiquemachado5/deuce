@@ -9,6 +9,7 @@ const required = [
   'TENNIS_API_KEY',
   'CRON_SECRET',
   'WTA_BACKFILL_SECRET',
+  'METRICS_SECRET',
   'DEUCE_ARCHIVE_MAX_BYTES',
   'DEUCE_BACKUP_REMOTE',
 ]
@@ -46,8 +47,9 @@ export function validateProductionEnv(values) {
   }
 
   if ((values.TENNIS_API_KEY || '').length < 20) errors.push('TENNIS_API_KEY is unexpectedly short')
-  for (const name of ['CRON_SECRET', 'WTA_BACKFILL_SECRET']) if ((values[name] || '').length < 48) errors.push(`${name} must contain at least 48 characters`)
-  if (values.CRON_SECRET && values.CRON_SECRET === values.WTA_BACKFILL_SECRET) errors.push('CRON_SECRET and WTA_BACKFILL_SECRET must be different')
+  const secretNames = ['CRON_SECRET', 'WTA_BACKFILL_SECRET', 'METRICS_SECRET']
+  for (const name of secretNames) if ((values[name] || '').length < 48) errors.push(`${name} must contain at least 48 characters`)
+  if (new Set(secretNames.map(name => values[name]).filter(Boolean)).size !== secretNames.filter(name => values[name]).length) errors.push('Server secrets must be different')
   if (values.DEUCE_BACKUP_REMOTE && !/^[^\s:]+:.+/.test(values.DEUCE_BACKUP_REMOTE)) errors.push('DEUCE_BACKUP_REMOTE must name a configured rclone remote')
 
   const archiveMaximum = Number(values.DEUCE_ARCHIVE_MAX_BYTES)

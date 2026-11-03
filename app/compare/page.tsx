@@ -140,7 +140,7 @@ export default async function ComparePage({ searchParams }: Props) {
       <div className="ry-compare-path-grid"><div><h3>{winner(left)}</h3><SetPath match={left} maximum={setExtent} /></div><div><h3>{winner(right)}</h3><SetPath match={right} maximum={setExtent} /></div></div>
     </section>
     {hasComparableFlow && <section className="ry-compare-progress" aria-labelledby="ry-compare-progress-title">
-      <div className="ry-compare-heading"><h2 id="ry-compare-progress-title">Ventaja en juegos</h2><p>Misma escala de juegos en ambos ejes: el partido más corto termina antes. Los tramos sin registro no se unen.</p></div>
+      <div className="ry-compare-heading"><h2 id="ry-compare-progress-title">Ventaja en juegos</h2><p>Misma escala de juegos en ambos ejes; cada partido conserva su longitud real.</p></div>
       <div className="ry-compare-progress-grid">{[left, right].map((match) => <div key={match.match_id} data-event-surface={match.surface} data-event-category={match.category}><h3>{tournamentName(match.tournament)} {match.year}</h3><GameFlow match={match} extent={flowExtent} total={flowTotal}/></div>)}</div>
     </section>}
     <section className="ry-compare-choice" aria-labelledby="ry-compare-choice-title">

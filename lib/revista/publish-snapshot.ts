@@ -4,13 +4,15 @@ import { attachRecordChanges, assertSnapshotIntegrity } from './record-changes';
 import {gzipSync,createGzip} from 'node:zlib';
 import {Readable} from 'node:stream';
 import {pipeline} from 'node:stream/promises';
-import {mkdir,writeFile,rename,readdir,unlink} from 'node:fs/promises';
+import {mkdir,writeFile,rename,readdir,unlink,readFile} from 'node:fs/promises';
 import {join} from 'node:path';
 import {isDeepStrictEqual} from 'node:util';
 import {cloudPruneSnapshotGenerations,cloudRead,cloudWrite,cloudWriteMany,type ArchiveWrite} from '../cloud-archive';
 import {attachIngestionHistory,partitionMatches,pieceChunk,type Snapshot,type RecordPages,type RecordManifest} from './snapshot';
 import {assertPublishableArchive} from '../dataset-summary';
 import {compileMatchBrowser,matchBrowserArtifact} from '../match-browser-snapshot';
+import {reconcileCoverage} from '../coverage-reconciliation';
+import historyBaseline from '../../ops/wta-history-baseline.json';
 function compressedPages(id:string,piece:RecordPages):Array<[string,unknown]> {
  const chunks=new Map<number,{encoding:string;pages:Record<string,string>;smallPages:Record<string,string>}>([[0,{encoding:'gzip-base64',pages:{},smallPages:{}}]]);
  for(const group of ['pages','smallPages'] as const)for(const [page,rows] of Object.entries(piece[group])){
@@ -39,13 +41,19 @@ export async function writeBundledSnapshot(snapshot:Snapshot) {
   const dir=join(process.cwd(),'data','reading');await mkdir(dir,{recursive:true});
   assertPublishableArchive(snapshot.matches);
   const browser=compileMatchBrowser(snapshot.matches);
+  const reconciliation=reconcileCoverage(snapshot.matches,snapshot.audit,historyBaseline.allowedPendingCohorts);
   const fullPartitions=partitionMatches(snapshot.matches);
-  const artifacts:Record<string,unknown>={eras:snapshot.eras,matches:snapshot.matches,players:snapshot.players,competition:snapshot.competition,audit:snapshot.audit,'browser-index':browser.index,...Object.fromEntries(fullPartitions.map(group=>[group.meta.id,group.matches])),...Object.fromEntries(browser.partitions.map(partition=>[matchBrowserArtifact(partition.id),partition])),...Object.fromEntries(Object.entries(snapshot.pieces).map(([id,p])=>[`piece-${id}`,p])),manifest:snapshot.manifest};
+  const artifacts:Record<string,unknown>={eras:snapshot.eras,matches:snapshot.matches,players:snapshot.players,competition:snapshot.competition,audit:snapshot.audit,reconciliation,'browser-index':browser.index,...Object.fromEntries(fullPartitions.map(group=>[group.meta.id,group.matches])),...Object.fromEntries(browser.partitions.map(partition=>[matchBrowserArtifact(partition.id),partition])),...Object.fromEntries(Object.entries(snapshot.pieces).map(([id,p])=>[`piece-${id}`,p])),manifest:snapshot.manifest};
+  let written=0,reused=0;
   for(const [id,value] of Object.entries(artifacts)) {
-    const path=join(dir,`${id}.json.gz`);await writeFile(`${path}.tmp`,gzipSync(JSON.stringify(value)));await rename(`${path}.tmp`,path);
+    const path=join(dir,`${id}.json.gz`),encoded=gzipSync(JSON.stringify(value));
+    const existing=await readFile(path).catch(()=>undefined);
+    if(existing?.equals(encoded)){reused++;continue;}
+    await writeFile(`${path}.tmp`,encoded);await rename(`${path}.tmp`,path);written++;
   }
   const expected=new Set(Object.keys(artifacts).map(id=>`${id}.json.gz`));
   for(const file of await readdir(dir))if(file.endsWith('.json.gz')&&!expected.has(file))await unlink(join(dir,file));
+  console.log(`Bundled snapshot artifacts: ${written} written, ${reused} reused unchanged`);
 }
 type SnapshotStorage={read:(key:string)=>Promise<unknown>;write:(key:string,payload:unknown)=>Promise<void>;writeMany?:(entries:readonly ArchiveWrite[])=>Promise<void>;prune?:(keepVersions:readonly string[])=>Promise<number>};
 function publishedGeneration(manifest:RecordManifest) {
@@ -74,10 +82,11 @@ export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotSt
   }
   async function* artifacts():AsyncGenerator<[string,unknown]> {
     const browser=compileMatchBrowser(matches);
+    const reconciliation=reconcileCoverage(matches,audit,historyBaseline.allowedPendingCohorts);
     for(const [id,piece] of Object.entries(pieces))yield* compressedPages(id,piece);
     for(const group of partitionMatches(matches))yield* await compressedBlob(group.meta.id,group.matches);
     for(const partition of browser.partitions)yield* await compressedBlob(matchBrowserArtifact(partition.id),partition);
-    for(const [id,value] of [['browser-index',browser.index],['eras',eras],['players',players],['competition',competition],['audit',audit]] as const)yield* await compressedBlob(id,value);
+    for(const [id,value] of [['browser-index',browser.index],['eras',eras],['players',players],['competition',competition],['audit',audit],['reconciliation',reconciliation]] as const)yield* await compressedBlob(id,value);
   }
   const artifactPacks: Record<string,string> = {};
   let uploads = 0, pending: ArchiveWrite[] = [];

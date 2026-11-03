@@ -92,11 +92,13 @@ export type MatchBrowserPartition = {
   toYear: number;
   count: number;
   dictionaries: Dictionaries;
+  search?: Pick<Dictionaries, 'players' | 'tournaments' | 'categories' | 'rounds'>;
   rows: MatchBrowserRow[];
 };
 
 export type MatchBrowserEvent = {
   name: string;
+  search?: string;
   slug: string;
   years: number[];
   count: number;
@@ -108,7 +110,7 @@ export type MatchBrowserCircuit = {
   categories: string[];
   rounds: string[];
   events: MatchBrowserEvent[];
-  players: Array<{ name: string; played: number }>;
+  players: Array<{ name: string; played: number; search?: string }>;
   capabilities: { statistics: boolean; points: boolean; fiveSets: boolean };
 };
 
@@ -215,18 +217,24 @@ function createPartition(id: string, tour: Tour, fromYear: number, rows: Match[]
       tapeStates: tapeStates.values,
       highlights: highlights.values,
     },
+    search: {
+      players: players.values.map(canonicalSearchText),
+      tournaments: tournaments.values.map(name => canonicalSearchText(`${name} ${tournamentName(name)}`)),
+      categories: categories.values.map(canonicalSearchText),
+      rounds: rounds.values.map(canonicalSearchText),
+    },
     rows: encoded,
   };
 }
 
 function circuitIndex(matches: Match[], tour: Tour): MatchBrowserCircuit {
   const rows = matches.filter(match => (match.tour || 'atp') === tour);
-  const players = new Map<string, { name: string; played: number }>();
+  const players = new Map<string, { name: string; played: number; search: string }>();
   for (const match of rows) for (const name of [match.player1.name, match.player2.name]) {
     const identity = playerIdentity(name, tour);
     const player = players.get(identity);
     if (player) player.played++;
-    else players.set(identity, { name, played: 1 });
+    else players.set(identity, { name, played: 1, search: canonicalSearchText(name) });
   }
   return {
     years: [...new Set(rows.map(match => match.year))].sort((a, b) => b - a),
@@ -235,6 +243,7 @@ function circuitIndex(matches: Match[], tour: Tour): MatchBrowserCircuit {
     rounds: [...new Set(rows.map(browserRound).filter(Boolean))],
     events: tournamentDirectory(rows).map(event => ({
       name: event.name,
+      search: canonicalSearchText(`${event.name} ${tournamentName(event.name)}`),
       slug: event.slug,
       years: [...new Set(event.matches.map(match => match.year))].sort((a, b) => b - a),
       count: event.matches.length,
@@ -390,7 +399,7 @@ const normalizedDictionaries = new WeakMap<MatchBrowserPartition, { players: str
 function normalized(partition: MatchBrowserPartition) {
   let saved = normalizedDictionaries.get(partition);
   if (!saved) {
-    saved = {
+    saved = partition.search || {
       players: partition.dictionaries.players.map(canonicalSearchText),
       tournaments: partition.dictionaries.tournaments.map(name => canonicalSearchText(`${name} ${tournamentName(name)}`)),
       categories: partition.dictionaries.categories.map(canonicalSearchText),

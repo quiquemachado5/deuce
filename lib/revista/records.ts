@@ -662,7 +662,7 @@ export function recordCatalog(matches: Match[], now = new Date(), only?: string)
     "rachas",
     "Rachas de victorias en este archivo",
     "Victorias",
-    "Resultados completos consecutivos del archivo. Un resultado inválido corta el tramo; fechas de inicio de torneo se ordenan por ronda. Los partidos ausentes no se reconstruyen. No es una racha de todo el circuito.",
+    "Resultados completos consecutivos del archivo. Un resultado inválido corta el tramo; las fechas de inicio de torneo se ordenan por ronda. No es una racha de todo el circuito.",
     () => records().map((r) =>
       person(
         r.name,

@@ -553,9 +553,9 @@ async function RecordIndex({
         </div>}
         {wtaUnavailable ? (
           <div className="deuce-empty" role="status">
-            <h2>El archivo WTA todavía no tiene temporadas publicadas</h2>
-            <p>No presentamos estadísticas ATP como si fueran WTA. Puedes continuar en el archivo disponible o consultar el estado de la cobertura.</p>
-            <nav className={redesign.emptyActions} aria-label="Alternativas del archivo WTA"><Link href="/records">Ver récords ATP</Link><Link href="/cobertura">Consultar cobertura</Link></nav>
+            <h2>Sin récords en esta selección</h2>
+            <p>Prueba otro circuito o ajusta los filtros.</p>
+            <nav className={redesign.emptyActions} aria-label="Alternativas"><Link href="/records">Ver récords ATP</Link></nav>
           </div>
         ) : !pieces.length && (
           <div className="deuce-empty" role="status">
@@ -739,11 +739,7 @@ export default async function Records({
       {!piece ? (
         <section className={styles.empty} role="status">
           <h2>Sin resultados para esta selección</h2>
-          <p>
-            {view.emptyReason === "ranking"
-              ? "Faltan posiciones históricas de ranking para calcular esta estadística. No significa que no hubiera victorias."
-              : "Prueba otro periodo, superficie o categoría."}
-          </p>
+          <p>Prueba otro periodo, superficie o categoría.</p>
           <Link href={recordsUrl({ dato: query.dato, tour: query.tour })}>
             Quitar filtros
             <ChevronRight size={15} aria-hidden="true" />

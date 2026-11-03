@@ -18,7 +18,7 @@ export default function TournamentBracket({ rounds, heading = 'El cuadro de la e
   };
   const headingId=`td-bracket-${rounds[0]?.results[0]?.match.tour||'atp'}`;
   return <section className={styles.bracket} id="cuadro" aria-labelledby={headingId}>
-    <div className={styles.bracketHeader}><h2 id={headingId}>{heading}</h2><p>Resultados documentados por ronda; los huecos permanecen visibles.</p></div>
+    <div className={styles.bracketHeader}><h2 id={headingId}>{heading}</h2><p>Resultados documentados por ronda.</p></div>
     <div className={styles.bracketRoundPicker} role="group" aria-label="Elegir ronda del cuadro">{rounds.map(round=><button type="button" aria-pressed={activeRound===round.position} onClick={()=>setActiveRound(round.position)} key={round.position}>{round.label}<span>{round.results.length}</span></button>)}</div>
     <div className={styles.bracketViewport} tabIndex={0} aria-label="Cuadro por rondas, desplazable horizontalmente">
       <div className={styles.bracketColumns}>

@@ -2,8 +2,9 @@ import { Suspense } from 'react';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import Operations from './Operations';
+import Reconciliation from './Reconciliation';
 import { number } from '@/lib/cuaderno/model';
-import { preparedGeneration } from '@/lib/revista/read-records';
+import { preparedCoverageReconciliation, preparedGeneration } from '@/lib/revista/read-records';
 import { summarizeCircuits } from '@/lib/dataset-summary';
 import { archiveDate } from '@/lib/archive-freshness';
 import { SURFACES, surfaceLabel } from '@/lib/surface';
@@ -16,8 +17,8 @@ export const metadata: Metadata = {
 };
 export const revalidate = 300;
 
-export default async function Coverage() {
-  const generation = await preparedGeneration();
+export default async function Coverage({searchParams}:{searchParams:Promise<{circuito?:string;estado?:string;page?:string}>}) {
+  const [generation,reconciliation,query] = await Promise.all([preparedGeneration(),preparedCoverageReconciliation(),searchParams]);
   const manifest = generation.manifest;
   const circuits = manifest.circuitSummary ?? summarizeCircuits(await generation.matches());
   const updated = new Date(manifest.generatedAt).toLocaleString('es-ES', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Europe/Madrid' });
@@ -53,11 +54,12 @@ export default async function Coverage() {
         </article>;
       })}
     </section>
+    <Reconciliation report={reconciliation} query={query}/>
     <Suspense fallback={<p role="status">Consultando actualizaciones…</p>}><Operations manifest={manifest}/></Suspense>
     <section className={styles.surfaces} aria-labelledby="surfaces-title">
       <h2 id="surfaces-title">Por superficie</h2>
       <div>{SURFACES.filter(surface => manifest.summary.surfaces[surface] > 0).map(surface => <div className={styles.surface} key={surface} data-event-surface={surface}><span>{surfaceLabel[surface]}</span><strong>{number(manifest.summary.surfaces[surface])}</strong><i style={{width:`${manifest.summary.surfaces[surface]/manifest.matchCount*100}%`}}/></div>)}</div>
     </section>
-    <footer className={styles.footer}><p>Actualizado: <time>{updated}</time></p><p>El archivo puede tener huecos. Un dato ausente nunca se estima.</p><Link href="/cobertura/revision">Ver revisión de cuadros ↗</Link></footer>
+    <footer className={styles.footer}><p>Actualizado: <time>{updated}</time></p><p>Versión {manifest.version}</p><Link href="#revision">Volver al control del archivo ↑</Link></footer>
   </div>;
 }

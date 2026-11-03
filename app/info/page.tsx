@@ -9,14 +9,14 @@ export const metadata = {
 
 const readings = [
   { number: "01", title: "Con puntos", description: "La secuencia conserva el orden de los puntos y cuadra con el marcador. Permite seguir juegos, breaks y bolas de partido." },
-  { number: "02", title: "Secuencia parcial", description: "Faltan puntos o algún total no cuadra. DEUCE muestra únicamente los juegos y medidas que sí están documentados." },
-  { number: "03", title: "Solo marcador", description: "No existe una cinta de puntos. Se publican los sets y las estadísticas disponibles, sin reconstruir información." },
+  { number: "02", title: "Juegos documentados", description: "La lectura presenta únicamente los juegos y medidas validados para el encuentro." },
+  { number: "03", title: "Marcador publicado", description: "La lectura se concentra en los sets y las estadísticas validadas del encuentro." },
 ];
 
 const measures = [
   ["Muestra", "Cada porcentaje conserva su denominador: solo cuenta partidos donde esa medida existe."],
   ["Comparación", "Las barras comparten escala y la mediana representa a jugadores con una muestra suficiente."],
-  ["Ausencias", "Un hueco significa que no hay registro. Nunca se interpreta como un cero."],
+  ["Trazabilidad", "El estado de cada fuente y sus controles se publica de forma centralizada en Cobertura."],
 ] as const;
 
 export default function Info() {

@@ -9,6 +9,7 @@ const valid = {
   TENNIS_API_KEY: 'provider-key-with-enough-entropy',
   CRON_SECRET: 'a'.repeat(64),
   WTA_BACKFILL_SECRET: 'b'.repeat(64),
+  METRICS_SECRET: 'c'.repeat(64),
   DEUCE_ARCHIVE_MAX_BYTES: '40000000000',
   DEUCE_BACKUP_REMOTE: 'crypt:deuce/production',
 }
@@ -26,6 +27,7 @@ test('production preflight rejects placeholders, weak secrets and mismatched ori
     NEXT_PUBLIC_SITE_ORIGIN: 'http://other.example.net/path',
     CRON_SECRET: 'short',
     WTA_BACKFILL_SECRET: 'short',
+    METRICS_SECRET: 'short',
     DEUCE_BACKUP_REMOTE: '/local/backups',
   })
   assert.ok(result.errors.some(error => error.includes('placeholder')))

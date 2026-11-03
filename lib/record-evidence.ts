@@ -50,7 +50,7 @@ export function recordEvidence(matches: Match[], id: string, row: RecordRow): { 
     result = valid.filter(m => names.includes(m.player1.name) && names.includes(m.player2.name) && (id !== 'parejas-finales' || final(m)));
   } else if (id === 'rachas' || id.startsWith('finales-seguidas-')) {
     result = bestRun(id === 'rachas' ? matches : matches.filter(final), name, id !== 'finales-seguidas-perdidas');
-    note = 'Tramo consecutivo que alcanza esta cifra. Un resultado inválido interrumpe la racha. Fechas de inicio de torneo se ordenan por ronda; no equivalen al día exacto del partido. Los partidos ausentes no pueden reconstruirse.';
+    note = 'Tramo consecutivo que alcanza esta cifra. Un resultado inválido interrumpe la racha. Las fechas de inicio de torneo se ordenan por ronda; no equivalen al día exacto del partido.';
   } else if (['finales-ganadas','finales-jugadas','efectividad-finales'].includes(id)) {
     result = subject.filter(m => final(m) && (id !== 'finales-ganadas' || win(m)));
   } else if (['ganar-menos-juegos','remontar-rosco','finales-cuatro-juegos'].includes(id)) {
@@ -104,7 +104,7 @@ export function recordEvidence(matches: Match[], id: string, row: RecordRow): { 
       else if (shelf?.metric) result = reliable.filter(m => m.point_tape.some(p => p.server === 3-side(m) && p.is_break_point && p.first_serve_in === false));
       else throw new Error(`No evidence selector for ${id}`);
     }
-    note = 'Estos partidos aportan observaciones al cálculo. La muestra puede contar puntos, juegos u oportunidades, no partidos. Consulta la división de la clasificación y la estadística publicada en cada encuentro; no se rellenan ausencias con ceros.';
+    note = 'Estos partidos aportan observaciones al cálculo. La muestra puede contar puntos, juegos u oportunidades, no partidos, y siempre conserva su denominador publicado.';
   }
   return {matches:[...new Map(result.map(m => [m.match_id,m])).values()].sort(chronological),note};
 }

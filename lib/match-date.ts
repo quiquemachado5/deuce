@@ -43,13 +43,13 @@ export function matchDatePresentation(input: MatchDateInput): MatchDatePresentat
   }
 
   const year = input.year || exactDay(input.date)?.slice(0, 4);
-  const edition = year ? `Edición ${year}` : 'Edición sin fecha verificada';
+  const edition = year ? `Edición ${year}` : 'Edición histórica';
   const tournament = input.tournament?.trim() || 'torneo';
   return {
     exact: false,
     key: `edition:${tournament}:${year || 'unknown'}`,
-    long: `${edition} · fecha exacta pendiente`,
-    short: year ? `Ed. ${year}` : 'Sin fecha exacta',
+    long: edition,
+    short: year ? `Ed. ${year}` : 'Edición',
   };
 }
 

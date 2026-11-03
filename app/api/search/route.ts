@@ -8,6 +8,7 @@ import { queryMatchBrowserPage } from '@/lib/match-browser-snapshot';
 import { tournamentName } from '@/lib/labels';
 import { round, score, sentence } from '@/lib/cuaderno/model';
 import type { SearchItem } from '@/components/revista/Frame';
+import { requestCacheScope, versionedJson } from '@/lib/http-cache';
 
 export async function GET(request: Request) {
   const id = requestId(request);
@@ -38,11 +39,10 @@ export async function GET(request: Request) {
           ].filter((item,index,all)=>all.findIndex(candidate=>candidate.href===item.href)===index);
       const elapsedMs = Math.round(performance.now() - started);
       if (elapsedMs > 250) logEvent('warn', 'search.slow', { requestId: id, elapsedMs, queryLength: query.length, mode: 'quick' });
-      return Response.json({ items, ...generationMetadata(data) }, { headers: {
-        'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
-        'X-DEUCE-Dataset-Version': data.manifest.version, 'X-DEUCE-Search-Mode': 'quick', 'X-Request-Id': id,
-        'X-RateLimit-Remaining': String(budget.remaining), 'Server-Timing': `search;dur=${elapsedMs}`,
-      } });
+      return versionedJson(request,{ items, ...generationMetadata(data) },{
+        version:data.manifest.version,scope:requestCacheScope(request,'search'),route:'search',started,
+        headers:{'X-DEUCE-Search-Mode':'quick','X-Request-Id':id,'X-RateLimit-Remaining':String(budget.remaining),'Server-Timing':`search;dur=${elapsedMs}`},
+      });
     }
     const data = await preparedMatchBrowser(tour || 'all');
     const circuits = (tour ? [tour] : ['atp','wta']) as Array<'atp'|'wta'>;
@@ -63,7 +63,7 @@ export async function GET(request: Request) {
       const eventQuery=eventTerms.join(' ');
       for(const circuit of circuits){
         const found=data.index.circuits[circuit].events.filter(event=>{
-          const text=canonicalSearchText(`${event.name} ${tournamentName(event.name)}`);
+          const text=event.search||canonicalSearchText(`${event.name} ${tournamentName(event.name)}`);
           return eventTerms.every(term=>text.includes(term))||approximateName(eventQuery,tournamentName(event.name));
         }).slice(0,3);
         for(const event of found){
@@ -83,11 +83,10 @@ export async function GET(request: Request) {
     const unique=items.filter((item,index,all)=>all.findIndex(candidate=>candidate.href===item.href)===index).slice(0,25);
     const elapsedMs = Math.round(performance.now() - started);
     if (elapsedMs > 250) logEvent('warn', 'search.slow', { requestId: id, elapsedMs, queryLength: query.length });
-    return Response.json({ items:unique, ...generationMetadata(data) }, { headers: {
-      'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
-      'X-DEUCE-Dataset-Version': data.manifest.version, 'X-DEUCE-Search-Mode': 'compact', 'X-Request-Id': id,
-      'X-RateLimit-Remaining': String(budget.remaining), 'Server-Timing': `search;dur=${elapsedMs}`,
-    } });
+    return versionedJson(request,{ items:unique, ...generationMetadata(data) },{
+      version:data.manifest.version,scope:requestCacheScope(request,'search'),route:'search',started,
+      headers:{'X-DEUCE-Search-Mode':'compact','X-Request-Id':id,'X-RateLimit-Remaining':String(budget.remaining),'Server-Timing':`search;dur=${elapsedMs}`},
+    });
   } catch (error) {
     logEvent('error', 'search.failed', { requestId: id, error: error instanceof Error ? error.name : 'unknown' });
     return Response.json({ error: 'No se pudo abrir el archivo.' }, { status: 503, headers: { 'X-Request-Id': id } });

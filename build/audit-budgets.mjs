@@ -45,7 +45,7 @@ for(const forbidden of ['.deuce-cache/reading','data/reading/matches.json.gz','n
   if(standaloneFiles.some(path=>relative(standalone,path).startsWith(forbidden)))failures.push(`Standalone deployment contains forbidden duplicate: ${forbidden}`);
 }
 if(standaloneFiles.some(path=>path.endsWith('.nft.json')))failures.push('Standalone deployment contains build-only trace metadata');
-for(const required of ['data/reading/manifest.json.gz','data/reading/browser-index.json.gz']){
+for(const required of ['data/reading/manifest.json.gz','data/reading/browser-index.json.gz','data/reading/reconciliation.json.gz']){
   if(!standaloneRelative.has(required))failures.push(`Standalone deployment is missing ${required}`);
 }
 try{

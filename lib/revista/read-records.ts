@@ -17,6 +17,8 @@ import {readingDirectory} from '../reading-directory';
 import {mergeTournamentEditionDetails} from '../tournament-edition-data';
 import {circuitMatchContext} from '../match-context';
 import {browserPartitionMatchesDetails,decodeMatchBrowserRow,MATCH_BROWSER_DICTIONARIES,MATCH_BROWSER_ROW_LENGTH,MATCH_BROWSER_SCHEMA,matchBrowserArtifact,type MatchBrowserIndex,type MatchBrowserPartition} from '../match-browser-snapshot';
+import {reconcileCoverage,type CoverageReconciliation} from '../coverage-reconciliation';
+import historyBaseline from '../../ops/wta-history-baseline.json';
 const IMMUTABLE_CACHE_MS = 86_400_000;
 const bundled=asyncCache<unknown>(IMMUTABLE_CACHE_MS,100);
 async function local<T>(id:string):Promise<T>{return await bundled(id,async()=>JSON.parse(gunzipSync(await readFile(join(readingDirectory(),`${id}.json.gz`))).toString())) as T;}
@@ -221,15 +223,17 @@ export const recordView=cache(async(encoded:string,recomputed=false):Promise<Rec
 export const preparedArchive = cache(async (): Promise<Match[]> => {
  return (await preparedGeneration()).matches();
 });
-const browserIndexes=asyncCache<MatchBrowserIndex>(IMMUTABLE_CACHE_MS,2);
-const browserPartitions=asyncCache<MatchBrowserPartition>(IMMUTABLE_CACHE_MS,18);
-const decodedBrowserPartitions=asyncCache<Match[]>(IMMUTABLE_CACHE_MS,18);
-const fullPartitions=asyncCache<Match[]>(IMMUTABLE_CACHE_MS,18);
+const megabyte=1024*1024;
+const browserIndexes=asyncCache<MatchBrowserIndex>(IMMUTABLE_CACHE_MS,2,undefined,{maxWeight:8*megabyte,weight:value=>value.count*36});
+const browserPartitions=asyncCache<MatchBrowserPartition>(IMMUTABLE_CACHE_MS,18,undefined,{maxWeight:48*megabyte,weight:value=>value.count*430});
+const decodedBrowserPartitions=asyncCache<Match[]>(IMMUTABLE_CACHE_MS,18,undefined,{maxWeight:64*megabyte,weight:value=>value.length*620});
+const fullPartitions=asyncCache<Match[]>(IMMUTABLE_CACHE_MS,18,undefined,{maxWeight:96*megabyte,weight:value=>value.length*1_650});
 const matchDetails=asyncCache<Match|undefined>(IMMUTABLE_CACHE_MS,64);
-const compactArchives=asyncCache<Match[]>(IMMUTABLE_CACHE_MS,3);
-const compactIndexes=asyncCache<Map<string,Match>>(IMMUTABLE_CACHE_MS,2);
-const competitionArchives=asyncCache<Match[]>(IMMUTABLE_CACHE_MS,2);
-const playerRecords=asyncCache<PlayerRecord[]>(IMMUTABLE_CACHE_MS,2);
+const compactArchives=asyncCache<Match[]>(IMMUTABLE_CACHE_MS,3,undefined,{maxWeight:64*megabyte,weight:value=>value.length*620});
+const compactIndexes=asyncCache<Map<string,Match>>(IMMUTABLE_CACHE_MS,2,undefined,{maxWeight:72*megabyte,weight:value=>value.size*700});
+const competitionArchives=asyncCache<Match[]>(IMMUTABLE_CACHE_MS,2,undefined,{maxWeight:32*megabyte,weight:value=>value.length*1_200});
+const playerRecords=asyncCache<PlayerRecord[]>(IMMUTABLE_CACHE_MS,2,undefined,{maxWeight:16*megabyte,weight:value=>value.length*320});
+const coverageReconciliations=asyncCache<CoverageReconciliation>(IMMUTABLE_CACHE_MS,2,undefined,{maxWeight:8*megabyte,weight:value=>value.issues.length*520});
 type BrowserSource={manifest:RecordManifest;index:MatchBrowserIndex;source:'bundled'|'remote';fallbackReason?:FallbackReason};
 function validBrowserCircuit(value:MatchBrowserIndex['circuits']['atp']|undefined) {
  return !!value&&Array.isArray(value.years)&&Array.isArray(value.surfaces)&&Array.isArray(value.categories)
@@ -264,6 +268,7 @@ export function browserIndexMatchesManifest(value:MatchBrowserIndex|undefined,ma
 export function browserPartitionMatchesManifest(value:MatchBrowserPartition|undefined,meta:MatchPartition):value is MatchBrowserPartition {
  return validPartitionMeta(meta)&&value?.schema===MATCH_BROWSER_SCHEMA&&samePartitionMeta(value,meta)
   &&!!value.dictionaries&&MATCH_BROWSER_DICTIONARIES.every(key=>Array.isArray(value.dictionaries[key as keyof typeof value.dictionaries]))
+  &&(!value.search||(['players','tournaments','categories','rounds'] as const).every(key=>Array.isArray(value.search?.[key])&&value.search?.[key].length===value.dictionaries[key].length))
   &&Array.isArray(value.rows)&&value.rows.length===meta.count
   &&value.rows.every(row=>Array.isArray(row)&&row.length===MATCH_BROWSER_ROW_LENGTH&&typeof row[0]==='string');
 }
@@ -437,9 +442,21 @@ export const preparedTournamentArchive=cache(async(year:number,tour:'atp'|'wta'|
 
 export const preparedEditionAudit=cache(async()=>{const g=await preparedGeneration();const stored=g.source==='remote' ? await cloudBlob<import('../edition-audit').EditionAudit[]>(g.manifest.version,'audit') : await localOptional<import('../edition-audit').EditionAudit[]>('audit',[]);if(stored?.length)return stored;const [matches,competition]=await Promise.all([g.matches(),g.competition?.()||Promise.resolve([])]);return auditEditions([...matches,...competition]);});
 
+export const preparedCoverageReconciliation=cache(async()=>{
+ const generation=await preparedGeneration(),cacheKey=`${generation.manifest.version}:${generation.source}`;
+ return coverageReconciliations(cacheKey,async()=>{
+  const stored=generation.source==='remote'
+   ? await cloudBlob<CoverageReconciliation>(generation.manifest.version,'reconciliation')
+   : await localOptional<CoverageReconciliation|undefined>('reconciliation',undefined);
+  if(stored?.summary&&Array.isArray(stored.issues))return stored;
+  const [matches,audit]=await Promise.all([preparedCompactArchive('all'),preparedEditionAudit()]);
+  return reconcileCoverage(matches,audit,historyBaseline.allowedPendingCohorts);
+ });
+});
+
 export function preparedDataCacheDiagnostics() {
- return Object.fromEntries(Object.entries({bundled,remotePointers,remoteArtifacts,generations,snapshotSources,browserIndexes,browserPartitions,decodedBrowserPartitions,fullPartitions,matchDetails,compactArchives,compactIndexes,competitionArchives,playerRecords})
+ return Object.fromEntries(Object.entries({bundled,remotePointers,remoteArtifacts,generations,snapshotSources,browserIndexes,browserPartitions,decodedBrowserPartitions,fullPartitions,matchDetails,compactArchives,compactIndexes,competitionArchives,playerRecords,coverageReconciliations})
   .map(([name,cache])=>[name,cache.stats()]));
 }
 
-export function invalidatePreparedGeneration() { generations.clear(); snapshotSources.clear(); browserIndexes.clear(); browserPartitions.clear(); decodedBrowserPartitions.clear(); fullPartitions.clear(); matchDetails.clear(); compactArchives.clear(); compactIndexes.clear(); competitionArchives.clear(); playerRecords.clear(); remotePointers.clear(); remoteArtifacts.clear(); clearArtifactPacks(); manifestCircuit.succeeded(); }
+export function invalidatePreparedGeneration() { generations.clear(); snapshotSources.clear(); browserIndexes.clear(); browserPartitions.clear(); decodedBrowserPartitions.clear(); fullPartitions.clear(); matchDetails.clear(); compactArchives.clear(); compactIndexes.clear(); competitionArchives.clear(); playerRecords.clear(); coverageReconciliations.clear(); remotePointers.clear(); remoteArtifacts.clear(); clearArtifactPacks(); manifestCircuit.succeeded(); }

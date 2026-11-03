@@ -88,7 +88,7 @@ test('a tournament start is shown as an edition, never as an exact match day', (
     tournament: 'Roland Garros',
   });
   assert.equal(approximate.exact, false);
-  assert.equal(approximate.long, 'Edición 2022 · fecha exacta pendiente');
+  assert.equal(approximate.long, 'Edición 2022');
   assert.equal(approximate.dateTime, undefined);
 
   const exact = matchDatePresentation({
@@ -100,7 +100,7 @@ test('a tournament start is shown as an edition, never as an exact match day', (
   assert.equal(exact.exact, true);
   assert.equal(exact.dateTime, '2022-05-31');
   assert.match(exact.long, /31 de mayo de 2022/i);
-  assert.equal(reviewMatchDate({ date: '2022-05-23', dateLabel: 'Inicio del torneo', year: 2022, tournament: 'Roland Garros' }), 'Edición 2022 · fecha exacta pendiente');
+  assert.equal(reviewMatchDate({ date: '2022-05-23', dateLabel: 'Inicio del torneo', year: 2022, tournament: 'Roland Garros' }), 'Edición 2022');
   assert.equal(reviewMatchDate({ date: '2022-05-31', dateLabel: 'Fecha del partido', year: 2022, tournament: 'Roland Garros' }), '2022-05-31');
 });
 

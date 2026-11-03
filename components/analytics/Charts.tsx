@@ -93,7 +93,7 @@ export function Timeline({
             key={p.year}
             role="button"
             tabIndex={0}
-            aria-label={`${p.year}. ${p.values.map((v, j) => `${names[j]}: ${v === null ? "sin registro" : n(v) + " " + unit}`).join(". ")}`}
+            aria-label={`${p.year}. ${p.values.map((v, j) => `${names[j]}: ${v === null ? "no publicado" : n(v) + " " + unit}`).join(". ")}`}
             onFocus={() => setActive(i)}
             onMouseEnter={() => setActive(i)}
             onClick={() => setActive(i)}
@@ -138,7 +138,7 @@ export function Timeline({
             {name}{" "}
             <strong>
               {current?.values[i] === null
-                ? "Sin registro"
+                ? "—"
                 : `${n(current?.values[i] || 0)}${unit === "%" ? " %" : ""}`}
             </strong>
           </span>
@@ -167,7 +167,7 @@ export function Timeline({
                 <tr key={p.year}>
                   <th scope="row">{p.year}</th>
                   {p.values.map((v, i) => (
-                    <td key={i}>{v === null ? "Sin registro" : n(v)}</td>
+                    <td key={i}>{v === null ? "—" : n(v)}</td>
                   ))}
                 </tr>
               ))}
@@ -185,9 +185,7 @@ export function SeasonChart({ seasons }: { seasons: SeasonPoint[] }) {
       <div className="section-heading">
         <div>
           <h2>Temporada a temporada</h2>
-          <p className="small">
-            Resultados de este archivo. Los años sin registro dejan un hueco.
-          </p>
+          <p className="small">Resultados de este archivo.</p>
         </div>
         <div
           className="segmented"
@@ -283,7 +281,7 @@ export function SurfaceBars({
               <i className={`surface-dot ${r.surface}`} />
               {r.name}
             </span>
-            <strong>{r.played ? `${n((r.wins / r.played) * 100)} %` : 'Sin datos'}</strong>
+            <strong>{r.played ? `${n((r.wins / r.played) * 100)} %` : '—'}</strong>
           </div>
           <div
             className="bar-track"

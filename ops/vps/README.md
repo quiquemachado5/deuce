@@ -16,6 +16,8 @@ Usa un VPS europeo con al menos 2 vCPU, 4 GB de RAM, 64 GB de SSD persistente, I
 
 `DEUCE_HOST`, `NEXT_PUBLIC_SITE_ORIGIN` y `DEUCE_MONITOR_URL` deben apuntar al dominio real. Un nombre `sslip.io` permite preparar el servidor antes de comprar un dominio.
 
+`METRICS_SECRET` es independiente de los secretos cron. El despliegue comprueba de forma autenticada `/api/metrics`; Prometheus puede consultar el mismo endpoint con `Authorization: Bearer $METRICS_SECRET` sin exponer la credencial en la URL.
+
 ## Publicación y rollback
 
 Cada despliegue toma un bloqueo exclusivo en `/opt/deuce/deployments/deploy.lock`, crea una imagen `deuce-web:<commit completo>` y comprueba que su etiqueta OCI coincide con el commit. El bloqueo impide dos despliegues simultáneos y hace que el watchdog se retire durante seed, gates y promoción. Después arranca un contenedor candidato aislado sobre el volumen real, espera su salud normal y ejecuta el gate profundo, que valida datos, circuito, almacenamiento, commit y heartbeat del scheduler. Solo entonces recrea `web` y `scheduler` con esa imagen.

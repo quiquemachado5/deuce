@@ -79,6 +79,7 @@ jobs:
       - run: npm run data:wta:audit
       - run: npm run data:evidence
       - run: npm run data:verify-publication
+      - run: npm run performance:verify
       - run: npm run data:restore-drill
 
   browser:

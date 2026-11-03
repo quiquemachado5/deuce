@@ -170,7 +170,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
     {tour==='all'&&<p className={styles.queryNotice} role="status">Resultados publicados de ATP y WTA. Elige un circuito para continuar solo en su archivo.</p>}
     {invalidSurface && <p className={styles.queryNotice} role="status">«{invalidSurface}» no es una superficie válida. Mostramos el archivo sin ese filtro.</p>}
     {translatedSurface && <p className={styles.queryNotice} role="status">El filtro «{translatedSurface}» se ha aplicado correctamente.</p>}
-    {rejectedCapabilities.length>0&&<p className={styles.queryNotice} role="status">La muestra {tour==='all'?'ATP y WTA':tour.toUpperCase()} actual no publica {rejectedCapabilities.join(' ni ')}. Mostramos los resultados disponibles sin ese filtro.</p>}
+    {rejectedCapabilities.length>0&&<p className={styles.queryNotice} role="status">Se ha aplicado la combinación de filtros compatible más cercana.</p>}
     {!!query.q && matchSearchIntent(query.q).labels.length > 0 && <p className="archive-freshness">Interpretamos: {matchSearchIntent(query.q).labels.join(' · ')}</p>}
     {query.scope !== 'matches' && players.length > 0 && <section className={styles.playerResults} aria-label={tour==='wta'?'Jugadoras encontradas':tour==='all'?'Tenistas encontrados':'Jugadores encontrados'}>{players.map(player => <Link className={styles.playerResult} href={player.href} key={player.href}>
       <PlayerAvatar tour={player.href.includes('tour=wta')?'wta':'atp'} name={player.name} size={60} /><span><strong>{player.name}</strong><small>{players.length === 1 ? `${number(result.total)} partidos` : tour==='wta'?'Ver ficha de la jugadora':tour==='all'?'Ver ficha':'Ver ficha del jugador'}</small></span><ArrowUpRight size={18} aria-hidden="true" />
@@ -181,7 +181,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
       <h2 className="nc-sr" id="match-season-title">{selectedYear ? `Partidos de ${selectedYear}` : 'Partidos por torneo'}</h2>
       {query.vista === 'torneos' ? <EditionMatchGroups editions={groups} query={query} showYears /> : <MatchArchivePage matches={visibleDailyMatches.map(toMatchRecord)}/>}
       {!result.total && <EmptyState
-        title={tour === 'wta' && !years.length ? 'El archivo WTA todavía no tiene temporadas publicadas' : 'No encontramos partidos'}
+        title="No encontramos partidos"
         description={tour === 'wta' && !years.length ? 'No mostramos resultados ATP como si fueran WTA. Puedes consultar la cobertura o continuar en el archivo ATP.' : 'Prueba otro nombre o quita alguno de los filtros de la búsqueda.'}
         resetHref={tour === 'wta' && !years.length ? '/buscar' : matchSearchUrl({}, { q: query.q,tour })}
       />}
