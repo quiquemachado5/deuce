@@ -10,7 +10,7 @@ export default function imageLoader({ src, width }: ImageLoaderProps) {
   }
   // Venue and editorial originals have checked static variants. A caller may
   // also pass a variant directly; never append a second suffix.
-  if (/^\/images\/(?:courts|editorial)\/.+\.jpg$/.test(src) || src === '/images/editorial/wimbledon-2008-recreation.webp') {
+  if (/^\/images\/courts\/.+\.jpg$/.test(src)) {
     const size = width <= 734 ? 734 : width <= 1068 ? 1068 : 1440
     return src.replace(/\.[^.]+$/, `-${size}.webp`)
   }

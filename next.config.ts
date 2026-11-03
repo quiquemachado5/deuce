@@ -13,6 +13,9 @@ const nextConfig: NextConfig = {
   allowedDevOrigins: ['127.0.0.1'],
   turbopack: { root: process.cwd() },
   outputFileTracingIncludes: { '/*': ['./data/archive/**/*', './data/reading/**/*'] },
+  outputFileTracingExcludes: {
+    '/*': ['./.deuce-cache/**/*', './data/reading/matches.json.gz'],
+  },
   async headers() { return [
     {source:'/:path*',headers:[
       {key:'X-Content-Type-Options',value:'nosniff'},

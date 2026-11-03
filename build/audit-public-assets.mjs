@@ -1,9 +1,10 @@
 import { readdir, stat } from 'node:fs/promises';
 import { extname, join, relative } from 'node:path';
+import { auditPublicMedia } from './public-media-audit.mjs';
 
 const root = process.cwd();
 const publicRoot = join(root, 'public');
-const maximumPublicBytes = 160_000_000;
+const maximumPublicBytes = 125_000_000;
 const maximumSingleAssetBytes = 7_000_000;
 
 async function walk(directory) {
@@ -20,6 +21,7 @@ const files = await walk(publicRoot);
 const sized = await Promise.all(files.map(async path => ({ path, bytes: (await stat(path)).size })));
 const totalBytes = sized.reduce((sum, entry) => sum + entry.bytes, 0);
 const failures = [];
+const media = await auditPublicMedia(root);
 
 if (totalBytes > maximumPublicBytes) failures.push(`public/: ${totalBytes} > ${maximumPublicBytes} bytes`);
 for (const entry of sized) {
@@ -29,6 +31,11 @@ for (const entry of sized) {
   }
   if (entry.bytes > maximumSingleAssetBytes) failures.push(`${name}: ${entry.bytes} > ${maximumSingleAssetBytes} bytes`);
 }
+for (const name of media.orphaned) failures.push(`${name}: public image is not registered or referenced`);
+for (const name of media.missingReferenced) failures.push(`${name}: referenced public image is missing`);
+for (const name of media.missingResponsive) failures.push(`${name}: promised responsive image is missing`);
+for (const name of media.rawOriginals) failures.push(`${name}: source raster must not ship from public/`);
+failures.push(...media.unoptimizedViolations);
 
 console.log(JSON.stringify({
   verified: failures.length === 0,
@@ -36,6 +43,7 @@ console.log(JSON.stringify({
   totalBytes,
   maximumPublicBytes,
   maximumSingleAssetBytes,
+  media,
   failures,
 }, null, 2));
 

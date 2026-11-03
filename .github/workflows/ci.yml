@@ -5,15 +5,15 @@ on:
     branches: [main, 'codex/**']
 permissions:
   contents: read
+env:
+  NEXT_PUBLIC_USE_MOCK_DATA: 'false'
+  # Home is statically rendered during build. Pin its editorial day so the
+  # reduced-motion visual baseline cannot drift at midnight.
+  DEUCE_E2E_DATE: '2026-11-02T12:00:00Z'
 jobs:
-  verify:
+  quality:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
-    env:
-      NEXT_PUBLIC_USE_MOCK_DATA: 'false'
-      # Home is statically rendered during build. Pin its editorial day so the
-      # reduced-motion visual baseline cannot drift at midnight.
-      DEUCE_E2E_DATE: '2026-11-02T12:00:00Z'
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
@@ -25,21 +25,110 @@ jobs:
       - run: npm ci
       - run: npm run test
       - run: npm run lint
+      - run: npm run typecheck
+      - run: npm run media:verify
       - run: npm audit --omit=dev --audit-level=high
+
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24'
+          cache: npm
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: ${{ github.workspace }}/.next/cache
+          # Filesystem-backed snapshots are read while prerendering. An exact
+          # key avoids reusing route output across a data or media publication.
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('package.json', 'package-lock.json') }}-${{ hashFiles('app/**', 'components/**', 'lib/**', 'styles/**', 'build/**', 'data/reading/**', 'data/archive/**', 'public/**', 'instrumentation*.ts', 'next.config.*', 'postcss.config.*', 'tsconfig.json') }}
+      - run: npm ci
       - run: npm run build
       - run: npm run budgets:verify
-      - run: npm run typecheck
+      - name: Preserve the production build
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: next-build-${{ github.sha }}
+          path: |
+            .next/**
+            !.next/cache/**
+            !.next/standalone/**
+            data/reading/**
+            !data/reading/matches.json.gz
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 1
+
+  data:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
       - run: npm run data:verify
+      - run: npm run data:wta:audit
       - run: npm run data:evidence
       - run: npm run data:verify-publication
       - run: npm run data:restore-drill
+
+  browser:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - name: Restore the verified production build
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: next-build-${{ github.sha }}
+          path: .
+      - name: Verify the exact immutable reading generation
+        run: |
+          test -s .next/BUILD_ID
+          test -s data/reading/manifest.json.gz
+          test -n "$(find data/reading -maxdepth 1 -name 'matches-*.json.gz' -print -quit)"
       - run: npx playwright install --with-deps chromium
       - run: npm run test:browser
       - name: Preserve browser failure evidence
         if: failure()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: playwright-failure-${{ github.run_id }}
+          name: playwright-failure-${{ github.run_id }}-${{ github.run_attempt }}
           path: test-results
           if-no-files-found: ignore
           retention-days: 7
+
+  verify:
+    needs: [quality, build, data, browser]
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Require every quality gate
+        env:
+          QUALITY: ${{ needs.quality.result }}
+          BUILD: ${{ needs.build.result }}
+          DATA: ${{ needs.data.result }}
+          BROWSER: ${{ needs.browser.result }}
+        run: |
+          test "$QUALITY" = success
+          test "$BUILD" = success
+          test "$DATA" = success
+          test "$BROWSER" = success

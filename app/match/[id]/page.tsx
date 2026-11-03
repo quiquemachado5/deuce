@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { cache } from "react";
-import { preparedArchive, preparedMatch } from "@/lib/revista/read-records";
+import { preparedMatchContext } from "@/lib/revista/read-records";
 import { ReadingHead } from "@/components/nocturno/Reading";
 import ReadingLine from "@/components/nocturno/ReadingLine";
 import ComparePicker from "@/components/nocturno/Compare";
@@ -26,9 +26,7 @@ type Props = {
 // The published snapshot already contains the validated match and its detail.
 // Reading it first keeps cold navigations off the slower provider archive path.
 const pageMatch = cache(async (id: string) => {
-  const matches = await preparedArchive();
-  const match = matches.find((item) => item.match_id === id) || await preparedMatch(id);
-  return { match, matches };
+  return preparedMatchContext(id);
 });
 
 export async function generateMetadata({

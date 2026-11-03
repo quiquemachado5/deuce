@@ -1,7 +1,11 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
+import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises'
+import { tmpdir } from 'node:os'
+import { join } from 'node:path'
+import { gzipSync } from 'node:zlib'
 import { releaseFailures } from '../ops/release-policy.mjs'
-import { satisfiesReleaseSnapshot } from '../build/snapshot-policy.mjs'
+import { hasRequiredSnapshotArtifacts, satisfiesReleaseSnapshot } from '../build/snapshot-policy.mjs'
 
 const baseline = {
   minimumMatches: 250, minimumTours: { atp: 150, wta: 100 }, minimumStatistics: 10,
@@ -53,4 +57,26 @@ test('bundled snapshot policy requires the record catalogue of both circuits', (
     summary: { tours: { atp: 150, wta: 100 } } }
   assert.equal(satisfiesReleaseSnapshot(manifest, snapshotBaseline), true)
   assert.equal(satisfiesReleaseSnapshot({ ...manifest, circuitPieces: { wta: [] } }, snapshotBaseline), false)
+})
+
+test('bundled snapshot policy requires every declared immutable detail partition', async () => {
+  const directory = await mkdtemp(join(tmpdir(), 'deuce-snapshot-policy-'))
+  const manifest = { matchCount: 2, matchPartitions: [{ id: 'matches-atp-2020s' }, { id: 'matches-wta-2020s' }] }
+  const browser = { count: 2, partitions: [{ id: 'matches-atp-2020s', count: 1 }, { id: 'matches-wta-2020s', count: 1 }] }
+  try {
+    await mkdir(directory, { recursive: true })
+    for (const id of ['manifest', 'competition', 'matches-atp-2020s']) {
+      await writeFile(join(directory, `${id}.json.gz`), 'artifact')
+    }
+    await writeFile(join(directory, 'browser-index.json.gz'), gzipSync(JSON.stringify(browser)))
+    assert.equal(await hasRequiredSnapshotArtifacts(directory, manifest), false)
+    await writeFile(join(directory, 'matches-wta-2020s.json.gz'), 'artifact')
+    assert.equal(await hasRequiredSnapshotArtifacts(directory, manifest), false)
+    await writeFile(join(directory, 'browser-matches-atp-2020s.json.gz'), 'artifact')
+    assert.equal(await hasRequiredSnapshotArtifacts(directory, manifest), false)
+    await writeFile(join(directory, 'browser-matches-wta-2020s.json.gz'), 'artifact')
+    assert.equal(await hasRequiredSnapshotArtifacts(directory, manifest), true)
+  } finally {
+    await rm(directory, { recursive: true, force: true })
+  }
 })

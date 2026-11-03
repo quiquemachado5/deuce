@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { notebook } from "@/lib/cuaderno/data";
+import { summaryNotebook } from "@/lib/cuaderno/data";
 import { durationLabel } from "@/lib/editorial";
 import { score } from "@/lib/cuaderno/model";
 import { tournamentName } from "@/lib/labels";
@@ -8,7 +8,7 @@ export const alt = "DEUCE — Datos del archivo de tenis";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export default async function Image() {
-  const match = (await notebook()).matches
+  const match = (await summaryNotebook()).matches
     .filter((m) => publishedMatchMinutes(m) !== null)
     .sort((a, b) => publishedMatchMinutes(b)! - publishedMatchMinutes(a)!)[0];
   return new ImageResponse(

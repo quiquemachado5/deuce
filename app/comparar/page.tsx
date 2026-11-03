@@ -1,12 +1,11 @@
 import Link from 'next/link';
-import { preparedPlayerRecords, preparedTourArchive } from '@/lib/revista/read-records';
-import { comparePlayer, comparisonHeadToHead, sharedCareerWindow } from '@/lib/player-comparison';
+import { preparedCompactArchive, preparedPlayerRecords } from '@/lib/revista/read-records';
+import { comparePlayer, comparisonHeadToHead, comparisonPlayerWon, sharedCareerWindow } from '@/lib/player-comparison';
 import { playerPhoto } from '@/lib/player-imagery';
-import { playerSlug } from '@/lib/explore';
+import { playerIdentity, playerSlug } from '@/lib/explore';
 import { SURFACES, surfaceLabel } from '@/lib/surface';
 import { number } from '@/lib/cuaderno/model';
 import { normalizeText } from '@/lib/quality';
-import { winnerName } from '@/lib/editorial';
 import PlayerInput from '@/components/PlayerInput';
 import CompareSelection, { CompareSampleFilters } from './CompareSelection';
 import PlayerFlag from '@/components/PlayerFlag';
@@ -49,7 +48,7 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
   const q = { ...await searchParams };
   const tour=q.tour==='wta'?'wta':'atp';
   q.tour=tour;
-  const [matches,playerArchive]=await Promise.all([preparedTourArchive(tour),preparedPlayerRecords()]);
+  const [matches,playerArchive]=await Promise.all([preparedCompactArchive(tour),preparedPlayerRecords()]);
   const recordSource=playerArchive.records.filter(p=>(p.tour||'atp')===tour);
   const circuitYears=[...new Set(matches.map(match=>match.year))].sort((a,b)=>b-a);
   if(q.year&&q.year!=='all'&&!circuitYears.includes(Number(q.year)))q.year='all';
@@ -70,13 +69,14 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
   const requested = [firstRequested, q.b || (tour==='wta'?defaultNames.find(name=>name!==firstResolved)||'':defaultSecond)];
   const resolved = [firstResolved, resolvePlayer(requested[1])];
   const chosen = requested.map((name, index) => resolved[index] || name);
-  const same = chosen[0] === chosen[1], valid = resolved.every(Boolean);
+  const chosenIdentities=chosen.map(name=>playerIdentity(name,tour));
+  const same = chosenIdentities[0] === chosenIdentities[1], valid = resolved.every(Boolean);
   const canCompare = valid && !same;
-  const chosenNames=new Set(chosen);
-  const relevantMatches=matches.filter(match=>chosenNames.has(match.player1.name)||chosenNames.has(match.player2.name));
-  const window = canCompare ? sharedCareerWindow(relevantMatches, chosen) : null;
+  const chosenIdentitySet=new Set(chosenIdentities);
+  const relevantMatches=matches.filter(match=>(match.tour||'atp')===tour&&(chosenIdentitySet.has(playerIdentity(match.player1.name,tour))||chosenIdentitySet.has(playerIdentity(match.player2.name,tour))));
+  const window = canCompare ? sharedCareerWindow(relevantMatches, chosen, tour) : null;
   const cohort = canCompare ? (q.period === 'shared' ? (window ? relevantMatches.filter(m=>m.year>=window.first&&m.year<=window.last) : []) : relevantMatches) : [];
-  const players = canCompare ? chosen.map(name => comparePlayer(cohort, name, q)) : [];
+  const players = canCompare ? chosen.map(name => comparePlayer(cohort, name, q, tour)) : [];
   const sufficient = canCompare && players.every(p => p.sufficient);
   const minimum = ['5','20','50'].includes(q.minimum || '') ? q.minimum! : '20';
   const activeSampleFilters = [q.period && q.period !== 'career', q.year && q.year !== 'all', q.surface && q.surface !== 'all', q.competition && q.competition !== 'all', q.age && q.age !== 'all', q.minimum && q.minimum !== '20'].filter(Boolean).length;
@@ -93,9 +93,9 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
     { title: 'Rendimiento', rows: metrics.slice(3) },
   ];
   const directMatches = canCompare
-    ? comparisonHeadToHead(matches,chosen,players.map(player=>player.matches))
+    ? comparisonHeadToHead(matches,chosen,players.map(player=>player.matches),tour)
     : [];
-  const directWins = canCompare ? chosen.map(name => directMatches.filter(match => winnerName(match) === name).length) : [0, 0];
+  const directWins = canCompare ? chosen.map(name => directMatches.filter(match => comparisonPlayerWon(match,name,tour)).length) : [0, 0];
   const compareHref = (changes: Query) => {
     const params = new URLSearchParams();
     Object.entries({ ...q, a: chosen[0], b: chosen[1], ...changes }).forEach(([key,value]) => { if (value && value !== 'all' && !(key==='tour'&&value==='atp')) params.set(key,value); });

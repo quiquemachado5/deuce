@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { mockMatches } from '../lib/mocks';
-import { compileMatchBrowser, decodeMatchBrowserRow, queryMatchBrowser, queryMatchBrowserPage } from '../lib/match-browser-snapshot';
+import { browserPartitionMatchesDetails, compileMatchBrowser, decodeMatchBrowserRow, queryMatchBrowser, queryMatchBrowserPage } from '../lib/match-browser-snapshot';
 import { sentence } from '../lib/cuaderno/model';
 import { proofSummary } from '../lib/revista/snapshot';
 import type { Match } from '../lib/types';
@@ -35,6 +35,27 @@ test('match browser snapshot partitions compact rows and preserves listing capab
   assert.equal(decoded.match_id, 'atp-2026');
   assert.equal(decoded.listingCapabilities?.statistics, true);
   assert.deepEqual(decoded.statistics, []);
+});
+
+test('compact navigation stays materially smaller than full match detail', () => {
+  const matches = Array.from({ length: 100 }, (_, index) => ({
+    ...mockMatches[0],
+    match_id: `size-${index}`,
+    tour: index % 2 ? 'atp' as const : 'wta' as const,
+    year: 2000 + index % 20,
+  }));
+  const browser = compileMatchBrowser(matches);
+  const fullBytes = Buffer.byteLength(JSON.stringify(matches));
+  const navigationBytes = Buffer.byteLength(JSON.stringify(browser));
+  assert.ok(navigationBytes < fullBytes / 2, `${navigationBytes} compact bytes should stay below half of ${fullBytes} detail bytes`);
+  assert.equal(browser.partitions.reduce((sum, partition) => sum + partition.count, 0), matches.length);
+});
+
+test('detail partitions must match the exact compact IDs, not only the count', () => {
+  const matches=[fixture('partition-a','atp',2026,'2026-01-01'),fixture('partition-b','atp',2026,'2026-01-02')];
+  const partition=compileMatchBrowser(matches).partitions[0];
+  assert.equal(browserPartitionMatchesDetails(partition,matches),true);
+  assert.equal(browserPartitionMatchesDetails(partition,[matches[0],{...matches[1],match_id:'wrong-same-count'}]),false);
 });
 
 test('compact rows preserve the public match summary contract and precomputed highlight', () => {
@@ -82,6 +103,22 @@ test('match browser keeps same-name ATP and WTA editions separate', () => {
   assert.equal(result.editions.length, 2);
   assert.deepEqual(result.editions.map(edition => edition.matches[0].tour).sort(), ['atp', 'wta']);
   assert.deepEqual(result.editions.map(edition => edition.totalMatches), [1, 1]);
+});
+
+test('match browser player suggestions merge spelling variants only inside their circuit', () => {
+  const browser=compileMatchBrowser([
+    fixture('wta-variant-a','wta',2024,'2024-01-01',{player1:{name:'Su-Wei Hsieh',seed:null},player2:{name:'Karolína Plíšková',seed:null}}),
+    fixture('wta-variant-b','wta',2025,'2025-01-01',{player1:{name:'Su Wei Hsieh',seed:null},player2:{name:'Karolina Pliskova',seed:null}}),
+    fixture('atp-same-slugs','atp',2025,'2025-01-02',{player1:{name:'Su Wei Hsieh',seed:null},player2:{name:'Karolina Pliskova',seed:null}}),
+  ]);
+  assert.deepEqual(browser.index.circuits.wta.players,[
+    {name:'Karolína Plíšková',played:2},
+    {name:'Su-Wei Hsieh',played:2},
+  ]);
+  assert.deepEqual(browser.index.circuits.atp.players,[
+    {name:'Karolina Pliskova',played:1},
+    {name:'Su Wei Hsieh',played:1},
+  ]);
 });
 
 test('match browser applies semantic search and stable offset pagination', () => {

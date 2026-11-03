@@ -14,6 +14,7 @@ import type { Match } from '../lib/types';
 import { recordCatalog } from '../lib/revista/records';
 import { prepareMatch } from '../lib/quality';
 import { preservePublishedArchive } from '../lib/revista/release-source';
+import { selectPlayerCareer } from '../lib/player-career';
 
 test('demo is opt-in and cannot run in production or Vercel previews', () => {
   assert.equal(isDemoDataEnabled({}), false);
@@ -67,6 +68,33 @@ test('identical player names in ATP and WTA never share records or rivalries', (
   assert.ok(players.every(player => player.played === 1));
   assert.ok(records.every(player => player.played === 1));
   assert.equal(rivalryDirectory(matches).length, 0);
+});
+
+test('hyphen and diacritic variants share one circuit identity in directory and profile', () => {
+  const wta=[
+    {...mockMatches[0],match_id:'wta-variant-1',tour:'wta' as const,player1:{name:'Su-Wei Hsieh',seed:null},player2:{name:'Karolína Plíšková',seed:null}},
+    {...mockMatches[0],match_id:'wta-variant-2',tour:'wta' as const,year:2025,player1:{name:'Karolina Pliskova',seed:null},player2:{name:'Su Wei Hsieh',seed:null}},
+  ];
+  const atp={...wta[0],match_id:'atp-same-slug',tour:'atp' as const};
+  const matches:Match[]=[...wta,atp];
+  const directory=playerDirectory(matches),records=buildSeasonAnalytics(matches).players;
+  const directoryPlayer=directory.find(player=>player.tour==='wta'&&player.name==='Su-Wei Hsieh')!;
+  const record=records.find(player=>player.tour==='wta'&&player.name==='Su-Wei Hsieh')!;
+  const profile=selectPlayerCareer(matches,records,'su-wei-hsieh','wta')!;
+  const pliskova=selectPlayerCareer(matches,records,'karolina-pliskova','wta')!;
+  assert.equal(directoryPlayer.played,2);
+  assert.equal(record.played,directoryPlayer.played);
+  assert.equal(profile.player.played,directoryPlayer.played);
+  assert.ok(profile.player.matches.every(match=>[match.player1.name,match.player2.name].includes(record.name)));
+  assert.ok(profile.player.matches.every(match=>[match.player1.name,match.player2.name].includes('Karolína Plíšková')));
+  assert.equal(pliskova.player.played,2);
+  assert.equal(pliskova.player.name,'Karolína Plíšková');
+  assert.deepEqual(records.filter(player=>player.name==='Su-Wei Hsieh').map(player=>player.tour).sort(),['atp','wta']);
+  const rivalries=rivalryDirectory(matches);
+  assert.equal(rivalries.length,1);
+  assert.deepEqual(rivalries[0].names,['Karolína Plíšková','Su-Wei Hsieh']);
+  assert.deepEqual(rivalries[0].wins,[1,1]);
+  assert.equal(rivalries[0].matches.length,2);
 });
 
 test('coverage distinguishes missing ranking and partial enrichment', () => {

@@ -7,6 +7,7 @@ import { matchSearchIntent } from './search-intent';
 import { tournamentDirectory } from './tournament-directory';
 import { matchTypeFromScore } from './match-presentation';
 import { sentence } from './cuaderno/model';
+import { playerIdentity } from './explore';
 import matchBrowserContract from './match-browser-contract.json';
 import type { Match, Surface, Tour } from './types';
 
@@ -220,8 +221,13 @@ function createPartition(id: string, tour: Tour, fromYear: number, rows: Match[]
 
 function circuitIndex(matches: Match[], tour: Tour): MatchBrowserCircuit {
   const rows = matches.filter(match => (match.tour || 'atp') === tour);
-  const playerCounts = new Map<string, number>();
-  for (const match of rows) for (const player of [match.player1.name, match.player2.name]) playerCounts.set(player, (playerCounts.get(player) || 0) + 1);
+  const players = new Map<string, { name: string; played: number }>();
+  for (const match of rows) for (const name of [match.player1.name, match.player2.name]) {
+    const identity = playerIdentity(name, tour);
+    const player = players.get(identity);
+    if (player) player.played++;
+    else players.set(identity, { name, played: 1 });
+  }
   return {
     years: [...new Set(rows.map(match => match.year))].sort((a, b) => b - a),
     surfaces: surfaces.filter(surface => rows.some(match => match.surface === surface)),
@@ -233,7 +239,7 @@ function circuitIndex(matches: Match[], tour: Tour): MatchBrowserCircuit {
       years: [...new Set(event.matches.map(match => match.year))].sort((a, b) => b - a),
       count: event.matches.length,
     })),
-    players: [...playerCounts].map(([name, played]) => ({ name, played })).sort((a, b) => b.played - a.played || a.name.localeCompare(b.name, 'es')),
+    players: [...players.values()].sort((a, b) => b.played - a.played || a.name.localeCompare(b.name, 'es')),
     capabilities: {
       statistics: rows.some(match => match.statistics.length > 0),
       points: rows.some(match => match.point_tape.length > 0),
@@ -264,6 +270,13 @@ export function compileMatchBrowser(matches: Match[]) {
 }
 
 export const matchBrowserArtifact = (id: string) => `browser-${id}`;
+
+/** A detail shard is valid only when it covers the exact compact ID set. */
+export function browserPartitionMatchesDetails(partition: MatchBrowserPartition, matches: readonly Match[]) {
+  if (partition.rows.length !== matches.length) return false;
+  const ids=new Set(partition.rows.map(row=>row[0]));
+  return ids.size===matches.length&&matches.every(match=>ids.has(match.match_id));
+}
 
 function value(values: string[], index: number) { return index >= 0 ? values[index] || '' : ''; }
 

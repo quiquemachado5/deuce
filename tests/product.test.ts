@@ -4,7 +4,7 @@ import { mockMatches } from '../lib/mocks';
 import type { Match } from '../lib/types';
 import { recordCatalog } from '../lib/revista/records';
 import { recordEvidence, bestRun } from '../lib/record-evidence';
-import { comparePlayer, comparisonHeadToHead } from '../lib/player-comparison';
+import { comparePlayer, comparisonHeadToHead, comparisonPlayerWon, sharedCareerWindow } from '../lib/player-comparison';
 import { chronological } from '../lib/editorial';
 import { conflictCandidates } from '../lib/archive-review';
 import { archiveIndex } from '../lib/archive-index';
@@ -12,6 +12,7 @@ import { resultIssue } from '../lib/quality';
 import { isRecordedTiebreak, tiebreakTarget } from '../lib/historical-rules';
 import { matchingMatches } from '../lib/cuaderno/search';
 import { recurringFinalPair } from '../lib/tournament-directory';
+import { rivalryPair } from '../lib/explore';
 const fixture = (extra: Partial<Match> = {}):Match => ({...mockMatches[0],match_id:'evidence',category:'ATP 500',surface:'hard',year:2020,player1:{name:'One',seed:null},player2:{name:'Two',seed:null},winner:1,status:'Finished',round:'Final',point_tape:[],statistics:[],context:{date:'2020-01-01',dateLabel:'Inicio del torneo',format:'BO3'},score_summary:{...mockMatches[0].score_summary,sets:[2,0],games:[[6,3],[6,4]],timestamp:'2020-01-01'},...extra});
 test('comparison applies the same filters and never estimates absent ages/rankings',() => {
   const matches=[fixture({context:{age1:22.9,rankLabel:'Ranking al jugar',rank2:4,format:'BO3'}}),fixture({match_id:'clay',surface:'clay'}),fixture({match_id:'missing-age'})];
@@ -30,6 +31,21 @@ test('head to head is the exact intersection of both filtered player samples',()
   const two=comparePlayer(matches,'Two',{age:'22-25'});
   assert.deepEqual(comparisonHeadToHead(matches,['One','Two'],[one.matches,two.matches]).map(match=>match.match_id),['evidence']);
 });
+test('comparison and quick rivalry lookup merge name variants inside one circuit',()=>{
+  const first=fixture({match_id:'wta-variant-1',tour:'wta',year:2020,player1:{name:'Su-Wei Hsieh',seed:null},player2:{name:'Karolína Plíšková',seed:null}});
+  const second=fixture({match_id:'wta-variant-2',tour:'wta',year:2025,player1:{name:'Karolina Pliskova',seed:null},player2:{name:'Su Wei Hsieh',seed:null}});
+  const atp=fixture({match_id:'atp-same-slugs',tour:'atp',year:2026,player1:{name:'Su Wei Hsieh',seed:null},player2:{name:'Karolina Pliskova',seed:null}});
+  const matches=[first,second,atp];
+  const hsieh=comparePlayer(matches,'Su-Wei Hsieh',{tour:'wta'},'wta');
+  const pliskova=comparePlayer(matches,'Karolína Plíšková',{tour:'wta'},'wta');
+  assert.deepEqual([hsieh.played,hsieh.won,pliskova.played,pliskova.won],[2,1,2,1]);
+  assert.deepEqual(sharedCareerWindow(matches,['Su-Wei Hsieh','Karolína Plíšková'],'wta'),{first:2020,last:2025});
+  assert.deepEqual(new Set(comparisonHeadToHead(matches,['Su-Wei Hsieh','Karolína Plíšková'],[hsieh.matches,pliskova.matches],'wta').map(match=>match.match_id)),new Set(['wta-variant-1','wta-variant-2']));
+  assert.equal(comparisonPlayerWon(second,'Karolína Plíšková','wta'),true);
+  assert.deepEqual(rivalryPair(matches,['Su Wei Hsieh','Karolina Pliskova'],'wta'),{
+    names:['Su-Wei Hsieh','Karolína Plíšková'],wins:[1,1],played:2,slug:'karolina-pliskova--su-wei-hsieh',
+  });
+});
 test('a recurring final requires at least two title matches',()=>{
   const single=fixture();
   assert.equal(recurringFinalPair([single]),undefined);
@@ -42,6 +58,11 @@ test('bounded search keeps the same newest-first order as the full result',() =>
   assert.deepEqual(matchingMatches('One',matches,2),matchingMatches('One',matches).slice(0,2));
   assert.deepEqual(matchingMatches('',matches,2).map(match=>match.match_id),['2','3']);
   assert.deepEqual(matchingMatches('',matches,2),matchingMatches('',matches).slice(0,2));
+});
+test('metric shelf search retains full statistics instead of summary-only matches',() => {
+  const detailed={...mockMatches[0],match_id:'metric-detail'};
+  assert.ok(detailed.statistics.some(stat=>stat.name==='Aces'&&stat.period==='match'));
+  assert.deepEqual(matchingMatches('aces',[detailed]).map(match=>match.match_id),['metric-detail']);
 });
 test('single-metric calculation matches the full catalogue',() => {
   const matches=Array.from({length:8},(_,i) => fixture({match_id:String(i),year:2020+i%2}));

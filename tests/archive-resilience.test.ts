@@ -1,7 +1,11 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { archiveCapacityStatus, parseArchiveStorageReport } from '../lib/cloud-archive';
-import { createRemoteProbeCircuit } from '../lib/revista/read-records';
+import { browserIndexMatchesManifest, browserPartitionMatchesManifest, createRemoteProbeCircuit, fullPartitionMatchesManifest } from '../lib/revista/read-records';
+import { compileMatchBrowser } from '../lib/match-browser-snapshot';
+import { mockMatches } from '../lib/mocks';
+import { partitionMatches } from '../lib/revista/snapshot';
+import type { Match } from '../lib/types';
 
 test('remote manifest failures open a bounded circuit and a success closes it', () => {
   let time = 1_000;
@@ -21,6 +25,33 @@ test('remote manifest failures open a bounded circuit and a success closes it', 
   circuit.succeeded();
   assert.deepEqual(circuit.state(), { failures: 0, retryAt: 0 });
   assert.equal(circuit.canAttempt(), true);
+});
+
+test('browser and full shards reject same-count partition metadata swaps', () => {
+  const matches:Match[]=[
+    {...mockMatches[0],match_id:'partition-atp',tour:'atp',year:2024,data_source:'api'},
+    {...mockMatches[0],match_id:'partition-wta',tour:'wta',year:2024,data_source:'api'},
+  ];
+  const browser=compileMatchBrowser(matches);
+  const matchPartitions=partitionMatches(matches).map(group=>group.meta);
+  const manifest={matchCount:matches.length,matchPartitions};
+  assert.equal(browserIndexMatchesManifest(browser.index,manifest),true);
+
+  const staleIndex={...browser.index,partitions:browser.index.partitions.map(partition=>partition.tour==='atp'
+    ? {...partition,id:'matches-atp-2010s',fromYear:2010,toYear:2019}
+    : partition)};
+  assert.equal(browserIndexMatchesManifest(staleIndex,manifest),false);
+  const swappedCircuitIndex={...browser.index,partitions:browser.index.partitions.map(partition=>({
+    ...partition,tour:partition.tour==='atp'?'wta' as const:'atp' as const,
+  }))};
+  assert.equal(browserIndexMatchesManifest(swappedCircuitIndex,manifest),false);
+
+  const atpMeta=matchPartitions.find(partition=>partition.tour==='atp')!;
+  const atpBrowser=browser.partitions.find(partition=>partition.tour==='atp')!;
+  assert.equal(browserPartitionMatchesManifest(atpBrowser,atpMeta),true);
+  assert.equal(browserPartitionMatchesManifest({...atpBrowser,tour:'wta'},atpMeta),false);
+  assert.equal(fullPartitionMatchesManifest([matches[0]],atpMeta),true);
+  assert.equal(fullPartitionMatchesManifest([matches[1]],atpMeta),false);
 });
 
 test('archive capacity is fail-closed when storage cannot be measured', () => {

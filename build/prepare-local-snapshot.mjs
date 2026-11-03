@@ -1,9 +1,9 @@
 import { spawn } from 'node:child_process'
 import { cachedReading, preserveWorkingReading, replaceCachedReading } from './local-reading-cache.mjs'
-import { readingManifest, satisfiesReleaseSnapshot } from './snapshot-policy.mjs'
+import { hasRequiredSnapshotArtifacts, readingManifest, satisfiesReleaseSnapshot } from './snapshot-policy.mjs'
 
 const cached = await readingManifest(cachedReading)
-if (satisfiesReleaseSnapshot(cached)) {
+if (satisfiesReleaseSnapshot(cached) && await hasRequiredSnapshotArtifacts(cachedReading, cached)) {
   console.log(`Local reading snapshot reused: ${cached.matchCount} matches, version ${cached.version}`)
   process.exit(0)
 }
@@ -18,7 +18,7 @@ try {
   await run(['build/ensure-snapshot.mjs'])
   await replaceCachedReading()
   const prepared = await readingManifest(cachedReading)
-  if (!satisfiesReleaseSnapshot(prepared)) throw new Error('Local reading cache does not meet the release policy')
+  if (!satisfiesReleaseSnapshot(prepared) || !await hasRequiredSnapshotArtifacts(cachedReading, prepared)) throw new Error('Local reading cache does not meet the release policy')
   console.log(`Local reading snapshot prepared: ${prepared.matchCount} matches, version ${prepared.version}`)
 } finally {
   await restore()

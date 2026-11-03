@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { preparedArchive } from "@/lib/revista/read-records";
+import { preparedCompactArchive, preparedMatch } from "@/lib/revista/read-records";
 import { playerPhoto } from "@/lib/player-imagery";
 import { normalizeText } from "@/lib/quality";
 import { lineData, number, round, score, surfaceLabel } from "@/lib/cuaderno/model";
@@ -92,22 +92,23 @@ function Measure({ label, left, right, maximum }: { label: string; left: number;
 export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
   const query = await searchParams;
   if (!query.left && !query.right) return { title: "Comparar partidos — DEUCE", description: "Dos partidos, el mismo criterio y sus resultados por sets.", alternates: { canonical: query.tour==='wta'?'/compare?tour=wta':'/compare' } };
-  const matches = await preparedArchive();
+  const matches = await preparedCompactArchive('all');
   const left = matches.find(match => match.match_id === query.left && (!query.tour || (match.tour||'atp')===query.tour)), right = matches.find(match => match.match_id === query.right && (match.tour||'atp')===(left?.tour||'atp'));
   return { title: left && right ? winner(left) + " y " + winner(right) + " · Comparar partidos — DEUCE" : "Comparar partidos — DEUCE", alternates: { canonical: left && right ? address(left.match_id, right.match_id, left.tour||'atp') : "/compare" } };
 }
 
 export default async function ComparePage({ searchParams }: Props) {
-  const query = await searchParams, allMatches = await preparedArchive();
+  const query = await searchParams, allMatches = await preparedCompactArchive('all');
   const requested=allMatches.find(m=>m.match_id===query.left);
   const tour=query.tour==='atp'?'atp':query.tour==='wta'||requested?.tour==='wta'?'wta':'atp';
   const matches=allMatches.filter(m=>(m.tour||'atp')===tour);
-  const left = matches.find((match) => match.match_id === query.left) || (tour==='atp'?matches.find((match) => match.match_id === examples[0]):matches[0]);
-  const right = matches.find((match) => match.match_id === query.right && match.match_id !== left?.match_id)
-    || (query.left && left ? relatedMatch(left, matches) : null)
-    || matches.find((match) => match.match_id === examples[1] && match.match_id !== left?.match_id)
-    || matches.find((match) => match.match_id === examples[0] && match.match_id !== left?.match_id)
-    || matches.find((match) => match.match_id !== left?.match_id);
+  const leftSummary = matches.find((match) => match.match_id === query.left) || (tour==='atp'?matches.find((match) => match.match_id === examples[0]):matches[0]);
+  const rightSummary = matches.find((match) => match.match_id === query.right && match.match_id !== leftSummary?.match_id)
+    || (query.left && leftSummary ? relatedMatch(leftSummary, matches) : null)
+    || matches.find((match) => match.match_id === examples[1] && match.match_id !== leftSummary?.match_id)
+    || matches.find((match) => match.match_id === examples[0] && match.match_id !== leftSummary?.match_id)
+    || matches.find((match) => match.match_id !== leftSummary?.match_id);
+  const [left,right]=await Promise.all([leftSummary?preparedMatch(leftSummary.match_id):undefined,rightSummary?preparedMatch(rightSummary.match_id):undefined]);
   if (!left || !right) return <main className="nc-wrap ry-compare-page"><h1>No se pudo abrir la comparación.</h1><p>Elige dos partidos del archivo para leerlos juntos.</p><Link href={`/buscar?tour=${tour}`}>Buscar partidos</Link></main>;
   const changing = query.side === "left" ? "left" : "right";
   const term = normalizeText(query.q || "").trim();

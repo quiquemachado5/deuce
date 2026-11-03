@@ -1,7 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { createHash } from 'node:crypto'
-import { mkdtemp, rm, writeFile } from 'node:fs/promises'
+import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { gzipSync } from 'node:zlib'
@@ -15,11 +15,53 @@ const chunked = (id, value) => {
     [`${id}-chunk0`]: { chunk: encoded.slice(0, cut) }, [`${id}-chunk1`]: { chunk: encoded.slice(cut) } }
 }
 
-test('bundled restore validation covers WTA pieces and every browser partition', async () => {
-  const result = await verifyBundledDirectory(join(process.cwd(), 'data', 'reading'))
-  assert.ok(result.statistics > 0)
-  assert.ok(result.browserPartitions > 0)
-  assert.ok(result.tours.atp > 0 && result.tours.wta > 0)
+async function writeBundledFixture(root,{swapBrowserIds=false,omitWtaShard=false}={}) {
+  const version='b'.repeat(20),atpMeta={id:'wins',total:1,smallTotal:0},wtaMeta={id:'wins',total:1,smallTotal:0}
+  const partitions=[
+    {id:'matches-atp-2020s',tour:'atp',fromYear:2020,toYear:2029,count:1},
+    {id:'matches-wta-2020s',tour:'wta',fromYear:2020,toYear:2029,count:1},
+  ]
+  const dictionaries=Object.fromEntries(MATCH_BROWSER_DICTIONARIES.map(key=>[key,[]]))
+  const browserRow=id=>Object.assign(Array(MATCH_BROWSER_ROW_LENGTH).fill(-1),{0:id,20:[],21:0,36:[],37:[]})
+  const circuit={years:[2026],surfaces:[],categories:[],rounds:[],events:[],players:[],capabilities:{statistics:false,points:false,fiveSets:false}}
+  const artifacts={
+    manifest:{version,matchCount:2,competitionCount:0,editionCount:0,pieces:[atpMeta],circuitPieces:{atp:[atpMeta],wta:[wtaMeta]},matchPartitions:partitions,summary:{tours:{atp:1,wta:1}}},
+    [partitions[0].id]:[{match_id:'atp-1',tour:'atp',year:2026}],
+    ...(omitWtaShard?{}:{[partitions[1].id]:[{match_id:'wta-1',tour:'wta',year:2026}]}),
+    players:[{name:'ATP',matchIds:['atp-1']},{name:'WTA',matchIds:['wta-1']}],competition:[],audit:[],eras:{},
+    'piece-wins':{pages:{1:[{name:'ATP',proof:{match_id:'atp-1'}}]},smallPages:{}},
+    'piece-wta-wins':{pages:{1:[{name:'WTA',proof:{match_id:'wta-1'}}]},smallPages:{}},
+    'browser-index':{schema:MATCH_BROWSER_SCHEMA,count:2,partitions,circuits:{atp:circuit,wta:circuit}},
+    [`browser-${partitions[0].id}`]:{schema:MATCH_BROWSER_SCHEMA,...partitions[0],dictionaries,rows:[browserRow(swapBrowserIds?'wta-1':'atp-1')]},
+    [`browser-${partitions[1].id}`]:{schema:MATCH_BROWSER_SCHEMA,...partitions[1],dictionaries,rows:[browserRow(swapBrowserIds?'atp-1':'wta-1')]},
+  }
+  await Promise.all(Object.entries(artifacts).map(([id,value])=>writeFile(join(root,`${id}.json.gz`),gzipSync(JSON.stringify(value)))))
+}
+
+test('bundled restore validates full shards without requiring the legacy monolith', async () => {
+  const root=await mkdtemp(join(tmpdir(),'deuce-bundled-restore-'))
+  try {
+    await writeBundledFixture(root)
+    const result=await verifyBundledDirectory(root)
+    assert.equal(result.matches,2)
+    await assert.rejects(readFile(join(root,'matches.json.gz')),error=>error?.code==='ENOENT')
+  } finally { await rm(root,{recursive:true,force:true}) }
+})
+
+test('bundled restore rejects same-count browser shards with swapped full IDs', async () => {
+  const root=await mkdtemp(join(tmpdir(),'deuce-bundled-mismatch-'))
+  try {
+    await writeBundledFixture(root,{swapBrowserIds:true})
+    await assert.rejects(verifyBundledDirectory(root),/Browser\/full match IDs mismatch/)
+  } finally { await rm(root,{recursive:true,force:true}) }
+})
+
+test('bundled restore rejects a missing declared full shard even without a monolith', async () => {
+  const root=await mkdtemp(join(tmpdir(),'deuce-bundled-missing-'))
+  try {
+    await writeBundledFixture(root,{omitWtaShard:true})
+    await assert.rejects(verifyBundledDirectory(root),/Missing bundled artifact: matches-wta-2020s\.json\.gz/)
+  } finally { await rm(root,{recursive:true,force:true}) }
 })
 
 test('physical restore validation reconstructs complete packed artifacts', async () => {

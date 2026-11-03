@@ -22,6 +22,7 @@ npm run test
 npm run lint
 npm run typecheck
 npm run data:verify
+npm run data:wta:audit
 npm run data:evidence
 npm run data:restore-drill
 DEUCE_E2E_DATE=2026-11-02T12:00:00Z npm run build
@@ -32,12 +33,14 @@ npm run test:browser
 
 Las pruebas de navegador arrancan el build en `127.0.0.1:3100`. Para una comprobación de solo lectura de producción: `PLAYWRIGHT_BASE_URL="$NEXT_PUBLIC_SITE_ORIGIN" npm run test:browser`.
 
-CI comprueba pruebas, lint, dependencias de producción, build, presupuestos de HTML/CSS/JS/vídeo, datos, restauración, accesibilidad y regresión visual. El workflow no activa por sí mismo la protección de `main` ni despliega.
+CI ejecuta calidad, datos y build en paralelo, reutiliza un único build para las pruebas de navegador y comprueba dependencias de producción, presupuestos de HTML/CSS/JS/medios, restauración, accesibilidad y regresión visual. El workflow no activa por sí mismo la protección de `main` ni despliega.
 
 ## Datos y publicación
 
 - `data/archive`: fuentes recuperadas; no se editan para corregir una vista.
 - `data/reading`: generación local derivada y validada.
+- `npm run data:wta:derive -- --years=2020,2021,2022`: separa cohortes proveedoras ya incluidas en un archivo amplio `A`; no consulta la API ni sustituye una cohorte distinta.
+- `npm run data:wta:audit`: valida las 263 cohortes históricas esperadas, su circuito, totales e identificadores sin consumir llamadas de la API.
 - `lib/revista/snapshot.ts`: contrato, reglas, particiones por circuito/década y resumen de cobertura.
 - `lib/revista/publish-snapshot.ts`: publicación inmutable; el puntero se cambia solo después de escribir todos los artefactos.
 - `/cobertura`: alcance, antigüedad e historial diario de lo publicado.

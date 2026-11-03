@@ -35,7 +35,8 @@ type Props = {
 export async function generateMetadata({ params, searchParams }: Props) {
   const { slug, year } = await params;
   const query = await searchParams;
-  const tournament = tournamentDirectory(await preparedTournamentArchive()).find(
+  const requestedTour=query.cuadro==='wta'?'wta':query.cuadro==='atp'?'atp':'all';
+  const tournament = tournamentDirectory(await preparedTournamentArchive(Number(year),requestedTour)).find(
     (entry) => entry.slug === slug,
   );
   const options =
@@ -61,11 +62,13 @@ export async function generateMetadata({ params, searchParams }: Props) {
 export default async function Edition({ params, searchParams }: Props) {
   const { slug, year } = await params;
   const query = await searchParams;
-  const archive=await preparedTournamentArchive();
+  if (!/^\d{4}$/.test(year)) notFound();
+  const requestedTour=query.cuadro==='wta'?'wta':query.cuadro==='atp'?'atp':'all';
+  const archive=await preparedTournamentArchive(Number(year),requestedTour);
   const tournament = tournamentDirectory(archive).find(
     (entry) => entry.slug === slug,
   );
-  if (!tournament || !/^\d{4}$/.test(year)) notFound();
+  if (!tournament) notFound();
   const edition = tournament.matches.filter(
     (match) => match.year === Number(year),
   );

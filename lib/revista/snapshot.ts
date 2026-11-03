@@ -10,7 +10,7 @@ import { isInPublicationScope, publishedMatches } from '../publication-scope';
 import { recordCatalog, eraComparisons, type RecordPiece, type RecordRow, type Era } from './records';
 export const SNAPSHOT_SCHEMA = 7;
 // Bump whenever derivation rules change, even if source matches do not.
-export const RULES_VERSION = '2026-11-major-tours-v16';
+export const RULES_VERSION = '2026-11-major-tours-v17';
 export const PAGE_SIZE = 25;
 export const PIECE_CHUNK_PAGES = 50;
 export const pieceChunk = (page:number) => Math.floor((page-1)/PIECE_CHUNK_PAGES);

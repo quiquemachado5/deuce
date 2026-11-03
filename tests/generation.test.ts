@@ -99,6 +99,15 @@ test('a transient generation failure expires immediately while a healthy result 
   assert.equal(loads,2);
 });
 
+test('bounded caches expose hit, miss, eviction and failure diagnostics',async()=>{
+  const values=asyncCache<number>(1000,1);
+  assert.equal(await values('first',async()=>1),1);
+  assert.equal(await values('first',async()=>2),1);
+  assert.equal(await values('second',async()=>2),2);
+  await assert.rejects(()=>values('broken',async()=>{throw new Error('broken')}),/broken/);
+  assert.deepEqual(values.stats(),{hits:1,misses:3,evictions:2,failures:1,entries:0,capacity:1});
+});
+
 test('release gate rejects losses of published matches or measured coverage', () => {
   const metric = { ...after.manifest.pieces[0], measured: true, sample: 10 };
   const previous = { ...after.manifest, pieces: [metric] };

@@ -17,8 +17,37 @@ function validateManifest(manifest) {
   assert.ok(Number.isSafeInteger(manifest.matchCount) && manifest.matchCount > 0, 'Match count is invalid')
   assert.ok(Array.isArray(manifest.pieces), 'ATP piece catalogue is missing')
   assert.ok(Array.isArray(manifest.circuitPieces?.wta), 'WTA piece catalogue is missing')
+  assert.ok(Array.isArray(manifest.matchPartitions) && manifest.matchPartitions.length > 0, 'Full match partitions are missing')
+  assert.equal(new Set(manifest.matchPartitions.map(partition => partition.id)).size, manifest.matchPartitions.length, 'Full match partition identifiers are duplicated')
+  assert.equal(manifest.matchPartitions.reduce((sum, partition) => sum + partition.count, 0), manifest.matchCount, 'Full match partition totals are incomplete')
+  for (const partition of manifest.matchPartitions) {
+    assert.match(partition.id || '', /^matches-(atp|wta)-\d{4}s$/, 'Full match partition identifier is invalid')
+    assert.ok(partition.tour === 'atp' || partition.tour === 'wta', `Full match partition circuit is invalid: ${partition.id}`)
+    assert.ok(Number.isSafeInteger(partition.fromYear) && Number.isSafeInteger(partition.toYear) && partition.fromYear <= partition.toYear, `Full match partition years are invalid: ${partition.id}`)
+    assert.ok(Number.isSafeInteger(partition.count) && partition.count > 0, `Full match partition count is invalid: ${partition.id}`)
+  }
   assert.equal((manifest.summary?.tours?.atp || 0) + (manifest.summary?.tours?.wta || 0), manifest.matchCount, 'Circuit totals do not match the manifest')
   return manifest
+}
+
+async function validateFullPartitions(manifest, readPartition) {
+  const idsByPartition = new Map(), matches = []
+  for (const partition of manifest.matchPartitions) {
+    const rows = await readPartition(partition)
+    assert.ok(Array.isArray(rows), `Full match partition is invalid: ${partition.id}`)
+    assert.equal(rows.length, partition.count, `Full match partition count mismatch: ${partition.id}`)
+    const ids = new Set()
+    for (const match of rows) {
+      assert.ok(typeof match?.match_id === 'string' && match.match_id.length > 0, `Full match partition ID is invalid: ${partition.id}`)
+      assert.ok(!ids.has(match.match_id), `Full match partition contains duplicate IDs: ${partition.id}`)
+      assert.equal(match.tour === 'wta' ? 'wta' : 'atp', partition.tour, `Full match partition circuit mismatch: ${partition.id}`)
+      assert.ok(match.year >= partition.fromYear && match.year <= partition.toYear, `Full match partition year mismatch: ${partition.id}`)
+      ids.add(match.match_id)
+    }
+    idsByPartition.set(partition.id, ids)
+    matches.push(...rows)
+  }
+  return { matches, idsByPartition }
 }
 
 function pieceDefinitions(manifest) {
@@ -59,26 +88,36 @@ function validateSupportingArtifacts(manifest, players, competition, audit, eras
   assert.ok(eras && typeof eras === 'object' && !Array.isArray(eras), 'Era artifact is invalid')
 }
 
-async function validateBrowser(manifest, index, readPartition, validIds) {
+async function validateBrowser(manifest, index, readPartition, validIds, fullIdsByPartition) {
   assert.equal(index?.schema, MATCH_BROWSER_SCHEMA, 'Browser index schema is incompatible')
   assert.equal(index.count, manifest.matchCount, 'Browser index count differs from manifest')
   assert.ok(Array.isArray(index.partitions) && index.partitions.length > 0, 'Browser partitions are missing')
   assert.equal(new Set(index.partitions.map(partition => partition.id)).size, index.partitions.length, 'Browser partition identifiers are duplicated')
   assert.equal(index.partitions.reduce((sum, part) => sum + part.count, 0), manifest.matchCount, 'Browser partition totals are incomplete')
+  const fullMeta = new Map(manifest.matchPartitions.map(partition => [partition.id, partition]))
   for (const tour of ['atp', 'wta']) {
     const circuit = index.circuits?.[tour]
     for (const field of ['years', 'surfaces', 'categories', 'rounds', 'events', 'players']) assert.ok(Array.isArray(circuit?.[field]), `Browser circuit field is missing: ${tour}.${field}`)
     for (const field of ['statistics', 'points', 'fiveSets']) assert.equal(typeof circuit?.capabilities?.[field], 'boolean', `Browser circuit capability is missing: ${tour}.${field}`)
   }
   const groups = await Promise.all(index.partitions.map(async meta => {
+    const expected = fullMeta.get(meta.id)
+    assert.ok(expected, `Browser partition has no full match partition: ${meta.id}`)
+    for (const field of ['tour', 'fromYear', 'toYear', 'count']) assert.equal(meta[field], expected[field], `Browser/full metadata mismatch: ${meta.id}.${field}`)
     const partition = await readPartition(meta)
     assert.equal(partition?.schema, index.schema, `Browser schema mismatch: ${meta.id}`)
     for (const field of ['id', 'tour', 'fromYear', 'toYear', 'count']) assert.equal(partition[field], meta[field], `Browser metadata mismatch: ${meta.id}.${field}`)
     assert.ok(partition.dictionaries && MATCH_BROWSER_DICTIONARIES.every(key => Array.isArray(partition.dictionaries[key])), `Browser dictionaries missing: ${meta.id}`)
     assert.ok(Array.isArray(partition.rows), `Browser rows missing: ${meta.id}`)
     assert.equal(partition.rows.length, meta.count, `Browser row count mismatch: ${meta.id}`)
+    const ids = partition.rows.map(row => row[0])
     for (const row of partition.rows) assert.ok(Array.isArray(row) && row.length === MATCH_BROWSER_ROW_LENGTH && validIds.has(row[0]), `Browser partition references an unknown match: ${meta.id}`)
-    return partition.rows.map(row => row[0])
+    const fullIds = fullIdsByPartition.get(meta.id)
+    assert.ok(fullIds, `Full match IDs are missing: ${meta.id}`)
+    assert.equal(new Set(ids).size, ids.length, `Browser partition contains duplicate IDs: ${meta.id}`)
+    assert.equal(ids.length, fullIds.size, `Browser/full match count mismatch: ${meta.id}`)
+    assert.ok(ids.every(id => fullIds.has(id)), `Browser/full match IDs mismatch: ${meta.id}`)
+    return ids
   }))
   const ids = groups.flat()
   assert.equal(new Set(ids).size, validIds.size, 'Browser match identifiers are duplicated or missing')
@@ -93,12 +132,13 @@ export async function verifyBundledDirectory(root) {
     return JSON.parse(gunzipSync(await readFile(join(root, filename))).toString())
   }
   const manifest = validateManifest(await decode('manifest'))
-  const matches = await decode('matches'), validIds = validateMatches(manifest, matches)
+  const { matches, idsByPartition } = await validateFullPartitions(manifest, partition => decode(partition.id))
+  const validIds = validateMatches(manifest, matches)
   const [players, competition, audit, eras, browserIndex] = await Promise.all(['players', 'competition', 'audit', 'eras', 'browser-index'].map(decode))
   validateSupportingArtifacts(manifest, players, competition, audit, eras, validIds)
   const pieces = pieceDefinitions(manifest)
   for (const piece of pieces) validateRows(await decode(piece.bundled), piece.meta, validIds, piece.bundled)
-  await validateBrowser(manifest, browserIndex, meta => decode(`browser-${meta.id}`), validIds)
+  await validateBrowser(manifest, browserIndex, meta => decode(`browser-${meta.id}`), validIds, idsByPartition)
   return { files: files.length, matches: matches.length, statistics: pieces.length,
     browserPartitions: browserIndex.partitions.length, datasetVersion: manifest.version, tours: manifest.summary.tours,
     scope: 'Compressed bundled generation' }
@@ -141,13 +181,7 @@ export async function verifyFilesystemArchiveDirectory(root) {
     }
     return JSON.parse(gunzipSync(Buffer.from(encoded, 'base64')).toString())
   }
-  const matches = []
-  if (manifest.matchPartitions?.length) for (const partition of manifest.matchPartitions) {
-    const rows = decodeBlob(partition.id)
-    assert.equal(rows.length, partition.count, `Match partition count mismatch: ${partition.id}`)
-    assert.ok(rows.every(match => (match.tour === 'wta' ? 'wta' : 'atp') === partition.tour && match.year >= partition.fromYear && match.year <= partition.toYear), `Match partition scope mismatch: ${partition.id}`)
-    matches.push(...rows)
-  } else matches.push(...decodeBlob('matches'))
+  const { matches, idsByPartition } = await validateFullPartitions(manifest, partition => decodeBlob(partition.id))
   const validIds = validateMatches(manifest, matches)
   validateSupportingArtifacts(manifest, decodeBlob('players'), decodeBlob('competition'), decodeBlob('audit'), decodeBlob('eras'), validIds)
   const pieces = pieceDefinitions(manifest)
@@ -172,7 +206,7 @@ export async function verifyFilesystemArchiveDirectory(root) {
     validateRows(pages, piece.meta, validIds, `piece-${piece.key}`)
   }
   const browserIndex = decodeBlob('browser-index')
-  await validateBrowser(manifest, browserIndex, meta => decodeBlob(`browser-${meta.id}`), validIds)
+  await validateBrowser(manifest, browserIndex, meta => decodeBlob(`browser-${meta.id}`), validIds, idsByPartition)
   return { files: (await readdir(root)).length, matches: matches.length, statistics: pieces.length,
     browserPartitions: browserIndex.partitions.length, datasetVersion: manifest.version, tours: manifest.summary.tours,
     scope: 'Physical filesystem archive backup' }

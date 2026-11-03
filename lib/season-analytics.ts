@@ -5,6 +5,7 @@ import { eligibleMatch } from './quality'
 import { publishedMatchMinutes } from './duration'
 import { chronological } from './editorial'
 import { isRecordedTiebreak } from './historical-rules'
+import { playerIdentity } from './explore'
 
 export type PlayerRecord = {
   name: string
@@ -99,8 +100,8 @@ function calculateSeasonAnalytics(matches: Match[]) {
     if (!eligibleMatch(match)) continue
     const tour=match.tour||'atp'
     const names = [match.player1.name, match.player2.name] as const
-    const firstKey = `${tour}:${names[0]}`
-    const secondKey = `${tour}:${names[1]}`
+    const firstKey = playerIdentity(names[0],tour)
+    const secondKey = playerIdentity(names[1],tour)
     const first = records.get(firstKey) || createRecord(names[0],tour)
     const second = records.get(secondKey) || createRecord(names[1],tour)
     records.set(firstKey, first)
@@ -168,7 +169,7 @@ function calculateSeasonAnalytics(matches: Match[]) {
       record.closeSetsWon += games.filter(set => set[index] > set[1 - index] && set[index] - set[1 - index] <= 2).length
       if (index === winner) {
         record.wins++
-        record.opponentsBeaten.push(names[1 - index])
+        record.opponentsBeaten.push(index===0?second.name:first.name)
         if (games.length === 5) record.fiveSetWins++
         if (games.length >= 2 && games[0][index] < games[0][1 - index]) record.firstSetComebacks++
         if (games.length >= 3 && games.slice(0, 2).every(set => set[index] < set[1 - index])) record.twoSetComebacks++
@@ -202,10 +203,10 @@ function calculateSeasonAnalytics(matches: Match[]) {
       if (stat.player === 1) addStat(first, enriched)
       if (stat.player === 2) addStat(second, enriched)
     })
-    const sorted = [...names].sort((a, b) => a.localeCompare(b, 'es')) as [string, string]
-    const key = `${tour}:${sorted.join('|')}`
+    const sorted = [first.name,second.name].sort((a, b) => a.localeCompare(b, 'es')) as [string, string]
+    const key = [firstKey,secondKey].sort().join('|')
     const rivalry = rivalries.get(key) || { names: sorted, wins: [0, 0] as [number, number], matches: [] }
-    rivalry.wins[sorted.indexOf(names[winner])]++
+    rivalry.wins[sorted.indexOf(winner===0?first.name:second.name)]++
     rivalry.matches.push(match)
     rivalries.set(key, rivalry)
   }
@@ -214,7 +215,7 @@ function calculateSeasonAnalytics(matches: Match[]) {
   for (const match of [...matches].sort(chronological)) {
     for (const side of [1, 2] as const) {
       const name = side === 1 ? match.player1.name : match.player2.name
-      const key = `${match.tour || 'atp'}:${name}`
+      const key = playerIdentity(name,match.tour||'atp')
       const next = eligibleMatch(match) && match.winner === side ? (streaks.get(key) || 0) + 1 : 0
       streaks.set(key, next)
       const record = records.get(key)

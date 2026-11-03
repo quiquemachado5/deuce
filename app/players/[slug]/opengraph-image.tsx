@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { notebook } from "@/lib/cuaderno/data";
+import { summaryNotebook } from "@/lib/cuaderno/data";
 import { playerSlug } from "@/lib/explore";
 
 export const alt = "Ficha de jugador — DEUCE";
@@ -8,7 +8,7 @@ export const contentType = "image/png";
 
 export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const data = await notebook();
+  const data = await summaryNotebook();
   const player = data.players.find((entry) => playerSlug(entry.name) === slug);
   const record = data.records.find((entry) => entry.name === player?.name);
   const name = player?.name || "Jugador";

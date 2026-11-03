@@ -27,8 +27,12 @@ if (sourceArchive) {
     if (error?.code !== 'ENOENT') throw error
   }
 } else {
+  const configured = process.env.DEUCE_READING_DIR?.trim()
   const cached = join(process.cwd(), '.deuce-cache', 'reading')
-  const bundled = await access(join(cached, 'manifest.json.gz')).then(() => cached).catch(() => join(process.cwd(), 'data', 'reading'))
+  const bundled = configured
+    ? resolve(configured)
+    : await access(join(cached, 'manifest.json.gz')).then(() => cached).catch(() => join(process.cwd(), 'data', 'reading'))
+  await access(join(bundled, 'manifest.json.gz'))
   await run('tar', ['-czf', archive, '-C', bundled, '.'])
 }
 const archiveHash = sha256(await readFile(archive))

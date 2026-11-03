@@ -2,7 +2,7 @@
 
 ## Contrato de publicación
 
-1. Rama revisada: ejecutar `npm run test`, `npm run lint`, `npm run build`, `npm run typecheck`, `npm run data:verify`, `npm run data:evidence`, `npm run data:restore-drill`, `npm run test:browser`.
+1. Rama revisada: ejecutar `npm run test`, `npm run lint`, `npm run build`, `npm run typecheck`, `npm run data:verify`, `npm run data:wta:audit`, `npm run data:evidence`, `npm run data:restore-drill`, `npm run test:browser`.
 2. La compilación ejecuta `data:ensure`: reutiliza una generación compatible, restaura un snapshot HTTPS configurado o reconstruye desde los archivos fuente compactos. Debe alcanzar los mínimos ATP y WTA de `ops/release-baseline.json` y la versión de reglas indicada allí.
 3. En el VPS, `ops/vps/deploy.sh` asocia la imagen al SHA de Git y no termina hasta que `/api/health/deep` acredita ese commit, la versión de datos, los mínimos por circuito, almacenamiento y heartbeat del scheduler. Un estado degradado bloquea la release.
 4. Contrastar con el dominio público: volumen, catálogo, cobertura estadística por año, versión, partidos recientes, evidencia, comparador y filtros.
@@ -20,6 +20,10 @@
 El scheduler conserva el `retryAt` comunicado por el proveedor. Si ATP, WTA o el histórico agotan la cuota, reanuda esa misma publicación después del reinicio diario sin esperar al pipeline del día siguiente. El histórico prioriza 2019 hacia atrás y consulta los códigos WTA propios de cada era (`W`, `T1`–`T5`, `PM`, `P`, `I`, además de `G` y `F`); el filtro de publicación sigue admitiendo únicamente individuales Grand Slam, WTA 1000, WTA 500 y WTA 250.
 
 Para una recuperación local reanudable del tramo prioritario se usa `npm run data:wta:backfill:historical`. Los checkpoints quedan en `.deuce-cache/wta`; una interrupción no publica cohortes incompletas ni repite las ya cerradas.
+
+Antes de consumir cuota histórica, `npm run data:wta:derive -- --years=2020,2021,2022` reutiliza respuestas amplias `archive-YYYY-A` ya verificadas y las separa por el `level` original del proveedor. Conserva cada fila sin remapear torneos o marcadores, registra `scope: derived-from-YYYY-A`, escribe de forma atómica y se niega a sobrescribir una cohorte existente con contenido diferente.
+
+`npm run data:wta:audit` no consulta al proveedor: recorre únicamente los checkpoints versionados de las 263 cohortes previstas, exige `complete: true`, circuito WTA, año/nivel coherentes, totales e identificadores únicos y resume el progreso por era. También impide retroceder respecto a `ops/wta-history-baseline.json`: sus mínimos deben subir y cada cohorte nueva debe desaparecer de la lista exacta de pendientes permitidas tras comprobarla; nunca se rebajan para hacer pasar CI. `--require-complete` se reserva para cerrar la migración histórica; el gate ordinario valida con rigor lo ya descargado sin bloquear las cohortes todavía pendientes.
 
 ## Recuperación
 

@@ -18,6 +18,7 @@ import { reconcileEditionSummaries } from './edition-reconcile'
 import { providerRoundName, publishableWtaArchiveRow, publishableWtaModernRow } from './provider-publication'
 import { providerTournamentName } from './tournament-identity'
 import { isInPublicationScope, publishedMatches } from './publication-scope'
+import { wtaHistoricalLevelsForSeason } from './wta-backfill-schedule'
 
 const archive = join(process.cwd(), 'data', 'archive')
 const listsDir = join(archive, 'lists')
@@ -159,6 +160,8 @@ async function wtaArchiveRows(year: number, level: string): Promise<Row[]> {
   if (selected.data.some((row: Row) => row.tour && row.tour !== 'wta')) throw new Error(`WTA archive ${year}-${level} contains another circuit`)
   return selected.data.filter((row: Row) => publishableWtaArchiveRow(row)).map((row: Row) => ({ ...row, tour: 'wta' }))
 }
+const wtaPublicationLevelsForSeason = (year: number) => wtaHistoricalLevelsForSeason(year)
+  .filter(level => level !== 'W' && level !== 'F')
 function numeric(value: unknown) { if (value === null || value === undefined || value === '') return null; const result = Number(value); return Number.isFinite(result) ? result : null }
 function player(number: 1 | 2, name: string, seed: unknown) { return { name: name || `Jugador ${number}`, seed: numeric(seed) } }
 function gamesFromScore(raw: unknown): number[][] {
@@ -371,7 +374,7 @@ function historical(row: Row, detail?: Row, summary = false): Match {
   const tour = rowTour(row)
   const tournament = providerTournamentName(row.tournament || '', { tour, level: row.level })
   return {
-    match_id: `${tour === 'wta' ? 'wta-' : ''}archive-${row.id}`, tour, tournament, surface: surface(row.surface), category: historicalTournamentCategory(row.level, year, tour), year,
+    match_id: `${tour === 'wta' ? 'wta-' : ''}archive-${row.id}`, tour, tournament, surface: surface(row.surface), category: historicalTournamentCategory(row.level, year, tour, tournament), year,
     player1: player(1, row.winner?.name, row.winner?.seed), player2: player(2, row.loser?.name, row.loser?.seed),
     score_summary: { sets: [games.filter(([a,b])=>a>b).length, games.filter(([a,b])=>b>a).length], games, points: [], server: null, is_tiebreak: false, win_probability_p1: null, timestamp: row.event_date ? `${row.event_date}T00:00:00Z` : `${year}-01-01T00:00:00Z` },
     final_score: row.score?.replace(/(\d)-(\d)/g, '$1–$2') || scoreFromGames(games), round: roundName(row.round || ''), winner: 1, status: row.outcome === 'completed' ? 'Finished' : row.outcome || 'Finished',
@@ -418,11 +421,14 @@ async function readArchiveMatches(year?: number, summary = false): Promise<Match
     const rows = (await rowsFor(`modern-${y}-`)).filter(row => row.is_qualifying !== true)
     return Promise.all(rows.map(async row => modern(row, summary ? undefined : await readSavedDetail('modern', row), summary)))
   })
-  const levels = existsSync(join(listsDir, 'archive-A.complete.json')) ? ['G', 'M', 'A'] : ['G', 'M']
-  for (const y of archiveYears) for (const level of levels) tasks.push((async () => {
-    const [men,women] = await Promise.all([rowsFor(`archive-${y}-${level}-`),wtaArchiveRows(y,level)])
-    const source = [...men,...women]
+  const atpLevels = existsSync(join(listsDir, 'archive-A.complete.json')) ? ['G', 'M', 'A'] : ['G', 'M']
+  for (const y of archiveYears) for (const level of atpLevels) tasks.push((async () => {
+    const source = await rowsFor(`archive-${y}-${level}-`)
     const rows = (level === 'A' ? dedupeArchiveTourRows(source) : source).filter(row => !/^Q[1-4]$/.test(row.round || ''))
+    return Promise.all(rows.map(async row => historical(row, summary ? undefined : await readSavedDetail('archive', row), summary)))
+  })())
+  for (const y of archiveYears) for (const level of wtaPublicationLevelsForSeason(y)) tasks.push((async () => {
+    const rows = (await wtaArchiveRows(y, level)).filter(row => !/^Q[1-4]$/.test(row.round || ''))
     return Promise.all(rows.map(async row => historical(row, summary ? undefined : await readSavedDetail('archive', row), summary)))
   })())
   return mergeEditionReferences((await Promise.all(tasks)).flat(),year)
@@ -440,11 +446,14 @@ async function readArchiveDetailedMatches(year?: number): Promise<Match[]> {
     for (const match of await Promise.all(rows.map(async row => modern(row, await readSavedDetail('modern', row))))) results.push(match)
   }
   const archiveYears = year ? (year < 2023 ? [year] : []) : Array.from({ length: 55 }, (_, i) => 1968 + i)
-  const levels = existsSync(join(listsDir, 'archive-A.complete.json')) ? ['G', 'M', 'A'] : ['G', 'M']
-  for (const y of archiveYears) for (const level of levels) {
-    const [men,women] = await Promise.all([rowsFor(`archive-${y}-${level}-`),wtaArchiveRows(y,level)])
-    const source = [...men,...women]
+  const atpLevels = existsSync(join(listsDir, 'archive-A.complete.json')) ? ['G', 'M', 'A'] : ['G', 'M']
+  for (const y of archiveYears) for (const level of atpLevels) {
+    const source = await rowsFor(`archive-${y}-${level}-`)
     const rows = (level === 'A' ? dedupeArchiveTourRows(source) : source).filter(row => !/^Q[1-4]$/.test(row.round || '') && (existsSync(join(detailsDir, `${detailKey('archive', row)}.json.gz`)) || remote[detailKey('archive', row)]))
+    for (const match of await Promise.all(rows.map(async row => historical(row, await readSavedDetail('archive', row))))) results.push(match)
+  }
+  for (const y of archiveYears) for (const level of wtaPublicationLevelsForSeason(y)) {
+    const rows = (await wtaArchiveRows(y, level)).filter(row => !/^Q[1-4]$/.test(row.round || '') && (existsSync(join(detailsDir, `${detailKey('archive', row)}.json.gz`)) || remote[detailKey('archive', row)]))
     for (const match of await Promise.all(rows.map(async row => historical(row, await readSavedDetail('archive', row))))) results.push(match)
   }
   return results
@@ -471,9 +480,12 @@ export async function archiveMatch(id: string): Promise<Match | undefined> {
     }
   }
   if (kind === 'archive' && tour === 'wta') {
-    for (let year = new Date().getUTCFullYear() - 4; year >= 1968; year--) for (const level of ['G', 'M', 'A']) {
+    for (let year = new Date().getUTCFullYear() - 4; year >= 1968; year--) for (const level of wtaPublicationLevelsForSeason(year)) {
       const row = (await wtaArchiveRows(year, level)).find(item => String(item.id) === providerId)
-      if (row) return historical(row, await readDetail(kind, row))
+      if (row) {
+        const match = historical(row, await readDetail(kind, row))
+        return isInPublicationScope(match) ? match : undefined
+      }
     }
     return undefined
   }

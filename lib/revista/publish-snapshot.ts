@@ -39,7 +39,8 @@ export async function writeBundledSnapshot(snapshot:Snapshot) {
   const dir=join(process.cwd(),'data','reading');await mkdir(dir,{recursive:true});
   assertPublishableArchive(snapshot.matches);
   const browser=compileMatchBrowser(snapshot.matches);
-  const artifacts:Record<string,unknown>={eras:snapshot.eras,matches:snapshot.matches,players:snapshot.players,competition:snapshot.competition,audit:snapshot.audit,'browser-index':browser.index,...Object.fromEntries(browser.partitions.map(partition=>[matchBrowserArtifact(partition.id),partition])),...Object.fromEntries(Object.entries(snapshot.pieces).map(([id,p])=>[`piece-${id}`,p])),manifest:snapshot.manifest};
+  const fullPartitions=partitionMatches(snapshot.matches);
+  const artifacts:Record<string,unknown>={eras:snapshot.eras,matches:snapshot.matches,players:snapshot.players,competition:snapshot.competition,audit:snapshot.audit,'browser-index':browser.index,...Object.fromEntries(fullPartitions.map(group=>[group.meta.id,group.matches])),...Object.fromEntries(browser.partitions.map(partition=>[matchBrowserArtifact(partition.id),partition])),...Object.fromEntries(Object.entries(snapshot.pieces).map(([id,p])=>[`piece-${id}`,p])),manifest:snapshot.manifest};
   for(const [id,value] of Object.entries(artifacts)) {
     const path=join(dir,`${id}.json.gz`);await writeFile(`${path}.tmp`,gzipSync(JSON.stringify(value)));await rename(`${path}.tmp`,path);
   }

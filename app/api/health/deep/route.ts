@@ -2,7 +2,7 @@ import { cloudArchiveConfigured, cloudArchiveLastCapacity, cloudProbeRead } from
 import { deploymentMetadata } from '@/lib/deployment';
 import { editionCompleteness } from '@/lib/edition-audit';
 import { generationMetadata } from '@/lib/revista/generation';
-import { preparedEditionAudit, preparedGeneration, preparedMatchBrowser } from '@/lib/revista/read-records';
+import { preparedDataCacheDiagnostics, preparedEditionAudit, preparedGeneration, preparedMatchBrowser } from '@/lib/revista/read-records';
 import { logEvent, requestId } from '@/lib/structured-log';
 import { readSchedulerHealth } from '@/lib/scheduler-health';
 import { compareCircuitFreshness, recentRefreshFreshnessIssue } from '@/lib/circuit-freshness';
@@ -25,6 +25,9 @@ function recentStatus(value: unknown) {
     publicationCycle: typeof row.publicationCycle === 'string' ? row.publicationCycle : undefined,
     backfillDay: typeof row.backfillDay === 'string' ? row.backfillDay : undefined,
     initialSeed: row.initialSeed === true,
+    historicalCohorts: Number.isSafeInteger(row.historicalCohorts) ? Number(row.historicalCohorts) : undefined,
+    totalHistoricalCohorts: Number.isSafeInteger(row.totalHistoricalCohorts) ? Number(row.totalHistoricalCohorts) : undefined,
+    pendingModern: Number.isSafeInteger(row.pendingModern) ? Number(row.pendingModern) : undefined,
     ageHours: at ? Math.round(Math.max(0, (Date.now() - Date.parse(at)) / 3_600_000) * 10) / 10 : null,
   };
 }
@@ -72,6 +75,7 @@ export async function GET(request: Request) {
       statistics: generation.manifest.pieces.length + (generation.manifest.circuitPieces?.wta.length || 0),
       statisticsByTour: { atp: generation.manifest.pieces.length, wta: generation.manifest.circuitPieces?.wta.length || 0 },
       matchBrowser: { complete: true, matches: browserCount, partitions: browser.partitions.length },
+      cache: preparedDataCacheDiagnostics(),
       editionCoverage: { audited: auditedEditions.length, incomplete: auditedEditions.filter(edition => edition.completeDraw === false).length, pendingResults: auditedEditions.reduce((sum, edition) => sum + edition.pending, 0) },
       ageHours: Math.round(ageHours * 10) / 10, staleAfterHours: 72, elapsedMs,
       remoteArchive: { configured, reachable: !generation.fallbackReason },

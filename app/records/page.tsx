@@ -16,7 +16,6 @@ import { evidenceHref } from "@/lib/record-evidence";
 import ArchiveNotice from "@/components/nocturno/ArchiveNotice";
 import RecordsControls from "@/components/RecordsControls";
 import RecordsTable, { RecordsPagination } from "@/components/RecordsTable";
-import { canonicalSearchText } from "@/lib/search-text";
 import styles from "./records.module.css";
 import type { RecordMeta } from "@/lib/revista/snapshot";
 import redesign from "./records-redesign.module.css";
@@ -33,31 +32,16 @@ import TournamentFilters from "@/components/TournamentFilters";
 import { photoFor, portraitFor, recordFamilyMediaLayout, recordImageStyle, rowForTour } from './record-media';
 import { recordPhoto } from '@/lib/editorial-imagery';
 import { hasPublishedTour, noIndexFollow, robotsForUnavailableTour } from '@/lib/seo-metadata';
-
-const families = [
-  ["Títulos y finales", "Títulos y finales"],
-  ["Victorias", "Victorias"],
-  ["Remontadas", "Remontadas y forma del partido"],
-  ["Presión", "Presión"],
-  ["Tiempo y edad", "Tiempo, edad y calendario"],
-  ["Por torneo", "Un torneo"],
-  ["Parejas", "Parejas"],
-  ["Medidas de partido", "Medidas de partido"],
-  ["Superficies", "Superficies"],
-  ["Saque", "Saque"],
-  ["Resto", "Resto"],
-  ["Golpes", "Golpes"],
-] as const;
-
-function recordScope(manifest:Awaited<ReturnType<typeof recordView>>['manifest'],tour:'atp'|'wta'){
-  const coverage=manifest.circuitCoverage?.[tour];
-  const range=coverage?.firstYear&&coverage.lastYear
-    ?coverage.firstYear===coverage.lastYear?String(coverage.firstYear):`${coverage.firstYear}–${coverage.lastYear}`
-    :'temporadas publicadas';
-  return tour==='wta'
-    ?`Muestra WTA ${range}: ${number(coverage?.matches||0)} resultados. No contiene estadísticas de saque ni secuencias punto a punto; estos récords se calculan con los marcadores y el contexto realmente publicados.`
-    :`Muestra ATP ${range}: ${number(coverage?.matches||manifest.matchCount)} resultados. Las estadísticas y el punto a punto solo intervienen en los récords que documentan esos campos.`;
-}
+import {
+  RECORD_SURFACE_IMAGES,
+  normalizeRecordQuery,
+  recordDetailModel,
+  recordFamilyLabel,
+  recordFamilyPresentation,
+  recordIndexModel,
+  recordScope,
+  recordViewIds,
+} from "./record-page-model";
 
 async function RecordIndex({
   manifest,
@@ -68,29 +52,18 @@ async function RecordIndex({
   query: RecordQuery;
   status: Awaited<ReturnType<typeof recordView>>;
 }) {
-  const groups = [...new Set(manifest.pieces.map((piece) => piece.group))];
-  const selected =
-    query.grupo && groups.includes(query.grupo) ? query.grupo : "";
-  const term = canonicalSearchText(query.q || "");
-  const pieces = manifest.pieces.filter(
-    (piece) =>
-      (!selected || piece.group === selected) &&
-      (!term ||
-        canonicalSearchText(
-          `${piece.title} ${piece.group} ${piece.leader?.name || ""}`,
-        ).includes(term)),
+  const {
+    groups,
+    selected,
+    term,
+    pieces,
+    wtaUnavailable,
+    visibleGroups,
+    overview,
+  } = recordIndexModel(manifest, query);
+  const { rankingIds, insightIds } = recordViewIds(
+    query.tour === "wta" ? "wta" : "atp",
   );
-  const wtaUnavailable = query.tour === 'wta' && !manifest.pieces.some((piece) => piece.leader);
-  const visibleGroups = (selected ? [selected] : groups).filter((group) =>
-    pieces.some((piece) => piece.group === group),
-  );
-  const overview = !selected && !term && !recordsHaveTransientState(query);
-  const rankingIds=query.tour==='wta'
-    ?["victorias", "finales-ganadas", "partidos-disputados"]
-    :["victorias", "finales-ganadas", "efectividad-top-10"];
-  const insightIds=query.tour==='wta'
-    ?["efectividad-hard","efectividad-clay","efectividad-grass","mas-juegos","remontada-primer-set","titulos-grass","titulos-clay","titulos-hard"]
-    :["efectividad-hard","efectividad-clay","efectividad-grass","mas-juegos","efectividad-finales","remontada-dos-sets","aces","titulos-grass","titulos-clay","titulos-hard"];
   const [rankingViews, insightViews] = overview
     ? await Promise.all([
         Promise.all(
@@ -167,23 +140,6 @@ async function RecordIndex({
         manifestById.get("efectividad-grass"),
     ],
   ];
-  const surfaceImages = {
-    Dura: {
-      src: "/images/courts/us-open-1440.webp",
-      alt: "Pista dura del Abierto de Estados Unidos vista desde la grada",
-      objectPosition: "50% 52%",
-    },
-    Tierra: {
-      src: "/images/courts/roland-garros-1440.webp",
-      alt: "Pista de tierra batida de Roland Garros",
-      objectPosition: "50% 48%",
-    },
-    Hierba: {
-      src: "/images/courts/wimbledon-1440.webp",
-      alt: "Pista central de Wimbledon sobre hierba",
-      objectPosition: "50% 46%",
-    },
-  } as const;
   const surfaceRecords = surfaceSources.flatMap(([label, piece]) =>
     piece?.leader
       ? [
@@ -194,7 +150,10 @@ async function RecordIndex({
             player: piece.leader.name,
             value: piece.leader.value,
             display: recordValue(piece.leader, piece.percent, false),
-            image: surfaceImages[label as keyof typeof surfaceImages],
+            image:
+              RECORD_SURFACE_IMAGES[
+                label as keyof typeof RECORD_SURFACE_IMAGES
+              ],
           },
         ]
       : [],
@@ -213,60 +172,12 @@ async function RecordIndex({
     : 0;
   const comebackPhoto = photoFor(comeback);
   const marathonPhoto = photoFor(marathon);
-  const familyPhotoRecords: Record<string, string> = query.tour==='wta'?{
-    Victorias:"victorias",
-    "Remontadas y forma del partido":"remontada-primer-set",
-    "Títulos y finales":"titulos-clay",
-    Superficies:"efectividad-clay",
-  }:{
-    Victorias: "atp-500-victorias",
-    "Remontadas y forma del partido": "remontada-dos-sets",
-    "Títulos y finales": "titulos-grass",
-    Presión: "breaks-salvados",
-    "Tiempo, edad y calendario": "mas-largos",
-    Parejas: "parejas",
-    Superficies: "efectividad-clay",
-    Saque: "first-in",
-    Resto: "return-won",
-    Golpes: "winners",
-  };
-  const familyPhotoFallbacks: Record<
-    string,
-    { recordId: string; playerName: string }
-  > = {
-    "Tiempo, edad y calendario": {
-      recordId: "mas-juegos",
-      playerName: "John Isner",
-    },
-    Parejas: {
-      recordId: "aces",
-      playerName: "Novak Djokovic",
-    },
-  };
-  const familyLayouts: Record<string, string> = {
-    Victorias: "photoLeft",
-    "Remontadas y forma del partido": "photoBottom",
-    "Títulos y finales": "photoRight",
-    Presión: "photoTop",
-    "Tiempo, edad y calendario": "videoBottom",
-    Parejas: "photoRight",
-    Saque: "photoBottom",
-    Resto: "photoLeft",
-    Golpes: "photoTop",
-    Superficies: "slider",
-  };
-  const familyKeys: Record<string, string> = {
-    Victorias: "wins",
-    "Remontadas y forma del partido": "comebacks",
-    "Títulos y finales": "finals",
-    Presión: "pressure",
-    "Tiempo, edad y calendario": "time",
-    Parejas: "doubles",
-    Saque: "serve",
-    Resto: "return",
-    Golpes: "shots",
-    Superficies: "surfaces",
-  };
+  const {
+    photoRecords: familyPhotoRecords,
+    photoFallbacks: familyPhotoFallbacks,
+    layouts: familyLayouts,
+    keys: familyKeys,
+  } = recordFamilyPresentation(query.tour === "wta" ? "wta" : "atp");
   return (
     <ArchivePage
       title="Récords"
@@ -422,7 +333,7 @@ async function RecordIndex({
               })}
               aria-current={selected === group ? "page" : undefined}
             >
-              {families.find(([, value]) => value === group)?.[0] || group}
+              {recordFamilyLabel(group)}
             </Link>
           ))}
         </RecordsFamilyNav>}
@@ -479,8 +390,7 @@ async function RecordIndex({
               >
                 <header>
                   <h3>
-                    {families.find(([, value]) => value === group)?.[0] ||
-                      group}
+                    {recordFamilyLabel(group)}
                   </h3>
                   <span>{number(groupPieces.length)} estadísticas</span>
                 </header>
@@ -665,8 +575,8 @@ export async function generateMetadata({
   searchParams: Promise<RecordQuery>;
 }) {
   const raw = await searchParams;
-  const tour = raw.tour === 'wta' ? 'wta' : 'atp';
-  const query: RecordQuery = { ...raw, tour };
+  const query = normalizeRecordQuery(raw);
+  const tour = query.tour;
   const view = await recordView(JSON.stringify(query));
   const piece =
     view.piece || view.manifest.pieces.find((entry) => entry.id === query.dato);
@@ -700,7 +610,7 @@ export default async function Records({
   searchParams: Promise<RecordQuery>;
 }) {
   const raw = await searchParams;
-  const query: RecordQuery = { ...raw, tour: raw.tour === 'wta' ? 'wta' : 'atp' };
+  const query = normalizeRecordQuery(raw);
   const view = await recordView(JSON.stringify(query));
   if (!query.dato)
     return <RecordIndex manifest={view.manifest} query={query} status={view} />;
@@ -766,25 +676,15 @@ export default async function Records({
   const leader = piece?.leader;
   const detailPhoto =
     leader && piece ? portraitFor(leader.name,query.tour==='wta'?'wta':'atp') || photoFor(piece) : null;
-  const asYear = query.dato === "tal-dia-como-hoy";
-  const title =
-    piece?.title ||
-    view.manifest.pieces.find((entry) => entry.id === query.dato)?.title ||
-    "Récords";
-  const detailDefinition = piece?.definition
-    ? `${piece.definition.split(". ")[0].replace(/\.$/, "")}.`
-    : undefined;
-  const marathonPreview = query.dato === "mas-juegos" && query.full !== "true";
-  const relatedPieces = piece
-    ? view.manifest.pieces
-        .filter(
-          (entry) => entry.group === piece.group && entry.id !== piece.id,
-        )
-        .slice(0, 4)
-    : [];
-  const relatedLabel =
-    families.find(([, value]) => value === piece?.group)?.[0] || piece?.group;
-  const tourOptions=(['atp','wta'] as const).filter(tour=>view.manifest.circuitPieces?.[tour]?.some(entry=>entry.id===query.dato)??true).map(value=>({value,label:value.toUpperCase()}));
+  const {
+    asYear,
+    title,
+    definition: detailDefinition,
+    marathonPreview,
+    relatedPieces,
+    relatedLabel,
+    tourOptions,
+  } = recordDetailModel(view.manifest, piece, query);
   return (
     <div
       className={`records-page nc-wrap ${redesign.scope} ${styles.page} ${styles.detail} ${redesign.detailPage}`}
