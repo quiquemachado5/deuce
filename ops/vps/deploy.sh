@@ -403,10 +403,11 @@ if ! wait_for_fresh_scheduler "${scheduler_started_ms}"; then
   exit 1
 fi
 
-verify_args=(--url=http://127.0.0.1:3000/api/health/deep --expected-commit="${commit}")
-if [[ "${first_release}" == true ]]; then
-  verify_args+=(--allow-initial-daily-unavailable)
-fi
+verify_args=(
+  --url=http://127.0.0.1:3000/api/health/deep
+  --expected-commit="${commit}"
+  --allow-initial-daily-unavailable
+)
 
 candidate_verified=false
 for attempt in {1..36}; do

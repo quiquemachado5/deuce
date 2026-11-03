@@ -63,6 +63,12 @@ test('first release keeps the scheduler in heartbeat mode through both gates', (
   assert.match(source.slice(normal), /Normal scheduler did not publish a fresh healthy heartbeat/)
 })
 
+test('daily bootstrap allowance follows persisted health instead of release count', () => {
+  const verification = source.slice(source.indexOf('verify_args=('), source.indexOf('candidate_verified=false'))
+  assert.match(verification, /--allow-initial-daily-unavailable/)
+  assert.doesNotMatch(verification, /first_release/)
+})
+
 test('deploy and watchdog share a lock before touching the stack', () => {
   const deployLock = source.indexOf('flock -n 9')
   const fetch = source.indexOf('git fetch origin main')
