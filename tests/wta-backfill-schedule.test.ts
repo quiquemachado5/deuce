@@ -31,10 +31,9 @@ test('historical acquisition prioritizes 2019 backwards and skips completed coho
   assert.equal(plan.length, WTA_HISTORICAL_COHORTS - 3);
 });
 
-test('historical WTA baseline explicitly allows only W and F from 1968 through 1983',()=>{
-  const expected=Array.from({length:16},(_,index)=>1968+index).flatMap(year=>[`${year}-W`,`${year}-F`]);
-  assert.deepEqual(committedBaseline.allowedPendingCohorts,expected);
-  assert.equal(new Set(committedBaseline.allowedPendingCohorts).size,32);
+test('historical WTA baseline protects every completed provider cohort',()=>{
+  assert.deepEqual(committedBaseline.allowedPendingCohorts,[]);
+  assert.equal(committedBaseline.minimumCompletedCohorts,WTA_HISTORICAL_COHORTS);
   assert.equal(Object.keys(committedBaseline.minimumRowsByCohort).length,committedBaseline.minimumCompletedCohorts);
   assert.equal(Object.values(committedBaseline.minimumRowsByCohort).reduce((sum,rows)=>sum+rows,0),committedBaseline.minimumRows);
 });
