@@ -28,6 +28,10 @@ if [[ ! -f .env.production ]]; then
   echo "Missing ${ROOT}/.env.production." >&2
   exit 1
 fi
+docker run --rm --network none \
+  --mount "type=bind,source=${ROOT},target=/workspace,readonly" \
+  --workdir /workspace node:24-bookworm-slim \
+  node ops/vps/preflight.mjs --env=.env.production --root=/workspace
 if [[ -n "$(git status --porcelain)" ]]; then
   echo "The deployment checkout has tracked or untracked files; refusing to mix them with a release." >&2
   exit 1
@@ -100,6 +104,11 @@ if docker container inspect "${candidate}" >/dev/null 2>&1; then docker containe
 candidate_args=(
   run --detach --name "${candidate}"
   --network deuce_default
+  --security-opt no-new-privileges
+  --cap-drop ALL
+  --pids-limit 256
+  --memory 2g
+  --cpus 1.5
   --env-file .env.production
   --env DEUCE_ARCHIVE_DIR=/app/.deuce-archive
   --env NODE_ENV=production
@@ -111,6 +120,15 @@ if [[ "${first_release}" == true ]]; then
   candidate_args+=(--network-alias web)
 fi
 docker "${candidate_args[@]}" "${candidate_image}" >/dev/null
+
+cleanup_old_images() {
+  local image
+  while IFS= read -r image; do
+    [[ -z "${image}" || "${image}" == "${candidate_image}" || "${image}" == "${previous_image}" ]] && continue
+    docker image rm "${image}" >/dev/null 2>&1 || true
+  done < <(docker image ls --filter "reference=${repository}:*" --format '{{.Repository}}:{{.Tag}}')
+  docker builder prune --force --filter 'until=168h' >/dev/null 2>&1 || true
+}
 
 bootstrap_scheduler_started=false
 candidate_phase_complete=false
@@ -518,5 +536,6 @@ if ! discard_archive_backup; then
 fi
 cleanup_candidate
 trap - EXIT
+cleanup_old_images
 SOURCE_COMMIT="${commit}" DEUCE_WEB_IMAGE="${candidate_image}" "${compose[@]}" ps
 echo "Promoted ${candidate_image}; deep health and scheduler heartbeat verified."

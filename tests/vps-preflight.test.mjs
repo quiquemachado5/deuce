@@ -1,0 +1,37 @@
+import assert from 'node:assert/strict'
+import test from 'node:test'
+import { parseEnvFile, validateProductionEnv } from '../ops/vps/preflight.mjs'
+
+const valid = {
+  DEUCE_HOST: 'deuce.example.net',
+  NEXT_PUBLIC_SITE_ORIGIN: 'https://deuce.example.net',
+  DEUCE_MONITOR_URL: 'https://deuce.example.net',
+  TENNIS_API_KEY: 'provider-key-with-enough-entropy',
+  CRON_SECRET: 'a'.repeat(64),
+  WTA_BACKFILL_SECRET: 'b'.repeat(64),
+  DEUCE_ARCHIVE_MAX_BYTES: '40000000000',
+  DEUCE_BACKUP_REMOTE: 'crypt:deuce/production',
+}
+
+test('production preflight accepts a coherent private configuration', () => {
+  const source = Object.entries(valid).map(([key, value]) => `${key}=${value}`).join('\n')
+  assert.deepEqual(parseEnvFile(`# production\n${source}\n`), valid)
+  assert.deepEqual(validateProductionEnv(valid).errors, [])
+})
+
+test('production preflight rejects placeholders, weak secrets and mismatched origins', () => {
+  const result = validateProductionEnv({
+    ...valid,
+    DEUCE_HOST: 'deuce.example.com',
+    NEXT_PUBLIC_SITE_ORIGIN: 'http://other.example.net/path',
+    CRON_SECRET: 'short',
+    WTA_BACKFILL_SECRET: 'short',
+    DEUCE_BACKUP_REMOTE: '/local/backups',
+  })
+  assert.ok(result.errors.some(error => error.includes('placeholder')))
+  assert.ok(result.errors.some(error => error.includes('bare HTTPS origin')))
+  assert.ok(result.errors.some(error => error.includes('must use DEUCE_HOST')))
+  assert.ok(result.errors.some(error => error.includes('at least 48')))
+  assert.ok(result.errors.some(error => error.includes('must be different')))
+  assert.ok(result.errors.some(error => error.includes('rclone remote')))
+})

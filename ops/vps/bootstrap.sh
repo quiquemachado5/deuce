@@ -8,7 +8,7 @@ fi
 
 export DEBIAN_FRONTEND=noninteractive
 apt-get update
-apt-get install -y ca-certificates curl docker.io docker-compose-v2 git rclone ufw unattended-upgrades
+apt-get install -y ca-certificates curl docker.io docker-compose-v2 fail2ban git rclone ufw unattended-upgrades
 
 if [[ ! -f /etc/docker/daemon.json ]]; then
   cat >/etc/docker/daemon.json <<'JSON'
@@ -43,6 +43,19 @@ ufw allow 80/tcp
 ufw allow 443/tcp
 ufw allow 443/udp
 ufw --force enable
+
+cat >/etc/fail2ban/jail.d/deuce-sshd.local <<'CONF'
+[sshd]
+enabled = true
+maxretry = 5
+findtime = 10m
+bantime = 1h
+CONF
+systemctl enable --now fail2ban
+
+if command -v timedatectl >/dev/null && ! timedatectl show -p NTPSynchronized --value | grep -qx true; then
+  timedatectl set-ntp true
+fi
 
 install -d -o deuce -g deuce /opt/deuce /opt/deuce/backups /opt/deuce/deployments /opt/deuce/logs
 if [[ ! -e /opt/deuce/deployments/deploy.lock ]]; then
@@ -139,4 +152,4 @@ systemctl daemon-reload
 systemctl enable --now deuce-watchdog.timer deuce-backup.timer deuce-restore-drill.timer
 dpkg-reconfigure -f noninteractive unattended-upgrades
 
-echo "DEUCE VPS bootstrap complete. Docker, firewall, swap, watchdog, offsite backups, restore drills and security updates are active."
+echo "DEUCE VPS bootstrap complete. Docker, firewall, fail2ban, swap, watchdog, offsite backups, restore drills and security updates are active."

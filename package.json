@@ -29,6 +29,7 @@
     "media:wta:bios": "node build/import-wta-player-bios.mjs",
     "budgets:verify": "node build/audit-budgets.mjs && node build/audit-public-assets.mjs",
     "monitor:check": "node ops/monitor.mjs --check-only",
+    "vps:preflight": "node ops/vps/preflight.mjs",
     "verify": "npm run test && npm run lint && npm run typecheck && npm run media:verify && npm run data:verify && npm run budgets:verify",
     "data:verify-publication": "node --import ./build/register.mjs --import tsx build/verify-publication-packs.ts",
     "media:wta:discover": "node build/discover-player-photos.mjs --tour=wta --scan=400 --max=100",

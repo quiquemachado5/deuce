@@ -29,7 +29,7 @@ Para una recuperación local reanudable del tramo prioritario se usa `npm run da
 
 ### Snapshot reproducible sin historial Git pesado
 
-Los 14 ficheros comprimidos de `data/archive/wta` son la fuente WTA compacta y versionada. `data/reading` es una generación derivada: `npm run build` la reconstruye cuando no cumple los mínimos y, en una máquina local, restaura al final la copia de trabajo para evitar diffs de decenas de MB. De este modo otro ordenador puede clonar el mismo commit y producir la misma entrada ATP/WTA sin descargar de nuevo la API.
+Los ficheros comprimidos por temporada y cohorte de `data/archive/wta` son la fuente WTA compacta y versionada. `data/reading` es una generación derivada: `npm run build` la reconstruye cuando no cumple los mínimos y, en una máquina local, restaura al final la copia de trabajo para evitar diffs de decenas de MB. De este modo otro ordenador puede clonar el mismo commit y producir la misma entrada ATP/WTA sin descargar de nuevo la API.
 
 Para conservar una generación ya compilada, ejecutar `npm run data:snapshot:export -- --output=/ruta/inmutable/<commit>`. `snapshot-manifest.json` registra commit fuente, versión, reglas, conteos por circuito, tamaño y SHA-256 de cada fichero. Tras publicar ese directorio por HTTPS, configurar `DEUCE_SNAPSHOT_MANIFEST_URL` y `DEUCE_EXPECTED_SNAPSHOT_COMMIT`; la compilación Docker restaura y valida el snapshot dentro de su etapa efímera. Si no está disponible o no supera la política, reconstruye desde las fuentes compactas. No introducir credenciales en la URL ni commitear el directorio exportado.
 

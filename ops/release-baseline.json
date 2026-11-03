@@ -1,6 +1,6 @@
 {
-  "minimumMatches": 62075,
-  "minimumTours": { "atp": 51076, "wta": 10999 },
+  "minimumMatches": 83535,
+  "minimumTours": { "atp": 51076, "wta": 32459 },
   "minimumStatistics": 196,
   "minimumStatisticsByTour": { "atp": 122, "wta": 74 },
   "maximumDataAgeHours": 72,

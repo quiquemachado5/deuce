@@ -30,7 +30,7 @@ npx playwright install chromium
 npm run test:browser
 ```
 
-Las pruebas de navegador arrancan el build en `127.0.0.1:3100`. Para una comprobación de solo lectura de producción: `PLAYWRIGHT_BASE_URL=https://deuce-archive.vercel.app npm run test:browser`.
+Las pruebas de navegador arrancan el build en `127.0.0.1:3100`. Para una comprobación de solo lectura de producción: `PLAYWRIGHT_BASE_URL="$NEXT_PUBLIC_SITE_ORIGIN" npm run test:browser`.
 
 CI comprueba pruebas, lint, dependencias de producción, build, presupuestos de HTML/CSS/JS/vídeo, datos, restauración, accesibilidad y regresión visual. El workflow no activa por sí mismo la protección de `main` ni despliega.
 
@@ -42,7 +42,7 @@ CI comprueba pruebas, lint, dependencias de producción, build, presupuestos de 
 - `lib/revista/publish-snapshot.ts`: publicación inmutable; el puntero se cambia solo después de escribir todos los artefactos.
 - `/cobertura`: alcance, antigüedad e historial diario de lo publicado.
 
-La copia incluida contiene 176.370 partidos y 122 listas. Una generación remota compatible se selecciona completa —manifiesto, partidos, jugadores y competición— o se descarta completa. La publicación bloquea pérdidas de partidos, WTA o cobertura medida, conserva la generación actual y la anterior y poda artefactos más antiguos.
+La copia incluida contiene 83.535 partidos y 196 listas. Una generación remota compatible se selecciona completa —manifiesto, partidos, jugadores y competición— o se descarta completa. La publicación bloquea pérdidas de partidos, WTA o cobertura medida, conserva la generación actual y la anterior y poda artefactos más antiguos.
 
 ## Salud, diagnóstico y versiones
 

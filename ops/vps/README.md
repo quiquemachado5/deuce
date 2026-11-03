@@ -6,12 +6,13 @@ Usa un VPS europeo con al menos 2 vCPU, 4 GB de RAM, 64 GB de SSD persistente, I
 
 1. Ejecuta `ops/vps/bootstrap.sh` como `root`.
 2. Añade la clave SSH de despliegue a `/home/deuce/.ssh/authorized_keys`.
-3. Clona el repositorio en `/opt/deuce/app` como usuario `deuce`.
-4. Crea `/opt/deuce/app/.env.production` desde `.env.production.example`.
-5. Configura el remoto de `rclone` como el usuario del servicio: `sudo -u deuce rclone --config /home/deuce/.config/rclone/rclone.conf config`. `DEUCE_BACKUP_REMOTE` debe usar ese remoto; la copia externa es obligatoria.
-6. Configura en GitHub la variable de repositorio `DEUCE_MONITOR_URL` con el mismo origen HTTPS de producción.
-7. Ejecuta `ops/vps/deploy.sh` como usuario `deuce`.
-8. Tras la primera promoción, ejecuta `sudo systemctl start deuce-backup.service` y después `sudo systemctl start deuce-restore-drill.service`; el monitor exige una copia restaurable de menos de 36 horas y un simulacro de menos de 8 días.
+3. Abre una segunda sesión como `deuce` y clona el repositorio en `/opt/deuce/app`.
+4. Sin cerrar la consola actual, ejecuta `/opt/deuce/app/ops/vps/harden-ssh.sh` como `root`. El script se niega a desactivar contraseñas si no existe una clave autorizada.
+5. Crea `/opt/deuce/app/.env.production` desde `.env.production.example`, aplica `chmod 600`; `deploy.sh` ejecutará el preflight aislado antes de modificar el servicio.
+6. Configura un remoto cifrado de `rclone` como el usuario del servicio: `sudo -u deuce rclone --config /home/deuce/.config/rclone/rclone.conf config`. `DEUCE_BACKUP_REMOTE` debe usar ese remoto; la copia externa es obligatoria.
+7. Configura en GitHub la variable de repositorio `DEUCE_MONITOR_URL` con el mismo origen HTTPS de producción.
+8. Ejecuta `ops/vps/deploy.sh` como usuario `deuce`.
+9. Tras la primera promoción, ejecuta `sudo systemctl start deuce-backup.service` y después `sudo systemctl start deuce-restore-drill.service`; el monitor exige una copia restaurable de menos de 36 horas y un simulacro de menos de 8 días.
 
 `DEUCE_HOST`, `NEXT_PUBLIC_SITE_ORIGIN` y `DEUCE_MONITOR_URL` deben apuntar al dominio real. Un nombre `sslip.io` permite preparar el servidor antes de comprar un dominio.
 

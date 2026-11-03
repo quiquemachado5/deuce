@@ -5,6 +5,7 @@ import type { Point, Surface } from '@/lib/types'
 import { criticalPoints } from '@/lib/editorial'
 import { pointHeight } from '@/lib/quality'
 import { tournamentName } from '@/lib/labels'
+import { SITE_HOST } from '@/lib/site-origin'
 
 type Format = 'square' | 'wide' | 'story'
 type Props = { compact?: boolean; player1: string; player2: string; score: string; tournament: string; year: number; surface: Surface; date: string; points: Point[]; headline: string; evidence: string }
@@ -54,7 +55,7 @@ export default function SocialCardModal(props: Props) {
     ctx.fillStyle='#1d1d1f'
     for(const line of wrap(ctx,props.headline,contentWidth)) {ctx.fillText(line,pad,y);y+=size*1.22}
     ctx.fillStyle='#55534f';ctx.font=`400 20px ${font}`
-    ctx.fillText('deuce-archive.vercel.app',pad,height-64)
+    ctx.fillText(SITE_HOST,pad,height-64)
   }, [props])
   useEffect(() => {
     const canvas = canvasRef.current

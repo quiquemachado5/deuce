@@ -7,6 +7,30 @@ const watchdog = await readFile(new URL('../ops/vps/watchdog.sh', import.meta.ur
 const seedRoute = await readFile(new URL('../app/api/cron/seed/route.ts', import.meta.url), 'utf8')
 const publishRoute = await readFile(new URL('../app/api/cron/publish/route.ts', import.meta.url), 'utf8')
 const scheduler = await readFile(new URL('../ops/oracle/scheduler.mjs', import.meta.url), 'utf8')
+const compose = await readFile(new URL('../compose.yaml', import.meta.url), 'utf8')
+
+test('production preflight and container confinement run before promotion', () => {
+  const preflight = source.indexOf('node ops/vps/preflight.mjs')
+  const fetch = source.indexOf('git fetch origin main')
+  assert.ok(preflight >= 0 && preflight < fetch)
+  assert.match(source.slice(0, fetch), /--network none/)
+  assert.match(source.slice(0, fetch), /target=\/workspace,readonly/)
+  assert.match(compose, /no-new-privileges:true/)
+  assert.ok((compose.match(/cap_drop:/g) || []).length >= 2)
+  const candidate = source.slice(source.indexOf('candidate_args=('), source.indexOf('docker "${candidate_args[@]}"'))
+  assert.match(candidate, /--security-opt no-new-privileges/)
+  assert.match(candidate, /--cap-drop ALL/)
+  assert.match(candidate, /--pids-limit 256/)
+})
+
+test('successful deployments retain only the active and rollback images', () => {
+  const cleanup = source.slice(source.indexOf('cleanup_old_images()'), source.indexOf('bootstrap_scheduler_started=false'))
+  assert.match(cleanup, /candidate_image/)
+  assert.match(cleanup, /previous_image/)
+  assert.match(cleanup, /docker image rm/)
+  assert.match(cleanup, /docker builder prune/)
+  assert.ok(source.lastIndexOf('cleanup_old_images') > source.lastIndexOf('commit_release_markers'))
+})
 
 test('clean VPS resources are provisioned and owned by Compose', () => {
   assert.doesNotMatch(source, /docker network create|docker volume create/)

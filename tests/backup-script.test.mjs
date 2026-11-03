@@ -5,6 +5,7 @@ import { readFile } from 'node:fs/promises'
 const source = await readFile(new URL('../ops/vps/backup.sh', import.meta.url), 'utf8')
 const restore = await readFile(new URL('../ops/vps/restore-drill.sh', import.meta.url), 'utf8')
 const bootstrap = await readFile(new URL('../ops/vps/bootstrap.sh', import.meta.url), 'utf8')
+const hardenSsh = await readFile(new URL('../ops/vps/harden-ssh.sh', import.meta.url), 'utf8')
 
 test('offsite backup validates a frozen restore before checksum and upload', () => {
   const restore = source.indexOf('node /app/build/restore-drill.mjs')
@@ -22,4 +23,12 @@ test('restore drill rejects stale backups and services use the deuce rclone acco
   assert.match(restore, /restore-drill-status\.json/)
   assert.ok((bootstrap.match(/User=deuce/g) || []).length >= 3)
   assert.ok((bootstrap.match(/RCLONE_CONFIG=\/home\/deuce\/\.config\/rclone\/rclone\.conf/g) || []).length >= 2)
+})
+
+test('host bootstrap rate-limits SSH and hardening cannot lock out a keyless server', () => {
+  assert.match(bootstrap, /fail2ban/)
+  assert.match(bootstrap, /timedatectl set-ntp true/)
+  assert.ok(hardenSsh.indexOf('authorized_keys') < hardenSsh.indexOf('PasswordAuthentication no'))
+  assert.match(hardenSsh, /sshd -t/)
+  assert.match(hardenSsh, /PermitRootLogin no/)
 })

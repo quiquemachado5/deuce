@@ -3,6 +3,7 @@ import { useRef, useState } from 'react';
 import { Share2 } from 'lucide-react';
 import { ScoreRows } from '@/components/deuce/MatchScoreboard';
 import { resolvedWinner, resolvedSetClosed } from '@/lib/deuce-score';
+import { SITE_HOST } from '@/lib/site-origin';
 import type { MatchRecord } from '@/types/deuce';
 export default function Share({ record, iconOnly = false }: { record:MatchRecord; iconOnly?:boolean }) {
   const dialog=useRef<HTMLDialogElement>(null),trigger=useRef<HTMLButtonElement>(null);
@@ -37,7 +38,7 @@ export default function Share({ record, iconOnly = false }: { record:MatchRecord
       ctx.textAlign='left';ctx.fillStyle=muted;ctx.font=`500 ${unit*.018}px ${font}`;
       ctx.fillText(record.date?new Intl.DateTimeFormat('es-ES',{timeZone:'UTC'}).format(new Date(record.date+'T12:00:00Z')):String(record.year||''),pad,height*.85);
       ctx.textAlign='right';ctx.fillStyle=ink;ctx.fillText('Ver partido ↗',right,height*.85);
-      ctx.textAlign='left';ctx.fillStyle=muted;ctx.font=`400 ${unit*.014}px ${font}`;ctx.fillText('deuce-archive.vercel.app'+record.href,pad,height*.93,width-2*pad);
+      ctx.textAlign='left';ctx.fillStyle=muted;ctx.font=`400 ${unit*.014}px ${font}`;ctx.fillText(SITE_HOST+record.href,pad,height*.93,width-2*pad);
       const link=document.createElement('a');link.download=`deuce-${record.id}-${width}x${height}.png`;link.href=canvas.toDataURL('image/png');link.click();
     } catch {setError('No se pudo crear la imagen. Inténtalo de nuevo.');} finally{setBusy(false);}
   }

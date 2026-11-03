@@ -17,6 +17,14 @@ services:
         DEUCE_SNAPSHOT_MANIFEST_URL: ${DEUCE_SNAPSHOT_MANIFEST_URL:-}
         DEUCE_EXPECTED_SNAPSHOT_COMMIT: ${DEUCE_EXPECTED_SNAPSHOT_COMMIT:-}
     restart: unless-stopped
+    init: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    pids_limit: 256
+    mem_limit: 2g
+    cpus: 1.5
     env_file:
       - .env.production
     environment:
@@ -33,6 +41,14 @@ services:
     image: ${DEUCE_WEB_IMAGE:-deuce-web:local}
     user: "1001:1001"
     restart: unless-stopped
+    init: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    pids_limit: 128
+    mem_limit: 768m
+    cpus: 0.75
     depends_on:
       web:
         condition: service_healthy
