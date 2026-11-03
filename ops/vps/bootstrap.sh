@@ -8,7 +8,9 @@ fi
 
 export DEBIAN_FRONTEND=noninteractive
 apt-get update
-apt-get install -y ca-certificates curl docker.io docker-compose-v2 fail2ban git rclone ufw unattended-upgrades
+compose_package=docker-compose-v2
+if ! apt-cache show "${compose_package}" >/dev/null 2>&1; then compose_package=docker-compose; fi
+apt-get install -y ca-certificates curl docker.io "${compose_package}" fail2ban git rclone sudo ufw unattended-upgrades
 
 if [[ ! -f /etc/docker/daemon.json ]]; then
   cat >/etc/docker/daemon.json <<'JSON'
@@ -29,6 +31,11 @@ if ! id deuce >/dev/null 2>&1; then
   useradd --create-home --shell /bin/bash deuce
 fi
 usermod -aG docker deuce
+cat >/etc/sudoers.d/deuce <<'SUDOERS'
+deuce ALL=(ALL) NOPASSWD:ALL
+SUDOERS
+chmod 0440 /etc/sudoers.d/deuce
+visudo -cf /etc/sudoers.d/deuce >/dev/null
 
 if [[ ! -f /swapfile ]]; then
   fallocate -l 2G /swapfile

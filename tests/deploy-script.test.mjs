@@ -8,6 +8,15 @@ const seedRoute = await readFile(new URL('../app/api/cron/seed/route.ts', import
 const publishRoute = await readFile(new URL('../app/api/cron/publish/route.ts', import.meta.url), 'utf8')
 const scheduler = await readFile(new URL('../ops/oracle/scheduler.mjs', import.meta.url), 'utf8')
 const compose = await readFile(new URL('../compose.yaml', import.meta.url), 'utf8')
+const dockerfile = await readFile(new URL('../Dockerfile', import.meta.url), 'utf8')
+const bootstrap = await readFile(new URL('../ops/vps/bootstrap.sh', import.meta.url), 'utf8')
+
+test('production image contains the bundled seed and Debian bootstrap supports Compose v2 packages', () => {
+  assert.match(dockerfile, /COPY --from=builder --chown=nextjs:nodejs \/app\/data\/reading \.\/data\/reading/)
+  assert.match(bootstrap, /compose_package=docker-compose-v2/)
+  assert.match(bootstrap, /compose_package=docker-compose/)
+  assert.match(bootstrap, /visudo -cf \/etc\/sudoers\.d\/deuce/)
+})
 
 test('production preflight and container confinement run before promotion', () => {
   const preflight = source.indexOf('node ops/vps/preflight.mjs')

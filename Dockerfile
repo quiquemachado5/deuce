@@ -36,6 +36,7 @@ RUN groupadd --system --gid 1001 nodejs \
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/data/reading ./data/reading
 COPY --from=builder --chown=nextjs:nodejs /app/ops/railway/start.mjs ./ops/railway/start.mjs
 COPY --from=builder --chown=nextjs:nodejs /app/ops/oracle/scheduler.mjs ./ops/oracle/scheduler.mjs
 COPY --from=builder --chown=nextjs:nodejs /app/ops/scheduler-core.mjs ./ops/scheduler-core.mjs
