@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { calendarOrder } from '@/lib/presentation-calendar';
 import { latestTournamentCourt } from '@/lib/tournament-presentation';
-import { preparedCompactArchive, preparedManifest } from '@/lib/revista/read-records';
+import { preparedCompactSelection, preparedManifest } from '@/lib/revista/read-records';
 import { courtPhoto } from '@/lib/imagery';
 import { tournamentName } from '@/lib/labels';
 import { surfaceLabel } from '@/lib/cuaderno/model';
@@ -48,7 +48,7 @@ export async function generateMetadata({ searchParams }: Props) {
 export default async function TournamentDirectory({ searchParams }: Props) {
   const query = await searchParams;
   const tour = tourFrom(query.circuito);
-  const matches = singlesMatches(await preparedCompactArchive(tour));
+  const matches = singlesMatches(await preparedCompactSelection({tour,rounds:['Final']}));
   const entries = calendarOrder(tournamentDirectory(matches));
   const levels = categories[tour];
   const chosen = levels.find(category => category === query.categoria);

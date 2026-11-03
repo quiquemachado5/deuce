@@ -26,7 +26,7 @@ export default function TournamentFilters({ items, ariaLabel = 'Categorías de t
 
   return <div ref={shellRef} className={styles.filterShell}>
     <nav className={styles.filters} aria-label={ariaLabel}>
-      {items.map(item => <Link ref={item.active ? activeRef : undefined} className={styles.filterLink} key={item.href} href={item.href} aria-current={item.active ? "page" : undefined}>{item.label}</Link>)}
+      {items.map(item => <Link prefetch={false} ref={item.active ? activeRef : undefined} className={styles.filterLink} key={item.href} href={item.href} aria-current={item.active ? "page" : undefined}>{item.label}</Link>)}
     </nav>
   </div>;
 }

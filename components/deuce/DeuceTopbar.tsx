@@ -153,7 +153,7 @@ export function DeuceTopbar() {
       :queryLength<2?<p className="topbar-spotlight-status">Escribe al menos dos caracteres.</p>
       :loading?<p className="topbar-spotlight-status">Buscando…</p>
       :result.error?<p className="topbar-spotlight-status">No se pudieron cargar las sugerencias. Pulsa Intro para buscar.</p>
-      :visibleItems.length?<div className="topbar-spotlight-groups">{groups.map(group=><section key={group} aria-label={group}><h2>{group}</h2>{visibleItems.filter(item=>item.group===group).slice(0,6).map(item=><Link href={item.href} key={item.href} data-search-result="" onClick={()=>setSearchOpen(false)}><span><strong>{item.name}</strong>{item.detail&&<small>{item.detail}</small>}</span><ArrowRight size={15} aria-hidden="true"/></Link>)}</section>)}</div>
+      :visibleItems.length?<div className="topbar-spotlight-groups">{groups.map(group=><section key={group} aria-label={group}><h2>{group}</h2>{visibleItems.filter(item=>item.group===group).slice(0,6).map(item=><a href={item.href} key={item.href} data-search-result=""><span><strong>{item.name}</strong>{item.detail&&<small>{item.detail}</small>}</span><ArrowRight size={15} aria-hidden="true"/></a>)}</section>)}</div>
       :<p className="topbar-spotlight-status">No hay resultados para «{query}». Prueba con otro nombre, torneo o año.</p>}
     </section>
   </>;

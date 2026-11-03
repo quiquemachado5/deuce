@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import Operations from './Operations';
 import Reconciliation from './Reconciliation';
 import { number } from '@/lib/cuaderno/model';
-import { preparedCoverageReconciliation, preparedGeneration } from '@/lib/revista/read-records';
+import { preparedCompactArchive, preparedCoverageReconciliation, preparedGeneration } from '@/lib/revista/read-records';
 import { summarizeCircuits } from '@/lib/dataset-summary';
 import { archiveDate } from '@/lib/archive-freshness';
 import { SURFACES, surfaceLabel } from '@/lib/surface';
@@ -20,7 +20,7 @@ export const revalidate = 300;
 export default async function Coverage({searchParams}:{searchParams:Promise<{circuito?:string;estado?:string;page?:string}>}) {
   const [generation,reconciliation,query] = await Promise.all([preparedGeneration(),preparedCoverageReconciliation(),searchParams]);
   const manifest = generation.manifest;
-  const circuits = manifest.circuitSummary ?? summarizeCircuits(await generation.matches());
+  const circuits = manifest.circuitSummary ?? summarizeCircuits(await preparedCompactArchive('all'));
   const updated = new Date(manifest.generatedAt).toLocaleString('es-ES', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Europe/Madrid' });
   return <div className={styles.page}>
     <header className={styles.hero}>

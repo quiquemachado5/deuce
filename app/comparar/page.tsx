@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { preparedCompactArchive, preparedPlayerRecords } from '@/lib/revista/read-records';
+import { preparedCompactSelection, preparedMatchBrowserIndex, preparedPlayerRecords } from '@/lib/revista/read-records';
 import { comparePlayer, comparisonHeadToHead, comparisonPlayerWon, sharedCareerWindow } from '@/lib/player-comparison';
 import { playerPhoto } from '@/lib/player-imagery';
 import { playerIdentity, playerSlug } from '@/lib/explore';
@@ -48,9 +48,9 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
   const q = { ...await searchParams };
   const tour=q.tour==='wta'?'wta':'atp';
   q.tour=tour;
-  const [matches,playerArchive]=await Promise.all([preparedCompactArchive(tour),preparedPlayerRecords()]);
+  const [playerArchive,browser]=await Promise.all([preparedPlayerRecords(),preparedMatchBrowserIndex()]);
   const recordSource=playerArchive.records.filter(p=>(p.tour||'atp')===tour);
-  const circuitYears=[...new Set(matches.map(match=>match.year))].sort((a,b)=>b-a);
+  const circuitYears=browser.index.circuits[tour].years;
   if(q.year&&q.year!=='all'&&!circuitYears.includes(Number(q.year)))q.year='all';
   const names = recordSource.map(player=>player.name).sort((a,b) => a.localeCompare(b,'es'));
   const defaultNames=[...recordSource]
@@ -72,6 +72,7 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
   const chosenIdentities=chosen.map(name=>playerIdentity(name,tour));
   const same = chosenIdentities[0] === chosenIdentities[1], valid = resolved.every(Boolean);
   const canCompare = valid && !same;
+  const matches=canCompare?await preparedCompactSelection({tour,players:resolved}):[];
   const chosenIdentitySet=new Set(chosenIdentities);
   const relevantMatches=matches.filter(match=>(match.tour||'atp')===tour&&(chosenIdentitySet.has(playerIdentity(match.player1.name,tour))||chosenIdentitySet.has(playerIdentity(match.player2.name,tour))));
   const window = canCompare ? sharedCareerWindow(relevantMatches, chosen, tour) : null;

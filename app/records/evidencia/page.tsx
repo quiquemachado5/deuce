@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { preparedGeneration } from '@/lib/revista/read-records';
+import { preparedCompactSelection, preparedGeneration } from '@/lib/revista/read-records';
 import { selectedArchive, selectedCatalog } from '@/lib/revista/selection';
 import { recordEvidence, evidenceHref } from '@/lib/record-evidence';
 import { number } from '@/lib/cuaderno/model';
@@ -14,8 +14,11 @@ import { recordFilters, recordsUrl } from '@/lib/records-url';
 export const metadata = { title: 'Los partidos detrás del dato — DEUCE', robots:{index:false,follow:true} };
 export default async function Evidence({searchParams}:{searchParams:Promise<Record<string,string|undefined>>}) {
   const raw = await searchParams, q: Record<string,string|undefined> = { ...raw, tour: raw.tour === 'wta' ? 'wta' : 'atp' }, g = await preparedGeneration();
+  const exactYear=q.year&&q.year!=='all'&&Number.isSafeInteger(Number(q.year))?Number(q.year):undefined;
+  const surface=(['hard','clay','grass','carpet','unknown'] as const).find(value=>value===q.surface);
+  const loadSelection=()=>preparedCompactSelection({tour:q.tour==='wta'?'wta':'atp',fromYear:exactYear??(q.era==='last20'?new Date().getUTCFullYear()-19:undefined),toYear:exactYear,surface,categories:q.competition&&q.competition!=='all'?[q.competition]:undefined});
   if(q.dato === 'dos-epocas') {
-    const matches=await selectedArchive(g,q),cut=g.manifest.eraCuts.includes(Number(q.corte)) ? Number(q.corte):2020;
+    const matches=await selectedArchive(g,q,loadSelection),cut=g.manifest.eraCuts.includes(Number(q.corte)) ? Number(q.corte):2020;
     const era=eraComparisons(matches,cut,q.nombre).find(e=>e.name===q.nombre);
     if(!era)notFound();
     const finals=matches.filter(m=>eligibleMatch(m)&&m.round.toLowerCase()==='final'&&(m.player1.name===era.name||m.player2.name===era.name)).sort(chronological);
@@ -29,10 +32,10 @@ export default async function Evidence({searchParams}:{searchParams:Promise<Reco
       <p className="dx-provenance">{number(finals.length)} finales · Versión {g.manifest.version} · Reglas {g.manifest.rulesVersion}</p></div>;
   }
   if (!q.dato || !(q.tour==='wta'?g.manifest.circuitPieces?.wta||g.manifest.pieces:g.manifest.pieces).some(p => p.id === q.dato)) notFound();
-  const catalog = await selectedCatalog(g,q,q.dato), piece = catalog.find(p => p.id === q.dato);
+  const catalog = await selectedCatalog(g,q,q.dato,loadSelection), piece = catalog.find(p => p.id === q.dato);
   const row = piece?.rows.find(r => r.name === q.nombre && r.detail === q.detalle && r.href === q.entrada);
   if (!row || !piece) notFound();
-  const evidence = recordEvidence(await selectedArchive(g,q),piece.id,row);
+  const evidence = recordEvidence(await selectedArchive(g,q,loadSelection),piece.id,row);
   const page = Math.min(Math.max(1,Math.floor(Number(q.page))||1),Math.max(1,Math.ceil(evidence.matches.length/25)));
   const back = new URLSearchParams({dato:piece.id});
   for (const key of ['year','surface','competition','era','tour']) if(q[key])back.set(key,q[key]!);

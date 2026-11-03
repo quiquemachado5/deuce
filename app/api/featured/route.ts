@@ -2,13 +2,16 @@ import { preparedGeneration } from '@/lib/revista/read-records'
 import { generationMetadata } from '@/lib/revista/generation'
 import { epicMatches } from '@/lib/explore'
 import { requestCacheScope, versionedJson } from '@/lib/http-cache'
+import type { Match } from '@/lib/types'
 
 export const revalidate = 3600
 export async function GET(request:Request) {
   const started=performance.now()
   const generation = await preparedGeneration(), metadata = generationMetadata(generation)
   const tour=new URL(request.url).searchParams.get('tour')==='wta'?'wta':'atp'
-  const first = epicMatches((await generation.matches()).filter(match=>(match.tour||'atp')===tour&&match.point_tape.length), 1)[0]
+  const home=generation.manifest.home;
+  const candidates=[home?.selection.featured,home?.selection.anniversary,...(home?.selection.anniversaries||[]),...(home?.selection.latest||[])].filter((match):match is Match=>Boolean(match&&(match.tour||'atp')===tour&&match.point_tape.length));
+  const first = epicMatches(candidates, 1)[0]
   if (!first) return versionedJson(request,{featured:null,...metadata},{version:generation.manifest.version,scope:requestCacheScope(request,'featured'),route:'featured',started,cacheControl:'public, s-maxage=3600, stale-while-revalidate=86400'})
   const { match, drama } = first
   return versionedJson(request,{ featured: {

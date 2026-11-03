@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next';
-import { preparedPlayerSummaryArchive } from '@/lib/revista/read-records';
+import { preparedCompactSelection, preparedPlayerRecords } from '@/lib/revista/read-records';
 import { playerSlug } from '@/lib/explore';
 import { recordsCanonical } from '@/lib/records-url';
 import { tournamentDirectory } from '@/lib/tournament-directory';
@@ -9,8 +9,8 @@ import { SITEMAP_STATIC_PATHS, sitemapLocation } from '@/lib/sitemap-locations';
 export const revalidate = 3600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const generation = await preparedPlayerSummaryArchive();
-  const { matches, records: players } = generation;
+  const [generation,matches]=await Promise.all([preparedPlayerRecords(),preparedCompactSelection({tour:'all',rounds:['Final']})]);
+  const players=generation.records;
   const events = tournamentDirectory(matches);
   const hasWomen = matches.some(match => match.tour === 'wta');
   const editions = new Set(events.flatMap(event => tournamentEditionCanonicalPaths(event.slug, event.matches)));

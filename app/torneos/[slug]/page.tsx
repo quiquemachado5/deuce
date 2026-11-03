@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { courtPhoto } from "@/lib/imagery";
 import { number } from "@/lib/cuaderno/model";
-import { preparedCompactArchive } from "@/lib/revista/read-records";
+import { preparedTournamentSummaryArchive } from "@/lib/revista/read-records";
 import { tournamentName } from "@/lib/labels";
 import { categoryLabel, recurringFinalPair, tournamentCategory, tournamentDirectory, tournamentRows } from "@/lib/tournament-directory";
 import { latestTournamentCourt } from "@/lib/tournament-presentation";
@@ -24,7 +24,7 @@ type Props = { params: Promise<{ slug: string }>; searchParams: Promise<{ catego
 export async function generateMetadata({ params, searchParams }: Props) {
   const { slug } = await params;
   const { categoria, cuadro } = await searchParams;
-  const tournament = tournamentDirectory(await preparedCompactArchive()).find((entry) => entry.slug === slug);
+  const tournament = tournamentDirectory(await preparedTournamentSummaryArchive(slug)).find((entry) => entry.slug === slug);
   const singles=singlesMatches(tournament?.matches||[]);
   const requested=singles.filter(match=>match.category===categoria);
   const tour=cuadro==='wta'||(!cuadro&&requested.length>0&&requested.every(match=>match.tour==='wta'))||!singles.some(match=>(match.tour||'atp')==='atp')?'wta':'atp';
@@ -49,7 +49,7 @@ export async function generateMetadata({ params, searchParams }: Props) {
 export default async function Tournament({ params, searchParams }: Props) {
   const { slug } = await params;
   const { categoria, cuadro } = await searchParams;
-  const archive = await preparedCompactArchive();
+  const archive = await preparedTournamentSummaryArchive(slug);
   const tournament = tournamentDirectory(archive).find((entry) => entry.slug === slug);
   if (!tournament) notFound();
   const singles=singlesMatches(tournament.matches);

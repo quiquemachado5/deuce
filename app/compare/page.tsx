@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { preparedCompactArchive, preparedMatch } from "@/lib/revista/read-records";
+import { preparedCompactSelection, preparedMatch, preparedMatchBrowser, preparedMatchBrowserIndex } from "@/lib/revista/read-records";
 import { playerPhoto } from "@/lib/player-imagery";
 import { normalizeText } from "@/lib/quality";
 import { lineData, number, round, score, surfaceLabel } from "@/lib/cuaderno/model";
@@ -11,6 +11,7 @@ import SetScoreboard from "@/components/SetScoreboard";
 import MatchRow from "@/components/nocturno/Row";
 import GameFlow from "@/components/nocturno/GameFlow";
 import { comparisonArchiveHref } from "@/lib/match-comparison";
+import { queryMatchBrowserPage } from "@/lib/match-browser-snapshot";
 
 type Query = { tour?:string; left?: string; right?: string; q?: string; side?: string };
 type Props = { searchParams: Promise<Query> };
@@ -92,17 +93,29 @@ function Measure({ label, left, right, maximum }: { label: string; left: number;
 export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
   const query = await searchParams;
   if (!query.left && !query.right) return { title: "Comparar partidos — DEUCE", description: "Dos partidos, el mismo criterio y sus resultados por sets.", alternates: { canonical: query.tour==='wta'?'/compare?tour=wta':'/compare' } };
-  const matches = await preparedCompactArchive('all');
+  const matches = await preparedCompactSelection({ids:[query.left,query.right].filter((id):id is string=>Boolean(id))});
   const left = matches.find(match => match.match_id === query.left && (!query.tour || (match.tour||'atp')===query.tour)), right = matches.find(match => match.match_id === query.right && (match.tour||'atp')===(left?.tour||'atp'));
   return { title: left && right ? winner(left) + " y " + winner(right) + " · Comparar partidos — DEUCE" : "Comparar partidos — DEUCE", alternates: { canonical: left && right ? address(left.match_id, right.match_id, left.tour||'atp') : "/compare" } };
 }
 
 export default async function ComparePage({ searchParams }: Props) {
-  const query = await searchParams, allMatches = await preparedCompactArchive('all');
-  const requested=allMatches.find(m=>m.match_id===query.left);
+  const query = await searchParams;
+  const requestedRows=await preparedCompactSelection({ids:[query.left,query.right].filter((id):id is string=>Boolean(id))});
+  const requested=requestedRows.find(m=>m.match_id===query.left);
   const tour=query.tour==='atp'?'atp':query.tour==='wta'||requested?.tour==='wta'?'wta':'atp';
-  const matches=allMatches.filter(m=>(m.tour||'atp')===tour);
+  let matches=requestedRows.filter(m=>(m.tour||'atp')===tour);
+  if(!matches.length){
+    if(tour==='atp')matches=await preparedCompactSelection({tour,ids:[...examples]});
+    else {
+      const browser=await preparedMatchBrowserIndex(),year=browser.index.circuits.wta.years[0];
+      matches=year?await preparedCompactSelection({tour,fromYear:year,toYear:year}):[];
+    }
+  }
   const leftSummary = matches.find((match) => match.match_id === query.left) || (tour==='atp'?matches.find((match) => match.match_id === examples[0]):matches[0]);
+  if(leftSummary&&!matches.some(match=>match.match_id!==leftSummary.match_id)){
+    const related=await preparedCompactSelection({tour,players:[leftSummary.player1.name,leftSummary.player2.name]});
+    matches=[...matches,...related.filter(match=>!matches.some(existing=>existing.match_id===match.match_id))];
+  }
   const rightSummary = matches.find((match) => match.match_id === query.right && match.match_id !== leftSummary?.match_id)
     || (query.left && leftSummary ? relatedMatch(leftSummary, matches) : null)
     || matches.find((match) => match.match_id === examples[1] && match.match_id !== leftSummary?.match_id)
@@ -112,7 +125,8 @@ export default async function ComparePage({ searchParams }: Props) {
   if (!left || !right) return <main className="nc-wrap ry-compare-page"><h1>No se pudo abrir la comparación.</h1><p>Elige dos partidos del archivo para leerlos juntos.</p><Link href={`/buscar?tour=${tour}`}>Buscar partidos</Link></main>;
   const changing = query.side === "left" ? "left" : "right";
   const term = normalizeText(query.q || "").trim();
-  const results = term ? matches.filter((match) => match.match_id !== (changing === "left" ? right.match_id : left.match_id) && normalizeText(match.player1.name + " " + match.player2.name + " " + tournamentName(match.tournament) + " " + match.year + " " + round(match)).includes(term)).slice(0, 25) : [];
+  const results = term ? queryMatchBrowserPage((await preparedMatchBrowser(tour)).partitions,{q:query.q},1,30).matches
+    .filter((match) => match.match_id !== (changing === "left" ? right.match_id : left.match_id)).slice(0,25) : [];
   const total = Math.max(games(left), games(right));
   const setExtent = Math.max(1, ...[left, right].flatMap((match) => {
     const side = match.winner === 2 ? 1 : 0;

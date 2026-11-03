@@ -1,31 +1,35 @@
-import { summaryNotebook } from "@/lib/cuaderno/data";
 import { generationMetadata } from '@/lib/revista/generation';
 import { playerIdentity, rivalryPair } from "@/lib/explore";
+import { preparedCompactSelection, preparedMatchBrowserIndex } from '@/lib/revista/read-records';
 export async function GET(request: Request) {
   const params = new URL(request.url).searchParams,
     player = params.get("player")?.slice(0, 100).trim(),
     opponent = params.get("opponent")?.slice(0, 100).trim(),
-    data = await summaryNotebook();
+    data = await preparedMatchBrowserIndex();
 
   const tour=params.get('tour')==='wta'?'wta':'atp';
+  const circuitPlayers=data.index.circuits[tour].players.map(entry=>entry.name);
+  const resolve=(name:string|undefined)=>name
+    ? circuitPlayers.find(candidate=>playerIdentity(candidate,tour)===playerIdentity(name,tour))
+    : undefined;
+  const selectedPlayer=resolve(player),selectedOpponent=resolve(opponent);
   if (player && opponent) {
-    const pair = rivalryPair(data.matchesByTour[tour], [player, opponent], tour);
+    const matches=selectedPlayer&&selectedOpponent
+      ? await preparedCompactSelection({tour,players:[selectedPlayer,selectedOpponent]})
+      : [];
+    const pair = selectedPlayer&&selectedOpponent?rivalryPair(matches, [selectedPlayer, selectedOpponent], tour):null;
     return Response.json(
       { pair, ...generationMetadata(data) },
       { headers: { "Cache-Control": "public, s-maxage=300, stale-while-revalidate=3600", "X-DEUCE-Dataset-Version": data.manifest.version } },
     );
   }
-  const requestedIdentity=player?playerIdentity(player,tour):null;
-  const namesByIdentity=new Map<string,string>();
-  for(const pair of data.pairs) {
-    if((pair.matches[0]?.tour||'atp')!==tour)continue;
-    if(requestedIdentity&&!pair.names.some(name=>playerIdentity(name,tour)===requestedIdentity))continue;
-    for(const name of pair.names) {
-      const identity=playerIdentity(name,tour);
-      if(identity!==requestedIdentity&&!namesByIdentity.has(identity))namesByIdentity.set(identity,name);
-    }
-  }
-  const names = [...namesByIdentity.values()].sort((a, b) => a.localeCompare(b, "es"));
+  const matches=selectedPlayer?await preparedCompactSelection({tour,players:[selectedPlayer]}):[];
+  const requestedIdentity=selectedPlayer?playerIdentity(selectedPlayer,tour):null;
+  const names = selectedPlayer
+    ? [...new Map(matches.flatMap(match=>[match.player1.name,match.player2.name])
+      .filter(name=>playerIdentity(name,tour)!==requestedIdentity)
+      .map(name=>[playerIdentity(name,tour),name])).values()].sort((a,b)=>a.localeCompare(b,'es'))
+    : circuitPlayers.sort((a,b)=>a.localeCompare(b,'es'));
   return Response.json(
     { names, ...generationMetadata(data) },
     {

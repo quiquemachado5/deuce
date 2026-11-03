@@ -1,11 +1,11 @@
-import { preparedGeneration } from '@/lib/revista/read-records';
+import { preparedCompactSelection, preparedGeneration } from '@/lib/revista/read-records';
 import { eligibleMatch } from '@/lib/quality';
 import { roundPosition, winnerName } from '@/lib/editorial';
 
 export async function GET(request:Request) {
   const generation = await preparedGeneration();
   const tour=new URL(request.url).searchParams.get('tour')==='wta'?'wta':'atp';
-  const matches = (await generation.matches())
+  const matches = (await preparedCompactSelection({tour,categories:['Grand Slam'],rounds:['Final']}))
     .filter(match => (match.tour||'atp')===tour&&eligibleMatch(match) && match.category === 'Grand Slam' && roundPosition(match.round) === 7)
     .sort((a, b) => a.year - b.year || a.score_summary.timestamp.localeCompare(b.score_summary.timestamp));
   const totals = new Map<string, number>();

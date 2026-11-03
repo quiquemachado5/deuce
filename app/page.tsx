@@ -2,7 +2,7 @@ import {prepareCircuitHome} from '@/lib/deuce-home';
 import { ArrowUpRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { preparedGeneration } from '@/lib/revista/read-records';
+import { preparedCompactArchive, preparedGeneration } from '@/lib/revista/read-records';
 import { homeSelection, homeSelectionFromIndex } from '@/lib/deuce-home';
 import { HeroVideo } from '@/components/deuce/HeroVideo';
 import { OnThisDay } from '@/components/deuce/OnThisDay';
@@ -39,9 +39,9 @@ export default async function Home() {
   const e2eDate=process.env.DEUCE_E2E_DATE;
   const today=e2eDate&&Number.isFinite(Date.parse(e2eDate))?new Date(e2eDate):new Date();
   const prepared=generation.manifest.home?.daily||generation.manifest.home?.date===today.toISOString().slice(0,10)?generation.manifest.home:null;
-  const matches=prepared?null:await generation.matches();
+  const matches=prepared?null:await preparedCompactArchive('all');
   const {anniversary,anniversaries}=prepared?.daily?homeSelectionFromIndex(prepared.daily,today):prepared?.selection||homeSelection(matches||[],today);
-  const circuits=generation.manifest.home?.circuits||prepareCircuitHome(matches||await generation.matches());
+  const circuits=generation.manifest.home?.circuits||prepareCircuitHome(matches||await preparedCompactArchive('all'));
   const recordGroups=[
     {tour:'atp' as const,title:'Récords ATP en el archivo',pieces:generation.manifest.circuitPieces?.atp||generation.manifest.pieces,ids:['top-10','mas-juegos','remontada-dos-sets']},
     {tour:'wta' as const,title:'Récords WTA en la muestra 2018–2026',pieces:generation.manifest.circuitPieces?.wta||[],ids:['victorias','mas-juegos','remontada-primer-set']},

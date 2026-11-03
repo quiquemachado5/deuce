@@ -1,7 +1,9 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import { Readable } from 'node:stream';
+import { gzipSync } from 'node:zlib';
 import { archiveCapacityStatus, parseArchiveStorageReport } from '../lib/cloud-archive';
-import { browserIndexMatchesManifest, browserPartitionMatchesManifest, createRemoteProbeCircuit, fullPartitionMatchesManifest } from '../lib/revista/read-records';
+import { browserIndexMatchesManifest, browserPartitionMatchesManifest, createRemoteProbeCircuit, fullPartitionMatchesManifest, selectCompressedArray } from '../lib/revista/read-records';
 import { compileMatchBrowser } from '../lib/match-browser-snapshot';
 import { mockMatches } from '../lib/mocks';
 import { partitionMatches } from '../lib/revista/snapshot';
@@ -52,6 +54,19 @@ test('browser and full shards reject same-count partition metadata swaps', () =>
   assert.equal(browserPartitionMatchesManifest({...atpBrowser,tour:'wta'},atpMeta),false);
   assert.equal(fullPartitionMatchesManifest([matches[0]],atpMeta),true);
   assert.equal(fullPartitionMatchesManifest([matches[1]],atpMeta),false);
+});
+
+test('detailed shards can be selected without materialising the complete JSON array', async () => {
+  const rows=[
+    {id:'first',label:'Llave { dentro } y acento á'},
+    {id:'wanted',label:'texto con \\"comillas\\"'},
+    {id:'last',label:'fin'},
+  ];
+  const compressed=gzipSync(JSON.stringify(rows));
+  const complete=await selectCompressedArray<{id:string;label:string}>(Readable.from([compressed]),row=>row.id==='wanted');
+  assert.deepEqual(complete,{selected:[rows[1]],count:3,complete:true});
+  const early=await selectCompressedArray<{id:string;label:string}>(Readable.from([compressed]),row=>row.id==='first',true);
+  assert.deepEqual(early,{selected:[rows[0]],count:1,complete:false});
 });
 
 test('archive capacity is fail-closed when storage cannot be measured', () => {

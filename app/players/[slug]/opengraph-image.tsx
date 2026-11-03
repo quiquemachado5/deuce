@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { summaryNotebook } from "@/lib/cuaderno/data";
+import { preparedPlayerRecords } from "@/lib/revista/read-records";
 import { playerSlug } from "@/lib/explore";
 
 export const alt = "Ficha de jugador — DEUCE";
@@ -8,10 +8,9 @@ export const contentType = "image/png";
 
 export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const data = await summaryNotebook();
-  const player = data.players.find((entry) => playerSlug(entry.name) === slug);
-  const record = data.records.find((entry) => entry.name === player?.name);
-  const name = player?.name || "Jugador";
+  const data = await preparedPlayerRecords();
+  const record = data.records.find((entry) => playerSlug(entry.name) === slug);
+  const name = record?.name || "Jugador";
   const rate = record?.played ? Math.round(record.wins / record.played * 1000) / 10 : 0;
   return new ImageResponse(
     <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "64px 72px", color: "#f6f2e9", background: "linear-gradient(135deg, #101b17 0%, #16392e 55%, #b36736 140%)" }}>
