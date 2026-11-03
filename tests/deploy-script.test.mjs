@@ -30,6 +30,9 @@ test('production preflight and container confinement run before promotion', () =
   assert.match(candidate, /--security-opt no-new-privileges/)
   assert.match(candidate, /--cap-drop ALL/)
   assert.match(candidate, /--pids-limit 256/)
+  assert.match(candidate, /--env NODE_OPTIONS=--max-old-space-size=1536/)
+  assert.match(compose, /web:[\s\S]*NODE_OPTIONS: --max-old-space-size=1536[\s\S]*scheduler:/)
+  assert.doesNotMatch(compose.slice(compose.indexOf('scheduler:'), compose.indexOf('caddy:')), /NODE_OPTIONS/)
 })
 
 test('successful deployments retain only the active and rollback images', () => {

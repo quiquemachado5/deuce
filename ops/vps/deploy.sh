@@ -112,6 +112,7 @@ candidate_args=(
   --env-file .env.production
   --env DEUCE_ARCHIVE_DIR=/app/.deuce-archive
   --env NODE_ENV=production
+  --env NODE_OPTIONS=--max-old-space-size=1536
   --env PORT=3000
   --mount type=volume,source=deuce_archive,target=/app/.deuce-archive
   --label "com.deuce.release-candidate=${commit}"

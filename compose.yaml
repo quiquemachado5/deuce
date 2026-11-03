@@ -30,6 +30,7 @@ services:
     environment:
       DEUCE_ARCHIVE_DIR: /app/.deuce-archive
       NODE_ENV: production
+      NODE_OPTIONS: --max-old-space-size=1536
     volumes:
       - archive:/app/.deuce-archive
       - next_cache:/app/.next/cache
