@@ -38,10 +38,26 @@ if [[ -n "$(git status --porcelain)" ]]; then
 fi
 
 git fetch origin main
+expected_commit="${DEUCE_EXPECTED_COMMIT:-}"
+if [[ -n "${expected_commit}" ]]; then
+  if [[ ! "${expected_commit}" =~ ^[a-f0-9]{40}$ ]]; then
+    echo "DEUCE_EXPECTED_COMMIT must be a full lowercase Git commit." >&2
+    exit 1
+  fi
+  remote_commit="$(git rev-parse origin/main)"
+  if [[ "${remote_commit}" != "${expected_commit}" ]]; then
+    echo "origin/main is ${remote_commit}, not the CI-approved ${expected_commit}; refusing deployment." >&2
+    exit 1
+  fi
+fi
 git checkout main
 git merge --ff-only origin/main
 
 commit="$(git rev-parse HEAD)"
+if [[ -n "${expected_commit}" && "${commit}" != "${expected_commit}" ]]; then
+  echo "Deployment checkout is ${commit}, not the CI-approved ${expected_commit}." >&2
+  exit 1
+fi
 short="${commit:0:12}"
 repository="${DEUCE_IMAGE_REPOSITORY:-deuce-web}"
 candidate_image="${repository}:${commit}"

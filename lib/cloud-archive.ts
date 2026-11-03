@@ -25,7 +25,7 @@ import { withOperationHistory } from './archive-operations'
 import { latestProviderResultDate } from './circuit-freshness'
 import { PROVIDER_PUBLICATION_TIERS } from './publication-scope'
 import { WTA_HISTORICAL_COHORTS, wtaBackfillCycle, wtaHistoricalCohortIds, wtaHistoricalCohortPlan } from './wta-backfill-schedule'
-import { isProviderFreeHistoryLimit, providerHasRequestAfterUsage, providerQuotaRetryAt, providerRemainingCalls } from './provider-quota'
+import { isProviderFreeHistoryLimit, providerHasRequestAfterUsage, providerMinimumReserve, providerOperationCallLimit, providerQuotaRetryAt, providerRemainingCalls } from './provider-quota'
 import { materializeBundledWtaArchive } from './wta-archive-bootstrap'
 
 // Provider payloads are schemaless until they are normalized into Match.
@@ -202,7 +202,7 @@ export async function downloadCloudDetail(kind: 'modern' | 'archive', id: string
   if (!release) return undefined
   try {
     const quota = await provider('/usage')
-    if (Number(quota.today?.remaining_day || 0) < 80) return undefined
+    if (!providerHasRequestAfterUsage(quota)) return undefined
     await new Promise(resolve => setTimeout(resolve, 1300))
     const payload = await provider(kind === 'archive' ? `/history/archive/matches/${id}` : `/history/matches/${id}?points=complete`)
     if (!payload.match && !payload.data && !payload.stats) return undefined
@@ -234,7 +234,7 @@ export async function refreshCloudArchive() {
     calls++
     quota = await provider('/usage')
     const remaining = providerRemainingCalls(quota)
-    const wtaReserve=40,callLimit=35
+    const wtaReserve=Math.max(40,providerMinimumReserve()),callLimit=35
     if (remaining <= wtaReserve) {
       const result = { status: 'quota-reserve', phase:'current-season', attemptAt, at: new Date().toISOString(), remaining, calls, extracted:0, lastSuccessAt, retryAt:providerQuotaRetryAt(quota), probe:{usage:'ok',currentSeason:'deferred'} }
       await cloudWrite('sync-status', withOperationHistory(priorStatus,result))
@@ -341,7 +341,7 @@ export async function refreshCloudWta() {
       const result={status:'quota-reserve',phase:'current-season',attemptAt,at:new Date().toISOString(),remaining,calls,extracted:0,lastSuccessAt,retryAt:providerQuotaRetryAt(quota),probe:{usage:'ok',currentSeason:'deferred'}}
       await save(result);return result
     }
-    const callLimit=Math.min(30,remaining)
+    const callLimit=providerOperationCallLimit(quota,30)
     const request=async(path:string)=>{
       if(calls>=callLimit||Date.now()-started>220_000)throw new Error('WTA current sync safety budget reached')
       await new Promise(resolve=>setTimeout(resolve,1300));calls++;return provider(path)
@@ -406,7 +406,7 @@ export async function backfillCloudWtaHistory() {
       const result={status:'quota-reserve',phase:'historical-backfill',attemptAt,at:new Date().toISOString(),remaining,calls,extracted:0,lastSuccessAt,retryAt:providerQuotaRetryAt(quota),bundledArchive,probe:{usage:'ok',history:'deferred'}}
       await save(result);return result
     }
-    const callLimit=Math.min(90,remaining)
+    const callLimit=providerOperationCallLimit(quota,90)
     const request=async(path:string)=>{
       if(calls>=callLimit||Date.now()-started>220_000)throw new Error('WTA historical sync safety budget reached')
       await new Promise(resolve=>setTimeout(resolve,1300));calls++;return provider(path)

@@ -35,7 +35,25 @@ export function providerRemainingCalls(quota: ProviderQuota | undefined) {
   return Number.isFinite(remaining) && remaining >= 0 ? remaining : 0;
 }
 
+/** Keep a production safety margin so scheduled work cannot exhaust paid quota. */
+export function providerMinimumReserve() {
+  const configured = Number(process.env.DEUCE_PROVIDER_MIN_REMAINING ?? 100);
+  return Number.isSafeInteger(configured) && configured >= 1 ? configured : 100;
+}
+
+/** Calls still available without crossing the configured reserve. */
+export function providerCallsAboveReserve(quota: ProviderQuota | undefined, reserve = providerMinimumReserve()) {
+  const remaining = providerRemainingCalls(quota);
+  return remaining === Number.POSITIVE_INFINITY ? remaining : Math.max(0, remaining - reserve);
+}
+
 /** The usage probe itself consumes one request before provider work starts. */
-export function providerHasRequestAfterUsage(quota: ProviderQuota | undefined) {
-  return providerRemainingCalls(quota) > 1;
+export function providerHasRequestAfterUsage(quota: ProviderQuota | undefined, reserve = providerMinimumReserve()) {
+  return providerCallsAboveReserve(quota, reserve) > 0;
+}
+
+/** Total operation budget, including the usage probe already counted by callers. */
+export function providerOperationCallLimit(quota: ProviderQuota | undefined, maximum: number, reserve = providerMinimumReserve()) {
+  const available = providerCallsAboveReserve(quota, reserve);
+  return available === Number.POSITIVE_INFINITY ? maximum : Math.min(maximum, 1 + available);
 }

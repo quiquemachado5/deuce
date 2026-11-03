@@ -1,0 +1,49 @@
+name: Deploy Netcup
+on:
+  workflow_run:
+    workflows: [Archive quality]
+    types: [completed]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: deuce-netcup-production
+  cancel-in-progress: false
+jobs:
+  deploy:
+    if: >-
+      github.repository == 'quiquemachado5/deuce' &&
+      (github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    environment: production
+    env:
+      EXPECTED_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+      VPS_HOST: ${{ vars.DEUCE_VPS_HOST }}
+      VPS_USER: ${{ vars.DEUCE_VPS_USER }}
+    steps:
+      - name: Validate immutable deployment inputs
+        env:
+          VPS_KEY: ${{ secrets.DEUCE_VPS_SSH_KEY }}
+          VPS_HOST_KEYS: ${{ secrets.DEUCE_VPS_KNOWN_HOSTS }}
+        run: |
+          test -n "$VPS_HOST"
+          test -n "$VPS_USER"
+          test -n "$VPS_KEY"
+          test -n "$VPS_HOST_KEYS"
+          [[ "$EXPECTED_SHA" =~ ^[a-f0-9]{40}$ ]]
+      - name: Configure pinned SSH identity
+        env:
+          VPS_KEY: ${{ secrets.DEUCE_VPS_SSH_KEY }}
+          VPS_HOST_KEYS: ${{ secrets.DEUCE_VPS_KNOWN_HOSTS }}
+        run: |
+          install -d -m 0700 ~/.ssh
+          printf '%s\n' "$VPS_KEY" > ~/.ssh/deuce_deploy
+          printf '%s\n' "$VPS_HOST_KEYS" > ~/.ssh/known_hosts
+          chmod 0600 ~/.ssh/deuce_deploy ~/.ssh/known_hosts
+      - name: Deploy the CI-approved commit with production gates
+        run: |
+          ssh -i ~/.ssh/deuce_deploy -o BatchMode=yes -o StrictHostKeyChecking=yes \
+            "$VPS_USER@$VPS_HOST" \
+            "git -C /opt/deuce/app fetch origin main && test \"\$(git -C /opt/deuce/app rev-parse origin/main)\" = '$EXPECTED_SHA' && DEUCE_EXPECTED_COMMIT='$EXPECTED_SHA' /opt/deuce/app/ops/vps/deploy.sh"

@@ -20,14 +20,27 @@ import {browserPartitionMatchesDetails,decodeMatchBrowserRow,MATCH_BROWSER_DICTI
 import {reconcileCoverage,type CoverageReconciliation} from '../coverage-reconciliation';
 import historyBaseline from '../../ops/wta-history-baseline.json';
 const IMMUTABLE_CACHE_MS = 86_400_000;
-const bundled=asyncCache<unknown>(IMMUTABLE_CACHE_MS,100);
-async function local<T>(id:string):Promise<T>{return await bundled(id,async()=>JSON.parse(gunzipSync(await readFile(join(readingDirectory(),`${id}.json.gz`))).toString())) as T;}
+const bundled=asyncCache<unknown>(IMMUTABLE_CACHE_MS,48);
+const uncachedBundledPrefixes=['matches-','browser-'] as const;
+const uncachedBundledIds=new Set(['matches','competition','players','audit','reconciliation']);
+export function shouldCacheBundledArtifact(id:string) {
+ return !uncachedBundledIds.has(id)&&!uncachedBundledPrefixes.some(prefix=>id.startsWith(prefix));
+}
+async function readLocal<T>(id:string):Promise<T>{return JSON.parse(gunzipSync(await readFile(join(readingDirectory(),`${id}.json.gz`))).toString()) as T;}
+async function local<T>(id:string):Promise<T>{return shouldCacheBundledArtifact(id)?await bundled(id,()=>readLocal<T>(id)) as T:readLocal<T>(id);}
 async function localOptional<T>(id:string,fallback:T):Promise<T>{try{return await local<T>(id);}catch{return fallback;}}
 // Projection strings produce heterogeneous Supabase response shapes.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const remotePointers=asyncCache<any>(300_000,4);
+function remoteArtifactWeight(value:unknown,depth=0):number {
+ if(depth>4||value===null||value===undefined)return 0;
+ if(typeof value==='string')return Math.min(128*1024*1024,value.length*2);
+ if(typeof value!=='object')return 16;
+ if(Array.isArray(value))return Math.min(128*1024*1024,value.reduce((sum,item)=>sum+remoteArtifactWeight(item,depth+1),0));
+ return Math.min(128*1024*1024,Object.values(value).reduce((sum,item)=>sum+remoteArtifactWeight(item,depth+1),0));
+}
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const remoteArtifacts=asyncCache<any>(IMMUTABLE_CACHE_MS,64);
+const remoteArtifacts=asyncCache<any>(IMMUTABLE_CACHE_MS,16,undefined,{maxWeight:48*1024*1024,weight:remoteArtifactWeight});
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- every caller validates its projected payload.
 async function query(key:string,projection='payload',budget=800):Promise<any>{
  const cache=/^reading-v2-[a-f0-9]{20}-/.test(key)?remoteArtifacts:remotePointers;
@@ -225,12 +238,12 @@ export const preparedArchive = cache(async (): Promise<Match[]> => {
 });
 const megabyte=1024*1024;
 const browserIndexes=asyncCache<MatchBrowserIndex>(IMMUTABLE_CACHE_MS,2,undefined,{maxWeight:8*megabyte,weight:value=>value.count*36});
-const browserPartitions=asyncCache<MatchBrowserPartition>(IMMUTABLE_CACHE_MS,18,undefined,{maxWeight:48*megabyte,weight:value=>value.count*430});
-const decodedBrowserPartitions=asyncCache<Match[]>(IMMUTABLE_CACHE_MS,18,undefined,{maxWeight:64*megabyte,weight:value=>value.length*620});
-const fullPartitions=asyncCache<Match[]>(IMMUTABLE_CACHE_MS,18,undefined,{maxWeight:96*megabyte,weight:value=>value.length*1_650});
+const browserPartitions=asyncCache<MatchBrowserPartition>(IMMUTABLE_CACHE_MS,12,undefined,{maxWeight:48*megabyte,weight:value=>value.count*1_200});
+const decodedBrowserPartitions=asyncCache<Match[]>(IMMUTABLE_CACHE_MS,10,undefined,{maxWeight:48*megabyte,weight:value=>value.length*3_000});
+const fullPartitions=asyncCache<Match[]>(IMMUTABLE_CACHE_MS,8,undefined,{maxWeight:96*megabyte,weight:value=>value.length*8_000});
 const matchDetails=asyncCache<Match|undefined>(IMMUTABLE_CACHE_MS,64);
-const compactArchives=asyncCache<Match[]>(IMMUTABLE_CACHE_MS,3,undefined,{maxWeight:64*megabyte,weight:value=>value.length*620});
-const compactIndexes=asyncCache<Map<string,Match>>(IMMUTABLE_CACHE_MS,2,undefined,{maxWeight:72*megabyte,weight:value=>value.size*700});
+const compactArchives=asyncCache<Match[]>(IMMUTABLE_CACHE_MS,2,undefined,{maxWeight:40*megabyte,weight:value=>value.length*3_000});
+const compactIndexes=asyncCache<Map<string,Match>>(IMMUTABLE_CACHE_MS,1,undefined,{maxWeight:40*megabyte,weight:value=>value.size*3_500});
 const competitionArchives=asyncCache<Match[]>(IMMUTABLE_CACHE_MS,2,undefined,{maxWeight:32*megabyte,weight:value=>value.length*1_200});
 const playerRecords=asyncCache<PlayerRecord[]>(IMMUTABLE_CACHE_MS,2,undefined,{maxWeight:16*megabyte,weight:value=>value.length*320});
 const coverageReconciliations=asyncCache<CoverageReconciliation>(IMMUTABLE_CACHE_MS,2,undefined,{maxWeight:8*megabyte,weight:value=>value.issues.length*520});
@@ -359,6 +372,14 @@ async function compactArchiveIndex(browser:Awaited<ReturnType<typeof preparedMat
  return compactIndexes(`${browser.manifest.version}:${browser.source}`,async()=>new Map(matches.map(match=>[match.match_id,match])));
 }
 export const preparedCompactArchive=cache(async(tour:'atp'|'wta'|'all'='all')=>compactArchive(await preparedMatchBrowser(tour),tour));
+
+/** Sitemaps need public identity and dates, never the full point/stat payload. */
+export const preparedMatchSitemapArchive=cache(async(year:number)=>{
+ const browser=await preparedMatchBrowser('all',year,year);
+ const rows=(await Promise.all(browser.partitions.map(partition=>
+  decodedBrowserPartitions(`${browser.manifest.version}:${browser.source}:${partition.id}`,async()=>partition.rows.map(row=>decodeMatchBrowserRow(partition,row)))))).flat();
+ return rows.filter(match=>match.year===year);
+});
 
 async function selectedPlayerRecords(source:GenerationSourceDecision) {
  return playerRecords(`${source.manifest.version}:${source.source}`,async()=>{

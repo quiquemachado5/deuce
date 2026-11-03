@@ -155,8 +155,61 @@ Persistent=true
 WantedBy=timers.target
 UNIT
 
+cat >/etc/systemd/system/deuce-resource-check.service <<'UNIT'
+[Unit]
+Description=Record DEUCE host resource health
+ConditionPathExists=/opt/deuce/app/ops/vps/resource-check.sh
+After=docker.service
+
+[Service]
+Type=oneshot
+User=deuce
+Group=deuce
+ExecStart=/opt/deuce/app/ops/vps/resource-check.sh
+UNIT
+
+cat >/etc/systemd/system/deuce-resource-check.timer <<'UNIT'
+[Unit]
+Description=Measure DEUCE host resources every five minutes
+
+[Timer]
+OnBootSec=3min
+OnUnitActiveSec=5min
+RandomizedDelaySec=20s
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+UNIT
+
+cat >/etc/systemd/system/deuce-maintenance.service <<'UNIT'
+[Unit]
+Description=Safely reclaim unused DEUCE build layers and images
+ConditionPathExists=/opt/deuce/app/ops/vps/maintenance.sh
+After=docker.service
+
+[Service]
+Type=oneshot
+User=deuce
+Group=deuce
+ExecStart=/opt/deuce/app/ops/vps/maintenance.sh
+UNIT
+
+cat >/etc/systemd/system/deuce-maintenance.timer <<'UNIT'
+[Unit]
+Description=Run bounded DEUCE container maintenance daily
+
+[Timer]
+OnCalendar=*-*-* 04:45:00 UTC
+RandomizedDelaySec=15min
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+UNIT
+
 systemctl daemon-reload
-systemctl enable --now deuce-watchdog.timer deuce-backup.timer deuce-restore-drill.timer
+systemctl enable --now deuce-watchdog.timer deuce-backup.timer deuce-restore-drill.timer deuce-resource-check.timer deuce-maintenance.timer
 dpkg-reconfigure -f noninteractive unattended-upgrades
 
-echo "DEUCE VPS bootstrap complete. Docker, firewall, fail2ban, swap, watchdog, offsite backups, restore drills and security updates are active."
+echo "DEUCE VPS bootstrap complete. Docker, firewall, fail2ban, swap, watchdog, resource monitoring, bounded maintenance, offsite backups, restore drills and security updates are active."

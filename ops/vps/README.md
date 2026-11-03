@@ -11,6 +11,9 @@ Usa un VPS europeo con al menos 2 vCPU, 4 GB de RAM, 64 GB de SSD persistente, I
 5. Crea `/opt/deuce/app/.env.production` desde `.env.production.example`, aplica `chmod 600`; `deploy.sh` ejecutará el preflight aislado antes de modificar el servicio.
 6. Configura un remoto cifrado de `rclone` como el usuario del servicio: `sudo -u deuce rclone --config /home/deuce/.config/rclone/rclone.conf config`. `DEUCE_BACKUP_REMOTE` debe usar ese remoto; la copia externa es obligatoria.
 7. Configura en GitHub la variable de repositorio `DEUCE_MONITOR_URL` con el mismo origen HTTPS de producción.
+   Para despliegue continuo añade también `DEUCE_VPS_HOST`, `DEUCE_VPS_USER` y los secretos
+   `DEUCE_VPS_SSH_KEY` y `DEUCE_VPS_KNOWN_HOSTS`. El workflow solo despliega el SHA exacto
+   aprobado por `Archive quality` y valida la identidad SSH del servidor.
 8. Ejecuta `ops/vps/deploy.sh` como usuario `deuce`.
 9. Tras la primera promoción, ejecuta `sudo systemctl start deuce-backup.service` y después `sudo systemctl start deuce-restore-drill.service`; el monitor exige una copia restaurable de menos de 36 horas y un simulacro de menos de 8 días.
 
@@ -44,3 +47,5 @@ journalctl -u deuce-backup.service -u deuce-restore-drill.service --since today
 ```
 
 Mantén `DEUCE_ARCHIVE_MAX_BYTES` por debajo del espacio total para reservar capacidad a imágenes, compilaciones, logs y copias locales rotatorias.
+`DEUCE_PROVIDER_MIN_REMAINING` reserva por defecto 100 llamadas diarias: ATP, WTA, históricos y detalles se detienen antes de cruzarla.
+`deuce-resource-check.timer` publica memoria, disco y estado de contenedores cada cinco minutos; `deuce-maintenance.timer` elimina únicamente capas de construcción e imágenes sin uso y nunca poda volúmenes.

@@ -81,6 +81,13 @@ test('deploy rejects every non-ignored checkout change before building the image
   assert.ok(source.indexOf('git status --porcelain') < source.indexOf('build web'))
 })
 
+test('CI-triggered deployment accepts only the exact approved main commit', () => {
+  assert.match(source,/DEUCE_EXPECTED_COMMIT/)
+  assert.match(source,/git rev-parse origin\/main/)
+  assert.ok(source.indexOf('remote_commit="$(git rev-parse origin/main)"') < source.indexOf('git merge --ff-only origin/main'))
+  assert.match(source,/not the CI-approved/)
+})
+
 test('every candidate migrates incompatible storage and can restore its prior pointer', () => {
   const seed = source.indexOf('/api/cron/seed')
   const candidateGate = source.indexOf('candidate_verified=false')
