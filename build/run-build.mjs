@@ -17,6 +17,15 @@ const pruneStandaloneTraceMetadata = async directory => {
     else if (entry.name.endsWith('.nft.json')) await rm(path)
   }
 }
+const pruneStandaloneBuildDependencies = async directory => {
+  // The application uses a custom static next/image loader. Sharp is needed
+  // by the media audit above, but neither sharp nor its platform libvips
+  // binaries are reachable from the production request graph.
+  await Promise.all([
+    rm(join(directory, 'node_modules', 'sharp'), { recursive: true, force: true }),
+    rm(join(directory, 'node_modules', '@img'), { recursive: true, force: true }),
+  ])
+}
 const preserveWorkingSnapshot = process.env.CI !== '1' && process.env.CI !== 'true'
 let backup
 if (preserveWorkingSnapshot) {
@@ -30,7 +39,9 @@ try {
   // Next has already consumed these manifests to materialize the standalone
   // tree. Keeping 50+ route copies adds several megabytes to every image and
   // they are not read by the standalone server at runtime.
-  await pruneStandaloneTraceMetadata(join(process.cwd(), '.next', 'standalone'))
+  const standalone = join(process.cwd(), '.next', 'standalone')
+  await pruneStandaloneTraceMetadata(standalone)
+  await pruneStandaloneBuildDependencies(standalone)
   if (backup) await replaceCachedReading()
 } finally {
   if (backup) await backup()

@@ -41,7 +41,7 @@ const standaloneRelative=new Set(standaloneFiles.map(path=>relative(standalone,p
 const standaloneBytes=(await Promise.all(standaloneFiles.map(async path=>(await stat(path)).size))).reduce((sum,value)=>sum+value,0);
 if(!standaloneFiles.length)failures.push('No standalone deployment was found; run the production build first');
 if(standaloneBytes>thresholds.standalone)failures.push(`Standalone deployment: ${standaloneBytes} > ${thresholds.standalone}`);
-for(const forbidden of ['.deuce-cache/reading','data/reading/matches.json.gz']){
+for(const forbidden of ['.deuce-cache/reading','data/reading/matches.json.gz','node_modules/sharp','node_modules/@img']){
   if(standaloneFiles.some(path=>relative(standalone,path).startsWith(forbidden)))failures.push(`Standalone deployment contains forbidden duplicate: ${forbidden}`);
 }
 if(standaloneFiles.some(path=>path.endsWith('.nft.json')))failures.push('Standalone deployment contains build-only trace metadata');
