@@ -141,7 +141,8 @@ rollback_recovery_owned=false
 rollback_recovery_succeeded=false
 
 write_release_marker() {
-  local destination="$1" value="$2" temporary="${destination}.${commit}.$$.tmp"
+  local destination="$1" value="$2" temporary
+  temporary="${destination}.${commit}.$$.tmp"
   if ! (umask 027; printf '%s\n' "${value}" >"${temporary}") || ! sync -f "${temporary}" || ! mv -f "${temporary}" "${destination}"; then
     rm -f "${temporary}"
     return 1

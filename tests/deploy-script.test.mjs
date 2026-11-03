@@ -169,7 +169,10 @@ test('normal scheduler cannot mutate the archive before deployment finalization'
 })
 
 test('release markers are atomic, authoritative last, and retain rollback until committed', () => {
+  const writeMarkerFunction = source.slice(source.indexOf('write_release_marker()'), source.indexOf('commit_release_markers()'))
   const markerFunction = source.slice(source.indexOf('commit_release_markers()'), source.indexOf('restore_archive_backup()'))
+  assert.doesNotMatch(writeMarkerFunction, /local destination=.*temporary="\$\{destination\}/)
+  assert.match(writeMarkerFunction, /local destination="\$1" value="\$2" temporary\n\s+temporary="\$\{destination\}/)
   const activeCommit = markerFunction.indexOf('${STATE_DIR}/active-commit')
   const activeImage = markerFunction.indexOf('${STATE_DIR}/active-image')
   assert.ok(activeCommit >= 0 && activeCommit < activeImage)
