@@ -24,7 +24,7 @@ npm run typecheck
 npm run data:verify
 npm run data:evidence
 npm run data:restore-drill
-npm run build
+DEUCE_E2E_DATE=2026-11-02T12:00:00Z npm run build
 npm run budgets:verify
 npx playwright install chromium
 npm run test:browser
