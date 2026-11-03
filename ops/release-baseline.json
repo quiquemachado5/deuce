@@ -11,6 +11,5 @@
   "maximumSchedulerHeartbeatSeconds": 180,
   "expectedDatasetVersion": null,
   "expectedCommit": null,
-  "productionUrl": "https://deuce-archivo.netlify.app",
-  "previousDeployment": "netlify:6ae8707aec8a406ea0fc4c36"
+  "productionUrl": "https://deuce.62-83-91-200.sslip.io"
 }

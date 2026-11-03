@@ -11,7 +11,11 @@ async function check() {
     const response = await fetch(productionUrl+'/api/health/deep',{signal:AbortSignal.timeout(30000),cache:'no-store'});
     if(!response.ok) return ['Health endpoint: HTTP '+response.status];
     const h = await response.json();
-    failures.push(...releaseFailures(h,baseline));
+    // The first validated seed can precede the provider's first scheduled
+    // refresh. This exception is deliberately narrow: releaseFailures only
+    // accepts a recent, explicitly marked seed while both refresh rows are
+    // still absent. Errors, stale rows and every later failure remain fatal.
+    failures.push(...releaseFailures(h,baseline,{allowInitialDailyUnavailable:true}));
     failures.push(...recoveryFailures(h));
   } catch { failures.push('No se pudo consultar producción dentro del tiempo límite'); }
   return failures;
