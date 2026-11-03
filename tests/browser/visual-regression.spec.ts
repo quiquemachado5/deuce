@@ -20,7 +20,7 @@ async function revealSections(page: Page) {
 
 async function hideDynamicCoverageSurfaces(page: Page) {
   await page.addStyleTag({
-    content: '.deuce-archive-notice, [aria-labelledby="operations-title"] { display: none !important; }',
+    content: '.deuce-archive-notice, #revision, [aria-labelledby="operations-title"] { display: none !important; }',
   });
 }
 
