@@ -31,4 +31,7 @@ test('host bootstrap rate-limits SSH and hardening cannot lock out a keyless ser
   assert.ok(hardenSsh.indexOf('authorized_keys') < hardenSsh.indexOf('PasswordAuthentication no'))
   assert.match(hardenSsh, /sshd -t/)
   assert.match(hardenSsh, /PermitRootLogin no/)
+  assert.match(hardenSsh, /AllowAgentForwarding no/)
+  assert.match(hardenSsh, /AllowTcpForwarding no/)
+  assert.match(hardenSsh, /ClientAliveInterval 300/)
 })

@@ -40,8 +40,9 @@ export default function FilterForm({
       }}
       onChange={(event) => {
         const form = event.currentTarget;
-        const control = event.target as HTMLInputElement;
-        if (control.tagName === "SELECT" || control.type === "checkbox")
+        const control = event.target;
+        if (!(control instanceof HTMLInputElement || control instanceof HTMLSelectElement)) return;
+        if (control instanceof HTMLSelectElement || control.type === "checkbox")
           navigate(form);
         else debouncedNavigate(form);
       }}

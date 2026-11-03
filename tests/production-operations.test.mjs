@@ -14,6 +14,7 @@ test('costly AI crawlers are rejected before Next while search indexing remains 
   assert.match(robots,/userAgent: '\*', allow: '\/'/)
   assert.match(caddy,/header_regexp User-Agent/)
   assert.ok(caddy.indexOf('respond @expensiveBots 403')<caddy.indexOf('reverse_proxy web:3000'))
+  assert.match(caddy,/header_up X-Real-IP \{remote_host\}/)
 })
 
 test('production deploy waits for CI and pins both commit and SSH host identity',()=>{

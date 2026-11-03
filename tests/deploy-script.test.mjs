@@ -16,6 +16,8 @@ test('production image contains the bundled seed and Debian bootstrap supports C
   assert.match(bootstrap, /compose_package=docker-compose-v2/)
   assert.match(bootstrap, /compose_package=docker-compose/)
   assert.match(bootstrap, /visudo -cf \/etc\/sudoers\.d\/deuce/)
+  assert.match(dockerfile, /--mount=type=cache,target=\/root\/\.npm,sharing=locked npm ci/)
+  assert.match(dockerfile, /--mount=type=cache,target=\/app\/\.next\/cache,sharing=locked npm run build/)
 })
 
 test('production preflight and container confinement run before promotion', () => {

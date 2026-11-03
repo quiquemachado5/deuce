@@ -1,7 +1,7 @@
 FROM node:24-bookworm-slim AS dependencies
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm ci
+RUN --mount=type=cache,target=/root/.npm,sharing=locked npm ci
 
 FROM dependencies AS builder
 WORKDIR /app
@@ -16,7 +16,7 @@ ENV DEUCE_SNAPSHOT_MANIFEST_URL=${DEUCE_SNAPSHOT_MANIFEST_URL}
 ENV DEUCE_EXPECTED_SNAPSHOT_COMMIT=${DEUCE_EXPECTED_SNAPSHOT_COMMIT}
 ENV CI=1
 ENV NEXT_TELEMETRY_DISABLED=1
-RUN npm run build
+RUN --mount=type=cache,target=/app/.next/cache,sharing=locked npm run build
 
 FROM node:24-bookworm-slim AS runner
 WORKDIR /app

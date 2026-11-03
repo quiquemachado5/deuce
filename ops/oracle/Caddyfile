@@ -4,7 +4,9 @@
 		header_regexp User-Agent (?i)(GPTBot|ClaudeBot|Claude-Web|anthropic-ai|CCBot|Bytespider|Amazonbot|PetalBot|meta-externalagent)
 	}
 	respond @expensiveBots 403
-	reverse_proxy web:3000
+	reverse_proxy web:3000 {
+		header_up X-Real-IP {remote_host}
+	}
 	log {
 		output file /var/log/deuce/caddy-access.json {
 			roll_size 25MiB

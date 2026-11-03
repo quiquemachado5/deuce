@@ -1,7 +1,10 @@
 import { generationMetadata } from '@/lib/revista/generation';
 import { playerIdentity, rivalryPair } from "@/lib/explore";
 import { preparedCompactSelection, preparedMatchBrowserIndex } from '@/lib/revista/read-records';
+import { rateLimit } from '@/lib/rate-limit';
 export async function GET(request: Request) {
+  const budget=rateLimit(request,'rivals',60,60_000);
+  if(!budget.allowed)return Response.json({error:'Demasiadas consultas. Inténtalo de nuevo en un momento.'},{status:429,headers:{'Cache-Control':'private, no-store','Retry-After':String(budget.retryAfter)}});
   const params = new URL(request.url).searchParams,
     player = params.get("player")?.slice(0, 100).trim(),
     opponent = params.get("opponent")?.slice(0, 100).trim(),
@@ -20,7 +23,7 @@ export async function GET(request: Request) {
     const pair = selectedPlayer&&selectedOpponent?rivalryPair(matches, [selectedPlayer, selectedOpponent], tour):null;
     return Response.json(
       { pair, ...generationMetadata(data) },
-      { headers: { "Cache-Control": "public, s-maxage=300, stale-while-revalidate=3600", "X-DEUCE-Dataset-Version": data.manifest.version } },
+      { headers: { "Cache-Control": "public, s-maxage=300, stale-while-revalidate=3600", "X-DEUCE-Dataset-Version": data.manifest.version, "X-RateLimit-Remaining": String(budget.remaining) } },
     );
   }
   const matches=selectedPlayer?await preparedCompactSelection({tour,players:[selectedPlayer]}):[];
@@ -36,6 +39,7 @@ export async function GET(request: Request) {
       headers: {
         "Cache-Control": "public, s-maxage=300, stale-while-revalidate=3600",
         "X-DEUCE-Dataset-Version": data.manifest.version,
+        "X-RateLimit-Remaining": String(budget.remaining),
       },
     },
   );

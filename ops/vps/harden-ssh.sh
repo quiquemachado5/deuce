@@ -22,6 +22,11 @@ AllowUsers deuce
 MaxAuthTries 3
 LoginGraceTime 30
 X11Forwarding no
+AllowAgentForwarding no
+AllowTcpForwarding no
+PermitTunnel no
+ClientAliveInterval 300
+ClientAliveCountMax 2
 CONF
 
 sshd -t

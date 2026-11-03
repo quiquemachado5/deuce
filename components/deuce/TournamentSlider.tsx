@@ -11,7 +11,7 @@ const AUTOPLAY_DELAY = 4800;
 
 export function TournamentSlider({ slides }: { slides:TournamentSlide[] }) {
   const trackRef=useRef<HTMLDivElement>(null);
-  const scrollFrameRef=useRef<number>();
+  const scrollFrameRef=useRef<number|null>(null);
   const [current,setCurrent]=useState(0);
   const [reducedMotion,setReducedMotion]=useState(false);
 

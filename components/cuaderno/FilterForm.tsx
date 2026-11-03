@@ -15,9 +15,10 @@ export default function FilterForm({
       className="filters"
       onChange={(e) => {
         const form = e.currentTarget;
-        const input = e.target as HTMLInputElement;
+        const input = e.target;
+        if (!(input instanceof HTMLInputElement || input instanceof HTMLSelectElement)) return;
         if (timer.current) clearTimeout(timer.current);
-        if (input.tagName === "SELECT" || input.type === "checkbox")
+        if (input instanceof HTMLSelectElement || input.type === "checkbox")
           form.requestSubmit();
         else timer.current = setTimeout(() => form.requestSubmit(), 250);
       }}
