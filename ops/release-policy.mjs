@@ -20,12 +20,17 @@ export function releaseFailures(health, baseline, options = {}) {
   const failures = []
   const allowDegraded = options.allowDegraded === true
   if (!health || typeof health !== 'object') return ['Respuesta de salud ausente o inválida']
+  const hostIssueOnly = options.allowHostIssue === true
+    && health.status === 'degraded'
+    && Array.isArray(health.healthIssues)
+    && health.healthIssues.length > 0
+    && health.healthIssues.every(issue => issue === 'host')
   // Before the first provider run, accept only absent circuit refreshes plus
   // a recent, explicitly marked seed publication (or no publication row yet).
   // Stale/error rows and every other release check remain blocking.
   const initialDailyBootstrap = options.allowInitialDailyUnavailable === true
     && health.status === 'degraded' && initialDailyBootstrapReady(health)
-  if (health.status !== 'healthy' && !(allowDegraded && health.status === 'degraded') && !initialDailyBootstrap) failures.push(`Estado ${String(health.status).slice(0, 30)}`)
+  if (health.status !== 'healthy' && !(allowDegraded && health.status === 'degraded') && !initialDailyBootstrap && !hostIssueOnly) failures.push(`Estado ${String(health.status).slice(0, 30)}`)
   if (!Number.isFinite(health.ageHours) || health.ageHours > (baseline.maximumDataAgeHours || 72)) failures.push('Datos fuera de la ventana de frescura permitida')
   if ((integer(health.matches) || 0) < baseline.minimumMatches) failures.push('Pérdida de volumen frente a la última release validada')
   if ((integer(health.statistics) || 0) < baseline.minimumStatistics) failures.push('Pérdida de catálogo frente a la última release validada')

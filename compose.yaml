@@ -107,6 +107,12 @@ services:
       - caddy_config:/config
     tmpfs:
       - /tmp:rw,noexec,nosuid,size=16m
+    healthcheck:
+      test: ["CMD", "caddy", "validate", "--config", "/etc/caddy/Caddyfile"]
+      interval: 30s
+      timeout: 5s
+      start_period: 10s
+      retries: 3
     logging: *deuce-logging
 
 volumes:

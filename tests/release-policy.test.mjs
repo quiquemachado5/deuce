@@ -48,6 +48,14 @@ test('first release accepts only absent daily rows and keeps every other gate st
   assert.ok(releaseFailures(noStorage, baseline, { allowInitialDailyUnavailable: true }).includes('Capacidad del archivo no verificada'))
 })
 
+test('candidate verification may ignore only the suspended host monitor', () => {
+  const hostOnly = { ...healthy, status: 'degraded', healthIssues: ['host'] }
+  assert.deepEqual(releaseFailures(hostOnly, baseline, { allowHostIssue: true }), [])
+  assert.ok(releaseFailures(hostOnly, baseline).includes('Estado degraded'))
+  const additionalIssue = { ...hostOnly, healthIssues: ['host', 'storage-capacity'] }
+  assert.ok(releaseFailures(additionalIssue, baseline, { allowHostIssue: true }).includes('Estado degraded'))
+})
+
 test('bundled snapshot policy requires the record catalogue of both circuits', () => {
   const snapshotBaseline = { minimumMatches: 250, minimumTours: { atp: 150, wta: 100 }, minimumStatistics: 10,
     minimumStatisticsByTour: { atp: 6, wta: 4 }, requiredRulesVersion: 'rules-v1' }
