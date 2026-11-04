@@ -6,7 +6,7 @@ import { preparedDataCacheDiagnostics, preparedEditionAudit, preparedGeneration,
 import { logEvent, requestId } from '@/lib/structured-log';
 import { readSchedulerHealth } from '@/lib/scheduler-health';
 import { compareCircuitFreshness, recentRefreshFreshnessIssue } from '@/lib/circuit-freshness';
-import { dailyUpdateIssue } from '@/lib/operational-health';
+import { dailyUpdateIssue, restoreValidationEvidence } from '@/lib/operational-health';
 import { rateLimit } from '@/lib/rate-limit';
 
 export const dynamic = 'force-dynamic';
@@ -40,7 +40,7 @@ function recoveryStatus(value: unknown) {
   const row = value && typeof value === 'object' ? value as Record<string, unknown> : {};
   return {
     ...recentStatus(value),
-    restoreValidated: row.restoreValidated === true,
+    restoreValidated: restoreValidationEvidence(row),
     backupAt: typeof row.backupAt === 'string' && Number.isFinite(Date.parse(row.backupAt)) ? row.backupAt : undefined,
     backupAgeHours: Number.isFinite(row.backupAgeHours) ? Number(row.backupAgeHours) : undefined,
     archive: typeof row.archive === 'string' ? row.archive.slice(0, 160) : undefined,
