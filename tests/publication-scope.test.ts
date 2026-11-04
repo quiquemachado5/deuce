@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { mockMatches } from '../lib/mocks';
-import { isPublishedMatch, PROVIDER_PUBLICATION_TIERS, publishedMatchDuplicateKey, publishedMatches } from '../lib/publication-scope';
+import { isPublishedMatch, providerTierInPublicationScope, PROVIDER_PUBLICATION_TIERS, publishedMatchDuplicateKey, publishedMatches } from '../lib/publication-scope';
 import type { Match } from '../lib/types';
 
 function result(overrides: Partial<Match> = {}): Match {
@@ -22,6 +22,9 @@ test('the public universe contains only the requested singles tiers for each cir
   for (const category of ['WTA 125', 'Circuito ITF femenino', 'WTA Tour histórico']) assert.equal(isPublishedMatch(result({ tour: 'wta', category })), false, category);
   assert.equal(isPublishedMatch(result({ player1: { name: 'A / B', seed: null } })), false);
   assert.equal(PROVIDER_PUBLICATION_TIERS.wta.includes('wta_125'), false);
+  assert.equal(providerTierInPublicationScope({ tier: 'wta_1000' }, 'wta'), true);
+  assert.equal(providerTierInPublicationScope({ tier: 'wta_125' }, 'wta'), false);
+  assert.equal(providerTierInPublicationScope({ tier: 'challenger' }, 'atp'), false);
 });
 
 test('semantic duplicates keep the richest deterministic result', () => {

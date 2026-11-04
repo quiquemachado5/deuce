@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { detailCandidateKey, enrichmentPlan, type DetailCandidate } from '../lib/enrichment-plan';
+import { detailCandidateKey, detailMatchesCandidate, enrichmentPlan, type DetailCandidate } from '../lib/enrichment-plan';
 
-const row=(tour:'atp'|'wta',kind:'archive'|'modern',id:string,round='F'):DetailCandidate=>({tour,kind,id,round,year:kind==='archive'?2022:2026});
+const row=(tour:'atp'|'wta',kind:'archive'|'modern',id:string,round='F'):DetailCandidate=>({tour,kind,id,round,year:kind==='archive'?2022:2026,players:['Player One','Player Two']});
 
 test('detail enrichment rotates ATP, WTA, archive and modern queues',()=>{
   const candidates=[
@@ -15,6 +15,16 @@ test('detail enrichment rotates ATP, WTA, archive and modern queues',()=>{
   assert.deepEqual(enrichmentPlan(candidates,new Set(['wta-archive-1']),4).map(detailCandidateKey),[
     'archive-1','wta-archive-3','modern-2','wta-modern-2',
   ]);
+});
+
+test('detail responses must match the requested identity, participants and circuit',()=>{
+  const candidate=row('wta','modern','42');
+  const valid={match:{id:42,tour:'challenger',gender:'women',players:{p1:{name:'Player Two',tour:'wta'},p2:{name:'Player One',tour:'wta'}}}};
+  assert.equal(detailMatchesCandidate(candidate,valid),true);
+  assert.equal(detailMatchesCandidate(candidate,{match:{...valid.match,id:43}}),false);
+  assert.equal(detailMatchesCandidate(candidate,{match:{...valid.match,players:{p1:{name:'Other'},p2:{name:'Player One'}}}}),false);
+  assert.equal(detailMatchesCandidate(candidate,{match:{...valid.match,players:{p1:{name:'Player Two',tour:'atp'},p2:{name:'Player One',tour:'wta'}}}}),false);
+  assert.equal(detailMatchesCandidate(candidate,{match:{...valid.match,gender:'men'}}),false);
 });
 
 test('detail enrichment de-duplicates circuit-aware keys',()=>{

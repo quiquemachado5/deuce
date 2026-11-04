@@ -13,6 +13,16 @@ export const PROVIDER_PUBLICATION_TIERS: Readonly<Record<Tour, string>> = {
   wta: 'grand_slam,wta_1000,wta_500,wta_250',
 };
 
+const providerPublicationTierSets: Readonly<Record<Tour, ReadonlySet<string>>> = {
+  atp: new Set(PROVIDER_PUBLICATION_TIERS.atp.split(',')),
+  wta: new Set(PROVIDER_PUBLICATION_TIERS.wta.split(',')),
+};
+
+/** Raw modern rows are eligible for detail calls only in the public product tiers. */
+export function providerTierInPublicationScope(row: { tier?: unknown }, tour: Tour) {
+  return typeof row.tier === 'string' && providerPublicationTierSets[tour].has(row.tier.trim().toLowerCase());
+}
+
 const normalized = (value: string) => value.normalize('NFD')
   .replace(/[\u0300-\u036f]/g, '')
   .toLowerCase()

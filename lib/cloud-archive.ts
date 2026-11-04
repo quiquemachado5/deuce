@@ -16,7 +16,7 @@ import {
   readArchiveObject,
   writeArchiveObjects,
 } from './archive-store'
-import { detailCandidateKey, enrichmentPlan } from './enrichment-plan'
+import { detailCandidateKey, detailCandidatePlayers, detailMatchesCandidate, enrichmentPlan, type DetailCandidate } from './enrichment-plan'
 import { activityFixtures } from './tour-activity'
 import {mergeSeasonBaseline,reconcileSeasonResults,type Season} from './result-refresh'
 import { detailRefreshPlan } from './detail-refresh-plan'
@@ -279,7 +279,7 @@ export async function refreshCloudArchive() {
     // Only keys are needed to avoid downloading the growing payload archive during sync.
     const known = new Set<string>()
     for(const key of await listArchiveKeys('detail-'))known.add(key.slice(7))
-    let detailsAdded = 0,detailsRefreshed=0
+    let detailsAdded = 0,detailsRefreshed=0,detailsRejected=0
     const overrides = new Set<string>((await cloudRead('detail-overrides'))?.keys || [])
     const checked:Record<string,string>=(await cloudRead('refresh-detail-state'))?.checked || {}
     const planned=detailRefreshPlan(detailCandidates as (ArchiveRow & {id:unknown})[],previousRows as Map<string,ArchiveRow & {id:unknown}>,id=>id.startsWith('wta-')?known.has(`wta-modern-${id.slice(4)}`):known.has(`modern-${id}`)||hasBundledDetail('modern',id),checked,Date.now(),row=>!hasClosedModernResult(row),row=>row.tour==='wta'?`wta-${row.id}`:String(row.id))
@@ -287,8 +287,11 @@ export async function refreshCloudArchive() {
       if (detailsAdded+detailsRefreshed >= 4 || calls >= callLimit-3 || remaining-calls<=wtaReserve+2 || Date.now() - started > 190_000) break
       const detailId=row.tour==='wta'?`wta-modern-${row.id}`:`modern-${row.id}`
       const existing=known.has(detailId)||(row.tour!=='wta'&&hasBundledDetail('modern',String(row.id)))
+      const players=detailCandidatePlayers(row,'modern')
+      if(!players){detailsRejected++;continue}
+      const candidate:DetailCandidate={kind:'modern',id:String(row.id),year,round:String(row.round_code||row.round||''),tour:row.tour==='wta'?'wta':'atp',players}
       const detail = await request(`/history/matches/${row.id}?points=complete`)
-      if (!detail.match && !detail.stats) continue
+      if (!detailMatchesCandidate(candidate,detail)){detailsRejected++;continue}
       await cloudWrite(`detail-${detailId}`, detail)
       if(existing){detailsRefreshed++;overrides.add(`detail-${detailId}`)}else detailsAdded++
       known.add(detailId)
@@ -300,14 +303,14 @@ export async function refreshCloudArchive() {
     for(const row of backfill){
       if(calls>=callLimit-1||remaining-calls<=wtaReserve+1||Date.now()-started>190_000)break
       const detail=await request(row.kind==='archive'?`/history/archive/matches/${row.id}`:`/history/matches/${row.id}?points=complete`)
-      if(!detail.match&&!detail.stats)continue
+      if(!detailMatchesCandidate(row,detail)){detailsRejected++;continue}
       const key=detailCandidateKey(row)
       await cloudWrite(`detail-${key}`,detail)
       known.add(key)
       if(row.kind==='archive')historicalAdded++;else archiveRecentAdded++
     }
     cache.delete('detail-index')
-    const result = { status: 'success', attemptAt, at: new Date().toISOString(), lastSuccessAt: new Date().toISOString(), year, matches: data.length, updated: rows.length, extracted:rows.length, enriched:detailsAdded+detailsRefreshed+historicalAdded+archiveRecentAdded, seasonsRefreshed, detailsAdded, detailsRefreshed, historicalAdded, archiveRecentAdded, calls, activityFixtures:activity.length, latestProviderDate:latestProviderResultDate(detailCandidates) }
+    const result = { status: 'success', attemptAt, at: new Date().toISOString(), lastSuccessAt: new Date().toISOString(), year, matches: data.length, updated: rows.length, extracted:rows.length, enriched:detailsAdded+detailsRefreshed+historicalAdded+archiveRecentAdded, seasonsRefreshed, detailsAdded, detailsRefreshed, detailsRejected, historicalAdded, archiveRecentAdded, calls, activityFixtures:activity.length, latestProviderDate:latestProviderResultDate(detailCandidates) }
     await cloudWrite('sync-status', withOperationHistory(priorStatus,result))
     return result
   } catch (error) {
@@ -347,13 +350,14 @@ export async function enrichCloudArchive() {
       await save(result);return result
     }
     const plan=enrichmentPlan(candidates,known,callLimit-1)
-    let added=0,unavailable=0,atp=0,wta=0,archive=0,modern=0
+    let added=0,unavailable=0,rejected=0,atp=0,wta=0,archive=0,modern=0
     for(const row of plan){
       if(calls>=callLimit||Date.now()-started>220_000)break
       await new Promise(resolve=>setTimeout(resolve,2100));calls++
       try{
         const detail=await provider(row.kind==='archive'?`/history/archive/matches/${row.id}`:`/history/matches/${row.id}?points=complete`)
         if(!detail.match&&!detail.data&&!detail.stats){unavailable++;continue}
+        if(!detailMatchesCandidate(row,detail)){rejected++;continue}
         await cloudWrite(`detail-${detailCandidateKey(row)}`,detail)
         added++;if(row.tour==='wta')wta++;else atp++;if(row.kind==='archive')archive++;else modern++
       }catch(error){
@@ -362,7 +366,7 @@ export async function enrichCloudArchive() {
       }
     }
     cache.delete('detail-index')
-    const at=new Date().toISOString(),result={status:'success',phase:'details',attemptAt,lastSuccessAt:at,at,calls,added,unavailable,atp,wta,archive,modern,candidates:candidates.length,remainingCandidates:Math.max(0,candidates.length-added),probe:{usage:'ok',details:'ok'}}
+    const at=new Date().toISOString(),result={status:'success',phase:'details',attemptAt,lastSuccessAt:at,at,calls,added,unavailable,rejected,atp,wta,archive,modern,candidates:candidates.length,remainingCandidates:Math.max(0,candidates.length-added),probe:{usage:'ok',details:'ok'}}
     await save(result);return result
   }catch(error){
     if(error instanceof TennisProviderError&&error.status===429){
