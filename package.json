@@ -28,7 +28,7 @@
     "data:wta:backfill:historical": "npm run data:wta:backfill -- --history-only --through-year=2019",
     "data:wta:derive": "node --import ./build/register.mjs --import tsx build/derive-wta-cohorts.ts",
     "data:wta:audit": "node --import ./build/register.mjs --import tsx build/audit-wta-cohorts.ts",
-    "storage:seed": "node --import ./build/register.mjs --import tsx build/seed-blob-archive.ts",
+    "storage:seed": "node --import ./build/register.mjs --import tsx build/seed-archive.ts",
     "media:verify": "node --import ./build/register.mjs --import tsx build/audit-tournament-media.ts && node --import ./build/register.mjs --import tsx build/audit-photo-rights.ts",
     "media:players": "node build/discover-player-photos.mjs --scan=250 --max=100",
     "media:thumbnails": "node build/generate-player-avatar-thumbnails.mjs",
@@ -46,7 +46,6 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "2.118.0",
-    "@vercel/blob": "2.8.2",
     "lucide-react": "^0.441.0",
     "next": "16.4.5",
     "react": "^19.3.1",
@@ -69,9 +68,6 @@
     "typescript": "^5.7.0"
   },
   "overrides": {
-    "minimatch": "11.0.1",
-    "@vercel/cli-config": {
-      "zod": "4.6.7"
-    }
+    "minimatch": "11.0.1"
   }
 }

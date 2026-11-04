@@ -37,7 +37,7 @@ Los ficheros comprimidos por temporada y cohorte de `data/archive/wta` son la fu
 
 Para conservar una generación ya compilada, ejecutar `npm run data:snapshot:export -- --output=/ruta/inmutable/<commit>`. `snapshot-manifest.json` registra commit fuente, versión, reglas, conteos por circuito, tamaño y SHA-256 de cada fichero. Tras publicar ese directorio por HTTPS, configurar `DEUCE_SNAPSHOT_MANIFEST_URL` y `DEUCE_EXPECTED_SNAPSHOT_COMMIT`; la compilación Docker restaura y valida el snapshot dentro de su etapa efímera. Si no está disponible o no supera la política, reconstruye desde las fuentes compactas. No introducir credenciales en la URL ni commitear el directorio exportado.
 
-Para un incidente de código: usar una generación anterior conocida con `vercel rollback ID --scope quiquemachado5s-projects`, comprobar `/api/health`, `/api/health/deep` y las APIs públicas. Rollback pausa la autoasignación de despliegues; `vercel promote` la restablece. No ejecutar como simulacro contra producción.
+Para un incidente de código: `ops/vps/deploy.sh` conserva la imagen activa y la anterior, y restaura automáticamente la anterior si falla el gate posterior a la promoción. Comprobar `/api/health`, `/api/health/deep` y las APIs públicas antes de reactivar el scheduler. No ejecutar un rollback manual como simulacro contra producción.
 
 Para un incidente de base de datos: primero confirmar backups/PITR disponibles en el proyecto `rmiltvmwdmfqzuoipfqs`, fecha de recuperación y recursos afectados. Ensayar en un destino aislado antes de restaurar producción. No se ha certificado PITR: la conexión MCP permite SQL/advisors pero la CLI no tiene sesión para listar backups. Nunca entregar tokens en el chat ni reutilizar secretos de producción localmente.
 
@@ -54,48 +54,24 @@ Orden de recuperación:
 5. Aplicar `20261031103000_archive_capacity_guard.sql`, comprobar que `deuce_archive_storage_report()` solo sea ejecutable por `service_role` y ejecutar una publicación controlada.
 6. Confirmar que `/api/health/deep` cambia a `remote`, que Cobertura muestra la nueva hora y que ATP/WTA no pierden volumen.
 
-### Recuperación sin cambiar a Pro
+### Arquitectura actual en Netcup
 
-Un proyecto Free que ha llenado por completo el disco puede dejar PostgreSQL sin
-capacidad para arrancar o podar sus propias tablas. En ese estado no se debe
-presentar el proyecto como recuperable mediante borrados desde la aplicación:
-la [documentación de tamaño de base de datos de Supabase](https://supabase.com/docs/guides/platform/database-size)
-indica que la salida soportada en el mismo proyecto es ampliar disco. Si no se
-autoriza ese gasto, la alternativa operativa es un destino Free nuevo (si la
-cuenta dispone de un proyecto) o retirar el archivo remoto de Supabase.
+El volumen persistente de Compose es el archivo principal. `DEUCE_ARCHIVE_DIR`
+apunta a `/app/.deuce-archive`, el preflight impide asignar más del 70 % del
+filesystem y la publicación se detiene en `storage-reserve` al superar
+`DEUCE_ARCHIVE_MAX_BYTES`. Los leases se guardan de forma atómica en ese mismo
+volumen y evitan dos publicaciones simultáneas.
 
-La salida sin coste elegida es un Blob privado de Vercel. El plan Hobby incluye
-1 GB y, si se supera la cuota, Vercel suspende Blob en vez de generar un cargo.
-El código reserva 200 MB y detiene la ingestión al llegar a 800 MB.
-
-1. Crear un Blob privado en el proyecto de Vercel y conectarlo a producción y
-   preview. Vercel inyecta `BLOB_STORE_ID` y las credenciales OIDC.
-2. Descargar las variables para una siembra local sin imprimirlas y ejecutar
-   `npm run data:verify && npm run storage:seed`. La siembra publica primero
-   todos los objetos versionados y cambia `reading-v2-manifest` al final.
-3. Desplegar con Blob conectado. `/api/health/deep` debe indicar archivo remoto
-   configurado, alcanzable y con menos de `DEUCE_ARCHIVE_MAX_BYTES`.
-4. Ejecutar una publicación controlada y verificar versión, 176.370 partidos o
-   más, ATP/WTA, estadísticas y fallback. Conservar activa y anterior.
-5. Retirar `SUPABASE_URL` y `SUPABASE_SECRET_KEY` del despliegue solo después
-   de confirmar que refresh, WTA y publicación completan mediante Blob.
-
-El adaptador prioriza Blob cuando `BLOB_STORE_ID` o `BLOB_READ_WRITE_TOKEN`
-están presentes y conserva Supabase únicamente para una transición reversible.
-El lease de los cron usa ETags y escrituras condicionales, evitando dos
-publicaciones simultáneas sin necesitar otra base de datos.
-
-Si no hay un proyecto Free disponible, la contingencia sin coste es publicar
-un delta comprimido de la temporada actual como artefacto estático versionado y
-fusionarlo durante la generación del despliegue. No se deben hacer commits
-diarios de los 67 MB de `data/reading`, porque inflarían el historial Git; solo
-el delta pequeño y validado puede entrar en ese flujo.
-
-La publicación nueva particiona partidos por circuito y década, conserva solo la generación activa y la inmediatamente anterior y detiene refresh en `storage-reserve` al superar `DEUCE_ARCHIVE_MAX_BYTES` (800 MB con Blob por defecto). Esa retención no sustituye un backup. PITR es un servicio con coste: activarlo requiere aprobación explícita del propietario.
+La publicación particiona partidos por circuito y década, conserva la
+generación activa y la inmediatamente anterior y cambia el manifiesto al final.
+La retención no sustituye un backup: `ops/vps/backup.sh` valida cada copia antes
+de transferirla mediante `rclone`, y el restore drill semanal descarga y prueba
+la copia remota sin tocar producción. Supabase queda solo como adaptador legado
+de recuperación y no debe volver a la ruta crítica sin una migración revisada.
 
 ## Límites y protección perimetral
 
-Las rutas de búsqueda y jugadores validan longitud, limitan carga y responden 429 mediante un token bucket por instancia. En producción debe existir además una regla distribuida en Vercel Firewall para `/api/search`, `/api/players` y `/api/telemetry`; el repositorio no puede demostrar esa configuración. Registrar la regla y su fecha aquí cuando se aplique.
+Las rutas de búsqueda y jugadores validan longitud, limitan carga y responden 429 mediante un token bucket por instancia. Falta una segunda barrera distribuida en Caddy o en el firewall del VPS para `/api/search`, `/api/players` y `/api/telemetry`; registrar la regla y su fecha aquí cuando se aplique.
 
 La CSP usa SRI para scripts externos, impide framing, objetos, atributos JavaScript inline y orígenes no declarados. `unsafe-inline` permanece únicamente en `script-src` porque la hidratación estática de Next inserta scripts inline. Eliminarlo exige nonces por petición y convertir las páginas afectadas en dinámicas; no hacer ese cambio sin medir CDN y TTFB.
 

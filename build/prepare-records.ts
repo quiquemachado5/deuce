@@ -11,7 +11,7 @@ import {preservePublishedArchive} from '../lib/revista/release-source';
 import {publishedMatches} from '../lib/publication-scope';
 loadEnvConfig(process.cwd());
 const isCiBuild=process.env.CI==='1'||process.env.CI==='true';
-const verifiesRemoteRelease=process.env.VERCEL_ENV==='production'&&!isCiBuild;
+const verifiesRemoteRelease=process.env.DEUCE_VERIFY_REMOTE_RELEASE==='true'&&!isCiBuild;
 async function main(){
   const [{editorialArchive},{compileRecordSnapshot,attachIngestionHistory},{writeBundledSnapshot}]=await Promise.all([import('../lib/editorial-data'),import('../lib/revista/snapshot'),import('../lib/revista/publish-snapshot')]);
   let matches=await editorialArchive();
@@ -58,8 +58,6 @@ async function main(){
     else console.log('Edition coverage baseline initialized from this release');
     snapshot.manifest=attachIngestionHistory(previous,attachRecordChanges(previous,snapshot.manifest));
     console.log(`Release baseline verified: ${previous.matchCount} published matches; ${snapshot.manifest.matchCount} prepared; measured coverage preserved`);
-  }else if(process.env.VERCEL_ENV==='production'){
-    console.log('Remote release verification deferred until runtime; CI build uses the validated bundled generation');
   }
   assertSnapshotIntegrity(snapshot);
   await writeBundledSnapshot(snapshot);

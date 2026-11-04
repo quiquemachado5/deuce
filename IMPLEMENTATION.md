@@ -27,7 +27,7 @@
 - Lectura en frío con límite de 128 archivos abiertos: completa, sin `EMFILE`.
 - Auditoría npm: 0 vulnerabilidades en dependencias de producción; 9 en desarrollo (7 altas y 2 moderadas), pendientes de migración revisada.
 - Axe sin infracciones en las fichas comprobadas en claro/oscuro y en la página de cobertura; capturas revisadas en móvil. Esto no certifica todas las páginas ni sustituye pruebas con lectores de pantalla.
-- Las guías de revisión React y verificación de Vercel orientaron las comprobaciones de semántica, contraste y recorridos interfaz/API/datos.
+- Las guías de revisión React y la verificación de producción orientaron las comprobaciones de semántica, contraste y recorridos interfaz/API/datos.
 - Primera entrega publicada el 21/10/2026 tras verificar 176.267 partidos y 94 estadísticas con la configuración remota. Los 7 recorridos de navegador también pasaron contra el dominio público.
 
 ## Segunda entrega: coherencia y diagnóstico
@@ -122,6 +122,6 @@ Supabase agotó el disco escribiendo WAL y PostgreSQL permanece en recuperación
 
 - Recuperar o ampliar el almacenamiento de Supabase; después aplicar y verificar la migración de capacidad.
 - Confirmar backups y aprobar, si se desea, el coste de PITR antes de activarlo.
-- Activar Vercel Firewall distribuido para las APIs públicas.
+- Añadir rate limiting distribuido en Caddy o en el firewall del VPS para las APIs públicas.
 - Proteger `main` con `verify`, rama actualizada, una aprobación, sin force-push/borrado, y exigir aprobación del entorno `production`.
 - Una CSP de nonce sin `unsafe-inline` exigiría abandonar la prerenderización de las rutas afectadas; queda como decisión de arquitectura, no como cambio silencioso.

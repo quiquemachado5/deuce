@@ -6,7 +6,7 @@ export function register() {
     level: 'info',
     event: 'server.started',
     runtime: process.env.NEXT_RUNTIME || 'unknown',
-    commit: (process.env.VERCEL_GIT_COMMIT_SHA || process.env.COMMIT_REF || process.env.GITHUB_SHA)?.slice(0, 40) || null,
+    commit: (process.env.COMMIT_REF || process.env.GITHUB_SHA)?.slice(0, 40) || null,
   }));
 }
 

@@ -24,7 +24,7 @@ Los accesos rechazados a cron y métricas emiten `security.auth.denied` con supe
 - Una edición solo se declara incompleta cuando el ledger tiene evidencia (`missing-late-rounds`, duplicados o resultados no terminales). `uncertified-draw-size` es revisión, no un partido inventado.
 - El índice criptográfico de publicación impide eliminar identidades y detecta correcciones de resultados/metadatos sin cargar la generación anterior completa.
 - Si publicación supera memoria, conservar el puntero anterior, revisar `publish-status.memory.phases` y no aumentar el límite del contenedor sin medir la causa.
-- Si producción contiene resultados más recientes que el snapshot del repositorio, reconstruirlo con `VERCEL_ENV=production npm run data:rebuild` desde un entorno de confianza conectado al archivo privado. Esta lectura no consume cuota del proveedor. Verificar después `data:verify`, `data:evidence` y `data:verify-publication`, confirmando que los totales por circuito nunca disminuyen.
+- Si producción contiene resultados más recientes que el snapshot del repositorio, reconstruirlo con `DEUCE_VERIFY_REMOTE_RELEASE=true npm run data:rebuild` desde un entorno de confianza montado sobre una copia aislada del archivo privado. Esta lectura no consume cuota del proveedor. Verificar después `data:verify`, `data:evidence` y `data:verify-publication`, confirmando que los totales por circuito nunca disminuyen.
 
 ## Recuperación
 

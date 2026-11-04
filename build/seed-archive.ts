@@ -17,7 +17,7 @@ async function read<T>(id: string): Promise<T> {
 
 async function main() {
   const backend = archiveStoreBackend()
-  if (backend !== 'vercel-blob' && backend !== 'filesystem') throw new Error('Configure Vercel Blob or the self-hosted filesystem archive before seeding')
+  if (backend !== 'filesystem') throw new Error('Configure the self-hosted filesystem archive before seeding')
 
   const manifest = await read<Snapshot['manifest']>('manifest')
   const pieces = await loadBundledSnapshotPieces(manifest, read)

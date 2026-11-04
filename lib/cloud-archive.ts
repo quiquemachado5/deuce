@@ -128,7 +128,7 @@ export async function cloudArchiveHasCapacity(budget?:number){
   const report=await cloudArchiveStorageReport(budget);
   const configured=Number(process.env.DEUCE_ARCHIVE_MAX_BYTES);
   const backend=archiveStoreBackend();
-  const defaultMaximum=backend==='vercel-blob'?800_000_000:backend==='filesystem'?150_000_000_000:450_000_000;
+  const defaultMaximum=backend==='filesystem'?150_000_000_000:450_000_000;
   const maximum=Number.isFinite(configured)&&configured>0?configured:defaultMaximum;
   const status=archiveCapacityStatus(report,maximum);
   const result={report,maximum,status,available:status==='available'};

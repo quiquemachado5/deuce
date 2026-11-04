@@ -16,12 +16,11 @@ import { prepareMatch } from '../lib/quality';
 import { preservePublishedArchive } from '../lib/revista/release-source';
 import { selectPlayerCareer } from '../lib/player-career';
 
-test('demo is opt-in and cannot run in production or Vercel previews', () => {
+test('demo is opt-in and cannot run in production', () => {
   assert.equal(isDemoDataEnabled({}), false);
   assert.equal(isDemoDataEnabled({ NEXT_PUBLIC_USE_MOCK_DATA: 'false' }), false);
   assert.equal(isDemoDataEnabled({ NODE_ENV: 'development', NEXT_PUBLIC_USE_MOCK_DATA: 'true' }), true);
   assert.throws(() => isDemoDataEnabled({ NODE_ENV: 'production', NEXT_PUBLIC_USE_MOCK_DATA: 'true' }));
-  assert.throws(() => isDemoDataEnabled({ VERCEL_ENV: 'preview', NEXT_PUBLIC_USE_MOCK_DATA: 'true' }));
   assert.throws(() => isDemoDataEnabled({ NEXT_PUBLIC_USE_MOCK_DATA: 'yes' }));
 });
 
