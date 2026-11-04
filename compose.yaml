@@ -18,6 +18,7 @@ services:
         DEUCE_EXPECTED_SNAPSHOT_COMMIT: ${DEUCE_EXPECTED_SNAPSHOT_COMMIT:-}
     restart: unless-stopped
     init: true
+    read_only: true
     security_opt:
       - no-new-privileges:true
     cap_drop:
@@ -34,6 +35,8 @@ services:
     volumes:
       - archive:/app/.deuce-archive
       - next_cache:/app/.next/cache
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=64m
     expose:
       - "3000"
     logging: *deuce-logging
@@ -43,6 +46,7 @@ services:
     user: "1001:1001"
     restart: unless-stopped
     init: true
+    read_only: true
     security_opt:
       - no-new-privileges:true
     cap_drop:
@@ -63,6 +67,8 @@ services:
     command: ["node", "/app/ops/oracle/scheduler.mjs"]
     volumes:
       - archive:/app/.deuce-archive
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=32m
     healthcheck:
       test: ["CMD", "node", "-e", "const fs=require('node:fs');const p=(process.env.DEUCE_ARCHIVE_DIR||'/app/.deuce-archive')+'/.scheduler/state.json';const s=JSON.parse(fs.readFileSync(p,'utf8'));if(!s.heartbeatAt||Date.now()-Date.parse(s.heartbeatAt)>180000)process.exit(1)"]
       interval: 60s
@@ -75,6 +81,7 @@ services:
     image: caddy:2-alpine
     restart: unless-stopped
     init: true
+    read_only: true
     security_opt:
       - no-new-privileges:true
     cap_drop:
@@ -98,6 +105,8 @@ services:
       - ${DEUCE_LOG_DIR:-/opt/deuce/logs}:/var/log/deuce
       - caddy_data:/data
       - caddy_config:/config
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=16m
     logging: *deuce-logging
 
 volumes:

@@ -12,7 +12,9 @@ export function recoveryFailures(health) {
   if (!successfulWithin(recovery.backup, backupMaximum) || recovery.backup?.restoreValidated !== true) {
     failures.push('Copia externa restaurable ausente o fuera de plazo')
   }
-  if (!successfulWithin(recovery.restore, restoreMaximum)) failures.push('Simulacro de restauración ausente o fuera de plazo')
+  if (!successfulWithin(recovery.restore, restoreMaximum) || recovery.restore?.restoreValidated !== true) {
+    failures.push('Simulacro de restauración validado ausente o fuera de plazo')
+  }
   if (Number.isFinite(recovery.restore?.backupAgeHours) && recovery.restore.backupAgeHours > restoreMaximum) {
     failures.push('El simulacro usó una copia externa demasiado antigua')
   }

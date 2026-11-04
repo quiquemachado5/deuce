@@ -62,7 +62,7 @@ age_hours="$((age_seconds / 3600))"
 docker compose --env-file .env.production exec -T web node -e '
   const {rename,writeFile}=require("node:fs/promises"),{join}=require("node:path");
   (async()=>{const root=process.env.DEUCE_ARCHIVE_DIR||"/app/.deuce-archive",target=join(root,"restore-drill-status.json"),temporary=`${target}.${process.pid}.tmp`;
-    await writeFile(temporary,JSON.stringify({status:"success",at:process.argv[1],backupAt:process.argv[2],backupAgeHours:Number(process.argv[3]),archive:process.argv[4],sha256:process.argv[5],image:process.argv[6]}));await rename(temporary,target)})().catch(error=>{console.error(error);process.exit(1)});' \
+    await writeFile(temporary,JSON.stringify({status:"success",at:process.argv[1],backupAt:process.argv[2],backupAgeHours:Number(process.argv[3]),archive:process.argv[4],sha256:process.argv[5],image:process.argv[6],restoreValidated:true}));await rename(temporary,target)})().catch(error=>{console.error(error);process.exit(1)});' \
   "${verified_at}" "${backup_at}" "${age_hours}" "${latest}" "${actual}" "${image}"
-printf '{"verifiedAt":"%s","archive":"%s","sha256":"%s","image":"%s"}\n' \
+printf '{"verifiedAt":"%s","archive":"%s","sha256":"%s","image":"%s","restoreValidated":true}\n' \
   "${verified_at}" "${latest}" "${actual}" "${image}" >"${BACKUP_DIR}/last-restore-drill.json"

@@ -48,7 +48,7 @@ test('record cards keep their radius and categories filter by URL', async ({ pag
 
 test('match result links align both players without portrait placeholders', async ({ page }) => {
   await page.goto('/buscar?q=Nadal+Federer+Wimbledon+2008');
-  const row = page.getByRole('link', { name: 'Ver Rafael Nadal contra Roger Federer' });
+  const row = page.getByRole('link', { name: /Rafael Nadal.*Roger Federer/ });
   await expect(row).toContainText('Rafael Nadal');
   await expect(row).toContainText('Roger Federer');
   await expect(row.locator('.player-avatar')).toHaveCount(0);

@@ -8,7 +8,7 @@ test('compound searches keep player, year, final and format constraints', async 
   expect(data.items.some((item: { group: string; name: string }) => item.group === 'Partidos' && item.name.includes('Rafael Nadal') && item.name.includes('Roger Federer'))).toBeTruthy();
   await page.goto('/buscar?q=finales+a+cinco+sets+Wimbledon+2008');
   await expect(page.locator('main')).toContainText('Interpretamos: Cinco sets · Final · 2008');
-  const match = page.getByRole('link', { name: 'Ver Rafael Nadal contra Roger Federer' });
+  const match = page.getByRole('link', { name: /Rafael Nadal.*Roger Federer/ });
   await expect(match).toContainText('Rafael Nadal');
   await expect(match).toContainText('Roger Federer');
 });

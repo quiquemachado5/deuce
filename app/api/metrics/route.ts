@@ -17,6 +17,7 @@ export async function GET(request: Request) {
   const dateAge=(value:unknown)=>typeof value==='string'&&Number.isFinite(Date.parse(value))?Math.max(0,(Date.now()-Date.parse(value))/1000):undefined;
   return new Response(renderPrometheusMetrics({ ...preparedDataCacheDiagnostics(), rateLimits: rateLimitDiagnostics() },{
     providerRemaining:number(quota?.remaining),providerReserve:number(quota?.reserve),providerSafeAvailable:number(quota?.safeAvailable),
+    providerDailyCallCap:number(quota?.dailyCallCap),providerDailyCapAvailable:number(quota?.dailyCapAvailable),providerDailyCapUtilization:number(quota?.dailyCapUtilization),
     publicationPeakRssBytes:number(publication?.memory?.peakRssBytes),storageBytes:number(storage?.report?.relationBytes),storageObjects:number(storage?.report?.objects),
     incompleteEditions:number(publication?.incompleteEditions),enrichmentRemaining:number(enrichment?.remainingCandidates),enrichmentDeferred:number(enrichment?.deferred),
     backupAgeSeconds:dateAge(backup?.at),hostAvailableMemoryBytes:number(host?.availableMemoryBytes),

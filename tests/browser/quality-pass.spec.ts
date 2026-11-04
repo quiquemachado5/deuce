@@ -12,7 +12,7 @@ test('mobile match filters and view controls stay distinct', async ({ page }) =>
 
 test('scoreboards expose only the played sets and preserve tie-break superscripts', async ({ page }) => {
   await page.goto('/buscar?q=Nadal+Federer+Wimbledon+2008');
-  const card = page.getByRole('link', { name: 'Ver Rafael Nadal contra Roger Federer' });
+  const card = page.getByRole('link', { name: /Rafael Nadal.*Roger Federer/ });
   await expect(card).toBeVisible();
   await expect(card.locator('sup')).not.toHaveCount(0);
   await expect(card).toContainText('Rafael Nadal');

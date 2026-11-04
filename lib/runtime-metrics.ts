@@ -20,6 +20,7 @@ export function observeApiRequest(route: string, status: number, durationMs: num
 
 export type OperationalMetrics={
   providerRemaining?:number;providerReserve?:number;providerSafeAvailable?:number;
+  providerDailyCallCap?:number;providerDailyCapAvailable?:number;providerDailyCapUtilization?:number;
   publicationPeakRssBytes?:number;storageBytes?:number;storageObjects?:number;
   incompleteEditions?:number;enrichmentRemaining?:number;enrichmentDeferred?:number;
   backupAgeSeconds?:number;hostAvailableMemoryBytes?:number;

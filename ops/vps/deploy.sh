@@ -122,6 +122,8 @@ candidate_args=(
   --network deuce_default
   --security-opt no-new-privileges
   --cap-drop ALL
+  --read-only
+  --tmpfs /tmp:rw,noexec,nosuid,size=64m
   --pids-limit 256
   --memory 2g
   --cpus 1.5
@@ -131,6 +133,7 @@ candidate_args=(
   --env NODE_OPTIONS=--max-old-space-size=1536
   --env PORT=3000
   --mount type=volume,source=deuce_archive,target=/app/.deuce-archive
+  --mount type=volume,source=deuce_next_cache,target=/app/.next/cache
   --label "com.deuce.release-candidate=${commit}"
 )
 if [[ "${first_release}" == true ]]; then

@@ -21,6 +21,7 @@ test('offsite backup validates a frozen restore before checksum and upload', () 
 test('restore drill rejects stale backups and services use the deuce rclone account', () => {
   assert.match(restore, /DEUCE_RESTORE_MAX_AGE_HOURS:-192/)
   assert.match(restore, /restore-drill-status\.json/)
+  assert.match(restore, /restoreValidated:true/)
   assert.ok((bootstrap.match(/User=deuce/g) || []).length >= 3)
   assert.ok((bootstrap.match(/RCLONE_CONFIG=\/home\/deuce\/\.config\/rclone\/rclone\.conf/g) || []).length >= 2)
 })
@@ -34,4 +35,5 @@ test('host bootstrap rate-limits SSH and hardening cannot lock out a keyless ser
   assert.match(hardenSsh, /AllowAgentForwarding no/)
   assert.match(hardenSsh, /AllowTcpForwarding no/)
   assert.match(hardenSsh, /ClientAliveInterval 300/)
+  assert.doesNotMatch(bootstrap, /NOPASSWD\s*:\s*ALL/)
 })

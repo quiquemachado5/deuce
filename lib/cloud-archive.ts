@@ -252,7 +252,7 @@ export async function refreshCloudArchive() {
     quota = await provider('/usage')
     const remaining = providerRemainingCalls(quota)
     const wtaReserve=Math.max(40,providerMinimumReserve()),callLimit=await recordProviderQuota('atp-refresh',quota,35)
-    if (remaining <= wtaReserve) {
+    if (remaining <= wtaReserve || callLimit<=1) {
       const result = { status: 'quota-reserve', phase:'current-season', attemptAt, at: new Date().toISOString(), remaining, calls, extracted:0, lastSuccessAt, retryAt:providerQuotaRetryAt(quota), probe:{usage:'ok',currentSeason:'deferred'} }
       await cloudWrite('sync-status', withOperationHistory(priorStatus,result))
       return result

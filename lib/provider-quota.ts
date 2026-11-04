@@ -44,10 +44,30 @@ export function providerRemainingCalls(quota: ProviderQuota | undefined) {
   return Number.isFinite(remaining) && remaining >= 0 ? remaining : 0;
 }
 
+const quotaNumber=(quota:ProviderQuota|undefined,...names:string[])=>{
+  for(const name of names){
+    const value=Number(quota?.today?.[name]??quota?.[name]);
+    if(Number.isFinite(value)&&value>=0)return value;
+  }
+  return undefined;
+};
+
 /** Keep a production safety margin so scheduled work cannot exhaust paid quota. */
 export function providerMinimumReserve() {
   const configured = Number(process.env.DEUCE_PROVIDER_MIN_REMAINING ?? 200);
   return Number.isSafeInteger(configured) && configured >= 1 ? configured : 200;
+}
+
+/** Hard ceiling for all provider traffic in one quota day, including probes. */
+export function providerDailyCallCap() {
+  const configured=Number(process.env.DEUCE_PROVIDER_DAILY_MAX_CALLS??400);
+  return Number.isSafeInteger(configured)&&configured>0?configured:400;
+}
+
+/** Calls that can still be made before reaching DEUCE's own daily ceiling. */
+export function providerCallsBelowDailyCap(quota:ProviderQuota|undefined,cap=providerDailyCallCap()) {
+  const used=quotaNumber(quota,'used_day','daily_used','used');
+  return used===undefined?Number.POSITIVE_INFINITY:Math.max(0,cap-used);
 }
 
 /** Calls still available without crossing the configured reserve. */
@@ -57,23 +77,17 @@ export function providerCallsAboveReserve(quota: ProviderQuota | undefined, rese
 }
 
 /** The usage probe itself consumes one request before provider work starts. */
-export function providerHasRequestAfterUsage(quota: ProviderQuota | undefined, reserve = providerMinimumReserve()) {
-  return providerCallsAboveReserve(quota, reserve) > 0;
+export function providerHasRequestAfterUsage(quota: ProviderQuota | undefined, reserve = providerMinimumReserve(), cap = providerDailyCallCap()) {
+  return providerCallsAboveReserve(quota, reserve) > 0 && providerCallsBelowDailyCap(quota,cap)>0;
 }
 
 /** Total operation budget, including the usage probe already counted by callers. */
-export function providerOperationCallLimit(quota: ProviderQuota | undefined, maximum: number, reserve = providerMinimumReserve()) {
+export function providerOperationCallLimit(quota: ProviderQuota | undefined, maximum: number, reserve = providerMinimumReserve(), cap = providerDailyCallCap()) {
   const available = providerCallsAboveReserve(quota, reserve);
-  return available === Number.POSITIVE_INFINITY ? maximum : Math.min(maximum, 1 + available);
+  const belowCap=providerCallsBelowDailyCap(quota,cap);
+  const afterProbe=Math.min(available,belowCap);
+  return afterProbe === Number.POSITIVE_INFINITY ? maximum : Math.min(maximum, 1 + afterProbe);
 }
-
-const quotaNumber=(quota:ProviderQuota|undefined,...names:string[])=>{
-  for(const name of names){
-    const value=Number(quota?.today?.[name]??quota?.[name]);
-    if(Number.isFinite(value)&&value>=0)return value;
-  }
-  return undefined;
-};
 
 /** One central budget policy for every provider-consuming operation. */
 export function providerOperationBudget(quota:ProviderQuota|undefined,operation:ProviderOperation,requested=operationDefaults[operation]) {
@@ -85,14 +99,19 @@ export function providerOperationBudget(quota:ProviderQuota|undefined,operation:
 
 /** Safe, credential-free snapshot suitable for the operational ledger. */
 export function providerQuotaSnapshot(quota:ProviderQuota|undefined,operation:ProviderOperation,requested?:number,now=new Date()) {
-  const remaining=providerRemainingCalls(quota),reserve=providerMinimumReserve();
+  const remaining=providerRemainingCalls(quota),reserve=providerMinimumReserve(),dailyCallCap=providerDailyCallCap();
+  const used=quotaNumber(quota,'used_day','daily_used','used');
+  const dailyCapAvailable=providerCallsBelowDailyCap(quota,dailyCallCap);
   return {
     at:now.toISOString(),operation,
     remaining:remaining===Number.POSITIVE_INFINITY?null:remaining,
     dailyLimit:quotaNumber(quota,'limit_day','daily_limit','limit'),
-    used:quotaNumber(quota,'used_day','daily_used','used'),
+    used,
     reserve,
     safeAvailable:remaining===Number.POSITIVE_INFINITY?null:Math.max(0,remaining-reserve),
+    dailyCallCap,
+    dailyCapAvailable:dailyCapAvailable===Number.POSITIVE_INFINITY?null:dailyCapAvailable,
+    dailyCapUtilization:used===undefined?null:Math.min(1,used/dailyCallCap),
     operationLimit:providerOperationBudget(quota,operation,requested),
     retryAt:providerQuotaRetryAt(quota,now.getTime()),
   };

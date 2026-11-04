@@ -6,6 +6,8 @@ import { preparedDataCacheDiagnostics, preparedEditionAudit, preparedGeneration,
 import { logEvent, requestId } from '@/lib/structured-log';
 import { readSchedulerHealth } from '@/lib/scheduler-health';
 import { compareCircuitFreshness, recentRefreshFreshnessIssue } from '@/lib/circuit-freshness';
+import { dailyUpdateIssue } from '@/lib/operational-health';
+import { rateLimit } from '@/lib/rate-limit';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 30;
@@ -29,6 +31,8 @@ function recentStatus(value: unknown) {
     totalHistoricalCohorts: Number.isSafeInteger(row.totalHistoricalCohorts) ? Number(row.totalHistoricalCohorts) : undefined,
     pendingModern: Number.isSafeInteger(row.pendingModern) ? Number(row.pendingModern) : undefined,
     ageHours: at ? Math.round(Math.max(0, (Date.now() - Date.parse(at)) / 3_600_000) * 10) / 10 : null,
+    lastSuccessAgeHours: typeof row.lastSuccessAt === 'string' && Number.isFinite(Date.parse(row.lastSuccessAt))
+      ? Math.round(Math.max(0,(Date.now()-Date.parse(row.lastSuccessAt))/3_600_000)*10)/10 : null,
   };
 }
 
@@ -61,6 +65,8 @@ function hostStatus(value: unknown) {
 export async function GET(request: Request) {
   const started = performance.now(), id = requestId(request);
   const headers = { 'Cache-Control': 'no-store', 'X-Request-Id': id };
+  const budget=rateLimit(request,'health-deep',12,60_000);
+  if(!budget.allowed)return Response.json({status:'rate-limited',requestId:id},{status:429,headers:{...headers,'Retry-After':String(budget.retryAfter)}});
   try {
     const [generation, browser, editions, sync, wtaSync, wtaBackfill, enrichment, publication, backup, restoreDrill, hostProbe, quota, catalog, capacity, scheduler] = await Promise.all([
       preparedGeneration(), preparedMatchBrowserIndex(), preparedEditionAudit(), cloudProbeRead('sync-status'), cloudProbeRead('wta-sync-status'), cloudProbeRead('wta-backfill-status'), cloudProbeRead('enrichment-status'), cloudProbeRead('publish-status'), cloudProbeRead('backup-status'), cloudProbeRead('restore-drill-status'), cloudProbeRead('host-status'), cloudProbeRead('provider-quota-status'), cloudProbeRead('archive-catalog-status'), cloudArchiveLastCapacity(1_500), readSchedulerHealth(),
@@ -73,7 +79,7 @@ export async function GET(request: Request) {
     const ageHours = Math.max(0, (Date.now() - Date.parse(generation.manifest.generatedAt)) / 3_600_000);
     const refresh = recentStatus(sync), wtaRefresh = recentStatus(wtaSync), historicalBackfill=recentStatus(wtaBackfill), published = recentStatus(publication);
     const configured = cloudArchiveConfigured();
-    const dailyIssue = configured && [refresh, wtaRefresh, published].some(row => row.status !== 'success' || row.ageHours === null || row.ageHours > 36);
+    const dailyIssue = configured && dailyUpdateIssue([refresh,wtaRefresh,published],36);
     const freshness = {
       atp: { ...(generation.manifest.circuitFreshness?.atp || {}), ...compareCircuitFreshness(refresh.latestProviderDate,generation.manifest.circuitFreshness?.atp.latestExactDate) },
       wta: { ...(generation.manifest.circuitFreshness?.wta || {}), ...compareCircuitFreshness(wtaRefresh.latestProviderDate,generation.manifest.circuitFreshness?.wta.latestExactDate) },

@@ -31,11 +31,9 @@ if ! id deuce >/dev/null 2>&1; then
   useradd --create-home --shell /bin/bash deuce
 fi
 usermod -aG docker deuce
-cat >/etc/sudoers.d/deuce <<'SUDOERS'
-deuce ALL=(ALL) NOPASSWD:ALL
-SUDOERS
-chmod 0440 /etc/sudoers.d/deuce
-visudo -cf /etc/sudoers.d/deuce >/dev/null
+# Docker membership is already privileged; do not add a second unrestricted
+# passwordless-root path for the deployment account.
+rm -f /etc/sudoers.d/deuce
 
 if [[ ! -f /swapfile ]]; then
   fallocate -l 2G /swapfile

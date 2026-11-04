@@ -160,7 +160,7 @@ test("mobile edition rounds keep the Partidos cards, tiebreaks and the champion 
  const finalRound=bracket.getByRole('region',{name:'Final',exact:true});
  await expect(finalRound.getByRole('link')).toHaveCount(1);
  await expect(finalRound.getByRole('link')).toContainText('Carlos Alcaraz');
- const score=page.getByRole('region',{name:/La final.*2024/i}).getByRole('link',{name:/Ver Alexander Zverev contra Carlos Alcaraz/});
+ const score=page.getByRole('region',{name:/La final.*2024/i}).getByRole('link',{name:/Alexander Zverev.*Carlos Alcaraz/});
  await expect(score).toContainText('Carlos Alcaraz');
  await expectNoPageOverflow(page,'Mobile edition');
 });
