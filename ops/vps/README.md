@@ -9,7 +9,7 @@ Usa un VPS europeo con al menos 2 vCPU, 4 GB de RAM, 64 GB de SSD persistente, I
 3. Abre una segunda sesión como `deuce` y clona el repositorio en `/opt/deuce/app`.
 4. Sin cerrar la consola actual, ejecuta `/opt/deuce/app/ops/vps/harden-ssh.sh` como `root`. El script se niega a desactivar contraseñas si no existe una clave autorizada.
 5. Crea `/opt/deuce/app/.env.production` desde `.env.production.example`, aplica `chmod 600`; `deploy.sh` ejecutará el preflight aislado antes de modificar el servicio.
-6. Configura un remoto cifrado de `rclone` como el usuario del servicio: `sudo -u deuce rclone --config /home/deuce/.config/rclone/rclone.conf config`. `DEUCE_BACKUP_REMOTE` debe usar ese remoto; la copia externa es obligatoria.
+6. Configura un bucket externo. La opción preferida es Cloudflare R2 Standard: ejecuta `configure-cloudflare-r2.sh` como `deuce` con `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY` y `R2_BUCKET`. Backblaze B2 queda soportado mediante `configure-backblaze-b2.sh`. En ambos casos limita la clave al bucket y guarda una segunda copia fuera del VPS. `DEUCE_BACKUP_REMOTE` debe apuntar a ese bucket; un directorio del propio servidor no es una copia externa.
 7. Configura en GitHub la variable de repositorio `DEUCE_MONITOR_URL` con el mismo origen HTTPS de producción.
    Para despliegue continuo añade también `DEUCE_VPS_HOST`, `DEUCE_VPS_USER` y los secretos
    `DEUCE_VPS_SSH_KEY` y `DEUCE_VPS_KNOWN_HOSTS`. El workflow solo despliega el SHA exacto
@@ -36,6 +36,8 @@ El snapshot opcional puede publicarse por HTTPS con `npm run data:snapshot:expor
 `deuce-backup.timer` comprime a diario el volumen físico y, antes de subirlo, usa la imagen activa para descomprimirlo y validar manifiesto, packs, piezas ATP/WTA, índices y todas las particiones. Si una publicación cambia el volumen durante la lectura, repite hasta tres veces el tar y la restauración. Solo una copia restaurable recibe su SHA-256 y se transfiere fuera del servidor; después se descarga por streaming el tar remoto real y se vuelve a calcular su hash, además de comprobar el sidecar. Un fallo de restauración, local, remoto o de configuración hace fallar la unidad; no se acepta una copia solo local. El resultado de esta validación previa queda en `/opt/deuce/backups/last-backup-validation.json`.
 
 `deuce-restore-drill.timer` descarga semanalmente la copia externa más reciente y ejecuta `build/restore-drill.mjs` dentro de la imagen activa. Rechaza una copia con más de 192 horas, salvo que `DEUCE_RESTORE_MAX_AGE_HOURS` configure otra ventana. El simulacro descomprime en un directorio temporal y comprueba manifiesto, particiones, packs, recuentos e identificadores sin tocar el volumen de producción. Sus últimos resultados quedan en `/opt/deuce/backups/last-restore-drill.json` y `last-restore-drill.log`; salud profunda y monitor leen también los estados atómicos del volumen.
+
+Tras verificar por descarga el archivo nuevo, `DEUCE_BACKUP_REMOTE_KEEP_DAYS` elimina del remoto únicamente juegos de copia con más de 14 días por defecto. El valor admite entre 8 y 90 días: conserva al menos una semana completa de restauraciones y evita crecimiento de coste sin límite.
 
 Comandos útiles:
 

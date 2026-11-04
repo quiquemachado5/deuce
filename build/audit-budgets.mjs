@@ -12,7 +12,7 @@ async function files(dir,extension){
   }
   return found;
 }
-const thresholds={html:450_000,routeCss:650_000,routeJs:1_250_000,desktopVideo:7_000_000,mobileVideo:1_500_000,clientComponents:75,standalone:165_000_000};
+const thresholds={html:450_000,routeCss:650_000,routeJs:1_250_000,sourceCss:1_000_000,sourceCssFile:260_000,desktopVideo:7_000_000,mobileVideo:1_500_000,clientComponents:75,standalone:165_000_000};
 const htmlFiles=await files(join(next,'server','app'),'.html');
 if(!htmlFiles.length)failures.push('No prerendered HTML was found; run the production build first');
 for(const path of htmlFiles){
@@ -32,6 +32,11 @@ for(const [name,maximum] of [['tennis-hero.mp4',thresholds.desktopVideo],['tenni
   if(bytes>maximum)failures.push(`${name}: ${bytes} > ${maximum}`);
 }
 const sources=[...await files(join(root,'app'),'.tsx'),...await files(join(root,'components'),'.tsx')];
+const sourceCss=[...await files(join(root,'app'),'.css'),...await files(join(root,'components'),'.css'),...await files(join(root,'styles'),'.css')];
+const sourceCssRows=await Promise.all(sourceCss.map(async path=>({path:relative(root,path),bytes:(await stat(path)).size})));
+const sourceCssBytes=sourceCssRows.reduce((sum,row)=>sum+row.bytes,0);
+if(sourceCssBytes>thresholds.sourceCss)failures.push(`Source CSS: ${sourceCssBytes} > ${thresholds.sourceCss}`);
+for(const row of sourceCssRows)if(row.bytes>thresholds.sourceCssFile)failures.push(`${row.path}: source CSS ${row.bytes} > ${thresholds.sourceCssFile}`);
 let clients=0;
 for(const path of sources)if(/^['"]use client['"];?/m.test(await readFile(path,'utf8')))clients++;
 if(clients>thresholds.clientComponents)failures.push(`Client Components: ${clients} > ${thresholds.clientComponents}`);
@@ -62,5 +67,6 @@ for(const name of sourceWta){
   if(!standaloneRelative.has(required))failures.push(`Standalone deployment is missing ${required}`);
 }
 routes.sort((a,b)=>b.htmlBytes+b.cssBytes+b.jsBytes-(a.htmlBytes+a.cssBytes+a.jsBytes));
-console.log(JSON.stringify({verified:!failures.length,routes:htmlFiles.length,clientComponents:clients,standaloneBytes,thresholds,largestRoutes:routes.slice(0,5),failures},null,2));
+sourceCssRows.sort((a,b)=>b.bytes-a.bytes);
+console.log(JSON.stringify({verified:!failures.length,routes:htmlFiles.length,clientComponents:clients,sourceCssBytes,standaloneBytes,thresholds,largestRoutes:routes.slice(0,5),largestSourceCss:sourceCssRows.slice(0,5),failures},null,2));
 if(failures.length)process.exitCode=1;

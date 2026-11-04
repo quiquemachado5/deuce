@@ -6,7 +6,7 @@ const workflow = await readFile(new URL('../.github/workflows/ci.yml', import.me
 
 test('CI builds once, caches Next output and reuses it for browser verification', () => {
   assert.equal((workflow.match(/npm run build/g) || []).length, 1)
-  assert.match(workflow, /actions\/cache@0057852bfaa89a56745cba8c7296529d2fc39830/)
+  assert.match(workflow, /actions\/cache@caa296126883cff596d87d8935842f9db880ef25/)
   assert.match(workflow, /path: \$\{\{ github\.workspace \}\}\/\.next\/cache/)
   assert.match(workflow, /'data\/reading\/\*\*'/)
   assert.match(workflow, /'data\/archive\/\*\*'/)
@@ -19,7 +19,7 @@ test('CI builds once, caches Next output and reuses it for browser verification'
   assert.match(workflow, /name: next-build-\$\{\{ github\.sha \}\}/)
   assert.match(workflow, /data\/reading\/\*\*/)
   assert.match(workflow, /!data\/reading\/matches\.json\.gz/)
-  assert.equal((workflow.match(/actions\/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093/g) || []).length, 1)
+  assert.equal((workflow.match(/actions\/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53/g) || []).length, 1)
   assert.equal((workflow.match(/test -s \.next\/BUILD_ID/g) || []).length, 1)
   assert.match(workflow, /test -s data\/reading\/manifest\.json\.gz/)
   assert.match(workflow, /find data\/reading -maxdepth 1 -name 'matches-\*\.json\.gz'/)

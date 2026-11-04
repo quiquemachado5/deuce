@@ -1,6 +1,7 @@
-import { readFile } from 'node:fs/promises';
+import { appendFile, readFile, writeFile } from 'node:fs/promises';
 import { releaseFailures } from './release-policy.mjs';
 import { recoveryFailures } from './recovery-policy.mjs';
+import { monitorMarkdown, monitorReport } from './monitor-report.mjs';
 const baseline = JSON.parse(await readFile(new URL('./release-baseline.json',import.meta.url),'utf8'));
 const marker = '<!-- deuce-production-health-v1 -->';
 const repository = 'quiquemachado5/deuce';
@@ -9,7 +10,7 @@ async function check() {
   const failures = [];
   try {
     const response = await fetch(productionUrl+'/api/health/deep',{signal:AbortSignal.timeout(30000),cache:'no-store'});
-    if(!response.ok) return ['Health endpoint: HTTP '+response.status];
+    if(!response.ok) return { health: null, failures: ['Health endpoint: HTTP '+response.status] };
     const h = await response.json();
     // The first validated seed can precede the provider's first scheduled
     // refresh. This exception is deliberately narrow: releaseFailures only
@@ -17,11 +18,17 @@ async function check() {
     // still absent. Errors, stale rows and every later failure remain fatal.
     failures.push(...releaseFailures(h,baseline,{allowInitialDailyUnavailable:true}));
     failures.push(...recoveryFailures(h));
+    return { health: h, failures };
   } catch { failures.push('No se pudo consultar producción dentro del tiempo límite'); }
-  return failures;
+  return { health: null, failures };
 }
-let failures = await check();
-if (failures.length) { await new Promise(resolve => setTimeout(resolve,5000)); failures = await check(); }
+let result = await check();
+if (result.failures.length) { await new Promise(resolve => setTimeout(resolve,5000)); result = await check(); }
+const { health, failures } = result;
+const report = monitorReport(health, failures, productionUrl);
+const reportArgument = process.argv.find(value => value.startsWith('--report='))?.slice(9);
+if (reportArgument) await writeFile(reportArgument, JSON.stringify(report, null, 2)+'\n');
+if (process.env.GITHUB_STEP_SUMMARY) await appendFile(process.env.GITHUB_STEP_SUMMARY, monitorMarkdown(report)+'\n');
 console.log(failures.length ? 'DEUCE: '+failures.join('; ') : 'DEUCE: producción operativa; archivo, copia externa y restauración verificados');
 if(process.argv.includes('--check-only')) { process.exitCode = failures.length ? 1:0; }
 else {

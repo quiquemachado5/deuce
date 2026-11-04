@@ -4,6 +4,7 @@ set -euo pipefail
 ROOT="${DEUCE_ROOT:-/opt/deuce/app}"
 BACKUP_DIR="${DEUCE_BACKUP_DIR:-/opt/deuce/backups}"
 KEEP_DAYS="${DEUCE_BACKUP_KEEP_DAYS:-7}"
+REMOTE_KEEP_DAYS="${DEUCE_BACKUP_REMOTE_KEEP_DAYS:-14}"
 
 cd "${ROOT}"
 install -d -m 0750 "${BACKUP_DIR}"
@@ -18,6 +19,10 @@ if [[ -z "${DEUCE_BACKUP_REMOTE:-}" ]]; then
 fi
 if ! command -v rclone >/dev/null 2>&1; then
   echo "rclone is required for the mandatory offsite backup." >&2
+  exit 1
+fi
+if [[ ! "${REMOTE_KEEP_DAYS}" =~ ^[0-9]+$ ]] || (( REMOTE_KEEP_DAYS < 8 || REMOTE_KEEP_DAYS > 90 )); then
+  echo "DEUCE_BACKUP_REMOTE_KEEP_DAYS must be from 8 to 90." >&2
   exit 1
 fi
 
@@ -92,6 +97,10 @@ node -e 'const {writeFileSync}=require("node:fs");writeFileSync(process.argv[1],
 mv "${validation}" "${BACKUP_DIR}/last-backup-validation.json"
 trap - EXIT
 echo "Restored locally, copied offsite and verified backup plus checksum at ${remote}."
+
+# Bound remote cost only after a newer archive has passed a full download and
+# checksum verification. All three files share the same timestamp prefix.
+rclone delete "${remote}" --min-age "${REMOTE_KEEP_DAYS}d" --include 'deuce-archive-*'
 
 find "${BACKUP_DIR}" -type f -name 'deuce-archive-*.tar.gz' -mtime "+${KEEP_DAYS}" -delete
 find "${BACKUP_DIR}" -type f -name 'deuce-archive-*.tar.gz.sha256' -mtime "+${KEEP_DAYS}" -delete
