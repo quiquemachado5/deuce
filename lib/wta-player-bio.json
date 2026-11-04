@@ -2,12 +2,86 @@
   "A. Ibragimova": {
     "country": "rus"
   },
+  "Abigail Spears": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Abigail Tordoff": {
+    "country": "gbr",
+    "hand": "R"
+  },
+  "Ada Bakker": {
+    "country": "ned"
+  },
   "Adithya Karunaratne": {
     "country": "hkg",
     "birthday": "2001-12-04"
   },
+  "Adriana Barna": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Adriana Gersi": {
+    "country": "cze",
+    "hand": "R"
+  },
+  "Adriana Perez": {
+    "country": "ven",
+    "hand": "R"
+  },
+  "Adriana Serra Zanetti": {
+    "country": "ita",
+    "hand": "R"
+  },
+  "Adriana Szili": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Adriana Villagran Reami": {
+    "country": "arg"
+  },
+  "Adrienn Hegedus": {
+    "country": "hun"
+  },
+  "Adrienne Avis": {
+    "country": "aus"
+  },
+  "Agnes Bukta": {
+    "country": "hun",
+    "hand": "R"
+  },
+  "Agnes Szatmari": {
+    "country": "rou",
+    "hand": "R"
+  },
+  "Agnes Szavay": {
+    "country": "hun",
+    "hand": "R"
+  },
+  "Agnes Zugasti": {
+    "country": "fra"
+  },
   "Agnieszka Radwanska": {
     "country": "pol",
+    "hand": "R"
+  },
+  "Ahsha Rolle": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Ai Iida": {
+    "country": "jpn"
+  },
+  "Ai Sugiyama": {
+    "country": "jpn",
+    "hand": "R"
+  },
+  "Aiko Nakamura": {
+    "country": "jpn",
+    "hand": "R"
+  },
+  "Ainhoa Goni Blanco": {
+    "country": "esp",
     "hand": "R"
   },
   "Ajla Tomljanovic": {
@@ -20,22 +94,93 @@
     "birthday": "2007-01-19",
     "hand": "R"
   },
+  "Akemi Nishiya": {
+    "country": "jpn",
+    "hand": "R"
+  },
+  "Akgul Amanmuradova": {
+    "country": "uzb",
+    "hand": "R"
+  },
+  "Akiko Kijimuta": {
+    "country": "jpn"
+  },
+  "Akiko Morigami": {
+    "country": "jpn",
+    "hand": "R"
+  },
+  "Akiko Omae": {
+    "country": "jpn",
+    "hand": "R"
+  },
+  "Akiko Yonemura": {
+    "country": "jpn"
+  },
+  "Alberta Brianti": {
+    "country": "ita",
+    "hand": "R"
+  },
+  "Aleida Spex": {
+    "country": "usa"
+  },
+  "Alejandra Granillo": {
+    "country": "mex",
+    "hand": "R"
+  },
+  "Aleksandra Ivanova": {
+    "country": "urs"
+  },
   "Aleksandra Krunic": {
     "country": "srb",
     "hand": "R",
     "birthday": "1993-03-15"
   },
+  "Aleksandra Olsza": {
+    "country": "pol",
+    "hand": "R"
+  },
+  "Aleksandra Wozniak": {
+    "country": "can",
+    "hand": "R"
+  },
+  "Aleksandrina Naydenova": {
+    "country": "bul",
+    "hand": "R"
+  },
   "Alena Kovackova": {
     "country": "cze",
     "birthday": "2008-06-13"
+  },
+  "Alena Palmeova West": {
+    "country": "tch"
+  },
+  "Alena Vaskova": {
+    "country": "cze",
+    "hand": "R"
   },
   "Alevtina Ibragimova": {
     "country": "rus",
     "hand": "R",
     "birthday": "2005-01-19"
   },
+  "Alex Cowie": {
+    "country": "gbr"
+  },
+  "Alexa Glatch": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Alexa Guarachi": {
+    "country": "chi",
+    "hand": "R",
+    "birthday": "1990-11-17"
+  },
   "Alexa Noel": {
     "country": "usa",
+    "hand": "R"
+  },
+  "Alexandra Cadantu Ignatik": {
+    "country": "rou",
     "hand": "R"
   },
   "Alexandra Dulgheru": {
@@ -47,17 +192,61 @@
     "hand": "L",
     "birthday": "2005-05-23"
   },
+  "Alexandra Fusai": {
+    "country": "fra",
+    "hand": "R"
+  },
+  "Alexandra Kolesnichenko": {
+    "country": "uzb",
+    "hand": "R"
+  },
+  "Alexandra Mueller": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Alexandra Panova": {
+    "country": "rus",
+    "hand": "R"
+  },
+  "Alexandra Podkolzina": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Alexandra Stevenson": {
+    "country": "usa",
+    "hand": "R"
+  },
   "Alexia Anca Todoni": {
     "birthday": "2004-10-10"
+  },
+  "Alexia Dechaume Balleret": {
+    "country": "fra",
+    "hand": "R"
+  },
+  "Alexis King": {
+    "country": "usa",
+    "hand": "L"
   },
   "Aliaksandra Sasnovich": {
     "country": "blr",
     "hand": "R",
     "birthday": "1994-03-22"
   },
+  "Alice Canepa": {
+    "country": "ita",
+    "hand": "R"
+  },
+  "Alice Matteucci": {
+    "country": "ita",
+    "hand": "R"
+  },
   "Alice Robbe": {
     "country": "fra",
     "birthday": "2000-05-10"
+  },
+  "Alice Tym": {
+    "country": "usa",
+    "hand": "R"
   },
   "Alicia Dudeney": {
     "country": "gbr",
@@ -68,14 +257,29 @@
     "hand": "R",
     "birthday": "1998-12-29"
   },
+  "Alicia Molik": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Alina Abdurakhimova": {
+    "country": "uzb",
+    "hand": "R"
+  },
   "Alina Charaeva": {
     "country": "arm",
     "hand": "R",
     "birthday": "2002-05-27"
   },
+  "Alina Jidkova": {
+    "country": "rus",
+    "hand": "R"
+  },
   "Alina Korneeva": {
     "country": "arm",
     "birthday": "2009-03-11"
+  },
+  "Aline Nenot": {
+    "country": "fra"
   },
   "Aliona Bolsova": {
     "country": "mda",
@@ -90,14 +294,35 @@
     "country": "blr",
     "birthday": "2004-03-29"
   },
+  "Alisa Kleybanova": {
+    "country": "rus",
+    "hand": "R"
+  },
+  "Alisa Ogorodova": {
+    "country": "uzb",
+    "hand": "R"
+  },
   "Alisa Oktiabreva": {
     "country": "cze",
     "birthday": "2008-07-26",
     "hand": "R"
   },
+  "Alison Bai": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Alison Mckenzie": {
+    "country": "aus"
+  },
+  "Alison Mcmillan": {
+    "country": "rsa"
+  },
   "Alison Riske Amritraj": {
     "country": "usa",
     "hand": "R"
+  },
+  "Alison Scott": {
+    "country": "aus"
   },
   "Alison Van Uytvanck": {
     "country": "bel",
@@ -109,7 +334,31 @@
     "hand": "R",
     "birthday": "1990-01-22"
   },
+  "Alize Lim": {
+    "country": "fra",
+    "hand": "R"
+  },
+  "Alla Kudryavtseva": {
+    "country": "rus",
+    "hand": "R"
+  },
   "Allie Kiick": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Allison Baker": {
+    "country": "usa",
+    "hand": "L"
+  },
+  "Allison Bradshaw": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Alona Bondarenko": {
+    "country": "ukr",
+    "hand": "R"
+  },
+  "Alycia Moulton": {
     "country": "usa",
     "hand": "R"
   },
@@ -122,10 +371,56 @@
     "country": "usa",
     "birthday": "2006-12-27"
   },
+  "Alyssa Mayo": {
+    "country": "usa",
+    "hand": "R"
+  },
   "Amanda Anisimova": {
     "country": "usa",
     "hand": "R",
     "birthday": "2001-08-31"
+  },
+  "Amanda Brown": {
+    "country": "gbr"
+  },
+  "Amanda Coetzer": {
+    "country": "rsa",
+    "hand": "R"
+  },
+  "Amanda Elliott": {
+    "country": "gbr",
+    "hand": "R"
+  },
+  "Amanda Fink": {
+    "country": "usa"
+  },
+  "Amanda Grahame": {
+    "country": "aus",
+    "hand": "L"
+  },
+  "Amanda Grunfeld": {
+    "country": "gbr",
+    "hand": "L"
+  },
+  "Amanda Hopmans": {
+    "country": "ned",
+    "hand": "R"
+  },
+  "Amanda Keen": {
+    "country": "gbr",
+    "hand": "L"
+  },
+  "Amanda Tobin": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Amanda Wainwright": {
+    "country": "gbr",
+    "hand": "R"
+  },
+  "Amandine Dulon": {
+    "country": "fra",
+    "hand": "R"
   },
   "Amandine Hesse": {
     "country": "fra",
@@ -136,15 +431,58 @@
     "country": "hun",
     "birthday": "2003-02-10"
   },
+  "Amber Liu": {
+    "country": "usa",
+    "hand": "R"
+  },
   "Amelia Rajecki": {
     "country": "gbr",
     "hand": "R",
     "birthday": "2002-06-03"
   },
+  "Amelie Castera": {
+    "country": "fra",
+    "hand": "L"
+  },
+  "Amelie Cocheteux": {
+    "country": "fra",
+    "hand": "L"
+  },
+  "Amelie Mauresmo": {
+    "country": "fra",
+    "hand": "R"
+  },
   "Amina Anshba": {
     "country": "rus",
     "hand": "L",
     "birthday": "1999-09-09"
+  },
+  "Amra Sadikovic": {
+    "country": "sui",
+    "hand": "R"
+  },
+  "Amy Frazier": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Amy Holton": {
+    "country": "usa"
+  },
+  "Amy Jonsson": {
+    "country": "nor"
+  },
+  "Amy Schwartz": {
+    "country": "usa"
+  },
+  "An Sophie Mestach": {
+    "country": "bel",
+    "hand": "R"
+  },
+  "Ana Alcazar": {
+    "country": "esp"
+  },
+  "Ana Biskic": {
+    "country": "cro"
   },
   "Ana Bogdan": {
     "country": "rou",
@@ -155,35 +493,91 @@
     "country": "bra",
     "birthday": "2004-04-19"
   },
+  "Ana Catarina Nogueira": {
+    "country": "por"
+  },
+  "Ana Cavadini": {
+    "country": "arg"
+  },
+  "Ana Ivanovic": {
+    "country": "srb",
+    "hand": "R"
+  },
   "Ana Konjuh": {
     "country": "cro",
     "hand": "R",
     "birthday": "1997-12-27"
+  },
+  "Ana Lucia Migliarini De Leon": {
+    "country": "uru",
+    "hand": "L"
+  },
+  "Ana Maria Arias": {
+    "country": "chi"
+  },
+  "Ana Maria Estalella Manso": {
+    "country": "esp"
   },
   "Ana Sofia Sanchez": {
     "country": "mex",
     "hand": "L",
     "birthday": "1994-04-13"
   },
+  "Ana Timotic": {
+    "country": "srb",
+    "hand": "R"
+  },
+  "Ana Vrljic": {
+    "country": "cro",
+    "hand": "R"
+  },
+  "Anabel Medina Garrigues": {
+    "country": "esp",
+    "hand": "R"
+  },
+  "Anais Laurendon": {
+    "country": "fra",
+    "hand": "R"
+  },
   "Anastasia Gasanova": {
     "country": "rus",
     "hand": "R",
     "birthday": "1999-05-15"
+  },
+  "Anastasia Grymalska": {
+    "country": "ita",
+    "hand": "R"
+  },
+  "Anastasia Myskina": {
+    "country": "rus",
+    "hand": "R"
   },
   "Anastasia Pavlyuchenkova": {
     "country": "rus",
     "hand": "R",
     "birthday": "1991-07-03"
   },
+  "Anastasia Pivovarova": {
+    "country": "rus",
+    "hand": "R"
+  },
   "Anastasia Potapova": {
     "country": "aut",
     "hand": "R",
     "birthday": "2001-03-30"
   },
+  "Anastasia Rodionova": {
+    "country": "aus",
+    "hand": "R"
+  },
   "Anastasia Tikhonova": {
     "country": "rus",
     "hand": "R",
     "birthday": "2001-01-21"
+  },
+  "Anastasia Yakimova": {
+    "country": "blr",
+    "hand": "R"
   },
   "Anastasia Zakharova": {
     "country": "rus",
@@ -199,27 +593,142 @@
     "hand": "R",
     "birthday": "1990-04-13"
   },
+  "Anastasiya Komardina": {
+    "country": "rus",
+    "hand": "L"
+  },
+  "Anastasiya Shoshyna": {
+    "country": "ukr",
+    "hand": "R"
+  },
+  "Anca Barna": {
+    "country": "ger",
+    "hand": "L"
+  },
+  "Anda Perianu": {
+    "country": "rou",
+    "hand": "R"
+  },
+  "Andrea Benitez": {
+    "country": "arg",
+    "hand": "R"
+  },
+  "Andrea Betzner": {
+    "country": "ger"
+  },
+  "Andrea Farley": {
+    "country": "usa"
+  },
+  "Andrea Gamiz": {
+    "country": "ven",
+    "hand": "R",
+    "birthday": "1992-10-31"
+  },
+  "Andrea Glass": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Andrea Hlavackova": {
+    "country": "cze",
+    "hand": "R"
+  },
+  "Andrea Holikova": {
+    "country": "tch"
+  },
+  "Andrea Jaeger": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Andrea Koch Benvenuto": {
+    "country": "chi",
+    "hand": "R"
+  },
   "Andrea Lazaro Garcia": {
     "country": "esp",
     "hand": "R",
     "birthday": "1994-11-04"
   },
+  "Andrea Leand": {
+    "country": "usa",
+    "hand": "R"
+  },
   "Andrea Petkovic": {
     "country": "ger",
     "hand": "R"
   },
+  "Andrea Strnadova": {
+    "country": "cze"
+  },
+  "Andrea Temesvari": {
+    "country": "hun",
+    "hand": "R"
+  },
+  "Andrea Tiezzi": {
+    "country": "arg"
+  },
+  "Andrea Vieira": {
+    "country": "bra"
+  },
+  "Andrea Whitmore": {
+    "country": "usa"
+  },
+  "Andree Martin": {
+    "country": "can"
+  },
+  "Andreea Amalia Rosca": {
+    "country": "rou",
+    "hand": "R"
+  },
+  "Andreea Ehritt Vanc": {
+    "country": "rou",
+    "hand": "L"
+  },
   "Andreea Prisacariu": {
     "country": "rou",
     "birthday": "2000-02-09"
+  },
+  "Andreja Klepac": {
+    "country": "slo",
+    "hand": "R"
   },
   "Anett Kontaveit": {
     "country": "est",
     "hand": "R",
     "birthday": "1995-12-24"
   },
+  "Angela Cardoso": {
+    "country": "por"
+  },
   "Angela Fita Boluda": {
     "country": "esp",
     "birthday": "1999-07-12"
+  },
+  "Angela Haynes": {
+    "country": "usa",
+    "hand": "L"
+  },
+  "Angela Lettiere": {
+    "country": "usa"
+  },
+  "Angeles Montolio": {
+    "country": "esp",
+    "hand": "R"
+  },
+  "Angelica Gavaldon": {
+    "country": "mex",
+    "hand": "R"
+  },
+  "Angelika Bachmann": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Angelika Kanellopoulou": {
+    "country": "gre",
+    "hand": "R"
+  },
+  "Angelika Roesch": {
+    "country": "ger",
+    "hand": "R"
   },
   "Angelina Gabueva": {
     "country": "rus",
@@ -230,20 +739,80 @@
     "hand": "L",
     "birthday": "1988-01-18"
   },
+  "Angelique Olivier": {
+    "country": "fra"
+  },
+  "Angelique Widjaja": {
+    "country": "ina",
+    "hand": "R"
+  },
   "Anhelina Kalinina": {
     "country": "ukr",
     "hand": "R",
     "birthday": "1997-02-07"
+  },
+  "Ani Mijacika": {
+    "country": "cro",
+    "hand": "R"
+  },
+  "Aniko Kapros": {
+    "country": "hun",
+    "hand": "R"
+  },
+  "Anita Van Deventer": {
+    "country": "rsa"
+  },
+  "Anke Huber": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Ankita Bhambri": {
+    "country": "ind",
+    "hand": "R"
   },
   "Ankita Raina": {
     "country": "ind",
     "hand": "R",
     "birthday": "1993-01-11"
   },
+  "Ann Devries": {
+    "country": "bel",
+    "hand": "R"
+  },
+  "Ann Gabriel": {
+    "country": "bel"
+  },
+  "Ann Grossman": {
+    "country": "usa"
+  },
+  "Ann Henricksson": {
+    "country": "usa"
+  },
+  "Ann Jenkins": {
+    "country": "aus"
+  },
+  "Ann Jones": {
+    "country": "gbr",
+    "hand": "L"
+  },
+  "Ann Kiyomura Hayashi": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Ann Lebedeff": {
+    "country": "usa"
+  },
   "Ann Li": {
     "country": "usa",
     "hand": "R",
     "birthday": "2000-06-26"
+  },
+  "Ann Moore": {
+    "country": "usa"
+  },
+  "Anna Bielen Zarska": {
+    "country": "pol",
+    "hand": "R"
   },
   "Anna Blinkova": {
     "country": "fra",
@@ -255,10 +824,45 @@
     "hand": "R",
     "birthday": "1997-05-27"
   },
+  "Anna Brazhnikova": {
+    "country": "swe",
+    "hand": "R"
+  },
+  "Anna Chakvetadze": {
+    "country": "rus",
+    "hand": "R"
+  },
   "Anna Danilina": {
     "country": "kaz",
     "hand": "R",
     "birthday": "1995-08-20"
+  },
+  "Anna Dmitrieva": {
+    "country": "urs",
+    "hand": "L"
+  },
+  "Anna Fitzpatrick": {
+    "country": "gbr",
+    "hand": "R"
+  },
+  "Anna Floris": {
+    "country": "ita",
+    "hand": "L"
+  },
+  "Anna Foldenyi Dicker": {
+    "country": "hun",
+    "hand": "R"
+  },
+  "Anna Gerasimou": {
+    "country": "gre",
+    "hand": "R"
+  },
+  "Anna Giulia Remondina": {
+    "country": "ita",
+    "hand": "R"
+  },
+  "Anna Ivan": {
+    "country": "usa"
   },
   "Anna Kalinskaya": {
     "country": "rus",
@@ -270,8 +874,27 @@
     "hand": "R",
     "birthday": "1994-09-13"
   },
+  "Anna Kournikova": {
+    "country": "rus",
+    "hand": "R"
+  },
+  "Anna Lapushchenkova": {
+    "country": "rus",
+    "hand": "R"
+  },
   "Anna Lena Friedsam": {
     "country": "ger",
+    "hand": "R"
+  },
+  "Anna Lena Groenefeld": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Anna Maria Fernandez": {
+    "country": "usa"
+  },
+  "Anna Orlik": {
+    "country": "blr",
     "hand": "R"
   },
   "Anna Sinclair Rogers": {
@@ -282,8 +905,20 @@
     "country": "cze",
     "birthday": "2001-07-01"
   },
+  "Anna Smashnova": {
+    "country": "isr",
+    "hand": "R"
+  },
   "Anna Tatishvili": {
     "country": "geo",
+    "hand": "R"
+  },
+  "Anna Zaja": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Anna Zaporozhanova": {
+    "country": "ukr",
     "hand": "R"
   },
   "Anna-Lena Friedsam": {
@@ -291,12 +926,119 @@
     "birthday": "1994-02-01",
     "hand": "R"
   },
+  "Annabel Croft": {
+    "country": "gbr",
+    "hand": "R"
+  },
+  "Annabel Ellwood": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Annalisa Bona": {
+    "country": "ita",
+    "hand": "R"
+  },
+  "Anne Chevalier": {
+    "country": "fra"
+  },
+  "Anne Coleman": {
+    "country": "aus"
+  },
+  "Anne Gaelle Sidot": {
+    "country": "fra",
+    "hand": "L"
+  },
+  "Anne Hobbs": {
+    "country": "gbr",
+    "hand": "R"
+  },
+  "Anne Keothavong": {
+    "country": "gbr",
+    "hand": "R"
+  },
+  "Anne Kremer": {
+    "country": "lux",
+    "hand": "R"
+  },
+  "Anne Mall": {
+    "country": "irl",
+    "hand": "R"
+  },
+  "Anne Marie Larue": {
+    "country": "fra"
+  },
+  "Anne Marie Studer": {
+    "country": "sui"
+  },
+  "Anne Meredith": {
+    "country": "gbr"
+  },
+  "Anne Miller": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Anne Minter": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Anne Nguyen": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Anne Schaefer": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Anne Smith": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Anne White": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Anneloes Schothurst": {
+    "country": "ned"
+  },
+  "Annette Coe": {
+    "country": "gbr",
+    "hand": "L"
+  },
+  "Annette Van Zyl": {
+    "country": "rsa",
+    "hand": "R"
+  },
+  "Annika Beck": {
+    "country": "ger",
+    "hand": "R"
+  },
   "Anouk Koevermans": {
     "country": "ned",
     "hand": "R",
     "birthday": "2004-01-02"
   },
+  "Anouska Van Exel": {
+    "country": "ned"
+  },
+  "Ansley Cargill": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Anthea Stewart": {
+    "country": "gbr"
+  },
+  "Antonella Rosa": {
+    "country": "ita"
+  },
+  "Antonella Serra Zanetti": {
+    "country": "ita",
+    "hand": "R"
+  },
   "Antonia Lottner": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Antonia Matic": {
     "country": "ger",
     "hand": "R"
   },
@@ -314,10 +1056,23 @@
     "country": "jpn",
     "birthday": "2004-05-21"
   },
+  "Arantxa Parra Santonja": {
+    "country": "esp",
+    "hand": "R"
+  },
   "Arantxa Rus": {
     "country": "ned",
     "hand": "L",
     "birthday": "1990-12-13"
+  },
+  "Arantxa Sanchez Vicario": {
+    "country": "esp",
+    "hand": "R"
+  },
+  "Aravane Rezai": {
+    "country": "fra",
+    "hand": "R",
+    "birthday": "1987-03-14"
   },
   "Ariana Arseneault": {
     "country": "can",
@@ -342,6 +1097,10 @@
     "birthday": "2007-03-02",
     "hand": "R"
   },
+  "Arina Folts": {
+    "country": "uzb",
+    "hand": "R"
+  },
   "Arina Rodionova": {
     "country": "aus",
     "hand": "R",
@@ -352,8 +1111,24 @@
     "hand": "R",
     "birthday": "1998-05-05"
   },
+  "Asa Carlsson": {
+    "country": "swe",
+    "hand": "R"
+  },
   "Ashleigh Barty": {
     "country": "aus",
+    "hand": "R"
+  },
+  "Ashley Harkleroad": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Ashley Kratzer": {
+    "country": "usa",
+    "hand": "L"
+  },
+  "Ashley Weinhold": {
+    "country": "usa",
     "hand": "R"
   },
   "Ashlyn Krueger": {
@@ -366,6 +1141,10 @@
     "hand": "R",
     "birthday": "1991-04-04"
   },
+  "Aslina Chua": {
+    "country": "mas",
+    "hand": "R"
+  },
   "Astra Sharma": {
     "country": "ind",
     "hand": "R",
@@ -375,10 +1154,27 @@
     "country": "fra",
     "birthday": "2005-08-15"
   },
+  "Astrid Suurbeek": {
+    "country": "ned"
+  },
+  "Audra Cohen": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Audra Keller": {
+    "country": "usa"
+  },
   "Audrey Albie": {
     "country": "fra",
     "hand": "R",
     "birthday": "1994-10-24"
+  },
+  "Audrey Sidot": {
+    "country": "fra"
+  },
+  "Aurelie Vedy": {
+    "country": "fra",
+    "hand": "L"
   },
   "Aurora Zantedeschi": {
     "country": "ita",
@@ -388,6 +1184,13 @@
   "Aya Aouni El": {
     "country": "mar",
     "birthday": "2005-07-06"
+  },
+  "Ayaka Okuno": {
+    "country": "jpn",
+    "hand": "R"
+  },
+  "Ayami Takase": {
+    "country": "jpn"
   },
   "Ayano Shimizu": {
     "country": "jpn",
@@ -399,10 +1202,84 @@
     "hand": "R",
     "birthday": "1996-07-15"
   },
+  "Ayu Fani Damayanti": {
+    "country": "ina",
+    "hand": "R"
+  },
+  "Ayumi Morita": {
+    "country": "jpn",
+    "hand": "R"
+  },
+  "Bahia Mouhtassine": {
+    "country": "mar",
+    "hand": "R"
+  },
+  "Barbara Collet": {
+    "country": "fra"
+  },
+  "Barbara Downs": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Barbara Gerken": {
+    "country": "usa"
+  },
+  "Barbara Griffiths": {
+    "country": "gbr"
+  },
   "Barbara Haas": {
     "country": "aut",
     "hand": "R",
     "birthday": "1996-03-19"
+  },
+  "Barbara Hallquist": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Barbara Hawcroft": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Barbara Jordan": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Barbara Luz": {
+    "country": "por",
+    "hand": "R"
+  },
+  "Barbara Mulej": {
+    "country": "slo",
+    "hand": "R"
+  },
+  "Barbara Paulus": {
+    "country": "aut",
+    "hand": "R"
+  },
+  "Barbara Potter": {
+    "country": "usa",
+    "hand": "L"
+  },
+  "Barbara Rittner": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Barbara Romano": {
+    "country": "ita"
+  },
+  "Barbara Rossi": {
+    "country": "ita"
+  },
+  "Barbara Schett": {
+    "country": "aut",
+    "hand": "R"
+  },
+  "Barbara Schwartz": {
+    "country": "aut",
+    "hand": "L"
+  },
+  "Barbi Bramblett": {
+    "country": "usa"
   },
   "Barbora Krejcikova": {
     "country": "cze",
@@ -423,28 +1300,132 @@
     "hand": "R",
     "birthday": "1986-03-28"
   },
+  "Basak Eraydin": {
+    "country": "tur",
+    "hand": "R"
+  },
+  "Bea Bielik": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Beate Reinstadler": {
+    "country": "aut"
+  },
+  "Beatrice Capra": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Beatrice Guery": {
+    "country": "fra"
+  },
+  "Beatrix Klein": {
+    "country": "hun"
+  },
+  "Beatriz Araujo": {
+    "country": "arg"
+  },
+  "Beatriz Garcia Vidagany": {
+    "country": "esp"
+  },
   "Beatriz Haddad Maia": {
     "country": "bra",
     "hand": "L",
     "birthday": "1996-05-30"
+  },
+  "Becky Vest": {
+    "country": "usa"
+  },
+  "Beier Ko": {
+    "country": "sgp",
+    "hand": "R"
   },
   "Belinda Bencic": {
     "country": "sui",
     "hand": "R",
     "birthday": "1997-03-10"
   },
+  "Belinda Borneo": {
+    "country": "gbr",
+    "hand": "R"
+  },
+  "Belinda Cordwell": {
+    "country": "nzl",
+    "hand": "L"
+  },
+  "Belinda Thompson": {
+    "country": "gbr"
+  },
+  "Benjamas Sangaram": {
+    "country": "tha"
+  },
   "Berfu Cengiz": {
     "country": "tur",
     "hand": "R",
     "birthday": "1999-10-18"
+  },
+  "Bernadette Randall": {
+    "country": "aus"
   },
   "Bernarda Pera": {
     "country": "usa",
     "hand": "L",
     "birthday": "1994-12-03"
   },
+  "Bernice Carr": {
+    "country": "rsa",
+    "hand": "R"
+  },
+  "Beryl Jenkins": {
+    "country": "aus"
+  },
+  "Beth Herr": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Beth Norton": {
+    "country": "usa",
+    "hand": "R"
+  },
   "Bethanie Mattek Sands": {
     "country": "usa",
+    "hand": "R"
+  },
+  "Betina Jozami": {
+    "country": "arg",
+    "hand": "R"
+  },
+  "Betsy Nagelsen": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Bettina Bunge": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Bettina Fulco": {
+    "country": "arg",
+    "hand": "R"
+  },
+  "Betty Ann Grubb": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Betty Pratt": {
+    "country": "usa"
+  },
+  "Betty Stove": {
+    "country": "ned",
+    "hand": "R"
+  },
+  "Beverley Rae": {
+    "country": "aus"
+  },
+  "Beverly Bowes": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Beverly Mould": {
+    "country": "rsa",
     "hand": "R"
   },
   "Bianca Andreescu": {
@@ -452,10 +1433,105 @@
     "hand": "R",
     "birthday": "2000-06-16"
   },
+  "Bianca Botto": {
+    "country": "per",
+    "hand": "L"
+  },
+  "Bianca Turati": {
+    "country": "ita",
+    "hand": "R"
+  },
+  "Bianka Lamade": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Bibiane Schoofs": {
+    "country": "ned",
+    "hand": "R",
+    "birthday": "1988-05-13"
+  },
+  "Billie Jean King": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Birgitta Lindstrom": {
+    "country": "fin"
+  },
+  "Birgitte Hermansen": {
+    "country": "den"
+  },
+  "Bojana Bobusic": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Bojana Jovanovski": {
+    "country": "srb",
+    "hand": "R"
+  },
+  "Bonnie Gadusek": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Boyoung Jeong": {
+    "country": "kor",
+    "birthday": "2003-05-21"
+  },
+  "Brenda Catton": {
+    "country": "aus"
+  },
+  "Brenda Dale": {
+    "country": "aus"
+  },
+  "Brenda Dart": {
+    "country": "aus"
+  },
   "Brenda Fruhvirtova": {
     "country": "cze",
     "hand": "R",
     "birthday": "2007-04-02"
+  },
+  "Brenda Garcia": {
+    "country": "usa"
+  },
+  "Brenda Kirk": {
+    "country": "rsa"
+  },
+  "Brenda Remilton": {
+    "country": "aus"
+  },
+  "Brenda Schultz Mccarthy": {
+    "country": "ned",
+    "hand": "R"
+  },
+  "Briana Szabo": {
+    "country": "rou",
+    "birthday": "2005-11-26"
+  },
+  "Brie Rippner": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Brienne Minor": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Brigette Cuypers": {
+    "country": "rsa",
+    "hand": "R"
+  },
+  "Brigitte Simon Glinel": {
+    "country": "fra"
+  },
+  "Brittany Augustine": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Bryanne Stewart": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Bunny Bruning": {
+    "country": "usa"
   },
   "Cadence Brace": {
     "country": "can",
@@ -477,10 +1553,46 @@
     "hand": "R",
     "birthday": "2001-12-22"
   },
+  "Camila Silva": {
+    "country": "chi",
+    "hand": "R"
+  },
   "Camilla Rosatello": {
     "country": "ita",
     "hand": "R",
     "birthday": "1995-05-28"
+  },
+  "Camille Benjamin": {
+    "country": "usa",
+    "hand": "L"
+  },
+  "Camille Pin": {
+    "country": "fra",
+    "hand": "R"
+  },
+  "Cammy Macgregor": {
+    "country": "usa"
+  },
+  "Candy Reynolds": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Capucine Rousseau": {
+    "country": "fra",
+    "hand": "R"
+  },
+  "Cara Black": {
+    "country": "zim",
+    "hand": "R"
+  },
+  "Carin Anderholm": {
+    "country": "swe"
+  },
+  "Carin Bakkum": {
+    "country": "ned"
+  },
+  "Carina Karlsson": {
+    "country": "swe"
   },
   "Carina Witthoeft": {
     "country": "ger",
@@ -490,10 +1602,61 @@
     "country": "esp",
     "hand": "R"
   },
+  "Carla Tiene": {
+    "country": "bra",
+    "hand": "L"
+  },
+  "Carling Bassett Seguso": {
+    "country": "can",
+    "hand": "R"
+  },
   "Carlota Martinez Cirez": {
     "country": "esp",
     "hand": "R",
     "birthday": "2001-02-13"
+  },
+  "Carly Gullickson": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Carmen Coronado": {
+    "country": "esp"
+  },
+  "Carmen Ibarra": {
+    "country": "chi"
+  },
+  "Carmen Klaschka": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Carmen Perea Alcala": {
+    "country": "esp"
+  },
+  "Carmina Giraldo": {
+    "country": "col"
+  },
+  "Carol Ann Kalogeropoulos": {
+    "country": "gre"
+  },
+  "Carol Aucamp": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Carol Baily": {
+    "country": "usa"
+  },
+  "Carol Christian": {
+    "country": "usa"
+  },
+  "Carol Draper": {
+    "country": "aus"
+  },
+  "Carol Hunter": {
+    "country": "usa"
+  },
+  "Carol Sherriff": {
+    "country": "aus",
+    "hand": "R"
   },
   "Carol Young Suh Lee": {
     "country": "poc"
@@ -507,6 +1670,16 @@
     "hand": "R",
     "birthday": "1995-06-20"
   },
+  "Carole Graebner": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Carole Loop": {
+    "country": "usa"
+  },
+  "Carole Lucarelli": {
+    "country": "fra"
+  },
   "Carole Monnet": {
     "country": "fra",
     "hand": "L",
@@ -517,15 +1690,43 @@
     "birthday": "1996-04-23",
     "hand": "R"
   },
+  "Caroline Cooper": {
+    "country": "aus"
+  },
+  "Caroline Dhenin": {
+    "country": "fra",
+    "hand": "R"
+  },
   "Caroline Dolehide": {
     "country": "usa",
     "hand": "R",
     "birthday": "1998-09-05"
   },
+  "Caroline Franch": {
+    "country": "fra"
+  },
   "Caroline Garcia": {
     "country": "fra",
     "hand": "R",
     "birthday": "1993-10-16"
+  },
+  "Caroline Kuhlman": {
+    "country": "usa"
+  },
+  "Caroline Langsford": {
+    "country": "aus"
+  },
+  "Caroline Maes": {
+    "country": "bel",
+    "hand": "R"
+  },
+  "Caroline Stoll": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Caroline Vis": {
+    "country": "ned",
+    "hand": "R"
   },
   "Caroline Werner": {
     "country": "ger",
@@ -536,10 +1737,47 @@
     "hand": "R",
     "birthday": "1990-07-11"
   },
+  "Carrie Cunningham": {
+    "country": "usa"
+  },
+  "Carrie Meyer": {
+    "country": "usa",
+    "hand": "R"
+  },
   "Carson Branstine": {
     "country": "can",
     "hand": "R",
     "birthday": "2000-09-09"
+  },
+  "Caryn Copeland Wilson": {
+    "country": "usa"
+  },
+  "Casey Dellacqua": {
+    "country": "aus",
+    "hand": "L"
+  },
+  "Catalina Castano": {
+    "country": "col",
+    "hand": "R"
+  },
+  "Catalina Cristea": {
+    "country": "rou",
+    "hand": "R"
+  },
+  "Catalina Pella": {
+    "country": "arg",
+    "hand": "R"
+  },
+  "Catarina Lindqvist Ryan": {
+    "country": "swe",
+    "hand": "R"
+  },
+  "Caterina Nozzoli": {
+    "country": "ita"
+  },
+  "Catherine Barclay": {
+    "country": "aus",
+    "hand": "R"
   },
   "Catherine Cartan Bellis": {
     "country": "usa",
@@ -550,6 +1788,30 @@
     "hand": "R",
     "birthday": "1994-04-09"
   },
+  "Catherine Mothes Jobkel": {
+    "country": "fra"
+  },
+  "Catherine Suire": {
+    "country": "fra",
+    "hand": "R"
+  },
+  "Catherine Tanvier": {
+    "country": "fra",
+    "hand": "R"
+  },
+  "Cathy Caverzasio": {
+    "country": "sui"
+  },
+  "Cathy Drury": {
+    "country": "gbr",
+    "hand": "R"
+  },
+  "Cathy Griffiths": {
+    "country": "aus"
+  },
+  "Catrin Jexell": {
+    "country": "swe"
+  },
   "Caty Mcnally": {
     "country": "usa",
     "hand": "R"
@@ -558,14 +1820,94 @@
     "country": "usa",
     "birthday": "2001-11-20"
   },
+  "Cecilia Dahlman": {
+    "country": "swe",
+    "hand": "R"
+  },
+  "Cecilia Fernandez Parker": {
+    "country": "usa"
+  },
+  "Cecilia Martinez": {
+    "country": "usa"
+  },
+  "Cecille Calmette": {
+    "country": "fra"
+  },
+  "Celine Beigbeder": {
+    "country": "fra"
+  },
+  "Celine Cohen": {
+    "country": "sui"
+  },
   "Celine Naef": {
     "country": "sui",
     "hand": "R",
     "birthday": "2005-06-25"
   },
+  "Chanda Rubin": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Chanel Simmonds": {
+    "country": "rsa",
+    "hand": "L"
+  },
+  "Chanelle Scheepers": {
+    "country": "rsa",
+    "hand": "R"
+  },
+  "Chang Liu": {
+    "country": "chn",
+    "hand": "R"
+  },
+  "Charlotte Robillard Millette": {
+    "country": "can",
+    "hand": "L"
+  },
+  "Chelsey Gullickson": {
+    "country": "usa",
+    "hand": "R"
+  },
   "Chenting Zhu": {
     "country": "chn",
     "birthday": "2007-09-13"
+  },
+  "Cheree Walker": {
+    "country": "nzl"
+  },
+  "Cheryl Norquay": {
+    "country": "aus"
+  },
+  "Chi Chi Scholl": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Chia Jung Chuang": {
+    "country": "tpe",
+    "hand": "R"
+  },
+  "Chieh Yu Hsu": {
+    "country": "usa",
+    "hand": "L"
+  },
+  "Chihiro Muramatsu": {
+    "country": "jpn",
+    "hand": "L",
+    "birthday": "1998-05-22"
+  },
+  "Chikako Murakami": {
+    "country": "jpn"
+  },
+  "Chin Wei Chan": {
+    "country": "tpe",
+    "hand": "R"
+  },
+  "Ching Ling Chang": {
+    "country": "usa"
+  },
+  "Ching Wen Hsu": {
+    "country": "tpe",
+    "hand": "R"
   },
   "Chiraz Bechri": {
     "country": "tun",
@@ -577,6 +1919,45 @@
     "hand": "R",
     "birthday": "1994-07-01"
   },
+  "Chris Cerato": {
+    "country": "aus"
+  },
+  "Chris Evert": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Chris Matison": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Chris Newton": {
+    "country": "nzl"
+  },
+  "Chris Oneil": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Chris Penn": {
+    "country": "usa"
+  },
+  "Christelle Fauche": {
+    "country": "sui",
+    "hand": "R"
+  },
+  "Christiane Jolissaint": {
+    "country": "sui",
+    "hand": "R"
+  },
+  "Christiane Mercelis": {
+    "country": "bel",
+    "hand": "R"
+  },
+  "Christiane Spinoza": {
+    "country": "fra"
+  },
+  "Christina Lindstrom": {
+    "country": "fin"
+  },
   "Christina Mchale": {
     "country": "usa",
     "hand": "R"
@@ -584,14 +1965,62 @@
   "Christina McHale": {
     "birthday": "1992-05-11"
   },
+  "Christina Papadaki": {
+    "country": "gre",
+    "hand": "R"
+  },
+  "Christina Sandberg": {
+    "country": "swe",
+    "hand": "R"
+  },
+  "Christina Singer": {
+    "country": "ger"
+  },
+  "Christina Wheeler": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Christine Gimmig": {
+    "country": "fra"
+  },
+  "Christine Truman": {
+    "country": "gbr",
+    "hand": "R"
+  },
   "Chukwumelije Clarke": {
     "country": "gbr",
     "birthday": "2005-01-01"
+  },
+  "Chun Mei Ji": {
+    "country": "chn",
+    "hand": "R"
+  },
+  "Cindy Burger": {
+    "country": "ned",
+    "hand": "R"
+  },
+  "Cindy Watson": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Claire De Gubernatis": {
+    "country": "fra",
+    "hand": "L"
+  },
+  "Claire Feuerstein": {
+    "country": "fra",
+    "hand": "L"
   },
   "Claire Liu": {
     "country": "usa",
     "hand": "R",
     "birthday": "2000-05-25"
+  },
+  "Claire Taylor": {
+    "country": "gbr"
+  },
+  "Claire Wegink": {
+    "country": "ned"
   },
   "Clara Burel": {
     "country": "fra",
@@ -602,6 +2031,47 @@
     "country": "den",
     "hand": "R",
     "birthday": "2002-12-21"
+  },
+  "Clare Colman": {
+    "country": "gbr"
+  },
+  "Clare Thompson": {
+    "country": "aus"
+  },
+  "Clare Wood": {
+    "country": "gbr",
+    "hand": "R"
+  },
+  "Clarisa Fernandez": {
+    "country": "arg",
+    "hand": "L"
+  },
+  "Claudia Casabianca": {
+    "country": "arg"
+  },
+  "Claudia Giovine": {
+    "country": "ita",
+    "hand": "R"
+  },
+  "Claudia Kohde Kilsch": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Claudia Monteiro": {
+    "country": "bra"
+  },
+  "Claudia Pasquale": {
+    "country": "sui"
+  },
+  "Claudia Porwik": {
+    "country": "ger"
+  },
+  "Claudine Schaul": {
+    "country": "lux",
+    "hand": "R"
+  },
+  "Claudine Toleafoa": {
+    "country": "nzl"
   },
   "Clervie Ngounoue": {
     "country": "usa",
@@ -618,13 +2088,109 @@
     "hand": "R",
     "birthday": "1991-12-06"
   },
+  "Colette Caple": {
+    "country": "gbr"
+  },
+  "Colleen Carney": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Conchita Martinez": {
+    "country": "esp",
+    "hand": "R"
+  },
+  "Conchita Martinez Granados": {
+    "country": "esp",
+    "hand": "R"
+  },
+  "Connie Capozzi": {
+    "country": "usa"
+  },
+  "Conny Perrin": {
+    "country": "sui",
+    "hand": "R",
+    "birthday": "1990-12-25"
+  },
   "Contreras Gomez": {
     "birthday": "1997-10-08"
+  },
+  "Corina Morariu": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Corinna Dentoni": {
+    "country": "ita",
+    "hand": "R"
+  },
+  "Corinne Molesworth": {
+    "country": "gbr"
+  },
+  "Corinne Vanier": {
+    "country": "fra"
+  },
+  "Cornelia Dries": {
+    "country": "ger"
+  },
+  "Cornelia Lister": {
+    "country": "swe"
+  },
+  "Cory Ann Avants": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Courtney Collins": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Cristiana Ferrando": {
+    "country": "ita",
+    "hand": "R"
+  },
+  "Cristina Andreea Mitu": {
+    "country": "rou",
+    "hand": "R"
   },
   "Cristina Bucsa": {
     "country": "esp",
     "hand": "R",
     "birthday": "1998-01-01"
+  },
+  "Cristina Casale": {
+    "country": "ita"
+  },
+  "Cristina Dinu": {
+    "country": "rou",
+    "hand": "R",
+    "birthday": "1993-01-18"
+  },
+  "Cristina Tessi": {
+    "country": "arg"
+  },
+  "Cristina Torrens Valero": {
+    "country": "esp",
+    "hand": "R"
+  },
+  "Csilla Borsanyi": {
+    "country": "hun"
+  },
+  "Csilla Cserepy": {
+    "country": "sui"
+  },
+  "Cynthia Doerner": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Cynthia Macgregor": {
+    "country": "usa"
+  },
+  "Daja Bedanova": {
+    "country": "cze",
+    "hand": "R"
+  },
+  "Dalayna Hewitt": {
+    "country": "usa",
+    "hand": "R",
+    "birthday": "2000-12-16"
   },
   "Dalila Jakupovic": {
     "country": "slo",
@@ -636,15 +2202,51 @@
     "birthday": "1997-04-24",
     "hand": "R"
   },
+  "Dally Randriantefy": {
+    "country": "mad",
+    "hand": "R"
+  },
   "Dalma Galfi": {
     "country": "hun",
     "hand": "R",
     "birthday": "1998-08-13"
   },
+  "Dana Gilbert": {
+    "country": "usa"
+  },
+  "Daniela Hantuchova": {
+    "country": "svk",
+    "hand": "R"
+  },
+  "Daniela Kix": {
+    "country": "aut",
+    "hand": "R"
+  },
+  "Daniela Marzano": {
+    "country": "ita"
+  },
+  "Daniela Munoz Gallegos": {
+    "country": "mex",
+    "hand": "R"
+  },
+  "Daniela Seguel": {
+    "country": "chi",
+    "birthday": "1992-11-15"
+  },
+  "Daniele Bouteleux": {
+    "country": "fra"
+  },
+  "Daniella Jeflea": {
+    "country": "aus",
+    "hand": "R"
+  },
   "Danielle Collins": {
     "country": "usa",
     "hand": "R",
     "birthday": "1993-12-13"
+  },
+  "Danielle Jones": {
+    "country": "aus"
   },
   "Danielle Lao": {
     "country": "usa",
@@ -654,6 +2256,16 @@
     "country": "mne",
     "hand": "R",
     "birthday": "1994-11-18"
+  },
+  "Danuta Wieczorek": {
+    "country": "pol"
+  },
+  "Daphne Pattison": {
+    "country": "zim"
+  },
+  "Daphne Van De Zande": {
+    "country": "bel",
+    "hand": "R"
   },
   "Daria Kasatkina": {
     "country": "aus",
@@ -665,6 +2277,10 @@
     "hand": "R",
     "birthday": "1996-05-25"
   },
+  "Daria Mironova": {
+    "country": "rus",
+    "hand": "R"
+  },
   "Daria Saville": {
     "country": "aus",
     "hand": "R",
@@ -674,6 +2290,10 @@
     "country": "ukr",
     "hand": "R",
     "birthday": "2002-03-27"
+  },
+  "Darija Jurak": {
+    "country": "cro",
+    "hand": "R"
   },
   "Darja Semenistaja": {
     "country": "lat",
@@ -685,10 +2305,24 @@
     "hand": "R",
     "birthday": "2003-01-09"
   },
+  "Darlene Hard": {
+    "country": "usa",
+    "hand": "R"
+  },
   "Darya Astakhova": {
     "country": "rus",
     "hand": "R",
     "birthday": "2002-01-26"
+  },
+  "Darya Kustova": {
+    "country": "blr"
+  },
+  "Daryl Gralka": {
+    "country": "usa"
+  },
+  "Dawn Buth": {
+    "country": "usa",
+    "hand": "R"
   },
   "Dayana Yastremska": {
     "country": "ukr",
@@ -699,6 +2333,39 @@
     "country": "kor",
     "birthday": "2002-01-24"
   },
+  "Debbie Freeman": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Debbie Graham": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Debbie Spence Nasim": {
+    "country": "usa"
+  },
+  "Deborah Chiesa": {
+    "country": "ita",
+    "hand": "R",
+    "birthday": "1996-06-13"
+  },
+  "Deborah Fiuza": {
+    "country": "por"
+  },
+  "Deborah Jevans": {
+    "country": "gbr"
+  },
+  "Dee Ann Hansel": {
+    "country": "usa"
+  },
+  "Dejana Radanovic": {
+    "country": "srb",
+    "birthday": "1996-05-14"
+  },
+  "Delia Sescioreanu": {
+    "country": "rou",
+    "hand": "R"
+  },
   "Demi Schuurs": {
     "country": "ned",
     "hand": "R",
@@ -707,6 +2374,33 @@
   "Denisa Allertova": {
     "country": "cze",
     "hand": "R"
+  },
+  "Denisa Chladkova": {
+    "country": "cze",
+    "hand": "R"
+  },
+  "Denisa Krajcovicova": {
+    "country": "svk"
+  },
+  "Denisa Szabova": {
+    "country": "svk"
+  },
+  "Denise Carter": {
+    "country": "usa"
+  },
+  "Denise Parnell": {
+    "country": "gbr"
+  },
+  "Deniz Khazaniuk": {
+    "country": "isr",
+    "hand": "R"
+  },
+  "Desirae Krawczyk": {
+    "country": "usa",
+    "hand": "L"
+  },
+  "Desislava Topalova": {
+    "country": "bul"
   },
   "Despina Papamichail": {
     "country": "gre",
@@ -718,26 +2412,89 @@
     "hand": "R",
     "birthday": "2000-05-10"
   },
+  "Di Riste": {
+    "country": "gbr"
+  },
+  "Dia Evtimova": {
+    "country": "bul",
+    "hand": "R"
+  },
   "Diae El Jardi": {
     "country": "mar",
     "hand": "R",
     "birthday": "2000-10-13"
+  },
+  "Diana Marcinkevica": {
+    "country": "lat",
+    "hand": "R",
+    "birthday": "1992-08-03"
+  },
+  "Diana Ospina": {
+    "country": "usa"
   },
   "Diana Shnaider": {
     "country": "rus",
     "hand": "L",
     "birthday": "2004-04-02"
   },
+  "Diana Srebrovic": {
+    "country": "can",
+    "hand": "R"
+  },
+  "Diane Desfor": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Diane Farrell": {
+    "country": "usa"
+  },
+  "Diane James": {
+    "country": "aus"
+  },
+  "Diane Matzner": {
+    "country": "usa"
+  },
+  "Diane Morrison": {
+    "country": "usa"
+  },
   "Diane Parry": {
     "country": "fra",
     "hand": "R",
     "birthday": "2002-09-01"
   },
+  "Dianne Evers": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Dianne Fromholtz": {
+    "country": "aus",
+    "hand": "L"
+  },
+  "Dianne Van Rensburg": {
+    "country": "rsa",
+    "hand": "R"
+  },
   "Diletta Cherubini": {
     "country": "ita",
     "birthday": "2002-05-09"
   },
+  "Dilyara Saidkhodjaeva": {
+    "country": "uzb",
+    "hand": "R"
+  },
+  "Dinah Pfizenmaier": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Dinara Safina": {
+    "country": "rus",
+    "hand": "R"
+  },
   "Dominika Cibulkova": {
+    "country": "svk",
+    "hand": "R"
+  },
+  "Dominika Nociarova": {
     "country": "svk",
     "hand": "R"
   },
@@ -746,23 +2503,113 @@
     "hand": "R",
     "birthday": "2004-06-28"
   },
+  "Dominique Beillan": {
+    "country": "fra"
+  },
+  "Dominique Monami": {
+    "country": "bel",
+    "hand": "R"
+  },
+  "Donna Faber": {
+    "country": "usa"
+  },
+  "Donna Ganz": {
+    "country": "usa"
+  },
   "Donna Vekic": {
     "country": "cro",
     "hand": "R",
     "birthday": "1996-06-28"
   },
+  "Dorothy Knode": {
+    "country": "usa"
+  },
+  "Dorothy Whitely": {
+    "country": "aus"
+  },
+  "Dorte Ekner": {
+    "country": "den"
+  },
+  "Dragana Zaric": {
+    "country": "srb"
+  },
+  "Duk Hee Lee": {
+    "country": "kor"
+  },
+  "E Staples": {
+    "country": "aus"
+  },
   "E. Rodina": {
     "birthday": "1989-02-04"
+  },
+  "Edda Buding": {
+    "country": "frg",
+    "hand": "R"
+  },
+  "Eden Marama": {
+    "country": "nzl",
+    "hand": "R"
+  },
+  "Eden Silva": {
+    "country": "usa",
+    "hand": "R",
+    "birthday": "1996-03-14"
+  },
+  "Edina Gallovits Hall": {
+    "country": "rou",
+    "hand": "R"
+  },
+  "Edith Winkens": {
+    "country": "frg"
+  },
+  "Ei Iida": {
+    "country": "jpn"
+  },
+  "Eileen Tell": {
+    "country": "usa"
+  },
+  "Eirini Georgatou": {
+    "country": "gre",
+    "hand": "R"
+  },
+  "Ekaterina Afinogenova": {
+    "country": "rus",
+    "hand": "R"
   },
   "Ekaterina Alexandrova": {
     "country": "rus",
     "hand": "R",
     "birthday": "1994-11-15"
   },
+  "Ekaterina Bychkova": {
+    "country": "rus",
+    "hand": "R"
+  },
+  "Ekaterina Dzehalevich": {
+    "country": "blr",
+    "hand": "R"
+  },
+  "Ekaterina Ivanova": {
+    "country": "rus",
+    "hand": "R"
+  },
   "Ekaterina Makarova": {
     "country": "rus",
     "hand": "R",
     "birthday": "1996-02-15"
+  },
+  "Ekaterina Reyngold": {
+    "country": "wor",
+    "hand": "R",
+    "birthday": "2001-04-07"
+  },
+  "Ekaterina Shulaeva": {
+    "country": "can",
+    "hand": "R"
+  },
+  "Ekaterina Sysoeva": {
+    "country": "rus",
+    "hand": "R"
   },
   "Ekaterine Gorgodze": {
     "country": "geo",
@@ -773,8 +2620,41 @@
     "country": "usa",
     "hand": "R"
   },
+  "Elena Baltacha": {
+    "country": "gbr",
+    "hand": "R"
+  },
+  "Elena Bogdan": {
+    "country": "rou",
+    "hand": "L"
+  },
+  "Elena Bovina": {
+    "country": "rus",
+    "hand": "R"
+  },
+  "Elena Brioukhovets": {
+    "country": "ukr"
+  },
+  "Elena Dementieva": {
+    "country": "rus",
+    "hand": "R"
+  },
+  "Elena Eliseenko": {
+    "country": "urs"
+  },
   "Elena Gabriela Ruse": {
     "country": "rou",
+    "hand": "R"
+  },
+  "Elena Granaturovna": {
+    "country": "urs"
+  },
+  "Elena Likhovtseva": {
+    "country": "rus",
+    "hand": "R"
+  },
+  "Elena Makarova": {
+    "country": "rus",
     "hand": "R"
   },
   "Elena Malygina": {
@@ -784,6 +2664,9 @@
   "Elena Micic": {
     "country": "aus",
     "birthday": "2004-07-13"
+  },
+  "Elena Pampoulova": {
+    "country": "bul"
   },
   "Elena Pridankina": {
     "country": "rus",
@@ -799,9 +2682,23 @@
     "hand": "R",
     "birthday": "1999-06-17"
   },
+  "Elena Subirats": {
+    "country": "mex"
+  },
+  "Elena Tatarkova": {
+    "country": "ukr",
+    "hand": "L"
+  },
   "Elena Vesnina": {
     "country": "rus",
     "hand": "R"
+  },
+  "Eleni Daniilidou": {
+    "country": "gre",
+    "hand": "R"
+  },
+  "Eleni Rossides": {
+    "country": "usa"
   },
   "Elina Avanesyan": {
     "country": "arm",
@@ -813,30 +2710,109 @@
     "hand": "R",
     "birthday": "1994-09-12"
   },
+  "Elisabeth Ekblom": {
+    "country": "swe"
+  },
   "Elisabetta Cocciaretto": {
     "country": "ita",
     "hand": "R",
     "birthday": "2001-01-25"
+  },
+  "Elise Burgin": {
+    "country": "usa",
+    "hand": "L"
   },
   "Elise Mertens": {
     "country": "bel",
     "hand": "R",
     "birthday": "1995-11-17"
   },
+  "Elise Tamaela": {
+    "country": "ned",
+    "hand": "L"
+  },
+  "Elitsa Kostova": {
+    "country": "bul",
+    "hand": "R"
+  },
+  "Eliza Pande": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Elizabeth Ernest": {
+    "country": "gbr"
+  },
+  "Elizabeth Galphin": {
+    "country": "usa"
+  },
+  "Elizabeth Jones": {
+    "country": "gbr"
+  },
+  "Elizabeth Kobak": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Elizabeth Little": {
+    "country": "aus"
+  },
   "Elizabeth Mandlik": {
     "country": "usa",
     "hand": "R",
     "birthday": "2001-05-19"
+  },
+  "Elizabeth Minter": {
+    "country": "aus",
+    "hand": "L"
+  },
+  "Elizabeth Vlotman": {
+    "country": "gbr"
+  },
+  "Elizaveta Kulichkova": {
+    "country": "rus",
+    "hand": "R"
+  },
+  "Elke Clijsters": {
+    "country": "bel",
+    "hand": "R"
   },
   "Ella Seidel": {
     "country": "ger",
     "hand": "R",
     "birthday": "2005-02-14"
   },
+  "Ellen Allgurin": {
+    "country": "swe",
+    "hand": "R"
+  },
+  "Ellen Barry": {
+    "country": "nzl",
+    "hand": "R"
+  },
   "Ellen Perez": {
     "country": "aus",
     "hand": "L",
     "birthday": "1995-10-10"
+  },
+  "Ellinore Lightbody": {
+    "country": "gbr"
+  },
+  "Elly Appel": {
+    "country": "ned",
+    "hand": "R"
+  },
+  "Elly Hakami": {
+    "country": "usa"
+  },
+  "Elna Reinach": {
+    "country": "rsa"
+  },
+  "Eloisa Maria Compostizo De Andres": {
+    "country": "esp",
+    "hand": "L"
+  },
+  "Els Callens": {
+    "country": "bel",
+    "hand": "R"
   },
   "Elsa Jacquemot": {
     "country": "fra",
@@ -848,25 +2824,69 @@
     "hand": "R",
     "birthday": "2003-07-27"
   },
+  "Elvira Weisenberger": {
+    "country": "arg",
+    "hand": "R"
+  },
+  "Emanuela Zardo": {
+    "country": "sui",
+    "hand": "L"
+  },
+  "Emelyn Starr": {
+    "country": "aus",
+    "hand": "R"
+  },
   "Emerson Jones": {
     "country": "aus",
     "birthday": "2008-07-07",
     "hand": "R"
+  },
+  "Emiko Okagawa": {
+    "country": "jpn"
   },
   "Emiliana Arango": {
     "country": "col",
     "hand": "R",
     "birthday": "2000-11-28"
   },
+  "Emilie Bacquet": {
+    "country": "fra"
+  },
+  "Emilie Burrer": {
+    "country": "usa"
+  },
+  "Emilie Loit": {
+    "country": "fra",
+    "hand": "L"
+  },
+  "Emilse Raponi Longo": {
+    "country": "usa",
+    "hand": "R"
+  },
   "Emily Appleton": {
     "country": "gbr",
     "hand": "R",
     "birthday": "1999-09-01"
   },
+  "Emily Fisher": {
+    "country": "usa"
+  },
+  "Emily Webley Smith": {
+    "country": "gbr",
+    "hand": "R"
+  },
+  "Emily Webley-Smith": {
+    "country": "gbr",
+    "birthday": "1984-07-14"
+  },
   "Emina Bektas": {
     "country": "usa",
     "hand": "R",
     "birthday": "1993-03-30"
+  },
+  "Emma Laine": {
+    "country": "fin",
+    "hand": "L"
   },
   "Emma Navarro": {
     "country": "usa",
@@ -877,6 +2897,16 @@
     "country": "gbr",
     "hand": "R",
     "birthday": "2002-11-13"
+  },
+  "Emmanuelle Curutchet": {
+    "country": "fra"
+  },
+  "Emmanuelle Derly": {
+    "country": "fra"
+  },
+  "Emmanuelle Gagliardi": {
+    "country": "sui",
+    "hand": "R"
   },
   "En Shuo Liang": {
     "country": "tpe"
@@ -890,35 +2920,190 @@
     "hand": "R",
     "birthday": "1998-02-12"
   },
+  "Eny Sulistyowati": {
+    "country": "ina",
+    "hand": "R"
+  },
+  "Eri Hozumi": {
+    "country": "jpn",
+    "hand": "R",
+    "birthday": "1994-02-17"
+  },
+  "Erica Krauth": {
+    "country": "arg",
+    "hand": "R"
+  },
   "Erika Andreeva": {
     "country": "rus",
     "hand": "R",
     "birthday": "2004-06-24"
+  },
+  "Erika De Lone": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Erika Sema": {
+    "country": "jpn",
+    "hand": "R"
+  },
+  "Erika Takao": {
+    "country": "jpn",
+    "hand": "R"
+  },
+  "Erika Valdes": {
+    "country": "mex",
+    "hand": "R"
+  },
+  "Erin Dignam": {
+    "country": "usa"
   },
   "Erin Routliffe": {
     "country": "can",
     "hand": "R",
     "birthday": "1995-04-11"
   },
+  "Erzsebet Polgar": {
+    "country": "hun"
+  },
+  "Erzsebet Szell": {
+    "country": "hun"
+  },
+  "Esme Emmanuel": {
+    "country": "rsa"
+  },
+  "Estrella Cabeza Candela": {
+    "country": "esp",
+    "hand": "R"
+  },
+  "Etsuko Inoue": {
+    "country": "jpn",
+    "hand": "R"
+  },
+  "Eudice Wong Chong": {
+    "country": "hkg"
+  },
+  "Eugenia Birioukova": {
+    "country": "aze",
+    "hand": "R"
+  },
+  "Eugenia Isopaitis": {
+    "country": "urs"
+  },
+  "Eugenia Kulikovskaya": {
+    "country": "rus",
+    "hand": "L"
+  },
+  "Eugenia Maniokova": {
+    "country": "rus",
+    "hand": "R"
+  },
   "Eugenie Bouchard": {
     "country": "can",
     "hand": "R",
     "birthday": "1994-02-25"
+  },
+  "Eun Ha Kim": {
+    "country": "kor"
+  },
+  "Eva Bes Ostariz": {
+    "country": "esp",
+    "hand": "R"
+  },
+  "Eva Birnerova": {
+    "country": "cze",
+    "hand": "R"
+  },
+  "Eva Duldig": {
+    "country": "ned",
+    "hand": "R"
+  },
+  "Eva Dyrberg": {
+    "country": "den",
+    "hand": "R"
+  },
+  "Eva Fernandez Brugues": {
+    "country": "esp",
+    "hand": "R"
+  },
+  "Eva Fislova": {
+    "country": "svk",
+    "hand": "R"
+  },
+  "Eva Hrdinova": {
+    "country": "cze",
+    "hand": "R"
+  },
+  "Eva Krapl": {
+    "country": "sui",
+    "hand": "R"
+  },
+  "Eva Lundquist": {
+    "country": "swe"
   },
   "Eva Lys": {
     "country": "ger",
     "hand": "R",
     "birthday": "2002-01-12"
   },
+  "Eva Maria Hoch": {
+    "country": "aut"
+  },
+  "Eva Maria Schurhoff": {
+    "country": "ger"
+  },
+  "Eva Martincova": {
+    "country": "cze"
+  },
+  "Eva Pfaff": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Eva Sviglerova": {
+    "country": "cze"
+  },
+  "Eva Szabo": {
+    "country": "hun"
+  },
   "Eva Vedder": {
     "country": "ned",
     "hand": "R",
     "birthday": "1999-11-23"
   },
+  "Evelyn Fauth": {
+    "country": "aut",
+    "hand": "R"
+  },
+  "Evelyne Terras": {
+    "country": "fra"
+  },
+  "Evgenia Linetskaya": {
+    "country": "isr",
+    "hand": "R"
+  },
   "Evgeniya Rodina": {
     "country": "rus",
     "hand": "R",
     "birthday": "1989-02-04"
+  },
+  "Evie Dominikovic": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Evonne Goolagong": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Fabiola Zuluaga": {
+    "country": "col",
+    "hand": "R"
+  },
+  "Fang Li": {
+    "country": "chn",
+    "hand": "R"
+  },
+  "Fang Ying Xun": {
+    "country": "chn",
+    "birthday": "1995-01-14"
   },
   "Fangran Tian": {
     "country": "chn",
@@ -935,14 +3120,49 @@
     "hand": "R",
     "birthday": "1998-11-12"
   },
+  "Farel Footman": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Fatima El Allami": {
+    "country": "mar",
+    "hand": "L"
+  },
+  "Fatma Al Nabhani": {
+    "country": "oma",
+    "hand": "R"
+  },
+  "Fay Toyne": {
+    "country": "aus"
+  },
+  "Faye Urban": {
+    "country": "can",
+    "hand": "R"
+  },
+  "Federica Bonsignori": {
+    "country": "ita"
+  },
   "Federica Di Sarra": {
     "country": "ita",
     "hand": "R",
     "birthday": "1990-05-16"
   },
+  "Federica Haumuller": {
+    "country": "arg"
+  },
   "Federica Urgesi": {
     "country": "ita",
     "birthday": "2005-01-29"
+  },
+  "Felicia Hutnick": {
+    "country": "usa"
+  },
+  "Felicia Raschiatore": {
+    "country": "usa"
+  },
+  "Feriel Esseghir": {
+    "country": "alg",
+    "hand": "R"
   },
   "Fernanda Contreras Gomez": {
     "country": "mex",
@@ -957,6 +3177,48 @@
     "hand": "R",
     "birthday": "1997-03-12"
   },
+  "Fiorella Bonicelli": {
+    "country": "uru",
+    "hand": "R"
+  },
+  "Flavia Pennetta": {
+    "country": "ita",
+    "hand": "R"
+  },
+  "Flora Perfetti": {
+    "country": "ita",
+    "hand": "R"
+  },
+  "Florence De La Courtie": {
+    "country": "fra"
+  },
+  "Florence Guedy": {
+    "country": "fra"
+  },
+  "Florencia Labat": {
+    "country": "arg",
+    "hand": "L"
+  },
+  "Florencia Molinero": {
+    "country": "arg",
+    "hand": "R"
+  },
+  "Florenta Mihai": {
+    "country": "rou",
+    "hand": "R"
+  },
+  "Frances Altick": {
+    "country": "usa"
+  },
+  "Frances Candy": {
+    "country": "aus"
+  },
+  "Frances Luff": {
+    "country": "aus"
+  },
+  "Frances Maclennan": {
+    "country": "gbr"
+  },
   "Francesca Curmi": {
     "country": "mlt",
     "hand": "R",
@@ -967,15 +3229,59 @@
     "hand": "L",
     "birthday": "1997-07-22"
   },
+  "Francesca Gordigiani": {
+    "country": "ita",
+    "hand": "R"
+  },
   "Francesca Jones": {
     "country": "gbr",
     "hand": "R",
     "birthday": "2000-09-19"
   },
+  "Francesca Lubiani": {
+    "country": "ita",
+    "hand": "L"
+  },
+  "Francesca Romano": {
+    "country": "ita"
+  },
+  "Francesca Schiavone": {
+    "country": "ita",
+    "hand": "R"
+  },
+  "Francoise Abanda": {
+    "country": "can",
+    "hand": "R"
+  },
+  "Francoise Durr": {
+    "country": "fra",
+    "hand": "R"
+  },
+  "Francoise Repoux": {
+    "country": "fra"
+  },
+  "Frederica Piedade": {
+    "country": "por"
+  },
+  "Frederique Thibault": {
+    "country": "fra"
+  },
+  "Freya Christie": {
+    "country": "gbr",
+    "hand": "R",
+    "birthday": "1997-11-08"
+  },
   "Gabriela Ce": {
     "country": "bra",
     "hand": "L",
     "birthday": "1993-03-03"
+  },
+  "Gabriela Dabrowski": {
+    "country": "can",
+    "hand": "R"
+  },
+  "Gabriela Dinu": {
+    "country": "frg"
   },
   "Gabriela Elena Ruse": {
     "country": "rou",
@@ -987,13 +3293,63 @@
     "birthday": "1997-04-21",
     "hand": "R"
   },
+  "Gabriela Lastra": {
+    "country": "usa",
+    "hand": "R"
+  },
   "Gabriela Lee": {
     "country": "rou",
     "hand": "L",
     "birthday": "1995-08-23"
   },
+  "Gabriela Sabatini": {
+    "country": "arg",
+    "hand": "R"
+  },
+  "Gabriella da Silva Fick": {
+    "country": "aus",
+    "birthday": "2000-08-23",
+    "hand": "R"
+  },
+  "Gabriella Da Silva Fick": {
+    "country": "aus",
+    "hand": "R"
+  },
   "Gabriella Taylor": {
     "country": "gbr",
+    "hand": "R"
+  },
+  "Gail Biggs": {
+    "country": "aus"
+  },
+  "Gail Brodsky": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Gail Hansen": {
+    "country": "usa"
+  },
+  "Gail Sherriff": {
+    "country": "fra",
+    "hand": "R"
+  },
+  "Gail Williams": {
+    "country": "aus"
+  },
+  "Gala Leon Garcia": {
+    "country": "esp",
+    "hand": "L"
+  },
+  "Galina Baksheeva": {
+    "country": "urs",
+    "hand": "R"
+  },
+  "Galina Fokina": {
+    "country": "rus",
+    "hand": "L"
+  },
+  "Galina Voskoboeva": {
+    "country": "kaz",
     "hand": "R"
   },
   "Garbine Muguruza": {
@@ -1001,14 +3357,67 @@
     "hand": "R",
     "birthday": "1993-10-08"
   },
+  "Georgie Gent": {
+    "country": "gbr",
+    "hand": "R"
+  },
+  "Georgina Garcia Perez": {
+    "country": "esp"
+  },
+  "Georgina García Pérez": {
+    "country": "esp",
+    "birthday": "1992-05-13"
+  },
   "Gergana Topalova": {
     "country": "bul",
     "hand": "R",
     "birthday": "2000-02-22"
   },
+  "Geri Shepard": {
+    "country": "usa"
+  },
+  "Germaine Ohaco": {
+    "country": "chi"
+  },
+  "Germana Di Natale": {
+    "country": "ita",
+    "hand": "R"
+  },
+  "Ghita Benhadi": {
+    "country": "mar"
+  },
+  "Gigi Fernandez": {
+    "country": "usa"
+  },
+  "Ginger Helgeson": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Ginny Purdy": {
+    "country": "usa"
+  },
+  "Gioia Barbieri": {
+    "country": "ita",
+    "hand": "R"
+  },
   "Giorgia Pedone": {
     "country": "ita",
     "birthday": "2004-08-31",
+    "hand": "R"
+  },
+  "Gisela Dulko": {
+    "country": "arg",
+    "hand": "R"
+  },
+  "Gisela Riera Roura": {
+    "country": "esp",
+    "hand": "R"
+  },
+  "Gisele Miro": {
+    "country": "bra"
+  },
+  "Giulia Casoni": {
+    "country": "ita",
     "hand": "R"
   },
   "Giulia Gatto Monticone": {
@@ -1020,34 +3429,107 @@
     "birthday": "2009-11-09",
     "hand": "L"
   },
+  "Giuliana Olmos": {
+    "country": "mex",
+    "hand": "R",
+    "birthday": "1993-03-04"
+  },
+  "Glaucia Langela": {
+    "country": "bra"
+  },
+  "Gloria Pizzichini": {
+    "country": "ita",
+    "hand": "R"
+  },
+  "Glynis Coles": {
+    "country": "gbr",
+    "hand": "R"
+  },
+  "Goulnara Fattakhetdinova": {
+    "country": "rus"
+  },
+  "Grace Kim": {
+    "country": "usa"
+  },
   "Grace Min": {
     "country": "usa",
     "hand": "R",
     "birthday": "1994-05-06"
+  },
+  "Graciela Moran": {
+    "country": "arg"
+  },
+  "Greer Stevens": {
+    "country": "rsa",
+    "hand": "R"
   },
   "Greet Minnen": {
     "country": "bel",
     "hand": "R",
     "birthday": "1997-08-14"
   },
+  "Greta Arn": {
+    "country": "hun",
+    "hand": "R"
+  },
+  "Gretchen Magers": {
+    "country": "usa",
+    "hand": "R"
+  },
   "Guiomar Zuleta De Reales Maristany": {
     "country": "esp",
     "birthday": "1999-02-19"
+  },
+  "Gussie Moran": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Gwen Stirton": {
+    "country": "aus"
+  },
+  "Habiba Ifrakh": {
+    "country": "mar"
   },
   "Hailey Baptiste": {
     "country": "usa",
     "hand": "R",
     "birthday": "2001-11-03"
   },
+  "Halle Cioffi": {
+    "country": "usa"
+  },
   "Han Shi": {
     "country": "chn",
     "hand": "R",
     "birthday": "2005-05-30"
   },
+  "Hana Fukarkova": {
+    "country": "tch"
+  },
+  "Hana Mandlikova": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Hana Sromova": {
+    "country": "cze",
+    "hand": "R"
+  },
+  "Hana Strachonova": {
+    "country": "sui",
+    "hand": "R"
+  },
   "Hanna Chang": {
     "country": "usa",
     "hand": "R",
     "birthday": "1998-02-25"
+  },
+  "Hanna Nooni": {
+    "country": "swe",
+    "hand": "R"
+  },
+  "Hannah Collin": {
+    "country": "gbr",
+    "hand": "R"
   },
   "Hannah Klugman": {
     "country": "gbr",
@@ -1063,6 +3545,10 @@
     "hand": "R",
     "birthday": "1998-05-18"
   },
+  "Hao Chen Tang": {
+    "country": "chn",
+    "hand": "R"
+  },
   "Harmony Tan": {
     "country": "fra",
     "hand": "R",
@@ -1073,14 +3559,141 @@
     "hand": "R",
     "birthday": "1996-07-28"
   },
+  "Haruka Inoue": {
+    "country": "jpn",
+    "hand": "R"
+  },
   "Hayu Kinoshita": {
     "country": "jpn",
     "birthday": "2006-10-27"
+  },
+  "Heather Crowe": {
+    "country": "usa"
+  },
+  "Heather Ludloff": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Heather Mckechnie": {
+    "country": "aus"
+  },
+  "Heather Nicholls": {
+    "country": "rsa",
+    "hand": "L"
   },
   "Heather Watson": {
     "country": "gbr",
     "hand": "R",
     "birthday": "1992-05-19"
+  },
+  "Heide Orth": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Heidi Eisterlehner": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Heidi El Tabakh": {
+    "country": "can",
+    "hand": "R"
+  },
+  "Helen Amos": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Helen Crozier": {
+    "country": "aus"
+  },
+  "Helen Gourlay": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Helen Kayser": {
+    "country": "aus"
+  },
+  "Helen Kelesi": {
+    "country": "can",
+    "hand": "R"
+  },
+  "Helen Oconnor": {
+    "country": "aus"
+  },
+  "Helen Rush": {
+    "country": "aus"
+  },
+  "Helen Sheedy": {
+    "country": "aus"
+  },
+  "Helen Taylor": {
+    "country": "aus"
+  },
+  "Helen Worland": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Helen Young": {
+    "country": "aus"
+  },
+  "Helena Anliot": {
+    "country": "swe",
+    "hand": "R"
+  },
+  "Helena Dahlstrom": {
+    "country": "swe"
+  },
+  "Helena Sukova": {
+    "country": "cze",
+    "hand": "R"
+  },
+  "Helene Cedet": {
+    "country": "fra"
+  },
+  "Helene Pelletier": {
+    "country": "can"
+  },
+  "Helga Lutten": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Helga Masthoff": {
+    "country": "frg",
+    "hand": "R"
+  },
+  "Helga Schultze": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Hellas Ter Riet": {
+    "country": "ned"
+  },
+  "Helle Sparre": {
+    "country": "den"
+  },
+  "Henrieta Nagyova": {
+    "country": "svk",
+    "hand": "R"
+  },
+  "Henrietta Habler": {
+    "country": "hun"
+  },
+  "Hester Witvoet": {
+    "country": "ned",
+    "hand": "L"
+  },
+  "Hideko Goto": {
+    "country": "jpn"
+  },
+  "Hila Rosen": {
+    "country": "isr",
+    "hand": "R"
+  },
+  "Hilary Barte": {
+    "country": "usa"
+  },
+  "Hilda Melander": {
+    "country": "swe",
+    "hand": "R"
   },
   "Himeno Sakatsume": {
     "country": "jpn",
@@ -1092,76 +3705,299 @@
     "hand": "R",
     "birthday": "2003-06-01"
   },
+  "Hiroko Kuwata": {
+    "country": "jpn",
+    "hand": "R",
+    "birthday": "1990-12-18"
+  },
+  "Hiroko Mochizuki": {
+    "country": "jpn",
+    "hand": "R"
+  },
+  "Hiromi Nagano": {
+    "country": "jpn"
+  },
+  "Ho Ching Wu": {
+    "country": "hkg",
+    "hand": "R"
+  },
+  "Holly Parkinson": {
+    "country": "usa",
+    "hand": "R"
+  },
   "Hong Yi Cody Wong": {
     "country": "hkg",
     "birthday": "2002-03-14"
+  },
+  "Hu Na": {
+    "country": "usa"
+  },
+  "Hyun Hui Hong": {
+    "country": "kor"
   },
   "Iga Swiatek": {
     "country": "pol",
     "hand": "R",
     "birthday": "2001-05-31"
   },
+  "Ilana Kloss": {
+    "country": "rsa",
+    "hand": "L"
+  },
   "Ilinca Dalina Amariei": {
     "country": "rou",
     "birthday": "2002-07-30"
   },
+  "Ilke Gers": {
+    "country": "nzl",
+    "hand": "R"
+  },
   "Ilona Georgiana Ghioroaie": {
     "birthday": "1998-03-28"
+  },
+  "Ilona Kremen": {
+    "country": "blr",
+    "hand": "R"
+  },
+  "Ilse Buding": {
+    "country": "frg",
+    "hand": "R"
+  },
+  "Immaculada Varas Caro": {
+    "country": "esp"
+  },
+  "Indy De Vroome": {
+    "country": "ned",
+    "hand": "R"
+  },
+  "Ines Ferrer Suarez": {
+    "country": "esp"
+  },
+  "Ines Gorrochategui": {
+    "country": "arg",
+    "hand": "R"
+  },
+  "Ingelise Driehuis": {
+    "country": "ned"
+  },
+  "Ingrid Bentzer": {
+    "country": "swe",
+    "hand": "R"
+  },
+  "Ingrid Loeys": {
+    "country": "bel"
+  },
+  "Ioana Minca": {
+    "country": "rou"
   },
   "Ipek Oz": {
     "country": "tur",
     "birthday": "1999-07-08"
+  },
+  "Ipek Senoglu": {
+    "country": "tur",
+    "hand": "R"
+  },
+  "Ipek Soylu": {
+    "country": "tur",
+    "hand": "R"
+  },
+  "Irena Pavlovic": {
+    "country": "fra",
+    "hand": "R"
+  },
+  "Irena Skulj": {
+    "country": "yug"
   },
   "Irene Burillo Escorihuela": {
     "country": "esp",
     "hand": "R",
     "birthday": "1997-07-23"
   },
+  "Irene Fraisse": {
+    "country": "fra"
+  },
   "Irina Bara": {
     "country": "rou",
+    "hand": "R"
+  },
+  "Irina Buryachok": {
+    "country": "ukr",
     "hand": "R"
   },
   "Irina Camelia Begu": {
     "country": "rou",
     "hand": "R"
   },
+  "Irina Falconi": {
+    "country": "usa",
+    "hand": "R",
+    "birthday": "1990-05-04"
+  },
   "Irina Khromacheva": {
     "country": "rus",
     "hand": "L",
     "birthday": "1995-05-12"
   },
+  "Irina Ramialison": {
+    "country": "fra",
+    "hand": "R"
+  },
+  "Irina Selyutina": {
+    "country": "kaz",
+    "hand": "R"
+  },
+  "Irina Spirlea": {
+    "country": "rou",
+    "hand": "R"
+  },
   "Irina-Camelia Begu": {
     "country": "rou",
     "birthday": "1990-08-26"
+  },
+  "Iris Riedel Kuhn": {
+    "country": "frg",
+    "hand": "R"
+  },
+  "Iroda Tulyaganova": {
+    "country": "uzb",
+    "hand": "R"
+  },
+  "Iryna Bremond": {
+    "country": "fra",
+    "hand": "R"
   },
   "Iryna Shymanovich": {
     "country": "blr",
     "hand": "R",
     "birthday": "1997-06-30"
   },
+  "Isabel Cueto": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Isabel Fernandez De Soto": {
+    "country": "col"
+  },
+  "Isabella Holland": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Isabella Shinikova": {
+    "country": "bul",
+    "hand": "R",
+    "birthday": "1991-10-25"
+  },
+  "Isabelle Demongeot": {
+    "country": "fra",
+    "hand": "R"
+  },
+  "Isabelle Larsson": {
+    "country": "swe"
+  },
+  "Isabelle Vernhes": {
+    "country": "fra"
+  },
+  "Isabelle Villiger": {
+    "country": "sui",
+    "hand": "R"
+  },
+  "Isha Lakhani": {
+    "country": "ind",
+    "hand": "L"
+  },
   "Isis Louise Van den Broek": {
     "country": "ned",
     "birthday": "2005-12-28",
     "hand": "R"
+  },
+  "Iva Budarova": {
+    "country": "tch"
   },
   "Iva Jovic": {
     "country": "usa",
     "hand": "R",
     "birthday": "2007-12-06"
   },
+  "Iva Majoli": {
+    "country": "cro",
+    "hand": "R"
+  },
+  "Ivana Abramovic": {
+    "country": "cro",
+    "hand": "R"
+  },
   "Ivana Jorovic": {
     "country": "srb",
     "hand": "R"
+  },
+  "Ivana Lisjak": {
+    "country": "cro",
+    "hand": "R"
+  },
+  "Ivanna Israilova": {
+    "country": "rus",
+    "hand": "R"
+  },
+  "Ivanna Madruga": {
+    "country": "arg",
+    "hand": "R"
+  },
+  "Iveta Benesova": {
+    "country": "cze",
+    "hand": "L"
+  },
+  "Iwona Kuczynska": {
+    "country": "pol"
+  },
+  "J D Griffiths": {
+    "country": "aus"
+  },
+  "Jackie Fayter": {
+    "country": "gbr"
+  },
+  "Jacqueline Cako": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Jacqueline Trail": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Jade Lewis": {
+    "country": "nzl",
+    "hand": "R"
+  },
+  "Jade Schiffman": {
+    "country": "usa"
   },
   "Jaimee Fourlis": {
     "country": "aus",
     "hand": "R",
     "birthday": "1999-09-17"
   },
+  "Jamea Jackson": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Jamie Golder": {
+    "country": "usa"
+  },
+  "Jamie Hampton": {
+    "country": "usa",
+    "hand": "R"
+  },
   "Jamie Loeb": {
     "country": "usa",
     "hand": "R",
     "birthday": "1995-03-08"
+  },
+  "Jan Lehane": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Jan Wilton": {
+    "country": "aus"
   },
   "Jana Cepelova": {
     "country": "svk",
@@ -1173,66 +4009,320 @@
     "hand": "R",
     "birthday": "1996-11-02"
   },
+  "Jana Hlavackova": {
+    "country": "cze"
+  },
+  "Jana Juricova": {
+    "country": "svk",
+    "hand": "R"
+  },
+  "Jana Kandarr": {
+    "country": "ger",
+    "hand": "R"
+  },
   "Jana Kovackova": {
     "country": "cze",
     "birthday": "2010-06-13",
     "hand": "R"
+  },
+  "Jana Nejedly": {
+    "country": "can",
+    "hand": "R"
+  },
+  "Jana Novotna": {
+    "country": "cze",
+    "hand": "R"
+  },
+  "Jana Pospisilova": {
+    "country": "cze"
+  },
+  "Jane Chi": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Jane Forman": {
+    "country": "usa"
+  },
+  "Jane Kincaid": {
+    "country": "usa"
+  },
+  "Jane Odonoghue": {
+    "country": "gbr",
+    "hand": "R"
+  },
+  "Jane Ohara": {
+    "country": "can"
+  },
+  "Jane Preyer": {
+    "country": "usa"
+  },
+  "Jane Stratton": {
+    "country": "usa"
+  },
+  "Jane Taylor": {
+    "country": "aus"
+  },
+  "Jane Wood": {
+    "country": "gbr"
+  },
+  "Jane Young": {
+    "country": "can"
+  },
+  "Janet Fallis": {
+    "country": "aus"
+  },
+  "Janet Haas": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Janet Lee": {
+    "country": "tpe",
+    "hand": "R"
+  },
+  "Janet Newberry": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Janet Young": {
+    "country": "aus"
+  },
+  "Janette Husarova": {
+    "country": "svk",
+    "hand": "R"
+  },
+  "Janice Metcalf": {
+    "country": "usa"
+  },
+  "Janice Tindle": {
+    "country": "can"
   },
   "Janice Tjen": {
     "country": "ina",
     "hand": "R",
     "birthday": "2002-05-06"
   },
+  "Janice Townsend": {
+    "country": "gbr"
+  },
+  "Janine Lieffrig": {
+    "country": "fra",
+    "hand": "R"
+  },
+  "Janine Murdoch": {
+    "country": "aus"
+  },
+  "Janine Tremelling": {
+    "country": "aus"
+  },
+  "Janine Whyte": {
+    "country": "aus"
+  },
   "Jaqueline Cristian": {
     "country": "rou",
     "hand": "R",
     "birthday": "1998-06-05"
+  },
+  "Jarmila Gajdosova": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Jaslyn Hewitt": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Jasmin Woehr": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Jasmina Tinjic": {
+    "country": "bih",
+    "hand": "R"
   },
   "Jasmine Paolini": {
     "country": "ita",
     "hand": "R",
     "birthday": "1996-01-04"
   },
+  "Jawairiah Noordin": {
+    "country": "mas",
+    "hand": "R"
+  },
   "Jazmin Ortenzi": {
     "country": "arg",
     "hand": "R",
     "birthday": "2001-11-20"
+  },
+  "Jean Forbes": {
+    "country": "rsa"
+  },
+  "Jean Hepner": {
+    "country": "usa"
+  },
+  "Jean Okada": {
+    "country": "usa"
+  },
+  "Jeanne Arth": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Jeanne Duvall": {
+    "country": "usa"
+  },
+  "Jeanne Evert": {
+    "country": "usa"
+  },
+  "Jelena Dokic": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Jelena Jankovic": {
+    "country": "srb",
+    "hand": "R"
+  },
+  "Jelena Kostanic Tosic": {
+    "country": "cro",
+    "hand": "L"
   },
   "Jelena Ostapenko": {
     "country": "lat",
     "hand": "R",
     "birthday": "1997-06-08"
   },
+  "Jelena Pandzic": {
+    "country": "cro",
+    "hand": "R"
+  },
+  "Jenifer Widjaja": {
+    "country": "bra",
+    "hand": "R"
+  },
   "Jennifer Brady": {
     "country": "usa",
     "hand": "R",
     "birthday": "1995-04-12"
+  },
+  "Jennifer Capriati": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Jennifer Elie": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Jennifer Fuchs": {
+    "country": "usa"
+  },
+  "Jennifer Goodling": {
+    "country": "usa"
+  },
+  "Jennifer Hopkins": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Jennifer Mundel": {
+    "country": "rsa",
+    "hand": "L"
   },
   "Jennifer Ruggeri": {
     "country": "ita",
     "hand": "R",
     "birthday": "2003-07-23"
   },
+  "Jennifer Santrock": {
+    "country": "usa",
+    "hand": "L"
+  },
+  "Jennifer Staley": {
+    "country": "aus",
+    "hand": "L"
+  },
+  "Jenny Byrne": {
+    "country": "aus"
+  },
+  "Jenny Dimond": {
+    "country": "aus"
+  },
   "Jenny Duerst": {
     "country": "sui",
     "birthday": "1999-03-25"
+  },
+  "Jenny Klitch": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Jenny Walker": {
+    "country": "aus"
+  },
+  "Jenny Zika": {
+    "country": "aut",
+    "hand": "R"
+  },
+  "Jeong Soon Yang": {
+    "country": "kor"
+  },
+  "Jeri Ingram": {
+    "country": "usa"
+  },
+  "Jesika Maleckova": {
+    "country": "cze",
+    "hand": "R",
+    "birthday": "1994-08-16"
   },
   "Jessica Bouzas Maneiro": {
     "country": "esp",
     "hand": "R",
     "birthday": "2002-09-24"
   },
+  "Jessica Emmons": {
+    "country": "usa"
+  },
+  "Jessica Fernandez": {
+    "country": "mex"
+  },
+  "Jessica Kirkland": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Jessica Moore": {
+    "country": "aus",
+    "hand": "R"
+  },
   "Jessica Pegula": {
     "country": "usa",
     "hand": "R",
     "birthday": "1994-02-24"
+  },
+  "Jessica Pieri": {
+    "country": "ita",
+    "hand": "R",
+    "birthday": "1997-04-24"
+  },
+  "Jessica Plazas": {
+    "country": "col",
+    "hand": "R"
+  },
+  "Jessica Steck": {
+    "country": "rsa",
+    "hand": "R"
   },
   "Jessika Ponchet": {
     "country": "fra",
     "hand": "R",
     "birthday": "1996-09-26"
   },
+  "Jewel Peterson": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Ji Hee Choi": {
+    "country": "kor",
+    "hand": "R"
+  },
   "Jia Jing Lu": {
+    "country": "chn",
+    "hand": "R"
+  },
+  "Jia Qi Kang": {
     "country": "chn",
     "hand": "R"
   },
@@ -1241,19 +4331,112 @@
     "birthday": "1989-11-18",
     "hand": "R"
   },
+  "Jie Hao": {
+    "country": "chn"
+  },
+  "Jie Zheng": {
+    "country": "chn",
+    "hand": "R"
+  },
   "Jil Teichmann": {
     "country": "sui",
     "hand": "L",
     "birthday": "1997-07-15"
+  },
+  "Jill Cooper": {
+    "country": "gbr"
+  },
+  "Jill Craybas": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Jill Davis": {
+    "country": "usa"
+  },
+  "Jill Hetherington": {
+    "country": "can",
+    "hand": "R"
+  },
+  "Jill Schwikert": {
+    "country": "usa"
+  },
+  "Jill Smoller": {
+    "country": "usa"
+  },
+  "Jin Hee Kim": {
+    "country": "kor"
+  },
+  "Jing Jing Lu": {
+    "country": "chn",
+    "hand": "R"
+  },
+  "Jing Qian Yi": {
+    "country": "chn",
+    "hand": "R"
+  },
+  "Jing Ren": {
+    "country": "chn"
+  },
+  "Jing-Jing Lu": {
+    "country": "chn",
+    "birthday": "1989-05-05"
+  },
+  "Jitka Horcickova": {
+    "country": "tch"
+  },
+  "Jo Anne Faull": {
+    "country": "aus"
+  },
+  "Jo Durie": {
+    "country": "gbr",
+    "hand": "R"
+  },
+  "Joan Johnson": {
+    "country": "usa"
+  },
+  "Joan Walker": {
+    "country": "zim"
+  },
+  "Joan Wilshere": {
+    "country": "rsa"
+  },
+  "Joana Cortez": {
+    "country": "bra",
+    "hand": "L"
   },
   "Joanna Garland": {
     "country": "tai",
     "hand": "R",
     "birthday": "2001-07-16"
   },
+  "Joanna Sakowicz Kostecka": {
+    "country": "pol",
+    "hand": "R"
+  },
+  "Joanne Limmer": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Joanne Louis": {
+    "country": "gbr"
+  },
+  "Joanne Russell": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Joanne Ward": {
+    "country": "gbr"
+  },
   "Joanne Zuger": {
     "country": "sui",
     "birthday": "2000-11-17"
+  },
+  "Joannette Kruger": {
+    "country": "rsa",
+    "hand": "R"
+  },
+  "Jodi Appelbaum": {
+    "country": "usa"
   },
   "Jodie Burrage": {
     "country": "gbr",
@@ -1268,19 +4451,98 @@
     "country": "swe",
     "hand": "R"
   },
+  "Johanne Venturino": {
+    "country": "fra"
+  },
+  "Jolene Watanabe": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Jonna Jonerup": {
+    "country": "swe"
+  },
   "Jordyn Hazelitt": {
     "country": "usa",
     "birthday": "2010-04-03"
+  },
+  "Jorgelina Cravero": {
+    "country": "arg",
+    "hand": "R"
+  },
+  "Jovana Jaksic": {
+    "country": "srb",
+    "hand": "R"
+  },
+  "Joy Schwikert": {
+    "country": "usa"
+  },
+  "Joy Tacon": {
+    "country": "hkg",
+    "hand": "R"
+  },
+  "Joyce Davenport": {
+    "country": "usa"
+  },
+  "Joyce Portman": {
+    "country": "usa"
+  },
+  "Joyce Williams": {
+    "country": "gbr"
+  },
+  "Judith Dibar": {
+    "country": "rou"
+  },
+  "Judith Salome": {
+    "country": "ned"
+  },
+  "Judith Szorenyi": {
+    "country": "hun"
+  },
+  "Judith Wiesner": {
+    "country": "aut",
+    "hand": "R"
+  },
+  "Judy Alvarez": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Judy Chaloner": {
+    "country": "nzl"
+  },
+  "Judy Congdon": {
+    "country": "gbr"
+  },
+  "Judy Dixon": {
+    "country": "usa"
+  },
+  "Judy Harris": {
+    "country": "aus"
+  },
+  "Judy Tegart": {
+    "country": "aus",
+    "hand": "R"
   },
   "Jule Niemeier": {
     "country": "ger",
     "hand": "R",
     "birthday": "1999-08-12"
   },
+  "Julia Abe": {
+    "country": "ger",
+    "hand": "R"
+  },
   "Julia Avdeeva": {
     "country": "rus",
     "hand": "R",
     "birthday": "2002-07-06"
+  },
+  "Julia Boserup": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Julia Cohen": {
+    "country": "usa",
+    "hand": "R"
   },
   "Julia Glushko": {
     "country": "isr",
@@ -1295,24 +4557,107 @@
     "hand": "R",
     "birthday": "1996-07-02"
   },
+  "Julia Middendorf": {
+    "country": "ger",
+    "hand": "R",
+    "birthday": "2003-01-31"
+  },
   "Julia Riera": {
     "country": "arg",
     "hand": "R",
     "birthday": "2002-05-29"
+  },
+  "Julia Schruff": {
+    "country": "ger",
+    "hand": "R"
   },
   "Julia Stusek": {
     "country": "ger",
     "hand": "R",
     "birthday": "2008-06-23"
   },
+  "Julia Vakulenko": {
+    "country": "ukr",
+    "hand": "R"
+  },
+  "Julie Anthony": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Julie Coin": {
+    "country": "fra",
+    "hand": "R"
+  },
+  "Julie Ditty": {
+    "country": "usa",
+    "hand": "L"
+  },
+  "Julie Gervais": {
+    "country": "fra"
+  },
+  "Julie Halard Decugis": {
+    "country": "fra",
+    "hand": "R"
+  },
+  "Julie Hanrahan": {
+    "country": "aus"
+  },
+  "Julie Harrington": {
+    "country": "usa"
+  },
+  "Julie Heldman": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Julie Pullin": {
+    "country": "gbr",
+    "hand": "L"
+  },
+  "Julie Richardson": {
+    "country": "nzl"
+  },
+  "Julie Salmon": {
+    "country": "gbr"
+  },
+  "Julie Staines": {
+    "country": "aus"
+  },
+  "Julie Steven": {
+    "country": "usa"
+  },
   "Julieta Pareja": {
     "country": "usa",
     "birthday": "2009-02-18",
     "hand": "R"
   },
+  "Junko Sawamatsu": {
+    "country": "jpn"
+  },
+  "Junri Namigata": {
+    "country": "jpn",
+    "hand": "R"
+  },
   "Justina Mikulskyte": {
     "country": "ltu",
     "birthday": "1996-02-06"
+  },
+  "Justine Henin": {
+    "country": "bel",
+    "hand": "R"
+  },
+  "Justine Hodder": {
+    "country": "aus"
+  },
+  "Jutta Diesslin": {
+    "country": "frg"
+  },
+  "Kai Chen Chang": {
+    "country": "tpe",
+    "hand": "R"
+  },
+  "Kai Lin Zhang": {
+    "country": "chn",
+    "hand": "R"
   },
   "Kaia Kanepi": {
     "country": "est",
@@ -1329,10 +4674,88 @@
     "hand": "R",
     "birthday": "2000-11-25"
   },
+  "Kamila Dadakhodjaeva": {
+    "country": "uzb",
+    "hand": "R"
+  },
+  "Kamilla Farhad": {
+    "country": "aze",
+    "hand": "R"
+  },
   "Kamilla Rakhimova": {
     "country": "uzb",
     "hand": "R",
     "birthday": "2001-08-28"
+  },
+  "Karen Barbat": {
+    "country": "den",
+    "hand": "R"
+  },
+  "Karen Castiblanco": {
+    "country": "col",
+    "hand": "L"
+  },
+  "Karen Cross": {
+    "country": "gbr",
+    "hand": "L"
+  },
+  "Karen Deed": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Karen Gulley": {
+    "country": "aus"
+  },
+  "Karen Huebner": {
+    "country": "usa"
+  },
+  "Karen Hunter": {
+    "country": "gbr"
+  },
+  "Karen Krantzcke": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Karen Schimper": {
+    "country": "rsa"
+  },
+  "Karen Susman": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Karin Knapp": {
+    "country": "ita",
+    "hand": "R"
+  },
+  "Karin Kschwendt": {
+    "country": "aut",
+    "hand": "R"
+  },
+  "Karin Miller": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Karina Habsudova": {
+    "country": "svk",
+    "hand": "R"
+  },
+  "Karine Quentrec": {
+    "country": "fra"
+  },
+  "Karman Thandi": {
+    "country": "ind",
+    "hand": "R"
+  },
+  "Karolina Jagieniak": {
+    "country": "fra"
+  },
+  "Karolina Karlsson": {
+    "country": "swe",
+    "hand": "R"
+  },
+  "Karolina Kosinska": {
+    "country": "pol",
+    "hand": "R"
   },
   "Karolina Muchova": {
     "country": "cze",
@@ -1348,6 +4771,29 @@
     "birthday": "1992-03-21",
     "hand": "R"
   },
+  "Karolina Sprem": {
+    "country": "cro",
+    "hand": "R"
+  },
+  "Katalin Borka": {
+    "country": "hun"
+  },
+  "Katalin Marosi": {
+    "country": "hun",
+    "hand": "R"
+  },
+  "Katarina Kachlikova": {
+    "country": "svk",
+    "hand": "R"
+  },
+  "Katarina Srebotnik": {
+    "country": "slo",
+    "hand": "R"
+  },
+  "Katarina Studenikova": {
+    "country": "svk",
+    "hand": "R"
+  },
   "Katarina Zavatska": {
     "country": "ukr",
     "hand": "R",
@@ -1358,14 +4804,49 @@
     "hand": "R",
     "birthday": "1992-11-17"
   },
+  "Katarzyna Nowak": {
+    "country": "pol"
+  },
+  "Katarzyna Piter": {
+    "country": "pol",
+    "hand": "R",
+    "birthday": "1991-02-16"
+  },
+  "Kate Brasher": {
+    "country": "gbr"
+  },
+  "Kate Gompert": {
+    "country": "usa"
+  },
+  "Kate Latham": {
+    "country": "usa",
+    "hand": "R"
+  },
   "Kate Makarova": {
     "country": "rus",
     "hand": "L"
+  },
+  "Kate Mcdonald": {
+    "country": "aus"
+  },
+  "Katerina Bohmova": {
+    "country": "cze",
+    "hand": "L"
+  },
+  "Katerina Kroupova": {
+    "country": "cze"
+  },
+  "Katerina Maleeva": {
+    "country": "bul",
+    "hand": "R"
   },
   "Katerina Siniakova": {
     "country": "cze",
     "hand": "R",
     "birthday": "1996-05-10"
+  },
+  "Katerleen Szeman": {
+    "country": "hun"
   },
   "Kateryna Baindl": {
     "country": "ukr",
@@ -1378,6 +4859,15 @@
   },
   "Kateryna Volodko": {
     "birthday": "1986-08-08"
+  },
+  "Katharina Gerlach": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Katharina Hobgarski": {
+    "country": "ger",
+    "hand": "R",
+    "birthday": "1997-06-18"
   },
   "Katherine Sebov": {
     "country": "can",
@@ -1393,10 +4883,70 @@
     "country": "lie",
     "hand": "R"
   },
+  "Kathleen Cummings": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Kathleen Harter": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Kathrin Keil": {
+    "country": "usa"
+  },
+  "Kathrin Woerle": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Kathy Blake": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Kathy Horvath": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Kathy Jordan": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Kathy Kraft": {
+    "country": "usa"
+  },
+  "Kathy Kuykendall": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Kathy May": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Kathy Rinaldi Stunkel": {
+    "country": "usa"
+  },
+  "Kathy Walker": {
+    "country": "aus"
+  },
+  "Katia Piccolini": {
+    "country": "ita",
+    "hand": "R"
+  },
   "Katie Boulter": {
     "country": "gbr",
     "hand": "R",
     "birthday": "1996-08-01"
+  },
+  "Katie Obrien": {
+    "country": "gbr",
+    "hand": "R"
+  },
+  "Katie Rickett": {
+    "country": "gbr",
+    "hand": "R"
+  },
+  "Katie Schlukebir": {
+    "country": "usa",
+    "hand": "R"
   },
   "Katie Swan": {
     "country": "gbr",
@@ -1408,6 +4958,21 @@
     "hand": "R",
     "birthday": "2001-12-31"
   },
+  "Katja Ebbinghaus": {
+    "country": "frg",
+    "hand": "R"
+  },
+  "Katja Oeljeklaus": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Katrina Adams": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Katrina Nimmers": {
+    "country": "usa"
+  },
   "Katrina Scott": {
     "country": "usa",
     "hand": "R",
@@ -1417,6 +4982,21 @@
     "country": "gbr",
     "hand": "R",
     "birthday": "1995-02-16"
+  },
+  "Kay Mcdaniel": {
+    "country": "usa"
+  },
+  "Kay Williams": {
+    "country": "aus"
+  },
+  "Kaye Dening": {
+    "country": "aus"
+  },
+  "Kaye Hallam": {
+    "country": "aus"
+  },
+  "Kaye Marfini Hand": {
+    "country": "gbr"
   },
   "Kayla Cross": {
     "country": "can",
@@ -1428,9 +5008,59 @@
     "hand": "L",
     "birthday": "1999-09-28"
   },
+  "Kayoko Fukuoka": {
+    "country": "jpn"
+  },
+  "Kazuko Sawamatsu": {
+    "country": "jpn"
+  },
+  "Kelly Henry": {
+    "country": "usa"
+  },
+  "Kelly Liggan": {
+    "country": "irl",
+    "hand": "R"
+  },
+  "Kelly Mccain": {
+    "country": "usa",
+    "hand": "R"
+  },
   "Kennedy Drenser-Hagmann": {
     "country": "usa",
     "birthday": "2009-04-03"
+  },
+  "Keri Phebus": {
+    "country": "usa"
+  },
+  "Kerry Anne Guse": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Kerry Ballard": {
+    "country": "aus"
+  },
+  "Kerry Harris": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Kerry Neill": {
+    "country": "aus"
+  },
+  "Kerry Reid": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Kerry Wilkinson": {
+    "country": "aus"
+  },
+  "Kerryl Chute": {
+    "country": "aus"
+  },
+  "Kerstin Seelbach": {
+    "country": "frg"
+  },
+  "Keryn Pratt": {
+    "country": "aus"
   },
   "Kiki Bertens": {
     "country": "ned",
@@ -1440,13 +5070,84 @@
     "country": "bel",
     "hand": "R"
   },
+  "Kim De Weille": {
+    "country": "ned"
+  },
+  "Kim Jones": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Kim Sands": {
+    "country": "usa"
+  },
+  "Kim Staunton": {
+    "country": "aus"
+  },
+  "Kim Steinmetz": {
+    "country": "usa"
+  },
   "Kimberly Birrell": {
     "country": "aus",
     "hand": "R",
     "birthday": "1998-04-29"
   },
+  "Kimberly Kessaris": {
+    "country": "usa"
+  },
+  "Kimberly Po Messerli": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Kimiko Date Krumm": {
+    "country": "jpn",
+    "hand": "R"
+  },
+  "Kimiyo Hatanaka": {
+    "country": "jpn"
+  },
+  "Kimiyo Yagahara": {
+    "country": "jpn"
+  },
+  "Kinnie Laisne": {
+    "country": "fra",
+    "hand": "R"
+  },
+  "Kirrily Sharpe": {
+    "country": "aus",
+    "hand": "L"
+  },
   "Kirsten Flipkens": {
     "country": "bel",
+    "hand": "R"
+  },
+  "Kirsten Flower": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Kiyoko Nomura": {
+    "country": "jpn"
+  },
+  "Klaartje Liebens": {
+    "country": "bel",
+    "hand": "R"
+  },
+  "Klara Koukalova": {
+    "country": "cze",
+    "hand": "R"
+  },
+  "Klaudia Jans Ignacik": {
+    "country": "pol",
+    "hand": "R"
+  },
+  "Komola Umarova": {
+    "country": "uzb",
+    "hand": "R"
+  },
+  "Kora Schediwy": {
+    "country": "frg"
+  },
+  "Kristen Schlukebir": {
+    "country": "usa",
     "hand": "R"
   },
   "Kristiana Sidorova": {
@@ -1455,6 +5156,31 @@
   },
   "Kristie Ahn": {
     "country": "usa",
+    "hand": "R"
+  },
+  "Kristie Boogert": {
+    "country": "ned",
+    "hand": "R"
+  },
+  "Kristien Shaw": {
+    "country": "usa",
+    "hand": "L"
+  },
+  "Kristin Godridge": {
+    "country": "hkg"
+  },
+  "Kristin Kinney": {
+    "country": "usa"
+  },
+  "Kristina Antoniychuk": {
+    "country": "ukr"
+  },
+  "Kristina Barrois": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Kristina Brandi": {
+    "country": "pur",
     "hand": "R"
   },
   "Kristina Kucova": {
@@ -1471,37 +5197,155 @@
     "hand": "R",
     "birthday": "1993-05-14"
   },
+  "Kristina Schmiedlova": {
+    "country": "svk",
+    "hand": "R"
+  },
+  "Kristine Kunce": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Kristy Pigeon": {
+    "country": "usa",
+    "hand": "L"
+  },
   "Kristyna Pliskova": {
     "country": "cze",
     "hand": "L"
+  },
+  "Ksenia Gaydarzhi": {
+    "country": "rus",
+    "hand": "R"
   },
   "Ksenia Laskutova": {
     "country": "rus",
     "hand": "R",
     "birthday": "1996-08-29"
   },
+  "Ksenia Lykina": {
+    "country": "rus",
+    "hand": "R"
+  },
+  "Ksenia Milevskaya": {
+    "country": "blr",
+    "hand": "R"
+  },
+  "Ksenia Palkina": {
+    "country": "kgz",
+    "hand": "R"
+  },
+  "Ksenia Pervak": {
+    "country": "kaz",
+    "hand": "L"
+  },
+  "Kumiko Okamoto": {
+    "country": "jpn"
+  },
   "Kurumi Nara": {
     "country": "jpn",
     "hand": "R"
+  },
+  "Kveta Peschke": {
+    "country": "cze",
+    "hand": "R"
+  },
+  "Kwan Yau Ng": {
+    "country": "hkg"
+  },
+  "Kym Ruddell": {
+    "country": "aus"
   },
   "Kyoka Okamura": {
     "country": "jpn",
     "hand": "R",
     "birthday": "1995-10-06"
   },
+  "Kyoko Nagatsuka": {
+    "country": "jpn"
+  },
+  "Kyra Nagy": {
+    "country": "hun",
+    "hand": "R"
+  },
+  "Kyra Shroff": {
+    "country": "ind",
+    "hand": "R"
+  },
+  "Kyung Mi Chang": {
+    "country": "kor"
+  },
+  "L Cameron": {
+    "country": "aus"
+  },
+  "L Griffiths": {
+    "country": "aus"
+  },
+  "Lamia Essaadi": {
+    "country": "mar",
+    "hand": "R"
+  },
+  "Lana Popadic": {
+    "country": "cro"
+  },
   "Lanlana Tararudee": {
     "country": "tha",
     "hand": "R",
     "birthday": "2004-07-07"
   },
+  "Lany Kaligis": {
+    "country": "ina"
+  },
   "Lara Arruabarrena": {
     "country": "esp",
     "hand": "R"
+  },
+  "Larisa Savchenko": {
+    "country": "urs"
+  },
+  "Laura Arraya": {
+    "country": "per",
+    "hand": "R"
+  },
+  "Laura Bernstein": {
+    "country": "usa"
+  },
+  "Laura Dupont": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Laura Garrone": {
+    "country": "ita",
+    "hand": "R"
+  },
+  "Laura Golarsa": {
+    "country": "ita",
+    "hand": "R"
+  },
+  "Laura Granville": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Laura Ioana Andrei": {
+    "country": "rou",
+    "hand": "R"
+  },
+  "Laura Lapi": {
+    "country": "ita"
   },
   "Laura Pigossi": {
     "country": "bra",
     "hand": "R",
     "birthday": "1994-08-02"
+  },
+  "Laura Pous Tio": {
+    "country": "esp"
+  },
+  "Laura Robson": {
+    "country": "gbr",
+    "hand": "L"
+  },
+  "Laura Rossouw": {
+    "country": "rsa"
   },
   "Laura Samson": {
     "country": "cze",
@@ -1513,23 +5357,130 @@
     "hand": "R",
     "birthday": "1988-03-04"
   },
+  "Laura Thorpe": {
+    "country": "fra",
+    "hand": "R"
+  },
+  "Lauren Albanese": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Lauren Breadmore": {
+    "country": "aus"
+  },
   "Lauren Davis": {
     "country": "usa",
     "hand": "R",
     "birthday": "1993-10-09"
+  },
+  "Lauren Embree": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Laurence Andretto": {
+    "country": "fra",
+    "hand": "R"
+  },
+  "Laurence Courtois": {
+    "country": "bel",
+    "hand": "R"
+  },
+  "Laurie Fleming": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Laurie Tenney": {
+    "country": "usa"
+  },
+  "Lavinia Tananta": {
+    "country": "ina",
+    "hand": "R"
+  },
+  "Laxmi Poruri": {
+    "country": "usa"
+  },
+  "Lea Antonoplis": {
+    "country": "usa",
+    "hand": "R"
   },
   "Lea Boskovic": {
     "country": "cro",
     "hand": "R",
     "birthday": "1999-09-22"
   },
+  "Lea Ghirardi": {
+    "country": "fra",
+    "hand": "R"
+  },
+  "Lea Pericoli": {
+    "country": "ita",
+    "hand": "R"
+  },
+  "Lea Plchova": {
+    "country": "tch"
+  },
+  "Leanne Baker": {
+    "country": "nzl",
+    "hand": "L"
+  },
+  "Leanne Harrison Austin": {
+    "country": "aus",
+    "hand": "L"
+  },
+  "Leigh Anne Eldredge": {
+    "country": "usa"
+  },
+  "Leigh Anne Thompson": {
+    "country": "usa"
+  },
+  "Leila Meskhi": {
+    "country": "geo",
+    "hand": "R"
+  },
+  "Lele Forood": {
+    "country": "usa"
+  },
   "Lena Papadakis": {
     "birthday": "1998-08-23"
+  },
+  "Lena Rueffer": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Lena Sandin": {
+    "country": "swe"
+  },
+  "Lenka Cenkova": {
+    "country": "cze",
+    "hand": "R"
+  },
+  "Lenka Dlhopolcova": {
+    "country": "svk",
+    "hand": "R"
+  },
+  "Lenka Jurikova": {
+    "country": "svk",
+    "hand": "R"
+  },
+  "Lenka Nemeckova": {
+    "country": "cze",
+    "hand": "R"
+  },
+  "Lenka Tvaroskova": {
+    "country": "svk",
+    "hand": "R"
+  },
+  "Lenka Wienerova": {
+    "country": "svk",
+    "hand": "R"
   },
   "Leolia Jeanjean": {
     "country": "fra",
     "hand": "R",
     "birthday": "1995-08-14"
+  },
+  "Leona Laskova": {
+    "country": "cze"
   },
   "Leonie Kung": {
     "country": "sui",
@@ -1540,10 +5491,38 @@
     "hand": "R",
     "birthday": "1989-05-30"
   },
+  "Lesley Charles": {
+    "country": "gbr"
+  },
+  "Lesley Hunt": {
+    "country": "aus",
+    "hand": "R"
+  },
   "Lesley Pattinama Kerkhove": {
     "country": "ned",
     "hand": "R",
     "birthday": "1991-11-04"
+  },
+  "Lesley Turner": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Leslie Allen": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Leslie Koffi": {
+    "country": "usa"
+  },
+  "Leslie Walker": {
+    "country": "aus"
+  },
+  "Leticia Costas": {
+    "country": "esp",
+    "hand": "L"
+  },
+  "Lexie Kenny": {
+    "country": "aus"
   },
   "Leylah Fernandez": {
     "country": "can",
@@ -1555,9 +5534,44 @@
     "hand": "L",
     "birthday": "2002-04-06"
   },
+  "Li Ling Chen": {
+    "country": "chn"
+  },
   "Lia Karatancheva": {
     "country": "bul",
     "birthday": "2003-09-08"
+  },
+  "Liana Gabriela Ungur": {
+    "country": "rou"
+  },
+  "Libuse Prusova": {
+    "country": "cze",
+    "hand": "R"
+  },
+  "Lidy Venneboer": {
+    "country": "ned"
+  },
+  "Liezel Huber": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Liga Dekmeijere": {
+    "country": "lat",
+    "hand": "R"
+  },
+  "Lilia Biktyakova": {
+    "country": "uzb",
+    "hand": "L"
+  },
+  "Lilia Osterloh": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Lilian Drescher": {
+    "country": "sui"
+  },
+  "Liliana Giussani": {
+    "country": "arg"
   },
   "Lilli Tagger": {
     "country": "aut",
@@ -1573,6 +5587,10 @@
     "hand": "R",
     "birthday": "1994-01-28"
   },
+  "Lina Bennani": {
+    "country": "mar",
+    "hand": "R"
+  },
   "Lina Gjorcheska": {
     "country": "mkd",
     "hand": "R",
@@ -1582,25 +5600,152 @@
     "country": "isr",
     "birthday": "2000-01-12"
   },
+  "Lina Krasnoroutskaya": {
+    "country": "rus",
+    "hand": "R"
+  },
+  "Lina Qostal": {
+    "country": "mar",
+    "hand": "R"
+  },
+  "Lina Stanciute": {
+    "country": "ltu",
+    "hand": "R"
+  },
+  "Linda Cassell": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Linda Ferrando": {
+    "country": "ita"
+  },
   "Linda Fruhvirtova": {
     "country": "cze",
     "hand": "R",
     "birthday": "2005-05-01"
+  },
+  "Linda Gates": {
+    "country": "usa"
+  },
+  "Linda Geeves": {
+    "country": "gbr"
+  },
+  "Linda Howell": {
+    "country": "usa"
   },
   "Linda Klimovicova": {
     "country": "pol",
     "hand": "R",
     "birthday": "2004-06-18"
   },
+  "Linda Mottram": {
+    "country": "gbr",
+    "hand": "R"
+  },
   "Linda Noskova": {
     "country": "cze",
     "hand": "R",
     "birthday": "2004-11-17"
   },
+  "Linda Siegel": {
+    "country": "usa"
+  },
+  "Linda Thomas": {
+    "country": "usa"
+  },
+  "Linda Tuero": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Linda Wild": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Lindsay Bartlett": {
+    "country": "usa"
+  },
+  "Lindsay Blachford": {
+    "country": "gbr"
+  },
+  "Lindsay Davenport": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Lindsay Lee Waters": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Lindsay Morse": {
+    "country": "usa"
+  },
+  "Lindsey Beaven": {
+    "country": "gbr",
+    "hand": "R"
+  },
+  "Lindsey Nelson": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Ling Zhang": {
+    "country": "hkg",
+    "hand": "R"
+  },
+  "Linky Boshoff": {
+    "country": "rsa",
+    "hand": "R"
+  },
+  "Lioudmila Skavronskaia": {
+    "country": "rus",
+    "hand": "R"
+  },
+  "Lisa Bonder Kreiss": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Lisa Doherty": {
+    "country": "usa"
+  },
+  "Lisa Fleming": {
+    "country": "usa"
+  },
+  "Lisa Gould": {
+    "country": "gbr",
+    "hand": "R"
+  },
+  "Lisa Green": {
+    "country": "usa"
+  },
+  "Lisa Maria Moser": {
+    "country": "aut",
+    "hand": "R"
+  },
+  "Lisa Mcshea": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Lisa Oneill": {
+    "country": "aus"
+  },
   "Lisa Pigato": {
     "country": "ita",
     "hand": "R",
     "birthday": "2003-06-21"
+  },
+  "Lisa Raymond": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Lisa Spain Short": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Lise Gregory": {
+    "country": "rsa",
+    "hand": "L"
+  },
+  "Lita Liem": {
+    "country": "ina",
+    "hand": "L"
   },
   "Liudmila Samsonova": {
     "country": "rus",
@@ -1611,30 +5756,113 @@
     "country": "usa",
     "birthday": "2005-10-25"
   },
+  "Liz Gordon": {
+    "country": "rsa"
+  },
+  "Liz Smylie": {
+    "country": "aus",
+    "hand": "R"
+  },
   "Lizette Cabrera": {
     "country": "aus",
     "hand": "R",
     "birthday": "1997-12-19"
+  },
+  "Lizzy Jelfs": {
+    "country": "gbr"
   },
   "Lois Boisson": {
     "country": "fra",
     "hand": "R",
     "birthday": "2003-05-16"
   },
+  "Lois Raymond": {
+    "country": "aus"
+  },
+  "Lori Mcneil": {
+    "country": "usa"
+  },
+  "Loris Butterfield": {
+    "country": "aus"
+  },
+  "Lorna Cornell": {
+    "country": "gbr"
+  },
+  "Lorna Woodroffe": {
+    "country": "gbr"
+  },
+  "Lorraine Coghlan": {
+    "country": "aus"
+  },
+  "Lotta Stenberg": {
+    "country": "swe"
+  },
   "Louisa Chirico": {
     "country": "usa",
     "hand": "R",
     "birthday": "1996-05-16"
+  },
+  "Louise Allen": {
+    "country": "usa"
+  },
+  "Louise Field": {
+    "country": "aus"
+  },
+  "Louise Gonnerman": {
+    "country": "usa"
+  },
+  "Louise Latimer": {
+    "country": "gbr",
+    "hand": "R"
+  },
+  "Louise Stacey": {
+    "country": "aus"
+  },
+  "Lourdes Dominguez Lino": {
+    "country": "esp",
+    "hand": "R"
+  },
+  "Lubka Radkova": {
+    "country": "bul"
+  },
+  "Lubomira Bacheva": {
+    "country": "bul",
+    "hand": "R"
+  },
+  "Lubomira Kurhajcova": {
+    "country": "svk",
+    "hand": "R"
+  },
+  "Lucia Bassi": {
+    "country": "ita"
+  },
+  "Lucia Batta": {
+    "country": "hun",
+    "hand": "R"
   },
   "Lucia Bronzetti": {
     "country": "ita",
     "hand": "R",
     "birthday": "1998-12-10"
   },
+  "Lucia Romanov": {
+    "country": "rou"
+  },
+  "Luciana Corsato Owsianka": {
+    "country": "bra"
+  },
+  "Lucie Ahl": {
+    "country": "gbr",
+    "hand": "R"
+  },
   "Lucie Havlickova": {
     "country": "cze",
     "hand": "R",
     "birthday": "2005-03-13"
+  },
+  "Lucie Hradecka": {
+    "country": "cze",
+    "hand": "R"
   },
   "Lucie Safarova": {
     "country": "cze",
@@ -1655,6 +5883,25 @@
     "hand": "R",
     "birthday": "1998-05-15"
   },
+  "Lucy Gordon": {
+    "country": "usa"
+  },
+  "Ludmila Cervanova": {
+    "country": "svk",
+    "hand": "R"
+  },
+  "Ludmila Richterova": {
+    "country": "cze"
+  },
+  "Ludmilla Varmuza": {
+    "country": "smr",
+    "hand": "L"
+  },
+  "Luisa Stefani": {
+    "country": "bra",
+    "hand": "R",
+    "birthday": "1997-08-09"
+  },
   "Luiza Fullana": {
     "country": "bra",
     "birthday": "2001-04-09"
@@ -1673,15 +5920,43 @@
     "country": "mex",
     "birthday": "2007-07-24"
   },
+  "Lydia Steinbach": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Lydie Van Hille": {
+    "country": "fra"
+  },
+  "Lynette Mansfield": {
+    "country": "aus"
+  },
+  "Lynn Epstein": {
+    "country": "usa"
+  },
+  "Lynne Nette": {
+    "country": "aus"
+  },
+  "Lyudmyla Kichenok": {
+    "country": "ukr",
+    "hand": "R",
+    "birthday": "1992-07-20"
+  },
   "M. Betova": {
     "country": "rus"
   },
   "M. Kessler": {
     "birthday": "1996-07-18"
   },
+  "Maaike Koutstaal": {
+    "country": "ned"
+  },
   "Maaya Rajeshwaran Revathi": {
     "country": "ind",
     "birthday": "2009-06-12"
+  },
+  "Madalina Gojnea": {
+    "country": "rou",
+    "hand": "R"
   },
   "Maddison Inglis": {
     "country": "aus",
@@ -1698,29 +5973,105 @@
     "hand": "R",
     "birthday": "1995-02-17"
   },
+  "Maeve Quinlan": {
+    "country": "usa"
+  },
+  "Magali De Lattre": {
+    "country": "por",
+    "hand": "R"
+  },
+  "Magali Lamarre": {
+    "country": "fra"
+  },
   "Magda Linette": {
     "country": "pol",
     "hand": "R",
     "birthday": "1992-02-12"
+  },
+  "Magda Mihalache": {
+    "country": "rou",
+    "hand": "R"
+  },
+  "Magdalena Feistel": {
+    "country": "pol"
   },
   "Magdalena Frech": {
     "country": "pol",
     "hand": "R",
     "birthday": "1997-12-15"
   },
+  "Magdalena Grzybowska": {
+    "country": "pol",
+    "hand": "R"
+  },
+  "Magdalena Kiszczynska": {
+    "country": "pol",
+    "hand": "R"
+  },
+  "Magdalena Kucerova": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Magdalena Maleeva": {
+    "country": "bul",
+    "hand": "R"
+  },
   "Magdalena Rybarikova": {
     "country": "svk",
     "hand": "R"
+  },
+  "Magui Serna": {
+    "country": "esp",
+    "hand": "L"
   },
   "Mai Hontama": {
     "country": "jpn",
     "hand": "R",
     "birthday": "1999-08-30"
   },
+  "Maia Lumsden": {
+    "country": "gbr",
+    "hand": "R",
+    "birthday": "1998-01-10"
+  },
+  "Maider Laval": {
+    "country": "fra"
+  },
+  "Maika Ozaki": {
+    "country": "jpn"
+  },
+  "Maileen Nuudi": {
+    "country": "est",
+    "hand": "R",
+    "birthday": "2000-05-24"
+  },
+  "Mailyne Andrieux": {
+    "country": "fra",
+    "hand": "R"
+  },
+  "Maite Gabarrus Alonso": {
+    "country": "esp",
+    "hand": "R"
+  },
   "Maja Chwalinska": {
     "country": "pol",
     "hand": "L",
     "birthday": "2001-10-11"
+  },
+  "Maja Matevzic": {
+    "country": "slo",
+    "hand": "L"
+  },
+  "Maja Palaversic": {
+    "country": "cro",
+    "hand": "R"
+  },
+  "Maja Zivec Skulj": {
+    "country": "ger"
+  },
+  "Maki Arai": {
+    "country": "jpn",
+    "hand": "R"
   },
   "Malaika Rapolu": {
     "country": "usa",
@@ -1729,6 +6080,22 @@
   "Malak El Allami": {
     "country": "mar",
     "birthday": "2006-07-28"
+  },
+  "Mallory Burdette": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Mallory Cecil": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Malou Ejdesgaard": {
+    "country": "den",
+    "hand": "R"
+  },
+  "Mana Endo": {
+    "country": "jpn",
+    "hand": "R"
   },
   "Mananchaya Sawangkaew": {
     "country": "tha",
@@ -1739,6 +6106,85 @@
     "country": "lux",
     "hand": "R"
   },
+  "Mandy Morgan": {
+    "country": "aus"
+  },
+  "Manisha Malhotra": {
+    "country": "ind",
+    "hand": "R"
+  },
+  "Manon Arcangioli": {
+    "country": "fra",
+    "hand": "R"
+  },
+  "Manon Bollegraf": {
+    "country": "ned",
+    "hand": "R"
+  },
+  "Manuela Maleeva Fragniere": {
+    "country": "sui",
+    "hand": "R"
+  },
+  "Mara Santangelo": {
+    "country": "ita",
+    "hand": "R"
+  },
+  "Marcela Skuherska": {
+    "country": "tch"
+  },
+  "Marcela Zacarias": {
+    "country": "mex",
+    "hand": "R",
+    "birthday": "1994-03-26"
+  },
+  "Marcella Mesker": {
+    "country": "ned"
+  },
+  "Marcie Louie": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Marcy Okeefe": {
+    "country": "usa"
+  },
+  "Mareen Louie Harper": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Maret Ani": {
+    "country": "est",
+    "hand": "R"
+  },
+  "Margalita Chakhnashvili": {
+    "country": "geo",
+    "hand": "R"
+  },
+  "Margaret Cooper": {
+    "country": "usa"
+  },
+  "Margaret Court": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Margaret Harris": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Margaret Lee": {
+    "country": "gbr"
+  },
+  "Margaret Riley": {
+    "country": "usa"
+  },
+  "Margaret Starr": {
+    "country": "aus"
+  },
+  "Margareta Strandberg": {
+    "country": "swe"
+  },
+  "Margarita De Zuleta": {
+    "country": "chi"
+  },
   "Margarita Gasparyan": {
     "country": "rus",
     "hand": "R"
@@ -1748,32 +6194,159 @@
     "hand": "R",
     "birthday": "2001-03-22"
   },
+  "Margit Ruutel": {
+    "country": "est",
+    "hand": "R"
+  },
+  "Mari Osaka": {
+    "country": "jpn",
+    "hand": "R"
+  },
+  "Maria Abramovic": {
+    "country": "cro",
+    "hand": "R"
+  },
+  "Maria Bueno": {
+    "country": "bra",
+    "hand": "R"
+  },
   "Maria Camila Torres Murcia": {
     "country": "col",
     "hand": "L",
     "birthday": "2002-11-10"
   },
+  "Maria Chakarova": {
+    "country": "bul"
+  },
+  "Maria Christine Damas": {
+    "country": "fra"
+  },
+  "Maria Cristina Borba Dias": {
+    "country": "bra"
+  },
+  "Maria Ekstrand": {
+    "country": "swe"
+  },
+  "Maria Elena Camerin": {
+    "country": "ita",
+    "hand": "R"
+  },
+  "Maria Emilia Salerni": {
+    "country": "arg",
+    "hand": "R"
+  },
+  "Maria Eugenia Guzman": {
+    "country": "ecu"
+  },
+  "Maria Fernanda Alves": {
+    "country": "bra",
+    "hand": "L"
+  },
+  "Maria Fernanda Herazo Gonzalez": {
+    "country": "col",
+    "hand": "L"
+  },
+  "Maria Francesca Bentivoglio": {
+    "country": "ita",
+    "hand": "R"
+  },
+  "Maria Geznenge": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Maria Goloviznina": {
+    "country": "rus",
+    "hand": "R"
+  },
+  "Maria Irigoyen": {
+    "country": "arg",
+    "hand": "L"
+  },
+  "Maria Joao Koehler": {
+    "country": "por"
+  },
+  "Maria Jose Argeri": {
+    "country": "arg",
+    "hand": "R"
+  },
+  "Maria Jose Gaidano": {
+    "country": "arg"
+  },
+  "Maria Jose Lopez Herrera": {
+    "country": "mex",
+    "hand": "R"
+  },
+  "Maria Jose Martinez Sanchez": {
+    "country": "esp",
+    "hand": "L"
+  },
   "Maria Jose Sanchez Uribe": {
     "country": "col",
     "birthday": "2008-08-13"
+  },
+  "Maria Kirilenko": {
+    "country": "rus",
+    "hand": "R"
+  },
+  "Maria Kondratieva": {
+    "country": "rus",
+    "hand": "R"
+  },
+  "Maria Lindstrom": {
+    "country": "swe"
   },
   "Maria Lourdes Carle": {
     "country": "arg",
     "hand": "R",
     "birthday": "2000-02-10"
   },
+  "Maria Luciana Reynares": {
+    "country": "arg"
+  },
   "Maria Mateas": {
     "country": "usa",
     "hand": "R",
     "birthday": "1999-07-21"
+  },
+  "Maria Mokh": {
+    "country": "rus",
+    "hand": "R"
+  },
+  "Maria Paulina Perez Garcia": {
+    "country": "col",
+    "hand": "R",
+    "birthday": "1996-01-10"
   },
   "Maria Sakkari": {
     "country": "gre",
     "hand": "R",
     "birthday": "1995-07-25"
   },
+  "Maria Sanchez": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Maria Sanchez Lorenzo": {
+    "country": "esp",
+    "hand": "R"
+  },
   "Maria Sharapova": {
     "country": "rus",
+    "hand": "R"
+  },
+  "Maria Strandlund Tomsvik": {
+    "country": "swe"
+  },
+  "Maria Teresa Nasuelli": {
+    "country": "ita",
+    "hand": "R"
+  },
+  "Maria Teresa Riedl": {
+    "country": "ita",
+    "hand": "R"
+  },
+  "Maria Teresa Torro Flor": {
+    "country": "esp",
     "hand": "R"
   },
   "Maria Timofeeva": {
@@ -1781,10 +6354,40 @@
     "hand": "R",
     "birthday": "2003-11-18"
   },
+  "Maria Vanina Garcia Sokol": {
+    "country": "arg",
+    "hand": "R"
+  },
+  "Maria Vento Kabchi": {
+    "country": "ven",
+    "hand": "R"
+  },
+  "Maria Victoria Baldovinos Cibeira": {
+    "country": "esp"
+  },
+  "Maria Wolfbrandt": {
+    "country": "swe",
+    "hand": "R"
+  },
+  "Mariaan De Swardt": {
+    "country": "rsa",
+    "hand": "R"
+  },
   "Mariam Bolkvadze": {
     "country": "geo",
     "hand": "L",
     "birthday": "1998-01-01"
+  },
+  "Mariam Ramon Climent": {
+    "country": "esp"
+  },
+  "Mariana Correa": {
+    "country": "ecu",
+    "hand": "R"
+  },
+  "Mariana Diaz Oliva": {
+    "country": "arg",
+    "hand": "R"
   },
   "Mariana Duque Marino": {
     "country": "col",
@@ -1794,9 +6397,35 @@
     "country": "col",
     "birthday": "2007-06-14"
   },
+  "Mariana Mesa": {
+    "country": "col",
+    "hand": "R"
+  },
+  "Mariana Perez Roldan": {
+    "country": "arg"
+  },
+  "Mariana Simionescu": {
+    "country": "rou",
+    "hand": "R"
+  },
+  "Marianna Brummer": {
+    "country": "rsa"
+  },
   "Marianne Argyrokastriti": {
     "country": "gre",
     "birthday": "2001-10-01"
+  },
+  "Marianne Groat": {
+    "country": "can"
+  },
+  "Marianne Van Der Torre": {
+    "country": "ned"
+  },
+  "Marianne Werdel Witmeyer": {
+    "country": "usa"
+  },
+  "Maricaye Christenson": {
+    "country": "usa"
   },
   "Marie Benoit": {
     "country": "bel",
@@ -1807,6 +6436,61 @@
     "country": "cze",
     "hand": "R",
     "birthday": "1998-07-21"
+  },
+  "Marie Christine Calleja": {
+    "country": "fra"
+  },
+  "Marie Eve Pelletier": {
+    "country": "can",
+    "hand": "R"
+  },
+  "Marie Gaiane Mikaelian": {
+    "country": "sui",
+    "hand": "R"
+  },
+  "Marie Pinterova": {
+    "country": "hun",
+    "hand": "R"
+  },
+  "Mariette Pakker": {
+    "country": "ned"
+  },
+  "Mariia Tkacheva": {
+    "country": "rus",
+    "hand": "R",
+    "birthday": "2001-12-17"
+  },
+  "Marijke Jansen": {
+    "country": "ned"
+  },
+  "Marilyn Aschner": {
+    "country": "usa",
+    "hand": "L"
+  },
+  "Marilyn Greenwood": {
+    "country": "gbr"
+  },
+  "Marilyn Pryde": {
+    "country": "nzl",
+    "hand": "R"
+  },
+  "Marilyn Tesch": {
+    "country": "aus"
+  },
+  "Marina Bassols Ribera": {
+    "country": "esp",
+    "hand": "R"
+  },
+  "Marina Chuvirina": {
+    "country": "urs"
+  },
+  "Marina Erakovic": {
+    "country": "nzl",
+    "hand": "R"
+  },
+  "Marina Kroschina": {
+    "country": "urs",
+    "hand": "R"
   },
   "Marina Melnikova": {
     "country": "rus",
@@ -1823,38 +6507,212 @@
     "hand": "R",
     "birthday": "2004-11-27"
   },
+  "Marine Partaud": {
+    "country": "fra",
+    "hand": "R",
+    "birthday": "1994-11-09"
+  },
+  "Marion Bartoli": {
+    "country": "fra",
+    "hand": "R"
+  },
+  "Marion Boundy": {
+    "country": "gbr"
+  },
+  "Marion Cristiani": {
+    "country": "fra"
+  },
+  "Marion Maruska": {
+    "country": "aut",
+    "hand": "R"
+  },
+  "Marion Proisy": {
+    "country": "fra"
+  },
+  "Mariona Gallifa Puig Desens": {
+    "country": "esp",
+    "hand": "R"
+  },
+  "Marise Kruger": {
+    "country": "rsa",
+    "hand": "R"
+  },
+  "Marissa Irvin": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Marita Redondo": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Mariya Koryttseva": {
+    "country": "ukr",
+    "hand": "R"
+  },
+  "Marjorie Blackwood": {
+    "country": "can",
+    "hand": "R"
+  },
+  "Marjorie Gengler": {
+    "country": "usa"
+  },
+  "Marketa Kochta": {
+    "country": "ger",
+    "hand": "R"
+  },
   "Marketa Vondrousova": {
     "country": "cze",
     "hand": "L",
     "birthday": "1999-06-28"
+  },
+  "Marlene Weingartner": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Marrit Boonstra": {
+    "country": "ned",
+    "hand": "R"
+  },
+  "Marta Domachowska": {
+    "country": "pol",
+    "hand": "R"
   },
   "Marta Kostyuk": {
     "country": "ukr",
     "hand": "R",
     "birthday": "2002-06-28"
   },
+  "Marta Marrero": {
+    "country": "esp",
+    "hand": "R"
+  },
+  "Marta Sirotkina": {
+    "country": "rus",
+    "hand": "R"
+  },
   "Martha Matoula": {
     "country": "gre",
     "hand": "R",
     "birthday": "1997-04-26"
   },
+  "Martina Capurro Taborda": {
+    "country": "arg",
+    "hand": "L",
+    "birthday": "1997-12-04"
+  },
+  "Martina Caregaro": {
+    "country": "ita",
+    "hand": "R"
+  },
+  "Martina Di Giuseppe": {
+    "country": "ita",
+    "hand": "R"
+  },
+  "Martina Hingis": {
+    "country": "sui",
+    "hand": "R"
+  },
+  "Martina Muller": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Martina Navratilova": {
+    "country": "usa",
+    "hand": "L"
+  },
   "Martina Okalova": {
     "country": "svk",
     "birthday": "1997-06-05"
+  },
+  "Martina Pawlik": {
+    "country": "ger"
+  },
+  "Martina Sucha": {
+    "country": "svk",
+    "hand": "R"
   },
   "Martina Trevisan": {
     "country": "ita",
     "hand": "L",
     "birthday": "1993-11-03"
   },
+  "Martina Walsh": {
+    "country": "irl"
+  },
+  "Martyna Kubka": {
+    "country": "pol",
+    "hand": "R",
+    "birthday": "2001-04-19"
+  },
+  "Mary Ann Eisel": {
+    "country": "usa"
+  },
+  "Mary Carillo": {
+    "country": "usa",
+    "hand": "L"
+  },
+  "Mary Gambale": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Mary Hamm": {
+    "country": "usa"
+  },
+  "Mary Joe Fernandez": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Mary Lou Piatek": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Mary Lowdon": {
+    "country": "usa"
+  },
+  "Mary Mclean": {
+    "country": "usa"
+  },
+  "Mary Pierce": {
+    "country": "fra",
+    "hand": "R"
+  },
+  "Mary Sawyer": {
+    "country": "aus"
+  },
   "Mary Stoiana": {
     "country": "usa",
     "birthday": "2003-05-06"
+  },
+  "Mary Struthers": {
+    "country": "usa"
+  },
+  "Maryna Godwin": {
+    "country": "rsa",
+    "hand": "R"
   },
   "Maryna Zanevska": {
     "country": "bel",
     "hand": "R",
     "birthday": "1993-08-24"
+  },
+  "Marzia Grossi": {
+    "country": "ita"
+  },
+  "Masa Zec Peskiric": {
+    "country": "slo",
+    "hand": "R"
+  },
+  "Masako Yanagi": {
+    "country": "jpn",
+    "hand": "L"
+  },
+  "Mashona Washington": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Mathilde Johansson": {
+    "country": "fra",
+    "hand": "R"
   },
   "Matilde Paoletti": {
     "country": "ita",
@@ -1864,15 +6722,28 @@
   "Mattek-Sands": {
     "birthday": "1985-03-23"
   },
+  "Maureen Drake": {
+    "country": "can",
+    "hand": "R"
+  },
+  "Maureen Mccalman": {
+    "country": "aus"
+  },
   "Maya Joint": {
     "country": "aus",
     "hand": "R",
     "birthday": "2006-04-16"
   },
+  "Maya Kidowaki": {
+    "country": "jpn"
+  },
   "Mayar Sherif": {
     "country": "egy",
     "hand": "R",
     "birthday": "1996-05-05"
+  },
+  "Maylis Burel": {
+    "country": "fra"
   },
   "Mayo Hibi": {
     "country": "jpn",
@@ -1887,13 +6758,112 @@
     "birthday": "1999-07-08",
     "hand": "R"
   },
+  "Megan Falcon": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Megan Miller": {
+    "country": "gbr"
+  },
+  "Meghann Shaughnessy": {
+    "country": "usa",
+    "hand": "R"
+  },
   "Mei Yamaguchi": {
     "country": "jpn",
     "birthday": "1999-06-14"
   },
+  "Meike Babel": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Meilen Tu": {
+    "country": "usa",
+    "hand": "R"
+  },
   "Meiling Wang": {
     "country": "chn",
     "birthday": "2000-02-22"
+  },
+  "Melanie Gloria": {
+    "country": "can",
+    "hand": "R"
+  },
+  "Melanie Klaffner": {
+    "country": "aut",
+    "hand": "R",
+    "birthday": "1990-05-22"
+  },
+  "Melanie Marois": {
+    "country": "can",
+    "hand": "R"
+  },
+  "Melanie Oudin": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Melanie Schnell": {
+    "country": "aut",
+    "hand": "R"
+  },
+  "Melanie South": {
+    "country": "gbr",
+    "hand": "R"
+  },
+  "Melinda Czink": {
+    "country": "hun",
+    "hand": "L"
+  },
+  "Melisa Miranda Otarola": {
+    "country": "chi",
+    "hand": "R"
+  },
+  "Melissa Brown": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Melissa Dowse": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Melissa Gurney": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Melissa Middleton": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Melissa Torres Sandoval": {
+    "country": "mex",
+    "hand": "R"
+  },
+  "Meng Yuan": {
+    "country": "chn"
+  },
+  "Mercedes Paz": {
+    "country": "arg",
+    "hand": "R"
+  },
+  "Meredith Mcgrath": {
+    "country": "usa"
+  },
+  "Merrilyn Robinson": {
+    "country": "aus"
+  },
+  "Mervana Jugic Salkic": {
+    "country": "bih",
+    "hand": "R"
+  },
+  "Meryem El Haddad": {
+    "country": "mar"
+  },
+  "Mi Ra Jeon": {
+    "country": "kor"
+  },
+  "Mi Yoo": {
+    "country": "kor",
+    "hand": "R"
   },
   "Mia Pohankova": {
     "country": "svk",
@@ -1904,47 +6874,195 @@
     "country": "srb",
     "birthday": "2006-05-17"
   },
+  "Michaela Honcova": {
+    "country": "svk",
+    "hand": "R"
+  },
+  "Michaela Johansson": {
+    "country": "swe",
+    "hand": "R"
+  },
+  "Michaela Pastikova": {
+    "country": "cze",
+    "hand": "R"
+  },
+  "Michaela Pazderova": {
+    "country": "tch"
+  },
+  "Michaela Pochabova": {
+    "country": "svk"
+  },
+  "Michaela Washington": {
+    "country": "usa"
+  },
+  "Michaella Krajicek": {
+    "country": "ned",
+    "hand": "R",
+    "birthday": "1989-01-09"
+  },
+  "Michele Gurdal": {
+    "country": "bel"
+  },
+  "Michelle Bowrey": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Michelle Gerards": {
+    "country": "ned",
+    "hand": "R"
+  },
+  "Michelle Jaggard Lai": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Michelle Larcher De Brito": {
+    "country": "por",
+    "hand": "R"
+  },
+  "Michelle Pekovitch": {
+    "country": "aus"
+  },
+  "Michelle Rodriguez": {
+    "country": "chi"
+  },
+  "Michelle Torres": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Michelle Turk": {
+    "country": "aus"
+  },
+  "Michelle Tyler": {
+    "country": "gbr"
+  },
+  "Micki Schillig": {
+    "country": "usa"
+  },
   "Mihaela Buzarnescu": {
     "country": "rou",
     "hand": "L",
     "birthday": "1988-05-04"
+  },
+  "Miharu Imanishi": {
+    "country": "jpn",
+    "hand": "R"
+  },
+  "Miho Saeki": {
+    "country": "jpn",
+    "hand": "R"
   },
   "Mika Stojsavljevic": {
     "country": "gbr",
     "birthday": "2008-12-15",
     "hand": "R"
   },
+  "Miki Yokobori": {
+    "country": "jpn"
+  },
+  "Milagros Sequera": {
+    "country": "ven",
+    "hand": "R"
+  },
+  "Mima Jausovec": {
+    "country": "slo",
+    "hand": "R"
+  },
+  "Mimi Kanarek": {
+    "country": "usa"
+  },
+  "Mimi Wheeler": {
+    "country": "usa"
+  },
+  "Mimi Wikstedt": {
+    "country": "swe"
+  },
   "Mimi Xu": {
     "country": "gbr",
     "birthday": "2007-10-02"
+  },
+  "Mimma Chernovita": {
+    "country": "ina"
+  },
+  "Min Tang": {
+    "country": "hkg"
   },
   "Mina Hodzic": {
     "country": "ger",
     "hand": "R",
     "birthday": "2002-06-06"
   },
+  "Mira Antonitsch": {
+    "country": "aut",
+    "hand": "R"
+  },
+  "Miranda Yates": {
+    "country": "aus"
+  },
   "Miriam Bianca Bulgaru": {
     "country": "rou",
     "hand": "R",
     "birthday": "1998-10-08"
   },
+  "Miriam Oremans": {
+    "country": "ned",
+    "hand": "R"
+  },
+  "Miriam Schnitzer": {
+    "country": "ger",
+    "hand": "R"
+  },
   "Miriana Tona": {
     "country": "ita",
     "birthday": "1995-01-09"
   },
+  "Mirielle Dittmann": {
+    "country": "aus"
+  },
   "Mirjam Bjorklund": {
     "country": "swe",
     "birthday": "1998-07-29"
+  },
+  "Mirjana Lucic": {
+    "country": "cro",
+    "hand": "R"
+  },
+  "Miroslava Holubova": {
+    "country": "tch"
+  },
+  "Miroslava Kozeluhova": {
+    "country": "cze"
+  },
+  "Miroslava Vavrinec": {
+    "country": "sui",
+    "hand": "R"
   },
   "Mirra Andreeva": {
     "country": "rus",
     "hand": "R",
     "birthday": "2007-04-29"
   },
+  "Misa Eguchi": {
+    "country": "jpn",
+    "hand": "R"
+  },
   "Misaki Doi": {
     "country": "jpn",
     "hand": "L",
     "birthday": "1991-04-29"
+  },
+  "Misumi Miyauchi": {
+    "country": "jpn"
+  },
+  "Miyu Kato": {
+    "country": "jpn",
+    "hand": "R"
+  },
+  "Moira Whitely": {
+    "country": "aus"
+  },
+  "Molly Van Nostrand": {
+    "country": "usa",
+    "hand": "R"
   },
   "Momoko Kobori": {
     "country": "jpn",
@@ -1956,6 +7074,12 @@
     "hand": "R",
     "birthday": "1990-07-11"
   },
+  "Mona Guerrant": {
+    "country": "usa"
+  },
+  "Monica Giorgi": {
+    "country": "ita"
+  },
   "Monica Niculescu": {
     "country": "rou",
     "hand": "R",
@@ -1965,45 +7089,221 @@
     "country": "pur",
     "hand": "R"
   },
+  "Monica Rho": {
+    "country": "crc"
+  },
+  "Monica Seles": {
+    "country": "usa",
+    "hand": "L"
+  },
+  "Monika Wejnert": {
+    "country": "aus"
+  },
+  "Monique Adamczak": {
+    "country": "aus",
+    "hand": "R"
+  },
   "Monique Barry": {
     "country": "nzl",
     "hand": "L",
     "birthday": "2002-06-21"
+  },
+  "Monique Javer": {
+    "country": "gbr",
+    "hand": "R"
+  },
+  "Monique Kiene": {
+    "country": "ned",
+    "hand": "R"
+  },
+  "Monique Salfati": {
+    "country": "ita",
+    "hand": "R"
+  },
+  "Monique Van Haver": {
+    "country": "bel"
+  },
+  "Montinee Tangphong": {
+    "country": "tha",
+    "hand": "R"
+  },
+  "Montserrat Gonzalez": {
+    "country": "par",
+    "hand": "R"
   },
   "Moyuka Uchijima": {
     "country": "jpn",
     "hand": "R",
     "birthday": "2001-08-11"
   },
+  "Myriam Casanova": {
+    "country": "sui",
+    "hand": "R"
+  },
+  "Myriam Schropp": {
+    "country": "ger"
+  },
+  "Myrtille Georges": {
+    "country": "fra",
+    "hand": "R",
+    "birthday": "1990-12-21"
+  },
   "Na Lae Han": {
     "country": "kor",
     "hand": "L"
   },
+  "Na Li": {
+    "country": "chn",
+    "hand": "R"
+  },
   "Na-Lae Han": {
     "birthday": "1992-07-06"
+  },
+  "Nadejda Guskova": {
+    "country": "rus",
+    "hand": "R"
+  },
+  "Nadejda Ostrovskaya": {
+    "country": "blr",
+    "hand": "R"
+  },
+  "Nadia Abdala": {
+    "country": "mex"
+  },
+  "Nadia Echeverria Alam": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Nadia Lalami": {
+    "country": "mar",
+    "hand": "R"
+  },
+  "Nadia Petrova": {
+    "country": "rus",
+    "hand": "R"
   },
   "Nadia Podoroska": {
     "country": "arg",
     "hand": "R",
     "birthday": "1997-02-10"
   },
+  "Nadin Ercegovic": {
+    "country": "cro",
+    "hand": "R"
+  },
+  "Nadine Netter": {
+    "country": "usa"
+  },
+  "Nadiya Kichenok": {
+    "country": "ukr",
+    "hand": "R"
+  },
+  "Nadja Roma": {
+    "country": "swe",
+    "hand": "L"
+  },
+  "Naiktha Bains": {
+    "country": "gbr",
+    "hand": "R",
+    "birthday": "1997-12-17"
+  },
+  "Nan Nan Liu": {
+    "country": "chn"
+  },
+  "Nana Smith": {
+    "country": "jpn",
+    "hand": "R"
+  },
+  "Nancy Feber": {
+    "country": "bel",
+    "hand": "L"
+  },
+  "Nancy Neviaser": {
+    "country": "usa"
+  },
+  "Nancy Ornstein": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Nancy Reed": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Nancy Richey": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Nancy Yeargin": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Nanette Schutte": {
+    "country": "ned"
+  },
+  "Nanne Dahlman": {
+    "country": "fin"
+  },
   "Nao Hibino": {
     "country": "jpn",
     "hand": "R",
     "birthday": "1994-11-28"
   },
+  "Naoko Kijimuta": {
+    "country": "jpn",
+    "hand": "R"
+  },
+  "Naoko Sato": {
+    "country": "jpn"
+  },
+  "Naoko Sawamatsu": {
+    "country": "jpn",
+    "hand": "R"
+  },
   "Naomi Broady": {
     "country": "gbr",
     "hand": "R"
+  },
+  "Naomi Cavaday": {
+    "country": "gbr",
+    "hand": "L"
   },
   "Naomi Osaka": {
     "country": "jpn",
     "hand": "R",
     "birthday": "1997-10-16"
   },
+  "Napaporn Tongsalee": {
+    "country": "tha",
+    "hand": "R"
+  },
   "Nastasja Schunk": {
     "country": "ger",
     "birthday": "2003-08-17"
+  },
+  "Nastassja Burnett": {
+    "country": "ita",
+    "hand": "R"
+  },
+  "Nastja Kolar": {
+    "country": "slo",
+    "hand": "R"
+  },
+  "Natalia Baudone": {
+    "country": "ita"
+  },
+  "Natalia Egorova": {
+    "country": "rus"
+  },
+  "Natalia Gussoni": {
+    "country": "arg",
+    "hand": "R"
+  },
+  "Natalia Medvedeva": {
+    "country": "ukr",
+    "hand": "R"
+  },
+  "Natalia Soetrisno": {
+    "country": "ina"
   },
   "Natalia Szabanin": {
     "country": "hun",
@@ -2014,14 +7314,107 @@
     "country": "rus",
     "hand": "R"
   },
+  "Natalia Zvereva": {
+    "country": "blr",
+    "hand": "R"
+  },
+  "Natalie Grandin": {
+    "country": "rsa",
+    "hand": "L"
+  },
   "Natalija Stevanovic": {
     "country": "srb",
     "hand": "R",
     "birthday": "1994-07-25"
   },
+  "Natasa Zoric": {
+    "country": "srb",
+    "hand": "R"
+  },
+  "Natasha Chmyreva": {
+    "country": "urs"
+  },
+  "Natasha Reva": {
+    "country": "urs"
+  },
+  "Nathalie Dechy": {
+    "country": "fra",
+    "hand": "R"
+  },
+  "Nathalie Fuchs": {
+    "country": "fra",
+    "hand": "R"
+  },
+  "Nathalie Guerree Spitzer": {
+    "country": "fra"
+  },
+  "Nathalie Herreman": {
+    "country": "fra",
+    "hand": "L"
+  },
+  "Nathalie Housset": {
+    "country": "fra"
+  },
+  "Nathalie Phan Thanh": {
+    "country": "fra"
+  },
+  "Nathalie Tauziat": {
+    "country": "fra",
+    "hand": "R"
+  },
+  "Nathalie Vierin": {
+    "country": "ita"
+  },
   "Nauhany Vitoria Leme Da Silva": {
     "country": "bra",
     "birthday": "2010-03-13",
+    "hand": "R"
+  },
+  "Nazrin Jafarova": {
+    "country": "aze",
+    "hand": "R"
+  },
+  "Nefisa Berberovic": {
+    "country": "bih",
+    "birthday": "1999-07-03"
+  },
+  "Neha Uberoi": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Neige Dias": {
+    "country": "bra"
+  },
+  "Nell Truman": {
+    "country": "gbr",
+    "hand": "R"
+  },
+  "Nellemieke Brouwer": {
+    "country": "ned"
+  },
+  "Nerida Gregory": {
+    "country": "aus"
+  },
+  "Neus Avila Bonastre": {
+    "country": "esp"
+  },
+  "Neuza Silva": {
+    "country": "por",
+    "hand": "R"
+  },
+  "Nicha Lertpitaksinchai": {
+    "country": "tha",
+    "hand": "R"
+  },
+  "Nicole Arendt": {
+    "country": "usa",
+    "hand": "L"
+  },
+  "Nicole Bimes": {
+    "country": "fra"
+  },
+  "Nicole Bradtke": {
+    "country": "aus",
     "hand": "R"
   },
   "Nicole Gibbs": {
@@ -2032,20 +7425,106 @@
     "country": "ita",
     "birthday": "1995-05-26"
   },
+  "Nicole Jagerman": {
+    "country": "ned",
+    "hand": "R"
+  },
+  "Nicole Kriz": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Nicole London": {
+    "country": "usa"
+  },
+  "Nicole Melichar": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Nicole Niox Chateau": {
+    "country": "fra",
+    "hand": "L"
+  },
+  "Nicole Pitts": {
+    "country": "usa"
+  },
+  "Nicole Pratt": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Nicole Remis": {
+    "country": "aut",
+    "hand": "R"
+  },
+  "Nicole Rottmann": {
+    "country": "aut"
+  },
+  "Nicole Vaidisova": {
+    "country": "cze",
+    "hand": "R"
+  },
   "Nigina Abduraimova": {
     "country": "uzb",
     "hand": "R",
     "birthday": "1994-07-07"
+  },
+  "Nika Ozegovic": {
+    "country": "cro",
+    "hand": "R"
+  },
+  "Nika Radisic": {
+    "country": "slo",
+    "hand": "R",
+    "birthday": "2000-03-19"
   },
   "Nikola Bartunkova": {
     "country": "cze",
     "hand": "R",
     "birthday": "2006-02-25"
   },
+  "Nikola Frankova": {
+    "country": "cze",
+    "hand": "R"
+  },
+  "Nikola Hofmanova": {
+    "country": "aut",
+    "hand": "R"
+  },
+  "Nina Bohm": {
+    "country": "swe",
+    "hand": "R"
+  },
+  "Nina Bratchikova": {
+    "country": "rus",
+    "hand": "R"
+  },
+  "Nina Duebbers": {
+    "country": "ger"
+  },
+  "Nina Khrisanova": {
+    "country": "rus",
+    "hand": "R"
+  },
   "Nina Stojanovic": {
     "country": "srb",
     "hand": "R",
     "birthday": "1996-07-30"
+  },
+  "Nina Zander": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Nirupama Vaidyanathan": {
+    "country": "ind",
+    "hand": "R"
+  },
+  "Niurka Sodupe": {
+    "country": "usa"
+  },
+  "Noelia Perez Penate": {
+    "country": "esp"
+  },
+  "Noelle Van Lottum": {
+    "country": "fra"
   },
   "Noemi Basiletti": {
     "country": "ita",
@@ -2056,10 +7535,35 @@
     "hand": "L",
     "birthday": "2003-12-02"
   },
+  "Noppawan Lertcheewakarn": {
+    "country": "tha",
+    "hand": "R"
+  },
+  "Nora Blom": {
+    "country": "ned"
+  },
+  "Norma Eastburn": {
+    "country": "aus"
+  },
+  "Norma Marsh": {
+    "country": "aus"
+  },
+  "Nudnida Luangnam": {
+    "country": "tha",
+    "hand": "R"
+  },
+  "Nungnadda Wannasuk": {
+    "country": "tha",
+    "hand": "R"
+  },
   "Nuria Brancaccio": {
     "country": "ita",
     "hand": "R",
     "birthday": "2000-06-24"
+  },
+  "Nuria Llagostera Vives": {
+    "country": "esp",
+    "hand": "R"
   },
   "Nuria Parrizas Diaz": {
     "country": "esp",
@@ -2079,68 +7583,382 @@
     "hand": "R",
     "birthday": "1996-10-24"
   },
+  "Odile De Roubin": {
+    "country": "fra"
+  },
+  "Oksana Kalashnikova": {
+    "country": "geo",
+    "hand": "L",
+    "birthday": "1990-09-05"
+  },
   "Oksana Selekhmeteva": {
     "country": "esp",
     "hand": "L",
     "birthday": "2003-01-13"
+  },
+  "Oleksandra Korashvili": {
+    "country": "ukr",
+    "hand": "R"
   },
   "Oleksandra Oliynykova": {
     "country": "ukr",
     "hand": "R",
     "birthday": "2001-01-03"
   },
+  "Olena Antypina": {
+    "country": "ukr",
+    "hand": "R"
+  },
+  "Olesya Pervushina": {
+    "country": "rus",
+    "hand": "R"
+  },
+  "Olga Barabanschikova": {
+    "country": "blr",
+    "hand": "R"
+  },
   "Olga Danilovic": {
     "country": "srb",
     "hand": "L",
     "birthday": "2001-01-23"
+  },
+  "Olga Fridman": {
+    "country": "ukr",
+    "hand": "L"
   },
   "Olga Govortsova": {
     "country": "blr",
     "hand": "R",
     "birthday": "1988-08-23"
   },
+  "Olga Ianchuk": {
+    "country": "ukr",
+    "hand": "R"
+  },
+  "Olga Kalyuzhnaya": {
+    "country": "rus"
+  },
+  "Olga Lugina": {
+    "country": "ukr",
+    "hand": "R"
+  },
+  "Olga Morozova": {
+    "country": "urs",
+    "hand": "R"
+  },
+  "Olga Puchkova": {
+    "country": "rus",
+    "hand": "R"
+  },
+  "Olga Saez Larra": {
+    "country": "esp"
+  },
+  "Olga Savchuk": {
+    "country": "ukr",
+    "hand": "R"
+  },
+  "Olga Tsarbopoulou": {
+    "country": "gre"
+  },
+  "Olga Vymetalkova": {
+    "country": "cze"
+  },
   "Olivia Gadecki": {
     "country": "aus",
     "hand": "R",
     "birthday": "2002-04-24"
+  },
+  "Olivia Lukaszewicz": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Olivia Rogowska": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Olivia Sanchez": {
+    "country": "fra",
+    "hand": "R"
+  },
+  "Olivia Tjandramulia": {
+    "country": "aus",
+    "hand": "R",
+    "birthday": "1997-05-11"
   },
   "Ons Jabeur": {
     "country": "tun",
     "hand": "R",
     "birthday": "1994-08-28"
   },
+  "Oxana Lyubtsova": {
+    "country": "ukr",
+    "hand": "R"
+  },
+  "Paige Mary Hourigan": {
+    "country": "nzl",
+    "hand": "R"
+  },
+  "Palma Kiraly": {
+    "country": "hun",
+    "hand": "R"
+  },
+  "Pam Casale": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Pam Richmond": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Pam Shriver": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Pam Teeguarden": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Pam Whytcross": {
+    "country": "aus"
+  },
+  "Pamela Austin": {
+    "country": "usa"
+  },
+  "Pamela Bailey": {
+    "country": "aus"
+  },
+  "Pamela Brand": {
+    "country": "aus"
+  },
+  "Pamela Jung": {
+    "country": "usa"
+  },
   "Panna Udvardy": {
     "country": "hun",
     "hand": "R",
     "birthday": "1998-09-28"
+  },
+  "Paola Palacios": {
+    "country": "col"
+  },
+  "Paola Suarez": {
+    "country": "arg",
+    "hand": "R"
+  },
+  "Pascale Etchemendy": {
+    "country": "fra"
+  },
+  "Pascale Paradis Mangon": {
+    "country": "fra",
+    "hand": "R"
+  },
+  "Pat Stewart": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Patcharin Cheapchandej": {
+    "country": "tha",
+    "hand": "R",
+    "birthday": "1994-12-13"
+  },
+  "Patricia Billing": {
+    "country": "aus"
+  },
+  "Patricia Bostrom": {
+    "country": "usa"
+  },
+  "Patricia Cody": {
+    "country": "usa"
+  },
+  "Patricia Coleman": {
+    "country": "aus"
+  },
+  "Patricia Edwards": {
+    "country": "aus"
+  },
+  "Patricia Hy Boulais": {
+    "country": "can",
+    "hand": "R"
+  },
+  "Patricia King": {
+    "country": "aus"
   },
   "Patricia Maria Tig": {
     "country": "rou",
     "hand": "R",
     "birthday": "1994-07-27"
   },
+  "Patricia Mayr Achleitner": {
+    "country": "aut",
+    "hand": "R"
+  },
+  "Patricia Medrado": {
+    "country": "bra"
+  },
+  "Patricia Montano": {
+    "country": "mex"
+  },
+  "Patricia Reese": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Patricia Shoolman": {
+    "country": "usa"
+  },
+  "Patricia Tarabini": {
+    "country": "arg",
+    "hand": "R"
+  },
+  "Patricia Walkden": {
+    "country": "rsa",
+    "hand": "R"
+  },
+  "Patricia Wartusch": {
+    "country": "aut",
+    "hand": "R"
+  },
+  "Patti Hogan": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Patty Fendick": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Patty Oreilly": {
+    "country": "usa"
+  },
   "Patty Schnyder": {
     "country": "sui",
     "hand": "L"
+  },
+  "Patty Van Acker": {
+    "country": "bel",
+    "hand": "R"
   },
   "Paula Badosa": {
     "country": "esp",
     "hand": "R",
     "birthday": "1997-11-15"
   },
+  "Paula Cristina Goncalves": {
+    "country": "bra",
+    "hand": "R"
+  },
+  "Paula Fondevila Castro": {
+    "country": "esp",
+    "hand": "R"
+  },
+  "Paula Garcia": {
+    "country": "esp",
+    "hand": "R"
+  },
+  "Paula Kania": {
+    "country": "pol",
+    "hand": "R"
+  },
   "Paula Ormaechea": {
     "country": "arg",
     "hand": "R",
     "birthday": "1992-09-28"
   },
+  "Paula Smith": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Paula Zabala": {
+    "country": "col"
+  },
+  "Paulette Moreno": {
+    "country": "hkg"
+  },
+  "Paulina Peisachov": {
+    "country": "isr"
+  },
+  "Pauline Elliott": {
+    "country": "nzl"
+  },
   "Pauline Parmentier": {
     "country": "fra",
+    "hand": "R"
+  },
+  "Pavlina Nola": {
+    "country": "nzl",
+    "hand": "R"
+  },
+  "Peaches Bartkowicz": {
+    "country": "usa"
+  },
+  "Peangtarn Plipuech": {
+    "country": "tha",
+    "hand": "R",
+    "birthday": "1992-11-15"
+  },
+  "Peggy Michel": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Peggy Moore": {
+    "country": "usa"
+  },
+  "Pei Chi Lee": {
+    "country": "tpe"
+  },
+  "Pei-Chi Lee": {
+    "birthday": "1994-10-16"
+  },
+  "Pemra Ozgen": {
+    "country": "tur",
+    "hand": "R"
+  },
+  "Penny Barg": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Penny Moor": {
+    "country": "gbr",
+    "hand": "L"
+  },
+  "Petra Begerow": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Petra Cetkovska": {
+    "country": "cze",
+    "hand": "R"
+  },
+  "Petra Delhees Jauch": {
+    "country": "sui",
+    "hand": "L"
+  },
+  "Petra Dizdar": {
+    "country": "cro",
+    "hand": "R"
+  },
+  "Petra Huber": {
+    "country": "aut"
+  },
+  "Petra Kamstra": {
+    "country": "ned"
+  },
+  "Petra Keppeler": {
+    "country": "ger"
+  },
+  "Petra Krejsova": {
+    "country": "cze",
     "hand": "R"
   },
   "Petra Kvitova": {
     "country": "cze",
     "hand": "L",
     "birthday": "1990-03-08"
+  },
+  "Petra Langrova": {
+    "country": "tch"
+  },
+  "Petra Mandula": {
+    "country": "hun",
+    "hand": "R"
   },
   "Petra Marcinko": {
     "country": "cro",
@@ -2151,10 +7969,42 @@
     "hand": "R",
     "birthday": "1991-01-19"
   },
+  "Petra Raclavska": {
+    "country": "cze"
+  },
+  "Petra Rampre": {
+    "country": "slo",
+    "hand": "R"
+  },
+  "Petra Schwarz": {
+    "country": "aut",
+    "hand": "R"
+  },
+  "Petra Thoren": {
+    "country": "fin"
+  },
   "Peyton Stearns": {
     "country": "usa",
     "hand": "R",
     "birthday": "2001-10-08"
+  },
+  "Phyllis Blackwell": {
+    "country": "usa"
+  },
+  "Pia Lovric": {
+    "country": "slo",
+    "hand": "R",
+    "birthday": "2002-04-23"
+  },
+  "Pichittra Thongdach": {
+    "country": "tha",
+    "hand": "R"
+  },
+  "Pilar Vasquez": {
+    "country": "per"
+  },
+  "Pixie Lamm": {
+    "country": "usa"
   },
   "Polina Iatcenko": {
     "country": "rus",
@@ -2165,10 +8015,22 @@
     "hand": "R",
     "birthday": "2003-06-04"
   },
+  "Polina Leykina": {
+    "country": "rus",
+    "hand": "R",
+    "birthday": "1994-09-20"
+  },
+  "Polina Monova": {
+    "country": "rus",
+    "hand": "R"
+  },
   "Polona Hercog": {
     "country": "slo",
     "hand": "R",
     "birthday": "1991-01-20"
+  },
+  "Prarthana G Thombare": {
+    "country": "ind"
   },
   "Priscilla Hon": {
     "country": "aus",
@@ -2189,9 +8051,64 @@
     "hand": "R",
     "birthday": "2002-10-08"
   },
+  "Quirine Lemoine": {
+    "country": "ned",
+    "hand": "L"
+  },
+  "Rachel Mcquillan": {
+    "country": "aus"
+  },
+  "Rachel Viollet": {
+    "country": "gbr",
+    "hand": "R"
+  },
+  "Radka Bobkova": {
+    "country": "cze",
+    "hand": "R"
+  },
+  "Radomira Zrubakova": {
+    "country": "svk",
+    "hand": "R"
+  },
+  "Raffaella Reggi Concato": {
+    "country": "ita"
+  },
   "Raluca Georgiana Serban": {
     "country": "cyp",
     "birthday": "1997-06-17"
+  },
+  "Raluca Olaru": {
+    "country": "rou",
+    "hand": "R"
+  },
+  "Raluca Sandu": {
+    "country": "rou",
+    "hand": "R"
+  },
+  "Raluka Serban": {
+    "country": "cyp",
+    "hand": "R"
+  },
+  "Raquel Giscafre": {
+    "country": "arg"
+  },
+  "Raquel Kops Jones": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Raymonde Veber": {
+    "country": "usa"
+  },
+  "Rayni Fox": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Rebecca Bryant": {
+    "country": "aus"
+  },
+  "Rebecca Llewellyn": {
+    "country": "gbr",
+    "hand": "R"
   },
   "Rebecca Marino": {
     "country": "can",
@@ -2221,57 +8138,274 @@
     "hand": "R",
     "birthday": "2004-10-05"
   },
+  "Regina Kulikova": {
+    "country": "rus",
+    "hand": "R"
+  },
+  "Regina Marsikova": {
+    "country": "cze"
+  },
+  "Regina Rajchrtova": {
+    "country": "tch"
+  },
   "Reka Luca Jani": {
     "country": "hun",
     "hand": "R"
   },
+  "Reka Vidats": {
+    "country": "hun"
+  },
   "Reka-Luca Jani": {
     "birthday": "1991-07-31"
+  },
+  "Renata Baranski": {
+    "country": "pol"
   },
   "Renata Jamrichova": {
     "country": "svk",
     "birthday": "2007-06-20"
+  },
+  "Renata Kolbovic": {
+    "country": "can",
+    "hand": "R"
+  },
+  "Renata Sasak": {
+    "country": "yug"
+  },
+  "Renata Tomanova": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Renata Voracova": {
+    "country": "cze",
+    "hand": "R"
   },
   "Renata Zarazua": {
     "country": "mex",
     "hand": "R",
     "birthday": "1997-09-30"
   },
+  "Rene Blount": {
+    "country": "usa"
+  },
+  "Rene Mentz": {
+    "country": "rsa"
+  },
+  "Rene Simpson": {
+    "country": "can",
+    "hand": "L"
+  },
+  "Rene Uys": {
+    "country": "rsa",
+    "hand": "R"
+  },
+  "Renee Reid": {
+    "country": "aus"
+  },
+  "Renee Richards": {
+    "country": "usa",
+    "hand": "L"
+  },
+  "Rennae Stubbs": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Rewa Harriman": {
+    "country": "nzl"
+  },
   "Richel Hogenkamp": {
     "country": "ned",
     "hand": "R"
   },
+  "Rika Fujiwara": {
+    "country": "jpn",
+    "hand": "R"
+  },
+  "Rika Hiraki": {
+    "country": "jpn",
+    "hand": "R"
+  },
+  "Riko Sawayanagi": {
+    "country": "jpn",
+    "hand": "R"
+  },
+  "Rina Einy": {
+    "country": "gbr"
+  },
   "Rina Saigo": {
     "country": "jpn",
     "birthday": "2000-10-17"
+  },
+  "Risa Ozaki": {
+    "country": "jpn",
+    "hand": "R"
+  },
+  "Rita Atik": {
+    "country": "mar",
+    "hand": "R"
+  },
+  "Rita Bentley": {
+    "country": "gbr"
+  },
+  "Rita Grande": {
+    "country": "ita",
+    "hand": "R"
+  },
+  "Rita Kuti Kis": {
+    "country": "hun",
+    "hand": "L"
+  },
+  "Roberta Mccallum": {
+    "country": "usa"
+  },
+  "Roberta Stark": {
+    "country": "usa"
+  },
+  "Roberta Vinci": {
+    "country": "ita",
+    "hand": "R"
   },
   "Robin Anderson": {
     "country": "usa",
     "hand": "R",
     "birthday": "1993-04-12"
   },
+  "Robin Harris": {
+    "country": "usa"
+  },
+  "Robin Lloyd": {
+    "country": "gbr"
+  },
   "Robin Montgomery": {
     "country": "usa",
     "hand": "L",
     "birthday": "2004-09-05"
   },
+  "Robin Tenney": {
+    "country": "usa",
+    "hand": "L"
+  },
+  "Robin White": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Robyn Field": {
+    "country": "rsa"
+  },
+  "Robyn Knobel": {
+    "country": "aus"
+  },
+  "Romana Tedjakusuma": {
+    "country": "ina",
+    "hand": "R"
+  },
+  "Romina Oprandi": {
+    "country": "sui",
+    "hand": "R"
+  },
+  "Romy Farah": {
+    "country": "col",
+    "hand": "R"
+  },
+  "Ronni Reis": {
+    "country": "usa"
+  },
+  "Rosa Maria Andres Rodriguez": {
+    "country": "esp",
+    "hand": "R"
+  },
   "Rosa Vicens Mas": {
     "country": "esp",
     "birthday": "2000-06-25"
   },
+  "Rosalba Vido": {
+    "country": "ita"
+  },
+  "Rosalyn Fairbank": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Rosie Casals": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Rosie Reyes": {
+    "country": "fra",
+    "hand": "R"
+  },
+  "Rossana De Los Rios": {
+    "country": "par",
+    "hand": "R"
+  },
+  "Rowena Sanders": {
+    "country": "rsa",
+    "hand": "R"
+  },
+  "Roylee Bailey": {
+    "country": "usa"
+  },
   "Ruien Zhang": {
     "country": "chn",
     "birthday": "2008-04-27"
+  },
+  "Rushmi Chakravarthi": {
+    "country": "ind",
+    "hand": "R"
+  },
+  "Ruta Gerulaitis": {
+    "country": "usa"
+  },
+  "Ruxandra Dragomir Ilie": {
+    "country": "rou",
+    "hand": "R"
+  },
+  "Ryoko Fuda": {
+    "country": "jpn",
+    "hand": "R"
+  },
+  "Sabina Sharipova": {
+    "country": "uzb",
+    "hand": "R",
+    "birthday": "1994-09-04"
+  },
+  "Sabina Simmonds": {
+    "country": "ita",
+    "hand": "R"
+  },
+  "Sabine Appelmans": {
+    "country": "bel",
+    "hand": "L"
+  },
+  "Sabine Hack": {
+    "country": "ger"
+  },
+  "Sabine Klaschka": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Sabine Krein Auer": {
+    "country": "ger"
   },
   "Sabine Lisicki": {
     "country": "ger",
     "hand": "R",
     "birthday": "1989-09-22"
   },
+  "Sabrina Goles": {
+    "country": "yug"
+  },
+  "Sacha Jones": {
+    "country": "aus",
+    "hand": "R"
+  },
   "Sachia Vickery": {
     "country": "usa",
     "hand": "R",
     "birthday": "1995-05-11"
+  },
+  "Sachie Ishizu": {
+    "country": "jpn",
+    "hand": "R"
   },
   "Sada Nahimana": {
     "country": "bdi",
@@ -2291,14 +8425,158 @@
     "country": "jpn",
     "birthday": "2000-03-25"
   },
+  "Sally Arnott": {
+    "country": "aus"
+  },
+  "Sally Greer": {
+    "country": "usa"
+  },
+  "Sally Holdsworth": {
+    "country": "gbr"
+  },
+  "Sally Hudson Beck": {
+    "country": "zim"
+  },
+  "Sally Irvine": {
+    "country": "aus"
+  },
+  "Sally Mccann": {
+    "country": "aus"
+  },
+  "Sally McCann": {
+    "country": "aus"
+  },
+  "Sally Moore": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Sally Peers": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Sally Reeves": {
+    "country": "gbr",
+    "hand": "R"
+  },
+  "Samantha Crawford": {
+    "country": "usa",
+    "hand": "R"
+  },
   "Samantha Murray": {
     "country": "gbr",
     "hand": "R",
     "birthday": "1987-10-09"
   },
+  "Samantha Reeves": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Samantha Smith": {
+    "country": "gbr",
+    "hand": "R"
+  },
   "Samantha Stosur": {
     "country": "aus",
     "hand": "R"
+  },
+  "Sanaa Bhambri": {
+    "country": "ind",
+    "hand": "L"
+  },
+  "Sanaz Marand": {
+    "country": "usa",
+    "hand": "L"
+  },
+  "Sanda Mamic": {
+    "country": "cro"
+  },
+  "Sandra Birch": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Sandra Cacic": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Sandra Cecchini": {
+    "country": "ita",
+    "hand": "R"
+  },
+  "Sandra Dopfer": {
+    "country": "aut"
+  },
+  "Sandra Hole": {
+    "country": "aus"
+  },
+  "Sandra Kleinova": {
+    "country": "cze",
+    "hand": "R"
+  },
+  "Sandra Klemenschits": {
+    "country": "aut",
+    "hand": "L"
+  },
+  "Sandra Kloesel": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Sandra Martinovic": {
+    "country": "bih",
+    "hand": "R"
+  },
+  "Sandra Nacuk": {
+    "country": "scg",
+    "hand": "R"
+  },
+  "Sandra Roma": {
+    "country": "swe",
+    "hand": "L"
+  },
+  "Sandra Stephen": {
+    "country": "aus"
+  },
+  "Sandra Walsham": {
+    "country": "aus"
+  },
+  "Sandra Wasserman": {
+    "country": "bel",
+    "hand": "R"
+  },
+  "Sandra Zahlavova": {
+    "country": "cze"
+  },
+  "Sandra Zaniewska": {
+    "country": "pol",
+    "hand": "R"
+  },
+  "Sandrine Jaquet": {
+    "country": "sui"
+  },
+  "Sandrine Testud": {
+    "country": "fra",
+    "hand": "R"
+  },
+  "Sandy Collins": {
+    "country": "usa"
+  },
+  "Sandy Gumulya": {
+    "country": "ina",
+    "hand": "R"
+  },
+  "Sandy Stap": {
+    "country": "usa"
+  },
+  "Sania Mirza": {
+    "country": "ind",
+    "hand": "R"
+  },
+  "Sanja Ancic": {
+    "country": "cro",
+    "hand": "R"
+  },
+  "Saori Obata": {
+    "country": "jpn",
+    "hand": "L"
   },
   "Sapfo Sakellaridi": {
     "country": "gre",
@@ -2314,42 +8592,228 @@
     "hand": "R",
     "birthday": "1987-04-29"
   },
+  "Sara Gomer": {
+    "country": "gbr",
+    "hand": "L"
+  },
   "Sara Sorribes Tormo": {
     "country": "esp",
     "hand": "R",
     "birthday": "1996-10-08"
   },
+  "Sarah Bentley": {
+    "country": "gbr"
+  },
+  "Sarah Beth Grey": {
+    "country": "gbr",
+    "hand": "L",
+    "birthday": "1995-08-10"
+  },
+  "Sarah Borwell": {
+    "country": "gbr",
+    "hand": "R"
+  },
+  "Sarah Gronert": {
+    "country": "ger"
+  },
   "Sarah Iliev": {
     "country": "fra",
     "birthday": "2006-10-03"
+  },
+  "Sarah Loosemore": {
+    "country": "gbr"
+  },
+  "Sarah Pitkowski Malcor": {
+    "country": "fra",
+    "hand": "R"
   },
   "Sarah Saito": {
     "country": "jpn",
     "birthday": "1996-12-14",
     "hand": "R"
   },
+  "Sarah Taylor": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Sariya Khairova": {
+    "country": "uzb"
+  },
   "Sayaka Ishii": {
     "country": "jpn",
     "birthday": "2005-08-31"
+  },
+  "Scarlett Werner": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Seda Noorlander": {
+    "country": "ned",
+    "hand": "R"
+  },
+  "Segolene Berger": {
+    "country": "fra"
+  },
+  "Seiko Okamoto": {
+    "country": "jpn",
+    "hand": "R"
   },
   "Selena Janicijevic": {
     "country": "fra",
     "hand": "R",
     "birthday": "2002-07-23"
   },
+  "Selima Sfar": {
+    "country": "tun",
+    "hand": "R"
+  },
+  "Seon Young Park": {
+    "country": "kor"
+  },
+  "Seone Mendez": {
+    "country": "aus",
+    "hand": "R",
+    "birthday": "1999-05-15"
+  },
   "Serena Williams": {
     "country": "usa",
     "hand": "R",
     "birthday": "1981-09-26"
   },
+  "Sesil Karatantcheva": {
+    "country": "kaz",
+    "hand": "R",
+    "birthday": "1989-08-08"
+  },
+  "Severine Beltrame": {
+    "country": "fra",
+    "hand": "R"
+  },
+  "Shadisha Robinson": {
+    "country": "usa",
+    "hand": "L"
+  },
+  "Shahar Peer": {
+    "country": "isr",
+    "hand": "R"
+  },
+  "Shan Shan Song": {
+    "country": "chn"
+  },
+  "Shannan Mccarthy": {
+    "country": "usa"
+  },
   "Shannon Lam": {
     "country": "usa",
     "birthday": "2008-06-07"
+  },
+  "Shari Barman": {
+    "country": "usa"
+  },
+  "Sharon Fichman": {
+    "country": "can",
+    "hand": "R"
+  },
+  "Sharon Pinchbeck": {
+    "country": "aus"
+  },
+  "Sharon Thomson": {
+    "country": "aus"
+  },
+  "Sharon Van Brandis": {
+    "country": "rsa"
+  },
+  "Sharon Walsh Pete": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Shaun Stafford": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Shawn Foltz": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Shawna Martin": {
+    "country": "usa"
+  },
+  "Shayna Mcdowell": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Sheila Mcinerney": {
+    "country": "usa"
+  },
+  "Sheila Washbourne": {
+    "country": "aus"
   },
   "Shelby Rogers": {
     "country": "usa",
     "hand": "R",
     "birthday": "1992-10-13"
+  },
+  "Shelley Solomon": {
+    "country": "usa"
+  },
+  "Shelley Stephens": {
+    "country": "nzl",
+    "hand": "R"
+  },
+  "Shelly Walpole": {
+    "country": "gbr"
+  },
+  "Shenay Perry": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Sheng Nan Sun": {
+    "country": "chn",
+    "hand": "L"
+  },
+  "Sherazad Reix": {
+    "country": "fra",
+    "hand": "L"
+  },
+  "Sherri Norris": {
+    "country": "usa"
+  },
+  "Sherry Acker": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Shi Ting Wang": {
+    "country": "tpe",
+    "hand": "R"
+  },
+  "Shiho Akita": {
+    "country": "jpn",
+    "hand": "R",
+    "birthday": "1990-01-18"
+  },
+  "Shiho Hisamatsu": {
+    "country": "jpn",
+    "hand": "R"
+  },
+  "Shikha Uberoi": {
+    "country": "ind",
+    "hand": "R"
+  },
+  "Shilin Xu": {
+    "country": "chn",
+    "hand": "R",
+    "birthday": "1998-01-10"
+  },
+  "Shinobu Asagoe": {
+    "country": "jpn",
+    "hand": "R"
+  },
+  "Shirley Bloomer": {
+    "country": "gbr",
+    "hand": "R"
+  },
+  "Shirli Ann Siddall": {
+    "country": "gbr"
   },
   "Shrivalli Rashmikaa Bhamidipaty": {
     "country": "ind",
@@ -2364,10 +8828,59 @@
     "hand": "R",
     "birthday": "1989-01-21"
   },
+  "Shuko Aoyama": {
+    "country": "jpn",
+    "hand": "R"
+  },
+  "Shuyue Ma": {
+    "country": "chn",
+    "hand": "R"
+  },
   "Sijia Wei": {
     "country": "chn",
     "hand": "R",
     "birthday": "2003-12-05"
+  },
+  "Silke Frankl": {
+    "country": "ger"
+  },
+  "Silke Meier": {
+    "country": "ger"
+  },
+  "Silvana Bauer": {
+    "country": "ned",
+    "hand": "R"
+  },
+  "Silvana Urroz": {
+    "country": "chi"
+  },
+  "Silvia Albano": {
+    "country": "ita",
+    "hand": "R"
+  },
+  "Silvia Disderi": {
+    "country": "ita",
+    "hand": "R"
+  },
+  "Silvia Farina Elia": {
+    "country": "ita",
+    "hand": "R"
+  },
+  "Silvia La Fratta": {
+    "country": "ita",
+    "hand": "R"
+  },
+  "Silvia Njiric": {
+    "country": "cro",
+    "hand": "R"
+  },
+  "Silvia Soler Espinosa": {
+    "country": "esp",
+    "hand": "R"
+  },
+  "Silvija Talaja": {
+    "country": "cro",
+    "hand": "R"
   },
   "Simona Halep": {
     "country": "rou",
@@ -2379,15 +8892,33 @@
     "hand": "R",
     "birthday": "2000-12-13"
   },
+  "Simone Schilder": {
+    "country": "ned"
+  },
   "Sinja Kraus": {
     "country": "aut",
     "hand": "R",
     "birthday": "2002-04-29"
   },
+  "Siobhan Drake Brockman": {
+    "country": "aus"
+  },
   "Sloane Stephens": {
     "country": "usa",
     "hand": "R",
     "birthday": "1993-03-20"
+  },
+  "So Jung Kim": {
+    "country": "kor",
+    "hand": "R"
+  },
+  "So Ra Lee": {
+    "country": "kor",
+    "hand": "L"
+  },
+  "Sofia Arvidsson": {
+    "country": "swe",
+    "hand": "R"
   },
   "Sofia Costoulas": {
     "country": "bel",
@@ -2397,6 +8928,11 @@
     "country": "usa",
     "hand": "R",
     "birthday": "1998-11-14"
+  },
+  "Sofia Shapatava": {
+    "country": "geo",
+    "hand": "R",
+    "birthday": "1989-01-12"
   },
   "Sofya Lansere": {
     "country": "rus",
@@ -2420,10 +8956,44 @@
     "hand": "R",
     "birthday": "2001-10-28"
   },
+  "Sonja Pachta": {
+    "country": "aut",
+    "hand": "R"
+  },
+  "Sonoe Yonezawa": {
+    "country": "jpn"
+  },
+  "Sonya Jeyaseelan": {
+    "country": "can",
+    "hand": "R"
+  },
+  "Soon Oh Lee": {
+    "country": "kor"
+  },
+  "Sophie Amiach": {
+    "country": "fra",
+    "hand": "R"
+  },
   "Sophie Chang": {
     "country": "usa",
     "hand": "R",
     "birthday": "1997-05-28"
+  },
+  "Sophie Erre": {
+    "country": "fra",
+    "hand": "R"
+  },
+  "Sophie Ferguson": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Sophie Georges": {
+    "country": "fra",
+    "hand": "R"
+  },
+  "Sophie Lefevre": {
+    "country": "fra",
+    "hand": "R"
   },
   "Sorana Cirstea": {
     "country": "rou",
@@ -2434,10 +9004,82 @@
     "country": "can",
     "birthday": "1997-02-06"
   },
+  "Stacey Martin": {
+    "country": "usa"
+  },
+  "Stacey Schefflin": {
+    "country": "usa"
+  },
+  "Stacy Margolin": {
+    "country": "usa",
+    "hand": "L"
+  },
+  "Stanislava Hrozenska": {
+    "country": "svk"
+  },
   "Stefanie Voegele": {
     "country": "sui",
     "hand": "R",
     "birthday": "1990-03-10"
+  },
+  "Steffi Graf": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Steffi Menning": {
+    "country": "ger"
+  },
+  "Stephanie Cohen Aloro": {
+    "country": "fra",
+    "hand": "R"
+  },
+  "Stephanie De Ville": {
+    "country": "bel",
+    "hand": "R"
+  },
+  "Stephanie Defina": {
+    "country": "usa",
+    "hand": "L"
+  },
+  "Stephanie Dubois": {
+    "country": "can",
+    "hand": "R"
+  },
+  "Stephanie Faulkner": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Stephanie Foretz Gacon": {
+    "country": "fra",
+    "hand": "R"
+  },
+  "Stephanie Gehrlein": {
+    "country": "ger"
+  },
+  "Stephanie Grant": {
+    "country": "usa"
+  },
+  "Stephanie Rehe": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Stephanie Rottier": {
+    "country": "ned"
+  },
+  "Stephanie Savides": {
+    "country": "usa"
+  },
+  "Stephanie Tolleson": {
+    "country": "usa"
+  },
+  "Stephanie Vogt": {
+    "country": "lie",
+    "hand": "R"
+  },
+  "Stephanie Wagner": {
+    "country": "ger",
+    "hand": "R",
+    "birthday": "1994-09-17"
   },
   "Storm Hunter": {
     "country": "usa",
@@ -2458,24 +9100,169 @@
     "birthday": "1986-01-04",
     "hand": "R"
   },
+  "Suchanun Viratprasert": {
+    "country": "tha",
+    "hand": "R"
+  },
+  "Sue Barker": {
+    "country": "gbr",
+    "hand": "R"
+  },
+  "Sue Hastings": {
+    "country": "aus"
+  },
+  "Sue Mappin": {
+    "country": "gbr",
+    "hand": "R"
+  },
+  "Sue Saliba": {
+    "country": "aus"
+  },
+  "Sue Stap": {
+    "country": "usa"
+  },
+  "Sue Tutt": {
+    "country": "gbr"
+  },
+  "Sung Hee Han": {
+    "country": "kor",
+    "hand": "R"
+  },
+  "Sung Hee Park": {
+    "country": "kor",
+    "hand": "R"
+  },
+  "Sunitha Rao": {
+    "country": "ind",
+    "hand": "R"
+  },
+  "Surina De Beer": {
+    "country": "rsa",
+    "hand": "R"
+  },
+  "Susan Alexander": {
+    "country": "aus",
+    "hand": "R"
+  },
   "Susan Bandecchi": {
     "country": "sui",
     "hand": "R",
     "birthday": "1998-07-01"
+  },
+  "Susan Hagey": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Susan Leo": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Susan Mascarin": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Susan Minford": {
+    "country": "irl"
+  },
+  "Susan Rimes": {
+    "country": "usa"
+  },
+  "Susan Rollinson": {
+    "country": "rsa"
+  },
+  "Susan Sloane Lundy": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Susan Vinton": {
+    "country": "usa"
+  },
+  "Susana Maria Villaverde": {
+    "country": "arg"
+  },
+  "Susanne Celik": {
+    "country": "swe",
+    "hand": "R"
+  },
+  "Susanne Schmid": {
+    "country": "sui"
+  },
+  "Susie Jaeger": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Susie Mehmedbasich": {
+    "country": "usa",
+    "hand": "R"
   },
   "Suzan Lamens": {
     "country": "ned",
     "hand": "R",
     "birthday": "1999-07-05"
   },
+  "Suzana Gesteira": {
+    "country": "bra"
+  },
+  "Suzanne Schmitt": {
+    "country": "fra",
+    "hand": "R"
+  },
+  "Suzie Mair": {
+    "country": "gbr"
+  },
+  "Svetlana Cherneva": {
+    "country": "rus"
+  },
+  "Svetlana Krivencheva": {
+    "country": "bul",
+    "hand": "R"
+  },
   "Svetlana Kuznetsova": {
     "country": "rus",
     "hand": "R"
+  },
+  "Sybille Bammer": {
+    "country": "aut",
+    "hand": "L"
+  },
+  "Sybille Niox Chateau": {
+    "country": "fra"
+  },
+  "Sylvia Hanika": {
+    "country": "ger",
+    "hand": "L"
+  },
+  "Sylvia Plischke": {
+    "country": "aut",
+    "hand": "R"
+  },
+  "Sylvie Rual": {
+    "country": "fra"
+  },
+  "Sylvie Sabas": {
+    "country": "fra"
+  },
+  "Syna Schreiber": {
+    "country": "ger",
+    "hand": "L"
+  },
+  "Tadeja Majeric": {
+    "country": "slo",
+    "hand": "R"
+  },
+  "Tagifano Soonalole": {
+    "country": "sam"
   },
   "Talia Gibson": {
     "country": "aus",
     "hand": "R",
     "birthday": "2004-06-18"
+  },
+  "Tam Oshaughnessy": {
+    "country": "usa"
+  },
+  "Tamaka Takagi": {
+    "country": "jpn"
   },
   "Tamara Korpatsch": {
     "country": "ger",
@@ -2487,18 +9274,104 @@
     "hand": "R",
     "birthday": "1997-12-26"
   },
+  "Tamarine Tanasugarn": {
+    "country": "tha",
+    "hand": "R"
+  },
+  "Tamaryn Hendler": {
+    "country": "bel",
+    "hand": "L"
+  },
+  "Tami Whitlinger Jones": {
+    "country": "usa"
+  },
+  "Tamira Paszek": {
+    "country": "aut",
+    "hand": "R",
+    "birthday": "1990-12-06"
+  },
+  "Tammi Patterson": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Tammy Whittington": {
+    "country": "usa"
+  },
+  "Tanja Ostertag": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Tanner Cochran": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Tanya Harford": {
+    "country": "rsa",
+    "hand": "R"
+  },
+  "Tara Iyer": {
+    "country": "ind",
+    "hand": "R"
+  },
+  "Tara Moore": {
+    "country": "gbr",
+    "hand": "R",
+    "birthday": "1992-08-06"
+  },
+  "Tara Snyder": {
+    "country": "usa",
+    "hand": "R"
+  },
   "Tara Wuerth": {
     "country": "cro",
     "birthday": "2002-09-30",
+    "hand": "R"
+  },
+  "Tara Wurth": {
+    "country": "cro",
+    "hand": "R"
+  },
+  "Tathiana Garbin": {
+    "country": "ita",
+    "hand": "R"
+  },
+  "Tatia Mikadze": {
+    "country": "geo",
+    "hand": "R"
+  },
+  "Tatiana Golovin": {
+    "country": "fra",
+    "hand": "R"
+  },
+  "Tatiana Ignatieva": {
+    "country": "blr"
+  },
+  "Tatiana Kovaltchouk": {
+    "country": "ukr"
+  },
+  "Tatiana Panova": {
+    "country": "rus",
+    "hand": "R"
+  },
+  "Tatiana Perebiynis": {
+    "country": "ukr",
     "hand": "R"
   },
   "Tatiana Pieri": {
     "country": "ita",
     "birthday": "1999-03-29"
   },
+  "Tatiana Poutchek": {
+    "country": "blr",
+    "hand": "R"
+  },
   "Tatiana Prozorova": {
     "country": "rus",
     "birthday": "2003-10-10"
+  },
+  "Tatjana Jecmenica": {
+    "country": "srb",
+    "hand": "R"
   },
   "Tatjana Maria": {
     "country": "ger",
@@ -2515,15 +9388,40 @@
     "hand": "L",
     "birthday": "1996-04-16"
   },
+  "Teliana Pereira": {
+    "country": "bra",
+    "hand": "R"
+  },
+  "Tena Lukas": {
+    "country": "cro",
+    "hand": "R",
+    "birthday": "1995-05-10"
+  },
   "Teodora Kostovic": {
     "country": "srb",
     "birthday": "2007-06-28",
+    "hand": "R"
+  },
+  "Teodora Mircic": {
+    "country": "srb",
+    "hand": "R"
+  },
+  "Teresa Edgar": {
+    "country": "gbr"
+  },
+  "Tereza Hladikova": {
+    "country": "cze",
     "hand": "R"
   },
   "Tereza Martincova": {
     "country": "cze",
     "hand": "R",
     "birthday": "1994-10-24"
+  },
+  "Tereza Mrdeza": {
+    "country": "cro",
+    "hand": "R",
+    "birthday": "1990-11-14"
   },
   "Tereza Smitkova": {
     "country": "cze",
@@ -2533,15 +9431,41 @@
     "country": "cze",
     "birthday": "2007-02-20"
   },
+  "Terry Holladay": {
+    "country": "usa",
+    "hand": "L"
+  },
+  "Terry Phelps": {
+    "country": "usa"
+  },
+  "Teryn Ashley": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Tess Sugnaux": {
+    "country": "sui",
+    "hand": "R"
+  },
   "Tessa Johanna Brockmann": {
     "country": "ger",
     "hand": "R",
     "birthday": "2005-11-21"
   },
+  "Tessa Price": {
+    "country": "rsa"
+  },
   "Tessah Andrianjafitrimo": {
     "country": "fra",
     "hand": "R",
     "birthday": "1998-10-11"
+  },
+  "Tetiana Luzhanska": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Tetyana Arefyeva": {
+    "country": "ukr",
+    "hand": "R"
   },
   "Thasaporn Naklo": {
     "country": "tha",
@@ -2552,10 +9476,32 @@
     "country": "usa",
     "birthday": "2008-12-17"
   },
+  "Theresa Logar": {
+    "country": "usa",
+    "hand": "L"
+  },
+  "Theresa Van Haren": {
+    "country": "aus"
+  },
+  "Tian Tian Sun": {
+    "country": "chn",
+    "hand": "R"
+  },
   "Tiantsoa Sarah Rakotomanga Rajaonah": {
     "country": "fra",
     "hand": "L",
     "birthday": "2005-12-15"
+  },
+  "Tiffany Dabek": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Tiffany Welford": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Tiiu Kivi": {
+    "country": "est"
   },
   "Timea Babos": {
     "country": "hun",
@@ -2566,6 +9512,80 @@
     "country": "sui",
     "hand": "R"
   },
+  "Tina Hergold": {
+    "country": "slo"
+  },
+  "Tina Krizan": {
+    "country": "slo",
+    "hand": "R"
+  },
+  "Tina Lyman": {
+    "country": "usa"
+  },
+  "Tina Mochizuki": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Tina Pisnik": {
+    "country": "slo",
+    "hand": "R"
+  },
+  "Tina Schiechtl": {
+    "country": "aut",
+    "hand": "R"
+  },
+  "Tine Scheuer Larsen": {
+    "country": "den"
+  },
+  "Tine Zwaan": {
+    "country": "ned",
+    "hand": "R"
+  },
+  "Ting Li": {
+    "country": "chn",
+    "hand": "R"
+  },
+  "Tish Adams": {
+    "country": "usa"
+  },
+  "Tomoko Yonemura": {
+    "country": "jpn"
+  },
+  "Tornado Alicia Black": {
+    "country": "usa"
+  },
+  "Tory Ann Fretz": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Toshiko Sade": {
+    "country": "jpn"
+  },
+  "Tracey Morton Rodgers": {
+    "country": "aus"
+  },
+  "Tracy Almeda Singian": {
+    "country": "usa"
+  },
+  "Tracy Austin": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Trey Lewis": {
+    "country": "usa"
+  },
+  "Trish Mcclenaughan": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Trudi Musgrave": {
+    "country": "aus",
+    "hand": "L"
+  },
+  "Trudy Groenman": {
+    "country": "ned",
+    "hand": "L"
+  },
   "Tsvetana Pironkova": {
     "country": "bul",
     "hand": "R"
@@ -2575,10 +9595,23 @@
     "birthday": "2008-03-12",
     "hand": "R"
   },
+  "Tzipi Obziler": {
+    "country": "isr",
+    "hand": "R"
+  },
+  "Ulla Sandulf": {
+    "country": "swe",
+    "hand": "L"
+  },
   "Ulrikke Eikeri": {
     "country": "nor",
     "hand": "R",
     "birthday": "1992-12-16"
+  },
+  "Urszula Radwanska": {
+    "country": "pol",
+    "hand": "R",
+    "birthday": "1990-12-07"
   },
   "Usue Maitane Arconada": {
     "country": "usa",
@@ -2590,6 +9623,18 @@
     "hand": "R",
     "birthday": "2004-12-14"
   },
+  "Valda Lake": {
+    "country": "gbr"
+  },
+  "Valentina Ivanov": {
+    "country": "nzl",
+    "hand": "R",
+    "birthday": "2001-03-27"
+  },
+  "Valentina Sassi": {
+    "country": "ita",
+    "hand": "R"
+  },
   "Valentina Steiner": {
     "country": "ger",
     "birthday": "2006-07-19"
@@ -2598,23 +9643,68 @@
     "country": "gre",
     "birthday": "1997-02-09"
   },
+  "Valentyna Ivakhnenko": {
+    "country": "ukr",
+    "hand": "R"
+  },
   "Valeria Savinykh": {
     "country": "rus",
     "hand": "R",
     "birthday": "1991-02-20"
+  },
+  "Valeria Solovieva": {
+    "country": "rus",
+    "hand": "R"
+  },
+  "Valerie Caulley": {
+    "country": "aus"
   },
   "Valerie Glozman": {
     "country": "usa",
     "hand": "R",
     "birthday": "2006-11-22"
   },
+  "Valerie Tetreault": {
+    "country": "can",
+    "hand": "R"
+  },
+  "Valerie Ziegenfuss": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Valeriya Olyanovskaya": {
+    "country": "rus"
+  },
   "Valeriya Strakhova": {
     "country": "ukr",
     "hand": "R",
     "birthday": "1995-06-09"
   },
+  "Vanda Lukacs": {
+    "country": "hun"
+  },
+  "Vanessa Henke": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Vanessa Krauth": {
+    "country": "arg",
+    "hand": "R"
+  },
+  "Vanessa Menga": {
+    "country": "bra",
+    "hand": "R"
+  },
+  "Vanessa Webb": {
+    "country": "can",
+    "hand": "L"
+  },
   "Vania King": {
     "country": "usa",
+    "hand": "R"
+  },
+  "Varatchaya Wongteanchai": {
+    "country": "tha",
     "hand": "R"
   },
   "Varvara Flink": {
@@ -2631,6 +9721,10 @@
     "hand": "L",
     "birthday": "1986-05-21"
   },
+  "Vasilisa Bardina": {
+    "country": "rus",
+    "hand": "R"
+  },
   "Vendula Valdmannova": {
     "country": "cze",
     "birthday": "2007-12-10"
@@ -2640,17 +9734,31 @@
     "hand": "R",
     "birthday": "1980-06-17"
   },
+  "Vera Dushevina": {
+    "country": "rus",
+    "hand": "R"
+  },
   "Vera Lapko": {
     "country": "blr",
     "hand": "R"
+  },
+  "Vera Roberts": {
+    "country": "gbr"
   },
   "Vera Zvonareva": {
     "country": "wor",
     "hand": "R",
     "birthday": "1984-09-07"
   },
+  "Veronica Burton": {
+    "country": "gbr"
+  },
   "Veronica Cepede Royg": {
     "country": "par",
+    "hand": "R"
+  },
+  "Veronika Chvojkova": {
+    "country": "cze",
     "hand": "R"
   },
   "Veronika Erjavec": {
@@ -2658,24 +9766,52 @@
     "hand": "R",
     "birthday": "1999-12-30"
   },
+  "Veronika Kapshay": {
+    "country": "ukr"
+  },
   "Veronika Kudermetova": {
     "country": "rus",
     "hand": "R",
     "birthday": "1997-04-24"
   },
+  "Veronika Martinek": {
+    "country": "ger"
+  },
   "Veronika Podrez": {
     "country": "ukr",
     "birthday": "2007-01-11"
+  },
+  "Vesna Dolonc": {
+    "country": "srb",
+    "hand": "R"
+  },
+  "Vicki Lancaster Kerr": {
+    "country": "aus"
+  },
+  "Vicki Nelson": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Vicky Berner": {
+    "country": "can"
   },
   "Victoria Azarenka": {
     "country": "blr",
     "hand": "R",
     "birthday": "1989-07-31"
   },
+  "Victoria Duval": {
+    "country": "usa",
+    "hand": "R"
+  },
   "Victoria Jimenez Kasintseva": {
     "country": "and",
     "hand": "L",
     "birthday": "2005-08-09"
+  },
+  "Victoria Larriere": {
+    "country": "fra",
+    "hand": "R"
   },
   "Victoria Luiza Barros": {
     "country": "bra",
@@ -2690,10 +9826,27 @@
     "country": "mex",
     "birthday": "1995-04-22"
   },
+  "Victoria Rogers": {
+    "country": "usa"
+  },
+  "Vija Vuskalns": {
+    "country": "usa"
+  },
   "Viktoria Hruncakova": {
     "country": "svk",
     "hand": "R",
     "birthday": "1998-05-11"
+  },
+  "Viktoria Kamenskaya": {
+    "country": "rus",
+    "hand": "R"
+  },
+  "Viktoria Kutuzova": {
+    "country": "ukr",
+    "hand": "R"
+  },
+  "Viktoria Milvidskaia": {
+    "country": "rus"
   },
   "Viktoria Morvayova": {
     "country": "svk",
@@ -2709,6 +9862,54 @@
     "hand": "R",
     "birthday": "1995-02-25"
   },
+  "Viky Nunez Fuentes": {
+    "country": "col"
+  },
+  "Vilmarie Castellvi": {
+    "country": "pur",
+    "hand": "R"
+  },
+  "Violette Huck": {
+    "country": "fra",
+    "hand": "L"
+  },
+  "Virag Nemeth": {
+    "country": "hun",
+    "hand": "R"
+  },
+  "Virginia Caceres": {
+    "country": "per"
+  },
+  "Virginia Humphreys Davies": {
+    "country": "gbr"
+  },
+  "Virginia Ruano Pascual": {
+    "country": "esp",
+    "hand": "R"
+  },
+  "Virginia Ruzici": {
+    "country": "rou",
+    "hand": "R"
+  },
+  "Virginia Wade": {
+    "country": "gbr",
+    "hand": "R"
+  },
+  "Virginie Buisson": {
+    "country": "fra"
+  },
+  "Virginie Paquet": {
+    "country": "fra",
+    "hand": "R"
+  },
+  "Virginie Pichet": {
+    "country": "fra",
+    "hand": "R"
+  },
+  "Virginie Razzano": {
+    "country": "fra",
+    "hand": "R"
+  },
   "Vitalia Diatchenko": {
     "country": "rus",
     "hand": "R",
@@ -2723,31 +9924,117 @@
     "country": "nzl",
     "birthday": "2005-01-11"
   },
+  "Viviana Gonzalez": {
+    "country": "arg",
+    "hand": "R"
+  },
+  "Vivicca Andersson": {
+    "country": "swe"
+  },
+  "Vivien Silfany Tony": {
+    "country": "ina"
+  },
+  "Vlada Ekshibarova": {
+    "country": "uzb",
+    "hand": "R"
+  },
+  "Vlasta Kodesova": {
+    "country": "cze"
+  },
   "Wakana Sonobe": {
     "country": "jpn",
     "birthday": "2008-01-17"
+  },
+  "Wendy Appleby": {
+    "country": "usa"
+  },
+  "Wendy Barlow": {
+    "country": "can"
+  },
+  "Wendy Gilchrist": {
+    "country": "aus",
+    "hand": "L"
+  },
+  "Wendy Hall": {
+    "country": "gbr"
+  },
+  "Wendy Overton": {
+    "country": "usa"
+  },
+  "Wendy Tomlinson": {
+    "country": "rsa"
+  },
+  "Wendy Turnbull": {
+    "country": "aus",
+    "hand": "R"
+  },
+  "Wendy White": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Wendy Wood": {
+    "country": "usa"
+  },
+  "Weronika Baszak": {
+    "country": "pol",
+    "hand": "R"
   },
   "Weronika Ewald": {
     "country": "pol",
     "hand": "R",
     "birthday": "2006-02-20"
   },
+  "Weronika Falkowska": {
+    "country": "pol",
+    "hand": "R",
+    "birthday": "2000-06-17"
+  },
   "Whitney Osuigwe": {
     "country": "usa",
     "hand": "R",
     "birthday": "2002-04-17"
   },
+  "Wiltrud Probst": {
+    "country": "ger",
+    "hand": "R"
+  },
+  "Wing Yau Venise Chan": {
+    "country": "hkg",
+    "hand": "R"
+  },
+  "Winnie Shaw": {
+    "country": "gbr",
+    "hand": "R"
+  },
   "Wushuang Zheng": {
     "country": "chn",
     "birthday": "1998-04-21"
+  },
+  "Wynne Prakusya": {
+    "country": "ina",
+    "hand": "R"
+  },
+  "Xanthe Adams": {
+    "country": "aus"
+  },
+  "Xenia Knoll": {
+    "country": "sui",
+    "hand": "L"
   },
   "Xiaodi You": {
     "country": "chn",
     "birthday": "1996-05-12"
   },
+  "Ximena Hermoso": {
+    "country": "mex",
+    "hand": "R"
+  },
   "Xin Yu Wang": {
     "country": "chn",
     "hand": "R"
+  },
+  "Xin-Yun Han": {
+    "birthday": "1990-05-30"
   },
   "Xinran Sun": {
     "country": "chn",
@@ -2773,15 +10060,46 @@
     "birthday": "2001-09-26",
     "hand": "L"
   },
+  "Xinyun Han": {
+    "country": "chn",
+    "hand": "L"
+  },
   "Xiyu Wang": {
     "country": "chn",
     "hand": "L",
     "birthday": "2001-03-28"
   },
+  "Ya Hsuan Lee": {
+    "country": "tpe",
+    "hand": "R"
+  },
+  "Ya-Hsuan Lee": {
+    "country": "tpe",
+    "birthday": "1995-07-20"
+  },
+  "Yaeko Matsuda": {
+    "country": "jpn"
+  },
   "Yafan Wang": {
     "country": "chn",
     "hand": "R",
     "birthday": "1994-04-30"
+  },
+  "Yan Chong Chen": {
+    "country": "chn",
+    "hand": "R"
+  },
+  "Yan Ze Xie": {
+    "country": "chn"
+  },
+  "Yana Buchina": {
+    "country": "rus",
+    "hand": "R"
+  },
+  "Yana Morderger": {
+    "country": "deu",
+    "hand": "R",
+    "birthday": "1997-03-07"
   },
   "Yanina Wickmayer": {
     "country": "bel",
@@ -2801,6 +10119,14 @@
     "hand": "R",
     "birthday": "2001-05-15"
   },
+  "Yayuk Basuki": {
+    "country": "ina",
+    "hand": "R"
+  },
+  "Ye Ra Lee": {
+    "country": "kor",
+    "hand": "R"
+  },
   "Ye Xin Ma": {
     "country": "chn"
   },
@@ -2815,9 +10141,23 @@
     "country": "kor",
     "birthday": "2003-03-15"
   },
+  "Yevheniia Savranska": {
+    "country": "ukr"
+  },
   "Yexin Ma": {
     "country": "chn",
     "birthday": "1999-06-10"
+  },
+  "Yi Fan Xu": {
+    "country": "chn",
+    "hand": "L"
+  },
+  "Yi Jing Zhao": {
+    "country": "chn"
+  },
+  "Yi Miao Zhou": {
+    "country": "chn",
+    "hand": "R"
   },
   "Yi Ya Yang": {
     "country": "tai",
@@ -2828,12 +10168,35 @@
     "country": "chn",
     "birthday": "2009-03-22"
   },
+  "Ying Ying Duan": {
+    "country": "chn",
+    "hand": "R"
+  },
+  "Ying Yu": {
+    "country": "chn",
+    "hand": "R"
+  },
+  "Ying Zhang": {
+    "country": "chn",
+    "birthday": "1996-04-15"
+  },
   "Ylena In Albon": {
     "country": "sui",
     "hand": "R"
   },
   "Ylena In-Albon": {
     "birthday": "1999-03-06"
+  },
+  "Yone Kamio": {
+    "country": "jpn",
+    "hand": "R"
+  },
+  "Yoon Jeong Cho": {
+    "country": "kor",
+    "hand": "R"
+  },
+  "Young Ja Choi": {
+    "country": "kor"
   },
   "Ysaline Bonaventure": {
     "country": "bel",
@@ -2849,6 +10212,9 @@
     "hand": "R",
     "birthday": "1998-09-25"
   },
+  "Yue Yue Hu": {
+    "country": "chn"
+  },
   "Yufei Ren": {
     "country": "chn",
     "hand": "R",
@@ -2858,10 +10224,34 @@
     "country": "chn",
     "birthday": "2007-06-21"
   },
+  "Yuka Yoshida": {
+    "country": "jpn",
+    "hand": "R"
+  },
+  "Yuki Naito": {
+    "country": "jpn",
+    "hand": "R"
+  },
+  "Yukie Koizumi": {
+    "country": "jpn"
+  },
+  "Yulia Fedossova": {
+    "country": "fra",
+    "hand": "R"
+  },
   "Yulia Putintseva": {
     "country": "kaz",
     "hand": "R",
     "birthday": "1995-01-07"
+  },
+  "Yuliana Fedak": {
+    "country": "ukr",
+    "hand": "R"
+  },
+  "Yuliana Lizarazo": {
+    "country": "col",
+    "hand": "R",
+    "birthday": "1993-05-23"
   },
   "Yuliana Monroy": {
     "country": "col",
@@ -2872,10 +10262,22 @@
     "hand": "R",
     "birthday": "2000-02-17"
   },
+  "Yuliya Beygelzimer": {
+    "country": "ukr",
+    "hand": "R"
+  },
   "Yuliya Hatouka": {
     "country": "blr",
     "hand": "R",
     "birthday": "2000-04-24"
+  },
+  "Yung Jan Chan": {
+    "country": "tpe",
+    "hand": "R"
+  },
+  "Yurika Sema": {
+    "country": "jpn",
+    "hand": "L"
   },
   "Yuriko Miyazaki": {
     "country": "gbr",
@@ -2885,15 +10287,51 @@
     "country": "chn",
     "birthday": "2008-12-26"
   },
+  "Yuxuan Zhang": {
+    "country": "chn",
+    "hand": "R"
+  },
+  "Yveline Boy": {
+    "country": "fra"
+  },
+  "Yvette Basting": {
+    "country": "ned",
+    "hand": "R"
+  },
+  "Yvona Brzakova": {
+    "country": "tch"
+  },
+  "Yvonne Meusburger": {
+    "country": "aut",
+    "hand": "R"
+  },
+  "Yvonne Neuwirth": {
+    "country": "aut"
+  },
+  "Yvonne Vermaak": {
+    "country": "rsa",
+    "hand": "R"
+  },
+  "Zaiga Yansone": {
+    "country": "urs"
+  },
   "Zarina Diyas": {
     "country": "kaz",
     "hand": "R",
     "birthday": "1993-10-18"
   },
+  "Zenda Liess": {
+    "country": "usa"
+  },
   "Zeynep Sonmez": {
     "country": "tur",
     "hand": "R",
     "birthday": "2002-04-30"
+  },
+  "Zhaoxuan Yang": {
+    "country": "chn",
+    "hand": "R",
+    "birthday": "1995-02-11"
   },
   "Zhibek Kulambayeva": {
     "country": "kaz",
@@ -2905,9 +10343,46 @@
     "hand": "R",
     "birthday": "2002-01-01"
   },
+  "Zi Yan": {
+    "country": "chn",
+    "hand": "R"
+  },
+  "Zina Garrison": {
+    "country": "usa",
+    "hand": "R"
+  },
+  "Ziva Falkner": {
+    "country": "slo",
+    "birthday": "2002-07-07"
+  },
+  "Zoe Gwen Scandalis": {
+    "country": "usa",
+    "hand": "R"
+  },
   "Zoe Hives": {
     "country": "aus",
     "hand": "R",
     "birthday": "1996-10-24"
+  },
+  "Zsofia Gubacsi": {
+    "country": "hun",
+    "hand": "R"
+  },
+  "Zuleykha Safarova": {
+    "country": "aze"
+  },
+  "Zuzana Hejdova": {
+    "country": "cze"
+  },
+  "Zuzana Kucova": {
+    "country": "svk",
+    "hand": "R"
+  },
+  "Zuzana Lesenarova": {
+    "country": "cze"
+  },
+  "Zuzana Ondraskova": {
+    "country": "cze",
+    "hand": "R"
   }
 }

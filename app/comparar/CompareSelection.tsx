@@ -135,7 +135,7 @@ export default function CompareSelection({
                 <div>
                   <span>{tour==='wta'?'Jugadora':'Jugador'} {index + 1}</span>
                   <strong>
-                    {known?.country ? <PlayerFlag code={known.country} /> : null}
+                    <PlayerFlag code={known?.country} />
                     <span>{name.trim() || `Elige ${tour==='wta'?'jugadora':'jugador'}`}</span>
                   </strong>
                 </div>

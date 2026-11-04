@@ -1,12 +1,13 @@
 import { enrichCloudArchive } from '@/lib/cloud-archive';
 import { authorizedCronRequest } from '@/lib/cron-auth';
+import { unauthorizedResponse } from '@/lib/security-events';
 
 export const runtime = 'nodejs';
 export const maxDuration = 300;
 export const dynamic = 'force-dynamic';
 
 export async function GET(request: Request) {
-  if (!authorizedCronRequest(request)) return Response.json({ error: 'Unauthorized' }, { status: 401 });
+  if (!authorizedCronRequest(request)) return unauthorizedResponse(request, 'cron.enrich');
   try {
     const result = await enrichCloudArchive();
     const accepted = ['success', 'quota-reserve', 'storage-reserve', 'storage-unverified', 'busy'].includes(result.status);

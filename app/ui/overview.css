@@ -152,12 +152,6 @@
   font-size: 12px;
   color: var(--muted);
 }
-.ds-main-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.8fr);
-  gap: 32px;
-  margin-top: 64px;
-}
 .ds-results-section,
 .ds-tour-section {
   min-width: 0;
@@ -230,71 +224,14 @@
   gap: 32px;
   margin-top: 64px;
 }
-.ds-rivalry-feature,
 .ds-ranking-section {
   min-width: 0;
   background: var(--bg-raised);
   border-radius: 24px;
   padding: 32px;
 }
-.ds-rivalry-feature h2,
 .ds-ranking-section h2 {
   font-size: 26px;
-}
-.ds-rivalry-lead {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  margin-top: 32px;
-}
-.ds-rivalry-player {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-}
-.ds-rivalry-player img {
-  width: 88px;
-  height: 88px;
-  border-radius: 50%;
-  object-position: 50% 20%;
-}
-.ds-rivalry-player > span {
-  font-size: 14px;
-  font-weight: 600;
-}
-.ds-rivalry-player strong {
-  font: 650 72px/1 var(--font-display);
-  color: var(--p1);
-}
-.ds-rivalry-player + div strong {
-  color: var(--p2);
-}
-.ds-rivalry-scope {
-  font-size: 12px;
-  text-align: center;
-  color: var(--muted);
-  margin: 24px auto;
-}
-.ds-rivalry-splits {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  padding-top: 24px;
-  border-top: 1px solid var(--line);
-}
-.ds-rivalry-splits > div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-}
-.ds-rivalry-splits span {
-  font-size: 12px;
-  color: var(--muted);
-}
-.ds-rivalry-splits strong {
-  font: 600 24px var(--font-display);
 }
 .ds-ranking-scope {
   font-size: 12px;
@@ -412,18 +349,12 @@
   font-size: 14px;
   font-weight: 500;
 }
-.ds-main-grid:not(:has(.ds-tour-section)) {
-  grid-template-columns: 1fr;
-}
 @media (max-width: 1099px) {
   .ds-home-heading {
     align-items: flex-start;
   }
   .ds-home-heading h1 span {
     display: block;
-  }
-  .ds-main-grid {
-    grid-template-columns: 1fr;
   }
   .ds-tour-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -469,10 +400,7 @@
     padding-top: 16px;
     font-size: 11px;
   }
-  .ds-stories,
-  .ds-main-grid,
-  .ds-analysis-grid,
-  .ds-home-end {
+  .ds-stories,.ds-analysis-grid,.ds-home-end {
     margin-top: 40px;
   }
   .ds-discovery-stage {
@@ -529,33 +457,18 @@
   .ds-story-person {
     font-size: 13px;
   }
-  .ds-main-grid,
-  .ds-analysis-grid,
-  .ds-home-end {
+  .ds-analysis-grid,.ds-home-end {
     grid-template-columns: 1fr;
     gap: 32px;
   }
   .ds-tour-grid {
     grid-template-columns: 1fr;
   }
-  .ds-rivalry-feature,
-  .ds-ranking-section,
-  .ds-latest-final {
+  .ds-ranking-section,.ds-latest-final {
     padding: 24px 20px;
   }
-  .ds-rivalry-feature h2,
-  .ds-ranking-section h2,
-  .ds-latest-final h2 {
+  .ds-ranking-section h2,.ds-latest-final h2 {
     font-size: 25px;
-  }
-  .ds-rivalry-lead {
-    gap: 16px;
-  }
-  .ds-rivalry-player > span {
-    font-size: 12px;
-  }
-  .ds-rivalry-player strong {
-    font-size: 64px;
   }
   .ds-ranking-chart > a {
     grid-template-columns: 12px minmax(0, 1fr) 56px 32px;

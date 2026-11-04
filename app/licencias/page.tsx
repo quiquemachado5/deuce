@@ -125,7 +125,7 @@ export default async function Credits({ searchParams }: {
       {selected.length > 25 && <Pagination page={page} total={selected.length} href={(next) => href(query, kind, rights, next)} />}
       <section className="nc-section" id="recreaciones"><h2>Recreaciones</h2><p>Las imágenes identificadas como recreaciones con IA son ilustraciones editoriales. No documentan visualmente un punto, partido o momento histórico concreto.</p></section>
       <section className="nc-section" id="video"><h2>Vídeo de portada</h2><p>Secuencia de un partido en una pista azul al aire libre. Recurso del handoff, alojado localmente en MP4 y WebM sin audio, con fotograma de respaldo. No representa el partido destacado.</p><p><a href="https://www.pexels.com/video/35538977/" target="_blank" rel="noopener noreferrer">Pexels · vídeo 35538977</a> · <a href="https://www.pexels.com/license/" target="_blank" rel="noopener noreferrer">Licencia Pexels</a></p></section>
-      <section className="nc-section"><h2>Tipografías</h2><p>Manrope, DM Sans y Newsreader. Distribuidas por Google Fonts, alojadas localmente por Next.js.</p></section>
+      <section className="nc-section"><h2>Tipografías</h2><p>Bricolage Grotesque y Geist. Distribuidas por Google Fonts, alojadas localmente por Next.js.</p></section>
       <section className="nc-section"><h2>Banderas</h2><p>Los SVG de países proceden de flag-icons (lipis), bajo licencia MIT. <a className="nc-link" href="/images/flags/LICENSE.txt">Licencia</a> · <a className="nc-link" href="/images/flags/SOURCE.txt">Procedencia</a></p></section>
       <p className="ry-photo-endnote"><Link href="/info">Cómo se lee DEUCE</Link></p>
     </div>

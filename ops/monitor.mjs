@@ -2,10 +2,13 @@ import { appendFile, readFile, writeFile } from 'node:fs/promises';
 import { releaseFailures } from './release-policy.mjs';
 import { recoveryFailures } from './recovery-policy.mjs';
 import { monitorMarkdown, monitorReport } from './monitor-report.mjs';
+import { seoSmokeFailures } from './seo-smoke.mjs';
 const baseline = JSON.parse(await readFile(new URL('./release-baseline.json',import.meta.url),'utf8'));
 const marker = '<!-- deuce-production-health-v1 -->';
 const repository = 'quiquemachado5/deuce';
 const productionUrl = String(process.env.DEUCE_MONITOR_URL || baseline.productionUrl).replace(/\/$/, '');
+const expectedCommit = process.env.DEUCE_EXPECTED_COMMIT?.trim();
+if (expectedCommit && !/^[a-f0-9]{7,40}$/.test(expectedCommit)) throw new Error('DEUCE_EXPECTED_COMMIT is invalid');
 async function check() {
   const failures = [];
   try {
@@ -16,8 +19,9 @@ async function check() {
     // refresh. This exception is deliberately narrow: releaseFailures only
     // accepts a recent, explicitly marked seed while both refresh rows are
     // still absent. Errors, stale rows and every later failure remain fatal.
-    failures.push(...releaseFailures(h,baseline,{allowInitialDailyUnavailable:true}));
+    failures.push(...releaseFailures(h,baseline,{allowInitialDailyUnavailable:true,expectedCommit}));
     failures.push(...recoveryFailures(h));
+    failures.push(...await seoSmokeFailures(productionUrl));
     return { health: h, failures };
   } catch { failures.push('No se pudo consultar producción dentro del tiempo límite'); }
   return { health: null, failures };

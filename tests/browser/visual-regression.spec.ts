@@ -13,6 +13,9 @@ async function revealSections(page: Page) {
     for (const section of document.querySelectorAll('main section, footer')) {
       section.scrollIntoView(); await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
     }
+    for (const footer of document.querySelectorAll('.deuce-footer.footer-motion-ready')) {
+      footer.classList.add('is-visible');
+    }
     scrollTo(0, 0);
   });
   await page.addStyleTag({content:'main section, footer { content-visibility: visible !important; } [data-reveal] { opacity: 1 !important; transform: none !important; }'});

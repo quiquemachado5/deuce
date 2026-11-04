@@ -177,12 +177,12 @@ export default async function Player({params,searchParams}:Props){
   <div className={`nc-wrap pp-page ${styles.profilePage}`}>
     <div className={styles.heroStage}>
       <header className={`pp-hero${portrait?' has-photo':' no-photo'}`} id="resumen">
-        {portrait?<PlayerPortrait photo={portrait} className="pp-hero-photo" preload/>:<div className="pp-hero-fallback" aria-label={`Sin fotografía disponible para ${player.name}`}><span>{initials}</span>{bio?.country&&<PlayerFlag code={bio.country}/>}<i/><i/></div>}
+        {portrait?<PlayerPortrait photo={portrait} className="pp-hero-photo" preload/>:<div className="pp-hero-fallback" aria-label={`Sin fotografía disponible para ${player.name}`}><span>{initials}</span><PlayerFlag code={bio?.country}/><i/><i/></div>}
         <div className={styles.heroShade} aria-hidden="true"/>
         <Link className={styles.backButton} href={`/jugadores?tour=${tour}`} aria-label={tour==='wta'?'Volver a jugadoras':'Volver a jugadores'}><ArrowLeft size={19} aria-hidden="true"/></Link>
         <div className="pp-hero-copy">
           <div className={styles.heroIdentity}>
-            <div className={styles.playerTitle}>{bio?.country&&<PlayerFlag code={bio.country}/>}<h1>{player.name}</h1></div>
+            <div className={styles.playerTitle}><PlayerFlag code={bio?.country}/><h1>{player.name}</h1></div>
             <dl className="pp-hero-facts"><div><dt>Actividad en DEUCE</dt><dd>{activityLabel}</dd></div>{bio?.hand&&<div><dt>Mano</dt><dd>{handLabel(bio.hand)}</dd></div>}<div><dt>Circuito</dt><dd>{tour.toUpperCase()}</dd></div></dl>
           </div>
         </div>

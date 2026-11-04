@@ -1,4 +1,5 @@
 import { authorizedCronRequest } from '@/lib/cron-auth'
+import { unauthorizedResponse } from '@/lib/security-events'
 import { acquireArchiveLease, archiveStoreBackend } from '@/lib/archive-store'
 import { cloudProbeRead, cloudRead, cloudWrite } from '@/lib/cloud-archive'
 import { publishRecordSnapshot } from '@/lib/revista/publish-snapshot'
@@ -85,7 +86,7 @@ async function prepareDeploymentBackup(id: string) {
 }
 
 export async function GET(request: Request) {
-  if (!authorizedCronRequest(request)) return Response.json({ error: 'Unauthorized' }, { status: 401 })
+  if (!authorizedCronRequest(request)) return unauthorizedResponse(request, 'cron.seed')
   if (archiveStoreBackend() !== 'filesystem') {
     return Response.json({ error: 'The initial seed is only available for the self-hosted filesystem archive' }, { status: 409 })
   }

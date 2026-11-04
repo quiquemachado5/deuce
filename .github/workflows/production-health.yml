@@ -30,3 +30,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
           DEUCE_MONITOR_URL: ${{ vars.DEUCE_MONITOR_URL }}
+          DEUCE_EXPECTED_COMMIT: ${{ (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && github.sha || '' }}

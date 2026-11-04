@@ -20,6 +20,8 @@ html:has(.pm-page) {
 }
 
 .pm-page {
+  --font-panorama-body: var(--deuce-body);
+  --font-panorama-display: var(--deuce-display);
   --pm-bg: #f1f3f2;
   --pm-panel: #ffffff;
   --pm-quiet: #f6f8f7;

@@ -128,9 +128,9 @@ export function PlayerRivals({rivals,player,compareHref}:{rivals:RivalCard[];pla
   return <>
     <div className="pp-rivals-heading"><h2 id="pp-rivals-title">Rivales y enfrentamientos</h2><div ref={scrollRef} className="pp-segmented" role="group" aria-label="Ordenar rivales"><button aria-pressed={view==='frequent'} onClick={()=>setView('frequent')}>Más enfrentados</button><button aria-pressed={view==='best'} onClick={()=>setView('best')}>Mejor balance</button><button aria-pressed={view==='worst'} onClick={()=>setView('worst')}>Peor balance</button></div></div>
     <div className="pp-rival-grid">{ordered.map(rival=>{const opponentWins=rival.played-rival.won,currentLeads=rival.won>opponentWins,opponentLeads=opponentWins>rival.won;return <Link href={rival.href} key={rival.name} aria-label={`${rival.name}, ${opponentWins}; ${player.name}, ${rival.won}`}>
-      <span className="pp-rival-side" data-leading={opponentLeads||undefined}><span>{rival.country&&<PlayerFlag code={rival.country}/>}<strong>{rival.name}</strong></span><b>{opponentWins}</b></span>
+      <span className="pp-rival-side" data-leading={opponentLeads||undefined}><span><PlayerFlag code={rival.country}/><strong>{rival.name}</strong></span><b>{opponentWins}</b></span>
       <i aria-hidden="true">—</i>
-      <span className="pp-rival-side" data-leading={currentLeads||undefined}><span>{player.country&&<PlayerFlag code={player.country}/>}<strong>{player.name}</strong></span><b>{rival.won}</b></span>
+      <span className="pp-rival-side" data-leading={currentLeads||undefined}><span><PlayerFlag code={player.country}/><strong>{player.name}</strong></span><b>{rival.won}</b></span>
       <small>{rival.played} enfrentamientos</small>
     </Link>})}</div>
     <Link className="pp-compare-rivals" href={compareHref}>Comparar jugadores <ArrowUpRight size={15} aria-hidden="true"/></Link>

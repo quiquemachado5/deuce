@@ -31,6 +31,7 @@
     "storage:seed": "node --import ./build/register.mjs --import tsx build/seed-blob-archive.ts",
     "media:verify": "node --import ./build/register.mjs --import tsx build/audit-tournament-media.ts && node --import ./build/register.mjs --import tsx build/audit-photo-rights.ts",
     "media:players": "node build/discover-player-photos.mjs --scan=250 --max=100",
+    "media:thumbnails": "node build/generate-player-avatar-thumbnails.mjs",
     "media:wta": "node build/import-wta-player-photos.mjs --review-only --limit=50",
     "media:wta:bios": "node build/import-wta-player-bios.mjs",
     "budgets:verify": "node build/audit-budgets.mjs && node build/audit-public-assets.mjs",
@@ -40,7 +41,8 @@
     "verify": "npm run test && npm run lint && npm run typecheck && npm run media:verify && npm run data:verify && npm run data:wta:audit && npm run performance:verify && npm run budgets:verify",
     "data:verify-publication": "node --import ./build/register.mjs --import tsx build/verify-publication-packs.ts",
     "media:wta:discover": "node build/discover-player-photos.mjs --tour=wta --scan=400 --max=100",
-    "media:wta:bios:local": "node build/index-wta-player-bios.mjs"
+    "media:wta:bios:local": "node build/index-wta-player-bios.mjs",
+    "assets:brand": "node build/generate-brand-assets.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.118.0",

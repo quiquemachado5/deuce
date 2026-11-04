@@ -16,7 +16,7 @@ const unoptimizedAllowlist = new Map([
   ['components/HomeHighlights.tsx', 1],
   ['components/EditionInsightsRail.tsx', 1],
   ['components/PlayerFlag.tsx', 1],
-  ['components/PlayerAvatar.tsx', 1],
+  ['components/PlayerAvatarView.tsx', 1],
   ['components/PlayerPortrait.tsx', 1],
   ['components/TournamentEditionMedia.tsx', 2],
   ['components/TournamentFinal.tsx', 1],

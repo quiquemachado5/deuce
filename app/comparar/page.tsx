@@ -144,7 +144,7 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
           {players.map((player, index) => {
             const country = playerBiography(player.name,q.tour==='wta'?'wta':'atp')?.country;
             return <Link className={styles.playerHeading} data-side={index === 0 ? 'left' : 'right'} data-has-country={country?'true':'false'} href={`/jugadores/${playerSlug(player.name)}${tour === 'wta' ? '?tour=wta' : ''}`} key={player.name}>
-              {country?<span className={styles.flag}><PlayerFlag code={country}/></span>:null}
+              <span className={styles.flag}><PlayerFlag code={country}/></span>
               <strong>{player.name}</strong>
             </Link>;
           })}
@@ -213,7 +213,7 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
               const country = playerBiography(player.name,q.tour==='wta'?'wta':'atp')?.country;
               const leading = directWins[index] > directWins[1 - index];
               return <div className={styles.h2hPlayer} data-leading={leading ? 'true' : undefined} data-side={index === 0 ? 'left' : 'right'} data-has-country={country?'true':'false'} data-wins={directWins[index]} key={player.name}>
-                {country?<span className={styles.h2hFlag}><PlayerFlag code={country}/></span>:null}
+                <span className={styles.h2hFlag}><PlayerFlag code={country}/></span>
                 <strong>{player.name}</strong>
                 <small>{number(directWins[index])} {directWins[index] === 1 ? 'victoria' : 'victorias'}</small>
               </div>;

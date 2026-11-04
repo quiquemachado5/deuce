@@ -3,12 +3,13 @@ import { preparedDataCacheDiagnostics } from '@/lib/revista/read-records';
 import { renderPrometheusMetrics } from '@/lib/runtime-metrics';
 import { rateLimitDiagnostics } from '@/lib/rate-limit';
 import { cloudProbeRead } from '@/lib/cloud-archive';
+import { unauthorizedResponse } from '@/lib/security-events';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 export async function GET(request: Request) {
-  if (!authorizedCronRequest(request, process.env.METRICS_SECRET)) return new Response('Unauthorized', { status: 401 });
+  if (!authorizedCronRequest(request, process.env.METRICS_SECRET)) return unauthorizedResponse(request, 'metrics');
   const [quota,publication,storage,enrichment,backup,host]=await Promise.all([
     cloudProbeRead('provider-quota-status'),cloudProbeRead('publish-status'),cloudProbeRead('storage-capacity-status'),
     cloudProbeRead('enrichment-status'),cloudProbeRead('backup-status'),cloudProbeRead('host-status'),

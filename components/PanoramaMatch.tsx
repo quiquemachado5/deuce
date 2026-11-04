@@ -1,7 +1,6 @@
 import "@/app/panorama-match.css";
 import Image from "next/image";
 import Link from "next/link";
-import { Bricolage_Grotesque, Geist } from "next/font/google";
 import type { CSSProperties, ReactNode } from "react";
 import type { Match } from "@/lib/types";
 import { tournamentName } from "@/lib/labels";
@@ -21,16 +20,6 @@ import { findStat, type StatRow } from "@/lib/statistics";
 import { pressure, sentence } from "@/lib/cuaderno/model";
 import PlayerFlag from "@/components/PlayerFlag";
 import { compactMatchDate } from "@/lib/match-date";
-
-const geist = Geist({
-  subsets: ["latin"],
-  variable: "--font-panorama-body",
-});
-
-const bricolage = Bricolage_Grotesque({
-  subsets: ["latin"],
-  variable: "--font-panorama-display",
-});
 
 export type PanoramaSection =
   | "resumen"
@@ -92,15 +81,10 @@ function matchDate(match: Match) {
 
 function MatchFlag({ name, tour, compact = false }: { name: string; tour: 'atp'|'wta'; compact?: boolean }) {
   const code = playerBiography(name,tour)?.country;
-  return code ? (
+  return (
     <span className={`pm-flag${compact ? " pm-flag-compact" : ""}`} aria-hidden="true">
       <PlayerFlag code={code} />
     </span>
-  ) : (
-    <span
-      className={`pm-flag pm-flag-empty${compact ? " pm-flag-compact" : ""}`}
-      aria-hidden="true"
-    />
   );
 }
 
@@ -577,7 +561,7 @@ export default function PanoramaMatch({
         ? "resumen"
         : active;
   return (
-    <article className={`pm-page ${geist.variable} ${bricolage.variable}`}>
+    <article className="pm-page">
       <section
         className={`pm-hero pm-surface-${match.surface}${photo ? "" : " pm-hero-no-photo"}`}
         aria-labelledby="pm-title"

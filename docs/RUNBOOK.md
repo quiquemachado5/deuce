@@ -9,6 +9,8 @@ Este documento describe las decisiones que deben tomarse durante una incidencia.
 3. Revisar `docker compose ps`, el heartbeat del scheduler y los logs estructurados. No ejecutar manualmente un cron mientras exista el lease `tennis-provider`.
 4. Mantener la generación publicada: refresh, WTA, histórico y enriquecimiento escriben checkpoints; solo publicación mueve el puntero cuando todas las validaciones pasan.
 
+Los accesos rechazados a cron y métricas emiten `security.auth.denied` con superficie, método y `requestId`. Si se configura `SECURITY_LOG_SALT`, incluyen un hash HMAC truncado para correlacionar repeticiones sin almacenar la IP. Nunca registrar cabeceras de autorización ni query strings.
+
 ## Cuota del proveedor
 
 - `provider-quota-status` es la fuente operativa. No estimar el saldo por el número de archivos descargados.
