@@ -82,11 +82,20 @@ export async function GET(request: Request) {
       ||recentRefreshFreshnessIssue(wtaRefresh,freshness.wta));
     const schedulerIssue = scheduler.configured && scheduler.status !== 'healthy';
     const host=hostStatus(hostProbe),hostIssue=host.at!==null&&(host.status!=='healthy'||(host.ageMinutes??0)>15);
-    const status = generation.fallbackReason || ageHours > 72 || dailyIssue || freshnessIssue || schedulerIssue || hostIssue || !capacity.available ? 'degraded' : 'healthy';
+    const healthIssues = [
+      generation.fallbackReason ? 'archive-fallback' : null,
+      ageHours > 72 ? 'dataset-stale' : null,
+      dailyIssue ? 'daily-update' : null,
+      freshnessIssue ? 'circuit-freshness' : null,
+      schedulerIssue ? 'scheduler' : null,
+      hostIssue ? 'host' : null,
+      !capacity.available ? 'storage-capacity' : null,
+    ].filter((issue): issue is string => Boolean(issue));
+    const status = healthIssues.length ? 'degraded' : 'healthy';
     const elapsedMs = Math.round(performance.now() - started);
     logEvent(status === 'healthy' ? 'info' : 'warn', 'health.deep', { requestId: id, status, elapsedMs, source: generation.source, fallbackReason: generation.fallbackReason });
     return Response.json({
-      status, ...generationMetadata(generation), deployment: deploymentMetadata(),
+      status, healthIssues, ...generationMetadata(generation), deployment: deploymentMetadata(),
       matches: generation.manifest.matchCount, tours: generation.manifest.summary.tours,
       statistics: generation.manifest.pieces.length + (generation.manifest.circuitPieces?.wta.length || 0),
       statisticsByTour: { atp: generation.manifest.pieces.length, wta: generation.manifest.circuitPieces?.wta.length || 0 },

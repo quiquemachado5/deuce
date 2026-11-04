@@ -13,5 +13,5 @@ const failures = releaseFailures(health, baseline, {
   expectedCommit: argument('expected-commit') || process.env.DEUCE_EXPECTED_COMMIT,
   expectedDatasetVersion: argument('expected-dataset') || process.env.DEUCE_EXPECTED_DATASET_VERSION,
 })
-console.log(JSON.stringify({ verified: failures.length === 0, datasetVersion: health.datasetVersion, commit: health.deployment?.commit, tours: health.tours, scheduler: health.scheduler?.status, failures }, null, 2))
+console.log(JSON.stringify({ verified: failures.length === 0, datasetVersion: health.datasetVersion, commit: health.deployment?.commit, tours: health.tours, scheduler: health.scheduler?.status, healthIssues: health.healthIssues, failures }, null, 2))
 if (failures.length) process.exitCode = 1

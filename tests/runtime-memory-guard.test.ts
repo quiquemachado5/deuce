@@ -14,6 +14,7 @@ test('large bundled artifacts have one bounded cache owner', () => {
 test('deep health reads partition metadata without inflating every match partition', async () => {
   const source=await readFile(new URL('../app/api/health/deep/route.ts',import.meta.url),'utf8');
   assert.match(source,/preparedMatchBrowserIndex\(\)/);
+  assert.match(source,/healthIssues/);
   assert.doesNotMatch(source,/preparedMatchBrowser\('all'\)/);
 });
 
