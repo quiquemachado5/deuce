@@ -248,7 +248,7 @@
 .analysisGrid :global(.pp-ranking){display:flex;flex-direction:column}
 .analysisGrid :global(.pp-ranking .pp-section-heading){margin-bottom:24px}
 .profilePage :global(.pp-ranking-slider){position:relative;display:flex;flex:1;min-height:350px}
-.profilePage :global(.pp-ranking-slider>button){position:absolute;z-index:2;top:50%;display:grid;width:38px;height:38px;place-items:center;border:0;border-radius:50%;background:rgba(255,255,255,.46);box-shadow:none;color:rgba(10,48,39,.58);cursor:pointer;transform:translateY(-50%);transition:background .2s ease,color .2s ease,transform .2s ease}
+.profilePage :global(.pp-ranking-slider>button){position:absolute;z-index:2;top:50%;display:grid;width:44px;height:44px;place-items:center;border:0;border-radius:50%;background:rgba(255,255,255,.46);box-shadow:none;color:rgba(10,48,39,.58);cursor:pointer;transform:translateY(-50%);transition:background .2s ease,color .2s ease,transform .2s ease}
 .profilePage :global(.pp-ranking-slider>button:first-child){left:16px}
 .profilePage :global(.pp-ranking-slider>button:nth-of-type(2)){right:16px}
 .profilePage :global(.pp-ranking-slider>button:hover){background:rgba(255,255,255,.82);color:#0a3027;transform:translateY(-50%)}
@@ -392,7 +392,7 @@
   .profilePage :global(.pp-career-plot text){font-size:12px}
   .profilePage :global(.pp-chart-x-axis span[data-compact-hide]){display:none}
   .profilePage :global(.pp-ranking-slider){min-height:194px}
-  .profilePage :global(.pp-ranking-slider>button){top:auto;bottom:15px;width:42px;height:42px;background:rgba(255,255,255,.64);transform:none}
+  .profilePage :global(.pp-ranking-slider>button){top:auto;bottom:15px;width:44px;height:44px;background:rgba(255,255,255,.64);transform:none}
   .profilePage :global(.pp-ranking-slider>button:first-child){left:calc(50% - 48px)}
   .profilePage :global(.pp-ranking-slider>button:nth-of-type(2)){right:calc(50% - 48px)}
   .profilePage :global(.pp-ranking-slider>button:hover){transform:none}

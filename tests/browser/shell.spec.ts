@@ -30,7 +30,7 @@ test('global search coexists with directory controls and fills the topbar',async
   await page.setViewportSize({width:390,height:844});
   await page.goto('/buscar');
   await expect(page.locator('.deuce-search input[type="search"]')).toHaveCount(0);
-  const filters=page.getByRole('button',{name:'Filtrar partidos, 1 filtros activos',exact:true});
+  const filters=page.getByRole('button',{name:'Filtros 1 · Filtrar partidos, 1 filtro activo',exact:true});
   await expect(filters).toBeVisible();
   await filters.click();
   await expect(page.getByRole('button',{name:'Cerrar filtros',exact:true})).toBeVisible();

@@ -1,6 +1,6 @@
 ---
 name: DEUCE
-description: Archivo deportivo visual de resultados y estadísticas de tenis masculino.
+description: Archivo deportivo visual de resultados y estadísticas ATP y WTA.
 colors:
   bg: "#f5f6f7"
   bg-raised: "#fff"
@@ -196,7 +196,7 @@ Paneles redondeados (24px), campos suaves (16px) y cápsulas completas forman la
 - **Cabecera opaca:** barra flotante en cápsula, separada 12 px del borde superior (8 px en móvil), con el tratamiento opaco descrito en Elevation & Depth. Cinco enlaces: Partidos, Estadísticas, Jugadores, Torneos, Comparar. Cara a cara pertenece a Jugadores.
 - **MatchHero:** fotografía licenciada de sede, retratos circulares enfrentados, total de sets central y una tabla accesible de sets en cualquier ancho. Sin resultado duplicado en una segunda línea móvil. Ganador en el nombre accesible y cifras ganadoras en color de pista, sin fondos en las celdas; el desempate es pequeño y queda en línea. Compartir y registro se abren bajo demanda.
 - **Archivo por ediciones:** selector de temporada, campeonatos con fotografía o color de superficie, partidas agrupadas por año y torneo tras filtrar. Paginación de 25; ninguna cinta viaja al cliente en el listado.
-- **Footer:** marca DEUCE y navegación de archivo alineadas; debajo, Cómo se lee, Cobertura, Fotografías y tema. Sin panel fotográfico repetido. Se apila en móvil.
+- **Footer:** marca DEUCE y navegación de archivo alineadas; debajo, Sobre DEUCE, Cómo se lee, Cobertura, Licencias y tema. Sin panel fotográfico repetido. Se apila en móvil.
 - **Galería:** selector de fotos/vídeos, navegación anterior/siguiente, ampliación nativa con Escape y retorno del foco. YouTube no se solicita hasta pulsar reproducir; siempre existe enlace al canal oficial. Fechas de los vídeos pertenecen al vídeo, no al partido destacado en portada.
 - **Comparación por superficie:** controles para total y pistas; dos barras proporcionales con escala común, valores escritos y transición de anchura. No hay una puntuación sintética.
 - **Texto secundario:** metodología, versiones y estados de cinta pasan a Cobertura o al registro del partido. Los denominadores que cambian el significado de un porcentaje se mantienen. No reemplazar datos ausentes por cero.

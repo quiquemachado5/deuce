@@ -15,8 +15,9 @@ import { tournamentName } from "@/lib/labels";
 import { score } from "@/lib/cuaderno/model";
 import { pairSlug, rivalryDirectory } from "@/lib/explore";
 import Row from "@/components/nocturno/Row";
-import { matchCanonicalPath, matchHasTransientState, noIndexFollow } from "@/lib/seo-metadata";
+import { breadcrumbJsonLd, matchCanonicalPath, matchHasTransientState, matchJsonLd, noIndexFollow } from "@/lib/seo-metadata";
 import { comparisonPageHref, findCircuitMatch, matchCircuit } from "@/lib/match-comparison";
+import { StructuredData } from "@/components/StructuredData";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -145,12 +146,20 @@ export default async function MatchPage({ params, searchParams }: Props) {
       )}
     </>
   );
-  return (
+  return <>
+    <StructuredData value={[
+      matchJsonLd(match),
+      breadcrumbJsonLd([
+        { name: "Inicio", path: "/" },
+        { name: "Partidos", path: `/buscar?tour=${matchCircuit(match)}` },
+        { name: `${match.player1.name} – ${match.player2.name}`, path: matchCanonicalPath(id) },
+      ]),
+    ]} />
     <PanoramaMatch
       match={match}
       rivalry={rivalry}
       active={initial}
       supplemental={junto ? around : undefined}
     />
-  );
+  </>;
 }

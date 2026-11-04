@@ -88,6 +88,17 @@ html[data-theme="dark"] {
 * {
   box-sizing: border-box;
 }
+
+.pd-country-flag {
+  display: inline-block;
+  width: 24px;
+  height: 18px;
+  flex: 0 0 24px;
+  object-fit: cover;
+  border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+  border-radius: 3px;
+  vertical-align: middle;
+}
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 88px;

@@ -46,6 +46,12 @@ const publicPath = (root, path) => `/${relative(join(root, 'public'), path).spli
 const sourcePath = (root, path) => relative(root, path).split(sep).join('/');
 
 function responsiveVariants(reference) {
+  if (/^\/images\/players\/directory\/.+\.webp(?:\?.*)?$/.test(reference) && !/-734\.webp(?:\?.*)?$/.test(reference)) {
+    return [reference.split('?')[0].replace(/\.webp$/, '-734.webp')];
+  }
+  if (/^\/images\/tournaments\/detail\/.+\.webp$/.test(reference) && !/-\d+\.webp$/.test(reference)) {
+    return [734, 1068, 1440].map(width => reference.replace(/\.webp$/, `-${width}.webp`));
+  }
   if (/^\/images\/courts\/.+\.jpg$/.test(reference)) {
     return [734, 1068, 1440].map(width => reference.replace(/\.jpg$/, `-${width}.webp`));
   }

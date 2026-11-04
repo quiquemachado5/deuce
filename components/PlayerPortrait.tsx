@@ -11,6 +11,7 @@ export default function PlayerPortrait({
   className?: string;
   preload?: boolean;
 }) {
+  const locallyResponsive = Boolean(photo.responsive) || /^\/images\/players\/directory\/.+\.webp(?:\?|$)/.test(photo.src);
   return (
     <figure className={`pd-portrait ${className}`}>
       <Image
@@ -23,7 +24,7 @@ export default function PlayerPortrait({
         style={imageFocus(photo.objectPosition || "50% 20%",photo.mobileObjectPosition||photo.objectPosition||"50% 20%")}
         loading={preload ? "eager" : "lazy"}
         fetchPriority={preload ? "high" : "auto"}
-        unoptimized={!photo.responsive}
+        unoptimized={!locallyResponsive}
       />
       <figcaption className="nc-sr"><a href={photo.source}>{photo.credit}</a>{photo.licenseUrl&&<> · <a href={photo.licenseUrl}>Licencia de reutilización</a></>}</figcaption>
     </figure>

@@ -599,7 +599,9 @@ export async function generateMetadata({
       title: `${title} — DEUCE`,
       description: metadataDescription,
       url: canonical,
+      images: ['/opengraph-image'],
     },
+    twitter: { card: 'summary_large_image' as const, title: `${title} — DEUCE`, description: metadataDescription, images: ['/opengraph-image'] },
     robots: recordsHaveTransientState(raw) ? noIndexFollow : robotsForUnavailableTour(view.manifest.summary, tour),
   };
 }

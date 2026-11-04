@@ -448,8 +448,8 @@
 
 .page :global(.records-ranking-pagination button) {
   display: grid;
-  width: 34px;
-  height: 34px;
+  width: 44px;
+  height: 44px;
   padding: 0;
   border: 0;
   border-radius: 50%;
@@ -1248,8 +1248,8 @@
 
 .page :global(.records-video-controls button) {
   display: grid;
-  width: 34px;
-  height: 34px;
+  width: 44px;
+  height: 44px;
   padding: 0;
   border: 0;
   border-radius: 50%;
@@ -1277,20 +1277,37 @@
 }
 
 .page :global(.records-video-dots button) {
-  width: 6px;
-  height: 6px;
+  position: relative;
+  display: grid;
+  width: 24px;
+  height: 24px;
   padding: 0;
   border: 0;
   border-radius: 50%;
-  background: rgb(255 255 255 / 0.34);
+  place-items: center;
+  background: transparent;
   cursor: pointer;
+}
+
+.page :global(.records-video-dots button::after) {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.34);
+  content: "";
   transition: width 220ms cubic-bezier(0.16, 1, 0.3, 1), background 220ms ease;
 }
 
-.page :global(.records-video-dots button[aria-pressed="true"]) {
+.page :global(.records-video-dots button[aria-pressed="true"]::after) {
   width: 18px;
   border-radius: 999px;
   background: var(--records-lime);
+}
+
+.page :global(.records-video-controls button:focus-visible),
+.page :global(.records-video-dots button:focus-visible) {
+  outline: 2px solid var(--records-lime);
+  outline-offset: 2px;
 }
 
 .page :global(.records-video-frame) {
@@ -2059,8 +2076,8 @@
 
 .page :global(.records-family-surface-controls button) {
   display: grid;
-  width: 32px;
-  height: 32px;
+  width: 44px;
+  height: 44px;
   padding: 0;
   border: 0;
   border-radius: 50%;
@@ -3059,8 +3076,8 @@
   }
 
   .page :global(.records-ranking-pagination button) {
-    width: 30px;
-    height: 30px;
+    width: 44px;
+    height: 44px;
   }
 
   .page :global(.records-ranking-pagination button svg) {
@@ -3277,8 +3294,8 @@
   }
 
   .page :global(.records-video-controls button) {
-    width: 32px;
-    height: 32px;
+    width: 44px;
+    height: 44px;
   }
 
   .page :global(.records-video-controls button svg) {
@@ -3496,8 +3513,8 @@
   }
 
   .page :global(.records-family-surface-controls button) {
-    width: 29px;
-    height: 29px;
+    width: 44px;
+    height: 44px;
   }
 
   .familyVideo {

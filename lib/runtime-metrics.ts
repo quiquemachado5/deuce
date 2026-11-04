@@ -2,9 +2,57 @@ type Histogram = { count: number; sum: number; buckets: number[] };
 const durationBuckets = [5, 10, 25, 50, 100, 250, 500, 1_000, 2_500, 5_000] as const;
 const requests = new Map<string, number>();
 const durations = new Map<string, Histogram>();
+const clientEvents = new Map<string, number>();
+const clientMetrics = new Map<string, Histogram>();
+const clientMetricBuckets: Record<string, readonly number[]> = {
+  TTFB: [200, 500, 800, 1_800, 3_000],
+  FCP: [1_000, 1_800, 3_000, 5_000, 8_000],
+  LCP: [1_000, 2_500, 4_000, 8_000, 12_000],
+  INP: [100, 200, 500, 1_000, 2_000],
+  CLS: [0.05, 0.1, 0.25, 0.5, 1],
+  navigation: [500, 1_000, 2_500, 5_000, 10_000, 30_000],
+  skeleton: [500, 1_000, 2_500, 5_000, 10_000, 30_000],
+};
+const publicTelemetryRoutes = new Set(['buscar', 'cobertura', 'comparar', 'historias', 'info', 'jugadores', 'licencias', 'records', 'sobre', 'torneos']);
 
 const label = (value: string) => value.replace(/[^a-zA-Z0-9_./-]/g, '_').slice(0, 80);
 const escape = (value: string) => value.replaceAll('\\', '\\\\').replaceAll('"', '\\"').replaceAll('\n', '\\n');
+
+/** Keep browser telemetry useful without creating a label for every entity URL. */
+export function telemetryRoute(rawPath: string) {
+  const parts = rawPath.split('?')[0].split('/').filter(Boolean);
+  if (!parts.length) return '/';
+  if (parts[0] === 'match') return '/match/:id';
+  if ((parts[0] === 'jugadores' || parts[0] === 'players') && parts[1]) return '/jugadores/:slug';
+  if (parts[0] === 'torneos' && parts[1] && /^\d{4}$/.test(parts[2] || '')) return '/torneos/:slug/:year';
+  if (parts[0] === 'torneos' && parts[1]) return '/torneos/:slug';
+  if (parts[0] === 'records' && parts[1]) return '/records/:view';
+  return publicTelemetryRoutes.has(parts[0]) ? `/${parts[0]}` : '/other';
+}
+
+export function observeClientTelemetry(input: {kind:string;name?:string;value?:number;rating?:string;path?:string;navigationType?:string}) {
+  const route = telemetryRoute(input.path || '/');
+  const rating = ['good', 'needs-improvement', 'poor'].includes(input.rating || '') ? input.rating! : 'unrated';
+  const event = label(input.kind);
+  const eventKey = `${route}|${event}|${rating}`;
+  clientEvents.set(eventKey, (clientEvents.get(eventKey) || 0) + 1);
+  if (!Number.isFinite(input.value)) return;
+  const metric = input.kind === 'web-vital' && input.name && clientMetricBuckets[input.name]
+    ? input.name
+    : input.kind === 'navigation' && input.navigationType === 'skeleton'
+      ? 'skeleton'
+      : input.kind === 'navigation' ? 'navigation' : null;
+  if (!metric) return;
+  const buckets = clientMetricBuckets[metric];
+  const maximum = metric === 'CLS' ? 10 : 300_000;
+  const value = Math.min(maximum, Math.max(0, input.value!));
+  const key = `${route}|${metric}`;
+  const histogram = clientMetrics.get(key) || { count: 0, sum: 0, buckets: buckets.map(() => 0) };
+  histogram.count++;
+  histogram.sum += value;
+  buckets.forEach((upper, index) => { if (value <= upper) histogram.buckets[index]++; });
+  clientMetrics.set(key, histogram);
+}
 
 /** Route names are fixed call-site labels; query strings and IDs must never be passed here. */
 export function observeApiRequest(route: string, status: number, durationMs: number) {
@@ -42,6 +90,19 @@ export function renderPrometheusMetrics(caches: Record<string, Record<string, nu
     lines.push(`deuce_http_request_duration_ms_sum{route="${escape(route)}"} ${histogram.sum.toFixed(3)}`);
     lines.push(`deuce_http_request_duration_ms_count{route="${escape(route)}"} ${histogram.count}`);
   }
+  lines.push('# HELP deuce_client_events_total Browser events received by route family and rating.', '# TYPE deuce_client_events_total counter');
+  for (const [key, value] of [...clientEvents].sort(([a], [b]) => a.localeCompare(b))) {
+    const [route,event,rating] = key.split('|');
+    lines.push(`deuce_client_events_total{route="${escape(route)}",event="${escape(event)}",rating="${escape(rating)}"} ${value}`);
+  }
+  lines.push('# HELP deuce_client_metric_value Browser performance values; milliseconds except CLS.', '# TYPE deuce_client_metric_value histogram');
+  for (const [key, histogram] of [...clientMetrics].sort(([a], [b]) => a.localeCompare(b))) {
+    const [route,metric] = key.split('|');
+    clientMetricBuckets[metric].forEach((upper,index)=>lines.push(`deuce_client_metric_value_bucket{route="${escape(route)}",metric="${metric}",le="${upper}"} ${histogram.buckets[index]}`));
+    lines.push(`deuce_client_metric_value_bucket{route="${escape(route)}",metric="${metric}",le="+Inf"} ${histogram.count}`);
+    lines.push(`deuce_client_metric_value_sum{route="${escape(route)}",metric="${metric}"} ${histogram.sum.toFixed(3)}`);
+    lines.push(`deuce_client_metric_value_count{route="${escape(route)}",metric="${metric}"} ${histogram.count}`);
+  }
   lines.push('# HELP deuce_process_memory_bytes Node.js process memory.', '# TYPE deuce_process_memory_bytes gauge');
   const memory = process.memoryUsage();
   for (const [kind, value] of Object.entries({ rss: memory.rss, heap_used: memory.heapUsed, heap_total: memory.heapTotal, external: memory.external })) lines.push(`deuce_process_memory_bytes{kind="${kind}"} ${value}`);
@@ -59,4 +120,4 @@ export function renderPrometheusMetrics(caches: Record<string, Record<string, nu
   return `${lines.join('\n')}\n`;
 }
 
-export function resetRuntimeMetrics() { requests.clear(); durations.clear(); }
+export function resetRuntimeMetrics() { requests.clear(); durations.clear(); clientEvents.clear(); clientMetrics.clear(); }

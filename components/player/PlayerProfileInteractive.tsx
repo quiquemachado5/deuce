@@ -150,7 +150,9 @@ export function PlayerTournamentArchive({tournaments,tour='atp'}:{tournaments:To
       const content=<><span className="pp-tournament-logo" data-monochrome={monochrome||undefined}>{logo}</span>
         <div><strong>{tournament.name}</strong><small>{tournament.titleYears.length?tournament.titleYears.join(', '):'Sin títulos en el archivo'}</small></div>
         <b>{tournament.trophySrc?<Image className="pp-tournament-trophy" src={tournament.trophySrc} alt="" width={18} height={24} unoptimized/>:<Trophy size={16} aria-hidden="true"/>}<span className="nc-sr">Títulos:</span>{tournament.titles.toLocaleString('es-ES')}</b></>;
-      return tournament.href?<Link className="pp-tournament-entry" href={tournament.href} key={tournament.slug} data-event-surface={tournament.surfaceKey} aria-label={`Abrir ${tournament.name}, ${tournament.titles} ${tournament.titles===1?'título':'títulos'}`}>{content}</Link>:<article className="pp-tournament-entry" key={tournament.slug} data-event-surface={tournament.surfaceKey} aria-label={`${tournament.name}, ${tournament.titles} ${tournament.titles===1?'título':'títulos'}`}>{content}</article>;
+      const titleHistory=tournament.titleYears.length?tournament.titleYears.join(', '):'Sin títulos en el archivo';
+      const accessibleName=`${tournament.name}. ${titleHistory}. Títulos: ${tournament.titles}`;
+      return tournament.href?<Link className="pp-tournament-entry" href={tournament.href} key={tournament.slug} data-event-surface={tournament.surfaceKey} aria-label={`Abrir ${accessibleName}`}>{content}</Link>:<article className="pp-tournament-entry" key={tournament.slug} data-event-surface={tournament.surfaceKey} aria-label={accessibleName}>{content}</article>;
     })}</div>:<div className="pp-empty"><strong>No hay títulos en este corte</strong><p>Este archivo no conserva un torneo de esa categoría ganado por el jugador.</p></div>}
   </>;
 }

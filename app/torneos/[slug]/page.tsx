@@ -18,6 +18,8 @@ import TournamentEditionNav from "@/components/TournamentEditionNav";
 import styles from "@/components/tournament-detail.module.css";
 import { tournamentDetailPhoto } from "@/lib/tournament-detail-media";
 import { singlesMatches } from "@/lib/match-discipline";
+import { StructuredData } from "@/components/StructuredData";
+import { breadcrumbJsonLd, tournamentSeriesJsonLd } from "@/lib/seo-metadata";
 
 type Props = { params: Promise<{ slug: string }>; searchParams: Promise<{ categoria?: string; cuadro?: string }> };
 
@@ -41,8 +43,8 @@ export async function generateMetadata({ params, searchParams }: Props) {
     title,
     description,
     alternates: { canonical: `/torneos/${slug}${categoryQuery}` },
-    openGraph: { title, description, url: `/torneos/${slug}${categoryQuery}` },
-    twitter: { card: "summary_large_image", title, description },
+    openGraph: { title, description, url: `/torneos/${slug}${categoryQuery}`, images: [`/torneos/${slug}/opengraph-image`] },
+    twitter: { card: "summary_large_image", title, description, images: [`/torneos/${slug}/opengraph-image`] },
   };
 }
 
@@ -118,6 +120,7 @@ export default async function Tournament({ params, searchParams }: Props) {
     ? (selectedTour==='atp'?championPhotoForEdition(tournament.name, longestFinal.year):null) || (longestChampion ? tournamentPlayerPhoto(longestChampion) : null)
     : null;
   const titleName = tournamentName(tournament.name);
+  const seriesDescription=`Títulos, finales y ediciones ${selectedTour==='wta'?'WTA':'ATP'} de ${titleName} dentro del archivo documentado de DEUCE.`;
   const heroTitleLines = slug === "us-open" ? ["Abierto de", "Estados Unidos"] : [titleName];
   const categoryOptions = tourCategories.map((level) => ({
     value: level,
@@ -127,10 +130,18 @@ export default async function Tournament({ params, searchParams }: Props) {
   }));
   const usedChampionPhotos = new Set<string>();
 
-  return (
+  return (<>
+    <StructuredData value={[
+      tournamentSeriesJsonLd({name:titleName,slug,category,tour:selectedTour,years,description:seriesDescription}),
+      breadcrumbJsonLd([
+        {name:'Inicio',path:'/'},
+        {name:'Torneos',path:`/torneos?circuito=${selectedTour}`},
+        {name:titleName,path:`/torneos/${slug}${selectedTour==='wta'?'?cuadro=wta':''}`},
+      ]),
+    ]}/>
     <div className={`${styles.page} nc-wrap`} data-event-category={category} data-event-surface={court.surface} data-tournament={slug} data-grand-slam={category === "Grand Slam" ? "true" : undefined}>
       <header className={styles.hero}>
-        {photo ? <Image className="art-directed-photo" src={photo.src} alt={photo.alt} fill sizes="100vw" style={imageFocus(photo.objectPosition || "center", photo.mobileObjectPosition || photo.objectPosition || "center")} priority unoptimized={photo.src.startsWith("/images/tournaments/detail/")} /> : <span className={styles.heroFallback} aria-hidden="true" />}
+        {photo ? <Image className="art-directed-photo" src={photo.src} alt={photo.alt} fill sizes="100vw" style={imageFocus(photo.objectPosition || "center", photo.mobileObjectPosition || photo.objectPosition || "center")} priority /> : <span className={styles.heroFallback} aria-hidden="true" />}
         <span className={styles.heroBackdrop} aria-hidden="true" />
         <div className={styles.heroInner}>
           <div className={styles.heroCopy}>
@@ -156,7 +167,7 @@ export default async function Tournament({ params, searchParams }: Props) {
             const photoKey = candidatePhoto ? `${champion}|${candidatePhoto.src}` : '';
             const championPhoto = candidatePhoto && !usedChampionPhotos.has(photoKey) ? candidatePhoto : null;
             if (championPhoto) usedChampionPhotos.add(photoKey);
-            return <li key={final.match_id}><Link href={editionHref(final.year)} aria-label={`${champion}, ${selectedTour==='wta'?'campeona':'campeón'} en ${final.year}. Final ante ${opponent}`}>
+            return <li key={final.match_id}><Link href={editionHref(final.year)} aria-label={`${final.year}. ${champion}, ${selectedTour==='wta'?'campeona':'campeón'}. Final ante ${opponent}. ${scoreFor(final, champion)}`}>
               {championPhoto ? <Image className={`${styles.championPhoto} art-directed-photo`} src={championPhoto.src} alt={titlePhoto ? `${champion} con el trofeo de ${final.year}` : championPhoto.alt} fill sizes="(max-width: 759px) 78vw, 330px" style={imageFocus(championPhoto.objectPosition || "50% 20%", championPhoto.mobileObjectPosition || championPhoto.objectPosition || "50% 20%")} unoptimized /> : <PlayerAvatar name={champion} tour={selectedTour} photo={null} size={80} />}
               <span className={styles.championShade} aria-hidden="true" /><span className={styles.championYear}>{final.year}</span><span className={styles.championCopy}><strong>{champion}</strong><span>Final ante {opponent}</span><small>{scoreFor(final, champion)}</small></span>
             </Link></li>;
@@ -210,5 +221,5 @@ export default async function Tournament({ params, searchParams }: Props) {
         </div>
       </section>
     </div>
-  );
+  </>);
 }

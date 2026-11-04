@@ -644,6 +644,26 @@ export const preparedTournamentArchive=cache(async(year:number,tour:'atp'|'wta'|
  return mergeTournamentEditionDetails(summaries,details,competition,year,tour);
 });
 
+/**
+ * Edition pages only need one event and one circuit. Select the matching rows
+ * while the decade shard is streamed instead of materialising every event in
+ * the season (or both tours) before the page can render.
+ */
+export const preparedTournamentEditionArchive=cache(async(year:number,tour:'atp'|'wta',tournament:string)=>{
+ if(!Number.isSafeInteger(year)||!tournament)return [];
+ const source=await selectedSnapshotSource();
+ const normalizedTournament=normalizeText(tournament);
+ const metas=(source.manifest.matchPartitions||[]).filter(partition=>partition.tour===tour&&year>=partition.fromYear&&year<=partition.toYear);
+ const details:Match[]=[];
+ for(const meta of metas)details.push(...await selectFullPartition(source,meta,match=>match.year===year&&normalizeText(match.tournament)===normalizedTournament));
+ const [summaries,competition]=await Promise.all([
+  preparedCompactSelection({tour,tournament}),
+  selectedCompetition(source),
+ ]);
+ const relevantCompetition=competition.filter(match=>(match.tour||'atp')===tour&&normalizeText(match.tournament)===normalizedTournament);
+ return mergeTournamentEditionDetails(summaries,details,relevantCompetition,year,tour);
+});
+
 export const preparedEditionAudit=cache(async()=>{const g=await preparedGeneration();const stored=g.source==='remote' ? await cloudBlob<import('../edition-audit').EditionAudit[]>(g.manifest.version,'audit') : await localOptional<import('../edition-audit').EditionAudit[]>('audit',[]);if(stored?.length)return stored;const [matches,competition]=await Promise.all([g.matches(),g.competition?.()||Promise.resolve([])]);return auditEditions([...matches,...competition]);});
 
 export const preparedCoverageReconciliation=cache(async()=>{
