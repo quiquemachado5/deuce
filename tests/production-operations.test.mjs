@@ -3,10 +3,11 @@ import test from 'node:test'
 import { readFile } from 'node:fs/promises'
 
 const read = path => readFile(new URL(path,import.meta.url),'utf8')
-const [robots,caddy,compose,resource,maintenance,bootstrap,deployWorkflow,healthWorkflow]=await Promise.all([
+const [robots,caddy,compose,resource,maintenance,bootstrap,deployWorkflow,healthWorkflow,ciWorkflow]=await Promise.all([
   read('../app/robots.ts'),read('../ops/oracle/Caddyfile'),read('../compose.yaml'),
   read('../ops/vps/resource-check.sh'),read('../ops/vps/maintenance.sh'),read('../ops/vps/bootstrap.sh'),
   read('../.github/workflows/deploy-netcup.yml'),read('../.github/workflows/production-health.yml'),
+  read('../.github/workflows/ci.yml'),
 ])
 
 test('costly AI crawlers are rejected before Next while search indexing remains available',()=>{
@@ -24,6 +25,12 @@ test('production deploy waits for CI and pins both commit and SSH host identity'
   assert.match(deployWorkflow,/StrictHostKeyChecking=yes/)
   assert.match(deployWorkflow,/secrets\.DEUCE_VPS_KNOWN_HOSTS/)
   assert.match(healthWorkflow,/2,17,32,47/)
+})
+
+test('browser checks reuse the verified build without a deprecated artifact download',()=>{
+  assert.match(ciWorkflow,/npm run build[\s\S]*npm run test:browser/)
+  assert.doesNotMatch(ciWorkflow,/actions\/download-artifact/)
+  assert.doesNotMatch(ciWorkflow,/^  browser:/m)
 })
 
 test('reverse proxy has explicit confinement and resource ceilings',()=>{
