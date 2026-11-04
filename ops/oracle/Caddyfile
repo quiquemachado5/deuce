@@ -1,3 +1,12 @@
+{
+	admin off
+	metrics
+}
+
+:2019 {
+	metrics
+}
+
 {$DEUCE_LEGACY_HOST} {
 	redir https://{$DEUCE_HOST}{uri} permanent
 }
@@ -11,9 +20,47 @@
 	@expensiveBots {
 		header_regexp User-Agent (?i)(GPTBot|ClaudeBot|Claude-Web|anthropic-ai|CCBot|Bytespider|Amazonbot|PetalBot|meta-externalagent)
 	}
-	respond @expensiveBots 403
-	reverse_proxy web:3000 {
-		header_up X-Real-IP {remote_host}
+	route {
+		respond @expensiveBots 403
+		rate_limit {
+			zone public_data_api {
+				match {
+					path /api/search* /api/players* /api/rivals* /api/matches* /api/match-previews*
+				}
+				key {remote_host}
+				events 240
+				window 1m
+				ipv6_prefix 64
+			}
+			zone browser_telemetry {
+				match {
+					path /api/telemetry
+				}
+				key {remote_host}
+				events 120
+				window 1m
+				ipv6_prefix 64
+			}
+			zone deep_health {
+				match {
+					path /api/health/deep
+				}
+				key {remote_host}
+				events 12
+				window 1m
+				ipv6_prefix 64
+			}
+			distributed {
+				read_interval 5s
+				write_interval 5s
+				purge_age 10m
+			}
+			jitter 0.1
+			sweep_interval 1m
+		}
+		reverse_proxy web:3000 {
+			header_up X-Real-IP {remote_host}
+		}
 	}
 	log {
 		output file /var/log/deuce/caddy-access.json {

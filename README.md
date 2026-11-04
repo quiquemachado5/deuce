@@ -29,11 +29,12 @@ DEUCE_E2E_DATE=2026-11-02T12:00:00Z npm run build
 npm run budgets:verify
 npx playwright install chromium
 npm run test:browser
+npm run test:browser:smoke
 ```
 
 Las pruebas de navegador arrancan el build en `127.0.0.1:3100`. Para una comprobación de solo lectura de producción: `PLAYWRIGHT_BASE_URL="$NEXT_PUBLIC_SITE_ORIGIN" npm run test:browser`.
 
-CI ejecuta calidad, datos y build en paralelo, reutiliza un único build para las pruebas de navegador y comprueba dependencias de producción, presupuestos de HTML/CSS/JS/medios, restauración, accesibilidad y regresión visual. El workflow no activa por sí mismo la protección de `main` ni despliega.
+CI ejecuta calidad, datos y build en paralelo y reutiliza un único build para las pruebas de navegador. Las ramas pasan un smoke test de los flujos esenciales; `main`, la ejecución manual y la comprobación nocturna ejecutan la regresión completa. También se comprueban dependencias de producción, presupuestos de HTML/CSS/JS/medios, restauración, accesibilidad y regresión visual. El workflow no activa por sí mismo la protección de `main` ni despliega.
 
 ## Datos y publicación
 
@@ -76,6 +77,6 @@ DEUCE mantiene un único tema claro aprobado. Se retiraron controles oscuros inc
 
 Se aplican HSTS, `nosniff`, aislamiento de origen, framing denegado, política de permisos, CSP, SRI y bloqueo de atributos JavaScript inline. Next necesita pequeños scripts inline para hidratar páginas estáticas, por lo que `script-src` conserva `unsafe-inline`; una política basada en nonce exigiría render dinámico y se debe decidir junto con la estrategia de caché.
 
-La API tiene validación, mínimos de consulta, 429 y un límite por instancia. La protección distribuida pendiente debe aplicarse en Caddy o en el firewall del VPS. También siguen siendo configuración externa la protección obligatoria de `main`, la aprobación del entorno de producción y la verificación periódica de las copias externas.
+La API tiene validación, mínimos de consulta, 429 y un límite por instancia. Caddy añade una segunda barrera por IP o red IPv6, compartida mediante su almacenamiento persistente, para las APIs de datos, telemetría y salud profunda. Prometheus conserva durante 14 días métricas de aplicación, proxy, cuota, copias y eventos de seguridad sin exponer ningún puerto público. Siguen siendo configuración externa la protección obligatoria de `main`, la aprobación del entorno de producción y la verificación periódica de las copias externas.
 
 Ver [IMPLEMENTATION.md](IMPLEMENTATION.md) para el alcance técnico y [docs/OPERATIONS.md](docs/OPERATIONS.md) para publicación y recuperación.

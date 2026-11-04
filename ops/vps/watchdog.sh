@@ -45,7 +45,7 @@ if [[ "${running}" != "true" || "${health}" == "unhealthy" ]]; then
   "${compose[@]}" restart web
 fi
 
-for service in scheduler caddy; do
+for service in scheduler caddy prometheus; do
   service_id="$("${compose[@]}" ps -q "${service}")"
   service_running="false"
   service_health="none"

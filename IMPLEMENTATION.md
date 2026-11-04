@@ -37,7 +37,7 @@
 - Caché del cuaderno identificada por versión/origen; búsqueda, listados, fichas, destacados y sitemap de partidos leen datos publicados.
 - Metadatos y cabecera `X-DEUCE-Dataset-Version` en las APIs para contrastar resultados.
 - Aviso visible de respaldo en portada, estadísticas, fichas y cobertura. Las cachés CDN pueden actualizarse en momentos diferentes: no se promete simultaneidad global entre páginas.
-- `/api/health`: versión, origen, antigüedad y estado. Más de 72 horas o un respaldo por fallo remoto produce `degraded`; archivo inaccesible produce HTTP 503. No se ha contratado ni configurado un servicio de alertas.
+- `/api/health`: versión, origen, antigüedad y estado. Más de 72 horas o un respaldo por fallo remoto produce `degraded`; archivo inaccesible produce HTTP 503. Prometheus interno conserva métricas y evalúa alertas locales; la entrega externa de avisos sigue dependiendo del monitor de GitHub o de un receptor que configure el operador.
 - Consultas de lectura remota con límite de espera; build de producción bloqueado si pierde partidos o cobertura estadística medida frente al manifiesto publicado.
 - Pruebas de fallos parciales, datos corruptos, cambio de versión, edición de torneo, persistencia de filtros y concordancia entre siete APIs.
 - Verificación del código `96d3ace`: 16 pruebas unitarias y 8 de navegador, build, TypeScript, lint y chequeo de datos correctos. [GitHub Actions también completó todas las comprobaciones](https://github.com/quiquemachado5/deuce/actions/runs/39580883785).
@@ -99,7 +99,7 @@ No promocionar solo porque compila: ejecutar build, pruebas, verificación del a
 - Contraste documental y resolución de los 42 grupos; rankings históricos 2023–2025 ausentes de la base disponible (solo hay snapshots remotos desde agosto de 2026).
 - Backups físicos/PITR: la CLI necesita sesión autorizada; no se ha restaurado ni certificado la base completa.
 - Activación efectiva de protección de `main`: necesita sesión de administración en GitHub; el navegador integrado está sin autenticar. No confundir CI configurada con protección activada.
-- WAF/rate limiting distribuido, CSP estricta, avisos del proveedor/costes y los avisos de dependencias de desarrollo siguen fuera de esta entrega.
+- Un WAF gestionado, CSP con nonce, avisos de costes y los avisos de dependencias de desarrollo siguen fuera de esta entrega. El rate limiting perimetral y las alertas persistentes sí están configurados en el VPS.
 
 Procedimientos, fuentes y límites: [docs/OPERATIONS.md](docs/OPERATIONS.md).
 
@@ -122,6 +122,6 @@ Supabase agotó el disco escribiendo WAL y PostgreSQL permanece en recuperación
 
 - Recuperar o ampliar el almacenamiento de Supabase; después aplicar y verificar la migración de capacidad.
 - Confirmar backups y aprobar, si se desea, el coste de PITR antes de activarlo.
-- Añadir rate limiting distribuido en Caddy o en el firewall del VPS para las APIs públicas.
+- Conectar Alertmanager u otro receptor únicamente si se necesita entrega inmediata fuera del monitor de GitHub; Prometheus ya conserva y evalúa las reglas localmente.
 - Proteger `main` con `verify`, rama actualizada, una aprobación, sin force-push/borrado, y exigir aprobación del entorno `production`.
 - Una CSP de nonce sin `unsafe-inline` exigiría abandonar la prerenderización de las rutas afectadas; queda como decisión de arquitectura, no como cambio silencioso.

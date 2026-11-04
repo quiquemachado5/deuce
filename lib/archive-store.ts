@@ -2,7 +2,7 @@ import 'server-only'
 
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 import { randomUUID } from 'node:crypto'
-import { mkdir, open, readFile, readdir, rename, stat, unlink } from 'node:fs/promises'
+import { copyFile, link, mkdir, open, readFile, readdir, rename, stat, unlink } from 'node:fs/promises'
 import { join } from 'node:path'
 
 export type ArchiveStoreBackend = 'filesystem' | 'supabase' | null
@@ -97,6 +97,45 @@ export async function writeArchiveObjects(entries: readonly ArchiveStoreEntry[],
   const { error, status } = await client.from('deuce_archive_objects').upsert(rows)
     .abortSignal(AbortSignal.timeout(Math.max(1, budget)))
   if (error) throw new Error(`Archive write failed: ${error.code || status}`)
+}
+
+/**
+ * Reuse an immutable filesystem object without serialising or writing its
+ * payload again. Versioned snapshot packs are never modified after creation,
+ * so a hard link is safe and lets a new generation reuse unchanged cohorts.
+ */
+export async function cloneArchiveObject(sourceKey: string, destinationKey: string) {
+  if (archiveStoreBackend() !== 'filesystem') return false
+  const source = filesystemPath(sourceKey)
+  const destination = filesystemPath(destinationKey)
+  await mkdir(filesystemRoot(), { recursive: true, mode: 0o700 })
+  try {
+    await link(source, destination)
+  } catch (error) {
+    const code = (error as NodeJS.ErrnoException).code
+    if (code === 'ENOENT') return false
+    if (code === 'EEXIST') {
+      const [sourceBody, destinationBody] = await Promise.all([readFile(source), readFile(destination)])
+      if (sourceBody.equals(destinationBody)) return true
+      // An interrupted attempt may have left a stale destination. The archive
+      // lease excludes another publisher, so replacing it here is safe.
+      await unlink(destination)
+      try { await link(source, destination) }
+      catch (retryError) {
+        const retryCode = (retryError as NodeJS.ErrnoException).code
+        if (retryCode === 'EXDEV' || retryCode === 'EPERM' || retryCode === 'EOPNOTSUPP') await copyFile(source, destination)
+        else throw retryError
+      }
+      reportCache = undefined
+      return true
+    }
+    // Some mounted filesystems do not support hard links. Copying still avoids
+    // JSON parsing/stringification and preserves the exact immutable bytes.
+    if (code === 'EXDEV' || code === 'EPERM' || code === 'EOPNOTSUPP') await copyFile(source, destination)
+    else throw error
+  }
+  reportCache = undefined
+  return true
 }
 
 export async function listArchiveKeys(prefix: string, budget = 10_000) {

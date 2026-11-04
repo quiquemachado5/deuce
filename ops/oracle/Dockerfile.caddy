@@ -1,0 +1,9 @@
+ARG CADDY_VERSION=2.10.2
+
+FROM caddy:${CADDY_VERSION}-builder-alpine AS builder
+ARG RATE_LIMIT_VERSION=5625512f24f6f59d6f64fb3aafe5eecff0b286db
+RUN xcaddy build \
+    --with github.com/mholt/caddy-ratelimit@${RATE_LIMIT_VERSION}
+
+FROM caddy:${CADDY_VERSION}-alpine
+COPY --from=builder /usr/bin/caddy /usr/bin/caddy

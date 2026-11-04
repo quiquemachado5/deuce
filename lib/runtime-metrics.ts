@@ -3,6 +3,7 @@ const durationBuckets = [5, 10, 25, 50, 100, 250, 500, 1_000, 2_500, 5_000] as c
 const requests = new Map<string, number>();
 const durations = new Map<string, Histogram>();
 const clientEvents = new Map<string, number>();
+const securityEvents = new Map<string, number>();
 const clientMetrics = new Map<string, Histogram>();
 const clientMetricBuckets: Record<string, readonly number[]> = {
   TTFB: [200, 500, 800, 1_800, 3_000],
@@ -66,6 +67,12 @@ export function observeApiRequest(route: string, status: number, durationMs: num
   durations.set(safeRoute, histogram);
 }
 
+/** Security surfaces are fixed call-site labels; never pass URLs, tokens or raw addresses. */
+export function observeSecurityEvent(surface: string, outcome: 'denied' | 'allowed') {
+  const key = `${label(surface)}|${outcome}`;
+  securityEvents.set(key, (securityEvents.get(key) || 0) + 1);
+}
+
 export type OperationalMetrics={
   providerRemaining?:number;providerReserve?:number;providerSafeAvailable?:number;
   providerDailyCallCap?:number;providerDailyCapAvailable?:number;providerDailyCapUtilization?:number;
@@ -95,6 +102,11 @@ export function renderPrometheusMetrics(caches: Record<string, Record<string, nu
     const [route,event,rating] = key.split('|');
     lines.push(`deuce_client_events_total{route="${escape(route)}",event="${escape(event)}",rating="${escape(rating)}"} ${value}`);
   }
+  lines.push('# HELP deuce_security_events_total Security-sensitive outcomes by fixed surface.', '# TYPE deuce_security_events_total counter');
+  for (const [key, value] of [...securityEvents].sort(([a], [b]) => a.localeCompare(b))) {
+    const [surface,outcome] = key.split('|');
+    lines.push(`deuce_security_events_total{surface="${escape(surface)}",outcome="${outcome}"} ${value}`);
+  }
   lines.push('# HELP deuce_client_metric_value Browser performance values; milliseconds except CLS.', '# TYPE deuce_client_metric_value histogram');
   for (const [key, histogram] of [...clientMetrics].sort(([a], [b]) => a.localeCompare(b))) {
     const [route,metric] = key.split('|');
@@ -120,4 +132,4 @@ export function renderPrometheusMetrics(caches: Record<string, Record<string, nu
   return `${lines.join('\n')}\n`;
 }
 
-export function resetRuntimeMetrics() { requests.clear(); durations.clear(); clientEvents.clear(); clientMetrics.clear(); }
+export function resetRuntimeMetrics() { requests.clear(); durations.clear(); clientEvents.clear(); clientMetrics.clear(); securityEvents.clear(); }

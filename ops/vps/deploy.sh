@@ -113,6 +113,14 @@ fi
 
 echo "Building immutable release image ${candidate_image}."
 SOURCE_COMMIT="${commit}" DEUCE_WEB_IMAGE="${candidate_image}" "${compose[@]}" build web
+"${compose[@]}" build caddy
+if ! docker image inspect prom/prometheus:v3.5.0 >/dev/null 2>&1; then
+  "${compose[@]}" pull prometheus
+fi
+"${compose[@]}" run --rm --no-deps --entrypoint caddy caddy list-modules \
+  | grep -qx 'http.handlers.rate_limit'
+"${compose[@]}" run --rm --no-deps --entrypoint caddy caddy validate --config /etc/caddy/Caddyfile
+"${compose[@]}" run --rm --no-deps --entrypoint /bin/promtool prometheus check config /etc/prometheus/prometheus.yml
 revision="$(docker image inspect --format '{{index .Config.Labels "org.opencontainers.image.revision"}}' "${candidate_image}")"
 if [[ "${revision}" != "${commit}" ]]; then
   echo "Image revision label does not match ${commit}." >&2
@@ -245,6 +253,32 @@ wait_for_caddy() {
   done
   "${compose[@]}" logs --tail=200 caddy >&2 || true
   return 1
+}
+
+wait_for_prometheus() {
+  local prometheus_id=""
+  for attempt in {1..30}; do
+    prometheus_id="$("${compose[@]}" ps -q prometheus 2>/dev/null || true)"
+    if [[ -n "${prometheus_id}" ]] \
+      && [[ "$(docker inspect --format '{{if .State.Health}}{{.State.Health.Status}}{{else}}missing{{end}}' "${prometheus_id}" 2>/dev/null || echo missing)" == healthy ]]; then
+      return 0
+    fi
+    sleep 2
+  done
+  "${compose[@]}" logs --tail=200 prometheus >&2 || true
+  return 1
+}
+
+start_prometheus_best_effort() {
+  local image="${1:-${candidate_image}}" revision="${2:-${commit}}"
+  if ! SOURCE_COMMIT="${revision}" DEUCE_WEB_IMAGE="${image}" \
+    "${compose[@]}" up -d --no-build --force-recreate prometheus; then
+    echo "Warning: Prometheus could not be started; the public release remains available and the watchdog will retry it." >&2
+    return 0
+  fi
+  if ! wait_for_prometheus; then
+    echo "Warning: Prometheus is not ready; the public release remains available and external health monitoring stays active." >&2
+  fi
 }
 
 wait_for_archive_idle() {
@@ -475,8 +509,8 @@ rollback() {
   fi
   if [[ -z "${previous_image}" ]] || ! docker image inspect "${previous_image}" >/dev/null 2>&1; then
     echo "No previous image is available. Removing the failed first-release containers for a clean retry." >&2
-    SOURCE_COMMIT="${commit}" DEUCE_WEB_IMAGE="${failed_image}" "${compose[@]}" stop web scheduler caddy >/dev/null 2>&1 || true
-    SOURCE_COMMIT="${commit}" DEUCE_WEB_IMAGE="${failed_image}" "${compose[@]}" rm --force --stop web scheduler caddy >/dev/null 2>&1 || true
+    SOURCE_COMMIT="${commit}" DEUCE_WEB_IMAGE="${failed_image}" "${compose[@]}" stop web scheduler caddy prometheus >/dev/null 2>&1 || true
+    SOURCE_COMMIT="${commit}" DEUCE_WEB_IMAGE="${failed_image}" "${compose[@]}" rm --force --stop web scheduler caddy prometheus >/dev/null 2>&1 || true
     docker container rm --force "${candidate}" >/dev/null 2>&1 || true
     return 1
   fi
@@ -505,6 +539,7 @@ rollback() {
     echo "Automatic rollback could not restore a healthy previous web and scheduler." >&2
     return 1
   fi
+  start_prometheus_best_effort "${previous_image}" "${previous_commit}"
   if ! write_release_marker "${STATE_DIR}/active-commit" "${previous_commit}" \
     || ! write_release_marker "${STATE_DIR}/active-image" "${previous_image}" \
     || ! write_release_marker "${STATE_DIR}/failed-image" "${failed_image}" \
@@ -556,6 +591,7 @@ if ! wait_for_fresh_scheduler "${scheduler_started_ms}"; then
   rollback "${candidate_image}"
   exit 1
 fi
+start_prometheus_best_effort
 if ! DEUCE_RESOURCE_CHECK_LOCK_HELD=1 "${ROOT}/ops/vps/resource-check.sh"; then
   echo "The promoted stack failed its host resource probe." >&2
   rollback "${candidate_image}"

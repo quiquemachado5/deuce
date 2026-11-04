@@ -80,7 +80,13 @@ services:
     logging: *deuce-logging
 
   caddy:
-    image: caddy:2-alpine
+    image: ${DEUCE_CADDY_IMAGE:-deuce-caddy:2.10.2-ratelimit-5625512f}
+    build:
+      context: ./ops/oracle
+      dockerfile: Dockerfile.caddy
+      args:
+        CADDY_VERSION: "2.10.2"
+        RATE_LIMIT_VERSION: 5625512f24f6f59d6f64fb3aafe5eecff0b286db
     restart: unless-stopped
     init: true
     read_only: true
@@ -96,12 +102,16 @@ services:
     depends_on:
       web:
         condition: service_healthy
-    env_file:
-      - .env.production
+    environment:
+      DEUCE_HOST: ${DEUCE_HOST:?DEUCE_HOST is required}
+      DEUCE_WWW_HOST: ${DEUCE_WWW_HOST:?DEUCE_WWW_HOST is required}
+      DEUCE_LEGACY_HOST: ${DEUCE_LEGACY_HOST:?DEUCE_LEGACY_HOST is required}
     ports:
       - "80:80"
       - "443:443"
       - "443:443/udp"
+    expose:
+      - "2019"
     volumes:
       - ./ops/oracle/Caddyfile:/etc/caddy/Caddyfile:ro
       - ${DEUCE_LOG_DIR:-/opt/deuce/logs}:/var/log/deuce
@@ -117,8 +127,54 @@ services:
       retries: 3
     logging: *deuce-logging
 
+  prometheus:
+    image: prom/prometheus:v3.5.0
+    user: "65534:65534"
+    restart: unless-stopped
+    init: true
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    pids_limit: 128
+    mem_limit: 384m
+    cpus: 0.35
+    depends_on:
+      web:
+        condition: service_healthy
+      caddy:
+        condition: service_healthy
+    secrets:
+      - deuce_metrics_secret
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --storage.tsdb.retention.time=14d
+      - --storage.tsdb.retention.size=256MB
+    volumes:
+      - ./ops/observability/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./ops/observability/alerts.yml:/etc/prometheus/alerts.yml:ro
+      - prometheus_data:/prometheus
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=1m
+    expose:
+      - "9090"
+    healthcheck:
+      test: ["CMD", "/bin/promtool", "check", "ready", "--url=http://localhost:9090"]
+      interval: 30s
+      timeout: 5s
+      start_period: 30s
+      retries: 3
+    logging: *deuce-logging
+
 volumes:
   archive:
   next_cache:
   caddy_data:
   caddy_config:
+  prometheus_data:
+
+secrets:
+  deuce_metrics_secret:
+    environment: METRICS_SECRET

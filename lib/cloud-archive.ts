@@ -10,6 +10,7 @@ import {
   archiveStoreBackend,
   archiveStoreConfigured,
   archiveStoreReport,
+  cloneArchiveObject,
   deleteArchiveKeys,
   legacyArchiveClient,
   listArchiveKeys,
@@ -104,6 +105,12 @@ export async function cloudWriteMany(entries: readonly ArchiveWrite[]) {
 }
 export async function cloudWrite(key: string, payload: unknown) {
   await cloudWriteMany([{ key, payload }])
+}
+/** Reuse an immutable pack when the filesystem backend already owns it. */
+export async function cloudClone(sourceKey:string,destinationKey:string){
+  const cloned=await cloneArchiveObject(sourceKey,destinationKey)
+  if(cloned)cache.delete(destinationKey)
+  return cloned
 }
 export type ArchiveStorageReport={relationBytes:number;payloadBytes:number;objects:number;snapshots:number;details:number};
 export type ArchiveCapacityStatus='available'|'full'|'unknown';

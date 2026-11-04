@@ -35,7 +35,9 @@ Antes de consumir cuota histórica, `npm run data:wta:derive -- --years=2020,202
 
 Los ficheros comprimidos por temporada y cohorte de `data/archive/wta` son la fuente WTA compacta y versionada. `data/reading` es una generación derivada: `npm run build` la reconstruye cuando no cumple los mínimos y, en una máquina local, restaura al final la copia de trabajo para evitar diffs de decenas de MB. De este modo otro ordenador puede clonar el mismo commit y producir la misma entrada ATP/WTA sin descargar de nuevo la API.
 
-Para conservar una generación ya compilada, ejecutar `npm run data:snapshot:export -- --output=/ruta/inmutable/<commit>`. `snapshot-manifest.json` registra commit fuente, versión, reglas, conteos por circuito, tamaño y SHA-256 de cada fichero. Tras publicar ese directorio por HTTPS, configurar `DEUCE_SNAPSHOT_MANIFEST_URL` y `DEUCE_EXPECTED_SNAPSHOT_COMMIT`; la compilación Docker restaura y valida el snapshot dentro de su etapa efímera. Si no está disponible o no supera la política, reconstruye desde las fuentes compactas. No introducir credenciales en la URL ni commitear el directorio exportado.
+Para conservar una generación ya compilada, ejecutar `npm run data:snapshot:export -- --output=/ruta/inmutable/<commit>`. `snapshot-manifest.json` registra commit fuente, versión, reglas, conteos por circuito, cohorte lógica, tamaño y SHA-256 de cada fichero. Exportar de nuevo sobre el mismo destino reutiliza por hash los artefactos sin cambios y hace un relevo resistente a fallos entre el directorio completo y su rollback.
+
+Tras publicar ese directorio por HTTPS, configurar `DEUCE_SNAPSHOT_MANIFEST_URL` y `DEUCE_EXPECTED_SNAPSHOT_COMMIT`; la compilación restaura únicamente las cohortes cuyo hash ha cambiado, valida la generación completa en staging y hace el relevo antes de que arranquen lectores. La generación anterior queda en `<destino>.rollback`; `npm run data:snapshot:rollback` intercambia ambos directorios sin reconstruir ni descargar. Estos dos comandos son operaciones offline de build/recuperación: no deben apuntar a un directorio leído por una aplicación en ejecución. La publicación viva conserva su garantía fuerte mediante packs inmutables y manifiesto escrito al final. Si el snapshot remoto no está disponible o no supera la política, la compilación reconstruye desde las fuentes compactas. No introducir credenciales en la URL ni commitear el directorio exportado.
 
 Para un incidente de código: `ops/vps/deploy.sh` conserva la imagen activa y la anterior, y restaura automáticamente la anterior si falla el gate posterior a la promoción. Comprobar `/api/health`, `/api/health/deep` y las APIs públicas antes de reactivar el scheduler. No ejecutar un rollback manual como simulacro contra producción.
 
@@ -71,7 +73,16 @@ de recuperación y no debe volver a la ruta crítica sin una migración revisada
 
 ## Límites y protección perimetral
 
-Las rutas de búsqueda y jugadores validan longitud, limitan carga y responden 429 mediante un token bucket por instancia. Falta una segunda barrera distribuida en Caddy o en el firewall del VPS para `/api/search`, `/api/players` y `/api/telemetry`; registrar la regla y su fecha aquí cuando se aplique.
+Las rutas de búsqueda y jugadores validan longitud, limitan carga y responden 429 mediante un token bucket por instancia. Caddy aplica antes de Next una segunda barrera por dirección IPv4 o red IPv6 `/64`: 240 solicitudes combinadas por minuto para las APIs públicas de datos, 120 para telemetría y 12 para salud profunda. El módulo sincroniza su estado mediante el volumen persistente de Caddy y añade `Retry-After`; el limitador local se conserva como defensa adicional.
+
+Prometheus consulta cada 30 segundos la aplicación con `METRICS_SECRET` y el endpoint interno de Caddy. Su volumen tiene una retención máxima simultánea de 14 días y 256 MB; no publica el puerto 9090. Las reglas de `ops/observability/alerts.yml` cubren disponibilidad, 5xx, reserva del proveedor, antigüedad de copias, memoria, 429 sostenidos y autenticaciones rechazadas. Para inspeccionarlas desde el VPS:
+
+```bash
+docker compose --env-file .env.production exec prometheus promtool check ready --url=http://localhost:9090
+docker compose --env-file .env.production exec prometheus promtool query instant http://localhost:9090 'ALERTS{alertstate="firing"}'
+```
+
+Las reglas locales no envían correo por sí solas. La disponibilidad externa continúa en `production-health.yml`; si se añade Alertmanager, debe mantenerse privado y documentarse su receptor sin guardar credenciales en Git. Prometheus no forma parte del gate de disponibilidad de la web: un fallo suyo queda visible en el estado de recursos y el watchdog lo reintenta, pero nunca revierte una versión sana de la aplicación y el proxy.
 
 La CSP usa SRI para scripts externos, impide framing, objetos, atributos JavaScript inline y orígenes no declarados. `unsafe-inline` permanece únicamente en `script-src` porque la hidratación estática de Next inserta scripts inline. Eliminarlo exige nonces por petición y convertir las páginas afectadas en dinámicas; no hacer ese cambio sin medir CDN y TTFB.
 
