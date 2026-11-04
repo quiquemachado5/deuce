@@ -4,6 +4,7 @@ import { pathToFileURL } from 'node:url'
 
 const allowed = new Set([
   'DEUCE_HOST',
+  'DEUCE_WWW_HOST',
   'DEUCE_LEGACY_HOST',
   'NEXT_PUBLIC_SITE_ORIGIN',
   'DEUCE_MONITOR_URL',

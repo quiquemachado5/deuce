@@ -18,7 +18,7 @@ Usa un VPS europeo con al menos 2 vCPU, 4 GB de RAM, 64 GB de SSD persistente, I
 9. Tras la primera promoción, ejecuta `sudo systemctl start deuce-backup.service` y después `sudo systemctl start deuce-restore-drill.service`; el monitor exige una copia restaurable de menos de 36 horas y un simulacro de menos de 8 días.
 
 `DEUCE_HOST`, `NEXT_PUBLIC_SITE_ORIGIN` y `DEUCE_MONITOR_URL` deben apuntar al dominio real. Un nombre `sslip.io` permite preparar el servidor antes de comprar un dominio.
-Los valores públicos canónicos se versionan en `production-public.env` y cada despliegue los aplica de forma atómica antes del preflight, sin leer ni modificar los secretos del entorno. `DEUCE_LEGACY_HOST` conserva el host provisional únicamente como redirección permanente al dominio canónico.
+Los valores públicos canónicos se versionan en `production-public.env` y cada despliegue los aplica de forma atómica antes del preflight, sin leer ni modificar los secretos del entorno. `DEUCE_WWW_HOST` y `DEUCE_LEGACY_HOST` conservan los alias públicos únicamente como redirecciones permanentes al dominio canónico.
 
 `METRICS_SECRET` es independiente de los secretos cron. El despliegue comprueba de forma autenticada `/api/metrics`; Prometheus puede consultar el mismo endpoint con `Authorization: Bearer $METRICS_SECRET` sin exponer la credencial en la URL.
 

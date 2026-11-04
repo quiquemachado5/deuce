@@ -18,6 +18,7 @@ test('public production configuration changes only public origins and preserves 
   ].join('\n'), { mode: 0o600 })
   await writeFile(configPath, [
     'DEUCE_HOST=deucearchive.com',
+    'DEUCE_WWW_HOST=www.deucearchive.com',
     'DEUCE_LEGACY_HOST=old.example.com',
     'NEXT_PUBLIC_SITE_ORIGIN=https://deucearchive.com',
     'DEUCE_MONITOR_URL=https://deucearchive.com',
@@ -27,6 +28,7 @@ test('public production configuration changes only public origins and preserves 
   assert.equal(await applyPublicEnv(envPath, configPath), true)
   const updated = await readFile(envPath, 'utf8')
   assert.match(updated, /^DEUCE_HOST=deucearchive\.com$/m)
+  assert.match(updated, /^DEUCE_WWW_HOST=www\.deucearchive\.com$/m)
   assert.match(updated, /^DEUCE_LEGACY_HOST=old\.example\.com$/m)
   assert.match(updated, /^CRON_SECRET=keep-this-secret$/m)
   assert.equal((await stat(envPath)).mode & 0o777, 0o600)
