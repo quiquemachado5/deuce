@@ -16,6 +16,8 @@ test('offsite backup validates a frozen restore before checksum and upload', () 
   assert.match(source, /for attempt in \{1\.\.3\}/)
   assert.match(source, /rclone cat "\$\{remote\}\/\$\(basename "\$\{destination\}"\)" \| sha256sum/)
   assert.match(source, /backup-status\.json/)
+  assert.match(source, /rclone delete "\$\{remote\}" --min-age "\$\{REMOTE_KEEP_DAYS\}d" --include 'deuce-archive-\*'/)
+  assert.ok(source.indexOf('remote_archive_hash=') < source.indexOf('rclone delete "${remote}"'))
 })
 
 test('restore drill rejects stale backups and services use the deuce rclone account', () => {

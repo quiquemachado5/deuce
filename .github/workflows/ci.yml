@@ -15,10 +15,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
         with:
           persist-credentials: false
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
         with:
           node-version: '24'
           cache: npm
@@ -31,16 +31,16 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
         with:
           persist-credentials: false
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
         with:
           node-version: '24'
           cache: npm
-      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ${{ github.workspace }}/.next/cache
           # Filesystem-backed snapshots are read while prerendering. An exact
@@ -49,28 +49,30 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npm run budgets:verify
-      - name: Preserve the production build
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+      - name: Verify the exact immutable reading generation
+        run: |
+          test -s .next/BUILD_ID
+          test -s data/reading/manifest.json.gz
+          test -n "$(find data/reading -maxdepth 1 -name 'matches-*.json.gz' -print -quit)"
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:browser
+      - name: Preserve browser failure evidence
+        if: failure()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
-          name: next-build-${{ github.sha }}
-          path: |
-            .next/**
-            !.next/cache/**
-            !.next/standalone/**
-            data/reading/**
-            !data/reading/matches.json.gz
-          include-hidden-files: true
-          if-no-files-found: error
-          retention-days: 1
+          name: playwright-failure-${{ github.run_id }}-${{ github.run_attempt }}
+          path: test-results
+          if-no-files-found: ignore
+          retention-days: 7
 
   data:
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
         with:
           persist-credentials: false
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
         with:
           node-version: '24'
           cache: npm
@@ -82,42 +84,8 @@ jobs:
       - run: npm run performance:verify
       - run: npm run data:restore-drill
 
-  browser:
-    needs: build
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
-        with:
-          persist-credentials: false
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
-        with:
-          node-version: '24'
-          cache: npm
-      - run: npm ci
-      - name: Restore the verified production build
-        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
-        with:
-          name: next-build-${{ github.sha }}
-          path: .
-      - name: Verify the exact immutable reading generation
-        run: |
-          test -s .next/BUILD_ID
-          test -s data/reading/manifest.json.gz
-          test -n "$(find data/reading -maxdepth 1 -name 'matches-*.json.gz' -print -quit)"
-      - run: npx playwright install --with-deps chromium
-      - run: npm run test:browser
-      - name: Preserve browser failure evidence
-        if: failure()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
-        with:
-          name: playwright-failure-${{ github.run_id }}-${{ github.run_attempt }}
-          path: test-results
-          if-no-files-found: ignore
-          retention-days: 7
-
   verify:
-    needs: [quality, build, data, browser]
+    needs: [quality, build, data]
     if: always()
     runs-on: ubuntu-latest
     timeout-minutes: 2
@@ -127,9 +95,7 @@ jobs:
           QUALITY: ${{ needs.quality.result }}
           BUILD: ${{ needs.build.result }}
           DATA: ${{ needs.data.result }}
-          BROWSER: ${{ needs.browser.result }}
         run: |
           test "$QUALITY" = success
           test "$BUILD" = success
           test "$DATA" = success
-          test "$BROWSER" = success

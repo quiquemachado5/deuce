@@ -62,6 +62,10 @@ export function validateProductionEnv(values) {
     const dailyMaximum=Number(values.DEUCE_PROVIDER_DAILY_MAX_CALLS)
     if(!Number.isSafeInteger(dailyMaximum)||dailyMaximum<250||dailyMaximum>2000)errors.push('DEUCE_PROVIDER_DAILY_MAX_CALLS must be an integer from 250 to 2000')
   }
+  if(values.DEUCE_BACKUP_REMOTE_KEEP_DAYS!==undefined){
+    const retention=Number(values.DEUCE_BACKUP_REMOTE_KEEP_DAYS)
+    if(!Number.isSafeInteger(retention)||retention<8||retention>90)errors.push('DEUCE_BACKUP_REMOTE_KEEP_DAYS must be an integer from 8 to 90')
+  }
   return { errors, archiveMaximum }
 }
 

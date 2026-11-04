@@ -1,0 +1,48 @@
+name: Harden Netcup deploy key
+on:
+  workflow_dispatch:
+    inputs:
+      confirmation:
+        description: Type HARDEN to install the forced-command guard and remove unrestricted sudo
+        required: true
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: deuce-netcup-production
+  cancel-in-progress: false
+jobs:
+  harden:
+    if: github.repository == 'quiquemachado5/deuce' && inputs.confirmation == 'HARDEN'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    environment: production
+    env:
+      EXPECTED_SHA: ${{ github.sha }}
+      VPS_HOST: ${{ vars.DEUCE_VPS_HOST }}
+      VPS_USER: ${{ vars.DEUCE_VPS_USER }}
+    steps:
+      - name: Configure pinned SSH identity
+        env:
+          VPS_KEY: ${{ secrets.DEUCE_VPS_SSH_KEY }}
+          VPS_HOST_KEYS: ${{ secrets.DEUCE_VPS_KNOWN_HOSTS }}
+        run: |
+          test -n "$VPS_HOST"
+          test -n "$VPS_USER"
+          test -n "$VPS_KEY"
+          test -n "$VPS_HOST_KEYS"
+          install -d -m 0700 ~/.ssh
+          printf '%s\n' "$VPS_KEY" > ~/.ssh/deuce_deploy
+          printf '%s\n' "$VPS_HOST_KEYS" > ~/.ssh/known_hosts
+          chmod 0600 ~/.ssh/deuce_deploy ~/.ssh/known_hosts
+      - name: Restrict the deployment key and revoke unrestricted sudo
+        run: |
+          public_key="$(ssh-keygen -y -f ~/.ssh/deuce_deploy)"
+          encoded_key="$(printf '%s' "$public_key" | base64 -w0)"
+          ssh -i ~/.ssh/deuce_deploy -o BatchMode=yes -o StrictHostKeyChecking=yes \
+            "$VPS_USER@$VPS_HOST" \
+            "sudo -n bash /opt/deuce/app/ops/vps/install-deploy-guard.sh '$encoded_key'"
+      - name: Verify the forced command
+        run: |
+          ssh -i ~/.ssh/deuce_deploy -o BatchMode=yes -o StrictHostKeyChecking=yes \
+            "$VPS_USER@$VPS_HOST" "probe:$EXPECTED_SHA"

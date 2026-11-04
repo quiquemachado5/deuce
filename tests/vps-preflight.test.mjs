@@ -14,6 +14,7 @@ const valid = {
   DEUCE_BACKUP_REMOTE: 'crypt:deuce/production',
   DEUCE_PROVIDER_MIN_REMAINING:'200',
   DEUCE_PROVIDER_DAILY_MAX_CALLS:'400',
+  DEUCE_BACKUP_REMOTE_KEEP_DAYS:'14',
 }
 
 test('production preflight accepts a coherent private configuration', () => {
@@ -33,6 +34,7 @@ test('production preflight rejects placeholders, weak secrets and mismatched ori
     DEUCE_BACKUP_REMOTE: '/local/backups',
     DEUCE_PROVIDER_MIN_REMAINING:'199',
     DEUCE_PROVIDER_DAILY_MAX_CALLS:'2001',
+    DEUCE_BACKUP_REMOTE_KEEP_DAYS:'7',
   })
   assert.ok(result.errors.some(error => error.includes('placeholder')))
   assert.ok(result.errors.some(error => error.includes('bare HTTPS origin')))
@@ -42,4 +44,5 @@ test('production preflight rejects placeholders, weak secrets and mismatched ori
   assert.ok(result.errors.some(error => error.includes('rclone remote')))
   assert.ok(result.errors.some(error=>error.includes('at least 200')))
   assert.ok(result.errors.some(error=>error.includes('250 to 2000')))
+  assert.ok(result.errors.some(error=>error.includes('8 to 90')))
 })
