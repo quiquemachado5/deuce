@@ -22,10 +22,13 @@ test('production deploy waits for CI and pins both commit and SSH host identity'
   assert.match(deployWorkflow,/workflows: \[Archive quality\]/)
   assert.match(deployWorkflow,/workflow_run\.conclusion == 'success'/)
   assert.match(deployWorkflow,/"deploy:\$EXPECTED_SHA"/)
-  assert.doesNotMatch(deployWorkflow,/git -C \/opt\/deuce\/app|DEUCE_EXPECTED_COMMIT/)
+  assert.doesNotMatch(deployWorkflow,/git -C \/opt\/deuce\/app/)
+  assert.match(deployWorkflow,/node ops\/monitor\.mjs --check-only/)
+  assert.match(deployWorkflow,/DEUCE_EXPECTED_COMMIT: \$\{\{ github\.event\.workflow_run\.head_sha \|\| github\.sha \}\}/)
   assert.match(deployWorkflow,/StrictHostKeyChecking=yes/)
   assert.match(deployWorkflow,/secrets\.DEUCE_VPS_KNOWN_HOSTS/)
   assert.match(healthWorkflow,/2,17,32,47/)
+  assert.match(healthWorkflow,/DEUCE_EXPECTED_COMMIT:/)
 })
 
 test('browser checks reuse the verified build without a deprecated artifact download',()=>{

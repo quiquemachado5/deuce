@@ -29,6 +29,7 @@ import RecordsVideoCarousel from "@/components/records/RecordsVideoCarousel";
 import RecordsFamilyNav from "@/components/records/RecordsFamilyNav";
 import RecordsSurfaceSlider from "@/components/records/RecordsSurfaceSlider";
 import TournamentFilters from "@/components/TournamentFilters";
+import { resolvePlayerAvatarPhoto } from '@/components/PlayerAvatar';
 import { photoFor, portraitFor, recordFamilyMediaLayout, recordImageStyle, rowForTour } from './record-media';
 import { recordPhoto } from '@/lib/editorial-imagery';
 import { hasPublishedTour, noIndexFollow, robotsForUnavailableTour } from '@/lib/seo-metadata';
@@ -109,6 +110,7 @@ async function RecordIndex({
                 ranking.piece!.percent,
                 ranking.piece!.id === "tal-dia-como-hoy",
               ),
+              avatar: resolvePlayerAvatarPhoto(row.name, query.tour === 'wta' ? 'wta' : 'atp'),
             })),
             },
           ];

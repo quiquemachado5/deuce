@@ -1,4 +1,5 @@
 import { authorizedCronRequest } from '@/lib/cron-auth'
+import { unauthorizedResponse } from '@/lib/security-events'
 import {cloudRead,cloudWrite} from '@/lib/cloud-archive'
 import {assertEditionCoverage,assertReleaseCoverage} from '@/lib/revista/release-check'
 import {revalidatePath} from 'next/cache'
@@ -22,7 +23,7 @@ export const dynamic = 'force-dynamic'
 export async function GET(request: Request) {
   const cronAuthorized = authorizedCronRequest(request)
   const backfillAuthorized = authorizedCronRequest(request, process.env.WTA_BACKFILL_SECRET)
-  if (!cronAuthorized && !backfillAuthorized) return Response.json({ error: 'Unauthorized' }, { status: 401 })
+  if (!cronAuthorized && !backfillAuthorized) return unauthorizedResponse(request, 'cron.publish')
   const release=await acquireArchiveLease('tennis-provider',600)
   if(!release)return Response.json({status:'busy',error:'Archive mutation is already in progress'},{status:503,headers:{'Cache-Control':'no-store'}})
   try {

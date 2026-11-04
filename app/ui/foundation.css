@@ -25,7 +25,7 @@
   --event-tint: var(--bg-sunken);
   --font-interface: var(--deuce-body), sans-serif;
   --font-display: var(--deuce-display), sans-serif;
-  --font-editorial: var(--deuce-editorial), serif;
+  --font-editorial: var(--deuce-body), sans-serif;
   --font-mono: var(--font-interface);
   --panel-radius: 24px;
   --field-radius: 12px;
@@ -98,6 +98,19 @@ html[data-theme="dark"] {
   border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
   border-radius: 3px;
   vertical-align: middle;
+}
+.pd-country-flag--fallback {
+  display: inline-grid;
+  place-items: center;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--ink) 8%, var(--bg-raised));
+  color: var(--ink-soft);
+  font: 750 clamp(8px, .45em, 12px)/1 var(--font-interface);
+  letter-spacing: -.03em;
+}
+.pd-country-flag--emoji {
+  font-size: clamp(14px, .7em, 28px);
+  letter-spacing: 0;
 }
 html {
   scroll-behavior: smooth;

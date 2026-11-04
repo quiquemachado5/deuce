@@ -1,22 +1,4 @@
 /* One match row: context, two named players, aligned set columns. */
-.nc-match-row {
-  display: grid;
-  grid-template-columns: 180px minmax(0, 1fr) max-content;
-  grid-template-rows: 12px minmax(32px, auto) minmax(32px, auto);
-  gap: 4px 20px;
-  align-items: center;
-  padding: 16px 24px;
-  min-width: 0;
-  background: var(--bg-raised);
-  border-bottom: 1px solid var(--line);
-  color: var(--ink);
-  text-decoration: none;
-  transition: background var(--speed);
-  border-radius: 0;
-}
-.nc-match-row:hover {
-  background: var(--bg-sunken);
-}
 .nc-row-context {
   grid-column: 1;
   grid-row: 1/4;
@@ -118,18 +100,6 @@
   background: var(--ink);
   color: var(--bg-raised);
 }
-.nc-match-row:first-of-type {
-  border-top-left-radius: 24px;
-  border-top-right-radius: 24px;
-}
-.nc-match-row:last-of-type {
-  border-bottom: 0;
-  border-bottom-left-radius: 24px;
-  border-bottom-right-radius: 24px;
-}
-.nc-match-row:only-of-type {
-  border-radius: 24px;
-}
 .match-row-group,
 .ds-results-list,
 .ry-tournament-directory-rows,
@@ -137,10 +107,7 @@
   overflow: hidden;
   border-radius: 24px;
 }
-.nc-match-row::before,
-.rv-catalogue-row::before,
-.nc-ranking-row::before,
-.rv-ranking > li::before {
+.rv-catalogue-row::before,.nc-ranking-row::before,.rv-ranking > li::before {
   content: none !important;
 }
 .ry-tournament-directory-row,
@@ -196,21 +163,6 @@
 }
 .rv-bars li:last-child > a {
   border-radius: 0 0 16px 16px;
-}
-.set-scoreboard .set-total {
-  color: var(--muted);
-}
-.set-scoreboard .set-total > strong {
-  display: inline-block;
-  min-width: 32px;
-  padding: 4px;
-  border-radius: 999px;
-  font-size: 22px;
-  line-height: 1.1;
-}
-.set-scoreboard [data-winner="true"] .set-total > strong {
-  background: var(--ink);
-  color: var(--bg-raised);
 }
 /* Match header: edition metadata stays together; each player keeps a portrait slot. */
 .match-hero-event {
@@ -279,9 +231,6 @@
 }
 .match-history-meeting {
   margin-bottom: 20px;
-}
-.match-history-meeting .nc-match-row {
-  background: var(--bg-raised);
 }
 .match-history h2 {
   font-size: 24px;
@@ -602,10 +551,6 @@
   background: var(--bg-raised);
 }
 @media (max-width: 1099px) {
-  .nc-match-row {
-    grid-template-columns: 140px minmax(0, 1fr) max-content;
-    column-gap: 16px;
-  }
   .match-hero-event {
     gap: 8px;
   }
@@ -614,13 +559,6 @@
   }
 }
 @media (max-width: 759px) {
-  .nc-match-row {
-    grid-template-columns: minmax(0, 1fr) max-content;
-    grid-template-rows: auto 10px minmax(32px, auto) minmax(32px, auto);
-    padding: 16px;
-    column-gap: 8px;
-    row-gap: 4px;
-  }
   .nc-row-context {
     grid-column: 1/-1;
     grid-row: 1;
@@ -708,10 +646,6 @@
   }
   .match-photo-initials .player-avatar {
     font-size: 28px;
-  }
-  .set-scoreboard .set-total > strong {
-    font-size: 18px;
-    min-width: 26px;
   }
   .ds-hero-record {
     border-radius: 24px;
@@ -808,25 +742,13 @@
   vertical-align: baseline;
 }
 
-/* History links retain the shared grid rather than a generic block-link rule. */
-.ry-match-history .nc-match-row {display:grid}.ry-match-history>div {background:none;padding:0}.ry-match-history .nc-match-around>section{background:none;padding:0;margin-top:24px}.ry-match-history .nc-match-around h2{margin-bottom:20px}.match-contender-name{flex-wrap:nowrap;align-items:baseline}.match-name-text{min-width:0}
+/* History links retain the shared grid rather than a generic block-link rule. */.ry-match-history>div {background:none;padding:0}.ry-match-history .nc-match-around>section{background:none;padding:0;margin-top:24px}.ry-match-history .nc-match-around h2{margin-bottom:20px}.match-contender-name{flex-wrap:nowrap;align-items:baseline}.match-name-text{min-width:0}
 @media(max-width:759px){.match-hero-scene{display:grid;grid-template-columns:minmax(0,1fr) auto;height:auto;min-height:180px;gap:8px 12px}.match-hero-event{display:contents}.match-hero-event>a{grid-column:1;grid-row:1;min-width:0}.match-hero-event .match-event-meta{grid-column:1/-1;grid-row:2;white-space:nowrap;flex-wrap:nowrap;margin-top:0}.match-hero-actions{grid-column:2;grid-row:1}.match-contender-name{font-size:14px;align-items:flex-start}.match-name-text{line-height:1.3}.home-months span{font-size:10px}.home-months small{font-size:10px}}
 
 /* The same matrix also serves champions, proof cards and comparison. */
 .td-champions li { background:var(--bg-raised); border-radius:24px; overflow:hidden; }
 .td-champions li > a { height:auto; border-radius:0; }
-.td-champions .set-scoreboard { padding:0 16px 16px; }
-.td-champions .set-scoreboard th a { display:inline; padding:0; background:none; border-radius:0; font:inherit; }
-.td-champions .set-scoreboard table { min-width:0; }
-.td-champions .set-scoreboard th:first-child { width:auto; }
-.td-champions .set-scoreboard td,.td-champions .set-scoreboard th { padding:8px 4px; font-size:11px; }
-.td-champions .set-scoreboard .set-game { font-size:16px; }
-.td-champions .set-scoreboard .set-total strong { font-size:16px; width:24px; height:24px; }
 .ry-compare-identity-copy { min-width:0; }
-.ry-compare-identity .set-scoreboard { margin-top:20px; }
-.ry-compare-found a.nc-match-row { display:grid; border-radius:0; }
 .ry-compare-found .nc-row-context,.ry-compare-found .nc-row-person { display:flex; }
 .ry-compare-found .nc-row-context { flex-direction:column; }
 .record-proof-score { min-width:0; }
-.record-proof-score .nc-match-row { height:100%; }
-.ry-share-preview .set-scoreboard > div { display:block; }

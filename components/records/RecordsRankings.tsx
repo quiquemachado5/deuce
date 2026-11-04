@@ -4,7 +4,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState, type CSSProperties } from "react";
-import PlayerAvatar from "@/components/PlayerAvatar";
+import PlayerAvatarView, { type PlayerAvatarPhoto } from "@/components/PlayerAvatarView";
 import RecordsAnimatedValue from "./RecordsAnimatedValue";
 
 export type RecordsRankingSet = {
@@ -17,6 +17,7 @@ export type RecordsRankingSet = {
     detail: string;
     value: number;
     display: string;
+    avatar: PlayerAvatarPhoto | null;
   }>;
   photo?: {
     src: string;
@@ -97,7 +98,7 @@ export default function RecordsRankings({ sets, heading = 'Clasificaciones histÃ
                 }
               />
             ) : (
-              <PlayerAvatar tour={leader.href.includes('tour=wta')?'wta':'atp'} name={leader.name} size={184} />
+              <PlayerAvatarView name={leader.name} photo={leader.avatar} size={184} />
             )}
           </span>
           <span className="records-ranking-leader-copy">
@@ -116,7 +117,7 @@ export default function RecordsRankings({ sets, heading = 'Clasificaciones histÃ
                 key={row.href}
                 style={{ "--rank-index": index } as React.CSSProperties}
               >
-                <PlayerAvatar tour={row.href.includes('tour=wta')?'wta':'atp'} name={row.name} size={46} />
+                <PlayerAvatarView name={row.name} photo={row.avatar} size={46} />
                 <Link href={row.href}>
                   <strong>{row.name}</strong>
                 </Link>

@@ -21,7 +21,7 @@ export function ScoreRows({ match, playerLinks = false }: { match: MatchRecord; 
   const winner = resolvedWinner(match);
   return <div className="global-scoreboard" role="group" aria-label={`${match.players[0].name} contra ${match.players[1].name}${winner >= 0 ? `. Ganó ${match.players[winner].name}` : ''}`}>
     {match.players.map((player, side) => <div className={`global-player${winner === side ? ' match-winner' : ''}`} key={player.id}>
-      <span className="player-flag" aria-hidden="true">{player.countryCode && <PlayerFlag code={player.countryCode} />}</span>
+      <span className="player-flag" aria-hidden="true"><PlayerFlag code={player.countryCode} /></span>
       <strong className="global-player-name">
         {playerLinks ? <Link href={`/jugadores/${player.id}${match.tour==='wta'?'?tour=wta':''}`}>{player.name}</Link> : player.name}
         {winner === side && <span className="match-win-mark" aria-hidden="true"><Check size={13} strokeWidth={3} /></span>}

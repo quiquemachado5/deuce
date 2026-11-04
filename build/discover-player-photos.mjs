@@ -115,7 +115,7 @@ for (const { player, index, entity } of matched) {
   const info = page?.imageinfo?.[0];
   const metadata = info?.extmetadata || {};
   const license = text(metadata.LicenseShortName?.value);
-  const licenseUrl = metadata.LicenseUrl?.value || '';
+  const licenseUrl = String(metadata.LicenseUrl?.value || '').replace(/^http:\/\/creativecommons\.org\//, 'https://creativecommons.org/');
   const author = text(metadata.Artist?.value || metadata.Credit?.value);
   const reusable = /^(CC BY(?:-SA)?(?: |$)|CC0$|Public domain$)/i.test(license)
     && (/creativecommons\.org\//.test(licenseUrl) || /publicdomain/i.test(license));
@@ -148,8 +148,8 @@ for (const { player, index, entity } of matched) {
         console.log(`[${index + 1}/${candidates.length}] source too small: ${player.name}`);
         continue;
       }
-      await sharp(buffer).rotate().resize({ width: 960, height: 1280, fit: 'inside', withoutEnlargement: true })
-        .webp({ quality: 84 }).toFile(output);
+      await sharp(buffer).rotate().resize({ width: 480, height: 640, fit: 'inside', withoutEnlargement: true })
+        .webp({ quality: 70 }).toFile(output);
     }
   }
   const thumbnail = output.replace(/\.webp$/, '-small.webp');

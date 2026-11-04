@@ -48,3 +48,15 @@ jobs:
         run: |
           ssh -i ~/.ssh/deuce_deploy -o BatchMode=yes -o StrictHostKeyChecking=yes \
             "$VPS_USER@$VPS_HOST" "deploy:$EXPECTED_SHA"
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: '24'
+      - name: Verify deployed commit and public SEO endpoints
+        run: node ops/monitor.mjs --check-only
+        env:
+          DEUCE_MONITOR_URL: ${{ vars.DEUCE_MONITOR_URL }}
+          DEUCE_EXPECTED_COMMIT: ${{ github.event.workflow_run.head_sha || github.sha }}

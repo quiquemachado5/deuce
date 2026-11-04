@@ -60,7 +60,10 @@ const countries: Record<string, string> = {
   per: 'Perú', pol: 'Polonia', por: 'Portugal', rou: 'Rumanía', rsa: 'Sudáfrica', rus: 'Rusia', slo: 'Eslovenia',
   srb: 'Serbia', sui: 'Suiza', svk: 'Eslovaquia', swe: 'Suecia', tai: 'Taipéi Chino', tha: 'Tailandia',
   tun: 'Túnez', tur: 'Turquía', ukr: 'Ucrania', uru: 'Uruguay', usa: 'Estados Unidos', uzb: 'Uzbekistán',
-  zim: 'Zimbabue',
+  zim: 'Zimbabue', alg: 'Argelia', bah: 'Bahamas', bar: 'Barbados', civ: 'Costa de Marfil', crc: 'Costa Rica',
+  cub: 'Cuba', hai: 'Haití', iri: 'Irán', irl: 'Irlanda', ken: 'Kenia', ngr: 'Nigeria', pak: 'Pakistán', qat: 'Catar',
+  sen: 'Senegal', ven: 'Venezuela', yug: 'Yugoslavia (histórica)', tch: 'Checoslovaquia (histórica)',
+  urs: 'Unión Soviética (histórica)', wor: 'Delegación neutral', unk: 'País no documentado',
 };
 
 export function countryLabel(code: string): string { return countries[code] || code.toUpperCase(); }

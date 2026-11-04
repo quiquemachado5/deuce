@@ -1,5 +1,6 @@
 import { backfillCloudWtaHistory } from '@/lib/cloud-archive';
 import { authorizedCronRequest } from '@/lib/cron-auth';
+import { unauthorizedResponse } from '@/lib/security-events';
 
 export const runtime = 'nodejs';
 export const maxDuration = 300;
@@ -8,7 +9,7 @@ export const dynamic = 'force-dynamic';
 export async function GET(request: Request) {
   if (!authorizedCronRequest(request)
     && !authorizedCronRequest(request, process.env.WTA_BACKFILL_SECRET))
-    return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    return unauthorizedResponse(request, 'cron.wta-backfill');
   try {
     const result = await backfillCloudWtaHistory();
     const accepted = ['success', 'backfill-progress', 'quota-reserve', 'free-history-limit', 'already-attempted', 'waiting-current-publication', 'busy'].includes(result.status);

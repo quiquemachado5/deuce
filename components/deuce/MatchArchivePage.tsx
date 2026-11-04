@@ -3,7 +3,6 @@ import { ArrowRight, Check } from 'lucide-react';
 import PlayerFlag from '@/components/PlayerFlag';
 import type { MatchRecord } from '@/types/deuce';
 import { resolvedSetClosed, resolvedWinner } from '@/lib/deuce-score';
-import { playerBiography } from '@/lib/player-bio';
 import { matchDatePresentation } from '@/lib/match-date';
 import styles from '@/app/buscar/search.module.css';
 
@@ -21,9 +20,9 @@ export function ArchiveMatchRow({ match, showContext = false, showTournamentCont
   const date = matchDate(match);
   return <Link className={styles.archiveMatch} href={match.href} prefetch={false}>
     {showTournamentContext ? <div className={`${styles.archiveMatchContext} ${styles.archiveMatchContextProfile}`}><strong>{match.tournament}</strong><span>{match.round} · {date.long}</span></div> : showContext ? <div className={styles.archiveMatchContext}>{match.round} · {date.long}</div> : null}
-    {match.players.map((player, side) => {const countryCode=player.countryCode||playerBiography(player.name,match.tour||'atp')?.country;return <div className={styles.archivePlayerRow} data-winner={winner === side || undefined} key={player.id}>
+    {match.players.map((player, side) => <div className={styles.archivePlayerRow} data-winner={winner === side || undefined} key={player.id}>
       <span className={styles.archivePlayer}>
-        <span className={styles.archiveFlag} aria-hidden="true">{countryCode ? <PlayerFlag code={countryCode} /> : null}</span>
+        <span className={styles.archiveFlag} aria-hidden="true"><PlayerFlag code={player.countryCode} /></span>
         <strong>{player.name}</strong>
         {winner === side ? <Check className={styles.archiveWinnerMark} size={15} strokeWidth={2.5} aria-label="Ganador" /> : null}
       </span>
@@ -36,7 +35,7 @@ export function ArchiveMatchRow({ match, showContext = false, showTournamentCont
           return <span data-set-won={setWon || undefined} key={index}>{set ? set.games[side] : ''}{tieBreak != null ? <sup>{tieBreak}</sup> : null}</span>;
         })}
       </span>
-    </div>})}
+    </div>)}
     {showAction ? <span className={styles.archiveMatchAction} aria-hidden="true"><ArrowRight size={16} strokeWidth={2.2} /></span> : null}
   </Link>;
 }

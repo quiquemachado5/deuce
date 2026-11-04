@@ -22,6 +22,8 @@ const healthy = {
 
 test('release policy enforces every circuit, commit and scheduler heartbeat', () => {
   assert.deepEqual(releaseFailures(healthy, baseline), [])
+  assert.deepEqual(releaseFailures(healthy, baseline, { expectedCommit: 'b'.repeat(40) }), [])
+  assert.ok(releaseFailures(healthy, baseline, { expectedCommit: 'c'.repeat(40) }).includes('Commit desplegado distinto del aprobado'))
   const failures = releaseFailures({ ...healthy, tours: { atp: 150, wta: 0 }, deployment: { commit: null }, scheduler: { configured: true, status: 'stale', heartbeatAgeSeconds: 500 } }, baseline)
   assert.ok(failures.includes('Pérdida de cobertura WTA'))
   assert.ok(failures.includes('Commit del despliegue ausente'))

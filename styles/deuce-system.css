@@ -1260,7 +1260,7 @@ body{max-width:100%;overflow-x:hidden}
    All theme values live here; retained ui files supply deep statistical layouts only. */
 :root {
   --font-display:var(--deuce-display),sans-serif; --font-body:var(--deuce-body),sans-serif;
-  --font-editorial:var(--deuce-editorial),serif;
+  --font-editorial:var(--deuce-body),sans-serif;
   --muted:#596b61;
   --bg:var(--gray); --bg-raised:#fff; --bg-soft:#e4eae6; --paper:var(--gray);
   --text:var(--ink); --text-muted:var(--muted); --court:var(--winner);
