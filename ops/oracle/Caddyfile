@@ -1,3 +1,7 @@
+{$DEUCE_LEGACY_HOST} {
+	redir https://{$DEUCE_HOST}{uri} permanent
+}
+
 {$DEUCE_HOST} {
 	encode zstd gzip
 	@expensiveBots {
