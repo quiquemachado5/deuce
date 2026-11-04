@@ -4,6 +4,7 @@ import { parseEnvFile, validateProductionEnv } from '../ops/vps/preflight.mjs'
 
 const valid = {
   DEUCE_HOST: 'deuce.example.net',
+  DEUCE_WWW_HOST: 'www.deuce.example.net',
   NEXT_PUBLIC_SITE_ORIGIN: 'https://deuce.example.net',
   DEUCE_MONITOR_URL: 'https://deuce.example.net',
   TENNIS_API_KEY: 'provider-key-with-enough-entropy',

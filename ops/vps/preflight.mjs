@@ -4,6 +4,7 @@ import { pathToFileURL } from 'node:url'
 
 const required = [
   'DEUCE_HOST',
+  'DEUCE_WWW_HOST',
   'NEXT_PUBLIC_SITE_ORIGIN',
   'DEUCE_MONITOR_URL',
   'TENNIS_API_KEY',
@@ -36,9 +37,13 @@ export function validateProductionEnv(values) {
 
   const host = values.DEUCE_HOST?.trim()
   if (host && (host.includes('://') || host.includes('/') || /\s/.test(host))) errors.push('DEUCE_HOST must be a bare DNS name')
+  const wwwHost = values.DEUCE_WWW_HOST?.trim()
+  if (wwwHost && (wwwHost.includes('://') || wwwHost.includes('/') || /\s/.test(wwwHost))) errors.push('DEUCE_WWW_HOST must be a bare DNS name')
   const legacyHost = values.DEUCE_LEGACY_HOST?.trim()
   if (legacyHost && (legacyHost.includes('://') || legacyHost.includes('/') || /\s/.test(legacyHost))) errors.push('DEUCE_LEGACY_HOST must be a bare DNS name')
   if (host && legacyHost === host) errors.push('DEUCE_LEGACY_HOST must differ from DEUCE_HOST')
+  if (host && wwwHost === host) errors.push('DEUCE_WWW_HOST must differ from DEUCE_HOST')
+  if (wwwHost && legacyHost === wwwHost) errors.push('DEUCE_WWW_HOST must differ from DEUCE_LEGACY_HOST')
   for (const name of ['NEXT_PUBLIC_SITE_ORIGIN', 'DEUCE_MONITOR_URL']) {
     const value = values[name]
     if (!value) continue
