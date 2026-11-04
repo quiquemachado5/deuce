@@ -120,6 +120,16 @@ test('scheduler recreation is guarded by a fresh post-start heartbeat', () => {
   assert.match(source, /Recreated scheduler did not publish a fresh healthy heartbeat/)
 })
 
+test('candidate tolerates the suspended host probe but promotion proves Caddy and refreshes it', () => {
+  assert.match(source, /candidate_verify_args=.*--allow-host-issue/)
+  const caddyStart = source.indexOf('up -d --no-build --force-recreate scheduler caddy')
+  const caddyGate = source.indexOf('if ! wait_for_caddy', caddyStart)
+  const hostProbe = source.indexOf('DEUCE_RESOURCE_CHECK_LOCK_HELD=1', caddyGate)
+  const promotedGate = source.indexOf('promoted=false', hostProbe)
+  assert.ok(caddyStart >= 0 && caddyStart < caddyGate && caddyGate < hostProbe && hostProbe < promotedGate)
+  assert.match(compose, /caddy:[\s\S]*healthcheck:[\s\S]*caddy", "validate"/)
+})
+
 test('archive mutation is quiesced before backup and resumed coherently on failure', () => {
   const pause = source.indexOf('if ! pause_previous_scheduler')
   const seed = source.indexOf('/api/cron/seed')

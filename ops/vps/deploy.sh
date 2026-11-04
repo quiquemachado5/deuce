@@ -221,6 +221,20 @@ wait_for_fresh_scheduler() {
   return 1
 }
 
+wait_for_caddy() {
+  local caddy_id=""
+  for attempt in {1..30}; do
+    caddy_id="$("${compose[@]}" ps -q caddy 2>/dev/null || true)"
+    if [[ -n "${caddy_id}" ]] \
+      && [[ "$(docker inspect --format '{{if .State.Health}}{{.State.Health.Status}}{{else}}missing{{end}}' "${caddy_id}" 2>/dev/null || echo missing)" == healthy ]]; then
+      return 0
+    fi
+    sleep 2
+  done
+  "${compose[@]}" logs --tail=200 caddy >&2 || true
+  return 1
+}
+
 wait_for_archive_idle() {
   for attempt in {1..84}; do
     if docker exec "${candidate}" node -e '
@@ -415,11 +429,12 @@ verify_args=(
   --expected-commit="${commit}"
   --allow-initial-daily-unavailable
 )
+candidate_verify_args=("${verify_args[@]}" --allow-host-issue)
 
 candidate_verified=false
 for attempt in {1..36}; do
   if docker exec "${candidate}" node /app/ops/verify-release.mjs \
-    "${verify_args[@]}"; then
+    "${candidate_verify_args[@]}"; then
     candidate_verified=true
     break
   fi
@@ -453,7 +468,7 @@ rollback() {
     docker container rm --force "${candidate}" >/dev/null 2>&1 || true
     return 1
   fi
-  local rollback_started_ms web_restored=false caddy_id=""
+  local rollback_started_ms web_restored=false
   rollback_started_ms="$(($(date +%s) * 1000))"
   # Recover web and caddy with a heartbeat-only scheduler first. This proves
   # the previous stack without allowing provider or publication mutations.
@@ -471,10 +486,8 @@ rollback() {
     fi
     sleep 5
   done
-  caddy_id="$(SOURCE_COMMIT="${previous_commit}" DEUCE_WEB_IMAGE="${previous_image}" "${compose[@]}" ps -q caddy 2>/dev/null || true)"
   if [[ "${web_restored}" != true ]] \
-    || [[ -z "${caddy_id}" ]] \
-    || [[ "$(docker inspect --format '{{.State.Running}}' "${caddy_id}" 2>/dev/null || echo false)" != "true" ]] \
+    || ! wait_for_caddy \
     || ! wait_for_fresh_scheduler "${rollback_started_ms}" "${previous_image}" "${previous_commit}"; then
     stop_scheduler_fail_closed "${previous_image}" "${previous_commit}" || true
     echo "Automatic rollback could not restore a healthy previous web and scheduler." >&2
@@ -521,8 +534,18 @@ if ! SOURCE_COMMIT="${commit}" DEUCE_WEB_IMAGE="${candidate_image}" DEUCE_SCHEDU
   rollback "${candidate_image}"
   exit 1
 fi
+if ! wait_for_caddy; then
+  echo "Caddy did not accept the production configuration." >&2
+  rollback "${candidate_image}"
+  exit 1
+fi
 if ! wait_for_fresh_scheduler "${scheduler_started_ms}"; then
   echo "Recreated scheduler did not publish a fresh healthy heartbeat." >&2
+  rollback "${candidate_image}"
+  exit 1
+fi
+if ! DEUCE_RESOURCE_CHECK_LOCK_HELD=1 "${ROOT}/ops/vps/resource-check.sh"; then
+  echo "The promoted stack failed its host resource probe." >&2
   rollback "${candidate_image}"
   exit 1
 fi

@@ -45,6 +45,9 @@ test('reverse proxy has explicit confinement and resource ceilings',()=>{
 
 test('host health and safe maintenance are scheduled without touching volumes',()=>{
   assert.match(resource,/host-status\.json/)
+  assert.match(resource,/DEUCE_RESOURCE_CHECK_LOCK_HELD/)
+  assert.match(resource,/\.State\.Status/)
+  assert.match(resource,/proxy_state.*!= healthy/)
   assert.match(resource,/memory\.current/)
   assert.match(resource,/disk_used >= 85/)
   assert.match(maintenance,/docker builder prune/)

@@ -9,6 +9,7 @@ if (!response.ok) throw new Error(`Health endpoint: HTTP ${response.status}`)
 const health = await response.json()
 const failures = releaseFailures(health, baseline, {
   allowDegraded: process.argv.includes('--allow-degraded'),
+  allowHostIssue: process.argv.includes('--allow-host-issue'),
   allowInitialDailyUnavailable: process.argv.includes('--allow-initial-daily-unavailable'),
   expectedCommit: argument('expected-commit') || process.env.DEUCE_EXPECTED_COMMIT,
   expectedDatasetVersion: argument('expected-dataset') || process.env.DEUCE_EXPECTED_DATASET_VERSION,
