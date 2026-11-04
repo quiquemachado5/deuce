@@ -41,6 +41,16 @@ test('production preflight and container confinement run before promotion', () =
   assert.doesNotMatch(compose.slice(compose.indexOf('scheduler:'), compose.indexOf('caddy:')), /NODE_OPTIONS/)
 })
 
+test('the target commit reapplies its public configuration after fast-forward', () => {
+  const applications = [...source.matchAll(/node ops\/vps\/apply-public-env\.mjs/g)].map(match => match.index)
+  const preflights = [...source.matchAll(/node ops\/vps\/preflight\.mjs/g)].map(match => match.index)
+  const fastForward = source.indexOf('git merge --ff-only origin/main')
+  const commit = source.indexOf('commit="$(git rev-parse HEAD)"')
+  assert.equal(applications.length, 2)
+  assert.equal(preflights.length, 2)
+  assert.ok(fastForward < applications[1] && applications[1] < preflights[1] && preflights[1] < commit)
+})
+
 test('successful deployments retain only the active and rollback images', () => {
   const cleanup = source.slice(source.indexOf('cleanup_old_images()'), source.indexOf('bootstrap_scheduler_started=false'))
   assert.match(cleanup, /candidate_image/)

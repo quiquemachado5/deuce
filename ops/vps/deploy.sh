@@ -57,6 +57,18 @@ fi
 git checkout main
 git merge --ff-only origin/main
 
+# The target commit can add or change public deployment keys. Apply its own
+# versioned configuration after the fast-forward as well as before it, so a
+# first deployment never evaluates a new Caddyfile with the previous env.
+docker run --rm --network none --user "$(id -u):$(id -g)" \
+  --mount "type=bind,source=${ROOT},target=/workspace" \
+  --workdir /workspace node:24-bookworm-slim \
+  node ops/vps/apply-public-env.mjs --env=.env.production --config=ops/vps/production-public.env
+docker run --rm --network none \
+  --mount "type=bind,source=${ROOT},target=/workspace,readonly" \
+  --workdir /workspace node:24-bookworm-slim \
+  node ops/vps/preflight.mjs --env=.env.production --root=/workspace
+
 commit="$(git rev-parse HEAD)"
 if [[ -n "${expected_commit}" && "${commit}" != "${expected_commit}" ]]; then
   echo "Deployment checkout is ${commit}, not the CI-approved ${expected_commit}." >&2
