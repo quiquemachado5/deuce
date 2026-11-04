@@ -11,7 +11,7 @@ body.leaving{opacity:0;transform:translateY(8px);transition:.25s}
 a{color:inherit;text-decoration:none}
 button,input{font:inherit}
 .topbar{position:fixed;z-index:30;top:16px;left:22px;right:22px;height:68px;padding:0 22px;display:flex;align-items:center;justify-content:space-between;background:#fffffff0;border:1px solid #ffffff;border-radius:20px;box-shadow:0 12px 35px #071b1514;backdrop-filter:blur(16px)}
-.logo{font:800 21px var(--font-display);letter-spacing:-.06em;display:flex;align-items:center;gap:10px}
+.logo{font:700 21px var(--font-display);letter-spacing:-.045em;display:flex;align-items:center;gap:10px}
 .logo span{width:18px;height:18px;border:2px solid var(--ink);border-radius:50%;background:var(--acid);position:relative;overflow:hidden}
 .logo span:after{content:"";position:absolute;inset:-3px 8px -3px -7px;border:1px solid var(--ink);border-radius:50%}
 .topbar nav{display:flex;gap:30px;font-size:13px}
@@ -26,14 +26,15 @@ button,input{font:inherit}
 .hero-media>img{width:100%;height:100%;object-fit:cover;animation:slowZoom 14s ease-out both}
 .hero-shade{position:absolute;inset:0;background:linear-gradient(90deg,#071d17d9 0%,#071d1780 42%,transparent 75%),linear-gradient(0deg,#071d1766,transparent 45%)}
 .hero-copy{position:absolute;left:5vw;top:50%;transform:translateY(-43%);color:white}
-.hero-copy h1{font:800 clamp(56px,7.5vw,116px)/.9 var(--font-display);letter-spacing:-.075em;margin:0}
-.hero-copy h1 em{font-weight:500;color:transparent;-webkit-text-stroke:2px white}
+.hero-copy h1{font:500 clamp(56px,7.5vw,116px)/.86 var(--font-display);letter-spacing:-.045em;margin:0}
+.hero-copy h1 em{font-weight:350;color:transparent;-webkit-text-stroke:1.5px white}
 .hero-copy p{font-size:18px;margin:27px 0}
 .round-cta{border:0;border-radius:99px;background:var(--acid);color:var(--ink);padding:16px 20px;font-weight:600;display:flex;gap:35px;cursor:pointer}
 .image-caption{position:absolute;right:25px;bottom:24px;color:white;display:flex;gap:26px;font-size:10px}
 .home-section,.dark-section,.tournament-band{padding:110px 5vw}
 .intro-grid{display:grid;grid-template-columns:.55fr 1.45fr;gap:7vw;align-items:start}
-.intro-grid h2,.section-head h2,.page-heading h1,.dark-hero h1,.deuce-footer h2{font:700 clamp(42px,5.4vw,80px)/.94 var(--font-display);letter-spacing:-.065em;margin:0}
+.intro-grid h2,.section-head h2,.page-heading h1,.dark-hero h1{font:500 clamp(42px,5.4vw,80px)/.94 var(--font-display);letter-spacing:-.045em;margin:0}
+.deuce-footer h2{font:700 clamp(42px,5.4vw,80px)/.94 var(--font-display);letter-spacing:-.065em;margin:0}
 .intro-grid>div>p{line-height:1.6;max-width:330px}
 .feature-match{height:610px;position:relative;overflow:hidden;border-radius:28px;color:white}
 .feature-match img{width:100%;height:100%;object-fit:cover;object-position:center 15%;transition:transform .8s cubic-bezier(.2,.75,.25,1)}
@@ -353,9 +354,10 @@ body{max-width:100%;overflow-x:hidden}
 .hero-shade {
   z-index: 1;
   background:
-    linear-gradient(90deg, rgba(3, 19, 14, .9) 0%, rgba(3, 19, 14, .6) 42%, rgba(3, 19, 14, .12) 76%),
-    linear-gradient(0deg, rgba(3, 19, 14, .72) 0%, transparent 48%),
-    linear-gradient(180deg, rgba(3, 19, 14, .3) 0%, transparent 24%);
+    radial-gradient(ellipse at 68% 50%, rgba(210, 255, 69, .12) 0%, rgba(210, 255, 69, 0) 31%),
+    linear-gradient(90deg, rgba(3, 19, 14, .94) 0%, rgba(3, 19, 14, .62) 43%, rgba(3, 19, 14, .08) 78%),
+    linear-gradient(0deg, rgba(3, 19, 14, .78) 0%, transparent 52%),
+    linear-gradient(180deg, rgba(3, 19, 14, .34) 0%, transparent 27%);
 }
 
 .hero-copy {
@@ -368,9 +370,9 @@ body{max-width:100%;overflow-x:hidden}
 .hero-copy h1 {
   font-family: var(--font-display), sans-serif;
   font-size: clamp(58px, 8.3vw, 134px);
-  font-weight: 800;
-  line-height: .78;
-  letter-spacing: -.08em;
+  font-weight: 500;
+  line-height: .82;
+  letter-spacing: -.045em;
 }
 
 .hero-copy h1 em {
@@ -378,12 +380,12 @@ body{max-width:100%;overflow-x:hidden}
   margin-top: .16em;
   color: var(--acid);
   -webkit-text-stroke: 0;
-  font-family: var(--font-editorial), Georgia, serif;
+  font-family: var(--font-editorial), sans-serif;
   font-size: .72em;
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: -.055em;
-  line-height: .84;
+  font-style: normal;
+  font-weight: 350;
+  letter-spacing: -.035em;
+  line-height: .88;
   text-transform: none;
 }
 
@@ -1259,8 +1261,8 @@ body{max-width:100%;overflow-x:hidden}
 /* 10. Production integration: real archive, accessible controls and route layouts.
    All theme values live here; retained ui files supply deep statistical layouts only. */
 :root {
-  --font-display:var(--deuce-display),sans-serif; --font-body:var(--deuce-body),sans-serif;
-  --font-editorial:var(--deuce-body),sans-serif;
+  --font-display:var(--deuce-sans),sans-serif; --font-body:var(--deuce-sans),sans-serif;
+  --font-editorial:var(--deuce-sans),sans-serif;
   --muted:#596b61;
   --bg:var(--gray); --bg-raised:#fff; --bg-soft:#e4eae6; --paper:var(--gray);
   --text:var(--ink); --text-muted:var(--muted); --court:var(--winner);

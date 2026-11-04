@@ -4,7 +4,7 @@ Actualizado el 20 de octubre de 2026. `✓` indica trabajo incorporado a esta en
 
 ## Identidad y sistema visual
 
-1. ✓ Dos familias con un papel fijo: **Bricolage Grotesque** para titulares y **Geist** para interfaz, marcadores y cifras tabulares. No sumar fuentes por pantalla.
+1. ✓ Una familia con jerarquía real: **Host Grotesk** para titulares, interfaz, marcadores y cifras tabulares. Menos descargas y ninguna fuente añadida por pantalla.
 2. ✓ Titulares más breves y grandes; dato protagonista visible antes del método o los filtros.
 3. → Definir una escala tipográfica completa en tokens CSS: titular, sección, cuerpo, dato y nota; retirar tamaños sueltos de hojas heredadas.
 4. → Limitar la paleta a neutrales, un acento de acción y dos colores estables para los jugadores en gráficos. El color de la superficie debe ser una señal pequeña, no un tema nuevo.

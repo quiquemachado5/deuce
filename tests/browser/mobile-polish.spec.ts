@@ -5,9 +5,8 @@ test('mobile home keeps its current editorial sections compact and accessible', 
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
-  await expect(page.getByRole('heading', { name: 'Últimos resultados ATP', exact: true })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Récords ATP en el archivo', exact: true })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Récords WTA en la muestra 2018–2026', exact: true })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Últimos resultados', exact: true })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Récords del archivo', exact: true })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Grandes escenarios', exact: true })).toBeVisible();
   await expect(page.locator('main a[href^="/match/"]').first()).toBeVisible();
   for (const width of [320, 390]) {

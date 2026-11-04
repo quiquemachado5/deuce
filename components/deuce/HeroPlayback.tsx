@@ -29,10 +29,10 @@ export function HeroPlayback() {
     return()=>{observer.disconnect();motion.removeEventListener('change',update);document.removeEventListener('visibilitychange',update);};
   },[deferred]);
   return <div ref={container} className={`hero-video hero-film${ready?' is-ready':''}`}>
-    <Image src="/videos/tennis-hero-poster.webp" alt="" fill sizes="100vw" aria-hidden="true" priority unoptimized/>
-    {active&&<video autoPlay muted loop playsInline preload="metadata" poster="/videos/tennis-hero-poster.webp" onCanPlay={()=>setReady(true)} aria-hidden="true" tabIndex={-1}>
-      <source src="/videos/tennis-hero-mobile.mp4" media="(max-width: 759px)" type="video/mp4"/>
-      <source src="/videos/tennis-hero.mp4" type="video/mp4"/>
+    <Image src="/videos/tennis-hero-poster.webp?v=2" alt="" fill sizes="100vw" aria-hidden="true" priority unoptimized/>
+    {active&&<video autoPlay muted loop playsInline preload="metadata" poster="/videos/tennis-hero-poster.webp?v=2" onCanPlay={()=>setReady(true)} aria-hidden="true" tabIndex={-1}>
+      <source src="/videos/tennis-hero-mobile.mp4?v=2" media="(max-width: 759px)" type="video/mp4"/>
+      <source src="/videos/tennis-hero.mp4?v=2" type="video/mp4"/>
     </video>}
   </div>;
 }

@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { Suspense, useEffect, useRef } from 'react';
+import { Suspense } from 'react';
 import { circuitSectionHref, navigationCircuit, type Circuit } from '@/lib/circuit-navigation';
 import { FooterCircuitNavigationFallback } from './CircuitNavigationFallback';
 
@@ -14,15 +14,18 @@ function FooterNavigationLinks({ circuit }: { circuit: Circuit }) {
       <Link href={circuitSectionHref('records',circuit)}>Récords</Link>
       <Link href={circuitSectionHref('players',circuit)}>Jugadores</Link>
       <Link href={circuitSectionHref('tournaments',circuit)}>Torneos</Link>
+      <Link href={circuitSectionHref('compare',circuit)}>Comparar</Link>
+    </div>
+    <div>
+      <strong>Archivo</strong>
       <Link href="/historias">Historias</Link>
+      <Link href="/cobertura">Cobertura</Link>
     </div>
     <div>
       <strong>DEUCE</strong>
       <Link href="/sobre">Sobre DEUCE</Link>
       <Link href="/info">Cómo se lee</Link>
-      <Link href="/cobertura">Cobertura</Link>
       <Link href="/licencias">Licencias</Link>
-      <Link href={circuitSectionHref('compare',circuit)}>Comparar</Link>
     </div>
   </nav>;
 }
@@ -33,60 +36,24 @@ function CircuitAwareFooterNavigation() {
 }
 
 export function DeuceFooter() {
-  const footer = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const element = footer.current;
-    if (!element) return;
-
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reducedMotion) {
-      element.classList.add('is-visible');
-      return;
-    }
-
-    let visible = false;
-    let frame = 0;
-    element.classList.add('footer-motion-ready');
-
-    const updateLight = () => {
-      const rect = element.getBoundingClientRect();
-      const progress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
-      const offset = Math.max(-1, Math.min(1, (progress - 0.5) * 2)) * 38;
-      element.style.setProperty('--footer-parallax-a', `${offset}px`);
-      element.style.setProperty('--footer-parallax-b', `${offset * -0.55}px`);
-      frame = 0;
-    };
-    const queueLight = () => {
-      if (visible && !frame) frame = window.requestAnimationFrame(updateLight);
-    };
-    const observer = new IntersectionObserver(([entry]) => {
-      visible = entry.isIntersecting;
-      if (entry.isIntersecting) element.classList.add('is-visible');
-      else if (entry.boundingClientRect.top > window.innerHeight) element.classList.remove('is-visible');
-      queueLight();
-    }, { rootMargin: '120px 0px' });
-
-    observer.observe(element);
-    window.addEventListener('scroll', queueLight, { passive: true });
-    window.addEventListener('resize', queueLight, { passive: true });
-    return () => {
-      observer.disconnect();
-      window.removeEventListener('scroll', queueLight);
-      window.removeEventListener('resize', queueLight);
-      if (frame) window.cancelAnimationFrame(frame);
-    };
-  }, []);
-
-  return <footer className="deuce-footer" ref={footer}>
-    <div className="footer-brand">
-      <Link className="logo footer-logo" href="/" aria-label="DEUCE, inicio"><span aria-hidden="true" />DEUCE</Link>
-      <p>Resultados y estadísticas ATP y WTA con una cobertura clara y documentada.</p>
+  return <footer className="deuce-footer" aria-labelledby="deuce-footer-title">
+    <div className="footer-atmosphere">
+      <div className="footer-atmosphere-inner">
+        <p className="footer-kicker">Archivo estadístico · ATP + WTA</p>
+        <h2 id="deuce-footer-title">Partidos, carreras y récords.<span>En un solo archivo.</span></h2>
+        <p className="footer-stage-note">Datos para volver a cada partido y entender lo que dejó.</p>
+      </div>
     </div>
-    <Suspense fallback={<FooterCircuitNavigationFallback />}><CircuitAwareFooterNavigation/></Suspense>
-    <div className="footer-bottom">
-      <span>© {new Date().getUTCFullYear()} DEUCE · Archivo estadístico de tenis</span>
-      <span className="footer-credit">Made by quiquicius</span>
+    <div className="footer-directory">
+      <div className="footer-brand">
+        <Link className="logo footer-logo" href="/" aria-label="DEUCE, inicio"><span aria-hidden="true" />DEUCE</Link>
+        <p>Resultados y estadísticas de tenis con fuentes, contexto y cobertura documentada.</p>
+      </div>
+      <Suspense fallback={<FooterCircuitNavigationFallback />}><CircuitAwareFooterNavigation/></Suspense>
+      <div className="footer-bottom">
+        <span>© {new Date().getUTCFullYear()} DEUCE · Archivo estadístico de tenis</span>
+        <span className="footer-credit">Made by quiquicius</span>
+      </div>
     </div>
   </footer>;
 }

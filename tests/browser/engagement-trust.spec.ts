@@ -14,6 +14,8 @@ test('a visitor can keep a private archive without an account', async ({ page })
   await page.reload();
   await expect(page.getByRole('region', { name: 'Tu archivo' }).locator('button[aria-pressed="true"]')).toHaveAccessibleName('Guardado');
   expect(await page.evaluate(() => localStorage.getItem('deuce:personal-archive:v1'))).toContain('/match/archive-148401');
+  await page.goto('/');
+  await expect(page.getByRole('region', { name: 'Tu archivo' })).toHaveCount(0);
 });
 
 test('about, correction and privacy information is public and readable', async ({ page }) => {
@@ -28,10 +30,9 @@ test('about, correction and privacy information is public and readable', async (
   expect(audit.violations).toEqual([]);
 });
 
-test('stories are discoverable and coverage explains incident counts', async ({ page }) => {
+test('home stays focused and coverage explains incident counts', async ({ page }) => {
   await page.goto('/');
-  await expect(page.getByRole('heading', { name: 'Historias del archivo' })).toBeVisible();
-  await expect(page.getByRole('link', { name: /Leer historias/ })).toHaveAttribute('href', '/historias');
+  await expect(page.getByRole('heading', { name: 'Historias del archivo' })).toHaveCount(0);
   await page.goto('/cobertura');
   await expect(page.getByText(/no un error 404 de la web/i)).toBeVisible();
   await expect(page.getByText('Resultados incompletos confirmados')).toBeVisible();

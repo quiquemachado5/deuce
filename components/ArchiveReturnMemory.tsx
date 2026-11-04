@@ -122,7 +122,7 @@ export default function ArchiveReturnMemory() {
 
   const isSaved = Boolean(current && memory.saved.some(item => item.href === current.href));
   const visibleRecent = useMemo(() => memory.recent.slice(0, 4), [memory.recent]);
-  if (!ready || (!current && memory.saved.length === 0 && memory.recent.length === 0)) return null;
+  if (pathname === '/' || !ready || (!current && memory.saved.length === 0 && memory.recent.length === 0)) return null;
 
   const update = (next: ArchiveMemory) => { setMemory(next); writeMemory(next); };
   const toggleCurrent = () => {
