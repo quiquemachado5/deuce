@@ -21,9 +21,10 @@ test('production image contains the bundled seed and Debian bootstrap supports C
 })
 
 test('production preflight and container confinement run before promotion', () => {
+  const publicConfig = source.indexOf('node ops/vps/apply-public-env.mjs')
   const preflight = source.indexOf('node ops/vps/preflight.mjs')
   const fetch = source.indexOf('git fetch origin main')
-  assert.ok(preflight >= 0 && preflight < fetch)
+  assert.ok(publicConfig >= 0 && publicConfig < preflight && preflight < fetch)
   assert.match(source.slice(0, fetch), /--network none/)
   assert.match(source.slice(0, fetch), /target=\/workspace,readonly/)
   assert.match(compose, /no-new-privileges:true/)

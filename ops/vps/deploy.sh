@@ -28,6 +28,10 @@ if [[ ! -f .env.production ]]; then
   echo "Missing ${ROOT}/.env.production." >&2
   exit 1
 fi
+docker run --rm --network none --user "$(id -u):$(id -g)" \
+  --mount "type=bind,source=${ROOT},target=/workspace" \
+  --workdir /workspace node:24-bookworm-slim \
+  node ops/vps/apply-public-env.mjs --env=.env.production --config=ops/vps/production-public.env
 docker run --rm --network none \
   --mount "type=bind,source=${ROOT},target=/workspace,readonly" \
   --workdir /workspace node:24-bookworm-slim \
