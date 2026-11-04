@@ -6,7 +6,7 @@ const workflow = await readFile(new URL('../.github/workflows/ci.yml', import.me
 
 test('CI builds once, caches Next output and reuses it for browser verification', () => {
   assert.equal((workflow.match(/npm run build/g) || []).length, 1)
-  assert.match(workflow, /actions\/cache@caa296126883cff596d87d8935842f9db880ef25/)
+  assert.match(workflow, /actions\/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9/)
   assert.match(workflow, /path: \$\{\{ github\.workspace \}\}\/\.next\/cache/)
   assert.match(workflow, /'data\/reading\/\*\*'/)
   assert.match(workflow, /'data\/archive\/\*\*'/)

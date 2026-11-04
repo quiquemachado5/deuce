@@ -40,7 +40,7 @@ jobs:
         with:
           node-version: '24'
           cache: npm
-      - uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5.1.0
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ${{ github.workspace }}/.next/cache
           # Filesystem-backed snapshots are read while prerendering. An exact
@@ -50,7 +50,7 @@ jobs:
       - run: npm run build
       - run: npm run budgets:verify
       - name: Preserve the production build
-        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
           name: next-build-${{ github.sha }}
           path: |
@@ -109,7 +109,7 @@ jobs:
       - run: npm run test:browser
       - name: Preserve browser failure evidence
         if: failure()
-        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
           name: playwright-failure-${{ github.run_id }}-${{ github.run_attempt }}
           path: test-results
