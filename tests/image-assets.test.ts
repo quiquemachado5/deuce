@@ -7,8 +7,9 @@ import discovered from '../lib/player-photo-discovery.json'
 import wtaPortraits from '../lib/player-photo-wta.json'
 import imageLoader from '../lib/image-loader'
 import { courtPhoto, courtPhotoForEdition, courtPhotos, premiumCourtPhotoNames } from '../lib/imagery'
-import { playerDirectoryPhoto, playerPhoto, playerPhotos, publishableWtaPortraits } from '../lib/player-imagery'
+import { directoryPlayerPhotos, playerDirectoryPhoto, playerPhoto, playerPhotos, publishableWtaPortraits } from '../lib/player-imagery'
 import { playerPhotoAtTournament } from '../lib/tournament-media'
+import { tournamentDetailPhoto, tournamentDetailFeaturePhoto } from '../lib/tournament-detail-media'
 import { photoRightsStatus } from '../lib/photo-rights'
 
 test('the player directory serves cached local photos with their actual sources', () => {
@@ -23,6 +24,11 @@ test('the player directory serves cached local photos with their actual sources'
     }
     const thumbnail = playerPhoto(name)?.thumbnail
     assert.ok(thumbnail && existsSync(`public${thumbnail}`), `missing ${name} thumbnail`)
+  }
+
+  for (const photo of Object.values(directoryPlayerPhotos)) {
+    const responsive = imageLoader({ src: photo.src, width: 734 })
+    assert.ok(existsSync(`public${responsive}`), `missing directory hero variant for ${photo.src}`)
   }
 
   for (const name of ['Jannik Sinner', 'Alex De Minaur']) {
@@ -98,4 +104,16 @@ test('court photos have real responsive files and edition photos never imply ano
   }
   assert.equal(imageLoader({ src: '/images/courts/miami-2025-734.webp', width: 734 }), '/images/courts/miami-2025-734.webp')
   assert.equal(imageLoader({ src: '/images/players/optimized/novak-djokovic.webp', width: 160 }), '/images/players/optimized/novak-djokovic-small.webp')
+})
+
+test('tournament detail photography ships responsive hero and editorial variants', () => {
+  for (const tournament of ['Australian Open', 'Roland Garros', 'US Open', 'Wimbledon']) {
+    for (const photo of [tournamentDetailPhoto(tournament), tournamentDetailFeaturePhoto(tournament)]) {
+      assert.ok(photo, `${tournament} should have documented detail photography`)
+      for (const width of [734, 1068, 1440]) {
+        const source = imageLoader({ src: photo!.src, width })
+        assert.ok(existsSync(`public${source}`), `missing ${tournament} ${width}px detail photo`)
+      }
+    }
+  }
 })

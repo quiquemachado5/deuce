@@ -21,9 +21,11 @@ const files = await walk(publicRoot);
 const sized = await Promise.all(files.map(async path => ({ path, bytes: (await stat(path)).size })));
 const totalBytes = sized.reduce((sum, entry) => sum + entry.bytes, 0);
 const failures = [];
+const warnings = [];
 const media = await auditPublicMedia(root);
 
 if (totalBytes > maximumPublicBytes) failures.push(`public/: ${totalBytes} > ${maximumPublicBytes} bytes`);
+if (totalBytes / maximumPublicBytes >= 0.85) warnings.push(`public/: ${(totalBytes / maximumPublicBytes * 100).toFixed(1)}% of budget (${totalBytes}/${maximumPublicBytes} bytes)`);
 for (const entry of sized) {
   const name = relative(root, entry.path);
   if (name.startsWith('public/images/courts/') && extname(name).toLowerCase() === '.jpg') {
@@ -44,6 +46,7 @@ console.log(JSON.stringify({
   maximumPublicBytes,
   maximumSingleAssetBytes,
   media,
+  warnings,
   failures,
 }, null, 2));
 

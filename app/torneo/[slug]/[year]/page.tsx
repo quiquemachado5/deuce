@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
-import { preparedTournamentArchive } from "@/lib/revista/read-records";
+import { preparedTournamentEditionArchive, preparedTournamentSummaryArchive } from "@/lib/revista/read-records";
 import { tournamentName } from "@/lib/labels";
 import {
   categoryLabel,
@@ -34,8 +34,7 @@ type Props = {
 export async function generateMetadata({ params, searchParams }: Props) {
   const { slug, year } = await params;
   const query = await searchParams;
-  const requestedTour=query.cuadro==='wta'?'wta':query.cuadro==='atp'?'atp':'all';
-  const tournament = tournamentDirectory(await preparedTournamentArchive(Number(year),requestedTour)).find(
+  const tournament = tournamentDirectory(await preparedTournamentSummaryArchive(slug)).find(
     (entry) => entry.slug === slug,
   );
   const options =
@@ -62,25 +61,26 @@ export default async function Edition({ params, searchParams }: Props) {
   const { slug, year } = await params;
   const query = await searchParams;
   if (!/^\d{4}$/.test(year)) notFound();
-  const requestedTour=query.cuadro==='wta'?'wta':query.cuadro==='atp'?'atp':'all';
-  const archive=await preparedTournamentArchive(Number(year),requestedTour);
-  const tournament = tournamentDirectory(archive).find(
+  const summaryTournament = tournamentDirectory(await preparedTournamentSummaryArchive(slug)).find(
     (entry) => entry.slug === slug,
   );
-  if (!tournament) notFound();
-  const edition = tournament.matches.filter(
+  if (!summaryTournament) notFound();
+  const summaryEdition = summaryTournament.matches.filter(
     (match) => match.year === Number(year),
   );
-  const categories = [...new Set(edition.map((match) => match.category))];
-  const men=edition.filter(match=>(match.tour||'atp')==='atp');
-  const women=edition.filter(match=>match.tour==='wta');
+  const categories = [...new Set(summaryEdition.map((match) => match.category))];
+  const men=summaryEdition.filter(match=>(match.tour||'atp')==='atp');
+  const women=summaryEdition.filter(match=>match.tour==='wta');
   if (!men.length && !women.length) notFound();
   const requestedCategory=query.categoria&&categories.includes(query.categoria)?query.categoria:undefined;
-  const requestedMatches=edition.filter(match=>match.category===requestedCategory);
+  const requestedMatches=summaryEdition.filter(match=>match.category===requestedCategory);
   const selectedTour=query.cuadro==='wta'&&women.length?'wta':query.cuadro==='atp'&&men.length?'atp':requestedMatches.length&&requestedMatches.every(match=>match.tour==='wta')?'wta':men.length?'atp':'wta';
-  const selectedMatches=selectedTour==='wta'?women:men;
-  const category=requestedCategory&&selectedMatches.some(match=>match.category===requestedCategory)?requestedCategory:selectedMatches[0]?.category;
-  const matches=selectedMatches.filter(match=>match.category===category);
+  const selectedSummary=selectedTour==='wta'?women:men;
+  const category=requestedCategory&&selectedSummary.some(match=>match.category===requestedCategory)?requestedCategory:selectedSummary[0]?.category;
+  const archive=await preparedTournamentEditionArchive(Number(year),selectedTour,summaryTournament.name);
+  const tournament = tournamentDirectory(archive).find((entry) => entry.slug === slug);
+  if (!tournament) notFound();
+  const matches=tournament.matches.filter(match=>match.year===Number(year)&&match.category===category&&(match.tour||'atp')===selectedTour);
   const bracketRounds=tournamentBracketRounds(matches);
   const court = editionTournamentCourt(matches);
   const final = matches.find((match) => roundPosition(match.round) === 7);
@@ -196,11 +196,12 @@ export default async function Edition({ params, searchParams }: Props) {
     },
     ...spotlightSlides.slice(1),
   ];
-  const tourCategories=[...new Set(tournament.matches.filter(match=>(match.tour||'atp')===selectedTour).map(match=>match.category))];
+  const tournamentHistory=summaryTournament.matches.filter(match=>(match.tour||'atp')===selectedTour);
+  const tourCategories=[...new Set(tournamentHistory.map(match=>match.category))];
   const categoryOptions = tourCategories.map((level) => ({
     value: level,
     label: categoryLabel(level),
-    years: [...new Set(tournament.matches.filter(match=>match.category===level&&(match.tour||'atp')===selectedTour).map(match=>match.year))].sort((a,b)=>b-a),
+    years: [...new Set(tournamentHistory.filter(match=>match.category===level).map(match=>match.year))].sort((a,b)=>b-a),
   }));
   const titleName = tournamentName(tournament.name);
   const heroTitleLines = slug === "us-open" ? ["Abierto de", "Estados Unidos"] : [titleName];
@@ -213,14 +214,14 @@ export default async function Edition({ params, searchParams }: Props) {
       data-grand-slam={category === "Grand Slam" ? "true" : undefined}
     >
       <header className={styles.editionHero} data-grand-slam={category === "Grand Slam"}>
-        {heroPhoto ? <Image className="art-directed-photo" src={heroPhoto.src} alt={heroPhoto.alt} fill sizes="100vw" priority style={imageFocus(heroPhoto.objectPosition||"center",heroPhoto.mobileObjectPosition||heroPhoto.objectPosition||"center")} unoptimized={heroPhoto.src.includes("/images/players/") || heroPhoto.src.startsWith("/images/tournaments/detail/")} /> : <span className={styles.heroFallback} aria-hidden="true" />}
+        {heroPhoto ? <Image className="art-directed-photo" src={heroPhoto.src} alt={heroPhoto.alt} fill sizes="100vw" priority style={imageFocus(heroPhoto.objectPosition||"center",heroPhoto.mobileObjectPosition||heroPhoto.objectPosition||"center")} unoptimized={heroPhoto.src.includes("/images/players/")} /> : <span className={styles.heroFallback} aria-hidden="true" />}
         <span className={styles.heroBackdrop} aria-hidden="true" />
         <div className={styles.heroInner}>
           <div className={styles.heroCopy}>
             <div>
               <h1 className={styles.heroTitle}><span className={styles.heroName} data-hero-tournament-name="">{heroTitleLines.map((line) => <span className={styles.heroLine} key={line}>{line}</span>)}</span><span className={styles.heroYear}>{year}</span></h1>
             </div>
-            <div className={styles.heroNav}><TournamentEditionNav slug={slug} years={categoryOptions.find(option=>option.value===category)?.years||[]} currentYear={Number(year)} category={tournament.categories.length > 1 ? category : undefined} categories={categoryOptions} tour={selectedTour}/></div>
+            <div className={styles.heroNav}><TournamentEditionNav slug={slug} years={categoryOptions.find(option=>option.value===category)?.years||[]} currentYear={Number(year)} category={categories.length > 1 ? category : undefined} categories={categoryOptions} tour={selectedTour}/></div>
           </div>
         </div>
       </header>

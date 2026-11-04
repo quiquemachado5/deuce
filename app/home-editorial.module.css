@@ -1,2 +1,7 @@
 .recordCircuit{position:relative;z-index:1}
 .recordCircuit+.recordCircuit{margin-top:clamp(72px,8vw,118px)}
+.storyEntry{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:32px;padding-top:clamp(52px,7vw,86px);padding-bottom:clamp(52px,7vw,86px)}
+.storyEntry h2{max-width:12ch;margin:0;font:720 clamp(38px,5.6vw,70px)/.96 var(--font-display);letter-spacing:-.05em}
+.storyEntry p{max-width:57ch;margin:18px 0 0;color:var(--muted);font-size:14px;line-height:1.65}
+.storyEntry a{display:inline-flex;min-height:44px;align-items:center;gap:8px;padding:10px 16px;border:1px solid var(--line);border-radius:999px;background:var(--bg-raised);color:var(--ink);font-size:13px;font-weight:750;text-decoration:none}
+@media(max-width:700px){.storyEntry{grid-template-columns:1fr;align-items:start;gap:24px}.storyEntry a{justify-self:start}}

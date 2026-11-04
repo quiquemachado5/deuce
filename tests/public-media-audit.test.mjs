@@ -31,5 +31,5 @@ test('missing primary image references fail the media inventory', async () => {
 test('unoptimized image exceptions stay explicit and cannot spread to new components', async () => {
   const result = await auditPublicMedia();
   assert.deepEqual(result.unoptimizedViolations, []);
-  assert.equal(Object.values(result.unoptimizedCounts).reduce((sum, count) => sum + count, 0), 37);
+  assert.equal(Object.values(result.unoptimizedCounts).reduce((sum, count) => sum + count, 0), 36);
 });

@@ -4,6 +4,14 @@ import { exactDay } from './archive-freshness';
 
 export const SITEMAP_ORIGIN = SITE_ORIGIN;
 
+export function sitemapIndexLocations(currentYear = new Date().getUTCFullYear()) {
+  const lastYear = Math.max(1968, currentYear);
+  return [
+    `${SITEMAP_ORIGIN}/sitemap.xml`,
+    ...Array.from({ length: lastYear - 1967 }, (_, index) => `${SITEMAP_ORIGIN}/match/sitemap/${1968 + index}.xml`),
+  ];
+}
+
 /** Public, indexable routes that do not depend on the generated archive. */
 export const SITEMAP_STATIC_PATHS = [
   '',
@@ -15,6 +23,7 @@ export const SITEMAP_STATIC_PATHS = [
   '/licencias',
   '/cobertura',
   '/historias',
+  '/sobre',
 ] as const;
 
 /**

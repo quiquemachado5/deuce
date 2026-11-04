@@ -23,11 +23,13 @@ const baseMetadata = {
     title: 'Comparador de jugadores — DEUCE',
     description: 'Trayectoria, superficies y cara a cara de dos jugadores en una lectura común.',
     url: '/comparar',
+    images: ['/opengraph-image'],
   },
   twitter: {
     card: 'summary_large_image' as const,
     title: 'Comparador de jugadores — DEUCE',
     description: 'Trayectoria, superficies y cara a cara de dos jugadores en una lectura común.',
+    images: ['/opengraph-image'],
   },
   robots: { index: false, follow: true },
 };

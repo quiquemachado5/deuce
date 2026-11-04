@@ -7,8 +7,8 @@ import { archiveFreshnessSummary } from '../lib/archive-freshness';
 import { matchDatePresentation, reviewMatchDate } from '../lib/match-date';
 import { chronological } from '../lib/editorial';
 import { recordsCanonical, recordsHaveTransientState, recordsUrl } from '../lib/records-url';
-import { matchSitemapEntries, SITEMAP_STATIC_PATHS, sitemapLocation } from '../lib/sitemap-locations';
-import { matchCanonicalPath, matchHasTransientState, robotsForUnavailableTour } from '../lib/seo-metadata';
+import { matchSitemapEntries, SITEMAP_STATIC_PATHS, sitemapIndexLocations, sitemapLocation } from '../lib/sitemap-locations';
+import { breadcrumbJsonLd, itemListJsonLd, matchCanonicalPath, matchHasTransientState, matchJsonLd, playerProfileJsonLd, robotsForUnavailableTour, tournamentSeriesJsonLd } from '../lib/seo-metadata';
 import { tournamentDirectoryUrl, tournamentEditionCanonicalPaths } from '../lib/tournament-url';
 import { matchContextReferences, verifiedContext } from '../lib/verified-context';
 import type { Match } from '../lib/types';
@@ -27,6 +27,44 @@ test('Next sitemap serialization keeps query URLs valid and excludes the noindex
   assert.ok(xml.includes(`<loc>${SITE_ORIGIN}/records?dato=top-10&amp;tour=wta</loc>`));
   assert.doesNotMatch(xml, /&(?!(?:amp|lt|gt|quot|apos);)/);
   assert.equal((SITEMAP_STATIC_PATHS as readonly string[]).includes('/comparar'), false);
+});
+
+test('the sitemap index groups the canonical sitemap and every annual match sitemap', () => {
+  const locations = sitemapIndexLocations(1970);
+  assert.deepEqual(locations, [
+    `${SITE_ORIGIN}/sitemap.xml`,
+    `${SITE_ORIGIN}/match/sitemap/1968.xml`,
+    `${SITE_ORIGIN}/match/sitemap/1969.xml`,
+    `${SITE_ORIGIN}/match/sitemap/1970.xml`,
+  ]);
+  assert.equal(new Set(locations).size, locations.length);
+});
+
+test('entity JSON-LD exposes canonical tennis entities without inventing missing dates', () => {
+  const match = matchJsonLd({ ...base, match_id:'seo-match', tour:'wta', context:undefined });
+  assert.equal(match['@type'], 'SportsEvent');
+  assert.equal(match.url, `${SITE_ORIGIN}/match/seo-match`);
+  assert.equal('startDate' in match, false);
+  assert.deepEqual((match.competitor as Array<{ '@type':string }>).map(person=>person['@type']), ['Person','Person']);
+
+  const approximate = matchJsonLd({ ...base, match_id:'approximate-seo-match', context:{date:'2022-05-23',dateLabel:'Inicio del torneo'} });
+  assert.equal('startDate' in approximate, false);
+  const exact = matchJsonLd({ ...base, match_id:'exact-seo-match', context:{date:'2022-05-31',endDate:'2022-06-01',dateLabel:'Fecha del partido'} });
+  assert.equal(exact.startDate, '2022-05-31');
+  assert.equal(exact.endDate, '2022-06-01');
+
+  const player = playerProfileJsonLd({name:'Aryna Sabalenka',slug:'aryna-sabalenka',tour:'wta',description:'Perfil documentado'});
+  assert.equal(player['@type'], 'ProfilePage');
+  assert.equal((player.mainEntity as {url:string}).url, `${SITE_ORIGIN}/jugadores/aryna-sabalenka?tour=wta`);
+
+  const tournament = tournamentSeriesJsonLd({name:'Wimbledon',slug:'wimbledon',category:'Grand Slam',tour:'atp',years:[2026,2025],description:'Ediciones documentadas'});
+  assert.equal(tournament['@type'], 'EventSeries');
+  assert.equal((tournament.subEvent as Array<unknown>).length, 2);
+
+  const breadcrumbs = breadcrumbJsonLd([{name:'Inicio',path:'/'},{name:'Partidos',path:'/buscar'}]);
+  const list = itemListJsonLd('Historias',[{name:'Una final',path:'/match/seo-match'}]);
+  assert.equal((breadcrumbs.itemListElement as Array<unknown>).length, 2);
+  assert.equal(list.numberOfItems, 1);
 });
 
 test('canonical archive URLs discard default circuits and transient UI state', () => {

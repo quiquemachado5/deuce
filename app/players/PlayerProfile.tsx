@@ -31,6 +31,8 @@ import { championPhotos } from '@/lib/tournament-media';
 import type { Match } from '@/lib/types';
 import { SURFACES } from '@/lib/surface';
 import styles from './player-profile.module.css';
+import { StructuredData } from '@/components/StructuredData';
+import { breadcrumbJsonLd, playerProfileJsonLd } from '@/lib/seo-metadata';
 
 type Props={params:Promise<{slug:string}>;searchParams:Promise<{year?:string;tour?:string}>};
 
@@ -82,6 +84,7 @@ export default async function Player({params,searchParams}:Props){
   if(playerSlug(player.name)!==slug)permanentRedirect(`/jugadores/${playerSlug(player.name)}${requestedTour==='wta'?'?tour=wta':''}`);
 
   const portrait=playerDirectoryPhoto(player.name,tour),bio=playerBiography(player.name,tour);
+  const profileDescription=`${player.name}: resultados, temporadas, rivales y rendimiento dentro de la muestra publicada en DEUCE.`;
   const years=[...new Set(player.matches.map(match=>match.year))].sort((a,b)=>b-a);
   const latestYear=years[0],firstYear=years.at(-1)!;
   const activityLabel=firstYear===latestYear?String(firstYear):`${firstYear}–${latestYear}`;
@@ -162,7 +165,16 @@ export default async function Player({params,searchParams}:Props){
   const recent:RecentMatch[]=[...player.matches].sort((a,b)=>chronological(b,a)).slice(0,20).map(match=>({record:toMatchRecord(match),won:winnerName(match)===player.name,surface:surfaceLabel[match.surface],opponent:match.player1.name===player.name?match.player2.name:match.player1.name}));
   const initials=player.name.split(/\s+/).map(part=>part[0]).slice(0,2).join('');
 
-  return <div className={`nc-wrap pp-page ${styles.profilePage}`}>
+  return <>
+  <StructuredData value={[
+    playerProfileJsonLd({name:player.name,slug,tour,description:profileDescription,image:portrait?.src,countryCode:bio?.country}),
+    breadcrumbJsonLd([
+      {name:'Inicio',path:'/'},
+      {name:tour==='wta'?'Jugadoras':'Jugadores',path:`/jugadores?tour=${tour}`},
+      {name:player.name,path:`/jugadores/${slug}${tour==='wta'?'?tour=wta':''}`},
+    ]),
+  ]}/>
+  <div className={`nc-wrap pp-page ${styles.profilePage}`}>
     <div className={styles.heroStage}>
       <header className={`pp-hero${portrait?' has-photo':' no-photo'}`} id="resumen">
         {portrait?<PlayerPortrait photo={portrait} className="pp-hero-photo" preload/>:<div className="pp-hero-fallback" aria-label={`Sin fotografía disponible para ${player.name}`}><span>{initials}</span>{bio?.country&&<PlayerFlag code={bio.country}/>}<i/><i/></div>}
@@ -210,5 +222,6 @@ export default async function Player({params,searchParams}:Props){
 
       <section className="pp-section pp-matches" id="partidos" aria-labelledby="pp-matches-title"><PlayerRecentMatches matches={recent} allHref={`/buscar?tour=${tour}&player=${encodeURIComponent(player.name)}&scope=matches`}/></section>
     </div>
-  </div>;
+  </div>
+  </>;
 }

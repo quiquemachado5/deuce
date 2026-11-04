@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       { userAgent: '*', allow: '/', disallow: '/api/' },
       { userAgent: ['GPTBot','ClaudeBot','Claude-Web','anthropic-ai','CCBot','Bytespider','Amazonbot','PetalBot','meta-externalagent','Google-Extended'], disallow: '/' },
     ],
-    sitemap: [`${SITE_ORIGIN}/sitemap.xml`, ...Array.from({length:new Date().getUTCFullYear()-1967},(_,i)=>`${SITE_ORIGIN}/match/sitemap/${1968+i}.xml`)],
+    sitemap: `${SITE_ORIGIN}/sitemap-index.xml`,
   }
 }

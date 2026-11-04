@@ -1,5 +1,3 @@
-'use client';
-
 import { ChevronDown, SlidersHorizontal } from 'lucide-react';
 import RecordsControls, { type RecordFilter } from '@/components/RecordsControls';
 import type { RecordQuery } from '@/lib/records-url';

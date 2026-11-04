@@ -1,8 +1,9 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { datasetEtag, requestCacheScope, versionedJson } from '../lib/http-cache';
-import { observeApiRequest, renderPrometheusMetrics, resetRuntimeMetrics } from '../lib/runtime-metrics';
+import { observeApiRequest, observeClientTelemetry, renderPrometheusMetrics, resetRuntimeMetrics, telemetryRoute } from '../lib/runtime-metrics';
 import { GET as metricsRoute } from '../app/api/metrics/route';
+import { POST as telemetryEndpoint } from '../app/api/telemetry/route';
 
 test('dataset ETags are stable across query parameter order and return 304', async () => {
   const first = new Request('https://deuce.test/api/matches?tour=wta&year=2024');
@@ -31,6 +32,35 @@ test('Prometheus metrics expose finite durable operation gauges',()=>{
   const output=renderPrometheusMetrics({}, {providerRemaining:812,providerReserve:200,publicationPeakRssBytes:1234});
   assert.match(output,/deuce_operational_value\{name="providerRemaining"\} 812/);
   assert.doesNotMatch(output,/NaN|undefined/);
+});
+
+test('browser telemetry is aggregated into bounded route families',()=>{
+  resetRuntimeMetrics();
+  assert.equal(telemetryRoute('/match/live-123?junto=live-456'),'/match/:id');
+  assert.equal(telemetryRoute('/torneos/wimbledon/2026'),'/torneos/:slug/:year');
+  assert.equal(telemetryRoute('/jugadores/novak-djokovic'),'/jugadores/:slug');
+  assert.equal(telemetryRoute('/invented/entity/123'),'/other');
+  observeClientTelemetry({kind:'web-vital',name:'LCP',value:3100,rating:'needs-improvement',path:'/match/live-123'});
+  observeClientTelemetry({kind:'navigation',navigationType:'skeleton',value:5200,path:'/torneos/wimbledon/2026'});
+  observeClientTelemetry({kind:'navigation',value:1e308,path:'/invented/entity/123'});
+  const output=renderPrometheusMetrics();
+  assert.match(output,/deuce_client_events_total\{route="\/match\/:id",event="web-vital",rating="needs-improvement"\} 1/);
+  assert.match(output,/deuce_client_metric_value_count\{route="\/match\/:id",metric="LCP"\} 1/);
+  assert.match(output,/deuce_client_metric_value_count\{route="\/torneos\/:slug\/:year",metric="skeleton"\} 1/);
+  assert.match(output,/deuce_client_metric_value_sum\{route="\/other",metric="navigation"\} 300000\.000/);
+  assert.doesNotMatch(output,/live-123|live-456/);
+  assert.doesNotMatch(output,/Infinity|1e\+308/);
+});
+
+test('telemetry rejects malformed measurements before aggregation',async()=>{
+  const invalid=await telemetryEndpoint(new Request('https://deuce.test/api/telemetry',{
+    method:'POST',headers:{'content-type':'application/json'},body:'{"kind":"navigation","value":1e999,"path":"/"}',
+  }));
+  assert.equal(invalid.status,400);
+  const missingMetric=await telemetryEndpoint(new Request('https://deuce.test/api/telemetry',{
+    method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({kind:'web-vital',value:1200,path:'/'}),
+  }));
+  assert.equal(missingMetric.status,400);
 });
 
 test('metrics endpoint requires its own bearer secret', async () => {

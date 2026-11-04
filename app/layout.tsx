@@ -11,6 +11,8 @@ import { SITE_ORIGIN } from '@/lib/site-origin';
 const body = DM_Sans({ subsets:['latin'], variable:'--deuce-body', display:'swap' });
 const display = Manrope({ subsets:['latin'], variable:'--deuce-display', display:'swap' });
 const editorial = Newsreader({ subsets:['latin'], variable:'--deuce-editorial', style:['normal','italic'], display:'swap' });
+const googleVerification=process.env.GOOGLE_SITE_VERIFICATION?.trim();
+const bingVerification=process.env.BING_SITE_VERIFICATION?.trim();
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_ORIGIN),
   title: "DEUCE — Datos del archivo de tenis",
@@ -24,6 +26,10 @@ export const metadata: Metadata = {
     type: "website",
     images: ["/opengraph-image"],
   },
+  ...(googleVerification||bingVerification?{verification:{
+    ...(googleVerification?{google:googleVerification}:{}),
+    ...(bingVerification?{other:{'msvalidate.01':bingVerification}}:{}),
+  }}:{}),
 };
 export default function RootLayout({
   children,

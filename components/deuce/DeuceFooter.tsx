@@ -18,6 +18,7 @@ function FooterNavigationLinks({ circuit }: { circuit: Circuit }) {
     </div>
     <div>
       <strong>DEUCE</strong>
+      <Link href="/sobre">Sobre DEUCE</Link>
       <Link href="/info">Cómo se lee</Link>
       <Link href="/cobertura">Cobertura</Link>
       <Link href="/licencias">Licencias</Link>

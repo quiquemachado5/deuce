@@ -136,7 +136,7 @@ export default function MatchSearchBar({ query, categories, rounds, surfaces, ye
   return <div ref={control} className={styles.searchControl} data-filter-only="" data-filters-open={filtersOpen || undefined} aria-busy={pending}>
     <div className={styles.controlMain}>
       <TournamentFilters ariaLabel="Circuito de partidos" items={circuits}/>
-      <button ref={trigger} className={styles.discoveryTrigger} type="button" aria-label={`Filtrar partidos${activeFilterCount ? `, ${activeFilterCount} filtros activos` : ''}`} aria-expanded={filtersOpen} onClick={() => setFiltersOpen(open => !open)}><span>Filtros</span><SlidersHorizontal size={18} aria-hidden="true" />{activeFilterCount ? <b>{activeFilterCount}</b> : null}</button>
+      <button ref={trigger} className={styles.discoveryTrigger} type="button" aria-label={`Filtros${activeFilterCount ? ` ${activeFilterCount}` : ''} · Filtrar partidos${activeFilterCount ? `, ${activeFilterCount} ${activeFilterCount===1?'filtro activo':'filtros activos'}` : ''}`} aria-expanded={filtersOpen} onClick={() => setFiltersOpen(open => !open)}><span>Filtros</span><SlidersHorizontal size={18} aria-hidden="true" />{activeFilterCount ? <b>{activeFilterCount}</b> : null}</button>
     </div>
     {filterPanel()}
     {portalRoot && filtersOpen && isMobile ? createPortal(filterPanel(true), portalRoot) : null}

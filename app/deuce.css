@@ -1,13 +1,8 @@
 @import "./ui/foundation.css";
 @import "./ui/components.css";
 @import "./ui/overview.css";
-@import "./ui/people.css";
-@import "./ui/match.css";
 @import "./ui/explore.css";
 @import "./ui/detail-depth.css";
-@import "./ui/record-depth.css";
-@import "./ui/player-depth.css";
-@import "./ui/tournament-depth.css";
 
 
 @import "./ui/edition-refinement.css";
