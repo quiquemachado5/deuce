@@ -5,6 +5,9 @@ on:
     branches: [main]
 permissions:
   contents: read
+concurrency:
+  group: archive-quality-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 env:
   NEXT_PUBLIC_USE_MOCK_DATA: 'false'
   # Home is statically rendered during build. Pin its editorial day so the
