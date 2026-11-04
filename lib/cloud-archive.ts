@@ -16,7 +16,7 @@ import {
   readArchiveObject,
   writeArchiveObjects,
 } from './archive-store'
-import { detailCandidateKey, detailCandidatePlayers, detailMatchesCandidate, enrichmentPlan, type DetailCandidate } from './enrichment-plan'
+import { detailCandidateKey, detailCandidatePlayers, detailMatchesCandidate, type DetailCandidate } from './enrichment-plan'
 import { activityFixtures } from './tour-activity'
 import {mergeSeasonBaseline,reconcileSeasonResults,type Season} from './result-refresh'
 import { detailRefreshPlan } from './detail-refresh-plan'
@@ -25,8 +25,10 @@ import { withOperationHistory } from './archive-operations'
 import { latestProviderResultDate } from './circuit-freshness'
 import { PROVIDER_PUBLICATION_TIERS } from './publication-scope'
 import { WTA_HISTORICAL_COHORTS, wtaBackfillCycle, wtaHistoricalCohortIds, wtaHistoricalCohortPlan, wtaHistoryProgress } from './wta-backfill-schedule'
-import { isProviderFreeHistoryLimit, providerHasRequestAfterUsage, providerMinimumReserve, providerOperationCallLimit, providerQuotaRetryAt, providerRemainingCalls } from './provider-quota'
+import { isProviderFreeHistoryLimit, providerHasRequestAfterUsage, providerMinimumReserve, providerQuotaRetryAt, providerQuotaSnapshot, providerRemainingCalls, type ProviderOperation } from './provider-quota'
 import { materializeBundledWtaArchive } from './wta-archive-bootstrap'
+import {completeEnrichment,deferEnrichment,enrichmentQueueCounts,persistentEnrichmentPlan,readEnrichmentQueue} from './enrichment-queue'
+import {archiveKeyCatalog} from './archive-catalog'
 
 // Provider payloads are schemaless until they are normalized into Match.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -130,7 +132,14 @@ export async function cloudArchiveHasCapacity(budget?:number){
   const maximum=Number.isFinite(configured)&&configured>0?configured:defaultMaximum;
   const status=archiveCapacityStatus(report,maximum);
   const result={report,maximum,status,available:status==='available'};
-  if(report)await cloudWrite('storage-capacity-status',{...result,checkedAt:new Date().toISOString()});
+  if(report){
+    const checkedAt=new Date().toISOString();
+    const catalog=archiveKeyCatalog(await listArchiveKeys('').catch(()=>[]),new Date(checkedAt));
+    await cloudWriteMany([
+      {key:'storage-capacity-status',payload:{...result,checkedAt}},
+      {key:'archive-catalog-status',payload:{...catalog,storage:report,maximumBytes:maximum}},
+    ]);
+  }
   return result;
 }
 
@@ -193,6 +202,13 @@ async function provider(path: string) {
   }
   throw lastError instanceof Error ? lastError : new Error('Tennis provider request failed')
 }
+async function recordProviderQuota(operation:ProviderOperation,quota:ArchiveRow,requested?:number){
+  const previous=await cloudRead('provider-quota-status').catch(()=>undefined)
+  const current=providerQuotaSnapshot(quota,operation,requested)
+  const observations=Array.isArray(previous?.observations)?previous.observations.filter((row:unknown)=>row&&typeof row==='object').slice(-44):[]
+  await cloudWrite('provider-quota-status',{...current,observations:[...observations,current]})
+  return current.operationLimit
+}
 export async function downloadCloudDetail(kind: 'modern' | 'archive', id: string) {
   const key = `detail-${kind}-${id}`
   const saved = await cloudRead(key)
@@ -202,7 +218,8 @@ export async function downloadCloudDetail(kind: 'modern' | 'archive', id: string
   if (!release) return undefined
   try {
     const quota = await provider('/usage')
-    if (!providerHasRequestAfterUsage(quota)) return undefined
+    const callLimit=await recordProviderQuota('detail-download',quota,2)
+    if (callLimit<=1||!providerHasRequestAfterUsage(quota)) return undefined
     await new Promise(resolve => setTimeout(resolve, 1300))
     const payload = await provider(kind === 'archive' ? `/history/archive/matches/${id}` : `/history/matches/${id}?points=complete`)
     if (!payload.match && !payload.data && !payload.stats) return undefined
@@ -234,7 +251,7 @@ export async function refreshCloudArchive() {
     calls++
     quota = await provider('/usage')
     const remaining = providerRemainingCalls(quota)
-    const wtaReserve=Math.max(40,providerMinimumReserve()),callLimit=35
+    const wtaReserve=Math.max(40,providerMinimumReserve()),callLimit=await recordProviderQuota('atp-refresh',quota,35)
     if (remaining <= wtaReserve) {
       const result = { status: 'quota-reserve', phase:'current-season', attemptAt, at: new Date().toISOString(), remaining, calls, extracted:0, lastSuccessAt, retryAt:providerQuotaRetryAt(quota), probe:{usage:'ok',currentSeason:'deferred'} }
       await cloudWrite('sync-status', withOperationHistory(priorStatus,result))
@@ -299,16 +316,24 @@ export async function refreshCloudArchive() {
     }
     await cloudWriteMany([{key:'detail-overrides',payload:{keys:[...overrides],at:new Date().toISOString()}},{key:'refresh-detail-state',payload:{checked}}])
     let historicalAdded=0,archiveRecentAdded=0
-    const backfill=enrichmentPlan(await bundledEnrichmentCandidates(),known,4)
+    let enrichmentQueue=readEnrichmentQueue(await cloudRead('enrichment-queue'))
+    const backfill=persistentEnrichmentPlan(await bundledEnrichmentCandidates(),known,enrichmentQueue,4)
     for(const row of backfill){
       if(calls>=callLimit-1||remaining-calls<=wtaReserve+1||Date.now()-started>190_000)break
-      const detail=await request(row.kind==='archive'?`/history/archive/matches/${row.id}`:`/history/matches/${row.id}?points=complete`)
-      if(!detailMatchesCandidate(row,detail)){detailsRejected++;continue}
-      const key=detailCandidateKey(row)
-      await cloudWrite(`detail-${key}`,detail)
-      known.add(key)
-      if(row.kind==='archive')historicalAdded++;else archiveRecentAdded++
+      try{
+        const detail=await request(row.kind==='archive'?`/history/archive/matches/${row.id}`:`/history/matches/${row.id}?points=complete`)
+        if(!detail.match&&!detail.data&&!detail.stats){enrichmentQueue=deferEnrichment(enrichmentQueue,row,'unavailable');continue}
+        if(!detailMatchesCandidate(row,detail)){detailsRejected++;enrichmentQueue=deferEnrichment(enrichmentQueue,row,'rejected');continue}
+        const key=detailCandidateKey(row)
+        await cloudWrite(`detail-${key}`,detail)
+        known.add(key);enrichmentQueue=completeEnrichment(enrichmentQueue,row)
+        if(row.kind==='archive')historicalAdded++;else archiveRecentAdded++
+      }catch(error){
+        if(error instanceof TennisProviderError&&error.status===404){enrichmentQueue=deferEnrichment(enrichmentQueue,row,'unavailable');continue}
+        throw error
+      }
     }
+    await cloudWrite('enrichment-queue',enrichmentQueue)
     cache.delete('detail-index')
     const result = { status: 'success', attemptAt, at: new Date().toISOString(), lastSuccessAt: new Date().toISOString(), year, matches: data.length, updated: rows.length, extracted:rows.length, enriched:detailsAdded+detailsRefreshed+historicalAdded+archiveRecentAdded, seasonsRefreshed, detailsAdded, detailsRefreshed, detailsRejected, historicalAdded, archiveRecentAdded, calls, activityFixtures:activity.length, latestProviderDate:latestProviderResultDate(detailCandidates) }
     await cloudWrite('sync-status', withOperationHistory(priorStatus,result))
@@ -344,29 +369,33 @@ export async function enrichCloudArchive() {
     for(const key of await listArchiveKeys('detail-'))known.add(key.slice(7))
     const candidates=await bundledEnrichmentCandidates()
     calls++;quota=await provider('/usage')
-    const remaining=providerRemainingCalls(quota),callLimit=providerOperationCallLimit(quota,90)
+    const remaining=providerRemainingCalls(quota),callLimit=await recordProviderQuota('enrichment',quota,90)
     if(callLimit<=1){
       const result={status:'quota-reserve',phase:'details',attemptAt,lastSuccessAt,at:new Date().toISOString(),remaining,calls,added:0,retryAt:providerQuotaRetryAt(quota),probe:{usage:'ok',details:'deferred'}}
       await save(result);return result
     }
-    const plan=enrichmentPlan(candidates,known,callLimit-1)
+    let queue=readEnrichmentQueue(await cloudRead('enrichment-queue'))
+    const plan=persistentEnrichmentPlan(candidates,known,queue,callLimit-1)
     let added=0,unavailable=0,rejected=0,atp=0,wta=0,archive=0,modern=0
     for(const row of plan){
       if(calls>=callLimit||Date.now()-started>220_000)break
       await new Promise(resolve=>setTimeout(resolve,2100));calls++
       try{
         const detail=await provider(row.kind==='archive'?`/history/archive/matches/${row.id}`:`/history/matches/${row.id}?points=complete`)
-        if(!detail.match&&!detail.data&&!detail.stats){unavailable++;continue}
-        if(!detailMatchesCandidate(row,detail)){rejected++;continue}
+        if(!detail.match&&!detail.data&&!detail.stats){unavailable++;queue=deferEnrichment(queue,row,'unavailable');continue}
+        if(!detailMatchesCandidate(row,detail)){rejected++;queue=deferEnrichment(queue,row,'rejected');continue}
         await cloudWrite(`detail-${detailCandidateKey(row)}`,detail)
+        known.add(detailCandidateKey(row));queue=completeEnrichment(queue,row)
         added++;if(row.tour==='wta')wta++;else atp++;if(row.kind==='archive')archive++;else modern++
       }catch(error){
-        if(error instanceof TennisProviderError&&error.status===404){unavailable++;continue}
+        if(error instanceof TennisProviderError&&error.status===404){unavailable++;queue=deferEnrichment(queue,row,'unavailable');continue}
         throw error
       }
     }
+    await cloudWrite('enrichment-queue',queue)
     cache.delete('detail-index')
-    const at=new Date().toISOString(),result={status:'success',phase:'details',attemptAt,lastSuccessAt:at,at,calls,added,unavailable,rejected,atp,wta,archive,modern,candidates:candidates.length,remainingCandidates:Math.max(0,candidates.length-added),probe:{usage:'ok',details:'ok'}}
+    const counts=enrichmentQueueCounts(candidates,known,queue)
+    const at=new Date().toISOString(),result={status:'success',phase:'details',attemptAt,lastSuccessAt:at,at,calls,added,unavailable,rejected,atp,wta,archive,modern,...counts,remainingCandidates:counts.remaining,probe:{usage:'ok',details:'ok'}}
     await save(result);return result
   }catch(error){
     if(error instanceof TennisProviderError&&error.status===429){
@@ -400,7 +429,7 @@ export async function refreshCloudWta() {
       const result={status:'quota-reserve',phase:'current-season',attemptAt,at:new Date().toISOString(),remaining,calls,extracted:0,lastSuccessAt,retryAt:providerQuotaRetryAt(quota),probe:{usage:'ok',currentSeason:'deferred'}}
       await save(result);return result
     }
-    const callLimit=providerOperationCallLimit(quota,30)
+    const callLimit=await recordProviderQuota('wta-refresh',quota,30)
     const request=async(path:string)=>{
       if(calls>=callLimit||Date.now()-started>220_000)throw new Error('WTA current sync safety budget reached')
       await new Promise(resolve=>setTimeout(resolve,1300));calls++;return provider(path)
@@ -475,7 +504,7 @@ export async function backfillCloudWtaHistory() {
       const result={status:'quota-reserve',phase:'historical-backfill',attemptAt,at:new Date().toISOString(),remaining,calls,extracted:0,lastSuccessAt,retryAt:providerQuotaRetryAt(quota),bundledArchive,probe:{usage:'ok',history:'deferred'}}
       await save(result);return result
     }
-    const callLimit=providerOperationCallLimit(quota,90)
+    const callLimit=await recordProviderQuota('wta-history',quota,90)
     const request=async(path:string)=>{
       if(calls>=callLimit||Date.now()-started>220_000)throw new Error('WTA historical sync safety budget reached')
       await new Promise(resolve=>setTimeout(resolve,1300));calls++;return provider(path)

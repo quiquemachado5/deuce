@@ -67,6 +67,22 @@ function validateMatches(manifest, matches) {
   return ids
 }
 
+function validatePublicationIndex(manifest,index,matches){
+  assert.equal(index?.schema,1,'Publication index schema is incompatible')
+  assert.equal(index.count,manifest.matchCount,'Publication index count differs from manifest')
+  assert.ok(Array.isArray(index.entries)&&index.entries.length===manifest.matchCount,'Publication index entries are incomplete')
+  const expected=new Set(matches.map(match=>`${match.tour==='wta'?'wta':'atp'}:${match.match_id}`)),seen=new Set()
+  for(const entry of index.entries){
+    assert.ok(entry?.tour==='atp'||entry?.tour==='wta','Publication index circuit is invalid')
+    assert.ok(typeof entry.identity==='string'&&entry.identity.startsWith(`${entry.tour}:`),'Publication index identity is invalid')
+    assert.ok(expected.has(entry.identity),`Publication index references an unknown match: ${entry.identity}`)
+    assert.ok(!seen.has(entry.identity),`Publication index contains a duplicate: ${entry.identity}`)
+    assert.match(entry.hash||'',/^[a-f0-9]{24}$/,'Publication index hash is invalid')
+    assert.ok(Number.isSafeInteger(entry.year),'Publication index year is invalid')
+    seen.add(entry.identity)
+  }
+}
+
 function validateRows(record, meta, validIds, label) {
   assert.ok(record && typeof record === 'object' && record.pages && record.smallPages, `${label} is invalid`)
   const rows = Object.values(record.pages).flat(), small = Object.values(record.smallPages).flat()
@@ -134,8 +150,9 @@ export async function verifyBundledDirectory(root) {
   const manifest = validateManifest(await decode('manifest'))
   const { matches, idsByPartition } = await validateFullPartitions(manifest, partition => decode(partition.id))
   const validIds = validateMatches(manifest, matches)
-  const [players, competition, audit, eras, browserIndex] = await Promise.all(['players', 'competition', 'audit', 'eras', 'browser-index'].map(decode))
+  const [players, competition, audit, eras, browserIndex,publicationIndex] = await Promise.all(['players', 'competition', 'audit', 'eras', 'browser-index','publication-index'].map(decode))
   validateSupportingArtifacts(manifest, players, competition, audit, eras, validIds)
+  validatePublicationIndex(manifest,publicationIndex,matches)
   const pieces = pieceDefinitions(manifest)
   for (const piece of pieces) validateRows(await decode(piece.bundled), piece.meta, validIds, piece.bundled)
   await validateBrowser(manifest, browserIndex, meta => decode(`browser-${meta.id}`), validIds, idsByPartition)
@@ -183,6 +200,7 @@ export async function verifyFilesystemArchiveDirectory(root) {
   }
   const { matches, idsByPartition } = await validateFullPartitions(manifest, partition => decodeBlob(partition.id))
   const validIds = validateMatches(manifest, matches)
+  validatePublicationIndex(manifest,decodeBlob('publication-index'),matches)
   validateSupportingArtifacts(manifest, decodeBlob('players'), decodeBlob('competition'), decodeBlob('audit'), decodeBlob('eras'), validIds)
   const pieces = pieceDefinitions(manifest)
   for (const piece of pieces) {

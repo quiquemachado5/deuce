@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { detailCandidateKey, detailMatchesCandidate, enrichmentPlan, type DetailCandidate } from '../lib/enrichment-plan';
+import {completeEnrichment,deferEnrichment,enrichmentQueueCounts,persistentEnrichmentPlan,readEnrichmentQueue} from '../lib/enrichment-queue';
 
 const row=(tour:'atp'|'wta',kind:'archive'|'modern',id:string,round='F'):DetailCandidate=>({tour,kind,id,round,year:kind==='archive'?2022:2026,players:['Player One','Player Two']});
 
@@ -32,4 +33,15 @@ test('detail enrichment de-duplicates circuit-aware keys',()=>{
   assert.deepEqual(enrichmentPlan([duplicate,duplicate,row('atp','archive','9')],new Set(),10).map(detailCandidateKey),[
     'archive-9','wta-archive-9',
   ]);
+});
+
+test('unavailable details are durably deferred and later retried',()=>{
+  const candidate=row('wta','archive','missing');
+  const now=Date.parse('2026-11-04T00:00:00.000Z');
+  let state=deferEnrichment(readEnrichmentQueue(undefined),candidate,'unavailable',now);
+  assert.deepEqual(persistentEnrichmentPlan([candidate],new Set(),state,10,now+86_400_000),[]);
+  assert.equal(enrichmentQueueCounts([candidate],new Set(),state,now+86_400_000).deferred,1);
+  assert.equal(persistentEnrichmentPlan([candidate],new Set(),state,10,now+31*86_400_000).length,1);
+  state=completeEnrichment(state,candidate,now+31*86_400_000);
+  assert.equal(Object.keys(state.deferred).length,0);
 });

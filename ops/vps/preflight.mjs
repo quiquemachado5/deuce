@@ -54,6 +54,10 @@ export function validateProductionEnv(values) {
 
   const archiveMaximum = Number(values.DEUCE_ARCHIVE_MAX_BYTES)
   if (!Number.isSafeInteger(archiveMaximum) || archiveMaximum < 1_000_000_000) errors.push('DEUCE_ARCHIVE_MAX_BYTES must be an integer of at least 1 GB')
+  if(values.DEUCE_PROVIDER_MIN_REMAINING!==undefined){
+    const reserve=Number(values.DEUCE_PROVIDER_MIN_REMAINING)
+    if(!Number.isSafeInteger(reserve)||reserve<200)errors.push('DEUCE_PROVIDER_MIN_REMAINING must preserve at least 200 daily calls')
+  }
   return { errors, archiveMaximum }
 }
 

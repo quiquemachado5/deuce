@@ -12,6 +12,7 @@ const valid = {
   METRICS_SECRET: 'c'.repeat(64),
   DEUCE_ARCHIVE_MAX_BYTES: '40000000000',
   DEUCE_BACKUP_REMOTE: 'crypt:deuce/production',
+  DEUCE_PROVIDER_MIN_REMAINING:'200',
 }
 
 test('production preflight accepts a coherent private configuration', () => {
@@ -29,6 +30,7 @@ test('production preflight rejects placeholders, weak secrets and mismatched ori
     WTA_BACKFILL_SECRET: 'short',
     METRICS_SECRET: 'short',
     DEUCE_BACKUP_REMOTE: '/local/backups',
+    DEUCE_PROVIDER_MIN_REMAINING:'199',
   })
   assert.ok(result.errors.some(error => error.includes('placeholder')))
   assert.ok(result.errors.some(error => error.includes('bare HTTPS origin')))
@@ -36,4 +38,5 @@ test('production preflight rejects placeholders, weak secrets and mismatched ori
   assert.ok(result.errors.some(error => error.includes('at least 48')))
   assert.ok(result.errors.some(error => error.includes('must be different')))
   assert.ok(result.errors.some(error => error.includes('rclone remote')))
+  assert.ok(result.errors.some(error=>error.includes('at least 200')))
 })

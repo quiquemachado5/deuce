@@ -62,8 +62,8 @@ export async function GET(request: Request) {
   const started = performance.now(), id = requestId(request);
   const headers = { 'Cache-Control': 'no-store', 'X-Request-Id': id };
   try {
-    const [generation, browser, editions, sync, wtaSync, wtaBackfill, enrichment, publication, backup, restoreDrill, hostProbe, capacity, scheduler] = await Promise.all([
-      preparedGeneration(), preparedMatchBrowserIndex(), preparedEditionAudit(), cloudProbeRead('sync-status'), cloudProbeRead('wta-sync-status'), cloudProbeRead('wta-backfill-status'), cloudProbeRead('enrichment-status'), cloudProbeRead('publish-status'), cloudProbeRead('backup-status'), cloudProbeRead('restore-drill-status'), cloudProbeRead('host-status'), cloudArchiveLastCapacity(1_500), readSchedulerHealth(),
+    const [generation, browser, editions, sync, wtaSync, wtaBackfill, enrichment, publication, backup, restoreDrill, hostProbe, quota, catalog, capacity, scheduler] = await Promise.all([
+      preparedGeneration(), preparedMatchBrowserIndex(), preparedEditionAudit(), cloudProbeRead('sync-status'), cloudProbeRead('wta-sync-status'), cloudProbeRead('wta-backfill-status'), cloudProbeRead('enrichment-status'), cloudProbeRead('publish-status'), cloudProbeRead('backup-status'), cloudProbeRead('restore-drill-status'), cloudProbeRead('host-status'), cloudProbeRead('provider-quota-status'), cloudProbeRead('archive-catalog-status'), cloudArchiveLastCapacity(1_500), readSchedulerHealth(),
     ]);
     const browserCount = browser.index.partitions.reduce((sum, partition) => sum + partition.count, 0);
     if (browser.manifest.version !== generation.manifest.version || browserCount !== generation.manifest.matchCount) {
@@ -96,6 +96,8 @@ export async function GET(request: Request) {
       ageHours: Math.round(ageHours * 10) / 10, staleAfterHours: 72, elapsedMs,
       remoteArchive: { configured, reachable: !generation.fallbackReason },
       storage: { ...capacity.report, maximumBytes: capacity.maximum, available: capacity.available },
+      archiveCatalog: catalog&&typeof catalog==='object'?catalog:undefined,
+      providerQuota: quota&&typeof quota==='object'?quota:undefined,
       scheduler,
       host,
       circuitFreshness: freshness,

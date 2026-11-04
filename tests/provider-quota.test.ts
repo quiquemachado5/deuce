@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { isProviderFreeHistoryLimit, providerCallsAboveReserve, providerHasRequestAfterUsage, providerMinimumReserve, providerOperationCallLimit, providerQuotaRetryAt, providerRemainingCalls } from '../lib/provider-quota';
+import { isProviderFreeHistoryLimit, providerCallsAboveReserve, providerHasRequestAfterUsage, providerMinimumReserve, providerOperationBudget, providerOperationCallLimit, providerQuotaRetryAt, providerQuotaSnapshot, providerRemainingCalls } from '../lib/provider-quota';
 
 test('exhausted daily quota is deferred to the provider reset', () => {
   const quota = { today: { remaining_day: 0, reset_at: '2026-11-03T00:00:00.000Z' } };
@@ -14,14 +14,23 @@ test('missing reset metadata uses the next UTC quota day', () => {
 });
 
 test('scheduled work preserves the default provider safety reserve', () => {
-  assert.equal(providerMinimumReserve(), 100);
+  assert.equal(providerMinimumReserve(), 200);
   assert.equal(providerHasRequestAfterUsage({today:{remaining_day:0}}), false);
-  assert.equal(providerHasRequestAfterUsage({today:{remaining_day:100}}), false);
-  assert.equal(providerHasRequestAfterUsage({today:{remaining_day:101}}), true);
+  assert.equal(providerHasRequestAfterUsage({today:{remaining_day:200}}), false);
+  assert.equal(providerHasRequestAfterUsage({today:{remaining_day:201}}), true);
   assert.equal(providerHasRequestAfterUsage({today:{remaining_day:null}}), true);
-  assert.equal(providerCallsAboveReserve({today:{remaining_day:137}}),37);
-  assert.equal(providerOperationCallLimit({today:{remaining_day:105}},30),6);
+  assert.equal(providerCallsAboveReserve({today:{remaining_day:237}}),37);
+  assert.equal(providerOperationCallLimit({today:{remaining_day:205}},30),6);
   assert.equal(providerOperationCallLimit({today:{remaining_day:900}},30),30);
+});
+
+test('operation budgets and the persisted quota snapshot share one policy',()=>{
+  const quota={today:{remaining_day:250,limit_day:1000,used_day:750,reset_at:'2026-11-04T22:00:00.000Z'}};
+  assert.equal(providerOperationBudget(quota,'enrichment',90),51);
+  assert.deepEqual(providerQuotaSnapshot(quota,'enrichment',90,new Date('2026-11-04T20:00:00.000Z')),{
+    at:'2026-11-04T20:00:00.000Z',operation:'enrichment',remaining:250,dailyLimit:1000,used:750,
+    reserve:200,safeAvailable:50,operationLimit:51,retryAt:'2026-11-04T22:00:00.000Z',
+  });
 });
 
 test('only the documented 403 history allowance is deferred', () => {

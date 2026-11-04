@@ -26,6 +26,7 @@ test('reconciliation separates proven incidents from unknown completeness', () =
   assert.equal(result.summary.verification, 1);
   assert.equal(result.summary.queuedCohorts, 1);
   assert.equal(result.issues.find(issue => issue.tournament === 'Madrid')?.state, 'review');
+  assert.equal(result.issues.find(issue=>issue.tournament==='Rome')?.reason,'missing-late-rounds');
   assert.equal(result.issues.find(issue => issue.kind === 'history')?.tour, 'wta');
 });
 

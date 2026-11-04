@@ -22,3 +22,10 @@ test('annual match sitemaps decode only compact summaries for their decade', asy
   assert.match(source,/preparedMatchSitemapArchive\(year\)/);
   assert.doesNotMatch(source,/generation\.matches\(\)/);
 });
+
+test('publication compares a compact ledger instead of inflating the previous archive',async()=>{
+  const source=await readFile(new URL('../app/api/cron/publish/route.ts',import.meta.url),'utf8');
+  assert.match(source,/preparedPublicationIndex\(\)/);
+  assert.doesNotMatch(source,/baseline\.matches\(\)/);
+  assert.match(source,/input\.length=0/);
+});

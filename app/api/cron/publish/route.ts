@@ -2,9 +2,9 @@ import { authorizedCronRequest } from '@/lib/cron-auth'
 import {cloudRead,cloudWrite} from '@/lib/cloud-archive'
 import {assertEditionCoverage,assertReleaseCoverage} from '@/lib/revista/release-check'
 import {revalidatePath} from 'next/cache'
-import {comparePublishedMatches} from '@/lib/publication-delta'
+import {buildPublicationIndex,comparePublicationIndexes,validPublicationIndex} from '@/lib/publication-index'
 import {gzipSync} from 'node:zlib'
-import {preparedGeneration,invalidatePreparedGeneration,preparedEditionAudit} from '@/lib/revista/read-records'
+import {preparedGeneration,invalidatePreparedGeneration,preparedEditionAudit,preparedPublicationIndex} from '@/lib/revista/read-records'
 import {readFile} from 'node:fs/promises'
 import {gunzipSync} from 'node:zlib'
 import {join} from 'node:path'
@@ -29,6 +29,9 @@ export async function GET(request: Request) {
     const previousStatus=await cloudRead('publish-status').catch(()=>undefined)
     const attemptAt=new Date().toISOString()
     const lastSuccessAt=previousStatus?.status==='success'?previousStatus.at:previousStatus?.lastSuccessAt
+    const memory:{phase:string;rssBytes:number;heapUsedBytes:number}[]=[]
+    const sampleMemory=(phase:string)=>{const usage=process.memoryUsage();memory.push({phase,rssBytes:usage.rss,heapUsedBytes:usage.heapUsed})}
+    sampleMemory('start')
     try {
       await cloudWrite('publish-status',withOperationHistory(previousStatus,{status:'running',at:attemptAt,attemptAt,lastSuccessAt}))
       console.info('Daily publication: started')
@@ -48,9 +51,15 @@ export async function GET(request: Request) {
         const lastSuccessfulWta=wtaRefresh?.status==='success'?wtaRefresh.at:wtaRefresh?.lastSuccessAt
         if(wtaRefresh?.status!=='success'||!Number.isFinite(Date.parse(lastSuccessfulWta))||Date.now()-Date.parse(lastSuccessfulWta)>12*3_600_000)throw new Error('No recent successful WTA refresh; keeping the previous publication')
       }
-      const [input,previousAudit]=await Promise.all([publicationArchive(),preparedEditionAudit()])
+      const [loadedInput,previousAudit]=await Promise.all([publicationArchive(),preparedEditionAudit()])
+      const input=loadedInput
+      sampleMemory('archive-loaded')
       console.info('Daily publication: archive loaded',input.length,Math.round(process.memoryUsage().rss/1048576))
       const snapshot = compileRecordSnapshot(input,new Date(),await competitionEntries(),await editionSourceAudit())
+      // compileRecordSnapshot owns normalized copies. Release the large raw
+      // array before opening any previous-generation metadata.
+      input.length=0
+      sampleMemory('compiled')
       const circuitFreshness = {
         atp: assertCircuitPublicationFreshness('atp',refresh.latestProviderDate,snapshot.manifest.circuitFreshness?.atp.latestExactDate),
         ...(publishedWta>0?{wta:assertCircuitPublicationFreshness('wta',wtaRefresh.latestProviderDate,snapshot.manifest.circuitFreshness?.wta.latestExactDate)}:{}),
@@ -61,23 +70,30 @@ export async function GET(request: Request) {
       assertReleaseCoverage(bundled,snapshot.manifest)
       if(compatibleManifest(remote))assertReleaseCoverage(remote,snapshot.manifest)
       const baseline=await preparedGeneration()
-      const {delta,changes}=comparePublishedMatches(await baseline.matches(),snapshot.matches)
+      snapshot.publicationIndex=buildPublicationIndex(snapshot.matches)
+      const storedIndex=await preparedPublicationIndex()
+      if(!validPublicationIndex(storedIndex))throw new Error('Previous publication index is invalid')
+      const {delta,changes}=comparePublicationIndexes(storedIndex,snapshot.publicationIndex)
+      sampleMemory(validPublicationIndex(storedIndex)?'indexed':'indexed-migrated')
       snapshot.manifest.publicationDelta=delta
       // Immutable correction provenance survives serving-generation retention.
       // It is written before the pointer; an interrupted attempt cannot lose evidence.
       if(changes.length)await cloudWrite(`archive-history-${snapshot.manifest.version}`,{encoding:'gzip-base64',gzip:gzipSync(JSON.stringify({at:attemptAt,fromVersion:baseline.manifest.version,toVersion:snapshot.manifest.version,source:'Live Tennis API',sourceUrl:'https://api.livetennisapi.com/api/public/v1',validation:'explicit circuit, unique identity, preserved published IDs',changes})).toString('base64')})
       const published=await publishRecordSnapshot(snapshot)
+      sampleMemory('published')
       invalidatePreparedGeneration()
       revalidatePath('/', 'layout')
 
       const incompleteEditions=snapshot.audit.filter(edition=>edition.completeDraw===false).length
       const tours=snapshot.manifest.summary.tours
       const lists=snapshot.manifest.pieces.length+(snapshot.manifest.circuitPieces?.wta.length||0)
-      await cloudWrite('publish-status',withOperationHistory(previousStatus,{status:'success',attemptAt,lastSuccessAt:new Date().toISOString(),delta,publicationAt:published.generatedAt,at:new Date().toISOString(),version:snapshot.manifest.version,matches:snapshot.manifest.matchCount,tours,lists,incompleteEditions,circuitFreshness}))
+      const peakRssBytes=Math.max(...memory.map(row=>row.rssBytes))
+      await cloudWrite('publish-status',withOperationHistory(previousStatus,{status:'success',attemptAt,lastSuccessAt:new Date().toISOString(),delta,publicationAt:published.generatedAt,at:new Date().toISOString(),version:snapshot.manifest.version,matches:snapshot.manifest.matchCount,tours,lists,incompleteEditions,circuitFreshness,memory:{peakRssBytes,phases:memory}}))
       return Response.json({ status: 'success', at: new Date().toISOString(), matches: snapshot.manifest.matchCount, tours, lists, incompleteEditions, version:snapshot.manifest.version, circuitFreshness }, { headers: { 'Cache-Control':'no-store' } })
     } catch (error) {
       const reason = error instanceof Error ? error.message : 'unknown error'
-      await cloudWrite('publish-status',withOperationHistory(previousStatus,{status:'error',attemptAt,lastSuccessAt,at:new Date().toISOString(),message:reason})).catch(()=>undefined)
+      sampleMemory('failed')
+      await cloudWrite('publish-status',withOperationHistory(previousStatus,{status:'error',attemptAt,lastSuccessAt,at:new Date().toISOString(),message:reason,memory:{peakRssBytes:Math.max(...memory.map(row=>row.rssBytes)),phases:memory}})).catch(()=>undefined)
       console.error('Daily reading snapshot publication failed:', reason)
       return Response.json({ error: 'Publish failed; the saved archive remains available' }, { status: 503, headers: { 'Cache-Control':'no-store' } })
     }

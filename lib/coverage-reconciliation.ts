@@ -5,12 +5,14 @@ import type { Match, Tour } from './types';
 
 export type CoverageIssueKind = 'draw' | 'verification' | 'conflict' | 'ranking' | 'history';
 export type CoverageIssueState = 'confirmed' | 'review' | 'queued';
+export type CoverageIssueReason = 'missing-late-rounds'|'duplicate-identifiers'|'unresolved-results'|'uncertified-draw-size'|'conflicting-results'|'missing-ranking-history'|'pending-provider-cohort';
 
 export type CoverageIssue = {
   id: string;
   tour: Tour;
   kind: CoverageIssueKind;
   state: CoverageIssueState;
+  reason: CoverageIssueReason;
   title: string;
   detail: string;
   count: number;
@@ -37,6 +39,8 @@ export type CoverageReconciliation = {
 const tourOf = (value: Match | EditionAudit): Tour => value.tour === 'wta' ? 'wta' : 'atp';
 
 function drawIssue(row: EditionAudit, state: CoverageIssueState): CoverageIssue {
+  const reason:CoverageIssueReason=row.missingLateRounds.length?'missing-late-rounds'
+    :row.duplicateIds?'duplicate-identifiers':row.pending?'unresolved-results':'uncertified-draw-size';
   const missing = row.missingLateRounds.length
     ? `Rondas finales por contrastar: ${row.missingLateRounds.join(', ')}.`
     : row.duplicateIds
@@ -49,6 +53,7 @@ function drawIssue(row: EditionAudit, state: CoverageIssueState): CoverageIssue 
     tour: tourOf(row),
     kind: state === 'confirmed' ? 'draw' : 'verification',
     state,
+    reason,
     title: `${tournamentName(row.tournament)} · ${row.year}`,
     detail: missing,
     count: Math.max(1, row.missingLateRounds.reduce((sum, item) => sum + (Number(item.match(/^\d+/)?.[0]) || 1), 0) + (row.duplicateIds || 0) + row.pending),
@@ -80,6 +85,7 @@ export function reconcileCoverage(
       tour: tourOf(first),
       kind: 'conflict',
       state: 'review',
+      reason:'conflicting-results',
       title: `${first.player1.name} / ${first.player2.name}`,
       detail: `${tournamentName(first.tournament)} · ${first.year} · ${first.round}. ${group.kind}.`,
       count: group.rows.length,
@@ -101,6 +107,7 @@ export function reconcileCoverage(
       tour,
       kind: 'ranking',
       state: 'review',
+      reason:'missing-ranking-history',
       title: `${tournamentName(match.tournament)} · ${match.year}`,
       detail: 'Ranking histórico exacto pendiente de atribuir; no se sustituye por el ranking actual.',
       count: 1,
@@ -116,6 +123,7 @@ export function reconcileCoverage(
       tour: 'wta',
       kind: 'history',
       state: 'queued',
+      reason:'pending-provider-cohort',
       title: `Cohorte WTA ${year} · ${level}`,
       detail: 'Pendiente de una respuesta completa y verificable del proveedor; no forma parte de la publicación.',
       count: 1,

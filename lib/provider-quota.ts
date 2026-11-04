@@ -1,4 +1,13 @@
 type ProviderQuota = Record<string, unknown> & { today?: Record<string, unknown> };
+export type ProviderOperation = 'detail-download'|'atp-refresh'|'wta-refresh'|'wta-history'|'enrichment';
+
+const operationDefaults:Record<ProviderOperation,number>={
+  'detail-download':2,
+  'atp-refresh':35,
+  'wta-refresh':30,
+  'wta-history':90,
+  enrichment:90,
+};
 
 export function isProviderFreeHistoryLimit(status: number, payload: unknown) {
   if (status !== 403 || !payload || typeof payload !== 'object') return false;
@@ -37,8 +46,8 @@ export function providerRemainingCalls(quota: ProviderQuota | undefined) {
 
 /** Keep a production safety margin so scheduled work cannot exhaust paid quota. */
 export function providerMinimumReserve() {
-  const configured = Number(process.env.DEUCE_PROVIDER_MIN_REMAINING ?? 100);
-  return Number.isSafeInteger(configured) && configured >= 1 ? configured : 100;
+  const configured = Number(process.env.DEUCE_PROVIDER_MIN_REMAINING ?? 200);
+  return Number.isSafeInteger(configured) && configured >= 1 ? configured : 200;
 }
 
 /** Calls still available without crossing the configured reserve. */
@@ -56,4 +65,35 @@ export function providerHasRequestAfterUsage(quota: ProviderQuota | undefined, r
 export function providerOperationCallLimit(quota: ProviderQuota | undefined, maximum: number, reserve = providerMinimumReserve()) {
   const available = providerCallsAboveReserve(quota, reserve);
   return available === Number.POSITIVE_INFINITY ? maximum : Math.min(maximum, 1 + available);
+}
+
+const quotaNumber=(quota:ProviderQuota|undefined,...names:string[])=>{
+  for(const name of names){
+    const value=Number(quota?.today?.[name]??quota?.[name]);
+    if(Number.isFinite(value)&&value>=0)return value;
+  }
+  return undefined;
+};
+
+/** One central budget policy for every provider-consuming operation. */
+export function providerOperationBudget(quota:ProviderQuota|undefined,operation:ProviderOperation,requested=operationDefaults[operation]) {
+  const envName=`DEUCE_PROVIDER_${operation.replaceAll('-','_').toUpperCase()}_MAX_CALLS`;
+  const configured=Number(process.env[envName]);
+  const maximum=Number.isSafeInteger(configured)&&configured>0?Math.min(configured,requested):requested;
+  return providerOperationCallLimit(quota,maximum);
+}
+
+/** Safe, credential-free snapshot suitable for the operational ledger. */
+export function providerQuotaSnapshot(quota:ProviderQuota|undefined,operation:ProviderOperation,requested?:number,now=new Date()) {
+  const remaining=providerRemainingCalls(quota),reserve=providerMinimumReserve();
+  return {
+    at:now.toISOString(),operation,
+    remaining:remaining===Number.POSITIVE_INFINITY?null:remaining,
+    dailyLimit:quotaNumber(quota,'limit_day','daily_limit','limit'),
+    used:quotaNumber(quota,'used_day','daily_used','used'),
+    reserve,
+    safeAvailable:remaining===Number.POSITIVE_INFINITY?null:Math.max(0,remaining-reserve),
+    operationLimit:providerOperationBudget(quota,operation,requested),
+    retryAt:providerQuotaRetryAt(quota,now.getTime()),
+  };
 }

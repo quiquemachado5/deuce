@@ -11,6 +11,7 @@ import { expectedBundledPieceCount, loadBundledSnapshotPieces } from '../lib/rev
 import { MATCH_BROWSER_DICTIONARIES, MATCH_BROWSER_ROW_LENGTH, MATCH_BROWSER_SCHEMA, type MatchBrowserIndex, type MatchBrowserPartition } from '../lib/match-browser-snapshot';
 import { reconcileCoverage, type CoverageReconciliation } from '../lib/coverage-reconciliation';
 import historyBaseline from '../ops/wta-history-baseline.json';
+import { buildPublicationIndex, validPublicationIndex } from '../lib/publication-index';
 
 async function main() {
   const root = readingSource();
@@ -26,6 +27,7 @@ async function main() {
   const competition: Match[] = await read('competition');
   const audit: EditionAudit[] = await read('audit');
   const reconciliation: CoverageReconciliation = await read('reconciliation');
+  const publicationIndex = await read('publication-index');
   const players = await read('players');
   const eras = await read('eras');
   assert.equal(competition.length, manifest.competitionCount);
@@ -36,6 +38,8 @@ async function main() {
   assert.ok(audit.every((row: {sourceRows:number;completed:number;terminal:number;pending:number}) => row.sourceRows === row.completed + row.terminal + row.pending));
   assert.ok(audit.every(row => JSON.stringify(editionCompleteness(row)) === JSON.stringify({expectedLateRounds:row.expectedLateRounds,missingLateRounds:row.missingLateRounds,completeDraw:row.completeDraw})));
   assert.deepEqual(reconciliation, reconcileCoverage(matches, audit, historyBaseline.allowedPendingCohorts));
+  assert.ok(validPublicationIndex(publicationIndex));
+  assert.deepEqual(publicationIndex,buildPublicationIndex(matches));
   assert.ok(manifest.summary.surfaces.carpet > 1_000);
   assert.equal(Object.values(manifest.summary.surfaces).reduce((sum,count)=>sum+count,0),matches.length);
   for (const reference of reviewedFinals) {

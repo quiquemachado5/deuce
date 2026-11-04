@@ -8,6 +8,7 @@ import { buildSeasonAnalytics, type PlayerRecord } from '../season-analytics';
 import { homeSelection, prepareCircuitHome, prepareHomeIndex, type PreparedHomeIndex } from '../deuce-home';
 import { isInPublicationScope, publishedMatches } from '../publication-scope';
 import { recordCatalog, eraComparisons, type RecordPiece, type RecordRow, type Era } from './records';
+import type { PublicationIndex } from '../publication-index';
 export const SNAPSHOT_SCHEMA = 7;
 // Bump whenever derivation rules change, even if source matches do not.
 export const RULES_VERSION = '2026-11-major-tours-v17';
@@ -30,7 +31,7 @@ export type MatchPartition = { id:string; tour:'atp'|'wta'; fromYear:number; toY
 export type CircuitCoverage = { matches:number; firstYear:number|null; lastYear:number|null; tournaments:number };
 export type RecordManifest = { publicationDelta?: import('../publication-delta').PublicationDelta; circuitCoverage?:{atp:CircuitCoverage;wta:CircuitCoverage}; circuitSummary?:ReturnType<typeof summarizeCircuits>; circuitFreshness?:{atp:ReturnType<typeof archiveExtent>;wta:ReturnType<typeof archiveExtent>}; circuitPieces?: {atp:RecordMeta[];wta:RecordMeta[]}; artifactPacks?: import('./artifact-packs').ArtifactPacks; schema: number; rulesVersion: string; version: string; generatedAt: string; extent?: ReturnType<typeof archiveExtent>; leaderChanges?: LeaderChange[]; ingestionHistory?: IngestionDay[]; matchPartitions?:MatchPartition[]; home?: { circuits?: ReturnType<typeof prepareCircuitHome>; date: string; selection: ReturnType<typeof homeSelection>; tournaments: string[]; daily?: PreparedHomeIndex }; years: number[]; pieces: RecordMeta[]; eraCuts: number[]; matchCount: number; competitionCount?:number; editionCount?:number; mode: 'DEMO' | 'ARCHIVO REAL'; summary: ReturnType<typeof summarizeDataset> };
 export type RecordPages = { pages: Record<string, RecordRow[]>; smallPages: Record<string, RecordRow[]> };
-export type Snapshot = { manifest: RecordManifest; pieces: Record<string, RecordPages>; eras: Record<string, Era[]>; matches: Match[]; players: PlayerRecord[]; competition:Match[]; audit:EditionAudit[] };
+export type Snapshot = { manifest: RecordManifest; pieces: Record<string, RecordPages>; eras: Record<string, Era[]>; matches: Match[]; players: PlayerRecord[]; competition:Match[]; audit:EditionAudit[]; publicationIndex?:PublicationIndex };
 function circuitCoverage(matches:Match[],tour:'atp'|'wta'):CircuitCoverage {
   const selected=matches.filter(match=>(match.tour||'atp')===tour),years=selected.map(match=>match.year);
   return {matches:selected.length,firstYear:years.length?years.reduce((minimum,year)=>Math.min(minimum,year),Infinity):null,lastYear:years.length?years.reduce((maximum,year)=>Math.max(maximum,year),-Infinity):null,tournaments:new Set(selected.map(match=>match.tournament)).size};

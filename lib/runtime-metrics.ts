@@ -18,7 +18,14 @@ export function observeApiRequest(route: string, status: number, durationMs: num
   durations.set(safeRoute, histogram);
 }
 
-export function renderPrometheusMetrics(caches: Record<string, Record<string, number>> = {}) {
+export type OperationalMetrics={
+  providerRemaining?:number;providerReserve?:number;providerSafeAvailable?:number;
+  publicationPeakRssBytes?:number;storageBytes?:number;storageObjects?:number;
+  incompleteEditions?:number;enrichmentRemaining?:number;enrichmentDeferred?:number;
+  backupAgeSeconds?:number;hostAvailableMemoryBytes?:number;
+};
+
+export function renderPrometheusMetrics(caches: Record<string, Record<string, number>> = {},operational:OperationalMetrics={}) {
   const lines = [
     '# HELP deuce_http_requests_total HTTP requests served by selected data routes.',
     '# TYPE deuce_http_requests_total counter',
@@ -43,6 +50,10 @@ export function renderPrometheusMetrics(caches: Record<string, Record<string, nu
     lines.push(`deuce_cache_entries{cache="${cache}"} ${stats.entries || 0}`);
     lines.push(`deuce_cache_weight{cache="${cache}"} ${stats.weight || 0}`);
     for (const counter of ['hits', 'misses', 'evictions', 'failures'] as const) lines.push(`deuce_cache_${counter}_total{cache="${cache}"} ${stats[counter] || 0}`);
+  }
+  lines.push('# HELP deuce_operational_value Current durable operational gauges.','# TYPE deuce_operational_value gauge');
+  for(const [name,value] of Object.entries(operational).sort(([a],[b])=>a.localeCompare(b))){
+    if(Number.isFinite(value))lines.push(`deuce_operational_value{name="${escape(label(name))}"} ${value}`);
   }
   return `${lines.join('\n')}\n`;
 }

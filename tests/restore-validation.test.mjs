@@ -32,6 +32,10 @@ async function writeBundledFixture(root,{swapBrowserIds=false,omitWtaShard=false
     'piece-wins':{pages:{1:[{name:'ATP',proof:{match_id:'atp-1'}}]},smallPages:{}},
     'piece-wta-wins':{pages:{1:[{name:'WTA',proof:{match_id:'wta-1'}}]},smallPages:{}},
     'browser-index':{schema:MATCH_BROWSER_SCHEMA,count:2,partitions,circuits:{atp:circuit,wta:circuit}},
+    'publication-index':{schema:1,count:2,entries:[
+      {identity:'atp:atp-1',tour:'atp',year:2026,hash:'a'.repeat(24)},
+      {identity:'wta:wta-1',tour:'wta',year:2026,hash:'b'.repeat(24)},
+    ]},
     [`browser-${partitions[0].id}`]:{schema:MATCH_BROWSER_SCHEMA,...partitions[0],dictionaries,rows:[browserRow(swapBrowserIds?'wta-1':'atp-1')]},
     [`browser-${partitions[1].id}`]:{schema:MATCH_BROWSER_SCHEMA,...partitions[1],dictionaries,rows:[browserRow(swapBrowserIds?'atp-1':'wta-1')]},
   }
@@ -87,6 +91,10 @@ test('physical restore validation reconstructs complete packed artifacts', async
         { name: 'WTA 1', proof: { match_id: 'wta-1' } }, { name: 'WTA 2', proof: { match_id: 'wta-1' } },
       ]) }, smallPages: {} },
       'browser-index': blob({ schema: MATCH_BROWSER_SCHEMA, count: 2, partitions, circuits: { atp: circuit, wta: circuit } }),
+      'publication-index':blob({schema:1,count:2,entries:[
+        {identity:'atp:atp-1',tour:'atp',year:2026,hash:'a'.repeat(24)},
+        {identity:'wta:wta-1',tour:'wta',year:2026,hash:'b'.repeat(24)},
+      ]}),
       [`browser-${partitions[0].id}`]: blob({ schema: MATCH_BROWSER_SCHEMA, ...partitions[0], dictionaries, rows: [browserRow('atp-1')] }),
       [`browser-${partitions[1].id}`]: blob({ schema: MATCH_BROWSER_SCHEMA, ...partitions[1], dictionaries, rows: [browserRow('wta-1')] }),
     }

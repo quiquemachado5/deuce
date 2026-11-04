@@ -27,6 +27,12 @@ test('Prometheus metrics expose bounded route and cache diagnostics', () => {
   assert.doesNotMatch(output, /undefined|NaN/);
 });
 
+test('Prometheus metrics expose finite durable operation gauges',()=>{
+  const output=renderPrometheusMetrics({}, {providerRemaining:812,providerReserve:200,publicationPeakRssBytes:1234});
+  assert.match(output,/deuce_operational_value\{name="providerRemaining"\} 812/);
+  assert.doesNotMatch(output,/NaN|undefined/);
+});
+
 test('metrics endpoint requires its own bearer secret', async () => {
   const previous = process.env.METRICS_SECRET;
   process.env.METRICS_SECRET = 'metrics-secret-for-tests';

@@ -22,6 +22,7 @@ import {browserPartitionMatchesDetails,decodeMatchBrowserRow,MATCH_BROWSER_DICTI
 import {reconcileCoverage,type CoverageReconciliation} from '../coverage-reconciliation';
 import {normalizeText} from '../quality';
 import historyBaseline from '../../ops/wta-history-baseline.json';
+import {buildPublicationIndex,validPublicationIndex,type PublicationIndex} from '../publication-index';
 const IMMUTABLE_CACHE_MS = 86_400_000;
 const bundled=asyncCache<unknown>(IMMUTABLE_CACHE_MS,48);
 const uncachedBundledPrefixes=['matches-','browser-'] as const;
@@ -112,6 +113,7 @@ function rejectRemoteSnapshot(){
  remoteArtifacts.clear();
  browserIndexes.clear();
  browserPartitions.clear();
+ publicationIndexes.clear();
  clearArtifactPacks();
 }
 
@@ -327,6 +329,7 @@ const compactSelections=asyncCache<Match[]>(IMMUTABLE_CACHE_MS,24,undefined,{max
 const competitionArchives=asyncCache<Match[]>(IMMUTABLE_CACHE_MS,2,undefined,{maxWeight:32*megabyte,weight:value=>value.length*1_200});
 const playerRecords=asyncCache<PlayerRecord[]>(IMMUTABLE_CACHE_MS,2,undefined,{maxWeight:16*megabyte,weight:value=>value.length*320});
 const coverageReconciliations=asyncCache<CoverageReconciliation>(IMMUTABLE_CACHE_MS,2,undefined,{maxWeight:8*megabyte,weight:value=>value.issues.length*520});
+const publicationIndexes=asyncCache<PublicationIndex>(IMMUTABLE_CACHE_MS,2,undefined,{maxWeight:32*megabyte,weight:value=>value.entries.length*180});
 type BrowserSource={manifest:RecordManifest;index:MatchBrowserIndex;source:'bundled'|'remote';fallbackReason?:FallbackReason};
 function validBrowserCircuit(value:MatchBrowserIndex['circuits']['atp']|undefined) {
  return !!value&&Array.isArray(value.years)&&Array.isArray(value.surfaces)&&Array.isArray(value.categories)
@@ -472,6 +475,30 @@ function compactArchive(browser:Awaited<ReturnType<typeof preparedMatchBrowser>>
   decodedBrowserPartitions(`${browser.manifest.version}:${browser.source}:${partition.id}`,async()=>partition.rows.map(row=>decodeMatchBrowserRow(partition,row)))))).flat());
 }
 export const preparedCompactArchive=cache(async(tour:'atp'|'wta'|'all'='all')=>compactArchive(await preparedMatchBrowser(tour),tour));
+
+/**
+ * Load the small immutable ledger when available. Older generations are
+ * migrated one compact decade at a time, never as one decoded match array.
+ */
+export const preparedPublicationIndex=cache(async()=>{
+ const source=await selectedBrowserSource(),cacheKey=`${source.manifest.version}:${source.source}`;
+ return publicationIndexes(cacheKey,async()=>{
+  const stored=source.source==='remote'
+   ?await cloudBlob<PublicationIndex>(source.manifest.version,'publication-index')
+   :await localOptional<PublicationIndex|undefined>('publication-index',undefined);
+  if(validPublicationIndex(stored)&&stored.count===source.manifest.matchCount)return stored;
+  const entries:PublicationIndex['entries']=[],seen=new Set<string>();
+  for(const meta of source.index.partitions){
+   const partition=await loadBrowserPartition(source,meta);
+   const index=buildPublicationIndex(partition.rows.map(row=>decodeMatchBrowserRow(partition,row)));
+   for(const entry of index.entries){if(seen.has(entry.identity))throw new Error(`Duplicate published identity: ${entry.identity}`);seen.add(entry.identity);entries.push(entry);}
+  }
+  entries.sort((a,b)=>a.identity.localeCompare(b.identity));
+  const migrated:PublicationIndex={schema:1,count:entries.length,entries};
+  if(!validPublicationIndex(migrated)||migrated.count!==source.manifest.matchCount)throw new Error('Publication index does not match selected generation');
+  return migrated;
+ });
+});
 
 export type CompactMatchSelection={
  tour?:'atp'|'wta'|'all';fromYear?:number;toYear?:number;players?:string[];
@@ -632,8 +659,8 @@ export const preparedCoverageReconciliation=cache(async()=>{
 });
 
 export function preparedDataCacheDiagnostics() {
- return Object.fromEntries(Object.entries({bundled,remotePointers,remoteArtifacts,generations,snapshotSources,browserIndexes,browserPartitions,decodedBrowserPartitions,fullPartitions,matchDetails,compactArchives,compactSelections,competitionArchives,playerRecords,coverageReconciliations})
+ return Object.fromEntries(Object.entries({bundled,remotePointers,remoteArtifacts,generations,snapshotSources,browserIndexes,browserPartitions,decodedBrowserPartitions,fullPartitions,matchDetails,compactArchives,compactSelections,competitionArchives,playerRecords,coverageReconciliations,publicationIndexes})
   .map(([name,cache])=>[name,cache.stats()]));
 }
 
-export function invalidatePreparedGeneration() { generations.clear(); snapshotSources.clear(); browserIndexes.clear(); browserPartitions.clear(); decodedBrowserPartitions.clear(); fullPartitions.clear(); matchDetails.clear(); compactArchives.clear(); compactSelections.clear(); competitionArchives.clear(); playerRecords.clear(); coverageReconciliations.clear(); remotePointers.clear(); remoteArtifacts.clear(); clearArtifactPacks(); manifestCircuit.succeeded(); }
+export function invalidatePreparedGeneration() { generations.clear(); snapshotSources.clear(); browserIndexes.clear(); browserPartitions.clear(); decodedBrowserPartitions.clear(); fullPartitions.clear(); matchDetails.clear(); compactArchives.clear(); compactSelections.clear(); competitionArchives.clear(); playerRecords.clear(); coverageReconciliations.clear(); publicationIndexes.clear(); remotePointers.clear(); remoteArtifacts.clear(); clearArtifactPacks(); manifestCircuit.succeeded(); }
