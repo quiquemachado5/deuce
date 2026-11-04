@@ -18,7 +18,7 @@ import { reconcileEditionSummaries } from './edition-reconcile'
 import { providerRoundName, publishableWtaArchiveRow, publishableWtaModernRow } from './provider-publication'
 import { providerTournamentName } from './tournament-identity'
 import { isInPublicationScope, publishedMatches } from './publication-scope'
-import { wtaHistoricalLevelsForSeason } from './wta-backfill-schedule'
+import { WTA_HISTORICAL_LAST_YEAR, wtaHistoricalLevelsForSeason } from './wta-backfill-schedule'
 
 const archive = join(process.cwd(), 'data', 'archive')
 const listsDir = join(archive, 'lists')
@@ -513,7 +513,7 @@ export async function publicationArchive():Promise<Match[]> {
   return publishedMatches(result)
 }
 
-export function hasBundledDetail(kind: 'modern' | 'archive', id: string) { return existsSync(join(detailsDir, `${kind}-${id}.json.gz`)) }
+export function hasBundledDetail(kind: 'modern' | 'archive', id: string, tour:Tour='atp') { return existsSync(join(detailsDir, `${tour==='wta'?'wta-':''}${kind}-${id}.json.gz`)) }
 
 /** Candidate metadata from saved list pages only. This never requests API data. */
 export async function bundledEnrichmentCandidates(): Promise<import('./enrichment-plan').DetailCandidate[]> {
@@ -528,7 +528,22 @@ export async function bundledEnrichmentCandidates(): Promise<import('./enrichmen
    if(kind==='modern'&&(row.is_qualifying===true||row.outcome!=='completed'||!(row.tape?.rows||row.tape?.reconstructed_rows)))continue
    if(kind==='archive'&&/^Q[1-4]$/.test(row.round||''))continue
    const id=String(row.id)
-   if(!hasBundledDetail(kind,id))candidates.push({kind,id,year,round:String(row.round_code||row.round||'')})
+   const tour=rowTour(row)
+   if(!hasBundledDetail(kind,id,tour))candidates.push({kind,id,year,round:String(row.round_code||row.round||''),tour})
+  }
+ }
+ for(let year=1991;year<=WTA_HISTORICAL_LAST_YEAR;year++)for(const level of wtaPublicationLevelsForSeason(year)){
+  for(const row of await wtaArchiveRows(year,level)){
+   if(/^Q[1-4]$/.test(row.round||''))continue
+   const id=String(row.id)
+   if(!hasBundledDetail('archive',id,'wta'))candidates.push({kind:'archive',id,year,round:String(row.round_code||row.round||''),tour:'wta'})
+  }
+ }
+ for(let year=2023;year<=new Date().getUTCFullYear();year++){
+  for(const row of await rowsFor(`modern-${year}-`)){
+   if(rowTour(row)!=='wta'||row.is_qualifying===true||row.outcome!=='completed'||!(row.tape?.rows||row.tape?.reconstructed_rows))continue
+   const id=String(row.id)
+   if(!hasBundledDetail('modern',id,'wta'))candidates.push({kind:'modern',id,year,round:String(row.round_code||row.round||''),tour:'wta'})
   }
  }
  return candidates

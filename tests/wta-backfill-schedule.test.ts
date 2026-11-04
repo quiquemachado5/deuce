@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import test from 'node:test';
-import { WTA_HISTORICAL_ARCHIVE_LEVELS, WTA_HISTORICAL_COHORTS, wtaBackfillCycle, wtaHistoricalCohortPlan, wtaHistoricalLevelsForSeason } from '../lib/wta-backfill-schedule';
+import { WTA_HISTORICAL_ARCHIVE_LEVELS, WTA_HISTORICAL_COHORTS, wtaBackfillCycle, wtaHistoricalCohortIds, wtaHistoricalCohortPlan, wtaHistoricalLevelsForSeason, wtaHistoryProgress } from '../lib/wta-backfill-schedule';
 import { assertWtaCohortBaseline, auditWtaCohorts, type WtaCohortBaseline } from '../lib/wta-cohort-audit';
 
 const atp = { status: 'success', at: '2026-11-02T04:15:00.000Z' };
@@ -29,6 +29,29 @@ test('historical acquisition prioritizes 2019 backwards and skips completed coho
   ]);
   assert.deepEqual(plan.slice(-5).map(row => row.season), [2020, 2020, 2020, 2020, 2020]);
   assert.equal(plan.length, WTA_HISTORICAL_COHORTS - 3);
+});
+
+test('completed WTA history is recognized without spending provider quota', () => {
+  const complete = wtaHistoricalCohortIds();
+  assert.deepEqual(wtaHistoryProgress(
+    { complete },
+    { completed: [2023, 2024, 2025, 2026] },
+    Date.parse('2026-11-04T00:00:00Z'),
+  ), {
+    historicalCohorts: WTA_HISTORICAL_COHORTS,
+    totalHistoricalCohorts: WTA_HISTORICAL_COHORTS,
+    pendingModern: 0,
+    pendingModernSeasons: [],
+    finished: true,
+  });
+  const incomplete = wtaHistoryProgress(
+    { complete: complete.slice(1) },
+    { completed: [2023, 2025] },
+    Date.parse('2026-11-04T00:00:00Z'),
+  );
+  assert.equal(incomplete.finished, false);
+  assert.equal(incomplete.historicalCohorts, WTA_HISTORICAL_COHORTS - 1);
+  assert.deepEqual(incomplete.pendingModernSeasons, [2024]);
 });
 
 test('historical WTA baseline protects every completed provider cohort',()=>{

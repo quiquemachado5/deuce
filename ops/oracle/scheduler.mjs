@@ -12,7 +12,8 @@ const refreshJobs = [
 ]
 const publicationJob = { name: 'validated publication', path: '/api/cron/publish' }
 const backfillJob = { name: 'optional WTA history', path: '/api/cron/wta-backfill' }
-const jobs = [...refreshJobs, publicationJob, backfillJob]
+const enrichmentJob = { name: 'optional match details', path: '/api/cron/enrich' }
+const jobs = [...refreshJobs, publicationJob, backfillJob, enrichmentJob]
 const pipelineHour = Number(process.env.DEUCE_PIPELINE_HOUR_UTC || 22)
 const pipelineMinute = Number(process.env.DEUCE_PIPELINE_MINUTE_UTC || 5)
 const catchUpWindow = 12 * 60 * 60 * 1000
@@ -73,6 +74,7 @@ const dayKey = date => date.toISOString().slice(0, 10)
 const pipelineComplete = value => refreshJobs.every(job => value.stages?.[job.path]?.status === 'success')
   && value.stages?.[publicationJob.path]?.status === 'success'
   && ['success', 'deferred-cycle', 'blocked'].includes(value.stages?.[backfillJob.path]?.status)
+  && ['success', 'deferred-cycle', 'blocked'].includes(value.stages?.[enrichmentJob.path]?.status)
 
 function freshState(day, scheduledAt) {
   return {
@@ -149,6 +151,7 @@ async function runPipeline(day, scheduledAt) {
   }
   if (state.stages?.[publicationJob.path]?.status === 'success') {
     for (const job of dueStages([backfillJob], state)) await runJob(job, { oncePerCycle: true })
+    for (const job of dueStages([enrichmentJob], state)) await runJob(job, { oncePerCycle: true })
   }
   console.log(JSON.stringify({ event: 'deuce.scheduler.pipeline.finished', day, complete: pipelineComplete(state), stages: state.stages, at: new Date().toISOString() }))
   void schedulePipeline(true)

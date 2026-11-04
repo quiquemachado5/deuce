@@ -16,7 +16,7 @@ import {
   readArchiveObject,
   writeArchiveObjects,
 } from './archive-store'
-import { enrichmentPlan } from './enrichment-plan'
+import { detailCandidateKey, enrichmentPlan } from './enrichment-plan'
 import { activityFixtures } from './tour-activity'
 import {mergeSeasonBaseline,reconcileSeasonResults,type Season} from './result-refresh'
 import { detailRefreshPlan } from './detail-refresh-plan'
@@ -24,7 +24,7 @@ import { hasClosedModernResult } from './modern-result'
 import { withOperationHistory } from './archive-operations'
 import { latestProviderResultDate } from './circuit-freshness'
 import { PROVIDER_PUBLICATION_TIERS } from './publication-scope'
-import { WTA_HISTORICAL_COHORTS, wtaBackfillCycle, wtaHistoricalCohortIds, wtaHistoricalCohortPlan } from './wta-backfill-schedule'
+import { WTA_HISTORICAL_COHORTS, wtaBackfillCycle, wtaHistoricalCohortIds, wtaHistoricalCohortPlan, wtaHistoryProgress } from './wta-backfill-schedule'
 import { isProviderFreeHistoryLimit, providerHasRequestAfterUsage, providerMinimumReserve, providerOperationCallLimit, providerQuotaRetryAt, providerRemainingCalls } from './provider-quota'
 import { materializeBundledWtaArchive } from './wta-archive-bootstrap'
 
@@ -296,13 +296,14 @@ export async function refreshCloudArchive() {
     }
     await cloudWriteMany([{key:'detail-overrides',payload:{keys:[...overrides],at:new Date().toISOString()}},{key:'refresh-detail-state',payload:{checked}}])
     let historicalAdded=0,archiveRecentAdded=0
-    const backfill=enrichmentPlan(await bundledEnrichmentCandidates(),known,2)
+    const backfill=enrichmentPlan(await bundledEnrichmentCandidates(),known,4)
     for(const row of backfill){
       if(calls>=callLimit-1||remaining-calls<=wtaReserve+1||Date.now()-started>190_000)break
       const detail=await request(row.kind==='archive'?`/history/archive/matches/${row.id}`:`/history/matches/${row.id}?points=complete`)
       if(!detail.match&&!detail.stats)continue
-      await cloudWrite(`detail-${row.kind}-${row.id}`,detail)
-      known.add(`${row.kind}-${row.id}`)
+      const key=detailCandidateKey(row)
+      await cloudWrite(`detail-${key}`,detail)
+      known.add(key)
       if(row.kind==='archive')historicalAdded++;else archiveRecentAdded++
     }
     cache.delete('detail-index')
@@ -317,6 +318,60 @@ export async function refreshCloudArchive() {
     await cloudWrite('sync-status', withOperationHistory(priorStatus,{ status: 'error', attemptAt, at: new Date().toISOString(), lastSuccessAt, calls, message: error instanceof Error ? error.message : 'Sync failed' }))
     throw error
   } finally { await release() }
+}
+
+/** Optional detail enrichment runs after publication and never gates it. */
+export async function enrichCloudArchive() {
+  const release=await lease()
+  if(!release)return {status:'busy'}
+  const started=Date.now(),attemptAt=new Date(started).toISOString()
+  let calls=0,quota:ArchiveRow|undefined
+  const priorStatus=await cloudRead('enrichment-status').catch(()=>undefined)
+  const lastSuccessAt=priorStatus?.status==='success'?priorStatus.at:priorStatus?.lastSuccessAt
+  const save=(result:ArchiveRow)=>cloudWrite('enrichment-status',withOperationHistory(priorStatus,result))
+  try{
+    await save({status:'running',phase:'details',attemptAt,at:attemptAt,lastSuccessAt})
+    const capacity=await cloudArchiveHasCapacity()
+    if(!capacity.available){
+      const result={status:capacity.status==='full'?'storage-reserve':'storage-unverified',phase:'details',attemptAt,lastSuccessAt,at:new Date().toISOString(),calls,relationBytes:capacity.report?.relationBytes,maximumBytes:capacity.maximum}
+      await save(result);return result
+    }
+    const {bundledEnrichmentCandidates}=await import('./live-tennis')
+    const known=new Set<string>()
+    for(const key of await listArchiveKeys('detail-'))known.add(key.slice(7))
+    const candidates=await bundledEnrichmentCandidates()
+    calls++;quota=await provider('/usage')
+    const remaining=providerRemainingCalls(quota),callLimit=providerOperationCallLimit(quota,90)
+    if(callLimit<=1){
+      const result={status:'quota-reserve',phase:'details',attemptAt,lastSuccessAt,at:new Date().toISOString(),remaining,calls,added:0,retryAt:providerQuotaRetryAt(quota),probe:{usage:'ok',details:'deferred'}}
+      await save(result);return result
+    }
+    const plan=enrichmentPlan(candidates,known,callLimit-1)
+    let added=0,unavailable=0,atp=0,wta=0,archive=0,modern=0
+    for(const row of plan){
+      if(calls>=callLimit||Date.now()-started>220_000)break
+      await new Promise(resolve=>setTimeout(resolve,2100));calls++
+      try{
+        const detail=await provider(row.kind==='archive'?`/history/archive/matches/${row.id}`:`/history/matches/${row.id}?points=complete`)
+        if(!detail.match&&!detail.data&&!detail.stats){unavailable++;continue}
+        await cloudWrite(`detail-${detailCandidateKey(row)}`,detail)
+        added++;if(row.tour==='wta')wta++;else atp++;if(row.kind==='archive')archive++;else modern++
+      }catch(error){
+        if(error instanceof TennisProviderError&&error.status===404){unavailable++;continue}
+        throw error
+      }
+    }
+    cache.delete('detail-index')
+    const at=new Date().toISOString(),result={status:'success',phase:'details',attemptAt,lastSuccessAt:at,at,calls,added,unavailable,atp,wta,archive,modern,candidates:candidates.length,remainingCandidates:Math.max(0,candidates.length-added),probe:{usage:'ok',details:'ok'}}
+    await save(result);return result
+  }catch(error){
+    if(error instanceof TennisProviderError&&error.status===429){
+      const result={status:'quota-reserve',phase:'details',attemptAt,lastSuccessAt,at:new Date().toISOString(),remaining:providerRemainingCalls(quota),calls,added:0,retryAt:error.retryAt||providerQuotaRetryAt(error.payload||quota),probe:{usage:quota?'ok':'unknown',details:'rate-limited'},message:error.message}
+      await save(result);return result
+    }
+    const result={status:'error',phase:'details',attemptAt,lastSuccessAt,at:new Date().toISOString(),calls,message:error instanceof Error?error.message:'Detail enrichment failed'}
+    await save(result);throw error
+  }finally{await release()}
 }
 
 /** Current WTA results are refreshed independently from all historical work. */
@@ -384,6 +439,16 @@ export async function backfillCloudWtaHistory() {
     ...(cycle?.status==='ready'?{publicationCycle:cycle.publicationCycle,backfillDay:cycle.backfillDay}:{}),
   }))
   try{
+    const savedProgress=wtaHistoryProgress(
+      await cloudRead('wta-archive-index'),
+      await cloudRead('wta-season-state'),
+      started,
+    )
+    if(savedProgress.finished){
+      const at=new Date().toISOString()
+      const result={status:'success',phase:'historical-backfill',attemptAt,lastSuccessAt:at,at,calls:0,seasonsRefreshed:[],seasonMatches:0,updated:0,extracted:0,historicalAdded:0,archivePages:0,...savedProgress,probe:{usage:'not-needed',history:'complete'}}
+      await save(result);return result
+    }
     const [atpRefresh,wtaRefresh,publication]=await Promise.all([
       cloudRead('sync-status'),cloudRead('wta-sync-status'),cloudRead('publish-status'),
     ])

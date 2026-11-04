@@ -23,6 +23,31 @@ export function wtaHistoricalCohortIds() {
 
 export const WTA_HISTORICAL_COHORTS = wtaHistoricalCohortIds().length;
 
+export function wtaHistoryProgress(archiveIndex: unknown, seasonState: unknown, now = Date.now()) {
+  const index = archiveIndex && typeof archiveIndex === 'object' ? archiveIndex as Record<string, unknown> : {};
+  const seasons = seasonState && typeof seasonState === 'object' ? seasonState as Record<string, unknown> : {};
+  const expected = wtaHistoricalCohortIds();
+  const completedCohorts = new Set(Array.isArray(index.complete)
+    ? index.complete.filter((id): id is string => typeof id === 'string')
+    : []);
+  const completedSeasons = new Set(Array.isArray(seasons.completed)
+    ? seasons.completed.filter((year): year is number => Number.isSafeInteger(year))
+    : []);
+  const currentYear = new Date(now).getUTCFullYear();
+  const pendingModernSeasons = Array.from(
+    { length: Math.max(0, currentYear - 2023) },
+    (_, index) => 2023 + index,
+  ).filter(year => !completedSeasons.has(year));
+  const historicalCohorts = expected.filter(id => completedCohorts.has(id)).length;
+  return {
+    historicalCohorts,
+    totalHistoricalCohorts: expected.length,
+    pendingModern: pendingModernSeasons.length,
+    pendingModernSeasons,
+    finished: historicalCohorts === expected.length && pendingModernSeasons.length === 0,
+  };
+}
+
 /**
  * Finish the requested historical era first, then fill the remaining recent
  * cohorts. Provider levels stay broad here; publication applies the strict

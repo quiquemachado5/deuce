@@ -32,4 +32,10 @@ test('scheduler health detects a stale heartbeat and blocked stages', () => {
   assert.equal(optionalBlocked.stages['/api/cron/wta-backfill'].status,'blocked')
   assert.equal(optionalBlocked.stages['/api/cron/wta-backfill'].optional,true)
   assert.equal(optionalBlocked.stages['/api/cron/wta-backfill'].error,'HTTP 503')
+  const optionalEnrichment=schedulerStateHealth({
+    heartbeatAt:'2026-11-02T12:04:00.000Z',
+    stages:{'/api/cron/enrich':{status:'blocked',attempts:1,error:'HTTP 503'}},
+  },now)
+  assert.equal(optionalEnrichment.status,'healthy')
+  assert.equal(optionalEnrichment.stages['/api/cron/enrich'].optional,true)
 })

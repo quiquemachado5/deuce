@@ -12,7 +12,7 @@ type Stage = {
 }
 
 const date = (value: unknown) => typeof value === 'string' && Number.isFinite(Date.parse(value)) ? value : undefined
-const OPTIONAL_STAGES = new Set(['/api/cron/wta-backfill'])
+const OPTIONAL_STAGES = new Set(['/api/cron/wta-backfill','/api/cron/enrich'])
 
 export function schedulerStateHealth(value: unknown, now = Date.now(), staleAfterMs = 3 * 60_000) {
   const row = value && typeof value === 'object' ? value as Record<string, unknown> : {}
