@@ -45,5 +45,4 @@ jobs:
       - name: Deploy the CI-approved commit with production gates
         run: |
           ssh -i ~/.ssh/deuce_deploy -o BatchMode=yes -o StrictHostKeyChecking=yes \
-            "$VPS_USER@$VPS_HOST" \
-            "git -C /opt/deuce/app fetch origin main && test \"\$(git -C /opt/deuce/app rev-parse origin/main)\" = '$EXPECTED_SHA' && DEUCE_EXPECTED_COMMIT='$EXPECTED_SHA' /opt/deuce/app/ops/vps/deploy.sh"
+            "$VPS_USER@$VPS_HOST" "deploy:$EXPECTED_SHA"

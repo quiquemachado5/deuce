@@ -21,7 +21,8 @@ test('costly AI crawlers are rejected before Next while search indexing remains 
 test('production deploy waits for CI and pins both commit and SSH host identity',()=>{
   assert.match(deployWorkflow,/workflows: \[Archive quality\]/)
   assert.match(deployWorkflow,/workflow_run\.conclusion == 'success'/)
-  assert.match(deployWorkflow,/DEUCE_EXPECTED_COMMIT/)
+  assert.match(deployWorkflow,/"deploy:\$EXPECTED_SHA"/)
+  assert.doesNotMatch(deployWorkflow,/git -C \/opt\/deuce\/app|DEUCE_EXPECTED_COMMIT/)
   assert.match(deployWorkflow,/StrictHostKeyChecking=yes/)
   assert.match(deployWorkflow,/secrets\.DEUCE_VPS_KNOWN_HOSTS/)
   assert.match(healthWorkflow,/2,17,32,47/)
