@@ -59,6 +59,7 @@ test('edge rate limiting and durable metrics are validated before promotion',()=
   assert.match(caddyImage,/org\.opencontainers\.image\.revision="\$\{DEUCE_CADDY_SOURCE_SHA256\}"/)
   assert.match(ciWorkflow,/caddy-validate:/)
   assert.match(ciWorkflow,/caddy-publish:/)
+  assert.equal((ciWorkflow.match(/--file ops\/oracle\/Dockerfile\.caddy/g) ?? []).length,2)
   assert.match(ciWorkflow,/packages: write/)
   assert.match(ciWorkflow,/--sbom=true/)
   assert.match(ciWorkflow,/Require anonymous production pulls/)

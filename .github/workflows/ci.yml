@@ -37,6 +37,7 @@ jobs:
       - name: Build and validate the pinned proxy image
         run: |
           docker build \
+            --file ops/oracle/Dockerfile.caddy \
             --build-arg "DEUCE_CADDY_SOURCE_SHA256=$CADDY_SOURCE_SHA256" \
             --tag "$CADDY_IMAGE" \
             ops/oracle
@@ -73,6 +74,7 @@ jobs:
           else
             docker buildx build \
               --platform linux/amd64 \
+              --file ops/oracle/Dockerfile.caddy \
               --build-arg "DEUCE_CADDY_SOURCE_SHA256=$CADDY_SOURCE_SHA256" \
               --tag "$CADDY_IMAGE" \
               --provenance=true \
