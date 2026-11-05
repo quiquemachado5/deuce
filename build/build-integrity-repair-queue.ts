@@ -2,7 +2,8 @@ import { mkdir, readFile, rename, writeFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 import { gunzipSync } from 'node:zlib';
 import { buildIntegrityRepairQueue, type RepairLedger } from '../lib/integrity-repair-queue';
-import type { CoverageReconciliation } from '../lib/coverage-reconciliation';
+import { normalizeCoverageReconciliation, type CoverageReconciliation } from '../lib/coverage-reconciliation';
+import { normalizeEditionAudits, type EditionAudit } from '../lib/edition-audit';
 
 function argument(name: string) {
   const prefix = `--${name}=`;
@@ -11,11 +12,14 @@ function argument(name: string) {
 
 async function main() {
   const source = resolve(argument('source') || 'data/reading/reconciliation.json.gz');
+  const auditSource = resolve(argument('audit-source') || join(dirname(source), 'audit.json.gz'));
   const ledgerPath = resolve(argument('ledger') || 'ops/integrity-repair-ledger.json');
   const base = process.env.DEUCE_ARCHIVE_DIR || '.deuce-cache';
   const output = resolve(argument('output') || join(base, 'integrity', 'repair-queue.json'));
-  const [compressed, ledgerText] = await Promise.all([readFile(source), readFile(ledgerPath, 'utf8')]);
-  const report = JSON.parse(gunzipSync(compressed).toString('utf8')) as CoverageReconciliation;
+  const [compressed, compressedAudits, ledgerText] = await Promise.all([readFile(source), readFile(auditSource), readFile(ledgerPath, 'utf8')]);
+  const storedReport = JSON.parse(gunzipSync(compressed).toString('utf8')) as CoverageReconciliation;
+  const audits = normalizeEditionAudits(JSON.parse(gunzipSync(compressedAudits).toString('utf8')) as EditionAudit[]);
+  const report = normalizeCoverageReconciliation(storedReport, audits);
   const ledger = JSON.parse(ledgerText) as RepairLedger;
   const queue = buildIntegrityRepairQueue(report, ledger);
   await mkdir(dirname(output), { recursive: true });

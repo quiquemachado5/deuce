@@ -6,6 +6,7 @@ import { canonicalTournamentName, prepareMatch } from '../lib/quality';
 import { providerRoundName, providerTeamCompetition, publishableWtaArchiveRow, publishableWtaModernRow } from '../lib/provider-publication';
 import { providerTournamentName } from '../lib/tournament-identity';
 import { historicalTournamentCategory, modernTournamentCategory } from '../lib/tournament-tier';
+import { editionCompleteness, normalizeEditionAudits, type EditionAudit } from '../lib/edition-audit';
 
 const match = mockMatches[0];
 
@@ -57,6 +58,33 @@ test('known Bad Homburg provider aliases share one tournament identity', () => {
   for (const name of ['Bad Homburg', 'Bad Homburg, Germany', 'Bad Homburg Open', 'Bad Homburg, Germany, Doubles']) {
     assert.equal(canonicalTournamentName(name, 2026, 'WTA 500'), 'Bad Homburg');
   }
+});
+
+test('tour-level WTA country suffixes do not split one edition into two draws', () => {
+  assert.equal(canonicalTournamentName('Strasbourg, France', 2026, 'WTA 500', 'wta'), 'Strasbourg');
+  assert.equal(canonicalTournamentName('Strasbourg', 2026, 'WTA 500', 'wta'), 'Strasbourg');
+  assert.equal(canonicalTournamentName('S-Hertogenbosch, Netherlands', 2026, 'WTA 250', 'wta'), 'Hertogenbosch');
+  assert.equal(canonicalTournamentName('Hertogenbosch', 2026, 'WTA 250', 'wta'), 'Hertogenbosch');
+});
+
+test('stored audits merge reviewed venue aliases without certifying the whole draw', () => {
+  const audit = (tournament: string, rounds: Record<string, number>): EditionAudit => {
+    const row = {
+      tournament, tour: 'wta' as const, year: 2026, category: 'WTA 500', sourceRows: 1,
+      completed: 1, terminal: 0, pending: 0, hasFinal: Boolean(rounds['7']), rounds,
+      expectedLateRounds: true, missingLateRounds: [], completeDraw: false as boolean | null,
+    };
+    return { ...row, ...editionCompleteness(row) };
+  };
+  const merged = normalizeEditionAudits([
+    audit('Strasbourg, France', { '5': 3 }),
+    audit('Strasbourg', { '5': 1, '6': 2, '7': 1 }),
+  ]);
+  assert.equal(merged.length, 1);
+  assert.equal(merged[0].tournament, 'Strasbourg');
+  assert.deepEqual(merged[0].rounds, { '5': 4, '6': 2, '7': 1 });
+  assert.deepEqual(merged[0].missingLateRounds, []);
+  assert.equal(merged[0].completeDraw, null);
 });
 
 test('WTA identities join country aliases without merging 125 or ITF events', () => {

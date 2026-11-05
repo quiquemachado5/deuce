@@ -80,13 +80,13 @@ services:
     logging: *deuce-logging
 
   caddy:
-    image: ${DEUCE_CADDY_IMAGE:-deuce-caddy:2.10.2-ratelimit-5625512f}
+    image: ${DEUCE_CADDY_IMAGE:-ghcr.io/quiquemachado5/deuce-caddy:source-94ccf3d092bdf34ae18a2794bb98f45d7670ccc9614b2ce45285b1c6f58775a6}
     build:
       context: ./ops/oracle
       dockerfile: Dockerfile.caddy
       args:
-        CADDY_VERSION: "2.10.2"
         RATE_LIMIT_VERSION: 5625512f24f6f59d6f64fb3aafe5eecff0b286db
+        DEUCE_CADDY_SOURCE_SHA256: 94ccf3d092bdf34ae18a2794bb98f45d7670ccc9614b2ce45285b1c6f58775a6
     restart: unless-stopped
     init: true
     read_only: true

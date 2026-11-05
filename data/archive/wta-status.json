@@ -1,291 +1,44 @@
 {
-  "startedAt": "2026-11-03T22:11:09.935Z",
-  "availableAtStart": 936,
-  "callBudget": 400,
+  "startedAt": "2026-11-05T07:19:42.943Z",
+  "availableAtStart": 893,
+  "reserve": 200,
+  "callBudget": 10,
   "scope": {
     "tour": "wta",
-    "historyOnly": true,
+    "historyOnly": false,
     "firstYear": 1968,
     "maximumYear": 2022,
     "priorityThroughYear": 2019,
     "levels": "seasonal-provider-levels"
   },
-  "modern": [],
-  "archive": [
+  "modern": [
     {
-      "season": 1982,
-      "level": "W",
+      "season": 2026,
       "skipped": false,
-      "rows": 3053,
-      "matches": 3053,
-      "players": 557,
-      "tournaments": 109
+      "unchanged": true,
+      "rows": 7935,
+      "fresh": 0
     },
     {
-      "season": 1982,
-      "level": "F",
-      "skipped": false,
-      "rows": 0,
-      "matches": 0,
-      "players": 0,
-      "tournaments": 0
+      "season": 2025,
+      "skipped": true,
+      "rows": 7892
     },
     {
-      "season": 1981,
-      "level": "W",
-      "skipped": false,
-      "rows": 3721,
-      "matches": 3721,
-      "players": 795,
-      "tournaments": 127
+      "season": 2024,
+      "skipped": true,
+      "rows": 7619
     },
     {
-      "season": 1981,
-      "level": "F",
-      "skipped": false,
-      "rows": 0,
-      "matches": 0,
-      "players": 0,
-      "tournaments": 0
-    },
-    {
-      "season": 1980,
-      "level": "W",
-      "skipped": false,
-      "rows": 4618,
-      "matches": 4618,
-      "players": 1037,
-      "tournaments": 125
-    },
-    {
-      "season": 1980,
-      "level": "F",
-      "skipped": false,
-      "rows": 0,
-      "matches": 0,
-      "players": 0,
-      "tournaments": 0
-    },
-    {
-      "season": 1979,
-      "level": "W",
-      "skipped": false,
-      "rows": 2145,
-      "matches": 2145,
-      "players": 423,
-      "tournaments": 92
-    },
-    {
-      "season": 1979,
-      "level": "F",
-      "skipped": false,
-      "rows": 0,
-      "matches": 0,
-      "players": 0,
-      "tournaments": 0
-    },
-    {
-      "season": 1978,
-      "level": "W",
-      "skipped": false,
-      "rows": 2508,
-      "matches": 2508,
-      "players": 539,
-      "tournaments": 78
-    },
-    {
-      "season": 1978,
-      "level": "F",
-      "skipped": false,
-      "rows": 0,
-      "matches": 0,
-      "players": 0,
-      "tournaments": 0
-    },
-    {
-      "season": 1977,
-      "level": "W",
-      "skipped": false,
-      "rows": 2066,
-      "matches": 2066,
-      "players": 412,
-      "tournaments": 98
-    },
-    {
-      "season": 1977,
-      "level": "F",
-      "skipped": false,
-      "rows": 0,
-      "matches": 0,
-      "players": 0,
-      "tournaments": 0
-    },
-    {
-      "season": 1976,
-      "level": "W",
-      "skipped": false,
-      "rows": 2029,
-      "matches": 2029,
-      "players": 414,
-      "tournaments": 88
-    },
-    {
-      "season": 1976,
-      "level": "F",
-      "skipped": false,
-      "rows": 0,
-      "matches": 0,
-      "players": 0,
-      "tournaments": 0
-    },
-    {
-      "season": 1975,
-      "level": "W",
-      "skipped": false,
-      "rows": 2332,
-      "matches": 2332,
-      "players": 501,
-      "tournaments": 106
-    },
-    {
-      "season": 1975,
-      "level": "F",
-      "skipped": false,
-      "rows": 24,
-      "matches": 24,
-      "players": 16,
-      "tournaments": 1
-    },
-    {
-      "season": 1974,
-      "level": "W",
-      "skipped": false,
-      "rows": 2650,
-      "matches": 2650,
-      "players": 625,
-      "tournaments": 148
-    },
-    {
-      "season": 1974,
-      "level": "F",
-      "skipped": false,
-      "rows": 0,
-      "matches": 0,
-      "players": 0,
-      "tournaments": 0
-    },
-    {
-      "season": 1973,
-      "level": "W",
-      "skipped": false,
-      "rows": 3183,
-      "matches": 3183,
-      "players": 714,
-      "tournaments": 153
-    },
-    {
-      "season": 1973,
-      "level": "F",
-      "skipped": false,
-      "rows": 0,
-      "matches": 0,
-      "players": 0,
-      "tournaments": 0
-    },
-    {
-      "season": 1972,
-      "level": "W",
-      "skipped": false,
-      "rows": 3170,
-      "matches": 3170,
-      "players": 820,
-      "tournaments": 180
-    },
-    {
-      "season": 1972,
-      "level": "F",
-      "skipped": false,
-      "rows": 0,
-      "matches": 0,
-      "players": 0,
-      "tournaments": 0
-    },
-    {
-      "season": 1971,
-      "level": "W",
-      "skipped": false,
-      "rows": 2442,
-      "matches": 2442,
-      "players": 621,
-      "tournaments": 158
-    },
-    {
-      "season": 1971,
-      "level": "F",
-      "skipped": false,
-      "rows": 0,
-      "matches": 0,
-      "players": 0,
-      "tournaments": 0
-    },
-    {
-      "season": 1970,
-      "level": "W",
-      "skipped": false,
-      "rows": 2780,
-      "matches": 2780,
-      "players": 796,
-      "tournaments": 222
-    },
-    {
-      "season": 1970,
-      "level": "F",
-      "skipped": false,
-      "rows": 0,
-      "matches": 0,
-      "players": 0,
-      "tournaments": 0
-    },
-    {
-      "season": 1969,
-      "level": "W",
-      "skipped": false,
-      "rows": 2823,
-      "matches": 2823,
-      "players": 838,
-      "tournaments": 212
-    },
-    {
-      "season": 1969,
-      "level": "F",
-      "skipped": false,
-      "rows": 0,
-      "matches": 0,
-      "players": 0,
-      "tournaments": 0
-    },
-    {
-      "season": 1968,
-      "level": "W",
-      "skipped": false,
-      "rows": 2753,
-      "matches": 2753,
-      "players": 817,
-      "tournaments": 232
-    },
-    {
-      "season": 1968,
-      "level": "F",
-      "skipped": false,
-      "rows": 0,
-      "matches": 0,
-      "players": 0,
-      "tournaments": 0
+      "season": 2023,
+      "skipped": true,
+      "rows": 7209
     }
   ],
-  "pendingHistoricalCohortsAtStart": 30,
-  "calls": 227,
-  "finishedAt": "2026-11-03T22:21:09.886Z",
+  "archive": [],
+  "pendingHistoricalCohortsAtStart": 0,
+  "calls": 2,
+  "finishedAt": "2026-11-05T07:19:45.741Z",
   "active": null,
   "completedHistoricalCohorts": 263
 }

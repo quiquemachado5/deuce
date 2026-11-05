@@ -14,12 +14,12 @@ import {eraComparisons,type Era,type RecordRow} from './records';
 import {clampPage,pageBoundaryTies,pieceChunk,PAGE_SIZE,SNAPSHOT_SCHEMA,RULES_VERSION,type MatchPartition,type RecordManifest,type RecordMeta,type RecordPages} from './snapshot';
 import {compatibleManifest,type PreparedGeneration,type GenerationStatus,type GenerationSourceDecision,type FallbackReason} from './generation';
 import {selectedArchive, selectedCatalog} from './selection';
-import {auditEditions} from '../edition-audit';
+import {auditEditions,normalizeEditionAudits} from '../edition-audit';
 import {readingDirectory} from '../reading-directory';
 import {mergeTournamentEditionDetails} from '../tournament-edition-data';
 import {circuitMatchContext} from '../match-context';
 import {browserPartitionMatchesDetails,decodeMatchBrowserRow,MATCH_BROWSER_DICTIONARIES,MATCH_BROWSER_ROW_LENGTH,MATCH_BROWSER_SCHEMA,matchBrowserArtifact,type MatchBrowserIndex,type MatchBrowserPartition} from '../match-browser-snapshot';
-import {reconcileCoverage,type CoverageReconciliation} from '../coverage-reconciliation';
+import {normalizeCoverageReconciliation,reconcileCoverage,type CoverageReconciliation} from '../coverage-reconciliation';
 import {normalizeText} from '../quality';
 import historyBaseline from '../../ops/wta-history-baseline.json';
 import {buildPublicationIndex,validPublicationIndex,type PublicationIndex} from '../publication-index';
@@ -664,7 +664,7 @@ export const preparedTournamentEditionArchive=cache(async(year:number,tour:'atp'
  return mergeTournamentEditionDetails(summaries,details,relevantCompetition,year,tour);
 });
 
-export const preparedEditionAudit=cache(async()=>{const g=await preparedGeneration();const stored=g.source==='remote' ? await cloudBlob<import('../edition-audit').EditionAudit[]>(g.manifest.version,'audit') : await localOptional<import('../edition-audit').EditionAudit[]>('audit',[]);if(stored?.length)return stored;const [matches,competition]=await Promise.all([g.matches(),g.competition?.()||Promise.resolve([])]);return auditEditions([...matches,...competition]);});
+export const preparedEditionAudit=cache(async()=>{const g=await preparedGeneration();const stored=g.source==='remote' ? await cloudBlob<import('../edition-audit').EditionAudit[]>(g.manifest.version,'audit') : await localOptional<import('../edition-audit').EditionAudit[]>('audit',[]);if(stored?.length)return normalizeEditionAudits(stored);const [matches,competition]=await Promise.all([g.matches(),g.competition?.()||Promise.resolve([])]);return auditEditions([...matches,...competition]);});
 
 export const preparedCoverageReconciliation=cache(async()=>{
  const generation=await preparedGeneration(),cacheKey=`${generation.manifest.version}:${generation.source}`;
@@ -672,7 +672,7 @@ export const preparedCoverageReconciliation=cache(async()=>{
   const stored=generation.source==='remote'
    ? await cloudBlob<CoverageReconciliation>(generation.manifest.version,'reconciliation')
    : await localOptional<CoverageReconciliation|undefined>('reconciliation',undefined);
-  if(stored?.summary&&Array.isArray(stored.issues))return stored;
+  if(stored?.summary&&Array.isArray(stored.issues))return normalizeCoverageReconciliation(stored,await preparedEditionAudit());
   const [matches,audit]=await Promise.all([preparedCompactArchive('all'),preparedEditionAudit()]);
   return reconcileCoverage(matches,audit,historyBaseline.allowedPendingCohorts);
  });

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { reconcileCoverage } from '../lib/coverage-reconciliation';
+import { normalizeCoverageReconciliation, reconcileCoverage } from '../lib/coverage-reconciliation';
 import type { EditionAudit } from '../lib/edition-audit';
 import type { Match } from '../lib/types';
 
@@ -35,4 +35,19 @@ test('candidate conflicts never blend ATP and WTA identities', () => {
   const wta = match({ match_id: 'wta-1', tour: 'wta' });
   const result = reconcileCoverage([atp, wta], [], []);
   assert.equal(result.summary.conflicts, 0);
+});
+
+test('a newer edition identity replaces stale draw issues but retains review semantics', () => {
+  const stale = reconcileCoverage([], [
+    audit({ tournament: 'Strasbourg, France', tour: 'wta', year: 2026, category: 'WTA 500', completeDraw: false, missingLateRounds: ['1 cuarto'] }),
+    audit({ tournament: 'Strasbourg', tour: 'wta', year: 2026, category: 'WTA 500', completeDraw: false, missingLateRounds: ['3 cuartos', '2 semifinales', '1 final'] }),
+  ]);
+  const normalized = normalizeCoverageReconciliation(stale, [
+    audit({ tournament: 'Strasbourg', tour: 'wta', year: 2026, category: 'WTA 500', sourceRows: 7,
+      rounds: { '5': 4, '6': 2, '7': 1 }, completeDraw: null, missingLateRounds: [] }),
+  ]);
+  assert.equal(normalized.summary.confirmed, 0);
+  assert.equal(normalized.summary.verification, 1);
+  assert.equal(normalized.issues.length, 1);
+  assert.equal(normalized.issues[0].reason, 'uncertified-draw-size');
 });

@@ -79,6 +79,45 @@ repository="${DEUCE_IMAGE_REPOSITORY:-deuce-web}"
 candidate_image="${repository}:${commit}"
 candidate="deuce-candidate-${short}"
 compose=(docker compose --env-file .env.production)
+caddy_source_sha256="94ccf3d092bdf34ae18a2794bb98f45d7670ccc9614b2ce45285b1c6f58775a6"
+caddy_tag="ghcr.io/quiquemachado5/deuce-caddy:source-${caddy_source_sha256}"
+
+validate_caddy_image() {
+  local image="$1" revision
+  revision="$(docker image inspect --format '{{index .Config.Labels "org.opencontainers.image.revision"}}' "${image}" 2>/dev/null || true)"
+  [[ "${revision}" == "${caddy_source_sha256}" ]] || return 1
+  docker run --rm --network none --entrypoint caddy "${image}" list-modules \
+    | grep -qx 'http.handlers.rate_limit'
+}
+
+prepare_caddy_image() {
+  local resolved=""
+  if docker pull "${caddy_tag}" >/dev/null && validate_caddy_image "${caddy_tag}"; then
+    resolved="$(docker image inspect --format '{{range .RepoDigests}}{{println .}}{{end}}' "${caddy_tag}" \
+      | grep -F 'ghcr.io/quiquemachado5/deuce-caddy@sha256:' | head -n 1)"
+  elif docker image inspect "${caddy_tag}" >/dev/null 2>&1 && validate_caddy_image "${caddy_tag}"; then
+    echo "Warning: GHCR is unavailable; using the previously verified content-addressed Caddy image." >&2
+    resolved="$(docker image inspect --format '{{range .RepoDigests}}{{println .}}{{end}}' "${caddy_tag}" \
+      | grep -F 'ghcr.io/quiquemachado5/deuce-caddy@sha256:' | head -n 1)"
+  elif [[ "${DEUCE_ALLOW_CADDY_SOURCE_BUILD:-0}" == "1" ]]; then
+    echo "Warning: building Caddy locally because the explicit emergency fallback is enabled." >&2
+    DEUCE_CADDY_IMAGE="${caddy_tag}" "${compose[@]}" build caddy
+    validate_caddy_image "${caddy_tag}" || {
+      echo "The emergency Caddy build failed its immutable module and revision checks." >&2
+      return 1
+    }
+    resolved="${caddy_tag}"
+  else
+    echo "The immutable Caddy image is unavailable or invalid; source builds are disabled." >&2
+    echo "Set DEUCE_ALLOW_CADDY_SOURCE_BUILD=1 only for an audited emergency deployment." >&2
+    return 1
+  fi
+  if [[ -z "${resolved}" ]]; then
+    echo "The verified Caddy image has no repository digest." >&2
+    return 1
+  fi
+  export DEUCE_CADDY_IMAGE="${resolved}"
+}
 
 first_release=true
 previous_image=""
@@ -113,7 +152,7 @@ fi
 
 echo "Building immutable release image ${candidate_image}."
 SOURCE_COMMIT="${commit}" DEUCE_WEB_IMAGE="${candidate_image}" "${compose[@]}" build web
-"${compose[@]}" build caddy
+prepare_caddy_image
 if ! docker image inspect prom/prometheus:v3.5.0 >/dev/null 2>&1; then
   "${compose[@]}" pull prometheus
 fi
