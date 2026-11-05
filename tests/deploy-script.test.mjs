@@ -51,6 +51,21 @@ test('the target commit reapplies its public configuration after fast-forward', 
   assert.ok(fastForward < applications[1] && applications[1] < preflights[1] && preflights[1] < commit)
 })
 
+test('a changed deployment script re-executes the approved target on its first run', () => {
+  const runningBlob = source.indexOf('running_deploy_blob="$(git hash-object "${BASH_SOURCE[0]}")"')
+  const fastForward = source.indexOf('git merge --ff-only origin/main')
+  const targetBlob = source.indexOf('target_deploy_blob="$(git rev-parse HEAD:ops/vps/deploy.sh)"')
+  const reexec = source.indexOf('exec "${ROOT}/ops/vps/deploy.sh"')
+  const targetConfiguration = source.lastIndexOf('node ops/vps/apply-public-env.mjs')
+
+  assert.ok(runningBlob >= 0 && runningBlob < fastForward)
+  assert.ok(fastForward < targetBlob && targetBlob < reexec && reexec < targetConfiguration)
+  assert.match(source.slice(targetBlob, reexec), /DEUCE_DEPLOY_REEXECUTED/)
+  assert.match(source.slice(0, runningBlob), /DEUCE_DEPLOY_LOCK_INHERITED/)
+  assert.match(source.slice(0, runningBlob), /readlink "\/proc\/\$\$\/fd\/9"/)
+  assert.match(source.slice(0, runningBlob), /flock -n 9/)
+})
+
 test('successful deployments retain only the active and rollback images', () => {
   const cleanup = source.slice(source.indexOf('cleanup_old_images()'), source.indexOf('bootstrap_scheduler_started=false'))
   assert.match(cleanup, /candidate_image/)
