@@ -13,10 +13,19 @@ if ! command -v flock >/dev/null 2>&1; then
 fi
 if [[ ! -e "${LOCK_FILE}" ]]; then (umask 007; : >"${LOCK_FILE}"); fi
 chmod 0660 "${LOCK_FILE}"
-exec 9<>"${LOCK_FILE}"
-if ! flock -n 9; then
-  echo "Another deployment or watchdog run is active; refusing concurrent deployment." >&2
-  exit 1
+if [[ "${DEUCE_DEPLOY_LOCK_INHERITED:-0}" == "1" ]]; then
+  inherited_lock="$(readlink "/proc/$$/fd/9" 2>/dev/null || true)"
+  expected_lock="$(readlink -f "${LOCK_FILE}")"
+  if [[ "${inherited_lock}" != "${expected_lock}" ]] || ! flock -n 9; then
+    echo "The re-executed deployment did not inherit its verified lock." >&2
+    exit 1
+  fi
+else
+  exec 9<>"${LOCK_FILE}"
+  if ! flock -n 9; then
+    echo "Another deployment or watchdog run is active; refusing concurrent deployment." >&2
+    exit 1
+  fi
 fi
 
 if [[ ! -d "${ROOT}/.git" ]]; then
@@ -40,6 +49,7 @@ if [[ -n "$(git status --porcelain)" ]]; then
   echo "The deployment checkout has tracked or untracked files; refusing to mix them with a release." >&2
   exit 1
 fi
+running_deploy_blob="$(git hash-object "${BASH_SOURCE[0]}")"
 
 git fetch origin main
 expected_commit="${DEUCE_EXPECTED_COMMIT:-}"
@@ -56,6 +66,18 @@ if [[ -n "${expected_commit}" ]]; then
 fi
 git checkout main
 git merge --ff-only origin/main
+
+target_deploy_blob="$(git rev-parse HEAD:ops/vps/deploy.sh)"
+if [[ "${running_deploy_blob}" != "${target_deploy_blob}" ]]; then
+  if [[ "${DEUCE_DEPLOY_REEXECUTED:-0}" == "1" ]]; then
+    echo "The target deployment script still differs after re-execution." >&2
+    exit 1
+  fi
+  echo "Continuing with the deployment script from the approved target commit."
+  export DEUCE_DEPLOY_LOCK_INHERITED=1
+  export DEUCE_DEPLOY_REEXECUTED=1
+  exec "${ROOT}/ops/vps/deploy.sh"
+fi
 
 # The target commit can add or change public deployment keys. Apply its own
 # versioned configuration after the fast-forward as well as before it, so a
