@@ -61,7 +61,7 @@ export default async function Home() {
     <OnThisDay match={anniversary} matches={anniversaries}/>
     {latestResults.length>0&&<section className="home-section home-latest-results" aria-labelledby="latest-results-title">
       <div className="section-head"><h2 id="latest-results-title">Últimos resultados</h2><Link className="deuce-cta" href="/buscar">Ver todos los partidos <span aria-hidden="true">↗</span></Link></div>
-      <div className="home-latest-archive">{latestResults.map(({tour,match})=><div className={editorial.latestResult} data-tour={tour} key={`${tour}-${match.match_id}`}><span className={editorial.tourBadge}>{tour.toUpperCase()}</span><ArchiveMatchRow match={toMatchRecord(match)} showTournamentContext/></div>)}</div>
+      <div className="home-latest-archive">{latestResults.map(({tour,match})=><div className={editorial.latestResult} data-tour={tour} key={`${tour}-${match.match_id}`}><ArchiveMatchRow match={toMatchRecord(match)} showTournamentContext prefetch/></div>)}</div>
     </section>}
     {recordCards.length>0&&<section className="dark-section home-records" aria-labelledby="home-records-title">
       <div className="section-head light"><h2 id="home-records-title">Récords del archivo</h2><Link className="deuce-cta" href="/records">Explorar récords <span aria-hidden="true">↗</span></Link></div>

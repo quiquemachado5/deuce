@@ -17,8 +17,8 @@ export const metadata: Metadata = {
 };
 export const revalidate = 300;
 
-export default async function Coverage({searchParams}:{searchParams:Promise<{circuito?:string;estado?:string;page?:string}>}) {
-  const [generation,reconciliation,query] = await Promise.all([preparedGeneration(),preparedCoverageReconciliation(),searchParams]);
+export default async function Coverage() {
+  const [generation,reconciliation] = await Promise.all([preparedGeneration(),preparedCoverageReconciliation()]);
   const manifest = generation.manifest;
   const circuits = manifest.circuitSummary ?? summarizeCircuits(await preparedCompactArchive('all'));
   const updated = new Date(manifest.generatedAt).toLocaleString('es-ES', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Europe/Madrid' });
@@ -54,12 +54,13 @@ export default async function Coverage({searchParams}:{searchParams:Promise<{cir
         </article>;
       })}
     </section>
-    <Reconciliation report={reconciliation} query={query}/>
+    <p className={styles.scopeNote}><strong>Por qué WTA suma más partidos.</strong> El histórico femenino incluye también categorías equivalentes a 1000, 500 y 250; el tramo histórico ATP publicado se concentra en Grand Slam y Masters 1000. Son alcances distintos, no partidos duplicados ni circuitos mezclados.</p>
+    <Reconciliation report={reconciliation}/>
     <Suspense fallback={<p role="status">Consultando actualizaciones…</p>}><Operations manifest={manifest}/></Suspense>
     <section className={styles.surfaces} aria-labelledby="surfaces-title">
       <h2 id="surfaces-title">Por superficie</h2>
       <div>{SURFACES.filter(surface => manifest.summary.surfaces[surface] > 0).map(surface => <div className={styles.surface} key={surface} data-event-surface={surface}><span>{surfaceLabel[surface]}</span><strong>{number(manifest.summary.surfaces[surface])}</strong><i style={{width:`${manifest.summary.surfaces[surface]/manifest.matchCount*100}%`}}/></div>)}</div>
     </section>
-    <footer className={styles.footer}><p>Actualizado: <time>{updated}</time></p><p>Versión {manifest.version}</p><Link href="#revision">Volver al control del archivo ↑</Link></footer>
+    <footer className={styles.footer}><p>Actualizado: <time>{updated}</time></p><p>Versión {manifest.version}</p><Link href="#calidad">Volver al control del archivo ↑</Link></footer>
   </div>;
 }

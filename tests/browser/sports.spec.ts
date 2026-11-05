@@ -29,9 +29,12 @@ test('five-set score keeps full names and tie-break superscripts', async ({ page
 });
 
 test('match comparison preserves real numeric values', async ({ page }) => {
-  await page.goto('/match/live-203807');
+  const response = await page.goto('/match/live-203807');
+  expect(response?.status()).toBe(200);
   await expect(page.getByRole('heading', { name: 'Resumen comparativo' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Juegos ganados' })).toBeVisible();
+  await expect(page.locator('main')).not.toContainText('Solo resultado');
+  await expect(page.locator('main')).not.toContainText('La ficha se limita al marcador');
   const audit = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
   expect(audit.violations).toEqual([]);
 });

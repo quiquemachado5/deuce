@@ -34,7 +34,10 @@ test('global search covers ATP and WTA from every section',async({page,request})
 
 test('archive filters never inherit an invisible latest season',async({page})=>{
   await page.goto('/buscar');
-  await expect(page.getByRole('link',{name:/Quitar filtro Temporada \d{4}/})).toBeVisible();
+  await expect(page.getByRole('link',{name:/Quitar filtro Temporada/})).toHaveCount(0);
+  await page.getByRole('button',{name:/Filtrar partidos/}).click();
+  await expect(page.getByLabel('Temporada')).toHaveValue('all');
+  await page.getByRole('button',{name:'Cerrar filtros'}).click();
   await page.goto('/buscar?surface=clay');
   await expect(page.getByRole('link',{name:/Quitar filtro Temporada/})).toHaveCount(0);
   await page.getByRole('button',{name:/Filtrar partidos/}).click();

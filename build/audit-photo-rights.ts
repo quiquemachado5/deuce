@@ -55,8 +55,8 @@ async function main() {
   }
 
   const uniqueAssets = seen.size
-  if (uniqueAssets < 900) failures.push(`licensed asset coverage regressed: ${uniqueAssets} < 900`)
-  if (Object.keys(publishableWtaPortraits).length < 100) failures.push('licensed WTA portrait coverage regressed below 100')
+  if (uniqueAssets < 930) failures.push(`licensed asset coverage regressed: ${uniqueAssets} < 930`)
+  if (Object.keys(publishableWtaPortraits).length < 190) failures.push('licensed WTA portrait coverage regressed below 190')
 
   console.log(JSON.stringify({
     verified: failures.length === 0,

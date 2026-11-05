@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { mockMatches } from '../lib/mocks';
 import { mergeTournamentEditionDetails } from '../lib/tournament-edition-data';
 import { circuitMatchContext } from '../lib/match-context';
-import { preparedMatch, preparedMatchDetail } from '../lib/revista/read-records';
+import { preparedMatch, preparedMatchDetail, recoverMatchDetail } from '../lib/revista/read-records';
 
 test('edition detail preserves statistics while history and the second circuit remain navigable', () => {
   const detailed={...mockMatches[0],match_id:'edition-atp',tour:'atp' as const,year:2026};
@@ -28,4 +28,18 @@ test('relationship context keeps competition-only matches inside their circuit',
 
 test('detail consumers share one cached loader and do not invoke context construction', () => {
   assert.strictEqual(preparedMatch,preparedMatchDetail);
+});
+
+test('a validated remote summary keeps a recent match available when its detail shard fails', async () => {
+  const summary={...mockMatches[0],match_id:'remote-only',statistics:[],point_tape:[]};
+  let reset=0,bundledLoads=0;
+  const recovered=await recoverMatchDetail('remote',summary,new Error('detail unavailable'),()=>{reset++;},async()=>{bundledLoads++;return undefined;});
+  assert.strictEqual(recovered,summary);
+  assert.equal(reset,1);
+  assert.equal(bundledLoads,0);
+});
+
+test('a bundled detail failure is not hidden by the remote recovery path', async () => {
+  const failure=new Error('bundled detail unavailable');
+  await assert.rejects(()=>recoverMatchDetail('bundled',undefined,failure,()=>{},async()=>undefined),failure);
 });

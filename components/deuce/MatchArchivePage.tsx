@@ -15,10 +15,10 @@ function matchDate(match: MatchRecord) {
   });
 }
 
-export function ArchiveMatchRow({ match, showContext = false, showTournamentContext = false, showAction = false }: { match: MatchRecord; showContext?: boolean; showTournamentContext?: boolean; showAction?: boolean }) {
+export function ArchiveMatchRow({ match, showContext = false, showTournamentContext = false, showAction = false, prefetch = false }: { match: MatchRecord; showContext?: boolean; showTournamentContext?: boolean; showAction?: boolean; prefetch?: boolean }) {
   const winner = resolvedWinner(match);
   const date = matchDate(match);
-  return <Link className={styles.archiveMatch} href={match.href} prefetch={false}>
+  return <Link className={styles.archiveMatch} href={match.href} prefetch={prefetch}>
     {showTournamentContext ? <div className={`${styles.archiveMatchContext} ${styles.archiveMatchContextProfile}`}><strong>{match.tournament}</strong><span>{match.round} · {date.long}</span></div> : showContext ? <div className={styles.archiveMatchContext}>{match.round} · {date.long}</div> : null}
     {match.players.map((player, side) => <div className={styles.archivePlayerRow} data-winner={winner === side || undefined} key={player.id}>
       <span className={styles.archivePlayer}>

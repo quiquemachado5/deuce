@@ -3330,8 +3330,7 @@ main:has(.deuce-comparison)+.deuce-footer{margin-top:22px!important}
 }
 
 .deuce-home>section:not(.hero),
-.deuce-coverage>section,
-.deuce-footer{content-visibility:auto;contain-intrinsic-size:auto 760px}
+.deuce-coverage>section{content-visibility:auto;contain-intrinsic-size:auto 760px}
 
 @media(min-width:901px){
   .topbar,.topbar.is-scrolled{width:min(1280px,calc(100% - 40px))!important}

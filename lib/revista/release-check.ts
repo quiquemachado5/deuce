@@ -2,6 +2,11 @@ import type { RecordManifest } from './snapshot';
 import type { EditionAudit } from '../edition-audit';
 import { editionCompleteness } from '../edition-audit';
 
+// This shelf is intentionally tied to the UTC calendar day. A circuit can
+// have documented matches on one date and none on the next, so its presence
+// is not persistent publication coverage.
+const EPHEMERAL_RECORD_PIECES = new Set(['tal-dia-como-hoy']);
+
 /** Intentional reductions require review, never an unnoticed degraded build. */
 export function assertReleaseCoverage(previous: RecordManifest, current: RecordManifest) {
   if (!Number.isSafeInteger(previous.matchCount) || !Array.isArray(previous.pieces)) throw new Error('Published baseline is invalid');
@@ -24,7 +29,11 @@ export function assertReleaseCoverage(previous: RecordManifest, current: RecordM
       const next = nextCatalogues[tour].find(piece => piece.id === metric.id);
       if (!next || next.sample < metric.sample) throw new Error(`Release would lose measured${tour === 'atp' ? '' : ` ${tour.toUpperCase()}`} coverage: ${metric.id}`);
     }
-    if (nextCatalogues[tour].length < priorCatalogues[tour].length) throw new Error(`Release would lose ${tour.toUpperCase()} record catalogue entries`);
+    const nextIds = new Set(nextCatalogues[tour].map(piece => piece.id));
+    const missing = priorCatalogues[tour]
+      .map(piece => piece.id)
+      .filter(id => !EPHEMERAL_RECORD_PIECES.has(id) && !nextIds.has(id));
+    if (missing.length) throw new Error(`Release would lose ${tour.toUpperCase()} record catalogue entries: ${missing.join(', ')}`);
   }
 }
 

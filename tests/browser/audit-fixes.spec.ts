@@ -60,7 +60,8 @@ test('player directory title, filters and empty WTA state are explicit', async (
   await expect(page.getByRole('heading', { level: 1, name: 'Jugadoras' })).toBeVisible();
   await expect(page.getByRole('navigation', { name: 'Circuito de jugadoras' })).toBeVisible();
   await expect(page).toHaveTitle(/Jugadoras WTA/);
-  await expect(page.locator('[class*="directoryStatus"]')).toContainText(/jugadoras/);
+  await expect(page.getByRole('searchbox', { name: 'Buscar en el directorio' })).toBeVisible();
+  await expect(page.getByText(/jugadoras · página/)).toHaveCount(0);
   if (!(await page.locator('main a[href^="/jugadores/"]').count())) {
     await expect(page.getByRole('heading', { name: 'El archivo WTA todavía no tiene temporadas publicadas' })).toBeVisible();
   }
@@ -87,7 +88,7 @@ test('profile, match and footer links expose the archive context', async ({ page
   await expect(page.getByRole('heading', { name: 'Cara a cara en todo el archivo' })).toBeVisible();
   await expect(page.locator('.pm-player a[href^="/jugadores/"]')).toHaveCount(2);
   await expect(page.locator('.pm-event h1 a[href^="/torneos/"]')).toBeVisible();
-  await expect(page.getByRole('navigation', { name: 'Navegación del pie' }).getByRole('link', { name: 'Historias' })).toBeAttached();
+  await expect(page.getByRole('navigation', { name: 'Navegación del pie' }).getByRole('link', { name: 'Cobertura' })).toBeAttached();
 });
 
 test('licence filters are labelled and the first result is reachable on a phone', async ({ page }) => {

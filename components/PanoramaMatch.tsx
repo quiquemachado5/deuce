@@ -182,12 +182,25 @@ function summaryMetrics(match: Match): ComparisonRow[] {
   const stat = (side: 1 | 2, name: string) =>
     findStat(match.statistics, side, name);
   const players = pressure(match);
+  const totalPoints = [stat(1, "Total points won"), stat(2, "Total points won")] as const;
+  const pointWins = totalPoints.map((item) => item?.won ?? null);
+  const measuredPoints = pointWins[0] !== null && pointWins[1] !== null && pointWins[0] + pointWins[1] > 0
+    ? pointWins[0] + pointWins[1]
+    : null;
   const aces = [stat(1, "Aces"), stat(2, "Aces")] as const;
   const breaks = [
     stat(1, "Break points converted"),
     stat(2, "Break points converted"),
   ] as const;
   return [
+    ...(measuredPoints
+      ? [{
+          key: "point-share",
+          label: "Dominio de puntos",
+          first: fractionValue(pointWins[0] as number, measuredPoints),
+          second: fractionValue(pointWins[1] as number, measuredPoints),
+        }]
+      : []),
     ...(aces.some(Boolean)
       ? [{
           key: "aces",
@@ -212,7 +225,7 @@ function summaryMetrics(match: Match): ComparisonRow[] {
           second: fractionValue(players[1].thirty[0], players[1].thirty[1]),
         }]
       : []),
-  ];
+  ].slice(0, 3);
 }
 
 function comparisonSentence(match: Match, games: [number, number]) {
@@ -548,11 +561,6 @@ export default function PanoramaMatch({
   const photo = courtPhoto(match.tournament);
   const groups = comparisonRows(match);
   const hasPressure = groups.some((group) => group.key === "return-pressure");
-  const dataScope=match.point_tape.length
-    ?{label:'Punto a punto disponible',copy:`Esta ficha incluye ${match.point_tape.length} ${match.point_tape.length===1?'punto publicado':'puntos publicados'} y muestra las estadísticas disponibles.`}
-    :match.statistics.length
-      ?{label:'Estadísticas disponibles',copy:'Esta ficha incluye medidas del partido. El proveedor no publicó una secuencia punto a punto.'}
-      :{label:'Solo resultado',copy:'La ficha se limita al marcador y al contexto publicado. No se atribuyen estadísticas ni una secuencia punto a punto inexistentes.'};
   const current = active === "estadisticas" && !groups.length
     ? "resumen"
     : active === "presion" && !hasPressure
@@ -602,7 +610,6 @@ export default function PanoramaMatch({
         hasPressure={hasPressure}
         hasHeadToHead={Boolean(rivalry)}
       />
-      <aside className="pm-data-scope" aria-label="Cobertura de datos del partido"><strong>{dataScope.label}</strong><span>{dataScope.copy}</span></aside>
       <Summary match={match} />
       <Statistics match={match} groups={groups} />
       {rivalry ? <HeadToHead rivalry={rivalry} names={names} tour={tour} /> : null}
