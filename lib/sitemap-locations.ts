@@ -22,7 +22,6 @@ export const SITEMAP_STATIC_PATHS = [
   '/info',
   '/licencias',
   '/cobertura',
-  '/historias',
   '/sobre',
 ] as const;
 

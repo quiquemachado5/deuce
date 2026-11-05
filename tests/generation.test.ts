@@ -134,6 +134,8 @@ test('release gate rejects losses of published matches or measured coverage', ()
   const wtaUnmeasured = { ...wtaMetric, measured: false };
   const withWtaUnmeasured = { ...previous, circuitPieces: { atp: previous.pieces, wta: [wtaUnmeasured] } };
   assert.throws(() => assertReleaseCoverage(withWtaUnmeasured, { ...withWtaUnmeasured, circuitPieces: { atp: withWtaUnmeasured.pieces, wta: [] } }), /lose WTA record catalogue/);
+  const datedWta = { ...previous, circuitPieces: { atp: previous.pieces, wta: [{ ...wtaUnmeasured, id: 'tal-dia-como-hoy' }] } };
+  assert.doesNotThrow(() => assertReleaseCoverage(datedWta, { ...datedWta, circuitPieces: { atp: datedWta.pieces, wta: [] } }));
   assert.throws(() => assertReleaseCoverage(withWta, { ...withWta, circuitPieces: { atp: withWta.pieces, wta: [] } }), /measured WTA coverage/);
   assert.throws(() => assertReleaseCoverage(withWta, { ...withWta, circuitPieces: { atp: withWta.pieces, wta: [{ ...wtaMetric, sample: 7 }] } }), /measured WTA coverage/);
 });

@@ -1,9 +1,7 @@
 .latestResult{position:relative;min-width:0}
-.latestResult>:global(a){min-height:190px;padding:42px 22px 22px!important;align-content:center;border-radius:26px!important;background:var(--search-quiet)!important;box-shadow:inset 0 0 0 1px rgba(12,45,35,.06)}
+.latestResult>:global(a){min-height:190px;padding:28px 22px 22px!important;align-content:center;border-radius:26px!important;background:var(--search-quiet)!important;box-shadow:inset 0 0 0 1px rgba(12,45,35,.06)}
 .latestResult>:global(a):hover{transform:translateY(-2px);background:#eef3f0!important}
 .latestResult>:global(a)::after{content:'→';position:absolute;right:20px;bottom:18px;font-size:17px;font-weight:650;line-height:1}
-.tourBadge{position:absolute;z-index:2;top:16px;left:22px;padding:4px 8px;border-radius:999px;background:#173e33;color:#fff;font-size:9px;font-weight:800;letter-spacing:.09em;line-height:1;text-transform:uppercase;pointer-events:none}
-.latestResult[data-tour='wta'] .tourBadge{background:#dff0e8;color:#14382e}
 
 .recordShowcase{grid-template-columns:minmax(0,1.15fr) repeat(2,minmax(0,.85fr));grid-template-rows:repeat(2,minmax(250px,1fr)) minmax(230px,.68fr)}
 .recordShowcase>:first-child{grid-column:1;grid-row:1/3}

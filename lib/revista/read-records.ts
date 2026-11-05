@@ -592,6 +592,23 @@ export const preparedPlayerArchive = cache(async () => {
  return {matches,records,manifest:generation.manifest,source:generation.source,fallbackReason:generation.fallbackReason};
 });
 
+/**
+ * A validated browser summary is a truthful result-only fallback when the
+ * larger remote detail shard is temporarily unavailable. It never triggers a
+ * provider request and never promotes missing statistics or point data.
+ */
+export async function recoverMatchDetail(
+ source:'bundled'|'remote',
+ summary:Match|undefined,
+ error:unknown,
+ resetRemote:()=>void,
+ loadBundled:()=>Promise<Match|undefined>,
+) {
+ if(source!=='remote')throw error;
+ resetRemote();
+ return summary||loadBundled();
+}
+
 /** Only the requested circuit's full-detail partitions are inflated. */
 export const preparedTourArchive=cache(async(tour:'atp'|'wta'):Promise<Match[]>=>{
  return loadPartitionedArchive(await selectedSnapshotSource(),tour);
@@ -599,15 +616,26 @@ export const preparedTourArchive=cache(async(tour:'atp'|'wta'):Promise<Match[]>=
 
 /** Detail readers never allocate the relationship array used by the page. */
 export const preparedMatchDetail=cache(async(id:string)=>{
- const source=await selectedSnapshotSource();
+ let source=await selectedSnapshotSource();
  return matchDetails(`${source.manifest.version}:${source.source}:${id}`,async()=>{
-  const summary=(await preparedCompactSelection({ids:[id]}))[0];
-  if(!summary)return (await selectedCompetition(source)).find(candidate=>candidate.match_id===id);
-  const meta=source.manifest.matchPartitions?.find(partition=>partition.tour===(summary.tour||'atp')&&summary.year>=partition.fromYear&&summary.year<=partition.toYear);
-  if(!meta)throw new Error(`Missing detail partition for ${id}`);
-  const match=(await selectFullPartition(source,meta,candidate=>candidate.match_id===id,true))[0];
-  if(!match)throw new Error(`Match ${id} is absent from ${meta.id}`);
-  return match;
+  let summary:Match|undefined;
+  const load=async()=>{
+   const selected=(await preparedCompactSelection({ids:[id]}))[0];
+   summary=selected;
+   if(!selected)return (await selectedCompetition(source)).find(candidate=>candidate.match_id===id);
+   const meta=source.manifest.matchPartitions?.find(partition=>partition.tour===(selected.tour||'atp')&&selected.year>=partition.fromYear&&selected.year<=partition.toYear);
+   if(!meta)throw new Error(`Missing detail partition for ${id}`);
+   const match=(await selectFullPartition(source,meta,candidate=>candidate.match_id===id,true))[0];
+   if(!match)throw new Error(`Match ${id} is absent from ${meta.id}`);
+   return match;
+  };
+  try{return await load();}
+  catch(error){
+   return recoverMatchDetail(source.source,summary,error,rejectRemoteSnapshot,async()=>{
+    source=await selectedSnapshotSource();
+    return load();
+   });
+  }
  });
 });
 

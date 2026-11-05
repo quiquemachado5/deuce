@@ -86,8 +86,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
   });
   if (query.category && !categories.includes(query.category)) delete query.category;
   if (query.tournament && !tournament) delete query.tournament;
-  const hasScopeFilter = Boolean(query.q || query.vista === 'torneos' || query.surface || query.tournament || query.category || query.round || query.age || query.fromYear || query.toYear || query.fiveSets === 'true' || query.data);
-  const selectedYear = query.year === 'all' ? null : query.year ? Number(query.year) : hasScopeFilter ? null : years[0];
+  const selectedYear = query.year && query.year !== 'all' ? Number(query.year) : null;
   const requestedLimit = Number(query.limit);
   const dailyLimit = Number.isFinite(requestedLimit) && requestedLimit > 0 ? Math.max(2, Math.floor(requestedLimit)) : 2;
   const seasonLimit = Number.isFinite(requestedLimit) && requestedLimit > 0 ? Math.max(3, Math.floor(requestedLimit)) : 3;

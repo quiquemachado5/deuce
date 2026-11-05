@@ -76,31 +76,32 @@ export default async function Players({ searchParams }: {
   return <div className={`view-root player-directory ${styles.page}`}>
     <header className={`inner-title ${styles.intro}`}>
       <h1>{query.tour === 'wta' ? 'Jugadoras' : 'Jugadores'}</h1>
-      <div className="inner-title-tools"><TournamentFilters ariaLabel={query.tour==='wta'?'Circuito de jugadoras':'Circuito de jugadores'} items={[
-        {href:url({tour:'atp',page:'1'}),label:'ATP',active:query.tour==='atp'},
-        {href:url({tour:'wta',page:'1'}),label:'WTA',active:query.tour==='wta'},
-      ]}/></div>
+      <div className={styles.introTools}>
+        <div className="inner-title-tools"><TournamentFilters ariaLabel={query.tour==='wta'?'Circuito de jugadoras':'Circuito de jugadores'} items={[
+          {href:url({tour:'atp',page:'1'}),label:'ATP',active:query.tour==='atp'},
+          {href:url({tour:'wta',page:'1'}),label:'WTA',active:query.tour==='wta'},
+        ]}/></div>
+        <form key={`${query.tour}|${query.q || ''}|${order}`} className={styles.directoryTools} action="/jugadores" method="get" role="search">
+          <label>
+            <span className="sr-only">Buscar en el directorio</span>
+            <input name="q" type="search" defaultValue={query.q || ''} placeholder={query.tour === 'wta' ? 'Buscar jugadora' : 'Buscar jugador'} />
+          </label>
+          <label>
+            <span className="sr-only">Ordenar</span>
+            <select name="orden" defaultValue={order} aria-label="Ordenar directorio">
+              <option value="relevance">Trayectoria</option>
+              <option value="wins">Victorias</option>
+              <option value="name">Nombre</option>
+            </select>
+          </label>
+          {query.tour === 'wta' && <input type="hidden" name="tour" value="wta" />}
+          <button type="submit">Buscar</button>
+          {(query.q || order !== 'relevance') && <Link className={styles.directoryClear} href={query.tour === 'wta' ? '/jugadores?tour=wta' : '/jugadores'}>Limpiar</Link>}
+        </form>
+      </div>
     </header>
 
     <div className={styles.content}>
-      <form key={`${query.tour}|${query.q || ''}|${order}`} className={styles.directoryTools} action="/jugadores" method="get" role="search">
-        <label>
-          <span>Buscar en el directorio</span>
-          <input name="q" type="search" defaultValue={query.q || ''} placeholder={query.tour === 'wta' ? 'Nombre de jugadora' : 'Nombre de jugador'} />
-        </label>
-        <label>
-          <span>Ordenar</span>
-          <select name="orden" defaultValue={order}>
-            <option value="relevance">Trayectoria</option>
-            <option value="wins">Victorias</option>
-            <option value="name">Nombre</option>
-          </select>
-        </label>
-        {query.tour === 'wta' && <input type="hidden" name="tour" value="wta" />}
-        <button type="submit">Aplicar</button>
-        {(query.q || order !== 'relevance') && <Link className={styles.directoryClear} href={query.tour === 'wta' ? '/jugadores?tour=wta' : '/jugadores'}>Limpiar</Link>}
-      </form>
-      <p className={styles.directoryStatus} aria-live="polite">{number(total)} {query.tour === 'wta' ? (total === 1 ? 'jugadora' : 'jugadoras') : (total === 1 ? 'jugador' : 'jugadores')} · página {number(page)} de {number(Math.max(1, Math.ceil(total / 25)))}</p>
       {!pairs && term && <p className="sr-only" aria-live="polite">{number(total)} {query.tour==='wta'?(total===1?'jugadora encontrada':'jugadoras encontradas'):(total === 1 ? 'jugador encontrado' : 'jugadores encontrados')}.</p>}
 
       {!pairs && visiblePlayers.length > 0 && <section className={styles.playerGrid} aria-label={term?(query.tour==='wta'?'Resultados de jugadoras':'Resultados de jugadores'):(query.tour==='wta'?'Directorio de jugadoras':'Directorio de jugadores')}>

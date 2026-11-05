@@ -18,7 +18,6 @@ function FooterNavigationLinks({ circuit }: { circuit: Circuit }) {
     </div>
     <div>
       <strong>Archivo</strong>
-      <Link href="/historias">Historias</Link>
       <Link href="/cobertura">Cobertura</Link>
     </div>
     <div>
@@ -36,14 +35,8 @@ function CircuitAwareFooterNavigation() {
 }
 
 export function DeuceFooter() {
-  return <footer className="deuce-footer" aria-labelledby="deuce-footer-title">
-    <div className="footer-atmosphere">
-      <div className="footer-atmosphere-inner">
-        <p className="footer-kicker">Archivo estadístico · ATP + WTA</p>
-        <h2 id="deuce-footer-title">Partidos, carreras y récords.<span>En un solo archivo.</span></h2>
-        <p className="footer-stage-note">Datos para volver a cada partido y entender lo que dejó.</p>
-      </div>
-    </div>
+  return <footer className="deuce-footer" aria-label="Pie de página">
+    <div className="footer-atmosphere" aria-hidden="true" />
     <div className="footer-directory">
       <div className="footer-brand">
         <Link className="logo footer-logo" href="/" aria-label="DEUCE, inicio"><span aria-hidden="true" />DEUCE</Link>

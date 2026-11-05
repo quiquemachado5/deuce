@@ -12,7 +12,7 @@ async function files(dir,extension){
   }
   return found;
 }
-const thresholds={html:450_000,routeCss:650_000,routeJs:1_250_000,sourceCss:925_000,sourceCssFile:260_000,desktopVideo:7_000_000,mobileVideo:1_500_000,clientComponents:73,standalone:165_000_000};
+const thresholds={html:450_000,routeCss:650_000,routeJs:1_250_000,sourceCss:925_000,sourceCssFile:260_000,heroPoster:100_000,clientComponents:73,standalone:165_000_000};
 const warn=(name,value,maximum)=>{const utilization=value/maximum;if(utilization>=.85)warnings.push(`${name}: ${(utilization*100).toFixed(1)}% of budget (${value}/${maximum})`);return utilization;};
 const htmlFiles=await files(join(next,'server','app'),'.html');
 if(!htmlFiles.length)failures.push('No prerendered HTML was found; run the production build first');
@@ -29,10 +29,8 @@ for(const path of htmlFiles){
   if(js>thresholds.routeJs)failures.push(`${page}: JS ${js} > ${thresholds.routeJs}`);
   warn(`${page} HTML`,htmlBytes,thresholds.html);warn(`${page} CSS`,css,thresholds.routeCss);warn(`${page} JS`,js,thresholds.routeJs);
 }
-for(const [name,maximum] of [['tennis-hero.mp4',thresholds.desktopVideo],['tennis-hero-mobile.mp4',thresholds.mobileVideo]]){
-  const bytes=(await stat(join(root,'public','videos',name))).size;
-  if(bytes>maximum)failures.push(`${name}: ${bytes} > ${maximum}`);
-}
+const posterBytes=(await stat(join(root,'public','videos','tennis-hero-poster.webp'))).size;
+if(posterBytes>thresholds.heroPoster)failures.push(`tennis-hero-poster.webp: ${posterBytes} > ${thresholds.heroPoster}`);
 const sources=[...await files(join(root,'app'),'.tsx'),...await files(join(root,'components'),'.tsx')];
 const sourceCss=[...await files(join(root,'app'),'.css'),...await files(join(root,'components'),'.css'),...await files(join(root,'styles'),'.css')];
 const sourceCssRows=await Promise.all(sourceCss.map(async path=>({path:relative(root,path),bytes:(await stat(path)).size})));
