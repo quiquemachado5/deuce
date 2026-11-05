@@ -36,6 +36,11 @@ export type CoverageReconciliation = {
   issues: CoverageIssue[];
 };
 
+const sortIssues = (issues: CoverageIssue[]) => issues.sort((a, b) => {
+  const priority = { confirmed: 0, queued: 1, review: 2 } as const;
+  return priority[a.state] - priority[b.state] || (b.year || 0) - (a.year || 0) || a.title.localeCompare(b.title, 'es');
+});
+
 const tourOf = (value: Match | EditionAudit): Tour => value.tour === 'wta' ? 'wta' : 'atp';
 
 function drawIssue(row: EditionAudit, state: CoverageIssueState): CoverageIssue {
@@ -131,11 +136,7 @@ export function reconcileCoverage(
       category: level,
     };
   });
-  const issues = [...confirmed, ...conflicts, ...rankingGroups.values(), ...history, ...verification]
-    .sort((a, b) => {
-      const priority = { confirmed: 0, queued: 1, review: 2 } as const;
-      return priority[a.state] - priority[b.state] || (b.year || 0) - (a.year || 0) || a.title.localeCompare(b.title, 'es');
-    });
+  const issues = sortIssues([...confirmed, ...conflicts, ...rankingGroups.values(), ...history, ...verification]);
   return {
     summary: {
       editions: audits.length,
@@ -147,5 +148,26 @@ export function reconcileCoverage(
       pendingRows: audits.reduce((sum, row) => sum + row.pending, 0),
     },
     issues,
+  };
+}
+
+/** Recalculate draw rows after identity rules change while retaining the
+ * already-published conflict, ranking and historical review evidence. */
+export function normalizeCoverageReconciliation(
+  report: CoverageReconciliation,
+  audits: readonly EditionAudit[],
+): CoverageReconciliation {
+  const drawReport = reconcileCoverage([], audits, []);
+  const draws = drawReport.issues.filter(issue => issue.kind === 'draw' || issue.kind === 'verification');
+  const retained = report.issues.filter(issue => issue.kind !== 'draw' && issue.kind !== 'verification');
+  return {
+    summary: {
+      ...report.summary,
+      editions: drawReport.summary.editions,
+      confirmed: drawReport.summary.confirmed,
+      verification: drawReport.summary.verification,
+      pendingRows: drawReport.summary.pendingRows,
+    },
+    issues: sortIssues([...draws, ...retained]),
   };
 }

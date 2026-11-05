@@ -6,6 +6,7 @@ import { join } from 'node:path'
 import {
   acquireArchiveLease,
   archiveStoreReport,
+  cloneArchiveObject,
   deleteArchiveKeys,
   listArchiveKeys,
   readArchiveObject,
@@ -21,9 +22,15 @@ test('filesystem archive writes atomically, reports usage and excludes concurren
     await writeArchiveObjects([{ key: 'deduplicated', payload: { version: 1 } }, { key: 'deduplicated', payload: { version: 2 } }])
     assert.deepEqual(await readArchiveObject('sync-status'), { status: 'success' })
     assert.deepEqual(await readArchiveObject('deduplicated'), { version: 2 })
+    assert.equal(await cloneArchiveObject('deduplicated', 'deduplicated-copy'), true)
+    assert.deepEqual(await readArchiveObject('deduplicated-copy'), { version: 2 })
+    await writeArchiveObjects([{ key: 'deduplicated-copy', payload: { version: 'stale' } }])
+    assert.equal(await cloneArchiveObject('deduplicated', 'deduplicated-copy'), true)
+    assert.deepEqual(await readArchiveObject('deduplicated-copy'), { version: 2 })
+    assert.equal(await cloneArchiveObject('missing', 'missing-copy'), false)
     assert.deepEqual(await listArchiveKeys('detail-'), ['detail-modern-1'])
     const report = await archiveStoreReport()
-    assert.equal(report?.objects, 3)
+    assert.equal(report?.objects, 4)
     assert.equal(report?.details, 1)
     assert.ok((report?.payloadBytes || 0) > 0)
 

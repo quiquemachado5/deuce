@@ -1,0 +1,65 @@
+groups:
+  - name: deuce-production
+    rules:
+      - alert: DeuceTargetUnavailable
+        expr: up{job=~"deuce-app|deuce-caddy"} == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "{{ $labels.job }} no responde"
+          description: "Prometheus no puede consultar {{ $labels.instance }} desde hace dos minutos."
+
+      - alert: DeuceElevatedServerErrors
+        expr: sum(rate(caddy_http_requests_total{code=~"5.."}[5m])) / clamp_min(sum(rate(caddy_http_requests_total[5m])), 0.001) > 0.03
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Más del 3 % de respuestas son errores 5xx"
+          description: "La proporción de errores del proxy lleva diez minutos por encima del umbral."
+
+      - alert: DeuceProviderReserveReached
+        expr: deuce_operational_value{name="providerSafeAvailable"} <= 0
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "La reserva de llamadas del proveedor está agotada"
+          description: "Los procesos de ingestión deben permanecer detenidos hasta el siguiente reinicio de cuota."
+
+      - alert: DeuceBackupStale
+        expr: deuce_operational_value{name="backupAgeSeconds"} > 129600
+        for: 15m
+        labels:
+          severity: critical
+        annotations:
+          summary: "La última copia verificada supera 36 horas"
+          description: "Revisar deuce-backup.service y el remoto configurado."
+
+      - alert: DeuceHostMemoryLow
+        expr: deuce_operational_value{name="hostAvailableMemoryBytes"} < 402653184
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "El VPS dispone de menos de 384 MiB"
+          description: "Revisar consumo de contenedores antes de que el kernel termine procesos."
+
+      - alert: DeuceRateLimitActive
+        expr: sum(increase(caddy_http_requests_total{code="429"}[15m])) > 100
+        for: 5m
+        labels:
+          severity: info
+        annotations:
+          summary: "La barrera perimetral está rechazando tráfico sostenido"
+          description: "Más de cien solicitudes recibieron 429 en los últimos quince minutos."
+
+      - alert: DeuceRepeatedAuthenticationFailures
+        expr: sum(increase(deuce_security_events_total{outcome="denied"}[10m])) > 20
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Autenticaciones internas rechazadas de forma repetida"
+          description: "Revisar los eventos security.auth.denied y el acceso al endpoint afectado."

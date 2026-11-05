@@ -1,6 +1,7 @@
 import type { Match, Tour } from "./types";
 import { prepareMatch, eligibleMatch } from "./quality";
 import { roundPosition } from "./editorial";
+import { canonicalTournamentName } from "./tournament-identity";
 export type EditionAudit = {
   tournament: string;
   tour?: Tour;
@@ -38,11 +39,12 @@ export function auditEditions(source: Match[]): EditionAudit[] {
   const groups = new Map<string, EditionAudit>();
   const ids = new Set<string>();
   for (const row of source) {
-    const m = prepareMatch(row),
-      key = [m.tournament, m.year, m.category, m.tour || 'atp'].join("|");
+    const m = prepareMatch(row), tour = m.tour || 'atp',
+      tournament = canonicalTournamentName(m.tournament, m.year, m.category, tour),
+      key = [tournament, m.year, m.category, tour].join("|");
     const a = groups.get(key) || {
-      tournament: m.tournament,
-      tour: m.tour || 'atp',
+      tournament,
+      tour,
       year: m.year,
       category: m.category,
       sourceRows: 0,
@@ -75,5 +77,38 @@ export function auditEditions(source: Match[]): EditionAudit[] {
       b.year - a.year ||
       b.pending - a.pending ||
       a.tournament.localeCompare(b.tournament, "es"),
+  );
+}
+
+/**
+ * Old immutable snapshots can predate a reviewed venue alias. Merge only
+ * editions that the current circuit-aware identity rules prove equivalent,
+ * then recompute completeness instead of hiding either source row.
+ */
+export function normalizeEditionAudits(source: readonly EditionAudit[]): EditionAudit[] {
+  const groups = new Map<string, EditionAudit>();
+  for (const row of source) {
+    const tour = row.tour === 'wta' ? 'wta' : 'atp';
+    const tournament = canonicalTournamentName(row.tournament, row.year, row.category, tour);
+    const key = [tournament, row.year, row.category, tour].join('|');
+    const saved = groups.get(key);
+    if (!saved) {
+      groups.set(key, { ...row, tournament, tour, rounds: { ...row.rounds } });
+      continue;
+    }
+    saved.sourceRows += row.sourceRows;
+    saved.completed += row.completed;
+    saved.terminal += row.terminal;
+    saved.pending += row.pending;
+    saved.duplicateIds = (saved.duplicateIds || 0) + (row.duplicateIds || 0) || undefined;
+    saved.hasFinal ||= row.hasFinal;
+    for (const [round, count] of Object.entries(row.rounds)) saved.rounds[round] = (saved.rounds[round] || 0) + count;
+    if (saved.drawSize !== row.drawSize || saved.drawSizeSource !== row.drawSizeSource) {
+      saved.drawSize = Math.max(saved.drawSize || 0, row.drawSize || 0) || undefined;
+      saved.drawSizeSource = undefined;
+    }
+  }
+  return [...groups.values()].map(row => ({ ...row, ...editionCompleteness(row) })).sort(
+    (a, b) => b.year - a.year || b.pending - a.pending || a.tournament.localeCompare(b.tournament, 'es'),
   );
 }

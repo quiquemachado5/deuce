@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { datasetEtag, requestCacheScope, versionedJson } from '../lib/http-cache';
-import { observeApiRequest, observeClientTelemetry, renderPrometheusMetrics, resetRuntimeMetrics, telemetryRoute } from '../lib/runtime-metrics';
+import { observeApiRequest, observeClientTelemetry, observeSecurityEvent, renderPrometheusMetrics, resetRuntimeMetrics, telemetryRoute } from '../lib/runtime-metrics';
 import { GET as metricsRoute } from '../app/api/metrics/route';
 import { POST as telemetryEndpoint } from '../app/api/telemetry/route';
 
@@ -32,6 +32,14 @@ test('Prometheus metrics expose finite durable operation gauges',()=>{
   const output=renderPrometheusMetrics({}, {providerRemaining:812,providerReserve:200,publicationPeakRssBytes:1234});
   assert.match(output,/deuce_operational_value\{name="providerRemaining"\} 812/);
   assert.doesNotMatch(output,/NaN|undefined/);
+});
+
+test('Prometheus metrics persist bounded security outcomes without request data',()=>{
+  resetRuntimeMetrics();
+  observeSecurityEvent('cron.publish','denied');
+  const output=renderPrometheusMetrics();
+  assert.match(output,/deuce_security_events_total\{surface="cron.publish",outcome="denied"\} 1/);
+  assert.doesNotMatch(output,/token|authorization|203\.0\.113/iu);
 });
 
 test('browser telemetry is aggregated into bounded route families',()=>{

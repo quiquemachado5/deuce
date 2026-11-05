@@ -29,6 +29,7 @@ web_id="$("${compose[@]}" ps -q web)"
 web_state="$(service_state web)"
 scheduler_state="$(service_state scheduler)"
 proxy_state="$(service_state caddy)"
+metrics_state="$(service_state prometheus)"
 disk_used="$(df -P "${ROOT}" | awk 'NR==2 {gsub(/%/,"",$5); print $5}')"
 available_memory="$(( $(awk '/MemAvailable:/ {print $2}' /proc/meminfo) * 1024 ))"
 web_limit="$(docker inspect --format '{{.HostConfig.Memory}}' "${web_id}")"
@@ -42,8 +43,8 @@ fi
 status=healthy
 if (( disk_used >= 85 || available_memory < 402653184 || web_memory <= 0 || web_limit <= 0 || web_memory * 100 >= web_limit * 90 )); then status=degraded; fi
 if [[ "${web_state}" != healthy || "${scheduler_state}" != healthy || "${proxy_state}" != healthy ]]; then status=degraded; fi
-payload="$(printf '{"status":"%s","at":"%s","diskUsedPercent":%s,"availableMemoryBytes":%s,"webMemoryBytes":%s,"webMemoryLimitBytes":%s,"web":"%s","scheduler":"%s","proxy":"%s"}' \
-  "${status}" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "${disk_used}" "${available_memory}" "${web_memory}" "${web_limit}" "${web_state}" "${scheduler_state}" "${proxy_state}")"
+payload="$(printf '{"status":"%s","at":"%s","diskUsedPercent":%s,"availableMemoryBytes":%s,"webMemoryBytes":%s,"webMemoryLimitBytes":%s,"web":"%s","scheduler":"%s","proxy":"%s","metrics":"%s"}' \
+  "${status}" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "${disk_used}" "${available_memory}" "${web_memory}" "${web_limit}" "${web_state}" "${scheduler_state}" "${proxy_state}" "${metrics_state}")"
 printf '%s' "${payload}" | docker exec -i "${web_id}" node -e '
   const {readFile,rename,writeFile}=require("node:fs/promises"),{join}=require("node:path");
   (async()=>{let input="";for await(const chunk of process.stdin)input+=chunk;JSON.parse(input);

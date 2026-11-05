@@ -35,7 +35,15 @@ assert.equal(pointer,baseline,'Failed upload must preserve the active pointer');
 let retryWrites=0;
 await publishRecordSnapshot(snapshot,{read:async()=>published,write:async()=>{retryWrites++;}});
 assert.equal(retryWrites,0,'A completed retry must not upload the generation again');
-console.log(JSON.stringify({matches:manifest.matchCount,tours:manifest.summary.tours,logicalArtifacts,uploads,uncompressedPackBytes:bytes,version:published.version,checks:['pointer-last','checksum round trip','failed upload preserves pointer','completed retry writes nothing'],scope:'Local generation and injected storage; no network writes'}));
+let reused=0,incrementalWrites:string[]=[];
+await publishRecordSnapshot(snapshot,{read:async()=>baseline,reuse:async(source,destination)=>{
+  assert.match(source,new RegExp(`^reading-v2-${baseline.version}-pack-`));
+  assert.match(destination,new RegExp(`^reading-v2-${snapshot.manifest.version}-pack-`));
+  reused++;return true;
+},write:async key=>{incrementalWrites.push(key)}});
+assert.ok(reused>0,'An unchanged generation must reuse immutable packs');
+assert.deepEqual(incrementalWrites,['reading-v2-manifest'],'Only the authoritative pointer is rewritten after complete pack reuse');
+console.log(JSON.stringify({matches:manifest.matchCount,tours:manifest.summary.tours,logicalArtifacts,uploads,reused,uncompressedPackBytes:bytes,version:published.version,checks:['pointer-last','checksum round trip','failed upload preserves pointer','completed retry writes nothing','unchanged packs reused'],scope:'Local generation and injected storage; no network writes'}));
 
 }
 main().catch(error=>{console.error(error);process.exitCode=1;});

@@ -3,7 +3,7 @@ import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { gzipSync, gunzipSync } from 'node:zlib';
 import { reconcileSeasonResults, type SeasonCheckpoint } from '../lib/result-refresh';
-import { isProviderFreeHistoryLimit, providerQuotaRetryAt } from '../lib/provider-quota';
+import { isProviderFreeHistoryLimit, providerMinimumReserve, providerQuotaRetryAt } from '../lib/provider-quota';
 import {
   WTA_HISTORICAL_ARCHIVE_LEVELS,
   WTA_HISTORICAL_FIRST_YEAR,
@@ -100,6 +100,10 @@ async function modernSeason(season: number, currentYear: number) {
     save: checkpoint => writeGzip(checkpointFile, checkpoint),
   });
   if (result.data.some(row => row.tour !== 'wta')) throw new Error(`Circuit contamination in WTA ${season}`);
+  if (saved?.complete && result.fresh.length === 0) {
+    await rm(checkpointFile, { force: true });
+    return { skipped: false, unchanged: true, rows: saved.data.length, fresh: 0 };
+  }
   await writeGzip(destination, { ...result, complete: true });
   await rm(checkpointFile, { force: true });
   return { skipped: false, rows: result.data.length, fresh: result.fresh.length };
@@ -144,9 +148,10 @@ async function main() {
   await mkdir(checkpointRoot, { recursive: true });
   const quota = await usage();
   const remaining = Number(quota.today?.remaining_day || 0);
-  allowance = Math.max(0, Math.min(Number.isFinite(requested) ? requested : 90, remaining - 5));
+  const reserve = providerMinimumReserve();
+  allowance = Math.max(0, Math.min(Number.isFinite(requested) ? requested : 90, remaining - reserve));
   const report: Record<string, unknown> = {
-    startedAt: new Date().toISOString(), availableAtStart: remaining, callBudget: allowance,
+    startedAt: new Date().toISOString(), availableAtStart: remaining, reserve, callBudget: allowance,
     scope: { tour: 'wta', historyOnly, firstYear, maximumYear, priorityThroughYear,
       levels: historicalLevels.length ? historicalLevels : 'seasonal-provider-levels' },
     modern: [], archive: [],

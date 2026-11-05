@@ -15,12 +15,14 @@
     "typecheck": "tsc --noEmit",
     "test": "node --import ./build/register.mjs --import tsx --test tests/*.test.ts && node --test tests/*.test.mjs",
     "test:browser": "playwright test",
+    "test:browser:smoke": "playwright test tests/browser/shell.spec.ts tests/browser/archive.spec.ts tests/browser/circuit-flow.spec.ts",
     "data:prepare": "npm run data:rebuild",
     "data:rebuild": "node --import ./build/register.mjs --import tsx build/prepare-records.ts",
     "data:ensure": "node build/ensure-snapshot.mjs",
     "data:local": "node build/prepare-local-snapshot.mjs",
     "data:snapshot:export": "node build/snapshot-artifact.mjs export",
     "data:snapshot:restore": "node build/snapshot-artifact.mjs restore --target=.deuce-cache/reading",
+    "data:snapshot:rollback": "node build/snapshot-artifact.mjs rollback --target=.deuce-cache/reading",
     "data:verify": "node --import ./build/register.mjs --import tsx build/verify-archive.ts",
     "data:evidence": "node --import ./build/register.mjs --import tsx build/verify-evidence.ts",
     "data:restore-drill": "node build/restore-drill.mjs",
@@ -28,7 +30,8 @@
     "data:wta:backfill:historical": "npm run data:wta:backfill -- --history-only --through-year=2019",
     "data:wta:derive": "node --import ./build/register.mjs --import tsx build/derive-wta-cohorts.ts",
     "data:wta:audit": "node --import ./build/register.mjs --import tsx build/audit-wta-cohorts.ts",
-    "storage:seed": "node --import ./build/register.mjs --import tsx build/seed-blob-archive.ts",
+    "data:integrity-queue": "node --import ./build/register.mjs --import tsx build/build-integrity-repair-queue.ts",
+    "storage:seed": "node --import ./build/register.mjs --import tsx build/seed-archive.ts",
     "media:verify": "node --import ./build/register.mjs --import tsx build/audit-tournament-media.ts && node --import ./build/register.mjs --import tsx build/audit-photo-rights.ts",
     "media:players": "node build/discover-player-photos.mjs --scan=250 --max=100",
     "media:thumbnails": "node build/generate-player-avatar-thumbnails.mjs",
@@ -38,7 +41,7 @@
     "performance:verify": "node --import ./build/register.mjs --import tsx build/verify-performance.ts",
     "monitor:check": "node ops/monitor.mjs --check-only",
     "vps:preflight": "node ops/vps/preflight.mjs",
-    "verify": "npm run test && npm run lint && npm run typecheck && npm run media:verify && npm run data:verify && npm run data:wta:audit && npm run performance:verify && npm run budgets:verify",
+    "verify": "npm run test && npm run lint && npm run typecheck && npm run media:verify && npm run data:verify && npm run data:wta:audit && npm run data:integrity-queue && npm run performance:verify && npm run budgets:verify",
     "data:verify-publication": "node --import ./build/register.mjs --import tsx build/verify-publication-packs.ts",
     "media:wta:discover": "node build/discover-player-photos.mjs --tour=wta --scan=400 --max=100",
     "media:wta:bios:local": "node build/index-wta-player-bios.mjs",
@@ -46,7 +49,6 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "2.118.0",
-    "@vercel/blob": "2.8.2",
     "lucide-react": "^0.441.0",
     "next": "16.4.5",
     "react": "^19.3.1",
@@ -69,9 +71,6 @@
     "typescript": "^5.7.0"
   },
   "overrides": {
-    "minimatch": "11.0.1",
-    "@vercel/cli-config": {
-      "zod": "4.6.7"
-    }
+    "minimatch": "11.0.1"
   }
 }

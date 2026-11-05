@@ -38,7 +38,9 @@ const venueAliases: Record<string, string> = {
   'madrid (spain), clay': 'Madrid',
   'rome (italy)': 'Rome',
   roma: 'Rome',
+  's-hertogenbosch, netherlands': 'Hertogenbosch',
   'stuttgart, germany': 'Stuttgart',
+  'strasbourg, france': 'Strasbourg',
 };
 
 const atpVenueAliases: Record<string, string> = {

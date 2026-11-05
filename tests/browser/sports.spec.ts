@@ -5,10 +5,12 @@ test('home exposes useful archive entry points without repeating its content', a
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/');
   await expect(page.locator('h1')).toContainText('ARCHIVO DEL TENIS');
-  await expect(page.getByRole('heading', { name: 'Últimos resultados ATP', exact: true })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Últimos resultados WTA', exact: true })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Récords ATP en el archivo', exact: true })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Récords WTA en la muestra 2018–2026', exact: true })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Últimos resultados', exact: true })).toBeVisible();
+  await expect(page.locator('.home-latest-archive [data-tour="atp"]')).not.toHaveCount(0);
+  await expect(page.locator('.home-latest-archive [data-tour="wta"]')).not.toHaveCount(0);
+  await expect(page.getByRole('heading', { name: 'Récords del archivo', exact: true })).toBeVisible();
+  await expect(page.locator('.home-records [data-tour="atp"]')).not.toHaveCount(0);
+  await expect(page.locator('.home-records [data-tour="wta"]')).not.toHaveCount(0);
   await expect(page.getByRole('heading', { name: 'Grandes escenarios' })).toBeVisible();
   await expect(page.locator('main a[href^="/match/"]')).not.toHaveCount(0);
   await expect(page.locator('main a[href^="/records?dato="]')).not.toHaveCount(0);

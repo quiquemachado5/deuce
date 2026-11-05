@@ -10,6 +10,7 @@ import {
   archiveStoreBackend,
   archiveStoreConfigured,
   archiveStoreReport,
+  cloneArchiveObject,
   deleteArchiveKeys,
   legacyArchiveClient,
   listArchiveKeys,
@@ -105,6 +106,12 @@ export async function cloudWriteMany(entries: readonly ArchiveWrite[]) {
 export async function cloudWrite(key: string, payload: unknown) {
   await cloudWriteMany([{ key, payload }])
 }
+/** Reuse an immutable pack when the filesystem backend already owns it. */
+export async function cloudClone(sourceKey:string,destinationKey:string){
+  const cloned=await cloneArchiveObject(sourceKey,destinationKey)
+  if(cloned)cache.delete(destinationKey)
+  return cloned
+}
 export type ArchiveStorageReport={relationBytes:number;payloadBytes:number;objects:number;snapshots:number;details:number};
 export type ArchiveCapacityStatus='available'|'full'|'unknown';
 export function archiveCapacityStatus(report:ArchiveStorageReport|undefined,maximum:number):ArchiveCapacityStatus{
@@ -128,7 +135,7 @@ export async function cloudArchiveHasCapacity(budget?:number){
   const report=await cloudArchiveStorageReport(budget);
   const configured=Number(process.env.DEUCE_ARCHIVE_MAX_BYTES);
   const backend=archiveStoreBackend();
-  const defaultMaximum=backend==='vercel-blob'?800_000_000:backend==='filesystem'?150_000_000_000:450_000_000;
+  const defaultMaximum=backend==='filesystem'?150_000_000_000:450_000_000;
   const maximum=Number.isFinite(configured)&&configured>0?configured:defaultMaximum;
   const status=archiveCapacityStatus(report,maximum);
   const result={report,maximum,status,available:status==='available'};

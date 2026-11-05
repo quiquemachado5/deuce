@@ -7,7 +7,7 @@ import {pipeline} from 'node:stream/promises';
 import {mkdir,writeFile,rename,readdir,unlink,readFile} from 'node:fs/promises';
 import {join} from 'node:path';
 import {isDeepStrictEqual} from 'node:util';
-import {cloudPruneSnapshotGenerations,cloudRead,cloudWrite,cloudWriteMany,type ArchiveWrite} from '../cloud-archive';
+import {cloudClone,cloudPruneSnapshotGenerations,cloudRead,cloudWrite,cloudWriteMany,type ArchiveWrite} from '../cloud-archive';
 import {attachIngestionHistory,partitionMatches,pieceChunk,type Snapshot,type RecordPages,type RecordManifest} from './snapshot';
 import {assertPublishableArchive} from '../dataset-summary';
 import {compileMatchBrowser,matchBrowserArtifact} from '../match-browser-snapshot';
@@ -56,7 +56,7 @@ export async function writeBundledSnapshot(snapshot:Snapshot) {
   for(const file of await readdir(dir))if(file.endsWith('.json.gz')&&!expected.has(file))await unlink(join(dir,file));
   console.log(`Bundled snapshot artifacts: ${written} written, ${reused} reused unchanged`);
 }
-type SnapshotStorage={read:(key:string)=>Promise<unknown>;write:(key:string,payload:unknown)=>Promise<void>;writeMany?:(entries:readonly ArchiveWrite[])=>Promise<void>;prune?:(keepVersions:readonly string[])=>Promise<number>};
+type SnapshotStorage={read:(key:string)=>Promise<unknown>;write:(key:string,payload:unknown)=>Promise<void>;writeMany?:(entries:readonly ArchiveWrite[])=>Promise<void>;reuse?:(sourceKey:string,destinationKey:string)=>Promise<boolean>;prune?:(keepVersions:readonly string[])=>Promise<number>};
 function publishedGeneration(manifest:RecordManifest) {
   // Compare the stored JSON representation, which omits optional undefined fields.
   const generation=JSON.parse(JSON.stringify(manifest));
@@ -65,7 +65,7 @@ function publishedGeneration(manifest:RecordManifest) {
   return generation;
 }
 /** A published pointer proves all artifacts exist. A new pointer is written last. */
-export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotStorage={read:cloudRead,write:cloudWrite,writeMany:cloudWriteMany,prune:cloudPruneSnapshotGenerations}) {
+export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotStorage={read:cloudRead,write:cloudWrite,writeMany:cloudWriteMany,reuse:cloudClone,prune:cloudPruneSnapshotGenerations}) {
   assertSnapshotIntegrity(snapshot);
   const {pieces,eras,matches,players,competition,audit}=snapshot;
   const published=await storage.read('reading-v2-manifest');
@@ -90,6 +90,8 @@ export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotSt
     for(const [id,value] of [['browser-index',browser.index],['publication-index',snapshot.publicationIndex||buildPublicationIndex(matches)],['eras',eras],['players',players],['competition',competition],['audit',audit],['reconciliation',reconciliation]] as const)yield* await compressedBlob(id,value);
   }
   const artifactPacks: Record<string,string> = {};
+  const previousVersion=(published as RecordManifest|undefined)?.version;
+  const previousPacks=new Set(Object.values((published as RecordManifest|undefined)?.artifactPacks||{}));
   let uploads = 0, pending: ArchiveWrite[] = [];
   const flush = async () => {
     if (!pending.length) return;
@@ -99,9 +101,19 @@ export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotSt
     else for (const entry of entries) await storage.write(entry.key, entry.payload);
   };
   for await (const pack of packArtifacts(artifacts())) {
-    // A hard publication budget leaves room for daily ingestion in Hobby.
-    if (++uploads > 24) throw new Error('Publication exceeds the free-plan upload budget');
-    pending.push({key:snapshotKey(manifest.version,pack.id),payload:pack.payload});
+    // Bound malformed generations before they can create an unbounded number
+    // of physical objects. Reused packs count too, so the limit is deterministic.
+    if (++uploads > 24) throw new Error('Publication exceeds the snapshot pack budget');
+    const destination=snapshotKey(manifest.version,pack.id);
+    let reused=false;
+    // Flush staged writes before linking another immutable pack. This keeps
+    // the operation order deterministic and the manifest remains the only
+    // authoritative pointer, written after every pack exists.
+    if(storage.reuse&&previousVersion&&previousPacks.has(pack.id)){
+      await flush();
+      reused=await storage.reuse(snapshotKey(previousVersion,pack.id),destination);
+    }
+    if(!reused)pending.push({key:destination,payload:pack.payload});
     for (const id of Object.keys(pack.payload.artifacts)) artifactPacks[id] = pack.id;
     if (pending.length >= 4) await flush();
   }

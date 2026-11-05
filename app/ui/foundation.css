@@ -23,9 +23,9 @@
   --danger: #a92e2e;
   --event-accent: var(--ink);
   --event-tint: var(--bg-sunken);
-  --font-interface: var(--deuce-body), sans-serif;
-  --font-display: var(--deuce-display), sans-serif;
-  --font-editorial: var(--deuce-body), sans-serif;
+  --font-interface: var(--deuce-sans), sans-serif;
+  --font-display: var(--deuce-sans), sans-serif;
+  --font-editorial: var(--deuce-sans), sans-serif;
   --font-mono: var(--font-interface);
   --panel-radius: 24px;
   --field-radius: 12px;

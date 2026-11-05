@@ -1,15 +1,15 @@
 DEUCE hero media
-Sources:
-- https://www.pexels.com/video/a-tennis-court-with-two-people-playing-on-it-20196828/
-- https://www.pexels.com/video/an-aerial-view-of-a-tennis-court-with-people-playing-on-it-20196829/
-Author: Ahmet Kurt
-License: https://www.pexels.com/license/
+Source: https://mixkit.co/free-stock-video/tennis-player-serving-873/
+Direct source used: https://assets.mixkit.co/videos/873/873-720.mp4
+Title: Tennis player serving
+License: Mixkit Stock Video Free License
+License page: https://mixkit.co/license/#videoFree
 
-Local adaptation: two consecutive, silent aerial shots of the same clay-court
-practice match, joined into a single 54-second hero film. The desktop file is
-1280 × 720 H.264; the mobile alternative is bandwidth-optimized. Poster:
-opening frame, WebP. The film contains no scoreboard, captions or visible brand
-graphics and asserts no match, player or tournament identity.
+Local adaptation: a ten-second slow-motion serve with no added copy, scoreboard
+or identity claim. The desktop file keeps Mixkit's 1280 × 720 source (2.8 MB).
+The mobile file is a 568 × 320 H.264 transcode made with macOS AVFoundation's
+medium-quality preset (898 KB). The opening frame is a 1280 × 720 WebP poster
+(44 KB). The film is presented as atmosphere, not as a documented archive match.
 
 Playback pauses offscreen and in a hidden document. Reduced-motion, save-data
 and slow-2G/2G users see the poster without downloading the video.

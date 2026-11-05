@@ -1,11 +1,14 @@
 import { readdir, stat } from 'node:fs/promises';
 import { extname, join, relative } from 'node:path';
+import sharp from 'sharp';
 import { auditPublicMedia } from './public-media-audit.mjs';
 
 const root = process.cwd();
 const publicRoot = join(root, 'public');
 const maximumPublicBytes = 125_000_000;
 const maximumSingleAssetBytes = 7_000_000;
+const maximumPlayerPortraitWidth = 480;
+const maximumPlayerPortraitHeight = 640;
 
 async function walk(directory) {
   const rows = [];
@@ -19,6 +22,17 @@ async function walk(directory) {
 
 const files = await walk(publicRoot);
 const sized = await Promise.all(files.map(async path => ({ path, bytes: (await stat(path)).size })));
+const playerPortraits = sized.filter(entry => {
+  const name = relative(root, entry.path).split('\\').join('/');
+  return /^public\/images\/players\/(?:discovered|wta-discovered)\/.+\.webp$/.test(name)
+    && !name.endsWith('-small.webp');
+});
+const oversizedPlayerPortraits = [];
+for (const entry of playerPortraits) {
+  const metadata = await sharp(entry.path).metadata();
+  if ((metadata.width || 0) <= maximumPlayerPortraitWidth && (metadata.height || 0) <= maximumPlayerPortraitHeight) continue;
+  oversizedPlayerPortraits.push(`${relative(root, entry.path)}: ${metadata.width || '?'}x${metadata.height || '?'}`);
+}
 const totalBytes = sized.reduce((sum, entry) => sum + entry.bytes, 0);
 const failures = [];
 const warnings = [];
@@ -37,6 +51,9 @@ for (const name of media.orphaned) failures.push(`${name}: public image is not r
 for (const name of media.missingReferenced) failures.push(`${name}: referenced public image is missing`);
 for (const name of media.missingResponsive) failures.push(`${name}: promised responsive image is missing`);
 for (const name of media.rawOriginals) failures.push(`${name}: source raster must not ship from public/`);
+for (const name of oversizedPlayerPortraits) {
+  failures.push(`${name} exceeds ${maximumPlayerPortraitWidth}x${maximumPlayerPortraitHeight}`);
+}
 failures.push(...media.unoptimizedViolations);
 
 console.log(JSON.stringify({
@@ -45,6 +62,12 @@ console.log(JSON.stringify({
   totalBytes,
   maximumPublicBytes,
   maximumSingleAssetBytes,
+  playerPortraits: {
+    files: playerPortraits.length,
+    maximumWidth: maximumPlayerPortraitWidth,
+    maximumHeight: maximumPlayerPortraitHeight,
+    oversized: oversizedPlayerPortraits,
+  },
   media,
   warnings,
   failures,

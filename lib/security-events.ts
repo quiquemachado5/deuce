@@ -1,5 +1,6 @@
 import { createHmac } from 'node:crypto';
 import { logEvent, requestId } from '@/lib/structured-log';
+import { observeSecurityEvent } from '@/lib/runtime-metrics';
 
 function requestAddress(request: Request) {
   const forwarded = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim();
@@ -14,6 +15,7 @@ export function securityActorHash(request: Request, salt = process.env.SECURITY_
 
 export function unauthorizedResponse(request: Request, surface: string) {
   const id = requestId(request);
+  observeSecurityEvent(surface, 'denied');
   logEvent('warn', 'security.auth.denied', {
     requestId: id,
     surface,

@@ -9,7 +9,7 @@ import { assertGenerationCoherence, selectGeneration, generationMetadata, type P
 import { decodeCloudBlob } from '../lib/revista/read-records';
 import { assertEditionCoverage, assertReleaseCoverage } from '../lib/revista/release-check';
 import { asyncCache } from '../lib/async-cache';
-import { archiveBlobPath, archiveStoreBackend } from '../lib/archive-store';
+import { archiveStoreBackend, listArchiveKeys } from '../lib/archive-store';
 
 const matches = mockMatches.map(match => ({ ...match, data_source: 'api' as const }));
 const before = compileRecordSnapshot(matches.slice(0, 2), new Date('2026-10-20T08:00:00Z'));
@@ -80,13 +80,11 @@ test('compressed cloud reads require every chunk and respect a bounded wait', as
   assert.equal(await decodeCloudBlob(payload, async () => new Promise(() => {}), 5), undefined);
 });
 
-test('the archive prefers Blob and rejects paths outside its private namespace',()=>{
-  assert.equal(archiveStoreBackend({DEUCE_ARCHIVE_DIR:'/var/lib/deuce/archive',BLOB_STORE_ID:'store_example'}),'filesystem');
-  assert.equal(archiveStoreBackend({BLOB_STORE_ID:'store_example',SUPABASE_URL:'https://example.supabase.co',SUPABASE_SECRET_KEY:'secret'}),'vercel-blob');
+test('the archive prefers the self-hosted filesystem, retains Supabase and rejects invalid prefixes',async()=>{
+  assert.equal(archiveStoreBackend({DEUCE_ARCHIVE_DIR:'/var/lib/deuce/archive',SUPABASE_URL:'https://example.supabase.co',SUPABASE_SECRET_KEY:'secret'}),'filesystem');
   assert.equal(archiveStoreBackend({SUPABASE_URL:'https://example.supabase.co',SUPABASE_SECRET_KEY:'secret'}),'supabase');
   assert.equal(archiveStoreBackend({}),null);
-  assert.equal(archiveBlobPath('reading-v2-manifest'),'deuce/archive/reading-v2-manifest.json');
-  assert.throws(()=>archiveBlobPath('../outside'),/Invalid archive key/);
+  await assert.rejects(listArchiveKeys('../outside'),/Invalid archive key/);
 });
 
 test('a transient generation failure expires immediately while a healthy result is reused',async()=>{

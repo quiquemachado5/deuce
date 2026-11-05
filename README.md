@@ -29,11 +29,12 @@ DEUCE_E2E_DATE=2026-11-02T12:00:00Z npm run build
 npm run budgets:verify
 npx playwright install chromium
 npm run test:browser
+npm run test:browser:smoke
 ```
 
 Las pruebas de navegador arrancan el build en `127.0.0.1:3100`. Para una comprobación de solo lectura de producción: `PLAYWRIGHT_BASE_URL="$NEXT_PUBLIC_SITE_ORIGIN" npm run test:browser`.
 
-CI ejecuta calidad, datos y build en paralelo, reutiliza un único build para las pruebas de navegador y comprueba dependencias de producción, presupuestos de HTML/CSS/JS/medios, restauración, accesibilidad y regresión visual. El workflow no activa por sí mismo la protección de `main` ni despliega.
+CI ejecuta calidad, datos y build en paralelo y reutiliza un único build para las pruebas de navegador. Las ramas pasan un smoke test de los flujos esenciales; `main`, la ejecución manual y la comprobación nocturna ejecutan la regresión completa. También se comprueban dependencias de producción, presupuestos de HTML/CSS/JS/medios, restauración, accesibilidad y regresión visual. El workflow no activa por sí mismo la protección de `main` ni despliega.
 
 ## Datos y publicación
 
@@ -56,17 +57,15 @@ La copia incluida contiene 83.535 partidos y 196 listas. Una generación remota 
 
 Cobertura avisa cuando está mostrando la copia empaquetada y no presenta la falta de una publicación nueva como «sin partidos nuevos».
 
-## Incidente actual de datos
+## Datos en producción
 
-El 31/10/2026 el proyecto Supabase `rmiltvmwdmfqzuoipfqs` figura `ACTIVE_HEALTHY`, pero PostgreSQL rechaza conexiones durante su recuperación. Los logs contienen `No space left on device` al escribir `pg_wal` y después `Hot standby mode is disabled`. Hasta recuperar capacidad, la web solo puede servir su última generación validada y no se debe ejecutar la migración de control de capacidad.
-
-La solución operativa requiere liberar o ampliar almacenamiento desde Supabase y confirmar backups/PITR antes de una restauración. PITR es una opción de pago y no se activa desde este repositorio sin aprobación expresa. El procedimiento está en [docs/OPERATIONS.md](docs/OPERATIONS.md).
-
-La migración sin coste está preparada para usar un Blob privado de Vercel como
-archivo principal. El snapshot incluido permite sembrarlo aunque PostgreSQL no
-arranque; la generación más reciente que solo exista en Supabase seguirá
-pendiente de recuperación. El adaptador mantiene fallback local, retención de
-dos generaciones, límite preventivo de 800 MB y lease condicional para cron.
+Netcup sirve el archivo desde el volumen persistente montado en
+`/app/.deuce-archive`. La publicación conserva dos generaciones, usa leases de
+filesystem y se detiene antes del límite configurado de disco. Las copias se
+validan mediante restore drill y se transfieren a un almacenamiento externo con
+`rclone`; Supabase permanece únicamente como compatibilidad histórica y no está
+en la ruta crítica de producción. El procedimiento está en
+[docs/OPERATIONS.md](docs/OPERATIONS.md).
 
 ## Rendimiento, accesibilidad y diseño
 
@@ -78,6 +77,6 @@ DEUCE mantiene un único tema claro aprobado. Se retiraron controles oscuros inc
 
 Se aplican HSTS, `nosniff`, aislamiento de origen, framing denegado, política de permisos, CSP, SRI y bloqueo de atributos JavaScript inline. Next necesita pequeños scripts inline para hidratar páginas estáticas, por lo que `script-src` conserva `unsafe-inline`; una política basada en nonce exigiría render dinámico y se debe decidir junto con la estrategia de caché.
 
-La API tiene validación, mínimos de consulta, 429 y un límite por instancia. El límite distribuido debe completarse en Vercel Firewall. También siguen siendo configuración externa: protección obligatoria de `main`, aprobación del entorno de producción, capacidad de Supabase y certificación de PITR.
+La API tiene validación, mínimos de consulta, 429 y un límite por instancia. Caddy añade una segunda barrera por IP o red IPv6, compartida mediante su almacenamiento persistente, para las APIs de datos, telemetría y salud profunda. Prometheus conserva durante 14 días métricas de aplicación, proxy, cuota, copias y eventos de seguridad sin exponer ningún puerto público. Siguen siendo configuración externa la protección obligatoria de `main`, la aprobación del entorno de producción y la verificación periódica de las copias externas.
 
 Ver [IMPLEMENTATION.md](IMPLEMENTATION.md) para el alcance técnico y [docs/OPERATIONS.md](docs/OPERATIONS.md) para publicación y recuperación.

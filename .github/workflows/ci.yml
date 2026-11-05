@@ -3,6 +3,9 @@ on:
   pull_request:
   push:
     branches: [main]
+  schedule:
+    - cron: '17 3 * * *'
+  workflow_dispatch:
 permissions:
   contents: read
 concurrency:
@@ -14,6 +17,81 @@ env:
   # reduced-motion visual baseline cannot drift at midnight.
   DEUCE_E2E_DATE: '2026-11-02T12:00:00Z'
 jobs:
+  caddy-validate:
+    if: github.event_name == 'pull_request'
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      CADDY_SOURCE_SHA256: 94ccf3d092bdf34ae18a2794bb98f45d7670ccc9614b2ce45285b1c6f58775a6
+      CADDY_IMAGE: ghcr.io/quiquemachado5/deuce-caddy:source-94ccf3d092bdf34ae18a2794bb98f45d7670ccc9614b2ce45285b1c6f58775a6
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          persist-credentials: false
+      - name: Require the content-addressed image reference
+        run: |
+          test "$(sha256sum ops/oracle/Dockerfile.caddy | cut -d' ' -f1)" = "$CADDY_SOURCE_SHA256"
+          grep -Fq "image: \${DEUCE_CADDY_IMAGE:-$CADDY_IMAGE}" compose.yaml
+      - name: Build and validate the pinned proxy image
+        run: |
+          docker build \
+            --file ops/oracle/Dockerfile.caddy \
+            --build-arg "DEUCE_CADDY_SOURCE_SHA256=$CADDY_SOURCE_SHA256" \
+            --tag "$CADDY_IMAGE" \
+            ops/oracle
+          docker run --rm --entrypoint caddy "$CADDY_IMAGE" list-modules \
+            | grep -qx 'http.handlers.rate_limit'
+          test "$(docker image inspect --format '{{index .Config.Labels "org.opencontainers.image.revision"}}' "$CADDY_IMAGE")" = "$CADDY_SOURCE_SHA256"
+
+  caddy-publish:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    permissions:
+      contents: read
+      packages: write
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      CADDY_SOURCE_SHA256: 94ccf3d092bdf34ae18a2794bb98f45d7670ccc9614b2ce45285b1c6f58775a6
+      CADDY_IMAGE: ghcr.io/quiquemachado5/deuce-caddy:source-94ccf3d092bdf34ae18a2794bb98f45d7670ccc9614b2ce45285b1c6f58775a6
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          persist-credentials: false
+      - uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3
+      - uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish the content-addressed image once
+        run: |
+          test "$(sha256sum ops/oracle/Dockerfile.caddy | cut -d' ' -f1)" = "$CADDY_SOURCE_SHA256"
+          grep -Fq "image: \${DEUCE_CADDY_IMAGE:-$CADDY_IMAGE}" compose.yaml
+          if docker buildx imagetools inspect "$CADDY_IMAGE" >/dev/null 2>&1; then
+            echo "The immutable Caddy image already exists; refusing to overwrite it."
+          else
+            docker buildx build \
+              --platform linux/amd64 \
+              --file ops/oracle/Dockerfile.caddy \
+              --build-arg "DEUCE_CADDY_SOURCE_SHA256=$CADDY_SOURCE_SHA256" \
+              --tag "$CADDY_IMAGE" \
+              --provenance=true \
+              --sbom=true \
+              --push \
+              ops/oracle
+          fi
+          docker pull "$CADDY_IMAGE"
+          docker run --rm --entrypoint caddy "$CADDY_IMAGE" list-modules \
+            | grep -qx 'http.handlers.rate_limit'
+          test "$(docker image inspect --format '{{index .Config.Labels "org.opencontainers.image.revision"}}' "$CADDY_IMAGE")" = "$CADDY_SOURCE_SHA256"
+      - name: Require anonymous production pulls
+        run: |
+          docker logout ghcr.io
+          docker image rm "$CADDY_IMAGE"
+          docker pull "$CADDY_IMAGE"
+
   quality:
     runs-on: ubuntu-latest
     timeout-minutes: 12
@@ -58,7 +136,12 @@ jobs:
           test -s data/reading/manifest.json.gz
           test -n "$(find data/reading -maxdepth 1 -name 'matches-*.json.gz' -print -quit)"
       - run: npx playwright install --with-deps chromium
-      - run: npm run test:browser
+      - name: Browser smoke suite
+        if: github.event_name == 'pull_request'
+        run: npm run test:browser:smoke
+      - name: Full browser regression suite
+        if: github.event_name != 'pull_request'
+        run: npm run test:browser
       - name: Preserve browser failure evidence
         if: failure()
         uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
@@ -82,6 +165,7 @@ jobs:
       - run: npm ci
       - run: npm run data:verify
       - run: npm run data:wta:audit
+      - run: npm run data:integrity-queue
       - run: npm run data:evidence
       - run: npm run data:verify-publication
       - run: npm run performance:verify

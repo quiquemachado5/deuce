@@ -37,7 +37,8 @@ test('global typography owns every product surface without duplicate font loader
     readFile(join(root, 'components/PanoramaMatch.tsx'), 'utf8'),
     readFile(join(root, 'app/page.tsx'), 'utf8'),
   ]);
-  assert.match(layout, /Bricolage_Grotesque, Geist/);
+  assert.match(layout, /Host_Grotesk/);
+  assert.equal((layout.match(/Host_Grotesk\(/g) || []).length, 1);
   assert.doesNotMatch(layout, /DM_Sans|Manrope|Newsreader/);
   assert.match(layout, /twitter:\s*\{/);
   assert.match(layout, /appleWebApp:/);

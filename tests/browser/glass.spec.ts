@@ -36,7 +36,7 @@ test('player directory stays compact with contextual directory controls',async({
 });
 test('home respects reduced motion and its latest results remain keyboard operable',async({page})=>{
   await page.emulateMedia({reducedMotion:'reduce'});await page.goto('/');
-  await expect(page.getByRole('heading',{name:'Últimos resultados ATP',exact:true})).toBeVisible();
+  await expect(page.getByRole('heading',{name:'Últimos resultados',exact:true})).toBeVisible();
   const firstMatch=page.locator('main a[href^="/match/"]').first();
   await expect(firstMatch).toBeVisible();
   await firstMatch.focus();

@@ -1,6 +1,6 @@
 # DEUCE · entrega de interfaz del 21 de octubre de 2026
 
-La entrega visual se integró mediante la [PR #1](https://github.com/quiquemachado5/deuce/pull/1) y se publicó en [DEUCE](https://deuce-archive.vercel.app/). La producción se verificó con seis rutas públicas y el monitor de salud del archivo.
+La entrega visual se integró mediante la [PR #1](https://github.com/quiquemachado5/deuce/pull/1) y se publicó en [DEUCE](https://deucearchive.com/). La producción se verificó con seis rutas públicas y el monitor de salud del archivo.
 
 ## Continuación: finales y cobertura
 

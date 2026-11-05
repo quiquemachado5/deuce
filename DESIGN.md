@@ -35,35 +35,35 @@ colors:
   dark-danger: "#ffb3ad"
 typography:
   display:
-    fontFamily: "Bricolage, Geist, sans-serif"
+    fontFamily: "Host Grotesk, sans-serif"
     fontSize: "clamp(38px, 5vw, 64px)"
-    fontWeight: 650
+    fontWeight: 500
     lineHeight: 1.08
     letterSpacing: "-0.035em"
   headline:
-    fontFamily: "Bricolage, Geist, sans-serif"
+    fontFamily: "Host Grotesk, sans-serif"
     fontSize: "clamp(26px, 3vw, 36px)"
-    fontWeight: 650
+    fontWeight: 500
     lineHeight: 1.08
     letterSpacing: "-0.035em"
   title:
-    fontFamily: "Bricolage, Geist, sans-serif"
+    fontFamily: "Host Grotesk, sans-serif"
     fontSize: "24px"
-    fontWeight: 650
+    fontWeight: 550
     lineHeight: 1.08
     letterSpacing: "-0.035em"
   body:
-    fontFamily: "Geist, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+    fontFamily: "Host Grotesk, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
     fontSize: "16px"
     fontWeight: 400
     lineHeight: 1.5
   body-small:
-    fontFamily: "Geist, -apple-system, BlinkMacSystemFont, sans-serif"
+    fontFamily: "Host Grotesk, -apple-system, BlinkMacSystemFont, sans-serif"
     fontSize: "14px"
     fontWeight: 500
     lineHeight: 1.45
   label:
-    fontFamily: "Geist, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+    fontFamily: "Host Grotesk, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
     fontSize: "12px"
     fontWeight: 500
 rounded:
@@ -121,7 +121,7 @@ components:
 
 **Creative North Star: "El archivo deportivo visual"**
 
-La jerarquía de Apple Sports y los controles de Revolut se expresan en fotografía deportiva real, cifras legibles y titulares con carácter. Bricolage Grotesque aporta energía; Geist sostiene nombres, tablas y lectura. El archivo debe sentirse cercano y vivo sin presentar los resultados observados como datos en directo.
+La jerarquía de Apple Sports y los controles de Revolut se expresan en fotografía deportiva real, cifras legibles y titulares con carácter. Host Grotesk sostiene una sola voz editorial para titulares, nombres, tablas y lectura. El archivo debe sentirse cercano y vivo sin presentar los resultados observados como datos en directo.
 
 Los paneles claros o carbón descansan sobre un fondo neutro. El color de la pista conecta torneo, marcador y análisis; los rostros ayudan a reconocer a los jugadores. La interfaz conserva densidad suficiente para explorar estadísticas, con espacio y cambios de escala que explican qué mirar primero.
 
@@ -158,11 +158,11 @@ Los valores de la cabecera son normativos; `app/ui/foundation.css` aplica el cam
 
 ## Typography
 
-**Display Font:** Bricolage Grotesque, cargada localmente con el nombre CSS `Bricolage`, con Geist como respaldo.
+**Display Font:** Host Grotesk variable, distribuida con licencia SIL OFL y autoalojada durante la compilación mediante `next/font`.
 
-**Body Font:** Geist local, con respaldo del sistema. Los alias editorial y mono también resuelven a estas familias: no hay una tercera voz tipográfica ni una fuente monoespaciada independiente.
+**Body Font:** Host Grotesk con respaldo métrico del sistema. Los alias de interfaz, display, editorial y mono resuelven a la misma familia: no hay una segunda descarga ni una voz tipográfica accidental.
 
-Los titulares usan peso 650, interletraje cerrado y altura compacta. El cuerpo usa cifras tabulares y alineadas para comparar resultados. Los párrafos se limitan a 70 caracteres de ancho aproximado.
+Los titulares principales usan peso 500, interletraje de `-0.045em` y altura compacta; los títulos pequeños suben de peso para conservar jerarquía. El cuerpo usa cifras tabulares y alineadas para comparar resultados. Los párrafos se limitan a 70 caracteres de ancho aproximado.
 
 ### Hierarchy
 
@@ -228,7 +228,7 @@ Etiquetas visibles, altura de 44px, borde de línea, fondo general y radio de ca
 
 ### Navigation
 
-Marca Bricolage de peso 800. Navegación Geist de 13px, texto auxiliar en reposo y tinta en la ruta activa, señalada además por una línea inferior de 3px. En móvil, menú de pantalla completa con enlaces Bricolage grandes. Búsqueda y menú se presentan como diálogos. El selector de tema ofrece Sistema, Claro y Oscuro; la preferencia persiste y se resuelve antes de pintar la página.
+Marca Host Grotesk de peso 700. Navegación Host Grotesk de 13px, texto auxiliar en reposo y tinta en la ruta activa, señalada además por una línea inferior de 3px. En móvil, el menú de pantalla completa usa la misma familia a una escala mayor. Búsqueda y menú se presentan como diálogos. El selector de tema ofrece Sistema, Claro y Oscuro; la preferencia persiste y se resuelve antes de pintar la página.
 
 ### Photography & Avatars
 
@@ -242,7 +242,7 @@ Los marcadores son tablas: nombres a la izquierda, sets alineados y cifras tabul
 
 ### Do:
 
-- **Do** conservar Bricolage para titulares y Geist para lectura y tablas.
+- **Do** conservar Host Grotesk como voz única y variar peso, tamaño y espacio según la función.
 - **Do** enlazar color de superficie, marcador y gráfico con la misma semántica en ambos temas.
 - **Do** mostrar muestras, cobertura y elegibilidad junto a las cifras que explican.
 - **Do** mantener nombres, resultados y acciones legibles al apilar la vista móvil.

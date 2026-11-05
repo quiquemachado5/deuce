@@ -1,7 +1,6 @@
 .git
 .github
 .next
-.vercel
 .deuce-cache
 node_modules
 playwright-report

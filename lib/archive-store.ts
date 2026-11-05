@@ -1,19 +1,11 @@
 import 'server-only'
 
-import {
-  BlobPreconditionFailedError,
-  del,
-  get,
-  list,
-  put,
-  type PutBlobResult,
-} from '@vercel/blob'
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 import { randomUUID } from 'node:crypto'
-import { mkdir, open, readFile, readdir, rename, stat, unlink } from 'node:fs/promises'
+import { copyFile, link, mkdir, open, readFile, readdir, rename, stat, unlink } from 'node:fs/promises'
 import { join } from 'node:path'
 
-export type ArchiveStoreBackend = 'filesystem' | 'vercel-blob' | 'supabase' | null
+export type ArchiveStoreBackend = 'filesystem' | 'supabase' | null
 export type ArchiveStoreEntry = { key: string; payload: unknown }
 export type ArchiveStoreReport = {
   relationBytes: number
@@ -23,7 +15,6 @@ export type ArchiveStoreReport = {
   details: number
 }
 
-const ROOT = 'deuce/archive/'
 const KEY = /^[a-zA-Z0-9._:-]+$/
 let legacyClient: SupabaseClient | null = null
 let reportCache: { at: number; value: ArchiveStoreReport } | undefined
@@ -33,19 +24,8 @@ function validatedKey(key: string) {
   return key
 }
 
-export function archiveBlobPath(key: string) {
-  return `${ROOT}${validatedKey(key)}.json`
-}
-
-function keyFromBlobPath(pathname: string) {
-  if (!pathname.startsWith(ROOT) || !pathname.endsWith('.json')) return undefined
-  const key = pathname.slice(ROOT.length, -5)
-  return KEY.test(key) ? key : undefined
-}
-
 export function archiveStoreBackend(env: Readonly<Record<string,string|undefined>> = process.env): ArchiveStoreBackend {
   if (env.DEUCE_ARCHIVE_DIR) return 'filesystem'
-  if (env.BLOB_READ_WRITE_TOKEN || env.BLOB_STORE_ID) return 'vercel-blob'
   if (env.SUPABASE_URL && env.SUPABASE_SECRET_KEY) return 'supabase'
   return null
 }
@@ -91,22 +71,9 @@ export function legacyArchiveClient() {
   return legacyClient
 }
 
-async function blobJson(key: string, budget: number) {
-  const result = await get(archiveBlobPath(key), {
-    access: 'private',
-    useCache: /^reading-v2-[a-f0-9]{20}-/.test(key),
-    abortSignal: AbortSignal.timeout(Math.max(1, budget)),
-  })
-  if (!result || result.statusCode !== 200) return undefined
-  return await new Response(result.stream).json()
-}
-
 export async function readArchiveObject(key: string, budget = 8_000): Promise<unknown> {
   const backend = archiveStoreBackend()
   if (backend === 'filesystem') return readFilesystemObject(key)
-  if (backend === 'vercel-blob') {
-    try { return await blobJson(key, budget) } catch { return undefined }
-  }
   const client = legacyArchiveClient()
   if (!client) return undefined
   try {
@@ -116,29 +83,11 @@ export async function readArchiveObject(key: string, budget = 8_000): Promise<un
   } catch { return undefined }
 }
 
-async function putBlobEntry(entry: ArchiveStoreEntry, budget: number): Promise<PutBlobResult> {
-  return put(archiveBlobPath(entry.key), JSON.stringify(entry.payload), {
-    access: 'private',
-    addRandomSuffix: false,
-    allowOverwrite: true,
-    contentType: 'application/json',
-    cacheControlMaxAge: 60,
-    abortSignal: AbortSignal.timeout(Math.max(1, budget)),
-  })
-}
-
 export async function writeArchiveObjects(entries: readonly ArchiveStoreEntry[], budget = 20_000) {
   if (!entries.length) return
   const unique = [...new Map(entries.map(entry => [entry.key, entry])).values()]
   if (archiveStoreBackend() === 'filesystem') {
     await Promise.all(unique.map(writeFilesystemObject))
-    reportCache = undefined
-    return
-  }
-  if (archiveStoreBackend() === 'vercel-blob') {
-    const settled = await Promise.allSettled(unique.map(entry => putBlobEntry(entry, budget)))
-    const failed = settled.find(result => result.status === 'rejected')
-    if (failed?.status === 'rejected') throw failed.reason
     reportCache = undefined
     return
   }
@@ -150,23 +99,43 @@ export async function writeArchiveObjects(entries: readonly ArchiveStoreEntry[],
   if (error) throw new Error(`Archive write failed: ${error.code || status}`)
 }
 
-async function listBlobKeys(prefix: string, budget: number) {
-  const keys: string[] = []
-  let cursor: string | undefined
-  do {
-    const page = await list({
-      prefix: archiveBlobPath(prefix).slice(0, -5),
-      cursor,
-      limit: 1000,
-      abortSignal: AbortSignal.timeout(Math.max(1, budget)),
-    })
-    for (const blob of page.blobs) {
-      const key = keyFromBlobPath(blob.pathname)
-      if (key?.startsWith(prefix)) keys.push(key)
+/**
+ * Reuse an immutable filesystem object without serialising or writing its
+ * payload again. Versioned snapshot packs are never modified after creation,
+ * so a hard link is safe and lets a new generation reuse unchanged cohorts.
+ */
+export async function cloneArchiveObject(sourceKey: string, destinationKey: string) {
+  if (archiveStoreBackend() !== 'filesystem') return false
+  const source = filesystemPath(sourceKey)
+  const destination = filesystemPath(destinationKey)
+  await mkdir(filesystemRoot(), { recursive: true, mode: 0o700 })
+  try {
+    await link(source, destination)
+  } catch (error) {
+    const code = (error as NodeJS.ErrnoException).code
+    if (code === 'ENOENT') return false
+    if (code === 'EEXIST') {
+      const [sourceBody, destinationBody] = await Promise.all([readFile(source), readFile(destination)])
+      if (sourceBody.equals(destinationBody)) return true
+      // An interrupted attempt may have left a stale destination. The archive
+      // lease excludes another publisher, so replacing it here is safe.
+      await unlink(destination)
+      try { await link(source, destination) }
+      catch (retryError) {
+        const retryCode = (retryError as NodeJS.ErrnoException).code
+        if (retryCode === 'EXDEV' || retryCode === 'EPERM' || retryCode === 'EOPNOTSUPP') await copyFile(source, destination)
+        else throw retryError
+      }
+      reportCache = undefined
+      return true
     }
-    cursor = page.hasMore ? page.cursor : undefined
-  } while (cursor)
-  return keys
+    // Some mounted filesystems do not support hard links. Copying still avoids
+    // JSON parsing/stringification and preserves the exact immutable bytes.
+    if (code === 'EXDEV' || code === 'EPERM' || code === 'EOPNOTSUPP') await copyFile(source, destination)
+    else throw error
+  }
+  reportCache = undefined
+  return true
 }
 
 export async function listArchiveKeys(prefix: string, budget = 10_000) {
@@ -179,7 +148,6 @@ export async function listArchiveKeys(prefix: string, budget = 10_000) {
     return files.filter(file => file.endsWith('.json') && file.slice(0, -5).startsWith(prefix))
       .map(file => file.slice(0, -5)).filter(key => KEY.test(key)).sort()
   }
-  if (archiveStoreBackend() === 'vercel-blob') return listBlobKeys(prefix, budget)
   const client = legacyArchiveClient()
   if (!client) return []
   const keys: string[] = []
@@ -199,15 +167,6 @@ export async function deleteArchiveKeys(keys: readonly string[], budget = 15_000
     await Promise.all(keys.map(key => unlink(filesystemPath(key)).catch(error => {
       if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error
     })))
-    reportCache = undefined
-    return
-  }
-  if (archiveStoreBackend() === 'vercel-blob') {
-    for (let offset = 0; offset < keys.length; offset += 250) {
-      await del(keys.slice(offset, offset + 250).map(archiveBlobPath), {
-        abortSignal: AbortSignal.timeout(Math.max(1, budget)),
-      })
-    }
     reportCache = undefined
     return
   }
@@ -234,28 +193,6 @@ export async function archiveStoreReport(budget = 10_000): Promise<ArchiveStoreR
     reportCache = { at: Date.now(), value }
     return value
   }
-  if (archiveStoreBackend() === 'vercel-blob') {
-    if (reportCache && Date.now() - reportCache.at < 900_000) return reportCache.value
-    try {
-      let cursor: string | undefined
-      let bytes = 0, objects = 0, snapshots = 0, details = 0
-      do {
-        const page = await list({ prefix: ROOT, cursor, limit: 1000, abortSignal: AbortSignal.timeout(Math.max(1, budget)) })
-        for (const blob of page.blobs) {
-          const key = keyFromBlobPath(blob.pathname)
-          if (!key) continue
-          bytes += blob.size
-          objects++
-          if (key.startsWith('reading-v2-')) snapshots++
-          if (key.startsWith('detail-')) details++
-        }
-        cursor = page.hasMore ? page.cursor : undefined
-      } while (cursor)
-      const value = { relationBytes: bytes, payloadBytes: bytes, objects, snapshots, details }
-      reportCache = { at: Date.now(), value }
-      return value
-    } catch { return undefined }
-  }
   const client = legacyArchiveClient()
   if (!client) return undefined
   try {
@@ -272,36 +209,6 @@ export async function archiveStoreReport(budget = 10_000): Promise<ArchiveStoreR
 }
 
 type LeasePayload = { owner: string; expiresAt: string }
-
-async function acquireBlobLease(name: string, ttlSeconds: number) {
-  const path = archiveBlobPath(`lease-${name}`)
-  const owner = randomUUID()
-  const payload = (): LeasePayload => ({ owner, expiresAt: new Date(Date.now() + ttlSeconds * 1000).toISOString() })
-  let written: PutBlobResult
-  try {
-    const current = await get(path, { access: 'private', useCache: false, abortSignal: AbortSignal.timeout(5_000) })
-    if (!current) {
-      written = await put(path, JSON.stringify(payload()), {
-        access: 'private', addRandomSuffix: false, allowOverwrite: false,
-        contentType: 'application/json', cacheControlMaxAge: 60,
-      })
-    } else {
-      if (current.statusCode !== 200) return null
-      const lease = await new Response(current.stream).json() as Partial<LeasePayload>
-      if (typeof lease.expiresAt === 'string' && Date.parse(lease.expiresAt) > Date.now()) return null
-      written = await put(path, JSON.stringify(payload()), {
-        access: 'private', addRandomSuffix: false, allowOverwrite: true, ifMatch: current.blob.etag,
-        contentType: 'application/json', cacheControlMaxAge: 60,
-      })
-    }
-  } catch (error) {
-    if (error instanceof BlobPreconditionFailedError) return null
-    return null
-  }
-  return async () => {
-    try { await del(path, { ifMatch: written.etag }) } catch { /* another invocation owns it */ }
-  }
-}
 
 async function acquireFilesystemLease(name: string, ttlSeconds: number) {
   const root = filesystemRoot()
@@ -355,7 +262,6 @@ async function acquireFilesystemLease(name: string, ttlSeconds: number) {
 
 export async function acquireArchiveLease(name: string, ttlSeconds = 300) {
   if (archiveStoreBackend() === 'filesystem') return acquireFilesystemLease(name, Math.min(600, Math.max(1, ttlSeconds)))
-  if (archiveStoreBackend() === 'vercel-blob') return acquireBlobLease(validatedKey(name), Math.min(600, Math.max(1, ttlSeconds)))
   const client = legacyArchiveClient()
   if (!client) throw new Error('Cloud archive is not configured')
   const owner = randomUUID()

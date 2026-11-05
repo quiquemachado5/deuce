@@ -79,6 +79,45 @@ repository="${DEUCE_IMAGE_REPOSITORY:-deuce-web}"
 candidate_image="${repository}:${commit}"
 candidate="deuce-candidate-${short}"
 compose=(docker compose --env-file .env.production)
+caddy_source_sha256="94ccf3d092bdf34ae18a2794bb98f45d7670ccc9614b2ce45285b1c6f58775a6"
+caddy_tag="ghcr.io/quiquemachado5/deuce-caddy:source-${caddy_source_sha256}"
+
+validate_caddy_image() {
+  local image="$1" revision
+  revision="$(docker image inspect --format '{{index .Config.Labels "org.opencontainers.image.revision"}}' "${image}" 2>/dev/null || true)"
+  [[ "${revision}" == "${caddy_source_sha256}" ]] || return 1
+  docker run --rm --network none --entrypoint caddy "${image}" list-modules \
+    | grep -qx 'http.handlers.rate_limit'
+}
+
+prepare_caddy_image() {
+  local resolved=""
+  if docker pull "${caddy_tag}" >/dev/null && validate_caddy_image "${caddy_tag}"; then
+    resolved="$(docker image inspect --format '{{range .RepoDigests}}{{println .}}{{end}}' "${caddy_tag}" \
+      | grep -F 'ghcr.io/quiquemachado5/deuce-caddy@sha256:' | head -n 1)"
+  elif docker image inspect "${caddy_tag}" >/dev/null 2>&1 && validate_caddy_image "${caddy_tag}"; then
+    echo "Warning: GHCR is unavailable; using the previously verified content-addressed Caddy image." >&2
+    resolved="$(docker image inspect --format '{{range .RepoDigests}}{{println .}}{{end}}' "${caddy_tag}" \
+      | grep -F 'ghcr.io/quiquemachado5/deuce-caddy@sha256:' | head -n 1)"
+  elif [[ "${DEUCE_ALLOW_CADDY_SOURCE_BUILD:-0}" == "1" ]]; then
+    echo "Warning: building Caddy locally because the explicit emergency fallback is enabled." >&2
+    DEUCE_CADDY_IMAGE="${caddy_tag}" "${compose[@]}" build caddy
+    validate_caddy_image "${caddy_tag}" || {
+      echo "The emergency Caddy build failed its immutable module and revision checks." >&2
+      return 1
+    }
+    resolved="${caddy_tag}"
+  else
+    echo "The immutable Caddy image is unavailable or invalid; source builds are disabled." >&2
+    echo "Set DEUCE_ALLOW_CADDY_SOURCE_BUILD=1 only for an audited emergency deployment." >&2
+    return 1
+  fi
+  if [[ -z "${resolved}" ]]; then
+    echo "The verified Caddy image has no repository digest." >&2
+    return 1
+  fi
+  export DEUCE_CADDY_IMAGE="${resolved}"
+}
 
 first_release=true
 previous_image=""
@@ -113,6 +152,14 @@ fi
 
 echo "Building immutable release image ${candidate_image}."
 SOURCE_COMMIT="${commit}" DEUCE_WEB_IMAGE="${candidate_image}" "${compose[@]}" build web
+prepare_caddy_image
+if ! docker image inspect prom/prometheus:v3.5.0 >/dev/null 2>&1; then
+  "${compose[@]}" pull prometheus
+fi
+"${compose[@]}" run --rm --no-deps --entrypoint caddy caddy list-modules \
+  | grep -qx 'http.handlers.rate_limit'
+"${compose[@]}" run --rm --no-deps --entrypoint caddy caddy validate --config /etc/caddy/Caddyfile
+"${compose[@]}" run --rm --no-deps --entrypoint /bin/promtool prometheus check config /etc/prometheus/prometheus.yml
 revision="$(docker image inspect --format '{{index .Config.Labels "org.opencontainers.image.revision"}}' "${candidate_image}")"
 if [[ "${revision}" != "${commit}" ]]; then
   echo "Image revision label does not match ${commit}." >&2
@@ -245,6 +292,32 @@ wait_for_caddy() {
   done
   "${compose[@]}" logs --tail=200 caddy >&2 || true
   return 1
+}
+
+wait_for_prometheus() {
+  local prometheus_id=""
+  for attempt in {1..30}; do
+    prometheus_id="$("${compose[@]}" ps -q prometheus 2>/dev/null || true)"
+    if [[ -n "${prometheus_id}" ]] \
+      && [[ "$(docker inspect --format '{{if .State.Health}}{{.State.Health.Status}}{{else}}missing{{end}}' "${prometheus_id}" 2>/dev/null || echo missing)" == healthy ]]; then
+      return 0
+    fi
+    sleep 2
+  done
+  "${compose[@]}" logs --tail=200 prometheus >&2 || true
+  return 1
+}
+
+start_prometheus_best_effort() {
+  local image="${1:-${candidate_image}}" revision="${2:-${commit}}"
+  if ! SOURCE_COMMIT="${revision}" DEUCE_WEB_IMAGE="${image}" \
+    "${compose[@]}" up -d --no-build --force-recreate prometheus; then
+    echo "Warning: Prometheus could not be started; the public release remains available and the watchdog will retry it." >&2
+    return 0
+  fi
+  if ! wait_for_prometheus; then
+    echo "Warning: Prometheus is not ready; the public release remains available and external health monitoring stays active." >&2
+  fi
 }
 
 wait_for_archive_idle() {
@@ -475,8 +548,8 @@ rollback() {
   fi
   if [[ -z "${previous_image}" ]] || ! docker image inspect "${previous_image}" >/dev/null 2>&1; then
     echo "No previous image is available. Removing the failed first-release containers for a clean retry." >&2
-    SOURCE_COMMIT="${commit}" DEUCE_WEB_IMAGE="${failed_image}" "${compose[@]}" stop web scheduler caddy >/dev/null 2>&1 || true
-    SOURCE_COMMIT="${commit}" DEUCE_WEB_IMAGE="${failed_image}" "${compose[@]}" rm --force --stop web scheduler caddy >/dev/null 2>&1 || true
+    SOURCE_COMMIT="${commit}" DEUCE_WEB_IMAGE="${failed_image}" "${compose[@]}" stop web scheduler caddy prometheus >/dev/null 2>&1 || true
+    SOURCE_COMMIT="${commit}" DEUCE_WEB_IMAGE="${failed_image}" "${compose[@]}" rm --force --stop web scheduler caddy prometheus >/dev/null 2>&1 || true
     docker container rm --force "${candidate}" >/dev/null 2>&1 || true
     return 1
   fi
@@ -505,6 +578,7 @@ rollback() {
     echo "Automatic rollback could not restore a healthy previous web and scheduler." >&2
     return 1
   fi
+  start_prometheus_best_effort "${previous_image}" "${previous_commit}"
   if ! write_release_marker "${STATE_DIR}/active-commit" "${previous_commit}" \
     || ! write_release_marker "${STATE_DIR}/active-image" "${previous_image}" \
     || ! write_release_marker "${STATE_DIR}/failed-image" "${failed_image}" \
@@ -556,6 +630,7 @@ if ! wait_for_fresh_scheduler "${scheduler_started_ms}"; then
   rollback "${candidate_image}"
   exit 1
 fi
+start_prometheus_best_effort
 if ! DEUCE_RESOURCE_CHECK_LOCK_HELD=1 "${ROOT}/ops/vps/resource-check.sh"; then
   echo "The promoted stack failed its host resource probe." >&2
   rollback "${candidate_image}"
