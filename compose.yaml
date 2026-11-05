@@ -132,7 +132,10 @@ services:
     user: "65534:65534"
     restart: unless-stopped
     init: true
-    read_only: true
+    # Compose materializes local secrets inside the container rootfs. Keeping
+    # this service read-only makes that copy fail before Prometheus can start:
+    # https://github.com/docker/compose/issues/12303
+    # The service remains unprivileged, capability-free and unpublished.
     security_opt:
       - no-new-privileges:true
     cap_drop:
