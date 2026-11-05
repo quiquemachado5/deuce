@@ -1,5 +1,23 @@
 function integer(value) { return Number.isSafeInteger(value) ? value : undefined }
 
+export function recoverableDailyPublicationFailure(health) {
+  const daily = health?.dailyUpdate
+  if (!daily || typeof daily !== 'object') return false
+  const issues = Array.isArray(health.healthIssues) ? health.healthIssues : []
+  if (!issues.includes('daily-update')
+    || issues.some(issue => !['daily-update', 'scheduler', 'host'].includes(issue))
+    || health.storage?.available !== true || health.fallbackReason) return false
+  const refreshFresh = row => row && typeof row === 'object'
+    && row.status === 'success' && Number.isFinite(row.ageHours) && row.ageHours <= 12
+  const staleAfterHours = Number.isFinite(daily.staleAfterHours) ? daily.staleAfterHours : 36
+  const publication = daily.publication
+  return Boolean(refreshFresh(daily.atp) && refreshFresh(daily.wta)
+    && publication && typeof publication === 'object'
+    && publication.status === 'error'
+    && Number.isFinite(publication.lastSuccessAgeHours)
+    && publication.lastSuccessAgeHours <= staleAfterHours)
+}
+
 function initialDailyBootstrapReady(health) {
   const daily = health?.dailyUpdate
   if (!daily || typeof daily !== 'object') return false

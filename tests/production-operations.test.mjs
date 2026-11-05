@@ -3,13 +3,13 @@ import test from 'node:test'
 import { readFile } from 'node:fs/promises'
 
 const read = path => readFile(new URL(path,import.meta.url),'utf8')
-const [robots,caddy,compose,resource,maintenance,bootstrap,deployWorkflow,healthWorkflow,ciWorkflow,prometheus,alerts,caddyImage,deploy]=await Promise.all([
+const [robots,caddy,compose,resource,maintenance,bootstrap,deployWorkflow,healthWorkflow,ciWorkflow,prometheus,alerts,caddyImage,deploy,webImage]=await Promise.all([
   read('../app/robots.ts'),read('../ops/oracle/Caddyfile'),read('../compose.yaml'),
   read('../ops/vps/resource-check.sh'),read('../ops/vps/maintenance.sh'),read('../ops/vps/bootstrap.sh'),
   read('../.github/workflows/deploy-netcup.yml'),read('../.github/workflows/production-health.yml'),
   read('../.github/workflows/ci.yml'),
   read('../ops/observability/prometheus.yml'),read('../ops/observability/alerts.yml'),
-  read('../ops/oracle/Dockerfile.caddy'),read('../ops/vps/deploy.sh'),
+  read('../ops/oracle/Dockerfile.caddy'),read('../ops/vps/deploy.sh'),read('../Dockerfile'),
 ])
 
 test('costly AI crawlers are rejected before Next while search indexing remains available',()=>{
@@ -90,6 +90,10 @@ test('edge rate limiting and durable metrics are validated before promotion',()=
   assert.match(deploy,/start_prometheus_best_effort/)
   assert.match(deploy,/wait_for_prometheus/)
   assert.ok(deploy.lastIndexOf('if ! wait_for_prometheus') < deploy.lastIndexOf('failed its host resource probe'))
+})
+
+test('the production image carries the guarded publication recovery command',()=>{
+  assert.match(webImage,/COPY --from=builder --chown=nextjs:nodejs \/app\/ops\/recover-publication\.mjs \.\/ops\/recover-publication\.mjs/)
 })
 
 test('host health and safe maintenance are scheduled without touching volumes',()=>{
