@@ -4,7 +4,7 @@ import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { gzipSync } from 'node:zlib'
-import { releaseFailures } from '../ops/release-policy.mjs'
+import { recoverableDailyPublicationFailure, releaseFailures } from '../ops/release-policy.mjs'
 import { hasRequiredSnapshotArtifacts, satisfiesReleaseSnapshot } from '../build/snapshot-policy.mjs'
 
 const baseline = {
@@ -56,6 +56,27 @@ test('candidate verification may ignore only the suspended host monitor', () => 
   assert.ok(releaseFailures(hostOnly, baseline).includes('Estado degraded'))
   const additionalIssue = { ...hostOnly, healthIssues: ['host', 'storage-capacity'] }
   assert.ok(releaseFailures(additionalIssue, baseline, { allowHostIssue: true }).includes('Estado degraded'))
+})
+
+test('candidate may repair only a fresh failed publication without provider calls', () => {
+  const dailyUpdate = {
+    atp: { status: 'success', ageHours: 2 },
+    wta: { status: 'success', ageHours: 3 },
+    publication: { status: 'error', lastSuccessAgeHours: 12.6 },
+    staleAfterHours: 36,
+  }
+  const recoverable = { dailyUpdate, healthIssues: ['daily-update', 'scheduler'], storage: { available: true } }
+  assert.equal(recoverableDailyPublicationFailure(recoverable), true)
+  assert.equal(recoverableDailyPublicationFailure({ ...recoverable, dailyUpdate: { ...dailyUpdate,
+    atp: { status: 'error', ageHours: 2 } } }), false)
+  assert.equal(recoverableDailyPublicationFailure({ ...recoverable, dailyUpdate: { ...dailyUpdate,
+    wta: { status: 'success', ageHours: 12.1 } } }), false)
+  assert.equal(recoverableDailyPublicationFailure({ ...recoverable, dailyUpdate: { ...dailyUpdate,
+    publication: { status: 'error', lastSuccessAgeHours: 36.1 } } }), false)
+  assert.equal(recoverableDailyPublicationFailure({ ...recoverable, dailyUpdate: { ...dailyUpdate,
+    publication: { status: 'success', lastSuccessAgeHours: 1 } } }), false)
+  assert.equal(recoverableDailyPublicationFailure({ ...recoverable, healthIssues: ['daily-update', 'storage-capacity'] }), false)
+  assert.equal(recoverableDailyPublicationFailure({ ...recoverable, storage: { available: false } }), false)
 })
 
 test('bundled snapshot policy requires the record catalogue of both circuits', () => {

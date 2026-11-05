@@ -46,6 +46,7 @@ COPY --from=builder --chown=nextjs:nodejs /app/ops/oracle/scheduler.mjs ./ops/or
 COPY --from=builder --chown=nextjs:nodejs /app/ops/scheduler-core.mjs ./ops/scheduler-core.mjs
 COPY --from=builder --chown=nextjs:nodejs /app/ops/release-policy.mjs ./ops/release-policy.mjs
 COPY --from=builder --chown=nextjs:nodejs /app/ops/release-baseline.json ./ops/release-baseline.json
+COPY --from=builder --chown=nextjs:nodejs /app/ops/recover-publication.mjs ./ops/recover-publication.mjs
 COPY --from=builder --chown=nextjs:nodejs /app/ops/verify-release.mjs ./ops/verify-release.mjs
 COPY --from=builder --chown=nextjs:nodejs /app/build/restore-drill.mjs ./build/restore-drill.mjs
 COPY --from=builder --chown=nextjs:nodejs /app/build/restore-validation.mjs ./build/restore-validation.mjs

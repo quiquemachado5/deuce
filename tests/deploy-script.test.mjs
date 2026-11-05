@@ -85,6 +85,16 @@ test('daily bootstrap allowance follows persisted health instead of release coun
   assert.doesNotMatch(verification, /first_release/)
 })
 
+test('a recoverable publication error is repaired by the candidate before either gate', () => {
+  const seed = source.indexOf('/api/cron/seed')
+  const repair = source.indexOf('/app/ops/recover-publication.mjs')
+  const candidateGate = source.indexOf('candidate_verified=false')
+  const promotedGate = source.indexOf('promoted=false')
+  assert.ok(seed >= 0 && seed < repair && repair < candidateGate && candidateGate < promotedGate)
+  assert.match(source.slice(repair, candidateGate), /Candidate could not repair the recoverable publication state/)
+  assert.match(source.slice(repair, candidateGate), /api\/cron\/publish/)
+})
+
 test('deploy and watchdog share a lock before touching the stack', () => {
   const deployLock = source.indexOf('flock -n 9')
   const fetch = source.indexOf('git fetch origin main')
