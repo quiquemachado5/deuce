@@ -110,6 +110,29 @@ test('historical WTA levels publish conservative circuit categories', () => {
   assert.equal(historicalTournamentCategory(25, 2019, 'wta'), 'Circuito ITF femenino');
 });
 
+test('historical ATP general-tour editions separate ATP 500 and ATP 250 from 2009', () => {
+  assert.equal(historicalTournamentCategory('A', 2008, 'atp', 'Barcelona'), 'ATP Tour · nivel no especificado');
+  assert.equal(historicalTournamentCategory('A', 2009, 'atp', 'Barcelona'), 'ATP 500');
+  assert.equal(historicalTournamentCategory('A', 2009, 'atp', 'Doha'), 'ATP 250');
+  assert.equal(historicalTournamentCategory('A', 2014, 'atp', 'Rio de Janeiro'), 'ATP 500');
+  assert.equal(historicalTournamentCategory('A', 2014, 'atp', "Queen's Club"), 'ATP 250');
+  assert.equal(historicalTournamentCategory('A', 2015, 'atp', "Queen's Club"), 'ATP 500');
+  assert.equal(historicalTournamentCategory('A', 2020, 'atp', 'ATP Rio de Janeiro'), 'ATP 500');
+  assert.equal(historicalTournamentCategory('A', 2020, 'atp', 'St Petersburg'), 'ATP 500');
+  assert.equal(historicalTournamentCategory('A', 2021, 'atp', 'St. Petersburg'), 'ATP 250');
+  assert.equal(historicalTournamentCategory('A', 2022, 'atp', 'Astana'), 'ATP 500');
+});
+
+test('historical ATP special events are not relabelled as ATP 250', () => {
+  for (const [year, tournament] of [
+    [2009, 'Dusseldorf'], [2012, 'London Olympics'], [2017, 'Laver Cup'],
+    [2020, 'Atp Cup'], [2021, 'NextGen Finals'], [2021, 'Tokyo Olympics'],
+  ] as const) {
+    assert.equal(historicalTournamentCategory('A', year, 'atp', tournament), 'ATP Tour · nivel no especificado');
+  }
+  assert.equal(historicalTournamentCategory('A', 2013, 'atp', 'Dusseldorf'), 'ATP 250');
+});
+
 test('official 2026 WTA calendar repairs the provider tier gaps without widening unknown events', () => {
   const expected = new Map([
     ['Osaka', 'WTA 250'], ['Ningbo', 'WTA 500'], ['Tokyo', 'WTA 500'],

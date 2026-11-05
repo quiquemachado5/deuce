@@ -11,7 +11,7 @@ import { recordCatalog, eraComparisons, type RecordPiece, type RecordRow, type E
 import type { PublicationIndex } from '../publication-index';
 export const SNAPSHOT_SCHEMA = 7;
 // Bump whenever derivation rules change, even if source matches do not.
-export const RULES_VERSION = '2026-11-major-tours-v17';
+export const RULES_VERSION = '2026-11-major-tours-v18';
 export const PAGE_SIZE = 25;
 export const PIECE_CHUNK_PAGES = 50;
 export const pieceChunk = (page:number) => Math.floor((page-1)/PIECE_CHUNK_PAGES);
