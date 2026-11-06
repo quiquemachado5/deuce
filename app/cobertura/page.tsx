@@ -43,7 +43,7 @@ export default async function Coverage() {
           <p className={styles.date}>{date ? `Hasta ${archiveDate(date)}` : 'Sin fecha exacta registrada'}</p>
           <div className={styles.metrics}><div><strong>{number(summary.tournaments)}</strong><span>torneos</span></div><div><strong>{number(totals.ranking)}</strong><span>con ranking</span></div><div><strong>{number(totals.statistics)}</strong><span>con estadísticas</span></div><div><strong>{number(totals.points)}</strong><span>con puntos</span></div></div>
           <div className={styles.categories} aria-label={`Categorías ${tour.toUpperCase()}`}>
-            <h3>Categorías publicadas</h3>
+            <h2>Categorías publicadas</h2>
             <dl>{summary.categories.map(category => <div key={category.category}><dt><span>{category.category}</span><small>{category.firstYear}—{category.lastYear}</small></dt><dd>{number(category.matches)}</dd></div>)}</dl>
           </div>
           {totals.statistics === 0 && <p className={styles.note}>Resultados y marcadores; estadísticas de juego aún no disponibles.</p>}
