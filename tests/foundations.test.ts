@@ -106,13 +106,15 @@ test('coverage distinguishes missing ranking and partial enrichment', () => {
 });
 
 test('coverage keeps ATP and WTA field availability separate by season', () => {
-  const atp: Match = { ...mockMatches[0], match_id: 'atp-covered', tour: 'atp', year: 2024, statistics: [{ player: 1, period: 'match', category: 'Service', name: 'Aces', value: '4', won: 4, total: null }], point_tape: [{ set: 1, game: 1, point_number: 1, server: 1, score: '15-0', winner: 1, rally_length: null, is_ace: null, is_double_fault: null, is_break_point: null, break_converted: null, is_match_point: null, first_serve_in: null }] };
+  const atp: Match = { ...mockMatches[0], match_id: 'atp-covered', tour: 'atp', year: 2024, category: 'ATP 500', statistics: [{ player: 1, period: 'match', category: 'Service', name: 'Aces', value: '4', won: 4, total: null }], point_tape: [{ set: 1, game: 1, point_number: 1, server: 1, score: '15-0', winner: 1, rally_length: null, is_ace: null, is_double_fault: null, is_break_point: null, break_converted: null, is_match_point: null, first_serve_in: null }] };
   const wta: Match = { ...mockMatches[0], match_id: 'wta-result-only', tour: 'wta', year: 2024, statistics: [], point_tape: [], context: { rankLabel: 'Ranking al jugar', rank1: 2 } };
   const coverage = summarizeCircuits([atp, wta]);
   assert.deepEqual(coverage.atp.years, [{ year: 2024, matches: 1, ranking: 0, statistics: 1, points: 1 }]);
   assert.deepEqual(coverage.wta.years, [{ year: 2024, matches: 1, ranking: 1, statistics: 0, points: 0 }]);
   assert.deepEqual(coverage.atp.tours, { atp: 1, wta: 0 });
   assert.deepEqual(coverage.wta.tours, { atp: 0, wta: 1 });
+  assert.deepEqual(coverage.atp.categories, [{ category: 'ATP 500', matches: 1, firstYear: 2024, lastYear: 2024, statistics: 1, points: 1 }]);
+  assert.equal(coverage.wta.categories[0].matches, 1);
 });
 
 test('publication blocks bad archives and restores a newer immutable baseline', async () => {

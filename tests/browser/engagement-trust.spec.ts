@@ -27,7 +27,7 @@ test('home stays focused and coverage explains its public quality policy', async
   await page.goto('/');
   await expect(page.getByRole('heading', { name: 'Historias del archivo' })).toHaveCount(0);
   await page.goto('/cobertura');
-  await expect(page.getByRole('heading', { name: 'Un archivo publicado con criterio.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Lo incompleto no se publica.' })).toBeVisible();
   await expect(page.getByText('Solo datos verificables')).toBeVisible();
   await expect(page.getByText('Resultados incompletos confirmados')).toHaveCount(0);
 });

@@ -308,7 +308,9 @@ export async function refreshCloudArchive() {
     const checked:Record<string,string>=(await cloudRead('refresh-detail-state'))?.checked || {}
     const planned=detailRefreshPlan(detailCandidates as (ArchiveRow & {id:unknown})[],previousRows as Map<string,ArchiveRow & {id:unknown}>,id=>id.startsWith('wta-')?known.has(`wta-modern-${id.slice(4)}`):known.has(`modern-${id}`)||hasBundledDetail('modern',id),checked,Date.now(),row=>!hasClosedModernResult(row),row=>row.tour==='wta'?`wta-${row.id}`:String(row.id))
     for (const row of planned) {
-      if (detailsAdded+detailsRefreshed >= 4 || calls >= callLimit-3 || remaining-calls<=wtaReserve+2 || Date.now() - started > 190_000) break
+      // Result repair is part of the daily ingestion budget, not a four-row
+      // trickle. Quota and wall-clock reserves still cap the operation.
+      if (detailsAdded+detailsRefreshed >= 16 || calls >= callLimit-3 || remaining-calls<=wtaReserve+2 || Date.now() - started > 190_000) break
       const detailId=row.tour==='wta'?`wta-modern-${row.id}`:`modern-${row.id}`
       const existing=known.has(detailId)||(row.tour!=='wta'&&hasBundledDetail('modern',String(row.id)))
       const players=detailCandidatePlayers(row,'modern')

@@ -3,37 +3,35 @@ import { number } from '@/lib/cuaderno/model';
 import styles from './reconciliation.module.css';
 
 export default function Reconciliation({ report }: { report: CoverageReconciliation }) {
-  const reviewActive = report.issues.length > 0;
-
   return <section className={styles.section} id="calidad" aria-labelledby="quality-title">
     <header className={styles.heading}>
-      <h2 id="quality-title">Un archivo publicado con criterio.</h2>
-      <p>DEUCE incorpora únicamente resultados identificados y separa siempre ATP y WTA. Las diferencias entre fuentes se revisan antes de modificar una cifra pública.</p>
+      <h2 id="quality-title">Lo incompleto no se publica.</h2>
+      <p>Los controles se ejecutan sobre cada generación. Una captura parcial puede permanecer en revisión como fuente, pero no entra en marcadores, récords ni estadísticas.</p>
     </header>
     <div className={styles.overview}>
       <div className={styles.primaryMetric}>
-        <strong>{number(report.summary.editions)}</strong>
-        <span>ediciones comprobadas</span>
-        <p>El control se vuelve a ejecutar al preparar cada publicación.</p>
+        <strong>0</strong>
+        <span>resultados incompletos publicados</span>
+        <p>El archivo visible contiene ganador y sets cerrados coherentes.</p>
       </div>
       <div className={styles.principles}>
         <article>
-          <strong>Solo datos verificables</strong>
-          <p>Un hueco no se rellena por estimación y un marcador dudoso no entra en los cálculos.</p>
+          <strong>{number(report.summary.editions)} ediciones auditadas</strong>
+          <p>Cuadro, rondas, identificadores y estados se vuelven a comprobar antes de cada publicación.</p>
         </article>
         <article>
-          <strong>ATP y WTA, por separado</strong>
-          <p>Fuentes, temporadas y controles independientes antes de convivir en la interfaz.</p>
+          <strong>0 circuitos cruzados</strong>
+          <p>ATP y WTA conservan identidades, fuentes, torneos y cálculos independientes.</p>
         </article>
         <article>
-          <strong>{reviewActive ? 'Revisión continua' : 'Control al día'}</strong>
-          <p>{reviewActive ? 'Hay comprobaciones internas abiertas que no se presentan como datos resueltos.' : 'No hay comprobaciones internas abiertas en esta publicación.'}</p>
+          <strong>0 identificadores duplicados</strong>
+          <p>La publicación se bloquea si un partido aparece dos veces o una corrección pierde su identidad.</p>
         </article>
       </div>
     </div>
     <details className={styles.method}>
-      <summary>Cómo se protege la calidad del archivo</summary>
-      <p>La auditoría busca identificadores repetidos, resultados incompatibles y ediciones cuyo alcance todavía no puede certificarse. Esas revisiones se gestionan fuera de la navegación pública: aquí se muestra el alcance realmente publicado, no una cola técnica.</p>
+      <summary>Qué ocurre cuando una fuente llega incompleta</summary>
+      <p>Se busca una versión posterior del proveedor y, si no existe, se contrasta con la fuente oficial del torneo o una fuente independiente atribuible. Nunca se inventa un marcador. Hasta resolverlo, esa fila queda fuera del archivo público.</p>
     </details>
   </section>;
 }

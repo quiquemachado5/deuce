@@ -88,6 +88,7 @@ test('operation status retains completed attempts for the daily API journal',()=
   assert.deepEqual(history.map(row=>row.status),['error','success']);
   assert.deepEqual(history.map(row=>row.calls),[2,7]);
   assert.equal(history[1].extracted,12);
+  assert.equal(operationStatus({status:'success',at:'2026-11-05T22:05:00Z',latestProviderDate:'2026-11-02'}).latestProviderDate,'2026-11-02');
 });
 
 test('WTA evidence URLs and portraits cannot fall through to ATP',()=>{

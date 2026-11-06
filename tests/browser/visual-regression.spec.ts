@@ -38,7 +38,7 @@ for (const viewport of viewports) {
   test(`coverage keeps the approved layout at ${viewport.name}`, async ({ page }) => {
     await page.setViewportSize(viewport);
     await page.goto('/cobertura');
-    await expect(page.getByRole('heading', { name: /^Cobertura\./ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /^Cobertura$/ })).toBeVisible();
     await hideDynamicCoverageSurfaces(page);
     await revealSections(page);
     await expect(page).toHaveScreenshot(`coverage-${viewport.name}.png`, {

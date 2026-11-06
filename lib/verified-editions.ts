@@ -2,6 +2,8 @@ import type { Match } from "./types";
 import { roundPosition } from "./editorial";
 import miamiDraw from "./verified-miami-2026.json";
 import rolandGarrosDraw from "./verified-roland-garros-2026.json";
+import wtaNovemberDraws from "./verified-wta-november-2026.json";
+import atpSpringDraws from "./verified-atp-spring-2026.json";
 /** Result-only references for entries absent from the principal provider. No points or measurements are inferred. */
 const australianOpenReferences = [
   {
@@ -64,6 +66,7 @@ type EditionReference = {
   surface: Match["surface"];
   format: string;
   dateLabel: string;
+  tour: Match["tour"];
 };
 const references: EditionReference[] = [
   ...australianOpenReferences.map((r) => ({
@@ -73,6 +76,7 @@ const references: EditionReference[] = [
     category: "Grand Slam",
     surface: "hard" as const,
     format: "BO5",
+    tour: "atp" as const,
     dateLabel:
       r.status === "Walkover" ? "Fecha de la retirada" : "Fecha del partido",
   })),
@@ -83,6 +87,7 @@ const references: EditionReference[] = [
     category: "Masters 1000",
     surface: "hard" as const,
     format: "BO3",
+    tour: "atp" as const,
     date: "2026-03-15",
     dateLabel: "Inicio del torneo",
     source: "https://www.miamiopen.com/draws/",
@@ -94,8 +99,31 @@ const references: EditionReference[] = [
     category: "Grand Slam",
     surface: "clay" as const,
     format: "BO5",
+    tour: "atp" as const,
     dateLabel: r.status === "Walkover" ? "Fecha programada" : "Fecha del partido",
     source: "https://www.rolandgarros.com/en-us/results/SM?round=1",
+  })),
+  ...wtaNovemberDraws.map((r) => ({
+    ...r,
+    year: 2026,
+    round: "Octavos de final",
+    status: "Finished",
+    source: r.tournament === "Chennai"
+      ? "https://www.wtatennis.com/tournaments/1148/chennai/2026/scores"
+      : "https://www.wtatennis.com/tournaments/1074/hong-kong/2026/scores",
+    category: "WTA 250",
+    surface: "hard" as const,
+    format: "BO3",
+    dateLabel: "Fecha del partido",
+    tour: "wta" as const,
+  })),
+  ...atpSpringDraws.map((r) => ({
+    ...r,
+    year: 2026,
+    surface: "clay" as const,
+    format: "BO3",
+    dateLabel: r.status === "Walkover" ? "Fecha de la retirada" : "Fecha del partido",
+    tour: "atp" as const,
   })),
   {
     id: 'winston-salem-2025-korda-withdrawal',
@@ -113,6 +141,7 @@ const references: EditionReference[] = [
     surface: 'hard',
     format: 'BO3',
     dateLabel: 'Fecha de la retirada',
+    tour: 'atp',
   },
 ];
 export const editionReferenceMatches: Match[] = references.map((r) => {
@@ -122,7 +151,7 @@ export const editionReferenceMatches: Match[] = references.map((r) => {
   ]);
   return {
     match_id: `reference-${r.id}`,
-    tour: 'atp',
+    tour: r.tour,
     tournament: r.tournament,
     year: r.year,
     category: r.category,

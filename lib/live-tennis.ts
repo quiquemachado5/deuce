@@ -13,7 +13,7 @@ import { createLimiter } from './concurrency'
 import { cloudRead, cloudDetails } from './cloud-archive'
 import { modernTournamentCategory, historicalTournamentCategory } from './tournament-tier'
 import { dedupeArchiveTourRows } from './archive-tour-dedupe'
-import { recoveredModernResult } from './modern-result'
+import { hasClosedModernResult, recoveredModernResult } from './modern-result'
 import { reconcileEditionSummaries } from './edition-reconcile'
 import { providerRoundName, publishableWtaArchiveRow, publishableWtaModernRow } from './provider-publication'
 import { providerTournamentName } from './tournament-identity'
@@ -527,7 +527,10 @@ export async function bundledEnrichmentCandidates(): Promise<import('./enrichmen
   const page=await readZip(join(listsDir,file))
   for(const row of page.data||[]){
    const tour=rowTour(row)
-   if(kind==='modern'&&(!providerTierInPublicationScope(row,tour)||row.is_qualifying===true||row.outcome!=='completed'||!(row.tape?.rows||row.tape?.reconstructed_rows)))continue
+   // A completed row with a partial final score is a repair candidate even
+   // when the list payload advertises no tape. The per-match endpoint can
+   // still hold a complete, validated reconstruction.
+   if(kind==='modern'&&(!providerTierInPublicationScope(row,tour)||row.is_qualifying===true||row.outcome!=='completed'||(hasClosedModernResult(row)&&!(row.tape?.rows||row.tape?.reconstructed_rows))))continue
    if(kind==='archive'&&/^Q[1-4]$/.test(row.round||''))continue
    const id=String(row.id)
    const players=detailCandidatePlayers(row,kind)
@@ -544,7 +547,7 @@ export async function bundledEnrichmentCandidates(): Promise<import('./enrichmen
  }
  for(let year=2023;year<=new Date().getUTCFullYear();year++){
   for(const row of await rowsFor(`modern-${year}-`)){
-   if(rowTour(row)!=='wta'||!providerTierInPublicationScope(row,'wta')||row.is_qualifying===true||row.outcome!=='completed'||!(row.tape?.rows||row.tape?.reconstructed_rows))continue
+   if(rowTour(row)!=='wta'||!providerTierInPublicationScope(row,'wta')||row.is_qualifying===true||row.outcome!=='completed'||(hasClosedModernResult(row)&&!(row.tape?.rows||row.tape?.reconstructed_rows)))continue
    const id=String(row.id)
    const players=detailCandidatePlayers(row,'modern')
    if(players&&!hasBundledDetail('modern',id,'wta'))candidates.push({kind:'modern',id,year,round:String(row.round_code||row.round||''),tour:'wta',players})

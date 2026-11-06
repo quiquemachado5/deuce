@@ -1,6 +1,7 @@
 import {cloudProbeRead} from '@/lib/cloud-archive';
 import {operationHistory,operationStatus} from '@/lib/archive-operations';
 import type {IngestionDay,RecordManifest} from '@/lib/revista/snapshot';
+import {SITE_ORIGIN} from '@/lib/site-origin';
 import styles from './coverage.module.css';
 
 type Entry=Record<string,unknown>;
@@ -12,6 +13,7 @@ type DailyActivity={
   atpAdded:number;wtaAdded:number;splitMeasured:boolean;
   published:number;corrected:number;publicationMeasured:boolean;
   statuses:string[];initialSeed:boolean;
+  atpProviderDate?:string;wtaProviderDate?:string;
 };
 
 const number=(value:number)=>value.toLocaleString('es-ES');
@@ -36,6 +38,7 @@ function dailyActivity(atpRaw:unknown,wtaRaw:unknown,publishRaw:unknown,ingestio
       const day=get(date),calls=numeric(entry.calls),extracted=numeric(entry.extracted)??numeric(entry.updated);
       if(calls!==undefined){day[tour==='atp'?'atpCalls':'wtaCalls']+=calls;day[tour==='atp'?'atpCallsMeasured':'wtaCallsMeasured']=true;}
       if(extracted!==undefined){day[tour==='atp'?'atpExtracted':'wtaExtracted']+=extracted;day[tour==='atp'?'atpMeasured':'wtaMeasured']=true;}
+      if(typeof entry.latestProviderDate==='string')day[tour==='atp'?'atpProviderDate':'wtaProviderDate']=entry.latestProviderDate;
       if(typeof entry.status==='string')day.statuses.push(entry.status);
     }
   };
@@ -85,34 +88,49 @@ const statusCopy=(status:string)=>({
 }[status]||status);
 const statusTone=(status:string)=>status==='success'?'active':status==='error'?'error':['free-history-limit','quota-reserve','storage-reserve','storage-unverified'].includes(status)?'warning':'neutral';
 const dateTime=(value?:string)=>value?new Date(value).toLocaleString('es-ES',{dateStyle:'medium',timeStyle:'short',timeZone:'Europe/Madrid'}):null;
+const providerDay=(value?:string|null)=>value?new Date(`${value}T12:00:00Z`).toLocaleDateString('es-ES',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'}):'Sin resultado fechado';
+
+async function developmentOperations(){
+  if(process.env.NODE_ENV!=='development')return undefined;
+  try{
+    const response=await fetch(`${SITE_ORIGIN}/api/health/deep`,{cache:'no-store',signal:AbortSignal.timeout(2_500)});
+    if(!response.ok)return undefined;
+    const payload=await response.json() as {dailyUpdate?:{atp?:Entry;wta?:Entry;publication?:Entry}};
+    return payload.dailyUpdate;
+  }catch{return undefined;}
+}
 
 export default async function Operations({manifest}:{manifest:RecordManifest}){
-  const [atpRaw,wtaRaw,publishRaw]=await Promise.all([
+  let [atpRaw,wtaRaw,publishRaw]=await Promise.all([
     cloudProbeRead('sync-status'),
     cloudProbeRead('wta-sync-status'),
     cloudProbeRead('publish-status'),
   ]);
+  if(!atpRaw&&!wtaRaw){
+    const remote=await developmentOperations();
+    atpRaw=remote?.atp;wtaRaw=remote?.wta;publishRaw=publishRaw||remote?.publication;
+  }
   const history=dailyActivity(atpRaw,wtaRaw,publishRaw,manifest.ingestionHistory);
   const todayKey=new Date().toISOString().slice(0,10),days=history.slice(0,7);
   const providers=(['atp','wta'] as const).map(tour=>({tour,status:operationStatus(tour==='atp'?atpRaw:wtaRaw),freshness:manifest.circuitFreshness?.[tour]}));
   return <section className={styles.operations} aria-labelledby="operations-title">
     <header className={styles.heading}>
-      <div><span>Actualizaciones</span><h2 id="operations-title">Actividad diaria.</h2></div>
-
+      <div><h2 id="operations-title">Actividad diaria</h2><p>La consulta y la fecha del último partido son datos distintos. Si la API no devuelve resultados nuevos, la consulta queda registrada igualmente; las verificaciones con fuentes oficiales pueden añadir resultados sin consumir llamadas.</p></div>
     </header>
     <div className={styles.providerGrid} aria-label="Estado de ingestión por circuito">{providers.map(({tour,status,freshness})=><article className={styles.providerCard} key={tour}>
       <header><strong>{tour.toUpperCase()}</strong><span className={styles.providerStatus} data-tone={statusTone(status.status)}>{statusCopy(status.status)}</span></header>
 
-      <dl>{dateTime(status.attemptAt)?<div><dt>Último intento</dt><dd>{dateTime(status.attemptAt)}</dd></div>:null}{dateTime(status.successAt)?<div><dt>Último éxito</dt><dd>{dateTime(status.successAt)}</dd></div>:null}<div><dt>Último partido publicado</dt><dd>{freshness?.latestExactDate||'Fecha incluida en el corte actual'}</dd></div></dl>
+      <dl>{dateTime(status.attemptAt)?<div><dt>Última consulta</dt><dd>{dateTime(status.attemptAt)}</dd></div>:null}{dateTime(status.successAt)?<div><dt>Última consulta correcta</dt><dd>{dateTime(status.successAt)}</dd></div>:null}<div><dt>Último resultado devuelto</dt><dd>{providerDay(status.latestProviderDate)}</dd></div><div><dt>Último resultado publicado</dt><dd>{providerDay(freshness?.latestExactDate)}</dd></div></dl>
+      {status.status==='success'&&status.latestProviderDate&&status.attemptAt?.slice(0,10)!==status.latestProviderDate?<p className={styles.providerNote}>Se consultó correctamente; el proveedor no entregó un resultado {tour.toUpperCase()} terminado posterior.</p>:null}
     </article>)}</div>
-    {days.length?<details className={styles.activityDetails}><summary>Ver últimas actualizaciones</summary><ol className={styles.days} aria-label="Actividad diaria de la API">{days.map(day=><li key={day.date}>
+    {days.length?<div className={styles.activityDetails}><h3>Últimos días registrados</h3><ol className={styles.days} aria-label="Actividad diaria de la API">{days.map(day=><li key={day.date}>
       <header><time dateTime={day.date}>{day.date===todayKey?'Hoy · ':''}{dayLabel(day.date)}</time><span className={styles.dayStatus}>{activityStatus(day)}</span></header>
       <div className={styles.tourRows}>
-        <div><strong>ATP</strong><span><b>{value(day.atpCallsMeasured,day.atpCalls)}</b> llamadas</span><span><b>{value(day.atpMeasured,day.atpExtracted)}</b> obtenidos</span><span><b>{value(day.splitMeasured,day.atpAdded)}</b> añadidos</span></div>
-        <div><strong>WTA</strong><span><b>{value(day.wtaCallsMeasured,day.wtaCalls)}</b> llamadas</span><span><b>{value(day.wtaMeasured,day.wtaExtracted)}</b> obtenidos</span><span><b>{value(day.splitMeasured,day.wtaAdded)}</b> añadidos</span></div>
+        <div><strong>ATP</strong><span><b>{value(day.atpCallsMeasured,day.atpCalls)}</b> llamadas</span><span><b>{value(day.atpMeasured,day.atpExtracted)}</b> recibidos</span><span><b>{value(day.splitMeasured,day.atpAdded)}</b> publicados</span>{day.atpProviderDate?<span className={styles.latestResult}>Resultado más reciente: {providerDay(day.atpProviderDate)}</span>:null}</div>
+        <div><strong>WTA</strong><span><b>{value(day.wtaCallsMeasured,day.wtaCalls)}</b> llamadas</span><span><b>{value(day.wtaMeasured,day.wtaExtracted)}</b> recibidos</span><span><b>{value(day.splitMeasured,day.wtaAdded)}</b> publicados</span>{day.wtaProviderDate?<span className={styles.latestResult}>Resultado más reciente: {providerDay(day.wtaProviderDate)}</span>:null}</div>
       </div>
-      {day.publicationMeasured?<p className={styles.daySummary}><strong>{number(day.published)}</strong> partidos publicados · {number(day.corrected)} corregidos</p>:null}
-    </li>)}</ol></details>:null}
+      {day.publicationMeasured?<p className={styles.daySummary}>{day.published?<><strong>{number(day.published)}</strong> altas en esta generación</>:<>Sin altas nuevas</>}{day.corrected>0&&day.corrected<=manifest.matchCount?<> · {number(day.corrected)} corregidos</>:null}</p>:null}
+    </li>)}</ol></div>:null}
 
   </section>;
 }
