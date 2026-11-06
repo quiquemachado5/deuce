@@ -33,7 +33,10 @@ export default function ArchiveFilterBar({
   const subscribe = useCallback((notify: () => void) => {
     const media = window.matchMedia(mobileQuery);
     const onChange = () => {
-      setOpen(false);
+      setOpen(current => {
+        if (current) window.requestAnimationFrame(() => trigger.current?.focus());
+        return false;
+      });
       notify();
     };
     media.addEventListener('change', onChange);
@@ -113,7 +116,14 @@ export default function ArchiveFilterBar({
   );
 
   return (
-    <div ref={root} className={styles.bar} data-open={open || undefined} aria-busy={busy || undefined}>
+    <div
+      ref={root}
+      className={styles.bar}
+      data-open={open || undefined}
+      aria-busy={busy || undefined}
+      onClickCapture={event => { if ((event.target as Element).closest('a[href]')) close(false); }}
+      onSubmitCapture={() => close(false)}
+    >
       <TournamentFilters ariaLabel={circuitLabel} items={circuits} />
       <button
         ref={trigger}

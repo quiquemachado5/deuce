@@ -1,7 +1,7 @@
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test, type Locator, type Page } from '@playwright/test';
 
-async function expectInsideViewport(page: Page, selector: string) {
-  const box = await page.locator(selector).boundingBox();
+async function expectInsideViewport(page: Page, target: string | Locator) {
+  const box = await (typeof target === 'string' ? page.locator(target) : target).boundingBox();
   const viewport = page.viewportSize();
   expect(box).not.toBeNull();
   expect(viewport).not.toBeNull();
@@ -16,8 +16,9 @@ test('mobile filters use the viewport even after the page moves', async ({ page 
   await page.goto('/buscar?year=2024');
   await page.getByRole('button', { name: /Filtrar partidos/ }).click();
   await page.evaluate(() => scrollTo(0, 900));
-  await expect(page.locator('[class*="portalFilters"][data-visible]')).toBeVisible();
-  await expectInsideViewport(page, '[class*="portalFilters"][data-visible]');
+  const dialog = page.getByRole('dialog', { name: 'Filtrar partidos' });
+  await expect(dialog).toBeVisible();
+  await expectInsideViewport(page, dialog);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });
 
@@ -60,7 +61,8 @@ test('player directory title, filters and empty WTA state are explicit', async (
   await expect(page.getByRole('heading', { level: 1, name: 'Jugadoras' })).toBeVisible();
   await expect(page.getByRole('navigation', { name: 'Circuito de jugadoras' })).toBeVisible();
   await expect(page).toHaveTitle(/Jugadoras WTA/);
-  await expect(page.getByRole('searchbox', { name: 'Buscar en el directorio' })).toBeVisible();
+  await page.getByRole('button', { name: 'Filtrar jugadoras' }).click();
+  await expect(page.getByRole('searchbox', { name: 'Buscar jugadora' })).toBeVisible();
   await expect(page.getByText(/jugadoras · página/)).toHaveCount(0);
   if (!(await page.locator('main a[href^="/jugadores/"]').count())) {
     await expect(page.getByRole('heading', { name: 'El archivo WTA todavía no tiene temporadas publicadas' })).toBeVisible();

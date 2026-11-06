@@ -271,7 +271,9 @@ export function DeuceTopbar() {
       }
       if (event.key === 'Tab' && (searchMounted || menu) && shell.current) {
         const focusable = [...shell.current.querySelectorAll<HTMLElement>('a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),[tabindex]:not([tabindex="-1"])')]
-          .filter(node => !node.hidden && !node.closest('[aria-hidden="true"], [inert]'));
+          .filter(node => !node.hidden
+            && !node.closest('[aria-hidden="true"], [inert]')
+            && (!searchMounted || Boolean(node.closest('form[role="search"],#global-search-results'))));
         if (!focusable.length) return;
         const first = focusable[0], last = focusable.at(-1)!;
         if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }

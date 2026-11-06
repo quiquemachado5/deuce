@@ -19,7 +19,8 @@ test('mobile home keeps its current editorial sections compact and accessible', 
 
 test('navigation is immediate and licences remain in the dedicated directory', async ({ page }) => {
   await page.goto('/');
-  await page.getByRole('navigation', { name: 'Principal', exact: true }).getByRole('link', { name: 'Jugadores' }).click();
+  await page.getByRole('navigation', { name: 'Principal', exact: true }).getByRole('button', { name: 'Jugadores' }).click();
+  await page.getByRole('link', { name: 'Ver toda la sección' }).click();
   await expect(page).toHaveURL(/\/jugadores/);
   await expect(page.getByRole('heading', { level: 1, name: 'Jugadores' })).toBeVisible();
   await page.goto('/licencias?q=Nastase');

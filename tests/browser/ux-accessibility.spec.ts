@@ -71,9 +71,11 @@ test('mobile directory openings, profile facts and pagination stay usable', asyn
   await expect(page.locator('.pp-chart-x-axis')).toBeVisible();
 
   await page.goto('/jugadores?orden=wins');
-  await expect(page.getByLabel('Ordenar')).toHaveValue('wins');
+  await page.getByRole('button', { name: 'Filtrar jugadores' }).click();
+  await expect(page.getByLabel('Ordenar directorio')).toHaveValue('wins');
   await page.getByRole('link', { name: 'Limpiar' }).click();
-  await expect(page.getByLabel('Ordenar')).toHaveValue('relevance');
+  await page.getByRole('button', { name: 'Filtrar jugadores' }).click();
+  await expect(page.getByLabel('Ordenar directorio')).toHaveValue('relevance');
 
   await page.goto('/jugadores?page=2');
   await expect(page.getByRole('link', { name: 'Ir a la primera página' })).toBeVisible();
