@@ -29,10 +29,6 @@ const navigation: ReadonlyArray<{ label: string; section: CircuitSection }> = [
   { label: 'Comparar', section: 'compare' },
 ];
 
-function normalizedResultText(value: string) {
-  return value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase('es').trim();
-}
-
 function tournamentHref(tour: Circuit, category?: string) {
   const params = new URLSearchParams();
   if (tour === 'wta') params.set('circuito', 'wta');
@@ -362,9 +358,8 @@ export function DeuceTopbar() {
   const queryLength = query.trim().length;
   const loading = queryLength >= 2 && (result.query !== query.trim() || result.tour !== searchTour);
   const visibleItems = result.tour === searchTour && result.query === query.trim() ? result.items : [];
-  const normalizedTerms = normalizedResultText(query).split(/\s+/).filter(Boolean);
   const searchColumns = [
-    { label: 'Jugadores', items: visibleItems.filter(item => item.group === 'Jugadores' && normalizedTerms.every(term => normalizedResultText(item.name).includes(term))).slice(0, 6) },
+    { label: 'Jugadores', items: visibleItems.filter(item => item.group === 'Jugadores').slice(0, 6) },
     { label: 'Partidos', items: visibleItems.filter(item => item.group === 'Partidos').slice(0, 6) },
   ];
   const tournamentItems = visibleItems.filter(item => item.group === 'Torneos' || item.group === 'Ediciones').slice(0, 6);

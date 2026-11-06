@@ -15,7 +15,7 @@ test('global search coexists with directory controls and fills the topbar',async
   await page.setViewportSize({width:1440,height:900});
   await page.goto('/jugadores');
   await expect(page.locator('.player-directory input[type="search"]')).toHaveCount(1);
-  await page.locator('.player-directory summary').filter({hasText:'Filtros'}).click();
+  await page.getByRole('button',{name:'Filtrar jugadores',exact:true}).click();
   await expect(page.getByRole('combobox',{name:'Ordenar'})).toBeVisible();
   await page.getByRole('button',{name:'Buscar en DEUCE',exact:true}).click();
   await expect.poll(async()=>page.locator('[data-deuce-topbar], [data-deuce-topbar] form[role="search"]').evaluateAll(nodes=>{
@@ -31,10 +31,11 @@ test('global search coexists with directory controls and fills the topbar',async
   await page.setViewportSize({width:390,height:844});
   await page.goto('/buscar');
   await expect(page.locator('.deuce-search input[type="search"]')).toHaveCount(0);
-  const filters=page.getByRole('button',{name:'Filtros · Filtrar partidos',exact:true});
+  const filters=page.getByRole('button',{name:'Filtrar partidos',exact:true});
   await expect(filters).toBeVisible();
   await filters.click();
-  await expect(page.getByRole('button',{name:'Cerrar filtros',exact:true})).toBeVisible();
-  await expect(page.locator('[class*="portalFilters"][data-visible]').getByLabel('Temporada')).toBeVisible();
+  const filterDialog=page.getByRole('dialog',{name:'Filtrar partidos'});
+  await expect(filterDialog.getByRole('button',{name:'Cerrar filtros',exact:true})).toBeVisible();
+  await expect(filterDialog.getByLabel('Temporada')).toBeVisible();
   expect(await page.evaluate(()=>document.documentElement.scrollWidth-window.innerWidth)).toBeLessThanOrEqual(1);
 });
