@@ -31,6 +31,7 @@
     "data:wta:derive": "node --import ./build/register.mjs --import tsx build/derive-wta-cohorts.ts",
     "data:wta:audit": "node --import ./build/register.mjs --import tsx build/audit-wta-cohorts.ts",
     "data:integrity-queue": "node --import ./build/register.mjs --import tsx build/build-integrity-repair-queue.ts",
+    "data:repair:modern": "node --env-file=.env.local --import ./build/register.mjs --import tsx build/repair-modern-results.ts",
     "storage:seed": "node --import ./build/register.mjs --import tsx build/seed-archive.ts",
     "media:verify": "node --import ./build/register.mjs --import tsx build/audit-tournament-media.ts && node --import ./build/register.mjs --import tsx build/audit-photo-rights.ts",
     "media:players": "node build/discover-player-photos.mjs --scan=250 --max=100",

@@ -1,0 +1,62 @@
+[
+  {
+    "id": "madrid-2026-zverev-blockx",
+    "first": "Alexander Zverev",
+    "second": "Alexander Blockx",
+    "round": "Semifinal",
+    "date": "2026-05-01",
+    "score": "6–2 7–5",
+    "status": "Finished",
+    "source": "https://www.atptour.com/en/news/zverev-blockx-madrid-2026-friday",
+    "tournament": "Madrid",
+    "category": "Masters 1000"
+  },
+  {
+    "id": "monte-carlo-2026-sinner-zverev",
+    "first": "Jannik Sinner",
+    "second": "Alexander Zverev",
+    "round": "Semifinal",
+    "date": "2026-04-11",
+    "score": "6–1 6–4",
+    "status": "Finished",
+    "source": "https://www.atptour.com/en/news/sinner-zverev-monte-carlo-2026-sf",
+    "tournament": "Monte Carlo",
+    "category": "Masters 1000"
+  },
+  {
+    "id": "munich-2026-cobolli-zverev",
+    "first": "Flavio Cobolli",
+    "second": "Alexander Zverev",
+    "round": "Semifinal",
+    "date": "2026-04-18",
+    "score": "6–3 6–3",
+    "status": "Finished",
+    "source": "https://www.atptour.com/en/news/zverev-cobolli-munich-2026-sfs",
+    "tournament": "Munich",
+    "category": "ATP 500"
+  },
+  {
+    "id": "marrakech-2026-jodar-carabelli",
+    "first": "Rafael Jódar",
+    "second": "Camilo Ugo Carabelli",
+    "round": "Semifinal",
+    "date": "2026-04-04",
+    "score": "6–2 6–1",
+    "status": "Finished",
+    "source": "https://www.atptour.com/en/news/jodar-ugo-carabelli-marrakech-2026-sfs",
+    "tournament": "Marrakech",
+    "category": "ATP 250"
+  },
+  {
+    "id": "marrakech-2026-darderi-hanfmann",
+    "first": "Luciano Darderi",
+    "second": "Yannick Hanfmann",
+    "round": "Cuartos de final",
+    "date": "2026-04-03",
+    "score": "",
+    "status": "Walkover",
+    "source": "https://www.atptour.com/en/news/jodar-marrakech-2026-friday",
+    "tournament": "Marrakech",
+    "category": "ATP 250"
+  }
+]

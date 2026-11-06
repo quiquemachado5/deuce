@@ -16,9 +16,11 @@ async function main(){
   const [{editorialArchive},{compileRecordSnapshot,attachIngestionHistory},{writeBundledSnapshot}]=await Promise.all([import('../lib/editorial-data'),import('../lib/revista/snapshot'),import('../lib/revista/publish-snapshot')]);
   let matches=await editorialArchive();
   let previous:RecordManifest|undefined;
+  let bundledPrevious:RecordManifest|undefined;
   let previousAudit:EditionAudit[]|undefined;
   let previousCompetition:Match[]|undefined;
   let restoredPublishedArchive=false;
+  try{bundledPrevious=JSON.parse(gunzipSync(await readFile('data/reading/manifest.json.gz')).toString()) as RecordManifest;}catch{}
   if(verifiesRemoteRelease){
     const {cloudArchiveConfigured,cloudRead,cloudSnapshotBlob}=await import('../lib/cloud-archive');
     if(!cloudArchiveConfigured())throw new Error('Production release requires the configured remote archive');
@@ -40,10 +42,16 @@ async function main(){
     previousCompetition=restoredPublishedArchive&&typeof previous.version==='string' ? await cloudSnapshotBlob<Match[]>(previous.version,'competition') : undefined;
     if(restoredPublishedArchive&&previous.rulesVersion===RULES_VERSION&&previous.editionCount&&previousAudit?.length!==previous.editionCount)throw new Error('Cannot restore the published edition audit');
     if(restoredPublishedArchive&&previous.rulesVersion===RULES_VERSION&&previous.competitionCount&&previousCompetition?.length!==previous.competitionCount)throw new Error('Cannot restore the published competition archive');
+  }else if(bundledPrevious){
+    const localCount=matches.length;
+    matches=await preservePublishedArchive(publishedMatches(matches),bundledPrevious,async version=>{
+      if(version!==bundledPrevious?.version)return undefined;
+      try{return JSON.parse(gunzipSync(await readFile('data/reading/matches.json.gz')).toString()) as Match[];}catch{return undefined;}
+    });
+    previous=bundledPrevious;
+    if(matches.length>localCount)console.log(`Local archive baseline preserved: ${matches.length} matches over ${localCount} source matches`);
   }
   matches=publishedMatches(matches);
-  let bundledPrevious:RecordManifest|undefined;
-  try{bundledPrevious=JSON.parse(gunzipSync(await readFile('data/reading/manifest.json.gz')).toString()) as RecordManifest;}catch{}
   const comparablePreviousCount=previous?.rulesVersion===RULES_VERSION?previous.matchCount:bundledPrevious?.rulesVersion===RULES_VERSION?bundledPrevious.matchCount:0;
   assertPublishableArchive(matches,comparablePreviousCount);
   const {competitionEntries,editionSourceAudit}=await import('../lib/live-tennis');
@@ -58,6 +66,9 @@ async function main(){
     else console.log('Edition coverage baseline initialized from this release');
     snapshot.manifest=attachIngestionHistory(previous,attachRecordChanges(previous,snapshot.manifest));
     console.log(`Release baseline verified: ${previous.matchCount} published matches; ${snapshot.manifest.matchCount} prepared; measured coverage preserved`);
+  }else if(previous){
+    assertReleaseCoverage(previous,snapshot.manifest);
+    snapshot.manifest=attachIngestionHistory(previous,attachRecordChanges(previous,snapshot.manifest));
   }
   assertSnapshotIntegrity(snapshot);
   await writeBundledSnapshot(snapshot);

@@ -5,8 +5,10 @@ import { publishedMatches } from './publication-scope';
 export const MINIMUM_PUBLISHED_MATCHES = 25_000;
 
 export type YearCoverage = { year: number; matches: number; ranking: number; statistics: number; points: number };
+export type CategoryCoverage = { category: string; matches: number; firstYear: number; lastYear: number; statistics: number; points: number };
 export function summarizeDataset(matches: Match[]) {
   const years = new Map<number, YearCoverage>();
+  const categories = new Map<string, CategoryCoverage>();
   const surfaces = Object.fromEntries(SURFACES.map(surface => [surface, 0])) as Record<Surface, number>;
   const tours={atp:0,wta:0};
   for (const match of matches) {
@@ -18,9 +20,26 @@ export function summarizeDataset(matches: Match[]) {
     if (match.statistics.length) row.statistics++;
     if (match.point_tape.length) row.points++;
     years.set(match.year, row);
+    const category = categories.get(match.category) || { category: match.category, matches: 0, firstYear: match.year, lastYear: match.year, statistics: 0, points: 0 };
+    category.matches++;
+    category.firstYear = Math.min(category.firstYear, match.year);
+    category.lastYear = Math.max(category.lastYear, match.year);
+    if (match.statistics.length) category.statistics++;
+    if (match.point_tape.length) category.points++;
+    categories.set(match.category, category);
     surfaces[match.surface]++;
   }
-  return { tournaments: new Set(matches.map(match => match.tournament)).size, tours, surfaces, years: [...years.values()].sort((a, b) => b.year - a.year) };
+  const categoryOrder = ['Grand Slam', 'Masters 1000', 'WTA 1000', 'ATP 500', 'WTA 500', 'ATP 250', 'WTA 250', 'WTA 125', 'Precursores de Masters', 'WTA · alto nivel histórico'];
+  return {
+    tournaments: new Set(matches.map(match => match.tournament)).size,
+    tours,
+    surfaces,
+    years: [...years.values()].sort((a, b) => b.year - a.year),
+    categories: [...categories.values()].sort((a, b) => {
+      const first = categoryOrder.indexOf(a.category), second = categoryOrder.indexOf(b.category);
+      return (first < 0 ? categoryOrder.length : first) - (second < 0 ? categoryOrder.length : second) || b.matches - a.matches;
+    }),
+  };
 }
 
 /** Keep field coverage attributable to its circuit instead of blending ATP and WTA. */

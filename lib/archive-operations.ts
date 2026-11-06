@@ -10,6 +10,7 @@ export function operationStatus(value: unknown) {
     publicationAt: date(row.publicationAt),
     reason: typeof row.message==='string'?row.message:undefined,
     found: typeof row.matches==='number'?row.matches:typeof row.seasonMatches==='number'?row.seasonMatches:undefined,
+    latestProviderDate: typeof row.latestProviderDate==='string'?row.latestProviderDate:undefined,
     seasons: Array.isArray(row.seasonsRefreshed)?row.seasonsRefreshed.filter((v):v is number=>typeof v==='number'):[],
   };
 }

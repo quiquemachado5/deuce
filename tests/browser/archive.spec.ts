@@ -9,7 +9,7 @@ test('overview is real and matches the public coverage totals', async ({ page, r
   expect(summary.matches).toBeGreaterThan(25_000);
   expect(summary.rulesVersion).toBeTruthy();
   await page.goto('/cobertura');
-  await expect(page.getByRole('heading', { level: 1, name: 'Cobertura.' })).toBeVisible();
+  await expect(page.getByRole('heading', { level: 1, name: 'Cobertura' })).toBeVisible();
   await expect(page.locator('#main-content')).toContainText(new Intl.NumberFormat('es-ES').format(summary.matches));
   await expect(page.locator('#main-content')).toContainText('Moqueta');
   await page.setViewportSize({ width: 390, height: 844 });
