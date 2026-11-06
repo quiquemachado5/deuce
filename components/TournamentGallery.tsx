@@ -1,10 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useEffect, useRef } from "react";
-import { imageFocus } from "@/lib/image-focus";
+import EditorialPhoto from "@/components/EditorialPhoto";
 import styles from "./TournamentGallery.module.css";
 
 export type TournamentGalleryCard = {
@@ -67,7 +66,16 @@ export default function TournamentGallery({ cards, variant = "rail", label }: {
     <div ref={viewport} className={styles.track} tabIndex={variant === "majors" ? -1 : 0} onKeyDown={onKeyDown} aria-label={label}>
       {cards.map((card, index) => {const women=/[?&]cuadro=wta(?:&|$)/.test(card.href);return <Link href={card.href} className={styles.card} key={card.id} prefetch={false} data-event-surface={card.surface}>
         <div className={styles.photo}>
-          {card.image ? <Image className="art-directed-photo" src={card.image} alt={card.alt || card.title} fill priority={variant === "majors" && index === 0} sizes={variant === "majors" && index === 0 ? "(max-width:640px) 84vw, 52vw" : "(max-width:640px) 82vw, 31vw"} unoptimized={card.image.includes("/images/players/")} style={imageFocus(card.imagePosition || "center", card.imagePositionMobile || card.imagePosition || "center")} /> : <span className={styles.fallback} aria-hidden="true" />}
+          <EditorialPhoto
+            className="art-directed-photo"
+            src={card.image}
+            alt={card.alt || card.title}
+            label={card.title}
+            priority={variant === "majors" && index === 0}
+            sizes={variant === "majors" && index === 0 ? "(max-width:640px) 84vw, 52vw" : "(max-width:640px) 82vw, 31vw"}
+            objectPosition={card.imagePosition || "center"}
+            mobileObjectPosition={card.imagePositionMobile || card.imagePosition || "center"}
+          />
           <span className={styles.photoShade} aria-hidden="true" />
           <span className={styles.court}>{card.court}</span>
         </div>

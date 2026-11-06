@@ -42,8 +42,21 @@
   --control-filter: 40px;
   --control-button: 44px;
   --control-tab: 38px;
+  --deuce-content-max: 1120px;
+  --deuce-section-title: clamp(58px, 7vw, 86px);
+  --deuce-section-title-mobile: clamp(42px, 12vw, 48px);
+  --deuce-section-header-top: 140px;
+  --deuce-section-header-bottom: 50px;
+  --deuce-section-header-gap: 28px;
+  --deuce-section-header-top-mobile: 104px;
+  --deuce-section-header-bottom-mobile: 26px;
+  --deuce-section-header-gap-mobile: 17px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --speed: 240ms;
+}
+
+body.archive-filters-active {
+  overflow: hidden;
 }
 html[data-theme="dark"] {
   color-scheme: dark;
@@ -308,7 +321,7 @@ a svg {
   flex-direction: column;
 }
 .ry-main {
-  width: min(1240px, calc(100% - 64px));
+  width: min(var(--deuce-content-max), calc(100% - 64px));
   margin-inline: auto;
   flex: 1;
   min-width: 0;
@@ -316,7 +329,7 @@ a svg {
 }
 .nc-wrap {
   width: 100%;
-  max-width: 1180px;
+  max-width: var(--deuce-content-max);
   margin-inline: auto;
   min-width: 0;
 }

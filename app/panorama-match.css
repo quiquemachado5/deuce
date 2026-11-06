@@ -33,7 +33,7 @@ html:has(.pm-page) {
   --pm-lime: #b8ed3b;
   --pm-gold: #6b4c0b;
   --pm-silver: #56635f;
-  width: min(1240px, 100%);
+  width: min(var(--deuce-content-max), 100%);
   min-width: 0;
   margin-inline: auto;
   color: var(--pm-ink);
@@ -64,7 +64,7 @@ html:has(.pm-page) {
 .pm-hero-inner {
   position: relative;
   z-index: 1;
-  width: min(1240px, 100%);
+  width: min(var(--deuce-content-max), 100%);
   min-height: 525px;
   margin-inline: auto;
 }

@@ -10,7 +10,7 @@ import { tournamentDirectory } from '@/lib/tournament-directory';
 import { Pagination } from '@/components/nocturno/Row';
 import { ArchivePage } from '@/components/deuce/ArchivePage';
 import TournamentGallery, { type TournamentGalleryCard } from '@/components/TournamentGallery';
-import TournamentFilters from '@/components/TournamentFilters';
+import ArchiveFilterBar from '@/components/ArchiveFilterBar';
 import { winnerName, roundPosition } from '@/lib/editorial';
 import { robotsForUnavailableTour } from '@/lib/seo-metadata';
 import { tournamentDirectoryUrl } from '@/lib/tournament-url';
@@ -80,10 +80,16 @@ export default async function TournamentDirectory({ searchParams }: Props) {
       href: `/torneos/${entry.slug}?${params}`,
     };
   });
-  const tools = <TournamentFilters ariaLabel="Circuito de torneos" items={([
+  const circuitItems = ([
     {tour:'atp',label:'ATP'},
     {tour:'wta',label:'WTA'},
-  ] as const).map(item=>({href:tournamentDirectoryUrl(item.tour),label:item.label,active:tour===item.tour}))}/>;
+  ] as const).map(item=>({href:tournamentDirectoryUrl(item.tour),label:item.label,active:tour===item.tour}));
+  const tools = <ArchiveFilterBar circuits={circuitItems} circuitLabel="Circuito de torneos" panelTitle="Filtrar torneos" activeCount={chosen ? 1 : 0}>
+    <nav className={styles.categoryFilter} aria-label="Categorías de torneos">
+      <Link href={tournamentDirectoryUrl(tour)} aria-current={!chosen ? 'page' : undefined}>Todos</Link>
+      {levels.map(category => <Link key={category} href={tournamentDirectoryUrl(tour, category)} aria-current={chosen === category ? 'page' : undefined}>{categoryLabel(category)}</Link>)}
+    </nav>
+  </ArchiveFilterBar>;
   const orderedCards = chosen ? cards.sort((a, b) => latestPlayed(entryBySlug.get(b.id)!, chosen) - latestPlayed(entryBySlug.get(a.id)!, chosen)) : cards;
 
   return <ArchivePage title="Torneos" className={styles.page} tools={tools}><div className={styles.content}>

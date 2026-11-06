@@ -39,7 +39,7 @@ export function ScoreRows({ match, playerLinks = false }: { match: MatchRecord; 
   </div>;
 }
 
-export function MatchScoreboard({ match, variant = 'card' }: { match: MatchRecord; variant?: 'card' | 'compact' | 'overlay' | 'detail' }) {
+export function MatchScoreboard({ match, variant = 'card', showAction = true }: { match: MatchRecord; variant?: 'card' | 'compact' | 'overlay' | 'detail'; showAction?: boolean }) {
   const tournament = cleanLabel(match.tournament);
   const round = cleanLabel(match.round);
   const context = cleanLabel(match.category);
@@ -53,7 +53,7 @@ export function MatchScoreboard({ match, variant = 'card' }: { match: MatchRecor
       {context && <small className="simple-match-category">{context}</small>}
     </div>
     <ScoreRows match={match} playerLinks={variant === 'detail'} />
-    <div className="simple-match-foot"><time className="simple-match-date" dateTime={approximateDate ? undefined : match.date || undefined}>{approximateDate && date ? `Semana del ${date}` : date}</time>{variant !== 'detail' && <span>Ver partido <ArrowUpRight size={14} aria-hidden="true"/></span>}</div>
+    <div className="simple-match-foot"><time className="simple-match-date" dateTime={approximateDate ? undefined : match.date || undefined}>{approximateDate && date ? `Semana del ${date}` : date}</time>{variant !== 'detail' && showAction && <span>Ver partido <ArrowUpRight size={14} aria-hidden="true"/></span>}</div>
   </>;
   const className = `${classes}${isFinal ? ' is-final' : ''}`;
   const data = { 'data-event-surface': match.surface, 'data-event-category': context };

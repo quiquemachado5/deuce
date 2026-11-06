@@ -93,8 +93,14 @@ export const directoryPlayerPhotos: Record<string, Photo> = {
   ...publishableCuratedSelections,
 }
 
+function directoryReadyPhoto(photo: Photo | null): Photo | null {
+  if (!photo) return null
+  const largest = [...(photo.responsive || [])].sort((a, b) => b.width - a.width)[0]
+  return largest ? { ...photo, src: largest.src } : photo
+}
+
 export function playerDirectoryPhoto(name: string, tour: 'atp'|'wta' = 'atp'): Photo | null {
-  return (tour==='atp'?directoryPlayerPhotos[name]:null) || playerPhoto(name,tour)
+  return directoryReadyPhoto((tour==='atp'?directoryPlayerPhotos[name]:null) || playerPhoto(name,tour))
 }
 
 // These final overrides favour the moment over the portrait: play, ceremony and

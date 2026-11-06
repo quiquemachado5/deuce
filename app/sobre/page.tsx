@@ -45,7 +45,7 @@ export default function About() {
     <section className={styles.section} aria-labelledby="about-privacy-title">
       <div><h2 id="about-privacy-title">Privacidad</h2><p>DEUCE no requiere una cuenta para consultar el archivo ni utiliza el historial personal para publicidad.</p></div>
       <div className={styles.points}>
-        <div><strong>Tu archivo</strong><p>Las páginas guardadas y vistas recientemente permanecen en el almacenamiento local de tu navegador. No se envían al servidor.</p></div>
+        <div><strong>Sin cuenta</strong><p>El archivo se puede consultar sin registro, perfil personal ni seguimiento publicitario.</p></div>
         <div><strong>Rendimiento</strong><p>El navegador envía métricas técnicas agregables —como LCP, INP o CLS— junto con la ruta visitada para detectar páginas lentas.</p></div>
         <div><strong>Protección</strong><p>La dirección de red se procesa temporalmente en memoria para limitar abuso de la API pública. La aplicación no la incorpora a los eventos de rendimiento.</p></div>
       </div>

@@ -25,7 +25,7 @@ test('inner page openings remain below the fixed topbar', async ({ page }) => {
   for (const path of ['/info', '/historias', '/comparar']) {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(path);
-    const topbarBottom = await page.locator('.topbar').evaluate((node) => node.getBoundingClientRect().bottom);
+    const topbarBottom = await page.locator('[data-deuce-topbar]').evaluate((node) => node.getBoundingClientRect().bottom);
     const headingTop = await page.getByRole('heading', { level: 1 }).evaluate((node) => node.getBoundingClientRect().top);
     expect(headingTop, path).toBeGreaterThanOrEqual(topbarBottom - 1);
   }

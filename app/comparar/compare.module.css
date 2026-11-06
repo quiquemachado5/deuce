@@ -19,11 +19,11 @@
   display: grid !important;
   grid-template-columns: minmax(260px, 1fr) auto !important;
   align-items: end !important;
-  gap: 28px;
-  width: min(1240px, calc(100% - 40px)) !important;
+  gap: var(--deuce-section-header-gap);
+  width: 100% !important;
   max-width: none !important;
   margin: 0 auto !important;
-  padding: 140px 0 50px !important;
+  padding: var(--deuce-section-header-top) 6px var(--deuce-section-header-bottom) !important;
 }
 
 .intro :global(.inner-title-tools) {
@@ -34,7 +34,7 @@
 
 .intro h1 {
   margin: 0 !important;
-  font: 650 clamp(58px, 7vw, 86px) / 0.9 var(--font-display) !important;
+  font: 650 var(--deuce-section-title) / 0.9 var(--font-display) !important;
   letter-spacing: -0.04em !important;
 }
 
@@ -42,7 +42,7 @@
 
 .page :global(.dx-filter-panel) {
   display: grid !important;
-  width: min(1240px, calc(100% - 40px)) !important;
+  width: 100% !important;
   margin: 0 auto !important;
   padding: 18px !important;
   grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
@@ -215,7 +215,7 @@
 
 .page :global(.dx-notice),
 .page :global(.dx-provenance) {
-  width: min(1240px, calc(100% - 40px)) !important;
+  width: 100% !important;
   margin-right: auto !important;
   margin-left: auto !important;
 }
@@ -230,7 +230,7 @@
 }
 
 .comparisonBoard {
-  width: min(1240px, calc(100% - 40px));
+  width: 100%;
   margin: 56px auto 0;
   padding: 14px;
   border-radius: var(--radius-lg);
@@ -449,7 +449,7 @@
 .surfacePlayer small { display: block; margin-top: 6px; color: var(--muted); font-size: 11px; }
 
 .headToHead {
-  width: min(1240px, calc(100% - 40px));
+  width: 100%;
   margin: 64px auto 0;
 }
 
@@ -676,7 +676,7 @@
 
 .methodNote {
   display: flex;
-  width: min(1240px, calc(100% - 40px));
+  width: 100%;
   margin: 22px auto 0;
   align-items: baseline;
   justify-content: center;
@@ -702,9 +702,9 @@
 
 @media (max-width: 560px) {
   .page { padding-bottom: 8px; }
-  .intro { width: 100% !important; padding: 110px 14px 28px !important; grid-template-columns: 1fr !important; align-items: start !important; gap: 17px; }
+  .intro { width: 100% !important; padding: var(--deuce-section-header-top-mobile) 14px var(--deuce-section-header-bottom-mobile) !important; grid-template-columns: 1fr !important; align-items: start !important; gap: var(--deuce-section-header-gap-mobile); }
   .intro :global(.inner-title-tools) { width: 100%; max-width: 100%; }
-  .intro h1 { font-size: clamp(44px, 13vw, 54px) !important; }
+  .intro h1 { font-size: var(--deuce-section-title-mobile) !important; }
   .page :global(.dx-filter-panel) { width: calc(100% - 28px) !important; padding: 10px !important; grid-template-columns: 1fr !important; border-radius: var(--radius-lg) !important; }
   .page :global(.dx-filter-panel > .nc-field) { padding: 11px; }
   .page :global(.dx-filter-panel > .nc-field),

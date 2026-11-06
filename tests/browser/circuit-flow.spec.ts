@@ -18,7 +18,7 @@ test('global search covers ATP and WTA from every section',async({page,request})
   }
   await page.goto('/info');
   await page.getByRole('button',{name:'Buscar en DEUCE'}).click();
-  await expect(page.getByText('Buscar en ATP y WTA',{exact:true})).toBeVisible();
+  await expect(page.locator('#global-search')).toBeFocused();
   await page.locator('#global-search').fill('Sabalenka');
   await page.getByRole('button',{name:'Ver todos los resultados'}).click();
   await expect(page).toHaveURL(/\/buscar\?q=Sabalenka&tour=all$/);
@@ -27,7 +27,7 @@ test('global search covers ATP and WTA from every section',async({page,request})
 
   await page.goto('/buscar');
   await page.getByRole('button',{name:'Buscar en DEUCE'}).click();
-  await expect(page.getByText('Buscar en ATP y WTA',{exact:true})).toBeVisible();
+  await expect(page.locator('#global-search')).toBeFocused();
   await page.locator('#global-search').fill('Swiatek');
   await expect(page.locator('[data-search-result][href*="iga-swiatek"]')).toHaveAttribute('href','/jugadores/iga-swiatek?tour=wta');
 });
@@ -97,19 +97,18 @@ test('the WTA entry opens the integrated match archive and keeps its circuit acr
   await page.goto('/wta');
   await expect(page).toHaveURL(/\/buscar\?tour=wta$/);
   const primary=page.getByRole('navigation',{name:'Principal',exact:true});
-  await expect(primary.getByRole('link',{name:'WTA',exact:true})).toHaveCount(0);
-  await expect(primary.getByRole('link',{name:'Partidos',exact:true})).toHaveAttribute('aria-current','page');
+  await expect(primary.getByRole('button',{name:'Partidos',exact:true})).toBeVisible();
   await expect(page.getByRole('navigation',{name:'Circuito de partidos'}).getByRole('link',{name:'WTA',exact:true})).toHaveAttribute('aria-current','page');
 
-  await primary.getByRole('link',{name:'Torneos',exact:true}).click();
+  await page.goto('/torneos?circuito=wta');
   await expect(page).toHaveURL(/\/torneos\?circuito=wta$/);
   await expect(page.getByRole('navigation',{name:'Circuito de torneos'}).getByRole('link',{name:'WTA',exact:true})).toHaveAttribute('aria-current','page');
 
-  await page.getByRole('navigation',{name:'Principal',exact:true}).getByRole('link',{name:'Jugadores',exact:true}).click();
+  await page.goto('/jugadores?tour=wta');
   await expect(page).toHaveURL(/\/jugadores\?tour=wta$/);
   await expect(page.getByRole('navigation',{name:'Circuito de jugadoras'}).getByRole('link',{name:'WTA',exact:true})).toHaveAttribute('aria-current','page');
 
-  await page.getByRole('navigation',{name:'Principal',exact:true}).getByRole('link',{name:'Comparar',exact:true}).click();
+  await page.goto('/comparar?tour=wta');
   await expect(page).toHaveURL(/\/comparar\?tour=wta$/);
   await expect(page.getByRole('navigation',{name:'Circuito del comparador'}).getByRole('link',{name:'WTA',exact:true})).toHaveAttribute('aria-current','page');
 

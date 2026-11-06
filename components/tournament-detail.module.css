@@ -116,7 +116,7 @@
   position: relative;
   z-index: 1;
   display: flex;
-  width: min(100% - 96px, 1600px);
+  width: min(100% - 40px, var(--deuce-content-max));
   min-height: inherit;
   margin: 0 auto;
   padding: 132px 0 70px;
@@ -184,7 +184,7 @@
   position: relative;
   z-index: 2;
   display: grid;
-  width: min(100% - 64px, 1160px);
+  width: min(100% - 64px, var(--deuce-content-max));
   margin: -28px auto 0;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   overflow: hidden;
@@ -222,7 +222,7 @@
 }
 
 .section {
-  width: min(100% - 64px, 1160px);
+  width: min(100% - 64px, var(--deuce-content-max));
   margin: clamp(78px, 10vw, 132px) auto 0;
 }
 
@@ -1762,7 +1762,7 @@
 }
 
 .finalSection {
-  width: min(100% - 64px, 1160px);
+  width: min(100% - 64px, var(--deuce-content-max));
   margin: clamp(68px, 9vw, 108px) auto 0;
 }
 
@@ -1845,7 +1845,7 @@
 }
 
 .bracket {
-  width: min(100% - 64px, 1240px);
+  width: min(100% - 64px, var(--deuce-content-max));
   margin: clamp(80px, 10vw, 132px) auto 0;
 }
 
@@ -1972,7 +1972,7 @@
 }
 
 .insights {
-  width: min(100% - 64px, 1160px);
+  width: min(100% - 64px, var(--deuce-content-max));
   margin: clamp(80px, 10vw, 132px) auto 0;
 }
 
@@ -2080,7 +2080,7 @@
 }
 
 .editionReadings {
-  width: min(100% - 64px, 1160px);
+  width: min(100% - 64px, var(--deuce-content-max));
   margin: clamp(80px, 10vw, 132px) auto 0;
 }
 
@@ -3110,7 +3110,7 @@
 }
 
 .editionHero .heroTitle {
-  max-width: min(1320px, 100%);
+  max-width: min(var(--deuce-content-max), 100%);
   font-size: clamp(54px, 6.55vw, 96px);
 }
 
@@ -3172,7 +3172,7 @@
 }
 
 .dataSectionInner {
-  width: min(100% - 64px, 1160px);
+  width: min(100% - 64px, var(--deuce-content-max));
   margin: 0 auto;
 }
 
@@ -3331,7 +3331,7 @@
 }
 
 .bracket {
-  width: min(100% - 64px, 1160px);
+  width: min(100% - 64px, var(--deuce-content-max));
   margin-top: clamp(68px, 9vw, 108px);
 }
 
@@ -3676,7 +3676,7 @@
 
 /* Keep the photographic title and edition control on the same archive grid. */
 .heroInner {
-  width: min(100% - 64px, 1160px);
+  width: min(100% - 64px, var(--deuce-content-max));
 }
 
 .heroCopy,
@@ -3923,7 +3923,7 @@
 
 .heroInner,
 .editionHero .heroInner {
-  width: min(100% - 64px, 1320px);
+  width: min(100% - 40px, var(--deuce-content-max));
   padding: 126px 0 54px;
 }
 
@@ -4344,7 +4344,7 @@
 /* Final editorial alignment and edition mosaic. */
 .heroInner,
 .editionHero .heroInner {
-  width: min(100% - 64px, 1160px);
+  width: min(100% - 64px, var(--deuce-content-max));
 }
 
 .heroCopy,
@@ -4725,7 +4725,7 @@
 /* Audit fixes: keep the edition controls legible and the documented draw inside the viewport. */
 .sectionIndex {
   display: flex;
-  width: min(100% - 64px, 1160px);
+  width: min(100% - 64px, var(--deuce-content-max));
   margin: 22px auto 0;
   gap: 8px;
   overflow-x: auto;
@@ -4751,7 +4751,7 @@
 
 .drawCoverage {
   display: flex;
-  width: min(100% - 64px, 1160px);
+  width: min(100% - 64px, var(--deuce-content-max));
   min-height: 52px;
   align-items: center;
   gap: 10px 18px;
