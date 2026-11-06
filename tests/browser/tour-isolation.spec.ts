@@ -34,5 +34,6 @@ test('WTA landing routes expose their own canonical and never fall back to ATP r
   await page.goto('/buscar?tour=wta');
   const wtaMatches=page.locator('main a[href^="/match/"]');
   await expect(wtaMatches.first()).toBeVisible();
-  expect(await wtaMatches.evaluateAll(links=>links.every(link=>link.getAttribute('href')?.startsWith('/match/wta-')))).toBe(true);
+  await expect(wtaMatches).not.toHaveCount(0);
+  expect(await wtaMatches.evaluateAll(links=>links.every(link=>link.getAttribute('data-tour')==='wta'))).toBe(true);
 });
