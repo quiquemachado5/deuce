@@ -1,21 +1,14 @@
 import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
-test('a visitor can keep a private archive without an account', async ({ page }) => {
-  await page.goto('/match/archive-148401');
-  const library = page.getByRole('region', { name: 'Tu archivo' });
-  await expect(library).toBeVisible();
-  await expect(library.getByRole('heading', { name: 'Vistos recientemente' })).toBeVisible();
-  const save = library.locator('button[aria-pressed]');
-  await expect(save).toHaveAccessibleName('Guardar esta página');
-  await save.click();
-  await expect(save).toHaveAccessibleName('Guardado');
-  await expect(save).toHaveAttribute('aria-pressed', 'true');
-  await page.reload();
-  await expect(page.getByRole('region', { name: 'Tu archivo' }).locator('button[aria-pressed="true"]')).toHaveAccessibleName('Guardado');
-  expect(await page.evaluate(() => localStorage.getItem('deuce:personal-archive:v1'))).toContain('/match/archive-148401');
-  await page.goto('/');
-  await expect(page.getByRole('region', { name: 'Tu archivo' })).toHaveCount(0);
+test('match navigation keeps its archive origin without rendering a personal archive', async ({ page }) => {
+  await page.goto('/buscar?tour=atp');
+  const match = page.locator('a[href^="/match/"]').first();
+  await expect(match).toBeVisible();
+  await match.click();
+  await expect(page).toHaveURL(/\/match\//);
+  expect(await page.evaluate(() => sessionStorage.getItem('deuce:archive-origin'))).toBe('/buscar?tour=atp');
+  await expect(page.locator('#tu-archivo')).toHaveCount(0);
 });
 
 test('about, correction and privacy information is public and readable', async ({ page }) => {

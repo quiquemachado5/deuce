@@ -5,7 +5,7 @@ import { preparedCompactArchive, preparedGeneration } from '@/lib/revista/read-r
 import { homeSelection, homeSelectionFromIndex } from '@/lib/deuce-home';
 import { HeroVideo } from '@/components/deuce/HeroVideo';
 import { OnThisDay } from '@/components/deuce/OnThisDay';
-import { ArchiveMatchRow } from '@/components/deuce/MatchArchivePage';
+import { MatchScoreboard } from '@/components/deuce/MatchScoreboard';
 import { TournamentSlider } from '@/components/deuce/TournamentSlider';
 import { toMatchRecord } from '@/data/map-match';
 import { courtPhoto } from '@/lib/imagery';
@@ -61,7 +61,7 @@ export default async function Home() {
     <OnThisDay match={anniversary} matches={anniversaries}/>
     {latestResults.length>0&&<section className="home-section home-latest-results" aria-labelledby="latest-results-title">
       <div className="section-head"><h2 id="latest-results-title">Últimos resultados</h2><Link className="deuce-cta" href="/buscar">Ver todos los partidos <span aria-hidden="true">↗</span></Link></div>
-      <div className="home-latest-archive">{latestResults.map(({tour,match})=><div className={editorial.latestResult} data-tour={tour} key={`${tour}-${match.match_id}`}><ArchiveMatchRow match={toMatchRecord(match)} showTournamentContext prefetch/></div>)}</div>
+      <div className="home-latest-archive">{latestResults.map(({tour,match})=><div className={editorial.latestResult} data-tour={tour} key={`${tour}-${match.match_id}`}><MatchScoreboard match={toMatchRecord(match)} showAction={false}/></div>)}</div>
     </section>}
     {recordCards.length>0&&<section className="dark-section home-records" aria-labelledby="home-records-title">
       <div className="section-head light"><h2 id="home-records-title">Récords del archivo</h2><Link className="deuce-cta" href="/records">Explorar récords <span aria-hidden="true">↗</span></Link></div>

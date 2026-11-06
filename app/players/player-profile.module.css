@@ -8,7 +8,7 @@
 
 .profilePage :global(.pp-section-nav),
 .profilePage :global(.pp-content){
-  width:min(1240px,calc(100% - 40px));
+  width:min(var(--deuce-content-max),calc(100% - 40px));
   margin-inline:auto;
 }
 
@@ -68,7 +68,7 @@
   position:absolute;
   z-index:5;
   top:98px;
-  left:max(20px,calc((100% - 1240px)/2));
+  left:max(20px,calc((100% - var(--deuce-content-max))/2));
   display:grid;
   width:46px;
   height:46px;
@@ -86,7 +86,7 @@
 .profilePage :global(.pp-hero-copy){
   position:relative;
   z-index:2;
-  width:min(1240px,calc(100% - 56px));
+  width:min(var(--deuce-content-max),calc(100% - 56px));
   min-height:620px;
   justify-content:flex-end;
   margin-inline:auto;
@@ -114,7 +114,7 @@
   bottom:-90px;
   left:0;
   display:grid;
-  width:min(1240px,calc(100% - 40px));
+  width:min(var(--deuce-content-max),calc(100% - 40px));
   min-height:180px;
   grid-template-columns:repeat(4,minmax(0,1fr));
   gap:6px;
@@ -288,7 +288,7 @@
 .profilePage :global(a.pp-tournament-entry:hover .pp-tournament-logo i){opacity:1;transform:none}
 .profilePage :global(a.pp-tournament-entry:focus-visible){outline:3px solid #1c7a50;outline-offset:3px}
 
-.profilePage :global(.pp-rivals){width:100vw;width:100dvw;margin-left:calc(50% - 50vw);margin-left:calc(50% - 50dvw);padding-inline:max(52px,calc((100vw - 1240px)/2 + 52px));border-radius:0;background:var(--deuce-action);color:#fff}
+.profilePage :global(.pp-rivals){width:100vw;width:100dvw;margin-left:calc(50% - 50vw);margin-left:calc(50% - 50dvw);padding-inline:max(52px,calc((100vw - var(--deuce-content-max))/2 + 52px));border-radius:0;background:var(--deuce-action);color:#fff}
 .profilePage :global(.pp-rivals-heading),.profilePage :global(.pp-matches-heading){display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:28px}
 .profilePage :global(.pp-rivals-heading h2),.profilePage :global(.pp-matches-heading h2){max-width:none;margin:0;font:740 clamp(36px,4vw,56px)/.95 var(--font-display);letter-spacing:-.04em;white-space:nowrap}
 .profilePage :global(.pp-rivals .pp-segmented){flex:none;background:color-mix(in srgb,var(--deuce-action) 82%,#fff);--scroll-cue-bg:color-mix(in srgb,var(--deuce-action) 82%,#fff)}

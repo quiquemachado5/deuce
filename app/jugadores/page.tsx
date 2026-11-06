@@ -1,8 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import type { CSSProperties } from 'react';
-import { ArrowRight, ArrowUpRight, Trophy } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Search, Trophy } from 'lucide-react';
 import { comparisonHref, playerSlug, rivalryDirectory } from '@/lib/explore';
 import { preparedGeneration } from '@/lib/revista/read-records';
 import { number } from '@/lib/cuaderno/model';
@@ -10,8 +9,9 @@ import { Pagination } from '@/components/nocturno/Row';
 import { normalizeText } from '@/lib/quality';
 import { playerDirectoryPhoto, playerPhoto } from '@/lib/player-imagery';
 import PairPicker from '@/components/analytics/PairPicker';
-import TournamentFilters from '@/components/TournamentFilters';
 import { robotsForUnavailableTour } from '@/lib/seo-metadata';
+import ArchiveFilterBar from '@/components/ArchiveFilterBar';
+import EditorialPhoto from '@/components/EditorialPhoto';
 import styles from './players.module.css';
 
 export async function generateMetadata({ searchParams }: {
@@ -77,27 +77,35 @@ export default async function Players({ searchParams }: {
     <header className={`inner-title ${styles.intro}`}>
       <h1>{query.tour === 'wta' ? 'Jugadoras' : 'Jugadores'}</h1>
       <div className={styles.introTools}>
-        <div className="inner-title-tools"><TournamentFilters ariaLabel={query.tour==='wta'?'Circuito de jugadoras':'Circuito de jugadores'} items={[
-          {href:url({tour:'atp',page:'1'}),label:'ATP',active:query.tour==='atp'},
-          {href:url({tour:'wta',page:'1'}),label:'WTA',active:query.tour==='wta'},
-        ]}/></div>
-        <form key={`${query.tour}|${query.q || ''}|${order}`} className={styles.directoryTools} action="/jugadores" method="get" role="search">
-          <label>
-            <span className="sr-only">Buscar en el directorio</span>
-            <input name="q" type="search" defaultValue={query.q || ''} placeholder={query.tour === 'wta' ? 'Buscar jugadora' : 'Buscar jugador'} />
-          </label>
-          <label>
-            <span className="sr-only">Ordenar</span>
-            <select name="orden" defaultValue={order} aria-label="Ordenar directorio">
-              <option value="relevance">Trayectoria</option>
-              <option value="wins">Victorias</option>
-              <option value="name">Nombre</option>
-            </select>
-          </label>
-          {query.tour === 'wta' && <input type="hidden" name="tour" value="wta" />}
-          <button type="submit">Buscar</button>
-          {(query.q || order !== 'relevance') && <Link className={styles.directoryClear} href={query.tour === 'wta' ? '/jugadores?tour=wta' : '/jugadores'}>Limpiar</Link>}
-        </form>
+        <ArchiveFilterBar
+          circuitLabel={query.tour==='wta'?'Circuito de jugadoras':'Circuito de jugadores'}
+          panelTitle={query.tour==='wta'?'Filtrar jugadoras':'Filtrar jugadores'}
+          activeCount={[query.q, order !== 'relevance' ? order : ''].filter(Boolean).length}
+          circuits={[
+            {href:url({tour:'atp',page:'1'}),label:'ATP',active:query.tour==='atp'},
+            {href:url({tour:'wta',page:'1'}),label:'WTA',active:query.tour==='wta'},
+          ]}
+        >
+            <form key={`${query.tour}|${query.q || ''}|${order}`} className={styles.filterPanel} action="/jugadores" method="get" role="search">
+              <label className={styles.directorySearch}>
+                <span>Buscar {query.tour === 'wta' ? 'jugadora' : 'jugador'}</span>
+                <span className={styles.searchField}><Search size={18} aria-hidden="true"/><input name="q" type="search" defaultValue={query.q || ''} placeholder="Nombre" /></span>
+              </label>
+              <label className={styles.sortField}>
+                <span>Ordenar</span>
+                <select name="orden" defaultValue={order} aria-label="Ordenar directorio">
+                  <option value="relevance">Trayectoria</option>
+                  <option value="wins">Victorias</option>
+                  <option value="name">Nombre</option>
+                </select>
+              </label>
+              {query.tour === 'wta' && <input type="hidden" name="tour" value="wta" />}
+              <div className={styles.filterActions}>
+                <button type="submit"><Search size={15} aria-hidden="true"/>Buscar</button>
+                {(query.q || order !== 'relevance') && <Link className={styles.directoryClear} href={query.tour === 'wta' ? '/jugadores?tour=wta' : '/jugadores'}>Limpiar</Link>}
+              </div>
+            </form>
+        </ArchiveFilterBar>
       </div>
     </header>
 
@@ -106,13 +114,16 @@ export default async function Players({ searchParams }: {
 
       {!pairs && visiblePlayers.length > 0 && <section className={styles.playerGrid} aria-label={term?(query.tour==='wta'?'Resultados de jugadoras':'Resultados de jugadores'):(query.tour==='wta'?'Directorio de jugadoras':'Directorio de jugadores')}>
         {visiblePlayers.map((player, index) => <Link className={`${styles.playerCard} ${styles.cardSwapPrototype}`} data-has-photo={player.photo?'true':'false'} href={player.href} prefetch={false} key={player.record.name}>
-          <div className={styles.photo} style={player.photo ? {
-            '--photo-position': player.photo.objectPosition || 'center top',
-            '--photo-mobile-position': player.photo.mobileObjectPosition || player.photo.objectPosition || 'center top',
-          } as CSSProperties : undefined}>
-            {player.photo
-              ? <Image src={player.photo.src} alt={player.photo.alt} fill priority={index < 3} sizes="(max-width: 360px) 140px, (max-width: 640px) 150px, (max-width: 1020px) 50vw, 390px"/>
-              : <Initials name={player.record.name}/>}
+          <div className={styles.photo}>
+            <EditorialPhoto
+              src={player.photo?.src}
+              alt={player.photo?.alt || player.record.name}
+              label={player.record.name}
+              priority={index < 3}
+              sizes="(max-width: 360px) 140px, (max-width: 640px) 150px, (max-width: 1020px) 50vw, 390px"
+              objectPosition={player.photo?.objectPosition || 'center top'}
+              mobileObjectPosition={player.photo?.mobileObjectPosition || player.photo?.objectPosition || 'center top'}
+            />
             <span className={styles.photoShade}/>
             {player.record.grandSlamFinalsWon > 0 && <span className={styles.photoSlamCount} aria-label={`${number(player.record.grandSlamFinalsWon)} Grand Slams`}><Trophy size={18} aria-hidden="true"/><b>{number(player.record.grandSlamFinalsWon)}</b></span>}
           </div>

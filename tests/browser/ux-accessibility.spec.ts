@@ -37,9 +37,9 @@ test('desktop match filters close without stealing focus from the outside contro
   await trigger.click();
   await expect(trigger).toHaveAttribute('aria-expanded', 'true');
 
-  const outsideControl = page.locator('.topbar > .search-trigger');
+  const outsideControl = page.getByRole('button', { name: 'Buscar en DEUCE', exact: true });
   await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
-  await expect(page.locator('.topbar')).not.toHaveClass(/nav-hidden/);
+  await expect(page.locator('[data-deuce-topbar]')).not.toHaveAttribute('data-hidden', 'true');
   await expect(outsideControl).toBeInViewport();
   await outsideControl.click();
   await expect(trigger).toHaveAttribute('aria-expanded', 'false');
@@ -61,7 +61,7 @@ test('mobile directory openings, profile facts and pagination stay usable', asyn
   await page.setViewportSize({ width: 390, height: 844 });
   for (const path of ['/jugadores', '/torneos']) {
     await page.goto(path);
-    const topbarBottom = await page.locator('header.topbar:visible').last().evaluate((node) => node.getBoundingClientRect().bottom);
+    const topbarBottom = await page.locator('header[data-deuce-topbar]:visible').last().evaluate((node) => node.getBoundingClientRect().bottom);
     const headingTop = await page.getByRole('heading', { level: 1 }).evaluate((node) => node.getBoundingClientRect().top);
     expect(headingTop, path).toBeGreaterThanOrEqual(topbarBottom - 1);
   }

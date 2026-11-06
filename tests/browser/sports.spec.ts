@@ -4,7 +4,7 @@ import AxeBuilder from '@axe-core/playwright';
 test('home exposes useful archive entry points without repeating its content', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/');
-  await expect(page.locator('h1')).toContainText('ARCHIVO DEL TENIS');
+  await expect(page.locator('h1')).toContainText('Archivo del tenis');
   await expect(page.getByRole('heading', { name: 'Últimos resultados', exact: true })).toBeVisible();
   await expect(page.locator('.home-latest-archive [data-tour="atp"]')).not.toHaveCount(0);
   await expect(page.locator('.home-latest-archive [data-tour="wta"]')).not.toHaveCount(0);
@@ -75,11 +75,11 @@ test('Australian draw and walkover details remain truthful', async ({ page }) =>
 
 test('topbar follows scroll direction and exposes no platform shortcut', async ({ page }) => {
   await page.goto('/torneos');
-  await expect(page.locator('.topbar kbd')).toHaveCount(0);
+  await expect(page.locator('[data-deuce-topbar] kbd')).toHaveCount(0);
   await page.evaluate(() => scrollTo(0, 900));
-  await expect(page.locator('.topbar')).toHaveClass(/nav-hidden/);
+  await expect(page.locator('[data-deuce-topbar]')).toHaveAttribute('data-hidden', 'true');
   await page.evaluate(() => scrollTo(0, 650));
-  await expect(page.locator('.topbar')).not.toHaveClass(/nav-hidden/);
+  await expect(page.locator('[data-deuce-topbar]')).not.toHaveAttribute('data-hidden', 'true');
 });
 
 test('match header keeps the result and omits redundant metadata actions', async ({ page }) => {

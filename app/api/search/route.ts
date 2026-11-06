@@ -9,6 +9,20 @@ import { tournamentName } from '@/lib/labels';
 import { round, score, sentence } from '@/lib/cuaderno/model';
 import type { SearchItem } from '@/components/revista/Frame';
 import { requestCacheScope, versionedJson } from '@/lib/http-cache';
+import { playerPhoto } from '@/lib/player-imagery';
+
+function presentSearchItem(item: SearchItem) {
+  if (item.group !== 'Jugadores') return item;
+  const tour = item.href.includes('tour=wta') ? 'wta' : 'atp';
+  const photo = playerPhoto(item.name, tour);
+  if (!photo) return item;
+  return {
+    ...item,
+    image: photo.thumbnail || photo.src,
+    imageAlt: photo.alt,
+    imagePosition: photo.avatarCrop || photo.objectPosition || '50% 24%',
+  };
+}
 
 export async function GET(request: Request) {
   const id = requestId(request);
@@ -39,7 +53,7 @@ export async function GET(request: Request) {
           ].filter((item,index,all)=>all.findIndex(candidate=>candidate.href===item.href)===index);
       const elapsedMs = Math.round(performance.now() - started);
       if (elapsedMs > 250) logEvent('warn', 'search.slow', { requestId: id, elapsedMs, queryLength: query.length, mode: 'quick' });
-      return versionedJson(request,{ items, ...generationMetadata(data) },{
+      return versionedJson(request,{ items:items.map(presentSearchItem), ...generationMetadata(data) },{
         version:data.manifest.version,scope:requestCacheScope(request,'search'),route:'search',started,
         headers:{'X-DEUCE-Search-Mode':'quick','X-Request-Id':id,'X-RateLimit-Remaining':String(budget.remaining),'Server-Timing':`search;dur=${elapsedMs}`},
       });
@@ -80,7 +94,7 @@ export async function GET(request: Request) {
         detail:`${match.tour==='wta'?'WTA':'ATP'} · ${tournamentName(match.tournament)} · ${match.year} · ${round(match)} · ${score(match)}${sentence(match)||match.editorial_highlight?` · ${sentence(match)||match.editorial_highlight}`:''}`,
       });
     }
-    const unique=items.filter((item,index,all)=>all.findIndex(candidate=>candidate.href===item.href)===index).slice(0,25);
+    const unique=items.filter((item,index,all)=>all.findIndex(candidate=>candidate.href===item.href)===index).slice(0,25).map(presentSearchItem);
     const elapsedMs = Math.round(performance.now() - started);
     if (elapsedMs > 250) logEvent('warn', 'search.slow', { requestId: id, elapsedMs, queryLength: query.length });
     return versionedJson(request,{ items:unique, ...generationMetadata(data) },{

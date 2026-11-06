@@ -6,6 +6,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Plus,
+  Search,
 } from "lucide-react";
 import { number } from "@/lib/cuaderno/model";
 import { recordView } from "@/lib/revista/read-records";
@@ -28,7 +29,7 @@ import RecordsSurfaceChart from "@/components/records/RecordsSurfaceChart";
 import RecordsVideoCarousel from "@/components/records/RecordsVideoCarousel";
 import RecordsFamilyNav from "@/components/records/RecordsFamilyNav";
 import RecordsSurfaceSlider from "@/components/records/RecordsSurfaceSlider";
-import TournamentFilters from "@/components/TournamentFilters";
+import ArchiveFilterBar from "@/components/ArchiveFilterBar";
 import { resolvePlayerAvatarPhoto } from '@/components/PlayerAvatar';
 import { photoFor, portraitFor, recordFamilyMediaLayout, recordImageStyle, rowForTour } from './record-media';
 import { recordPhoto } from '@/lib/editorial-imagery';
@@ -184,10 +185,25 @@ async function RecordIndex({
     <ArchivePage
       title="Récords"
       className={`records-page ${redesign.scope} ${redesign.page} ${!overview ? redesign.filteredPage : ""}`}
-      tools={<TournamentFilters ariaLabel="Circuitos del archivo" items={[
-        {href:recordsUrl(query,{tour:'atp',page:undefined,smallPage:undefined}),label:'ATP',active:query.tour==='atp'},
-        {href:recordsUrl(query,{tour:'wta',page:undefined,smallPage:undefined}),label:'WTA',active:query.tour==='wta'},
-      ]}/>}
+      tools={<ArchiveFilterBar
+        circuitLabel="Circuitos del archivo"
+        panelTitle="Filtrar récords"
+        activeCount={[selected, term].filter(Boolean).length}
+        circuits={[
+          {href:recordsUrl(query,{tour:'atp',page:undefined,smallPage:undefined}),label:'ATP',active:query.tour==='atp'},
+          {href:recordsUrl(query,{tour:'wta',page:undefined,smallPage:undefined}),label:'WTA',active:query.tour==='wta'},
+        ]}
+      >
+        <form className={redesign.headerFilters} action="/records" method="get" role="search">
+          <label><span>Buscar estadística</span><span className={redesign.headerSearch}><Search size={17} aria-hidden="true"/><input type="search" name="q" defaultValue={query.q || ''} placeholder="Título, familia o jugador"/></span></label>
+          {query.tour === 'wta' ? <input type="hidden" name="tour" value="wta"/> : null}
+          <button type="submit">Buscar</button>
+        </form>
+        <nav className={redesign.headerFamilies} aria-label="Familias de estadísticas">
+          <Link href={recordsUrl(recordFilters(query), { q: query.q })} aria-current={!selected ? 'page' : undefined}>Todo</Link>
+          {groups.map(group => <Link key={group} href={recordsUrl(recordFilters(query), { grupo: group, q: query.q })} aria-current={selected === group ? 'page' : undefined}>{recordFamilyLabel(group)}</Link>)}
+        </nav>
+      </ArchiveFilterBar>}
     >
       <ArchiveNotice status={status} />
       <aside className="dx-notice" role="note">{recordScope(manifest,query.tour==='wta'?'wta':'atp')}</aside>

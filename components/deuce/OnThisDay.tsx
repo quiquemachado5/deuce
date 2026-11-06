@@ -17,7 +17,7 @@ export function OnThisDay({ match, matches = [] }: { match?:Match; matches?:Matc
       return {
         id:item.match_id,
         year:item.year,
-        date:new Intl.DateTimeFormat('es-ES',{day:'numeric',month:'long',timeZone:'UTC'}).format(new Date(item.context!.date!)),
+        date:new Intl.DateTimeFormat('es-ES',{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(item.context!.date!)),
         context:`${(item.tour||'atp').toUpperCase()} · ${tournamentName(item.tournament)} · ${browserRound(item)}`,
         winner:canonicalName(winner),
         loser:canonicalName(loser),
