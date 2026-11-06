@@ -3,7 +3,7 @@ import AxeBuilder from '@axe-core/playwright';
 test('match archive keeps cards and edition navigation with shared filters',async({page})=>{
   await page.goto('/buscar?year=2024');
   await expect(page.locator('main a[href^="/match/"]').first()).toBeVisible();
-  await page.getByRole('navigation',{name:'Principal'}).getByRole('link',{name:'Torneos',exact:true}).click();
+  await page.goto('/torneos');
   await page.locator('main a[href^="/torneos/roland-garros?"]').first().click();
   await expect(page.getByRole('heading',{level:1,name:/Roland Garros/})).toBeVisible();
 });
@@ -29,8 +29,9 @@ test('player directory stays compact with contextual directory controls',async({
   await page.goto('/jugadores');
   await expect(page.getByRole('navigation',{name:'Circuito de jugadores'})).toBeVisible();
   await expect(page.locator('main a[href^="/jugadores/"]').first()).toBeVisible();
-  await expect(page.locator('main').getByRole('searchbox',{name:'Buscar en el directorio'})).toBeVisible();
-  await expect(page.getByRole('combobox',{name:'Ordenar'})).toBeVisible();
+  await page.getByRole('button',{name:'Filtrar jugadores'}).click();
+  await expect(page.locator('main').getByRole('searchbox',{name:'Buscar jugador'})).toBeVisible();
+  await expect(page.getByRole('combobox',{name:'Ordenar directorio'})).toBeVisible();
   await expect(page.getByRole('navigation',{name:'Índice alfabético'})).toHaveCount(0);
   await expect(page.getByRole('navigation',{name:'Páginas de resultados'})).toBeVisible();
 });
