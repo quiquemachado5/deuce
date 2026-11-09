@@ -126,10 +126,12 @@ html[data-theme="dark"] {
   letter-spacing: 0;
 }
 html {
+  overflow-x: clip;
   scroll-behavior: smooth;
   scroll-padding-top: 88px;
 }
 body {
+  overflow-x: clip;
   margin: 0;
   background: var(--bg);
   color: var(--ink);

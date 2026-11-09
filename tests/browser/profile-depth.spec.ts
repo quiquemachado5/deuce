@@ -20,7 +20,7 @@ test('player profile remains useful without JavaScript', async ({ browser, baseU
 test('player profile keeps career sections and season context readable on mobile', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(profile);
-  for (const heading of ['Resumen en el archivo', 'Evolución temporal', 'Ranking observado', 'Torneos y palmarés', 'Rivales y enfrentamientos', 'Últimos partidos']) {
+  for (const heading of ['Resumen', 'Evolución temporal', 'Ranking observado', 'Torneos y palmarés', 'Rivales y enfrentamientos', 'Últimos partidos']) {
     await expect(page.getByRole('heading', { name: heading, exact: true })).toBeVisible();
   }
   await expect(page.getByRole('button', { name: 'Temporada anterior' })).toBeVisible();
