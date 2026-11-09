@@ -172,6 +172,25 @@ else
   fi
 fi
 
+# A release must never build on top of an unprotected archive. The daily timer
+# remains the primary backup mechanism, but a stale/missing result is repaired
+# and restore-tested before spending time on a new image. The production env is
+# parsed without shell evaluation and no secret is printed.
+if [[ "${first_release}" != true ]]; then
+  backup_dir="${DEUCE_BACKUP_DIR:-/opt/deuce/backups}"
+  backup_maximum_age_hours="${DEUCE_BACKUP_MAX_AGE_HOURS:-36}"
+  if ! node ops/vps/recovery-freshness.mjs \
+      --file="${backup_dir}/last-success.json" \
+      --max-age-hours="${backup_maximum_age_hours}"; then
+    echo "The offsite backup is stale or absent; creating and restore-testing it before deployment."
+    node ops/vps/run-with-production-env.mjs -- ops/vps/backup.sh
+    node ops/vps/run-with-production-env.mjs -- ops/vps/restore-drill.sh
+    node ops/vps/recovery-freshness.mjs \
+      --file="${backup_dir}/last-success.json" \
+      --max-age-hours="${backup_maximum_age_hours}"
+  fi
+fi
+
 echo "Building immutable release image ${candidate_image}."
 SOURCE_COMMIT="${commit}" DEUCE_WEB_IMAGE="${candidate_image}" "${compose[@]}" build web
 prepare_caddy_image
