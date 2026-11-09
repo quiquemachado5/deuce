@@ -35,7 +35,6 @@ const nextConfig: NextConfig = {
   ] },
   async redirects() {
     return [
-      { source: '/partidos', destination: '/buscar', permanent: true },
       ...['q','search','player','tournament','year','round','surface','fiveSets'].map(key=>({
         source:'/',
         has:[{type:'query' as const,key}],
@@ -44,6 +43,6 @@ const nextConfig: NextConfig = {
       })),
     ]
   },
-  images: { loader: 'custom', loaderFile: './lib/image-loader.ts', deviceSizes: [734,1068,1440], imageSizes: [36,80,160,480] },
+  images: { loader: 'custom', loaderFile: './lib/image-loader.ts', deviceSizes: [734,1068,1440], imageSizes: [36,80,160,480], qualities: [75,88] },
 }
 export default nextConfig

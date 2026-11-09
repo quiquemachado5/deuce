@@ -1,15 +1,16 @@
 import { quickSearchArchive } from '@/lib/cuaderno/search';
 import { rateLimit } from '@/lib/rate-limit';
 import { generationMetadata } from '@/lib/revista/generation';
-import { preparedMatchBrowser, preparedMatchBrowserIndex } from '@/lib/revista/read-records';
+import { preparedGeneration, preparedMatchBrowser, preparedSearchProducts } from '@/lib/revista/read-records';
 import { approximateName, canonicalSearchText, exactPlayerSearch } from '@/lib/search-text';
 import { logEvent, requestId } from '@/lib/structured-log';
 import { queryMatchBrowserPage } from '@/lib/match-browser-snapshot';
 import { tournamentName } from '@/lib/labels';
 import { round, score, sentence } from '@/lib/cuaderno/model';
-import type { SearchItem } from '@/components/revista/Frame';
+import type { SearchItem } from '@/lib/search-item';
 import { requestCacheScope, versionedJson } from '@/lib/http-cache';
 import { playerPhoto } from '@/lib/player-imagery';
+import { playerIdentity } from '@/lib/explore';
 
 function presentSearchItem(item: SearchItem) {
   if (item.group !== 'Jugadores') return item;
@@ -39,23 +40,51 @@ export async function GET(request: Request) {
     if (quickMode) {
       // Typeahead only needs prepared player rows and record names. Keeping the
       // match artifact closed removes the dominant cold-start cost.
-      const data = await preparedMatchBrowserIndex();
-      const allPlayers = (['atp','wta'] as const).flatMap(circuit => data.index.circuits[circuit].players.map(player => ({...player,tour:circuit})));
+      const [index,data]=await Promise.all([preparedSearchProducts(),preparedGeneration()]);
+      const allPlayers = index.players;
       const players = tour ? allPlayers.filter(player => player.tour === tour) : allPlayers;
       const pieces = tour === 'wta' ? data.manifest.circuitPieces?.wta || [] : data.manifest.pieces;
       const selectedExactPlayer=players.some(player=>exactPlayerSearch(query,player.name));
       const foreignExactPlayer=Boolean(tour)&&!selectedExactPlayer&&allPlayers.some(player=>player.tour!==tour&&exactPlayerSearch(query,player.name));
-      const items = foreignExactPlayer ? [] : tour
+      const playerItems = foreignExactPlayer ? [] : tour
         ? quickSearchArchive(query, players, { pieces, tour })
         : [
             ...quickSearchArchive(query, allPlayers.filter(player=>player.tour==='atp'), {pieces:data.manifest.pieces,tour:'atp'}),
             ...quickSearchArchive(query, allPlayers.filter(player=>player.tour==='wta'), {pieces:data.manifest.circuitPieces?.wta||[],tour:'wta'}),
           ].filter((item,index,all)=>all.findIndex(candidate=>candidate.href===item.href)===index);
+      const terms=canonicalSearchText(query).split(/\s+/).filter(Boolean);
+      const requestedYear=terms.find(term=>/^\d{4}$/.test(term));
+      const eventTerms=terms.filter(term=>term!==requestedYear);
+      const eventQuery=eventTerms.join(' ');
+      const exactIndexedPlayers=players.filter(player=>terms.every(term=>player.search.includes(term)));
+      const matchedIndexedPlayers=(exactIndexedPlayers.length?exactIndexedPlayers:players.filter(player=>approximateName(query,player.name))).slice(0,4);
+      const foundTournaments=eventTerms.length?index.tournaments.filter(event=>(!tour||event.tour===tour)
+        &&(!requestedYear||event.years.includes(Number(requestedYear)))
+        &&(eventTerms.every(term=>event.search.includes(term))||approximateName(eventQuery,tournamentName(event.name)))).slice(0,4):[];
+      const tournamentItems=foundTournaments.map(event=>{
+        const suffix=event.tour==='wta'?'?cuadro=wta':'';
+        return requestedYear?{
+          href:`/torneos/${event.slug}/${requestedYear}${suffix}`,name:`${tournamentName(event.name)} ${requestedYear}`,group:'Ediciones',detail:`${event.tour.toUpperCase()} · Resultados`,
+        } satisfies SearchItem:{
+          href:`/torneos/${event.slug}${suffix}`,name:tournamentName(event.name),group:'Torneos',detail:`${event.tour.toUpperCase()} · ${event.matches.toLocaleString('es-ES')} partidos en el archivo`,
+        } satisfies SearchItem;
+      });
+      const indexed=Boolean(index.indexedMatches&&index.recentMatchIdsByPlayer&&index.recentMatchIdsByTournament);
+      const matchIds=new Set<string>();
+      if(indexed&&!foreignExactPlayer){
+        for(const player of matchedIndexedPlayers)for(const matchId of index.recentMatchIdsByPlayer?.[playerIdentity(player.name,player.tour)]||[])matchIds.add(matchId);
+        for(const event of foundTournaments)for(const matchId of index.recentMatchIdsByTournament?.[`${event.tour}|${event.slug}`]||[])matchIds.add(matchId);
+      }
+      const matchItems=[...matchIds].flatMap(matchId=>{
+        const match=index.indexedMatches?.[matchId];
+        return match?[{href:`/match/${match.id}`,name:`${match.players[0]} contra ${match.players[1]}`,group:'Partidos',detail:`${match.tour.toUpperCase()} · ${tournamentName(match.tournament)} · ${match.year} · ${match.round} · ${match.score}`} satisfies SearchItem]:[];
+      }).slice(0,8);
+      const items=[...playerItems,...tournamentItems,...matchItems].filter((item,index,all)=>all.findIndex(candidate=>candidate.href===item.href)===index).slice(0,24);
       const elapsedMs = Math.round(performance.now() - started);
       if (elapsedMs > 250) logEvent('warn', 'search.slow', { requestId: id, elapsedMs, queryLength: query.length, mode: 'quick' });
       return versionedJson(request,{ items:items.map(presentSearchItem), ...generationMetadata(data) },{
         version:data.manifest.version,scope:requestCacheScope(request,'search'),route:'search',started,
-        headers:{'X-DEUCE-Search-Mode':'quick','X-Request-Id':id,'X-RateLimit-Remaining':String(budget.remaining),'Server-Timing':`search;dur=${elapsedMs}`},
+        headers:{'X-DEUCE-Search-Mode':indexed?'indexed':'quick','X-Request-Id':id,'X-RateLimit-Remaining':String(budget.remaining),'Server-Timing':`search;dur=${elapsedMs}`},
       });
     }
     const data = await preparedMatchBrowser(tour || 'all');

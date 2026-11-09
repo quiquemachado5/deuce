@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { ArrowRight, ArrowUpRight, Search, Trophy } from 'lucide-react';
 import { comparisonHref, playerSlug, rivalryDirectory } from '@/lib/explore';
-import { preparedGeneration } from '@/lib/revista/read-records';
+import { preparedGeneration, preparedPlayerDirectoryProducts } from '@/lib/revista/read-records';
 import { number } from '@/lib/cuaderno/model';
 import { Pagination } from '@/components/nocturno/Row';
 import { normalizeText } from '@/lib/quality';
@@ -24,7 +24,7 @@ export async function generateMetadata({ searchParams }: {
     ? 'El directorio WTA de DEUCE está en preparación. Consulta mientras tanto los jugadores y partidos ATP publicados.'
     : `${tour==='wta'?'Jugadoras':'Jugadores'} ${tour.toUpperCase()} del archivo DEUCE, con temporadas, resultados y rendimiento documentados.`;
   const canonical=tour==='wta'?'/jugadores?tour=wta':'/jugadores';
-  return {title,description,alternates:{canonical},openGraph:{title,description,url:canonical},robots:robotsForUnavailableTour(generation.manifest.summary,tour)};
+  return {title,description,alternates:{canonical,languages:{es:canonical,en:`/en/players${tour==='wta'?'?tour=wta':''}`}},openGraph:{title,description,url:canonical},robots:robotsForUnavailableTour(generation.manifest.summary,tour)};
 }
 
 function Initials({ name }: { name: string }) {
@@ -39,20 +39,19 @@ export default async function Players({ searchParams }: {
   const pairs = query.tipo === 'enfrentamientos' || query.tipo === 'parejas';
   if (pairs) redirect(query.tour === 'wta' ? '/comparar?tour=wta' : '/comparar');
   const generation = await preparedGeneration();
-  const [recordSource, pairSource] = await Promise.all([
-    pairs ? Promise.resolve([]) : generation.records(),
+  const [directory, pairSource] = await Promise.all([
+    pairs ? Promise.resolve(null) : preparedPlayerDirectoryProducts(),
     pairs ? generation.matches() : Promise.resolve([]),
   ]);
   const term = normalizeText((query.q || '').trim());
   const order = ['name', 'wins'].includes(query.orden || '') ? query.orden : 'relevance';
-  const players = recordSource
-    .filter(record => normalizeText(record.name).includes(term) && (record.tour || 'atp') === query.tour)
-    .sort((a, b) => {
-      if (order === 'name') return a.name.localeCompare(b.name, 'es');
-      if (order === 'wins') return b.wins - a.wins || a.name.localeCompare(b.name, 'es');
-      const primary = b.grandSlamFinalsWon - a.grandSlamFinalsWon;
-      return primary || b.wins - a.wins || a.name.localeCompare(b.name, 'es');
-    });
+  const circuit = directory?.circuits[query.tour as 'atp'|'wta'];
+  const recordsByName = new Map((circuit?.records || []).map(record => [record.name, record]));
+  const orderedNames = order === 'name' ? circuit?.byName : order === 'wins' ? circuit?.byWins : circuit?.byRelevance;
+  const players = (orderedNames || [])
+    .filter(name => normalizeText(name).includes(term))
+    .map(name => recordsByName.get(name))
+    .filter((record): record is NonNullable<typeof record> => Boolean(record));
   const duels = pairs ? rivalryDirectory(pairSource).filter(pair => normalizeText(pair.names.join(' ')).includes(term)) : [];
   const total = pairs ? duels.length : players.length;
   const page = Math.max(1, Math.min(Math.ceil(total / 25) || 1, Number(query.page) || 1));
@@ -78,6 +77,7 @@ export default async function Players({ searchParams }: {
       <h1>{query.tour === 'wta' ? 'Jugadoras' : 'Jugadores'}</h1>
       <div className={styles.introTools}>
         <ArchiveFilterBar
+          compactMobile
           circuitLabel={query.tour==='wta'?'Circuito de jugadoras':'Circuito de jugadores'}
           panelTitle={query.tour==='wta'?'Filtrar jugadoras':'Filtrar jugadores'}
           activeCount={[query.q, order !== 'relevance' ? order : ''].filter(Boolean).length}

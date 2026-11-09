@@ -60,7 +60,7 @@
   background: color-mix(in srgb, var(--bg-raised) 10%, transparent);
 }
 .principles strong { font-size: 16px; }
-.principles p { margin: 0; color: var(--dark-ink-soft); font-size: 13px; line-height: 1.5; }
+.principles p { margin: 0; color: var(--dark-ink-soft); font-size: 14px; line-height: 1.5; }
 
 .method {
   margin-top: 16px;

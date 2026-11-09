@@ -1,9 +1,3 @@
 @import "./ui/foundation.css";
 @import "./ui/components.css";
-@import "./ui/overview.css";
 @import "./ui/explore.css";
-@import "./ui/detail-depth.css";
-
-
-@import "./ui/edition-refinement.css";
-@import "./ui/precision.css";

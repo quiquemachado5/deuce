@@ -83,6 +83,22 @@ export function comparisonHeadToHead(matches: Match[], names: string[], samples:
     .sort((a,b)=>chronological(b,a));
 }
 
+export function comparisonLeadTimeline(matches: Match[], names: string[], tour: Tour = 'atp') {
+  const identities=names.map(name=>playerIdentity(name,tour));
+  const wins:[number,number]=[0,0];
+  let previousLeader:0|1|null=null;
+  return [...matches].sort(chronological).flatMap(match=>{
+    const winnerName=match.winner===1?match.player1.name:match.winner===2?match.player2.name:'';
+    const winner=identities.indexOf(playerIdentity(winnerName,tour));
+    if(winner!==0&&winner!==1)return [];
+    wins[winner]+=1;
+    const leader:0|1|null=wins[0]===wins[1]?null:wins[0]>wins[1]?0:1;
+    const leaderChanged=leader!==null&&previousLeader!==null&&leader!==previousLeader;
+    if(leader!==null)previousLeader=leader;
+    return [{match,wins:[...wins] as [number,number],leader,leaderChanged}];
+  });
+}
+
 /** Intersection of documented seasons, not a claim about retirement or professional debut. */
 export function sharedCareerWindow(matches: Match[], names: string[], tour: Tour = 'atp') {
   const periods = names.map(name => {

@@ -4,7 +4,7 @@
   "minimumStatistics": 196,
   "minimumStatisticsByTour": { "atp": 122, "wta": 74 },
   "maximumDataAgeHours": 72,
-  "requiredRulesVersion": "2026-11-major-tours-v18",
+  "requiredRulesVersion": "2026-11-products-v19",
   "requireCommit": true,
   "requireStorage": true,
   "requireScheduler": true,

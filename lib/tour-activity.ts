@@ -21,6 +21,6 @@ export function tourActivity(activity:TourActivity|null,matches:Match[],now=new 
     const recent=matches.filter(m=>(m.tour||'atp')===(fixtures[0].tour||'atp')&&normalize(m.tournament)===normalize(name) && Date.parse(m.context?.date||m.score_summary.timestamp)>=now.getTime()-7*86400000);
     // This is tournament activity, NOT a live score claim. The observation time stays visible.
     const ongoing=fixtures.some(f=>f.status==='live') || (recent.length>0&&!recent.some(m=>m.round.toLowerCase()==='final')&&Date.parse(fixtures[0].scheduledAt)<=now.getTime()+2*86400000);
-    return {id,name,fixtures,ongoing,href:`/buscar?tour=${fixtures[0].tour||'atp'}&q=${encodeURIComponent(name.replace(/^(ATP|WTA)\s+/i,''))}`};
+    return {id,name,fixtures,ongoing,href:`/partidos?tour=${fixtures[0].tour||'atp'}&q=${encodeURIComponent(name.replace(/^(ATP|WTA)\s+/i,''))}`};
   }).sort((a,b)=>Number(b.ongoing)-Number(a.ongoing)).slice(0,4);
 }

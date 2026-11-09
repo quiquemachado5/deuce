@@ -72,32 +72,38 @@ function publishedMatchDates(match: Match) {
   return { ...(startDate ? { startDate } : {}), ...(endDate ? { endDate } : {}) };
 }
 
-function playerUrl(name: string, tour: Tour) {
+function playerUrl(name: string, tour: Tour, language: 'es' | 'en' = 'es') {
   const query = tour === 'wta' ? '?tour=wta' : '';
-  return absoluteSiteUrl(`/jugadores/${playerSlug(name)}${query}`);
+  const root = language === 'en' ? '/en/players' : '/jugadores';
+  return absoluteSiteUrl(`${root}/${playerSlug(name)}${query}`);
 }
 
-export function matchJsonLd(match: Match) {
+export function matchJsonLd(match: Match, options: { language?: 'es' | 'en' } = {}) {
   const tour = match.tour || 'atp';
-  const canonical = matchCanonicalPath(match.match_id);
+  const language = options.language || 'es';
+  const canonical = language === 'en' ? `/en/matches/${match.match_id}` : matchCanonicalPath(match.match_id);
+  const eventName = language === 'en' ? match.tournament : tournamentName(match.tournament);
+  const description = language === 'en'
+    ? `${eventName} ${match.year}. ${score(match)}. Documented ${tour.toUpperCase()} result in DEUCE.`
+    : `${eventName} ${match.year}. ${score(match)}. Resultado ${tour.toUpperCase()} documentado en DEUCE.`;
   return {
     '@context': 'https://schema.org',
     '@type': 'SportsEvent',
-    name: `${match.player1.name} – ${match.player2.name} · ${tournamentName(match.tournament)} ${match.year}`,
-    description: `${tournamentName(match.tournament)} ${match.year}. ${score(match)}. Resultado ${tour.toUpperCase()} documentado en DEUCE.`,
+    name: `${match.player1.name} – ${match.player2.name} · ${eventName} ${match.year}`,
+    description,
     url: absoluteSiteUrl(canonical),
-    image: absoluteSiteUrl(`${canonical}/opengraph-image`),
+    image: absoluteSiteUrl(`${matchCanonicalPath(match.match_id)}/opengraph-image`),
     sport: 'Tennis',
     eventStatus: 'https://schema.org/EventCompleted',
     ...publishedMatchDates(match),
     superEvent: {
       '@type': 'EventSeries',
-      name: `${tournamentName(match.tournament)} ${match.year}`,
+      name: `${eventName} ${match.year}`,
     },
     competitor: [match.player1, match.player2].map((player) => ({
       '@type': 'Person',
       name: player.name,
-      url: playerUrl(player.name, tour),
+      url: playerUrl(player.name, tour, language),
     })),
     organizer: { '@type': 'SportsOrganization', name: tour.toUpperCase() },
   };

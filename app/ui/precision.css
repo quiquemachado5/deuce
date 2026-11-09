@@ -184,13 +184,6 @@
 .rv-ranking > li:hover::before {
   background: var(--bg-sunken);
 }
-.rv-records .rv-family-nav {
-  position: static;
-  top: auto;
-  flex-wrap: wrap;
-  overflow: visible;
-  padding-block: 0 24px;
-}
 .rv-catalogue-leader {
   display: grid !important;
   grid-template-columns: 32px minmax(0, 1fr);
@@ -410,11 +403,6 @@ html[data-theme="dark"] .ry-header {
   }
   .match-games-pair strong {
     font-size: 36px;
-  }
-  .rv-records .rv-family-nav {
-    flex-wrap: nowrap;
-    overflow: auto;
-    padding-bottom: 16px;
   }
   .rv-catalogue-leader {
     grid-template-columns: 24px minmax(0, 1fr);

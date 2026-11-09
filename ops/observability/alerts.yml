@@ -63,3 +63,48 @@ groups:
         annotations:
           summary: "Autenticaciones internas rechazadas de forma repetida"
           description: "Revisar los eventos security.auth.denied y el acceso al endpoint afectado."
+
+      - alert: DeucePoorLcpP75
+        expr: histogram_quantile(0.75, sum by (le) (rate(deuce_client_metric_value_bucket{metric="LCP"}[30m]))) > 4000 and sum(increase(deuce_client_metric_value_count{metric="LCP"}[30m])) >= 20
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "El LCP real p75 supera 4 segundos"
+          description: "La experiencia real agregada acumula al menos veinte muestras y permanece en rango deficiente."
+
+      - alert: DeucePoorInpP75
+        expr: histogram_quantile(0.75, sum by (le) (rate(deuce_client_metric_value_bucket{metric="INP"}[30m]))) > 500 and sum(increase(deuce_client_metric_value_count{metric="INP"}[30m])) >= 20
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "El INP real p75 supera 500 milisegundos"
+          description: "La interacción real agregada acumula al menos veinte muestras y permanece en rango deficiente."
+
+      - alert: DeucePoorClsP75
+        expr: histogram_quantile(0.75, sum by (le) (rate(deuce_client_metric_value_bucket{metric="CLS"}[30m]))) > 0.25 and sum(increase(deuce_client_metric_value_count{metric="CLS"}[30m])) >= 20
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "El CLS real p75 supera 0,25"
+          description: "La estabilidad visual real agregada acumula al menos veinte muestras y permanece en rango deficiente."
+
+      - alert: DeuceSlowRouteTransitionP75
+        expr: histogram_quantile(0.75, sum by (le) (rate(deuce_client_metric_value_bucket{metric="route-transition"}[30m]))) > 2500 and sum(increase(deuce_client_metric_value_count{metric="route-transition"}[30m])) >= 20
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Las navegaciones internas superan 2,5 segundos"
+          description: "La transición real p75 entre páginas acumula al menos veinte muestras por encima del presupuesto."
+
+      - alert: DeuceClientErrorsBurst
+        expr: sum(increase(deuce_client_events_total{event=~"client-error|unhandled-rejection"}[15m])) > 10
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Aumento de errores en navegadores reales"
+          description: "Se han recibido más de diez errores o promesas rechazadas en quince minutos."

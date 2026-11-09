@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import IntentLink from '@/components/IntentLink';
 import { ArrowRight, Check } from 'lucide-react';
 import PlayerFlag from '@/components/PlayerFlag';
 import type { MatchRecord } from '@/types/deuce';
@@ -18,7 +19,7 @@ function matchDate(match: MatchRecord) {
 export function ArchiveMatchRow({ match, showContext = false, showTournamentContext = false, showAction = false, prefetch = false }: { match: MatchRecord; showContext?: boolean; showTournamentContext?: boolean; showAction?: boolean; prefetch?: boolean }) {
   const winner = resolvedWinner(match);
   const date = matchDate(match);
-  return <Link className={styles.archiveMatch} data-tour={match.tour} href={match.href} prefetch={prefetch}>
+  return <IntentLink className={styles.archiveMatch} data-tour={match.tour} href={match.href} prefetch={prefetch}>
     {showTournamentContext ? <div className={`${styles.archiveMatchContext} ${styles.archiveMatchContextProfile}`}><strong>{match.tournament}</strong><span>{match.round} · {date.long}</span></div> : showContext ? <div className={styles.archiveMatchContext}>{match.round} · {date.long}</div> : null}
     {match.players.map((player, side) => <div className={styles.archivePlayerRow} data-winner={winner === side || undefined} key={player.id}>
       <span className={styles.archivePlayer}>
@@ -37,7 +38,7 @@ export function ArchiveMatchRow({ match, showContext = false, showTournamentCont
       </span>
     </div>)}
     {showAction ? <span className={styles.archiveMatchAction} aria-hidden="true"><ArrowRight size={16} strokeWidth={2.2} /></span> : null}
-  </Link>;
+  </IntentLink>;
 }
 
 export function ArchiveTournamentCard({ tournament, matches, totalMatches = matches.length, href, showContext = false }: { tournament: string; matches: MatchRecord[]; totalMatches?: number; href?: string; showContext?: boolean }) {

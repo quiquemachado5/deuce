@@ -1,0 +1,416 @@
+{
+  "Novak Djokovic": {
+    "src": "/images/players/top50/novak-djokovic.webp",
+    "thumbnail": "/images/players/top50/novak-djokovic-small.webp",
+    "alt": "Novak Djokovic en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · CC BY 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3ANovak_Djokovic_-_Roland-Garros_-_28.05.2024_croped.jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Rafael Nadal": {
+    "src": "/images/players/top50/rafael-nadal.webp",
+    "thumbnail": "/images/players/top50/rafael-nadal-small.webp",
+    "alt": "Rafael Nadal en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3ARafael_Nadal_at_2008_U.S._Open.jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Roger Federer": {
+    "src": "/images/players/top50/roger-federer.webp",
+    "thumbnail": "/images/players/top50/roger-federer-small.webp",
+    "alt": "Roger Federer en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3ARoger_Federer_and_Rafael_Nadal_at_the_2006_Wimbledon_Championships.jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Pete Sampras": {
+    "src": "/images/players/top50/pete-sampras.webp",
+    "thumbnail": "/images/players/top50/pete-sampras-small.webp",
+    "alt": "Pete Sampras en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3APresident_George_H._W._Bush_plays_tennis_doubles_with_Pete_Sampras_on_3_October_1990_-_Bush_Contact_Sheet_P16319_(41-AV-P16320-10031990)_(cropped).jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Björn Borg": {
+    "src": "/images/players/top50/bjorn-borg.webp",
+    "thumbnail": "/images/players/top50/bjorn-borg-small.webp",
+    "alt": "Björn Borg en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3A1970s%2C_Tennis_Champ_Bjorn_Borg_giving_tennis_clinic_in_NYC's_Central_Park%2C_Pyramid_Tennis_attends.jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Andre Agassi": {
+    "src": "/images/players/top50/andre-agassi.webp",
+    "thumbnail": "/images/players/top50/andre-agassi-small.webp",
+    "alt": "Andre Agassi en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3ASteffi_Graf_and_Andre_Agassi_(Wimbledon_2009)_2_(cropped).jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Jimmy Connors": {
+    "src": "/images/players/top50/jimmy-connors.webp",
+    "thumbnail": "/images/players/top50/jimmy-connors-small.webp",
+    "alt": "Jimmy Connors en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · CC BY 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AJimmy_Connors_2_(1978).jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Carlos Alcaraz": {
+    "src": "/images/players/top50/carlos-alcaraz.webp",
+    "thumbnail": "/images/players/top50/carlos-alcaraz-small.webp",
+    "alt": "Carlos Alcaraz en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3ANovak_Djokovic_vs._Carlos_Alcaraz%2C_2024_Summer_Olympics_men's_singles_tennis_tournament%2C_2024-08-04_(361).jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Ivan Lendl": {
+    "src": "/images/players/top50/ivan-lendl.webp",
+    "thumbnail": "/images/players/top50/ivan-lendl-small.webp",
+    "alt": "Ivan Lendl en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AIvan_Lendl_2010.jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "John McEnroe": {
+    "src": "/images/players/top50/john-mcenroe.webp",
+    "thumbnail": "/images/players/top50/john-mcenroe-small.webp",
+    "alt": "John McEnroe en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AJohn_McEnroe_US_Open_2011_Opening_Day.jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Mats Wilander": {
+    "src": "/images/players/top50/mats-wilander.webp",
+    "thumbnail": "/images/players/top50/mats-wilander-small.webp",
+    "alt": "Mats Wilander en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AMats_Wilander_(2023_US_Open)_01.jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Stefan Edberg": {
+    "src": "/images/players/top50/stefan-edberg.webp",
+    "thumbnail": "/images/players/top50/stefan-edberg-small.webp",
+    "alt": "Stefan Edberg en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AStefan_Edberg_tennis_2_(5418048898).jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Boris Becker": {
+    "src": "/images/players/top50/boris-becker.webp",
+    "thumbnail": "/images/players/top50/boris-becker-small.webp",
+    "alt": "Boris Becker en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3ABECKER_Boris-24x30--3.jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "John Newcombe": {
+    "src": "/images/players/top50/john-newcombe.webp",
+    "thumbnail": "/images/players/top50/john-newcombe-small.webp",
+    "alt": "John Newcombe en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3ATennis_te_Hilversum%2C_John_Newcombe_krijgt_beker%2C_Bestanddeelnr_917-9969.jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Rod Laver": {
+    "src": "/images/players/top50/rod-laver.webp",
+    "thumbnail": "/images/players/top50/rod-laver-small.webp",
+    "alt": "Rod Laver en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3A2008_Australian_Open_Tennis%2C_Rod_Laver_Arena.jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Jannik Sinner": {
+    "src": "/images/players/top50/jannik-sinner.webp",
+    "thumbnail": "/images/players/top50/jannik-sinner-small.webp",
+    "alt": "Jannik Sinner en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AJannik_Sinner_(2024_US_Open)_04_(cropped).jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Jim Courier": {
+    "src": "/images/players/top50/jim-courier.webp",
+    "thumbnail": "/images/players/top50/jim-courier-small.webp",
+    "alt": "Jim Courier en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AJim_Courier.jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Guillermo Vilas": {
+    "src": "/images/players/top50/guillermo-vilas.webp",
+    "thumbnail": "/images/players/top50/guillermo-vilas-small.webp",
+    "alt": "Guillermo Vilas en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AGuillermo_Vilas_-_El_Gr%C3%A1fico_2877.jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Ken Rosewall": {
+    "src": "/images/players/top50/ken-rosewall.webp",
+    "thumbnail": "/images/players/top50/ken-rosewall-small.webp",
+    "alt": "Ken Rosewall en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AKen_Rosewall_at_Noordwijk_1956_cropped.jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Andy Murray": {
+    "src": "/images/players/top50/andy-murray.webp",
+    "thumbnail": "/images/players/top50/andy-murray-small.webp",
+    "alt": "Andy Murray en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AAndy_Murray_Forehand_Wimby.jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Stan Wawrinka": {
+    "src": "/images/players/top50/stan-wawrinka.webp",
+    "thumbnail": "/images/players/top50/stan-wawrinka-small.webp",
+    "alt": "Stan Wawrinka en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · CC BY 4.0 · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3ACHO12-Stan_Wawrinka_serve_Chennai_Open.jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Gustavo Kuerten": {
+    "src": "/images/players/top50/gustavo-kuerten.webp",
+    "thumbnail": "/images/players/top50/gustavo-kuerten-small.webp",
+    "alt": "Gustavo Kuerten en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AGustavo_Kuerten_French_Open_2005.jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Arthur Ashe": {
+    "src": "/images/players/top50/arthur-ashe.webp",
+    "thumbnail": "/images/players/top50/arthur-ashe-small.webp",
+    "alt": "Arthur Ashe en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AArthur_Ashe_1964.jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Alexander Zverev": {
+    "src": "/images/players/top50/alexander-zverev.webp",
+    "thumbnail": "/images/players/top50/alexander-zverev-small.webp",
+    "alt": "Alexander Zverev en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AJesper_de_Jong_vs_Alexander_Zverev_at_the_2026_Roland_Garros_(116).jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Lleyton Hewitt": {
+    "src": "/images/players/top50/lleyton-hewitt.webp",
+    "thumbnail": "/images/players/top50/lleyton-hewitt-small.webp",
+    "alt": "Lleyton Hewitt en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3ALleyton_Hewitt_and_Novak_%C4%90okovi%C4%87_at_Wimbledon_Championships%2C_2010.jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Yevgeny Kafelnikov": {
+    "src": "/images/players/top50/yevgeny-kafelnikov.webp",
+    "thumbnail": "/images/players/top50/yevgeny-kafelnikov-small.webp",
+    "alt": "Yevgeny Kafelnikov en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AYevgeny_Kafelnikov_in_2000.jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Marat Safin": {
+    "src": "/images/players/top50/marat-safin.webp",
+    "thumbnail": "/images/players/top50/marat-safin-small.webp",
+    "alt": "Marat Safin en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AMarat_Safin_2007_US_Open.jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Stan Smith": {
+    "src": "/images/players/top50/stan-smith.webp",
+    "thumbnail": "/images/players/top50/stan-smith-small.webp",
+    "alt": "Stan Smith en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3ABillie_Jean_King%2C_Pancho_Segura%2C_and_Stan_Smith.jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Ilie Nastase": {
+    "src": "/images/players/top50/ilie-nastase.webp",
+    "thumbnail": "/images/players/top50/ilie-nastase-small.webp",
+    "alt": "Ilie Nastase en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AIlie_N%C4%83stase_2009_US_Open_02.jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Jan Kodes": {
+    "src": "/images/players/top50/jan-kodes.webp",
+    "thumbnail": "/images/players/top50/jan-kodes-small.webp",
+    "alt": "Jan Kodes en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AJan_Kode%C5%A1_2013.JPG",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Marin Cilic": {
+    "src": "/images/players/top50/marin-cilic.webp",
+    "thumbnail": "/images/players/top50/marin-cilic-small.webp",
+    "alt": "Marin Cilic en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AMarin_Cilic_2013_US_Open.JPG",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Daniil Medvedev": {
+    "src": "/images/players/top50/daniil-medvedev.webp",
+    "thumbnail": "/images/players/top50/daniil-medvedev-small.webp",
+    "alt": "Daniil Medvedev en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3ADaniil_Medvedev_US_Open_2023_(cropped).jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Andy Roddick": {
+    "src": "/images/players/top50/andy-roddick.webp",
+    "thumbnail": "/images/players/top50/andy-roddick-small.webp",
+    "alt": "Andy Roddick en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AAndy_Roddick_Japan_Open_Tennis_2010_(1).jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Juan Martin del Potro": {
+    "src": "/images/players/top50/juan-martin-del-potro.webp",
+    "thumbnail": "/images/players/top50/juan-martin-del-potro-small.webp",
+    "alt": "Juan Martin del Potro en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AJuan_Mart%C3%ADn_del_Potro_Japan_Open_Tennis_2010.jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Dominic Thiem": {
+    "src": "/images/players/top50/dominic-thiem.webp",
+    "thumbnail": "/images/players/top50/dominic-thiem-small.webp",
+    "alt": "Dominic Thiem en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AParis-FR-75-open_de_tennis-31-5-17-Roland_Garros-Dominic_Thiem-04.jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Juan Carlos Ferrero": {
+    "src": "/images/players/top50/juan-carlos-ferrero.webp",
+    "thumbnail": "/images/players/top50/juan-carlos-ferrero-small.webp",
+    "alt": "Juan Carlos Ferrero en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AJuan_Carlos_Ferrero_at_the_2009_US_Open.jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Michael Chang": {
+    "src": "/images/players/top50/michael-chang.webp",
+    "thumbnail": "/images/players/top50/michael-chang-small.webp",
+    "alt": "Michael Chang en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3APat_Cash_%26_Michael_Chang_at_the_2010_US_Open_01.jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Goran Ivanisevic": {
+    "src": "/images/players/top50/goran-ivanisevic.webp",
+    "thumbnail": "/images/players/top50/goran-ivanisevic-small.webp",
+    "alt": "Goran Ivanisevic en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3ATeniski_stadion_'Goran_Ivani%C5%A1evi%C4%87'%2C_Umag.jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Carlos Moya": {
+    "src": "/images/players/top50/carlos-moya.webp",
+    "thumbnail": "/images/players/top50/carlos-moya-small.webp",
+    "alt": "Carlos Moya en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3ACarlos_Moya_Australian_Open_2006_(cropped).JPG",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Richard Krajicek": {
+    "src": "/images/players/top50/richard-krajicek.webp",
+    "thumbnail": "/images/players/top50/richard-krajicek-small.webp",
+    "alt": "Richard Krajicek en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3ARichard_Krajicek_(7490695266).jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Thomas Muster": {
+    "src": "/images/players/top50/thomas-muster.webp",
+    "thumbnail": "/images/players/top50/thomas-muster-small.webp",
+    "alt": "Thomas Muster en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AThomas_Muster_Kitzb%C3%BChel.jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Petr Korda": {
+    "src": "/images/players/top50/petr-korda.webp",
+    "thumbnail": "/images/players/top50/petr-korda-small.webp",
+    "alt": "Petr Korda en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3APetr_Korda_(2024_US_Open)_02.jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Michael Stich": {
+    "src": "/images/players/top50/michael-stich.webp",
+    "thumbnail": "/images/players/top50/michael-stich-small.webp",
+    "alt": "Michael Stich en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AGame%2C_set_and_match_Stich_-_geograph.org.uk_-_1184768.jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Thomas Johansson": {
+    "src": "/images/players/top50/thomas-johansson.webp",
+    "thumbnail": "/images/players/top50/thomas-johansson-small.webp",
+    "alt": "Thomas Johansson en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AU.S._Open_2008_Thomas_Johansson_vs._Ernests_Gulbis.jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Gaston Gaudio": {
+    "src": "/images/players/top50/gaston-gaudio.webp",
+    "thumbnail": "/images/players/top50/gaston-gaudio-small.webp",
+    "alt": "Gaston Gaudio en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AGaston_Gaudio_serving_at_Wimbledon_Championships_June_29%2C_2006.jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  },
+  "Yannick Noah": {
+    "src": "/images/players/top50/yannick-noah.webp",
+    "thumbnail": "/images/players/top50/yannick-noah-small.webp",
+    "alt": "Yannick Noah en una imagen de archivo de tenis",
+    "credit": "Wikimedia Commons · Wikimedia Commons · adaptación WebP por DEUCE",
+    "source": "https://commons.wikimedia.org/wiki/File%3AGilles_Moretton_et_Yannick_Noah%2C_Tennis_Club_de_Lyon_1978.jpg",
+    "objectPosition": "50% 36%",
+    "mobileObjectPosition": "50% 30%"
+  }
+}

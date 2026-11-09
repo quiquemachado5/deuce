@@ -1,0 +1,9 @@
+[
+  {"name":"exact ATP player","query":"nadal","tour":"all","expect":{"group":"Jugadores","name":"Rafael Nadal","maximumRank":1}},
+  {"name":"WTA typo tolerance","query":"sabalenkaa","tour":"wta","expect":{"group":"Jugadores","name":"Aryna Sabalenka","maximumRank":1}},
+  {"name":"tournament entity","query":"wimbledon","tour":"all","expect":{"group":"Torneos","name":"Wimbledon","maximumRank":2}},
+  {"name":"edition intent","query":"us open 2023","tour":"all","expect":{"group":"Ediciones","name":"Abierto de Estados Unidos 2023","maximumRank":2}},
+  {"name":"accent folding","query":"jodar","tour":"atp","expect":{"group":"Jugadores","name":"Rafael Jódar","maximumRank":1}},
+  {"name":"ATP typo tolerance","query":"djokovc","tour":"atp","expect":{"group":"Jugadores","name":"Novak Djokovic","maximumRank":1}},
+  {"name":"circuit isolation","query":"serena williams","tour":"atp","reject":{"group":"Jugadores","name":"Serena Williams"}}
+]

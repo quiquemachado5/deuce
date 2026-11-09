@@ -23,6 +23,7 @@ import {normalizeCoverageReconciliation,reconcileCoverage,type CoverageReconcili
 import {normalizeText} from '../quality';
 import historyBaseline from '../../ops/wta-history-baseline.json';
 import {buildPublicationIndex,validPublicationIndex,type PublicationIndex} from '../publication-index';
+import { ARCHIVE_PRODUCTS_SCHEMA, editionProductKey, type EditionProducts, type EloProducts, type PlayerDirectoryProducts, type SearchProducts, type TimeMachineProducts } from '../archive-products';
 const IMMUTABLE_CACHE_MS = 86_400_000;
 const bundled=asyncCache<unknown>(IMMUTABLE_CACHE_MS,48);
 const uncachedBundledPrefixes=['matches-','browser-'] as const;
@@ -45,6 +46,7 @@ function remoteArtifactWeight(value:unknown,depth=0):number {
 }
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const remoteArtifacts=asyncCache<any>(IMMUTABLE_CACHE_MS,16,undefined,{maxWeight:48*1024*1024,weight:remoteArtifactWeight});
+const productArtifacts=asyncCache<unknown>(IMMUTABLE_CACHE_MS,8,undefined,{maxWeight:32*1024*1024,weight:remoteArtifactWeight});
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- every caller validates its projected payload.
 async function query(key:string,projection='payload',budget=800):Promise<any>{
  const cache=/^reading-v2-[a-f0-9]{20}-/.test(key)?remoteArtifacts:remotePointers;
@@ -523,8 +525,12 @@ export async function preparedCompactSelection(selection:CompactMatchSelection) 
   const categories=normalized.categories?new Set(normalized.categories):undefined;
   const metas=(source.manifest.matchPartitions||[]).filter(meta=>(normalized.tour==='all'||meta.tour===normalized.tour)
     &&(normalized.fromYear===undefined||meta.toYear>=normalized.fromYear)&&(normalized.toYear===undefined||meta.fromYear<=normalized.toYear));
-  for(const meta of metas){
-   const partition=await loadBrowserPartition(source,meta),d=partition.dictionaries;
+  // A normal career spans at most three decade shards. Fetching that small,
+  // bounded set concurrently removes avoidable network waterfalls without
+  // opening the entire archive in parallel for unbounded directory queries.
+  const prefetched=metas.length<=3?await Promise.all(metas.map(meta=>loadBrowserPartition(source,meta))):undefined;
+  for(let metaIndex=0;metaIndex<metas.length;metaIndex++){
+   const meta=metas[metaIndex],partition=prefetched?.[metaIndex]||await loadBrowserPartition(source,meta),d=partition.dictionaries;
    const playerIndexes=players?new Set(d.players.flatMap((name,index)=>players.has(normalizeText(name))?[index]:[])):undefined;
    const tournamentIndexes=normalized.tournament?new Set(d.tournaments.flatMap((name,index)=>normalizeText(name)===normalized.tournament?[index]:[])):undefined;
    const roundIndexes=rounds?new Set(d.rounds.flatMap((name,index)=>rounds.has(normalizeText(name))?[index]:[])):undefined;
@@ -578,6 +584,27 @@ export const preparedPlayerRecords = cache(async () => {
  return {records:await selectedPlayerRecords(source),manifest:source.manifest,source:source.source,fallbackReason:source.fallbackReason};
 });
 
+async function preparedProduct<T extends {schema:number}>(id:string) {
+ const source=await selectedSnapshotSource(),cacheKey=`${source.manifest.version}:${source.source}:${id}`;
+ return productArtifacts(cacheKey,async()=>{
+  const artifact=source.source==='remote'
+   ? await cloudBlob<T>(source.manifest.version,id)
+   : await localOptional<T|undefined>(id,undefined);
+  if(!artifact||artifact.schema!==ARCHIVE_PRODUCTS_SCHEMA)throw new Error(`Missing or incompatible ${id} product`);
+  return artifact;
+ }) as Promise<T>;
+}
+
+export const preparedEditionProducts=cache(()=>preparedProduct<EditionProducts>('edition-products'));
+export const preparedPlayerDirectoryProducts=cache(()=>preparedProduct<PlayerDirectoryProducts>('player-directory'));
+export const preparedSearchProducts=cache(()=>preparedProduct<SearchProducts>('search-products'));
+export const preparedEloProducts=cache(()=>preparedProduct<EloProducts>('elo-products'));
+export const preparedTimeMachineProducts=cache(()=>preparedProduct<TimeMachineProducts>('time-machine'));
+export const preparedTournamentEditionProduct=cache(async(year:number,tour:'atp'|'wta',slug:string,category:string)=>{
+ const products=await preparedEditionProducts();
+ return products.editions[editionProductKey(tour,slug,year,category)];
+});
+
 /** Profiles and rivalries use summaries plus aggregates from one immutable generation. */
 export const preparedPlayerSummaryArchive = cache(async () => {
  const browser=await preparedMatchBrowser('all');
@@ -620,7 +647,8 @@ export const preparedMatchDetail=cache(async(id:string)=>{
  return matchDetails(`${source.manifest.version}:${source.source}:${id}`,async()=>{
   let summary:Match|undefined;
   const load=async()=>{
-   const selected=(await preparedCompactSelection({ids:[id]}))[0];
+   const locator=(await preparedPublicationIndex()).entries.find(entry=>entry.identity.endsWith(`:${id}`));
+   const selected=(await preparedCompactSelection({ids:[id],...(locator?{tour:locator.tour,fromYear:locator.year,toYear:locator.year}:{})}))[0];
    summary=selected;
    if(!selected)return (await selectedCompetition(source)).find(candidate=>candidate.match_id===id);
    const meta=source.manifest.matchPartitions?.find(partition=>partition.tour===(selected.tour||'atp')&&selected.year>=partition.fromYear&&selected.year<=partition.toYear);
@@ -644,7 +672,16 @@ export const preparedMatch=preparedMatchDetail;
 export const preparedMatchContext=cache(async(id:string)=>{
  const match=await preparedMatchDetail(id);
  if(!match)return {match,matches:[] as Match[]};
- const summaries=await preparedCompactSelection({tour:match.tour||'atp',players:[match.player1.name,match.player2.name]});
+ const tour=match.tour||'atp';
+ const [archive,publication]=await Promise.all([preparedPlayerRecords(),preparedPublicationIndex()]);
+ const identity=(name:string)=>normalizeText(name);
+ const records=[match.player1.name,match.player2.name].map(name=>archive.records.find(record=>(record.tour||'atp')===tour&&identity(record.name)===identity(name)));
+ const secondIds=new Set(records[1]?.matchIds||[]);
+ const pairIds=(records[0]?.matchIds||[]).filter(matchId=>secondIds.has(matchId));
+ if(!pairIds.includes(match.match_id))pairIds.push(match.match_id);
+ const pairIdSet=new Set(pairIds);
+ const years=publication.entries.filter(entry=>entry.tour===tour&&pairIdSet.has(entry.identity.slice(entry.identity.indexOf(':')+1))).map(entry=>entry.year);
+ const summaries=await preparedCompactSelection({tour,ids:pairIds,...(years.length?{fromYear:Math.min(...years),toYear:Math.max(...years)}:{fromYear:match.year,toYear:match.year})});
  return {match,matches:circuitMatchContext(summaries,match)};
 });
 
@@ -685,7 +722,7 @@ export const preparedTournamentEditionArchive=cache(async(year:number,tour:'atp'
  const details:Match[]=[];
  for(const meta of metas)details.push(...await selectFullPartition(source,meta,match=>match.year===year&&normalizeText(match.tournament)===normalizedTournament));
  const [summaries,competition]=await Promise.all([
-  preparedCompactSelection({tour,tournament}),
+  preparedCompactSelection({tour,tournament,fromYear:year,toYear:year}),
   selectedCompetition(source),
  ]);
  const relevantCompetition=competition.filter(match=>(match.tour||'atp')===tour&&normalizeText(match.tournament)===normalizedTournament);
@@ -707,8 +744,8 @@ export const preparedCoverageReconciliation=cache(async()=>{
 });
 
 export function preparedDataCacheDiagnostics() {
- return Object.fromEntries(Object.entries({bundled,remotePointers,remoteArtifacts,generations,snapshotSources,browserIndexes,browserPartitions,decodedBrowserPartitions,fullPartitions,matchDetails,compactArchives,compactSelections,competitionArchives,playerRecords,coverageReconciliations,publicationIndexes})
+ return Object.fromEntries(Object.entries({bundled,remotePointers,remoteArtifacts,productArtifacts,generations,snapshotSources,browserIndexes,browserPartitions,decodedBrowserPartitions,fullPartitions,matchDetails,compactArchives,compactSelections,competitionArchives,playerRecords,coverageReconciliations,publicationIndexes})
   .map(([name,cache])=>[name,cache.stats()]));
 }
 
-export function invalidatePreparedGeneration() { generations.clear(); snapshotSources.clear(); browserIndexes.clear(); browserPartitions.clear(); decodedBrowserPartitions.clear(); fullPartitions.clear(); matchDetails.clear(); compactArchives.clear(); compactSelections.clear(); competitionArchives.clear(); playerRecords.clear(); coverageReconciliations.clear(); publicationIndexes.clear(); remotePointers.clear(); remoteArtifacts.clear(); clearArtifactPacks(); manifestCircuit.succeeded(); }
+export function invalidatePreparedGeneration() { generations.clear(); snapshotSources.clear(); browserIndexes.clear(); browserPartitions.clear(); decodedBrowserPartitions.clear(); fullPartitions.clear(); matchDetails.clear(); compactArchives.clear(); compactSelections.clear(); competitionArchives.clear(); playerRecords.clear(); coverageReconciliations.clear(); publicationIndexes.clear(); remotePointers.clear(); remoteArtifacts.clear(); productArtifacts.clear(); clearArtifactPacks(); manifestCircuit.succeeded(); }

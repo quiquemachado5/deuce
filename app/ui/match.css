@@ -602,17 +602,6 @@
   }
 }
 
-.ry-match-back {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 44px;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--muted);
-  margin-bottom: 16px;
-}
-.ry-match-back svg,
 .ry-match-close svg {
   width: 16px;
   height: 16px;

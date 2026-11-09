@@ -35,7 +35,7 @@ export default function HomeSeason({ matches, featuredId }: { matches: Match[]; 
       <section className="home-season" aria-labelledby="home-season-title">
         <div className="ds-section-heading">
           <h2 id="home-season-title">La temporada {year}</h2>
-          <Link href={`/buscar?year=${year}`}>Ver todos</Link>
+          <Link href={`/partidos?year=${year}`}>Ver todos</Link>
         </div>
         <div className="home-season-numbers">
           <div>
@@ -73,7 +73,7 @@ export default function HomeSeason({ matches, featuredId }: { matches: Match[]; 
       >
         <div className="ds-section-heading">
           <h2 id="home-finals-title">Las últimas finales</h2>
-          <Link href={`/buscar?year=${year}&round=Final`}>Ver todos</Link>
+          <Link href={`/partidos?year=${year}&round=Final`}>Ver todos</Link>
         </div>
         <div className="ds-match-grid">
           {finals.slice(0, 3).map((m) => (

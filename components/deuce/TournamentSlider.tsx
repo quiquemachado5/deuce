@@ -80,7 +80,7 @@ export function TournamentSlider({ slides }: { slides:TournamentSlide[] }) {
   return <section className="tournament-band tournament-static tournament-carousel" aria-labelledby="grand-venues-title" data-current={current+1}>
     <div className="section-head light"><h2 id="grand-venues-title">Grandes escenarios</h2><div className="tournament-carousel-actions"><Link className="deuce-cta" href="/torneos">Ver torneos <ArrowUpRight size={18} aria-hidden="true"/></Link></div></div>
     <div ref={trackRef} className="tournament-static-grid" role="list" aria-label="Grand Slams y Masters 1000" tabIndex={0} onScroll={syncCurrent} onKeyDown={handleKeys}>{slides.map((slide,index)=><article className="archive-slide active" role="listitem" aria-current={current===index?'true':undefined} key={slide.id}>
-      <Image className="art-directed-photo" src={slide.image} alt={slide.alt} fill sizes="(max-width:759px) 84vw, 31vw" priority={index<2} style={imageFocus(slide.imagePosition||'center',slide.imagePositionMobile||slide.imagePosition||'center')}/><div className="slide-copy"><h3><Link href={slide.href}>{slide.name}</Link></h3></div>
+      <Image className="art-directed-photo" src={slide.image} alt={slide.alt} fill sizes="(max-width:759px) 84vw, 31vw" quality={88} priority={index<2} style={imageFocus(slide.imagePosition||'center',slide.imagePositionMobile||slide.imagePosition||'center')}/><div className="slide-copy"><h3><Link href={slide.href}>{slide.name}</Link></h3></div>
     </article>)}</div>
   </section>;
 }

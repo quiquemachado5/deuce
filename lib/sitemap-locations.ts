@@ -17,12 +17,22 @@ export const SITEMAP_STATIC_PATHS = [
   '',
   '/records',
   '/jugadores',
-  '/buscar',
+  '/partidos',
   '/torneos',
   '/info',
   '/licencias',
   '/cobertura',
   '/sobre',
+  '/maquina-del-tiempo',
+  '/desarrolladores',
+  '/en',
+  '/en/matches',
+  '/en/players',
+  '/en/tournaments',
+  '/en/records',
+  '/en/time-machine',
+  '/en/coverage',
+  '/en/developers',
 ] as const;
 
 /**
@@ -41,15 +51,27 @@ export function sitemapLocation(path: string) {
 }
 
 export function matchSitemapEntries(matches: Match[], year: number) {
-  return matches.filter(match => match.year === year).map(match => {
+  return matches.filter(match => match.year === year).flatMap(match => {
     const playedOn = match.context?.dateLabel === 'Fecha del partido'
       ? exactDay(match.context.date)
       : null;
-    return {
-      url: `${SITEMAP_ORIGIN}/match/${match.match_id}`,
-      ...(playedOn ? { lastModified: `${playedOn}T12:00:00.000Z` } : {}),
+    const lastModified = playedOn ? { lastModified: `${playedOn}T12:00:00.000Z` } : {};
+    const languages = {
+      es: `${SITEMAP_ORIGIN}/match/${match.match_id}`,
+      en: `${SITEMAP_ORIGIN}/en/matches/${match.match_id}`,
+    };
+    return [{
+      url: languages.es,
+      ...lastModified,
+      alternates: { languages },
       changeFrequency: 'never' as const,
       priority: 0.5,
-    };
+    }, {
+      url: languages.en,
+      ...(playedOn ? { lastModified: `${playedOn}T12:00:00.000Z` } : {}),
+      alternates: { languages },
+      changeFrequency: 'never' as const,
+      priority: 0.5,
+    }];
   });
 }

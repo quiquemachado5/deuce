@@ -5,6 +5,7 @@ import directory from './player-directory-photo-manifest.json'
 import discovered from './player-photo-discovery.json'
 import curatedSelections from './player-photo-curated.json'
 import wtaPortraits from './player-photo-wta.json'
+import top50Refresh from './player-photo-top50.json'
 import type { Photo } from './imagery'
 import { playerPhotoFocus } from './player-photo-focus'
 import { photoRightsStatus } from './photo-rights'
@@ -32,6 +33,22 @@ const curated: Record<string, Photo> = {
 const publishableCuratedSelections: Record<string, Photo> = Object.fromEntries(
   Object.entries(curatedSelections as Record<string, Photo>)
     .filter(([, photo]) => photoRightsStatus(photo) === 'documented'),
+)
+
+// The public refresh intentionally excludes candidates whose search result was
+// a venue, a crowd or a distant group rather than a recognisable player image.
+const withheldTop50Candidates = new Set([
+  'John McEnroe',
+  'Rod Laver',
+  'Guillermo Vilas',
+  'Lleyton Hewitt',
+  'Goran Ivanisevic',
+  'Michael Stich',
+])
+
+const top50PlayerPhotos: Record<string, Photo> = Object.fromEntries(
+  Object.entries(top50Refresh as Record<string, Photo>)
+    .filter(([name]) => !withheldTop50Candidates.has(name)),
 )
 
 // The directory gives its largest slots to a small set of familiar players.
@@ -100,7 +117,7 @@ function directoryReadyPhoto(photo: Photo | null): Photo | null {
 }
 
 export function playerDirectoryPhoto(name: string, tour: 'atp'|'wta' = 'atp'): Photo | null {
-  return directoryReadyPhoto((tour==='atp'?directoryPlayerPhotos[name]:null) || playerPhoto(name,tour))
+  return directoryReadyPhoto((tour==='atp'?(top50PlayerPhotos[name] || editorialPlayerPhotos[name] || curated[name] || directoryPlayerPhotos[name]):null) || playerPhoto(name,tour))
 }
 
 // These final overrides favour the moment over the portrait: play, ceremony and

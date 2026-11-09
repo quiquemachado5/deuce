@@ -44,7 +44,7 @@ export async function writeBundledSnapshot(snapshot:Snapshot) {
   const browser=compileMatchBrowser(snapshot.matches);
   const reconciliation=reconcileCoverage(snapshot.matches,snapshot.audit,historyBaseline.allowedPendingCohorts);
   const fullPartitions=partitionMatches(snapshot.matches);
-  const artifacts:Record<string,unknown>={eras:snapshot.eras,matches:snapshot.matches,players:snapshot.players,competition:snapshot.competition,audit:snapshot.audit,reconciliation,'publication-index':snapshot.publicationIndex||buildPublicationIndex(snapshot.matches),'browser-index':browser.index,...Object.fromEntries(fullPartitions.map(group=>[group.meta.id,group.matches])),...Object.fromEntries(browser.partitions.map(partition=>[matchBrowserArtifact(partition.id),partition])),...Object.fromEntries(Object.entries(snapshot.pieces).map(([id,p])=>[`piece-${id}`,p])),manifest:snapshot.manifest};
+  const artifacts:Record<string,unknown>={eras:snapshot.eras,matches:snapshot.matches,players:snapshot.players,competition:snapshot.competition,audit:snapshot.audit,reconciliation,'edition-products':snapshot.products.editions,'player-directory':snapshot.products.players,'search-products':snapshot.products.search,'elo-products':snapshot.products.elo,'time-machine':snapshot.products.timeMachine,'publication-index':snapshot.publicationIndex||buildPublicationIndex(snapshot.matches),'browser-index':browser.index,...Object.fromEntries(fullPartitions.map(group=>[group.meta.id,group.matches])),...Object.fromEntries(browser.partitions.map(partition=>[matchBrowserArtifact(partition.id),partition])),...Object.fromEntries(Object.entries(snapshot.pieces).map(([id,p])=>[`piece-${id}`,p])),manifest:snapshot.manifest};
   let written=0,reused=0;
   for(const [id,value] of Object.entries(artifacts)) {
     const path=join(dir,`${id}.json.gz`),encoded=gzipSync(JSON.stringify(value));
@@ -67,7 +67,7 @@ function publishedGeneration(manifest:RecordManifest) {
 /** A published pointer proves all artifacts exist. A new pointer is written last. */
 export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotStorage={read:cloudRead,write:cloudWrite,writeMany:cloudWriteMany,reuse:cloudClone,prune:cloudPruneSnapshotGenerations}) {
   assertSnapshotIntegrity(snapshot);
-  const {pieces,eras,matches,players,competition,audit}=snapshot;
+  const {pieces,eras,matches,players,competition,audit,products}=snapshot;
   const published=await storage.read('reading-v2-manifest');
   if((published as RecordManifest|undefined)?.version===snapshot.manifest.version&&(published as RecordManifest).artifactPacks)return published as RecordManifest;
   const previousCount=(published as RecordManifest|undefined)?.rulesVersion===snapshot.manifest.rulesVersion
@@ -87,7 +87,7 @@ export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotSt
     for(const [id,piece] of Object.entries(pieces))yield* compressedPages(id,piece);
     for(const group of partitionMatches(matches))yield* await compressedBlob(group.meta.id,group.matches);
     for(const partition of browser.partitions)yield* await compressedBlob(matchBrowserArtifact(partition.id),partition);
-    for(const [id,value] of [['browser-index',browser.index],['publication-index',snapshot.publicationIndex||buildPublicationIndex(matches)],['eras',eras],['players',players],['competition',competition],['audit',audit],['reconciliation',reconciliation]] as const)yield* await compressedBlob(id,value);
+    for(const [id,value] of [['browser-index',browser.index],['publication-index',snapshot.publicationIndex||buildPublicationIndex(matches)],['eras',eras],['players',players],['competition',competition],['audit',audit],['reconciliation',reconciliation],['edition-products',products.editions],['player-directory',products.players],['search-products',products.search],['elo-products',products.elo],['time-machine',products.timeMachine]] as const)yield* await compressedBlob(id,value);
   }
   const artifactPacks: Record<string,string> = {};
   const previousVersion=(published as RecordManifest|undefined)?.version;

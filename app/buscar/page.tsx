@@ -20,12 +20,12 @@ import { noIndexFollow, robotsForUnavailableTour } from '@/lib/seo-metadata';
 import { PUBLICATION_CATEGORIES } from '@/lib/publication-scope';
 import styles from './search.module.css';
 
-export async function generateMetadata({ searchParams }: { searchParams: Promise<MatchQuery> }) {
+export async function matchBrowserMetadata(searchParams: Promise<MatchQuery>, canonicalBase = '/buscar') {
   const [raw,manifest] = await Promise.all([searchParams,preparedManifest()]);
   const tour=raw.tour==='wta'?'wta':raw.tour==='all'?'all':'atp';
   const filtered=Object.entries(raw).some(([key,value])=>key!=='tour'&&Boolean(value));
   const title=`${raw.q ? `${raw.q} · ` : ''}Partidos ${tour==='all'?'ATP y WTA':tour.toUpperCase()} — DEUCE`;
-  const canonical=tour==='wta'?'/buscar?tour=wta':tour==='all'?'/buscar?tour=all':'/buscar';
+  const canonical=tour==='wta'?`${canonicalBase}?tour=wta`:tour==='all'?`${canonicalBase}?tour=all`:canonicalBase;
   const unavailableTour=tour==='all'?undefined:robotsForUnavailableTour(manifest.summary,tour);
   return {
     title,
@@ -38,6 +38,10 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
     openGraph:{title,url:canonical},
     robots: filtered ? noIndexFollow : unavailableTour,
   };
+}
+
+export async function generateMetadata({ searchParams }: { searchParams: Promise<MatchQuery> }) {
+  return matchBrowserMetadata(searchParams, '/partidos');
 }
 
 export default async function SearchPage({ searchParams }: { searchParams: Promise<MatchQuery> }) {
@@ -160,7 +164,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
   ]} query={query} categories={categories} rounds={rounds} surfaces={surfaces} years={years} activeYear={selectedYear} />;
   return <div className={`deuce-search view-root ${styles.searchPage}`}>
     <header className={`inner-title ${styles.searchIntro}`}><h1>Partidos</h1><div className="inner-title-tools">{searchTools}</div></header>
-    {!!query.q && <form className={styles.visibleQuery} action="/buscar" method="get" role="search">
+    {!!query.q && <form className={styles.visibleQuery} action="/partidos" method="get" role="search">
       <label htmlFor="visible-match-query">Búsqueda actual</label>
       <div><input id="visible-match-query" name="q" type="search" defaultValue={query.q} /><button type="submit">Buscar</button><Link href={matchSearchUrl(query, { q: undefined, limit: undefined })}>Borrar búsqueda</Link></div>
       {Object.entries(query).filter(([key, value]) => key !== 'q' && key !== 'limit' && !(key === 'tour' && value === 'atp') && Boolean(value)).map(([key, value]) => <input type="hidden" name={key} value={value} key={key} />)}
@@ -182,9 +186,9 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
       {!result.total && <EmptyState
         title="No encontramos partidos"
         description={tour === 'wta' && !years.length ? 'No mostramos resultados ATP como si fueran WTA. Puedes consultar la cobertura o continuar en el archivo ATP.' : 'Prueba otro nombre o quita alguno de los filtros de la búsqueda.'}
-        resetHref={tour === 'wta' && !years.length ? '/buscar' : matchSearchUrl({}, { q: query.q,tour })}
+        resetHref={tour === 'wta' && !years.length ? '/partidos' : matchSearchUrl({}, { q: query.q,tour })}
       />}
-      {!result.total && <nav className="archive-suggestions" aria-label="Alternativas de búsqueda">{chips.map(chip => <Link key={chip.key} href={matchSearchUrl(query,{[chip.key]:chip.clearValue})}>Quitar {chip.label}</Link>)}{tour === 'wta' && !years.length ? <><Link href="/buscar">Cambiar a ATP</Link><Link href="/cobertura">Consultar cobertura</Link></> : <><Link href={matchSearchUrl({}, {tour})}>Empezar de nuevo</Link><Link href={tour === 'wta' ? '/buscar?q=Swiatek+Sabalenka&tour=wta' : '/buscar?q=Nadal+Federer+Wimbledon+2008'}>{tour === 'wta' ? 'Swiatek · Sabalenka' : 'Nadal · Federer · Wimbledon 2008'}</Link></>}</nav>}
+      {!result.total && <nav className="archive-suggestions" aria-label="Alternativas de búsqueda">{chips.map(chip => <Link key={chip.key} href={matchSearchUrl(query,{[chip.key]:chip.clearValue})}>Quitar {chip.label}</Link>)}{tour === 'wta' && !years.length ? <><Link href="/partidos">Cambiar a ATP</Link><Link href="/cobertura">Consultar cobertura</Link></> : <><Link href={matchSearchUrl({}, {tour})}>Empezar de nuevo</Link><Link href={tour === 'wta' ? '/partidos?q=Swiatek+Sabalenka&tour=wta' : '/partidos?q=Nadal+Federer+Wimbledon+2008'}>{tour === 'wta' ? 'Swiatek · Sabalenka' : 'Nadal · Federer · Wimbledon 2008'}</Link></>}</nav>}
       {(query.vista === 'torneos' ? editionYears.length > seasonLimit : matchDates.length > dailyLimit) && <div className={styles.loadMore}><Link href={matchSearchUrl(query, { limit: String((query.vista === 'torneos' ? seasonLimit : dailyLimit) + (query.vista === 'torneos' ? 2 : 1)) })} scroll={false}>{query.vista === 'torneos' ? 'Cargar temporadas anteriores' : 'Cargar días anteriores'}<ChevronDown size={16} aria-hidden="true" /></Link></div>}
     </section>
   </div>;

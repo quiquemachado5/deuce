@@ -15,7 +15,7 @@ export function playerDiscoveries(name: string, input: Match[], tournamentSlugs:
   const wins = matches.filter(match => winnerName(match) === name);
   const opponent = (match: Match) => match.player1.name === name ? match.player2.name : match.player1.name;
   const proofText = (match: Match) => `${tournamentName(match.tournament)} ${match.year} · ante ${opponent(match)} · ${scoreFor(match, name)}`;
-  const search = (query: Record<string, string> = {}) => '/buscar?' + new URLSearchParams({ player: name, ...query });
+  const search = (query: Record<string, string> = {}) => '/partidos?' + new URLSearchParams({ player: name, ...query });
   const items: PlayerDiscoveryItem[] = [];
   const comebacks = wins.filter(match => lostOpening(match, 2));
   if (comebacks.length) {

@@ -20,7 +20,7 @@ Usa un VPS europeo con al menos 2 vCPU, 4 GB de RAM, 64 GB de SSD persistente, I
 `DEUCE_HOST`, `NEXT_PUBLIC_SITE_ORIGIN` y `DEUCE_MONITOR_URL` deben apuntar al dominio real. Un nombre `sslip.io` permite preparar el servidor antes de comprar un dominio.
 Los valores públicos canónicos se versionan en `production-public.env` y cada despliegue los aplica de forma atómica antes del preflight, sin leer ni modificar los secretos del entorno. `DEUCE_WWW_HOST` y `DEUCE_LEGACY_HOST` conservan los alias públicos únicamente como redirecciones permanentes al dominio canónico.
 
-`METRICS_SECRET` es independiente de los secretos cron. El despliegue comprueba de forma autenticada `/api/metrics`; Prometheus lo recibe como secreto de Compose montado en `/run/secrets`, no como variable de su contenedor ni dentro de una URL o configuración versionada. Conserva un máximo de 14 días y 256 MB en `prometheus_data`, no publica 9090 y también recoge Caddy y su rate limiting. `ops/observability/alerts.yml` deja las alertas evaluadas y consultables aunque se reinicien los contenedores.
+`METRICS_SECRET` es independiente de los secretos cron. El despliegue comprueba de forma autenticada `/api/metrics`; Prometheus lo recibe como secreto de Compose montado en `/run/secrets`, no como variable de su contenedor ni dentro de una URL o configuración versionada. Conserva un máximo de 30 días y 384 MB en `prometheus_data`, no publica 9090 y también recoge Caddy, su rate limiting y Core Web Vitals reales. `ops/observability/alerts.yml` deja las alertas evaluadas y consultables aunque se reinicien los contenedores.
 
 ## Publicación y rollback
 

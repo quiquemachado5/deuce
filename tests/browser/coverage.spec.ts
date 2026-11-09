@@ -8,8 +8,8 @@ test('daily coverage explains queries, categories and publication gates on mobil
   await expect(page.getByRole('list', { name: 'Actividad diaria de la API' })).toBeAttached();
   await expect(page.getByRole('list', { name: 'Actividad diaria de la API' }).getByText('ATP', { exact: true }).first()).toBeVisible();
   await expect(page.getByRole('list', { name: 'Actividad diaria de la API' }).getByText('WTA', { exact: true }).first()).toBeVisible();
-  await expect(page.locator('.coverage-hero-stats dt').filter({ hasText: /^Partidos ATP$/ })).toBeVisible();
-  await expect(page.locator('.coverage-hero-stats dt').filter({ hasText: /^Partidos WTA$/ })).toBeVisible();
+  await expect(page.getByText('Partidos ATP', { exact: true })).toBeVisible();
+  await expect(page.getByText('Partidos WTA', { exact: true })).toBeVisible();
   await expect(page.getByText('ATP 500', { exact: true })).toBeVisible();
   await expect(page.getByText('ATP 250', { exact: true })).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
@@ -31,5 +31,6 @@ test('daily coverage explains queries, categories and publication gates on mobil
   await page.goto('/cobertura');
   await page.getByRole('heading', { name: 'Actividad diaria' }).scrollIntoViewIfNeeded();
   await page.screenshot({ path: '/tmp/deuce-daily-coverage-desktop.png' });
+  await page.waitForTimeout(500);
   expect((await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']).analyze()).violations).toEqual([]);
 });

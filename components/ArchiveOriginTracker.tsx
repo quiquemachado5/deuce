@@ -22,7 +22,7 @@ export default function ArchiveOriginTracker() {
         const url = new URL(link.href, window.location.href);
         if (url.origin !== window.location.origin || !url.pathname.startsWith('/match/')) return;
 
-        if (window.location.pathname === '/buscar') {
+        if (window.location.pathname === '/buscar' || window.location.pathname === '/partidos') {
           sessionStorage.setItem(ARCHIVE_ORIGIN_KEY, window.location.pathname + window.location.search);
         } else {
           sessionStorage.removeItem(ARCHIVE_ORIGIN_KEY);

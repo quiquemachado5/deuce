@@ -1,6 +1,7 @@
 import Link from 'next/link';
-import { preparedCompactSelection, preparedMatchBrowserIndex, preparedPlayerRecords } from '@/lib/revista/read-records';
-import { comparePlayer, comparisonHeadToHead, comparisonPlayerWon, sharedCareerWindow } from '@/lib/player-comparison';
+import { preparedCompactSelection, preparedEloProducts, preparedMatchBrowserIndex, preparedPlayerRecords } from '@/lib/revista/read-records';
+import { eloPlayer } from '@/lib/archive-products';
+import { comparePlayer, comparisonHeadToHead, comparisonLeadTimeline, comparisonPlayerWon, sharedCareerWindow } from '@/lib/player-comparison';
 import { playerPhoto } from '@/lib/player-imagery';
 import { playerIdentity, playerSlug } from '@/lib/explore';
 import { SURFACES, surfaceLabel } from '@/lib/surface';
@@ -13,6 +14,7 @@ import { playerBiography } from '@/lib/player-bio';
 import { ArchiveMatchRow } from '@/components/deuce/MatchArchivePage';
 import { toMatchRecord } from '@/data/map-match';
 import TournamentFilters from '@/components/TournamentFilters';
+import { SlidersHorizontal } from 'lucide-react';
 import styles from './compare.module.css';
 
 const baseMetadata = {
@@ -41,7 +43,7 @@ export async function generateMetadata({searchParams}:{searchParams:Promise<Quer
   const description=tour==='wta'
     ? 'Compara dos jugadoras WTA del archivo DEUCE por trayectoria, rendimiento, superficie y enfrentamientos directos.'
     : baseMetadata.description;
-  return {...baseMetadata,title,description,alternates:{canonical},openGraph:{...baseMetadata.openGraph,title,description,url:canonical},twitter:{...baseMetadata.twitter,title,description}};
+  return {...baseMetadata,title,description,alternates:{canonical,languages:{es:canonical,en:`/en/compare${tour==='wta'?'?tour=wta':''}`}},openGraph:{...baseMetadata.openGraph,title,description,url:canonical},twitter:{...baseMetadata.twitter,title,description}};
 }
 export const revalidate = 300;
 type Query = Record<string, string | undefined>;
@@ -50,7 +52,7 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
   const q = { ...await searchParams };
   const tour=q.tour==='wta'?'wta':'atp';
   q.tour=tour;
-  const [playerArchive,browser]=await Promise.all([preparedPlayerRecords(),preparedMatchBrowserIndex()]);
+  const [playerArchive,browser,elo]=await Promise.all([preparedPlayerRecords(),preparedMatchBrowserIndex(),preparedEloProducts()]);
   const recordSource=playerArchive.records.filter(p=>(p.tour||'atp')===tour);
   const circuitYears=browser.index.circuits[tour].years;
   if(q.year&&q.year!=='all'&&!circuitYears.includes(Number(q.year)))q.year='all';
@@ -74,15 +76,27 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
   const chosenIdentities=chosen.map(name=>playerIdentity(name,tour));
   const same = chosenIdentities[0] === chosenIdentities[1], valid = resolved.every(Boolean);
   const canCompare = valid && !same;
-  const matches=canCompare?await preparedCompactSelection({tour,players:resolved}):[];
+  const chosenRecords=resolved.map(name=>recordSource.find(record=>playerIdentity(record.name,tour)===playerIdentity(name,tour)));
+  const documentedYears=chosenRecords.flatMap(record=>record?.seasons||[]);
+  const defaultFrom=documentedYears.length?Math.min(...documentedYears):Math.min(...circuitYears);
+  const defaultTo=documentedYears.length?Math.max(...documentedYears):Math.max(...circuitYears);
+  const fromYear=Number(q.fromYear)||defaultFrom,toYear=Number(q.toYear)||defaultTo;
+  const selectedYear=q.year&&q.year!=='all'?Number(q.year):undefined;
+  const matches=canCompare?await preparedCompactSelection({tour,players:resolved,fromYear:selectedYear||fromYear,toYear:selectedYear||toYear}):[];
   const chosenIdentitySet=new Set(chosenIdentities);
   const relevantMatches=matches.filter(match=>(match.tour||'atp')===tour&&(chosenIdentitySet.has(playerIdentity(match.player1.name,tour))||chosenIdentitySet.has(playerIdentity(match.player2.name,tour))));
-  const window = canCompare ? sharedCareerWindow(relevantMatches, chosen, tour) : null;
-  const cohort = canCompare ? (q.period === 'shared' ? (window ? relevantMatches.filter(m=>m.year>=window.first&&m.year<=window.last) : []) : relevantMatches) : [];
+  const periodMatches=relevantMatches.filter(match=>match.year>=fromYear&&match.year<=toYear);
+  const window = canCompare ? sharedCareerWindow(periodMatches, chosen, tour) : null;
+  const cohort = canCompare ? (q.period === 'shared' ? (window ? periodMatches.filter(m=>m.year>=window.first&&m.year<=window.last) : []) : periodMatches) : [];
   const players = canCompare ? chosen.map(name => comparePlayer(cohort, name, q, tour)) : [];
+  const eloPlayers=canCompare?chosen.map(name=>eloPlayer(elo,name,tour)):[];
+  const eloPoint=(index:number,year:number)=>eloPlayers[index]?.years.filter(row=>row[0]<=year).at(-1);
+  const periodElo=eloPlayers.map((_,index)=>eloPoint(index,toYear)?.[1]??null);
+  const periodEloChange=eloPlayers.map((_,index)=>{const end=eloPoint(index,toYear)?.[1],start=eloPoint(index,fromYear-1)?.[1]??1500;return end===undefined?null:Math.round((end-start)*10)/10;});
+  const periodEloSample=eloPlayers.map((_,index)=>(eloPoint(index,toYear)?.[2]??0)-(eloPoint(index,fromYear-1)?.[2]??0));
   const sufficient = canCompare && players.every(p => p.sufficient);
   const minimum = ['5','20','50'].includes(q.minimum || '') ? q.minimum! : '20';
-  const activeSampleFilters = [q.period && q.period !== 'career', q.year && q.year !== 'all', q.surface && q.surface !== 'all', q.competition && q.competition !== 'all', q.age && q.age !== 'all', q.minimum && q.minimum !== '20'].filter(Boolean).length;
+  const activeSampleFilters = [q.period && q.period !== 'career', q.year && q.year !== 'all', q.fromYear, q.toYear, q.surface && q.surface !== 'all', q.competition && q.competition !== 'all', q.age && q.age !== 'all', q.minimum && q.minimum !== '20'].filter(Boolean).length;
   const metrics = [
     { label: 'Victorias', values: players.map(player => player.won), percent: false, lowerIsBetter: false },
     { label: 'Derrotas', values: players.map(player => player.lost), percent: false, lowerIsBetter: true },
@@ -90,6 +104,10 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
     { label: 'Títulos del archivo', values: players.map(player => player.titles), percent: false, lowerIsBetter: false },
     { label: 'Finales jugadas', values: players.map(player => player.finals), percent: false, lowerIsBetter: false },
     { label: 'Victorias ante top 10', values: players.map(player => player.top10Won), percent: false, lowerIsBetter: false },
+    { label: 'DEUCE Elo', values: periodElo, percent: false, lowerIsBetter: false },
+    { label: 'Cambio Elo en el periodo', values: periodEloChange, percent: false, lowerIsBetter: false },
+    { label: 'Elo medio de rivales · carrera', values: eloPlayers.map(player=>player?.averageOpponentRating??null), percent: false, lowerIsBetter: false },
+    { label: 'Victorias sobre expectativa · carrera', values: eloPlayers.map(player=>player?.winsAboveExpected??null), percent: false, lowerIsBetter: false },
   ];
   const metricGroups = [
     { title: 'Trayectoria', rows: metrics.slice(0, 3) },
@@ -99,6 +117,8 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
     ? comparisonHeadToHead(matches,chosen,players.map(player=>player.matches),tour)
     : [];
   const directWins = canCompare ? chosen.map(name => directMatches.filter(match => comparisonPlayerWon(match,name,tour)).length) : [0, 0];
+  const leadTimeline=canCompare?comparisonLeadTimeline(directMatches,chosen,tour):[];
+  const leadChange=leadTimeline.findLast(point=>point.leaderChanged);
   const compareHref = (changes: Query) => {
     const params = new URLSearchParams();
     Object.entries({ ...q, a: chosen[0], b: chosen[1], ...changes }).forEach(([key,value]) => { if (value && value !== 'all' && !(key==='tour'&&value==='atp')) params.set(key,value); });
@@ -108,10 +128,16 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
   const surfacesToShow = q.surface && q.surface !== 'all' ? SURFACES.filter(surface => surface === q.surface) : SURFACES.filter(surface => surface !== 'unknown');
 
   return <div className={`${styles.page} nc-wrap dx-comparison deuce-comparison`}>
-    <header className={`inner-title ${styles.intro}`}><h1>Comparar</h1><div className="inner-title-tools"><TournamentFilters ariaLabel="Circuito del comparador" items={[
-      {href:'/comparar',label:'ATP',active:tour==='atp'},
-      {href:'/comparar?tour=wta',label:'WTA',active:tour==='wta'},
-    ]}/></div></header>
+    <header className={`inner-title ${styles.intro}`}><h1>Comparar</h1><div className="inner-title-tools">
+      <div className={styles.desktopCircuit}><TournamentFilters ariaLabel="Circuito del comparador" items={[
+        {href:'/comparar',label:'ATP',active:tour==='atp'},
+        {href:'/comparar?tour=wta',label:'WTA',active:tour==='wta'},
+      ]}/></div>
+      <details className={styles.mobileFilterMenu}><summary><span>Filtros</span><SlidersHorizontal size={18} aria-hidden="true"/></summary><div><TournamentFilters ariaLabel="Circuito del comparador" items={[
+        {href:'/comparar',label:'ATP',active:tour==='atp'},
+        {href:'/comparar?tour=wta',label:'WTA',active:tour==='wta'},
+      ]}/><a href="#player-comparison-form">Jugadores y muestra</a></div></details>
+    </div></header>
     <CompareSelection key={chosen.join('|')} tour={tour} initial={chosen.map(name => {
       const photo = playerPhoto(name,q.tour==='wta'?'wta':'atp');
       const hasThumbnail = Boolean(photo?.thumbnail);
@@ -129,6 +155,8 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
       <CompareSampleFilters summary={activeSampleFilters ? `${activeSampleFilters} activos` : 'Valores generales'}>
         <label className="nc-field"><span>Periodo de comparación</span><select name="period" defaultValue={q.period || "career"}><option value="career">Carrera documentada</option><option value="shared">Periodo compartido</option></select></label>
         <label className="nc-field"><span>Temporada</span><select name="year" defaultValue={q.year || 'all'}><option value="all">Todas</option>{circuitYears.map(year => <option key={year}>{year}</option>)}</select></label>
+        <label className="nc-field"><span>Desde</span><select name="fromYear" defaultValue={String(fromYear)}>{[...circuitYears].sort((a,b)=>a-b).map(year=><option key={year}>{year}</option>)}</select></label>
+        <label className="nc-field"><span>Hasta</span><select name="toYear" defaultValue={String(toYear)}>{circuitYears.map(year=><option key={year}>{year}</option>)}</select></label>
         <label className="nc-field"><span>Superficie</span><select name="surface" defaultValue={q.surface || 'all'}><option value="all">Todas</option>{SURFACES.map(s => <option value={s} key={s}>{surfaceLabel[s]}</option>)}</select></label>
         <label className="nc-field"><span>Competición</span><select name="competition" defaultValue={q.competition || 'all'}><option value="all">Todas</option>{[...new Set(relevantMatches.map(m => m.category))].sort().filter(category => !/nivel no especificado/.test(category)).map(c => <option key={c}>{c}</option>)}</select></label>
         <label className="nc-field"><span>Edad al jugar</span><select name="age" defaultValue={q.age || 'all'}><option value="all">Todas las edades</option>{[['14-17','14–17'],['18-21','18–21'],['22-25','22–25'],['26-29','26–29'],['30-34','30–34'],['35+','35 o más']].map(([value,label]) => <option key={value} value={value}>{label} años</option>)}</select></label>
@@ -194,6 +222,7 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
             })}
           </div>
         </section>
+        <p className={styles.eloNote}>{elo.method} Muestra del periodo: {chosen.map((name,index)=>`${name}, ${number(periodEloSample[index])} partidos (${periodEloSample[index]>=50?'consolidada':periodEloSample[index]>=20?'en desarrollo':'provisional'})`).join(' · ')}. La etiqueta describe volumen, no certeza estadística.</p>
         <nav className={styles.scopeNav} aria-label="Comparar por competición">
           <span>Competición</span>
           {[
@@ -220,12 +249,26 @@ export default async function Compare({ searchParams }: { searchParams: Promise<
             })}
             <div className={styles.h2hScore}><span>Balance</span><strong data-right-leading={directWins[1] > directWins[0] ? 'true' : undefined}><em>{number(directWins[0])}</em><i>—</i><b>{number(directWins[1])}</b></strong></div>
           </div>
+          {leadTimeline.length>1?<section className={styles.h2hTimeline} aria-labelledby="h2h-timeline-title">
+            <div className={styles.h2hTimelineHeading}>
+              <h3 id="h2h-timeline-title">Evolución del balance</h3>
+              {leadChange?<Link href={toMatchRecord(leadChange.match).href}>El liderato cambió en {leadChange.match.tournament} {leadChange.match.year}</Link>:<span>Sin cambios de líder registrados</span>}
+            </div>
+            <ol aria-label={`Balance acumulado de ${chosen[0]} y ${chosen[1]}, del partido más antiguo al más reciente`}>
+              {leadTimeline.map(point=>{
+                const record=toMatchRecord(point.match);
+                return <li data-leading={point.leader===null?'tie':point.leader===0?'first':'second'} data-lead-change={point.leaderChanged?'true':undefined} key={point.match.match_id}>
+                  <Link href={record.href} aria-label={`${point.match.tournament} ${point.match.year}: balance ${point.wins[0]} a ${point.wins[1]}${point.leaderChanged?', cambio de líder':''}`}>
+                    <span>{point.match.year}</span><strong>{point.wins[0]}–{point.wins[1]}</strong><small>{point.match.tournament}</small>{point.leaderChanged?<em>Cambio de líder</em>:null}
+                  </Link>
+                </li>;
+              })}
+            </ol>
+          </section>:null}
           {directMatches.length ? <div className={styles.h2hHistory}>
             {directMatches.slice(0,3).map(match => <ArchiveMatchRow key={match.match_id} match={toMatchRecord(match)} showTournamentContext />)}
-            {directMatches.length>3?<details className={styles.h2hMore}>
-              <summary>Ver todos los partidos</summary>
-              <div>{directMatches.slice(3).map(match=><ArchiveMatchRow key={match.match_id} match={toMatchRecord(match)} showTournamentContext />)}</div>
-            </details>:null}
+            {q.h2h==='all'&&directMatches.slice(3).map(match=><ArchiveMatchRow key={match.match_id} match={toMatchRecord(match)} showTournamentContext />)}
+            {directMatches.length>3&&q.h2h!=='all'?<div className={styles.h2hMore}><Link href={`${compareHref({h2h:'all'})}#cara-a-cara`}>Ver todos los partidos</Link></div>:null}
           </div> : <p className="dx-notice">No hay enfrentamientos terminados con esta selección.</p>}
         </div>
       </section>

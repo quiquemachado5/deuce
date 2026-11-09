@@ -101,7 +101,7 @@ async function RecordIndex({
                   mobileObjectPosition: photo.mobileObjectPosition,
                 }
               : undefined,
-            rows: ranking.rows.map((row) => ({
+            rows: ranking.rows.slice(0, 25).map((row) => ({
               name: row.name,
               href: rowForTour(row, query.tour).href,
               detail: row.detail,
@@ -612,7 +612,7 @@ export async function generateMetadata({
   return {
     title: `${title} — DEUCE`,
     description: metadataDescription,
-    alternates: { canonical },
+    alternates: { canonical, languages: { es: canonical, en: `/en/records${tour==='wta'?'?tour=wta':''}` } },
     openGraph: {
       title: `${title} — DEUCE`,
       description: metadataDescription,

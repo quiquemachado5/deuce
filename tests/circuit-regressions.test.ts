@@ -10,7 +10,7 @@ import {
 
 test('match comparison carries its circuit through search and navigation', () => {
   assert.equal(comparisonSearchUrl('Sabalenka', 'wta'), '/api/search?tour=wta&q=Sabalenka');
-  assert.equal(comparisonArchiveHref('wta'), '/buscar?tour=wta');
+  assert.equal(comparisonArchiveHref('wta'), '/partidos?tour=wta');
   assert.equal(comparisonPageHref('wta-123', 'wta'), '/compare?left=wta-123&tour=wta');
 });
 

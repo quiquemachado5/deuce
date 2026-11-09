@@ -29,6 +29,13 @@ async function main() {
     players: await read('players'),
     competition: await read('competition'),
     audit: await read('audit'),
+    products: {
+      editions: await read('edition-products'),
+      players: await read('player-directory'),
+      search: await read('search-products'),
+      elo: await read('elo-products'),
+      timeMachine: await read('time-machine'),
+    },
   }
 
   if (snapshot.matches.length !== manifest.matchCount || Object.keys(snapshot.pieces).length !== expectedBundledPieceCount(manifest)) {

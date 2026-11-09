@@ -29,7 +29,7 @@ export async function hasRequiredSnapshotArtifacts(directory, value) {
   catch { return false }
   if (!browser || browser.count !== value.matchCount || !Array.isArray(browser.partitions) || browser.partitions.length === 0
     || browser.partitions.reduce((sum, partition) => sum + (Number.isSafeInteger(partition?.count) ? partition.count : 0), 0) !== value.matchCount) return false
-  const files = ['manifest', 'browser-index', 'publication-index', 'competition', 'reconciliation', ...partitions.map(partition => partition?.id),
+  const files = ['manifest', 'browser-index', 'publication-index', 'competition', 'reconciliation', 'edition-products', 'player-directory', 'search-products', 'elo-products', 'time-machine', ...partitions.map(partition => partition?.id),
     ...browser.partitions.map(partition => typeof partition?.id === 'string' ? `browser-${partition.id}` : undefined)]
   if (files.some(id => typeof id !== 'string' || !id)) return false
   const sizes = await Promise.all(files.map(async id => {

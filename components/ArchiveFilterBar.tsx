@@ -15,6 +15,7 @@ export default function ArchiveFilterBar({
   panelTitle,
   activeCount = 0,
   busy = false,
+  compactMobile = true,
   children,
 }: {
   circuits: TournamentFilterItem[];
@@ -22,6 +23,7 @@ export default function ArchiveFilterBar({
   panelTitle: string;
   activeCount?: number;
   busy?: boolean;
+  compactMobile?: boolean;
   children: ReactNode;
 }) {
   const root = useRef<HTMLDivElement>(null);
@@ -111,6 +113,7 @@ export default function ArchiveFilterBar({
           <X size={18} aria-hidden="true" />
         </button>
       </div>
+      {portal && compactMobile ? <div className={styles.mobileCircuits}><TournamentFilters ariaLabel={circuitLabel} items={circuits} /></div> : null}
       <div className={styles.panelBody}>{children}</div>
     </div>
   );
@@ -120,6 +123,7 @@ export default function ArchiveFilterBar({
       ref={root}
       className={styles.bar}
       data-open={open || undefined}
+      data-compact-mobile={compactMobile || undefined}
       aria-busy={busy || undefined}
       onClickCapture={event => { if ((event.target as Element).closest('a[href]')) close(false); }}
       onSubmitCapture={() => close(false)}

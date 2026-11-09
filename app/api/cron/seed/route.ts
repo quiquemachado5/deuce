@@ -126,6 +126,13 @@ export async function GET(request: Request) {
       players: await readBundled('players'),
       competition: await readBundled('competition'),
       audit: await readBundled('audit'),
+      products: {
+        editions: await readBundled('edition-products'),
+        players: await readBundled('player-directory'),
+        search: await readBundled('search-products'),
+        elo: await readBundled('elo-products'),
+        timeMachine: await readBundled('time-machine'),
+      },
     }
 
     if (snapshot.matches.length !== manifest.matchCount || Object.keys(snapshot.pieces).length !== expectedBundledPieceCount(manifest)) {
