@@ -20,6 +20,13 @@ test('offsite backup validates a frozen restore before checksum and upload', () 
   assert.ok(source.indexOf('remote_archive_hash=') < source.indexOf('rclone delete "${remote}"'))
 })
 
+test('backup metadata generation does not require Node on the host', () => {
+  assert.doesNotMatch(source, /(?:^|\n)node -e /)
+  assert.match(source, /run_host_node\(\)/)
+  assert.match(source, /node:24-bookworm-slim node "\$@"/)
+  assert.match(source, /--network none/)
+})
+
 test('restore drill rejects stale backups and services use the deuce rclone account', () => {
   assert.match(restore, /DEUCE_RESTORE_MAX_AGE_HOURS:-192/)
   assert.match(restore, /restore-drill-status\.json/)
