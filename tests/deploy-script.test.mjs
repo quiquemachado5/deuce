@@ -135,6 +135,17 @@ test('CI-triggered deployment accepts only the exact approved main commit', () =
   assert.match(source,/not the CI-approved/)
 })
 
+test('a stale offsite backup is rebuilt and restore-tested before the release image', () => {
+  const gate = source.indexOf('# A release must never build on top of an unprotected archive')
+  const freshness = source.indexOf('node ops/vps/recovery-freshness.mjs')
+  const backup = source.indexOf('node ops/vps/run-with-production-env.mjs -- ops/vps/backup.sh')
+  const restore = source.indexOf('node ops/vps/run-with-production-env.mjs -- ops/vps/restore-drill.sh')
+  const build = source.indexOf('"${compose[@]}" build web')
+  assert.ok(gate >= 0 && gate < freshness && freshness < backup && backup < restore && restore < build)
+  assert.match(source.slice(gate, build), /DEUCE_BACKUP_MAX_AGE_HOURS:-36/)
+  assert.match(source.slice(gate, build), /first_release/)
+})
+
 test('every candidate migrates incompatible storage and can restore its prior pointer', () => {
   const seed = source.indexOf('/api/cron/seed')
   const candidateGate = source.indexOf('candidate_verified=false')
