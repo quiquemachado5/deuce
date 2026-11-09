@@ -5,7 +5,9 @@ test('the tournament circuit and category selectors stay isolated and responsive
   for (const width of [320, 390, 768, 1440]) {
     await page.setViewportSize({ width, height: width < 700 ? 844 : 1000 });
     await page.goto('/torneos?circuito=wta');
+    if(width<700) await page.getByRole('button',{name:/Filtrar torneos/}).click();
     await expect(page.getByRole('navigation',{name:'Circuito de torneos'}).getByRole('link',{name:'WTA',exact:true})).toHaveAttribute('aria-current','page');
+    if(width<700) await page.getByRole('button',{name:'Cerrar filtros'}).last().click();
     await expect(page.getByLabel(/Filtrar torneos: Categoría/)).toHaveCount(0);
     for(const name of ['Grand Slams','WTA 1000','WTA 500','WTA 250']) await expect(page.getByRole('heading',{name,exact:true})).toBeVisible();
     if(width===320){
@@ -22,7 +24,7 @@ test('WTA landing routes expose their own canonical and never fall back to ATP r
   const routes=[
     ['/torneos?circuito=wta','/torneos?circuito=wta'],
     ['/jugadores?tour=wta','/jugadores?tour=wta'],
-    ['/buscar?tour=wta','/buscar?tour=wta'],
+    ['/buscar?tour=wta','/partidos?tour=wta'],
     ['/records?tour=wta','/records?tour=wta'],
   ] as const;
   await page.setViewportSize({width:390,height:844});

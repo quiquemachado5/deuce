@@ -51,17 +51,18 @@ test('player directory title, filters and empty WTA state are explicit', async (
     await page.setViewportSize({ width, height: 844 });
     await page.goto('/jugadores');
     const title = await page.getByRole('heading', { level: 1, name: 'Jugadores' }).boundingBox();
-    const circuit = await page.getByRole('navigation', { name: 'Circuito de jugadores' }).boundingBox();
     expect(title).not.toBeNull();
-    expect(circuit).not.toBeNull();
-    expect(circuit!.y).toBeGreaterThanOrEqual(title!.y + title!.height - 1);
+    await expect(page.getByRole('navigation', { name: 'Circuito de jugadores' })).toHaveCount(0);
+    await page.getByRole('button', { name: 'Filtrar jugadores' }).click();
+    await expect(page.getByRole('navigation', { name: 'Circuito de jugadores' })).toBeVisible();
+    await page.getByRole('button', { name: 'Cerrar filtros' }).last().click();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   }
   await page.goto('/jugadores?tour=wta');
   await expect(page.getByRole('heading', { level: 1, name: 'Jugadoras' })).toBeVisible();
-  await expect(page.getByRole('navigation', { name: 'Circuito de jugadoras' })).toBeVisible();
   await expect(page).toHaveTitle(/Jugadoras WTA/);
   await page.getByRole('button', { name: 'Filtrar jugadoras' }).click();
+  await expect(page.getByRole('navigation', { name: 'Circuito de jugadoras' })).toBeVisible();
   await expect(page.getByRole('searchbox', { name: 'Buscar jugadora' })).toBeVisible();
   await expect(page.getByText(/jugadoras · página/)).toHaveCount(0);
   if (!(await page.locator('main a[href^="/jugadores/"]').count())) {
