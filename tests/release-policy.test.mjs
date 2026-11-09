@@ -70,13 +70,39 @@ test('candidate may repair only a fresh failed publication without provider call
   assert.equal(recoverableDailyPublicationFailure({ ...recoverable, dailyUpdate: { ...dailyUpdate,
     atp: { status: 'error', ageHours: 2 } } }), false)
   assert.equal(recoverableDailyPublicationFailure({ ...recoverable, dailyUpdate: { ...dailyUpdate,
-    wta: { status: 'success', ageHours: 12.1 } } }), false)
+    wta: { status: 'success', ageHours: 36.1 } } }), false)
   assert.equal(recoverableDailyPublicationFailure({ ...recoverable, dailyUpdate: { ...dailyUpdate,
     publication: { status: 'error', lastSuccessAgeHours: 36.1 } } }), false)
   assert.equal(recoverableDailyPublicationFailure({ ...recoverable, dailyUpdate: { ...dailyUpdate,
     publication: { status: 'success', lastSuccessAgeHours: 1 } } }), false)
   assert.equal(recoverableDailyPublicationFailure({ ...recoverable, healthIssues: ['daily-update', 'storage-capacity'] }), false)
   assert.equal(recoverableDailyPublicationFailure({ ...recoverable, storage: { available: false } }), false)
+})
+
+test('candidate republishes a migrated snapshot only when saved circuit data can close a fresh lag', () => {
+  const dailyUpdate = {
+    atp: { status: 'success', ageHours: 22 },
+    wta: { status: 'success', ageHours: 22 },
+    publication: { status: 'success', ageHours: 21.5 },
+    staleAfterHours: 36,
+  }
+  const lagging = {
+    dailyUpdate,
+    healthIssues: ['circuit-freshness'],
+    storage: { available: true },
+    circuitFreshness: {
+      atp: { materiallyBehind: true, latestProviderDate: '2026-11-08', latestPublishedDate: '2026-11-03' },
+      wta: { materiallyBehind: false, latestProviderDate: '2026-11-05', latestPublishedDate: '2026-11-05' },
+    },
+  }
+  assert.equal(recoverableDailyPublicationFailure(lagging), true)
+  assert.equal(recoverableDailyPublicationFailure({ ...lagging, healthIssues: ['circuit-freshness', 'archive-fallback'] }), false)
+  assert.equal(recoverableDailyPublicationFailure({ ...lagging, dailyUpdate: { ...dailyUpdate,
+    atp: { status: 'success', ageHours: 36.1 } } }), false)
+  assert.equal(recoverableDailyPublicationFailure({ ...lagging, circuitFreshness: {
+    ...lagging.circuitFreshness,
+    atp: { materiallyBehind: false, latestProviderDate: '2026-11-08', latestPublishedDate: '2026-11-08' },
+  } }), false)
 })
 
 test('bundled snapshot policy requires the record catalogue of both circuits', () => {

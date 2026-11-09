@@ -4,18 +4,29 @@ export function recoverableDailyPublicationFailure(health) {
   const daily = health?.dailyUpdate
   if (!daily || typeof daily !== 'object') return false
   const issues = Array.isArray(health.healthIssues) ? health.healthIssues : []
-  if (!issues.includes('daily-update')
-    || issues.some(issue => !['daily-update', 'scheduler', 'host'].includes(issue))
+  if (!issues.some(issue => issue === 'daily-update' || issue === 'circuit-freshness')
+    || issues.some(issue => !['daily-update', 'circuit-freshness', 'scheduler', 'host'].includes(issue))
     || health.storage?.available !== true || health.fallbackReason) return false
-  const refreshFresh = row => row && typeof row === 'object'
-    && row.status === 'success' && Number.isFinite(row.ageHours) && row.ageHours <= 12
   const staleAfterHours = Number.isFinite(daily.staleAfterHours) ? daily.staleAfterHours : 36
+  const refreshFresh = row => row && typeof row === 'object'
+    && row.status === 'success' && Number.isFinite(row.ageHours) && row.ageHours <= staleAfterHours
   const publication = daily.publication
-  return Boolean(refreshFresh(daily.atp) && refreshFresh(daily.wta)
-    && publication && typeof publication === 'object'
+  const failedPublication = publication && typeof publication === 'object'
     && publication.status === 'error'
     && Number.isFinite(publication.lastSuccessAgeHours)
-    && publication.lastSuccessAgeHours <= staleAfterHours)
+    && publication.lastSuccessAgeHours <= staleAfterHours
+  const migrationPublication = issues.includes('circuit-freshness')
+    && publication && typeof publication === 'object'
+    && publication.status === 'success'
+    && Number.isFinite(publication.ageHours)
+    && publication.ageHours <= staleAfterHours
+    && Object.values(health.circuitFreshness || {}).some(row => row && typeof row === 'object'
+      && row.materiallyBehind === true
+      && typeof row.latestProviderDate === 'string'
+      && typeof row.latestPublishedDate === 'string'
+      && row.latestProviderDate > row.latestPublishedDate)
+  return Boolean(refreshFresh(daily.atp) && refreshFresh(daily.wta)
+    && (failedPublication || migrationPublication))
 }
 
 function initialDailyBootstrapReady(health) {
