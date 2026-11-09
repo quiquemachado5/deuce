@@ -19,6 +19,7 @@ import {acquireArchiveLease} from '@/lib/archive-store'
 export const runtime = 'nodejs'
 export const maxDuration = 300
 export const dynamic = 'force-dynamic'
+const MAX_REFRESH_AGE_MS = 36 * 3_600_000
 
 export async function GET(request: Request) {
   const cronAuthorized = authorizedCronRequest(request)
@@ -38,7 +39,7 @@ export async function GET(request: Request) {
       console.info('Daily publication: started')
       const refresh=await cloudRead('sync-status')
       const lastSuccessfulRefresh = refresh?.status === 'success' ? refresh.at : refresh?.lastSuccessAt
-      if(refresh?.status!=='success'||!Number.isFinite(Date.parse(lastSuccessfulRefresh))||Date.now()-Date.parse(lastSuccessfulRefresh)>12*3600000)throw new Error('No recent successful provider refresh; keeping the previous publication')
+      if(refresh?.status!=='success'||!Number.isFinite(Date.parse(lastSuccessfulRefresh))||Date.now()-Date.parse(lastSuccessfulRefresh)>MAX_REFRESH_AGE_MS)throw new Error('No recent successful provider refresh; keeping the previous publication')
       const [{ publicationArchive, competitionEntries, editionSourceAudit }, { compileRecordSnapshot }, { publishRecordSnapshot }] = await Promise.all([
         import('@/lib/live-tennis'),
         import('@/lib/revista/snapshot'),
@@ -50,7 +51,7 @@ export async function GET(request: Request) {
       const publishedWta=compatibleManifest(remote)?remote.summary.tours.wta:bundled.summary.tours.wta
       if(publishedWta>0){
         const lastSuccessfulWta=wtaRefresh?.status==='success'?wtaRefresh.at:wtaRefresh?.lastSuccessAt
-        if(wtaRefresh?.status!=='success'||!Number.isFinite(Date.parse(lastSuccessfulWta))||Date.now()-Date.parse(lastSuccessfulWta)>12*3_600_000)throw new Error('No recent successful WTA refresh; keeping the previous publication')
+        if(wtaRefresh?.status!=='success'||!Number.isFinite(Date.parse(lastSuccessfulWta))||Date.now()-Date.parse(lastSuccessfulWta)>MAX_REFRESH_AGE_MS)throw new Error('No recent successful WTA refresh; keeping the previous publication')
       }
       const [loadedInput,previousAudit]=await Promise.all([publicationArchive(),preparedEditionAudit()])
       const input=loadedInput
