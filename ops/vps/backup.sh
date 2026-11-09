@@ -9,6 +9,12 @@ REMOTE_KEEP_DAYS="${DEUCE_BACKUP_REMOTE_KEEP_DAYS:-14}"
 cd "${ROOT}"
 install -d -m 0750 "${BACKUP_DIR}"
 
+run_host_node() {
+  docker run --rm --network none --user "$(id -u):$(id -g)" \
+    --mount "type=bind,source=${BACKUP_DIR},target=/backups" \
+    node:24-bookworm-slim node "$@"
+}
+
 if [[ ! -f .env.production ]]; then
   echo "DEUCE backup failed: ${ROOT}/.env.production is missing." >&2
   exit 1
@@ -71,8 +77,8 @@ generation_version="$(docker compose --env-file .env.production exec -T web node
   const {readFile}=require("node:fs/promises"),{join}=require("node:path");
   readFile(join(process.env.DEUCE_ARCHIVE_DIR||"/app/.deuce-archive","reading-v2-manifest.json"),"utf8")
     .then(value=>process.stdout.write(String(JSON.parse(value).version||""))).catch(()=>process.exit(1));')"
-node -e 'const {writeFileSync}=require("node:fs");writeFileSync(process.argv[1],JSON.stringify({schema:1,createdAt:process.argv[2],archive:process.argv[3],sha256:process.argv[4],sourceCommit:process.argv[5],generationVersion:process.argv[6],restoreValidated:true})+"\n",{mode:0o600})' \
-  "${manifest}" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$(basename "${destination}")" "$(awk 'NR==1 {print $1}' "${destination}.sha256")" "${image_revision}" "${generation_version}"
+run_host_node -e 'const {writeFileSync}=require("node:fs");writeFileSync(process.argv[1],JSON.stringify({schema:1,createdAt:process.argv[2],archive:process.argv[3],sha256:process.argv[4],sourceCommit:process.argv[5],generationVersion:process.argv[6],restoreValidated:true})+"\n",{mode:0o600})' \
+  "/backups/$(basename "${manifest}")" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$(basename "${destination}")" "$(awk 'NR==1 {print $1}' "${destination}.sha256")" "${image_revision}" "${generation_version}"
 
 remote="${DEUCE_BACKUP_REMOTE%/}"
 rclone copyto "${destination}" "${remote}/$(basename "${destination}")" --checksum --immutable
@@ -92,8 +98,8 @@ docker compose --env-file .env.production exec -T web node -e '
   (async()=>{const root=process.env.DEUCE_ARCHIVE_DIR||"/app/.deuce-archive",target=join(root,"backup-status.json"),temporary=`${target}.${process.pid}.tmp`;
     await writeFile(temporary,JSON.stringify({status:"success",at:process.argv[1],archive:process.argv[2],sha256:process.argv[3],remote:process.argv[4],sourceCommit:process.argv[5],generationVersion:process.argv[6],restoreValidated:true}));await rename(temporary,target)})().catch(error=>{console.error(error);process.exit(1)});' \
   "${completed_at}" "$(basename "${destination}")" "${local_hash}" "${remote}" "${image_revision}" "${generation_version}"
-node -e 'const {writeFileSync}=require("node:fs");writeFileSync(process.argv[1],JSON.stringify({verifiedAt:process.argv[2],archive:process.argv[3],sha256:process.argv[4],remote:process.argv[5],sourceCommit:process.argv[6],generationVersion:process.argv[7],restoreValidated:true})+"\n")' \
-  "${BACKUP_DIR}/last-success.json" "${completed_at}" "$(basename "${destination}")" "${local_hash}" "${remote}" "${image_revision}" "${generation_version}"
+run_host_node -e 'const {writeFileSync}=require("node:fs");writeFileSync(process.argv[1],JSON.stringify({verifiedAt:process.argv[2],archive:process.argv[3],sha256:process.argv[4],remote:process.argv[5],sourceCommit:process.argv[6],generationVersion:process.argv[7],restoreValidated:true})+"\n")' \
+  "/backups/last-success.json" "${completed_at}" "$(basename "${destination}")" "${local_hash}" "${remote}" "${image_revision}" "${generation_version}"
 mv "${validation}" "${BACKUP_DIR}/last-backup-validation.json"
 trap - EXIT
 echo "Restored locally, copied offsite and verified backup plus checksum at ${remote}."
