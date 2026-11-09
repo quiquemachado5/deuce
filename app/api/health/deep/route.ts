@@ -2,7 +2,7 @@ import { cloudArchiveConfigured, cloudArchiveLastCapacity, cloudProbeRead } from
 import { deploymentMetadata } from '@/lib/deployment';
 import { editionCompleteness } from '@/lib/edition-audit';
 import { generationMetadata } from '@/lib/revista/generation';
-import { preparedDataCacheDiagnostics, preparedEditionAudit, preparedGeneration, preparedMatchBrowserIndex } from '@/lib/revista/read-records';
+import { preparedBundledManifest, preparedDataCacheDiagnostics, preparedEditionAudit, preparedGeneration, preparedMatchBrowserIndex } from '@/lib/revista/read-records';
 import { logEvent, requestId } from '@/lib/structured-log';
 import { readSchedulerHealth } from '@/lib/scheduler-health';
 import { compareCircuitFreshness, recentRefreshFreshnessIssue } from '@/lib/circuit-freshness';
@@ -68,8 +68,8 @@ export async function GET(request: Request) {
   const budget=rateLimit(request,'health-deep',12,60_000);
   if(!budget.allowed)return Response.json({status:'rate-limited',requestId:id},{status:429,headers:{...headers,'Retry-After':String(budget.retryAfter)}});
   try {
-    const [generation, browser, editions, sync, wtaSync, wtaBackfill, enrichment, publication, backup, restoreDrill, hostProbe, quota, catalog, capacity, scheduler] = await Promise.all([
-      preparedGeneration(), preparedMatchBrowserIndex(), preparedEditionAudit(), cloudProbeRead('sync-status'), cloudProbeRead('wta-sync-status'), cloudProbeRead('wta-backfill-status'), cloudProbeRead('enrichment-status'), cloudProbeRead('publish-status'), cloudProbeRead('backup-status'), cloudProbeRead('restore-drill-status'), cloudProbeRead('host-status'), cloudProbeRead('provider-quota-status'), cloudProbeRead('archive-catalog-status'), cloudArchiveLastCapacity(1_500), readSchedulerHealth(),
+    const [generation, bundledManifest, browser, editions, sync, wtaSync, wtaBackfill, enrichment, publication, backup, restoreDrill, hostProbe, quota, catalog, capacity, scheduler] = await Promise.all([
+      preparedGeneration(), preparedBundledManifest(), preparedMatchBrowserIndex(), preparedEditionAudit(), cloudProbeRead('sync-status'), cloudProbeRead('wta-sync-status'), cloudProbeRead('wta-backfill-status'), cloudProbeRead('enrichment-status'), cloudProbeRead('publish-status'), cloudProbeRead('backup-status'), cloudProbeRead('restore-drill-status'), cloudProbeRead('host-status'), cloudProbeRead('provider-quota-status'), cloudProbeRead('archive-catalog-status'), cloudArchiveLastCapacity(1_500), readSchedulerHealth(),
     ]);
     const browserCount = browser.index.partitions.reduce((sum, partition) => sum + partition.count, 0);
     if (browser.manifest.version !== generation.manifest.version || browserCount !== generation.manifest.matchCount) {
@@ -102,6 +102,8 @@ export async function GET(request: Request) {
     logEvent(status === 'healthy' ? 'info' : 'warn', 'health.deep', { requestId: id, status, elapsedMs, source: generation.source, fallbackReason: generation.fallbackReason });
     return Response.json({
       status, healthIssues, ...generationMetadata(generation), deployment: deploymentMetadata(),
+      servingDataset: { role: 'active', version: generation.manifest.version, generatedAt: generation.manifest.generatedAt, matches: generation.manifest.matchCount, source: generation.source },
+      bundledDataset: { role: 'validated-fallback', version: bundledManifest.version, generatedAt: bundledManifest.generatedAt, matches: bundledManifest.matchCount },
       matches: generation.manifest.matchCount, tours: generation.manifest.summary.tours,
       statistics: generation.manifest.pieces.length + (generation.manifest.circuitPieces?.wta.length || 0),
       statisticsByTour: { atp: generation.manifest.pieces.length, wta: generation.manifest.circuitPieces?.wta.length || 0 },

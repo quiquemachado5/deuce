@@ -11,12 +11,14 @@ export async function GET(request: Request) {
   try {
     const manifest = await preparedBundledManifest();
     return Response.json({
-      status: 'ok', service: 'deuce', datasetVersion: manifest.version,
+      status: 'ok', service: 'deuce', check: 'liveness', datasetVersion: manifest.version,
       generatedAt: manifest.generatedAt, matches: manifest.matchCount,
+      bundledDataset: { role: 'validated-fallback', version: manifest.version, generatedAt: manifest.generatedAt, matches: manifest.matchCount },
+      servingDataset: { status: 'verify-at-deep-health', endpoint: '/api/health/deep' },
       statistics: manifest.pieces.length + (manifest.circuitPieces?.wta.length || 0),
       statisticsByTour: { atp: manifest.pieces.length, wta: manifest.circuitPieces?.wta.length || 0 },
       deployment: deploymentMetadata(),
-      deepHealth: '/api/health/deep',
+      deepHealth: '/api/health/deep', semantics: 'This endpoint proves process liveness and bundled fallback integrity; deep health identifies the active serving generation.',
     }, { headers: { ...headers, 'X-DEUCE-Dataset-Version': manifest.version } });
   } catch {
     return Response.json({ status: 'unavailable', requestId: id }, { status: 503, headers });

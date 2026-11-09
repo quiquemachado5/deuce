@@ -9,6 +9,7 @@ import { MATCH_BROWSER_DICTIONARIES, MATCH_BROWSER_ROW_LENGTH, MATCH_BROWSER_SCH
 
 const blob = value => ({ gzip: gzipSync(JSON.stringify(value)).toString('base64') })
 const page = value => gzipSync(JSON.stringify(value)).toString('base64')
+const productIds = ['edition-products', 'player-directory', 'search-products', 'elo-products', 'time-machine']
 const chunked = (id, value) => {
   const encoded = page(value), cut = Math.ceil(encoded.length / 2)
   return { [id]: { encoding: 'gzip-chunks', chunks: 2 },
@@ -36,6 +37,7 @@ async function writeBundledFixture(root,{swapBrowserIds=false,omitWtaShard=false
       {identity:'atp:atp-1',tour:'atp',year:2026,hash:'a'.repeat(24)},
       {identity:'wta:wta-1',tour:'wta',year:2026,hash:'b'.repeat(24)},
     ]},
+    ...Object.fromEntries(productIds.map(id=>[id,{schema:1}])),
     [`browser-${partitions[0].id}`]:{schema:MATCH_BROWSER_SCHEMA,...partitions[0],dictionaries,rows:[browserRow(swapBrowserIds?'wta-1':'atp-1')]},
     [`browser-${partitions[1].id}`]:{schema:MATCH_BROWSER_SCHEMA,...partitions[1],dictionaries,rows:[browserRow(swapBrowserIds?'atp-1':'wta-1')]},
   }
@@ -95,6 +97,7 @@ test('physical restore validation reconstructs complete packed artifacts', async
         {identity:'atp:atp-1',tour:'atp',year:2026,hash:'a'.repeat(24)},
         {identity:'wta:wta-1',tour:'wta',year:2026,hash:'b'.repeat(24)},
       ]}),
+      ...Object.fromEntries(productIds.map(id=>[id,blob({schema:1})])),
       [`browser-${partitions[0].id}`]: blob({ schema: MATCH_BROWSER_SCHEMA, ...partitions[0], dictionaries, rows: [browserRow('atp-1')] }),
       [`browser-${partitions[1].id}`]: blob({ schema: MATCH_BROWSER_SCHEMA, ...partitions[1], dictionaries, rows: [browserRow('wta-1')] }),
     }

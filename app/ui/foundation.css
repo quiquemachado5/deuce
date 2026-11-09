@@ -24,7 +24,7 @@
   --event-accent: var(--ink);
   --event-tint: var(--bg-sunken);
   --font-interface: var(--deuce-sans), sans-serif;
-  --font-display: var(--deuce-sans), sans-serif;
+  --font-display: var(--deuce-headline), var(--deuce-sans), sans-serif;
   --font-editorial: var(--deuce-sans), sans-serif;
   --font-mono: var(--font-interface);
   --panel-radius: 24px;

@@ -12,9 +12,10 @@ const clientMetricBuckets: Record<string, readonly number[]> = {
   INP: [100, 200, 500, 1_000, 2_000],
   CLS: [0.05, 0.1, 0.25, 0.5, 1],
   navigation: [500, 1_000, 2_500, 5_000, 10_000, 30_000],
+  'route-transition': [100, 250, 500, 1_000, 2_500, 5_000, 10_000],
   skeleton: [500, 1_000, 2_500, 5_000, 10_000, 30_000],
 };
-const publicTelemetryRoutes = new Set(['buscar', 'cobertura', 'comparar', 'historias', 'info', 'jugadores', 'licencias', 'records', 'sobre', 'torneos']);
+const publicTelemetryRoutes = new Set(['buscar', 'cobertura', 'comparar', 'desarrolladores', 'historias', 'info', 'jugadores', 'licencias', 'maquina-del-tiempo', 'partidos', 'players', 'records', 'sobre', 'torneos']);
 
 const label = (value: string) => value.replace(/[^a-zA-Z0-9_./-]/g, '_').slice(0, 80);
 const escape = (value: string) => value.replaceAll('\\', '\\\\').replaceAll('"', '\\"').replaceAll('\n', '\\n');
@@ -23,6 +24,16 @@ const escape = (value: string) => value.replaceAll('\\', '\\\\').replaceAll('"',
 export function telemetryRoute(rawPath: string) {
   const parts = rawPath.split('?')[0].split('/').filter(Boolean);
   if (!parts.length) return '/';
+  if (parts[0] === 'en') {
+    if (parts.length === 1) return '/en';
+    if (parts[1] === 'matches' && parts[2]) return '/en/matches/:id';
+    if (parts[1] === 'players' && parts[2]) return '/en/players/:slug';
+    if (parts[1] === 'tournaments' && parts[2] && /^\d{4}$/.test(parts[3] || '')) return '/en/tournaments/:slug/:year';
+    if (parts[1] === 'tournaments' && parts[2]) return '/en/tournaments/:slug';
+    return new Set(['matches', 'players', 'tournaments', 'records', 'compare', 'time-machine', 'coverage', 'developers']).has(parts[1])
+      ? `/en/${parts[1]}`
+      : '/en/other';
+  }
   if (parts[0] === 'match') return '/match/:id';
   if ((parts[0] === 'jugadores' || parts[0] === 'players') && parts[1]) return '/jugadores/:slug';
   if (parts[0] === 'torneos' && parts[1] && /^\d{4}$/.test(parts[2] || '')) return '/torneos/:slug/:year';
@@ -42,6 +53,8 @@ export function observeClientTelemetry(input: {kind:string;name?:string;value?:n
     ? input.name
     : input.kind === 'navigation' && input.navigationType === 'skeleton'
       ? 'skeleton'
+      : input.kind === 'navigation' && input.navigationType === 'route-transition'
+        ? 'route-transition'
       : input.kind === 'navigation' ? 'navigation' : null;
   if (!metric) return;
   const buckets = clientMetricBuckets[metric];

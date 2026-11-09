@@ -153,8 +153,8 @@ services:
     command:
       - --config.file=/etc/prometheus/prometheus.yml
       - --storage.tsdb.path=/prometheus
-      - --storage.tsdb.retention.time=14d
-      - --storage.tsdb.retention.size=256MB
+      - --storage.tsdb.retention.time=30d
+      - --storage.tsdb.retention.size=384MB
     volumes:
       - ./ops/observability/prometheus.yml:/etc/prometheus/prometheus.yml:ro
       - ./ops/observability/alerts.yml:/etc/prometheus/alerts.yml:ro

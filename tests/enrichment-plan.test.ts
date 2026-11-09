@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { detailCandidateKey, detailMatchesCandidate, enrichmentPlan, type DetailCandidate } from '../lib/enrichment-plan';
+import { detailCandidateKey, detailMatchesCandidate, enrichmentPlan, statisticsCheckDue, statisticsEnrichmentPlan, type DetailCandidate } from '../lib/enrichment-plan';
 import {completeEnrichment,deferEnrichment,enrichmentQueueCounts,persistentEnrichmentPlan,readEnrichmentQueue} from '../lib/enrichment-queue';
 
 const row=(tour:'atp'|'wta',kind:'archive'|'modern',id:string,round='F'):DetailCandidate=>({tour,kind,id,round,year:kind==='archive'?2022:2026,players:['Player One','Player Two']});
@@ -44,4 +44,18 @@ test('unavailable details are durably deferred and later retried',()=>{
   assert.equal(persistentEnrichmentPlan([candidate],new Set(),state,10,now+31*86_400_000).length,1);
   state=completeEnrichment(state,candidate,now+31*86_400_000);
   assert.equal(Object.keys(state.deferred).length,0);
+});
+
+test('statistics enrichment alternates circuits and retries stale empty responses',()=>{
+  const now=Date.parse('2026-11-09T00:00:00.000Z');
+  const candidates=[row('atp','modern','1'),row('atp','modern','2','R32'),row('wta','modern','3'),row('wta','modern','4','QF')];
+  const known=new Set(candidates.map(detailCandidateKey));
+  const checked={
+    'modern-1':'present',
+    'wta-modern-3':'empty@2026-11-08T00:00:00.000Z',
+    'wta-modern-4':'empty@2026-09-01T00:00:00.000Z',
+  };
+  assert.deepEqual(statisticsEnrichmentPlan(candidates,known,checked,4,now).map(detailCandidateKey),['modern-2','wta-modern-4']);
+  assert.equal(statisticsCheckDue(checked['wta-modern-3'],now),false);
+  assert.equal(statisticsCheckDue(checked['wta-modern-4'],now),true);
 });

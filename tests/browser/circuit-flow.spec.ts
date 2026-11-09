@@ -86,8 +86,8 @@ test('WTA directory, tournament leaders and quick record suggestions retain WTA 
 test('coverage distinguishes operational clocks and remains accessible on a phone',async({page})=>{
   await page.setViewportSize({width:390,height:844});await page.goto('/cobertura');
   await expect(page.getByRole('heading',{name:'Actividad diaria'})).toBeVisible();
-  await expect(page.locator('.coverage-hero-stats dt').filter({hasText:/^Partidos ATP$/})).toBeVisible();
-  await expect(page.locator('.coverage-hero-stats dt').filter({hasText:/^Partidos WTA$/})).toBeVisible();
+  await expect(page.getByText('Partidos ATP',{exact:true})).toBeVisible();
+  await expect(page.getByText('Partidos WTA',{exact:true})).toBeVisible();
   await expect(page.getByText(/^Hasta /)).toHaveCount(2);
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   expect((await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa']).analyze()).violations).toEqual([]);
@@ -95,7 +95,7 @@ test('coverage distinguishes operational clocks and remains accessible on a phon
 
 test('the WTA entry opens the integrated match archive and keeps its circuit across sections',async({page})=>{
   await page.goto('/wta');
-  await expect(page).toHaveURL(/\/buscar\?tour=wta$/);
+  await expect(page).toHaveURL(/\/partidos\?tour=wta$/);
   const primary=page.getByRole('navigation',{name:'Principal',exact:true});
   await expect(primary.getByRole('button',{name:'Partidos',exact:true})).toBeVisible();
   await expect(page.getByRole('navigation',{name:'Circuito de partidos'}).getByRole('link',{name:'WTA',exact:true})).toHaveAttribute('aria-current','page');
@@ -120,10 +120,12 @@ test('the WTA entry opens the integrated match archive and keeps its circuit acr
 
 test('match circuit is compact and organization lives inside filters',async({page})=>{
   await page.setViewportSize({width:390,height:844});
-  await page.goto('/buscar?tour=wta');
-  await expect(page.getByRole('navigation',{name:'Circuito de partidos'})).toBeVisible();
+  await page.goto('/partidos?tour=wta');
+  await expect(page.getByRole('navigation',{name:'Circuito de partidos'})).toHaveCount(0);
   await expect(page.getByRole('navigation',{name:'Organización de los partidos'})).toHaveCount(0);
   await page.getByRole('button',{name:/Filtrar partidos/}).click();
+  await expect(page.getByRole('navigation',{name:'Circuito de partidos'})).toBeVisible();
+  await expect(page.getByRole('navigation',{name:'Circuito de partidos'}).getByRole('link',{name:'WTA',exact:true})).toHaveAttribute('aria-current','page');
   const organization=page.getByRole('combobox',{name:'Organizar por'});
   await expect(organization).toBeVisible();
   await organization.selectOption('torneos');

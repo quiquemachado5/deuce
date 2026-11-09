@@ -122,7 +122,7 @@ export default async function ComparePage({ searchParams }: Props) {
     || matches.find((match) => match.match_id === examples[0] && match.match_id !== leftSummary?.match_id)
     || matches.find((match) => match.match_id !== leftSummary?.match_id);
   const [left,right]=await Promise.all([leftSummary?preparedMatch(leftSummary.match_id):undefined,rightSummary?preparedMatch(rightSummary.match_id):undefined]);
-  if (!left || !right) return <main className="nc-wrap ry-compare-page"><h1>No se pudo abrir la comparación.</h1><p>Elige dos partidos del archivo para leerlos juntos.</p><Link href={`/buscar?tour=${tour}`}>Buscar partidos</Link></main>;
+  if (!left || !right) return <main className="nc-wrap ry-compare-page"><h1>No se pudo abrir la comparación.</h1><p>Elige dos partidos del archivo para leerlos juntos.</p><Link href={`/partidos?tour=${tour}`}>Buscar partidos</Link></main>;
   const changing = query.side === "left" ? "left" : "right";
   const term = normalizeText(query.q || "").trim();
   const results = term ? queryMatchBrowserPage((await preparedMatchBrowser(tour)).partitions,{q:query.q},1,30).matches

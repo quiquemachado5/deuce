@@ -33,7 +33,7 @@ export default function HomeExplore({ matches }: { matches: Match[] }) {
       label: surfaceLabel[surface],
       detail: "Superficie",
       count: surfaceCounts.get(surface) || 0,
-      href: `/buscar?surface=${surface}`,
+      href: `/partidos?surface=${surface}`,
       surface,
       photo: surfacePhotos[surface],
     })),
@@ -43,7 +43,7 @@ export default function HomeExplore({ matches }: { matches: Match[] }) {
     <section className="home-explore" aria-labelledby="home-explore-title">
       <div className="ds-section-heading">
         <h2 id="home-explore-title">Superficies y categorías</h2>
-        <Link href="/buscar">Ver todos</Link>
+        <Link href="/partidos">Ver todos</Link>
       </div>
       <div className="home-explore-grid">
         {items.map((item) => (
@@ -59,7 +59,7 @@ export default function HomeExplore({ matches }: { matches: Match[] }) {
         ))}
       </div>
       <div className="home-category-list" aria-label="Explorar por categoría">
-        {categories.filter(item => (categoryCounts.get(item.category) || 0) > 0).map(item => <Link href={`/buscar?tour=${item.tour}&category=${encodeURIComponent(item.category)}`} key={`${item.tour}-${item.category}`}><span>{item.category}</span><strong>{number(categoryCounts.get(item.category) || 0)} partidos</strong><ArrowUpRight size={16} aria-hidden="true" /></Link>)}
+        {categories.filter(item => (categoryCounts.get(item.category) || 0) > 0).map(item => <Link href={`/partidos?tour=${item.tour}&category=${encodeURIComponent(item.category)}`} key={`${item.tour}-${item.category}`}><span>{item.category}</span><strong>{number(categoryCounts.get(item.category) || 0)} partidos</strong><ArrowUpRight size={16} aria-hidden="true" /></Link>)}
       </div>
     </section>
   );

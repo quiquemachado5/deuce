@@ -35,6 +35,7 @@ export function globalSearchCircuit(pathname: string, search: SearchReader): Sea
   ) return 'atp';
   if (
     pathname === '/buscar'
+    || pathname === '/partidos'
     || pathname === '/records'
     || pathname.startsWith('/records/')
     || pathname === '/jugadores'
@@ -54,7 +55,7 @@ export function globalSearchCircuit(pathname: string, search: SearchReader): Sea
 export function circuitSectionHref(section: CircuitSection, circuit: Circuit): string {
   const wta = circuit === 'wta';
   switch (section) {
-    case 'matches': return wta ? '/buscar?tour=wta' : '/buscar';
+    case 'matches': return wta ? '/partidos?tour=wta' : '/partidos';
     case 'records': return wta ? '/records?tour=wta' : '/records';
     case 'players': return wta ? '/jugadores?tour=wta' : '/jugadores';
     case 'tournaments': return wta ? '/torneos?circuito=wta' : '/torneos';

@@ -36,7 +36,7 @@ export default function SeasonArchive({
         {years.slice(0, 6).map((value) => (
           <Link
             key={value}
-            href={`/buscar?year=${value}`}
+            href={`/partidos?year=${value}`}
             aria-current={year === value ? "page" : undefined}
           >
             {value}
@@ -44,13 +44,13 @@ export default function SeasonArchive({
         ))}
         <details className="season-archive-all-years">
           <summary>Más años</summary>
-          <div>{years.slice(6).map((value) => <Link key={value} href={`/buscar?year=${value}`} aria-current={year === value ? "page" : undefined}>{value}</Link>)}</div>
+          <div>{years.slice(6).map((value) => <Link key={value} href={`/partidos?year=${value}`} aria-current={year === value ? "page" : undefined}>{value}</Link>)}</div>
         </details>
       </nav>
       {!entries.length && (
         <p className="season-archive-empty">
           No hay campeonatos de esta temporada.{" "}
-          <Link href={`/buscar?year=${years[0]}`}>Ver la última temporada</Link>
+          <Link href={`/partidos?year=${years[0]}`}>Ver la última temporada</Link>
         </p>
       )}
       <div className="season-archive-grid">
@@ -63,7 +63,7 @@ export default function SeasonArchive({
             <Link
               key={entry.slug}
               className="season-event"
-              href={`/buscar?year=${year}&tournament=${entry.slug}`}
+              href={`/partidos?year=${year}&tournament=${entry.slug}`}
               data-event-surface={court.surface}
             >
               <span className="season-event-category">
@@ -81,7 +81,7 @@ export default function SeasonArchive({
         <Pagination
           page={current}
           total={entries.length}
-          href={(value) => `/buscar?year=${year}&editions=${value}`}
+          href={(value) => `/partidos?year=${year}&editions=${value}`}
         />
       )}
     </section>

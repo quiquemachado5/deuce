@@ -101,11 +101,13 @@ async function developmentOperations(){
 }
 
 export default async function Operations({manifest}:{manifest:RecordManifest}){
-  let [atpRaw,wtaRaw,publishRaw]=await Promise.all([
+  const [initialAtpRaw,initialWtaRaw,initialPublishRaw,enrichmentRaw]=await Promise.all([
     cloudProbeRead('sync-status'),
     cloudProbeRead('wta-sync-status'),
     cloudProbeRead('publish-status'),
+    cloudProbeRead('enrichment-status'),
   ]);
+  let atpRaw=initialAtpRaw,wtaRaw=initialWtaRaw,publishRaw=initialPublishRaw;
   if(!atpRaw&&!wtaRaw){
     const remote=await developmentOperations();
     atpRaw=remote?.atp;wtaRaw=remote?.wta;publishRaw=publishRaw||remote?.publication;
@@ -113,6 +115,7 @@ export default async function Operations({manifest}:{manifest:RecordManifest}){
   const history=dailyActivity(atpRaw,wtaRaw,publishRaw,manifest.ingestionHistory);
   const todayKey=new Date().toISOString().slice(0,10),days=history.slice(0,7);
   const providers=(['atp','wta'] as const).map(tour=>({tour,status:operationStatus(tour==='atp'?atpRaw:wtaRaw),freshness:manifest.circuitFreshness?.[tour]}));
+  const enrichment=operationStatus(enrichmentRaw),enrichmentEntry=enrichmentRaw&&typeof enrichmentRaw==='object'?enrichmentRaw as Entry:undefined;
   return <section className={styles.operations} aria-labelledby="operations-title">
     <header className={styles.heading}>
       <div><h2 id="operations-title">Actividad diaria</h2><p>La consulta y la fecha del último partido son datos distintos. Si la API no devuelve resultados nuevos, la consulta queda registrada igualmente; las verificaciones con fuentes oficiales pueden añadir resultados sin consumir llamadas.</p></div>
@@ -122,7 +125,17 @@ export default async function Operations({manifest}:{manifest:RecordManifest}){
 
       <dl>{dateTime(status.attemptAt)?<div><dt>Última consulta</dt><dd>{dateTime(status.attemptAt)}</dd></div>:null}{dateTime(status.successAt)?<div><dt>Última consulta correcta</dt><dd>{dateTime(status.successAt)}</dd></div>:null}<div><dt>Último resultado devuelto</dt><dd>{providerDay(status.latestProviderDate)}</dd></div><div><dt>Último resultado publicado</dt><dd>{providerDay(freshness?.latestExactDate)}</dd></div></dl>
       {status.status==='success'&&status.latestProviderDate&&status.attemptAt?.slice(0,10)!==status.latestProviderDate?<p className={styles.providerNote}>Se consultó correctamente; el proveedor no entregó un resultado {tour.toUpperCase()} terminado posterior.</p>:null}
-    </article>)}</div>
+    </article>)}{enrichmentEntry?<article className={styles.providerCard}>
+      <header><strong>DETALLE</strong><span className={styles.providerStatus} data-tone={statusTone(enrichment.status)}>{statusCopy(enrichment.status)}</span></header>
+      <dl>
+        {dateTime(enrichment.attemptAt)?<div><dt>Última pasada</dt><dd>{dateTime(enrichment.attemptAt)}</dd></div>:null}
+        <div><dt>Fichas de partido añadidas</dt><dd>{number(numeric(enrichmentEntry.added)||0)}</dd></div>
+        <div><dt>Partidos con nuevas estadísticas</dt><dd>{number(numeric(enrichmentEntry.statisticsAdded)||0)}</dd></div>
+        {numeric(enrichmentEntry.statisticsPending)!==undefined?<div><dt>Siguientes candidatos estadísticos</dt><dd>{number(numeric(enrichmentEntry.statisticsPending)!)}</dd></div>:null}
+        <div><dt>Perfiles agregados cacheados</dt><dd>{number(numeric(enrichmentEntry.playerStatsAdded)||0)}</dd></div>
+      </dl>
+      <p className={styles.providerNote}>Se ejecuta fuera de la navegación, con caché persistente y reserva de cuota. Una ausencia del proveedor nunca se publica como cero.</p>
+    </article>:null}</div>
     {days.length?<div className={styles.activityDetails}><h3>Últimos días registrados</h3><ol className={styles.days} aria-label="Actividad diaria de la API">{days.map(day=><li key={day.date}>
       <header><time dateTime={day.date}>{day.date===todayKey?'Hoy · ':''}{dayLabel(day.date)}</time><span className={styles.dayStatus}>{activityStatus(day)}</span></header>
       <div className={styles.tourRows}>

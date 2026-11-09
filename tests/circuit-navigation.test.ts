@@ -5,7 +5,7 @@ import { matchSearchUrl } from '../lib/match-search-url';
 
 test('circuit navigation preserves WTA across every shared archive section',()=>{
   const expected={
-    matches:'/buscar?tour=wta',
+    matches:'/partidos?tour=wta',
     records:'/records?tour=wta',
     players:'/jugadores?tour=wta',
     tournaments:'/torneos?circuito=wta',
@@ -21,9 +21,9 @@ test('circuit navigation preserves WTA across every shared archive section',()=>
 });
 
 test('ATP match URLs stay canonical while WTA remains explicit',()=>{
-  assert.equal(matchSearchUrl({tour:'atp',q:'Nadal'}),'/buscar?q=Nadal');
-  assert.equal(matchSearchUrl({tour:'wta',q:'Swiatek'}),'/buscar?tour=wta&q=Swiatek');
-  assert.equal(matchSearchUrl({tour:'all',q:'final'}),'/buscar?tour=all&q=final');
+  assert.equal(matchSearchUrl({tour:'atp',q:'Nadal'}),'/partidos?q=Nadal');
+  assert.equal(matchSearchUrl({tour:'wta',q:'Swiatek'}),'/partidos?tour=wta&q=Swiatek');
+  assert.equal(matchSearchUrl({tour:'all',q:'final'}),'/partidos?tour=all&q=final');
 });
 
 test('global search spans both circuits only outside a circuit section',()=>{

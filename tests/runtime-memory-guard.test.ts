@@ -19,7 +19,7 @@ test('deep health reads partition metadata without inflating every match partiti
 });
 
 test('annual match sitemaps decode only compact summaries for their decade', async () => {
-  const source=await readFile(new URL('../app/match/sitemap.ts',import.meta.url),'utf8');
+  const source=await readFile(new URL('../app/match/sitemap/[year]/route.ts',import.meta.url),'utf8');
   assert.match(source,/preparedMatchSitemapArchive\(year\)/);
   assert.doesNotMatch(source,/generation\.matches\(\)/);
 });

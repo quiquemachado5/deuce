@@ -100,7 +100,7 @@ test('WTA evidence URLs and portraits cannot fall through to ATP',()=>{
 });
 
 test('WTA navigation and record media keep their circuit context',()=>{
-  assert.equal(matchArchiveHref('wta'),'/buscar?tour=wta');
+  assert.equal(matchArchiveHref('wta'),'/partidos?tour=wta');
   assert.equal(tournamentHref('roland-garros','wta'),'/torneos/roland-garros?cuadro=wta');
   assert.equal(tournamentHref('roland-garros','wta',2026),'/torneos/roland-garros/2026?cuadro=wta');
   assert.equal(comparisonHref('Iga Swiatek','Coco Gauff','cara-a-cara','wta'),'/comparar?a=Iga+Swiatek&b=Coco+Gauff&tour=wta#cara-a-cara');

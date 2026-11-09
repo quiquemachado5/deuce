@@ -4,7 +4,7 @@ import { mockMatches } from '../lib/mocks';
 import type { Match } from '../lib/types';
 import { recordCatalog } from '../lib/revista/records';
 import { recordEvidence, bestRun } from '../lib/record-evidence';
-import { comparePlayer, comparisonHeadToHead, comparisonPlayerWon, sharedCareerWindow } from '../lib/player-comparison';
+import { comparePlayer, comparisonHeadToHead, comparisonLeadTimeline, comparisonPlayerWon, sharedCareerWindow } from '../lib/player-comparison';
 import { chronological } from '../lib/editorial';
 import { conflictCandidates } from '../lib/archive-review';
 import { archiveIndex } from '../lib/archive-index';
@@ -30,6 +30,17 @@ test('head to head is the exact intersection of both filtered player samples',()
   const one=comparePlayer(matches,'One',{age:'22-25'});
   const two=comparePlayer(matches,'Two',{age:'22-25'});
   assert.deepEqual(comparisonHeadToHead(matches,['One','Two'],[one.matches,two.matches]).map(match=>match.match_id),['evidence']);
+});
+test('head to head timeline keeps chronology and marks the match that changes the leader',()=>{
+  const matches=[
+    fixture({match_id:'first',context:{date:'2020-01-01',format:'BO3'},winner:1}),
+    fixture({match_id:'tie',context:{date:'2021-01-01',format:'BO3'},winner:2}),
+    fixture({match_id:'new-leader',context:{date:'2022-01-01',format:'BO3'},winner:2}),
+  ];
+  const timeline=comparisonLeadTimeline(matches.reverse(),['One','Two']);
+  assert.deepEqual(timeline.map(point=>[point.match.match_id,point.wins,point.leader,point.leaderChanged]),[
+    ['first',[1,0],0,false],['tie',[1,1],null,false],['new-leader',[1,2],1,true],
+  ]);
 });
 test('comparison and quick rivalry lookup merge name variants inside one circuit',()=>{
   const first=fixture({match_id:'wta-variant-1',tour:'wta',year:2020,player1:{name:'Su-Wei Hsieh',seed:null},player2:{name:'Karolína Plíšková',seed:null}});

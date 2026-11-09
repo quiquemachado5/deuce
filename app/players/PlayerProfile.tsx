@@ -6,6 +6,7 @@ import PlayerFlag from '@/components/PlayerFlag';
 import PlayerPortrait from '@/components/PlayerPortrait';
 import {
   PlayerCareerTimeline,
+  PlayerInsightRail,
   PlayerRankingSlider,
   PlayerProfileNav,
   PlayerRecentMatches,
@@ -33,6 +34,7 @@ import { SURFACES } from '@/lib/surface';
 import styles from './player-profile.module.css';
 import { StructuredData } from '@/components/StructuredData';
 import { breadcrumbJsonLd, playerProfileJsonLd } from '@/lib/seo-metadata';
+import { playerTrends } from '@/lib/player-trends';
 
 type Props={params:Promise<{slug:string}>;searchParams:Promise<{year?:string;tour?:string}>};
 
@@ -67,7 +69,8 @@ export async function generateMetadata({params,searchParams}:Props){
   const description=player?`${player.name}: resultados, temporadas, rivales y rendimiento dentro de la muestra publicada en DEUCE.`:'Resultados de los torneos ATP y WTA guardados en DEUCE.';
   const canonicalParams=new URLSearchParams();if(tour==='wta')canonicalParams.set('tour','wta');if(query.year)canonicalParams.set('year',query.year);
   const canonical=`/jugadores/${slug}${canonicalParams.size?`?${canonicalParams}`:''}`;
-  return {title,description,alternates:{canonical},openGraph:{title,description,type:'profile',url:canonical},twitter:{card:'summary_large_image',title,description}};
+  const englishCanonical=`/en/players/${slug}${tour==='wta'?'?tour=wta':''}`;
+  return {title,description,alternates:{canonical,languages:{es:canonical,en:englishCanonical}},openGraph:{title,description,type:'profile',url:canonical},twitter:{card:'summary_large_image',title,description}};
 }
 
 export default async function Player({params,searchParams}:Props){
@@ -81,6 +84,7 @@ export default async function Player({params,searchParams}:Props){
   if(!data)notFound();
   const {player,record}=data;
   const tour=player.matches[0]?.tour||'atp';
+  const trends=playerTrends(player.matches,player.name);
   if(playerSlug(player.name)!==slug)permanentRedirect(`/jugadores/${playerSlug(player.name)}${requestedTour==='wta'?'?tour=wta':''}`);
 
   const portrait=playerDirectoryPhoto(player.name,tour),bio=playerBiography(player.name,tour);
@@ -183,26 +187,41 @@ export default async function Player({params,searchParams}:Props){
         <div className="pp-hero-copy">
           <div className={styles.heroIdentity}>
             <div className={styles.playerTitle}><PlayerFlag code={bio?.country}/><h1>{player.name}</h1></div>
-            <dl className="pp-hero-facts"><div><dt>Actividad en DEUCE</dt><dd>{activityLabel}</dd></div>{bio?.hand&&<div><dt>Mano</dt><dd>{handLabel(bio.hand)}</dd></div>}<div><dt>Circuito</dt><dd>{tour.toUpperCase()}</dd></div></dl>
           </div>
         </div>
       </header>
-      <section className={styles.careerBoard} aria-label="Cifras principales de la muestra publicada">{coreMetrics.map(metric=><article key={metric.label}><span>{metric.label}</span><strong>{metric.value}</strong><small>{metric.context}</small></article>)}</section>
+      <section className={styles.careerBoard} aria-label="Cifras principales de la muestra publicada">
+        {coreMetrics.map(metric=><article key={metric.label}><span>{metric.label}</span><strong>{metric.value}</strong><small>{metric.context}</small></article>)}
+        <dl className="pp-hero-facts"><div><dt>Actividad en DEUCE</dt><dd>{activityLabel}</dd></div>{bio?.hand&&<div><dt>Mano</dt><dd>{handLabel(bio.hand)}</dd></div>}<div><dt>Circuito</dt><dd>{tour.toUpperCase()}</dd></div></dl>
+      </section>
     </div>
 
     <PlayerProfileNav hasRivals={rivals.length>=2} hasTournaments={tournaments.length>0} hasSeasons={showSeasonAnalysis}/>
 
     <div className="pp-content">
       <section className={`pp-section pp-performance ${styles.careerSummary}`} id="rendimiento" aria-labelledby="pp-performance-title">
-        <div className="pp-section-heading"><div><h2 id="pp-performance-title">Resumen en el archivo</h2></div></div>
+        <div className="pp-section-heading"><div><h2 id="pp-performance-title"><span className={styles.performanceTitleDesktop}>Resumen en el archivo</span><span className={styles.performanceTitleMobile}>Resumen</span></h2></div></div>
         <div className={styles.summaryGrid}>
           <div className={styles.balanceBlock} aria-label={`${number(player.won)} victorias y ${number(player.played-player.won)} derrotas`}>
             <div className={styles.balanceHeading}><span>Muestra publicada</span><strong>{number(winRate,1)} %</strong></div>
             <dl className={styles.balanceTotals}><div><dt>Victorias</dt><dd>{number(player.won)}</dd></div><div><dt>Derrotas</dt><dd>{number(player.played-player.won)}</dd></div><div><dt>Partidos</dt><dd>{number(player.played)}</dd></div></dl>
           </div>
-          {displayedSurfaceRows.length?<div className="pp-surface-list">{displayedSurfaceRows.map(surface=><article key={surface.key} data-event-surface={surface.key} data-best={surface.key===bestSurface?.key||undefined}><div><span>{surface.label}</span><strong>{number(surface.rate,1)} %</strong></div><dl><div><dt>Victorias</dt><dd>{number(surface.wins)}</dd></div><div><dt>Derrotas</dt><dd>{number(surface.losses)}</dd></div><div><dt>Partidos</dt><dd>{number(surface.played)}</dd></div></dl></article>)}</div>:null}
+          {displayedSurfaceRows.length?<div className="pp-surface-list">{displayedSurfaceRows.map(surface=>{const isBest=surface.key===bestSurface?.key;return <article key={surface.key} data-event-surface={surface.key} data-best={isBest||undefined}><div><span>{surface.label}</span><strong>{number(surface.rate,1)} %</strong></div><dl><div><dt>Victorias</dt><dd>{number(surface.wins)}</dd></div><div><dt>Derrotas</dt><dd>{number(surface.losses)}</dd></div><div><dt>Partidos</dt><dd>{number(surface.played)}</dd></div></dl>{isBest?<small className={styles.bestSurfaceBadge}>Mejor</small>:null}</article>})}</div>:null}
         </div>
-        {insights.length?<ul className={styles.archiveNotes} tabIndex={0} aria-label="Momentos y cifras destacadas">{insights.map(insight=><li key={insight.label} data-kind={insight.kind} data-has-photo={Boolean(insight.photo)||undefined}>{insight.photo&&<><Image src={insight.photo.src} alt="" fill sizes="(max-width: 759px) 78vw, 240px" style={{objectPosition:insight.photo.objectPosition}}/><span aria-hidden="true"/></>}<p className={styles.archiveNoteLabel}>{insight.label}</p><strong className={styles.archiveNoteValue}>{insight.value}</strong><small>{insight.detail}</small></li>)}</ul>:null}
+        {insights.length?<div className={styles.archiveNotesRail}><PlayerInsightRail className={styles.archiveNotes}>{insights.map(insight=><li key={insight.label} data-kind={insight.kind} data-has-photo={Boolean(insight.photo)||undefined}>{insight.photo&&<><Image src={insight.photo.src} alt="" fill sizes="(max-width: 759px) 84vw, 240px" style={{objectPosition:insight.photo.objectPosition}}/><span aria-hidden="true"/></>}<p className={styles.archiveNoteLabel}>{insight.label}</p><strong className={styles.archiveNoteValue}>{insight.value}</strong><small>{insight.detail}</small></li>)}</PlayerInsightRail></div>:null}
+        {trends.categories.length||trends.stages.length?<details className={styles.trendDisclosure}>
+          <summary>Categorías y etapas</summary>
+          <div className={styles.trendBoard}>
+          {trends.categories.length?<article className={styles.trendPanel}>
+            <h3>Por categoría</h3>
+            <div>{trends.categories.map(row=><div className={styles.trendRow} key={row.key}><span><b>{row.label}</b><small>{number(row.played)} partidos</small></span><strong>{number(row.rate,1)} %</strong><i aria-hidden="true"><em style={{width:`${row.rate}%`}}/></i></div>)}</div>
+          </article>:null}
+          {trends.stages.length?<article className={styles.trendPanel}>
+            <h3>Etapas de carrera</h3>
+            <div>{trends.stages.map(row=><div className={styles.trendRow} key={row.key}><span><b>{row.label}</b><small>{number(row.wins)} victorias</small></span><strong>{number(row.rate,1)} %</strong><i aria-hidden="true"><em style={{width:`${row.rate}%`}}/></i></div>)}</div>
+          </article>:null}
+          </div>
+        </details>:null}
       </section>
 
       {showSeasonAnalysis?<div className={styles.analysisGrid} id="temporadas">
@@ -220,7 +239,7 @@ export default async function Player({params,searchParams}:Props){
 
       {rivals.length>=2&&frequentRival?<section className="pp-section pp-rivals" id="enfrentamientos" aria-labelledby="pp-rivals-title"><PlayerRivals rivals={rivals} player={{name:player.name,country:bio?.country}} compareHref={comparisonHref(player.name,frequentRival.name,'cara-a-cara',tour)}/></section>:null}
 
-      <section className="pp-section pp-matches" id="partidos" aria-labelledby="pp-matches-title"><PlayerRecentMatches matches={recent} allHref={`/buscar?tour=${tour}&player=${encodeURIComponent(player.name)}&scope=matches`}/></section>
+      <section className="pp-section pp-matches" id="partidos" aria-labelledby="pp-matches-title"><PlayerRecentMatches matches={recent} allHref={`/partidos?tour=${tour}&player=${encodeURIComponent(player.name)}&scope=matches`}/></section>
     </div>
   </div>
   </>;

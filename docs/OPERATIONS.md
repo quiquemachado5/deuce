@@ -75,7 +75,7 @@ de recuperación y no debe volver a la ruta crítica sin una migración revisada
 
 Las rutas de búsqueda y jugadores validan longitud, limitan carga y responden 429 mediante un token bucket por instancia. Caddy aplica antes de Next una segunda barrera por dirección IPv4 o red IPv6 `/64`: 240 solicitudes combinadas por minuto para las APIs públicas de datos, 120 para telemetría y 12 para salud profunda. El módulo sincroniza su estado mediante el volumen persistente de Caddy y añade `Retry-After`; el limitador local se conserva como defensa adicional.
 
-Prometheus consulta cada 30 segundos la aplicación con `METRICS_SECRET` y el endpoint interno de Caddy. Su volumen tiene una retención máxima simultánea de 14 días y 256 MB; no publica el puerto 9090. Las reglas de `ops/observability/alerts.yml` cubren disponibilidad, 5xx, reserva del proveedor, antigüedad de copias, memoria, 429 sostenidos y autenticaciones rechazadas. Para inspeccionarlas desde el VPS:
+Prometheus consulta cada 30 segundos la aplicación con `METRICS_SECRET` y el endpoint interno de Caddy. Su volumen tiene una retención máxima simultánea de 30 días y 384 MB; no publica el puerto 9090. Las reglas de `ops/observability/alerts.yml` cubren disponibilidad, 5xx, reserva del proveedor, antigüedad de copias, memoria, 429 sostenidos, autenticaciones rechazadas, errores del navegador, Core Web Vitals reales p75 y transiciones internas p75 (con un mínimo de veinte muestras en los presupuestos de rendimiento para evitar ruido). La telemetría agrupa las URL por familia y nunca conserva identificadores de partidos, jugadores ni texto de búsqueda. Para inspeccionarlas desde el VPS:
 
 ```bash
 docker compose --env-file .env.production exec prometheus promtool check ready --url=http://localhost:9090

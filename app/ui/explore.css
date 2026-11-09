@@ -98,30 +98,6 @@
 .rv-index-heading {
   margin-top: 64px;
 }
-.rv-family-nav {
-  position: static;
-  top: 64px;
-  z-index: 10;
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  padding-block: 16px;
-  background: var(--bg);
-  scrollbar-width: thin;
-}
-.rv-family-nav a {
-  flex: none;
-  padding: 12px 16px;
-  border-radius: 999px;
-  background: var(--bg-raised);
-  font-size: 12px;
-  font-weight: 500;
-  border: 1px solid var(--line);
-}
-.rv-family-nav a:hover {
-  background: var(--ink);
-  color: var(--bg-raised);
-}
 .rv-family {
   margin-top: 32px;
   scroll-margin-top: 160px;
@@ -871,8 +847,7 @@
 .dx-player-card:nth-child(2) .dx-rate-track > span {
   background: var(--p2);
 }
-.dx-comparison > section,
-.chart-section {
+.dx-comparison > section {
   margin-top: 32px;
   padding: 32px;
   background: var(--bg-raised);
@@ -886,102 +861,6 @@
   font-size: 12px;
   color: var(--muted);
   margin-top: 24px;
-}
-.timeline svg {
-  width: 100%;
-  height: auto;
-  overflow: visible;
-}
-.chart-mobile {
-  display: none;
-}
-.chart-grid {
-  stroke: var(--line);
-}
-.chart-path {
-  fill: none;
-  stroke-width: 3;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-.chart-path.series-0 {
-  stroke: var(--p1);
-}
-.chart-path.series-1 {
-  stroke: var(--p2);
-}
-.chart-point.series-0 {
-  fill: var(--p1);
-}
-.chart-point.series-1 {
-  fill: var(--p2);
-}
-.timeline text {
-  fill: var(--muted);
-  font: 12px var(--font-interface);
-}
-.chart-cursor {
-  stroke: var(--line-strong);
-  stroke-dasharray: 4 4;
-}
-.chart-readout {
-  display: flex;
-  gap: 24px;
-  flex-wrap: wrap;
-  padding-block: 24px;
-  font-size: 13px;
-}
-.series-dot {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--p1);
-  margin-right: 8px;
-}
-.series-dot.series-1 {
-  background: var(--p2);
-}
-.ds-chart-scrub {
-  display: flex;
-  gap: 16px;
-  align-items: center;
-  font-size: 12px;
-  color: var(--muted);
-  margin-block: 16px;
-}
-.ds-chart-scrub select {
-  height: 44px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: var(--bg);
-  padding-inline: 16px;
-}
-.chart-table summary {
-  font-size: 13px;
-}
-.table-wrap {
-  overflow-x: auto;
-}
-.segmented {
-  display: flex;
-  gap: 4px;
-  background: var(--bg-sunken);
-  border-radius: 999px;
-  padding: 4px;
-  width: fit-content;
-}
-.segmented button {
-  font-size: 12px;
-  font-weight: 500;
-  padding: 12px 16px;
-  border-radius: 999px;
-  background: transparent;
-  color: var(--muted);
-}
-.segmented button[aria-pressed="true"] {
-  background: var(--bg-raised);
-  color: var(--ink);
 }
 .section-heading {
   display: flex;
@@ -998,75 +877,6 @@
   font-size: 12px;
   color: var(--muted);
   margin-top: 12px;
-}
-.comparison-legend {
-  display: flex;
-  gap: 24px;
-  flex-wrap: wrap;
-  font-size: 13px;
-  color: var(--muted);
-  margin-bottom: 24px;
-}
-.comparison-row {
-  margin-block: 24px;
-}
-.comparison-caption {
-  display: flex;
-  justify-content: space-between;
-  gap: 24px;
-  font-size: 13px;
-}
-.diverging {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4px;
-  margin-top: 12px;
-  height: 16px;
-}
-.bar-left,
-.bar-right {
-  background: var(--bg-sunken);
-  display: flex;
-  border-radius: 999px;
-  overflow: hidden;
-}
-.bar-left {
-  justify-content: flex-end;
-}
-.bar-left > span,
-.bar-left > i {
-  background: var(--p1);
-  height: 100%;
-  display: block;
-}
-.bar-right > span,
-.bar-right > i {
-  background: var(--p2);
-  height: 100%;
-  display: block;
-}
-.surface-bars > div {
-  margin-block: 24px;
-}
-.surface-bar-heading {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  font-size: 14px;
-}
-.bar-track {
-  height: 14px;
-  background: var(--bg-sunken);
-  border-radius: 999px;
-  margin-top: 12px;
-  overflow: hidden;
-}
-.bar-track > span,
-.bar-track > i {
-  display: block;
-  height: 100%;
-  background: var(--event-accent, var(--court));
-  border-radius: 999px;
 }
 .surface-dot {
   display: inline-block;
@@ -1748,9 +1558,6 @@
   .rv-index-heading {
     margin-top: 40px;
   }
-  .rv-family-nav {
-    top: 60px;
-  }
   .rv-family-heading {
     gap: 8px;
   }
@@ -2017,33 +1824,8 @@
     width: 80px;
     height: 80px;
   }
-  .dx-comparison > section,
-  .chart-section {
+  .dx-comparison > section {
     padding: 24px 16px;
-  }
-  .chart-desktop {
-    display: none;
-  }
-  .chart-mobile {
-    display: block;
-  }
-  .chart-readout {
-    gap: 12px;
-    font-size: 12px;
-  }
-  .chart-section .section-heading {
-    flex-wrap: wrap;
-  }
-  .chart-section .section-heading h2 {
-    font-size: 24px;
-  }
-  .segmented button {
-    padding: 12px;
-    font-size: 11px;
-  }
-  .comparison-caption {
-    font-size: 12px;
-    gap: 12px;
   }
   .ry-compare-identity {
     grid-template-columns: 1fr 80px;

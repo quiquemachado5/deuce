@@ -58,63 +58,8 @@
 .dx-evidence-summary strong { color: var(--ink); font: 720 clamp(28px, 4vw, 48px) / 1 var(--font-display); }
 .dx-evidence-summary p { margin: 0; color: var(--ink-soft); font-size: 13px; line-height: 1.45; }
 
-.topbar-spotlight-groups strong {
-  display: -webkit-box;
-  overflow: hidden;
-  line-height: 1.25;
-  text-overflow: clip;
-  white-space: normal;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-}
-
-.topbar-spotlight-groups a { height: auto; }
-
 /* Keep the navigation type optically stable while the mobile browser chrome moves. */
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
-
-.topbar > nav a,
-.topbar.is-scrolled > nav a {
-  font-size: clamp(13px, .72vw, 14px) !important;
-  line-height: 1 !important;
-}
-
-.topbar > .search-trigger,
-.topbar.is-scrolled > .search-trigger {
-  font-size: 13px !important;
-  line-height: 1 !important;
-}
-
-.topbar-spotlight-form input {
-  font-size: 16px !important;
-  line-height: 1.2 !important;
-}
-
-.topbar-spotlight-panel,
-.topbar-spotlight-panel.is-open {
-  right: auto !important;
-  left: 50% !important;
-  width: min(760px, calc(100% - 40px)) !important;
-}
-
-/* The footer begins with the page colour and resolves into its final material. */
-.footer-atmosphere {
-  min-height: clamp(120px, 13vw, 190px) !important;
-  background: linear-gradient(180deg, var(--bg) 0%, var(--bg) 8%, #173c30 68%, #011b14 100%) !important;
-}
-
-.footer-atmosphere::before,
-.footer-atmosphere::after { display: none !important; }
-
-body:has(.deuce-home) .footer-atmosphere {
-  background: linear-gradient(180deg, var(--ink) 0%, #173c30 58%, #011b14 100%) !important;
-}
-
-.footer-directory {
-  margin-top: 0 !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-}
 
 .hero-film > iframe {
   position: absolute;
@@ -132,11 +77,6 @@ body:has(.deuce-home) .footer-atmosphere {
 
 .hero-film.is-ready > iframe { opacity: 1; }
 
-@media (min-width: 1200px) {
-  .topbar > nav a,
-  .topbar.is-scrolled > nav a { font-size: 14px !important; }
-}
-
 @media (min-width: 1180px) {
   .home-section,
   .dark-section,
@@ -150,6 +90,16 @@ body:has(.deuce-home) .footer-atmosphere {
 .ry-photo-filter-group h2 { margin: 0 0 8px; color: var(--muted); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; }
 .ry-photo-filter-group .ry-photo-filters { margin: 0; }
 .ry-photo-filter-group .ry-photo-rights-filter { margin-top: 0; }
+
+.home-records {
+  color: var(--ink);
+  background: #e2e6e4 !important;
+}
+.home-records .section-head h2 { color: var(--ink); }
+.home-records + .tournament-static {
+  margin-top: 0;
+  background: #0d281f !important;
+}
 
 @media (max-width: 600px) {
   .hero { height: 92svh; min-height: 620px; }
@@ -169,11 +119,72 @@ body:has(.deuce-home) .footer-atmosphere {
   .ry-photo-filter-group .ry-photo-filters::-webkit-scrollbar { display: none; }
   .ry-photo-filter-group .ry-photo-filters a { flex: 0 0 auto; }
 
-  .topbar > nav a,
-  .topbar.is-scrolled > nav a { font-size: 16px !important; }
+}
 
-  .topbar-spotlight-panel,
-  .topbar-spotlight-panel.is-open { width: calc(100% - 18px) !important; }
+@media (max-width: 560px) {
+  .view-root > .inner-title,
+  .view-root > header.inner-title {
+    padding-top: 82px !important;
+  }
 
-  .footer-atmosphere { min-height: 110px !important; }
+  .global-player-name,
+  .global-player-name a {
+    display: block;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .home-latest-results .section-head,
+  .home-records .section-head {
+    display: grid;
+    grid-template-columns: minmax(0,1fr) auto;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .home-latest-results .section-head h2,
+  .home-records .section-head h2 { min-width: 0; font-size: clamp(34px,10vw,44px); }
+  .home-latest-results .section-head .deuce-cta,
+  .home-records .section-head .deuce-cta {
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+    min-height: 44px;
+    padding: 0;
+    overflow: hidden;
+    justify-content: center;
+    white-space: nowrap;
+  }
+  .home-latest-results .section-head .deuce-cta-label,
+  .home-records .section-head .deuce-cta-label { display: none; }
+  .home-latest-results .section-head .deuce-cta svg,
+  .home-records .section-head .deuce-cta svg { flex: 0 0 18px; color: var(--ink); }
+
+  /* One compact mobile header pattern for every archive directory. */
+  .view-root > .inner-title:has([data-compact-mobile]) {
+    display: grid !important;
+    width: 100% !important;
+    grid-template-columns: minmax(0, 1fr) 44px !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 82px 14px 12px !important;
+  }
+
+  .view-root > .inner-title:has([data-compact-mobile]) > h1 {
+    min-width: 0;
+    margin: 0 !important;
+    font-size: clamp(42px, 13vw, 58px) !important;
+    line-height: .88 !important;
+  }
+
+  .view-root > .inner-title:has([data-compact-mobile]) > :is(.inner-title-tools, [class*="introTools"]) {
+    width: 44px !important;
+    max-width: 44px !important;
+    justify-self: end !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
 }

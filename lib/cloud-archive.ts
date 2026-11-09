@@ -17,7 +17,7 @@ import {
   readArchiveObject,
   writeArchiveObjects,
 } from './archive-store'
-import { detailCandidateKey, detailCandidatePlayers, detailMatchesCandidate, type DetailCandidate } from './enrichment-plan'
+import { detailCandidateKey, detailCandidatePlayers, detailMatchesCandidate, statisticsEnrichmentPlan, type DetailCandidate } from './enrichment-plan'
 import { activityFixtures } from './tour-activity'
 import {mergeSeasonBaseline,reconcileSeasonResults,type Season} from './result-refresh'
 import { detailRefreshPlan } from './detail-refresh-plan'
@@ -30,6 +30,7 @@ import { isProviderFreeHistoryLimit, providerHasRequestAfterUsage, providerMinim
 import { materializeBundledWtaArchive } from './wta-archive-bootstrap'
 import {completeEnrichment,deferEnrichment,enrichmentQueueCounts,persistentEnrichmentPlan,readEnrichmentQueue} from './enrichment-queue'
 import {archiveKeyCatalog} from './archive-catalog'
+import {hasProviderStatistics,mergeProviderStatistics,providerPlayersFromDetail,type ProviderPlayerCandidate} from './provider-statistics'
 
 // Provider payloads are schemaless until they are normalized into Match.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -386,6 +387,7 @@ export async function enrichCloudArchive() {
     let queue=readEnrichmentQueue(await cloudRead('enrichment-queue'))
     const plan=persistentEnrichmentPlan(candidates,known,queue,callLimit-1)
     let added=0,unavailable=0,rejected=0,atp=0,wta=0,archive=0,modern=0
+    const discoveredPlayers:ProviderPlayerCandidate[]=[]
     for(const row of plan){
       if(calls>=callLimit||Date.now()-started>220_000)break
       await new Promise(resolve=>setTimeout(resolve,2100));calls++
@@ -394,6 +396,7 @@ export async function enrichCloudArchive() {
         if(!detail.match&&!detail.data&&!detail.stats){unavailable++;queue=deferEnrichment(queue,row,'unavailable');continue}
         if(!detailMatchesCandidate(row,detail)){rejected++;queue=deferEnrichment(queue,row,'rejected');continue}
         await cloudWrite(`detail-${detailCandidateKey(row)}`,detail)
+        if(row.kind==='modern')discoveredPlayers.push(...providerPlayersFromDetail(detail,row.tour))
         known.add(detailCandidateKey(row));queue=completeEnrichment(queue,row)
         added++;if(row.tour==='wta')wta++;else atp++;if(row.kind==='archive')archive++;else modern++
       }catch(error){
@@ -402,9 +405,69 @@ export async function enrichCloudArchive() {
       }
     }
     await cloudWrite('enrichment-queue',queue)
+    const statisticsState=(await cloudRead('statistics-enrichment-state').catch(()=>undefined))||{}
+    const statisticsChecked:Record<string,string>=statisticsState.checked&&typeof statisticsState.checked==='object'?statisticsState.checked:{}
+    const statisticsDeferredUntil=Date.parse(String(statisticsState.unsupportedUntil||''))
+    const statisticsPlanDeferred=Number.isFinite(statisticsDeferredUntil)&&statisticsDeferredUntil>Date.now()
+    const statisticsCandidates=statisticsPlanDeferred?[]:statisticsEnrichmentPlan(candidates,known,statisticsChecked,24)
+    let statisticsAdded=0,statisticsUnavailable=0,statisticsInspected=0,statisticsCalls=0,statisticsUnsupported=false
+    for(const row of statisticsCandidates){
+      if(statisticsInspected>=24||statisticsCalls>=6||calls>=callLimit||remaining-calls<=providerMinimumReserve()||Date.now()-started>220_000)break
+      statisticsInspected++
+      const key=detailCandidateKey(row),detail=await cloudRead(`detail-${key}`)
+      if(!detail)continue
+      discoveredPlayers.push(...providerPlayersFromDetail(detail,row.tour))
+      if(hasProviderStatistics(detail)){statisticsChecked[key]='present';continue}
+      await new Promise(resolve=>setTimeout(resolve,1300));calls++;statisticsCalls++
+      try{
+        const response=await provider(`/matches/${row.id}/statistics`)
+        const merged=mergeProviderStatistics(detail,response)
+        if(hasProviderStatistics(merged)){
+          await cloudWrite(`detail-${key}`,merged);statisticsAdded++;statisticsChecked[key]='added'
+        }else{statisticsUnavailable++;statisticsChecked[key]=`empty@${new Date().toISOString()}`}
+      }catch(error){
+        if(error instanceof TennisProviderError&&[400,403,404,422].includes(error.status)){
+          statisticsUnavailable++;statisticsChecked[key]=`http-${error.status}@${new Date().toISOString()}`
+          if(error.status===403){statisticsUnsupported=true;break}
+          continue
+        }
+        throw error
+      }
+    }
+    const checkedEntries=Object.entries(statisticsChecked).slice(-8_000)
+    await cloudWrite('statistics-enrichment-state',{checked:Object.fromEntries(checkedEntries),at:new Date().toISOString(),unsupportedUntil:statisticsUnsupported?new Date(Date.now()+7*86_400_000).toISOString():statisticsState.unsupportedUntil})
+
+    const playerIndex=(await cloudRead('player-statistics-index').catch(()=>undefined))||{}
+    const indexed:Record<string,ArchiveRow>=playerIndex.players&&typeof playerIndex.players==='object'?playerIndex.players:{}
+    const uniquePlayers=[...new Map(discoveredPlayers.map(player=>[`${player.tour}:${player.id}`,player])).values()]
+    const playerDeferredUntil=Date.parse(String(playerIndex.unsupportedUntil||''))
+    const playerPlanDeferred=Number.isFinite(playerDeferredUntil)&&playerDeferredUntil>Date.now()
+    let playerStatsAdded=0,playerStatsUnavailable=0,playerStatsCalls=0,playerStatsUnsupported=false
+    for(const player of uniquePlayers){
+      const key=`${player.tour}:${player.id}`
+      if(playerPlanDeferred||indexed[key]||playerStatsCalls>=3||calls>=callLimit||remaining-calls<=providerMinimumReserve()||Date.now()-started>220_000)continue
+      await new Promise(resolve=>setTimeout(resolve,1300));calls++;playerStatsCalls++
+      try{
+        const response=await provider(`/players/${player.id}/stats`)
+        if(response&&typeof response==='object'&&Object.keys(response).length){
+          await cloudWrite(`player-statistics-${player.tour}-${player.id}`,response)
+          indexed[key]={id:player.id,name:player.name,tour:player.tour,at:new Date().toISOString()};playerStatsAdded++
+        }else playerStatsUnavailable++
+      }catch(error){
+        if(error instanceof TennisProviderError&&[400,403,404,422].includes(error.status)){
+          playerStatsUnavailable++
+          indexed[key]={id:player.id,name:player.name,tour:player.tour,at:new Date().toISOString(),status:`http-${error.status}`}
+          if(error.status===403){playerStatsUnsupported=true;break}
+          continue
+        }
+        throw error
+      }
+    }
+    await cloudWrite('player-statistics-index',{players:Object.fromEntries(Object.entries(indexed).slice(-8_000)),at:new Date().toISOString(),unsupportedUntil:playerStatsUnsupported?new Date(Date.now()+7*86_400_000).toISOString():playerIndex.unsupportedUntil})
     cache.delete('detail-index')
     const counts=enrichmentQueueCounts(candidates,known,queue)
-    const at=new Date().toISOString(),result={status:'success',phase:'details',attemptAt,lastSuccessAt:at,at,calls,added,unavailable,rejected,atp,wta,archive,modern,...counts,remainingCandidates:counts.remaining,probe:{usage:'ok',details:'ok'}}
+    const statisticsPending=statisticsPlanDeferred?0:statisticsEnrichmentPlan(candidates,known,statisticsChecked,Number.MAX_SAFE_INTEGER).length
+    const at=new Date().toISOString(),result={status:'success',phase:'details',attemptAt,lastSuccessAt:at,at,calls,added,unavailable,rejected,atp,wta,archive,modern,statisticsAdded,statisticsUnavailable,statisticsInspected,statisticsCalls,statisticsPending,playerStatsAdded,playerStatsUnavailable,playerStatsCalls,...counts,remainingCandidates:counts.remaining,probe:{usage:'ok',details:'ok',statistics:statisticsUnsupported?'plan-unavailable':statisticsPlanDeferred?'plan-deferred':'ok',playerStats:playerStatsUnsupported?'plan-unavailable':playerPlanDeferred?'plan-deferred':'ok'}}
     await save(result);return result
   }catch(error){
     if(error instanceof TennisProviderError&&error.status===429){

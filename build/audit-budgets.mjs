@@ -8,11 +8,15 @@ async function files(dir,extension){
   for(const entry of await readdir(dir,{withFileTypes:true}).catch(()=>[])){
     const path=join(dir,entry.name);
     if(entry.isDirectory())found.push(...await files(path,extension));
+    else if(entry.isSymbolicLink())continue;
     else if(path.endsWith(extension))found.push(path);
   }
   return found;
 }
-const thresholds={html:450_000,routeCss:650_000,routeJs:1_250_000,sourceCss:925_000,sourceCssFile:260_000,heroPoster:100_000,clientComponents:73,standalone:165_000_000};
+// These ceilings are a ratchet over the verified production bundle, not aspirational
+// targets. Keep enough headroom for deterministic minifier differences between local
+// and CI builds while still failing any meaningful regression.
+const thresholds={html:450_000,routeCss:450_000,routeJs:1_250_000,sourceCss:875_000,sourceCssFile:240_000,heroPoster:100_000,clientComponents:44,standalone:165_000_000,productCompressed:16_000_000,productInflated:64_000_000};
 const warn=(name,value,maximum)=>{const utilization=value/maximum;if(utilization>=.85)warnings.push(`${name}: ${(utilization*100).toFixed(1)}% of budget (${value}/${maximum})`);return utilization;};
 const htmlFiles=await files(join(next,'server','app'),'.html');
 if(!htmlFiles.length)failures.push('No prerendered HTML was found; run the production build first');
@@ -53,9 +57,15 @@ for(const forbidden of ['.deuce-cache/reading','data/reading/matches.json.gz','n
   if(standaloneFiles.some(path=>relative(standalone,path).startsWith(forbidden)))failures.push(`Standalone deployment contains forbidden duplicate: ${forbidden}`);
 }
 if(standaloneFiles.some(path=>path.endsWith('.nft.json')))failures.push('Standalone deployment contains build-only trace metadata');
-for(const required of ['data/reading/manifest.json.gz','data/reading/browser-index.json.gz','data/reading/publication-index.json.gz','data/reading/reconciliation.json.gz']){
+for(const required of ['data/reading/manifest.json.gz','data/reading/browser-index.json.gz','data/reading/publication-index.json.gz','data/reading/reconciliation.json.gz','data/reading/edition-products.json.gz','data/reading/player-directory.json.gz','data/reading/search-products.json.gz','data/reading/elo-products.json.gz','data/reading/time-machine.json.gz']){
   if(!standaloneRelative.has(required))failures.push(`Standalone deployment is missing ${required}`);
 }
+const productNames=['edition-products','player-directory','search-products','elo-products','time-machine'];
+let productCompressed=0,productInflated=0;
+for(const name of productNames){const body=await readFile(join(root,'data','reading',`${name}.json.gz`)).catch(()=>null);if(!body){failures.push(`Missing published product: ${name}`);continue}productCompressed+=body.byteLength;productInflated+=gunzipSync(body).byteLength;}
+if(productCompressed>thresholds.productCompressed)failures.push(`Published products compressed: ${productCompressed} > ${thresholds.productCompressed}`);
+if(productInflated>thresholds.productInflated)failures.push(`Published products inflated: ${productInflated} > ${thresholds.productInflated}`);
+warn('Published products compressed',productCompressed,thresholds.productCompressed);warn('Published products inflated',productInflated,thresholds.productInflated);
 try{
   const manifest=JSON.parse(gunzipSync(await readFile(join(standalone,'data','reading','manifest.json.gz'))).toString());
   if(!Array.isArray(manifest.matchPartitions)||!manifest.matchPartitions.length)failures.push('Standalone manifest has no full match partitions');
@@ -71,5 +81,5 @@ for(const name of sourceWta){
 }
 routes.sort((a,b)=>b.htmlBytes+b.cssBytes+b.jsBytes-(a.htmlBytes+a.cssBytes+a.jsBytes));
 sourceCssRows.sort((a,b)=>b.bytes-a.bytes);
-console.log(JSON.stringify({verified:!failures.length,routes:htmlFiles.length,clientComponents:clients,sourceCssBytes,standaloneBytes,thresholds,largestRoutes:routes.slice(0,5),largestSourceCss:sourceCssRows.slice(0,5),warnings,failures},null,2));
+console.log(JSON.stringify({verified:!failures.length,routes:htmlFiles.length,clientComponents:clients,sourceCssBytes,standaloneBytes,productCompressed,productInflated,thresholds,largestRoutes:routes.slice(0,5),largestSourceCss:sourceCssRows.slice(0,5),warnings,failures},null,2));
 if(failures.length)process.exitCode=1;

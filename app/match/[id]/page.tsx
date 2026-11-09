@@ -48,7 +48,7 @@ export async function generateMetadata({
   return {
     title,
     description: `${title.replace(" — DEUCE", "")}. ${description}`,
-    alternates: { canonical },
+    alternates: { canonical, languages: { es: canonical, en: `/en/matches/${id}` } },
     openGraph: { title, description, images: [`/match/${id}/opengraph-image`], type: "article", url: canonical },
     twitter: { card: "summary_large_image", title, description, images: [`/match/${id}/opengraph-image`] },
     robots: matchHasTransientState(query) ? noIndexFollow : undefined,
@@ -151,7 +151,7 @@ export default async function MatchPage({ params, searchParams }: Props) {
       matchJsonLd(match),
       breadcrumbJsonLd([
         { name: "Inicio", path: "/" },
-        { name: "Partidos", path: `/buscar?tour=${matchCircuit(match)}` },
+        { name: "Partidos", path: `/partidos?tour=${matchCircuit(match)}` },
         { name: `${match.player1.name} – ${match.player2.name}`, path: matchCanonicalPath(id) },
       ]),
     ]} />

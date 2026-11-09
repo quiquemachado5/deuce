@@ -35,13 +35,13 @@ colors:
   dark-danger: "#ffb3ad"
 typography:
   display:
-    fontFamily: "Host Grotesk, sans-serif"
+    fontFamily: "Syne, Host Grotesk, sans-serif"
     fontSize: "clamp(38px, 5vw, 64px)"
     fontWeight: 500
     lineHeight: 1.08
     letterSpacing: "-0.035em"
   headline:
-    fontFamily: "Host Grotesk, sans-serif"
+    fontFamily: "Syne, Host Grotesk, sans-serif"
     fontSize: "clamp(26px, 3vw, 36px)"
     fontWeight: 500
     lineHeight: 1.08
@@ -158,7 +158,7 @@ Los valores de la cabecera son normativos; `app/ui/foundation.css` aplica el cam
 
 ## Typography
 
-**Display Font:** Host Grotesk variable, distribuida con licencia SIL OFL y autoalojada durante la compilación mediante `next/font`.
+**Display Font:** Syne variable para titulares editoriales, distribuida con licencia SIL OFL y autoalojada durante la compilación mediante `next/font`. Host Grotesk permanece como voz de interfaz y lectura.
 
 **Body Font:** Host Grotesk con respaldo métrico del sistema. Los alias de interfaz, display, editorial y mono resuelven a la misma familia: no hay una segunda descarga ni una voz tipográfica accidental.
 
@@ -242,7 +242,7 @@ Los marcadores son tablas: nombres a la izquierda, sets alineados y cifras tabul
 
 ### Do:
 
-- **Do** conservar Host Grotesk como voz única y variar peso, tamaño y espacio según la función.
+- **Do** usar Syne en titulares editoriales y Host Grotesk en interfaz, tablas y lectura.
 - **Do** enlazar color de superficie, marcador y gráfico con la misma semántica en ambos temas.
 - **Do** mostrar muestras, cobertura y elegibilidad junto a las cifras que explican.
 - **Do** mantener nombres, resultados y acciones legibles al apilar la vista móvil.

@@ -12,7 +12,9 @@ const read=async<T>(id:string):Promise<T>=>JSON.parse(gunzipSync(await readFile(
 const manifest=await read<RecordManifest>('manifest');
 const ids=[...manifest.pieces.map(p=>p.id),...(manifest.circuitPieces?.wta||[]).map(p=>`wta-${p.id}`)];
 const snapshot:Snapshot={manifest,pieces:Object.fromEntries(await Promise.all(ids.map(async id=>[id,await read<RecordPages>(`piece-${id}`)]))),
-  matches:await read('matches'),players:await read('players'),competition:await read('competition'),audit:await read('audit'),eras:await read('eras')};
+  matches:await read('matches'),players:await read('players'),competition:await read('competition'),audit:await read('audit'),eras:await read('eras'),products:{
+    editions:await read('edition-products'),players:await read('player-directory'),search:await read('search-products'),elo:await read('elo-products'),timeMachine:await read('time-machine'),
+  }};
 let uploads=0,bytes=0,logicalArtifacts=0,firstPack:{key:string;payload:ArtifactPack}|undefined;
 const writes:string[]=[];
 const published=await publishRecordSnapshot(snapshot,{read:async()=>undefined,write:async(key,payload)=>{

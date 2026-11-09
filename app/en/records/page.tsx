@@ -1,0 +1,7 @@
+import Link from 'next/link';
+import { preparedPlayerDirectoryProducts } from '@/lib/revista/read-records';
+import { playerSlug } from '@/lib/explore';
+import styles from '../archive.module.css';
+
+export const metadata={title:'Tennis records — DEUCE',description:'Reproducible ATP and WTA career records from completed matches.',alternates:{canonical:'/en/records',languages:{es:'/records',en:'/en/records'}}};
+export default async function EnglishRecords({searchParams}:{searchParams:Promise<{tour?:string}>}){const query=await searchParams,tour=query.tour==='wta'?'wta':'atp',products=await preparedPlayerDirectoryProducts(),rows=[...products.circuits[tour].records].sort((a,b)=>b.wins-a.wins||a.name.localeCompare(b.name,'en')).slice(0,40);return <main className={styles.page} lang="en"><header className={styles.heading}><div><h1>Career wins</h1><p>Completed singles matches in the documented archive. Every value links back to the player record.</p></div><nav className={styles.switcher}><Link href="/en/records" aria-current={tour==='atp'?'page':undefined}>ATP</Link><Link href="/en/records?tour=wta" aria-current={tour==='wta'?'page':undefined}>WTA</Link></nav></header><section className={styles.list}>{rows.map((player,index)=><Link className={styles.row} href={`/en/players/${playerSlug(player.name)}${tour==='wta'?'?tour=wta':''}`} key={player.name}><strong>{index+1}. {player.name}</strong><span>{player.finalsWon} titles</span><b>{player.wins}</b><small>{player.played} matches</small></Link>)}</section></main>}

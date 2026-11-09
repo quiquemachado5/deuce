@@ -352,6 +352,7 @@ html:has(.pm-page) {
 }
 
 .pm-summary,
+.pm-set-evolution,
 .pm-statistics,
 .pm-related,
 .pm-stat-group {
@@ -454,6 +455,74 @@ html:has(.pm-page) {
   font-weight: 650;
   text-align: center;
 }
+
+.pm-set-evolution {
+  padding: 0 12px 52px;
+}
+
+.pm-set-track {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+  gap: 10px;
+}
+
+.pm-set-track article {
+  min-width: 0;
+  padding: 20px;
+  border-radius: 20px;
+  background: var(--pm-panel);
+}
+
+.pm-set-track header,
+.pm-set-points,
+.pm-set-track dl > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.pm-set-track header span,
+.pm-set-track dt {
+  color: var(--pm-muted);
+  font-size: 11px;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+
+.pm-set-track header strong {
+  color: var(--pm-ink);
+  font-size: 28px;
+  font-variant-numeric: tabular-nums;
+}
+
+.pm-set-share {
+  height: 8px;
+  margin: 18px 0 15px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #c8d4cf;
+}
+
+.pm-set-share i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--pm-win);
+}
+
+.pm-set-points span {
+  display: grid;
+  min-width: 0;
+  gap: 4px;
+}
+
+.pm-set-points span:last-child { text-align: right; }
+.pm-set-points small { overflow: hidden; color: var(--pm-muted); font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+.pm-set-points b { font-size: 18px; font-variant-numeric: tabular-nums; }
+.pm-set-track dl { display: grid; gap: 7px; margin: 18px 0 0; padding-top: 14px; border-top: 1px solid rgba(18, 53, 43, .08); }
+.pm-set-track dd { margin: 0; font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums; }
 
 .pm-metric-pair {
   display: grid;
@@ -908,6 +977,7 @@ html:has(.pm-page) {
   .pm-local-nav-2 { --pm-nav-count: 2; max-width: 320px; }
   .pm-local-nav a { padding: 11px 2px; font-size: 11px; letter-spacing: -.015em; }
   .pm-summary { padding: 0 14px 40px; }
+  .pm-set-evolution { padding: 0 14px 40px; }
   .pm-summary-intro { display: block; margin-bottom: 22px; }
   .pm-summary h2,
   .pm-section-heading h2,

@@ -3,12 +3,13 @@ import "@/styles/deuce-system.css";
 import "@/styles/refinement-2026-10.css";
 import "./audit-fixes.css";
 import type { Metadata, Viewport } from "next";
-import { Host_Grotesk } from 'next/font/google';
+import { Host_Grotesk, Syne } from 'next/font/google';
 import { DeuceShell } from '@/components/deuce/DeuceShell';
 import { WebVitals } from '@/components/WebVitals';
 import { StructuredData } from '@/components/StructuredData';
 import { SITE_ORIGIN } from '@/lib/site-origin';
 const sans = Host_Grotesk({ subsets:['latin'], variable:'--deuce-sans', display:'swap' });
+const headline = Syne({ subsets:['latin'], variable:'--deuce-headline', display:'swap' });
 const googleVerification=process.env.GOOGLE_SITE_VERIFICATION?.trim();
 const bingVerification=process.env.BING_SITE_VERIFICATION?.trim();
 const socialImage = { url: '/opengraph-image', width: 1200, height: 630, alt: 'DEUCE — Datos del archivo de tenis' };
@@ -58,7 +59,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es" className={sans.variable}>
+    <html lang="es" className={`${sans.variable} ${headline.variable}`}>
       <body>
         <StructuredData value={{
           '@context':'https://schema.org','@type':'WebSite',name:'DEUCE',url:`${SITE_ORIGIN}/`,inLanguage:'es',

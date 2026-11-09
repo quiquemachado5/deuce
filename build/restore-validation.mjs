@@ -11,6 +11,8 @@ export const MATCH_BROWSER_SCHEMA = matchBrowserContract.schema
 export const MATCH_BROWSER_ROW_LENGTH = matchBrowserContract.rowLength
 export const MATCH_BROWSER_DICTIONARIES = matchBrowserContract.dictionaries
 const sha256 = body => createHash('sha256').update(body).digest('hex')
+const PRODUCT_ARTIFACTS=['edition-products','player-directory','search-products','elo-products','time-machine']
+function validateProducts(products){for(const [id,value] of Object.entries(products))assert.equal(value?.schema,1,`Published product schema is incompatible: ${id}`)}
 
 function validateManifest(manifest) {
   assert.match(manifest?.version || '', /^[a-f0-9]{20}$/, 'Dataset version is invalid')
@@ -150,7 +152,8 @@ export async function verifyBundledDirectory(root) {
   const manifest = validateManifest(await decode('manifest'))
   const { matches, idsByPartition } = await validateFullPartitions(manifest, partition => decode(partition.id))
   const validIds = validateMatches(manifest, matches)
-  const [players, competition, audit, eras, browserIndex,publicationIndex] = await Promise.all(['players', 'competition', 'audit', 'eras', 'browser-index','publication-index'].map(decode))
+  const [players, competition, audit, eras, browserIndex,publicationIndex,...products] = await Promise.all(['players', 'competition', 'audit', 'eras', 'browser-index','publication-index',...PRODUCT_ARTIFACTS].map(decode))
+  validateProducts(Object.fromEntries(PRODUCT_ARTIFACTS.map((id,index)=>[id,products[index]])))
   validateSupportingArtifacts(manifest, players, competition, audit, eras, validIds)
   validatePublicationIndex(manifest,publicationIndex,matches)
   const pieces = pieceDefinitions(manifest)
@@ -201,6 +204,7 @@ export async function verifyFilesystemArchiveDirectory(root) {
   const { matches, idsByPartition } = await validateFullPartitions(manifest, partition => decodeBlob(partition.id))
   const validIds = validateMatches(manifest, matches)
   validatePublicationIndex(manifest,decodeBlob('publication-index'),matches)
+  validateProducts(Object.fromEntries(PRODUCT_ARTIFACTS.map(id=>[id,decodeBlob(id)])))
   validateSupportingArtifacts(manifest, decodeBlob('players'), decodeBlob('competition'), decodeBlob('audit'), decodeBlob('eras'), validIds)
   const pieces = pieceDefinitions(manifest)
   for (const piece of pieces) {

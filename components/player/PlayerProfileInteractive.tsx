@@ -2,9 +2,9 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { type ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowUpRight, ChevronDown, ChevronLeft, ChevronRight, Trophy } from 'lucide-react';
+import { ArrowUpRight, ChevronDown, ChevronLeft, ChevronRight, SlidersHorizontal, Trophy } from 'lucide-react';
 import PlayerFlag from '@/components/PlayerFlag';
 import { ArchiveMatchRow } from '@/components/deuce/MatchArchivePage';
 import type { MatchRecord } from '@/types/deuce';
@@ -16,19 +16,29 @@ function useHorizontalScrollCue<T extends HTMLElement>(){
   useEffect(()=>{
     const node=ref.current;
     if(!node)return;
+    let idleTimer:number|undefined;
     const update=()=>{
       const hasHiddenContent=node.scrollWidth>node.clientWidth+2;
+      const hasMoreLeft=node.scrollLeft>2;
       const hasMoreRight=node.scrollLeft<node.scrollWidth-node.clientWidth-2;
-      if(hasHiddenContent&&hasMoreRight)node.dataset.scrollCue='right';
+      if(hasHiddenContent&&hasMoreLeft&&hasMoreRight)node.dataset.scrollCue='both';
+      else if(hasHiddenContent&&hasMoreLeft)node.dataset.scrollCue='left';
+      else if(hasHiddenContent&&hasMoreRight)node.dataset.scrollCue='right';
       else delete node.dataset.scrollCue;
     };
+    const announceScroll=()=>{
+      update();
+      node.dataset.scrollActive='';
+      if(idleTimer)window.clearTimeout(idleTimer);
+      idleTimer=window.setTimeout(()=>delete node.dataset.scrollActive,850);
+    };
     update();
-    node.addEventListener('scroll',update,{passive:true});
+    node.addEventListener('scroll',announceScroll,{passive:true});
     const resizeObserver=new ResizeObserver(update);
     const mutationObserver=new MutationObserver(update);
     resizeObserver.observe(node);
     mutationObserver.observe(node,{childList:true,subtree:true,characterData:true});
-    return()=>{node.removeEventListener('scroll',update);resizeObserver.disconnect();mutationObserver.disconnect();};
+    return()=>{node.removeEventListener('scroll',announceScroll);if(idleTimer)window.clearTimeout(idleTimer);resizeObserver.disconnect();mutationObserver.disconnect();};
   },[]);
   return ref;
 }
@@ -48,6 +58,11 @@ export function PlayerProfileNav({hasRivals=true,hasTournaments=true,hasSeasons=
   return <nav ref={scrollRef} className="pp-section-nav" aria-label="Secciones del jugador">{visibleSections.map(([id,label])=><a key={id} href={`#${id}`} aria-current={active===id?'location':undefined}>{label}</a>)}</nav>;
 }
 
+export function PlayerInsightRail({children,className}:{children:ReactNode;className:string}){
+  const scrollRef=useHorizontalScrollCue<HTMLUListElement>();
+  return <ul ref={scrollRef} className={className} tabIndex={0} aria-label="Momentos y cifras destacadas">{children}</ul>;
+}
+
 export type CareerSeason={year:number;wins:number;losses:number;titles:number;played:number};
 type CareerMetric='rate'|'titles'|'played';
 function smoothPath(points:{x:number;y:number}[]){
@@ -64,6 +79,7 @@ function smoothPath(points:{x:number;y:number}[]){
 export function PlayerCareerTimeline({seasons}:{seasons:CareerSeason[]}){
   const [metric,setMetric]=useState<CareerMetric>('rate');
   const [activeIndex,setActiveIndex]=useState(()=>Math.max(0,seasons.length-1));
+  const [inspecting,setInspecting]=useState(false);
   const scrollRef=useHorizontalScrollCue<HTMLDivElement>();
   const labels:{id:CareerMetric;label:string}[]=[{id:'rate',label:'Efectividad'},{id:'titles',label:'Títulos'},{id:'played',label:'Partidos'}];
   const values=seasons.map(season=>metric==='rate'?(season.played?season.wins/season.played*100:0):metric==='titles'?season.titles:season.played);
@@ -83,9 +99,9 @@ export function PlayerCareerTimeline({seasons}:{seasons:CareerSeason[]}){
   const active={season:seasons[activeIndex],value:values[activeIndex],point:primaryPoints[activeIndex]};
   const selectPointer=(event:React.PointerEvent<HTMLDivElement>)=>{const bounds=event.currentTarget.getBoundingClientRect();const relative=Math.max(0,Math.min(1,(event.clientX-bounds.left)/bounds.width));setActiveIndex(Math.round(relative*(seasons.length-1)));};
   return <div className="pp-career-chart">
-    <div className="pp-career-header"><h2 id="pp-seasons-title">Evolución temporal</h2><div ref={scrollRef} className="pp-chart-switch" role="group" aria-label="Dato mostrado en la evolución temporal">{labels.map(item=><button type="button" key={item.id} aria-pressed={metric===item.id} onClick={()=>setMetric(item.id)}>{item.label}</button>)}</div></div>
-    <output className="pp-chart-reading" aria-live="polite"><span>{active.season.year}</span><strong>{display(active.value)}</strong></output>
-    <div className="pp-career-plot" role="img" tabIndex={0} aria-label={`Evolución por temporada: ${labels.find(item=>item.id===metric)?.label}, de ${seasons[0]?.year} a ${seasons.at(-1)?.year}. Desliza o toca para consultar un año.`} onPointerDown={selectPointer} onPointerMove={selectPointer} onKeyDown={event=>{if(event.key==='ArrowLeft'||event.key==='ArrowRight'){event.preventDefault();setActiveIndex(index=>Math.max(0,Math.min(seasons.length-1,index+(event.key==='ArrowRight'?1:-1))));}}}>
+    <div className="pp-career-header"><h2 id="pp-seasons-title">Evolución temporal</h2></div>
+    <div className="pp-career-plot" role="img" tabIndex={0} aria-label={`Evolución por temporada: ${labels.find(item=>item.id===metric)?.label}, de ${seasons[0]?.year} a ${seasons.at(-1)?.year}. Desliza o toca para consultar un año.`} onPointerDown={event=>{setInspecting(true);event.currentTarget.setPointerCapture(event.pointerId);selectPointer(event);}} onPointerMove={event=>{if(event.currentTarget.hasPointerCapture(event.pointerId))selectPointer(event);}} onPointerUp={event=>{if(event.currentTarget.hasPointerCapture(event.pointerId))event.currentTarget.releasePointerCapture(event.pointerId);setInspecting(false);}} onPointerCancel={()=>setInspecting(false)} onBlur={()=>setInspecting(false)} onKeyDown={event=>{if(event.key==='ArrowLeft'||event.key==='ArrowRight'){event.preventDefault();setInspecting(true);setActiveIndex(index=>Math.max(0,Math.min(seasons.length-1,index+(event.key==='ArrowRight'?1:-1))));}}}>
+      <output className="pp-chart-reading" data-visible={inspecting||undefined} aria-live="polite"><span>{active.season.year}</span><strong>{display(active.value)}</strong></output>
       <svg viewBox="0 0 864 278" preserveAspectRatio="none" aria-hidden="true">
         <defs><linearGradient id="pp-timeline-area" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#1c7a50" stopOpacity=".18"/><stop offset="100%" stopColor="#1c7a50" stopOpacity="0"/></linearGradient></defs>
         {[0,.5,1].map(step=><line key={step} x1={chart.left} x2={chart.right} y1={y(domainMaximum*step)} y2={y(domainMaximum*step)} className="pp-chart-grid"/>)}
@@ -96,6 +112,7 @@ export function PlayerCareerTimeline({seasons}:{seasons:CareerSeason[]}){
       <div className="pp-chart-x-axis" aria-hidden="true">{yearTicks.map((index,tickIndex)=><span key={seasons[index].year} data-edge={tickIndex===0?'start':tickIndex===yearTicks.length-1?'end':undefined} data-compact-hide={tickIndex>0&&tickIndex<yearTicks.length-1&&tickIndex%2===1?'':undefined} style={{left:`${x(index)/864*100}%`}}>{seasons[index].year}</span>)}</div>
       <div className="pp-chart-tooltip" style={{left:`${active.point.x/864*100}%`,top:`${active.point.y/278*100}%`}}><span>{active.season.year}</span><strong>{display(active.value)}</strong></div>
     </div>
+    <div ref={scrollRef} className="pp-chart-switch" role="group" aria-label="Dato mostrado en la evolución temporal">{labels.map(item=><button type="button" key={item.id} aria-pressed={metric===item.id} onClick={()=>setMetric(item.id)}>{item.label}</button>)}</div>
     <details className="pp-chart-table"><summary>Ver valores por temporada</summary><table><thead><tr><th>Año</th><th>{labels.find(item=>item.id===metric)?.label}</th></tr></thead><tbody>{seasons.map((season,index)=><tr key={season.year}><th>{season.year}</th><td>{display(values[index])}</td></tr>)}</tbody></table></details>
   </div>;
 }
@@ -126,7 +143,7 @@ export function PlayerRivals({rivals,player,compareHref}:{rivals:RivalCard[];pla
   const ordered=useMemo(()=>[...rivals].sort((a,b)=>view==='frequent'?b.played-a.played:view==='best'?(b.won/b.played)-(a.won/a.played):(a.won/a.played)-(b.won/b.played)).slice(0,6),[rivals,view]);
   if(rivals.length<2)return <div className="pp-empty"><strong>Muestra insuficiente</strong><p>Todavía no hay suficientes enfrentamientos registrados para crear un ranking de rivales.</p></div>;
   return <>
-    <div className="pp-rivals-heading"><h2 id="pp-rivals-title">Rivales y enfrentamientos</h2><div ref={scrollRef} className="pp-segmented" role="group" aria-label="Ordenar rivales"><button aria-pressed={view==='frequent'} onClick={()=>setView('frequent')}>Más enfrentados</button><button aria-pressed={view==='best'} onClick={()=>setView('best')}>Mejor balance</button><button aria-pressed={view==='worst'} onClick={()=>setView('worst')}>Peor balance</button></div></div>
+    <div className="pp-rivals-heading"><h2 id="pp-rivals-title">Rivales y enfrentamientos</h2><div ref={scrollRef} className="pp-segmented" role="group" aria-label="Ordenar rivales"><button aria-pressed={view==='frequent'} onClick={()=>setView('frequent')}>Más enfrentados</button><button aria-pressed={view==='best'} onClick={()=>setView('best')}>Mejor balance</button><button aria-pressed={view==='worst'} onClick={()=>setView('worst')}>Peor balance</button></div><label className="pp-mobile-filter"><span className="nc-sr">Ordenar rivales</span><select aria-label="Ordenar rivales" value={view} onChange={event=>setView(event.target.value as typeof view)}><option value="frequent">Más enfrentados</option><option value="best">Mejor balance</option><option value="worst">Peor balance</option></select><SlidersHorizontal size={17} aria-hidden="true"/></label></div>
     <div className="pp-rival-grid">{ordered.map(rival=>{const opponentWins=rival.played-rival.won,currentLeads=rival.won>opponentWins,opponentLeads=opponentWins>rival.won;return <Link href={rival.href} key={rival.name} aria-label={`${rival.name}, ${opponentWins}; ${player.name}, ${rival.won}`}>
       <span className="pp-rival-side" data-leading={opponentLeads||undefined}><span><PlayerFlag code={rival.country}/><strong>{rival.name}</strong></span><b>{opponentWins}</b></span>
       <i aria-hidden="true">—</i>
@@ -143,7 +160,7 @@ export function PlayerTournamentArchive({tournaments,tour='atp'}:{tournaments:To
   const scrollRef=useHorizontalScrollCue<HTMLDivElement>();
   const visible=tournaments.filter(tournament=>tournament.titles>0&&(filter==='all'||filter==='slams'&&tournament.category==='Grand Slam'||filter==='masters'&&(['Masters 1000','WTA 1000'].includes(tournament.category))||filter==='500'&&(['ATP 500','WTA 500'].includes(tournament.category))||filter==='250'&&(['ATP 250','WTA 250'].includes(tournament.category))));
   return <>
-    <div className="pp-tournaments-heading"><h2 id="pp-tournaments-title">Torneos y palmarés</h2><div ref={scrollRef} className="pp-segmented" role="group" aria-label="Filtrar palmarés por categoría"><button aria-pressed={filter==='all'} onClick={()=>setFilter('all')}>Todos</button><button aria-pressed={filter==='slams'} onClick={()=>setFilter('slams')}>Grand Slam</button><button aria-pressed={filter==='masters'} onClick={()=>setFilter('masters')}>{tour==='wta'?'WTA 1000':'Masters 1000'}</button><button aria-pressed={filter==='500'} onClick={()=>setFilter('500')}>{tour.toUpperCase()} 500</button><button aria-pressed={filter==='250'} onClick={()=>setFilter('250')}>{tour.toUpperCase()} 250</button></div></div>
+    <div className="pp-tournaments-heading"><h2 id="pp-tournaments-title">Torneos y palmarés</h2><div ref={scrollRef} className="pp-segmented" role="group" aria-label="Filtrar palmarés por categoría"><button aria-pressed={filter==='all'} onClick={()=>setFilter('all')}>Todos</button><button aria-pressed={filter==='slams'} onClick={()=>setFilter('slams')}>Grand Slam</button><button aria-pressed={filter==='masters'} onClick={()=>setFilter('masters')}>{tour==='wta'?'WTA 1000':'Masters 1000'}</button><button aria-pressed={filter==='500'} onClick={()=>setFilter('500')}>{tour.toUpperCase()} 500</button><button aria-pressed={filter==='250'} onClick={()=>setFilter('250')}>{tour.toUpperCase()} 250</button></div><label className="pp-mobile-filter"><span className="nc-sr">Filtrar palmarés por categoría</span><select aria-label="Filtrar palmarés por categoría" value={filter} onChange={event=>setFilter(event.target.value as typeof filter)}><option value="all">Todos</option><option value="slams">Grand Slam</option><option value="masters">{tour==='wta'?'WTA 1000':'Masters 1000'}</option><option value="500">{tour.toUpperCase()} 500</option><option value="250">{tour.toUpperCase()} 250</option></select><SlidersHorizontal size={17} aria-hidden="true"/></label></div>
     {visible.length?<div className="pp-tournament-list">{visible.map(tournament=>{
       const monochrome=Boolean(tournament.brandingSrc&&/hamburg|paris|shanghai/.test(tournament.brandingSrc));
       const logo=<>{tournament.brandingSrc?<Image src={tournament.brandingSrc} alt="" width={92} height={72} unoptimized/>:<span aria-hidden="true">{tournament.name.split(/\s+/).map(part=>part[0]).slice(0,2).join('')}</span>}{tournament.href?<i aria-hidden="true"><ArrowUpRight size={14}/></i>:null}</>;
@@ -183,7 +200,7 @@ export function PlayerRecentMatches({matches,allHref}:{matches:RecentMatch[];all
   const visible=matches.filter(item=>filter==='recent'||filter==='wins'&&item.won||filter==='losses'&&!item.won||filter==='slams'&&item.record.category==='Grand Slam'||filter===item.record.surface);
   const surfaceOptions=[...new Set(matches.map(item=>item.record.surface).filter(Boolean))];
   return <>
-    <div className="pp-matches-heading"><h2 id="pp-matches-title">Últimos partidos</h2><div ref={scrollRef} className="pp-segmented pp-match-filters" role="group" aria-label="Filtrar últimos partidos"><button aria-pressed={filter==='recent'} onClick={()=>setFilter('recent')}>Más recientes</button><button aria-pressed={filter==='slams'} onClick={()=>setFilter('slams')}>Grand Slam</button>{surfaceOptions.slice(0,3).map(surface=><button key={surface} aria-pressed={filter===surface} onClick={()=>setFilter(surface!)}>{matches.find(item=>item.record.surface===surface)?.surface}</button>)}</div></div>
+    <div className="pp-matches-heading"><h2 id="pp-matches-title">Últimos partidos</h2><div ref={scrollRef} className="pp-segmented pp-match-filters" role="group" aria-label="Filtrar últimos partidos"><button aria-pressed={filter==='recent'} onClick={()=>setFilter('recent')}>Más recientes</button><button aria-pressed={filter==='slams'} onClick={()=>setFilter('slams')}>Grand Slam</button>{surfaceOptions.slice(0,3).map(surface=><button key={surface} aria-pressed={filter===surface} onClick={()=>setFilter(surface!)}>{matches.find(item=>item.record.surface===surface)?.surface}</button>)}</div><label className="pp-mobile-filter"><span className="nc-sr">Filtrar últimos partidos</span><select aria-label="Filtrar últimos partidos" value={filter} onChange={event=>setFilter(event.target.value)}><option value="recent">Más recientes</option><option value="slams">Grand Slam</option>{surfaceOptions.slice(0,3).map(surface=><option key={surface} value={surface}>{matches.find(item=>item.record.surface===surface)?.surface}</option>)}</select><SlidersHorizontal size={17} aria-hidden="true"/></label></div>
     {visible.length?<div className="pp-recent-cards">{visible.slice(0,5).map(({record})=><ArchiveMatchRow key={record.id} match={record} showTournamentContext/>)}</div>:<div className="pp-empty"><strong>No hay partidos en esta selección</strong><p>Ajusta los filtros para continuar.</p></div>}
     <Link className="pp-all-matches" href={allHref}>Ver todos los partidos <ArrowUpRight size={15} aria-hidden="true"/></Link>
   </>;

@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
-import { preparedTournamentEditionArchive, preparedTournamentSummaryArchive } from "@/lib/revista/read-records";
+import { preparedTournamentEditionArchive, preparedTournamentEditionProduct, preparedTournamentSummaryArchive } from "@/lib/revista/read-records";
 import { tournamentName } from "@/lib/labels";
 import {
   categoryLabel,
@@ -26,6 +26,7 @@ import styles from "@/components/tournament-detail.module.css";
 import { tournamentDetailFeaturePhoto, tournamentDetailPhoto } from "@/lib/tournament-detail-media";
 import { tournamentBracketRounds } from "@/lib/tournament-bracket";
 import { tournamentEditionCanonicalPath } from "@/lib/tournament-url";
+import { editionTacticalProfile } from "@/lib/archive-products";
 
 type Props = {
   params: Promise<{ slug: string; year: string }>;
@@ -81,12 +82,14 @@ export default async function Edition({ params, searchParams }: Props) {
   const tournament = tournamentDirectory(archive).find((entry) => entry.slug === slug);
   if (!tournament) notFound();
   const matches=tournament.matches.filter(match=>match.year===Number(year)&&match.category===category&&(match.tour||'atp')===selectedTour);
+  const product=await preparedTournamentEditionProduct(Number(year),selectedTour,slug,category);
+  const matchById=new Map(matches.map(match=>[match.match_id,match]));
   const bracketRounds=tournamentBracketRounds(matches);
   const court = editionTournamentCourt(matches);
   const final = matches.find((match) => roundPosition(match.round) === 7);
   const measuredMatches=matches.filter(eligibleMatch);
-  const statisticsMatches=measuredMatches.filter(match=>match.statistics.length>0).length;
-  const pointMatches=measuredMatches.filter(match=>match.point_tape.length>0).length;
+  const statisticsMatches=product?.statistics??measuredMatches.filter(match=>match.statistics.length>0).length;
+  const pointMatches=product?.points??measuredMatches.filter(match=>match.point_tape.length>0).length;
   const editionPulse=pointMatches
     ?`juegos calculados desde los marcadores. ${number(pointMatches)} ${pointMatches===1?'partido incorpora':'partidos incorporan'} secuencia punto a punto.`
     :statisticsMatches
@@ -95,45 +98,55 @@ export default async function Edition({ params, searchParams }: Props) {
   const summary=archiveSummary(measuredMatches);
   const observation=(key:string)=>summary.observations.find(item=>item.metric.key===key);
   const comebacks=measuredMatches.filter(match=>lostOpening(match));
-  const closest = [...measuredMatches].sort((a, b) => closeness(b) - closeness(a))[0];
+  const closest = product?.closestMatchId?matchById.get(product.closestMatchId):[...measuredMatches].sort((a, b) => closeness(b) - closeness(a))[0];
   const timed = measuredMatches
     .filter((match) => publishedMatchMinutes(match) !== null)
     .sort((a, b) => publishedMatchMinutes(b)! - publishedMatchMinutes(a)!);
   const champion=final?winnerName(final):null;
   const heroPhoto = tournamentDetailPhoto(tournament.name) || courtPhoto(tournament.name);
   const detailPhoto = tournamentDetailFeaturePhoto(tournament.name);
-  const tiebreaks=measuredMatches.reduce((total,match)=>total+tiebreakCount(match),0);
+  const tiebreaks=product?.tiebreaks??measuredMatches.reduce((total,match)=>total+tiebreakCount(match),0);
   const tiebreakMatches=measuredMatches.filter(match=>tiebreakCount(match)>0);
   const decidingMatches=measuredMatches.filter(isDeciding);
   const straightSetWins=measuredMatches.filter(match=>match.winner&&match.score_summary.games.every(set=>set[match.winner!-1]>set[2-match.winner!])).length;
   const bagelMatches=measuredMatches.filter(match=>match.score_summary.games.some(set=>Math.max(...set)===6&&Math.min(...set)===0));
-  const totalSets = measuredMatches.reduce((total, match) => total + match.score_summary.games.length, 0);
-  const totalGames = measuredMatches.reduce((total, match) => total + gamesInMatch(match), 0);
-  const rounds = new Set(matches.map(match => roundPosition(match.round)).filter(Boolean)).size;
-  const averageDuration = timed.length
+  const totalSets = product?.sets??measuredMatches.reduce((total, match) => total + match.score_summary.games.length, 0);
+  const totalGames = product?.games??measuredMatches.reduce((total, match) => total + gamesInMatch(match), 0);
+  const rounds = product?.rounds??new Set(matches.map(match => roundPosition(match.round)).filter(Boolean)).size;
+  const averageDuration = product?.averageMinutes??(timed.length
     ? Math.round(timed.reduce((sum, match) => sum + publishedMatchMinutes(match)!, 0) / timed.length)
-    : null;
+    : null);
   const championPath = champion ? matches.filter(match => winnerName(match) === champion).length : 0;
   const championMatches=champion?measuredMatches.filter(match=>match.player1.name===champion||match.player2.name===champion):[];
-  const championSetsLost=championMatches.reduce((total,match)=>{
+  const championSetsLost=product?.championSetsLost??championMatches.reduce((total,match)=>{
     const side=match.player1.name===champion?0:1;
     return total+match.score_summary.games.filter(set=>set[side]<set[1-side]).length;
   },0);
-  const championGameBalance=championMatches.reduce((balance,match)=>{
+  const championGameBalance=product?.championGameBalance??championMatches.reduce((balance,match)=>{
     const side=match.player1.name===champion?0:1;
     return balance+match.score_summary.games.reduce((sum,set)=>sum+set[side]-set[1-side],0);
   },0);
-  const playersInEdition=new Set(measuredMatches.flatMap(match=>[match.player1.name,match.player2.name])).size;
-  const longestByGames=[...measuredMatches].sort((a,b)=>gamesInMatch(b)-gamesInMatch(a))[0];
+  const playersInEdition=product?.players??new Set(measuredMatches.flatMap(match=>[match.player1.name,match.player2.name])).size;
+  const longestByGames=product?.longestMatchId?matchById.get(product.longestMatchId):[...measuredMatches].sort((a,b)=>gamesInMatch(b)-gamesInMatch(a))[0];
   const winningMargin=(match:typeof measuredMatches[number])=>{
     if(!match.winner)return 0;
     return match.score_summary.games.reduce((margin,set)=>margin+set[match.winner!-1]-set[2-match.winner!],0);
   };
-  const widestWin=[...measuredMatches].sort((a,b)=>winningMargin(b)-winningMargin(a))[0];
+  const widestWin=product?.widestMatchId?matchById.get(product.widestMatchId):[...measuredMatches].sort((a,b)=>winningMargin(b)-winningMargin(a))[0];
   const rate=(count:number)=>measuredMatches.length?Math.round(count/measuredMatches.length*100):0;
   const upsets=observation("upsets");
   const aces=observation("aces-average");
   const breakEfficiency=observation("break-efficiency");
+  const tactical=product?.tactical||editionTacticalProfile(measuredMatches);
+  const tacticalBars=[
+    tactical.holdRate&&{label:"Juegos al saque",value:tactical.holdRate.value,display:`${number(tactical.holdRate.value,1)} %`,sample:tactical.holdRate.sample},
+    tactical.breakRate&&{label:"Conversión de break",value:tactical.breakRate.value,display:`${number(tactical.breakRate.value,1)} %`,sample:tactical.breakRate.sample},
+    tactical.firstServeWon&&{label:"Primer saque",value:tactical.firstServeWon.value,display:`${number(tactical.firstServeWon.value,1)} %`,sample:tactical.firstServeWon.sample},
+    tactical.secondServeWon&&{label:"Segundo saque",value:tactical.secondServeWon.value,display:`${number(tactical.secondServeWon.value,1)} %`,sample:tactical.secondServeWon.sample},
+    tactical.returnPointsWon&&{label:"Puntos al resto",value:tactical.returnPointsWon.value,display:`${number(tactical.returnPointsWon.value,1)} %`,sample:tactical.returnPointsWon.sample},
+    tactical.longRallyShare&&{label:"Peloteos de 9+",value:tactical.longRallyShare.value,display:`${number(tactical.longRallyShare.value,1)} %`,sample:tactical.longRallyShare.sample},
+  ].filter((item):item is {label:string;value:number;display:string;sample:number}=>Boolean(item));
+  const tacticalSample=tacticalBars.length?Math.max(...tacticalBars.map(item=>item.sample)):0;
   const editionSignals=[
     {label:"Al set decisivo",value:number(decidingMatches.length),detail:`${number(rate(decidingMatches.length))} % de los partidos`},
     {label:"Remontadas",value:number(comebacks.length),detail:`tras perder el primer set · ${number(rate(comebacks.length))} %`},
@@ -142,8 +155,8 @@ export default async function Edition({ params, searchParams }: Props) {
     {label:"Sets 6–0",value:number(bagelMatches.length),detail:"partidos con al menos un rosco"},
     {label:"Juegos por set",value:number(totalSets?totalGames/totalSets:0,1),detail:`${number(totalSets)} sets documentados`},
     ...(upsets&&upsets.numerator!==undefined?[{label:"Sorpresas de ranking",value:number(upsets.numerator),detail:`${number(upsets.value,1)} % en ${number(upsets.sample)} partidos con ranking`}]:[]),
-    ...(aces?[{label:"Aces por partido",value:number(aces.value,1),detail:`muestra de ${number(aces.sample)} encuentros`}]:[]),
-    ...(breakEfficiency?[{label:"Bolas de break",value:`${number(breakEfficiency.value,1)} %`,detail:`${number(breakEfficiency.numerator||0)} de ${number(breakEfficiency.denominator||0)} convertidas · datos en ${number(breakEfficiency.sample)} de ${number(measuredMatches.length)} partidos`}]:[]),
+    ...(tactical.acesPerMatch?[{label:"Aces por partido",value:number(tactical.acesPerMatch.value,1),detail:`${number(tactical.acesPerMatch.sample)} encuentros con dato publicado`}]:aces?[{label:"Aces por partido",value:number(aces.value,1),detail:`muestra de ${number(aces.sample)} encuentros`}]:[]),
+    ...(tactical.breakRate?[{label:"Conversión de break",value:`${number(tactical.breakRate.value,1)} %`,detail:`${number(tactical.breakRate.sample)} partidos con dato publicado`}]:breakEfficiency?[{label:"Conversión de break",value:`${number(breakEfficiency.value,1)} %`,detail:`datos en ${number(breakEfficiency.sample)} partidos`}]:[]),
     ...(averageDuration?[{label:"Duración media",value:durationLabel(averageDuration),detail:`${number(timed.length)} partidos con tiempo publicado`}]:[]),
   ].slice(0,8);
   const editionSpotlights=[
@@ -182,6 +195,13 @@ export default async function Edition({ params, searchParams }: Props) {
         { label: "Sin ceder set", value: rate(straightSetWins), display: `${number(rate(straightSetWins))} %` },
       ],
     },
+    ...(tacticalBars.length>=2?[{
+      kind: "chart" as const,
+      label: "Perfil táctico",
+      title: "Cómo se jugó la edición",
+      detail: `Lectura agregada de estadísticas publicadas en ${number(tacticalSample)} ${tacticalSample===1?'partido':'partidos'}.`,
+      bars: tacticalBars.map(({label,value,display})=>({label,value,display})),
+    }]:[]),
     {
       kind: "scale",
       label: "Escala de la edición",

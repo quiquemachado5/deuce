@@ -68,3 +68,36 @@ export function enrichmentPlan(candidates:DetailCandidate[],known:ReadonlySet<st
  }
  return result
 }
+
+const statisticsRetryMs=30*86_400_000
+export function statisticsCheckDue(value:string|undefined,now=Date.now()) {
+ if(!value)return true
+ if(value==='added'||value==='present')return false
+ const separator=value.lastIndexOf('@'),stamp=separator>=0?Date.parse(value.slice(separator+1)):NaN
+ return !Number.isFinite(stamp)||now-stamp>=statisticsRetryMs
+}
+
+/** Keep ATP and WTA statistics moving together and retry empty provider rows monthly. */
+export function statisticsEnrichmentPlan(
+ candidates:DetailCandidate[],
+ known:ReadonlySet<string>,
+ checked:Readonly<Record<string,string>>,
+ limit=24,
+ now=Date.now(),
+) {
+ const unique=new Map<string,DetailCandidate>()
+ for(const row of candidates){
+  const key=detailCandidateKey(row)
+  if(row.kind==='modern'&&known.has(key)&&statisticsCheckDue(checked[key],now)&&!unique.has(key))unique.set(key,row)
+ }
+ const sort=(a:DetailCandidate,b:DetailCandidate)=>priority(a.round)-priority(b.round)||b.year-a.year||a.id.localeCompare(b.id)
+ const queues=(['atp','wta'] as const).map(tour=>[...unique.values()].filter(row=>row.tour===tour).sort(sort))
+ const offsets=[0,0],result:DetailCandidate[]=[]
+ while(result.length<limit&&queues.some((queue,index)=>offsets[index]<queue.length)){
+  for(let index=0;index<queues.length&&result.length<limit;index++){
+   const row=queues[index][offsets[index]]
+   if(row){result.push(row);offsets[index]++}
+  }
+ }
+ return result
+}

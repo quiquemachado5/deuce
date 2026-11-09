@@ -42,7 +42,13 @@ export async function generateMetadata({ params, searchParams }: Props) {
   return {
     title,
     description,
-    alternates: { canonical: `/torneos/${slug}${categoryQuery}` },
+    alternates: {
+      canonical: `/torneos/${slug}${categoryQuery}`,
+      languages: {
+        es: `/torneos/${slug}${categoryQuery}`,
+        en: `/en/tournaments/${slug}${tour==='wta'?'?tour=wta':''}`,
+      },
+    },
     openGraph: { title, description, url: `/torneos/${slug}${categoryQuery}`, images: [`/torneos/${slug}/opengraph-image`] },
     twitter: { card: "summary_large_image", title, description, images: [`/torneos/${slug}/opengraph-image`] },
   };

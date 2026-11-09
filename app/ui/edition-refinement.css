@@ -263,15 +263,6 @@
   inset: 0;
   z-index: -1;
 }
-.editorial-parallax {
-  position: absolute;
-  inset: -32px 0;
-  transform: translateY(var(--photo-shift, 0px));
-  will-change: transform;
-}
-.editorial-parallax img {
-  object-fit: cover;
-}
 .ds-hero-court:after {
   content: "";
   position: absolute;
@@ -413,27 +404,12 @@
   font-size: 11px;
   color: var(--muted);
 }
-.court-gallery-caption p {
-  margin-top: 12px;
-  font-size: 20px;
-  color: #fff;
-}
-.court-gallery-caption > a {
-  display: inline-flex;
-  min-height: 44px;
-  align-items: center;
-  margin-top: 8px;
-  text-decoration: underline;
-  color: #fff;
-  font-size: 14px;
-}
 /* Colour is semantic: neutral totals, court colours for a court, medal colours for rounds. */
 .ds-rank-value,
 .ds-ranking-chart i,
 .ry-selected-season,
 .ry-player-stats strong,
-.ry-stat-value,
-.ds-story > strong {
+.ry-stat-value {
   color: var(--ink);
 }
 .ds-ranking-chart i {
@@ -500,32 +476,6 @@
 }
 .td-edition-hero[data-grand-slam="true"] {
   border: 1px solid var(--gold);
-}
-.surface-duel-filters {
-  display: flex;
-  gap: 4px;
-  background: var(--bg-sunken);
-  border-radius: 999px;
-  padding: 4px;
-  max-width: max-content;
-}
-.surface-duel-filters button {
-  min-height: 40px;
-  border: 0;
-  padding: 8px 16px;
-  background: none;
-  border-radius: 999px;
-  color: var(--muted);
-  font-size: 13px;
-}
-.surface-duel-filters button[aria-pressed="true"] {
-  background: var(--bg-raised);
-  color: var(--ink);
-  border: 0;
-}
-.surface-duel-filters .nc-dot {
-  height: 6px;
-  width: 6px;
 }
 .ry-footer {
   width: 100%;
@@ -701,18 +651,6 @@
   .home-months small {
     font-size: 9px;
   }
-  .court-gallery-caption p {
-    font-size: 16px;
-  }
-  .surface-duel-filters {
-    max-width: 100%;
-    gap: 0;
-  }
-  .surface-duel-filters button {
-    padding: 8px 10px;
-    font-size: 12px;
-    gap: 6px;
-  }
   .ry-footer {
     padding: 32px 20px;
   }
@@ -720,13 +658,6 @@
     font-size: 32px;
   }
 }
-@media (prefers-reduced-motion: reduce) {
-  .editorial-parallax {
-    transform: none;
-    will-change: auto;
-  }
-}
-
 .nc-ranking > li:only-child .nc-ranking-row {
   border-radius: 16px;
 }

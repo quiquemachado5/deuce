@@ -9,7 +9,7 @@ import { score, round, sentence } from "./model";
 import { tournamentDirectory } from '../tournament-directory';
 import { matchSearchIntent, matchesIntent } from '../search-intent';
 import { approximateName, canonicalSearchText, exactPlayerSearch, searchTermsMatch } from '../search-text';
-import type { SearchItem } from "@/components/revista/Frame";
+import type { SearchItem } from "@/lib/search-item";
 import type { PlayerRecord } from '../season-analytics';
 import type { RecordManifest } from '../revista/snapshot';
 

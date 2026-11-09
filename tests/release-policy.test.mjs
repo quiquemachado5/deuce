@@ -96,7 +96,7 @@ test('bundled snapshot policy requires every declared immutable detail partition
   const browser = { count: 2, partitions: [{ id: 'matches-atp-2020s', count: 1 }, { id: 'matches-wta-2020s', count: 1 }] }
   try {
     await mkdir(directory, { recursive: true })
-    for (const id of ['manifest', 'competition', 'reconciliation', 'publication-index', 'matches-atp-2020s']) {
+    for (const id of ['manifest', 'competition', 'reconciliation', 'publication-index', 'edition-products', 'player-directory', 'search-products', 'elo-products', 'time-machine', 'matches-atp-2020s']) {
       await writeFile(join(directory, `${id}.json.gz`), 'artifact')
     }
     await writeFile(join(directory, 'browser-index.json.gz'), gzipSync(JSON.stringify(browser)))

@@ -27,6 +27,7 @@ test('Next sitemap serialization keeps query URLs valid and excludes the noindex
   assert.ok(xml.includes(`<loc>${SITE_ORIGIN}/records?dato=top-10&amp;tour=wta</loc>`));
   assert.doesNotMatch(xml, /&(?!(?:amp|lt|gt|quot|apos);)/);
   assert.equal((SITEMAP_STATIC_PATHS as readonly string[]).includes('/comparar'), false);
+  assert.equal((SITEMAP_STATIC_PATHS as readonly string[]).includes('/buscar'), false);
 });
 
 test('the sitemap index groups the canonical sitemap and every annual match sitemap', () => {
@@ -109,13 +110,16 @@ test('match sitemap lastmod uses the verified sporting date and omits approximat
     { ...base, match_id: 'other-year', year: 2021 },
   ];
   const entries = matchSitemapEntries(matches, 2022);
-  assert.equal(entries.length, 2);
+  assert.equal(entries.length, 4);
   assert.deepEqual(entries.map(entry => entry.url), [
     `${SITE_ORIGIN}/match/approximate`,
+    `${SITE_ORIGIN}/en/matches/approximate`,
     `${SITE_ORIGIN}/match/exact`,
+    `${SITE_ORIGIN}/en/matches/exact`,
   ]);
-  assert.deepEqual(entries.map(entry => entry.lastModified), [undefined, '2022-05-31T12:00:00.000Z']);
+  assert.deepEqual(entries.map(entry => entry.lastModified), [undefined, undefined, '2022-05-31T12:00:00.000Z', '2022-05-31T12:00:00.000Z']);
   assert.ok(entries.every(entry => entry.changeFrequency === 'never' && entry.priority === 0.5));
+  assert.ok(entries.every(entry => entry.alternates?.languages?.es && entry.alternates.languages.en));
 });
 
 test('a tournament start is shown as an edition, never as an exact match day', () => {

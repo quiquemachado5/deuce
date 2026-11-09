@@ -13,7 +13,7 @@
   .recordShowcase>:first-child{grid-column:1/-1;grid-row:auto}
   .recordShowcase>:nth-child(6){grid-column:1/-1;grid-row:auto}
 }
-@media(max-width:900px){.latestResult>:global(a){min-height:150px}}
+@media(max-width:900px){.latestResult>:global(a){min-height:0}}
 @media(max-width:759px){
   .recordShowcase{display:flex;grid-template-columns:none;grid-template-rows:none}
   .recordShowcase>:first-child,.recordShowcase>:nth-child(6){grid-column:auto;grid-row:auto;min-height:430px!important}

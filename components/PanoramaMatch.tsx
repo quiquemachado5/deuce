@@ -20,6 +20,8 @@ import { findStat, type StatRow } from "@/lib/statistics";
 import { pressure, sentence } from "@/lib/cuaderno/model";
 import PlayerFlag from "@/components/PlayerFlag";
 import { compactMatchDate } from "@/lib/match-date";
+import { matchInsights } from "@/lib/match-insights";
+import { setAnalytics } from "@/lib/set-analytics";
 
 export type PanoramaSection =
   | "resumen"
@@ -38,6 +40,8 @@ type ComparisonRow = {
   label: string;
   first: ComparisonValue;
   second: ComparisonValue;
+  lowerIsBetter?: boolean;
+  neutral?: boolean;
 };
 
 type ComparisonGroup = {
@@ -106,7 +110,9 @@ function valueFromStat(
       ? `${stat.won}/${stat.total}`
       : options.percentage && hasFraction
         ? `${Math.round((stat.won! / stat.total!) * 100)}%`
-      : stat.value,
+        : hasFraction
+          ? String(stat.won)
+          : stat.value,
     ...(hasFraction && !options.fraction
       ? { detail: `${stat.won} de ${stat.total}` }
       : {}),
@@ -129,6 +135,11 @@ function isHigher(value: ComparisonValue, other: ComparisonValue) {
     value.numeric > other.numeric;
 }
 
+function leads(row: ComparisonRow, value: ComparisonValue, other: ComparisonValue) {
+  if (row.neutral) return false;
+  return row.lowerIsBetter ? isHigher(other, value) : isHigher(value, other);
+}
+
 function comparisonRows(match: Match) {
   const firstPressure = pressure(match);
   const stat = (side: 1 | 2, name: string) =>
@@ -138,21 +149,44 @@ function comparisonRows(match: Match) {
     label: string,
     name: string,
     percentage = false,
+    lowerIsBetter = false,
   ): ComparisonRow | null => {
-    const first = valueFromStat(stat(1, name), { percentage });
-    const second = valueFromStat(stat(2, name), { percentage });
+    const separatedTotals: Record<string, string> = {
+      "Service points won": "Service points played",
+      "Return points won": "Return points played",
+      "Service games won": "Service games played",
+      "Return games won": "Return games played",
+    };
+    const value = (side: 1 | 2) => {
+      const numerator = stat(side, name);
+      if (percentage && numerator && (numerator.total === null || numerator.total <= 0) && separatedTotals[name]) {
+        const denominator = stat(side, separatedTotals[name]);
+        const won = numerator.won ?? Number.parseFloat(numerator.value.replace(",", "."));
+        const total = denominator?.won ?? Number.parseFloat(denominator?.value.replace(",", ".") || "");
+        if (Number.isFinite(won) && Number.isFinite(total) && total > 0 && won <= total) return fractionValue(won, total);
+      }
+      return valueFromStat(numerator, { percentage });
+    };
+    const first = value(1);
+    const second = value(2);
     return first.main === "—" && second.main === "—"
       ? null
-      : { key, label, first, second };
+      : { key, label, first, second, lowerIsBetter };
   };
   const service: Array<ComparisonRow | null> = [
     row("aces", "Saques directos", "Aces"),
+    row("double-faults", "Dobles faltas", "Double Faults", false, true),
     row("first-serve", "Primer saque ganado", "1st serve points won", true),
+    row("second-serve", "Segundo saque ganado", "2nd serve points won", true),
+    row("service-points", "Puntos ganados al saque", "Service points won", true),
     row("breaks-saved", "Breaks salvados", "Break points saved", true),
   ];
   const returnAndPressure: Array<ComparisonRow | null> = [
     row("return-points", "Puntos ganados al resto", "Return points won", true),
+    row("first-return", "Resto sobre primer saque", "1st return points won", true),
+    row("second-return", "Resto sobre segundo saque", "2nd return points won", true),
     row("breaks-converted", "Breaks convertidos", "Break points converted", true),
+    row("total-points", "Puntos totales ganados", "Total points won"),
     firstPressure.some((player) => player.thirty[1] > 0)
       ? {
           key: "thirty",
@@ -162,6 +196,22 @@ function comparisonRows(match: Match) {
         }
       : null,
   ];
+  const insights = matchInsights(match).map((insight) => ({
+    key: insight.key,
+    label: insight.label,
+    first: insight.first,
+    second: insight.second,
+    group: insight.group,
+    neutral: insight.neutral,
+  }));
+  const advancedGroups = [
+    { key: 'control', title: 'Control del partido' },
+    { key: 'decisive', title: 'Momentos decisivos' },
+    { key: 'patterns', title: 'Patrones de juego' },
+  ].map((group) => ({
+    ...group,
+    rows: insights.filter((insight) => insight.group === group.key),
+  }));
   return [
     {
       key: "service",
@@ -175,6 +225,7 @@ function comparisonRows(match: Match) {
         (item): item is ComparisonRow => Boolean(item),
       ),
     },
+    ...advancedGroups,
   ].filter((group) => group.rows.length);
 }
 
@@ -370,19 +421,55 @@ function Statistics({ match, groups }: { match: Match; groups: ComparisonGroup[]
                 return (
                   <div key={row.key}>
                     <dt id={termId}>{row.label}</dt>
-                    <dd aria-describedby={termId} className={isHigher(row.first, row.second) ? "is-stat-winner" : undefined}>
+                    <dd aria-describedby={termId} className={leads(row, row.first, row.second) ? "is-stat-winner" : undefined}>
                       <span className="nc-sr">{names[0]}: </span>
                       {row.first.main}
-                      {row.first.detail ? <small>{row.first.detail}</small> : null}
                     </dd>
-                    <dd aria-describedby={termId} className={isHigher(row.second, row.first) ? "is-stat-winner" : undefined}>
+                    <dd aria-describedby={termId} className={leads(row, row.second, row.first) ? "is-stat-winner" : undefined}>
                       <span className="nc-sr">{names[1]}: </span>
                       {row.second.main}
-                      {row.second.detail ? <small>{row.second.detail}</small> : null}
                     </dd>
                   </div>
                 );
               })}
+            </dl>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function SetEvolution({ match }: { match: Match }) {
+  const sets = setAnalytics(match);
+  if (!sets.length) return null;
+  const names = [match.player1.name, match.player2.name];
+  return (
+    <section className="pm-set-evolution" aria-labelledby="pm-set-evolution-title">
+      <div className="pm-section-heading">
+        <h2 id="pm-set-evolution-title">Evolución por set</h2>
+      </div>
+      <div className="pm-set-track">
+        {sets.map((set) => (
+          <article key={set.set}>
+            <header>
+              <span>Set {set.set}</span>
+              <strong>{set.games[0]}–{set.games[1]}</strong>
+            </header>
+            <div className="pm-set-share" aria-label={`${names[0]} ${Math.round(set.pointShare[0])} %, ${names[1]} ${Math.round(set.pointShare[1])} %`}>
+              <i style={{ width: `${set.pointShare[0]}%` }} />
+            </div>
+            <div className="pm-set-points">
+              {set.points.map((points, side) => (
+                <span key={names[side]}>
+                  <small>{names[side]}</small>
+                  <b>{points} pts</b>
+                </span>
+              ))}
+            </div>
+            <dl>
+              <div><dt>Breaks</dt><dd>{set.breaks[0]}–{set.breaks[1]}</dd></div>
+              <div><dt>Mayor racha</dt><dd>{set.longestRun[0]}–{set.longestRun[1]}</dd></div>
             </dl>
           </article>
         ))}
@@ -611,6 +698,7 @@ export default function PanoramaMatch({
         hasHeadToHead={Boolean(rivalry)}
       />
       <Summary match={match} />
+      <SetEvolution match={match} />
       <Statistics match={match} groups={groups} />
       {rivalry ? <HeadToHead rivalry={rivalry} names={names} tour={tour} /> : null}
       {supplemental ? <section className="pm-supplemental">{supplemental}</section> : null}

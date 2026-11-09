@@ -24,7 +24,7 @@ export function comparisonHref(first: string, second: string, anchor = 'cara-a-c
 }
 
 export function matchArchiveHref(tour: Tour) {
-  return tour === 'wta' ? '/buscar?tour=wta' : '/buscar'
+  return tour === 'wta' ? '/partidos?tour=wta' : '/partidos'
 }
 
 export function tournamentHref(slug: string, tour: Tour, year?: number) {
