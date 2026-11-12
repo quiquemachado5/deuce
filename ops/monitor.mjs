@@ -13,6 +13,24 @@ async function check() {
   const failures = [];
   try {
     const secret=process.env.HEALTH_SECRET||process.env.METRICS_SECRET;
+    // Deep operational checks run on the VPS with its private credential.
+    // GitHub without that credential verifies only the public release contract.
+    if (!secret) {
+      const publicResponse = await fetch(productionUrl+'/api/health',{signal:AbortSignal.timeout(30000),cache:'no-store'});
+      if(!publicResponse.ok)return {health:null,failures:['Public health: HTTP '+publicResponse.status]};
+      const h=await publicResponse.json();
+      if(h.status!=='ok')failures.push('Public health is not ok');
+      if(expectedCommit&&h.deployment?.commit!==expectedCommit)failures.push('Deployed commit does not match expected commit');
+      for(const tour of ['atp','wta']){
+        const overviewResponse=await fetch(productionUrl+'/api/overview?tour='+tour,{signal:AbortSignal.timeout(30000),cache:'no-store'});
+        if(!overviewResponse.ok){failures.push(tour+' overview: HTTP '+overviewResponse.status);continue}
+        const overview=await overviewResponse.json();
+        if(!Number.isFinite(overview.matches)||overview.matches<baseline.minimumTours[tour])failures.push(tour+' archive below release baseline');
+        if(overview.rulesVersion!==baseline.requiredRulesVersion)failures.push(tour+' rules version mismatch');
+      }
+      failures.push(...await seoSmokeFailures(productionUrl));
+      return {health:{...h,monitorScope:'public'},failures};
+    }
     const response = await fetch(productionUrl+'/api/health/deep',{headers:secret?{Authorization:'Bearer '+secret}:{},signal:AbortSignal.timeout(30000),cache:'no-store'});
     if(!response.ok) return { health: null, failures: ['Health endpoint: HTTP '+response.status] };
     const h = await response.json();
@@ -34,7 +52,7 @@ const report = monitorReport(health, failures, productionUrl);
 const reportArgument = process.argv.find(value => value.startsWith('--report='))?.slice(9);
 if (reportArgument) await writeFile(reportArgument, JSON.stringify(report, null, 2)+'\n');
 if (process.env.GITHUB_STEP_SUMMARY) await appendFile(process.env.GITHUB_STEP_SUMMARY, monitorMarkdown(report)+'\n');
-console.log(failures.length ? 'DEUCE: '+failures.join('; ') : 'DEUCE: producción operativa; archivo, copia externa y restauración verificados');
+console.log(failures.length ? 'DEUCE: '+failures.join('; ') : health?.monitorScope==='public' ? 'DEUCE: commit público, ambos circuitos y SEO verificados; diagnóstico privado reservado al VPS' : 'DEUCE: producción operativa; archivo, copia externa y restauración verificados');
 if(process.argv.includes('--check-only')) { process.exitCode = failures.length ? 1:0; }
 else {
   if(!process.env.GITHUB_TOKEN) throw new Error('GITHUB_TOKEN is required for incident delivery');
