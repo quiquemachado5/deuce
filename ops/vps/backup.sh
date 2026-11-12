@@ -97,7 +97,7 @@ const fs=require('fs'),[at,archive,encryptedArchive,encryptedSha256,sourceCommit
 const value={status:'awaiting-offsite',at,archive,encryptedArchive,encryptedSha256,sourceCommit,generationVersion,restoreValidated:true};
 fs.writeFileSync(root+'/backup-local-status.json.tmp',JSON.stringify(value),{mode:0o600});fs.renameSync(root+'/backup-local-status.json.tmp',root+'/backup-local-status.json');
 NODE
-  run_host_node -e 'require("fs").writeFileSync(process.argv[1],JSON.stringify({archive:process.argv[2],sha256:process.argv[3],createdAt:process.argv[4]})+"\n",{mode:0o600})' \
+  run_host_node -e 'const fs=require("fs"),p=process.argv[1];fs.writeFileSync(p+".tmp",JSON.stringify({archive:process.argv[2],sha256:process.argv[3],createdAt:process.argv[4]})+"\n",{mode:0o600});fs.renameSync(p+".tmp",p)' \
     /backups/last-encrypted.json "$(basename "${encrypted}")" "${encrypted_hash}" "${completed_at}"
   mv "${validation}" "${BACKUP_DIR}/last-backup-validation.json"
   trap - EXIT

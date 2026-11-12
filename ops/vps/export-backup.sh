@@ -18,7 +18,8 @@ if(local.encryptedArchive!==archive||local.encryptedSha256!==hash||!local.restor
 const at=new Date().toISOString(),value={...local,status:'success',at,offsiteVerified:true,remote:'github-release:quiquemachado5/deuce',release:'archive-backup-'+archive.slice(14,30)};
 fs.writeFileSync(root+'/backup-status.json.tmp',JSON.stringify(value),{mode:0o600});fs.renameSync(root+'/backup-status.json.tmp',root+'/backup-status.json');console.log(JSON.stringify({status:'verified',archive,at}));
 NODE
-  cp "$directory/last-encrypted.json" "$directory/last-offsite.json"
+  printf '{"archive":"%s","sha256":"%s"}\n' "$archive" "$hash" > "$directory/last-offsite.json.tmp"
+  mv "$directory/last-offsite.json.tmp" "$directory/last-offsite.json"
   printf '{"verifiedAt":"%s","archive":"%s","sha256":"%s","restoreValidated":true,"offsiteVerified":true}\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$archive" "$hash" > "$directory/last-success.json"
 else
   echo 'Only encrypted backup metadata, download and acknowledgement are allowed.' >&2
