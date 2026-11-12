@@ -1,0 +1,54 @@
+name: Encrypted offsite backup
+on:
+  schedule:
+    - cron: '13 4 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: deuce-offsite-backup
+  cancel-in-progress: false
+jobs:
+  backup:
+    if: github.repository == 'quiquemachado5/deuce' && github.event.repository.private == false
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      BACKUP_HOST: ${{ vars.DEUCE_VPS_HOST }}
+    steps:
+      - name: Retrieve encrypted archive using a restricted SSH key
+        env:
+          BACKUP_KEY: ${{ secrets.DEUCE_BACKUP_SSH_KEY }}
+          HOST_KEYS: ${{ secrets.DEUCE_VPS_KNOWN_HOSTS }}
+        run: |
+          set -euo pipefail
+          umask 077
+          mkdir -p ~/.ssh
+          printf '%s\n' "$BACKUP_KEY" > ~/.ssh/backup
+          printf '%s\n' "$HOST_KEYS" > ~/.ssh/known_hosts
+          ssh -i ~/.ssh/backup -o BatchMode=yes -o StrictHostKeyChecking=yes "deuce@$BACKUP_HOST" metadata > metadata.json
+          name=$(jq -er '.archive | select(test("^deuce-archive-[0-9]{8}T[0-9]{6}Z\\.tar\\.gz\\.enc$"))' metadata.json)
+          hash=$(jq -er '.sha256 | select(test("^[a-f0-9]{64}$"))' metadata.json)
+          ssh -i ~/.ssh/backup -o BatchMode=yes -o StrictHostKeyChecking=yes "deuce@$BACKUP_HOST" "download:$name" > "$name"
+          printf '%s  %s\n' "$hash" "$name" > "$name.sha256"
+          sha256sum -c "$name.sha256"
+          echo "BACKUP_NAME=$name" >> "$GITHUB_ENV"
+          echo "BACKUP_HASH=$hash" >> "$GITHUB_ENV"
+          echo "BACKUP_TAG=archive-backup-${name#deuce-archive-}" >> "$GITHUB_ENV"
+      - name: Publish and download-check the encrypted copy
+        run: |
+          set -euo pipefail
+          if ! gh release view "$BACKUP_TAG" >/dev/null 2>&1; then
+            gh release create "$BACKUP_TAG" --target "$GITHUB_SHA" --prerelease --title "Encrypted archive backup" --notes "Encrypted project archive; recovery key is stored separately." "$BACKUP_NAME" "$BACKUP_NAME.sha256"
+          fi
+          mkdir verify
+          gh release download "$BACKUP_TAG" --pattern "$BACKUP_NAME" --dir verify
+          test "$(sha256sum "verify/$BACKUP_NAME" | cut -d' ' -f1)" = "$BACKUP_HASH"
+          ssh -i ~/.ssh/backup -o BatchMode=yes -o StrictHostKeyChecking=yes "deuce@$BACKUP_HOST" "ack:$BACKUP_NAME:$BACKUP_HASH"
+      - name: Retain seven verified encrypted copies
+        run: |
+          gh api "repos/$GH_REPO/releases?per_page=100" --jq '[.[] | select(.tag_name | startswith("archive-backup-"))] | sort_by(.created_at) | reverse | .[7:][] | .tag_name' | while read -r tag; do
+            gh release delete "$tag" --cleanup-tag --yes
+          done

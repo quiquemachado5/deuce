@@ -5,6 +5,7 @@ ROOT="${DEUCE_ROOT:-/opt/deuce/app}"
 BACKUP_DIR="${DEUCE_BACKUP_DIR:-/opt/deuce/backups}"
 KEEP_DAYS="${DEUCE_BACKUP_KEEP_DAYS:-7}"
 REMOTE_KEEP_DAYS="${DEUCE_BACKUP_REMOTE_KEEP_DAYS:-14}"
+BACKUP_MODE="${DEUCE_BACKUP_MODE:-rclone}"
 
 cd "${ROOT}"
 install -d -m 0750 "${BACKUP_DIR}"
@@ -19,11 +20,11 @@ if [[ ! -f .env.production ]]; then
   echo "DEUCE backup failed: ${ROOT}/.env.production is missing." >&2
   exit 1
 fi
-if [[ -z "${DEUCE_BACKUP_REMOTE:-}" ]]; then
+if [[ "${BACKUP_MODE}" != github && -z "${DEUCE_BACKUP_REMOTE:-}" ]]; then
   echo "DEUCE_BACKUP_REMOTE is required; local-only backups are not accepted." >&2
   exit 1
 fi
-if ! command -v rclone >/dev/null 2>&1; then
+if [[ "${BACKUP_MODE}" != github ]] && ! command -v rclone >/dev/null 2>&1; then
   echo "rclone is required for the mandatory offsite backup." >&2
   exit 1
 fi
@@ -79,6 +80,33 @@ generation_version="$(docker compose --env-file .env.production exec -T web node
     .then(value=>process.stdout.write(String(JSON.parse(value).version||""))).catch(()=>process.exit(1));')"
 run_host_node -e 'const {writeFileSync}=require("node:fs");writeFileSync(process.argv[1],JSON.stringify({schema:1,createdAt:process.argv[2],archive:process.argv[3],sha256:process.argv[4],sourceCommit:process.argv[5],generationVersion:process.argv[6],restoreValidated:true})+"\n",{mode:0o600})' \
   "/backups/$(basename "${manifest}")" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$(basename "${destination}")" "$(awk 'NR==1 {print $1}' "${destination}.sha256")" "${image_revision}" "${generation_version}"
+
+if [[ "${BACKUP_MODE}" == github ]]; then
+  key_dir="${DEUCE_BACKUP_KEY_DIR:-/opt/deuce/backup-keys}"
+  encrypted="${destination}.enc"
+  docker run --rm --network none --user "$(id -u):$(id -g)" \
+    --mount "type=bind,source=${BACKUP_DIR},target=/backups" \
+    --mount "type=bind,source=${key_dir},target=/keys,readonly" \
+    --mount "type=bind,source=${ROOT}/ops/vps/backup-crypto.mjs,target=/crypto.mjs,readonly" \
+    node:24-bookworm-slim node /crypto.mjs encrypt \
+      "/backups/$(basename "${destination}")" "/backups/$(basename "${encrypted}")" /keys/public.pem
+  encrypted_hash="$(sha256sum "${encrypted}" | awk '{print $1}')"
+  completed_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+  docker exec -i "${web_id}" node - "${completed_at}" "$(basename "${destination}")" "$(basename "${encrypted}")" "${encrypted_hash}" "${image_revision}" "${generation_version}" <<'NODE'
+const fs=require('fs'),[at,archive,encryptedArchive,encryptedSha256,sourceCommit,generationVersion]=process.argv.slice(2),root=process.env.DEUCE_ARCHIVE_DIR||'/app/.deuce-archive';
+const value={status:'awaiting-offsite',at,archive,encryptedArchive,encryptedSha256,sourceCommit,generationVersion,restoreValidated:true};
+fs.writeFileSync(root+'/backup-local-status.json.tmp',JSON.stringify(value),{mode:0o600});fs.renameSync(root+'/backup-local-status.json.tmp',root+'/backup-local-status.json');
+NODE
+  run_host_node -e 'require("fs").writeFileSync(process.argv[1],JSON.stringify({archive:process.argv[2],sha256:process.argv[3],createdAt:process.argv[4]})+"\n",{mode:0o600})' \
+    /backups/last-encrypted.json "$(basename "${encrypted}")" "${encrypted_hash}" "${completed_at}"
+  mv "${validation}" "${BACKUP_DIR}/last-backup-validation.json"
+  trap - EXIT
+  # A local encrypted file is not an offsite success. The restricted reader
+  # acknowledges only after uploading and downloading the actual remote bytes.
+  find "${BACKUP_DIR}" -type f -name 'deuce-archive-*' -mtime "+${KEEP_DAYS}" -delete
+  echo "Validated encrypted backup ready for the offsite workflow."
+  exit 0
+fi
 
 remote="${DEUCE_BACKUP_REMOTE%/}"
 rclone copyto "${destination}" "${remote}/$(basename "${destination}")" --checksum --immutable
