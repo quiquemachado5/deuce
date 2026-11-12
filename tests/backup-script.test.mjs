@@ -6,6 +6,13 @@ const source = await readFile(new URL('../ops/vps/backup.sh', import.meta.url), 
 const restore = await readFile(new URL('../ops/vps/restore-drill.sh', import.meta.url), 'utf8')
 const bootstrap = await readFile(new URL('../ops/vps/bootstrap.sh', import.meta.url), 'utf8')
 const hardenSsh = await readFile(new URL('../ops/vps/harden-ssh.sh', import.meta.url), 'utf8')
+const dockerfile = await readFile(new URL('../Dockerfile', import.meta.url), 'utf8')
+const restoreValidation = await readFile(new URL('../build/restore-validation.mjs', import.meta.url), 'utf8')
+
+test('restore image includes its publication hash dependency', () => {
+  assert.match(restoreValidation, /from '\.\.\/lib\/publication-hash\.mjs'/)
+  assert.match(dockerfile, /COPY[^\n]*\/app\/lib\/publication-hash\.mjs \.\/lib\/publication-hash\.mjs/)
+})
 
 test('offsite backup validates a frozen restore before checksum and upload', () => {
   const restore = source.indexOf('node /app/build/restore-drill.mjs')

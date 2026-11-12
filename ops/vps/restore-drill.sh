@@ -10,6 +10,38 @@ if [[ ! -f .env.production ]]; then
   echo "Restore drill failed: ${ROOT}/.env.production is missing." >&2
   exit 1
 fi
+if [[ "${DEUCE_BACKUP_MODE:-rclone}" == github ]]; then
+  metadata="${BACKUP_DIR}/last-offsite.json"
+  [[ -s "$metadata" ]] || { echo 'No acknowledged offsite backup.' >&2; exit 1; }
+  temporary="$(mktemp -d "${BACKUP_DIR}/.restore-drill.XXXXXX")"
+  trap 'rm -rf -- "$temporary"' EXIT
+  image="$(<"${STATE_DIR}/active-image")"
+  read -r encrypted expected < <(docker run --rm --network none --mount "type=bind,source=${metadata},target=/meta.json,readonly" node:24-bookworm-slim node -e 'const m=require("/meta.json");console.log(m.archive,m.sha256)')
+  [[ "$encrypted" =~ ^deuce-archive-[0-9]{8}T[0-9]{6}Z\.tar\.gz\.enc$ && "$expected" =~ ^[a-f0-9]{64}$ ]]
+  stamp="${encrypted#deuce-archive-}"; stamp="${stamp%.tar.gz.enc}"
+  backup_at="${stamp:0:4}-${stamp:4:2}-${stamp:6:2}T${stamp:9:2}:${stamp:11:2}:${stamp:13:2}Z"
+  age_seconds="$(( $(date -u +%s) - $(date -u -d "$backup_at" +%s) ))"
+  (( age_seconds >= 0 && age_seconds < 192 * 3600 )) || { echo 'Offsite backup is stale.' >&2; exit 1; }
+  curl --fail --silent --show-error --location --proto '=https' --max-time 300 \
+    "https://github.com/quiquemachado5/deuce/releases/download/archive-backup-${encrypted#deuce-archive-}/${encrypted}" > "${temporary}/backup.enc"
+  [[ "$(sha256sum "${temporary}/backup.enc" | cut -d' ' -f1)" == "$expected" ]]
+  docker run --rm --network none --user "$(id -u):$(id -g)" \
+    --mount "type=bind,source=${temporary},target=/restore" \
+    --mount "type=bind,source=${DEUCE_BACKUP_KEY_DIR:-/opt/deuce/backup-keys},target=/keys,readonly" \
+    --mount "type=bind,source=${ROOT}/ops/vps/backup-crypto.mjs,target=/crypto.mjs,readonly" \
+    node:24-bookworm-slim node /crypto.mjs decrypt /restore/backup.enc /restore/backup.tar.gz /keys/private.pem
+  docker run --rm --network none --user 0:0 --mount "type=bind,source=${temporary},target=/restore,readonly" \
+    --env DEUCE_RESTORE_ARCHIVE=/restore/backup.tar.gz "$image" node /app/build/restore-drill.mjs > "${BACKUP_DIR}/last-restore-drill.log"
+  verified_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+  docker compose --env-file .env.production exec -T web node -e '
+    const fs=require("fs"),root=process.env.DEUCE_ARCHIVE_DIR||"/app/.deuce-archive";
+    const value={status:"success",at:process.argv[1],backupAt:process.argv[2],archive:process.argv[3],sha256:process.argv[4],restoreValidated:true,offsiteVerified:true};
+    fs.writeFileSync(root+"/restore-drill-status.json.tmp",JSON.stringify(value),{mode:0o600});fs.renameSync(root+"/restore-drill-status.json.tmp",root+"/restore-drill-status.json");' \
+    "$verified_at" "$backup_at" "$encrypted" "$expected"
+  printf '{"verifiedAt":"%s","archive":"%s","restoreValidated":true,"offsiteVerified":true}\n' "$verified_at" "$encrypted" > "${BACKUP_DIR}/last-restore-drill.json"
+  cat "${BACKUP_DIR}/last-restore-drill.log"
+  exit 0
+fi
 if [[ -z "${DEUCE_BACKUP_REMOTE:-}" ]]; then
   echo "DEUCE_BACKUP_REMOTE is required for the restore drill." >&2
   exit 1

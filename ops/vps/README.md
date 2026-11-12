@@ -34,6 +34,16 @@ El snapshot opcional puede publicarse por HTTPS con `npm run data:snapshot:expor
 
 ## Copias y restauración
 
+### Destino gratuito cifrado en GitHub
+
+`DEUCE_BACKUP_MODE=github` conserva la validación completa del tar antes de cifrarlo con AES-256-GCM y una clave de archivo aleatoria protegida mediante RSA-OAEP SHA-256. Las claves de recuperación se guardan fuera de Git, en `/opt/deuce/backup-keys` (0700, privada 0600), con otra copia privada en el Mac del propietario. GitHub nunca recibe claves de descifrado ni archivos en claro.
+
+`Encrypted offsite backup` descarga diariamente a las 04:13 UTC únicamente el archivo cifrado mediante una clave SSH restringida a `export-backup.sh`, lo publica como prerelease y descarga los bytes publicados para comprobar su SHA-256. Solo entonces confirma la copia al servidor. Conserva siete releases de backup. Usa runners estándar del repositorio público, sin Actions artifacts ni almacenamiento contratado. Si cambia la visibilidad del repositorio, se debe revisar esta política antes de habilitar el job en otro contexto.
+
+El secreto `DEUCE_BACKUP_SSH_KEY` no permite shell, SFTP, túneles ni descargar el archivo en claro; solo metadatos, descarga cifrada y confirmación de un hash ya validado. El job no se ejecuta en pull requests. Un archivo local cifrado queda como `awaiting-offsite`, nunca como éxito externo.
+
+El simulacro semanal descarga el archivo real de la release, verifica su hash, lo descifra en un directorio temporal y restaura/valida todas sus particiones en un contenedor sin red. Una pérdida del VPS se recupera con el código de GitHub, la release cifrada y la clave privada conservada en el Mac. Mantener esa clave es imprescindible: el cifrado no tiene recuperación sin ella.
+
 `deuce-backup.timer` comprime a diario el volumen físico y, antes de subirlo, usa la imagen activa para descomprimirlo y validar manifiesto, packs, piezas ATP/WTA, índices y todas las particiones. Si una publicación cambia el volumen durante la lectura, repite hasta tres veces el tar y la restauración. Solo una copia restaurable recibe su SHA-256 y se transfiere fuera del servidor; después se descarga por streaming el tar remoto real y se vuelve a calcular su hash, además de comprobar el sidecar. Un fallo de restauración, local, remoto o de configuración hace fallar la unidad; no se acepta una copia solo local. El resultado de esta validación previa queda en `/opt/deuce/backups/last-backup-validation.json`.
 
 `deuce-restore-drill.timer` descarga semanalmente la copia externa más reciente y ejecuta `build/restore-drill.mjs` dentro de la imagen activa. Rechaza una copia con más de 192 horas, salvo que `DEUCE_RESTORE_MAX_AGE_HOURS` configure otra ventana. El simulacro descomprime en un directorio temporal y comprueba manifiesto, particiones, packs, recuentos e identificadores sin tocar el volumen de producción. Sus últimos resultados quedan en `/opt/deuce/backups/last-restore-drill.json` y `last-restore-drill.log`; salud profunda y monitor leen también los estados atómicos del volumen.
