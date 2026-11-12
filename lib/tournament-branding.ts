@@ -2,14 +2,26 @@ export type TournamentBranding = {
   src: string;
   source: string;
   trophySrc?: string;
+  surface?: 'dark'|'light';
+  circuitFallback?:boolean;
+  monochrome?:boolean;
 };
 
 // Local editorial copies of marks published by each tournament. Keeping the
 // source beside the asset makes provenance reviewable and avoids remote image
 // requests from player profile pages.
 const tournamentBranding: Record<string, TournamentBranding> = {
+  Vienna:{src:'/images/tournament-logos/vienna-official.webp',source:'https://www.erstebank-open.com/en/'},
+  Dubai:{src:'/images/tournament-logos/dubai-official.webp',source:'https://dubaidutyfreetennischampionships.com/',surface:'dark'},
+  Beijing:{src:'/images/tournament-logos/beijing-official.webp',source:'https://www.chinaopen.com/',surface:'dark'},
+  Stuttgart:{src:'/images/tournament-logos/stuttgart-official.webp',source:'https://www.bossopen.com/'},
+  Mallorca:{src:'/images/tournament-logos/mallorca.webp',source:'https://www.mallorca-championships.com/'},
+  Gstaad:{src:'/images/tournament-logos/gstaad.webp',source:'https://swissopengstaad.ch/'},
+  Estoril:{src:'/images/tournament-logos/estoril.webp',source:'https://www.millenniumestorilopen.com/'},
+  'Winston-Salem':{src:'/images/tournament-logos/winston-salem.webp',source:'https://www.winstonsalemopen.com/'},
   'Australian Open': {
-    src: '/images/tournament-logos/ao.webp',
+    src: '/images/tournament-logos/ao-transparent.svg',
+    monochrome: true,
     source: 'https://ausopen.com/',
     trophySrc: '/images/tournament-logos/australian-open.svg?v=deuce-trophy',
   },
@@ -24,7 +36,7 @@ const tournamentBranding: Record<string, TournamentBranding> = {
     trophySrc: '/images/tournament-logos/wimbledon.svg?v=deuce-trophy',
   },
   'US Open': {
-    src: '/images/tournament-logos/usopen.webp',
+    src: '/images/tournament-logos/us-open-transparent.svg',
     source: 'https://www.usopen.org/',
     trophySrc: '/images/tournament-logos/us-open.svg?v=deuce-trophy',
   },
@@ -59,6 +71,7 @@ const tournamentBranding: Record<string, TournamentBranding> = {
   Paris: {
     src: '/images/tournament-logos/paris.webp',
     source: 'https://www.rolexparismasters.com/',
+    surface: 'dark',
   },
   Shanghai: {
     src: '/images/tournament-logos/shanghai.svg',
@@ -91,5 +104,14 @@ const tournamentBranding: Record<string, TournamentBranding> = {
 };
 
 export function tournamentBrandingFor(name: string) {
-  return tournamentBranding[name] || null;
+  const aliases:Record<string,string>={'Abierto de Australia':'Australian Open','Abierto de Estados Unidos':'US Open',Montecarlo:'Monte Carlo',Roma:'Rome','Canadá':'Canada','Shanghái':'Shanghai','París':'Paris',Tokio:'Tokyo',Viena:'Vienna',Pekín:'Beijing','Pekín (China Open)':'Beijing'};
+  return tournamentBranding[aliases[name]||name] || null;
 }
+
+/** Unavailable historical event marks use the official circuit mark, never an invented tournament logo. */
+export function tournamentMarkFor(name:string,tour:'atp'|'wta'='atp'):TournamentBranding {
+  const major=['Australian Open','Roland Garros','Wimbledon','US Open','Abierto de Australia','Abierto de Estados Unidos'].includes(name);
+  return (major?tournamentBrandingFor(name):null)||{src:(tour==='wta'?'/images/tournament-logos/wta-official.svg':'/images/tournament-logos/atp-official.svg'),source:tour==='wta'?'https://www.wtatennis.com/':'https://www.atptour.com/',surface:'light',circuitFallback:true,monochrome:true};
+}
+
+export const tournamentBrandCredits=[...Object.entries(tournamentBranding).map(([name,brand])=>({name:`Logo · ${name}`,photo:{src:brand.src,alt:`Marca oficial de ${name}`,credit:'Marca del torneo · fuente oficial',source:brand.source}})),...(['atp','wta'] as const).map(tour=>({name:`Logo · ${tour.toUpperCase()}`,photo:{src:(tour==='wta'?'/images/tournament-logos/wta-official.svg':'/images/tournament-logos/atp-official.svg'),alt:`Marca oficial ${tour.toUpperCase()}`,credit:'Marca del circuito · fuente oficial',source:tour==='atp'?'https://commons.wikimedia.org/wiki/File:ATP_Tour_logo.svg':'https://www.wtatennis.com/'}}))];

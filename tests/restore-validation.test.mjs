@@ -1,4 +1,5 @@
 import test from 'node:test'
+import {publicationSummaryHash} from '../lib/publication-hash.mjs'
 import assert from 'node:assert/strict'
 import { createHash } from 'node:crypto'
 import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
@@ -34,8 +35,8 @@ async function writeBundledFixture(root,{swapBrowserIds=false,omitWtaShard=false
     'piece-wta-wins':{pages:{1:[{name:'WTA',proof:{match_id:'wta-1'}}]},smallPages:{}},
     'browser-index':{schema:MATCH_BROWSER_SCHEMA,count:2,partitions,circuits:{atp:circuit,wta:circuit}},
     'publication-index':{schema:1,count:2,entries:[
-      {identity:'atp:atp-1',tour:'atp',year:2026,hash:'a'.repeat(24)},
-      {identity:'wta:wta-1',tour:'wta',year:2026,hash:'b'.repeat(24)},
+      {identity:'atp:atp-1',tour:'atp',year:2026,hash:publicationSummaryHash({match_id:'atp-1',tour:'atp',year:2026})},
+      {identity:'wta:wta-1',tour:'wta',year:2026,hash:publicationSummaryHash({match_id:'wta-1',tour:'wta',year:2026})},
     ]},
     ...Object.fromEntries(productIds.map(id=>[id,{schema:1}])),
     [`browser-${partitions[0].id}`]:{schema:MATCH_BROWSER_SCHEMA,...partitions[0],dictionaries,rows:[browserRow(swapBrowserIds?'wta-1':'atp-1')]},
@@ -94,8 +95,8 @@ test('physical restore validation reconstructs complete packed artifacts', async
       ]) }, smallPages: {} },
       'browser-index': blob({ schema: MATCH_BROWSER_SCHEMA, count: 2, partitions, circuits: { atp: circuit, wta: circuit } }),
       'publication-index':blob({schema:1,count:2,entries:[
-        {identity:'atp:atp-1',tour:'atp',year:2026,hash:'a'.repeat(24)},
-        {identity:'wta:wta-1',tour:'wta',year:2026,hash:'b'.repeat(24)},
+        {identity:'atp:atp-1',tour:'atp',year:2026,hash:publicationSummaryHash({match_id:'atp-1',tour:'atp',year:2026})},
+        {identity:'wta:wta-1',tour:'wta',year:2026,hash:publicationSummaryHash({match_id:'wta-1',tour:'wta',year:2026})},
       ]}),
       ...Object.fromEntries(productIds.map(id=>[id,blob({schema:1})])),
       [`browser-${partitions[0].id}`]: blob({ schema: MATCH_BROWSER_SCHEMA, ...partitions[0], dictionaries, rows: [browserRow('atp-1')] }),
@@ -114,3 +115,12 @@ test('physical restore validation reconstructs complete packed artifacts', async
     assert.equal(result.browserPartitions, 2)
   } finally { await rm(root, { recursive: true, force: true }) }
 })
+
+test('restore rejects a same-count match whose content disagrees with its publication ledger',async()=>{
+ const root=await mkdtemp(join(tmpdir(),'deuce-semantic-restore-'));
+ try{
+  await writeBundledFixture(root);
+  await writeFile(join(root,'matches-atp-2020s.json.gz'),gzipSync(JSON.stringify([{match_id:'atp-1',tour:'atp',year:2026,tournament:'Corrupted tournament'}])));
+  await assert.rejects(verifyBundledDirectory(root),/content hash mismatch/);
+ }finally{await rm(root,{recursive:true,force:true})}
+});

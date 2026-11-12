@@ -1,0 +1,1144 @@
+[
+  {
+    "url": "https://www.rte.ie/sport/tennis/2024/0604/1452978-djokovic-withdraws-from-french-open-due-to-knee-injury/",
+    "file": "ea8af8ec2fcbd39a5501b5cd.gz",
+    "retrievedAt": "2026-11-11T21:26:17.098Z",
+    "sha256": "7dd88fc6a36d1426ed889fb70c565d960c516a7ce1209045711f77961c6b12f9",
+    "bytes": 113426,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.atptour.com/en/news/de-minaur-wimbledon-2024-withdrawal",
+    "retrievedAt": "2026-11-11T21:44:08.665Z",
+    "error": "HTTP 403"
+  },
+  {
+    "url": "https://www.tennis.com.au/fan-zone/news/2024/07/10/de-minaur-withdraws-from-wimbledon-2024-due-to-freak-injury",
+    "retrievedAt": "2026-11-11T21:44:08.652Z",
+    "error": "HTTP 403"
+  },
+  {
+    "url": "https://www.rolandgarros.com/en-us/article/rg2024-day-10-as-it-happens-tuesday-june-4",
+    "file": "6785b72ebecf3c6dc89d27af.gz",
+    "retrievedAt": "2026-11-11T21:26:17.408Z",
+    "sha256": "964904d7349406df0c5bee8246c6a9268b0359bdcf55becd8096a89977a2ba6e",
+    "bytes": 682767,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.atptour.com/en/news/lehecka-auger-aliassime-madrid-2024-friday-sf",
+    "retrievedAt": "2026-11-11T21:44:08.656Z",
+    "error": "HTTP 403"
+  },
+  {
+    "url": "https://www.tennis.com/news/articles/novak-djokovic-withdraws-from-2024-roland-garros-due-to-knee-injury-jannik-sinner-clinches-atp-world-no-1",
+    "file": "50a67d5027c03c35b445268a.gz",
+    "retrievedAt": "2026-11-11T21:26:17.437Z",
+    "sha256": "1b3222ce64b2ad21f3c5f00c6f4c10fedd3c56da88721488abe5fb5604c65707",
+    "bytes": 63525,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.tennis.com/news/articles/jannik-sinner-withdraws-from-madrid-with-right-hip-injury-auger-aliassime-into-semis",
+    "file": "c1c187c836b144a068e36939.gz",
+    "retrievedAt": "2026-11-11T21:26:17.674Z",
+    "sha256": "0205399d5d2721a611803b335f14605265e351ab5853024c87250b4f5972cad5",
+    "bytes": 58706,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.tennislive.net/atp/match/felix-auger-aliassime-VS-jannik-sinner/mutua-madrid-open-madrid-2024/",
+    "file": "ff0613dc47e487ebe10a6a23.gz",
+    "retrievedAt": "2026-11-11T21:26:17.897Z",
+    "sha256": "fa24ae56f2583b20c86c2f8ed2d18f2673b64d4b2eb7ac47b34d5e411edd913c",
+    "bytes": 304334,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://www.tennismajors.com/atp/stuttgart-open-nakashima-reaches-last-four-767672.html",
+    "file": "55a8700eba7b7d1e5788bf76.gz",
+    "retrievedAt": "2026-11-11T21:26:18.081Z",
+    "sha256": "c1b308893496ca26af3a8514ff01130a62d2541e616714e81631debdee7be2ab",
+    "bytes": 147197,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://as.com/tenis/wimbledon/djokovic-llega-a-las-semifinales-sin-jugar-por-renuncia-de-de-minaur-n/",
+    "file": "d244ecc1d3fa2bee6b5b0c54.gz",
+    "retrievedAt": "2026-11-11T21:26:18.678Z",
+    "sha256": "86aae611a614ee3685006fcccc5bb165c2acb16e2a8f5bbe222f5acbab1a4301",
+    "bytes": 288757,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.atptour.com/en/news/medvedev-griekspoor-dubai-2026-final",
+    "retrievedAt": "2026-11-11T21:44:08.676Z",
+    "error": "HTTP 403"
+  },
+  {
+    "url": "https://www.sofascore.com/tennis/match/daniil-medvedev-tallon-griekspoor/tXYsevpb",
+    "retrievedAt": "2026-11-11T21:44:08.715Z",
+    "error": "HTTP 403"
+  },
+  {
+    "url": "https://bossopen.com/en/news/illness-stops-jan-lennard-struff-in-stuttgart",
+    "file": "98dc13c6d026fce14df6192e.gz",
+    "retrievedAt": "2026-11-11T21:26:18.788Z",
+    "sha256": "0d0a0c338f035573ef7d45d867e53f5c076b105922c6087cec2b260031f7e834",
+    "bytes": 274049,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "https://www.tennislive.net/atp/match/daniil-medvedev-VS-tallon-griekspoor/dubai-duty-free-tennis-championships-dubai-2026/",
+    "file": "b458706d75508d80a5488527.gz",
+    "retrievedAt": "2026-11-11T21:26:19.174Z",
+    "sha256": "72e2a442f094b97681a818029f95a2cf113b2d3c95a6d4c01bf0c8892bb43f89",
+    "bytes": 308598,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://www.irozhlas.cz/sport/tenis/barbora-krejcikova-zraneni-turnaj-v-eastbourne-tenis_2506261254_mim",
+    "retrievedAt": "2026-11-11T21:44:08.753Z",
+    "error": "HTTP 403"
+  },
+  {
+    "url": "https://en.tennistemple.com/actu/krejcikova-withdraws-from-eastbourne-gracheva/TXpc",
+    "retrievedAt": "2026-11-11T21:44:08.746Z",
+    "error": "HTTP 403"
+  },
+  {
+    "url": "https://www.wtatennis.com/news/4296995/krejcikova-withdraws-from-eastbourne-due-to-injury",
+    "file": "f1bb19ec702e7b5c631908a1.gz",
+    "retrievedAt": "2026-11-11T21:26:20.351Z",
+    "sha256": "c20b2d115da41d0be86b4132cb2951e838b6ab5e1e4612838320370ec52b7711",
+    "bytes": 197755,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "https://www.wtatennis.com/tournaments/1050/Hobart/2025/draws",
+    "file": "551b736551f87d870a0303cc.gz",
+    "retrievedAt": "2026-11-11T21:26:20.430Z",
+    "sha256": "9834447eb40892f078e90f8c5911bb2a39be401cd4684986bee788d6cac14975",
+    "bytes": 925065,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "https://www.tennislive.net/wta/match/elina-avanesyan-VS-amanda-anisimova/hobart-international-hobart-2025/",
+    "file": "22763f003ca0168af66aa7db.gz",
+    "retrievedAt": "2026-11-11T21:26:20.921Z",
+    "sha256": "da4e3d3b8f7b4dc52df43a63ca482d3a0f36475fe49329a1a44b078db71b4c6d",
+    "bytes": 297886,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://sport.sky.de/tennis/artikel/struff-steigt-wegen-krankheit-beim-turnier-in-stuttgart-aus/13152950/34344",
+    "file": "4bf28f6380943d19e975158b.gz",
+    "retrievedAt": "2026-11-11T21:26:21.003Z",
+    "sha256": "15daa0fcdf2843e85b7d0a445511fd17ac73655a8543d54d080f9411e0255057",
+    "bytes": 218478,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://www.tennislive.net/wta/eva-lys/",
+    "file": "d0729f85bc254ec65258c8ae.gz",
+    "retrievedAt": "2026-11-11T21:26:21.495Z",
+    "sha256": "3b47ab1d2809f064aa96e7da2dacd1c0ce8c6ede2123becea7c034bbabeee483",
+    "bytes": 376193,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://wtafiles.wtatennis.com/pdf/matchnotes/2025/2040_SF.pdf",
+    "file": "77c8ae87f4b9c9e32a3b478a.gz",
+    "retrievedAt": "2026-11-11T21:26:21.642Z",
+    "sha256": "ce2fd3fcbcb29443bc57ed2a7690baff42c4eb83a812af9a6b12710d7e6ecf77",
+    "bytes": 1049151,
+    "contentType": "application/pdf"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Anastasia_Zakharova",
+    "file": "436eb0b9e6bc72b98c43a3e0.gz",
+    "retrievedAt": "2026-11-11T21:26:21.934Z",
+    "sha256": "d4d7955ed339483cfe337e70dad9e8a2c880b7f850b27ceb357dc976ec46ea25",
+    "bytes": 310014,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://www.wtatennis.com/tournaments/1074/-/2025/draws",
+    "file": "a193d6d3fce8bb7420f3f454.gz",
+    "retrievedAt": "2026-11-11T21:26:22.545Z",
+    "sha256": "540e6592f341fd927a1996f9ffccde570540691137d6869da3e138475e1f5b93",
+    "bytes": 924463,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "https://en.tennistemple.com/actu/bencic-withdraws-before-her-quarterfinal-in-hong/i4JA",
+    "retrievedAt": "2026-11-11T21:44:08.777Z",
+    "error": "HTTP 403"
+  },
+  {
+    "url": "https://www.tennisabstract.com/cgi-bin/wtourney.cgi?t=2025-1050%2FHobart",
+    "file": "95dba91981811338dbc3ab4d.gz",
+    "retrievedAt": "2026-11-11T21:26:22.899Z",
+    "sha256": "fb5eace63fd7e3202f363e63e67088d251e003ed78b0fe23527de1c2ec0826dd",
+    "bytes": 127162,
+    "contentType": "text/html"
+  },
+  {
+    "url": "https://www.wtatennis.com/news/4027533/keys-reaches-first-red-clay-final-in-eight-years-in-strasbourg",
+    "file": "cbdeddc6b9b15cea4841c9f4.gz",
+    "retrievedAt": "2026-11-11T21:26:23.538Z",
+    "sha256": "e45dcaf6ca7d31a3a96c9ce79ef41afa4b1707682a1499521f0a5774ab513dde",
+    "bytes": 187199,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "https://news.rthk.hk/rthk/en/component/k2/1829568-20251031.htm",
+    "file": "4a203c4a234982e3ac5b2929.gz",
+    "retrievedAt": "2026-11-11T21:26:23.563Z",
+    "sha256": "b6c1f63912760b56ae513f44edc086d9d47d0904394b34b13a9432d3c7a99b34",
+    "bytes": 52793,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/2024_Internationaux_de_Strasbourg_%E2%80%93_Singles",
+    "file": "8f51f145cb8a7e2a79d6cd79.gz",
+    "retrievedAt": "2026-11-11T21:26:23.657Z",
+    "sha256": "8ce90483f8d5e16124cf56d8272e9f28a0f1da0cf2d01c72cb017578b0441371",
+    "bytes": 395855,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://sport.sky.it/tennis/2025/02/14/musetti-infortunio-atp-buenos-aires-news",
+    "file": "732d6a74f2dec5c67e495dce.gz",
+    "retrievedAt": "2026-11-11T21:26:24.101Z",
+    "sha256": "2862bc66aa4adefa599c69e660607f8d1d8d9da29d41837d38bccd9134fb8c9f",
+    "bytes": 222163,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://en.tennistemple.com/actu/musetti-withdraws-from-rio-de-janeiro-atp-500/paCF",
+    "retrievedAt": "2026-11-11T21:44:08.773Z",
+    "error": "HTTP 403"
+  },
+  {
+    "url": "https://www.tennisabstract.com/cgi-bin/wtourney.cgi?t=2024-406%2FStrasbourg",
+    "file": "9f98c4b179205ede4f6f8ef9.gz",
+    "retrievedAt": "2026-11-11T21:26:24.914Z",
+    "sha256": "6c2b617bd716df5dc340a6143fc06a9bb7dc213186f21e28fe5f255807a458bb",
+    "bytes": 112716,
+    "contentType": "text/html"
+  },
+  {
+    "url": "https://as.com/tenis/musetti-se-retira-y-mete-a-pedro-martinez-en-semifinales-n/",
+    "file": "34edfaafd369f47cb1e3cf6d.gz",
+    "retrievedAt": "2026-11-11T21:26:24.977Z",
+    "sha256": "88b9a158efe17314d029d009290b518f036baa76719679fcb56cef22ed1824a6",
+    "bytes": 273420,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.mykhel.com/tennis/adelaide-international-2024-womens-singles-scores-c10973/",
+    "retrievedAt": "2026-11-11T21:44:08.814Z",
+    "error": "HTTP 403"
+  },
+  {
+    "url": "https://www.wtatennis.com/news/3854419/ostapenko-to-face-kasatkina-in-adelaide-final-pegula-withdraws",
+    "file": "130c55c1c343557e3f3d1bf8.gz",
+    "retrievedAt": "2026-11-11T21:26:26.351Z",
+    "sha256": "043b1426fb303fadc3613b56d56c22aeb1a9871dd1ebaa333887a83ee3071306",
+    "bytes": 197530,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "https://www.wtatennis.com/news/3897431/swiatek-reaches-doha-final-after-pliskova-withdraws",
+    "file": "c4c5d7b93d7ecd1750fbcfe9.gz",
+    "retrievedAt": "2026-11-11T21:26:26.412Z",
+    "sha256": "64cb408b71739b358021839680fceca7bcefd39d51114a1e833639272a70ced0",
+    "bytes": 199468,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "https://www.tennisabstract.com/cgi-bin/wtourney.cgi?t=2024-2014%2FAdelaide",
+    "file": "e51488c9c7e9c5e00a902ded.gz",
+    "retrievedAt": "2026-11-11T21:26:26.494Z",
+    "sha256": "9cfdc379235fa34aa5e88c709669b7c634bc2a8c4fe41ec716052a3026a21e0e",
+    "bytes": 124827,
+    "contentType": "text/html"
+  },
+  {
+    "url": "https://dziendobry.tvn.pl/zdrowie/sport-i-fitness/zaskakujace-doniesienia-z-turnieju-w-doha-ta-decyzja-ma-wplyw-na-dalsze-losy-igi-swiatek-st7776893",
+    "file": "fe8839dbf99c7aed9ed37e45.gz",
+    "retrievedAt": "2026-11-11T21:26:26.998Z",
+    "sha256": "133e539a26087a57188a62aa44f5ccde5ad56f124a1701925a4a2f74bf5bfc92",
+    "bytes": 468559,
+    "contentType": "text/html"
+  },
+  {
+    "url": "https://www.idnes.cz/sport/tenis/turnaje-dauha-rotterdam-delray-beach-buenos-aires.A240216_153557_tenis_ten",
+    "file": "50975a5ee711fb08db96ef56.gz",
+    "retrievedAt": "2026-11-11T21:26:27.088Z",
+    "sha256": "aec83f9e20794caed06c531c9a4e0ca6b0d234d2f7f0bc7b72317c873bdc5c8e",
+    "bytes": 20954,
+    "contentType": "text/html; charset=windows-1250"
+  },
+  {
+    "url": "https://www.wtatennis.com/news/3066186/swiatek-dominates-collins-in-doha-opener",
+    "file": "3753b41f634c3b8c6d200079.gz",
+    "retrievedAt": "2026-11-11T21:26:27.306Z",
+    "sha256": "acd95063ff7c9a44cd04e3766a0aa5a256112708b7be4c65f7fe3b3779bb6f4f",
+    "bytes": 180989,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "https://www.tennislive.net/atp/match/alejandro-tabilo-VS-cameron-norrie/asb-classic-auckland-2024/",
+    "file": "c8ad8cb5432f0dd4f47c31f3.gz",
+    "retrievedAt": "2026-11-11T21:26:27.732Z",
+    "sha256": "0a204e9b076ecd47794141cfc0fb1adf785d82985132a03cb43b79f9c687e0c4",
+    "bytes": 298639,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://www.sofascore.com/tennis/match/alejandro-tabilo-cameron-norrie/KtNsbTP",
+    "retrievedAt": "2026-11-11T21:44:08.785Z",
+    "error": "HTTP 403"
+  },
+  {
+    "url": "https://www.gulf-times.com/pdf/2023/02/17/sport-20230217-1.pdf?ts=005234",
+    "file": "ea37a73e596840e623d6a593.gz",
+    "retrievedAt": "2026-11-11T21:26:28.155Z",
+    "sha256": "4ddbe38ca361b8f4d654ffc73835167f24b0f60e4f33aaa0c0a1ee18ad826021",
+    "bytes": 1485687,
+    "contentType": "application/pdf"
+  },
+  {
+    "url": "https://www.rolandgarros.com/en-us/article/wta-atp-swiatek-doha-alcaraz-comeback-buenos-aires-medvedev-rotterdam-fritz-delray-beach-titles",
+    "file": "fee01eb9b5fc3ea1a384edee.gz",
+    "retrievedAt": "2026-11-11T21:26:28.168Z",
+    "sha256": "cb1f6d95d32150ba4cb22d66e4527d357205afa67d92a9acafc2b712cf38be7c",
+    "bytes": 663280,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.365scores.com/tennis/match/auckland-567/alejandro-tabilo-cameron-norrie-28898-50550-567",
+    "file": "f36e1eac553f086e2e0dfade.gz",
+    "retrievedAt": "2026-11-11T21:26:28.249Z",
+    "sha256": "31a83938f4f5cd89660db7d608810a601481fe8c22c9dd8dd3d219a1e442d68c",
+    "bytes": 73356,
+    "contentType": "text/html"
+  },
+  {
+    "url": "https://www.tennislive.net/atp/match/lorenzo-musetti-VS-jannik-sinner/barcelona-open-banc-sabadell-barcelona-2023/",
+    "file": "dda08c7c4836602399701902.gz",
+    "retrievedAt": "2026-11-11T21:26:28.534Z",
+    "sha256": "cb8309f1d2d44806360aeb01ddb3ec41de0cf3a603a651ecf3f43ab707a543d8",
+    "bytes": 307440,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://sport.sky.it/tennis/2023/04/21/sinner-musetti-atp-barcellona-risultato",
+    "file": "6ab0be4c0ae31841d82dfff3.gz",
+    "retrievedAt": "2026-11-11T21:26:28.601Z",
+    "sha256": "de23c8d0de70a2b78e7a7d6787284fdfe18d9655164a0813d1159c36b41ad856",
+    "bytes": 223245,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://www.tennisexplorer.com/player/osaka-fa603/?annual=2025",
+    "file": "42ae1f26bc135c436ef2e1e2.gz",
+    "retrievedAt": "2026-11-11T21:26:29.033Z",
+    "sha256": "dc31a26f8361e9413997fc124eb5907c27e42e3830cabbbc93f0787f702804f0",
+    "bytes": 156439,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/2023_Barcelona_Open_Banc_Sabadell_%E2%80%93_Singles",
+    "file": "18315e5293c77b9325516b9e.gz",
+    "retrievedAt": "2026-11-11T21:26:29.142Z",
+    "sha256": "9e39904317805f374a5a63470dcadefb3ed4546539fc0a4d3ebe39237d2a1244",
+    "bytes": 577843,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://www.wtatennis.com/news/4383798/osaka-withdraws-from-japan-open-with-left-leg-injury-cristian-advances-to-semifinals",
+    "file": "5ca7eca14927f2aae7f76c6d.gz",
+    "retrievedAt": "2026-11-11T21:26:29.429Z",
+    "sha256": "24774fa315535301187b84a34d383835563776026036f3ad2a96450c9e9606d5",
+    "bytes": 194954,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "https://en.tennistemple.com/match/noskova-rybakina-tokyo-2025/9442039/",
+    "retrievedAt": "2026-11-11T21:44:08.797Z",
+    "error": "HTTP 403"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/2025_Elena_Rybakina_tennis_season",
+    "file": "17654ebb87f470768f7021bf.gz",
+    "retrievedAt": "2026-11-11T21:26:29.563Z",
+    "sha256": "4ef9cfcd5b9766135bc71c6274d320c326a3b2ce981ef24238fc4ee6ab7386a1",
+    "bytes": 610950,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://www.wtatennis.com/tournaments/1056/tokyo/2025/scores/LS003",
+    "file": "e66ea967b5347f96544cf7f8.gz",
+    "retrievedAt": "2026-11-11T21:26:29.620Z",
+    "sha256": "35468f1294bb7ae8a3bf276da6e39fd679de97c43a0a3e18341e122dd6a99f2b",
+    "bytes": 166240,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/2025_Japan_Women%27s_Open_%E2%80%93_Singles",
+    "file": "f5d03c9dfc1d4bfe9c85ce90.gz",
+    "retrievedAt": "2026-11-11T21:26:29.815Z",
+    "sha256": "7ccd011e550fe97335f19221755116aedac37ee5fd7194ce58f0bb2dae81a21d",
+    "bytes": 458159,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://www.lequipe.fr/Tennis/auckland/epreuve-simple-dames/annee-2026/match-direct/elina-svitolina-sonay-kartal-live/410266",
+    "retrievedAt": "2026-11-11T21:44:08.981Z",
+    "error": "HTTP 403"
+  },
+  {
+    "url": "https://www.wtatennis.com/tournaments/528/linz/2026/scores/LS005",
+    "file": "0991cf40454065eddba302ec.gz",
+    "retrievedAt": "2026-11-11T21:34:59.090Z",
+    "sha256": "bff7990ed662ab1f13a10ffa6ae7b990ece362e82ab253526421d6f01d439036",
+    "bytes": 166841,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "https://www.asbclassic.co.nz/en/media/news/top-seed-elina-svitolina-pushed-to-the-limit-by-sonay-kartal-at-asb-classic",
+    "file": "2ebb775b4edcbffae4ff1bfa.gz",
+    "retrievedAt": "2026-11-11T21:34:59.438Z",
+    "sha256": "665233e3a07b46ba8d2533d71c978a581783fade94440e8810ad6c38478daa89",
+    "bytes": 33113,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.tennis.com/tournaments/upper-austria-ladies-linz/matches/j-ostapenko-vs-e-ruse-2026-04-10",
+    "file": "979bef7c64ca3e9ee5d363e6.gz",
+    "retrievedAt": "2026-11-11T21:34:59.631Z",
+    "sha256": "2e13024ba02b09ad83ca5607740bcf805c4f853bd1476d5522d7f2bfcbfec959",
+    "bytes": 94353,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.atptour.com/en/news/rublev-baez-bastad-2026-qfs",
+    "retrievedAt": "2026-11-11T21:44:08.815Z",
+    "error": "HTTP 403"
+  },
+  {
+    "url": "https://setlex.co/en/tournaments/auckland/2026/women",
+    "file": "bde6bc649b16c407f4a09f33.gz",
+    "retrievedAt": "2026-11-11T21:34:59.735Z",
+    "sha256": "3e2be1f3dea3b8dad1818d7433e9da3e6525b8e1bbed940c0c0a4876332f5fe6",
+    "bytes": 337327,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.tennis.com/tournaments/nordea-open/matches/a-tabilo-vs-t-tirante-2026-07-17",
+    "file": "b20ebec087c75e0249017b53.gz",
+    "retrievedAt": "2026-11-11T21:34:59.950Z",
+    "sha256": "fd23ef3544e90f03f95bbf8dd8a27979fc3938f779bc25c8ff0c3cc5415d40a5",
+    "bytes": 105593,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.lunosport.com/wta/tournament/linz-austria-1801",
+    "file": "6650030c66873cadc74c4f6f.gz",
+    "retrievedAt": "2026-11-11T21:35:00.132Z",
+    "sha256": "d124103e4ee5cd106c6d4ff78006b02f2eb6edd1c3d04701d112362c8a62941d",
+    "bytes": 92754,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.lunosport.com/atp/tournament/bastad-sweden-1830",
+    "file": "90aee0334b7f7747fe7a6ccc.gz",
+    "retrievedAt": "2026-11-11T21:35:00.221Z",
+    "sha256": "9de77f70013c070089d7233901ead61fc7e2ddcb1da59eb34a7a29aefb4ec209",
+    "bytes": 90456,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.tennis.com/tournaments/tiriac-open/matches/d-altmaier-vs-f-marozsan-2026-04-03",
+    "file": "11081d226437ac11ae4b46e6.gz",
+    "retrievedAt": "2026-11-11T21:35:00.417Z",
+    "sha256": "28d07d3a64f5eaa2f4179f3acfac34b623cac359311b7d39759cea98436bd817",
+    "bytes": 81547,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.tennisexplorer.com/bucharest/2026/atp-men/?draw=1",
+    "file": "a887a908b20f00b03c3c80e3.gz",
+    "retrievedAt": "2026-11-11T21:35:00.563Z",
+    "sha256": "41d1a0ba50cfeb1f4012a3a2bef2322bb24f3ff564efe31a44899f130f045908",
+    "bytes": 146122,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://www.lunosport.com/wta/tournament/miami-fl-usa-1794",
+    "file": "04c617a9bde2b8e75a975610.gz",
+    "retrievedAt": "2026-11-11T21:35:00.718Z",
+    "sha256": "9186f734bd1c6dc2e2940972489ef17959ffd9f7bb3a9186ac5e30baf3725e96",
+    "bytes": 228396,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://elpais.com/deportes/tenis/2026-04-28/baptiste-despide-de-madrid-a-la-campeona-sabalenka.html",
+    "file": "d913cc2ca63c5451b2c48a83.gz",
+    "retrievedAt": "2026-11-11T21:38:43.696Z",
+    "sha256": "fb54bedcb8786e898f006479f99237d4310ea84ebfd36cec002c349b1bd666e6",
+    "bytes": 393834,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.wtatennis.com/tournaments/miami-open/scores/LS003",
+    "file": "b9a320e82b0aeb097edd9729.gz",
+    "retrievedAt": "2026-11-11T21:35:01.553Z",
+    "sha256": "b46d1d7b28b9620fb5dd2fdb8ca12712f872cb086eccc1ebb63c612570cd3eb5",
+    "bytes": 167041,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "https://www.wtatennis.com/news/4476471/timely-breaks-lift-sabalenka-past-baptiste-as-rybakina-rematch-looms-in-miami-semis",
+    "file": "83538a012c20d7b62b01bb3e.gz",
+    "retrievedAt": "2026-11-11T21:35:02.166Z",
+    "sha256": "02ff55a630ccd60ac3c6974ff1781b2c76071f221d80e95f907015634f4f62db",
+    "bytes": 209167,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "https://www.tntsports.co.uk/tennis/atp-bucharest/2026/live-daniel-altmaier-fabian-marozsan_mtc20050884/live-matches.shtml",
+    "file": "c2279d048d1415611314bcd7.gz",
+    "retrievedAt": "2026-11-11T21:35:02.354Z",
+    "sha256": "eec04d5f72f5560ea1db897e3dd34b53ea4b87da99efbcd38c986578046b306e",
+    "bytes": 629517,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.tennis.com/tournaments/open-capfinances-rouen-metropole/matches/v-podrez-vs-s-cirstea-2026-04-18",
+    "file": "ba3f0a1a88d764f40f9a7800.gz",
+    "retrievedAt": "2026-11-11T21:35:03.075Z",
+    "sha256": "44b9b53e6861fbc5840a038431421da01cea819670af2cf2e822d6a89abfc600",
+    "bytes": 75690,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.wtatennis.com/news/4489803/marta-kostyuk-veronika-podrez-to-play-in-first-all-ukrainian-wta-final-in-rouen",
+    "file": "bbf951116fd517c72f76eb0f.gz",
+    "retrievedAt": "2026-11-11T21:35:03.190Z",
+    "sha256": "bdff8ce117ea5a5a8ecceb99c330a75fdbd07a883e2499e1365a70ff34bcc3e1",
+    "bytes": 203109,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/2026_Open_de_Rouen_%E2%80%93_Singles",
+    "file": "ddb494eb61f620966f503f92.gz",
+    "retrievedAt": "2026-11-11T21:35:03.249Z",
+    "sha256": "8681298d32b3be359684272347e2f45e00e448bc0447996ad03a2c563772e7ff",
+    "bytes": 459682,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://www.tennismajors.com/wta-tour-news/strasbourg-open-collins-into-semi-finals-as-kalinskaya-retires-injured-822313.html",
+    "file": "fdd569ee500539f6e1b7d004.gz",
+    "retrievedAt": "2026-11-11T21:35:03.447Z",
+    "sha256": "7ba69549e9ed26109543d31dd1c624e7ecb58090e25ab216f1867fde28fc130d",
+    "bytes": 146112,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Anna_Kalinskaya",
+    "file": "31d78a071fab8a03b7bdf00b.gz",
+    "retrievedAt": "2026-11-11T21:35:03.554Z",
+    "sha256": "26167d9ca188984844e3556cb7be67860ec36609d6c64889b59aac7c54a238ea",
+    "bytes": 785365,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://as.com/tenis/masters_1000/sabalenka-y-gauff-jugaran-la-final-femenina-de-miami-f202603-n/",
+    "file": "42d3ac0884ab20df03a93361.gz",
+    "retrievedAt": "2026-11-11T21:35:04.216Z",
+    "sha256": "686fd37340572e2f0ee690af752ae3cd5fe9c2ea452a23d734c45bdbc41bc768",
+    "bytes": 279197,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://wtafiles.wtatennis.com/pdf/matchnotes/2025/406_SF.pdf",
+    "file": "229d194004af00ef1dfc31b6.gz",
+    "retrievedAt": "2026-11-11T21:35:04.726Z",
+    "sha256": "643d802e988bf754375e3b79560675e5cb4de8f1d48e4485f2446eabb5f6018a",
+    "bytes": 1056121,
+    "contentType": "application/pdf"
+  },
+  {
+    "url": "https://hts.hr/donna-vekic-u-polufinalu-wta-turnira-iz-serije-500-u-bad-homburgu-siniakova-predala-bez-borbe/",
+    "file": "621519dca4cf7b8920b79e2b.gz",
+    "retrievedAt": "2026-11-11T21:38:42.541Z",
+    "sha256": "183fcdbe1c1d7f19d7a43d83139bcc536def34a612603c8fb6f1786e3123f0b6",
+    "bytes": 80887,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/2024_Bad_Homburg_Open_%E2%80%93_Singles",
+    "file": "6ea2a2904bfc0f654eb8981e.gz",
+    "retrievedAt": "2026-11-11T21:38:42.695Z",
+    "sha256": "087e0e92f174e2c0ac64ffda4ec2ad1d2bf461f0e81cdfad1a28e2145a755419",
+    "bytes": 361401,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://www.wtatennis.com/news/4046184/navarro-advances-to-bad-homburg-semifinal-after-wozniacki-retires",
+    "file": "d7bbde63eb2c904ef3540efe.gz",
+    "retrievedAt": "2026-11-11T21:38:42.745Z",
+    "sha256": "21583e17a93115743e1a498f07a68ab95f6283f355ce3bdf7685df4127da0615",
+    "bytes": 192041,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "https://dubaidutyfreetennischampionships.com/elena-rybakina-withdraws-from-2024-dubai-duty-free-tennis-championships-following-sudden-illness/",
+    "file": "16b2b14d934e3be5b342f63c.gz",
+    "retrievedAt": "2026-11-11T21:38:42.905Z",
+    "sha256": "9facd30ae4fd1a8fdacb5c23226d82821cf8ba2ed6265a5706b8b3b922f42df1",
+    "bytes": 240136,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/2024_Elena_Rybakina_tennis_season",
+    "file": "92373361354be9939e6ea734.gz",
+    "retrievedAt": "2026-11-11T21:38:42.964Z",
+    "sha256": "3e1f27dcce321c0d4993b56b5b814c1387b7e1c7ceb96c2dcadc214bae7cc6c6",
+    "bytes": 435380,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://www.tennislive.net/wta/match/jasmine-paolini-VS-elena-rybakina/dubai-duty-free-championships-dubai-2024/",
+    "file": "a53593a4e35e12753bb35038.gz",
+    "retrievedAt": "2026-11-11T21:38:43.153Z",
+    "sha256": "ee5eb68178792b489b33a035185dafb38839f9a4e1975731a94ecece3540d5fa",
+    "bytes": 302545,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://www.tennismajors.com/wta-tour-news/eastbourne-open-keys-reaches-last-4-770228.html",
+    "file": "25ec7006356970385747eee5.gz",
+    "retrievedAt": "2026-11-11T21:38:43.299Z",
+    "sha256": "54cd21e22d0e6560c508d6900563c7f9646b302e4e2f788107ab3e35e623a613",
+    "bytes": 145678,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://www.lta.org.uk/siteassets/events/eastbourne/media/eastbourne-match-notes-26-day-4.pdf",
+    "file": "00fe8ebf73911adb40d347c8.gz",
+    "retrievedAt": "2026-11-11T21:38:43.330Z",
+    "sha256": "3ca6248b5f0c3ba7f6ec41b73b7da787f24ff022b5dd4e173ef7cc78efbf652e",
+    "bytes": 118812,
+    "contentType": "application/pdf"
+  },
+  {
+    "url": "https://www.tennislive.net/wta/match/madison-keys-VS-karolina-muchova/rothesay-international-eastbourne-2024/",
+    "file": "7197f2347195883088c8e693.gz",
+    "retrievedAt": "2026-11-11T21:38:43.556Z",
+    "sha256": "acfadea6afe3c5301847e5be200fb7214a603c5930ae1baea3883db276c0eed6",
+    "bytes": 298887,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://www.sofascore.com/tennis/match/marie-bouzkova-caroline-garcia/OWqsnjR",
+    "retrievedAt": "2026-11-11T21:44:08.930Z",
+    "error": "HTTP 403"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/2024_Guadalajara_Open_Akron_%E2%80%93_Singles",
+    "file": "7240de1f3a1bf6d842474d97.gz",
+    "retrievedAt": "2026-11-11T21:38:43.643Z",
+    "sha256": "6e9513858a517116e6de3e6b7fdd4d4dd4e21d350334f7a7f49e6415b68f6a5c",
+    "bytes": 436061,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://www.lequipe.fr/Tennis/lyon/epreuve-simple-messieurs/annee-2024/match-direct/luciano-darderi-arthur-rinderknech-live/367438",
+    "retrievedAt": "2026-11-11T21:44:09.001Z",
+    "error": "HTTP 403"
+  },
+  {
+    "url": "https://www.tennismajors.com/fr/atp-actualite/tournoi-de-lyon-darderi-en-demi-finale-721376.html",
+    "file": "cdc668ffcc68bcb80c1688af.gz",
+    "retrievedAt": "2026-11-11T21:38:43.765Z",
+    "sha256": "20be47f3968db12e684f5ab8976e2dfcb6ad8a54ff2ea45146b39333b2b9a504",
+    "bytes": 148409,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://www.365scores.com/tennis/match/lyon-open-242/arthur-rinderknech-luciano-darderi-51648-69394-242",
+    "file": "945bac57280a7e936e92cc6c.gz",
+    "retrievedAt": "2026-11-11T21:38:43.980Z",
+    "sha256": "31a83938f4f5cd89660db7d608810a601481fe8c22c9dd8dd3d219a1e442d68c",
+    "bytes": 73356,
+    "contentType": "text/html"
+  },
+  {
+    "url": "https://www.tennismajors.com/wta-tour-news/nottingham-open-raducanu-moves-into-semi-finals-767842.html",
+    "file": "4ffdd7d041c7c157720ae286.gz",
+    "retrievedAt": "2026-11-11T21:38:44.022Z",
+    "sha256": "c6cefedf09e1f2f16ba63d981a007112f27293096233fde2887d8c3b845fed1d",
+    "bytes": 145786,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://www.the-independent.com/sport/tennis/emma-raducanu-nottingham-open-british-nottingham-katie-boulter-b2563187.html",
+    "file": "a18f1ced430e9fe2dc47e089.gz",
+    "retrievedAt": "2026-11-11T21:38:44.361Z",
+    "sha256": "7e149260ff48e18ae5d02fff9ed1f62c0f4714bdbdb680d4003d1e279634519f",
+    "bytes": 242826,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.tennismajors.com/wta-tour-news/tokyo-open-zheng-books-spot-in-last-4-792885.html",
+    "file": "6f640a3abf3384437d6fb68d.gz",
+    "retrievedAt": "2026-11-11T21:38:44.464Z",
+    "sha256": "b367355e3cdcd5594932c23c5b2b1f241d8e4bb445e9a3c8e5283def40835bed",
+    "bytes": 154354,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://www.sofascore.com/tennis/match/sayaka-ishii-diana-shnaider/AwCcslPpd",
+    "retrievedAt": "2026-11-11T21:44:08.948Z",
+    "error": "HTTP 403"
+  },
+  {
+    "url": "https://www.wtatennis.com/news/4116274/osorio-advances-in-guadalajara-gadecki-makes-first-wta-semifinal",
+    "file": "0f5474ed239e2c792d85490a.gz",
+    "retrievedAt": "2026-11-11T21:38:44.537Z",
+    "sha256": "e6e88d1e0f5e799e9cc574c2c06919e74fdc11643972fe4d2efe33e09c9b08aa",
+    "bytes": 204866,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "https://www.tennismajors.com/atp/auckland-open-gasquet-into-final-653540.html",
+    "file": "1d350e633d6fbfe9f9ee31e4.gz",
+    "retrievedAt": "2026-11-11T21:38:44.616Z",
+    "sha256": "76d801006bb35f8a63bb64c37cce34a37f63cbf6b12e4d6cdec603917f8cf701",
+    "bytes": 151697,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://www.malaymail.com/news/sports/2023/01/13/norrie-gasquet-into-auckland-classic-final/50052",
+    "retrievedAt": "2026-11-11T21:44:09.003Z",
+    "error": "HTTP 403"
+  },
+  {
+    "url": "https://www.tennislive.net/wta/match/diana-shnaider-VS-sayaka-ishii/toray-pan-pacific-open-tokyo-2024/",
+    "file": "1e0b748f258eb3c115fc793f.gz",
+    "retrievedAt": "2026-11-11T21:38:44.767Z",
+    "sha256": "2c7239e6ddf137c9d4fc1430e0ff1a1911b3d9ea71e833a1dba91724b9690702",
+    "bytes": 293706,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://www.rte.ie/sport/results/tennis/asb-classic-men/882357/results/",
+    "file": "3ed8b100ee5bef5d308824c5.gz",
+    "retrievedAt": "2026-11-11T21:38:44.903Z",
+    "sha256": "c05f1b56962006d151c1941f8cea064ab54be243819017ea7c531cfb95414fc5",
+    "bytes": 141517,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.sofascore.com/tennis/match/iga-swiatek-lucia-bronzetti/fbUsxpQb",
+    "retrievedAt": "2026-11-11T21:44:08.993Z",
+    "error": "HTTP 403"
+  },
+  {
+    "url": "https://www.mundodeportivo.com/tenis/20230630/1002031380/swiatek-retira-semifinales-intoxicacion-alimentaria-siniakova-sorprende.html",
+    "file": "39cb6a3d090619b72fbb2a0c.gz",
+    "retrievedAt": "2026-11-11T21:38:45.200Z",
+    "sha256": "4c1e9a6c2e168bfb7d26860686c1ed249698415438ec4b588dc0d5dc140e81a4",
+    "bytes": 288834,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://www.wtatennis.com/tournaments/2012/berlin/2023/scores/LS004",
+    "file": "bf0da5e64abe4a9a8e209f52.gz",
+    "retrievedAt": "2026-11-11T21:38:45.687Z",
+    "sha256": "01fbc41572d5cfe60b8f8cec2dba45a2f09fc2b561c6a8fe675145055313f9cb",
+    "bytes": 166125,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "https://www.wtatennis.com/news/4039181/nottingham-semifinals-suspended-for-light-as-raducanu-boulter-battle",
+    "file": "9630eaae845c46bb9b6ddc82.gz",
+    "retrievedAt": "2026-11-11T21:38:45.688Z",
+    "sha256": "bd57f5181d1282f739d6da91cdcb3408b1c037f26c1bad1ec14416316840a4a4",
+    "bytes": 196274,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "https://www.tennislive.net/wta/match/ekaterina-alexandrova-VS-veronika-kudermetova/bett1open-berlin-2023/",
+    "file": "abcb9319712ccd5f73fbaea2.gz",
+    "retrievedAt": "2026-11-11T21:38:45.994Z",
+    "sha256": "11c69937974e12da1b2b986a5a4a046fc9c7e3e1ff1314995dc7ba0792e529bc",
+    "bytes": 322487,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://www.moselle-open.com/wp-content/uploads/2024/11/ilovepdf_merged.pdf",
+    "retrievedAt": "2026-11-11T21:44:09.005Z",
+    "error": "fetch failed"
+  },
+  {
+    "url": "https://www.wtatennis.com/news/3562269/swiatek-withdraws-from-bad-homburg-siniakova-bronzetti-reach-final",
+    "file": "66ed9d23fcee3e4bc2227aa8.gz",
+    "retrievedAt": "2026-11-11T21:38:46.233Z",
+    "sha256": "7a68207253b2b36ec0aa35df4bc3c1adc049d5c20ce78c37eeacb4942c2fd35a",
+    "bytes": 183971,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "https://www.eurosport.fr/tennis/atp-metz/2024/live-andrey-rublev-corentin-moutet_mtc1569765/live-stats.shtml",
+    "file": "5344fa06c07f9dd9f1cbdedf.gz",
+    "retrievedAt": "2026-11-11T21:38:48.168Z",
+    "sha256": "0d5e6c54269bb1becf4e2342a3997858ec0c5fdda85fea2e108c06a93ed5fd73",
+    "bytes": 721721,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://wtafiles.wtatennis.com/pdf/matchnotes/2024/2072_F.pdf",
+    "file": "cba01d48e5b612b268f41890.gz",
+    "retrievedAt": "2026-11-11T21:38:49.523Z",
+    "sha256": "0503b68d6157796444e23a580074824accfc4c71f6c123e54e80192600005b66",
+    "bytes": 2096498,
+    "contentType": "application/pdf"
+  },
+  {
+    "url": "https://www.tennismajors.com/wta-tour-news/jasmin-open-kartal-books-spot-in-final-785377.html",
+    "file": "2f064b435e56bf0f301ff8bc.gz",
+    "retrievedAt": "2026-11-11T21:38:49.601Z",
+    "sha256": "f296c66b3e796d52c256feb95f951fbddd518f299f46f53b5a1429b1ca9a2149",
+    "bytes": 147279,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://www.tennisabstract.com/cgi-bin/wtourney.cgi?t=2024-2072%2FMonastir",
+    "file": "2bffa88eaea13aa27b2f49cc.gz",
+    "retrievedAt": "2026-11-11T21:38:52.858Z",
+    "sha256": "e75b94fbd1afb2278e7e8427531e222d51a00a8e8cffea484d02113e410dc0b9",
+    "bytes": 127250,
+    "contentType": "text/html"
+  },
+  {
+    "url": "https://fieldlevelmedia.com/atp-tour/atp-roundup-andrey-rublev-wds-in-metz-after-earning-finals-spot/",
+    "file": "151ecd8456913b1fbea20640.gz",
+    "retrievedAt": "2026-11-11T21:38:53.372Z",
+    "sha256": "5ffdc31fd5d8c56f56e4fe3d137586f484ceec8d65cad52ec4af947d83ae1824",
+    "bytes": 124756,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://epub.stripes.com/docs/MID_MID_260623/MID_MID_260623.pdf",
+    "retrievedAt": "2026-11-11T21:44:19.090Z",
+    "error": "fetch failed"
+  },
+  {
+    "url": "https://www.wtatennis.com/tournaments/718/dubai/2023/draws",
+    "file": "52ceb5289ae46ce337b6d667.gz",
+    "retrievedAt": "2026-11-11T21:41:44.854Z",
+    "sha256": "da0330365fc99a830a8712ec08d71ea8b1ff035ffb27bd453fc2a2449d6da80d",
+    "bytes": 1510422,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/2023_Iga_%C5%9Awi%C4%85tek_tennis_season",
+    "file": "3ae22c1cadd7f51ccf4494b6.gz",
+    "retrievedAt": "2026-11-11T21:41:45.030Z",
+    "sha256": "4e88d6c8e2dda7f0bf44b287287e7874c5f3d31a47b086131d041c99a8743af7",
+    "bytes": 580778,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://www.tennismajors.com/wta-tour-news/dubai-duty-free-championships-pegula-makes-semi-finals-662736.html",
+    "file": "87be8d8427f639ba79d92b22.gz",
+    "retrievedAt": "2026-11-11T21:41:45.208Z",
+    "sha256": "1c1cd5aa29b806b45febc99fd36b0566bec1c6d7872d09b1aad91d258f8aeac7",
+    "bytes": 154503,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/2023_WTA_1000_tournaments",
+    "file": "698cfe1350f672c65cad56d7.gz",
+    "retrievedAt": "2026-11-11T21:41:45.281Z",
+    "sha256": "a7e54a4e10eda653a5a81e80a681662ce9e5cfa6e606203c3c1b03393fba0bd3",
+    "bytes": 844829,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://www.lequipe.fr/Tennis/Actualites/Arthur-fils-en-demi-finales-a-lyon-sans-jouer/1398603",
+    "retrievedAt": "2026-11-11T21:44:09.024Z",
+    "error": "HTTP 403"
+  },
+  {
+    "url": "https://www.tennislive.net/atp/match/arthur-fils-VS-felix-auger-aliassime/open-parc-lyon-2023/",
+    "file": "369caa47668c82b471f4c477.gz",
+    "retrievedAt": "2026-11-11T21:41:45.770Z",
+    "sha256": "a463fa619b3f5e4a670517dbba8455f589069ac38805a5797068427ff4a94107",
+    "bytes": 298307,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/2023_ATP_Lyon_Open_%E2%80%93_Singles",
+    "file": "b48e5e8761fe51d78f7730ba.gz",
+    "retrievedAt": "2026-11-11T21:41:45.821Z",
+    "sha256": "8efe23ab73c95f5b3c03a6ecaa6ae9b6911a662ef1acb43d9c5fcb7f33be7c6d",
+    "bytes": 396879,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://www.atptour.com/en/news/botic-pune-2023-qf",
+    "retrievedAt": "2026-11-11T21:44:09.021Z",
+    "error": "HTTP 403"
+  },
+  {
+    "url": "https://www.itftennis.com/en/tournament/pune/ind/2023/m-250-ind-01a-2023/draws-and-results/",
+    "file": "009bfe321621dfc8314ab126.gz",
+    "retrievedAt": "2026-11-11T21:41:46.055Z",
+    "sha256": "d02032286070b4dd9d8fbd985a7bdca8af8edf52b89ff177db3bfcb2c8a9c43d",
+    "bytes": 212,
+    "contentType": "text/html"
+  },
+  {
+    "url": "https://www.sofascore.com/tennis/match/tallon-griekspoor-marin-cilic/MhgstXY",
+    "retrievedAt": "2026-11-11T21:44:09.033Z",
+    "error": "HTTP 403"
+  },
+  {
+    "url": "https://www.atptour.com/en/news/tiafoe-evans-fritz-thompson-washington-dc-2023",
+    "retrievedAt": "2026-11-11T21:44:09.040Z",
+    "error": "HTTP 403"
+  },
+  {
+    "url": "https://www.tennismajors.com/atp/citi-open-dimitrov-reaches-semi-finals-702363.html",
+    "file": "33b897272b5f212e0a52db1c.gz",
+    "retrievedAt": "2026-11-11T21:41:46.530Z",
+    "sha256": "a156047b440ca327d433eba219c5bd670679de0babb8a1d134c6c37d3332a6d9",
+    "bytes": 150109,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://edgeup.gg/tennis/h2h/tennis-atp-dimitrov-g/tennis-atp-humbert-u",
+    "file": "bbb8698cc984925ff6612a92.gz",
+    "retrievedAt": "2026-11-11T21:41:47.160Z",
+    "sha256": "14e8df97ccab8e41aeac4e4f191953a3eeb5e01b908929f68db8b861976fc678",
+    "bytes": 58750,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.atptour.com/en/news/korda-gasquet-winston-salem-2023-thursday",
+    "retrievedAt": "2026-11-11T21:44:09.048Z",
+    "error": "HTTP 403"
+  },
+  {
+    "url": "https://www.tennismajors.com/atp/winston-salem-open-lehecka-books-spot-in-final-707949.html",
+    "file": "4f9f515cd368a648b8dc90b1.gz",
+    "retrievedAt": "2026-11-11T21:41:47.825Z",
+    "sha256": "9a8447eed219720584db752361e8748d287f0a2b6110d58c499f886447961222",
+    "bytes": 151191,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/2023_Winston-Salem_Open_%E2%80%93_Singles",
+    "file": "a50d1d452c3cf96743c160d9.gz",
+    "retrievedAt": "2026-11-11T21:41:47.893Z",
+    "sha256": "fa6e4409ee1915982cea5aae88cc616dfffd690d2e29dd0e9c55c42754d9fbe0",
+    "bytes": 538750,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://www.wtatennis.com/tournaments/1077/nanchang/2023/scores/LS006",
+    "file": "7c49f1426a1861a8c2a0430b.gz",
+    "retrievedAt": "2026-11-11T21:41:48.896Z",
+    "sha256": "acb9301338df24f5fadf1679c2f3f5df354dc4e5a2f8beefc10f066ad6875770",
+    "bytes": 165536,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "https://www.berliner-zeitung.de/article/siegemund-verzichtet-auf-viertelfinale-in-nanchang-2151042",
+    "file": "604c8c869617df6b3d80a854.gz",
+    "retrievedAt": "2026-11-11T21:41:49.083Z",
+    "sha256": "09bf8c85be54a92cdee81137b260b7e1c8434001cdea38f8b538e2da64200546",
+    "bytes": 153555,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.mykhel.com/tennis/jiangxi-open-2023-womens-singles-scores-c10701/",
+    "retrievedAt": "2026-11-11T21:44:09.057Z",
+    "error": "HTTP 403"
+  },
+  {
+    "url": "https://fieldlevelmedia.com/news/wta-roundup-walkover-sends-iga-swiatek-into-dubai-semis/",
+    "file": "5d57d2b56c8e49f56e00da8b.gz",
+    "retrievedAt": "2026-11-11T21:41:50.078Z",
+    "sha256": "0b878eb2b89ca512705d1639888e2e3c0561333815aa1cd3d690b369059d8bb0",
+    "bytes": 125271,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://wtafiles.wtatennis.com/pdf/draws/2023/2008/MDS.pdf",
+    "file": "df24a92c99e05832aedd2917.gz",
+    "retrievedAt": "2026-11-11T21:41:50.138Z",
+    "sha256": "297906b175a4dbf93f79ec5a7e708bea366f3974bf0a7d0beba5cea64bcaea67",
+    "bytes": 383647,
+    "contentType": "application/pdf"
+  },
+  {
+    "url": "https://www.tennismajors.com/wta-tour-news/zhengzhou-open-kasatkina-reaches-last-four-720514.html",
+    "file": "7dd4a13cda9eea17e0cf5adb.gz",
+    "retrievedAt": "2026-11-11T21:41:50.154Z",
+    "sha256": "7ebe6115b8e0fbfe35e90722c9dfd19f9cb852e49383898fcac2186d94442f92",
+    "bytes": 146829,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://agerpres.ro/sport-extern/2023/10/13/tenis-ons-jabeur-a-patra-favorita-s-a-retras-la-zhengzhou-wta--1186276",
+    "file": "880ceb367f65a843809b9ae8.gz",
+    "retrievedAt": "2026-11-11T21:41:50.356Z",
+    "sha256": "deb8d687a912e2c4961e7009114dd8e651041623a923f941f471c89902c464b0",
+    "bytes": 83337,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://www.tennismajors.com/wta-tour-news/zhengzhou-open-krejcikova-reaches-semi-finals-720637.html",
+    "file": "833706d5a9145e5b280eb2b1.gz",
+    "retrievedAt": "2026-11-11T21:41:50.443Z",
+    "sha256": "b36f42c5f64266d69f0b19c7c7abc8bca43b0e1f65a97a18637d4dbbcae03fbc",
+    "bytes": 147256,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://www.wtatennis.com/tournaments/2008/zhengzhou/2023/scores/LS004",
+    "file": "bdbfdf443fe03667d308632c.gz",
+    "retrievedAt": "2026-11-11T21:41:50.554Z",
+    "sha256": "06d8ed20249e91adeefa5af01cab5df95e4258804599774f3819a88aad164d76",
+    "bytes": 165405,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "https://www.tennisexplorer.com/match-detail/?id=2476889",
+    "file": "dc6b78a59c9e1d0180ddfa2f.gz",
+    "retrievedAt": "2026-11-11T21:41:50.864Z",
+    "sha256": "ef7902fbc4cf432afea1d445e36cb32b36c81e3e476cec76da854075b796d50d",
+    "bytes": 272353,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://www.usopen.org/en_US/scores/draws/2025_WS_draw.pdf",
+    "retrievedAt": "2026-11-11T21:44:09.274Z",
+    "error": "fetch failed"
+  },
+  {
+    "url": "https://www.rte.ie/sport/tennis/2025/0902/1531464-pegula-sees-off-krejcikova-to-make-us-open-semis-return/",
+    "file": "b2db77b7d37098cbdc6b37a9.gz",
+    "retrievedAt": "2026-11-11T21:44:09.420Z",
+    "sha256": "13e03a253190c5ddc3d698f694bb86df81c1169dd9663e17fd30c3681b3c5287",
+    "bytes": 117035,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.wtatennis.com/news/4355648/aryna-sabalenka-marketa-vondrousova-us-open-quarterfinals",
+    "file": "76ba475301e8971065bee26b.gz",
+    "retrievedAt": "2026-11-11T21:44:09.614Z",
+    "sha256": "de8325b38712f530d50fe66f9ac6a6e9231a2d5a9d3c4790b41e41d4a7675323",
+    "bytes": 205447,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "https://www.tennis.com/tournaments/erste-bank-open/matches/t-griekspoor-vs-a-zverev-2025-10-24",
+    "file": "6c933551181214939eab6fed.gz",
+    "retrievedAt": "2026-11-11T21:44:10.018Z",
+    "sha256": "1718f8bde5912b67564480d7f08312d09dec4ed2f5d3e693168e2d2cc56fd802",
+    "bytes": 156927,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://en.tennistemple.com/competitions/vienna/2025/orderofplay/2025-10-24",
+    "retrievedAt": "2026-11-11T21:44:10.110Z",
+    "error": "HTTP 403"
+  },
+  {
+    "url": "https://www.erstebank-open.com/en/news/storys/zverev-kampflos-im-halbfinale",
+    "file": "a4bbf89b4c2903a908af3d76.gz",
+    "retrievedAt": "2026-11-11T21:44:11.034Z",
+    "sha256": "52c41c4051934b0aab2c52c4f3996a87dde06620dccc2056a0d0836b8fd1a13e",
+    "bytes": 34669,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.glasistre.hr/sport/2023/06/29/ta-bad-homburg-rezultati-cetvrtfinala-871144",
+    "file": "24c4561340a2b64dbc06ab9f.gz",
+    "retrievedAt": "2026-11-11T21:44:11.381Z",
+    "sha256": "4c0fe8b99400b0abbfc5eaf71cced4dc03907b30e23ffbd58660123c2fe3ec25",
+    "bytes": 69895,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/2023_Bad_Homburg_Open_%E2%80%93_Singles",
+    "file": "71dbc5a081de5f161868aa38.gz",
+    "retrievedAt": "2026-11-11T21:44:11.943Z",
+    "sha256": "c134b176df4ec5c646a17b29eb54eca41f7e017df93e13167147df4109bc0adc",
+    "bytes": 364445,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://www.eurosport.es/tenis/wta-bad-homburg/2023/live-rebeka-masarova-emma-navarro_mtc1437737/live-matches.shtml",
+    "file": "adc076d739a69ca84f96c858.gz",
+    "retrievedAt": "2026-11-11T21:44:12.018Z",
+    "sha256": "d334a5ad9e24505a306e374aff583b8f8fd9098856eba6552bd51e4e1c5c94d5",
+    "bytes": 639079,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://desarrollo.mutuamadridopen.com/wp-content/uploads/2024/09/mmopen-2024-cuadro-final-ATP.pdf",
+    "file": "202a0d520eb8353aaa868ea8.gz",
+    "retrievedAt": "2026-11-11T21:44:12.245Z",
+    "sha256": "fc6bf5b8a9285ec85f1a1363ac0afeff1c3397767106a4bdb838e5963c827c00",
+    "bytes": 238587,
+    "contentType": "application/pdf"
+  },
+  {
+    "url": "https://www.tennis.com/news/articles/jiri-lehecka-through-to-madrid-semifinals-after-daniil-medvedev-retires-adductor-injury",
+    "file": "9c9044d3f1008a84e7f097e5.gz",
+    "retrievedAt": "2026-11-11T21:44:12.266Z",
+    "sha256": "7d380da6013cc02e9789efcbb07d01008ef976fe996c6f727340fc82e2698968",
+    "bytes": 59252,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.atptour.com/es/news/lehecka-auger-aliassime-madrid-2024-friday-sf",
+    "retrievedAt": "2026-11-11T21:44:12.282Z",
+    "error": "HTTP 403"
+  },
+  {
+    "url": "https://www.rtve.es/deportes/20240503/auger-aliassime-a-final-del-mutua-madrid-open-tras-lesionarse-lehecka-tercer-rival-torneo-se-retira/16088564.shtml",
+    "file": "51ad9bad9bd3ecf41a2a968a.gz",
+    "retrievedAt": "2026-11-11T21:44:12.380Z",
+    "sha256": "bbad8f32ed35f9300787bd8a0b15be3630107ae97ad5ece1e03e5e0cb045f1c6",
+    "bytes": 333128,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "https://www.tennismajors.com/atp/madrid-masters-auger-aliassime-into-final-758603.html",
+    "file": "8481dc6aa16dc3047de4b161.gz",
+    "retrievedAt": "2026-11-11T21:44:12.478Z",
+    "sha256": "e3e1e56a1694592f4d4127932d1884899775c9b2ab84d0ef482e6252596687b2",
+    "bytes": 147521,
+    "contentType": "text/html; charset=UTF-8"
+  },
+  {
+    "url": "https://www.tennismajors.com/atp/lehecka-reaches-first-masters-semi-final-as-medvedev-retires-with-injury-758451.html",
+    "file": "c6a7ea68a14502dda9f2aab9.gz",
+    "retrievedAt": "2026-11-11T21:44:12.765Z",
+    "sha256": "9c5e8419f387ebfdbe996f86061c52269afcc25243c0cb6f47b654da0b14b15f",
+    "bytes": 151195,
+    "contentType": "text/html; charset=UTF-8"
+  }
+]

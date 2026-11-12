@@ -145,3 +145,15 @@ test('match browser preserves public round aliases', () => {
   assert.deepEqual(queryMatchBrowserPage(browser.partitions, { round: 'qf' }, 1, 10).matches.map(match => match.match_id), ['quarterfinal']);
   assert.deepEqual(queryMatchBrowserPage(browser.partitions, { round: 'sf' }, 1, 10).matches.map(match => match.match_id), ['semifinal']);
 });
+
+test('dictionary search matches terms across fields and keeps dictionary indexes local to each partition', () => {
+  const browser = compileMatchBrowser([
+    fixture('atp-old', 'atp', 2016, '2016-10-01', { player1: { name: 'Rafael Nadal', seed: null } }),
+    fixture('atp-new', 'atp', 2026, '2026-10-01', { player1: { name: 'Novak Djokovic', seed: null } }),
+    fixture('wta-new', 'wta', 2026, '2026-10-01'),
+  ]);
+  assert.deepEqual(queryMatchBrowserPage(browser.partitions, { q: 'Nadal Wimbledon' }, 1, 10).matches.map(match => match.match_id), ['atp-old']);
+  assert.deepEqual(queryMatchBrowserPage(browser.partitions, { q: 'Sabalenka US Open' }, 1, 10).matches.map(match => match.match_id), ['wta-new']);
+  assert.equal(queryMatchBrowserPage(browser.partitions, { q: 'Nadal 2026' }, 1, 10).total, 0);
+  assert.deepEqual(queryMatchBrowserPage(browser.partitions, { q: 'Djokovc' }, 1, 10).matches.map(match => match.match_id), ['atp-new']);
+});

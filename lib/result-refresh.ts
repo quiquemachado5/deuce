@@ -1,4 +1,5 @@
 import { PROVIDER_PUBLICATION_TIERS } from './publication-scope';
+import {finalsIdentity} from './finals-identity';
 
 type Row = { id: unknown; [key: string]: unknown };
 export type SeasonCheckpoint = { season: number; tour: 'atp' | 'wta'; baselineAt?: string; startedAt: string; windows: string[]; windowIndex: number; offset: number; rows: Row[] };
@@ -41,6 +42,10 @@ export async function reconcileSeasonResults(
           `from=${new Date(Math.max(Date.UTC(season, 0, 1), last - 7 * 86400000)).toISOString().slice(0, 10)}&to=${season}-12-31`,
           full + since,
         ];
+  // The current Riyadh event is catalogued as tour_finals but has a null tier.
+  // A bounded November date window recovers only its exact reviewed identity;
+  // it never widens the public archive to arbitrary tier-less WTA rows.
+  if(tour==='wta'&&season===2026)plannedWindows.push('from=2026-11-01&to=2026-11-30&deuce_finals_probe=1');
   const saved = progress?.resume;
   const resume = saved?.season === season && saved.tour === tour
     && saved.baselineAt === previous?.at && Array.isArray(saved.rows)
@@ -56,8 +61,10 @@ export async function reconcileSeasonResults(
   for (let windowIndex = resume?.windowIndex || 0; windowIndex < windows.length; windowIndex++) {
     let offset = windowIndex === resume?.windowIndex ? resume.offset : 0;
     for (;;) {
+      const finalsProbe=windows[windowIndex].includes('deuce_finals_probe=1');
+      const window=windows[windowIndex].replace(/&deuce_finals_probe=1/,'');
       const page = await request(
-        `/history/matches?tour=${tour}&draw=singles&tier=${PROVIDER_PUBLICATION_TIERS[tour]}&${windows[windowIndex]}&limit=200&offset=${offset}`,
+        `/history/matches?tour=${tour}&draw=singles&${finalsProbe?'':`tier=${PROVIDER_PUBLICATION_TIERS[tour]}&`}${window}&limit=200&offset=${offset}`,
       );
       if (!Array.isArray(page.data) || !page.meta || typeof page.meta.has_more !== 'boolean')
         throw Error('Unexpected tennis list response');
@@ -65,7 +72,7 @@ export async function reconcileSeasonResults(
       const step = Number(page.meta.limit);
       if (page.meta.has_more && (!Number.isSafeInteger(step) || step <= 0))
         throw Error('Invalid pagination from provider');
-      fresh.push(...page.data.map(row => ({ ...row, tour })));
+      fresh.push(...page.data.filter(row=>!finalsProbe||finalsIdentity({...row,tour})!==null).map(row => ({ ...row, tour })));
       const nextOffset = page.meta.has_more ? offset + step : 0;
       await progress?.save({ season, tour, baselineAt: previous?.at, startedAt, windows,
         windowIndex: page.meta.has_more ? windowIndex : windowIndex + 1, offset: nextOffset, rows: [...fresh] });

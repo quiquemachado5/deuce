@@ -1,4 +1,5 @@
-import { notFound } from "next/navigation";
+import { notFound,permanentRedirect } from "next/navigation";
+import {canonicalMatchId} from '@/lib/match-identity-aliases';
 import Link from "next/link";
 import type { Metadata } from "next";
 import { cache } from "react";
@@ -27,7 +28,7 @@ type Props = {
 // The published snapshot already contains the validated match and its detail.
 // Reading it first keeps cold navigations off the slower provider archive path.
 const pageMatch = cache(async (id: string) => {
-  return preparedMatchContext(id);
+  return preparedMatchContext(canonicalMatchId(id));
 });
 
 export async function generateMetadata({
@@ -44,7 +45,7 @@ export async function generateMetadata({
       : match.statistics.length
         ? `Partido ${match.tour==='wta'?'WTA':'ATP'} con marcador y estadísticas publicadas; sin secuencia punto a punto.`
         : `Resultado ${match.tour==='wta'?'WTA':'ATP'} documentado con su marcador; sin estadísticas ni secuencia punto a punto publicadas.`,
-    canonical = matchCanonicalPath(id);
+    canonical = matchCanonicalPath(canonicalMatchId(id));
   return {
     title,
     description: `${title.replace(" — DEUCE", "")}. ${description}`,
@@ -56,6 +57,8 @@ export async function generateMetadata({
 }
 
 export default async function MatchPage({ params, searchParams }: Props) {
+  const requested=(await params).id;
+  if(canonicalMatchId(requested)!==requested)permanentRedirect('/match/'+canonicalMatchId(requested));
   const { id } = await params,
     { junto, vista } = await searchParams,
     { match, matches } = await pageMatch(id);

@@ -1,0 +1,30 @@
+[
+  {
+    "tour": "atp",
+    "year": 2025,
+    "url": "https://huggingface.co/datasets/minmaxxxer/atp-wta-matches-with-odds/resolve/main/atp_matches_2025.csv",
+    "sha256": "958cd93216075165895b5764d63499193a91993bb30dc00822f262713f7b31e1",
+    "bytes": 832161
+  },
+  {
+    "tour": "atp",
+    "year": 2026,
+    "url": "https://huggingface.co/datasets/minmaxxxer/atp-wta-matches-with-odds/resolve/main/atp_matches_2026.csv",
+    "sha256": "350a90b70f15add6c279f3d7893f00a6746660367ce5dfebdce553711940e9df",
+    "bytes": 773871
+  },
+  {
+    "tour": "wta",
+    "year": 2025,
+    "url": "https://huggingface.co/datasets/minmaxxxer/atp-wta-matches-with-odds/resolve/main/wta_matches_2025.csv",
+    "sha256": "76df7f0b9c8510f0b71e9bf2cf89e8051c3da2bf61c8d7289ee1c09909367e4a",
+    "bytes": 793938
+  },
+  {
+    "tour": "wta",
+    "year": 2026,
+    "url": "https://huggingface.co/datasets/minmaxxxer/atp-wta-matches-with-odds/resolve/main/wta_matches_2026.csv",
+    "sha256": "ddbe50bcdf6750e09bbcdadef40bd6338142fef621b06ef866c7ad5e6bb2079e",
+    "bytes": 739770
+  }
+]

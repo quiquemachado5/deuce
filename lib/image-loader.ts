@@ -4,6 +4,9 @@ import type { ImageLoaderProps } from 'next/image'
 
 export default function imageLoader({ src, width }: ImageLoaderProps) {
   const cleanSrc = src.split('?')[0]
+  if (/^\/images\/players\/action\/.+\.webp$/.test(cleanSrc) && !/-(?:small|640|1024)\.webp$/.test(cleanSrc)) {
+    return width <= 640 ? cleanSrc.replace(/\.webp$/, '-640.webp') : width <= 1024 ? cleanSrc.replace(/\.webp$/, '-1024.webp') : cleanSrc
+  }
   if (/^\/images\/players\/directory\/.+\.webp$/.test(cleanSrc) && !/-734\.webp$/.test(cleanSrc)) {
     return width <= 1068 ? cleanSrc.replace(/\.webp$/, '-734.webp') : cleanSrc
   }

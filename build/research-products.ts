@@ -1,0 +1,34 @@
+import {readFile} from 'node:fs/promises';
+import {gunzipSync} from 'node:zlib';
+import {join} from 'node:path';
+import {calculateResearchProducts,RESEARCH_RECIPES} from '../lib/research/recipes';
+import {auditResearchQuality} from '../lib/research/quality-controls';
+import {reviewedBiographyEvidence} from '../lib/research/biography-evidence';
+import {reviewedEventWindows} from '../lib/research/calendar-evidence';
+import {datedEloEvidence} from '../lib/research/dated-elo-evidence';
+import {statisticRegistry,verifiedStatistics} from '../lib/verified-statistics';
+import {editionKey} from '../lib/research/contracts';
+import {researchSources,researchDefinitionVersion,writeResearchGeneration} from '../lib/research/generation';
+import type {Match} from '../lib/types';
+import type {RecordManifest} from '../lib/revista/snapshot';
+import type {EditionAudit} from '../lib/edition-audit';
+async function main(){
+ const read=async<T>(name:string):Promise<T>=>JSON.parse(gunzipSync(await readFile(join(process.cwd(),'data/reading',name+'.json.gz'))).toString());
+ const manifest=await read<RecordManifest>('manifest'),matches=await read<Match[]>('matches'),audit=await read<EditionAudit[]>('audit');
+ if(matches.length!==manifest.matchCount)throw new Error('Research generation is incomplete');
+ const complete=new Set(audit.filter(a=>a.completeDraw===true).map(a=>[a.tour||'atp',a.tournament,a.category,a.year].join('|')));
+ const certifiedEditions=new Set(matches.filter(m=>complete.has([m.tour||'atp',m.tournament,m.category,m.year].join('|'))).map(editionKey));
+ const started=performance.now(),quality=auditResearchQuality(matches);
+ const verifiedEvents=(['atp','wta'] as const).flatMap(tour=>verifiedStatistics(tour).map(fact=>({tour,entity:fact.player+' · '+fact.label+' · '+fact.period,value:fact.value,detail:fact.definition+' Unidad: '+fact.unit+'. Alcance: '+fact.scope,proof:fact.observations.map(observation=>statisticRegistry.sources[observation.source].url)})));
+ const biography=reviewedBiographyEvidence();
+ const datedElo=datedEloEvidence(matches);
+ const evidence={certifiedEditions,verifiedEvents,birthdays:biography.birthdays,hands:biography.hands,eventWindows:reviewedEventWindows(),elo:datedElo.elo,eloVersion:datedElo.eloVersion};
+ const sources=await researchSources(process.cwd(),['lib/research/recipes.ts','lib/research/quality-controls.ts','lib/research/generation.ts','build/research-products.ts']);
+ const definitionVersion=researchDefinitionVersion(sources,evidence);
+ const products=calculateResearchProducts(matches,manifest.version,evidence,definitionVersion);
+ const summary={schema:1,datasetVersion:manifest.version,at:new Date().toISOString(),matches:matches.length,definitions:RESEARCH_RECIPES.length,qualityControls:quality.controls,computedSelections:products.filter(p=>p.status==='calculated-in-sample').length,blockedSelections:products.filter(p=>p.status==='blocked').length,publicUiChanged:false,corroboratedBiographies:{birthdays:biography.birthdays.size,hands:biography.hands.size,conflicts:biography.conflicts,proofs:biography.proofs},datedElo:{version:datedElo.eloVersion,method:datedElo.method,calibration:datedElo.calibration,matchSides:datedElo.elo.size},absoluteRecordsCertified:0,elapsedMs:Math.round(performance.now()-started),quality,products:products.map(p=>({id:p.id,tour:p.tour,title:RESEARCH_RECIPES.find(r=>r.id===p.id)!.title,status:p.status,eligible:p.eligible,excluded:p.excluded,rows:p.rows.length,leader:p.rows[0]}))};
+ if(quality.errorCount)throw new Error('Research quality errors block generation and leave the previous pointer untouched');
+ const publication=await writeResearchGeneration(join(process.cwd(),'.deuce-cache/research'),manifest.version,definitionVersion,products,{...summary,sources});
+ console.log(JSON.stringify({version:manifest.version,definitionVersion,definitions:summary.definitions,controls:quality.controls,calculated:summary.computedSelections,blocked:summary.blockedSelections,qualityErrors:quality.errorCount,reused:publication.reused,elapsedMs:summary.elapsedMs}));
+}
+main().catch(error=>{console.error(error instanceof Error?error.message:'Research generation failed');process.exitCode=1});

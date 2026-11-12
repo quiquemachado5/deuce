@@ -25,7 +25,7 @@
 		rate_limit {
 			zone public_data_api {
 				match {
-					path /api/search* /api/players* /api/rivals* /api/matches* /api/match-previews*
+					path /api/v1/* /api/search* /api/players* /api/rivals* /api/matches* /api/match-previews*
 				}
 				key {remote_host}
 				events 240

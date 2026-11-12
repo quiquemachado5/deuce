@@ -1,0 +1,33 @@
+[
+  {
+    "tournament": "San Diego",
+    "year": 2006,
+    "tours": [
+      "wta"
+    ],
+    "category": "WTA 1000",
+    "photo": {
+      "src": "/media/editions-v31/masters/wta-official-old/san-diego-2006-sharapova-commons.webp",
+      "alt": "Maria Sharapova en la pista del Acura Classic, Carlsbad, 6 de agosto de 2006",
+      "credit": "dusdin / Wikimedia Commons (CC BY2.0)",
+      "source": "https://commons.wikimedia.org/wiki/File:Maria_Sharapova_Acura.jpg",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "rightsKnown": true,
+      "photoYear": 2006,
+      "objectPosition": "65% 42%",
+      "mobileObjectPosition": "65% 42%",
+      "reviewedAt": "2026-11-12T10:33:11.409199+00:00",
+      "auditStatus": "verified"
+    },
+    "sourceTitle": "Maria Sharapova, Acura Classic — Carlsbad, CA — Aug6 2006",
+    "sourceCaption": "Maria Sharapova, Acura Classic -- Carlsbad, CA -- Aug6 2006",
+    "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/9/95/Maria_Sharapova_Acura.jpg",
+    "downloadedDimensions": {
+      "width": 3504,
+      "height": 2336
+    },
+    "sourceImageSha256": "13559c6cf74fd5c21891b0ace2ac94fe8b40da2836a2e77402b687bcac1860d6",
+    "optimizedImageSha256": "25c44aade1cef0778ef077376b3362516de7ade7a1b6ca89d2a23606b6acd6c4",
+    "reviewNotes": "ExactoriginalCommons/Flickr description gives AcuraClassic atCarlsbad anddate6August2006. Native3504×2336, visuallyreviewed: Sharapova ontenniscourt withoriginalAcuraeventsponsor backdrop. Output1800pxwithoutenlargement, CC-BY2.0authorandlicensepreserved."
+  }
+]

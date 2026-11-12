@@ -1,3 +1,4 @@
+import {approvedMediaFetch as fetch} from './approved-media-fetch.mjs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { createRequire } from 'node:module';

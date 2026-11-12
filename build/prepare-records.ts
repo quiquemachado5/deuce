@@ -8,6 +8,7 @@ import type {EditionAudit} from '../lib/edition-audit';
 import type {Match} from '../lib/types';
 import {RULES_VERSION,type RecordManifest} from '../lib/revista/snapshot';
 import {preservePublishedArchive} from '../lib/revista/release-source';
+import {isReviewedOutsideMainDraw} from '../lib/reviewed-fixture-scope';
 import {publishedMatches} from '../lib/publication-scope';
 loadEnvConfig(process.cwd());
 const isCiBuild=process.env.CI==='1'||process.env.CI==='true';
@@ -20,6 +21,7 @@ async function main(){
   let previousAudit:EditionAudit[]|undefined;
   let previousCompetition:Match[]|undefined;
   let restoredPublishedArchive=false;
+  let reviewedScopeExclusions:Match[]=[];
   try{bundledPrevious=JSON.parse(gunzipSync(await readFile('data/reading/manifest.json.gz')).toString()) as RecordManifest;}catch{}
   if(verifiesRemoteRelease){
     const {cloudArchiveConfigured,cloudRead,cloudSnapshotBlob}=await import('../lib/cloud-archive');
@@ -28,13 +30,13 @@ async function main(){
     if(!previous)throw new Error('Cannot verify the published archive baseline');
     const localCount=matches.length;
     matches=await preservePublishedArchive(matches,previous,async version=>{
-      if(!previous?.matchPartitions?.length)return cloudSnapshotBlob<Match[]>(version,'matches');
+      if(!previous?.matchPartitions?.length){const rows=await cloudSnapshotBlob<Match[]>(version,'matches');reviewedScopeExclusions=(rows||[]).filter(isReviewedOutsideMainDraw);return rows;}
       const groups=await Promise.all(previous.matchPartitions.map(async partition=>({
         partition,
         rows:await cloudSnapshotBlob<Match[]>(version,partition.id),
       })));
       if(groups.some(group=>!group.rows||group.rows.length!==group.partition.count))return undefined;
-      return groups.flatMap(group=>group.rows!);
+      const rows=groups.flatMap(group=>group.rows!);reviewedScopeExclusions=rows.filter(isReviewedOutsideMainDraw);return rows;
     });
     restoredPublishedArchive=true;
     if(restoredPublishedArchive)console.log(`Published archive preserved: restored ${matches.length} matches over ${localCount} bundled matches`);
@@ -46,7 +48,7 @@ async function main(){
     const localCount=matches.length;
     matches=await preservePublishedArchive(publishedMatches(matches),bundledPrevious,async version=>{
       if(version!==bundledPrevious?.version)return undefined;
-      try{return JSON.parse(gunzipSync(await readFile('data/reading/matches.json.gz')).toString()) as Match[];}catch{return undefined;}
+      try{const rows=JSON.parse(gunzipSync(await readFile('data/reading/matches.json.gz')).toString()) as Match[];reviewedScopeExclusions=rows.filter(isReviewedOutsideMainDraw);return rows;}catch{return undefined;}
     });
     previous=bundledPrevious;
     if(matches.length>localCount)console.log(`Local archive baseline preserved: ${matches.length} matches over ${localCount} source matches`);
@@ -61,13 +63,13 @@ async function main(){
   const snapshot=compileRecordSnapshot(matches,new Date(),competition,audit);
   if(verifiesRemoteRelease){
     if(!previous)throw new Error('Cannot verify the published archive baseline');
-    assertReleaseCoverage(previous,snapshot.manifest);
+    assertReleaseCoverage(previous,snapshot.manifest,reviewedScopeExclusions);
     if(previous.rulesVersion===RULES_VERSION&&previousAudit?.length)assertEditionCoverage(previousAudit,snapshot.audit);
     else console.log('Edition coverage baseline initialized from this release');
     snapshot.manifest=attachIngestionHistory(previous,attachRecordChanges(previous,snapshot.manifest));
     console.log(`Release baseline verified: ${previous.matchCount} published matches; ${snapshot.manifest.matchCount} prepared; measured coverage preserved`);
   }else if(previous){
-    assertReleaseCoverage(previous,snapshot.manifest);
+    assertReleaseCoverage(previous,snapshot.manifest,reviewedScopeExclusions);
     snapshot.manifest=attachIngestionHistory(previous,attachRecordChanges(previous,snapshot.manifest));
   }
   assertSnapshotIntegrity(snapshot);
@@ -77,4 +79,4 @@ async function main(){
   // daily refresh publishes later, with its pointer committed last.
   console.log(`Reading snapshot: ${snapshot.manifest.matchCount} matches, ${snapshot.manifest.pieces.length} lists, version ${snapshot.manifest.version}`);
 }
-main().catch(error=>{console.error(error instanceof Error?error.message:'Snapshot failed');process.exitCode=1});
+main().catch(error=>{console.error(error instanceof Error?error.stack:'Snapshot failed');process.exitCode=1});

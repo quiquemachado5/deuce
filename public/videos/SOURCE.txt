@@ -1,17 +1,24 @@
-DEUCE hero media
-Source: https://www.youtube.com/watch?v=q3wrcFIrwD4
-Title: Best Points of Mixed Doubles Championship | 2026 US Open
-Publisher: US Open Tennis Championships
-Delivery: youtube-nocookie.com official embed; the footage is not downloaded,
-copied or rehosted by DEUCE.
+CURRENT LOCAL PREVIEW: deuce-professional.mp4
+Source: Wimbledon official, Where Beauty Meets the Battle (2026)
+https://www.youtube.com/watch?v=L21dd0mOTLo
+Silent H.264 1280x720 montage, gameplay excerpts only; edit list: professional-edit.json.
+No open reuse licence asserted; rights belong to the source owners.
 
-The local WebP is retained only as the lightweight opening and fallback poster.
-It is a frame adapted from Mixkit's "Tennis player serving":
+PREVIOUS ASSET (not used by the current hero):
+DEUCE home promotional film
+
+Local silent montage: deuce-promo.mp4 (43 seconds, H.264, 1280 x 720).
+No embedded player, broadcast scoreboard or playback controls.
+Sources:
 https://mixkit.co/free-stock-video/tennis-player-serving-873/
-under the Mixkit Stock Video Free License:
+https://mixkit.co/free-stock-video/man-playing-tennis-877/
+https://mixkit.co/free-stock-video/two-people-playing-tennis-aerial-view-880/
+Mixkit Stock Video Free License:
 https://mixkit.co/license/#videoFree
-The official player loops a one-minute match-footage excerpt (00:12–01:12) and is
-mounted after idle only while the hero is visible. The poster remains visible
-until the privacy-enhanced player confirms that it is ready.
-Reduced-motion, save-data and slow-2G/2G users keep the poster and never request
-the third-party player.
+
+Generic promotional tennis footage; it does not depict an archive match.
+The WebP poster is a frame from this montage.
+Mounted only while visible, after a short defer; reduced-motion, save-data
+and slow-2G/2G visitors keep the lightweight poster.
+
+Rebuild: build/prepare-home-film.swift, then build/compress-home-film.swift.

@@ -87,12 +87,13 @@ export function pressure(m: Match) {
   });
 }
 export function sentence(m: Match) {
+  if(/^(retired|retirement|ret|abandoned)$/i.test(m.status))return `${m.winner===1?m.player1.name:m.player2.name} ganó por retirada.`;
   if(m.winner && m.score_summary.games.length){
     const side=m.winner-1, name=side===0?m.player1.name:m.player2.name;
     const first=m.score_summary.games[0],second=m.score_summary.games[1];
     if(first[side]<first[1-side]){
       const two=second&&second[side]<second[1-side];
-      return `${name} remontó ${two?'dos sets':'el primer set'} en ${round(m).toLowerCase()}.`;
+      return `${name} remontó ${two?'dos sets':'el primer set'} en ${(round(m)||m.round||'el partido').toLowerCase()}.`;
     }
   }
   if (!m.point_tape.length) return "";

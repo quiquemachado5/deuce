@@ -1,0 +1,110 @@
+[
+  {
+    "tournament": "Dubai",
+    "year": 2002,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/dubai-2002-wta-faecf6d757.webp",
+      "alt": "Dubai 2002 \u00b7 cuadro femenino",
+      "credit": "Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://www.wtatennis.com/photos/2504356/gettyimages-72503885",
+      "photoYear": 2002,
+      "objectPosition": "50% 45%",
+      "auditStatus": "candidate",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2022/02/25/c6409389-2721-4611-a839-b63ca71c2601/GettyImages-72503885.jpg",
+    "sourceTitle": "Venus Williams - Dubai 2002",
+    "sourceExcerpt": "Venus Williams - Dubai 2002",
+    "sourceSha256": "faecf6d75726e64e1dca8876645057b998adbeee08ac7216ecf8a1ddaae77b2c",
+    "width": 1600,
+    "height": 1067,
+    "bytes": 216508,
+    "cmsPhotoId": 2504356,
+    "candidateIndex": 5,
+    "reviewNotes": "Official WTA editorial caption; manual visual review pending."
+  },
+  {
+    "tournament": "Dubai",
+    "year": 2009,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/dubai-2009-wta-515689b712.webp",
+      "alt": "Dubai 2009 \u00b7 cuadro femenino",
+      "credit": "WTA / Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://www.wtatennis.com/photos/1404609/dubai-off-court-venus-williams-2009-player-party",
+      "photoYear": 2009,
+      "objectPosition": "50% 45%",
+      "auditStatus": "candidate",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/5c350d1a-e5a3-4402-8ae2-41bbc8efa227/CghZpwqs.jpg",
+    "sourceTitle": "Dubai Off-Court - Venus Williams 2009 Player Party",
+    "sourceExcerpt": "Dubai Off-Court - Venus Williams 2009 Player Party",
+    "sourceSha256": "515689b71226da6553ff0bbf5912dc82f6650e831e1eb93be22fd13fee3a4766",
+    "width": 1600,
+    "height": 869,
+    "bytes": 95796,
+    "cmsPhotoId": 1404609,
+    "candidateIndex": 7,
+    "reviewNotes": "Official WTA editorial caption; manual visual review pending."
+  },
+  {
+    "tournament": "Dubai",
+    "year": 2010,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/dubai-2010-wta-40198173bc.webp",
+      "alt": "Dubai 2010 \u00b7 cuadro femenino",
+      "credit": "WTA / Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://www.wtatennis.com/photos/1404627/venus-williams-won-her-first-dubai-trophy-in-2010-beating-virginie-razzano-in-straight-sets-getty",
+      "photoYear": 2010,
+      "objectPosition": "50% 45%",
+      "auditStatus": "candidate",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/f6ec792e-7849-4373-bc91-f723e3bd90f7/IimgdBxM.jpg",
+    "sourceTitle": "Venus Williams won her first Dubai trophy in 2010, beating Virginie Razzano in straight sets (Getty)",
+    "sourceExcerpt": "Venus Williams won her first Dubai trophy in 2010, beating Virginie Razzano in straight sets (Getty)",
+    "sourceSha256": "40198173bcf83323a88b2d5000129cb26a1df6aa1497116e107b3a0bd9c22d3a",
+    "width": 1600,
+    "height": 869,
+    "bytes": 42440,
+    "cmsPhotoId": 1404627,
+    "candidateIndex": 8,
+    "reviewNotes": "Official WTA editorial caption; manual visual review pending."
+  },
+  {
+    "tournament": "Indian Wells",
+    "year": 2017,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/indian-wells-2017-wta-56a42f4fc8.webp",
+      "alt": "Indian Wells 2017 \u00b7 cuadro femenino",
+      "credit": "Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://www.wtatennis.com/photos/1645455/null",
+      "photoYear": 2017,
+      "objectPosition": "50% 45%",
+      "auditStatus": "candidate",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2020/03/13/4ddb2b18-c1fd-4679-8606-d0afafa74af1/GettyImages-655408430.jpg",
+    "sourceTitle": "Elena Vesnina, Indian Wells 2017 (Getty)",
+    "sourceExcerpt": "Elena Vesnina, Indian Wells 2017 (Getty)",
+    "sourceSha256": "56a42f4fc8ad7a4824944a8dea236ca32b5f771bbd630d61b06861d5d5b21c98",
+    "width": 1600,
+    "height": 1120,
+    "bytes": 105694,
+    "cmsPhotoId": 1645455,
+    "candidateIndex": 11,
+    "reviewNotes": "Official WTA editorial caption; manual visual review pending."
+  }
+]

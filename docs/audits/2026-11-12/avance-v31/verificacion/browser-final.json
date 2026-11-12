@@ -1,0 +1,65 @@
+[
+  {
+    "path": "/torneos/roland-garros/2003?cuadro=atp",
+    "width": 390,
+    "status": 200,
+    "elapsedMs": 3967,
+    "h1": [
+      "Roland Garros 2003"
+    ],
+    "overflow": false,
+    "editionPhotos": [
+      {
+        "src": "/media/editions-v31/roland-garros/atp-2003-official-ferrero-2e2595094b01.webp",
+        "naturalWidth": 956
+      }
+    ],
+    "errors": []
+  },
+  {
+    "path": "/torneos/wimbledon/2008?cuadro=wta",
+    "width": 1440,
+    "status": 200,
+    "elapsedMs": 2269,
+    "h1": [
+      "Wimbledon 2008"
+    ],
+    "overflow": false,
+    "editionPhotos": [
+      {
+        "src": "/media/editions-v31/slams/wimbledon-2008-wta-d5b10a782b.webp",
+        "naturalWidth": 1140
+      }
+    ],
+    "errors": []
+  },
+  {
+    "path": "/torneos/rome/2009?cuadro=wta",
+    "width": 390,
+    "status": 200,
+    "elapsedMs": 2269,
+    "h1": [
+      "Roma 2009"
+    ],
+    "overflow": false,
+    "editionPhotos": [
+      {
+        "src": "/media/editions-v31/masters-wta-official/rome-2009-wta-0f185d8faa.webp",
+        "naturalWidth": 850
+      }
+    ],
+    "errors": []
+  },
+  {
+    "path": "/licencias",
+    "width": 1440,
+    "status": 200,
+    "elapsedMs": 1165,
+    "h1": [
+      "Licencias"
+    ],
+    "overflow": false,
+    "editionPhotos": [],
+    "errors": []
+  }
+]

@@ -1,12 +1,9 @@
+import {clientAddress} from './client-address';
+import {sharedRateLimit,sharedRateLimitDiagnostics,sharedRateLimitPath,closeSharedRateLimitHandles} from './shared-rate-limit';
 type Entry = { count: number; resetAt: number };
 const buckets = new Map<string, Entry>();
 const maximumBuckets = 2_048;
 let evictions = 0;
-
-function clientAddress(request: Request) {
-  const forwarded = request.headers.get('x-forwarded-for')?.split(',').at(-1);
-  return (request.headers.get('x-real-ip') || forwarded || 'unknown').trim().slice(0, 80);
-}
 
 function pruneBuckets(now: number) {
   for (const [candidate, value] of buckets) {
@@ -21,11 +18,15 @@ function pruneBuckets(now: number) {
 }
 
 /**
- * Per-instance safety valve. The public API also sets explicit query and CPU
- * budgets; production edge rate limiting remains the distributed outer layer.
+ * Shared SQLite enforcement on the single-host deployment, with an additional
+ * Caddy outer budget. In-memory mode remains explicit for isolated development.
  */
 export function rateLimit(request: Request, scope: string, limit: number, windowMs: number) {
   const now = Date.now();
+  const store=process.env.DEUCE_RATE_LIMIT_STORE||(process.env.DEUCE_ARCHIVE_DIR?'sqlite':'memory');
+  const path=sharedRateLimitPath();
+  if(store==='sqlite')return path?sharedRateLimit(path,`${scope}:${clientAddress(request)}`,limit,windowMs,now):{allowed:false,remaining:0,retryAfter:1};
+  if(store!=='memory')return {allowed:false,remaining:0,retryAfter:1};
   const key = `${scope}:${clientAddress(request)}`;
   let entry = buckets.get(key);
   if (!entry || entry.resetAt <= now) {
@@ -38,10 +39,12 @@ export function rateLimit(request: Request, scope: string, limit: number, window
 }
 
 export function rateLimitDiagnostics() {
+  if((process.env.DEUCE_RATE_LIMIT_STORE||(process.env.DEUCE_ARCHIVE_DIR?'sqlite':'memory'))==='sqlite')return sharedRateLimitDiagnostics(sharedRateLimitPath());
   return { entries: buckets.size, capacity: maximumBuckets, evictions };
 }
 
 export function resetRateLimitState() {
+  closeSharedRateLimitHandles();
   buckets.clear();
   evictions = 0;
 }

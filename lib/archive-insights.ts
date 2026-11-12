@@ -1,5 +1,5 @@
 import type { Match, MatchStat } from './types'
-import { eligibleMatch } from './quality'
+import { eligibleMatch, isRetirement, completedSets } from './quality'
 import { publishedMatchMinutes } from './duration'
 
 export type InsightGroup = 'Resultados' | 'Presión' | 'Servicio' | 'Resto' | 'Contexto' | 'Golpes'
@@ -47,8 +47,8 @@ export function statFraction(match: Match, side: 1 | 2, name: string): [number, 
 }
 export const gamesInMatch = (match: Match) => match.score_summary.games.reduce((sum, set) => sum + set[0] + set[1], 0)
 export const tiebreakCount = (match: Match) => match.score_summary.games.filter(([a,b]) => Math.max(a,b) === 7 && Math.min(a,b) === 6).length
-export const isDeciding = (match: Match) => { const sets = match.score_summary.games; const wins = sets.filter(([a,b])=>a>b).length; return sets.length > 1 && Math.abs(wins-(sets.length-wins)) === 1 }
-export const lostOpening = (match: Match, count = 1) => !!match.winner && match.score_summary.games.length > count && match.score_summary.games.slice(0,count).every(set=>set[match.winner!-1]<set[2-match.winner!])
+export const isDeciding = (match: Match) => { const sets = match.score_summary.games; const wins = sets.filter(([a,b])=>a>b).length; return !isRetirement(match) && sets.length > 1 && Math.abs(wins-(sets.length-wins)) === 1 }
+export const lostOpening = (match: Match, count = 1) => !!match.winner && match.score_summary.games.length > count && completedSets(match).slice(0,count).length===count && completedSets(match).slice(0,count).every(set=>set[match.winner!-1]<set[2-match.winner!])
 const final = (m: Match) => /^final$/i.test(m.round)
 const measured = (matches: Match[], field: (m: Match)=>number|null) => matches.flatMap(match=>{const value=field(match);return value !== null && Number.isFinite(value) ? [{value,match}] : []})
 const rate = (key: string,label: string,group: InsightGroup,definition: string,test:(m:Match)=>boolean,eligible:(m:Match)=>boolean=()=>true): ArchiveMetric => ({key,label,group,unit:'%',definition,read:matches=>{const sample=matches.filter(eligible),won=sample.filter(test).length;return sample.length?{value:round(won/sample.length*100),sample:sample.length,numerator:won,denominator:sample.length}:null}})

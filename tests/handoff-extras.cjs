@@ -8,7 +8,7 @@ const fs=require('node:fs/promises');
  await page.goto('http://localhost:3000/match/live-189546',{waitUntil:'networkidle'});
  await page.getByRole('button',{name:'Compartir partido',exact:true}).click();
  const dialog=page.getByRole('dialog',{name:'Compartir partido'});
- await expect(dialog.locator('.global-player')).toHaveCount(2);
+ await expect(dialog.locator('[data-score-player]')).toHaveCount(2);
  const downloading=page.waitForEvent('download');
  await dialog.getByRole('button',{name:/Cuadrado/}).click();
  const file=await downloading;expect(await file.failure()).toBeNull();

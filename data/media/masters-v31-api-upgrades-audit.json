@@ -1,0 +1,395 @@
+{
+  "createdAt": "2026-11-12T09:57:44.140886+00:00",
+  "accepted": 11,
+  "photos": [
+    {
+      "tournament": "Indian Wells",
+      "year": 2009,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/media/editions-v31/masters/api/indianwells-2009-4200540.webp",
+        "alt": "Indian Wells 2009 · ATP",
+        "credit": "Tennis TV / ATP Media",
+        "source": "https://api.tennistv.com/content/atpmedia/photo/en/4200540",
+        "rightsKnown": false,
+        "photoYear": 2009,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%",
+        "reviewedAt": "2026-11-12T09:57:44.140886+00:00",
+        "auditStatus": "verified"
+      },
+      "sourceTitle": "2009 Indian Wells Nadal",
+      "originalUrl": "https://resources.prod.atpmedia.pulselive.com/photo-resources/2025/01/17/20bd282a-0dca-4e01-bc4a-da3a90597776/GettyImages-85494260.jpg?width=2400&height=1600",
+      "publisherOriginalDetails": {
+        "width": 3000,
+        "height": 2000,
+        "aspectRatio": 1.5
+      },
+      "downloadedDimensions": {
+        "width": 2400,
+        "height": 1600
+      },
+      "sourceCaption": null,
+      "publisherPhotoId": 4200540,
+      "sourceImageSha256": "a1b6530fae9c799d46b26c1ddbee5e1118700e4f560b35cf4781cca8d3c8ee5a",
+      "optimizedImageSha256": "7738f2a6b35fb51ee2a132c452818ac2321d7fb08a7fe2baba0a9f94567f92c9",
+      "reviewNotes": "Official Tennis TV / ATP Media editorial PHOTO. Exact tournament and edition year established by publisher photo title/caption, not the migrated publication date. Native original dimensions retained in evidence. Photograph visually reviewed in contact sheet; no playback controls, score overlays, promotional lettering, skyline or external venue substitution. WebP preserves original aspect ratio and is resized without enlargement to at most 1800px."
+    },
+    {
+      "tournament": "Madrid",
+      "year": 2013,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/media/editions-v31/masters/api/madrid-2013-3586775.webp",
+        "alt": "Madrid 2013 · ATP",
+        "credit": "Tennis TV / ATP Media",
+        "source": "https://api.tennistv.com/content/atpmedia/photo/en/3586775",
+        "rightsKnown": false,
+        "photoYear": 2013,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%",
+        "reviewedAt": "2026-11-12T09:57:44.140886+00:00",
+        "auditStatus": "verified"
+      },
+      "sourceTitle": "2013 Madrid Nishikori",
+      "originalUrl": "https://resources.prod.atpmedia.pulselive.com/photo-resources/2023/07/11/4951a045-005a-4c8a-8c5b-84daf4261e77/GettyImages-168408762.jpg?width=2400&height=1587",
+      "publisherOriginalDetails": {
+        "width": 3844,
+        "height": 2542,
+        "aspectRatio": 1.5121951
+      },
+      "downloadedDimensions": {
+        "width": 2400,
+        "height": 1587
+      },
+      "sourceCaption": null,
+      "publisherPhotoId": 3586775,
+      "sourceImageSha256": "b3706615c79cdf4c2071175af2ba4a330e2725f8a6e6d854eb37298f8f27e7d3",
+      "optimizedImageSha256": "31ec5613960cd38ccaa92fd89abdeee3ed761a5be0d4f0ca0625e1b4cd121db2",
+      "reviewNotes": "Official Tennis TV / ATP Media editorial PHOTO. Exact tournament and edition year established by publisher photo title/caption, not the migrated publication date. Native original dimensions retained in evidence. Photograph visually reviewed in contact sheet; no playback controls, score overlays, promotional lettering, skyline or external venue substitution. WebP preserves original aspect ratio and is resized without enlargement to at most 1800px."
+    },
+    {
+      "tournament": "Miami",
+      "year": 2005,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/media/editions-v31/masters/api/miami-2005-4232841.webp",
+        "alt": "Miami 2005 · ATP",
+        "credit": "Tennis TV / ATP Media",
+        "source": "https://api.tennistv.com/content/atpmedia/photo/en/4232841",
+        "rightsKnown": false,
+        "photoYear": 2005,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%",
+        "reviewedAt": "2026-11-12T09:57:44.140886+00:00",
+        "auditStatus": "verified"
+      },
+      "sourceTitle": "2005 Miami Federer",
+      "originalUrl": "https://resources.prod.atpmedia.pulselive.com/photo-resources/2025/03/13/8d062bab-28fd-47dd-a0ad-ccbc1bfb6dcf/GettyImages-52485219.jpg?width=2400&height=1623",
+      "publisherOriginalDetails": {
+        "width": 3000,
+        "height": 2029,
+        "aspectRatio": 1.4785609
+      },
+      "downloadedDimensions": {
+        "width": 2400,
+        "height": 1623
+      },
+      "sourceCaption": null,
+      "publisherPhotoId": 4232841,
+      "sourceImageSha256": "d16428d2cf739c2a82e49f9c6ed5292ff05717b036dbe9e8f459dea5deee6578",
+      "optimizedImageSha256": "3dbea73b3b54b88a8969b24078c9b1cc627350f8506513dbe6409c6d35c80801",
+      "reviewNotes": "Official Tennis TV / ATP Media editorial PHOTO. Exact tournament and edition year established by publisher photo title/caption, not the migrated publication date. Native original dimensions retained in evidence. Photograph visually reviewed in contact sheet; no playback controls, score overlays, promotional lettering, skyline or external venue substitution. WebP preserves original aspect ratio and is resized without enlargement to at most 1800px."
+    },
+    {
+      "tournament": "Miami",
+      "year": 2011,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/media/editions-v31/masters/api/miami-2011-2799629.webp",
+        "alt": "Miami 2011 · ATP",
+        "credit": "Tennis TV / ATP Media",
+        "source": "https://api.tennistv.com/content/atpmedia/photo/en/2799629",
+        "rightsKnown": false,
+        "photoYear": 2011,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%",
+        "reviewedAt": "2026-11-12T09:57:44.140886+00:00",
+        "auditStatus": "verified"
+      },
+      "sourceTitle": "2011 Miami Djokovic Murray",
+      "originalUrl": "https://resources.prod.atpmedia.pulselive.com/photo-resources/2022/09/22/711291cd-c8cf-461c-b20e-c82e1a5291a3/GettyImages-110917619.jpg?width=2400&height=1618",
+      "publisherOriginalDetails": {
+        "width": 4759,
+        "height": 3209,
+        "aspectRatio": 1.4830165
+      },
+      "downloadedDimensions": {
+        "width": 2400,
+        "height": 1618
+      },
+      "sourceCaption": null,
+      "publisherPhotoId": 2799629,
+      "sourceImageSha256": "20619913a9185dd31d85e58acf9e32f39a4f0f83b5d88d4b2c7718ef5ff42428",
+      "optimizedImageSha256": "2acf7180f4e2616415776b111ba0b98c0612bc3542930be2be8aaee361674776",
+      "reviewNotes": "Official Tennis TV / ATP Media editorial PHOTO. Exact tournament and edition year established by publisher photo title/caption, not the migrated publication date. Native original dimensions retained in evidence. Photograph visually reviewed in contact sheet; no playback controls, score overlays, promotional lettering, skyline or external venue substitution. WebP preserves original aspect ratio and is resized without enlargement to at most 1800px."
+    },
+    {
+      "tournament": "Monte Carlo",
+      "year": 2012,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/media/editions-v31/masters/api/montecarlo-2012-2381910.webp",
+        "alt": "Monte Carlo 2012 · ATP",
+        "credit": "Tennis TV / ATP Media",
+        "source": "https://api.tennistv.com/content/atpmedia/photo/en/2381910",
+        "rightsKnown": false,
+        "photoYear": 2012,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%",
+        "reviewedAt": "2026-11-12T09:57:44.140886+00:00",
+        "auditStatus": "verified"
+      },
+      "sourceTitle": "Monte Carlo 2012 Final Replay Nadal Djokovic",
+      "originalUrl": "https://resources.prod.atpmedia.pulselive.com/photo-resources/2021/12/01/3d64b957-08f7-4879-a644-58b9da7bb188/VoQbqc5D.jpg?width=1920&height=1080",
+      "publisherOriginalDetails": {
+        "width": 1920,
+        "height": 1080,
+        "aspectRatio": 1.7777778
+      },
+      "downloadedDimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "sourceCaption": "Defending champion and World No. 2 Rafael Nadal faced World No. 1 Novak Djokovic in the 2012 Monte-Carlo final. Watch the full match replay. ",
+      "publisherPhotoId": 2381910,
+      "sourceImageSha256": "689dc7bdc2c208439a20ece98cd15606c3428892fabe6d8adc2815686fce259b",
+      "optimizedImageSha256": "9f01a929d1deb0b3a786e9237c9d6ea979ba812caf876c57d7a18bc511cd1ebb",
+      "reviewNotes": "Official Tennis TV / ATP Media editorial PHOTO. Exact tournament and edition year established by publisher photo title/caption, not the migrated publication date. Native original dimensions retained in evidence. Photograph visually reviewed in contact sheet; no playback controls, score overlays, promotional lettering, skyline or external venue substitution. WebP preserves original aspect ratio and is resized without enlargement to at most 1800px."
+    },
+    {
+      "tournament": "Monte Carlo",
+      "year": 2013,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/media/editions-v31/masters/api/montecarlo-2013-2381960.webp",
+        "alt": "Monte Carlo 2013 · ATP",
+        "credit": "Tennis TV / ATP Media",
+        "source": "https://api.tennistv.com/content/atpmedia/photo/en/2381960",
+        "rightsKnown": false,
+        "photoYear": 2013,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%",
+        "reviewedAt": "2026-11-12T09:57:44.140886+00:00",
+        "auditStatus": "verified"
+      },
+      "sourceTitle": "Monte Carlo 2013 Final Replay Nadal Djokovic",
+      "originalUrl": "https://resources.prod.atpmedia.pulselive.com/photo-resources/2021/12/01/238e3060-bb15-4662-9ace-467c38e6c315/QybLlL9c.jpg?width=1920&height=1080",
+      "publisherOriginalDetails": {
+        "width": 1920,
+        "height": 1080,
+        "aspectRatio": 1.7777778
+      },
+      "downloadedDimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "sourceCaption": "World No. 1 Novak Djokovic faced eight-time champion Rafael Nadal in the 2013 Monte-Carlo Rolex Masters final. Watch the full match replay. ",
+      "publisherPhotoId": 2381960,
+      "sourceImageSha256": "b9290486b9f1353f0ba8c5e46b984c4a9a264044caa3324a15b351d51b8c7bbe",
+      "optimizedImageSha256": "ab2ac1671efb63c799343efe9804bc5bb4678ebf0c23b5f6012e3927e23e2c13",
+      "reviewNotes": "Official Tennis TV / ATP Media editorial PHOTO. Exact tournament and edition year established by publisher photo title/caption, not the migrated publication date. Native original dimensions retained in evidence. Photograph visually reviewed in contact sheet; no playback controls, score overlays, promotional lettering, skyline or external venue substitution. WebP preserves original aspect ratio and is resized without enlargement to at most 1800px."
+    },
+    {
+      "tournament": "Monte Carlo",
+      "year": 2016,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/media/editions-v31/masters/api/montecarlo-2016-2399670.webp",
+        "alt": "Monte Carlo 2016 · ATP",
+        "credit": "Tennis TV / ATP Media",
+        "source": "https://api.tennistv.com/content/atpmedia/photo/en/2399670",
+        "rightsKnown": false,
+        "photoYear": 2016,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%",
+        "reviewedAt": "2026-11-12T09:57:44.140886+00:00",
+        "auditStatus": "verified"
+      },
+      "sourceTitle": "Monte Carlo 2016 Quarter Final Highlights Nadal Wawrinka",
+      "originalUrl": "https://resources.prod.atpmedia.pulselive.com/photo-resources/2021/12/07/a1b9b36a-cfb6-4e1f-b7f3-49ce0383c430/2aekPHXd.jpg?width=1920&height=1080",
+      "publisherOriginalDetails": {
+        "width": 1920,
+        "height": 1080,
+        "aspectRatio": 1.7777778
+      },
+      "downloadedDimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "sourceCaption": "Eight-time champion Rafael Nadal and 2014 winner Stan Wawrinka went head-to-head for a place in the semi-finals of the 2016 Monte-Carlo Rolex Masters. ",
+      "publisherPhotoId": 2399670,
+      "sourceImageSha256": "cb0ff66d20814aeb4a8deb8c2e3bbaabd039656a63454bbf104728d13c7b2c01",
+      "optimizedImageSha256": "5747f944a5fe51f22a3697ea9239a79263ce8b9c1c2161a36b58f2b77cc3dbc2",
+      "reviewNotes": "Official Tennis TV / ATP Media editorial PHOTO. Exact tournament and edition year established by publisher photo title/caption, not the migrated publication date. Native original dimensions retained in evidence. Photograph visually reviewed in contact sheet; no playback controls, score overlays, promotional lettering, skyline or external venue substitution. WebP preserves original aspect ratio and is resized without enlargement to at most 1800px."
+    },
+    {
+      "tournament": "Paris",
+      "year": 2010,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/media/editions-v31/masters/api/paris-2010-3649125.webp",
+        "alt": "Paris 2010 · ATP",
+        "credit": "Tennis TV / ATP Media",
+        "source": "https://api.tennistv.com/content/atpmedia/photo/en/3649125",
+        "rightsKnown": false,
+        "photoYear": 2010,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%",
+        "reviewedAt": "2026-11-12T09:57:44.140886+00:00",
+        "auditStatus": "verified"
+      },
+      "sourceTitle": "2010 Paris Monfils",
+      "originalUrl": "https://resources.prod.atpmedia.pulselive.com/photo-resources/2023/08/24/5394034a-9841-40b8-ad40-784a346e9726/GettyImages-106654474.jpg?width=2400&height=1601",
+      "publisherOriginalDetails": {
+        "width": 3000,
+        "height": 2001,
+        "aspectRatio": 1.4992504
+      },
+      "downloadedDimensions": {
+        "width": 2400,
+        "height": 1601
+      },
+      "sourceCaption": null,
+      "publisherPhotoId": 3649125,
+      "sourceImageSha256": "25fa81351ea94f95be3963282593ec6506f37d017f3b62af8f6252d356b99121",
+      "optimizedImageSha256": "bab7e7b523f085e02eec3a5e7407f33ffcf5277ba73e0ac943963b17997b3d36",
+      "reviewNotes": "Official Tennis TV / ATP Media editorial PHOTO. Exact tournament and edition year established by publisher photo title/caption, not the migrated publication date. Native original dimensions retained in evidence. Photograph visually reviewed in contact sheet; no playback controls, score overlays, promotional lettering, skyline or external venue substitution. WebP preserves original aspect ratio and is resized without enlargement to at most 1800px."
+    },
+    {
+      "tournament": "Paris",
+      "year": 2018,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/media/editions-v31/masters/api/paris-2018-2402762.webp",
+        "alt": "Paris 2018 · ATP",
+        "credit": "Tennis TV / ATP Media",
+        "source": "https://api.tennistv.com/content/atpmedia/photo/en/2402762",
+        "rightsKnown": false,
+        "photoYear": 2018,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%",
+        "reviewedAt": "2026-11-12T09:57:44.140886+00:00",
+        "auditStatus": "verified"
+      },
+      "sourceTitle": "Paris 2018 Final Khachanov Djokovic",
+      "originalUrl": "https://resources.prod.atpmedia.pulselive.com/photo-resources/2021/12/07/4892b663-ade7-46b6-827a-76e9c1501cbe/8krc1NzP.jpg?width=1920&height=1080",
+      "publisherOriginalDetails": {
+        "width": 1920,
+        "height": 1080,
+        "aspectRatio": 1.7777778
+      },
+      "downloadedDimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "sourceCaption": "Watch the final of the 2018 Rolex Paris Masters from start to fnish as four-time champion Novak Djokovic took on first-time ATP World Tour Masters 1000 finalist Karen Khachanov for the prestigious title. ",
+      "publisherPhotoId": 2402762,
+      "sourceImageSha256": "1c815181ebe65d3a977117732cee11c621d75d811618083942e25abbe09993ca",
+      "optimizedImageSha256": "3cc155978eb9e3cb22657e2c3e66d635c8786597310918cbcbc2f30afdbfaa1b",
+      "reviewNotes": "Official Tennis TV / ATP Media editorial PHOTO. Exact tournament and edition year established by publisher photo title/caption, not the migrated publication date. Native original dimensions retained in evidence. Photograph visually reviewed in contact sheet; no playback controls, score overlays, promotional lettering, skyline or external venue substitution. WebP preserves original aspect ratio and is resized without enlargement to at most 1800px."
+    },
+    {
+      "tournament": "Shanghai",
+      "year": 2018,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/media/editions-v31/masters/api/shanghai-2018-2402851.webp",
+        "alt": "Shanghai 2018 · ATP",
+        "credit": "Tennis TV / ATP Media",
+        "source": "https://api.tennistv.com/content/atpmedia/photo/en/2402851",
+        "rightsKnown": false,
+        "photoYear": 2018,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%",
+        "reviewedAt": "2026-11-12T09:57:44.140886+00:00",
+        "auditStatus": "verified"
+      },
+      "sourceTitle": "Shanghai 2018 Final Coric Djokovic",
+      "originalUrl": "https://resources.prod.atpmedia.pulselive.com/photo-resources/2021/12/07/f01a9a78-7ba1-4292-94be-7abfd7ffb27e/FNv94EVM.jpg?width=1920&height=1080",
+      "publisherOriginalDetails": {
+        "width": 1920,
+        "height": 1080,
+        "aspectRatio": 1.7777778
+      },
+      "downloadedDimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "sourceCaption": "Watch this full replay of the 2018 Rolex Shanghai Masters final as three-time champion Novak Djokovic came up against first-time ATP World Tour Masters 1000 finalist Borna Coric for the title. ",
+      "publisherPhotoId": 2402851,
+      "sourceImageSha256": "1482d65cd4195d20c467f5d1ac4264b28b8e7650ef5503e921a36fd47b1f896d",
+      "optimizedImageSha256": "2a5d7c527a2bcb4e30a0887ea532b72015357f6b964150f742d02d896994073d",
+      "reviewNotes": "Official Tennis TV / ATP Media editorial PHOTO. Exact tournament and edition year established by publisher photo title/caption, not the migrated publication date. Native original dimensions retained in evidence. Photograph visually reviewed in contact sheet; no playback controls, score overlays, promotional lettering, skyline or external venue substitution. WebP preserves original aspect ratio and is resized without enlargement to at most 1800px."
+    },
+    {
+      "tournament": "Shanghai",
+      "year": 2023,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/media/editions-v31/masters/api/shanghai-2023-3720437.webp",
+        "alt": "Shanghai 2023 · ATP",
+        "credit": "Tennis TV / ATP Media",
+        "source": "https://api.tennistv.com/content/atpmedia/photo/en/3720437",
+        "rightsKnown": false,
+        "photoYear": 2023,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%",
+        "reviewedAt": "2026-11-12T09:57:44.140886+00:00",
+        "auditStatus": "verified"
+      },
+      "sourceTitle": "2023 Shanghai Sweeny",
+      "originalUrl": "https://resources.prod.atpmedia.pulselive.com/photo-resources/2023/10/04/aa9d9769-0afa-4e90-88b6-9255bbed2a29/20231004_SHG_PS1_5582.JPG?width=2400&height=1600",
+      "publisherOriginalDetails": {
+        "width": 8256,
+        "height": 5504,
+        "aspectRatio": 1.5
+      },
+      "downloadedDimensions": {
+        "width": 2400,
+        "height": 1600
+      },
+      "sourceCaption": null,
+      "publisherPhotoId": 3720437,
+      "sourceImageSha256": "203c0d51988518aea5af437dfbe0cca31abb6ececabfab33bf0561672ff5e55c",
+      "optimizedImageSha256": "159c2aabf7203e5bdc3682921d82fbdcbe8e934c56ccc3d076c14365f7f93dbd",
+      "reviewNotes": "Official Tennis TV / ATP Media editorial PHOTO. Exact tournament and edition year established by publisher photo title/caption, not the migrated publication date. Native original dimensions retained in evidence. Photograph visually reviewed in contact sheet; no playback controls, score overlays, promotional lettering, skyline or external venue substitution. WebP preserves original aspect ratio and is resized without enlargement to at most 1800px."
+    }
+  ],
+  "rejected": [],
+  "missing": [],
+  "reviewMethod": "One eleven-image contact sheet visually inspected; all photographs show on-court tennis or the actual trophy ceremony, with exact event/year publisher caption and no playback controls/score overlays.",
+  "bytes": 2579012
+}

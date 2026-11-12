@@ -63,9 +63,12 @@ const providerRounds: Record<string, string> = {
   R32: 'Ronda de 32',
   R64: 'Ronda de 64',
   R128: 'Ronda de 128',
+  RR: 'Fase de grupos',
+  BR: 'Tercer puesto',
 };
 
 export function providerRoundName(value: unknown) {
   const source = typeof value === 'string' ? value.trim() : '';
+  if(/^Q\d+$/i.test(source))return `Previa · ronda ${source.slice(1)}`;
   return providerRounds[source.toUpperCase()] || source;
 }

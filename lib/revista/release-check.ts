@@ -1,4 +1,6 @@
 import type { RecordManifest } from './snapshot';
+import {isReviewedOutsideMainDraw} from '../reviewed-fixture-scope';
+import type {Match} from '../types';
 import type { EditionAudit } from '../edition-audit';
 import { editionCompleteness } from '../edition-audit';
 
@@ -8,16 +10,23 @@ import { editionCompleteness } from '../edition-audit';
 const EPHEMERAL_RECORD_PIECES = new Set(['tal-dia-como-hoy']);
 
 /** Intentional reductions require review, never an unnoticed degraded build. */
-export function assertReleaseCoverage(previous: RecordManifest, current: RecordManifest) {
+export function assertReleaseCoverage(previous: RecordManifest, current: RecordManifest, reviewedScopeExclusions:Match[]=[]) {
   if (!Number.isSafeInteger(previous.matchCount) || !Array.isArray(previous.pieces)) throw new Error('Published baseline is invalid');
   // A reviewed rules change may intentionally narrow the public universe. All
   // subsequent publications under that rules version regain the strict guard.
   if (previous.rulesVersion !== current.rulesVersion) return;
-  if (current.matchCount < previous.matchCount) throw new Error('Release would lose published matches');
+  const exclusions={atp:0,wta:0};
+  const excludedIds=new Set<string>();
+  for(const row of reviewedScopeExclusions){
+    const tour=row.tour||'atp',key=`${tour}:${row.match_id}`;
+    if(excludedIds.has(key)||!isReviewedOutsideMainDraw(row))throw new Error('Unverified publication scope exclusion');
+    excludedIds.add(key);exclusions[tour]++;
+  }
+  if (current.matchCount < previous.matchCount-reviewedScopeExclusions.length) throw new Error('Release would lose published matches');
   const previousTours = previous.summary?.tours || { atp: previous.matchCount, wta: 0 };
   const currentTours = current.summary?.tours || { atp: current.matchCount, wta: 0 };
   for (const tour of ['atp', 'wta'] as const) {
-    if (currentTours[tour] < previousTours[tour]) throw new Error(`Release would lose published ${tour.toUpperCase()} matches`);
+    if (currentTours[tour] < previousTours[tour]-exclusions[tour]) throw new Error(`Release would lose published ${tour.toUpperCase()} matches`);
   }
   const catalogues = (manifest: RecordManifest) => ({
     atp: manifest.pieces,

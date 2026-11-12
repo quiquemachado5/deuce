@@ -1,3 +1,4 @@
+import ArchiveFilterBar from '@/components/ArchiveFilterBar';
 import Link from 'next/link';
 import { preparedMatchBrowser } from '@/lib/revista/read-records';
 import { queryMatchBrowserPage, type BrowserFilter } from '@/lib/match-browser-snapshot';
@@ -54,17 +55,17 @@ export default async function EnglishMatches({ searchParams }: { searchParams: P
   const circuits=tour==='all'?(['atp','wta'] as const):([tour] as const);
   const years=[...new Set(circuits.flatMap(value=>browser.index.circuits[value].years))].sort((a,b)=>b-a);
   const categories=[...new Set(circuits.flatMap(value=>browser.index.circuits[value].categories))].sort();
-  return <main className={styles.page} lang="en">
-    <header><div><h1>Matches</h1></div><nav aria-label="Circuit">{(['all','atp','wta'] as const).map(value=><Link key={value} aria-current={tour===value?'page':undefined} href={browseHref(query,{tour:value,page:undefined})}>{value==='all'?'ATP + WTA':value.toUpperCase()}</Link>)}</nav></header>
+  return <div className={styles.page} lang="en">
+    <header><div><h1>Matches</h1></div><ArchiveFilterBar language="en" circuitLabel="Circuit" panelTitle="Filter matches" activeCount={[query.q,query.year,query.surface,query.category].filter(Boolean).length} circuits={(['all','atp','wta'] as const).map(value=>({label:value==='all'?'All':value.toUpperCase(),active:tour===value,href:browseHref(query,{tour:value,category:value===tour?query.category:undefined,page:undefined})}))}>
     <form className={styles.filters} action="/en/matches" role="search">
       {tour!=='all'&&<input type="hidden" name="tour" value={tour}/>}<label><span>Player or tournament</span><input name="q" defaultValue={query.q||''} placeholder="e.g. Serena Williams or Wimbledon"/></label>
       <label><span>Season</span><select name="year" defaultValue={query.year||''}><option value="">All years</option>{years.map(value=><option value={value} key={value}>{value}</option>)}</select></label>
       <label><span>Surface</span><select name="surface" defaultValue={query.surface||''}><option value="">All surfaces</option><option value="hard">Hard</option><option value="clay">Clay</option><option value="grass">Grass</option><option value="carpet">Carpet</option></select></label>
       <label><span>Level</span><select name="category" defaultValue={query.category||''}><option value="">All levels</option>{categories.map(value=><option value={value} key={value}>{value}</option>)}</select></label>
       <button type="submit">Search</button>
-    </form>
+    </form></ArchiveFilterBar></header>
     <div className={styles.resultMeta} aria-live="polite"><strong>{result.total.toLocaleString('en-GB')}</strong> documented {result.total===1?'match':'matches'}{pages>1&&<span> · page {Math.min(page,pages)} of {pages}</span>}</div>
     {result.matches.length?<section aria-label="Match results">{result.matches.map(match=><Link className={styles.match} href={`/en/matches/${match.match_id}`} key={match.match_id}><div><small>{match.tour?.toUpperCase()} · {match.year} · {match.round}</small><strong>{match.tournament}</strong></div><div className={styles.players}><span data-winner={match.winner===1?'':undefined}>{match.player1.name}</span><span data-winner={match.winner===2?'':undefined}>{match.player2.name}</span></div><b>{match.final_score}</b></Link>)}</section>:<p className={styles.empty}>No documented matches match these filters.</p>}
     {pages>1&&<nav className={styles.pagination} aria-label="Match result pages">{page>1?<Link rel="prev" href={browseHref(query,{page:String(page-1)})}>← Previous</Link>:<span/>}<strong>Page {Math.min(page,pages)} of {pages}</strong>{page<pages?<Link rel="next" href={browseHref(query,{page:String(page+1)})}>Next →</Link>:<span/>}</nav>}
-  </main>;
+  </div>;
 }

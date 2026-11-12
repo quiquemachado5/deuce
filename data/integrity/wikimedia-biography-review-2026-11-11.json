@@ -1,0 +1,5511 @@
+{
+  "at": "2026-11-11T12:41:28.802Z",
+  "summary": {
+    "people": 200,
+    "birthdays": 198,
+    "playingHands": 183,
+    "backhands": 118,
+    "heights": 194,
+    "matched": 258,
+    "missingProvider": 241,
+    "conflicts": 0,
+    "contestedWikidata": 4
+  },
+  "people": [
+    {
+      "name": "Rafael Nadal",
+      "tour": "atp",
+      "entity": "Q10132",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1986-06-03",
+          "provider": "1986-06-03",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2564487387"
+        },
+        {
+          "field": "playingHand",
+          "value": "L",
+          "provider": "L",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2564487387"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2564487387"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 185,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2564487387"
+    },
+    {
+      "name": "Pete Sampras",
+      "tour": "atp",
+      "entity": "Q9446",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1971-08-12",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2564703736"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2564703736"
+        },
+        {
+          "field": "backhand",
+          "value": 1,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2564703736"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 185,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2564703736"
+    },
+    {
+      "name": "Bjorn Borg",
+      "tour": "atp",
+      "entity": "Q104506",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1956-06-06",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2567835030"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2567835030"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 180,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2567835030"
+    },
+    {
+      "name": "Andre Agassi",
+      "tour": "atp",
+      "entity": "Q7407",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1970-04-29",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2563173401"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2563173401"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2563173401"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 180,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2563173401"
+    },
+    {
+      "name": "Jimmy Connors",
+      "tour": "atp",
+      "entity": "Q53393",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1952-09-02",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2567751858"
+        },
+        {
+          "field": "playingHand",
+          "value": "L",
+          "provider": "L",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2567751858"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 177,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2567751858"
+    },
+    {
+      "name": "Carlos Alcaraz",
+      "tour": "atp",
+      "entity": "Q85518537",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "2003-05-05",
+          "provider": "2003-05-05",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2567271389"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2567271389"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 183,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2567271389"
+    },
+    {
+      "name": "Ivan Lendl",
+      "tour": "atp",
+      "entity": "Q182736",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1960-03-07",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2557939041"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2557939041"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 188,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2557939041"
+    },
+    {
+      "name": "John McEnroe",
+      "tour": "atp",
+      "entity": "Q16474",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1959-02-16",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2561687739"
+        },
+        {
+          "field": "playingHand",
+          "value": "L",
+          "provider": "L",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2561687739"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 180,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2561687739"
+    },
+    {
+      "name": "Mats Wilander",
+      "tour": "atp",
+      "entity": "Q16475",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1964-08-22",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2560485827"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2560485827"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 183,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2560485827"
+    },
+    {
+      "name": "Stefan Edberg",
+      "tour": "atp",
+      "entity": "Q189542",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1966-01-19",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2559511971"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2559511971"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 188,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2559511971"
+    },
+    {
+      "name": "Boris Becker",
+      "tour": "atp",
+      "entity": "Q76334",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1967-11-22",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2567717518"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2567717518"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 190,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2567717518"
+    },
+    {
+      "name": "Jannik Sinner",
+      "tour": "atp",
+      "entity": "Q54812588",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "2001-08-16",
+          "provider": "2001-08-16",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2567131300"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2567131300"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 191,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2567131300"
+    },
+    {
+      "name": "John Newcombe",
+      "tour": "atp",
+      "entity": "Q312464",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1944-05-23",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2557996495"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2557996495"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 183,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2557996495"
+    },
+    {
+      "name": "Rod Laver",
+      "tour": "atp",
+      "entity": "Q105550",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1938-08-09",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2560540474"
+        },
+        {
+          "field": "playingHand",
+          "value": "L",
+          "provider": "L",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2560540474"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 175,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2560540474"
+    },
+    {
+      "name": "Jim Courier",
+      "tour": "atp",
+      "entity": "Q53396",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1970-08-17",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2540257333"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2540257333"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 185,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2540257333"
+    },
+    {
+      "name": "Guillermo Vilas",
+      "tour": "atp",
+      "entity": "Q201515",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1952-08-17",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2560473007"
+        },
+        {
+          "field": "playingHand",
+          "value": "L",
+          "provider": "L",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2560473007"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 180,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2560473007"
+    },
+    {
+      "name": "Ken Rosewall",
+      "tour": "atp",
+      "entity": "Q312728",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1934-11-02",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2558081794"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2558081794"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 170,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2558081794"
+    },
+    {
+      "name": "Andy Murray",
+      "tour": "atp",
+      "entity": "Q10125",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1987-05-15",
+          "provider": "1987-05-15",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2563173897"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2563173897"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2563173897"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 191,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2563173897"
+    },
+    {
+      "name": "Stan Wawrinka",
+      "tour": "atp",
+      "entity": "Q193661",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1985-03-28",
+          "provider": "1985-03-28",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2558243435"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2558243435"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 183,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2558243435"
+    },
+    {
+      "name": "Gustavo Kuerten",
+      "tour": "atp",
+      "entity": "Q190723",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1976-09-10",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2532278226"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2532278226"
+        },
+        {
+          "field": "backhand",
+          "value": 1,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2532278226"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 190,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2532278226"
+    },
+    {
+      "name": "Arthur Ashe",
+      "tour": "atp",
+      "entity": "Q53325",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1943-07-10",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2564824261"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2564824261"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 185,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2564824261"
+    },
+    {
+      "name": "Lleyton Hewitt",
+      "tour": "atp",
+      "entity": "Q180104",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1981-02-24",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2516273288"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2516273288"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2516273288"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 178,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2516273288"
+    },
+    {
+      "name": "Yevgeny Kafelnikov",
+      "tour": "atp",
+      "entity": "Q207705",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1974-02-18",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2544778138"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2544778138"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2544778138"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 190,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2544778138"
+    },
+    {
+      "name": "Marat Safin",
+      "tour": "atp",
+      "entity": "Q133318",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1980-01-27",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2562492936"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2562492936"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2562492936"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 193,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2562492936"
+    },
+    {
+      "name": "Patrick Rafter",
+      "tour": "atp",
+      "entity": "Q204068",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1972-12-28",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2564815197"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2564815197"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 185,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2564815197"
+    },
+    {
+      "name": "Sergi Bruguera",
+      "tour": "atp",
+      "entity": "Q311177",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1971-01-16",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2557937101"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2557937101"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2557937101"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 188,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2557937101"
+    },
+    {
+      "name": "Stan Smith",
+      "tour": "atp",
+      "entity": "Q54657",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1946-12-14",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2562249909"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2562249909"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 193,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2562249909"
+    },
+    {
+      "name": "Ilie Nastase",
+      "tour": "atp",
+      "entity": "Q106113",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1946-07-19",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2556404889"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2556404889"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 183,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2556404889"
+    },
+    {
+      "name": "Jan Kodes",
+      "tour": "atp",
+      "entity": "Q317431",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1946-03-01",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2526915818"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2526915818"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 175,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2526915818"
+    },
+    {
+      "name": "Johan Kriek",
+      "tour": "atp",
+      "entity": "Q54530",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1958-04-05",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2548102073"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2548102073"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 175,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2548102073"
+    },
+    {
+      "name": "Marin Čilić",
+      "tour": "atp",
+      "entity": "Q245241",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1988-09-28",
+          "provider": "1988-09-28",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2555876416"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2555876416"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2555876416"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 198,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2555876416"
+    },
+    {
+      "name": "Daniil Medvedev",
+      "tour": "atp",
+      "entity": "Q21622022",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1996-02-11",
+          "provider": "1996-02-11",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2567316835"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2567316835"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 198,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2567316835"
+    },
+    {
+      "name": "Andy Roddick",
+      "tour": "atp",
+      "entity": "Q54584",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1982-08-30",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2563544490"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2563544490"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2563544490"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 188,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2563544490"
+    },
+    {
+      "name": "Juan Martin del Potro",
+      "tour": "atp",
+      "entity": "Q180535",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1988-09-23",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2560502609"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2560502609"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2560502609"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 198,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2560502609"
+    },
+    {
+      "name": "Dominic Thiem",
+      "tour": "atp",
+      "entity": "Q88762",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1993-09-03",
+          "provider": "1993-09-03",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2559753170"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2559753170"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 185,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2559753170"
+    },
+    {
+      "name": "Juan Carlos Ferrero",
+      "tour": "atp",
+      "entity": "Q185722",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1980-02-12",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2522615349"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2522615349"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2522615349"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 183,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2522615349"
+    },
+    {
+      "name": "Michael Chang",
+      "tour": "atp",
+      "entity": "Q53370",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1972-02-22",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2553825365"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2553825365"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2553825365"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 175,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2553825365"
+    },
+    {
+      "name": "Goran Ivanisevic",
+      "tour": "atp",
+      "entity": "Q204279",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1971-09-13",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2541354935"
+        },
+        {
+          "field": "playingHand",
+          "value": "L",
+          "provider": "L",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2541354935"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2541354935"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 194,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2541354935"
+    },
+    {
+      "name": "Carlos Moya",
+      "tour": "atp",
+      "entity": "Q193361",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1976-08-27",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2544777701"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2544777701"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2544777701"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 190,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2544777701"
+    },
+    {
+      "name": "Richard Krajicek",
+      "tour": "atp",
+      "entity": "Q309859",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1971-12-06",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2526914985"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2526914985"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 196,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2526914985"
+    },
+    {
+      "name": "Thomas Muster",
+      "tour": "atp",
+      "entity": "Q219966",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1967-10-02",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2529955635"
+        },
+        {
+          "field": "playingHand",
+          "value": "L",
+          "provider": "L",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2529955635"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 180,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2529955635"
+    },
+    {
+      "name": "Albert Costa",
+      "tour": "atp",
+      "entity": "Q317828",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1975-06-25",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517315181"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517315181"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 180,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2517315181"
+    },
+    {
+      "name": "Petr Korda",
+      "tour": "atp",
+      "entity": "Q312717",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1968-01-23",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2548177002"
+        },
+        {
+          "field": "playingHand",
+          "value": "L",
+          "provider": "L",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2548177002"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 190,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2548177002"
+    },
+    {
+      "name": "Michael Stich",
+      "tour": "atp",
+      "entity": "Q60109",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1968-10-18",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2530388024"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2530388024"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 193,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2530388024"
+    },
+    {
+      "name": "Thomas Johansson",
+      "tour": "atp",
+      "entity": "Q277802",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1975-03-24",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517633676"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517633676"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517633676"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 180,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2517633676"
+    },
+    {
+      "name": "Gaston Gaudio",
+      "tour": "atp",
+      "entity": "Q299960",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1978-12-09",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2553828316"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2553828316"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 175,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2553828316"
+    },
+    {
+      "name": "Yannick Noah",
+      "tour": "atp",
+      "entity": "Q221908",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1960-05-18",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2566539914"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2566539914"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 194,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2566539914"
+    },
+    {
+      "name": "Roscoe Tanner",
+      "tour": "atp",
+      "entity": "Q54681",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1951-10-15",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2516853573"
+        },
+        {
+          "field": "playingHand",
+          "value": "L",
+          "provider": "L",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2516853573"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 183,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2516853573"
+    },
+    {
+      "name": "Vitas Gerulaitis",
+      "tour": "atp",
+      "entity": "Q53547",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1954-07-26",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2564791207"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2564791207"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 183,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2564791207"
+    },
+    {
+      "name": "Andres Gomez",
+      "tour": "atp",
+      "entity": "Q335350",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1960-02-27",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2553926929"
+        },
+        {
+          "field": "playingHand",
+          "value": "L",
+          "provider": "L",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2553926929"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 193,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2553926929"
+    },
+    {
+      "name": "Manuel Orantes",
+      "tour": "atp",
+      "entity": "Q318569",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1949-02-06",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517316149"
+        },
+        {
+          "field": "playingHand",
+          "value": "L",
+          "provider": "L",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517316149"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 178,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2517316149"
+    },
+    {
+      "name": "Pat Cash",
+      "tour": "atp",
+      "entity": "Q298644",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1965-05-27",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2565177987"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2565177987"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 183,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2565177987"
+    },
+    {
+      "name": "Adriano Panatta",
+      "tour": "atp",
+      "entity": "Q375938",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1950-07-09",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2530218582"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2530218582"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 183,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2530218582"
+    },
+    {
+      "name": "Brian Teacher",
+      "tour": "atp",
+      "entity": "Q54683",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1954-12-23",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2516853578"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2516853578"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 190,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2516853578"
+    },
+    {
+      "name": "Mark Edmondson",
+      "tour": "atp",
+      "entity": "Q506606",
+      "comparisons": [
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2516272117"
+        }
+      ],
+      "contestedFields": [
+        "birthday"
+      ],
+      "heightCm": 185,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2516272117"
+    },
+    {
+      "name": "Andres Gimeno",
+      "tour": "atp",
+      "entity": "Q315958",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1937-08-03",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2554941712"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2554941712"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 185,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2554941712"
+    },
+    {
+      "name": "Bill Bowrey",
+      "tour": "atp",
+      "entity": "Q577531",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1943-12-25",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2519332065"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2519332065"
+        }
+      ],
+      "contestedFields": [],
+      "source": "https://www.wikidata.org/w/index.php?oldid=2519332065"
+    },
+    {
+      "name": "David Ferrer",
+      "tour": "atp",
+      "entity": "Q191476",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1982-04-02",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2554895802"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2554895802"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2554895802"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 175,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2554895802"
+    },
+    {
+      "name": "Gaël Monfils",
+      "tour": "atp",
+      "entity": "Q186429",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1986-09-01",
+          "provider": "1986-09-01",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2519964187"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2519964187"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2519964187"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 193,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2519964187"
+    },
+    {
+      "name": "Tomáš Berdych",
+      "tour": "atp",
+      "entity": "Q193665",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1985-09-17",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2516276355"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2516276355"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2516276355"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 196,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2516276355"
+    },
+    {
+      "name": "Richard Gasquet",
+      "tour": "atp",
+      "entity": "Q209436",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1986-06-18",
+          "provider": "1986-06-18",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2559752807"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2559752807"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 183,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2559752807"
+    },
+    {
+      "name": "Grigor Dimitrov",
+      "tour": "atp",
+      "entity": "Q337681",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1991-05-16",
+          "provider": "1991-05-16",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2554066789"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2554066789"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 191,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2554066789"
+    },
+    {
+      "name": "John Isner",
+      "tour": "atp",
+      "entity": "Q53566",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1985-04-26",
+          "provider": "1985-04-26",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2519907600"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2519907600"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2519907600"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 208,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2519907600"
+    },
+    {
+      "name": "Fernando Verdasco",
+      "tour": "atp",
+      "entity": "Q191740",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1983-11-15",
+          "provider": "1983-11-15",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517315741"
+        },
+        {
+          "field": "playingHand",
+          "value": "L",
+          "provider": "L",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517315741"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517315741"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 188,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2517315741"
+    },
+    {
+      "name": "Gilles Simon",
+      "tour": "atp",
+      "entity": "Q212833",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1984-12-27",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2563207716"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2563207716"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2563207716"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 183,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2563207716"
+    },
+    {
+      "name": "Roberto Bautista Agut",
+      "tour": "atp",
+      "entity": "Q966542",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1988-04-14",
+          "provider": "1988-04-14",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2541570965"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2541570965"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2541570965"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 183,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2541570965"
+    },
+    {
+      "name": "Jo-Wilfried Tsonga",
+      "tour": "atp",
+      "entity": "Q192661",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1985-04-17",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2559780353"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2559780353"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2559780353"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 188,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2559780353"
+    },
+    {
+      "name": "Kei Nishikori",
+      "tour": "atp",
+      "entity": "Q311222",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1989-12-29",
+          "provider": "1989-12-29",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2552545397"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2552545397"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": 2,
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2552545397"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 178,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2552545397"
+    },
+    {
+      "name": "Feliciano Lopez",
+      "tour": "atp",
+      "entity": "Q223695",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1981-09-20",
+          "provider": "1981-09-20",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2544602770"
+        },
+        {
+          "field": "playingHand",
+          "value": "L",
+          "provider": "L",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2544602770"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 188,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2544602770"
+    },
+    {
+      "name": "Fabio Fognini",
+      "tour": "atp",
+      "entity": "Q251980",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1987-05-24",
+          "provider": "1987-05-24",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517627992"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517627992"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517627992"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 178,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2517627992"
+    },
+    {
+      "name": "Andrey Rublev",
+      "tour": "atp",
+      "entity": "Q17373391",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1997-10-20",
+          "provider": "1997-10-20",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2567317576"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 188,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2567317576"
+    },
+    {
+      "name": "Philipp Kohlschreiber",
+      "tour": "atp",
+      "entity": "Q77149",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1983-10-16",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517275872"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517275872"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 178,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2517275872"
+    },
+    {
+      "name": "Milos Raonic",
+      "tour": "atp",
+      "entity": "Q312343",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1990-12-27",
+          "provider": "1990-12-27",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2544611921"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2544611921"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2544611921"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 196,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2544611921"
+    },
+    {
+      "name": "Stefanos Tsitsipas",
+      "tour": "atp",
+      "entity": "Q24450982",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1998-08-12",
+          "provider": "1998-08-12",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2551099949"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 193,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2551099949"
+    },
+    {
+      "name": "Tommy Robredo",
+      "tour": "atp",
+      "entity": "Q213199",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1982-05-01",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2553831416"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2553831416"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 180,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2553831416"
+    },
+    {
+      "name": "Taylor Fritz",
+      "tour": "atp",
+      "entity": "Q17660516",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1997-10-28",
+          "provider": "1997-10-28",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2565789682"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2565789682"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2565789682"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 196,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2565789682"
+    },
+    {
+      "name": "Kevin Anderson",
+      "tour": "atp",
+      "entity": "Q299956",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1986-05-18",
+          "provider": "1986-05-18",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517677382"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517677382"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517677382"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 203,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2517677382"
+    },
+    {
+      "name": "Sam Querrey",
+      "tour": "atp",
+      "entity": "Q54538",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1987-10-07",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2519907836"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2519907836"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2519907836"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 198,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2519907836"
+    },
+    {
+      "name": "Mikhail Youzhny",
+      "tour": "atp",
+      "entity": "Q219970",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1982-06-25",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2516270625"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2516270625"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 183,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2516270625"
+    },
+    {
+      "name": "Tommy Haas",
+      "tour": "atp",
+      "entity": "Q53560",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1978-04-03",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2558458525"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2558458525"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 188,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2558458525"
+    },
+    {
+      "name": "Karen Khachanov",
+      "tour": "atp",
+      "entity": "Q16568576",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1996-05-21",
+          "provider": "1996-05-21",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2567318559"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2567318559"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 198,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2567318559"
+    },
+    {
+      "name": "David Goffin",
+      "tour": "atp",
+      "entity": "Q19406",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1990-12-07",
+          "provider": "1990-12-07",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2559753322"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2559753322"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": 2,
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2559753322"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 180,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2559753322"
+    },
+    {
+      "name": "Adrian Mannarino",
+      "tour": "atp",
+      "entity": "Q373522",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1988-06-29",
+          "provider": "1988-06-29",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517660935"
+        },
+        {
+          "field": "playingHand",
+          "value": "L",
+          "provider": "L",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517660935"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517660935"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 180,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2517660935"
+    },
+    {
+      "name": "Nicolas Almagro",
+      "tour": "atp",
+      "entity": "Q244983",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1985-08-21",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517605964"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517605964"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 183,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2517605964"
+    },
+    {
+      "name": "Alex De Minaur",
+      "tour": "atp",
+      "entity": "Q22958938",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1999-02-17",
+          "provider": "1999-02-17",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2566335669"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 183,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2566335669"
+    },
+    {
+      "name": "Andreas Seppi",
+      "tour": "atp",
+      "entity": "Q319572",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1984-02-21",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2518424145"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2518424145"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2518424145"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 191,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2518424145"
+    },
+    {
+      "name": "Casper Ruud",
+      "tour": "atp",
+      "entity": "Q18810082",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1998-12-22",
+          "provider": "1998-12-22",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2566126600"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 183,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2566126600"
+    },
+    {
+      "name": "Nikolay Davydenko",
+      "tour": "atp",
+      "entity": "Q191736",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1981-06-02",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517314941"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517314941"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517314941"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 178,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2517314941"
+    },
+    {
+      "name": "Jeremy Chardy",
+      "tour": "atp",
+      "entity": "Q176577",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1987-02-12",
+          "provider": "1987-02-12",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2559652291"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2559652291"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2559652291"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 188,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2559652291"
+    },
+    {
+      "name": "Pablo Carreno Busta",
+      "tour": "atp",
+      "entity": "Q7121592",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1991-07-12",
+          "provider": "1991-07-12",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2541564180"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 188,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2541564180"
+    },
+    {
+      "name": "Félix Auger-Aliassime",
+      "tour": "atp",
+      "entity": "Q20752045",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "2000-08-08",
+          "provider": "2000-08-08",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517312981"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 193,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2517312981"
+    },
+    {
+      "name": "Ivo Karlovic",
+      "tour": "atp",
+      "entity": "Q295483",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1979-02-28",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517669200"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517669200"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 211,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2517669200"
+    },
+    {
+      "name": "Frances Tiafoe",
+      "tour": "atp",
+      "entity": "Q17305299",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1998-01-20",
+          "provider": "1998-01-20",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2565541660"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 188,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2565541660"
+    },
+    {
+      "name": "Marcos Baghdatis",
+      "tour": "atp",
+      "entity": "Q207084",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1985-06-17",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2541360799"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2541360799"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2541360799"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 183,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2541360799"
+    },
+    {
+      "name": "Albert Ramos",
+      "tour": "atp",
+      "entity": "Q459158",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1988-01-17",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2518429657"
+        },
+        {
+          "field": "playingHand",
+          "value": "L",
+          "provider": "L",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2518429657"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 188,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2518429657"
+    },
+    {
+      "name": "David Nalbandian",
+      "tour": "atp",
+      "entity": "Q181501",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1982-01-01",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2563206727"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2563206727"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2563206727"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 180,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2563206727"
+    },
+    {
+      "name": "Cameron Norrie",
+      "tour": "atp",
+      "entity": "Q23668736",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1995-08-23",
+          "provider": "1995-08-23",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2529280125"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 188,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2529280125"
+    },
+    {
+      "name": "Serena Williams",
+      "tour": "wta",
+      "entity": "Q11459",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1981-09-26",
+          "provider": "1981-09-26",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2563174676"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2563174676"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2563174676"
+        }
+      ],
+      "contestedFields": [
+        "heightCm"
+      ],
+      "source": "https://www.wikidata.org/w/index.php?oldid=2563174676"
+    },
+    {
+      "name": "Steffi Graf",
+      "tour": "wta",
+      "entity": "Q11662",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1969-06-14",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2567365035"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2567365035"
+        },
+        {
+          "field": "backhand",
+          "value": 1,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2567365035"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 176,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2567365035"
+    },
+    {
+      "name": "Martina Navratilova",
+      "tour": "wta",
+      "entity": "Q54545",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1956-10-18",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2565963931"
+        },
+        {
+          "field": "playingHand",
+          "value": "L",
+          "provider": "L",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2565963931"
+        },
+        {
+          "field": "backhand",
+          "value": 1,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2565963931"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 173,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2565963931"
+    },
+    {
+      "name": "Chris Evert",
+      "tour": "wta",
+      "entity": "Q14286",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1954-12-21",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2557840590"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2557840590"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2557840590"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 168,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2557840590"
+    },
+    {
+      "name": "Margaret Court",
+      "tour": "wta",
+      "entity": "Q202342",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1942-07-16",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2558151312"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2558151312"
+        },
+        {
+          "field": "backhand",
+          "value": 1,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2558151312"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 175,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2558151312"
+    },
+    {
+      "name": "Monica Seles",
+      "tour": "wta",
+      "entity": "Q173633",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1973-12-02",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2558174542"
+        },
+        {
+          "field": "playingHand",
+          "value": "L",
+          "provider": "L",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2558174542"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2558174542"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 178,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2558174542"
+    },
+    {
+      "name": "Billie Jean King",
+      "tour": "wta",
+      "entity": "Q54527",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1943-11-22",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2565178901"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2565178901"
+        },
+        {
+          "field": "backhand",
+          "value": 1,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2565178901"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 164,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2565178901"
+    },
+    {
+      "name": "Venus Williams",
+      "tour": "wta",
+      "entity": "Q11578",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1980-06-17",
+          "provider": "1980-06-17",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2567598325"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2567598325"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2567598325"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 185,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2567598325"
+    },
+    {
+      "name": "Justine Henin",
+      "tour": "wta",
+      "entity": "Q11682",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1982-06-01",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2549891906"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2549891906"
+        },
+        {
+          "field": "backhand",
+          "value": 1,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2549891906"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 167,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2549891906"
+    },
+    {
+      "name": "Evonne Goolagong",
+      "tour": "wta",
+      "entity": "Q228559",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1951-07-31",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2526221206"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2526221206"
+        },
+        {
+          "field": "backhand",
+          "value": 1,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2526221206"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 168,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2526221206"
+    },
+    {
+      "name": "Iga Swiatek",
+      "tour": "wta",
+      "entity": "Q26840238",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "2001-05-31",
+          "provider": "2001-05-31",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2562231500"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 176,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2562231500"
+    },
+    {
+      "name": "Maria Sharapova",
+      "tour": "wta",
+      "entity": "Q11666",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1987-04-19",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2558154839"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2558154839"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 188,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2558154839"
+    },
+    {
+      "name": "Martina Hingis",
+      "tour": "wta",
+      "entity": "Q134720",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1980-09-30",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517523330"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517523330"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517523330"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 170,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2517523330"
+    },
+    {
+      "name": "Kim Clijsters",
+      "tour": "wta",
+      "entity": "Q11685",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1983-06-08",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2553041002"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2553041002"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2553041002"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 174,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2553041002"
+    },
+    {
+      "name": "Aryna Sabalenka",
+      "tour": "wta",
+      "entity": "Q23448791",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1998-05-05",
+          "provider": "1998-05-05",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2563859632"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 182,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2563859632"
+    },
+    {
+      "name": "Arantxa Sanchez Vicario",
+      "tour": "wta",
+      "entity": "Q188080",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1971-12-18",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2555562308"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2555562308"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2555562308"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 169,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2555562308"
+    },
+    {
+      "name": "Naomi Osaka",
+      "tour": "wta",
+      "entity": "Q17466583",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1997-10-16",
+          "provider": "1997-10-16",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2562004244"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2562004244"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2562004244"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 180,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2562004244"
+    },
+    {
+      "name": "Hana Mandlikova",
+      "tour": "wta",
+      "entity": "Q255011",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1962-02-19",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2546164580"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2546164580"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 173,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2546164580"
+    },
+    {
+      "name": "Lindsay Davenport",
+      "tour": "wta",
+      "entity": "Q11677",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1976-06-08",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2563545991"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2563545991"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2563545991"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 189,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2563545991"
+    },
+    {
+      "name": "Angelique Kerber",
+      "tour": "wta",
+      "entity": "Q77178",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1988-01-18",
+          "provider": "1988-01-18",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2557764988"
+        },
+        {
+          "field": "playingHand",
+          "value": "L",
+          "provider": "L",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2557764988"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2557764988"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 173,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2557764988"
+    },
+    {
+      "name": "Elena Rybakina",
+      "tour": "wta",
+      "entity": "Q42055714",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1999-06-17",
+          "provider": "1999-06-17",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2560838870"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2560838870"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 184,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2560838870"
+    },
+    {
+      "name": "Jennifer Capriati",
+      "tour": "wta",
+      "entity": "Q11680",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1976-03-29",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517790441"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517790441"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517790441"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 170,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2517790441"
+    },
+    {
+      "name": "Ashleigh Barty",
+      "tour": "wta",
+      "entity": "Q84056",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1996-04-24",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2555678319"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2555678319"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2555678319"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 166,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2555678319"
+    },
+    {
+      "name": "Virginia Wade",
+      "tour": "wta",
+      "entity": "Q233234",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1945-07-10",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2552839090"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2552839090"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 170,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2552839090"
+    },
+    {
+      "name": "Svetlana Kuznetsova",
+      "tour": "wta",
+      "entity": "Q192064",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1985-06-27",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2516273449"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2516273449"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2516273449"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 174,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2516273449"
+    },
+    {
+      "name": "Victoria Azarenka",
+      "tour": "wta",
+      "entity": "Q10118",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1989-07-31",
+          "provider": "1989-07-31",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2558272206"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2558272206"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2558272206"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 183,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2558272206"
+    },
+    {
+      "name": "Petra Kvitova",
+      "tour": "wta",
+      "entity": "Q30812",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1990-03-08",
+          "provider": "1990-03-08",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2516852657"
+        },
+        {
+          "field": "playingHand",
+          "value": "L",
+          "provider": "L",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2516852657"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2516852657"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 182,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2516852657"
+    },
+    {
+      "name": "Na Li",
+      "tour": "wta",
+      "entity": "Q180446",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1982-02-26",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2553966139"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2553966139"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2553966139"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 172,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2553966139"
+    },
+    {
+      "name": "Garbine Muguruza",
+      "tour": "wta",
+      "entity": "Q34276",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1993-10-08",
+          "provider": "1993-10-08",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2565335584"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2565335584"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2565335584"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 182,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2565335584"
+    },
+    {
+      "name": "Coco Gauff",
+      "tour": "wta",
+      "entity": "Q39263365",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "2004-03-13",
+          "provider": "2004-03-13",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2562507941"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2562507941"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2562507941"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 175,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2562507941"
+    },
+    {
+      "name": "Mary Pierce",
+      "tour": "wta",
+      "entity": "Q210695",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1975-01-15",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2547938553"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2547938553"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2547938553"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 178,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2547938553"
+    },
+    {
+      "name": "Barbora Krejcikova",
+      "tour": "wta",
+      "entity": "Q11052500",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1995-12-18",
+          "provider": "1995-12-18",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2520349172"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2520349172"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 178,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2520349172"
+    },
+    {
+      "name": "Tracy Austin",
+      "tour": "wta",
+      "entity": "Q53326",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1962-12-12",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2565754298"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2565754298"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2565754298"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 165,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2565754298"
+    },
+    {
+      "name": "Francesca Schiavone",
+      "tour": "wta",
+      "entity": "Q188107",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1980-06-23",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517313525"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517313525"
+        },
+        {
+          "field": "backhand",
+          "value": 1,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517313525"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 166,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2517313525"
+    },
+    {
+      "name": "Samantha Stosur",
+      "tour": "wta",
+      "entity": "Q191766",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1984-03-30",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2537400710"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2537400710"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2537400710"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 175,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2537400710"
+    },
+    {
+      "name": "Flavia Pennetta",
+      "tour": "wta",
+      "entity": "Q207528",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1982-02-25",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2556657739"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2556657739"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2556657739"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 172,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2556657739"
+    },
+    {
+      "name": "Simona Halep",
+      "tour": "wta",
+      "entity": "Q230156",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1991-09-27",
+          "provider": "1991-09-27",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2567089372"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2567089372"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2567089372"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 168,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2567089372"
+    },
+    {
+      "name": "Ana Ivanovic",
+      "tour": "wta",
+      "entity": "Q30758",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1987-11-06",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2554928230"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2554928230"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2554928230"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 184,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2554928230"
+    },
+    {
+      "name": "Amelie Mauresmo",
+      "tour": "wta",
+      "entity": "Q180872",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1979-07-05",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2550382036"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2550382036"
+        },
+        {
+          "field": "backhand",
+          "value": 1,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2550382036"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 175,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2550382036"
+    },
+    {
+      "name": "Marion Bartoli",
+      "tour": "wta",
+      "entity": "Q105838",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1984-10-02",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517940893"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517940893"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517940893"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 170,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2517940893"
+    },
+    {
+      "name": "Madison Keys",
+      "tour": "wta",
+      "entity": "Q34403",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1995-02-17",
+          "provider": "1995-02-17",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2553056552"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2553056552"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2553056552"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 178,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2553056552"
+    },
+    {
+      "name": "Conchita Martinez",
+      "tour": "wta",
+      "entity": "Q232618",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1972-04-16",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2557937396"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2557937396"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 170,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2557937396"
+    },
+    {
+      "name": "Sloane Stephens",
+      "tour": "wta",
+      "entity": "Q54670",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1993-03-20",
+          "provider": "1993-03-20",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2537598058"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2537598058"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2537598058"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 170,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2537598058"
+    },
+    {
+      "name": "Jelena Ostapenko",
+      "tour": "wta",
+      "entity": "Q5551564",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1997-06-08",
+          "provider": "1997-06-08",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2558121175"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2558121175"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2558121175"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 177,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2558121175"
+    },
+    {
+      "name": "Anastasia Myskina",
+      "tour": "wta",
+      "entity": "Q203591",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1981-07-08",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2553828235"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2553828235"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2553828235"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 174,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2553828235"
+    },
+    {
+      "name": "Gabriela Sabatini",
+      "tour": "wta",
+      "entity": "Q105868",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1970-05-16",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2560533752"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2560533752"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 175,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2560533752"
+    },
+    {
+      "name": "Sofia Kenin",
+      "tour": "wta",
+      "entity": "Q18679122",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1998-11-14",
+          "provider": "1998-11-14",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2546340152"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 170,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2546340152"
+    },
+    {
+      "name": "Jana Novotna",
+      "tour": "wta",
+      "entity": "Q229121",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1968-10-02",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517448862"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517448862"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 175,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2517448862"
+    },
+    {
+      "name": "Marketa Vondrousova",
+      "tour": "wta",
+      "entity": "Q18918709",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1999-06-28",
+          "provider": "1999-06-28",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2554207986"
+        },
+        {
+          "field": "playingHand",
+          "value": "L",
+          "provider": "L",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2554207986"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2554207986"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 172,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2554207986"
+    },
+    {
+      "name": "Mirra Andreeva",
+      "tour": "wta",
+      "entity": "Q114402278",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "2007-04-29",
+          "provider": "2007-04-29",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2567471885"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2567471885"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 175,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2567471885"
+    },
+    {
+      "name": "Linda Noskova",
+      "tour": "wta",
+      "entity": "Q106354932",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "2004-11-17",
+          "provider": "2004-11-17",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2565793976"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2565793976"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2565793976"
+        }
+      ],
+      "contestedFields": [],
+      "source": "https://www.wikidata.org/w/index.php?oldid=2565793976"
+    },
+    {
+      "name": "Iva Majoli",
+      "tour": "wta",
+      "entity": "Q232472",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1977-08-12",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2542369878"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2542369878"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2542369878"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 175,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2542369878"
+    },
+    {
+      "name": "Bianca Andreescu",
+      "tour": "wta",
+      "entity": "Q22957410",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "2000-06-16",
+          "provider": "2000-06-16",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2566738526"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2566738526"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2566738526"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 170,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2566738526"
+    },
+    {
+      "name": "Kerry Reid",
+      "tour": "wta",
+      "entity": "Q259288",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1947-08-07",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2525985246"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2525985246"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 166,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2525985246"
+    },
+    {
+      "name": "Emma Raducanu",
+      "tour": "wta",
+      "entity": "Q64849968",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "2002-11-13",
+          "provider": "2002-11-13",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2564772453"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2564772453"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2564772453"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 175,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2564772453"
+    },
+    {
+      "name": "Mima Jausovec",
+      "tour": "wta",
+      "entity": "Q239728",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1956-07-20",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2534183570"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2534183570"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 160,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2534183570"
+    },
+    {
+      "name": "Virginia Ruzici",
+      "tour": "wta",
+      "entity": "Q239647",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1955-01-31",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517586093"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517586093"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 173,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2517586093"
+    },
+    {
+      "name": "Nancy Richey",
+      "tour": "wta",
+      "entity": "Q54546",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1942-08-23",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2516852454"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2516852454"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 160,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2516852454"
+    },
+    {
+      "name": "Sue Barker",
+      "tour": "wta",
+      "entity": "Q239774",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1956-04-19",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2533928807"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2533928807"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 165,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2533928807"
+    },
+    {
+      "name": "Barbara Jordan",
+      "tour": "wta",
+      "entity": "Q53570",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1957-04-02",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2516848747"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2516848747"
+        }
+      ],
+      "contestedFields": [],
+      "source": "https://www.wikidata.org/w/index.php?oldid=2516848747"
+    },
+    {
+      "name": "Chris Oneil",
+      "tour": "wta",
+      "entity": "Q289404",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1956-03-19",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2518471422"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2518471422"
+        }
+      ],
+      "contestedFields": [],
+      "source": "https://www.wikidata.org/w/index.php?oldid=2518471422"
+    },
+    {
+      "name": "Caroline Wozniacki",
+      "tour": "wta",
+      "entity": "Q30767",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1990-07-11",
+          "provider": "1990-07-11",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2557834015"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2557834015"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2557834015"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 177,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2557834015"
+    },
+    {
+      "name": "Jelena Jankovic",
+      "tour": "wta",
+      "entity": "Q15269",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1985-02-28",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517782120"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517782120"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517782120"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 177,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2517782120"
+    },
+    {
+      "name": "Agnieszka Radwanska",
+      "tour": "wta",
+      "entity": "Q207352",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1989-03-06",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2530051233"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2530051233"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2530051233"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 173,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2530051233"
+    },
+    {
+      "name": "Elena Dementieva",
+      "tour": "wta",
+      "entity": "Q11667",
+      "comparisons": [
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517790288"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517790288"
+        }
+      ],
+      "contestedFields": [
+        "birthday"
+      ],
+      "heightCm": 180,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2517790288"
+    },
+    {
+      "name": "Daniela Hantuchova",
+      "tour": "wta",
+      "entity": "Q52430",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1983-04-23",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2516842003"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2516842003"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2516842003"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 181,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2516842003"
+    },
+    {
+      "name": "Vera Zvonareva",
+      "tour": "wta",
+      "entity": "Q374053",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1984-09-07",
+          "provider": "1984-09-07",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2556331399"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2556331399"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2556331399"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 172,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2556331399"
+    },
+    {
+      "name": "Nadia Petrova",
+      "tour": "wta",
+      "entity": "Q11659",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1982-06-08",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517790613"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517790613"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517790613"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 178,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2517790613"
+    },
+    {
+      "name": "Patty Schnyder",
+      "tour": "wta",
+      "entity": "Q231954",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1978-12-14",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2541169739"
+        },
+        {
+          "field": "playingHand",
+          "value": "L",
+          "provider": "L",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2541169739"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2541169739"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 168,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2541169739"
+    },
+    {
+      "name": "Anastasia Pavlyuchenkova",
+      "tour": "wta",
+      "entity": "Q487182",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1991-07-03",
+          "provider": "1991-07-03",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2520667104"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2520667104"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2520667104"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 177,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2520667104"
+    },
+    {
+      "name": "Elina Svitolina",
+      "tour": "wta",
+      "entity": "Q270249",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1994-09-12",
+          "provider": "1994-09-12",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2537602147"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2537602147"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2537602147"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 174,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2537602147"
+    },
+    {
+      "name": "Karolína Plíšková",
+      "tour": "wta",
+      "entity": "Q289365",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1992-03-21",
+          "provider": "1992-03-21",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2533311981"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2533311981"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2533311981"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 186,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2533311981"
+    },
+    {
+      "name": "Sara Errani",
+      "tour": "wta",
+      "entity": "Q229005",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1987-04-29",
+          "provider": "1987-04-29",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2565140387"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2565140387"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2565140387"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 164,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2565140387"
+    },
+    {
+      "name": "Sorana Cirstea",
+      "tour": "wta",
+      "entity": "Q230242",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1990-04-07",
+          "provider": "1990-04-07",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2567408096"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2567408096"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2567408096"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 176,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2567408096"
+    },
+    {
+      "name": "Alize Cornet",
+      "tour": "wta",
+      "entity": "Q229002",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1990-01-22",
+          "provider": "1990-01-22",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2533933700"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2533933700"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2533933700"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 173,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2533933700"
+    },
+    {
+      "name": "Dominika Cibulkova",
+      "tour": "wta",
+      "entity": "Q211802",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1989-05-06",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517312330"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517312330"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517312330"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 161,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2517312330"
+    },
+    {
+      "name": "Lucie Safarova",
+      "tour": "wta",
+      "entity": "Q228989",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1987-02-04",
+          "provider": "1987-02-04",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2539452434"
+        },
+        {
+          "field": "playingHand",
+          "value": "L",
+          "provider": "L",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2539452434"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2539452434"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 177,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2539452434"
+    },
+    {
+      "name": "Roberta Vinci",
+      "tour": "wta",
+      "entity": "Q95162",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1983-02-18",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2553203597"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2553203597"
+        }
+      ],
+      "contestedFields": [
+        "backhand"
+      ],
+      "heightCm": 163,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2553203597"
+    },
+    {
+      "name": "Carla Suarez Navarro",
+      "tour": "wta",
+      "entity": "Q230260",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1988-09-03",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2520140249"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2520140249"
+        },
+        {
+          "field": "backhand",
+          "value": 1,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2520140249"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 162,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2520140249"
+    },
+    {
+      "name": "Anabel Medina Garrigues",
+      "tour": "wta",
+      "entity": "Q219724",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1982-07-31",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2554929695"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2554929695"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2554929695"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 169,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2554929695"
+    },
+    {
+      "name": "Dinara Safina",
+      "tour": "wta",
+      "entity": "Q1029664",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1986-04-27",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517314600"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517314600"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517314600"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 182,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2517314600"
+    },
+    {
+      "name": "Shuai Peng",
+      "tour": "wta",
+      "entity": "Q229087",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1986-01-08",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2553968156"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2553968156"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2553968156"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 177,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2553968156"
+    },
+    {
+      "name": "Caroline Garcia",
+      "tour": "wta",
+      "entity": "Q258877",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1993-10-16",
+          "provider": "1993-10-16",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2524331575"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2524331575"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2524331575"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 177,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2524331575"
+    },
+    {
+      "name": "Belinda Bencic",
+      "tour": "wta",
+      "entity": "Q509903",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1997-03-10",
+          "provider": "1997-03-10",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2561749705"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2561749705"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2561749705"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 175,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2561749705"
+    },
+    {
+      "name": "Elise Mertens",
+      "tour": "wta",
+      "entity": "Q17381675",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1995-11-17",
+          "provider": "1995-11-17",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2561139638"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2561139638"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2561139638"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 179,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2561139638"
+    },
+    {
+      "name": "Ai Sugiyama",
+      "tour": "wta",
+      "entity": "Q229100",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1975-07-05",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2538311470"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2538311470"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2538311470"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 163,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2538311470"
+    },
+    {
+      "name": "Jessica Pegula",
+      "tour": "wta",
+      "entity": "Q24159",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1994-02-24",
+          "provider": "1994-02-24",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2546284719"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 170,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2546284719"
+    },
+    {
+      "name": "Julia Goerges",
+      "tour": "wta",
+      "entity": "Q77167",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1988-11-02",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517275996"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517275996"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517275996"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 180,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2517275996"
+    },
+    {
+      "name": "Maria Kirilenko",
+      "tour": "wta",
+      "entity": "Q11657",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1987-01-25",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2525811709"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2525811709"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2525811709"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 174,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2525811709"
+    },
+    {
+      "name": "Klara Koukalova",
+      "tour": "wta",
+      "entity": "Q137646",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1982-02-24",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2526715090"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2526715090"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2526715090"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 166,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2526715090"
+    },
+    {
+      "name": "Barbora Strycova",
+      "tour": "wta",
+      "entity": "Q230353",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1986-03-28",
+          "provider": "1986-03-28",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2549087020"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2549087020"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2549087020"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 164,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2549087020"
+    },
+    {
+      "name": "Daria Kasatkina",
+      "tour": "wta",
+      "entity": "Q17144642",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1997-05-07",
+          "provider": "1997-05-07",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2546316564"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 170,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2546316564"
+    },
+    {
+      "name": "Andrea Petkovic",
+      "tour": "wta",
+      "entity": "Q57557",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1987-09-09",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2560339746"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2560339746"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2560339746"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 180,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2560339746"
+    },
+    {
+      "name": "Shahar Peer",
+      "tour": "wta",
+      "entity": "Q223532",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1987-05-01",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2544463424"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2544463424"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2544463424"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 170,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2544463424"
+    },
+    {
+      "name": "Kaia Kanepi",
+      "tour": "wta",
+      "entity": "Q211428",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1985-06-10",
+          "provider": "1985-06-10",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2527972674"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2527972674"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2527972674"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 179,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2527972674"
+    },
+    {
+      "name": "Nathalie Dechy",
+      "tour": "wta",
+      "entity": "Q229831",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1979-02-21",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517528314"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517528314"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517528314"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 178,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2517528314"
+    },
+    {
+      "name": "Elena Vesnina",
+      "tour": "wta",
+      "entity": "Q634844",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1986-08-01",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517315800"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517315800"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517315800"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 176,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2517315800"
+    },
+    {
+      "name": "Maria Sakkari",
+      "tour": "wta",
+      "entity": "Q6761562",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1995-07-25",
+          "provider": "1995-07-25",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2565565106"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 172,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2565565106"
+    },
+    {
+      "name": "Kate Makarova",
+      "tour": "wta",
+      "entity": "Q953688",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1988-06-07",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517315009"
+        },
+        {
+          "field": "playingHand",
+          "value": "L",
+          "provider": "L",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517315009"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2517315009"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 180,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2517315009"
+    },
+    {
+      "name": "Novak Djokovic",
+      "tour": "atp",
+      "entity": "Q5812",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1987-05-22",
+          "provider": "1987-05-22",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2565633985"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2565633985"
+        },
+        {
+          "field": "backhand",
+          "value": 2,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2565633985"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 188,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2565633985"
+    },
+    {
+      "name": "Roger Federer",
+      "tour": "atp",
+      "entity": "Q1426",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1981-08-08",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2564556043"
+        },
+        {
+          "field": "backhand",
+          "value": 1,
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2564556043"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 185,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2564556043"
+    },
+    {
+      "name": "Alexander Zverev",
+      "tour": "atp",
+      "entity": "Q13990552",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1997-04-20",
+          "provider": "1997-04-20",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2567429758"
+        },
+        {
+          "field": "playingHand",
+          "value": "R",
+          "provider": "R",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2567429758"
+        }
+      ],
+      "contestedFields": [],
+      "heightCm": 198,
+      "source": "https://www.wikidata.org/w/index.php?oldid=2567429758"
+    },
+    {
+      "name": "Ann Jones",
+      "tour": "wta",
+      "entity": "Q259356",
+      "comparisons": [
+        {
+          "field": "birthday",
+          "value": "1938-10-07",
+          "provider": null,
+          "state": "missing-provider",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2518471079"
+        },
+        {
+          "field": "playingHand",
+          "value": "L",
+          "provider": "L",
+          "state": "matched",
+          "source": "https://www.wikidata.org/w/index.php?oldid=2518471079"
+        }
+      ],
+      "contestedFields": [],
+      "source": "https://www.wikidata.org/w/index.php?oldid=2518471079"
+    }
+  ]
+}

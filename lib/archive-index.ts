@@ -1,4 +1,5 @@
 import type { Match } from './types';
+import {matchesCompetitionCategory} from './reviewed-historical-editions';
 
 /** One index per immutable generation. No request-specific data is shared. */
 const indexes = new WeakMap<Match[], ReturnType<typeof createIndex>>();
@@ -25,5 +26,5 @@ export function filterArchive(matches: Match[], q: ArchiveFilter) {
   return source.filter(m => (!q.era || q.era === 'all' || q.era !== 'last20' || m.year >= lastTwentyFrom)
     && (!q.tour || q.tour === 'all' || (m.tour || 'atp') === q.tour)
     && (!q.surface || q.surface === 'all' || m.surface === q.surface)
-    && (!q.competition || q.competition === 'all' || m.category === q.competition));
+    && (!q.competition || q.competition === 'all' || matchesCompetitionCategory(m,q.competition)));
 }

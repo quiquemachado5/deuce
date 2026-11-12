@@ -1,0 +1,677 @@
+{
+  "datasetVersion": "0cbdd15169d1bc6f3538",
+  "pending": [
+    {
+      "id": "C001",
+      "title": "No existe un porcentaje global de cobertura demostrable: el denominador externo no está cerrado.",
+      "status": "Pendiente",
+      "detail": "No hay un censo externo completo de partidos esperados por circuito, nivel y edición. Dividir por las filas descargadas daría un porcentaje ficticio; falta construir y contrastar ese denominador."
+    },
+    {
+      "id": "C002",
+      "title": "2.945 ediciones no están certificadas: no pueden respaldar promesas de totalidad.",
+      "status": "Pendiente",
+      "detail": "La generación actual tiene 3.127 ediciones sin certificación suficiente. No equivalen a 3.127 cuadros rotos: requieren evidencia completa de cuadro, fases y retiradas antes de certificarlos."
+    },
+    {
+      "id": "C003",
+      "title": "74 ediciones constan como incompletas: afectan cuadros y agregados.",
+      "status": "Parcial",
+      "detail": "Auditoría recalculada: de16ediciones clasificadas como incompletas a1. Se corrigieron formatos, ocurrencias de calendario y resultados con evidencia. Las3.143ediciones sin certificación siguen sin darse por completas."
+    },
+    {
+      "id": "C005",
+      "title": "Scheduler bloqueado y publicación posterior exitosa discrepan: alerta operativa ambigua.",
+      "status": "Parcial",
+      "detail": "Existe control local del éxito operativo y diario de ejecución; falta contrastarlo con el scheduler y los procesos reales de Netcup después de un timeout."
+    },
+    {
+      "id": "C007",
+      "title": "Una racha puede atravesar encuentros desconocidos y alargarse artificialmente.",
+      "status": "Parcial",
+      "detail": "Los productos nuevos declaran rachas de la muestra y no récords mundiales. Certificar continuidad exige censar todos los partidos intermedios, incluidos niveles aún no incorporados."
+    },
+    {
+      "id": "C008",
+      "title": "Máximos de una muestra incompleta pueden anunciarse como récord mundial.",
+      "status": "Parcial",
+      "detail": "Los 200 productos de investigación conservan absoluteRecordEligible=false. No se pueden certificar récords absolutos sin cerrar cobertura y políticas por métrica; esta restricción sigue siendo necesaria."
+    },
+    {
+      "id": "C009",
+      "title": "Inicio del torneo y temporada se confunden en fronteras de diciembre.",
+      "status": "Parcial",
+      "detail": "Corregida temporada AO1973; dos celebraciones AO1977 y dos Adelaide2023 se distinguen en auditoría de edición, sin confundir fecha civil con temporada."
+    },
+    {
+      "id": "C010",
+      "title": "Asociar torneos por ciudad mezcla entidades históricas y categorías.",
+      "status": "Parcial",
+      "detail": "Madrid se presenta con superficie por época y circuito; la corrección no modifica el raw. Falta revisar la identidad histórica de todas las series, no basta con resolver una ciudad."
+    },
+    {
+      "id": "C011",
+      "title": "Solo cerca del 13 % tiene fecha exacta: cronologías precisas no son universales.",
+      "status": "Parcial",
+      "detail": "Hay 19.636 partidos con fecha exacta entre 148.439 resultados. Los cálculos dependientes filtran por precisión; faltan fechas verificadas para el resto."
+    },
+    {
+      "id": "C012",
+      "title": "Menos del 1 % tiene estadísticas de partido: análisis de servicio/resto sesgados.",
+      "status": "Parcial",
+      "detail": "Solo 994 resultados publicados tienen estadísticas de partido. Las 145 selecciones calculables no convierten esa muestra en cobertura completa de servicio y resto; hacen falta fuentes adicionales por partido."
+    },
+    {
+      "id": "C013",
+      "title": "Punto a punto aún más escaso: no permite récords de presión globales.",
+      "status": "Parcial",
+      "detail": "La presión se calcula únicamente sobre puntos observados fiables. No se reconstruyen puntos ausentes; no hay evidencia para publicar récords históricos globales de punto a punto."
+    },
+    {
+      "id": "C014",
+      "title": "WTA 2018 cae a 1.070 filas frente a años vecinos: discontinuidad sin explicación cerrada.",
+      "status": "Parcial",
+      "detail": "WTA 2018 ha pasado a 1.336 resultados tras recuperar dos cuadros completos. Falta reconciliar el resto del calendario de ese año contra un censo independiente; la discontinuidad no está cerrada."
+    },
+    {
+      "id": "C015",
+      "title": "ATP 2023–2026 no registra partidos con ranking de ambos en el producto inspeccionado.",
+      "status": "Pendiente",
+      "detail": "No se ha enriquecido el ranking histórico ATP 2023–2026 en esta ronda. Se necesitan observaciones fechadas al jugar, nunca el ranking actual del jugador."
+    },
+    {
+      "id": "C016",
+      "title": "Persisten diez conflictos: más filas no garantiza mejor verdad.",
+      "status": "Pendiente",
+      "detail": "Las decisiones de reconciliación conservan fuentes y hashes. Los conflictos restantes necesitan expedientes individuales; una coincidencia en número de filas no resuelve una discrepancia de resultado."
+    },
+    {
+      "id": "C017",
+      "title": "URLs de procedencia apenas aparecen en la proyección de lectura.",
+      "status": "Parcial",
+      "detail": "Hay originales y evidencia de reparaciones, pero el enlace fila→fuente no está propagado de forma universal a todos los productos. Se debe completar el índice de procedencia sin cargar raws en cada visita."
+    },
+    {
+      "id": "C018",
+      "title": "Conservar un raw sin localizar la fila no hace una cifra reproducible.",
+      "status": "Parcial",
+      "detail": "Los cuadros WTA recuperados incluyen localizadores de evidencia. Sigue faltando un localizador exacto y estable para todos los resultados históricos anteriores."
+    },
+    {
+      "id": "C019",
+      "title": "Tres páginas pueden copiar una única fuente equivocada.",
+      "status": "Parcial",
+      "detail": "US1969 conserva el conflicto: varias páginas reproducen7–3, incluso la fuente oficial. Coincidencia no se confunde con validación de un resultado imposible."
+    },
+    {
+      "id": "C020",
+      "title": "Reparación manual sin dependencia de métricas deja récords obsoletos.",
+      "status": "Parcial",
+      "detail": "El índice rechaza identidades duplicadas; una corrección de año invalida tanto la temporada antigua como la nueva. Falta ensayo integral de todas las dependencias publicadas."
+    },
+    {
+      "id": "C021",
+      "title": "Hay candidatos de duración extrema; los outliers pueden contaminar rankings.",
+      "status": "Parcial",
+      "detail": "Los controles detectan duraciones anómalas y separan avisos de errores. La revisión editorial de cada extremo necesita unidades y acta del partido; no se elimina un récord por parecer extraño."
+    },
+    {
+      "id": "C022",
+      "title": "Reglas modernas aplicadas al pasado invalidarían sets legítimos.",
+      "status": "Parcial",
+      "detail": "Existen validadores de marcadores y formatos, pero no una matriz reglamentaria certificada para cada edición histórica. Sin ella no se pueden rechazar todos los sets antiguos con reglas actuales."
+    },
+    {
+      "id": "C024",
+      "title": "Contar final no equivale siempre a ganar un título oficial.",
+      "status": "Parcial",
+      "detail": "Hay controles de elegibilidad de finales; aún falta censar decisiones excepcionales, finales no disputadas y formatos especiales para certificar todos los títulos oficiales."
+    },
+    {
+      "id": "C025",
+      "title": "Cambio de nombre o nacionalidad puede crear personas falsas o duplicadas.",
+      "status": "Pendiente",
+      "detail": "Siguen pendientes identidades históricas y alias completos de personas. Fusionar por nombre parecido puede unir a dos tenistas distintos; requiere IDs y verificación biográfica."
+    },
+    {
+      "id": "C026",
+      "title": "Ranking actual o posterior puede filtrarse a métricas históricas.",
+      "status": "Parcial",
+      "detail": "La investigación exige ranking fechado al jugar. La prohibición de datos futuros debe extenderse y probarse en cada cálculo histórico previo antes de dar este riesgo por cerrado globalmente."
+    },
+    {
+      "id": "C027",
+      "title": "Caché de detalles acumula muchas expulsiones y fallos.",
+      "status": "Parcial",
+      "detail": "Se mantienen cachés acotadas y productos precalculados. Faltan trazas de reutilización bajo tráfico real para ajustar expulsiones sin aumentar memoria a ciegas."
+    },
+    {
+      "id": "C028",
+      "title": "Selecciones compactas tienen baja reutilización observada.",
+      "status": "Parcial",
+      "detail": "Se normalizan filtros y ahora también canonicals simétricos de comparación. La reutilización de las cachés de selecciones necesita medición con la distribución real de consultas."
+    },
+    {
+      "id": "C029",
+      "title": "Gzip/JSON síncrono grande puede bloquear el proceso bajo concurrencia.",
+      "status": "Parcial",
+      "detail": "Se retiraron descompresiones síncronas del camino interactivo en avances anteriores. Queda JSON grande y deben medirse pausas del event loop con carga; pasar tipos no prueba escalabilidad."
+    },
+    {
+      "id": "C030",
+      "title": "No está demostrado el p95 de `/match` y `/comparar` en carga real.",
+      "status": "Parcial",
+      "detail": "Ensayo HTTP en modo producción local:24peticiones a4rutas,concurrencia4,p95caliente515ms; sin errores. Match frío937ms. No representa latencia de producción ni Core Web Vitals reales."
+    },
+    {
+      "id": "C031",
+      "title": "Un timeout puede disparar reintentos mientras el job anterior sigue vivo.",
+      "status": "Parcial",
+      "detail": "Cada intento HTTP real, incluidos reintentos, consume presupuesto persistido antes de enviarse. Sin devolución automática por fallo. Falta certificar renovación y fencing del lease entre hosts."
+    },
+    {
+      "id": "C032",
+      "title": "Nuevos workers podrían multiplicar cuotas si el presupuesto no es compartido.",
+      "status": "Parcial",
+      "detail": "El presupuesto persistido se consulta dentro del lease existente y falla cerrado si la cuota es ilegible o desconocida. Falta demostrar exclusión transaccional multihost ante caída del proceso."
+    },
+    {
+      "id": "C034",
+      "title": "Identificación por forwarded IP depende de la configuración del proxy.",
+      "status": "Parcial",
+      "detail": "Hay extracción controlada de IP, pero la confianza depende del proxy que recibe Internet. Deben revisarse las cabeceras que Netcup sobrescribe antes de cerrar este punto."
+    },
+    {
+      "id": "C036",
+      "title": "Descarga de medios/fuentes puede convertirse en SSRF si acepta URLs sin controles.",
+      "status": "Parcial",
+      "detail": "Once importadores usan HTTPS con hosts exactos aprobados, sin redirecciones,20MBmáximo y timeout de cuerpo completo. No se declara migrada toda ruta administrativa heredada."
+    },
+    {
+      "id": "C037",
+      "title": "CSP permite scripts inline: reduce defensa frente a una inyección.",
+      "status": "Pendiente",
+      "detail": "La CSP existente conserva inline para compatibilidad. Quitar ese permiso necesita nonces/hashes y una prueba completa de hidratación, streaming y scripts; no se endurece a ciegas con riesgo de romper navegación."
+    },
+    {
+      "id": "C038",
+      "title": "Archivos de migración no acreditan RLS y permisos de producción.",
+      "status": "Pendiente",
+      "detail": "No se ha consultado el estado efectivo de políticas y roles de la base de datos en producción. Las migraciones locales no demuestran RLS; falta una auditoría de permisos con pruebas negativas."
+    },
+    {
+      "id": "C039",
+      "title": "No está demostrado que el host perdido pueda recuperarse sin sus secretos locales.",
+      "status": "Pendiente",
+      "detail": "El simulacro local de snapshot es válido, pero no demuestra restaurar un host perdido sin sus claves. Hace falta una máquina vacía y recuperar secretos desde una ubicación externa."
+    },
+    {
+      "id": "C040",
+      "title": "Cifrado y retención resistente al borrado no quedan probados por `rclone --immutable`.",
+      "status": "Pendiente",
+      "detail": "No hay evidencia nueva de cifrado y bloqueo contra borrado de las copias remotas. Requiere inspeccionar la cuenta de backup y su política efectiva de retención."
+    },
+    {
+      "id": "C041",
+      "title": "HTML público permite reconstrucción por scraping y coste de agregaciones.",
+      "status": "Parcial",
+      "detail": "Límite compartido SQLite+Caddy para APIv1, sin cobrar servicios externos. No se promete impedir la copia de información pública o bots con IPs rotatorias."
+    },
+    {
+      "id": "C042",
+      "title": "Tráfico legítimo y bot agresivo no están caracterizados en esta revisión.",
+      "status": "Pendiente",
+      "detail": "Falta analizar una ventana de logs reales para separar bots, buscadores y visitantes. Un ensayo local no describe el tráfico del servidor."
+    },
+    {
+      "id": "C043",
+      "title": "Extraer datos públicos no garantiza permiso de redistribución de cada fuente.",
+      "status": "Pendiente",
+      "detail": "No se han otorgado nuevos permisos de redistribución por el hecho de encontrar páginas públicas. Falta revisar condiciones de cada fuente antes de ofrecer sus datos completos como exportación."
+    },
+    {
+      "id": "C044",
+      "title": "Una cita en Licencias no concede licencia sobre una fotografía.",
+      "status": "Pendiente",
+      "detail": "Las nuevas fotos activadas conservan autor, fuente y licencia de Commons. La revisión jurídica y editorial de todos los activos existentes sigue abierta; citar no equivale a disponer de permiso."
+    },
+    {
+      "id": "C045",
+      "title": "Fotografía de persona equivocada es un error editorial grave.",
+      "status": "Parcial",
+      "detail": "Cada lote nuevo se inspecciona visualmente. Se rechazaron falsas asociaciones de año, torneo y disciplina incluso en CMS oficiales. Esto no certifica todavía todo el catálogo antiguo de tenistas."
+    },
+    {
+      "id": "C046",
+      "title": "Facetas indexables pueden crear un universo de URLs pobres.",
+      "status": "Pendiente",
+      "detail": "Hay canonicals y controles de indexación por filtro. Falta contrastar el universo real de URLs rastreables y thin content; requiere crawl completo y datos de indexación."
+    },
+    {
+      "id": "C048",
+      "title": "ES/EN podrían declararse equivalentes sin conservar filtros/contexto.",
+      "status": "Parcial",
+      "detail": "Se retiraron hreflang falsos de detalles de Records sin equivalente inglés y de comparaciones con alcance no equivalente. Las otras plantillas bilingües requieren la misma revisión antes de cerrar el problema global."
+    },
+    {
+      "id": "C049",
+      "title": "Indexación real y soft 404 no están medidos con Search Console.",
+      "status": "Pendiente",
+      "detail": "No se dispone de medición de Search Console ni inspección de URLs en esta ronda. No se inventan tráfico, cobertura de índice o soft 404 basándose únicamente en HTML local."
+    },
+    {
+      "id": "C051",
+      "title": "El modelo central de dos personas no soporta equipos/dobles sin ampliación.",
+      "status": "Pendiente",
+      "detail": "Dobles, mixto y equipos exigen ampliar participantes y disciplina. Esa ampliación no se hace mezclando registros con el actual modelo de dos personas; necesita migración y alcance de producto."
+    },
+    {
+      "id": "C052",
+      "title": "Etiquetas modernas pueden anacronizar categorías anteriores a ATP500/WTA1000.",
+      "status": "Parcial",
+      "detail": "Las categorías actuales se separan por circuito y Madrid conserva su época. Sigue pendiente mapear sistemáticamente categorías históricas sin renombrarlas anacrónicamente ATP500 o WTA1000."
+    },
+    {
+      "id": "C053",
+      "title": "Torneo serie, sede, patrocinador y edición no son la misma entidad.",
+      "status": "Parcial",
+      "detail": "Hay aliases y separación de nivel/circuito, pero falta un registro universal de serie, sede, patrocinador y edición con vigencia histórica. Cambiar texto de ciudad no resuelve el modelo."
+    },
+    {
+      "id": "C054",
+      "title": "Australia 1977 no cabe en una sola clave torneo+año.",
+      "status": "Parcial",
+      "detail": "Auditoría separa January/December de Australia1977 con evidencia. Las rutas de ficha por torneo+año aún no representan todas las ocurrencias como entidades independientes."
+    },
+    {
+      "id": "C056",
+      "title": "Una actualización de raw puede alterar silenciosamente un hecho ya publicado.",
+      "status": "Parcial",
+      "detail": "Los raws y generaciones se conservan; falta un flujo uniforme de revisión de cambios de observación antes de reemplazar cualquier hecho canónico anterior."
+    },
+    {
+      "id": "C057",
+      "title": "Un hash de dataset no explica por sí solo qué cambió.",
+      "status": "Parcial",
+      "detail": "Índice y delta de publicación validados; las correcciones de temporada afectan ambos lados. Falta un changelog semántico archivado de todos los productos derivados."
+    },
+    {
+      "id": "C058",
+      "title": "Un catálogo de métricas sin versión de definición no es reproducible.",
+      "status": "Parcial",
+      "detail": "La investigación incorpora hash de código, dependencias, registros y evidencia. Esta ronda añade también el registro verificado; falta llevar el mismo versionado estricto a todo el catálogo público previo."
+    },
+    {
+      "id": "C059",
+      "title": "Comparar porcentajes con denominadores desiguales induce conclusiones falsas.",
+      "status": "Parcial",
+      "detail": "Contratos de edición completa no descartan silenciosamente partidos sin estadísticas; corregidos minutos prefinal, breaks y semifinal–final sin fecha. Los100 productos conservan muestra y exclusiones por circuito."
+    },
+    {
+      "id": "C060",
+      "title": "Sesgo por partidos con ranking/estadísticas no es aleatorio.",
+      "status": "Parcial",
+      "detail": "Auditoría de disponibilidad con denominador completo en5.645cohortes de circuito, año, categoría, ronda y jugador. Diferencia ausencia de enriquecimiento de ausencia de partidos. No estima causalidad ni censo mundial."
+    },
+    {
+      "id": "C061",
+      "title": "Elo inicial y orden aproximado de encuentros alteran estimaciones.",
+      "status": "Parcial",
+      "detail": "Modelo de investigación Elo versionado: solo fechas exactas, ratings previos al día, ATP/WTA separados, Brier/log-loss tras10 observaciones. No sustituye automáticamente todos los productos públicos históricos."
+    },
+    {
+      "id": "C062",
+      "title": "«Mejor ranking observado» no equivale a ranking oficial de fin de año.",
+      "status": "Pendiente",
+      "detail": "El mejor ranking disponible no acredita ranking oficial de fin de año. La etiqueta y fuente de cada observación necesitan revisión conjunta; no se rellena un ranking ausente."
+    },
+    {
+      "id": "C063",
+      "title": "Nacionalidad actual aplicada al pasado distorsiona estadísticas por país.",
+      "status": "Parcial",
+      "detail": "La nacionalidad actual no es suficiente para estadísticas históricas por país. Hace falta un registro de cambios con fechas y fuentes, no una bandera por jugador sin vigencia."
+    },
+    {
+      "id": "C064",
+      "title": "Ausencia de una edición puede parecer inactividad o derrota.",
+      "status": "Pendiente",
+      "detail": "Una celda vacía sigue sin probar ausencia, lesión o derrota. Se necesitan estados respaldados por censo de participación para distinguir no celebrado, no jugó y desconocido."
+    },
+    {
+      "id": "C065",
+      "title": "Topología del cuadro no puede inferirse solo desde cantidad de partidos.",
+      "status": "Pendiente",
+      "detail": "La certificación no se deduce solo de contar partidos. Faltan slots, byes y estructura de grupos completos en muchas ediciones; esos datos deben contrastarse por cuadro."
+    },
+    {
+      "id": "C068",
+      "title": "HTML, RSC y productos podrían resolver generaciones distintas.",
+      "status": "Parcial",
+      "detail": "Corregidas decisiones de fuente inconsistentes en un renderRSC y caché global sin clave de versión. Ensayo Flight real con cambioA→B durante suspensión. Falta protocolo cliente que fije versión entre peticiones independientes."
+    },
+    {
+      "id": "C069",
+      "title": "No hay perfil de memoria medido con volumen x10 en esta revisión.",
+      "status": "Parcial",
+      "detail": "Ensayo del lector streaming con1.483.020filas,1.185MBJSON y heap256MiB: picoRSS168,8MiB. No es todavía un ensayo integral de publicación y estadísticas a escala×10."
+    },
+    {
+      "id": "C070",
+      "title": "Retener generaciones y detalles sin GC puede agotar objetos/disco.",
+      "status": "Pendiente",
+      "detail": "No se ha comprobado la recolección de generaciones en Netcup. Hace falta política de retención que preserve referencias citables y backups antes de borrar objetos históricos."
+    },
+    {
+      "id": "C071",
+      "title": "No se han medido LCP/CLS/INP de usuarios reales.",
+      "status": "Pendiente",
+      "detail": "No hay p75 real de LCP/CLS/INP en esta ronda. Chromium local solo prueba comportamiento; falta RUM por dispositivo y ventana temporal con minimización de datos."
+    },
+    {
+      "id": "C072",
+      "title": "Vídeo hero puede consumir datos y desplazar el LCP.",
+      "status": "Pendiente",
+      "detail": "El vídeo hero necesita presupuesto de descarga y medición LCP en redes móviles reales. No se sustituye otro medio ni se cambia el diseño fuera del alcance autorizado de esta ronda."
+    },
+    {
+      "id": "C073",
+      "title": "Parallax no debe convertirse en bloqueo del scroll o información invisible.",
+      "status": "Parcial",
+      "detail": "La efeméride se ha compactado, adelanta el titular y mantiene alternativa estática con reduced-motion y acceso por foco. Queda revisar los demás efectos y navegadores, no certificar toda la web por una sección."
+    },
+    {
+      "id": "C074",
+      "title": "Componentes móviles extremadamente compactos pierden lectura o targets.",
+      "status": "Parcial",
+      "detail": "Se comprobaron 320, 390 y 1.366 px sin desbordamiento en las rutas tocadas. Faltan zoom extremo, dispositivos reales y todas las plantillas antes de dar por cerrada la accesibilidad móvil global."
+    },
+    {
+      "id": "C075",
+      "title": "Compatibilidad de colores relativos depende del parque real de navegadores.",
+      "status": "Pendiente",
+      "detail": "Esta ronda se ha verificado Chromium; no acredita Safari, Firefox ni versiones antiguas con colores relativos. Hace falta ejecutar esa matriz de compatibilidad."
+    },
+    {
+      "id": "C076",
+      "title": "Colores de temporada y Grand Slam pueden degradar contraste.",
+      "status": "Pendiente",
+      "detail": "Madrid usa arcilla en ambos circuitos y los detalles Records conservan tokens del tema. Falta una matriz de contraste e interacción de todos los modos de temporada y los cuatro Grand Slams."
+    },
+    {
+      "id": "C077",
+      "title": "Autoplay sin pausa accesible o reduced-motion perjudica accesibilidad.",
+      "status": "Pendiente",
+      "detail": "El contenido de efemérides tiene fallback sin movimiento. Falta auditar todos los vídeos y carruseles, pausa por teclado y reproducción automática conforme a las preferencias del usuario."
+    },
+    {
+      "id": "C078",
+      "title": "Tablas visuales sin contexto semántico dificultan investigación asistida.",
+      "status": "Parcial",
+      "detail": "Records incluye unidad de cada cifra, caption y encabezados, con ordenación legible. Falta revisar semántica de todas las matrices y tablas de otras secciones."
+    },
+    {
+      "id": "C079",
+      "title": "CSS acumulado y excepciones hacen impredecibles los siguientes retoques.",
+      "status": "Pendiente",
+      "detail": "Se simplificó la hoja específica de la efeméride; no se borraron estilos globales. Una limpieza CSS total necesita inventario de propiedad y contrato visual para evitar otra regresión como la señalada por el usuario."
+    },
+    {
+      "id": "C080",
+      "title": "El árbol local incluye muchos cambios aún no publicados.",
+      "status": "Pendiente",
+      "detail": "Los cambios siguen en local por instrucción expresa. Preparar y publicar un release ahora violaría ese alcance; se requiere cerrar la revisión local y una orden posterior de producción."
+    },
+    {
+      "id": "C082",
+      "title": "Rotación/recuperación de claves no está acreditada en esta revisión.",
+      "status": "Pendiente",
+      "detail": "No se han rotado credenciales ni simulado revocación. Cambiar secretos activos exige coordinación con proveedor y servidor para evitar perder ingestión y despliegues."
+    },
+    {
+      "id": "C083",
+      "title": "Una copia recuperable puede seguir conteniendo corrupción semántica.",
+      "status": "Parcial",
+      "detail": "Se conserva el simulacro local y las comprobaciones de archivos, índices y generación. Sigue pendiente restaurar una copia remota y comprobar también resultados testigo semánticos."
+    },
+    {
+      "id": "C084",
+      "title": "RPO/RTO no han sido cronometrados tras pérdida total de host.",
+      "status": "Pendiente",
+      "detail": "No se han cronometrado RPO/RTO tras perder el host. Hace falta un entorno aislado y un ensayo real de recuperación completa con DNS, claves y datos."
+    },
+    {
+      "id": "C085",
+      "title": "Monitores locales no detectan caída simultánea del servidor y monitor.",
+      "status": "Pendiente",
+      "detail": "No se ha configurado ni probado una alerta externa nueva. Se necesita un monitor fuera de Netcup y un destino de notificación autorizado."
+    },
+    {
+      "id": "C086",
+      "title": "Éxito HTTP de ingestión no demuestra novedades publicadas.",
+      "status": "Parcial",
+      "detail": "Hay contadores y estados de publicación; falta reconciliar cron real, novedades diarias y versión servida en producción durante varios ciclos. HTTP 200 no se considera prueba suficiente."
+    },
+    {
+      "id": "C087",
+      "title": "Totales de estadísticas diferentes entre local y producción no son comparables sin versión.",
+      "status": "Pendiente",
+      "detail": "La evidencia de esta ronda lleva versión ea5d3138e4bcce083683. No se ha comparado con el host, que permanece sin cambios por orden de trabajo local."
+    },
+    {
+      "id": "C088",
+      "title": "Retención de logs sin política puede exponer identificadores innecesarios.",
+      "status": "Parcial",
+      "detail": "Los logs ya eliminan credenciales por clave y URL, acotan texto y validan request-id; pasan regresiones. Falta aplicar y verificar retención y minimización efectiva de logs en servidor."
+    },
+    {
+      "id": "C089",
+      "title": "Métricas de bots/caché sin ventana temporal dificultan decisiones.",
+      "status": "Pendiente",
+      "detail": "No se dispone de una ventana nueva de métricas de bot/caché del host. Se necesitan tasas y coste por intervalo, no números acumulados sin periodo."
+    },
+    {
+      "id": "C090",
+      "title": "Un stack de monitorización excesivo añade coste y mantenimiento.",
+      "status": "Pendiente",
+      "detail": "No se contratan servicios ni se añaden costes recurrentes sin un presupuesto acordado. Falta elegir el mínimo de alertas externas a partir de tráfico y riesgos medidos."
+    },
+    {
+      "id": "C091",
+      "title": "Contenido diario basado en fechas aproximadas cuenta aniversarios falsos.",
+      "status": "Parcial",
+      "detail": "La selección de efemérides y su render ahora exigen Fecha del partido, no Inicio del torneo. Las fuentes editoriales estáticas también necesitan revisión individual antes de certificar todo el calendario anual."
+    },
+    {
+      "id": "C092",
+      "title": "Noticias generadas pueden convertir correlación en causalidad deportiva.",
+      "status": "Parcial",
+      "detail": "Los titulares nuevos derivan ganador, ronda y torneo de resultados, sin causalidad inventada. Falta revisión editorial de todo el repertorio de acontecimientos y textos previos."
+    },
+    {
+      "id": "C093",
+      "title": "Wikipedia sin revisión guardada impide reproducir una corrección futura.",
+      "status": "Parcial",
+      "detail": "Las referencias enciclopédicas aceptadas conservan revisión y se rechaza evidencia mutable en las pruebas. Falta archivar revisión y hash de todas las importaciones enciclopédicas anteriores."
+    },
+    {
+      "id": "C094",
+      "title": "Estadísticas de X pueden omitir formato, periodo o empates.",
+      "status": "Parcial",
+      "detail": "Las 46 referencias revisadas explicitan periodo, formato y unidad. No se han extraído masivamente cifras de X sin comprobar; faltan hipótesis concretas y recálculo con fuentes independientes."
+    },
+    {
+      "id": "C095",
+      "title": "Incorporar IA en cada visita eleva coste sin mejorar el dato.",
+      "status": "Parcial",
+      "detail": "No se ha incorporado un modelo de IA al camino del visitante: la investigación se ejecuta offline, versionada y sin llamadas por visita. Cualquier futura IA necesita un presupuesto propio antes de activarse."
+    },
+    {
+      "id": "C096",
+      "title": "Fuentes externas pueden inyectar instrucciones a un proceso de IA.",
+      "status": "Parcial",
+      "detail": "No hay un intérprete de instrucciones externas en el pipeline de investigación actual; las entradas son datos estructurados. Una futura extracción con IA exigiría aislamiento y evaluación específica de prompt injection."
+    },
+    {
+      "id": "C097",
+      "title": "Sin URLs de consulta versionadas el periodista no puede citar un resultado estable.",
+      "status": "Parcial",
+      "detail": "Las generaciones y exportaciones tienen identidad estable; falta cerrar enlaces permanentes públicos a cada definición, filtros y resultado citado. No se añade nueva UI de citación sin aprobación."
+    },
+    {
+      "id": "C099",
+      "title": "Cien métricas nuevas antes de certificar diez aumentan deuda editorial.",
+      "status": "Parcial",
+      "detail": "Se calculan 145 selecciones con limitaciones explícitas y cero récords mundiales certificados. Se mantienen bloqueadas 55 selecciones por falta de contratos/evidencia; no se añaden cien tarjetas públicas sin certificar."
+    },
+    {
+      "id": "C100",
+      "title": "Competir a la vez en directo, historia, predicción y noticias diluye la ventaja.",
+      "status": "Pendiente",
+      "detail": "Priorizar archivo histórico frente a directo, predicción y noticias es una decisión de producto. Esta ronda se limita a verdad documental, rapidez y cambios visuales expresamente solicitados."
+    },
+    {
+      "id": "D014",
+      "title": "Ganadores de la última edición de torneos desaparecidos",
+      "status": "Bloqueada por evidencia",
+      "detail": "No genera una cifra sin evidencia suficiente: event-registry."
+    },
+    {
+      "id": "D015",
+      "title": "Campeones antes y después de un cambio de sede",
+      "status": "Bloqueada por evidencia",
+      "detail": "No genera una cifra sin evidencia suficiente: event-registry."
+    },
+    {
+      "id": "D047",
+      "title": "Victorias frente a todos los miembros de un top 10 fechado",
+      "status": "Bloqueada por evidencia",
+      "detail": "No genera una cifra sin evidencia suficiente: exact-date, ranking-at-match, results."
+    },
+    {
+      "id": "D048",
+      "title": "Racha ante top 20 en la muestra fechada",
+      "status": "Parcial por circuito",
+      "detail": "Cálculo reproducible en ATP. No acredita récord absoluto."
+    },
+    {
+      "id": "D057",
+      "title": "Campeones con todos sus partidos al set decisivo",
+      "status": "Parcial por circuito",
+      "detail": "Cálculo reproducible en WTA. No acredita récord absoluto."
+    },
+    {
+      "id": "D071",
+      "title": "Primer campeón registrado de cada país y nivel",
+      "status": "Bloqueada por evidencia",
+      "detail": "No genera una cifra sin evidencia suficiente: dated-country."
+    },
+    {
+      "id": "D072",
+      "title": "Finales entre compatriotas por década",
+      "status": "Bloqueada por evidencia",
+      "detail": "No genera una cifra sin evidencia suficiente: dated-country."
+    },
+    {
+      "id": "D073",
+      "title": "Países con finalistas en las cuatro sedes de Grand Slam",
+      "status": "Bloqueada por evidencia",
+      "detail": "No genera una cifra sin evidencia suficiente: dated-country."
+    },
+    {
+      "id": "D074",
+      "title": "Diversidad de países en cuartos por edición",
+      "status": "Bloqueada por evidencia",
+      "detail": "No genera una cifra sin evidencia suficiente: dated-country."
+    },
+    {
+      "id": "D076",
+      "title": "Dominio por país y década",
+      "status": "Bloqueada por evidencia",
+      "detail": "No genera una cifra sin evidencia suficiente: dated-country."
+    },
+    {
+      "id": "D077",
+      "title": "Títulos locales y en el extranjero en una temporada",
+      "status": "Bloqueada por evidencia",
+      "detail": "No genera una cifra sin evidencia suficiente: dated-country, event-registry."
+    },
+    {
+      "id": "D078",
+      "title": "Campeones distintos por país y superficie",
+      "status": "Bloqueada por evidencia",
+      "detail": "No genera una cifra sin evidencia suficiente: dated-country."
+    },
+    {
+      "id": "D079",
+      "title": "Países campeones ATP y WTA en una misma semana",
+      "status": "Bloqueada por evidencia",
+      "detail": "No genera una cifra sin evidencia suficiente: dated-country."
+    },
+    {
+      "id": "D080",
+      "title": "Carreras con cambios de nacionalidad fechados",
+      "status": "Bloqueada por evidencia",
+      "detail": "No genera una cifra sin evidencia suficiente: exact-date, results."
+    },
+    {
+      "id": "D086",
+      "title": "Títulos tras inactividad certificada",
+      "status": "Bloqueada por evidencia",
+      "detail": "No genera una cifra sin evidencia suficiente: edition-census."
+    },
+    {
+      "id": "D087",
+      "title": "Intervalo entre títulos en continentes distintos",
+      "status": "Bloqueada por evidencia",
+      "detail": "No genera una cifra sin evidencia suficiente: exact-date, results."
+    },
+    {
+      "id": "D090",
+      "title": "Aplazamientos con fecha prevista y real",
+      "status": "Bloqueada por evidencia",
+      "detail": "No genera una cifra sin evidencia suficiente: exact-date, results."
+    },
+    {
+      "id": "D093",
+      "title": "Sets ganados sin afrontar bola de break",
+      "status": "Bloqueada por evidencia",
+      "detail": "No genera una cifra sin evidencia suficiente: observed-points."
+    },
+    {
+      "id": "D094",
+      "title": "Victorias salvando puntos de partido observados",
+      "status": "Bloqueada por evidencia",
+      "detail": "No genera una cifra sin evidencia suficiente: observed-points."
+    },
+    {
+      "id": "D095",
+      "title": "Secuencias de breaks consecutivos",
+      "status": "Bloqueada por evidencia",
+      "detail": "No genera una cifra sin evidencia suficiente: observed-points."
+    },
+    {
+      "id": "D096",
+      "title": "Rendimiento al servir para cerrar un partido",
+      "status": "Bloqueada por evidencia",
+      "detail": "No genera una cifra sin evidencia suficiente: observed-points."
+    },
+    {
+      "id": "D097",
+      "title": "Tie-breaks remontados desde cinco puntos abajo",
+      "status": "Bloqueada por evidencia",
+      "detail": "No genera una cifra sin evidencia suficiente: observed-points."
+    },
+    {
+      "id": "D098",
+      "title": "Longitud observada de intercambios por superficie",
+      "status": "Bloqueada por evidencia",
+      "detail": "No genera una cifra sin evidencia suficiente: observed-points."
+    },
+    {
+      "id": "D099",
+      "title": "Ventaja del sacador por régimen reglamentario",
+      "status": "Bloqueada por evidencia",
+      "detail": "No genera una cifra sin evidencia suficiente: observed-points, regulation-registry."
+    }
+  ]
+}

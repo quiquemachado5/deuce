@@ -12,7 +12,8 @@ if (expectedCommit && !/^[a-f0-9]{7,40}$/.test(expectedCommit)) throw new Error(
 async function check() {
   const failures = [];
   try {
-    const response = await fetch(productionUrl+'/api/health/deep',{signal:AbortSignal.timeout(30000),cache:'no-store'});
+    const secret=process.env.HEALTH_SECRET||process.env.METRICS_SECRET;
+    const response = await fetch(productionUrl+'/api/health/deep',{headers:secret?{Authorization:'Bearer '+secret}:{},signal:AbortSignal.timeout(30000),cache:'no-store'});
     if(!response.ok) return { health: null, failures: ['Health endpoint: HTTP '+response.status] };
     const h = await response.json();
     // The first validated seed can precede the provider's first scheduled

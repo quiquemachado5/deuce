@@ -1,0 +1,12 @@
+/* Seasonal UI colours include score winners. Photographs, flags and official logos keep their own colours. Relative colours preserve the classic lightness, chroma and alpha. */
+html[data-appearance=season][data-season=hard]{--appearance-hue:235;--brand-ink:#123b53;--brand-deep:#092d42;--brand-panel:#17465d;--brand-action:#174b69;--brand-accent:#b9e8fa;--brand-soft:#dfe9ee;--brand-muted:#bed7e3;--brand-home:#10384a;--brand-footer:#030f17}
+html[data-appearance=season][data-season=clay]{--appearance-hue:48;--brand-ink:#633321;--brand-deep:#48271d;--brand-panel:#70422e;--brand-action:#85462b;--brand-accent:#ffcca2;--brand-soft:#eee3dc;--brand-muted:#e4cdbd;--brand-home:#513025;--brand-footer:#190d08}
+html[data-appearance=season][data-season=grass]{--appearance-hue:140;--brand-ink:#234c30;--brand-deep:#193c27;--brand-panel:#315a3d;--brand-action:#346d42;--brand-accent:#d7eda5;--brand-soft:#e5ecdd;--brand-muted:#cbdcc7;--brand-home:#254932;--brand-footer:#07160c}
+html[data-appearance=season]{--winner:var(--brand-action);--win:var(--brand-action);--score-winner:var(--brand-action);--ink:var(--brand-ink);--deuce-ink:var(--brand-ink);--deuce-action:var(--brand-action);--court:var(--brand-deep);--acid:var(--brand-accent);--bg-dark:var(--brand-deep);--bg-sunken:var(--brand-soft);--nav-base:var(--brand-deep);--nav-layer:var(--brand-panel);--nav-accent:var(--brand-accent);--nav-muted:var(--brand-muted);--nav-contrast:var(--brand-ink)}
+html[data-appearance=season] :where(h1,h2,h3){color:inherit}
+/* Every action uses the same neutral hover, including descendants inside themed navigation. */
+@media(hover:hover){a:hover :is(.lucide-arrow-right,.lucide-arrow-up-right),button:hover :is(.lucide-arrow-right,.lucide-arrow-up-right){transition:transform .24s cubic-bezier(.16,1,.3,1)}a:hover .lucide-arrow-right,button:hover .lucide-arrow-right{transform:rotate(-45deg)}a:hover .lucide-arrow-up-right,button:hover .lucide-arrow-up-right{transform:rotate(0)}}
+a .lucide-arrow-up-right,button .lucide-arrow-up-right{transform:rotate(45deg);transition:transform .24s cubic-bezier(.16,1,.3,1)}
+@media(prefers-reduced-motion:reduce){a .lucide-arrow-up-right,button .lucide-arrow-up-right,a .lucide-arrow-right,button .lucide-arrow-right{transition:none!important;transform:none!important}}
+
+[data-photo-motion]{translate:0 var(--photo-drift,0px);scale:1.055}@media(max-width:821px),(prefers-reduced-motion:reduce){[data-photo-motion]{translate:none;scale:1}}

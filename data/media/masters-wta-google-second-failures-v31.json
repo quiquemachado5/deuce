@@ -1,0 +1,85 @@
+[
+  {
+    "tournament": "Tokyo",
+    "year": 2013,
+    "tour": "wta",
+    "category": "WTA 1000",
+    "winner": "Petra Kvitova",
+    "q": "Petra Kvitova Tokyo 2013 tennis final trophy -gettyimages -alamy -pinterest",
+    "errors": []
+  },
+  {
+    "tournament": "Beijing",
+    "year": 2013,
+    "tour": "wta",
+    "category": "WTA 1000",
+    "winner": "Serena Williams",
+    "q": "Serena Williams Beijing 2013 tennis final trophy -gettyimages -alamy -pinterest",
+    "errors": [
+      {
+        "src": "https://tecolotito.elsiglodetorreon.com.mx/i/2013/10/540822.jpeg",
+        "error": "not sufficiently wide 720x1145"
+      }
+    ]
+  },
+  {
+    "tournament": "Cincinnati",
+    "year": 2011,
+    "tour": "wta",
+    "category": "WTA 1000",
+    "winner": "Maria Sharapova",
+    "q": "Maria Sharapova Cincinnati 2011 tennis final trophy -gettyimages -alamy -pinterest",
+    "errors": [
+      {
+        "src": "https://st2.depositphotos.com/2081153/9483/i/450/depositphotos_94833822-stock-photo-cincinnati-oh-circa-2011-award.jpg",
+        "error": "not sufficiently wide 600x400"
+      }
+    ]
+  },
+  {
+    "tournament": "Beijing",
+    "year": 2009,
+    "tour": "wta",
+    "category": "WTA 1000",
+    "winner": "Svetlana Kuznetsova",
+    "q": "Svetlana Kuznetsova Beijing 2009 tennis final trophy -gettyimages -alamy -pinterest",
+    "errors": []
+  },
+  {
+    "tournament": "Tokyo",
+    "year": 2009,
+    "tour": "wta",
+    "category": "WTA 1000",
+    "winner": "",
+    "q": "Maria Sharapova Tokyo 2009 Jelena Jankovic trophy final -gettyimages -alamy",
+    "errors": []
+  },
+  {
+    "tournament": "Rome",
+    "year": 2000,
+    "tour": "wta",
+    "category": "WTA 1000",
+    "winner": "Monica Seles",
+    "q": "Monica Seles Rome 2000 tennis final trophy -gettyimages -alamy -pinterest",
+    "errors": [
+      {
+        "src": "https://parade.com/.image/w_1200%2Ch_630%2Cg_auto%2Cc_fill/ODowMDAwMDAwMDAwOTc2ODA5/us-monica-seles-holds-the-trophy-after-she-beats-frances-amelie-mauresmo-in-the-italian-open-final-21-may-2000-at-the-foro-olimpico-stadium-in-rome-seles-won-62-76-electronic-image-photo-by-gabriel-bo.jpg",
+        "error": "not sufficiently wide 1536x1495"
+      }
+    ]
+  },
+  {
+    "tournament": "Cincinnati",
+    "year": 2010,
+    "tour": "wta",
+    "category": "WTA 1000",
+    "winner": "Kim Clijsters",
+    "q": "Kim Clijsters Cincinnati 2010 tennis final trophy -gettyimages -alamy -pinterest",
+    "errors": [
+      {
+        "src": "https://k.sinaimg.cn/www/dy/slidenews/2_img/2016_34/794_1908395_954148.jpg/w640slw.jpg",
+        "error": "not sufficiently wide 640x960"
+      }
+    ]
+  }
+]

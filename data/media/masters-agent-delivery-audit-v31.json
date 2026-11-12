@@ -1,0 +1,112 @@
+{
+  "auditedAt": "2026-11-12T10:33:55.750680+00:00",
+  "scope": "Exact-edition Masters ATP/WTA photographs, 2000–2026; child media_masters_v31 only. Aggregate site coverage maintained by parent activator.",
+  "manifests": [
+    {
+      "manifest": "data/media/masters-v31.json",
+      "rows": 44
+    },
+    {
+      "manifest": "data/media/masters-v31-more.json",
+      "rows": 23
+    },
+    {
+      "manifest": "data/media/masters-v31-bulk.json",
+      "rows": 35
+    },
+    {
+      "manifest": "data/media/masters-v31-api.json",
+      "rows": 150
+    },
+    {
+      "manifest": "data/media/masters-v31-last.json",
+      "rows": 1
+    },
+    {
+      "manifest": "data/media/masters-v31-api-upgrades.json",
+      "rows": 11
+    },
+    {
+      "manifest": "data/media/masters-wta-historic-v31.json",
+      "rows": 18
+    },
+    {
+      "manifest": "data/media/masters-wta-historic-more-v31.json",
+      "rows": 11
+    },
+    {
+      "manifest": "data/media/masters-wta-historic-final-v31.json",
+      "rows": 3
+    },
+    {
+      "manifest": "data/media/masters-wta-historic-last-v31.json",
+      "rows": 1
+    }
+  ],
+  "deliveredRows": 297,
+  "uniqueScopedKeys": 286,
+  "uniqueAssets": 297,
+  "optimizedBytes": 61032270,
+  "review": "Every delivered photograph visually reviewed and edition/date matched against source metadata. Historical categories explicitly WTA1000 where registry expects category scoping. No LiveTennis API calls.",
+  "latestUnactivatedManifests": [
+    "data/media/masters-wta-historic-last-v31.json"
+  ],
+  "importantLimitations": [
+    "ATP Canada2000: exact contemporary Safin/RCMP source located atUPI/Bridgeman, originals inaccessible or commercial; noimage activated.",
+    "WTA Tokyo2000–05 AFPBB exactcaptions found, but mostportraits or almostsquare1024×884/924; rejected tohonorlandscapehero requirement.",
+    "WTA Zurich2007 has retainedAFPBBvisiblewatermark and lowerreplacement priority versus cleanlicensedimage; no watermarkremoved.",
+    "EditorialWTA records maymentionmultipleevents/years; metadataalone isinsufficient. RejectedRF/USOpenphotos mislabeled bysearchresults.",
+    "No claimallmissingWTAeditionscompleted; parentcoverageauditremainsauthoritative."
+  ],
+  "discardedOrLimitedSources": [
+    {
+      "source": "Commons39 city/year batch",
+      "cache": ".deuce-cache/media-editions-v31-masters/wta/commons-old.json",
+      "reason": "Mostly irrelevantstadium/football/NASAresults. ExactnamedquerylaterfoundSanDiego2006.",
+      "searched": 39
+    },
+    {
+      "source": "Google64 initialeditioncandidatebatch",
+      "cache": ".deuce-cache/media-editions-v31-masters/wta/historic-review.json",
+      "reason": "Wrongtournaments/yearsdespitequery; all64unreviewedassetfilesdeletedratherthanactivated."
+    },
+    {
+      "source": "AFPBB Zurich2007 ninegallerythumboriginals",
+      "cache": ".deuce-cache/media-editions-v31-masters/wta/afp-next-downloads.json",
+      "reason": "Native512px, rejected; articlemainphoto1024pxusedinstead."
+    },
+    {
+      "source": "SWI contemporaneousSwissOpen2000–05",
+      "cache": "/tmp/swi-zurich2005-v31.html",
+      "reason": "Original230pxresolution; no upscaling."
+    },
+    {
+      "source": "Tennisnet Miami2000–15 chronology",
+      "cache": "/tmp/tennisnet-miami-v31.html",
+      "reason": "Accuratedatedcaptionsbutnative500–640px processedfiles."
+    },
+    {
+      "source": "TennisServer RogersCup2007",
+      "reason": "Mostly425×640portrait, nothorizontalheroquality."
+    },
+    {
+      "source": "SportsIllustrated WTAChampions2010",
+      "reason": "666×800portrait evenoriginal; nofakeHD."
+    },
+    {
+      "source": "Lensdump SanDiego2006",
+      "cache": "/tmp/lensdump-sandiego2006-v31.html",
+      "reason": "Unverifieduseralbum; originalmarkedmedia_withheld. No restrictedoriginalretrieval attempted."
+    },
+    {
+      "source": "Getty/Bridgeman commercial originals",
+      "reason": "No paywallbypass; no watermarkremoval; sourcecandidatesretainedonlyasleads."
+    }
+  ],
+  "additionalCandidateMetadata": [
+    "/tmp/commons-wta-target-v31.json",
+    ".deuce-cache/media-editions-v31-masters/wta/all-old-venues.json",
+    ".deuce-cache/media-editions-v31-masters/wta/all-old-aliases.json",
+    ".deuce-cache/media-editions-v31-masters/wta/aliases-exact.json"
+  ]
+}

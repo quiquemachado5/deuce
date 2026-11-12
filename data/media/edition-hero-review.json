@@ -1,0 +1,330 @@
+{
+  "reviewedAt": "2026-11-12T08:21:30.169Z",
+  "candidatePhotos": 155,
+  "acceptedPhotos": 75,
+  "distinctEditions": 60,
+  "circuitEditions": 76,
+  "rejected": [
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Elena_Rybakina_-_Roland_Garros_2025_-_backhand_close-up.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Raducanu2025AO.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:BenShelton2025AO.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Jannik_Sinner_US_Open_2025_(cropped).jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Anna_Karol%C3%ADna_Schmiedlov%C3%A1_-_Roland-Garros_-_28.05.2024.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Alexa_Noel_(2024_US_Open)_02.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Aleksandar_Kovacevic_(Roland_Garros_2023)_01.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Carlos_Alcaraz_-_Wimbledon_Final_2023.jpg",
+      "reason": "not a suitable tennis edition scene"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:%27Player_Pod%27_of_Rod_Laver_Arena_during_the_2023_Australian_Open_(52680260745).jpg",
+      "reason": "not a suitable tennis edition scene"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Margaret_Court_Arena_looking_south-east_during_the_2023_Australian_Open_(52679309117).jpg",
+      "reason": "not a suitable tennis edition scene"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Carson_Tanguilig_(2023_US_Open)_01.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Albert_Ramos_Vi%C3%B1olas_(2023_US_Open)_01.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Townsend_-_2025_Cincinnati_Open.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:BenShelton2023MiamiOpenSingles.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:VarvaraGracheva2023MiamiOpen.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Emily_Donovan_Lewes_FC_Women_0_AFC_Wimbledon_Women_3_30_10_2025-18.jpg",
+      "reason": "not a suitable tennis edition scene"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Lewes_FC_Women_2_AFC_Wimbledon_Women_0_17_11_2024-56_(54149972388).jpg",
+      "reason": "not a suitable tennis edition scene"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Richard_Gasquet,_Australian_Open_2022.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Rotherham_United_v_AFC_Wimbledon_(28th_September_2021)_001.jpg",
+      "reason": "not a suitable tennis edition scene"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Serena-Smiling-2020.png",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Mikael_Ymer_2019_french_open_Roland_Garros_2019.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Afc_wim_2019.jpg",
+      "reason": "not a suitable tennis edition scene"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Paris-FR-75-open_de_tennis-2018-Roland_Garros-stade_Lenglen-29_mai-Denis_Shapovalov-04.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Ostapenko_2018.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Taylor_Townsend_Roland_Garros_2017.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Gael_Monfils_Roland_Garros_2017.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Priscilla_Hon_2016.JPG",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Petra_Kvitov%C3%A1_French_Open_2016.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Kayla_Day_Wimbledon_2016.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Felix_Auger-Aliassime_2016.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:2016_US_Open_Puig_(Puerto_Rico)_Olympic_Gold_Medalist_-_Women%27s_Singles_(28681534294).jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:2015_Australian_Open_-_Andy_Murray_10.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Roger_Federer_French_Open_2015.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Aleksandra_Kruni%C4%87_1,_2015_Wimbledon_Championships_-_Diliff.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Liam_Broady_5,_2015_Wimbledon_Championships_-_Diliff.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:2015_US_Open_Tennis_-_Qualies_-_A_View_of_Arthur_Ashe_Stadium_Beyond_the_LIRR_Station_(21337749681).jpg",
+      "reason": "not a suitable tennis edition scene"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:2014_Australian_Open_-_Ana_Ivanovic.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:2014_Australian_Open_-_Tommy_Robredo_1.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Paris-FR-75-Roland_Garros-2_juin_2014-Kiki_Bertens-08.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Paris-FR-75-Roland_Garros-2_juin_2014-Lajovic-03.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Camila_Giorgi_Wimbledon_2014.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Tommy_Robredo_Wimbledon_2014.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:US_Open_2014_(15048894005).jpg",
+      "reason": "not a suitable tennis edition scene"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Dinah_Pfizenmaier_at_the_2013_French_Open_2.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Petra_Martic_1,_Wimbledon_2013_-_Diliff.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Roberto_Bautista-Agut_1,_Wimbledon_2013_-_Diliff.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Alice_Matteucci_at_the_2013_US_Open.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Dominic_Inglot_Wimbledon_2012.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Aleksandra_Wozniak_at_the_2012_US_Open_1.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Guillaume_Rufin_-_Roland_Garros_2011.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Andrea_Petkovic_-_Roland_Garros_2011(2).jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Jamie_Hampton_at_the_2011_US_Open.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Andy_Roddick_at_the_2010_Australian_Open_01.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Dominika_Cibulkov%C3%A1_at_the_2010_US_Open_08.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Gulbis_Roland_Garros_2009_4.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Andy_Murray_at_the_2008_US_Open2.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Agnes_Szavay_Roland_Garros_2007.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Daniela_Hantuchova_Roland_Garros_2006_V.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Mathilde_Johansson,_Roland_Garros_2005_(4280167424).jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Tim_Henman_Wimbledon_2005_1.jpg",
+      "reason": "portrait composition; unsuitable for a wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Arthur_Ashe_stadium_2005.jpg",
+      "reason": "not a suitable tennis edition scene"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Wimbledon_Lawn_Tennis_Championships_Medal_AD_2002_(FindID_1010578-1115329).jpg",
+      "reason": "not a suitable tennis edition scene"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:TO_REVIEW_THE_AGRICULTURAL_RISK_PROTECTION_ACT_OF_2000_AND_RELATED_CROP_INSURANCE_ISSUES_(IA_gov.gpo.fdsys.CHRG-109shrg22647).pdf",
+      "reason": "not a suitable tennis edition scene"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Caroline_Garcia_during_the_Web_Summit_2025_at_the_MEO_Arena_in_Lisbon,_Portugal.jpg",
+      "reason": "not a suitable tennis edition scene"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:2025-08-31_11_23_40_View_southeast_from_the_Indian_Wells_Overlook_along_the_Mid-State_Trail_within_Rothrock_State_Forest_in_Harris_Township,_Centre_County,_Pennsylvania.jpg",
+      "reason": "not a suitable tennis edition scene"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Sebastian_Korda_heading_a_soccer_ball_Indian_Wells_2024.jpg",
+      "reason": "not a suitable tennis edition scene"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Lorenzo_Musetti_2022_Milano_3.jpg",
+      "reason": "not a suitable tennis edition scene"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:2022_-_Centre_Stage_RC1_5354_(52472843243).jpg",
+      "reason": "not a suitable tennis edition scene"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Danill_Medvedev_Miami_2019.jpg",
+      "reason": "not a suitable tennis edition scene"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Brooke_Henderson_2018_Canadian_Open.jpg",
+      "reason": "not a suitable tennis edition scene"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:2015_Miami_Open_Tim_Smyczek_(6)_(16942027436).jpg",
+      "reason": "Portrait or distant composition; unsuitable for a high-quality wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Javier_Mart%C3%AD_-_Masters_de_Madrid_2015_-_03.jpg",
+      "reason": "Portrait or distant composition; unsuitable for a high-quality wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Andreea_Mitu_-_Masters_de_Madrid_2015_-_11.jpg",
+      "reason": "Portrait or distant composition; unsuitable for a high-quality wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Federer_and_Djokovic_Cincinnati_Masters_2015.jpg",
+      "reason": "Incorrect WTA circuit attribution and portrait composition"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:1994_%E2%80%9CI%E2%80%99ve_queued_at_Wimbledon%E2%80%9D_sticker.jpg",
+      "reason": "Sticker, not a tennis photograph"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Jimmy_Connors_at_Wimbledon_1991_-_geograph.org.uk_-_5019428.jpg",
+      "reason": "Portrait or distant composition; unsuitable for a high-quality wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:At_the_1989_US_Open_with_new_(and_short-lived)_friends.jpg",
+      "reason": "Spectators, not tennis action or court"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Emma_Raducanu_Queens_2025.jpg",
+      "reason": "Portrait or distant composition; unsuitable for a high-quality wide hero"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Wang_Zhiyi_triumph_in_all-Chinese_China_Open_finals_I_China_Open_2025.webm",
+      "reason": "Badminton, not tennis"
+    },
+    {
+      "source": "https://commons.wikimedia.org/wiki/File:Thijs_Boogaard_Rotterdam_2024-3.png",
+      "reason": "Portrait or distant composition; unsuitable for a high-quality wide hero"
+    }
+  ],
+  "policy": "Visual and metadata review. Tennis action or court; correct event and year, landscape composition. No crowd-only, exteriors, unrelated sports or conferences. Circuit availability checked at rendering. Generic venue fallback is not certified as an edition photograph."
+}

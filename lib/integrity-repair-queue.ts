@@ -49,6 +49,8 @@ export type IntegrityRepairQueue = {
 const repairableReasons = new Set<CoverageIssue['reason']>([
   'missing-late-rounds',
   'duplicate-identifiers',
+  'extra-round-results',
+  'draw-size-mismatch',
   'unresolved-results',
   'conflicting-results',
 ]);
@@ -90,6 +92,8 @@ function priority(issue: CoverageIssue): { priority: RepairPriority; score: numb
     'missing-late-rounds': 220,
     'conflicting-results': 200,
     'duplicate-identifiers': 150,
+    'extra-round-results': 170,
+    'draw-size-mismatch': 160,
     'unresolved-results': 110,
     'uncertified-draw-size': 0,
     'missing-ranking-history': 0,

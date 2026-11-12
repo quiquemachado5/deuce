@@ -1,0 +1,540 @@
+{
+  "schema": 2,
+  "at": "2026-11-12T10:55:20.595Z",
+  "datasetVersion": "0cbdd15169d1bc6f3538",
+  "scope": "Published editions 2000–current; Grand Slams and categories 1000. Cancelled editions are not invented. Images cannot be borrowed across years or circuits.",
+  "counts": {
+    "atp Grand Slam": {
+      "editions": 107,
+      "photos": 107
+    },
+    "wta Grand Slam": {
+      "editions": 107,
+      "photos": 107
+    },
+    "wta WTA 1000": {
+      "editions": 222,
+      "photos": 185
+    },
+    "atp Masters 1000": {
+      "editions": 235,
+      "photos": 234
+    }
+  },
+  "editionCircuitKeys": 672,
+  "uniqueHeroAssets": 671,
+  "libraryPhotos": 1966,
+  "heroBytes": 107960496,
+  "below1200px": [
+    {
+      "src": "/media/editions-v31/slams/australian-open-2000-atp-bff425004e.webp",
+      "width": 920
+    },
+    {
+      "src": "/media/editions-v31/slams/australian-open-2000-wta-d4022042a1.webp",
+      "width": 1024
+    },
+    {
+      "src": "/media/editions-v31/slams/australian-open-2001-atp-20f030a378.webp",
+      "width": 1024
+    },
+    {
+      "src": "/media/editions-v31/slams/australian-open-2004-atp-fcde819be2.webp",
+      "width": 1023
+    },
+    {
+      "src": "/media/editions-v31/slams/australian-open-2004-wta-02044f4848.webp",
+      "width": 1024
+    },
+    {
+      "src": "/media/editions-v31/slams/australian-open-2007-wta-3e922bd157.webp",
+      "width": 1064
+    },
+    {
+      "src": "/media/editions-v31/slams/australian-open-2008-wta-dab82d2108.webp",
+      "width": 840
+    },
+    {
+      "src": "/media/editions-v31/slams/australian-open-2009-atp-041e1b57e7.webp",
+      "width": 1024
+    },
+    {
+      "src": "/media/editions-v31/slams/australian-open-2010-wta-6e5872f52b.webp",
+      "width": 1024
+    },
+    {
+      "src": "/media/editions-v31/slams/australian-open-2011-atp-9d4522269f.webp",
+      "width": 1024
+    },
+    {
+      "src": "/media/editions-v31/slams/australian-open-2013-wta-65bd670330.webp",
+      "width": 1024
+    },
+    {
+      "src": "/media/editions-v31/slams/australian-open-2014-atp-5f4353327e.webp",
+      "width": 1000
+    },
+    {
+      "src": "/media/editions-v31/slams/australian-open-2015-wta-e5bec3c78b.webp",
+      "width": 1024
+    },
+    {
+      "src": "/media/editions-v31/slams/australian-open-2018-wta-a47a22400a.webp",
+      "width": 1024
+    },
+    {
+      "src": "/media/editions-v31/slams/australian-open-2021-wta-385ec08888.webp",
+      "width": 1024
+    },
+    {
+      "src": "/media/editions-v31/masters-wta-google/beijing-2014-wta-6ceab26cb2.webp",
+      "width": 1080
+    },
+    {
+      "src": "/media/editions-v31/masters-wta-closing/doha-2012-wta-399c796c8b.webp",
+      "width": 1053
+    },
+    {
+      "src": "/media/editions-v31/masters/4341f6bbcd51ef27dace.webp",
+      "width": 945
+    },
+    {
+      "src": "/media/editions-v31/masters-wta-google/moscow-2007-wta-3668c2a2ff.webp",
+      "width": 1100
+    },
+    {
+      "src": "/media/editions-v31/roland-garros/atp-2000-official-kuerten-7d0fea4cb83b.webp",
+      "width": 1065
+    },
+    {
+      "src": "/media/editions-v31/slams/roland-garros-2001-wta-9263ba1799.webp",
+      "width": 1024
+    },
+    {
+      "src": "/media/editions-v31/roland-garros/atp-2009-provided-98407fa68ae9.webp",
+      "width": 1000
+    },
+    {
+      "src": "/media/editions-v31/slams/roland-garros-2010-wta-372e3ec06c.webp",
+      "width": 1024
+    },
+    {
+      "src": "/media/editions-v31/slams/roland-garros-2012-wta-c0c54ec9d1.webp",
+      "width": 1000
+    },
+    {
+      "src": "/media/editions-v31/roland-garros/atp-2015-provided-395adec87356.webp",
+      "width": 944
+    },
+    {
+      "src": "/media/editions-v31/slams/roland-garros-2016-wta-b678668e83.webp",
+      "width": 900
+    },
+    {
+      "src": "/media/editions-v31/slams/roland-garros-2017-wta-09a1205188.webp",
+      "width": 1024
+    },
+    {
+      "src": "/media/editions-v31/roland-garros/atp-2018-provided-6720983d8242.webp",
+      "width": 1000
+    },
+    {
+      "src": "/media/editions-v31/roland-garros/atp-2019-provided-cd4739021f97.webp",
+      "width": 990
+    },
+    {
+      "src": "/media/editions-v31/roland-garros/wta-2019-champion-d8a169f5cb.webp",
+      "width": 1000
+    },
+    {
+      "src": "/media/editions-v31/roland-garros/wta-2020-champion-9fe7d32255.webp",
+      "width": 1000
+    },
+    {
+      "src": "/media/editions-v31/slams/roland-garros-2021-wta-0ee8ca9fd8.webp",
+      "width": 850
+    },
+    {
+      "src": "/media/editions-v31/roland-garros/wta-2022-champion-dc85fa2b51.webp",
+      "width": 1000
+    },
+    {
+      "src": "/media/editions-v31/roland-garros/wta-2024-champion-f7bac1c4d9.webp",
+      "width": 1000
+    },
+    {
+      "src": "/media/editions-v31/slams/roland-garros-2026-wta-3674c652ab.webp",
+      "width": 1158
+    },
+    {
+      "src": "/media/editions-v31/masters-assisted/rome-2001-wta-b1a016f453.webp",
+      "width": 920
+    },
+    {
+      "src": "/media/editions-v31/masters-wta-closing/rome-2007-wta-eceef98116.webp",
+      "width": 850
+    },
+    {
+      "src": "/media/editions-v31/masters/1a3f23bce87632c385.webp",
+      "width": 1064
+    },
+    {
+      "src": "/media/editions-v31/masters-wta-google/rome-2012-wta-554d2af4ea.webp",
+      "width": 900
+    },
+    {
+      "src": "/media/editions-v31/masters/wta-official-old/tokyo-2006-afp.webp",
+      "width": 1024
+    },
+    {
+      "src": "/media/editions-v31/masters/wta-official-old/tokyo-2007-afp.webp",
+      "width": 1024
+    },
+    {
+      "src": "/media/editions-v31/masters/wta-official-old/tokyo-2008-afp.webp",
+      "width": 1024
+    },
+    {
+      "src": "/media/editions-v31/slams/us-open-2001-atp-e9d3fa6051.webp",
+      "width": 1024
+    },
+    {
+      "src": "/media/editions-v31/slams/us-open-2001-wta-5cadde86e4.webp",
+      "width": 1000
+    },
+    {
+      "src": "/media/editions-v31/slams/us-open-2002-wta-3d62f5c6ab.webp",
+      "width": 1170
+    },
+    {
+      "src": "/media/editions-v31/slams/us-open-2003-wta-202b24fd61.webp",
+      "width": 1024
+    },
+    {
+      "src": "/media/editions-v31/slams/us-open-2005-atp-c7415fb7af.webp",
+      "width": 848
+    },
+    {
+      "src": "/media/editions-v31/slams/us-open-2006-atp-28620f4096.webp",
+      "width": 1024
+    },
+    {
+      "src": "/media/editions-v31/slams/us-open-2009-atp-3798efd42d.webp",
+      "width": 848
+    },
+    {
+      "src": "/media/editions-v31/slams/us-open-2011-atp-27b948e90b.webp",
+      "width": 1024
+    },
+    {
+      "src": "/media/editions-v31/slams/us-open-2019-atp-23dac4f8e3.webp",
+      "width": 1024
+    },
+    {
+      "src": "/media/editions-v31/slams/us-open-2021-wta-a5b2e41e21.webp",
+      "width": 1024
+    },
+    {
+      "src": "/media/editions-v31/slams/us-open-2026-atp-3c77dcab64.webp",
+      "width": 1024
+    },
+    {
+      "src": "/media/editions-v31/slams/wimbledon-2000-atp-d3f3a392b0.webp",
+      "width": 1024
+    },
+    {
+      "src": "/media/editions-v31/slams/wimbledon-2000-wta-e7263a77cf.webp",
+      "width": 1050
+    },
+    {
+      "src": "/media/editions-v31/slams/wimbledon-2001-atp-234bb64896.webp",
+      "width": 1024
+    },
+    {
+      "src": "/media/editions-v31/slams/wimbledon-2001-wta-dc8c99a9b7.webp",
+      "width": 980
+    },
+    {
+      "src": "/media/editions-v31/slams/wimbledon-2003-atp-81b227afaf.webp",
+      "width": 1024
+    },
+    {
+      "src": "/media/editions-v31/slams/wimbledon-2004-wta-9070636c00.webp",
+      "width": 1024
+    },
+    {
+      "src": "/media/editions-v31/slams/wimbledon-2005-wta-565f34ed99.webp",
+      "width": 1024
+    },
+    {
+      "src": "/media/editions-v31/slams/wimbledon-2007-wta-4789955fb3.webp",
+      "width": 1064
+    },
+    {
+      "src": "/media/editions-v31/slams/wimbledon-2008-atp-654041ab02.webp",
+      "width": 1024
+    },
+    {
+      "src": "/media/editions-v31/slams/wimbledon-2008-wta-d5b10a782b.webp",
+      "width": 1140
+    },
+    {
+      "src": "/media/editions-v31/slams/wimbledon-2009-atp-4c5a3b5dc0.webp",
+      "width": 1024
+    },
+    {
+      "src": "/media/editions-v31/slams/wimbledon-2012-wta-2d18e0bc57.webp",
+      "width": 1000
+    },
+    {
+      "src": "/media/editions-v31/slams/wimbledon-2016-wta-50ec2a3a87.webp",
+      "width": 1024
+    },
+    {
+      "src": "/media/editions-v31/slams/wimbledon-2022-atp-fa1b6d7ecd.webp",
+      "width": 1013
+    },
+    {
+      "src": "/media/editions-v31/slams/wimbledon-2026-atp-dbfcaae7e4.webp",
+      "width": 1024
+    },
+    {
+      "src": "/media/editions-v31/masters/wta-official-old/zurich-2006-sharapova-commons.webp",
+      "width": 1024
+    },
+    {
+      "src": "/media/editions-v31/masters/wta-official-old/zurich-2007-henin-afp.webp",
+      "width": 1024
+    }
+  ],
+  "missing": [
+    {
+      "tournament": "Canada",
+      "year": 2008,
+      "tour": "wta",
+      "category": "WTA 1000"
+    },
+    {
+      "tournament": "Berlin",
+      "year": 2007,
+      "tour": "wta",
+      "category": "WTA 1000"
+    },
+    {
+      "tournament": "Canada",
+      "year": 2007,
+      "tour": "wta",
+      "category": "WTA 1000"
+    },
+    {
+      "tournament": "Charleston",
+      "year": 2007,
+      "tour": "wta",
+      "category": "WTA 1000"
+    },
+    {
+      "tournament": "San Diego",
+      "year": 2007,
+      "tour": "wta",
+      "category": "WTA 1000"
+    },
+    {
+      "tournament": "Berlin",
+      "year": 2006,
+      "tour": "wta",
+      "category": "WTA 1000"
+    },
+    {
+      "tournament": "Canada",
+      "year": 2005,
+      "tour": "wta",
+      "category": "WTA 1000"
+    },
+    {
+      "tournament": "Charleston",
+      "year": 2005,
+      "tour": "wta",
+      "category": "WTA 1000"
+    },
+    {
+      "tournament": "San Diego",
+      "year": 2005,
+      "tour": "wta",
+      "category": "WTA 1000"
+    },
+    {
+      "tournament": "Tokyo",
+      "year": 2005,
+      "tour": "wta",
+      "category": "WTA 1000"
+    },
+    {
+      "tournament": "Zurich",
+      "year": 2005,
+      "tour": "wta",
+      "category": "WTA 1000"
+    },
+    {
+      "tournament": "Berlin",
+      "year": 2004,
+      "tour": "wta",
+      "category": "WTA 1000"
+    },
+    {
+      "tournament": "Charleston",
+      "year": 2004,
+      "tour": "wta",
+      "category": "WTA 1000"
+    },
+    {
+      "tournament": "Rome",
+      "year": 2004,
+      "tour": "wta",
+      "category": "WTA 1000"
+    },
+    {
+      "tournament": "San Diego",
+      "year": 2004,
+      "tour": "wta",
+      "category": "WTA 1000"
+    },
+    {
+      "tournament": "Tokyo",
+      "year": 2004,
+      "tour": "wta",
+      "category": "WTA 1000"
+    },
+    {
+      "tournament": "Zurich",
+      "year": 2004,
+      "tour": "wta",
+      "category": "WTA 1000"
+    },
+    {
+      "tournament": "Canada",
+      "year": 2003,
+      "tour": "wta",
+      "category": "WTA 1000"
+    },
+    {
+      "tournament": "Charleston",
+      "year": 2003,
+      "tour": "wta",
+      "category": "WTA 1000"
+    },
+    {
+      "tournament": "Moscow",
+      "year": 2003,
+      "tour": "wta",
+      "category": "WTA 1000"
+    },
+    {
+      "tournament": "Rome",
+      "year": 2003,
+      "tour": "wta",
+      "category": "WTA 1000"
+    },
+    {
+      "tournament": "Tokyo",
+      "year": 2003,
+      "tour": "wta",
+      "category": "WTA 1000"
+    },
+    {
+      "tournament": "Berlin",
+      "year": 2002,
+      "tour": "wta",
+      "category": "WTA 1000"
+    },
+    {
+      "tournament": "Canada",
+      "year": 2002,
+      "tour": "wta",
+      "category": "WTA 1000"
+    },
+    {
+      "tournament": "Moscow",
+      "year": 2002,
+      "tour": "wta",
+      "category": "WTA 1000"
+    },
+    {
+      "tournament": "Tokyo",
+      "year": 2002,
+      "tour": "wta",
+      "category": "WTA 1000"
+    },
+    {
+      "tournament": "Zurich",
+      "year": 2002,
+      "tour": "wta",
+      "category": "WTA 1000"
+    },
+    {
+      "tournament": "Canada",
+      "year": 2001,
+      "tour": "wta",
+      "category": "WTA 1000"
+    },
+    {
+      "tournament": "Moscow",
+      "year": 2001,
+      "tour": "wta",
+      "category": "WTA 1000"
+    },
+    {
+      "tournament": "Tokyo",
+      "year": 2001,
+      "tour": "wta",
+      "category": "WTA 1000"
+    },
+    {
+      "tournament": "Zurich",
+      "year": 2001,
+      "tour": "wta",
+      "category": "WTA 1000"
+    },
+    {
+      "tournament": "Berlin",
+      "year": 2000,
+      "tour": "wta",
+      "category": "WTA 1000"
+    },
+    {
+      "tournament": "Canada",
+      "year": 2000,
+      "tour": "atp",
+      "category": "Masters 1000"
+    },
+    {
+      "tournament": "Canada",
+      "year": 2000,
+      "tour": "wta",
+      "category": "WTA 1000"
+    },
+    {
+      "tournament": "Hilton Head",
+      "year": 2000,
+      "tour": "wta",
+      "category": "WTA 1000"
+    },
+    {
+      "tournament": "Moscow",
+      "year": 2000,
+      "tour": "wta",
+      "category": "WTA 1000"
+    },
+    {
+      "tournament": "Tokyo",
+      "year": 2000,
+      "tour": "wta",
+      "category": "WTA 1000"
+    },
+    {
+      "tournament": "Zurich",
+      "year": 2000,
+      "tour": "wta",
+      "category": "WTA 1000"
+    }
+  ]
+}

@@ -32,6 +32,8 @@ services:
       - .env.production
     environment:
       DEUCE_ARCHIVE_DIR: /app/.deuce-archive
+      DEUCE_RATE_LIMIT_STORE: sqlite
+      DEUCE_RATE_LIMIT_DB: /app/.deuce-archive/.runtime/rate-limits.sqlite
       NODE_ENV: production
       NODE_OPTIONS: --max-old-space-size=1536
     volumes:

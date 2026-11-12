@@ -20,14 +20,14 @@ const count = (id: string, title: string, group: string, definition: string, num
 
 /** Explicit denominators: never infer a statistical sample by parsing display text. */
 export const additionalRecords: readonly Measure[] = [
-  count('partidos-disputados', 'Más partidos disputados', 'Victorias', 'Encuentros completos y validados del archivo, no el total oficial de una carrera.', r => r.played),
+  count('partidos-disputados', 'Más partidos disputados', 'Victorias', 'Encuentros jugados y validados, incluidas retiradas del archivo, no el total oficial de una carrera.', r => r.played),
   count('rivales-derrotados', 'Más rivales diferentes derrotados', 'Victorias', 'Cada rival derrotado cuenta una sola vez dentro de la selección.', r => new Set(r.opponentsBeaten).size),
-  count('temporadas-disputadas', 'Más temporadas con partidos', 'Tiempo, edad y calendario', 'Años distintos con al menos un encuentro completo registrado.', r => r.seasons.length),
-  count('sets-ganados', 'Más sets ganados', 'Victorias', 'Suma de sets ganados en resultados completos.', r => r.setsWon),
-  count('juegos-ganados', 'Más juegos ganados', 'Victorias', 'Suma de juegos ganados en resultados completos.', extra('gamesWon')),
+  count('temporadas-disputadas', 'Más temporadas con partidos', 'Tiempo, edad y calendario', 'Años distintos con al menos un encuentro jugado registrado.', r => r.seasons.length),
+  count('sets-ganados', 'Más sets ganados', 'Victorias', 'Sets efectivamente completados y ganados, incluidas retiradas.', r => r.setsWon),
+  count('juegos-ganados', 'Más juegos ganados', 'Victorias', 'Juegos efectivamente jugados y ganados, incluidas retiradas.', extra('gamesWon')),
   count('sets-seis-cero', 'Más sets ganados 6–0', 'Remontadas y forma del partido', 'Cuenta cada set 6–0, no solo los partidos con un 6–0.', r => r.sixLoveSets),
   count('sets-ajustados-ganados', 'Más sets ajustados ganados', 'Remontadas y forma del partido', 'Sets ganados por uno o dos juegos de diferencia, incluidos desempates.', r => r.closeSetsWon),
-  rate('efectividad-partidos', 'Porcentaje de partidos ganados', 'Victorias', 'Victorias entre partidos completos disputados.', r => r.wins, r => r.played, 20),
+  rate('efectividad-partidos', 'Porcentaje de partidos ganados', 'Victorias', 'Victorias entre partidos disputados, incluidas retiradas.', r => r.wins, r => r.played, 20),
   rate('efectividad-sets', 'Porcentaje de sets ganados', 'Victorias', 'Sets ganados entre todos los sets disputados.', r => r.setsWon, r => r.setsWon + r.setsLost, 20),
   rate('efectividad-juegos', 'Porcentaje de juegos ganados', 'Victorias', 'Juegos ganados entre todos los juegos disputados.', extra('gamesWon'), r => (r.extra.gamesWon || 0) + (r.extra.gamesLost || 0), 100),
   rate('efectividad-sin-ceder-set', 'Victorias sin ceder un set (%)', 'Remontadas y forma del partido', 'Victorias en sets corridos entre todas las victorias, no entre todos los partidos.', r => r.straightSetWins, r => r.wins, 5),

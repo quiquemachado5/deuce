@@ -94,7 +94,6 @@ export function matchJsonLd(match: Match, options: { language?: 'es' | 'en' } = 
     url: absoluteSiteUrl(canonical),
     image: absoluteSiteUrl(`${matchCanonicalPath(match.match_id)}/opengraph-image`),
     sport: 'Tennis',
-    eventStatus: 'https://schema.org/EventCompleted',
     ...publishedMatchDates(match),
     superEvent: {
       '@type': 'EventSeries',

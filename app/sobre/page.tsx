@@ -1,61 +1,32 @@
-import type { Metadata } from 'next';
+import type {Metadata} from 'next';
 import Link from 'next/link';
-import { ArrowUpRight } from 'lucide-react';
+import {ArrowUpRight} from 'lucide-react';
 import styles from './about.module.css';
 
-const repository = 'https://github.com/quiquemachado5/deuce';
-const correction = `${repository}/issues/new`;
+const repository='https://github.com/quiquemachado5/deuce';
 
-export const metadata: Metadata = {
-  title: 'Sobre DEUCE, metodología y privacidad',
-  description: 'Quién mantiene DEUCE, cómo se publican y corrigen sus datos y qué información técnica guarda el sitio.',
-  alternates: { canonical: '/sobre' },
+export const metadata:Metadata={
+  title:'Sobre DEUCE — Un archivo independiente de tenis',
+  description:'El manifiesto de DEUCE: conservar el tenis que se jugó y mostrar con honestidad lo que sabemos.',
+  alternates:{canonical:'/sobre'},
 };
 
-export default function About() {
+export default function About(){
   return <article className={styles.page}>
-    <header className={styles.hero}>
-      <h1>Sobre DEUCE</h1>
-      <p>Un archivo independiente para explorar resultados ATP y WTA sin ocultar qué datos existen, cuáles faltan y de dónde procede cada recurso.</p>
-    </header>
-
-    <section className={styles.statement} aria-labelledby="about-purpose-title">
-      <h2 id="about-purpose-title">El archivo antes que la estimación.</h2>
-      <p>DEUCE publica resultados documentados. Si una fuente no aporta una estadística, un punto o un partido, el sitio muestra ese límite: no rellena la ausencia con un dato inventado.</p>
-    </section>
-
-    <section className={styles.section} aria-labelledby="about-method-title">
-      <div><h2 id="about-method-title">Método</h2><p>El alcance actual se centra en individuales ATP y WTA de Grand Slam, categorías 1000, 500 y 250. Cada circuito se procesa y comprueba por separado.</p></div>
-      <div className={styles.points}>
-        <div><strong>Publicación</strong><p>Solo entran partidos terminados que superan las validaciones de identidad, ronda, torneo y marcador.</p></div>
-        <div><strong>Profundidad</strong><p>Ranking, estadísticas y punto a punto se muestran únicamente cuando la fuente los proporciona y el contenido cuadra con el resultado.</p></div>
-        <div><strong>Trazabilidad</strong><p>La versión publicada, la cobertura por circuito y los controles pendientes se pueden consultar en una única página.</p></div>
-      </div>
-    </section>
-
-    <section className={styles.section} aria-labelledby="about-corrections-title">
-      <div><h2 id="about-corrections-title">Correcciones</h2><p>Una corrección necesita evidencia suficiente para identificar el encuentro sin ambigüedad. El registro original no se sustituye por una aproximación.</p></div>
-      <div className={styles.correction}>
-        <p>Indica el ID o enlace del partido, jugadores, torneo, año y una fuente verificable. El canal es público: no incluyas información personal o confidencial.</p>
-        <a href={correction} target="_blank" rel="noopener noreferrer">Proponer una corrección en GitHub <ArrowUpRight size={16} aria-hidden="true"/></a>
-        <Link href="/cobertura#revision">Ver controles e incidencias</Link>
-      </div>
-    </section>
-
-    <section className={styles.section} aria-labelledby="about-privacy-title">
-      <div><h2 id="about-privacy-title">Privacidad</h2><p>DEUCE no requiere una cuenta para consultar el archivo ni utiliza el historial personal para publicidad.</p></div>
-      <div className={styles.points}>
-        <div><strong>Sin cuenta</strong><p>El archivo se puede consultar sin registro, perfil personal ni seguimiento publicitario.</p></div>
-        <div><strong>Rendimiento</strong><p>El navegador envía métricas técnicas agregables —como LCP, INP o CLS— junto con la ruta visitada para detectar páginas lentas.</p></div>
-        <div><strong>Protección</strong><p>La dirección de red se procesa temporalmente en memoria para limitar abuso de la API pública. La aplicación no la incorpora a los eventos de rendimiento.</p></div>
-      </div>
-    </section>
-
-    <nav className={styles.actions} aria-label="Más información sobre DEUCE">
-      <Link href="/info">Cómo se lee</Link>
-      <Link href="/cobertura">Cobertura exacta</Link>
-      <Link href="/licencias">Licencias</Link>
-      <a href={repository} target="_blank" rel="noopener noreferrer">Código fuente <ArrowUpRight size={16} aria-hidden="true"/></a>
+    <header className={styles.hero}><h1>Sobre DEUCE</h1><p>El tenis no termina con el último punto.</p></header>
+    <div className={styles.manifest}>
+      <p>DEUCE es un archivo independiente del tenis. Conservamos partidos ATP y WTA para que puedas volver a una final, seguir una carrera o entender cómo cambió el juego.</p>
+      <p>Publicamos lo que podemos documentar. Cuando solo conocemos el marcador, mostramos el marcador. Cada estadística se calcula con los partidos que permiten medirla, y cada corrección exige una fuente verificable.</p>
+      <p>El archivo se consulta sin cuenta. Sus límites también son públicos.</p>
+    </div>
+    <nav className={styles.actions} aria-label="Consultar el archivo">
+      <Link href="/cobertura">Ver cobertura <ArrowUpRight size={16}/></Link>
+      <Link href="/licencias">Consultar licencias <ArrowUpRight size={16}/></Link>
     </nav>
+    <div className={styles.notes}>
+      <details><summary>Proponer una corrección</summary><p>Incluye el enlace del partido, el dato a corregir y una fuente verificable. GitHub es un canal público: no compartas información privada.</p><a href={`${repository}/issues/new`}>Abrir una incidencia en GitHub <ArrowUpRight size={15}/></a></details>
+      <details><summary>Privacidad</summary><p>Recogemos métricas técnicas de carga e interacción con la ruta visitada para detectar problemas de rendimiento. La aplicación procesa la dirección de red temporalmente para limitar el abuso de la API y no la incorpora a esas métricas.</p></details>
+      <details><summary>Descargar o reutilizar datos</summary><p>Si estás preparando un artículo o un análisis, puedes descargar resultados en CSV para trabajarlos en una hoja de cálculo, o usar la API para automatizar consultas.</p><Link href="/desarrolladores">API y descarga de datos <ArrowUpRight size={15}/></Link></details>
+    </div>
   </article>;
 }

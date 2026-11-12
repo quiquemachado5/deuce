@@ -11,14 +11,18 @@ function result(overrides: Partial<Match> = {}): Match {
     tour: 'atp',
     category: 'ATP 500',
     context: { ...mockMatches[0].context, date: '2026-10-20', dateLabel: 'Fecha del partido', format: 'BO3' },
+    tournament: overrides.category === 'Grand Slam' ? 'US Open' : 'Basel',
+    status: 'Finished', winner: 1,
+    final_score: overrides.category === 'Grand Slam' && overrides.tour !== 'wta' ? '6–4 6–4 6–4' : '6–4 6–4',
+    score_summary: { ...mockMatches[0].score_summary, games: overrides.category === 'Grand Slam' && overrides.tour !== 'wta' ? [[6,4],[6,4],[6,4]] : [[6,4],[6,4]] },
     ...overrides,
   };
 }
 
 test('the public universe contains only the requested singles tiers for each circuit', () => {
-  for (const category of ['Grand Slam', 'Masters 1000', 'ATP 500', 'ATP 250']) assert.equal(isPublishedMatch(result({ category })), true, category);
-  for (const category of ['ATP Tour · nivel no especificado', 'Precursores de Masters', 'ATP Finals']) assert.equal(isPublishedMatch(result({ category })), false, category);
-  for (const category of ['Grand Slam', 'WTA 1000', 'WTA 500', 'WTA 250']) assert.equal(isPublishedMatch(result({ tour: 'wta', category })), true, category);
+  for (const category of ['Grand Slam', 'Masters 1000', 'ATP 500', 'ATP 250', 'ATP Finals']) assert.equal(isPublishedMatch(result({ category })), true, category);
+  for (const category of ['ATP Tour · nivel no especificado', 'Precursores de Masters']) assert.equal(isPublishedMatch(result({ category })), false, category);
+  for (const category of ['Grand Slam', 'WTA 1000', 'WTA 500', 'WTA 250', 'WTA Finals']) assert.equal(isPublishedMatch(result({ tour: 'wta', category })), true, category);
   for (const category of ['WTA 125', 'Circuito ITF femenino', 'WTA Tour histórico']) assert.equal(isPublishedMatch(result({ tour: 'wta', category })), false, category);
   assert.equal(isPublishedMatch(result({ player1: { name: 'A / B', seed: null } })), false);
   assert.equal(PROVIDER_PUBLICATION_TIERS.wta.includes('wta_125'), false);

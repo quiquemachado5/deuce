@@ -21,7 +21,7 @@ jobs:
     if: github.event_name == 'pull_request'
     permissions:
       contents: read
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 12
     env:
       CADDY_SOURCE_SHA256: 94ccf3d092bdf34ae18a2794bb98f45d7670ccc9614b2ce45285b1c6f58775a6
@@ -50,7 +50,7 @@ jobs:
     permissions:
       contents: read
       packages: write
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     env:
       CADDY_SOURCE_SHA256: 94ccf3d092bdf34ae18a2794bb98f45d7670ccc9614b2ce45285b1c6f58775a6
@@ -59,8 +59,8 @@ jobs:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
         with:
           persist-credentials: false
-      - uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3
-      - uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3
+      - uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+      - uses: docker/login-action@8aa5831fb8d48d8f76594c7ddde61ae58019f550 # v4.8.0
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -93,7 +93,7 @@ jobs:
           docker pull "$CADDY_IMAGE"
 
   quality:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 12
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
@@ -111,7 +111,7 @@ jobs:
       - run: npm audit --omit=dev --audit-level=high
 
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
@@ -152,7 +152,7 @@ jobs:
           retention-days: 7
 
   data:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 12
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
@@ -174,7 +174,7 @@ jobs:
   verify:
     needs: [quality, build, data]
     if: always()
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 2
     steps:
       - name: Require every quality gate
@@ -186,3 +186,55 @@ jobs:
           test "$QUALITY" = success
           test "$BUILD" = success
           test "$DATA" = success
+
+  web-image:
+    needs: verify
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      WEB_IMAGE: ghcr.io/quiquemachado5/deuce-web
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          persist-credentials: false
+      - uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+      - uses: docker/login-action@8aa5831fb8d48d8f76594c7ddde61ae58019f550 # v4.8.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and publish the immutable application image
+        id: image
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: .
+          platforms: linux/amd64
+          push: true
+          tags: ${{ env.WEB_IMAGE }}:commit-${{ github.sha }}
+          build-args: |
+            NEXT_PUBLIC_SITE_ORIGIN=https://deucearchive.com
+            SOURCE_COMMIT=${{ github.sha }}
+          provenance: mode=max
+          sbom: true
+          cache-from: type=gha,scope=deuce-web
+          cache-to: type=gha,mode=max,scope=deuce-web
+      - name: Scan the exact published digest
+        uses: aquasecurity/trivy-action@a9c7b0f06e461e9d4b4d1711f154ee024b8d7ab8 # v0.36.0
+        with:
+          image-ref: ${{ env.WEB_IMAGE }}@${{ steps.image.outputs.digest }}
+          format: table
+          exit-code: '1'
+          ignore-unfixed: true
+          severity: HIGH,CRITICAL
+      - uses: sigstore/cosign-installer@756fe2d284c7292c4e9b62c8a28f1e5629c59532 # v4.1.3
+      - name: Sign the exact published digest
+        run: cosign sign --yes "$WEB_IMAGE@${{ steps.image.outputs.digest }}"
+      - name: Require anonymous production pulls
+        run: |
+          docker logout ghcr.io
+          docker pull "$WEB_IMAGE@${{ steps.image.outputs.digest }}"

@@ -5,7 +5,8 @@ const healthUrl = argument('health-url') || 'http://127.0.0.1:3000/api/health/de
 const publishUrl = argument('publish-url') || new URL('/api/cron/publish', healthUrl).href
 const secret = process.env.CRON_SECRET
 
-const healthResponse = await fetch(healthUrl, { signal: AbortSignal.timeout(30_000), cache: 'no-store' })
+const healthSecret=process.env.HEALTH_SECRET||process.env.METRICS_SECRET
+const healthResponse = await fetch(healthUrl, {headers:healthSecret?{Authorization:'Bearer '+healthSecret}:{},signal: AbortSignal.timeout(30_000), cache: 'no-store' })
 if (!healthResponse.ok) throw new Error(`Health endpoint: HTTP ${healthResponse.status}`)
 const health = await healthResponse.json()
 

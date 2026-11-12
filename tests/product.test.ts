@@ -12,8 +12,20 @@ import { resultIssue } from '../lib/quality';
 import { isRecordedTiebreak, tiebreakTarget } from '../lib/historical-rules';
 import { matchingMatches } from '../lib/cuaderno/search';
 import { recurringFinalPair } from '../lib/tournament-directory';
+import {buildSeasonAnalytics} from '../lib/season-analytics';
 import { rivalryPair } from '../lib/explore';
 const fixture = (extra: Partial<Match> = {}):Match => ({...mockMatches[0],match_id:'evidence',category:'ATP 500',surface:'hard',year:2020,player1:{name:'One',seed:null},player2:{name:'Two',seed:null},winner:1,status:'Finished',round:'Final',point_tape:[],statistics:[],context:{date:'2020-01-01',dateLabel:'Inicio del torneo',format:'BO3'},score_summary:{...mockMatches[0].score_summary,sets:[2,0],games:[[6,3],[6,4]],timestamp:'2020-01-01'},...extra});
+test('unreliable point tapes never contribute pressure records with no evidence',()=>{
+  const points:Match['point_tape']=Array.from({length:5},(_,index)=>({set:1,game:index+1,point_number:index+1,server:2,winner:1,score:'0-0',score_before:'30-40',game_ended:true,rally_length:null,is_ace:null,is_double_fault:null,is_break_point:true,break_converted:true,is_match_point:false,first_serve_in:false}));
+  for(const tape of [undefined,'none','partial','reliable'] as const){
+    const match=fixture({point_tape:points,quality:{result:'consistent',tape}});
+    const player=buildSeasonAnalytics([match]).players.find(row=>row.name==='One')!;
+    assert.equal(player.extra.secondBreakTotal||0,tape==='reliable'?5:0);
+    const record=recordCatalog([match],new Date('2026-11-10'),'segundo-saque-break')[0];
+    if(tape!=='reliable')assert.equal(record?.rows.length||0,0);
+    else {assert.ok(record?.rows.length);assert.equal(recordEvidence([match],record.id,record.rows[0]).matches.length,1);}
+  }
+});
 test('comparison applies the same filters and never estimates absent ages/rankings',() => {
   const matches=[fixture({context:{age1:22.9,rankLabel:'Ranking al jugar',rank2:4,format:'BO3'}}),fixture({match_id:'clay',surface:'clay'}),fixture({match_id:'missing-age'})];
   const c=comparePlayer(matches,'One',{surface:'hard',age:'22'});
@@ -92,7 +104,7 @@ test('every count record links to contributing matches without duplicate IDs',()
 test('chronology uses source date then round, not arbitrary IDs, and invalid results break streaks',() => {
   const early=fixture({match_id:'z',round:'Quarterfinal'}),later=fixture({match_id:'a',round:'Final'});
   assert.ok(chronological(early,later)<0);
-  const invalid=fixture({match_id:'bad',round:'Semifinal',status:'Retired'});
+  const invalid=fixture({match_id:'bad',round:'Semifinal',status:'Review'});
   assert.equal(bestRun([later,early,invalid],'One').length,1);
 });
 test('review queue preserves all ambiguous candidates without changing data',() => {

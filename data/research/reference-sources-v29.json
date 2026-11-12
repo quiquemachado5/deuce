@@ -1,0 +1,119 @@
+[
+  {
+    "key": "nadal-ap-majors",
+    "url": "https://apnews.com/article/5c66748cb027abd36622dd22b4a3b6d5",
+    "status": 403,
+    "sha256": "af6e01c0783885ec1e262ca9ea919f042de9628551502ac8451672d6e3e7d27b",
+    "bytes": 5616,
+    "archived": false,
+    "checkedAt": "2026-11-11T22:49:12.330Z"
+  },
+  {
+    "key": "federer-fft-career",
+    "url": "https://www.rolandgarros.com/en-us/article/roger-federer-retirement-career-statistics-figures/",
+    "status": 200,
+    "sha256": "a7aeff4fc7ca3383b1b3f2d63c1fa9d445eab305184b1a38cefb038d9792307a",
+    "bytes": 662082,
+    "archived": true,
+    "checkedAt": "2026-11-11T22:49:12.670Z"
+  },
+  {
+    "key": "itf-major-table",
+    "url": "https://www.world.tennis/en/tours/grand-slam-tournaments/",
+    "status": 200,
+    "sha256": "d02032286070b4dd9d8fbd985a7bdca8af8edf52b89ff177db3bfcb2c8a9c43d",
+    "bytes": 212,
+    "archived": true,
+    "checkedAt": "2026-11-11T22:49:12.853Z"
+  },
+  {
+    "key": "serena-wta-bio",
+    "url": "https://www.wtatennis.com/news/4487583/legend-bio-serena-williams",
+    "status": 200,
+    "sha256": "e81229e2b531e417453b928a0f35d38f4e7217b1323c6e3c72134ad2a041f9bb",
+    "bytes": 172659,
+    "archived": true,
+    "checkedAt": "2026-11-11T22:49:13.145Z"
+  },
+  {
+    "key": "graf-wta-record",
+    "url": "https://www.wtatennis.com/legends/70044/x/record",
+    "status": 200,
+    "sha256": "49b55997c3dcce276b2279533b1a4cce4bdbe88821ba30dfad4c664ad118e163",
+    "bytes": 1152087,
+    "archived": true,
+    "checkedAt": "2026-11-11T22:49:13.259Z"
+  },
+  {
+    "key": "navratilova-wta-record",
+    "url": "https://www.wtatennis.com/legends/140007/martina-navratilova/record",
+    "status": 200,
+    "sha256": "02308ae1d426069f2ea45bb3935c7094cad7c6005cb9293c8bb5eaf2a1a1d4df",
+    "bytes": 1572233,
+    "archived": true,
+    "checkedAt": "2026-11-11T22:49:13.297Z"
+  },
+  {
+    "key": "evert-wta-bio",
+    "url": "https://www.wtatennis.com/legends/50020/chris-evert",
+    "status": 200,
+    "sha256": "1a4119ebe39952d64127fc1499466b6e4634fad0733fdac4d1db2e8411c55d37",
+    "bytes": 215878,
+    "archived": true,
+    "checkedAt": "2026-11-11T22:49:13.448Z"
+  },
+  {
+    "key": "graf-ioc-career",
+    "url": "https://www.olympics.com/ioc/news/steffi-graf-s-1988-golden-slam-an-unprecedented-achievement",
+    "status": 403,
+    "sha256": "1983f00a675058ab773dc471ebbc88261e8bd4d15cba13a0b45bf172b60a318d",
+    "bytes": 632,
+    "archived": false,
+    "checkedAt": "2026-11-11T22:49:13.511Z"
+  },
+  {
+    "key": "federer-ap-career",
+    "url": "https://www.ap.org/news-highlights/spotlights/2025/roger-federer-elected-to-international-tennis-hall-of-fame-in-1st-year-of-eligibility/",
+    "status": 200,
+    "sha256": "eefa507551427e392afadcf9030e8a3efbc371837d6d95ed3638b3db548c3192",
+    "bytes": 175075,
+    "archived": true,
+    "checkedAt": "2026-11-11T22:49:13.974Z"
+  },
+  {
+    "key": "nadal-fft-no-sets",
+    "url": "https://www.rolandgarros.com/en-us/article/100-for-the-king-numbers-behind-rafas-latest-paris-run",
+    "status": 200,
+    "sha256": "50e2e7b7039c1c4f96ab271f759514c8c3fa4ad86f9e41aa8889b516255c4e5e",
+    "bytes": 662586,
+    "archived": true,
+    "checkedAt": "2026-11-11T22:49:14.039Z"
+  },
+  {
+    "key": "federer-atp-bio",
+    "url": "https://www.atptour.com/en/players/roger-federer/f324/bio",
+    "status": 403,
+    "sha256": "5150cf7dbdc238bfa8406642538ab37e942b7a3a45f4fbfccf595f5855d57bdd",
+    "bytes": 5659,
+    "archived": false,
+    "checkedAt": "2026-11-11T22:49:14.066Z"
+  },
+  {
+    "key": "federer-guinness-grass",
+    "url": "https://www.guinnessworldrecords.com/world-records/602389-most-grass-court-singles-titles-won-consecutively",
+    "status": 200,
+    "sha256": "c1ea141b2323a1f40b3e3d65d179f24db89a49efbbb0ca1d7a952b69154308e9",
+    "bytes": 30482,
+    "archived": true,
+    "checkedAt": "2026-11-11T22:49:14.282Z"
+  },
+  {
+    "key": "nadal-itf-2020",
+    "url": "https://www.world.tennis/en/news-and-media/articles/nadal-powers-past-djokovic-to-win-20th-grand-slam-crown/",
+    "status": 200,
+    "sha256": "d02032286070b4dd9d8fbd985a7bdca8af8edf52b89ff177db3bfcb2c8a9c43d",
+    "bytes": 212,
+    "archived": true,
+    "checkedAt": "2026-11-11T22:49:14.298Z"
+  }
+]

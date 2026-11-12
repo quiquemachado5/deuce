@@ -11,6 +11,7 @@ import type { SearchItem } from '@/lib/search-item';
 import { requestCacheScope, versionedJson } from '@/lib/http-cache';
 import { playerPhoto } from '@/lib/player-imagery';
 import { playerIdentity } from '@/lib/explore';
+import { observeSearchTelemetry } from '@/lib/runtime-metrics';
 
 function presentSearchItem(item: SearchItem) {
   if (item.group !== 'Jugadores') return item;
@@ -37,6 +38,7 @@ export async function GET(request: Request) {
   try {
     const requestedTour = parameters.get('tour');
     const tour: 'atp' | 'wta' | undefined = requestedTour === 'wta' ? 'wta' : requestedTour === 'all' ? undefined : 'atp';
+    const telemetryTour = tour || 'all';
     if (quickMode) {
       // Typeahead only needs prepared player rows and record names. Keeping the
       // match artifact closed removes the dominant cold-start cost.
@@ -81,6 +83,7 @@ export async function GET(request: Request) {
       }).slice(0,8);
       const items=[...playerItems,...tournamentItems,...matchItems].filter((item,index,all)=>all.findIndex(candidate=>candidate.href===item.href)===index).slice(0,24);
       const elapsedMs = Math.round(performance.now() - started);
+      observeSearchTelemetry({ mode:'quick', tour:telemetryTour, queryLength:query.length, resultCount:items.length, durationMs:elapsedMs });
       if (elapsedMs > 250) logEvent('warn', 'search.slow', { requestId: id, elapsedMs, queryLength: query.length, mode: 'quick' });
       return versionedJson(request,{ items:items.map(presentSearchItem), ...generationMetadata(data) },{
         version:data.manifest.version,scope:requestCacheScope(request,'search'),route:'search',started,
@@ -125,12 +128,15 @@ export async function GET(request: Request) {
     }
     const unique=items.filter((item,index,all)=>all.findIndex(candidate=>candidate.href===item.href)===index).slice(0,25).map(presentSearchItem);
     const elapsedMs = Math.round(performance.now() - started);
+    observeSearchTelemetry({ mode:'full', tour:telemetryTour, queryLength:query.length, resultCount:unique.length, durationMs:elapsedMs });
     if (elapsedMs > 250) logEvent('warn', 'search.slow', { requestId: id, elapsedMs, queryLength: query.length });
     return versionedJson(request,{ items:unique, ...generationMetadata(data) },{
       version:data.manifest.version,scope:requestCacheScope(request,'search'),route:'search',started,
       headers:{'X-DEUCE-Search-Mode':'compact','X-Request-Id':id,'X-RateLimit-Remaining':String(budget.remaining),'Server-Timing':`search;dur=${elapsedMs}`},
     });
   } catch (error) {
+    const requestedTour = parameters.get('tour');
+    observeSearchTelemetry({ mode:quickMode?'quick':'full', tour:requestedTour==='wta'?'wta':requestedTour==='all'?'all':'atp', queryLength:query.length, resultCount:0, durationMs:Math.round(performance.now()-started), outcome:'error' });
     logEvent('error', 'search.failed', { requestId: id, error: error instanceof Error ? error.name : 'unknown' });
     return Response.json({ error: 'No se pudo abrir el archivo.' }, { status: 503, headers: { 'X-Request-Id': id } });
   }

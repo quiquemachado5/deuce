@@ -4,6 +4,8 @@ const developmentScriptPolicy = process.env.NODE_ENV === 'development' ? " 'unsa
 const nextConfig: NextConfig = {
   output: 'standalone',
   cacheMaxMemorySize: 128 * 1024 * 1024,
+  // Mutable HTML/RSC must not inherit Next's one-year stale window.
+  expireTime: 600,
   poweredByHeader: false,
   reactStrictMode: true,
   compress: true,
@@ -15,7 +17,10 @@ const nextConfig: NextConfig = {
   turbopack: { root: process.cwd() },
   outputFileTracingIncludes: { '/*': ['./data/archive/**/*', './data/reading/**/*'] },
   outputFileTracingExcludes: {
-    '/*': ['./.deuce-cache/**/*', './data/reading/matches.json.gz'],
+    // Research PDFs/HTML are preserved in the source archive. Requests consume
+    // reviewed registries and prepared shards; shipping the evidence scans to
+    // every application image adds 150 MB without serving a single route.
+    '/*': ['./.deuce-cache/**/*', './data/reading/matches.json.gz', './data/archive/references/**/*'],
   },
   async headers() { return [
     {source:'/:path*',headers:[
@@ -29,12 +34,14 @@ const nextConfig: NextConfig = {
       {key:'Origin-Agent-Cluster',value:'?1'},
       {key:'X-DNS-Prefetch-Control',value:'off'},
     ]},
-    {source:'/images/:path*',headers:[{key:'Cache-Control',value:'public, max-age=2592000, stale-while-revalidate=604800'}]},
-    {source:'/videos/:path*',headers:[{key:'Cache-Control',value:'public, max-age=2592000, stale-while-revalidate=604800'}]},
+    {source:'/images/:path*',headers:[{key:'Cache-Control',value:'public, max-age=86400, must-revalidate'}]},
+    {source:'/media/:path*',headers:[{key:'Cache-Control',value:'public, max-age=86400, must-revalidate'}]},
+    {source:'/videos/:path*',headers:[{key:'Cache-Control',value:'public, max-age=86400, must-revalidate'}]},
     {source:'/fonts/:path*',headers:[{key:'Cache-Control',value:'public, max-age=31536000, immutable'}]},
   ] },
   async redirects() {
     return [
+      {source:'/info',destination:'/sobre',permanent:true},
       ...['q','search','player','tournament','year','round','surface','fiveSets'].map(key=>({
         source:'/',
         has:[{type:'query' as const,key}],

@@ -1,0 +1,2271 @@
+{
+  "schema": 1,
+  "reviewedAt": "2026-11-12",
+  "format": "Individual singles rubbers in the ATP Cup national-team event; not ATP250 tournament draws. Source rows retained.",
+  "entries": [
+    {
+      "matchId": "archive-181908",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"felixaugeraliassime\",\"johnmillman\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181907",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"alexdeminaur\",\"denisshapovalov\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181906",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"johnmillman\",\"michailpervolarakis\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181905",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"nickkyrgios\",\"stefanostsitsipas\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181904",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"felixaugeraliassime\",\"michailpervolarakis\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181903",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"denisshapovalov\",\"stefanostsitsipas\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181902",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"janlennardstruff\",\"nickkyrgios\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181901",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"alexanderzverev\",\"alexdeminaur\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181900",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"felixaugeraliassime\",\"janlennardstruff\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181899",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"alexanderzverev\",\"denisshapovalov\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181898",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"janlennardstruff\",\"michailpervolarakis\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181897",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"alexanderzverev\",\"stefanostsitsipas\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181896",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"guidopella\",\"kamilmajchrzak\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181895",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"diegoschwartzman\",\"huberthurkacz\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181894",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"kacperzuk\",\"marincilic\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181893",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"bornacoric\",\"huberthurkacz\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181892",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"guidopella\",\"marincilic\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181891",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"bornacoric\",\"diegoschwartzman\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181890",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"dennisnovak\",\"kacperzuk\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181889",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"dominicthiem\",\"huberthurkacz\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181888",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"dennisnovak\",\"guidopella\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181887",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"diegoschwartzman\",\"dominicthiem\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181886",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"dennisnovak\",\"marincilic\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181885",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"bornacoric\",\"dominicthiem\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181884",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"taylorfritz\",\"viktordurasovic\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181883",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"casperruud\",\"johnisner\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181882",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"stefanotravaglia\",\"viktordurasovic\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181881",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"casperruud\",\"fabiofognini\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181880",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"stefanotravaglia\",\"taylorfritz\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181879",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"fabiofognini\",\"johnisner\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181878",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"karenkhachanov\",\"viktordurasovic\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181877",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"casperruud\",\"daniilmedvedev\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181876",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"karenkhachanov\",\"taylorfritz\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181875",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"daniilmedvedev\",\"johnisner\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181874",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"karenkhachanov\",\"stefanotravaglia\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181873",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"daniilmedvedev\",\"fabiofognini\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181872",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"alexandercozbinov\",\"dimitarkuzmanov\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181871",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"grigordimitrov\",\"radualbot\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181870",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"alexandercozbinov\",\"cameronnorrie\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181869",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"danielevans\",\"radualbot\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181868",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"cameronnorrie\",\"dimitarkuzmanov\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181867",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"danielevans\",\"grigordimitrov\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181866",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"alexandercozbinov\",\"stevedarcis\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181865",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"davidgoffin\",\"radualbot\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181864",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"dimitarkuzmanov\",\"stevedarcis\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181863",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"davidgoffin\",\"grigordimitrov\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181862",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"cameronnorrie\",\"stevedarcis\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181861",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"danielevans\",\"davidgoffin\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181860",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"aleksandremetreveli\",\"francoroncadelli\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181859",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"nikolozbasilashvili\",\"pablocuevas\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181858",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"gosoeda\",\"martincuevas\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181857",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"pablocuevas\",\"yoshihitonishioka\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181856",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"aleksandremetreveli\",\"gosoeda\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181855",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"nikolozbasilashvili\",\"yoshihitonishioka\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181854",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"francoroncadelli\",\"robertobautistaagut\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181853",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"pablocuevas\",\"rafaelnadal\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181852",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"aleksandremetreveli\",\"robertobautistaagut\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181851",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"nikolozbasilashvili\",\"rafaelnadal\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181850",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"gosoeda\",\"robertobautistaagut\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181849",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"rafaelnadal\",\"yoshihitonishioka\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181848",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"lloydharris\",\"nicolasjarry\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181847",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"cristiangarin\",\"kevinanderson\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181846",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"benoitpaire\",\"nicolasjarry\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181845",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"cristiangarin\",\"gaelmonfils\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181844",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"gillessimon\",\"lloydharris\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181843",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"benoitpaire\",\"kevinanderson\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181842",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"dusanlajovic\",\"nicolasjarry\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181841",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"cristiangarin\",\"novakdjokovic\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181840",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"dusanlajovic\",\"lloydharris\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181839",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"kevinanderson\",\"novakdjokovic\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181838",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"benoitpaire\",\"dusanlajovic\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181837",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Fase de grupos\",[\"gaelmonfils\",\"novakdjokovic\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181836",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Cuartos de final\",[\"kimmercoppejans\",\"robertobautistaagut\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181835",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Cuartos de final\",[\"davidgoffin\",\"rafaelnadal\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181834",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Cuartos de final\",[\"cameronnorrie\",\"nickkyrgios\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181833",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Cuartos de final\",[\"alexdeminaur\",\"danielevans\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181832",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Cuartos de final\",[\"guidopella\",\"karenkhachanov\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181831",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Cuartos de final\",[\"daniilmedvedev\",\"diegoschwartzman\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181830",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Cuartos de final\",[\"dusanlajovic\",\"felixaugeraliassime\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181829",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Cuartos de final\",[\"denisshapovalov\",\"novakdjokovic\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181828",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Semifinal\",[\"nickkyrgios\",\"robertobautistaagut\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181827",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Semifinal\",[\"alexdeminaur\",\"rafaelnadal\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181826",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Semifinal\",[\"dusanlajovic\",\"karenkhachanov\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181825",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Semifinal\",[\"daniilmedvedev\",\"novakdjokovic\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181824",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Final\",[\"dusanlajovic\",\"robertobautistaagut\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-181823",
+      "year": 2020,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2020,\"cup\",\"2020-01-06\",\"Final\",[\"novakdjokovic\",\"rafaelnadal\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "matchId": "archive-185471",
+      "year": 2021,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2021,\"cup\",\"2021-02-02\",\"Final\",[\"daniilmedvedev\",\"matteoberrettini\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennis.com/news/articles/the-2021-atp-cup-draw-is-out-who-s-in-djokovic-and-nadal-s-groups"
+      ]
+    },
+    {
+      "matchId": "archive-185470",
+      "year": 2021,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2021,\"cup\",\"2021-02-02\",\"Final\",[\"andreyrublev\",\"fabiofognini\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennis.com/news/articles/the-2021-atp-cup-draw-is-out-who-s-in-djokovic-and-nadal-s-groups"
+      ]
+    },
+    {
+      "matchId": "archive-185469",
+      "year": 2021,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2021,\"cup\",\"2021-02-02\",\"Semifinal\",[\"alexanderzverev\",\"daniilmedvedev\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennis.com/news/articles/the-2021-atp-cup-draw-is-out-who-s-in-djokovic-and-nadal-s-groups"
+      ]
+    },
+    {
+      "matchId": "archive-185468",
+      "year": 2021,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2021,\"cup\",\"2021-02-02\",\"Semifinal\",[\"andreyrublev\",\"janlennardstruff\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennis.com/news/articles/the-2021-atp-cup-draw-is-out-who-s-in-djokovic-and-nadal-s-groups"
+      ]
+    },
+    {
+      "matchId": "archive-185467",
+      "year": 2021,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2021,\"cup\",\"2021-02-02\",\"Semifinal\",[\"matteoberrettini\",\"robertobautistaagut\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennis.com/news/articles/the-2021-atp-cup-draw-is-out-who-s-in-djokovic-and-nadal-s-groups"
+      ]
+    },
+    {
+      "matchId": "archive-185466",
+      "year": 2021,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2021,\"cup\",\"2021-02-02\",\"Semifinal\",[\"fabiofognini\",\"pablocarrenobusta\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennis.com/news/articles/the-2021-atp-cup-draw-is-out-who-s-in-djokovic-and-nadal-s-groups"
+      ]
+    },
+    {
+      "matchId": "archive-185465",
+      "year": 2021,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2021,\"cup\",\"2021-02-02\",\"Fase de grupos\",[\"alexanderzverev\",\"novakdjokovic\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennis.com/news/articles/the-2021-atp-cup-draw-is-out-who-s-in-djokovic-and-nadal-s-groups"
+      ]
+    },
+    {
+      "matchId": "archive-185464",
+      "year": 2021,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2021,\"cup\",\"2021-02-02\",\"Fase de grupos\",[\"dusanlajovic\",\"janlennardstruff\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennis.com/news/articles/the-2021-atp-cup-draw-is-out-who-s-in-djokovic-and-nadal-s-groups"
+      ]
+    },
+    {
+      "matchId": "archive-185463",
+      "year": 2021,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2021,\"cup\",\"2021-02-02\",\"Fase de grupos\",[\"denisshapovalov\",\"novakdjokovic\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennis.com/news/articles/the-2021-atp-cup-draw-is-out-who-s-in-djokovic-and-nadal-s-groups"
+      ]
+    },
+    {
+      "matchId": "archive-185462",
+      "year": 2021,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2021,\"cup\",\"2021-02-02\",\"Fase de grupos\",[\"dusanlajovic\",\"milosraonic\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennis.com/news/articles/the-2021-atp-cup-draw-is-out-who-s-in-djokovic-and-nadal-s-groups"
+      ]
+    },
+    {
+      "matchId": "archive-185461",
+      "year": 2021,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2021,\"cup\",\"2021-02-02\",\"Fase de grupos\",[\"alexanderzverev\",\"denisshapovalov\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennis.com/news/articles/the-2021-atp-cup-draw-is-out-who-s-in-djokovic-and-nadal-s-groups"
+      ]
+    },
+    {
+      "matchId": "archive-185460",
+      "year": 2021,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2021,\"cup\",\"2021-02-02\",\"Fase de grupos\",[\"janlennardstruff\",\"milosraonic\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennis.com/news/articles/the-2021-atp-cup-draw-is-out-who-s-in-djokovic-and-nadal-s-groups"
+      ]
+    },
+    {
+      "matchId": "archive-185459",
+      "year": 2021,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2021,\"cup\",\"2021-02-02\",\"Fase de grupos\",[\"robertobautistaagut\",\"stefanostsitsipas\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennis.com/news/articles/the-2021-atp-cup-draw-is-out-who-s-in-djokovic-and-nadal-s-groups"
+      ]
+    },
+    {
+      "matchId": "archive-185458",
+      "year": 2021,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2021,\"cup\",\"2021-02-02\",\"Fase de grupos\",[\"michailpervolarakis\",\"pablocarrenobusta\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennis.com/news/articles/the-2021-atp-cup-draw-is-out-who-s-in-djokovic-and-nadal-s-groups"
+      ]
+    },
+    {
+      "matchId": "archive-185457",
+      "year": 2021,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2021,\"cup\",\"2021-02-02\",\"Fase de grupos\",[\"alexdeminaur\",\"robertobautistaagut\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennis.com/news/articles/the-2021-atp-cup-draw-is-out-who-s-in-djokovic-and-nadal-s-groups"
+      ]
+    },
+    {
+      "matchId": "archive-185456",
+      "year": 2021,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2021,\"cup\",\"2021-02-02\",\"Fase de grupos\",[\"johnmillman\",\"pablocarrenobusta\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennis.com/news/articles/the-2021-atp-cup-draw-is-out-who-s-in-djokovic-and-nadal-s-groups"
+      ]
+    },
+    {
+      "matchId": "archive-185455",
+      "year": 2021,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2021,\"cup\",\"2021-02-02\",\"Fase de grupos\",[\"alexdeminaur\",\"stefanostsitsipas\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennis.com/news/articles/the-2021-atp-cup-draw-is-out-who-s-in-djokovic-and-nadal-s-groups"
+      ]
+    },
+    {
+      "matchId": "archive-185454",
+      "year": 2021,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2021,\"cup\",\"2021-02-02\",\"Fase de grupos\",[\"johnmillman\",\"michailpervolarakis\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennis.com/news/articles/the-2021-atp-cup-draw-is-out-who-s-in-djokovic-and-nadal-s-groups"
+      ]
+    },
+    {
+      "matchId": "archive-185453",
+      "year": 2021,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2021,\"cup\",\"2021-02-02\",\"Fase de grupos\",[\"dominicthiem\",\"matteoberrettini\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennis.com/news/articles/the-2021-atp-cup-draw-is-out-who-s-in-djokovic-and-nadal-s-groups"
+      ]
+    },
+    {
+      "matchId": "archive-185452",
+      "year": 2021,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2021,\"cup\",\"2021-02-02\",\"Fase de grupos\",[\"dennisnovak\",\"fabiofognini\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennis.com/news/articles/the-2021-atp-cup-draw-is-out-who-s-in-djokovic-and-nadal-s-groups"
+      ]
+    },
+    {
+      "matchId": "archive-185451",
+      "year": 2021,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2021,\"cup\",\"2021-02-02\",\"Fase de grupos\",[\"benoitpaire\",\"dominicthiem\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennis.com/news/articles/the-2021-atp-cup-draw-is-out-who-s-in-djokovic-and-nadal-s-groups"
+      ]
+    },
+    {
+      "matchId": "archive-185450",
+      "year": 2021,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2021,\"cup\",\"2021-02-02\",\"Fase de grupos\",[\"dennisnovak\",\"nicolasmahut\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennis.com/news/articles/the-2021-atp-cup-draw-is-out-who-s-in-djokovic-and-nadal-s-groups"
+      ]
+    },
+    {
+      "matchId": "archive-185449",
+      "year": 2021,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2021,\"cup\",\"2021-02-02\",\"Fase de grupos\",[\"gaelmonfils\",\"matteoberrettini\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennis.com/news/articles/the-2021-atp-cup-draw-is-out-who-s-in-djokovic-and-nadal-s-groups"
+      ]
+    },
+    {
+      "matchId": "archive-185448",
+      "year": 2021,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2021,\"cup\",\"2021-02-02\",\"Fase de grupos\",[\"benoitpaire\",\"fabiofognini\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennis.com/news/articles/the-2021-atp-cup-draw-is-out-who-s-in-djokovic-and-nadal-s-groups"
+      ]
+    },
+    {
+      "matchId": "archive-185447",
+      "year": 2021,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2021,\"cup\",\"2021-02-02\",\"Fase de grupos\",[\"daniilmedvedev\",\"diegoschwartzman\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennis.com/news/articles/the-2021-atp-cup-draw-is-out-who-s-in-djokovic-and-nadal-s-groups"
+      ]
+    },
+    {
+      "matchId": "archive-185446",
+      "year": 2021,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2021,\"cup\",\"2021-02-02\",\"Fase de grupos\",[\"andreyrublev\",\"guidopella\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennis.com/news/articles/the-2021-atp-cup-draw-is-out-who-s-in-djokovic-and-nadal-s-groups"
+      ]
+    },
+    {
+      "matchId": "archive-185445",
+      "year": 2021,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2021,\"cup\",\"2021-02-02\",\"Fase de grupos\",[\"daniilmedvedev\",\"keinishikori\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennis.com/news/articles/the-2021-atp-cup-draw-is-out-who-s-in-djokovic-and-nadal-s-groups"
+      ]
+    },
+    {
+      "matchId": "archive-185444",
+      "year": 2021,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2021,\"cup\",\"2021-02-02\",\"Fase de grupos\",[\"andreyrublev\",\"yoshihitonishioka\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennis.com/news/articles/the-2021-atp-cup-draw-is-out-who-s-in-djokovic-and-nadal-s-groups"
+      ]
+    },
+    {
+      "matchId": "archive-185443",
+      "year": 2021,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2021,\"cup\",\"2021-02-02\",\"Fase de grupos\",[\"diegoschwartzman\",\"keinishikori\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennis.com/news/articles/the-2021-atp-cup-draw-is-out-who-s-in-djokovic-and-nadal-s-groups"
+      ]
+    },
+    {
+      "matchId": "archive-185442",
+      "year": 2021,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2021,\"cup\",\"2021-02-02\",\"Fase de grupos\",[\"guidopella\",\"yoshihitonishioka\"]]",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennis.com/news/articles/the-2021-atp-cup-draw-is-out-who-s-in-djokovic-and-nadal-s-groups"
+      ]
+    },
+    {
+      "matchId": "archive-186071",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"aleksandremetreveli\",\"federicodelbonis\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186070",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"diegoschwartzman\",\"nikolozbasilashvili\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186069",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"aleksandrebakshi\",\"kamilmajchrzak\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186068",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"aleksandremetreveli\",\"huberthurkacz\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186067",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"federicodelbonis\",\"kamilmajchrzak\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186066",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"diegoschwartzman\",\"huberthurkacz\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186065",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"aleksandremetreveli\",\"michailpervolarakis\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186064",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"nikolozbasilashvili\",\"stefanostsitsipas\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186063",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"federicodelbonis\",\"michailpervolarakis\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186062",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"diegoschwartzman\",\"stefanostsitsipas\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186061",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"kamilmajchrzak\",\"michailpervolarakis\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186060",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"aristotelisthanos\",\"huberthurkacz\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186059",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"danielevans\",\"johnisner\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186058",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"cameronnorrie\",\"taylorfritz\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186057",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"braydenschnur\",\"johnisner\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186056",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"felixaugeraliassime\",\"taylorfritz\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186055",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"danielevans\",\"denisshapovalov\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186054",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"cameronnorrie\",\"felixaugeraliassime\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186053",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"janlennardstruff\",\"johnisner\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186052",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"alexanderzverev\",\"taylorfritz\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186051",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"danielevans\",\"janlennardstruff\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186050",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"alexanderzverev\",\"cameronnorrie\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186049",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"denisshapovalov\",\"janlennardstruff\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186048",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"alexanderzverev\",\"felixaugeraliassime\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186047",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"arthurrinderknech\",\"jamesduckworth\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186046",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"alexdeminaur\",\"ugohumbert\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186045",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"janniksinner\",\"maxpurcell\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186044",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"alexdeminaur\",\"matteoberrettini\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186043",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"arthurrinderknech\",\"janniksinner\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186042",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"matteoberrettini\",\"ugohumbert\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186041",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"jamesduckworth\",\"romansafiullin\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186040",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"alexdeminaur\",\"daniilmedvedev\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186039",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"arthurrinderknech\",\"romansafiullin\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186038",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"daniilmedvedev\",\"ugohumbert\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186037",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"janniksinner\",\"romansafiullin\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186036",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"daniilmedvedev\",\"matteoberrettini\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186035",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"alejandrotabilo\",\"pablocarrenobusta\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186034",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"cristiangarin\",\"robertobautistaagut\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186033",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"pablocarrenobusta\",\"viktordurasovic\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186032",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"casperruud\",\"robertobautistaagut\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186031",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"alejandrotabilo\",\"viktordurasovic\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186030",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"casperruud\",\"cristiangarin\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186029",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"filipkrajinovic\",\"pablocarrenobusta\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186028",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"dusanlajovic\",\"robertobautistaagut\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186027",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"alejandrotabilo\",\"filipkrajinovic\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186026",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"cristiangarin\",\"dusanlajovic\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186025",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"filipkrajinovic\",\"viktordurasovic\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186024",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Fase de grupos\",[\"casperruud\",\"dusanlajovic\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186023",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Semifinal\",[\"denisshapovalov\",\"romansafiullin\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186022",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Semifinal\",[\"daniilmedvedev\",\"felixaugeraliassime\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186021",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Semifinal\",[\"janzielinski\",\"pablocarrenobusta\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186020",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Semifinal\",[\"huberthurkacz\",\"robertobautistaagut\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186019",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Final\",[\"denisshapovalov\",\"pablocarrenobusta\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "matchId": "archive-186018",
+      "year": 2022,
+      "tour": "atp",
+      "tournament": "Cup",
+      "originalCategory": "ATP 250",
+      "category": "ATP Cup",
+      "fingerprint": "[\"atp\",2022,\"cup\",\"2022-01-03\",\"Final\",[\"felixaugeraliassime\",\"robertobautistaagut\"]]",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    }
+  ]
+}

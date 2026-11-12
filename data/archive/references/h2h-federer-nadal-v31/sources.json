@@ -1,0 +1,95 @@
+{
+  "schema": 1,
+  "sources": [
+    {
+      "id": "atp-dubai2006",
+      "url": "https://www.atptour.com/en/news/nadal-federer-dubai-2006-flashback",
+      "error": "HTTP 403"
+    },
+    {
+      "id": "tennisx-dubai2006",
+      "url": "https://www.tennis-x.com/story/2006-03-05/j.php",
+      "file": "tennisx-dubai2006.html.gz",
+      "bytes": 15084,
+      "sha256": "a6db3be9cfc103418f2d0ed761b988d1e1b7f334ad94ae5a7eb29117918ecbe8",
+      "retrievedAt": "2026-11-12T09:46:55.243Z"
+    },
+    {
+      "id": "wikipedia-rivalry",
+      "url": "https://en.wikipedia.org/wiki/Federer%E2%80%93Nadal_rivalry",
+      "file": "wikipedia-rivalry.html.gz",
+      "bytes": 945334,
+      "sha256": "bd094d9c01eab8b46b55a1ed9ac0c53ea8356b5ed5f1a2a4075f48b32a17d0ea",
+      "retrievedAt": "2026-11-12T09:46:55.469Z"
+    },
+    {
+      "id": "tennistemple-h2h",
+      "url": "https://en.tennistemple.com/h2h/roger-federer-vs-rafael-nadal/1391/1392",
+      "error": "HTTP 403"
+    },
+    {
+      "id": "dubai2006-atp-draw",
+      "url": "https://www.protennislive.com/posting/2006/495/mds.pdf",
+      "file": "dubai2006-atp-draw.pdf.gz",
+      "bytes": 15996,
+      "sha256": "f88a46ef596dcba7dad7424530f09cbacb2ef8dc54e314b16bb41f07ecf17448",
+      "retrievedAt": "2026-11-12T09:47:57.854Z"
+    },
+    {
+      "id": "dubai2006-wiki-draw",
+      "url": "https://en.wikipedia.org/wiki/2006_Dubai_Tennis_Championships_%E2%80%93_Men%27s_singles",
+      "file": "dubai2006-wiki-draw.html.gz",
+      "bytes": 321766,
+      "sha256": "6685020d074206610770693fa15fd76ebc94dcd28ae7c9fcfd7e012fd11c99ee",
+      "retrievedAt": "2026-11-12T09:47:58.008Z"
+    },
+    {
+      "id": "dubai2006-wiki-event",
+      "url": "https://en.wikipedia.org/wiki/2006_Dubai_Tennis_Championships",
+      "file": "dubai2006-wiki-event.html.gz",
+      "bytes": 183626,
+      "sha256": "3bd19a163a5e61c487ad2b34f630e8c7a1897620af04720e259b5e3c5a575c3f",
+      "retrievedAt": "2026-11-12T09:47:58.059Z"
+    },
+    {
+      "id": "dubai2006-official-history",
+      "url": "https://dubaidutyfreetennischampionships.com/tournament/history/tournament-history/",
+      "file": "dubai2006-official-history.html.gz",
+      "bytes": 324667,
+      "sha256": "de83ba3cc23ebd2cb3665cbf21d4a43f7036b532d262273f0ea20dfc3f6e0a59",
+      "retrievedAt": "2026-11-12T09:47:58.224Z"
+    },
+    {
+      "id": "dubai2006-tennisdb",
+      "url": "https://tennis-db.com/tournaments/236/dubai-tennis-championships?season=2006&view=draw",
+      "file": "dubai2006-tennisdb.html.gz",
+      "bytes": 101953,
+      "sha256": "4d64f6391b35fbf909c7a11812551d6d3e31ab474fa31607d641e1e78b401162",
+      "retrievedAt": "2026-11-12T09:47:58.663Z"
+    },
+    {
+      "id": "dubai2006-gulfnews-category",
+      "url": "https://gulfnews.com/sport/tennis/dubai-duty-free-tennis-wins-tournament-of-the-year-award-1.197519",
+      "file": "dubai2006-gulfnews-category.html.gz",
+      "bytes": 1515792,
+      "sha256": "8bbd668619cc9a93efa36457b3f7fbd8978e9bdfa20a3004b8a741bf5ad591b1",
+      "retrievedAt": "2026-11-12T09:50:08.876Z"
+    },
+    {
+      "id": "dubai2006-tournament-newspaper",
+      "url": "https://dubaidutyfreetennischampionships.com/wp-content/uploads/2019/01/2006pdf.pdf",
+      "file": "dubai2006-tournament-newspaper.pdf.gz",
+      "bytes": 258870,
+      "sha256": "b9a7855f1a7daebaa491fe6ba0129bc4437a362552acae51bc86086e85ad9c32",
+      "retrievedAt": "2026-11-12T09:50:09.017Z"
+    },
+    {
+      "id": "dubai2006-moodie-category",
+      "url": "https://moodiedavittreport.com/dubai-duty-free-celebrates-another-year-of-achievement-as-landmark-looms-311207/",
+      "file": "dubai2006-moodie-category.html.gz",
+      "bytes": 204165,
+      "sha256": "f2d793bba945e07e065d5eb9d96749dd2c142c8f82c7bfe7cbf91ae0ca1218cf",
+      "retrievedAt": "2026-11-12T09:50:10.228Z"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 "use client";
 import { useRef, useState } from 'react';
 import { Share2 } from 'lucide-react';
-import { ScoreRows } from '@/components/deuce/MatchScoreboard';
+import { MatchScoreboard } from '@/components/deuce/MatchScoreboard';
 import { resolvedWinner, resolvedSetClosed } from '@/lib/deuce-score';
 import { SITE_HOST } from '@/lib/site-origin';
 import type { MatchRecord } from '@/types/deuce';
@@ -47,7 +47,7 @@ export default function Share({ record, iconOnly = false }: { record:MatchRecord
     <dialog ref={dialog} className="ry-share-dialog" aria-labelledby={`share-${record.id}`} onClose={()=>trigger.current?.focus()}>
       <div className="ry-share-dialog-head"><h2 id={`share-${record.id}`}>Compartir partido</h2><button type="button" className="ry-match-icon" aria-label="Cerrar" onClick={()=>dialog.current?.close()}>×</button></div>
       <p className="ry-data-note">Descarga una imagen con el resultado del partido.</p>
-      <div className="ry-share-preview"><p>{record.tournament} · {record.year} · {record.round}</p><ScoreRows match={record}/></div>
+      <div className="ry-share-preview"><MatchScoreboard match={record}/></div>
       <div className="ry-share-formats" aria-busy={busy}>{[{label:'Cuadrado',w:1080,h:1080},{label:'Horizontal',w:1600,h:900},{label:'Vertical',w:1080,h:1920}].map(format=><button type="button" key={format.label} disabled={busy} onClick={()=>download(format.w,format.h)}><span>{format.label}</span><small>{format.w} × {format.h}</small></button>)}</div>
       {busy&&<p role="status">Creando imagen…</p>}{error&&<p role="alert">{error}</p>}
     </dialog>

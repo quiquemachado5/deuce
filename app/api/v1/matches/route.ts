@@ -1,3 +1,4 @@
+import { DATASET_CACHE_CONTROL } from '@/lib/http-cache';
 import { preparedMatchBrowser } from '@/lib/revista/read-records';
 import { queryMatchBrowserPage } from '@/lib/match-browser-snapshot';
 import { rateLimit } from '@/lib/rate-limit';
@@ -29,7 +30,7 @@ export async function GET(request: Request) {
   const browser=await preparedMatchBrowser(tour,year,year);
   const result=queryMatchBrowserPage(browser.partitions,{q:p.get('q')?.slice(0,120)||undefined,player:p.get('player')?.slice(0,100)||undefined,year,tournament:p.get('tournament')?.slice(0,100)||undefined,category:p.get('category')?.slice(0,80)||undefined,surface:(surface||undefined) as 'hard'|'clay'|'grass'|'carpet'|'unknown'|undefined,round:p.get('round')?.slice(0,80)||undefined},page,limit);
   const scope=[...p.entries()].sort().map(row=>row.join('=')).join('&'),etag=datasetEtag(browser.manifest.version,`api-v1-matches:${scope}`);
-  const headers=new Headers({'Cache-Control':'public, s-maxage=300, stale-while-revalidate=3600','ETag':etag,'X-DEUCE-Dataset-Version':browser.manifest.version,'X-DEUCE-Attribution':'DEUCE archive; cite dataset version and request URL','X-RateLimit-Remaining':String(budget.remaining),'Access-Control-Allow-Origin':'*'});
+  const headers=new Headers({'Cache-Control':DATASET_CACHE_CONTROL,'ETag':etag,'X-DEUCE-Dataset-Version':browser.manifest.version,'X-DEUCE-Attribution':'DEUCE archive; cite dataset version and request URL','X-RateLimit-Remaining':String(budget.remaining),'Access-Control-Allow-Origin':'*'});
   if(request.headers.get('if-none-match')===etag)return new Response(null,{status:304,headers});
   if(format==='csv'){
     headers.set('Content-Type','text/csv; charset=utf-8');headers.set('Content-Disposition',`attachment; filename="deuce-matches-${browser.manifest.version}.csv"`);

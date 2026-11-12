@@ -1,0 +1,28 @@
+[
+  {
+    "name": "sackmann.csv",
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/wta/wta_matches_2018.csv",
+    "bytes": 572565,
+    "sha256": "6ccfc04baabe536e4260083c2e299c8c36668a8e8276dfc309219df23bf9ea38",
+    "retrievedAt": "2026-11-11T22:58:52.306Z"
+  },
+  {
+    "name": "tennis-data.xlsx",
+    "url": "https://www.tennis-data.co.uk/2018w/2018.xlsx",
+    "error": "HTTP 404"
+  },
+  {
+    "name": "roland-garros.pdf",
+    "url": "https://wtafiles.wtatennis.com/pdf/draws/2018/903/MDS.pdf",
+    "bytes": 161970,
+    "sha256": "784f19141a50ed8b21a846f8b210419acc6f12167607b9b78dc66154ea2e9262",
+    "retrievedAt": "2026-11-11T22:58:52.813Z"
+  },
+  {
+    "name": "australian-open.pdf",
+    "url": "https://wtafiles.wtatennis.com/pdf/draws/2018/901/MDS.pdf",
+    "bytes": 80801,
+    "sha256": "f7194a5e7929a6be659611b181f139dd7e670f8d56689bcd50919424a4862200",
+    "retrievedAt": "2026-11-11T22:58:52.662Z"
+  }
+]

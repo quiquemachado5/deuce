@@ -1,0 +1,7136 @@
+[
+  {
+    "match": {
+      "match_id": "archive-692",
+      "tour": "atp",
+      "tournament": "Wimbledon",
+      "surface": "grass",
+      "category": "Grand Slam",
+      "year": 1968,
+      "player1": {
+        "name": "Jose Luis Arillla",
+        "seed": null
+      },
+      "player2": {
+        "name": "Ove Bengtson",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          1,
+          4
+        ],
+        "games": [
+          [
+            0,
+            6
+          ],
+          [
+            7,
+            5
+          ],
+          [
+            4,
+            6
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            10,
+            12
+          ]
+        ],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "1968-06-24T00:00:00Z"
+      },
+      "final_score": "0–6 7–5 4–6 3–6 10–12",
+      "round": "Ronda de 64",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "1968-06-24",
+        "dateLabel": "Inicio del torneo",
+        "rank1": null,
+        "rank2": null,
+        "rankLabel": "Ranking al jugar",
+        "age1": 27.3,
+        "age2": 23.2,
+        "minutes": null,
+        "format": "Al mejor de 5 sets",
+        "indoor": null,
+        "metadataSources": [
+          {
+            "field": "formato",
+            "url": "https://www.itftennis.com/en/about-us/tennis-tech/science-behind-tennis/rules-and-regulations/"
+          },
+          {
+            "field": "formato",
+            "url": "https://www.wimbledon.com/en_GB/about_wimbledon/rules.html"
+          }
+        ]
+      },
+      "quality": {
+        "result": "review",
+        "reason": "Hay sets registrados después de finalizar el partido.",
+        "tape": "none"
+      },
+      "rawWinner": 1,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "1968-06-24",
+        "dateLabel": "Inicio del torneo",
+        "rank1": null,
+        "rank2": null,
+        "rankLabel": "Ranking al jugar",
+        "age1": 23.2,
+        "age2": 27.3,
+        "minutes": null,
+        "format": "Al mejor de 5 sets",
+        "indoor": null
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "source": "https://assets.wimbledon.com/archive/draws/pdfs/draws/1968_MS_A4.pdf",
+        "corroboration": "https://en.tennistemple.com/match/bengtson-arilla-wimbledon-1968/369213/",
+        "score": "0–6 7–5 4–6 6–3 10–12",
+        "winner": 2,
+        "status": "Finished"
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "archive-92326",
+      "tour": "atp",
+      "tournament": "Wimbledon",
+      "surface": "grass",
+      "category": "Grand Slam",
+      "year": 1992,
+      "player1": {
+        "name": "Carl Uwe Steeb",
+        "seed": null
+      },
+      "player2": {
+        "name": "Kent Kinnear",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          2,
+          2
+        ],
+        "games": [
+          [
+            6,
+            7
+          ],
+          [
+            6,
+            2
+          ],
+          [
+            7,
+            6
+          ],
+          [
+            1,
+            6
+          ]
+        ],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "1992-06-22T00:00:00Z"
+      },
+      "final_score": "6–7(6) 6–2 7–6(7) 1–6",
+      "round": "Ronda de 128",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "1992-06-22",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 34,
+        "rank2": 189,
+        "rankLabel": "Ranking al jugar",
+        "age1": 24.8,
+        "age2": 25.5,
+        "minutes": 118,
+        "format": "Al mejor de 5 sets",
+        "indoor": null,
+        "metadataSources": [
+          {
+            "field": "formato",
+            "url": "https://www.itftennis.com/en/about-us/tennis-tech/science-behind-tennis/rules-and-regulations/"
+          },
+          {
+            "field": "formato",
+            "url": "https://www.wimbledon.com/en_GB/about_wimbledon/rules.html"
+          }
+        ]
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El ganador no coincide con los sets necesarios para ganar.",
+        "tape": "none"
+      },
+      "rawWinner": 1,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "1992-06-22",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 189,
+        "rank2": 34,
+        "rankLabel": "Ranking al jugar",
+        "age1": 25.5,
+        "age2": 24.8,
+        "minutes": 118,
+        "format": "Al mejor de 5 sets",
+        "indoor": null
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "source": "https://assets.wimbledon.com/archive/draws/pdfs/draws/1992_MS_A4.pdf",
+        "corroboration": "https://www.tenislive.net/atp/kent-kinnear/",
+        "score": "6–7(6) 2–6 7–6(7) 1–6",
+        "winner": 2,
+        "status": "Finished"
+      }
+    }
+  },
+  {
+    "match": {
+      "provider_revision": {
+        "retrieved_at": "2026-11-10T13:54:49.929Z",
+        "updated_at": "2026-07-27T20:40:15.490463Z",
+        "version": 1
+      },
+      "match_id": "wta-live-47401",
+      "tour": "wta",
+      "tournament": "Austin",
+      "surface": "hard",
+      "category": "WTA 250",
+      "year": 2024,
+      "player1": {
+        "name": "Contreras Gomez",
+        "seed": null
+      },
+      "player2": {
+        "name": "Taylor Townsend",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          1,
+          2
+        ],
+        "games": [
+          [
+            6,
+            3
+          ],
+          [
+            2,
+            6
+          ],
+          [
+            3,
+            5
+          ]
+        ],
+        "points": [
+          "0",
+          "0"
+        ],
+        "server": 2,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2024-02-27T18:10:00Z"
+      },
+      "final_score": "6–3 2–6 3–5",
+      "round": "Ronda de 32",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2024-02-27T18:10:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": null,
+        "rank2": null,
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawWinner": 1,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2024-02-27T18:10:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": 93,
+        "rank2": null,
+        "rankLabel": "Ranking en la descarga",
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "source": "https://www.wtatennis.com/tournaments/2082/Austin/2024/draws",
+        "corroboration": "https://www.tntsports.co.uk/tennis/wta-austin/2024/draw.shtml",
+        "score": "6–3 2–6 3–6",
+        "winner": 2,
+        "status": "Finished"
+      }
+    }
+  },
+  {
+    "match": {
+      "provider_revision": {
+        "retrieved_at": "2026-11-10T13:54:49.929Z",
+        "updated_at": "2026-07-27T20:49:49.848356Z",
+        "version": 1
+      },
+      "match_id": "wta-live-60711",
+      "tour": "wta",
+      "tournament": "Bogota",
+      "surface": "clay",
+      "category": "WTA 250",
+      "year": 2024,
+      "player1": {
+        "name": "I. Bara",
+        "seed": null
+      },
+      "player2": {
+        "name": "Laura Pigossi",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          2,
+          1
+        ],
+        "games": [
+          [
+            3,
+            6
+          ],
+          [
+            7,
+            6
+          ],
+          [
+            5,
+            4
+          ]
+        ],
+        "points": [
+          "0",
+          "0"
+        ],
+        "server": 2,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2024-04-03T20:25:00Z"
+      },
+      "final_score": "3–6 7–6 5–4",
+      "round": "Octavos de final",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2024-04-03T20:25:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": null,
+        "rank2": null,
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawWinner": 2,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2024-04-03T20:25:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": 263,
+        "rank2": null,
+        "rankLabel": "Ranking en la descarga",
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "source": "https://www.tennismajors.com/wta-tour-news/bogota-open-bara-into-quarter-finals-753585.html",
+        "corroboration": "https://www.tennisabstract.com/cgi-bin/wtourney.cgi?t=2024-894%2FBogota",
+        "score": "3–6 7–6(3) 6–4",
+        "winner": 1,
+        "status": "Finished"
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "archive-134625",
+      "tour": "atp",
+      "tournament": "Cincinnati",
+      "surface": "hard",
+      "category": "Masters 1000",
+      "year": 2004,
+      "player1": {
+        "name": "Andre Agassi",
+        "seed": 11
+      },
+      "player2": {
+        "name": "Mardy Fish",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          2,
+          1
+        ],
+        "games": [
+          [
+            4,
+            6
+          ],
+          [
+            7,
+            6
+          ],
+          [
+            4,
+            1
+          ]
+        ],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2004-08-02T00:00:00Z"
+      },
+      "final_score": "4–6 7–6(3) 4–1",
+      "round": "Ronda de 64",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2004-08-02",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 11,
+        "rank2": 19,
+        "rankLabel": "Ranking al jugar",
+        "age1": 34.2,
+        "age2": 22.6,
+        "minutes": 102,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawWinner": 1,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2004-08-02",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 11,
+        "rank2": 19,
+        "rankLabel": "Ranking al jugar",
+        "age1": 34.2,
+        "age2": 22.6,
+        "minutes": 102,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "source": "https://cincinnatiopen.com/wp-content/uploads/2025/08/Compendium-2025-FINAL-Draft-Web-Version.pdf",
+        "corroboration": "https://www.tennislive.net/atp/match/andre-agassi-VS-mardy-fish/western-southern-financial-group-masters-cincinnati-2004/",
+        "score": "4–6 7–6(3) 4–1",
+        "winner": 1,
+        "status": "Retired"
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "wta-archive-1000101",
+      "tour": "wta",
+      "tournament": "Abu Dhabi",
+      "surface": "hard",
+      "category": "WTA 500",
+      "year": 2021,
+      "player1": {
+        "name": "Kirsten Flipkens",
+        "seed": null
+      },
+      "player2": {
+        "name": "Sofia Kenin",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          1,
+          1
+        ],
+        "games": [
+          [
+            7,
+            5
+          ],
+          [
+            4,
+            5
+          ]
+        ],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2021-01-06T00:00:00Z"
+      },
+      "final_score": "7–5 4–5",
+      "round": "Ronda de 32",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2021-01-06",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 86,
+        "rank2": 4,
+        "rankLabel": "Ranking al jugar",
+        "age1": 34.9,
+        "age2": 22.1,
+        "minutes": 101,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawWinner": 1,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2021-01-06",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 4,
+        "rank2": 86,
+        "rankLabel": "Ranking al jugar",
+        "age1": 22.1,
+        "age2": 34.9,
+        "minutes": 101,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "source": "https://www.itftennis.com/en/tournament/abu-dhabi/uae/2021/w-w500-uae-01a-2021/draws-and-results/",
+        "corroboration": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/wta/wta_matches_2021.csv",
+        "score": "7–5 4–5",
+        "winner": 2,
+        "status": "Retired"
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "wta-archive-1000106",
+      "tour": "wta",
+      "tournament": "Abu Dhabi",
+      "surface": "hard",
+      "category": "WTA 500",
+      "year": 2021,
+      "player1": {
+        "name": "Kateryna Bondarenko",
+        "seed": null
+      },
+      "player2": {
+        "name": "Ons Jabeur",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          1,
+          1
+        ],
+        "games": [
+          [
+            7,
+            5
+          ],
+          [
+            3,
+            6
+          ]
+        ],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2021-01-06T00:00:00Z"
+      },
+      "final_score": "7–5 3–6",
+      "round": "Ronda de 32",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2021-01-06",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 285,
+        "rank2": 31,
+        "rankLabel": "Ranking al jugar",
+        "age1": 34.4,
+        "age2": 26.3,
+        "minutes": 116,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El ganador no coincide con los sets necesarios para ganar.",
+        "tape": "none"
+      },
+      "rawWinner": 1,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2021-01-06",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 31,
+        "rank2": 285,
+        "rankLabel": "Ranking al jugar",
+        "age1": 26.3,
+        "age2": 34.4,
+        "minutes": 116,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "source": "https://www.wtatennis.com/news/1968020/jabeur-kbond",
+        "corroboration": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/wta/wta_matches_2021.csv",
+        "score": "7–5 3–6 2–6",
+        "winner": 2,
+        "status": "Finished"
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "wta-archive-1000109",
+      "tour": "wta",
+      "tournament": "Abu Dhabi",
+      "surface": "hard",
+      "category": "WTA 500",
+      "year": 2021,
+      "player1": {
+        "name": "Marta Kostyuk",
+        "seed": null
+      },
+      "player2": {
+        "name": "Su-Wei Hsieh",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          1,
+          1
+        ],
+        "games": [
+          [
+            6,
+            3
+          ],
+          [
+            6,
+            7
+          ]
+        ],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2021-01-06T00:00:00Z"
+      },
+      "final_score": "6–3 6–7(4)",
+      "round": "Ronda de 32",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2021-01-06",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 99,
+        "rank2": 67,
+        "rankLabel": "Ranking al jugar",
+        "age1": 18.5,
+        "age2": 35,
+        "minutes": 134,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El ganador no coincide con los sets necesarios para ganar.",
+        "tape": "none"
+      },
+      "rawWinner": 1,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2021-01-06",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 99,
+        "rank2": 67,
+        "rankLabel": "Ranking al jugar",
+        "age1": 18.5,
+        "age2": 35,
+        "minutes": 134,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "source": "https://wtafiles.wtatennis.com/pdf/matchnotes/2021/1052_preview.pdf",
+        "corroboration": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/wta/wta_matches_2021.csv",
+        "score": "6–3 6–7(4) 6–3",
+        "winner": 1,
+        "status": "Finished"
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "wta-archive-1002286",
+      "tour": "wta",
+      "tournament": "Chicago 2",
+      "surface": "hard",
+      "category": "WTA 500",
+      "year": 2021,
+      "player1": {
+        "name": "Belinda Bencic",
+        "seed": 3
+      },
+      "player2": {
+        "name": "Elena Rybakina",
+        "seed": 5
+      },
+      "score_summary": {
+        "sets": [
+          0,
+          2
+        ],
+        "games": [
+          [
+            4,
+            6
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2021-09-27T00:00:00Z"
+      },
+      "final_score": "4–6 1–3",
+      "round": "Cuartos de final",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2021-09-27",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 12,
+        "rank2": 17,
+        "rankLabel": "Ranking al jugar",
+        "age1": 24.5,
+        "age2": 22.2,
+        "minutes": 68,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawWinner": 1,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2021-09-27",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 17,
+        "rank2": 12,
+        "rankLabel": "Ranking al jugar",
+        "age1": 22.2,
+        "age2": 24.5,
+        "minutes": 68,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "source": "https://www.wtatennis.com/news/2276919/jabeur-storms-past-top-seed-svitolina-into-chicago-semifinals",
+        "corroboration": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/wta/wta_matches_2021.csv",
+        "score": "4–6 1–3",
+        "winner": 2,
+        "status": "Retired"
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "wta-archive-1002480",
+      "tour": "wta",
+      "tournament": "Moscow",
+      "surface": "hard",
+      "category": "WTA 500",
+      "year": 2021,
+      "player1": {
+        "name": "Ekaterina Alexandrova",
+        "seed": null
+      },
+      "player2": {
+        "name": "Ons Jabeur",
+        "seed": 5
+      },
+      "score_summary": {
+        "sets": [
+          2,
+          0
+        ],
+        "games": [
+          [
+            6,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2021-10-18T00:00:00Z"
+      },
+      "final_score": "6–1 1–0",
+      "round": "Ronda de 32",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2021-10-18",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 37,
+        "rank2": 8,
+        "rankLabel": "Ranking al jugar",
+        "age1": 26.9,
+        "age2": 27.1,
+        "minutes": 33,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawWinner": 1,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2021-10-18",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 37,
+        "rank2": 8,
+        "rankLabel": "Ranking al jugar",
+        "age1": 26.9,
+        "age2": 27.1,
+        "minutes": 33,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "source": "https://www.wtatennis.com/news/2297588/halep-cruises-in-moscow-opener-alexandrova-advances-as-jabeur-retires",
+        "corroboration": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/wta/wta_matches_2021.csv",
+        "score": "6–1 1–0",
+        "winner": 1,
+        "status": "Retired"
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "wta-archive-1003020",
+      "tour": "wta",
+      "tournament": "Dubai",
+      "surface": "hard",
+      "category": "WTA 500",
+      "year": 2022,
+      "player1": {
+        "name": "Danielle Collins",
+        "seed": 9
+      },
+      "player2": {
+        "name": "Marketa Vondrousova",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          1,
+          1
+        ],
+        "games": [
+          [
+            6,
+            2
+          ],
+          [
+            0,
+            3
+          ]
+        ],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2022-02-14T00:00:00Z"
+      },
+      "final_score": "6–2 0–3",
+      "round": "Ronda de 32",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2022-02-14",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 11,
+        "rank2": 38,
+        "rankLabel": "Ranking al jugar",
+        "age1": 28.1,
+        "age2": 22.6,
+        "minutes": 60,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawWinner": 1,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2022-02-14",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 38,
+        "rank2": 11,
+        "rankLabel": "Ranking al jugar",
+        "age1": 22.6,
+        "age2": 28.1,
+        "minutes": 60,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "source": "https://www.wtatennis.com/news/2487445/jabeur-outlasts-zvonareva-kudermetova-topples-azarenka-in-dubai",
+        "corroboration": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/wta/wta_matches_2022.csv",
+        "score": "6–2 0–3",
+        "winner": 2,
+        "status": "Retired"
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "wta-archive-1003221",
+      "tour": "wta",
+      "tournament": "Indian Wells",
+      "surface": "hard",
+      "category": "WTA 1000",
+      "year": 2022,
+      "player1": {
+        "name": "Amanda Anisimova",
+        "seed": null
+      },
+      "player2": {
+        "name": "Leylah Fernandez",
+        "seed": 18
+      },
+      "score_summary": {
+        "sets": [
+          1,
+          1
+        ],
+        "games": [
+          [
+            6,
+            2
+          ],
+          [
+            6,
+            7
+          ]
+        ],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2022-03-07T00:00:00Z"
+      },
+      "final_score": "6–2 6–7(0)",
+      "round": "Ronda de 64",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2022-03-07",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 43,
+        "rank2": 21,
+        "rankLabel": "Ranking al jugar",
+        "age1": 20.5,
+        "age2": 19.4,
+        "minutes": 96,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El ganador no coincide con los sets necesarios para ganar.",
+        "tape": "none"
+      },
+      "rawWinner": 1,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2022-03-07",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 21,
+        "rank2": 43,
+        "rankLabel": "Ranking al jugar",
+        "age1": 19.4,
+        "age2": 20.5,
+        "minutes": 96,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "source": "https://www.wtatennis.com/tournaments/609/indian-wells/2022/scores/LS050",
+        "corroboration": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/wta/wta_matches_2022.csv",
+        "score": "6–2 6–7(0)",
+        "winner": 2,
+        "status": "Retired"
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "wta-archive-1003080",
+      "tour": "wta",
+      "tournament": "Guadalajara",
+      "surface": "hard",
+      "category": "WTA 250",
+      "year": 2022,
+      "player1": {
+        "name": "Anna Kalinskaya",
+        "seed": null
+      },
+      "player2": {
+        "name": "Sloane Stephens",
+        "seed": 6
+      },
+      "score_summary": {
+        "sets": [
+          1,
+          1
+        ],
+        "games": [
+          [
+            6,
+            3
+          ],
+          [
+            5,
+            7
+          ]
+        ],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2022-02-21T00:00:00Z"
+      },
+      "final_score": "6–3 5–7",
+      "round": "Semifinal",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2022-02-21",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 100,
+        "rank2": 57,
+        "rankLabel": "Ranking al jugar",
+        "age1": 23.2,
+        "age2": 28.9,
+        "minutes": 112,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El ganador no coincide con los sets necesarios para ganar.",
+        "tape": "none"
+      },
+      "rawWinner": 1,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2022-02-21",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 57,
+        "rank2": 100,
+        "rankLabel": "Ranking al jugar",
+        "age1": 28.9,
+        "age2": 23.2,
+        "minutes": 112,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "source": "https://www.wtatennis.com/news/2507794/bouzkova-stephens-advance-to-guadalajara-final",
+        "corroboration": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/wta/wta_matches_2022.csv",
+        "score": "6–3 5–7",
+        "winner": 2,
+        "status": "Retired"
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "wta-archive-1004730",
+      "tour": "wta",
+      "tournament": "Portoroz",
+      "surface": "hard",
+      "category": "WTA 250",
+      "year": 2022,
+      "player1": {
+        "name": "Dayana Yastremska",
+        "seed": null
+      },
+      "player2": {
+        "name": "Emma Raducanu",
+        "seed": 1
+      },
+      "score_summary": {
+        "sets": [
+          0,
+          2
+        ],
+        "games": [
+          [
+            2,
+            6
+          ],
+          [
+            3,
+            5
+          ]
+        ],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2022-09-12T00:00:00Z"
+      },
+      "final_score": "2–6 3–5",
+      "round": "Ronda de 32",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2022-09-12",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 89,
+        "rank2": 83,
+        "rankLabel": "Ranking al jugar",
+        "age1": 22.3,
+        "age2": 19.8,
+        "minutes": 83,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawWinner": 1,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2022-09-12",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 83,
+        "rank2": 89,
+        "rankLabel": "Ranking al jugar",
+        "age1": 19.8,
+        "age2": 22.3,
+        "minutes": 83,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "source": "https://www.wtatennis.com/tournaments/2044/ljubljana-125/2022/scores/LS016",
+        "corroboration": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/wta/wta_matches_2022.csv",
+        "score": "2–6 3–5",
+        "winner": 2,
+        "status": "Retired"
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "wta-archive-986871",
+      "tour": "wta",
+      "tournament": "Sydney",
+      "surface": "hard",
+      "category": "WTA 500",
+      "year": 2015,
+      "player1": {
+        "name": "Madison Keys",
+        "seed": null
+      },
+      "player2": {
+        "name": "Tsvetana Pironkova",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          1,
+          1
+        ],
+        "games": [
+          [
+            6,
+            4
+          ],
+          [
+            1,
+            4
+          ]
+        ],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2015-01-12T00:00:00Z"
+      },
+      "final_score": "6–4 1–4",
+      "round": "Octavos de final",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2015-01-12",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 33,
+        "rank2": 67,
+        "rankLabel": "Ranking al jugar",
+        "age1": 19.9,
+        "age2": 27.3,
+        "minutes": null,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawWinner": 1,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2015-01-12",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 67,
+        "rank2": 33,
+        "rankLabel": "Ranking al jugar",
+        "age1": 27.3,
+        "age2": 19.9,
+        "minutes": null,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "source": "https://www.tennis.com/news/articles/keys-retires-in-sydney-with-shoulder-pain-but-expects-to-play-aussie-open",
+        "corroboration": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/wta/wta_matches_2015.csv",
+        "score": "6–4 1–4",
+        "winner": 2,
+        "status": "Retired"
+      }
+    }
+  },
+  {
+    "match": {
+      "provider_revision": {
+        "retrieved_at": "2026-11-10T13:56:28.377Z",
+        "updated_at": "2026-09-24T17:19:28.685015Z",
+        "version": 1
+      },
+      "match_id": "wta-live-53082",
+      "tour": "wta",
+      "tournament": "Miami",
+      "surface": "hard",
+      "category": "WTA 1000",
+      "year": 2023,
+      "player1": {
+        "name": "Elena Rybakina",
+        "seed": null
+      },
+      "player2": {
+        "name": "Petra Kvitova",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [],
+        "games": [],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2023-04-01T19:10:00Z"
+      },
+      "final_score": "",
+      "round": "Final",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2023-04-01T19:10:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": null,
+        "rank2": null,
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      },
+      "quality": {
+        "result": "review",
+        "reason": "Falta un ganador identificable.",
+        "tape": "none"
+      },
+      "rawWinner": null,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2023-04-01T19:10:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": 1,
+        "rank2": 1221,
+        "rankLabel": "Ranking en la descarga",
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "source": "https://www.wtatennis.com/news/3132386/kvitova-snaps-rybakinas-streak-to-win-30th-career-title-in-miami",
+        "corroboration": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/wta/wta_matches_2023.csv",
+        "score": "6–7(14) 2–6",
+        "winner": 2,
+        "status": "Finished"
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "wta-archive-989336",
+      "tour": "wta",
+      "tournament": "Australian Open",
+      "surface": "hard",
+      "category": "Grand Slam",
+      "year": 2016,
+      "player1": {
+        "name": "Mariana Duque Marino",
+        "seed": null
+      },
+      "player2": {
+        "name": "Xinyun Han",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          0,
+          2
+        ],
+        "games": [
+          [
+            2,
+            6
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2016-01-18T00:00:00Z"
+      },
+      "final_score": "2–6 1–2",
+      "round": "Ronda de 128",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2016-01-18",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 77,
+        "rank2": 162,
+        "rankLabel": "Ranking al jugar",
+        "age1": 26.4,
+        "age2": 25.6,
+        "minutes": 53,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawWinner": 1,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2016-01-18",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 162,
+        "rank2": 77,
+        "rankLabel": "Ranking al jugar",
+        "age1": 25.6,
+        "age2": 26.4,
+        "minutes": 53,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-archive-989336",
+        "tour": "wta",
+        "year": 2016,
+        "tournament": "Australian Open",
+        "round": "Ronda de 128",
+        "first": "Mariana Duque Marino",
+        "second": "Xinyun Han",
+        "score": "2–6 1–2",
+        "winner": 2,
+        "status": "Retired",
+        "source": "https://www.noticiasrcn.com/deportes/mariana-duque-se-quedo-en-primera-ronda-del-abierto-de-australia-264780",
+        "corroboration": "https://matchtenis.com/el-tobillo-aparta-a-duque-del-australian-open/",
+        "reviewedAt": "2026-11-10T19:31:19.635371+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "wta-archive-985067",
+      "tour": "wta",
+      "tournament": "Bad Gastein",
+      "surface": "clay",
+      "category": "WTA 250",
+      "year": 2015,
+      "player1": {
+        "name": "Karin Knapp",
+        "seed": 3
+      },
+      "player2": {
+        "name": "Samantha Stosur",
+        "seed": 2
+      },
+      "score_summary": {
+        "sets": [
+          1,
+          1
+        ],
+        "games": [
+          [
+            6,
+            3
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            6,
+            6
+          ]
+        ],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2015-07-20T00:00:00Z"
+      },
+      "final_score": "6–3 6–7(3) 6–6",
+      "round": "Final",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2015-07-20",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 43,
+        "rank2": 23,
+        "rankLabel": "Ranking al jugar",
+        "age1": 28,
+        "age2": 31.3,
+        "minutes": null,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawWinner": 1,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2015-07-20",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 23,
+        "rank2": 43,
+        "rankLabel": "Ranking al jugar",
+        "age1": 31.3,
+        "age2": 28,
+        "minutes": null,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-archive-985067",
+        "tour": "wta",
+        "year": 2015,
+        "tournament": "Bad Gastein",
+        "round": "Final",
+        "first": "Karin Knapp",
+        "second": "Samantha Stosur",
+        "score": "6–3 6–7(3) 2–6",
+        "winner": 2,
+        "status": "Finished",
+        "source": "https://www.tennis.com/news/articles/stosur-defeats-knapp-for-bad-gastein-title",
+        "corroboration": "https://www.tenisportal.si/samantha-stosur-dobila-dramaticni-finale-v-bad-gasteinu",
+        "reviewedAt": "2026-11-10T19:31:19.636015+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "wta-archive-981891",
+      "tour": "wta",
+      "tournament": "Wimbledon",
+      "surface": "grass",
+      "category": "Grand Slam",
+      "year": 2013,
+      "player1": {
+        "name": "Marina Erakovic",
+        "seed": null
+      },
+      "player2": {
+        "name": "Shuai Peng",
+        "seed": 24
+      },
+      "score_summary": {
+        "sets": [
+          1,
+          0
+        ],
+        "games": [
+          [
+            7,
+            6
+          ],
+          [
+            6,
+            6
+          ]
+        ],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2013-06-24T00:00:00Z"
+      },
+      "final_score": "7–6(6) 6–6",
+      "round": "Ronda de 64",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2013-06-24",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 71,
+        "rank2": 26,
+        "rankLabel": "Ranking al jugar",
+        "age1": 25.3,
+        "age2": 27.4,
+        "minutes": null,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawWinner": 1,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2013-06-24",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 71,
+        "rank2": 26,
+        "rankLabel": "Ranking al jugar",
+        "age1": 25.3,
+        "age2": 27.4,
+        "minutes": null,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-archive-981891",
+        "tour": "wta",
+        "year": 2013,
+        "tournament": "Wimbledon",
+        "round": "Ronda de 64",
+        "first": "Marina Erakovic",
+        "second": "Shuai Peng",
+        "score": "7–6(6) 6–2",
+        "winner": 1,
+        "status": "Finished",
+        "source": "https://wtafiles.blob.core.windows.net/pdf/draws/archive/2013/904.pdf",
+        "corroboration": "https://baselinesport.wordpress.com/2013/06/27/wimbledon-day-four/",
+        "reviewedAt": "2026-11-10T19:31:19.636085+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "wta-archive-974451",
+      "tour": "wta",
+      "tournament": "Birmingham",
+      "surface": "grass",
+      "category": "WTA 250",
+      "year": 2011,
+      "player1": {
+        "name": "Anastasia Rodionova",
+        "seed": null
+      },
+      "player2": {
+        "name": "Christina Mchale",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          1,
+          1
+        ],
+        "games": [
+          [
+            6,
+            3
+          ],
+          [
+            6,
+            7
+          ]
+        ],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2011-06-06T00:00:00Z"
+      },
+      "final_score": "6–3 6–7(7)",
+      "round": "Ronda de 64",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2011-06-06",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 73,
+        "rank2": 71,
+        "rankLabel": "Ranking al jugar",
+        "age1": 29,
+        "age2": 19,
+        "minutes": null,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El ganador no coincide con los sets necesarios para ganar.",
+        "tape": "none"
+      },
+      "rawWinner": 1,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2011-06-06",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 71,
+        "rank2": 73,
+        "rankLabel": "Ranking al jugar",
+        "age1": 19,
+        "age2": 29,
+        "minutes": null,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-archive-974451",
+        "tour": "wta",
+        "year": 2011,
+        "tournament": "Birmingham",
+        "round": "Ronda de 64",
+        "first": "Anastasia Rodionova",
+        "second": "Christina Mchale",
+        "score": "6–3 6–7(7) 2–6",
+        "winner": 2,
+        "status": "Finished",
+        "source": "https://www.lta.org.uk/49bcd7/siteassets/events/birmingham/media/2011.pdf",
+        "corroboration": "https://en.tennistemple.com/competitions/birmingham-2011/773/orderofplay/2011-06-07",
+        "reviewedAt": "2026-11-10T19:31:19.636153+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "wta-archive-971543",
+      "tour": "wta",
+      "tournament": "Copenhagen",
+      "surface": "hard",
+      "category": "WTA 250",
+      "year": 2010,
+      "player1": {
+        "name": "Petra Kvitova",
+        "seed": 3
+      },
+      "player2": {
+        "name": "Sorana Cirstea",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          0,
+          2
+        ],
+        "games": [
+          [
+            4,
+            4
+          ],
+          [
+            2,
+            6
+          ],
+          [
+            4,
+            6
+          ]
+        ],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2010-08-02T00:00:00Z"
+      },
+      "final_score": "4–4 2–6 4–6",
+      "round": "Ronda de 32",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2010-08-02",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 31,
+        "rank2": 63,
+        "rankLabel": "Ranking al jugar",
+        "age1": 24.3,
+        "age2": 28.5,
+        "minutes": null,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawWinner": 1,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2010-08-02",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 63,
+        "rank2": 31,
+        "rankLabel": "Ranking al jugar",
+        "age1": 28.5,
+        "age2": 24.3,
+        "minutes": null,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-archive-971543",
+        "tour": "wta",
+        "year": 2010,
+        "tournament": "Copenhagen",
+        "round": "Ronda de 32",
+        "first": "Petra Kvitova",
+        "second": "Sorana Cirstea",
+        "score": "6–4 2–6 4–6",
+        "winner": 2,
+        "status": "Finished",
+        "source": "https://www.tennisexplorer.com/match-detail/?id=783299",
+        "corroboration": "https://www.tenisdecamp.ro/rezultate/rezultate-wta-2010/",
+        "reviewedAt": "2026-11-10T19:31:19.636220+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "wta-archive-961671",
+      "tour": "wta",
+      "tournament": "New Haven",
+      "surface": "hard",
+      "category": "WTA 500",
+      "year": 2006,
+      "player1": {
+        "name": "Elena Dementieva",
+        "seed": 3
+      },
+      "player2": {
+        "name": "Svetlana Kuznetsova",
+        "seed": 5
+      },
+      "score_summary": {
+        "sets": [
+          1,
+          1
+        ],
+        "games": [
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            3
+          ]
+        ],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2006-08-21T00:00:00Z"
+      },
+      "final_score": "3–6 6–3",
+      "round": "Cuartos de final",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2006-08-21",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 5,
+        "rank2": 7,
+        "rankLabel": "Ranking al jugar",
+        "age1": 19.8,
+        "age2": 22.3,
+        "minutes": null,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El ganador no coincide con los sets necesarios para ganar.",
+        "tape": "none"
+      },
+      "rawWinner": 1,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2006-08-21",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 7,
+        "rank2": 5,
+        "rankLabel": "Ranking al jugar",
+        "age1": 22.3,
+        "age2": 19.8,
+        "minutes": null,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-archive-961671",
+        "tour": "wta",
+        "year": 2006,
+        "tournament": "New Haven",
+        "round": "Cuartos de final",
+        "first": "Elena Dementieva",
+        "second": "Svetlana Kuznetsova",
+        "score": "3–6 6–3 2–6",
+        "winner": 2,
+        "status": "Finished",
+        "source": "https://www.tennisserver.com/photofeed/2006/06_08_24newhaven-2.html",
+        "corroboration": "https://iol.co.za/sport/tennis/2006-08-25-kuznetsova-moves-on-after-downing-dementieva/",
+        "reviewedAt": "2026-11-10T19:31:19.636289+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "wta-archive-961193",
+      "tour": "wta",
+      "tournament": "San Diego",
+      "surface": "hard",
+      "category": "WTA 1000",
+      "year": 2006,
+      "player1": {
+        "name": "Kateryna Bondarenko",
+        "seed": null
+      },
+      "player2": {
+        "name": "Paola Suarez",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          1,
+          1
+        ],
+        "games": [
+          [
+            6,
+            7
+          ],
+          [
+            6,
+            2
+          ]
+        ],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2006-07-31T00:00:00Z"
+      },
+      "final_score": "6–7(4) 6–2",
+      "round": "Ronda de 32",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2006-07-31",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 107,
+        "rank2": 341,
+        "rankLabel": "Ranking al jugar",
+        "age1": 19.9,
+        "age2": 30.1,
+        "minutes": null,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El ganador no coincide con los sets necesarios para ganar.",
+        "tape": "none"
+      },
+      "rawWinner": 1,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2006-07-31",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 341,
+        "rank2": 107,
+        "rankLabel": "Ranking al jugar",
+        "age1": 30.1,
+        "age2": 19.9,
+        "minutes": null,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-archive-961193",
+        "tour": "wta",
+        "year": 2006,
+        "tournament": "San Diego",
+        "round": "Ronda de 32",
+        "first": "Kateryna Bondarenko",
+        "second": "Paola Suarez",
+        "score": "6–7(4) 6–2 3–6",
+        "winner": 2,
+        "status": "Finished",
+        "source": "https://atarde.com.br/esportes/resultados-do-torneio-de-san-diego-73942",
+        "corroboration": "https://fr.wikipedia.org/wiki/Tournoi_de_tennis_de_San_Diego_%28WTA_2006%29",
+        "reviewedAt": "2026-11-10T19:31:19.636357+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "provider_revision": {
+        "retrieved_at": "2026-11-10T13:56:28.377Z",
+        "updated_at": "2026-07-27T21:53:48.035698Z",
+        "version": 1
+      },
+      "match_id": "wta-live-136180",
+      "tour": "wta",
+      "tournament": "Zhengzhou",
+      "surface": "hard",
+      "category": "WTA 500",
+      "year": 2023,
+      "player1": {
+        "name": "Kateryna Volodko",
+        "seed": null
+      },
+      "player2": {
+        "name": "Qinwen Zheng",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          0,
+          2
+        ],
+        "games": [
+          [
+            4,
+            6
+          ],
+          [
+            3,
+            5
+          ]
+        ],
+        "points": [
+          "0",
+          "0"
+        ],
+        "server": 2,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2023-10-09T11:10:00Z"
+      },
+      "final_score": "4–6 3–5",
+      "round": "Ronda de 32",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2023-10-09T11:10:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": null,
+        "rank2": null,
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawWinner": 1,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2023-10-09T11:10:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": 22,
+        "rank2": null,
+        "rankLabel": "Ranking en la descarga",
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-live-136180",
+        "tour": "wta",
+        "year": 2023,
+        "tournament": "Zhengzhou",
+        "round": "Ronda de 32",
+        "first": "Kateryna Volodko",
+        "second": "Qinwen Zheng",
+        "score": "4–6 3–6",
+        "winner": 2,
+        "status": "Finished",
+        "source": "https://www.wtatennis.com/news/3732237/zheng-qinwen-claims-first-win-on-home-soil-in-zhengzhou",
+        "corroboration": "https://wtafiles.wtatennis.com/pdf/draws/2023/2008/MDS.pdf",
+        "reviewedAt": "2026-11-10T19:36:08.661322+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "provider_revision": {
+        "retrieved_at": "2026-11-10T13:56:28.377Z",
+        "updated_at": "2026-07-27T21:55:56.046028Z",
+        "version": 1
+      },
+      "match_id": "wta-live-140201",
+      "tour": "wta",
+      "tournament": "Monastir",
+      "surface": "hard",
+      "category": "WTA 250",
+      "year": 2023,
+      "player1": {
+        "name": "Aliona Bolsova Zadoinov",
+        "seed": null
+      },
+      "player2": {
+        "name": "Mai Hontama",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          1,
+          2
+        ],
+        "games": [
+          [
+            6,
+            4
+          ],
+          [
+            4,
+            6
+          ],
+          [
+            0,
+            5
+          ]
+        ],
+        "points": [
+          "0",
+          "0"
+        ],
+        "server": 2,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2023-10-17T11:35:00Z"
+      },
+      "final_score": "6–4 4–6 0–5",
+      "round": "Ronda de 32",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2023-10-17T11:35:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": null,
+        "rank2": null,
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawWinner": 2,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2023-10-17T11:35:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": 647,
+        "rank2": 152,
+        "rankLabel": "Ranking en la descarga",
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-live-140201",
+        "tour": "wta",
+        "year": 2023,
+        "tournament": "Monastir",
+        "round": "Ronda de 32",
+        "first": "Aliona Bolsova Zadoinov",
+        "second": "Mai Hontama",
+        "score": "6–4 4–6 0–6",
+        "winner": 2,
+        "status": "Finished",
+        "source": "https://tennistonic.com/stat-tournaments/wta/14866/39326-18452/mai-hontama-vs-aliona-bolsova/",
+        "corroboration": "https://www.365scores.com/en-us/tennis/match/wta-250-monastir-7880/aliona-bolsova-zadoinov-mai-hontama-51759-54444-7880",
+        "reviewedAt": "2026-11-10T19:36:08.661728+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "provider_revision": {
+        "retrieved_at": "2026-11-10T13:56:28.377Z",
+        "updated_at": "2026-07-27T21:57:40.649913Z",
+        "version": 1
+      },
+      "match_id": "wta-live-142928",
+      "tour": "wta",
+      "tournament": "Cluj-Napoca",
+      "surface": "clay",
+      "category": "WTA 250",
+      "year": 2023,
+      "player1": {
+        "name": "Emiliana Arango",
+        "seed": null
+      },
+      "player2": {
+        "name": "Gabriela Elena Ruse",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          1,
+          2
+        ],
+        "games": [
+          [
+            1,
+            6
+          ],
+          [
+            6,
+            0
+          ],
+          [
+            1,
+            5
+          ]
+        ],
+        "points": [
+          "0",
+          "0"
+        ],
+        "server": 2,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2023-10-20T13:35:00Z"
+      },
+      "final_score": "1–6 6–0 1–5",
+      "round": "Cuartos de final",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2023-10-20T13:35:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": null,
+        "rank2": null,
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawWinner": 2,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2023-10-20T13:35:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": 173,
+        "rank2": 61,
+        "rankLabel": "Ranking en la descarga",
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-live-142928",
+        "tour": "wta",
+        "year": 2023,
+        "tournament": "Cluj-Napoca",
+        "round": "Cuartos de final",
+        "first": "Emiliana Arango",
+        "second": "Gabriela Elena Ruse",
+        "score": "1–6 6–0 1–6",
+        "winner": 2,
+        "status": "Finished",
+        "source": "https://www.wtatennis.com/tournaments/2050/cluj-napoca/2023/scores/LS007",
+        "corroboration": "https://www.lequipe.fr/Tennis/cluj/epreuve-simple-dames/annee-2023/match-direct/emiliana-arango-elena-gabriela-ruse-live/351606",
+        "reviewedAt": "2026-11-10T19:36:08.661800+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "provider_revision": {
+        "retrieved_at": "2026-11-10T13:54:49.929Z",
+        "updated_at": "2026-07-27T20:34:41.687582Z",
+        "version": 1
+      },
+      "match_id": "wta-live-38943",
+      "tour": "wta",
+      "tournament": "Cluj-Napoca",
+      "surface": "clay",
+      "category": "WTA 250",
+      "year": 2024,
+      "player1": {
+        "name": "Anastasija Sevastova",
+        "seed": null
+      },
+      "player2": {
+        "name": "Andreea Mitu",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          2,
+          0
+        ],
+        "games": [
+          [
+            6,
+            2
+          ],
+          [
+            5,
+            3
+          ]
+        ],
+        "points": [
+          "0",
+          "0"
+        ],
+        "server": 1,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2024-02-06T14:10:00Z"
+      },
+      "final_score": "6–2 5–3",
+      "round": "Ronda de 32",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2024-02-06T14:10:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": null,
+        "rank2": null,
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawWinner": 1,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2024-02-06T14:10:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": 841,
+        "rank2": null,
+        "rankLabel": "Ranking en la descarga",
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-live-38943",
+        "tour": "wta",
+        "year": 2024,
+        "tournament": "Cluj-Napoca",
+        "round": "Ronda de 32",
+        "first": "Anastasija Sevastova",
+        "second": "Andreea Mitu",
+        "score": "6–2 6–3",
+        "winner": 1,
+        "status": "Finished",
+        "source": "https://www.wtatennis.com/tournaments/2050/cluj-napoca/2024/scores/LS022",
+        "corroboration": "https://www.tennisexplorer.com/match-detail/?id=2541247",
+        "reviewedAt": "2026-11-10T19:36:08.661874+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "provider_revision": {
+        "retrieved_at": "2026-11-10T13:53:01.877Z",
+        "updated_at": "2026-10-07T00:45:15.908946Z",
+        "version": 2
+      },
+      "match_id": "wta-live-115046",
+      "tour": "wta",
+      "tournament": "Iasi",
+      "surface": "clay",
+      "category": "WTA 250",
+      "year": 2025,
+      "player1": {
+        "name": "Irina-Camelia Begu",
+        "seed": null
+      },
+      "player2": {
+        "name": "Victoria Jimenez Kasintseva",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          2,
+          1
+        ],
+        "games": [
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            3
+          ],
+          [
+            5,
+            3
+          ]
+        ],
+        "points": [
+          "0",
+          "0"
+        ],
+        "server": 1,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2025-07-17T11:50:00Z"
+      },
+      "final_score": "3–6 6–3 5–3",
+      "round": "Octavos de final",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2025-07-17T11:50:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": null,
+        "rank2": null,
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawWinner": 2,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2025-07-17T11:50:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": 217,
+        "rank2": 450,
+        "rankLabel": "Ranking en la descarga",
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-live-115046",
+        "tour": "wta",
+        "year": 2025,
+        "tournament": "Iasi",
+        "round": "Octavos de final",
+        "first": "Irina-Camelia Begu",
+        "second": "Victoria Jimenez Kasintseva",
+        "score": "3–6 6–3 6–3",
+        "winner": 1,
+        "status": "Finished",
+        "source": "https://www.wtatennis.com/tournaments/2063/iasi/2025/scores/LS012",
+        "corroboration": "https://www.tennisexplorer.com/match-detail/?id=2959165",
+        "reviewedAt": "2026-11-10T19:36:08.661947+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "wta-archive-987264",
+      "tour": "wta",
+      "tournament": "Wimbledon",
+      "surface": "grass",
+      "category": "Grand Slam",
+      "year": 2015,
+      "player1": {
+        "name": "Aliaksandra Sasnovich",
+        "seed": null
+      },
+      "player2": {
+        "name": "Lin Zhu",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          2,
+          1
+        ],
+        "games": [
+          [
+            4,
+            5
+          ],
+          [
+            7,
+            5
+          ],
+          [
+            6,
+            1
+          ]
+        ],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2015-06-29T00:00:00Z"
+      },
+      "final_score": "4–5 7–5 6–1",
+      "round": "Ronda de 128",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2015-06-29",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 137,
+        "rank2": 116,
+        "rankLabel": "Ranking al jugar",
+        "age1": 21.2,
+        "age2": 21.4,
+        "minutes": null,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawWinner": 1,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2015-06-29",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 137,
+        "rank2": 116,
+        "rankLabel": "Ranking al jugar",
+        "age1": 21.2,
+        "age2": 21.4,
+        "minutes": null,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-archive-987264",
+        "tour": "wta",
+        "year": 2015,
+        "tournament": "Wimbledon",
+        "round": "Ronda de 128",
+        "first": "Aliaksandra Sasnovich",
+        "second": "Lin Zhu",
+        "score": "4–6 7–5 6–1",
+        "winner": 1,
+        "status": "Finished",
+        "source": "https://assets.wimbledon.com/archive/draws/pdfs/draws/2015_LS_A4.pdf",
+        "corroboration": "https://en.wikipedia.org/wiki/2015_Wimbledon_Championships_%E2%80%93_Women%27s_singles",
+        "reviewedAt": "2026-11-10T19:36:08.662018+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "provider_revision": {
+        "retrieved_at": "2026-11-10T13:54:49.929Z",
+        "updated_at": "2026-07-27T22:53:39.596820Z",
+        "version": 1
+      },
+      "match_id": "wta-live-167551",
+      "tour": "wta",
+      "tournament": "Auckland",
+      "surface": "hard",
+      "category": "WTA 250",
+      "year": 2024,
+      "player1": {
+        "name": "Jule Niemeier",
+        "seed": null
+      },
+      "player2": {
+        "name": "Nao Hibino",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          0,
+          2
+        ],
+        "games": [
+          [
+            3,
+            6
+          ],
+          [
+            4,
+            5
+          ]
+        ],
+        "points": [
+          "0",
+          "0"
+        ],
+        "server": 1,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2024-12-29T22:35:00Z"
+      },
+      "final_score": "3–6 4–5",
+      "round": "Ronda de 32",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2024-12-29T22:35:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": null,
+        "rank2": null,
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawWinner": 2,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2024-12-29T22:35:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": 451,
+        "rank2": 199,
+        "rankLabel": "Ranking en la descarga",
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-live-167551",
+        "tour": "wta",
+        "year": 2024,
+        "tournament": "Auckland",
+        "round": "Ronda de 32",
+        "first": "Jule Niemeier",
+        "second": "Nao Hibino",
+        "score": "3–6 4–6",
+        "winner": 2,
+        "status": "Finished",
+        "source": "https://www.wtatennis.com/tournaments/1049/auckland/2025/scores/LS022",
+        "corroboration": "https://canaltenis.com/cuadro-wta-auckland-2025/",
+        "reviewedAt": "2026-11-10T19:36:08.662093+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "provider_revision": {
+        "retrieved_at": "2026-11-10T13:54:49.929Z",
+        "updated_at": "2026-07-27T22:53:39.616112Z",
+        "version": 1
+      },
+      "match_id": "wta-live-167552",
+      "tour": "wta",
+      "tournament": "Auckland",
+      "surface": "hard",
+      "category": "WTA 250",
+      "year": 2024,
+      "player1": {
+        "name": "Clara Tauson",
+        "seed": null
+      },
+      "player2": {
+        "name": "Lucrezia Stefanini",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          2,
+          0
+        ],
+        "games": [
+          [
+            6,
+            2
+          ],
+          [
+            5,
+            3
+          ]
+        ],
+        "points": [
+          "0",
+          "0"
+        ],
+        "server": 1,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2024-12-29T22:35:00Z"
+      },
+      "final_score": "6–2 5–3",
+      "round": "Ronda de 32",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2024-12-29T22:35:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": null,
+        "rank2": null,
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawWinner": 2,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2024-12-29T22:35:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": 110,
+        "rank2": 58,
+        "rankLabel": "Ranking en la descarga",
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-live-167552",
+        "tour": "wta",
+        "year": 2024,
+        "tournament": "Auckland",
+        "round": "Ronda de 32",
+        "first": "Clara Tauson",
+        "second": "Lucrezia Stefanini",
+        "score": "6–2 6–3",
+        "winner": 1,
+        "status": "Finished",
+        "source": "https://www.wtatennis.com/tournaments/1049/Auckland-500/2025/draws",
+        "corroboration": "https://www.tennisabstract.com/cgi-bin/wtourney.cgi?t=2025-1049%2FAuckland",
+        "reviewedAt": "2026-11-10T19:36:08.662163+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "provider_revision": {
+        "retrieved_at": "2026-11-10T13:54:49.929Z",
+        "updated_at": "2026-07-27T22:53:55.391635Z",
+        "version": 1
+      },
+      "match_id": "wta-live-167666",
+      "tour": "wta",
+      "tournament": "Auckland",
+      "surface": "hard",
+      "category": "WTA 250",
+      "year": 2024,
+      "player1": {
+        "name": "Mai Hontama",
+        "seed": null
+      },
+      "player2": {
+        "name": "Robin Montgomery",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          1,
+          2
+        ],
+        "games": [
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            2
+          ],
+          [
+            0,
+            5
+          ]
+        ],
+        "points": [
+          "0",
+          "0"
+        ],
+        "server": 2,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2024-12-31T05:40:00Z"
+      },
+      "final_score": "3–6 6–2 0–5",
+      "round": "Ronda de 32",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2024-12-31T05:40:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": null,
+        "rank2": null,
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawWinner": 1,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2024-12-31T05:40:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": 133,
+        "rank2": 152,
+        "rankLabel": "Ranking en la descarga",
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-live-167666",
+        "tour": "wta",
+        "year": 2024,
+        "tournament": "Auckland",
+        "round": "Ronda de 32",
+        "first": "Mai Hontama",
+        "second": "Robin Montgomery",
+        "score": "3–6 6–2 0–6",
+        "winner": 2,
+        "status": "Finished",
+        "source": "https://www.wtatennis.com/players/324750/mai-hontama/record",
+        "corroboration": "https://www.tennisabstract.com/charting/20241231-W-Auckland-R32-Mai_Hontama-Robin_Montgomery.html",
+        "reviewedAt": "2026-11-10T19:36:08.662233+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "provider_revision": {
+        "retrieved_at": "2026-11-10T13:54:49.929Z",
+        "updated_at": "2026-07-27T22:37:13.573660Z",
+        "version": 1
+      },
+      "match_id": "wta-live-26088",
+      "tour": "wta",
+      "tournament": "Auckland",
+      "surface": "hard",
+      "category": "WTA 250",
+      "year": 2024,
+      "player1": {
+        "name": "Bernarda Pera",
+        "seed": null
+      },
+      "player2": {
+        "name": "Rebecca Marino",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          1,
+          0
+        ],
+        "games": [
+          [
+            7,
+            6
+          ],
+          [
+            4,
+            4
+          ]
+        ],
+        "points": [
+          "0",
+          "0"
+        ],
+        "server": 2,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2024-12-31T22:35:00Z"
+      },
+      "final_score": "7–6 4–4",
+      "round": "Octavos de final",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2024-12-31T22:35:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": null,
+        "rank2": null,
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      },
+      "quality": {
+        "result": "review",
+        "reason": "Falta un ganador identificable.",
+        "tape": "none"
+      },
+      "rawWinner": null,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2024-12-31T22:35:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": 631,
+        "rank2": 1424,
+        "rankLabel": "Ranking en la descarga",
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-live-26088",
+        "tour": "wta",
+        "year": 2024,
+        "tournament": "Auckland",
+        "round": "Octavos de final",
+        "first": "Bernarda Pera",
+        "second": "Rebecca Marino",
+        "score": "7–6(2) 6–4",
+        "winner": 1,
+        "status": "Finished",
+        "source": "https://www.wtatennis.com/tournaments/1049/auckland/2025/scores/LS010",
+        "corroboration": "https://www.tennisexplorer.com/match-detail/?id=2791697",
+        "reviewedAt": "2026-11-10T19:36:08.662304+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "provider_revision": {
+        "retrieved_at": "2026-11-10T13:54:49.929Z",
+        "updated_at": "2026-09-24T17:19:33.616328Z",
+        "version": 1
+      },
+      "match_id": "wta-live-95829",
+      "tour": "wta",
+      "tournament": "Wimbledon",
+      "surface": "grass",
+      "category": "Grand Slam",
+      "year": 2024,
+      "player1": {
+        "name": "Lily Yuriko Miyazaki",
+        "seed": null
+      },
+      "player2": {
+        "name": "Tamara Korpatsch",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          2,
+          0
+        ],
+        "games": [
+          [
+            6,
+            2
+          ],
+          [
+            5,
+            1
+          ]
+        ],
+        "points": [
+          "0",
+          "0"
+        ],
+        "server": 1,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2024-07-01T16:35:00Z"
+      },
+      "final_score": "6–2 5–1",
+      "round": "Ronda de 128",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2024-07-01T16:35:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": null,
+        "rank2": null,
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawWinner": 2,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2024-07-01T16:35:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": 62,
+        "rank2": 521,
+        "rankLabel": "Ranking en la descarga",
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-live-95829",
+        "tour": "wta",
+        "year": 2024,
+        "tournament": "Wimbledon",
+        "round": "Ronda de 128",
+        "first": "Lily Yuriko Miyazaki",
+        "second": "Tamara Korpatsch",
+        "score": "6–2 6–1",
+        "winner": 1,
+        "status": "Finished",
+        "source": "https://www.wimbledon.com/en_GB/scores/2024/schedule/pdf/schedulePDF8.pdf",
+        "corroboration": "https://www.lta.org.uk/fan-zone/british-tennis-players/lily-miyazaki/",
+        "reviewedAt": "2026-11-10T19:38:48.775532+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "provider_revision": {
+        "retrieved_at": "2026-11-10T13:53:01.877Z",
+        "updated_at": "2026-10-07T00:45:25.053082Z",
+        "version": 2
+      },
+      "match_id": "wta-live-122578",
+      "tour": "wta",
+      "tournament": "Canada",
+      "surface": "hard",
+      "category": "WTA 1000",
+      "year": 2025,
+      "player1": {
+        "name": "Clara Tauson",
+        "seed": null
+      },
+      "player2": {
+        "name": "Iga Swiatek",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          2,
+          0
+        ],
+        "games": [
+          [
+            7,
+            6
+          ],
+          [
+            5,
+            3
+          ]
+        ],
+        "points": [
+          "0",
+          "0"
+        ],
+        "server": 2,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2025-08-03T22:10:00Z"
+      },
+      "final_score": "7–6 5–3",
+      "round": "Octavos de final",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2025-08-03T22:10:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": null,
+        "rank2": null,
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawWinner": 2,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2025-08-03T22:10:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": 9,
+        "rank2": 58,
+        "rankLabel": "Ranking en la descarga",
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-live-122578",
+        "tour": "wta",
+        "year": 2025,
+        "tournament": "Canada",
+        "round": "Octavos de final",
+        "first": "Clara Tauson",
+        "second": "Iga Swiatek",
+        "score": "7–6(1) 6–3",
+        "winner": 1,
+        "status": "Finished",
+        "source": "https://wtafiles.wtatennis.com/pdf/matchnotes/2025/2025WTAF_Swiatek.pdf",
+        "corroboration": "https://www.tennis.com/news/articles/clara-tauson-upsets-wimbledon-champion-iga-swiatek-to-reach-montreal-quarterfinals",
+        "reviewedAt": "2026-11-10T19:38:48.775985+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "provider_revision": {
+        "retrieved_at": "2026-11-10T13:54:49.929Z",
+        "updated_at": "2026-09-24T17:19:31.035324Z",
+        "version": 1
+      },
+      "match_id": "wta-live-75114",
+      "tour": "wta",
+      "tournament": "Rome",
+      "surface": "clay",
+      "category": "WTA 1000",
+      "year": 2024,
+      "player1": {
+        "name": "Giorgia Pedone",
+        "seed": null
+      },
+      "player2": {
+        "name": "Rebecca Šramková",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          0,
+          2
+        ],
+        "games": [
+          [
+            4,
+            6
+          ],
+          [
+            1,
+            5
+          ]
+        ],
+        "points": [
+          "0",
+          "0"
+        ],
+        "server": 2,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2024-05-09T11:00:00Z"
+      },
+      "final_score": "4–6 1–5",
+      "round": "Ronda de 128",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2024-05-09T11:00:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": null,
+        "rank2": null,
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawWinner": 2,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2024-05-09T11:00:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": 297,
+        "rank2": 151,
+        "rankLabel": "Ranking en la descarga",
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-live-75114",
+        "tour": "wta",
+        "year": 2024,
+        "tournament": "Rome",
+        "round": "Ronda de 128",
+        "first": "Giorgia Pedone",
+        "second": "Rebecca Šramková",
+        "score": "4–6 1–6",
+        "winner": 2,
+        "status": "Finished",
+        "source": "https://www.gazzetta.it/Tennis/ATP/09-05-2024/internazionali-di-roma-live-oggi-nadal-e-14-italiani-la-diretta_amp.shtml",
+        "corroboration": "https://sportnet.sme.sk/spravy/tenis-vysledky-dnes-stvrtok-9-maj-1-a-2-kolo-wta-rim-2024/",
+        "reviewedAt": "2026-11-10T19:38:48.776058+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "provider_revision": {
+        "retrieved_at": "2026-11-10T13:54:49.929Z",
+        "updated_at": "2026-07-27T21:31:17.246362Z",
+        "version": 1
+      },
+      "match_id": "wta-live-105413",
+      "tour": "wta",
+      "tournament": "Iasi",
+      "surface": "clay",
+      "category": "WTA 250",
+      "year": 2024,
+      "player1": {
+        "name": "Anastasia Tikhonova",
+        "seed": null
+      },
+      "player2": {
+        "name": "Gabriela Elena Ruse",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          1,
+          2
+        ],
+        "games": [
+          [
+            3,
+            6
+          ],
+          [
+            7,
+            5
+          ],
+          [
+            0,
+            5
+          ]
+        ],
+        "points": [
+          "0",
+          "0"
+        ],
+        "server": 2,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2024-07-21T17:25:00Z"
+      },
+      "final_score": "3–6 7–5 0–5",
+      "round": "Ronda de 32",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2024-07-21T17:25:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": null,
+        "rank2": null,
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawWinner": 2,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2024-07-21T17:25:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": 276,
+        "rank2": 61,
+        "rankLabel": "Ranking en la descarga",
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-live-105413",
+        "tour": "wta",
+        "year": 2024,
+        "tournament": "Iasi",
+        "round": "Ronda de 32",
+        "first": "Anastasia Tikhonova",
+        "second": "Gabriela Elena Ruse",
+        "score": "3–6 7–5 1–6",
+        "winner": 2,
+        "status": "Finished",
+        "source": "https://www.wtatennis.com/tournaments/2063/iasi/2024/scores/LS026",
+        "corroboration": "https://www.tennismajors.com/wta-tour-news/iasi-open-ruse-advances-to-second-round-774983.html",
+        "reviewedAt": "2026-11-10T19:38:48.776130+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "wta-archive-989388",
+      "tour": "wta",
+      "tournament": "Australian Open",
+      "surface": "hard",
+      "category": "Grand Slam",
+      "year": 2016,
+      "player1": {
+        "name": "Anastasija Sevastova",
+        "seed": null
+      },
+      "player2": {
+        "name": "Jarmila Gajdosova",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          2,
+          0
+        ],
+        "games": [
+          [
+            6,
+            0
+          ],
+          [
+            4,
+            2
+          ]
+        ],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2016-01-18T00:00:00Z"
+      },
+      "final_score": "6–0 4–2",
+      "round": "Ronda de 128",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2016-01-18",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 113,
+        "rank2": 122,
+        "rankLabel": "Ranking al jugar",
+        "age1": 25.7,
+        "age2": 28.7,
+        "minutes": 54,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawWinner": 1,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2016-01-18",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 113,
+        "rank2": 122,
+        "rankLabel": "Ranking al jugar",
+        "age1": 25.7,
+        "age2": 28.7,
+        "minutes": 54,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-archive-989388",
+        "tour": "wta",
+        "year": 2016,
+        "tournament": "Australian Open",
+        "round": "Ronda de 128",
+        "first": "Anastasija Sevastova",
+        "second": "Jarmila Gajdosova",
+        "score": "6–0 4–2",
+        "winner": 1,
+        "status": "Retired",
+        "source": "https://ausopen.com/sites/default/files/2017-11/2016_DrawReport_WS.pdf",
+        "corroboration": "https://en.wikipedia.org/wiki/2016_Australian_Open_%E2%80%93_Women%27s_singles",
+        "reviewedAt": "2026-11-10T19:38:48.776198+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "wta-archive-1001938",
+      "tour": "wta",
+      "tournament": "Canada",
+      "surface": "hard",
+      "category": "WTA 500",
+      "year": 2021,
+      "player1": {
+        "name": "Ajla Tomljanovic",
+        "seed": null
+      },
+      "player2": {
+        "name": "Fiona Ferro",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          1,
+          1
+        ],
+        "games": [
+          [
+            6,
+            2
+          ],
+          [
+            2,
+            6
+          ]
+        ],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2021-08-09T00:00:00Z"
+      },
+      "final_score": "6–2 2–6",
+      "round": "Ronda de 64",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2021-08-09",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 49,
+        "rank2": 84,
+        "rankLabel": "Ranking al jugar",
+        "age1": 28.2,
+        "age2": 24.4,
+        "minutes": 84,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El ganador no coincide con los sets necesarios para ganar.",
+        "tape": "none"
+      },
+      "rawWinner": 1,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2021-08-09",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 84,
+        "rank2": 49,
+        "rankLabel": "Ranking al jugar",
+        "age1": 24.4,
+        "age2": 28.2,
+        "minutes": 84,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-archive-1001938",
+        "tour": "wta",
+        "year": 2021,
+        "tournament": "Canada",
+        "round": "Ronda de 64",
+        "first": "Ajla Tomljanovic",
+        "second": "Fiona Ferro",
+        "score": "6–2 2–6",
+        "winner": 2,
+        "status": "Retired",
+        "source": "https://www.wtatennis.com/tournaments/806/montreal/2021/scores/LS049",
+        "corroboration": "https://www.tennislive.net/wta/match/fiona-ferro-VS-ajla-tomljanovic/rogers-cup-montreal-2021/",
+        "reviewedAt": "2026-11-10T19:44:14.074086+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "provider_revision": {
+        "retrieved_at": "2026-11-10T13:56:28.377Z",
+        "updated_at": "2026-07-27T21:54:02.298933Z",
+        "version": 1
+      },
+      "match_id": "wta-live-136725",
+      "tour": "wta",
+      "tournament": "Hong Kong",
+      "surface": "hard",
+      "category": "WTA 250",
+      "year": 2023,
+      "player1": {
+        "name": "E. Chong",
+        "seed": null
+      },
+      "player2": {
+        "name": "Priscilla Hon",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          0,
+          2
+        ],
+        "games": [
+          [
+            5,
+            7
+          ],
+          [
+            5,
+            6
+          ]
+        ],
+        "points": [
+          "0",
+          "0"
+        ],
+        "server": 2,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2023-10-10T08:50:00Z"
+      },
+      "final_score": "5–7 5–6",
+      "round": "Ronda de 32",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2023-10-10T08:50:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": null,
+        "rank2": null,
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawWinner": 1,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2023-10-10T08:50:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": 294,
+        "rank2": null,
+        "rankLabel": "Ranking en la descarga",
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-live-136725",
+        "tour": "wta",
+        "year": 2023,
+        "tournament": "Hong Kong",
+        "round": "Ronda de 32",
+        "first": "E. Chong",
+        "second": "Priscilla Hon",
+        "score": "5–7 5–7",
+        "winner": 2,
+        "status": "Finished",
+        "source": "https://www.wtatennis.com/tournaments/1074/hong-kong/2023/scores/LS011",
+        "corroboration": "https://www.lequipe.fr/Tennis/hong-kong/epreuve-simple-dames/annee-2023/match-direct/priscilla-hon-eudice-chong-live/351151",
+        "reviewedAt": "2026-11-10T19:44:14.075693+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "archive-104896",
+      "tour": "atp",
+      "tournament": "US Open",
+      "surface": "hard",
+      "category": "Grand Slam",
+      "year": 1995,
+      "player1": {
+        "name": "Jean Philippe Fleurian",
+        "seed": null
+      },
+      "player2": {
+        "name": "Mauricio Hadad",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          0,
+          3
+        ],
+        "games": [
+          [
+            5,
+            7
+          ],
+          [
+            4,
+            6
+          ],
+          [
+            2,
+            5
+          ]
+        ],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "1995-08-28T00:00:00Z"
+      },
+      "final_score": "5–7 4–6 2–5",
+      "round": "Ronda de 128",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "1995-08-28",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 184,
+        "rank2": 88,
+        "rankLabel": "Ranking al jugar",
+        "age1": 29.9,
+        "age2": 23.7,
+        "minutes": null,
+        "format": "Al mejor de 5 sets",
+        "indoor": null,
+        "metadataSources": [
+          {
+            "field": "formato",
+            "url": "https://www.itftennis.com/en/about-us/tennis-tech/science-behind-tennis/rules-and-regulations/"
+          },
+          {
+            "field": "formato",
+            "url": "https://www.wimbledon.com/en_GB/about_wimbledon/rules.html"
+          }
+        ]
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawWinner": 1,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "1995-08-28",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 88,
+        "rank2": 184,
+        "rankLabel": "Ranking al jugar",
+        "age1": 23.7,
+        "age2": 29.9,
+        "minutes": null,
+        "format": "Al mejor de 5 sets",
+        "indoor": null
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "archive-104896",
+        "tour": "atp",
+        "year": 1995,
+        "tournament": "US Open",
+        "round": "Ronda de 128",
+        "first": "Jean Philippe Fleurian",
+        "second": "Mauricio Hadad",
+        "score": "5–7 4–6 2–5",
+        "winner": 2,
+        "status": "Retired",
+        "source": "https://stats.tennismylife.org/data/1995.csv",
+        "corroboration": "https://www.ultimatetennisstatistics.com/tournamentEvent?tab=results&tournamentEventId=2469",
+        "reviewedAt": "2026-11-10T19:44:14.075772+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "provider_revision": {
+        "retrieved_at": "2026-11-10T13:54:49.929Z",
+        "updated_at": "2026-09-24T17:19:25.853401Z",
+        "version": 1
+      },
+      "match_id": "wta-live-29592",
+      "tour": "wta",
+      "tournament": "Australian Open",
+      "surface": "hard",
+      "category": "Grand Slam",
+      "year": 2024,
+      "player1": {
+        "name": "Amanda Anisimova",
+        "seed": null
+      },
+      "player2": {
+        "name": "Laura Samson",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          2,
+          0
+        ],
+        "games": [
+          [
+            6,
+            3
+          ],
+          [
+            5,
+            4
+          ]
+        ],
+        "points": [
+          "0",
+          "0"
+        ],
+        "server": 2,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2024-01-14T05:30:00Z"
+      },
+      "final_score": "6–3 5–4",
+      "round": "Ronda de 128",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2024-01-14T05:30:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": null,
+        "rank2": null,
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawWinner": 1,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2024-01-14T05:30:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": 23,
+        "rank2": 119,
+        "rankLabel": "Ranking en la descarga",
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-live-29592",
+        "tour": "wta",
+        "year": 2024,
+        "tournament": "Australian Open",
+        "round": "Ronda de 128",
+        "first": "Amanda Anisimova",
+        "second": "Laura Samson",
+        "score": "6–3 6–4",
+        "winner": 1,
+        "status": "Finished",
+        "source": "https://ausopen.com/articles/news/blessed-anisimova-makes-winning-return",
+        "corroboration": "https://www.tennismajors.com/australian-open-news/amanda-anisimova-makes-stunning-return-to-grand-slam-tennis-knocking-off-13th-seeded-samsonova-in-straight-sets-736743.html",
+        "reviewedAt": "2026-11-10T19:44:14.075848+00:00",
+        "correctedSecond": "Liudmila Samsonova"
+      }
+    }
+  },
+  {
+    "match": {
+      "provider_revision": {
+        "retrieved_at": "2026-11-10T13:54:49.929Z",
+        "updated_at": "2026-09-24T17:19:36.207768Z",
+        "version": 1
+      },
+      "match_id": "wta-live-127366",
+      "tour": "wta",
+      "tournament": "US Open",
+      "surface": "hard",
+      "category": "Grand Slam",
+      "year": 2024,
+      "player1": {
+        "name": "Liudmila Samsonova",
+        "seed": null
+      },
+      "player2": {
+        "name": "Qiulin Wang",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          2,
+          0
+        ],
+        "games": [
+          [
+            6,
+            2
+          ],
+          [
+            6,
+            5
+          ]
+        ],
+        "points": [
+          "0",
+          "0"
+        ],
+        "server": 1,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2024-08-27T22:30:00Z"
+      },
+      "final_score": "6–2 6–5",
+      "round": "Ronda de 128",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2024-08-27T22:30:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": null,
+        "rank2": null,
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawWinner": 1,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2024-08-27T22:30:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": 40,
+        "rank2": null,
+        "rankLabel": "Ranking en la descarga",
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-live-127366",
+        "tour": "wta",
+        "year": 2024,
+        "tournament": "US Open",
+        "round": "Ronda de 128",
+        "first": "Liudmila Samsonova",
+        "second": "Qiulin Wang",
+        "score": "6–2 7–5",
+        "winner": 1,
+        "status": "Finished",
+        "source": "https://wtafiles.wtatennis.com/pdf/matchnotes/2024/905_8.pdf",
+        "corroboration": "https://www.lequipe.fr/Tennis/us-open/epreuve-simple-dames/annee-2024/match-direct/qiang-wang-liudmila-samsonova-live/373788",
+        "reviewedAt": "2026-11-10T19:44:14.075926+00:00",
+        "correctedSecond": "Qiang Wang"
+      }
+    }
+  },
+  {
+    "match": {
+      "provider_revision": {
+        "retrieved_at": "2026-11-10T13:55:35.777Z",
+        "updated_at": "2026-11-09T17:49:27.424017Z",
+        "version": 1
+      },
+      "match_id": "live-217799",
+      "tour": "atp",
+      "tournament": "Australian Open",
+      "surface": "hard",
+      "category": "Grand Slam",
+      "year": 2023,
+      "player1": {
+        "name": "Alejandro Tabilo",
+        "seed": null
+      },
+      "player2": {
+        "name": "Nikola Milojevic",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [],
+        "games": [],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2023-01-09T03:30:00Z"
+      },
+      "final_score": "",
+      "round": "Cuartos de final",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2023-01-09T03:30:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": null,
+        "rank2": null,
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "Al mejor de 5 sets",
+        "indoor": false,
+        "metadataSources": [
+          {
+            "field": "formato",
+            "url": "https://www.itftennis.com/en/about-us/tennis-tech/science-behind-tennis/rules-and-regulations/"
+          },
+          {
+            "field": "formato",
+            "url": "https://www.wimbledon.com/en_GB/about_wimbledon/rules.html"
+          }
+        ]
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El número de sets no corresponde al formato.",
+        "tape": "none"
+      },
+      "rawWinner": 1,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2023-01-09T03:30:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": 31,
+        "rank2": null,
+        "rankLabel": "Ranking en la descarga",
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO5",
+        "indoor": false
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "live-217799",
+        "tour": "atp",
+        "year": 2023,
+        "tournament": "Australian Open",
+        "round": "Cuartos de final",
+        "first": "Alejandro Tabilo",
+        "second": "Nikola Milojevic",
+        "score": "6–0 6–2",
+        "winner": 1,
+        "status": "Finished",
+        "source": "https://ausopen.com/articles/news/ao-qualifying-vandeweghe-targeting-top-100-return",
+        "corroboration": "https://www.atptour.com/es/news/australia-2023-tabilo-lunes-fase-previa",
+        "reviewedAt": "2026-11-10T19:44:14.076003+00:00",
+        "qualifying": true
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "archive-91129",
+      "tour": "atp",
+      "tournament": "Miami",
+      "surface": "hard",
+      "category": "Masters 1000",
+      "year": 1992,
+      "player1": {
+        "name": "Frederic Fontang",
+        "seed": null
+      },
+      "player2": {
+        "name": "Goran Prpic",
+        "seed": 21
+      },
+      "score_summary": {
+        "sets": [
+          0,
+          2
+        ],
+        "games": [
+          [
+            3,
+            6
+          ],
+          [
+            0,
+            2
+          ]
+        ],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "1992-03-13T00:00:00Z"
+      },
+      "final_score": "3–6 0–2",
+      "round": "Ronda de 64",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "1992-03-13",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 63,
+        "rank2": 25,
+        "rankLabel": "Ranking al jugar",
+        "age1": 21.9,
+        "age2": 27.8,
+        "minutes": 38,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawWinner": 1,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "1992-03-13",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 25,
+        "rank2": 63,
+        "rankLabel": "Ranking al jugar",
+        "age1": 27.8,
+        "age2": 21.9,
+        "minutes": 38,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "archive-91129",
+        "tour": "atp",
+        "year": 1992,
+        "tournament": "Miami",
+        "round": "Ronda de 64",
+        "first": "Frederic Fontang",
+        "second": "Goran Prpic",
+        "score": "3–6 0–2",
+        "winner": 2,
+        "status": "Retired",
+        "source": "https://stats.tennismylife.org/data/1992.csv",
+        "corroboration": "https://en.wikipedia.org/wiki/1992_Lipton_International_Players_Championships_%E2%80%93_Men%27s_singles",
+        "reviewedAt": "2026-11-10T19:45:40.045468+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "provider_revision": {
+        "retrieved_at": "2026-11-10T13:51:22.942Z",
+        "updated_at": "2026-10-07T00:45:57.008979Z",
+        "version": 2
+      },
+      "match_id": "wta-live-27699",
+      "tour": "wta",
+      "tournament": "Auckland",
+      "surface": "hard",
+      "category": "WTA 250",
+      "year": 2026,
+      "player1": {
+        "name": "Gabriela Knutson",
+        "seed": null
+      },
+      "player2": {
+        "name": "Iva Jovic",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          1,
+          2
+        ],
+        "games": [
+          [
+            6,
+            4
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            0,
+            4
+          ]
+        ],
+        "points": [
+          "0",
+          "0"
+        ],
+        "server": 2,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2026-01-04T22:40:00Z"
+      },
+      "final_score": "6–4 1–6 0–4",
+      "round": "Ronda de 32",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2026-01-04T22:40:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": null,
+        "rank2": null,
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawWinner": 1,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2026-01-04T22:40:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": 13,
+        "rank2": 162,
+        "rankLabel": "Ranking en la descarga",
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-live-27699",
+        "tour": "wta",
+        "year": 2026,
+        "tournament": "Auckland",
+        "round": "Ronda de 32",
+        "first": "Gabriela Knutson",
+        "second": "Iva Jovic",
+        "score": "6–4 1–6 0–6",
+        "winner": 2,
+        "status": "Finished",
+        "source": "https://wtafiles.wtatennis.com/pdf/matchnotes/2026/1049_QF.pdf",
+        "corroboration": "https://en.tennistemple.com/match/jovic-knutson-auckland-2026/9448551/stats",
+        "reviewedAt": "2026-11-10T19:45:40.046079+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "provider_revision": {
+        "retrieved_at": "2026-11-10T13:51:22.942Z",
+        "updated_at": "2026-10-07T00:45:57.008979Z",
+        "version": 2
+      },
+      "match_id": "wta-live-27714",
+      "tour": "wta",
+      "tournament": "Auckland",
+      "surface": "hard",
+      "category": "WTA 250",
+      "year": 2026,
+      "player1": {
+        "name": "Caty McNally",
+        "seed": null
+      },
+      "player2": {
+        "name": "Xinyu Wang",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          1,
+          2
+        ],
+        "games": [
+          [
+            6,
+            2
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            5,
+            6
+          ]
+        ],
+        "points": [
+          "0",
+          "0"
+        ],
+        "server": 1,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2026-01-05T00:40:00Z"
+      },
+      "final_score": "6–2 3–6 5–6",
+      "round": "Ronda de 32",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2026-01-05T00:40:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": null,
+        "rank2": null,
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawWinner": 2,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2026-01-05T00:40:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": 67,
+        "rank2": 38,
+        "rankLabel": "Ranking en la descarga",
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-live-27714",
+        "tour": "wta",
+        "year": 2026,
+        "tournament": "Auckland",
+        "round": "Ronda de 32",
+        "first": "Caty McNally",
+        "second": "Xinyu Wang",
+        "score": "6–2 3–6 5–7",
+        "winner": 2,
+        "status": "Finished",
+        "source": "https://wtafiles.wtatennis.com/pdf/matchnotes/2026/1049_QF.pdf",
+        "corroboration": "https://www.tntsports.co.uk/tennis/auckland/2026/live-iva-jovic-gabriela-knutson_mtc1658809/live-matches.shtml",
+        "reviewedAt": "2026-11-10T19:45:40.046155+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "wta-live-210370",
+      "tour": "wta",
+      "tournament": "Tokyo",
+      "surface": "hard",
+      "category": "WTA 500",
+      "year": 2026,
+      "player1": {
+        "name": "Aliaksandra Sasnovich",
+        "seed": null
+      },
+      "player2": {
+        "name": "Nikola Bartunkova",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          0,
+          0
+        ],
+        "games": [
+          [
+            0,
+            0
+          ]
+        ],
+        "points": [
+          "AD",
+          "40"
+        ],
+        "server": 1,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2026-10-27T05:30:00Z"
+      },
+      "final_score": "0–0",
+      "round": "Ronda de 32",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2026-10-27T05:30:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": null,
+        "rank2": null,
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": true
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawWinner": 1,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2026-10-27T05:30:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": 112,
+        "rank2": 29,
+        "rankLabel": "Ranking en la descarga",
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": true
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-live-210370",
+        "tour": "wta",
+        "year": 2026,
+        "tournament": "Tokyo",
+        "round": "Ronda de 32",
+        "first": "Aliaksandra Sasnovich",
+        "second": "Nikola Bartunkova",
+        "score": "6–4 6–7(5) 6–3",
+        "winner": 1,
+        "status": "Finished",
+        "source": "https://www.wtatennis.com/players/330364/x/record",
+        "corroboration": "https://stadiro.com/matches/wta-tokyo/2026-10-26/aliaksandra-sasnovich-v-nikola-bartunkova/",
+        "reviewedAt": "2026-11-10T19:45:40.046226+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "provider_revision": {
+        "retrieved_at": "2026-11-10T13:51:22.942Z",
+        "updated_at": "2026-10-07T00:46:27.756847Z",
+        "version": 2
+      },
+      "match_id": "wta-live-2866",
+      "tour": "wta",
+      "tournament": "Rome",
+      "surface": "clay",
+      "category": "WTA 1000",
+      "year": 2026,
+      "player1": {
+        "name": "Jessica Bouzas Maneiro",
+        "seed": null
+      },
+      "player2": {
+        "name": "Karolína Plíšková",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          0,
+          0
+        ],
+        "games": [
+          [
+            5,
+            4
+          ]
+        ],
+        "points": [
+          "0",
+          "0"
+        ],
+        "server": 1,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2026-05-06T19:20:00Z"
+      },
+      "final_score": "5–4",
+      "round": "Ronda de 128",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2026-05-06T19:20:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": null,
+        "rank2": null,
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawWinner": 2,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2026-05-06T19:20:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": 104,
+        "rank2": 52,
+        "rankLabel": "Ranking en la descarga",
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-live-2866",
+        "tour": "wta",
+        "year": 2026,
+        "tournament": "Rome",
+        "round": "Ronda de 128",
+        "first": "Jessica Bouzas Maneiro",
+        "second": "Karolína Plíšková",
+        "score": "6–4 3–6 5–7",
+        "winner": 2,
+        "status": "Finished",
+        "source": "https://www.wtatennis.com/tournaments/709/rome/2026/scores/LS122",
+        "corroboration": "https://fr.tennistemple.com/match/pliskova-bouzas-maneiro-rome-2026/9462723/stats",
+        "reviewedAt": "2026-11-10T19:45:40.046296+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "provider_revision": {
+        "retrieved_at": "2026-11-10T13:50:17.640Z",
+        "updated_at": "2026-09-24T17:19:23.015244Z",
+        "version": 1
+      },
+      "match_id": "live-2183",
+      "tour": "atp",
+      "tournament": "Madrid",
+      "surface": "clay",
+      "category": "Masters 1000",
+      "year": 2026,
+      "player1": {
+        "name": "Arthur Rinderknech",
+        "seed": null
+      },
+      "player2": {
+        "name": "Vit Kopřiva",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          1,
+          1
+        ],
+        "games": [
+          [
+            4,
+            6
+          ],
+          [
+            6,
+            3
+          ]
+        ],
+        "points": [
+          "0",
+          "0"
+        ],
+        "server": 2,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2026-04-26T20:05:00Z"
+      },
+      "final_score": "4–6 6–3",
+      "round": "Ronda de 32",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2026-04-26T20:05:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": null,
+        "rank2": null,
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      },
+      "quality": {
+        "result": "review",
+        "reason": "Falta un ganador identificable.",
+        "tape": "none"
+      },
+      "rawWinner": null,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2026-04-26T20:05:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": 69,
+        "rank2": 58,
+        "rankLabel": "Ranking en la descarga",
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "live-2183",
+        "tour": "atp",
+        "year": 2026,
+        "tournament": "Madrid",
+        "round": "Ronda de 32",
+        "first": "Arthur Rinderknech",
+        "second": "Vit Kopřiva",
+        "score": "4–6 6–3",
+        "winner": 2,
+        "status": "Retired",
+        "source": "https://www.rfet.es/descargar/file-competicion-cuadros/24175_Cuadro/2026-mutua-madrid-open-individual.pdf",
+        "corroboration": "https://www.lequipe.fr/Tennis/Actualites/Blesse-au-mollet-arthur-rinderknech-abandonne-au-3e-tour-du-masters-1000-de-madrid-alors-qu-il-venait-de-recoller-a-un-set-partout/1671242",
+        "reviewedAt": "2026-11-10T19:45:40.046367+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "provider_revision": {
+        "retrieved_at": "2026-11-10T13:50:17.640Z",
+        "updated_at": "2026-09-24T17:19:23.015199Z",
+        "version": 1
+      },
+      "match_id": "live-2043",
+      "tour": "atp",
+      "tournament": "Madrid",
+      "surface": "clay",
+      "category": "Masters 1000",
+      "year": 2026,
+      "player1": {
+        "name": "Nicolai Budkov Kjaer",
+        "seed": null
+      },
+      "player2": {
+        "name": "Reilly Opelka",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          0,
+          0
+        ],
+        "games": [
+          [
+            5,
+            3
+          ]
+        ],
+        "points": [
+          "0",
+          "0"
+        ],
+        "server": 1,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2026-04-23T22:15:00Z"
+      },
+      "final_score": "5–3",
+      "round": "Ronda de 128",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2026-04-23T22:15:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": null,
+        "rank2": null,
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      },
+      "quality": {
+        "result": "review",
+        "reason": "Falta un ganador identificable.",
+        "tape": "none"
+      },
+      "rawWinner": null,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "2026-04-23T22:15:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": 275,
+        "rank2": 178,
+        "rankLabel": "Ranking en la descarga",
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "live-2043",
+        "tour": "atp",
+        "year": 2026,
+        "tournament": "Madrid",
+        "round": "Ronda de 128",
+        "first": "Nicolai Budkov Kjaer",
+        "second": "Reilly Opelka",
+        "score": "5–3",
+        "winner": 1,
+        "status": "Retired",
+        "source": "https://www.rfet.es/descargar/file-competicion-cuadros/24175_Cuadro/2026-mutua-madrid-open-individual.pdf",
+        "corroboration": "https://www.vg.no/sport/i/0pvGo2/budkov-kjaer-videre-motstander-trakk-seg-med-skade",
+        "reviewedAt": "2026-11-10T19:45:40.046437+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "wta-archive-861926",
+      "tour": "wta",
+      "tournament": "Wimbledon",
+      "surface": "grass",
+      "category": "Grand Slam",
+      "year": 1971,
+      "player1": {
+        "name": "Laura Rossouw",
+        "seed": null
+      },
+      "player2": {
+        "name": "Tory Ann Fretz",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          1,
+          1
+        ],
+        "games": [
+          [
+            7,
+            9
+          ],
+          [
+            6,
+            4
+          ]
+        ],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "1971-06-21T00:00:00Z"
+      },
+      "final_score": "7–9 6–4",
+      "round": "Ronda de 128",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "1971-06-21",
+        "dateLabel": "Inicio del torneo",
+        "rank1": null,
+        "rank2": null,
+        "rankLabel": "Ranking al jugar",
+        "age1": 24.9,
+        "age2": 28.8,
+        "minutes": null,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El ganador no coincide con los sets necesarios para ganar.",
+        "tape": "none"
+      },
+      "rawWinner": 1,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "1971-06-21",
+        "dateLabel": "Inicio del torneo",
+        "rank1": null,
+        "rank2": null,
+        "rankLabel": "Ranking al jugar",
+        "age1": 24.9,
+        "age2": 28.8,
+        "minutes": null,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-archive-861926",
+        "tour": "wta",
+        "year": 1971,
+        "tournament": "Wimbledon",
+        "round": "Ronda de 128",
+        "first": "Laura Rossouw",
+        "second": "Tory Ann Fretz",
+        "score": "9–7 6–4",
+        "winner": 1,
+        "status": "Finished",
+        "source": "https://assets.wimbledon.com/archive/draws/pdfs/draws/1971_LS_A4.pdf",
+        "corroboration": "https://en.wikipedia.org/wiki/1971_Wimbledon_Championships_%E2%80%93_Women%27s_singles",
+        "reviewedAt": "2026-11-10T19:49:28.464494+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "wta-archive-873369",
+      "tour": "wta",
+      "tournament": "Wimbledon",
+      "surface": "grass",
+      "category": "Grand Slam",
+      "year": 1975,
+      "player1": {
+        "name": "Linky Boshoff",
+        "seed": null
+      },
+      "player2": {
+        "name": "Nancy Richey",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          1,
+          1
+        ],
+        "games": [
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            2
+          ]
+        ],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "1975-06-23T00:00:00Z"
+      },
+      "final_score": "3–6 6–2",
+      "round": "Ronda de 64",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "1975-06-23",
+        "dateLabel": "Inicio del torneo",
+        "rank1": null,
+        "rank2": null,
+        "rankLabel": "Ranking al jugar",
+        "age1": 18.6,
+        "age2": 32.8,
+        "minutes": null,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El ganador no coincide con los sets necesarios para ganar.",
+        "tape": "none"
+      },
+      "rawWinner": 1,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "1975-06-23",
+        "dateLabel": "Inicio del torneo",
+        "rank1": null,
+        "rank2": null,
+        "rankLabel": "Ranking al jugar",
+        "age1": 18.6,
+        "age2": 32.8,
+        "minutes": null,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-archive-873369",
+        "tour": "wta",
+        "year": 1975,
+        "tournament": "Wimbledon",
+        "round": "Ronda de 64",
+        "first": "Linky Boshoff",
+        "second": "Nancy Richey",
+        "score": "3–6 6–2 6–4",
+        "winner": 1,
+        "status": "Finished",
+        "source": "https://assets.wimbledon.com/archive/draws/pdfs/draws/1975_LS_A4.pdf",
+        "corroboration": "https://en.wikipedia.org/wiki/1975_Wimbledon_Championships_%E2%80%93_Women%27s_singles",
+        "reviewedAt": "2026-11-10T19:49:28.464820+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "wta-archive-883502",
+      "tour": "wta",
+      "tournament": "US Open",
+      "surface": "hard",
+      "category": "Grand Slam",
+      "year": 1979,
+      "player1": {
+        "name": "Kathy Jordan",
+        "seed": 11
+      },
+      "player2": {
+        "name": "Tracy Austin",
+        "seed": 3
+      },
+      "score_summary": {
+        "sets": [
+          0,
+          3
+        ],
+        "games": [
+          [
+            4,
+            6
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            6,
+            7
+          ]
+        ],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "1979-08-28T00:00:00Z"
+      },
+      "final_score": "4–6 1–6 6–7",
+      "round": "Octavos de final",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "1979-08-28",
+        "dateLabel": "Inicio del torneo",
+        "rank1": null,
+        "rank2": null,
+        "rankLabel": "Ranking al jugar",
+        "age1": 19.7,
+        "age2": 16.7,
+        "minutes": null,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      },
+      "quality": {
+        "result": "review",
+        "reason": "Hay sets registrados después de finalizar el partido.",
+        "tape": "none"
+      },
+      "rawWinner": 1,
+      "rawStatus": "Finished",
+      "rawContext": {
+        "date": "1979-08-28",
+        "dateLabel": "Inicio del torneo",
+        "rank1": null,
+        "rank2": null,
+        "rankLabel": "Ranking al jugar",
+        "age1": 16.7,
+        "age2": 19.7,
+        "minutes": null,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      }
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-archive-883502",
+        "tour": "wta",
+        "year": 1979,
+        "tournament": "US Open",
+        "round": "Octavos de final",
+        "first": "Kathy Jordan",
+        "second": "Tracy Austin",
+        "score": "6–4 1–6 6–7(5)",
+        "winner": 2,
+        "status": "Finished",
+        "source": "https://newspapers.swco.ttu.edu/bitstreams/24ba634f-48d8-43c4-9fdf-a3c5b1952da8/download",
+        "corroboration": "https://www.wtatennis.com/legends/100019/kathy-jordan/record",
+        "reviewedAt": "2026-11-10T19:49:28.464890+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "wta-archive-931128",
+      "tour": "wta",
+      "tournament": "US Open",
+      "surface": "hard",
+      "category": "Grand Slam",
+      "year": 1996,
+      "player1": {
+        "name": "Natalia Zvereva",
+        "seed": null
+      },
+      "player2": {
+        "name": "Virginia Ruano Pascual",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          1,
+          1
+        ],
+        "games": [
+          [
+            6,
+            2
+          ],
+          [
+            6,
+            7
+          ]
+        ],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "1996-08-26T00:00:00Z"
+      },
+      "final_score": "6–2 6–7",
+      "round": "Ronda de 128",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "1996-08-26",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 27,
+        "rank2": 86,
+        "rankLabel": "Ranking al jugar",
+        "age1": 24.1,
+        "age2": 22.4,
+        "minutes": null,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El ganador no coincide con los sets necesarios para ganar.",
+        "tape": "none"
+      },
+      "rawStatus": "Finished",
+      "rawWinner": 1
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-archive-931128",
+        "tour": "wta",
+        "year": 1996,
+        "tournament": "US Open",
+        "round": "Ronda de 128",
+        "first": "Natalia Zvereva",
+        "second": "Virginia Ruano Pascual",
+        "score": "6–2 6–7(5) 6–2",
+        "winner": 1,
+        "status": "Finished",
+        "source": "https://www.wtatennis.com/legends/180160/-virginia-ruano-pascual-/record",
+        "corroboration": "https://www.tennisexplorer.com/us-open/1996/wta-women/",
+        "reviewedAt": "2026-11-10T20:30:54.342025+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "wta-archive-890000",
+      "tour": "wta",
+      "tournament": "US Open",
+      "surface": "hard",
+      "category": "Grand Slam",
+      "year": 1981,
+      "player1": {
+        "name": "Diane Morrison",
+        "seed": null
+      },
+      "player2": {
+        "name": "Sherry Acker",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          0,
+          1
+        ],
+        "games": [
+          [
+            4,
+            6
+          ],
+          [
+            6,
+            6
+          ]
+        ],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "1981-09-01T00:00:00Z"
+      },
+      "final_score": "4–6 6–6",
+      "round": "Ronda de 64",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "1981-09-01",
+        "dateLabel": "Inicio del torneo",
+        "rank1": null,
+        "rank2": null,
+        "rankLabel": "Ranking al jugar",
+        "age1": 23,
+        "age2": 22.2,
+        "minutes": null,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawStatus": "Finished",
+      "rawWinner": 1
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-archive-890000",
+        "tour": "wta",
+        "year": 1981,
+        "tournament": "US Open",
+        "round": "Ronda de 64",
+        "first": "Diane Morrison",
+        "second": "Sherry Acker",
+        "score": "4–6 3–6",
+        "winner": 2,
+        "status": "Finished",
+        "source": "https://www.upi.com/Archives/1981/09/04/Tennis-ResultsNEWLNUS-Open-Championships/3442368424000/",
+        "corroboration": "https://wtafiles.blob.core.windows.net/pdf/draws/archive/1981/905.pdf",
+        "reviewedAt": "2026-11-10T20:30:54.344133+00:00",
+        "evidenceNote": "Contemporary UPI gives 6-4 6-3 for Acker. Archived draw confirms fixture, round and advancing player but contains the invalid second set 6-6; not two-source score agreement."
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "wta-archive-889992",
+      "tour": "wta",
+      "tournament": "US Open",
+      "surface": "hard",
+      "category": "Grand Slam",
+      "year": 1981,
+      "player1": {
+        "name": "Joyce Portman",
+        "seed": null
+      },
+      "player2": {
+        "name": "Lisa Doherty",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          1,
+          0
+        ],
+        "games": [
+          [
+            7,
+            5
+          ],
+          [
+            6,
+            6
+          ]
+        ],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "1981-09-01T00:00:00Z"
+      },
+      "final_score": "7–5 6–6",
+      "round": "Ronda de 64",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "1981-09-01",
+        "dateLabel": "Inicio del torneo",
+        "rank1": null,
+        "rank2": null,
+        "rankLabel": "Ranking al jugar",
+        "age1": 23.3,
+        "age2": 22.4,
+        "minutes": null,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawStatus": "Finished",
+      "rawWinner": 1
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-archive-889992",
+        "tour": "wta",
+        "year": 1981,
+        "tournament": "US Open",
+        "round": "Ronda de 64",
+        "first": "Joyce Portman",
+        "second": "Lisa Doherty",
+        "score": "7–5 6–0",
+        "winner": 1,
+        "status": "Finished",
+        "source": "https://www.upi.com/Archives/1981/09/04/Tennis-ResultsNEWLNUS-Open-Championships/3442368424000/",
+        "corroboration": "https://wtafiles.blob.core.windows.net/pdf/draws/archive/1981/905.pdf",
+        "reviewedAt": "2026-11-10T20:30:54.344212+00:00",
+        "evidenceNote": "Contemporary UPI gives 7-5 6-0. Archived draw confirms fixture, round and advancing player but contains invalid 6-6; not two-source score agreement."
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "archive-54076",
+      "tour": "atp",
+      "tournament": "US Open",
+      "surface": "hard",
+      "category": "Grand Slam",
+      "year": 1981,
+      "player1": {
+        "name": "Gene Mayer",
+        "seed": 7
+      },
+      "player2": {
+        "name": "Ramesh Krishnan",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          2,
+          2
+        ],
+        "games": [
+          [
+            6,
+            4
+          ],
+          [
+            6,
+            1
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            5,
+            7
+          ]
+        ],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "1981-09-01T00:00:00Z"
+      },
+      "final_score": "6–4 6–1 6–7 5–7?",
+      "round": "Octavos de final",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "1981-09-01",
+        "dateLabel": "Inicio del torneo",
+        "rank1": 7,
+        "rank2": null,
+        "rankLabel": "Ranking al jugar",
+        "age1": 25.3,
+        "age2": 20.2,
+        "minutes": null,
+        "format": "Al mejor de 5 sets",
+        "indoor": null,
+        "metadataSources": [
+          {
+            "field": "formato",
+            "url": "https://www.itftennis.com/en/about-us/tennis-tech/science-behind-tennis/rules-and-regulations/"
+          },
+          {
+            "field": "formato",
+            "url": "https://www.wimbledon.com/en_GB/about_wimbledon/rules.html"
+          }
+        ]
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El ganador no coincide con los sets necesarios para ganar.",
+        "tape": "none"
+      },
+      "rawStatus": "Finished",
+      "rawWinner": 1
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "archive-54076",
+        "tour": "atp",
+        "year": 1981,
+        "tournament": "US Open",
+        "round": "Octavos de final",
+        "first": "Gene Mayer",
+        "second": "Ramesh Krishnan",
+        "score": "6–4 6–1 6–7 5–7",
+        "winner": 2,
+        "status": "Retired",
+        "source": "https://cdn.manchesterhistory.org/News/Manchester%20Evening%20Hearld_1981-09-09.pdf",
+        "corroboration": "https://de.wikipedia.org/wiki/US_Open_1981/Herreneinzel",
+        "reviewedAt": "2026-11-10T20:30:54.344301+00:00",
+        "evidenceNote": "Contemporary UPI describes Mayer retiring after fourth set due to cramps. No fifth set was played."
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "archive-13238",
+      "tour": "atp",
+      "tournament": "US Open",
+      "surface": "grass",
+      "category": "Grand Slam",
+      "year": 1971,
+      "player1": {
+        "name": "Haroon Rahim",
+        "seed": null
+      },
+      "player2": {
+        "name": "John Alexander",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          2,
+          2
+        ],
+        "games": [
+          [
+            7,
+            6
+          ],
+          [
+            6,
+            4
+          ],
+          [
+            0,
+            6
+          ],
+          [
+            4,
+            6
+          ]
+        ],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "1971-09-01T00:00:00Z"
+      },
+      "final_score": "7–6 6–4 0–6 4–6",
+      "round": "Ronda de 32",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "1971-09-01",
+        "dateLabel": "Inicio del torneo",
+        "rank1": null,
+        "rank2": null,
+        "rankLabel": "Ranking al jugar",
+        "age1": 21.8,
+        "age2": 20.1,
+        "minutes": null,
+        "format": "Al mejor de 5 sets",
+        "indoor": null,
+        "metadataSources": [
+          {
+            "field": "formato",
+            "url": "https://www.itftennis.com/en/about-us/tennis-tech/science-behind-tennis/rules-and-regulations/"
+          },
+          {
+            "field": "formato",
+            "url": "https://www.wimbledon.com/en_GB/about_wimbledon/rules.html"
+          }
+        ]
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El ganador no coincide con los sets necesarios para ganar.",
+        "tape": "none"
+      },
+      "rawStatus": "Finished",
+      "rawWinner": 1
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "archive-13238",
+        "tour": "atp",
+        "year": 1971,
+        "tournament": "US Open",
+        "round": "Ronda de 32",
+        "first": "Haroon Rahim",
+        "second": "John Alexander",
+        "score": "7–6 6–4 0–6 6–7 4–6",
+        "winner": 2,
+        "status": "Finished",
+        "source": "https://www.bibliotecadeva.ro/periodice/sportul/1971/09/sportul_1971_09_6808.pdf",
+        "corroboration": "https://www.stevegtennis.com/draw-results/atp/US%20Open/1971",
+        "reviewedAt": "2026-11-10T20:30:54.344381+00:00",
+        "evidenceNote": "Contemporary Sportul supplies the omitted fourth-set tiebreak (Alexander 6-7 4-6 6-0 7-6 6-4). Secondary draw confirms fixture and winner but has incomplete score."
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "archive-16731",
+      "tour": "atp",
+      "tournament": "US Open",
+      "surface": "grass",
+      "category": "Grand Slam",
+      "year": 1972,
+      "player1": {
+        "name": "Ivan Molina",
+        "seed": null
+      },
+      "player2": {
+        "name": "Jurgen Fassbender",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          0,
+          4
+        ],
+        "games": [
+          [
+            4,
+            6
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            4,
+            6
+          ],
+          [
+            3,
+            6
+          ]
+        ],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "1972-08-30T00:00:00Z"
+      },
+      "final_score": "4–6 6–7 4–6 3–6",
+      "round": "Ronda de 128",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "1972-08-30",
+        "dateLabel": "Inicio del torneo",
+        "rank1": null,
+        "rank2": null,
+        "rankLabel": "Ranking al jugar",
+        "age1": 26.2,
+        "age2": 24.2,
+        "minutes": null,
+        "format": "Al mejor de 5 sets",
+        "indoor": null,
+        "metadataSources": [
+          {
+            "field": "formato",
+            "url": "https://www.itftennis.com/en/about-us/tennis-tech/science-behind-tennis/rules-and-regulations/"
+          },
+          {
+            "field": "formato",
+            "url": "https://www.wimbledon.com/en_GB/about_wimbledon/rules.html"
+          }
+        ]
+      },
+      "quality": {
+        "result": "review",
+        "reason": "Hay sets registrados después de finalizar el partido.",
+        "tape": "none"
+      },
+      "rawStatus": "Finished",
+      "rawWinner": 1
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "archive-16731",
+        "tour": "atp",
+        "year": 1972,
+        "tournament": "US Open",
+        "round": "Ronda de 128",
+        "first": "Ivan Molina",
+        "second": "Jurgen Fassbender",
+        "score": "4–6 6–7 3–6",
+        "winner": 2,
+        "status": "Finished",
+        "source": "https://www.bibliotecadeva.ro/periodice/sportul/1972/09/sportul_1972_09_7163.pdf",
+        "corroboration": "https://www.lequipe.fr/Tennis/us-open/epreuve-simple-messieurs/annee-1972/page-tableau-tournoi",
+        "reviewedAt": "2026-11-10T20:30:54.344471+00:00",
+        "evidenceNote": "Contemporary Sportul reports Fassbender 6-4 7-6 6-3. Secondary confirms fixture; provider adds a spurious fourth set."
+      }
+    }
+  },
+  {
+    "match": {
+      "provider_revision": {
+        "retrieved_at": "2026-11-10T13:50:17.640Z",
+        "updated_at": "2026-10-07T00:46:27.756847Z",
+        "version": 2
+      },
+      "match_id": "live-3700",
+      "tour": "atp",
+      "tournament": "Hamburg",
+      "surface": "clay",
+      "category": "ATP 500",
+      "year": 2026,
+      "player1": {
+        "name": "Terence Atmane",
+        "seed": null
+      },
+      "player2": {
+        "name": "Tomas Martin Etcheverry",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          0,
+          1
+        ],
+        "games": [
+          [
+            2,
+            6
+          ],
+          [
+            6,
+            6
+          ]
+        ],
+        "points": [
+          "4",
+          "6"
+        ],
+        "server": 2,
+        "is_tiebreak": true,
+        "win_probability_p1": null,
+        "timestamp": "2026-05-18T12:10:00Z"
+      },
+      "final_score": "2–6 6–6",
+      "round": "Ronda de 32",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2026-05-18T12:10:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": null,
+        "rank2": null,
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawStatus": "Finished",
+      "rawWinner": 1
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "live-3700",
+        "tour": "atp",
+        "year": 2026,
+        "tournament": "Hamburg",
+        "round": "Ronda de 32",
+        "first": "Terence Atmane",
+        "second": "Tomas Martin Etcheverry",
+        "score": "2–6 6–7(4)",
+        "winner": 2,
+        "status": "Finished",
+        "source": "https://www.protennislive.com/posting/2026/414/mds.pdf",
+        "corroboration": "https://www.tennisexplorer.com/match-detail/?id=3204268",
+        "reviewedAt": "2026-11-10T20:30:54.344547+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "provider_revision": {
+        "retrieved_at": "2026-11-10T13:50:17.640Z",
+        "updated_at": "2026-09-24T17:19:25.080336Z",
+        "version": 1
+      },
+      "match_id": "live-19763",
+      "tour": "atp",
+      "tournament": "Umag",
+      "surface": "clay",
+      "category": "ATP 250",
+      "year": 2026,
+      "player1": {
+        "name": "Alex Molčan",
+        "seed": null
+      },
+      "player2": {
+        "name": "Dino Prizmic",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          1,
+          1
+        ],
+        "games": [
+          [
+            3,
+            6
+          ],
+          [
+            7,
+            6
+          ],
+          [
+            4,
+            0
+          ]
+        ],
+        "points": [
+          "0",
+          "0"
+        ],
+        "server": 2,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2026-07-15T19:10:00Z"
+      },
+      "final_score": "3–6 7–6 4–0",
+      "round": "Octavos de final",
+      "winner": null,
+      "status": "unresolved",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2026-07-15T19:10:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": null,
+        "rank2": null,
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El encuentro no tiene un resultado final completado.",
+        "tape": "none"
+      },
+      "rawStatus": "unresolved",
+      "rawWinner": null
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "live-19763",
+        "tour": "atp",
+        "year": 2026,
+        "tournament": "Umag",
+        "round": "Octavos de final",
+        "first": "Alex Molčan",
+        "second": "Dino Prizmic",
+        "score": "3–6 7–6(5) 4–0",
+        "winner": 1,
+        "status": "Retired",
+        "source": "https://umag-ed.atptour.com/en/media/news/cobolli-out-and-prizmic-retires",
+        "corroboration": "https://www.novilist.hr/sport/prizmic-predao-mec-za-cetvrtfinale-umaga-u-trecem-setu/",
+        "reviewedAt": "2026-11-10T20:30:54.344625+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "provider_revision": {
+        "retrieved_at": "2026-11-10T13:50:17.640Z",
+        "updated_at": "2026-09-24T17:19:37.791762Z",
+        "version": 1
+      },
+      "match_id": "live-169765",
+      "tour": "atp",
+      "tournament": "Canada",
+      "surface": "hard",
+      "category": "Masters 1000",
+      "year": 2026,
+      "player1": {
+        "name": "Alexis Galarneau",
+        "seed": null
+      },
+      "player2": {
+        "name": "Vit Kopřiva",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          0,
+          0
+        ],
+        "games": [
+          [
+            0,
+            0
+          ]
+        ],
+        "points": [
+          "0",
+          "0"
+        ],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2026-08-03T17:10:00Z"
+      },
+      "final_score": "0–0",
+      "round": "Ronda de 128",
+      "winner": null,
+      "status": "unresolved",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2026-08-03T17:10:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": null,
+        "rank2": null,
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El encuentro no tiene un resultado final completado.",
+        "tape": "none"
+      },
+      "rawStatus": "unresolved",
+      "rawWinner": null
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "live-169765",
+        "tour": "atp",
+        "year": 2026,
+        "tournament": "Canada",
+        "round": "Ronda de 128",
+        "first": "Alexis Galarneau",
+        "second": "Vit Kopřiva",
+        "score": "4–6 4–6",
+        "winner": 2,
+        "status": "Finished",
+        "source": "https://www.protennislive.com/posting/2026/421/mds.pdf",
+        "corroboration": "https://www.castanetkamloops.net/edition/news-story-626874-7-.htm",
+        "reviewedAt": "2026-11-10T20:30:54.344698+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "provider_revision": {
+        "retrieved_at": "2026-11-10T13:51:22.942Z",
+        "updated_at": "2026-09-24T17:19:37.791905Z",
+        "version": 1
+      },
+      "match_id": "wta-live-172994",
+      "tour": "wta",
+      "tournament": "Canada",
+      "surface": "hard",
+      "category": "WTA 1000",
+      "year": 2026,
+      "player1": {
+        "name": "Belinda Bencic",
+        "seed": null
+      },
+      "player2": {
+        "name": "Coco Gauff",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          0,
+          0
+        ],
+        "games": [],
+        "points": [
+          "0",
+          "0"
+        ],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2026-08-11T23:10:00Z"
+      },
+      "final_score": "",
+      "round": "Cuartos de final",
+      "winner": null,
+      "status": "unresolved",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2026-08-11T23:10:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": null,
+        "rank2": null,
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El encuentro no tiene un resultado final completado.",
+        "tape": "none"
+      },
+      "rawStatus": "unresolved",
+      "rawWinner": null
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-live-172994",
+        "tour": "wta",
+        "year": 2026,
+        "tournament": "Canada",
+        "round": "Cuartos de final",
+        "first": "Belinda Bencic",
+        "second": "Coco Gauff",
+        "score": "",
+        "winner": 2,
+        "status": "Walkover",
+        "source": "https://www.wtatennis.com/players/319001/belinda-bencic/matches",
+        "corroboration": "https://www.tennis.com/tournaments/national-bank-open-presented-by-rogers/matches/b-bencic-vs-c-gauff-2026-08-11",
+        "reviewedAt": "2026-11-10T20:30:54.344773+00:00"
+      }
+    }
+  },
+  {
+    "match": {
+      "provider_revision": {
+        "retrieved_at": "2026-11-10T13:50:17.640Z",
+        "updated_at": "2026-05-18T20:33:39.224031Z",
+        "version": 1
+      },
+      "match_id": "live-76",
+      "tour": "atp",
+      "tournament": "Monte Carlo",
+      "surface": "hard",
+      "category": "Masters 1000",
+      "year": 2026,
+      "player1": {
+        "name": "Frances Tiafoe",
+        "seed": null
+      },
+      "player2": {
+        "name": "Terence Atmane",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          1,
+          1
+        ],
+        "games": [
+          [
+            6,
+            4
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            5,
+            4
+          ]
+        ],
+        "points": [
+          "40",
+          "15"
+        ],
+        "server": 2,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2026-04-06T12:00:00Z"
+      },
+      "final_score": "6–4 1–6 5–4",
+      "round": "Ronda de 64",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2026-04-06T12:00:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": null,
+        "rank2": null,
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": null
+      },
+      "quality": {
+        "result": "review",
+        "reason": "Falta un ganador identificable.",
+        "tape": "none"
+      },
+      "rawStatus": "Finished",
+      "rawWinner": null
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "live-76",
+        "tour": "atp",
+        "year": 2026,
+        "tournament": "Monte Carlo",
+        "round": "Ronda de 64",
+        "first": "Frances Tiafoe",
+        "second": "Terence Atmane",
+        "score": "",
+        "winner": 2,
+        "status": "Cancelled",
+        "source": "https://www.protennislive.com/posting/2026/410/mds.pdf",
+        "corroboration": "https://www.lequipe.fr/Tennis/Actualites/Terence-atmane-domine-ethan-quinn-pour-sa-premiere-au-masters-1000-de-monte-carlo/1665824",
+        "reviewedAt": "2026-11-10T20:30:54.344851+00:00",
+        "evidenceNote": "Tiafoe withdrew with back injury and was replaced by Ethan Quinn. This specific fixture was cancelled; it is not a walkover and no score is transferred from Miami."
+      }
+    }
+  },
+  {
+    "match": {
+      "provider_revision": {
+        "retrieved_at": "2026-11-10T13:51:22.942Z",
+        "updated_at": "2026-10-07T00:46:27.756847Z",
+        "version": 2
+      },
+      "match_id": "wta-live-3920",
+      "tour": "wta",
+      "tournament": "Roland Garros",
+      "surface": "clay",
+      "category": "Grand Slam",
+      "year": 2026,
+      "player1": {
+        "name": "Elizabeth Mandlik",
+        "seed": null
+      },
+      "player2": {
+        "name": "Teodora Kostovic",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          0,
+          1
+        ],
+        "games": [
+          [
+            2,
+            6
+          ],
+          [
+            0,
+            3
+          ]
+        ],
+        "points": [
+          "30",
+          "30"
+        ],
+        "server": 1,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2026-05-19T11:10:00Z"
+      },
+      "final_score": "2–6 0–3",
+      "round": "Ronda de 128",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2026-05-19T11:10:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": null,
+        "rank2": null,
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO5",
+        "indoor": false
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawStatus": "Finished",
+      "rawWinner": 1
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-live-3920",
+        "tour": "wta",
+        "year": 2026,
+        "tournament": "Roland Garros",
+        "round": "Ronda de 128",
+        "first": "Elizabeth Mandlik",
+        "second": "Teodora Kostovic",
+        "score": "2–6 2–6",
+        "winner": 2,
+        "status": "Finished",
+        "source": "https://www.wtatennis.com/players/326379/elizabeth-mandlik/matches",
+        "corroboration": "https://www.wtatennis.com/news/4506228/andreescu-cruises-pliskova-rallies-to-advance-at-roland-garros-qualifying",
+        "reviewedAt": "2026-11-10T20:30:54.344926+00:00",
+        "qualifying": true
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "wta-live-4338",
+      "tour": "wta",
+      "tournament": "Roland Garros",
+      "surface": "clay",
+      "category": "Grand Slam",
+      "year": 2026,
+      "player1": {
+        "name": "Charlotte Van Zonneveld",
+        "seed": null
+      },
+      "player2": {
+        "name": "Ella Seidel",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [],
+        "games": [],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2026-05-25T16:05:00Z"
+      },
+      "final_score": "",
+      "round": "Ronda de 128",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2026-05-25T16:05:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": null,
+        "rank2": null,
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": null
+      },
+      "quality": {
+        "result": "review",
+        "reason": "Falta un ganador identificable.",
+        "tape": "none"
+      },
+      "rawStatus": "Finished",
+      "rawWinner": null
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-live-4338",
+        "tour": "wta",
+        "year": 2026,
+        "tournament": "Roland Garros",
+        "round": "Ronda de 128",
+        "first": "Charlotte Van Zonneveld",
+        "second": "Ella Seidel",
+        "score": "6–4 6–4",
+        "winner": 1,
+        "status": "Finished",
+        "source": "https://www.wtatennis.com/tournaments/903/roland-garros/2026/scores/LS71642194",
+        "corroboration": "https://www.mainwelle.de/amp/french-open-lys-in-runde-zwei-maria-und-seidel-schon-raus-2215122/",
+        "reviewedAt": "2026-11-10T20:30:54.345002+00:00",
+        "correctedFirst": "Jelena Ostapenko"
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "wta-live-7658",
+      "tour": "wta",
+      "tournament": "Roland Garros",
+      "surface": "clay",
+      "category": "Grand Slam",
+      "year": 2026,
+      "player1": {
+        "name": "Charlotte Van Zonneveld",
+        "seed": null
+      },
+      "player2": {
+        "name": "Magda Linette",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [],
+        "games": [],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2026-05-27T11:45:00Z"
+      },
+      "final_score": "",
+      "round": "Ronda de 64",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2026-05-27T11:45:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": null,
+        "rank2": null,
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": null
+      },
+      "quality": {
+        "result": "review",
+        "reason": "Falta un ganador identificable.",
+        "tape": "none"
+      },
+      "rawStatus": "Finished",
+      "rawWinner": null
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-live-7658",
+        "tour": "wta",
+        "year": 2026,
+        "tournament": "Roland Garros",
+        "round": "Ronda de 64",
+        "first": "Charlotte Van Zonneveld",
+        "second": "Magda Linette",
+        "score": "2–6 6–2 2–6",
+        "winner": 2,
+        "status": "Finished",
+        "source": "https://www.wtatennis.com/tournaments/903/roland-garros/2026/scores/LS71563912",
+        "corroboration": "https://www.rolandgarros.com/en-us/article/2026-edition-rg-live-wednesday-may-27",
+        "reviewedAt": "2026-11-10T20:30:54.345079+00:00",
+        "correctedFirst": "Jelena Ostapenko"
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "wta-live-4335",
+      "tour": "wta",
+      "tournament": "Roland Garros",
+      "surface": "clay",
+      "category": "Grand Slam",
+      "year": 2026,
+      "player1": {
+        "name": "Aurora Corvi",
+        "seed": null
+      },
+      "player2": {
+        "name": "Camila Osorio",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [],
+        "games": [],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2026-05-25T17:25:00Z"
+      },
+      "final_score": "",
+      "round": "Ronda de 128",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2026-05-25T17:25:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": null,
+        "rank2": null,
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": null
+      },
+      "quality": {
+        "result": "review",
+        "reason": "Falta un ganador identificable.",
+        "tape": "none"
+      },
+      "rawStatus": "Finished",
+      "rawWinner": null
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-live-4335",
+        "tour": "wta",
+        "year": 2026,
+        "tournament": "Roland Garros",
+        "round": "Ronda de 128",
+        "first": "Aurora Corvi",
+        "second": "Camila Osorio",
+        "score": "2–6 4–6",
+        "winner": 2,
+        "status": "Finished",
+        "source": "https://www.tennis.com/tournaments/roland-garros/matches/c-osorio-vs-e-alexandrova-2026-05-25",
+        "corroboration": "https://en.tennistemple.com/match/osorio-alexandrova-french-open-2026/9465107/",
+        "reviewedAt": "2026-11-10T20:30:54.345156+00:00",
+        "correctedFirst": "Ekaterina Alexandrova"
+      }
+    }
+  },
+  {
+    "match": {
+      "provider_revision": {
+        "retrieved_at": "2026-11-10T13:53:01.877Z",
+        "updated_at": "2026-10-07T00:45:25.053082Z",
+        "version": 2
+      },
+      "match_id": "wta-live-130624",
+      "tour": "wta",
+      "tournament": "Monte Carlo",
+      "surface": "hard",
+      "category": "WTA 500",
+      "year": 2025,
+      "player1": {
+        "name": "Anna Bondar",
+        "seed": null
+      },
+      "player2": {
+        "name": "Tatjana Maria",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          0,
+          2
+        ],
+        "games": [
+          [
+            6,
+            7
+          ],
+          [
+            5,
+            6
+          ]
+        ],
+        "points": [
+          "0",
+          "0"
+        ],
+        "server": 1,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "2025-08-18T21:40:00Z"
+      },
+      "final_score": "6–7 5–6",
+      "round": "Ronda de 32",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "2025-08-18T21:40:00Z",
+        "dateLabel": "Fecha del partido",
+        "rank1": null,
+        "rank2": null,
+        "age1": null,
+        "age2": null,
+        "minutes": null,
+        "format": "BO3",
+        "indoor": false
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawStatus": "Finished",
+      "rawWinner": 1
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-live-130624",
+        "tour": "wta",
+        "year": 2025,
+        "tournament": "Monte Carlo",
+        "round": "Ronda de 32",
+        "first": "Anna Bondar",
+        "second": "Tatjana Maria",
+        "score": "6–7(5) 5–7",
+        "winner": 2,
+        "status": "Finished",
+        "source": "https://wtafiles.wtatennis.com/pdf/draws/2025/1039/MDS.pdf",
+        "corroboration": "https://tennistonic.com/stat-tournaments/wta/15981/4110-31728/tatjana-maria-vs-anna-bondar/",
+        "reviewedAt": "2026-11-10T20:30:54.345236+00:00",
+        "correctedTournament": "Monterrey",
+        "correctedCategory": "WTA 500"
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "archive-13164",
+      "tour": "atp",
+      "tournament": "US Open",
+      "surface": "grass",
+      "category": "Grand Slam",
+      "year": 1971,
+      "player1": {
+        "name": "Patricio Cornejo",
+        "seed": null
+      },
+      "player2": {
+        "name": "Thomaz Koch",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          0,
+          4
+        ],
+        "games": [
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            2,
+            6
+          ],
+          [
+            6,
+            7
+          ]
+        ],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "1971-09-01T00:00:00Z"
+      },
+      "final_score": "3–6 6–7 2–6 6–7",
+      "round": "Ronda de 128",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "1971-09-01",
+        "dateLabel": "Inicio del torneo",
+        "rank1": null,
+        "rank2": null,
+        "rankLabel": "Ranking al jugar",
+        "age1": 27.2,
+        "age2": 26.3,
+        "minutes": null,
+        "format": "Al mejor de 5 sets",
+        "indoor": null,
+        "metadataSources": [
+          {
+            "field": "formato",
+            "url": "https://www.itftennis.com/en/about-us/tennis-tech/science-behind-tennis/rules-and-regulations/"
+          },
+          {
+            "field": "formato",
+            "url": "https://www.wimbledon.com/en_GB/about_wimbledon/rules.html"
+          }
+        ]
+      },
+      "quality": {
+        "result": "review",
+        "reason": "Hay sets registrados después de finalizar el partido.",
+        "tape": "none"
+      },
+      "rawStatus": "Finished",
+      "rawWinner": 1
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "archive-13164",
+        "tour": "atp",
+        "year": 1971,
+        "tournament": "US Open",
+        "round": "Ronda de 128",
+        "first": "Patricio Cornejo",
+        "second": "Thomaz Koch",
+        "score": "6–3 6–7 2–6 6–7",
+        "winner": 2,
+        "status": "Finished",
+        "source": "https://www.bibliotecadeva.ro/periodice/sportul/1971/09/sportul_1971_09_6804.pdf",
+        "corroboration": "https://www.dewiki.de/Lexikon/US_Open_1971%2FHerreneinzel",
+        "reviewedAt": "2026-11-10T20:38:42.460960+00:00",
+        "evidenceNote": "Contemporary Sportul reports Koch 3-6 7-6 6-2 7-6, agreeing with the German draw. Several secondary feeds invert the first set."
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "archive-16758",
+      "tour": "atp",
+      "tournament": "US Open",
+      "surface": "grass",
+      "category": "Grand Slam",
+      "year": 1972,
+      "player1": {
+        "name": "John Alexander",
+        "seed": null
+      },
+      "player2": {
+        "name": "Ross Case",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          1,
+          4
+        ],
+        "games": [
+          [
+            6,
+            7
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            6,
+            4
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            4,
+            6
+          ]
+        ],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "1972-08-30T00:00:00Z"
+      },
+      "final_score": "6–7 6–7 6–4 3–6 4–6",
+      "round": "Ronda de 64",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "1972-08-30",
+        "dateLabel": "Inicio del torneo",
+        "rank1": null,
+        "rank2": null,
+        "rankLabel": "Ranking al jugar",
+        "age1": 21.1,
+        "age2": 20.8,
+        "minutes": null,
+        "format": "Al mejor de 5 sets",
+        "indoor": null,
+        "metadataSources": [
+          {
+            "field": "formato",
+            "url": "https://www.itftennis.com/en/about-us/tennis-tech/science-behind-tennis/rules-and-regulations/"
+          },
+          {
+            "field": "formato",
+            "url": "https://www.wimbledon.com/en_GB/about_wimbledon/rules.html"
+          }
+        ]
+      },
+      "quality": {
+        "result": "review",
+        "reason": "Hay sets registrados después de finalizar el partido.",
+        "tape": "none"
+      },
+      "rawStatus": "Finished",
+      "rawWinner": 1
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "archive-16758",
+        "tour": "atp",
+        "year": 1972,
+        "tournament": "US Open",
+        "round": "Ronda de 64",
+        "first": "John Alexander",
+        "second": "Ross Case",
+        "score": "6–7 6–7 6–4 6–3 4–6",
+        "winner": 2,
+        "status": "Finished",
+        "source": "https://www.bibliotecadeva.ro/periodice/sportul/1972/09/sportul_1972_09_7164.pdf",
+        "corroboration": "https://www.lequipe.fr/Tennis/us-open/epreuve-simple-messieurs/annee-1972/page-tableau-tournoi",
+        "reviewedAt": "2026-11-10T20:38:42.461517+00:00",
+        "evidenceNote": "Sportul page 3 visually checked: Case 7-6 7-6 4-6 3-6 6-4. Lequipe and the German draw corroborate the five-set result."
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "wta-archive-896478",
+      "tour": "wta",
+      "tournament": "US Open",
+      "surface": "hard",
+      "category": "Grand Slam",
+      "year": 1983,
+      "player1": {
+        "name": "Lisa Bonder Kreiss",
+        "seed": null
+      },
+      "player2": {
+        "name": "Renata Tomanova",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          1,
+          0
+        ],
+        "games": [
+          [
+            6,
+            0
+          ],
+          [
+            6,
+            6
+          ]
+        ],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "1983-08-30T00:00:00Z"
+      },
+      "final_score": "6–0 6–6",
+      "round": "Ronda de 128",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "1983-08-30",
+        "dateLabel": "Inicio del torneo",
+        "rank1": null,
+        "rank2": null,
+        "rankLabel": "Ranking al jugar",
+        "age1": 19.6,
+        "age2": 16,
+        "minutes": null,
+        "format": "Al mejor de 3 sets",
+        "indoor": null
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El proveedor guarda al menos un set sin cerrar o imposible.",
+        "tape": "none"
+      },
+      "rawStatus": "Finished",
+      "rawWinner": 1
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "wta-archive-896478",
+        "tour": "wta",
+        "year": 1983,
+        "tournament": "US Open",
+        "round": "Ronda de 128",
+        "first": "Lisa Bonder Kreiss",
+        "second": "Renata Tomanova",
+        "score": "6–0 6–4",
+        "winner": 1,
+        "status": "Finished",
+        "source": "https://www.wtatennis.com/players/200033/renata-tomanova/record",
+        "corroboration": "https://wtafiles.blob.core.windows.net/pdf/draws/archive/1983/905.pdf",
+        "reviewedAt": "2026-11-10T20:38:42.461594+00:00",
+        "evidenceNote": "Current official WTA record supplies 6-0 6-4. Historical draw confirms fixture and advancing player but contains invalid 6-6; not two-source score agreement."
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "archive-9430",
+      "tour": "atp",
+      "tournament": "Australian Open",
+      "surface": "grass",
+      "category": "Grand Slam",
+      "year": 1970,
+      "player1": {
+        "name": "Ian Bidmeade",
+        "seed": null
+      },
+      "player2": {
+        "name": "Ned Neely",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          0,
+          0
+        ],
+        "games": [],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "1970-01-19T00:00:00Z"
+      },
+      "final_score": "NA",
+      "round": "Ronda de 64",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "1970-01-19",
+        "dateLabel": "Inicio del torneo",
+        "rank1": null,
+        "rank2": null,
+        "rankLabel": "Ranking al jugar",
+        "age1": null,
+        "age2": 30,
+        "minutes": null,
+        "format": "Al mejor de 3 sets",
+        "indoor": null,
+        "metadataSources": [
+          {
+            "field": "formato",
+            "url": "https://en.wikipedia.org/wiki/1970_Australian_Open_%E2%80%93_Men%27s_singles"
+          },
+          {
+            "field": "formato",
+            "url": "https://en.wikipedia.org/wiki/List_of_Australian_Open_men%27s_singles_champions"
+          }
+        ]
+      },
+      "quality": {
+        "result": "review",
+        "reason": "El número de sets no corresponde al formato.",
+        "tape": "none"
+      },
+      "rawStatus": "Finished",
+      "rawWinner": 1
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "archive-9430",
+        "tour": "atp",
+        "year": 1970,
+        "tournament": "Australian Open",
+        "round": "Ronda de 64",
+        "first": "Ian Bidmeade",
+        "second": "Ned Neely",
+        "score": "",
+        "winner": 2,
+        "status": "Walkover",
+        "source": "https://tennis-chron-open.e-monsite.com/pages/grands-chelems/australian-open/australie-1970.html",
+        "corroboration": "https://de.wikipedia.org/wiki/Australian_Open_1970/Herreneinzel",
+        "reviewedAt": "2026-11-10T20:38:42.461669+00:00",
+        "evidenceNote": "Both draws record Neely advancing by walkover. No games are assigned."
+      }
+    }
+  },
+  {
+    "match": {
+      "match_id": "archive-9421",
+      "tour": "atp",
+      "tournament": "Australian Open",
+      "surface": "grass",
+      "category": "Grand Slam",
+      "year": 1970,
+      "player1": {
+        "name": "Alvin Gardiner",
+        "seed": null
+      },
+      "player2": {
+        "name": "Richard Russell",
+        "seed": null
+      },
+      "score_summary": {
+        "sets": [
+          3,
+          0
+        ],
+        "games": [
+          [
+            6,
+            4
+          ],
+          [
+            10,
+            8
+          ],
+          [
+            12,
+            10
+          ]
+        ],
+        "points": [],
+        "server": null,
+        "is_tiebreak": false,
+        "win_probability_p1": null,
+        "timestamp": "1970-01-19T00:00:00Z"
+      },
+      "final_score": "6–4 10–8 12–10",
+      "round": "Ronda de 64",
+      "winner": null,
+      "status": "Review",
+      "point_tape": [],
+      "statistics": [],
+      "data_source": "api",
+      "coverage": "Solo resultado",
+      "context": {
+        "date": "1970-01-19",
+        "dateLabel": "Inicio del torneo",
+        "rank1": null,
+        "rank2": null,
+        "rankLabel": "Ranking al jugar",
+        "age1": 18.9,
+        "age2": 24.3,
+        "minutes": null,
+        "format": "Al mejor de 3 sets",
+        "indoor": null,
+        "metadataSources": [
+          {
+            "field": "formato",
+            "url": "https://en.wikipedia.org/wiki/1970_Australian_Open_%E2%80%93_Men%27s_singles"
+          },
+          {
+            "field": "formato",
+            "url": "https://en.wikipedia.org/wiki/List_of_Australian_Open_men%27s_singles_champions"
+          }
+        ]
+      },
+      "quality": {
+        "result": "review",
+        "reason": "Hay sets registrados después de finalizar el partido.",
+        "tape": "none"
+      },
+      "rawStatus": "Finished",
+      "rawWinner": 1
+    },
+    "evidence": {
+      "webReview": {
+        "matchId": "archive-9421",
+        "tour": "atp",
+        "year": 1970,
+        "tournament": "Australian Open",
+        "round": "Ronda de 64",
+        "first": "Alvin Gardiner",
+        "second": "Richard Russell",
+        "score": "",
+        "winner": 1,
+        "status": "Walkover",
+        "source": "https://tennis-chron-open.e-monsite.com/pages/grands-chelems/australian-open/australie-1970.html",
+        "corroboration": "https://en.wikipedia.org/wiki/1970_Australian_Open_%E2%80%93_Men%27s_singles",
+        "reviewedAt": "2026-11-10T20:38:42.461742+00:00",
+        "evidenceNote": "Gardiner advanced by walkover. Provider score 6-4 10-8 12-10 belongs to Crealy against Gardiner in the next round; no games are assigned to Russell."
+      }
+    }
+  }
+]

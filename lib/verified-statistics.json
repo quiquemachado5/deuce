@@ -1,0 +1,1738 @@
+{
+  "schema": 1,
+  "sources": {
+    "federer-wiki": {
+      "url": "https://en.wikipedia.org/w/index.php?title=Roger_Federer_career_statistics&oldid=1381952668",
+      "publisher": "Wikimedia",
+      "origin": "federer-wiki",
+      "title": "Roger Federer: estadísticas de carrera",
+      "kind": "encyclopedia",
+      "checkedAt": "2026-11-11T13:00:00Z",
+      "revision": 1381952668
+    },
+    "nadal-wiki": {
+      "url": "https://en.wikipedia.org/w/index.php?title=Rafael_Nadal&oldid=1384143251",
+      "publisher": "Wikimedia",
+      "origin": "nadal-wiki",
+      "title": "Rafael Nadal",
+      "kind": "encyclopedia",
+      "checkedAt": "2026-11-11T13:00:00Z",
+      "revision": 1384143251
+    },
+    "evert-wiki": {
+      "url": "https://en.wikipedia.org/w/index.php?title=Chris_Evert&oldid=1380546330",
+      "publisher": "Wikimedia",
+      "origin": "evert-wiki",
+      "title": "Chris Evert",
+      "kind": "encyclopedia",
+      "checkedAt": "2026-11-11T13:00:00Z",
+      "revision": 1380546330
+    },
+    "navratilova-wiki": {
+      "url": "https://en.wikipedia.org/w/index.php?title=Martina_Navratilova&oldid=1383835217",
+      "publisher": "Wikimedia",
+      "origin": "navratilova-wiki",
+      "title": "Martina Navratilova",
+      "kind": "encyclopedia",
+      "checkedAt": "2026-11-11T13:00:00Z",
+      "revision": 1383835217
+    },
+    "federer-slam-tennis": {
+      "url": "https://www.tennis.com/news/articles/roger-federer-records-10-straight-major-finals-23-semifinals-36-quarterfinals",
+      "publisher": "Tennis.com",
+      "origin": "federer-slam-tennis",
+      "title": "La continuidad de Federer en Grand Slam",
+      "kind": "editorial",
+      "checkedAt": "2026-11-11T13:00:00Z"
+    },
+    "federer-final-history": {
+      "url": "https://www.tennishistory.com/all-time-records",
+      "publisher": "Tennis History",
+      "origin": "federer-final-history",
+      "title": "Récords históricos del tenis",
+      "kind": "editorial",
+      "checkedAt": "2026-11-11T13:00:00Z"
+    },
+    "federer-semi-guinness": {
+      "url": "https://www.guinnessworldrecords.com/world-records/most-consecutive-mens-grand-slam-semi-finals",
+      "publisher": "Guinness World Records",
+      "origin": "federer-semi-guinness",
+      "title": "Semifinales consecutivas de Grand Slam",
+      "kind": "editorial",
+      "checkedAt": "2026-11-11T13:00:00Z"
+    },
+    "federer-quarter-guinness": {
+      "url": "https://www.guinnessworldrecords.com/world-records/112470-most-consecutive-tennis-grand-slam-quarter-finals",
+      "publisher": "Guinness World Records",
+      "origin": "federer-quarter-guinness",
+      "title": "Cuartos consecutivos de Grand Slam",
+      "kind": "editorial",
+      "checkedAt": "2026-11-11T13:00:00Z"
+    },
+    "federer-ranking-tennis": {
+      "url": "https://www.tennis.com/news/articles/roger-federer-records-that-may-never-be-broken-237-straight-weeks-no-1",
+      "publisher": "Tennis.com",
+      "origin": "federer-ranking-tennis",
+      "title": "237 semanas consecutivas como número uno",
+      "kind": "editorial",
+      "checkedAt": "2026-11-11T13:00:00Z"
+    },
+    "federer-ranking-itf": {
+      "url": "https://www.itftennis.com/en/news-and-media/articles/federer-i-must-recognise-when-it-is-time-to-end-my-competitive-career/",
+      "publisher": "ITF",
+      "origin": "federer-ranking-itf",
+      "title": "La carrera de Roger Federer",
+      "kind": "official",
+      "checkedAt": "2026-11-11T13:00:00Z"
+    },
+    "ao-open-records": {
+      "url": "https://ausopen.com/articles/news/10-open-era-records-may-never-be-broken",
+      "publisher": "Tennis Australia",
+      "origin": "ao-open-records",
+      "title": "Diez récords de la Era Open",
+      "kind": "official",
+      "checkedAt": "2026-11-11T13:00:00Z"
+    },
+    "nadal-rg": {
+      "url": "https://www.rolandgarros.com/en-us/article/rafael-nadal-numbers-figures-14-roland-garros-records-clay-victories",
+      "publisher": "FFT",
+      "origin": "nadal-rg",
+      "title": "Nadal y Roland Garros: sus cifras",
+      "kind": "official",
+      "checkedAt": "2026-11-11T13:00:00Z"
+    },
+    "nadal-clay-guardian": {
+      "url": "https://www.theguardian.com/sport/2007/may/21/tennis.sport",
+      "publisher": "The Guardian",
+      "origin": "nadal-clay-guardian",
+      "title": "Federer pone fin a la racha de Nadal en tierra",
+      "kind": "editorial",
+      "checkedAt": "2026-11-11T13:00:00Z"
+    },
+    "evert-wta": {
+      "url": "https://www.wtatennis.com/news/4487581/legend-bio-chris-evert",
+      "publisher": "WTA",
+      "origin": "evert-wta",
+      "title": "Biografía de Chris Evert",
+      "kind": "official",
+      "checkedAt": "2026-11-11T13:00:00Z"
+    },
+    "evert-clay-tennis": {
+      "url": "https://www.tennis.com/news/articles/kyrgios-big-debuts-williamses-in-doubles-the-5-most-underrated-stats",
+      "publisher": "Tennis.com",
+      "origin": "evert-clay-tennis",
+      "title": "Cinco estadísticas poco conocidas",
+      "kind": "editorial",
+      "checkedAt": "2026-11-11T13:00:00Z"
+    },
+    "evert-years-tennis": {
+      "url": "https://www.tennis.com/news/articles/roland-garros-ruminations-chris-evert-all-time-women-s-champion",
+      "publisher": "Tennis.com",
+      "origin": "evert-years-tennis",
+      "title": "Los títulos de Chris Evert en París",
+      "kind": "editorial",
+      "checkedAt": "2026-11-11T13:00:00Z"
+    },
+    "navratilova-streak-wta": {
+      "url": "https://www.wtatennis.com/news/1444440/helena-sukova-reflects-on-her-career-and-the-legacy-of-czech-tennis",
+      "publisher": "WTA",
+      "origin": "navratilova-streak-wta",
+      "title": "Helena Sukova recuerda su carrera",
+      "kind": "official",
+      "checkedAt": "2026-11-11T13:00:00Z"
+    },
+    "navratilova-titles-wta": {
+      "url": "https://www.wtatennis.com/legends/140007/Martina_Navratilova",
+      "publisher": "WTA",
+      "origin": "navratilova-titles-wta",
+      "title": "Martina Navratilova: palmarés oficial",
+      "kind": "official",
+      "checkedAt": "2026-11-11T13:00:00Z"
+    },
+    "navratilova-titles-tennis": {
+      "url": "https://www.tennis.com/news/articles/a-celebration-of-martina-navratilova-s-multifaceted-legacy",
+      "publisher": "Tennis.com",
+      "origin": "navratilova-titles-tennis",
+      "title": "El legado de Martina Navratilova",
+      "kind": "editorial",
+      "checkedAt": "2026-11-11T13:00:00Z"
+    },
+    "vilas-wiki": {
+      "url": "https://en.wikipedia.org/w/index.php?title=Guillermo_Vilas&oldid=1370451292",
+      "publisher": "Wikimedia",
+      "origin": "vilas-wiki",
+      "title": "Guillermo Vilas",
+      "kind": "encyclopedia",
+      "checkedAt": "2026-11-11T13:00:00Z",
+      "revision": 1370451292
+    },
+    "vilas-tennis": {
+      "url": "https://www.tennis.com/news/articles/hard-going-for-hard-courts",
+      "publisher": "Tennis.com",
+      "origin": "vilas-tennis",
+      "title": "La temporada de Vilas en 1977",
+      "kind": "editorial",
+      "checkedAt": "2026-11-11T13:00:00Z"
+    },
+    "vilas-pdb": {
+      "url": "https://www.puntodebreak.com/2020/08/02/record-imposible-alcanzar-tenis-actual",
+      "publisher": "Punto de Break",
+      "origin": "vilas-pdb",
+      "title": "Títulos en una temporada: investigación inspirada en OnlyRogerCanFly",
+      "kind": "editorial",
+      "checkedAt": "2026-11-11T13:00:00Z"
+    },
+    "itf-major-table": {
+      "url": "https://www.world.tennis/en/tours/grand-slam-tournaments/",
+      "publisher": "ITF / World Tennis",
+      "origin": "itf-major-table",
+      "title": "Palmarés histórico de Grand Slam",
+      "kind": "official",
+      "checkedAt": "2026-11-11T22:48:43.303581+00:00"
+    },
+    "federer-fft-career": {
+      "url": "https://www.rolandgarros.com/en-us/article/roger-federer-retirement-career-statistics-figures/",
+      "publisher": "FFT / Roland-Garros",
+      "origin": "federer-fft-career",
+      "title": "La carrera de Federer en cifras",
+      "kind": "official",
+      "checkedAt": "2026-11-11T22:48:43.303581+00:00"
+    },
+    "nadal-ap-majors": {
+      "url": "https://apnews.com/article/5c66748cb027abd36622dd22b4a3b6d5",
+      "publisher": "Associated Press",
+      "origin": "nadal-ap-majors",
+      "title": "Los 22 títulos de Grand Slam de Nadal",
+      "kind": "editorial",
+      "checkedAt": "2026-11-11T22:48:43.303581+00:00"
+    },
+    "graf-wta-record": {
+      "url": "https://www.wtatennis.com/legends/70044/x/record",
+      "publisher": "WTA",
+      "origin": "graf-wta-record",
+      "title": "Steffi Graf: palmarés individual",
+      "kind": "official",
+      "checkedAt": "2026-11-11T22:48:43.303581+00:00"
+    },
+    "graf-ioc-career": {
+      "url": "https://www.olympics.com/ioc/news/steffi-graf-s-1988-golden-slam-an-unprecedented-achievement",
+      "publisher": "Comité Olímpico Internacional",
+      "origin": "graf-ioc-career",
+      "title": "El Golden Slam de Steffi Graf",
+      "kind": "official",
+      "checkedAt": "2026-11-11T22:48:43.303581+00:00"
+    },
+    "serena-wta-bio": {
+      "url": "https://www.wtatennis.com/news/4487583/legend-bio-serena-williams",
+      "publisher": "WTA",
+      "origin": "serena-wta-bio",
+      "title": "Serena Williams: biografía de leyenda",
+      "kind": "official",
+      "checkedAt": "2026-11-11T22:48:43.303581+00:00"
+    },
+    "navratilova-wta-record": {
+      "url": "https://www.wtatennis.com/legends/140007/martina-navratilova/record",
+      "publisher": "WTA",
+      "origin": "navratilova-wta-record",
+      "title": "Martina Navratilova: palmarés individual",
+      "kind": "official",
+      "checkedAt": "2026-11-11T22:48:43.303581+00:00"
+    },
+    "evert-wta-bio": {
+      "url": "https://www.wtatennis.com/legends/50020/chris-evert",
+      "publisher": "WTA",
+      "origin": "evert-wta-bio",
+      "title": "Chris Evert: biografía y palmarés",
+      "kind": "official",
+      "checkedAt": "2026-11-11T22:48:43.303581+00:00"
+    },
+    "federer-ap-career": {
+      "url": "https://www.ap.org/news-highlights/spotlights/2025/roger-federer-elected-to-international-tennis-hall-of-fame-in-1st-year-of-eligibility/",
+      "publisher": "Associated Press",
+      "origin": "federer-ap-career",
+      "title": "Federer entra en el Salón de la Fama",
+      "kind": "editorial",
+      "checkedAt": "2026-11-11T22:48:43.303581+00:00"
+    },
+    "federer-atp-bio": {
+      "url": "https://www.atptour.com/en/players/roger-federer/f324/bio",
+      "publisher": "ATP Tour",
+      "origin": "federer-atp-bio",
+      "title": "Roger Federer: biografía oficial",
+      "kind": "official",
+      "checkedAt": "2026-11-11T22:48:43.303581+00:00"
+    },
+    "federer-guinness-grass": {
+      "url": "https://www.guinnessworldrecords.com/world-records/602389-most-grass-court-singles-titles-won-consecutively",
+      "publisher": "Guinness World Records",
+      "origin": "federer-guinness-grass",
+      "title": "La secuencia de Federer sobre hierba",
+      "kind": "editorial",
+      "checkedAt": "2026-11-11T22:48:43.303581+00:00"
+    },
+    "nadal-fft-no-sets": {
+      "url": "https://www.rolandgarros.com/en-us/article/100-for-the-king-numbers-behind-rafas-latest-paris-run",
+      "publisher": "FFT / Roland-Garros",
+      "origin": "nadal-fft-no-sets",
+      "title": "Cuatro títulos de Nadal sin ceder un set",
+      "kind": "official",
+      "checkedAt": "2026-11-11T22:48:43.303581+00:00"
+    },
+    "nadal-itf-2020": {
+      "url": "https://www.world.tennis/en/news-and-media/articles/nadal-powers-past-djokovic-to-win-20th-grand-slam-crown/",
+      "publisher": "ITF / World Tennis",
+      "origin": "nadal-itf-2020",
+      "title": "Nadal alcanza su vigésimo Grand Slam",
+      "kind": "official",
+      "checkedAt": "2026-11-11T22:48:43.303581+00:00"
+    }
+  },
+  "facts": [
+    {
+      "id": "federer-10-slam-finals",
+      "tour": "atp",
+      "player": "Roger Federer",
+      "value": 10,
+      "unit": "finales",
+      "label": "Finales seguidas de Grand Slam",
+      "period": "Wimbledon 2005 – US Open 2007",
+      "scope": "atp:singles:slam:finals:consecutive-editions:2005-wimbledon:2007-us-open",
+      "definition": "Ediciones consecutivas del calendario de Grand Slam en las que alcanzó la final; no suma únicamente los torneos que jugó.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T13:00:00Z",
+      "observations": [
+        {
+          "source": "federer-slam-tennis",
+          "value": 10,
+          "unit": "finales",
+          "scope": "atp:singles:slam:finals:consecutive-editions:2005-wimbledon:2007-us-open",
+          "locator": "Reaching 10 straight major finals"
+        },
+        {
+          "source": "federer-wiki",
+          "value": 10,
+          "unit": "finales",
+          "scope": "atp:singles:slam:finals:consecutive-editions:2005-wimbledon:2007-us-open",
+          "locator": "Historic achievements: Grand Slam finals"
+        },
+        {
+          "source": "federer-final-history",
+          "value": 10,
+          "unit": "finales",
+          "scope": "atp:singles:slam:finals:consecutive-editions:2005-wimbledon:2007-us-open",
+          "locator": "Consecutive Grand Slam finals, men"
+        }
+      ]
+    },
+    {
+      "id": "federer-23-slam-semis",
+      "tour": "atp",
+      "player": "Roger Federer",
+      "value": 23,
+      "unit": "semifinales",
+      "label": "Semifinales seguidas de Grand Slam",
+      "period": "Wimbledon 2004 – Australia 2010",
+      "scope": "atp:singles:slam:semis:consecutive-editions:2004-wimbledon:2010-australian-open",
+      "definition": "Incluye las ediciones en las que llegó a la semifinal o a una ronda posterior, en torneos consecutivos del calendario.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T13:00:00Z",
+      "observations": [
+        {
+          "source": "federer-slam-tennis",
+          "value": 23,
+          "unit": "semifinales",
+          "scope": "atp:singles:slam:semis:consecutive-editions:2004-wimbledon:2010-australian-open",
+          "locator": "Reaching 10 straight major finals: semifinals"
+        },
+        {
+          "source": "federer-wiki",
+          "value": 23,
+          "unit": "semifinales",
+          "scope": "atp:singles:slam:semis:consecutive-editions:2004-wimbledon:2010-australian-open",
+          "locator": "Historic achievements: consecutive semifinal appearances"
+        },
+        {
+          "source": "federer-semi-guinness",
+          "value": 23,
+          "unit": "semifinales",
+          "scope": "atp:singles:slam:semis:consecutive-editions:2004-wimbledon:2010-australian-open",
+          "locator": "Record holder and total"
+        }
+      ]
+    },
+    {
+      "id": "federer-36-slam-quarters",
+      "tour": "atp",
+      "player": "Roger Federer",
+      "value": 36,
+      "unit": "cuartos",
+      "label": "Cuartos seguidos de Grand Slam",
+      "period": "Wimbledon 2004 – Roland Garros 2013",
+      "scope": "atp:singles:slam:quarters:consecutive-editions:2004-wimbledon:2013-roland-garros",
+      "definition": "Ediciones consecutivas de Grand Slam en las que alcanzó, como mínimo, los cuartos de final.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T13:00:00Z",
+      "observations": [
+        {
+          "source": "federer-slam-tennis",
+          "value": 36,
+          "unit": "cuartos",
+          "scope": "atp:singles:slam:quarters:consecutive-editions:2004-wimbledon:2013-roland-garros",
+          "locator": "Federer’s 36 straight QFs at majors"
+        },
+        {
+          "source": "federer-wiki",
+          "value": 36,
+          "unit": "cuartos",
+          "scope": "atp:singles:slam:quarters:consecutive-editions:2004-wimbledon:2013-roland-garros",
+          "locator": "Historic achievements: consecutive quarterfinal appearances"
+        },
+        {
+          "source": "federer-quarter-guinness",
+          "value": 36,
+          "unit": "cuartos",
+          "scope": "atp:singles:slam:quarters:consecutive-editions:2004-wimbledon:2013-roland-garros",
+          "locator": "Record description, Wimbledon 2004 to French Open 2013"
+        }
+      ]
+    },
+    {
+      "id": "federer-237-weeks",
+      "tour": "atp",
+      "player": "Roger Federer",
+      "value": 237,
+      "unit": "semanas",
+      "label": "Semanas seguidas como número uno",
+      "period": "Febrero 2004 – agosto 2008",
+      "scope": "atp:singles:ranking:consecutive-weeks-no1:2004-2008",
+      "definition": "Semanas consecutivas en el primer puesto del ranking ATP de individuales; no equivale al mejor ranking observado en los partidos.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T13:00:00Z",
+      "observations": [
+        {
+          "source": "federer-ranking-itf",
+          "value": 237,
+          "unit": "semanas",
+          "scope": "atp:singles:ranking:consecutive-weeks-no1:2004-2008",
+          "locator": "Career summary: consecutive weeks at the top"
+        },
+        {
+          "source": "federer-ranking-tennis",
+          "value": 237,
+          "unit": "semanas",
+          "scope": "atp:singles:ranking:consecutive-weeks-no1:2004-2008",
+          "locator": "237 consecutive weeks at No. 1"
+        },
+        {
+          "source": "federer-wiki",
+          "value": 237,
+          "unit": "semanas",
+          "scope": "atp:singles:ranking:consecutive-weeks-no1:2004-2008",
+          "locator": "ATP ranking: No. 1 stats; weeks at No. 1 by span"
+        }
+      ]
+    },
+    {
+      "id": "nadal-81-clay",
+      "tour": "atp",
+      "player": "Rafael Nadal",
+      "value": 81,
+      "unit": "victorias",
+      "label": "Victorias seguidas en tierra",
+      "period": "2005–2007",
+      "scope": "atp:singles:tour:clay:consecutive-wins:2005-2007",
+      "definition": "Racha de individuales del circuito principal sobre tierra, incluyendo categorías históricas anteriores a ATP 500 y ATP 250.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T13:00:00Z",
+      "observations": [
+        {
+          "source": "ao-open-records",
+          "value": 81,
+          "unit": "victorias",
+          "scope": "atp:singles:tour:clay:consecutive-wins:2005-2007",
+          "locator": "Chris Evert’s win streak: men’s clay streak"
+        },
+        {
+          "source": "nadal-clay-guardian",
+          "value": 81,
+          "unit": "victorias",
+          "scope": "atp:singles:tour:clay:consecutive-wins:2005-2007",
+          "locator": "Report of the Hamburg 2007 final"
+        },
+        {
+          "source": "nadal-wiki",
+          "value": 81,
+          "unit": "victorias",
+          "scope": "atp:singles:tour:clay:consecutive-wins:2005-2007",
+          "locator": "Lead and career achievements: single-surface streak"
+        }
+      ]
+    },
+    {
+      "id": "nadal-14-roland-garros",
+      "tour": "atp",
+      "player": "Rafael Nadal",
+      "value": 14,
+      "unit": "trofeos",
+      "label": "Títulos de Roland Garros",
+      "period": "2005–2022",
+      "scope": "atp:singles:roland-garros:career-titles:2005-2022",
+      "definition": "Títulos de individuales masculinos en Roland Garros, con las catorce ediciones identificadas por la organización.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T13:00:00Z",
+      "observations": [
+        {
+          "source": "nadal-rg",
+          "value": 14,
+          "unit": "trofeos",
+          "scope": "atp:singles:roland-garros:career-titles:2005-2022",
+          "locator": "14: finals and titles; edition list"
+        },
+        {
+          "source": "ao-open-records",
+          "value": 14,
+          "unit": "trofeos",
+          "scope": "atp:singles:roland-garros:career-titles:2005-2022",
+          "locator": "Rafael Nadal’s record at Roland Garros"
+        },
+        {
+          "source": "nadal-wiki",
+          "value": 14,
+          "unit": "trofeos",
+          "scope": "atp:singles:roland-garros:career-titles:2005-2022",
+          "locator": "French Open titles and Grand Slam performance"
+        }
+      ]
+    },
+    {
+      "id": "evert-125-clay",
+      "tour": "wta",
+      "player": "Chris Evert",
+      "value": 125,
+      "unit": "victorias",
+      "label": "Victorias seguidas en tierra",
+      "period": "1973–1979",
+      "scope": "wta:singles:tour:clay:consecutive-wins:1973-1979",
+      "definition": "Racha de individuales en tierra entre 1973 y 1979, terminada ante Tracy Austin en Roma. No se presenta una fecha inicial exacta por las diferencias entre publicaciones.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T13:00:00Z",
+      "observations": [
+        {
+          "source": "evert-wta",
+          "value": 125,
+          "unit": "victorias",
+          "scope": "wta:singles:tour:clay:consecutive-wins:1973-1979",
+          "locator": "Dominance on clay"
+        },
+        {
+          "source": "evert-clay-tennis",
+          "value": 125,
+          "unit": "victorias",
+          "scope": "wta:singles:tour:clay:consecutive-wins:1973-1979",
+          "locator": "Chris Evert’s 125-match clay court winning streak"
+        },
+        {
+          "source": "evert-wiki",
+          "value": 125,
+          "unit": "victorias",
+          "scope": "wta:singles:tour:clay:consecutive-wins:1973-1979",
+          "locator": "Tennis career: clay-court winning streak"
+        }
+      ]
+    },
+    {
+      "id": "evert-13-slam-years",
+      "tour": "wta",
+      "player": "Chris Evert",
+      "value": 13,
+      "unit": "temporadas",
+      "label": "Años seguidos ganando un Grand Slam",
+      "period": "1974–1986",
+      "scope": "wta:singles:slam:consecutive-years-with-title:1974-1986",
+      "definition": "Años naturales consecutivos con al menos un título de Grand Slam de individuales; no cuenta títulos de dobles.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T13:00:00Z",
+      "observations": [
+        {
+          "source": "evert-wta",
+          "value": 13,
+          "unit": "temporadas",
+          "scope": "wta:singles:slam:consecutive-years-with-title:1974-1986",
+          "locator": "Consecutive years with a major title"
+        },
+        {
+          "source": "evert-years-tennis",
+          "value": 13,
+          "unit": "temporadas",
+          "scope": "wta:singles:slam:consecutive-years-with-title:1974-1986",
+          "locator": "Last major title in 1986: thirteen-year streak"
+        },
+        {
+          "source": "evert-wiki",
+          "value": 13,
+          "unit": "temporadas",
+          "scope": "wta:singles:slam:consecutive-years-with-title:1974-1986",
+          "locator": "Tennis career and records: 1974 through 1986"
+        }
+      ]
+    },
+    {
+      "id": "navratilova-74-wins",
+      "tour": "wta",
+      "player": "Martina Navratilova",
+      "value": 74,
+      "unit": "victorias",
+      "label": "Victorias consecutivas",
+      "period": "1984",
+      "scope": "wta:singles:tour:all-surfaces:consecutive-wins:1984",
+      "definition": "Racha de individuales de 1984, en todas las superficies, que terminó ante Helena Sukova en la semifinal de Australia.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T13:00:00Z",
+      "observations": [
+        {
+          "source": "navratilova-streak-wta",
+          "value": 74,
+          "unit": "victorias",
+          "scope": "wta:singles:tour:all-surfaces:consecutive-wins:1984",
+          "locator": "1984 Australian Open: Sukova ended the streak"
+        },
+        {
+          "source": "evert-clay-tennis",
+          "value": 74,
+          "unit": "victorias",
+          "scope": "wta:singles:tour:all-surfaces:consecutive-wins:1984",
+          "locator": "All-surface winning streak: Navratilova in 1984"
+        },
+        {
+          "source": "navratilova-wiki",
+          "value": 74,
+          "unit": "victorias",
+          "scope": "wta:singles:tour:all-surfaces:consecutive-wins:1984",
+          "locator": "Dominance: longest all-surface winning streak"
+        }
+      ]
+    },
+    {
+      "id": "navratilova-167-titles",
+      "tour": "wta",
+      "player": "Martina Navratilova",
+      "value": 167,
+      "unit": "trofeos",
+      "label": "Títulos de individuales",
+      "period": "Carrera completa",
+      "scope": "wta:singles:tour:career-titles:navratilova",
+      "definition": "Títulos de individuales del circuito principal, según su palmarés oficial. No incluye sus títulos de dobles o mixtos.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T13:00:00Z",
+      "observations": [
+        {
+          "source": "navratilova-titles-wta",
+          "value": 167,
+          "unit": "trofeos",
+          "scope": "wta:singles:tour:career-titles:navratilova",
+          "locator": "Career Stats: Singles Titles"
+        },
+        {
+          "source": "navratilova-titles-tennis",
+          "value": 167,
+          "unit": "trofeos",
+          "scope": "wta:singles:tour:career-titles:navratilova",
+          "locator": "Career singles titles in the opening paragraph"
+        },
+        {
+          "source": "navratilova-wiki",
+          "value": 167,
+          "unit": "trofeos",
+          "scope": "wta:singles:tour:career-titles:navratilova",
+          "locator": "Infobox: career singles titles"
+        }
+      ]
+    },
+    {
+      "id": "vilas-16-titles-1977",
+      "tour": "atp",
+      "player": "Guillermo Vilas",
+      "value": 16,
+      "unit": "trofeos",
+      "label": "Títulos en una sola temporada",
+      "period": "1977",
+      "scope": "atp:singles:tour:season-titles:vilas:1977",
+      "definition": "Títulos de individuales en el circuito principal durante 1977. No se presenta la cifra como un ranking de todas las eras ni se compara con categorías modernas.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T13:00:00Z",
+      "observations": [
+        {
+          "source": "vilas-wiki",
+          "value": 16,
+          "unit": "trofeos",
+          "scope": "atp:singles:tour:season-titles:vilas:1977",
+          "locator": "1977: Best year and record win streak"
+        },
+        {
+          "source": "vilas-tennis",
+          "value": 16,
+          "unit": "trofeos",
+          "scope": "atp:singles:tour:season-titles:vilas:1977",
+          "locator": "1977 season: sixteen of thirty-one ATP tournaments"
+        },
+        {
+          "source": "vilas-pdb",
+          "value": 16,
+          "unit": "trofeos",
+          "scope": "atp:singles:tour:season-titles:vilas:1977",
+          "locator": "Guillermo Vilas, temporada 1977"
+        }
+      ]
+    },
+    {
+      "id": "federer-career-titles-majors",
+      "tour": "atp",
+      "player": "Roger Federer",
+      "value": 20,
+      "unit": "títulos",
+      "label": "Títulos individuales en Grand Slam",
+      "period": "1998–2022",
+      "scope": "atp:singles:federer:career-titles:majors:through-2022",
+      "definition": "Campeonatos individuales de Roger Federer en Grand Slam hasta 2022. Cifra histórica de referencia; no se deduce de la muestra parcial de partidos de DEUCE.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T22:48:43.303581+00:00",
+      "minimumSources": 2,
+      "observations": [
+        {
+          "source": "federer-fft-career",
+          "value": 20,
+          "scope": "atp:singles:federer:career-titles:majors:through-2022",
+          "unit": "títulos",
+          "locator": "Roger Federer; títulos individuales; Grand Slam; 20 títulos (lista de campeonatos y años)."
+        },
+        {
+          "source": "itf-major-table",
+          "value": 20,
+          "scope": "atp:singles:federer:career-titles:majors:through-2022",
+          "unit": "títulos",
+          "locator": "Tabla Greatest Grand Slam singles winners; fila Roger Federer; columna Total"
+        }
+      ]
+    },
+    {
+      "id": "federer-career-titles-australia",
+      "tour": "atp",
+      "player": "Roger Federer",
+      "value": 6,
+      "unit": "títulos",
+      "label": "Títulos individuales en Abierto de Australia",
+      "period": "1998–2022",
+      "scope": "atp:singles:federer:career-titles:australia:through-2022",
+      "definition": "Campeonatos individuales de Roger Federer en Abierto de Australia hasta 2022. Cifra histórica de referencia; no se deduce de la muestra parcial de partidos de DEUCE.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T22:48:43.303581+00:00",
+      "minimumSources": 2,
+      "observations": [
+        {
+          "source": "federer-fft-career",
+          "value": 6,
+          "scope": "atp:singles:federer:career-titles:australia:through-2022",
+          "unit": "títulos",
+          "locator": "Roger Federer; títulos individuales; Abierto de Australia; 6 títulos (lista de campeonatos y años)."
+        },
+        {
+          "source": "itf-major-table",
+          "value": 6,
+          "scope": "atp:singles:federer:career-titles:australia:through-2022",
+          "unit": "títulos",
+          "locator": "Tabla Greatest Grand Slam singles winners; fila Roger Federer; columna AUS"
+        }
+      ]
+    },
+    {
+      "id": "federer-career-titles-roland-garros",
+      "tour": "atp",
+      "player": "Roger Federer",
+      "value": 1,
+      "unit": "títulos",
+      "label": "Títulos individuales en Roland Garros",
+      "period": "1998–2022",
+      "scope": "atp:singles:federer:career-titles:roland-garros:through-2022",
+      "definition": "Campeonatos individuales de Roger Federer en Roland Garros hasta 2022. Cifra histórica de referencia; no se deduce de la muestra parcial de partidos de DEUCE.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T22:48:43.303581+00:00",
+      "minimumSources": 2,
+      "observations": [
+        {
+          "source": "federer-fft-career",
+          "value": 1,
+          "scope": "atp:singles:federer:career-titles:roland-garros:through-2022",
+          "unit": "títulos",
+          "locator": "Roger Federer; títulos individuales; Roland Garros; 1 títulos (lista de campeonatos y años)."
+        },
+        {
+          "source": "itf-major-table",
+          "value": 1,
+          "scope": "atp:singles:federer:career-titles:roland-garros:through-2022",
+          "unit": "títulos",
+          "locator": "Tabla Greatest Grand Slam singles winners; fila Roger Federer; columna FRA"
+        }
+      ]
+    },
+    {
+      "id": "federer-career-titles-wimbledon",
+      "tour": "atp",
+      "player": "Roger Federer",
+      "value": 8,
+      "unit": "títulos",
+      "label": "Títulos individuales en Wimbledon",
+      "period": "1998–2022",
+      "scope": "atp:singles:federer:career-titles:wimbledon:through-2022",
+      "definition": "Campeonatos individuales de Roger Federer en Wimbledon hasta 2022. Cifra histórica de referencia; no se deduce de la muestra parcial de partidos de DEUCE.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T22:48:43.303581+00:00",
+      "minimumSources": 2,
+      "observations": [
+        {
+          "source": "federer-fft-career",
+          "value": 8,
+          "scope": "atp:singles:federer:career-titles:wimbledon:through-2022",
+          "unit": "títulos",
+          "locator": "Roger Federer; títulos individuales; Wimbledon; 8 títulos (lista de campeonatos y años)."
+        },
+        {
+          "source": "itf-major-table",
+          "value": 8,
+          "scope": "atp:singles:federer:career-titles:wimbledon:through-2022",
+          "unit": "títulos",
+          "locator": "Tabla Greatest Grand Slam singles winners; fila Roger Federer; columna WIM"
+        }
+      ]
+    },
+    {
+      "id": "federer-career-titles-us-open",
+      "tour": "atp",
+      "player": "Roger Federer",
+      "value": 5,
+      "unit": "títulos",
+      "label": "Títulos individuales en Abierto de Estados Unidos",
+      "period": "1998–2022",
+      "scope": "atp:singles:federer:career-titles:us-open:through-2022",
+      "definition": "Campeonatos individuales de Roger Federer en Abierto de Estados Unidos hasta 2022. Cifra histórica de referencia; no se deduce de la muestra parcial de partidos de DEUCE.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T22:48:43.303581+00:00",
+      "minimumSources": 2,
+      "observations": [
+        {
+          "source": "federer-fft-career",
+          "value": 5,
+          "scope": "atp:singles:federer:career-titles:us-open:through-2022",
+          "unit": "títulos",
+          "locator": "Roger Federer; títulos individuales; Abierto de Estados Unidos; 5 títulos (lista de campeonatos y años)."
+        },
+        {
+          "source": "itf-major-table",
+          "value": 5,
+          "scope": "atp:singles:federer:career-titles:us-open:through-2022",
+          "unit": "títulos",
+          "locator": "Tabla Greatest Grand Slam singles winners; fila Roger Federer; columna USA"
+        }
+      ]
+    },
+    {
+      "id": "nadal-career-titles-majors",
+      "tour": "atp",
+      "player": "Rafael Nadal",
+      "value": 22,
+      "unit": "títulos",
+      "label": "Títulos individuales en Grand Slam",
+      "period": "2001–2024",
+      "scope": "atp:singles:nadal:career-titles:majors:through-2024",
+      "definition": "Campeonatos individuales de Rafael Nadal en Grand Slam hasta 2024. Cifra histórica de referencia; no se deduce de la muestra parcial de partidos de DEUCE.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T22:48:43.303581+00:00",
+      "minimumSources": 2,
+      "observations": [
+        {
+          "source": "nadal-ap-majors",
+          "value": 22,
+          "scope": "atp:singles:nadal:career-titles:majors:through-2024",
+          "unit": "títulos",
+          "locator": "Rafael Nadal; títulos individuales; Grand Slam; 22 títulos (lista de campeonatos y años)."
+        },
+        {
+          "source": "itf-major-table",
+          "value": 22,
+          "scope": "atp:singles:nadal:career-titles:majors:through-2024",
+          "unit": "títulos",
+          "locator": "Tabla Greatest Grand Slam singles winners; fila Rafael Nadal; columna Total"
+        }
+      ]
+    },
+    {
+      "id": "nadal-career-titles-australia",
+      "tour": "atp",
+      "player": "Rafael Nadal",
+      "value": 2,
+      "unit": "títulos",
+      "label": "Títulos individuales en Abierto de Australia",
+      "period": "2001–2024",
+      "scope": "atp:singles:nadal:career-titles:australia:through-2024",
+      "definition": "Campeonatos individuales de Rafael Nadal en Abierto de Australia hasta 2024. Cifra histórica de referencia; no se deduce de la muestra parcial de partidos de DEUCE.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T22:48:43.303581+00:00",
+      "minimumSources": 2,
+      "observations": [
+        {
+          "source": "nadal-ap-majors",
+          "value": 2,
+          "scope": "atp:singles:nadal:career-titles:australia:through-2024",
+          "unit": "títulos",
+          "locator": "Rafael Nadal; títulos individuales; Abierto de Australia; 2 títulos (lista de campeonatos y años)."
+        },
+        {
+          "source": "itf-major-table",
+          "value": 2,
+          "scope": "atp:singles:nadal:career-titles:australia:through-2024",
+          "unit": "títulos",
+          "locator": "Tabla Greatest Grand Slam singles winners; fila Rafael Nadal; columna AUS"
+        }
+      ]
+    },
+    {
+      "id": "nadal-career-titles-wimbledon",
+      "tour": "atp",
+      "player": "Rafael Nadal",
+      "value": 2,
+      "unit": "títulos",
+      "label": "Títulos individuales en Wimbledon",
+      "period": "2001–2024",
+      "scope": "atp:singles:nadal:career-titles:wimbledon:through-2024",
+      "definition": "Campeonatos individuales de Rafael Nadal en Wimbledon hasta 2024. Cifra histórica de referencia; no se deduce de la muestra parcial de partidos de DEUCE.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T22:48:43.303581+00:00",
+      "minimumSources": 2,
+      "observations": [
+        {
+          "source": "nadal-ap-majors",
+          "value": 2,
+          "scope": "atp:singles:nadal:career-titles:wimbledon:through-2024",
+          "unit": "títulos",
+          "locator": "Rafael Nadal; títulos individuales; Wimbledon; 2 títulos (lista de campeonatos y años)."
+        },
+        {
+          "source": "itf-major-table",
+          "value": 2,
+          "scope": "atp:singles:nadal:career-titles:wimbledon:through-2024",
+          "unit": "títulos",
+          "locator": "Tabla Greatest Grand Slam singles winners; fila Rafael Nadal; columna WIM"
+        }
+      ]
+    },
+    {
+      "id": "nadal-career-titles-us-open",
+      "tour": "atp",
+      "player": "Rafael Nadal",
+      "value": 4,
+      "unit": "títulos",
+      "label": "Títulos individuales en Abierto de Estados Unidos",
+      "period": "2001–2024",
+      "scope": "atp:singles:nadal:career-titles:us-open:through-2024",
+      "definition": "Campeonatos individuales de Rafael Nadal en Abierto de Estados Unidos hasta 2024. Cifra histórica de referencia; no se deduce de la muestra parcial de partidos de DEUCE.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T22:48:43.303581+00:00",
+      "minimumSources": 2,
+      "observations": [
+        {
+          "source": "nadal-ap-majors",
+          "value": 4,
+          "scope": "atp:singles:nadal:career-titles:us-open:through-2024",
+          "unit": "títulos",
+          "locator": "Rafael Nadal; títulos individuales; Abierto de Estados Unidos; 4 títulos (lista de campeonatos y años)."
+        },
+        {
+          "source": "itf-major-table",
+          "value": 4,
+          "scope": "atp:singles:nadal:career-titles:us-open:through-2024",
+          "unit": "títulos",
+          "locator": "Tabla Greatest Grand Slam singles winners; fila Rafael Nadal; columna USA"
+        }
+      ]
+    },
+    {
+      "id": "graf-career-titles-majors",
+      "tour": "wta",
+      "player": "Steffi Graf",
+      "value": 22,
+      "unit": "títulos",
+      "label": "Títulos individuales en Grand Slam",
+      "period": "1982–1999",
+      "scope": "wta:singles:graf:career-titles:majors:through-1999",
+      "definition": "Campeonatos individuales de Steffi Graf en Grand Slam hasta 1999. Cifra histórica de referencia; no se deduce de la muestra parcial de partidos de DEUCE.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T22:48:43.303581+00:00",
+      "minimumSources": 2,
+      "observations": [
+        {
+          "source": "graf-wta-record",
+          "value": 22,
+          "scope": "wta:singles:graf:career-titles:majors:through-1999",
+          "unit": "títulos",
+          "locator": "Steffi Graf; títulos individuales; Grand Slam; 22 títulos (lista de campeonatos y años)."
+        },
+        {
+          "source": "itf-major-table",
+          "value": 22,
+          "scope": "wta:singles:graf:career-titles:majors:through-1999",
+          "unit": "títulos",
+          "locator": "Tabla Greatest Grand Slam singles winners; fila Steffi Graf; columna Total"
+        }
+      ]
+    },
+    {
+      "id": "graf-career-titles-australia",
+      "tour": "wta",
+      "player": "Steffi Graf",
+      "value": 4,
+      "unit": "títulos",
+      "label": "Títulos individuales en Abierto de Australia",
+      "period": "1982–1999",
+      "scope": "wta:singles:graf:career-titles:australia:through-1999",
+      "definition": "Campeonatos individuales de Steffi Graf en Abierto de Australia hasta 1999. Cifra histórica de referencia; no se deduce de la muestra parcial de partidos de DEUCE.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T22:48:43.303581+00:00",
+      "minimumSources": 2,
+      "observations": [
+        {
+          "source": "graf-wta-record",
+          "value": 4,
+          "scope": "wta:singles:graf:career-titles:australia:through-1999",
+          "unit": "títulos",
+          "locator": "Steffi Graf; títulos individuales; Abierto de Australia; 4 títulos (lista de campeonatos y años)."
+        },
+        {
+          "source": "itf-major-table",
+          "value": 4,
+          "scope": "wta:singles:graf:career-titles:australia:through-1999",
+          "unit": "títulos",
+          "locator": "Tabla Greatest Grand Slam singles winners; fila Steffi Graf; columna AUS"
+        }
+      ]
+    },
+    {
+      "id": "graf-career-titles-roland-garros",
+      "tour": "wta",
+      "player": "Steffi Graf",
+      "value": 6,
+      "unit": "títulos",
+      "label": "Títulos individuales en Roland Garros",
+      "period": "1982–1999",
+      "scope": "wta:singles:graf:career-titles:roland-garros:through-1999",
+      "definition": "Campeonatos individuales de Steffi Graf en Roland Garros hasta 1999. Cifra histórica de referencia; no se deduce de la muestra parcial de partidos de DEUCE.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T22:48:43.303581+00:00",
+      "minimumSources": 2,
+      "observations": [
+        {
+          "source": "graf-wta-record",
+          "value": 6,
+          "scope": "wta:singles:graf:career-titles:roland-garros:through-1999",
+          "unit": "títulos",
+          "locator": "Steffi Graf; títulos individuales; Roland Garros; 6 títulos (lista de campeonatos y años)."
+        },
+        {
+          "source": "itf-major-table",
+          "value": 6,
+          "scope": "wta:singles:graf:career-titles:roland-garros:through-1999",
+          "unit": "títulos",
+          "locator": "Tabla Greatest Grand Slam singles winners; fila Steffi Graf; columna FRA"
+        }
+      ]
+    },
+    {
+      "id": "graf-career-titles-wimbledon",
+      "tour": "wta",
+      "player": "Steffi Graf",
+      "value": 7,
+      "unit": "títulos",
+      "label": "Títulos individuales en Wimbledon",
+      "period": "1982–1999",
+      "scope": "wta:singles:graf:career-titles:wimbledon:through-1999",
+      "definition": "Campeonatos individuales de Steffi Graf en Wimbledon hasta 1999. Cifra histórica de referencia; no se deduce de la muestra parcial de partidos de DEUCE.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T22:48:43.303581+00:00",
+      "minimumSources": 2,
+      "observations": [
+        {
+          "source": "graf-wta-record",
+          "value": 7,
+          "scope": "wta:singles:graf:career-titles:wimbledon:through-1999",
+          "unit": "títulos",
+          "locator": "Steffi Graf; títulos individuales; Wimbledon; 7 títulos (lista de campeonatos y años)."
+        },
+        {
+          "source": "itf-major-table",
+          "value": 7,
+          "scope": "wta:singles:graf:career-titles:wimbledon:through-1999",
+          "unit": "títulos",
+          "locator": "Tabla Greatest Grand Slam singles winners; fila Steffi Graf; columna WIM"
+        }
+      ]
+    },
+    {
+      "id": "graf-career-titles-us-open",
+      "tour": "wta",
+      "player": "Steffi Graf",
+      "value": 5,
+      "unit": "títulos",
+      "label": "Títulos individuales en Abierto de Estados Unidos",
+      "period": "1982–1999",
+      "scope": "wta:singles:graf:career-titles:us-open:through-1999",
+      "definition": "Campeonatos individuales de Steffi Graf en Abierto de Estados Unidos hasta 1999. Cifra histórica de referencia; no se deduce de la muestra parcial de partidos de DEUCE.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T22:48:43.303581+00:00",
+      "minimumSources": 2,
+      "observations": [
+        {
+          "source": "graf-wta-record",
+          "value": 5,
+          "scope": "wta:singles:graf:career-titles:us-open:through-1999",
+          "unit": "títulos",
+          "locator": "Steffi Graf; títulos individuales; Abierto de Estados Unidos; 5 títulos (lista de campeonatos y años)."
+        },
+        {
+          "source": "itf-major-table",
+          "value": 5,
+          "scope": "wta:singles:graf:career-titles:us-open:through-1999",
+          "unit": "títulos",
+          "locator": "Tabla Greatest Grand Slam singles winners; fila Steffi Graf; columna USA"
+        }
+      ]
+    },
+    {
+      "id": "serena-career-titles-majors",
+      "tour": "wta",
+      "player": "Serena Williams",
+      "value": 23,
+      "unit": "títulos",
+      "label": "Títulos individuales en Grand Slam",
+      "period": "1995–2022",
+      "scope": "wta:singles:serena:career-titles:majors:through-2022",
+      "definition": "Campeonatos individuales de Serena Williams en Grand Slam hasta 2022. Cifra histórica de referencia; no se deduce de la muestra parcial de partidos de DEUCE.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T22:48:43.303581+00:00",
+      "minimumSources": 2,
+      "observations": [
+        {
+          "source": "serena-wta-bio",
+          "value": 23,
+          "scope": "wta:singles:serena:career-titles:majors:through-2022",
+          "unit": "títulos",
+          "locator": "Serena Williams; títulos individuales; Grand Slam; 23 títulos (lista de campeonatos y años)."
+        },
+        {
+          "source": "itf-major-table",
+          "value": 23,
+          "scope": "wta:singles:serena:career-titles:majors:through-2022",
+          "unit": "títulos",
+          "locator": "Tabla Greatest Grand Slam singles winners; fila Serena Williams; columna Total"
+        }
+      ]
+    },
+    {
+      "id": "serena-career-titles-australia",
+      "tour": "wta",
+      "player": "Serena Williams",
+      "value": 7,
+      "unit": "títulos",
+      "label": "Títulos individuales en Abierto de Australia",
+      "period": "1995–2022",
+      "scope": "wta:singles:serena:career-titles:australia:through-2022",
+      "definition": "Campeonatos individuales de Serena Williams en Abierto de Australia hasta 2022. Cifra histórica de referencia; no se deduce de la muestra parcial de partidos de DEUCE.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T22:48:43.303581+00:00",
+      "minimumSources": 2,
+      "observations": [
+        {
+          "source": "serena-wta-bio",
+          "value": 7,
+          "scope": "wta:singles:serena:career-titles:australia:through-2022",
+          "unit": "títulos",
+          "locator": "Serena Williams; títulos individuales; Abierto de Australia; 7 títulos (lista de campeonatos y años)."
+        },
+        {
+          "source": "itf-major-table",
+          "value": 7,
+          "scope": "wta:singles:serena:career-titles:australia:through-2022",
+          "unit": "títulos",
+          "locator": "Tabla Greatest Grand Slam singles winners; fila Serena Williams; columna AUS"
+        }
+      ]
+    },
+    {
+      "id": "serena-career-titles-roland-garros",
+      "tour": "wta",
+      "player": "Serena Williams",
+      "value": 3,
+      "unit": "títulos",
+      "label": "Títulos individuales en Roland Garros",
+      "period": "1995–2022",
+      "scope": "wta:singles:serena:career-titles:roland-garros:through-2022",
+      "definition": "Campeonatos individuales de Serena Williams en Roland Garros hasta 2022. Cifra histórica de referencia; no se deduce de la muestra parcial de partidos de DEUCE.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T22:48:43.303581+00:00",
+      "minimumSources": 2,
+      "observations": [
+        {
+          "source": "serena-wta-bio",
+          "value": 3,
+          "scope": "wta:singles:serena:career-titles:roland-garros:through-2022",
+          "unit": "títulos",
+          "locator": "Serena Williams; títulos individuales; Roland Garros; 3 títulos (lista de campeonatos y años)."
+        },
+        {
+          "source": "itf-major-table",
+          "value": 3,
+          "scope": "wta:singles:serena:career-titles:roland-garros:through-2022",
+          "unit": "títulos",
+          "locator": "Tabla Greatest Grand Slam singles winners; fila Serena Williams; columna FRA"
+        }
+      ]
+    },
+    {
+      "id": "serena-career-titles-wimbledon",
+      "tour": "wta",
+      "player": "Serena Williams",
+      "value": 7,
+      "unit": "títulos",
+      "label": "Títulos individuales en Wimbledon",
+      "period": "1995–2022",
+      "scope": "wta:singles:serena:career-titles:wimbledon:through-2022",
+      "definition": "Campeonatos individuales de Serena Williams en Wimbledon hasta 2022. Cifra histórica de referencia; no se deduce de la muestra parcial de partidos de DEUCE.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T22:48:43.303581+00:00",
+      "minimumSources": 2,
+      "observations": [
+        {
+          "source": "serena-wta-bio",
+          "value": 7,
+          "scope": "wta:singles:serena:career-titles:wimbledon:through-2022",
+          "unit": "títulos",
+          "locator": "Serena Williams; títulos individuales; Wimbledon; 7 títulos (lista de campeonatos y años)."
+        },
+        {
+          "source": "itf-major-table",
+          "value": 7,
+          "scope": "wta:singles:serena:career-titles:wimbledon:through-2022",
+          "unit": "títulos",
+          "locator": "Tabla Greatest Grand Slam singles winners; fila Serena Williams; columna WIM"
+        }
+      ]
+    },
+    {
+      "id": "serena-career-titles-us-open",
+      "tour": "wta",
+      "player": "Serena Williams",
+      "value": 6,
+      "unit": "títulos",
+      "label": "Títulos individuales en Abierto de Estados Unidos",
+      "period": "1995–2022",
+      "scope": "wta:singles:serena:career-titles:us-open:through-2022",
+      "definition": "Campeonatos individuales de Serena Williams en Abierto de Estados Unidos hasta 2022. Cifra histórica de referencia; no se deduce de la muestra parcial de partidos de DEUCE.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T22:48:43.303581+00:00",
+      "minimumSources": 2,
+      "observations": [
+        {
+          "source": "serena-wta-bio",
+          "value": 6,
+          "scope": "wta:singles:serena:career-titles:us-open:through-2022",
+          "unit": "títulos",
+          "locator": "Serena Williams; títulos individuales; Abierto de Estados Unidos; 6 títulos (lista de campeonatos y años)."
+        },
+        {
+          "source": "itf-major-table",
+          "value": 6,
+          "scope": "wta:singles:serena:career-titles:us-open:through-2022",
+          "unit": "títulos",
+          "locator": "Tabla Greatest Grand Slam singles winners; fila Serena Williams; columna USA"
+        }
+      ]
+    },
+    {
+      "id": "navratilova-career-titles-majors",
+      "tour": "wta",
+      "player": "Martina Navratilova",
+      "value": 18,
+      "unit": "títulos",
+      "label": "Títulos individuales en Grand Slam",
+      "period": "1973–2006",
+      "scope": "wta:singles:navratilova:career-titles:majors:through-2006",
+      "definition": "Campeonatos individuales de Martina Navratilova en Grand Slam hasta 2006. Cifra histórica de referencia; no se deduce de la muestra parcial de partidos de DEUCE.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T22:48:43.303581+00:00",
+      "minimumSources": 2,
+      "observations": [
+        {
+          "source": "navratilova-wta-record",
+          "value": 18,
+          "scope": "wta:singles:navratilova:career-titles:majors:through-2006",
+          "unit": "títulos",
+          "locator": "Martina Navratilova; títulos individuales; Grand Slam; 18 títulos (lista de campeonatos y años)."
+        },
+        {
+          "source": "itf-major-table",
+          "value": 18,
+          "scope": "wta:singles:navratilova:career-titles:majors:through-2006",
+          "unit": "títulos",
+          "locator": "Tabla Greatest Grand Slam singles winners; fila Martina Navratilova; columna Total"
+        }
+      ]
+    },
+    {
+      "id": "navratilova-career-titles-australia",
+      "tour": "wta",
+      "player": "Martina Navratilova",
+      "value": 3,
+      "unit": "títulos",
+      "label": "Títulos individuales en Abierto de Australia",
+      "period": "1973–2006",
+      "scope": "wta:singles:navratilova:career-titles:australia:through-2006",
+      "definition": "Campeonatos individuales de Martina Navratilova en Abierto de Australia hasta 2006. Cifra histórica de referencia; no se deduce de la muestra parcial de partidos de DEUCE.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T22:48:43.303581+00:00",
+      "minimumSources": 2,
+      "observations": [
+        {
+          "source": "navratilova-wta-record",
+          "value": 3,
+          "scope": "wta:singles:navratilova:career-titles:australia:through-2006",
+          "unit": "títulos",
+          "locator": "Martina Navratilova; títulos individuales; Abierto de Australia; 3 títulos (lista de campeonatos y años)."
+        },
+        {
+          "source": "itf-major-table",
+          "value": 3,
+          "scope": "wta:singles:navratilova:career-titles:australia:through-2006",
+          "unit": "títulos",
+          "locator": "Tabla Greatest Grand Slam singles winners; fila Martina Navratilova; columna AUS"
+        }
+      ]
+    },
+    {
+      "id": "navratilova-career-titles-roland-garros",
+      "tour": "wta",
+      "player": "Martina Navratilova",
+      "value": 2,
+      "unit": "títulos",
+      "label": "Títulos individuales en Roland Garros",
+      "period": "1973–2006",
+      "scope": "wta:singles:navratilova:career-titles:roland-garros:through-2006",
+      "definition": "Campeonatos individuales de Martina Navratilova en Roland Garros hasta 2006. Cifra histórica de referencia; no se deduce de la muestra parcial de partidos de DEUCE.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T22:48:43.303581+00:00",
+      "minimumSources": 2,
+      "observations": [
+        {
+          "source": "navratilova-wta-record",
+          "value": 2,
+          "scope": "wta:singles:navratilova:career-titles:roland-garros:through-2006",
+          "unit": "títulos",
+          "locator": "Martina Navratilova; títulos individuales; Roland Garros; 2 títulos (lista de campeonatos y años)."
+        },
+        {
+          "source": "itf-major-table",
+          "value": 2,
+          "scope": "wta:singles:navratilova:career-titles:roland-garros:through-2006",
+          "unit": "títulos",
+          "locator": "Tabla Greatest Grand Slam singles winners; fila Martina Navratilova; columna FRA"
+        }
+      ]
+    },
+    {
+      "id": "navratilova-career-titles-wimbledon",
+      "tour": "wta",
+      "player": "Martina Navratilova",
+      "value": 9,
+      "unit": "títulos",
+      "label": "Títulos individuales en Wimbledon",
+      "period": "1973–2006",
+      "scope": "wta:singles:navratilova:career-titles:wimbledon:through-2006",
+      "definition": "Campeonatos individuales de Martina Navratilova en Wimbledon hasta 2006. Cifra histórica de referencia; no se deduce de la muestra parcial de partidos de DEUCE.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T22:48:43.303581+00:00",
+      "minimumSources": 2,
+      "observations": [
+        {
+          "source": "navratilova-wta-record",
+          "value": 9,
+          "scope": "wta:singles:navratilova:career-titles:wimbledon:through-2006",
+          "unit": "títulos",
+          "locator": "Martina Navratilova; títulos individuales; Wimbledon; 9 títulos (lista de campeonatos y años)."
+        },
+        {
+          "source": "itf-major-table",
+          "value": 9,
+          "scope": "wta:singles:navratilova:career-titles:wimbledon:through-2006",
+          "unit": "títulos",
+          "locator": "Tabla Greatest Grand Slam singles winners; fila Martina Navratilova; columna WIM"
+        }
+      ]
+    },
+    {
+      "id": "navratilova-career-titles-us-open",
+      "tour": "wta",
+      "player": "Martina Navratilova",
+      "value": 4,
+      "unit": "títulos",
+      "label": "Títulos individuales en Abierto de Estados Unidos",
+      "period": "1973–2006",
+      "scope": "wta:singles:navratilova:career-titles:us-open:through-2006",
+      "definition": "Campeonatos individuales de Martina Navratilova en Abierto de Estados Unidos hasta 2006. Cifra histórica de referencia; no se deduce de la muestra parcial de partidos de DEUCE.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T22:48:43.303581+00:00",
+      "minimumSources": 2,
+      "observations": [
+        {
+          "source": "navratilova-wta-record",
+          "value": 4,
+          "scope": "wta:singles:navratilova:career-titles:us-open:through-2006",
+          "unit": "títulos",
+          "locator": "Martina Navratilova; títulos individuales; Abierto de Estados Unidos; 4 títulos (lista de campeonatos y años)."
+        },
+        {
+          "source": "itf-major-table",
+          "value": 4,
+          "scope": "wta:singles:navratilova:career-titles:us-open:through-2006",
+          "unit": "títulos",
+          "locator": "Tabla Greatest Grand Slam singles winners; fila Martina Navratilova; columna USA"
+        }
+      ]
+    },
+    {
+      "id": "evert-career-titles-majors",
+      "tour": "wta",
+      "player": "Chris Evert",
+      "value": 18,
+      "unit": "títulos",
+      "label": "Títulos individuales en Grand Slam",
+      "period": "1972–1989",
+      "scope": "wta:singles:evert:career-titles:majors:through-1989",
+      "definition": "Campeonatos individuales de Chris Evert en Grand Slam hasta 1989. Cifra histórica de referencia; no se deduce de la muestra parcial de partidos de DEUCE.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T22:48:43.303581+00:00",
+      "minimumSources": 2,
+      "observations": [
+        {
+          "source": "evert-wta-bio",
+          "value": 18,
+          "scope": "wta:singles:evert:career-titles:majors:through-1989",
+          "unit": "títulos",
+          "locator": "Chris Evert; títulos individuales; Grand Slam; 18 títulos (lista de campeonatos y años)."
+        },
+        {
+          "source": "itf-major-table",
+          "value": 18,
+          "scope": "wta:singles:evert:career-titles:majors:through-1989",
+          "unit": "títulos",
+          "locator": "Tabla Greatest Grand Slam singles winners; fila Chris Evert; columna Total"
+        }
+      ]
+    },
+    {
+      "id": "evert-career-titles-australia",
+      "tour": "wta",
+      "player": "Chris Evert",
+      "value": 2,
+      "unit": "títulos",
+      "label": "Títulos individuales en Abierto de Australia",
+      "period": "1972–1989",
+      "scope": "wta:singles:evert:career-titles:australia:through-1989",
+      "definition": "Campeonatos individuales de Chris Evert en Abierto de Australia hasta 1989. Cifra histórica de referencia; no se deduce de la muestra parcial de partidos de DEUCE.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T22:48:43.303581+00:00",
+      "minimumSources": 2,
+      "observations": [
+        {
+          "source": "evert-wta-bio",
+          "value": 2,
+          "scope": "wta:singles:evert:career-titles:australia:through-1989",
+          "unit": "títulos",
+          "locator": "Chris Evert; títulos individuales; Abierto de Australia; 2 títulos (lista de campeonatos y años)."
+        },
+        {
+          "source": "itf-major-table",
+          "value": 2,
+          "scope": "wta:singles:evert:career-titles:australia:through-1989",
+          "unit": "títulos",
+          "locator": "Tabla Greatest Grand Slam singles winners; fila Chris Evert; columna AUS"
+        }
+      ]
+    },
+    {
+      "id": "evert-career-titles-roland-garros",
+      "tour": "wta",
+      "player": "Chris Evert",
+      "value": 7,
+      "unit": "títulos",
+      "label": "Títulos individuales en Roland Garros",
+      "period": "1972–1989",
+      "scope": "wta:singles:evert:career-titles:roland-garros:through-1989",
+      "definition": "Campeonatos individuales de Chris Evert en Roland Garros hasta 1989. Cifra histórica de referencia; no se deduce de la muestra parcial de partidos de DEUCE.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T22:48:43.303581+00:00",
+      "minimumSources": 2,
+      "observations": [
+        {
+          "source": "evert-wta-bio",
+          "value": 7,
+          "scope": "wta:singles:evert:career-titles:roland-garros:through-1989",
+          "unit": "títulos",
+          "locator": "Chris Evert; títulos individuales; Roland Garros; 7 títulos (lista de campeonatos y años)."
+        },
+        {
+          "source": "itf-major-table",
+          "value": 7,
+          "scope": "wta:singles:evert:career-titles:roland-garros:through-1989",
+          "unit": "títulos",
+          "locator": "Tabla Greatest Grand Slam singles winners; fila Chris Evert; columna FRA"
+        }
+      ]
+    },
+    {
+      "id": "evert-career-titles-wimbledon",
+      "tour": "wta",
+      "player": "Chris Evert",
+      "value": 3,
+      "unit": "títulos",
+      "label": "Títulos individuales en Wimbledon",
+      "period": "1972–1989",
+      "scope": "wta:singles:evert:career-titles:wimbledon:through-1989",
+      "definition": "Campeonatos individuales de Chris Evert en Wimbledon hasta 1989. Cifra histórica de referencia; no se deduce de la muestra parcial de partidos de DEUCE.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T22:48:43.303581+00:00",
+      "minimumSources": 2,
+      "observations": [
+        {
+          "source": "evert-wta-bio",
+          "value": 3,
+          "scope": "wta:singles:evert:career-titles:wimbledon:through-1989",
+          "unit": "títulos",
+          "locator": "Chris Evert; títulos individuales; Wimbledon; 3 títulos (lista de campeonatos y años)."
+        },
+        {
+          "source": "itf-major-table",
+          "value": 3,
+          "scope": "wta:singles:evert:career-titles:wimbledon:through-1989",
+          "unit": "títulos",
+          "locator": "Tabla Greatest Grand Slam singles winners; fila Chris Evert; columna WIM"
+        }
+      ]
+    },
+    {
+      "id": "evert-career-titles-us-open",
+      "tour": "wta",
+      "player": "Chris Evert",
+      "value": 6,
+      "unit": "títulos",
+      "label": "Títulos individuales en Abierto de Estados Unidos",
+      "period": "1972–1989",
+      "scope": "wta:singles:evert:career-titles:us-open:through-1989",
+      "definition": "Campeonatos individuales de Chris Evert en Abierto de Estados Unidos hasta 1989. Cifra histórica de referencia; no se deduce de la muestra parcial de partidos de DEUCE.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T22:48:43.303581+00:00",
+      "minimumSources": 2,
+      "observations": [
+        {
+          "source": "evert-wta-bio",
+          "value": 6,
+          "scope": "wta:singles:evert:career-titles:us-open:through-1989",
+          "unit": "títulos",
+          "locator": "Chris Evert; títulos individuales; Abierto de Estados Unidos; 6 títulos (lista de campeonatos y años)."
+        },
+        {
+          "source": "itf-major-table",
+          "value": 6,
+          "scope": "wta:singles:evert:career-titles:us-open:through-1989",
+          "unit": "títulos",
+          "locator": "Tabla Greatest Grand Slam singles winners; fila Chris Evert; columna USA"
+        }
+      ]
+    },
+    {
+      "id": "graf-107-career-titles",
+      "tour": "wta",
+      "player": "Steffi Graf",
+      "value": 107,
+      "unit": "títulos",
+      "label": "Títulos individuales de su carrera",
+      "period": "1982–1999",
+      "scope": "wta:singles:graf:career-titles:1999",
+      "definition": "Títulos individuales profesionales reconocidos al cierre de su carrera en 1999.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T22:48:43.303581+00:00",
+      "minimumSources": 2,
+      "observations": [
+        {
+          "source": "graf-wta-record",
+          "value": 107,
+          "scope": "wta:singles:graf:career-titles:1999",
+          "unit": "títulos",
+          "locator": "Career Stats / Singles Titles: 107"
+        },
+        {
+          "source": "graf-ioc-career",
+          "value": 107,
+          "scope": "wta:singles:graf:career-titles:1999",
+          "unit": "títulos",
+          "locator": "Cierre de carrera en agosto de 1999: 107 victorias en torneos."
+        }
+      ]
+    },
+    {
+      "id": "graf-calendar-grand-slam-1988",
+      "tour": "wta",
+      "player": "Steffi Graf",
+      "value": 4,
+      "unit": "Grand Slams",
+      "label": "Los cuatro grandes en una misma temporada",
+      "period": "1988",
+      "scope": "wta:singles:graf:calendar-slam:1988",
+      "definition": "Los cuatro títulos individuales de Grand Slam de 1988. El oro olímpico no se cuenta como un quinto Grand Slam.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T22:48:43.303581+00:00",
+      "minimumSources": 2,
+      "observations": [
+        {
+          "source": "graf-ioc-career",
+          "value": 4,
+          "scope": "wta:singles:graf:calendar-slam:1988",
+          "unit": "Grand Slams",
+          "locator": "Golden Slam: Melbourne, Roland Garros, Wimbledon y Nueva York en 1988."
+        },
+        {
+          "source": "itf-major-table",
+          "value": 4,
+          "scope": "wta:singles:graf:calendar-slam:1988",
+          "unit": "Grand Slams",
+          "locator": "The Grand Slam / Women’s singles / 1988: Steffi Graf."
+        }
+      ]
+    },
+    {
+      "id": "federer-career-titles",
+      "tour": "atp",
+      "player": "Roger Federer",
+      "value": 103,
+      "unit": "títulos",
+      "label": "Títulos individuales de su carrera",
+      "period": "1998–2022",
+      "scope": "atp:singles:federer:career-titles:2022",
+      "definition": "Cifra profesional individual al cierre de su carrera; excluye dobles y no equivale al número de partidos publicados por DEUCE.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T22:48:43.303581+00:00",
+      "minimumSources": 2,
+      "observations": [
+        {
+          "source": "federer-fft-career",
+          "value": 103,
+          "scope": "atp:singles:federer:career-titles:2022",
+          "unit": "títulos",
+          "locator": "Apartado 103"
+        },
+        {
+          "source": "federer-ap-career",
+          "value": 103,
+          "scope": "atp:singles:federer:career-titles:2022",
+          "unit": "títulos",
+          "locator": "Carrera individual: 103 torneos ganados y 1.251 victorias."
+        }
+      ]
+    },
+    {
+      "id": "federer-career-wins",
+      "tour": "atp",
+      "player": "Roger Federer",
+      "value": 1251,
+      "unit": "victorias",
+      "label": "Victorias individuales de su carrera",
+      "period": "1998–2022",
+      "scope": "atp:singles:federer:career-wins:2022",
+      "definition": "Cifra profesional individual al cierre de su carrera; excluye dobles y no equivale al número de partidos publicados por DEUCE.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T22:48:43.303581+00:00",
+      "minimumSources": 2,
+      "observations": [
+        {
+          "source": "federer-fft-career",
+          "value": 1251,
+          "scope": "atp:singles:federer:career-wins:2022",
+          "unit": "victorias",
+          "locator": "Apartado 1,251"
+        },
+        {
+          "source": "federer-ap-career",
+          "value": 1251,
+          "scope": "atp:singles:federer:career-wins:2022",
+          "unit": "victorias",
+          "locator": "Carrera individual: 103 torneos ganados y 1.251 victorias."
+        }
+      ]
+    },
+    {
+      "id": "federer-65-grass-wins",
+      "tour": "atp",
+      "player": "Roger Federer",
+      "value": 65,
+      "unit": "victorias",
+      "label": "Victorias consecutivas sobre hierba",
+      "period": "2003–2008",
+      "scope": "atp:singles:federer:grass-streak:2003-2008",
+      "definition": "Racha de 65 victorias en partidos jugados sobre hierba, de Halle 2003 a Wimbledon 2008. No incluye el walkover adicional.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T22:48:43.303581+00:00",
+      "minimumSources": 2,
+      "observations": [
+        {
+          "source": "federer-atp-bio",
+          "value": 65,
+          "scope": "atp:singles:federer:grass-streak:2003-2008",
+          "unit": "victorias",
+          "locator": "Career achievements: 65 straight wins on grass (2003–08)."
+        },
+        {
+          "source": "federer-guinness-grass",
+          "value": 65,
+          "scope": "atp:singles:federer:grass-streak:2003-2008",
+          "unit": "victorias",
+          "locator": "65 consecutive matches on grass in 2003–08; walkover separado."
+        }
+      ]
+    },
+    {
+      "id": "nadal-four-majors-no-set-lost",
+      "tour": "atp",
+      "player": "Rafael Nadal",
+      "value": 4,
+      "unit": "títulos",
+      "label": "Grand Slams ganados sin ceder un set",
+      "period": "2008 · 2010 · 2017 · 2020",
+      "scope": "atp:singles:nadal:major-titles-without-set-lost:through-2020",
+      "definition": "Cuatro ediciones de Roland Garros ganadas sin perder un set: 2008, 2010, 2017 y 2020. Recuento cerrado tras la final de 2020.",
+      "status": "reviewed",
+      "reviewedAt": "2026-11-11T22:48:43.303581+00:00",
+      "minimumSources": 2,
+      "observations": [
+        {
+          "source": "nadal-fft-no-sets",
+          "value": 4,
+          "scope": "atp:singles:nadal:major-titles-without-set-lost:through-2020",
+          "unit": "títulos",
+          "locator": "A quartet of undropped sets: 2008, 2010, 2017, 2020."
+        },
+        {
+          "source": "nadal-itf-2020",
+          "value": 4,
+          "scope": "atp:singles:nadal:major-titles-without-set-lost:through-2020",
+          "unit": "títulos",
+          "locator": "Cuarto major sin perder un set tras Roland Garros 2008, 2010 y 2017."
+        }
+      ]
+    }
+  ]
+}

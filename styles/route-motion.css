@@ -1,0 +1,18 @@
+
+.deuce-page-transition{animation:deuce-route-soft .22s ease-out both}
+::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
+::view-transition-old(deuce-page){animation:deuce-route-out .18s ease both}
+::view-transition-new(deuce-page){animation:deuce-route-soft .34s cubic-bezier(.16,1,.3,1) both}
+html[data-route-motion="court"]::view-transition-new(deuce-page){animation:deuce-route-court .55s cubic-bezier(.16,1,.3,1) both}
+html[data-route-motion="depth"]::view-transition-new(deuce-page){animation:deuce-route-depth .5s cubic-bezier(.16,1,.3,1) both}
+html[data-route-motion="curtain"]::view-transition-new(deuce-page){animation:deuce-route-curtain .55s cubic-bezier(.16,1,.3,1) both}
+@keyframes deuce-route-soft{from{opacity:.55}to{opacity:1}}
+@keyframes deuce-route-out{to{opacity:0;transform:translateY(-6px)}}
+@keyframes deuce-route-court{from{clip-path:polygon(50% 0,50% 0,50% 100%,50% 100%);filter:blur(4px)}to{clip-path:polygon(0 0,100% 0,100% 100%,0 100%);filter:blur(0)}}
+@keyframes deuce-route-depth{from{opacity:0;transform:perspective(1100px) translateZ(-90px) rotateX(4deg);filter:blur(7px)}to{opacity:1;transform:none;filter:none}}
+@keyframes deuce-route-curtain{from{clip-path:polygon(0 0,0 0,0 100%,0 100%)}to{clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}}
+html[data-route-motion="court"] .deuce-page-transition{animation:deuce-route-court .55s cubic-bezier(.16,1,.3,1) both}
+html[data-route-motion="depth"] .deuce-page-transition{animation:deuce-route-depth .5s cubic-bezier(.16,1,.3,1) both}
+html[data-route-motion="curtain"] .deuce-page-transition{animation:deuce-route-curtain .55s cubic-bezier(.16,1,.3,1) both}
+html:active-view-transition .deuce-page-transition{animation:none}
+@media(prefers-reduced-motion:reduce){.deuce-page-transition{animation:none}::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}}

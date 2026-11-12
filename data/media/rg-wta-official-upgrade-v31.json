@@ -1,0 +1,58 @@
+[
+  {
+    "tournament": "Roland Garros",
+    "year": 2005,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/roland-garros-2005-wta-dbc7b598a1.webp",
+      "alt": "Roland Garros 2005 \u00b7 cuadro femenino",
+      "credit": "Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1673079",
+      "photoYear": 2005,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2020/05/25/b4a32dd5-18c1-4f95-bfde-f428bd69f516/GettyImages-52971772.jpg",
+    "sourceTitle": "Justine Henin - 2005 French Open",
+    "sourceExcerpt": "Justine Henin - 2005 French Open",
+    "sourceSha256": "dbc7b598a1dd1020bd41dae0efbd1c81872bc004acfcb47a7ef0b9d6eeb3b53a",
+    "width": 1600,
+    "height": 1180,
+    "bytes": 87342,
+    "cmsPhotoId": 1673079,
+    "candidateIndex": 0,
+    "reviewNotes": "Actual on-court Henin photo from Roland Garros edition, explicit WTA source and manual contact-sheet review. Replaces off-court trophy photocall.",
+    "reviewedAt": "2026-11-12"
+  },
+  {
+    "tournament": "Roland Garros",
+    "year": 2006,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/roland-garros-2006-wta-f0c745f9dc.webp",
+      "alt": "Roland Garros 2006 \u00b7 cuadro femenino",
+      "credit": "Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1410195",
+      "photoYear": 2006,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2019/10/09/ca54a7a8-d321-4bda-a748-0eba1aaea164/ODFkOLlL.jpg",
+    "sourceTitle": "Back-to-back titles were claimed by Henin in 2006. Indeed, she did not drop a single set, overcoming Kuznetsova, 6-4, 6-4 in the final.",
+    "sourceExcerpt": "Back-to-back titles were claimed by Henin in 2006. Indeed, she did not drop a single set, overcoming Kuznetsova, 6-4, 6-4 in the final.",
+    "sourceSha256": "f0c745f9dc214c58678becf1c6d2508c85e51f0717f87ba07efcf2e04d1298ee",
+    "width": 1600,
+    "height": 869,
+    "bytes": 153134,
+    "cmsPhotoId": 1410195,
+    "candidateIndex": 3,
+    "reviewNotes": "Actual on-court Henin photo from Roland Garros edition, explicit WTA source and manual contact-sheet review. Replaces off-court trophy photocall.",
+    "reviewedAt": "2026-11-12"
+  }
+]

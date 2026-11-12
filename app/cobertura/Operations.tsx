@@ -3,6 +3,7 @@ import {operationHistory,operationStatus} from '@/lib/archive-operations';
 import type {IngestionDay,RecordManifest} from '@/lib/revista/snapshot';
 import {SITE_ORIGIN} from '@/lib/site-origin';
 import styles from './coverage.module.css';
+import { ingestionSlaStatus } from '@/lib/ingestion-ledger';
 
 type Entry=Record<string,unknown>;
 type Tour='atp'|'wta';
@@ -113,18 +114,28 @@ export default async function Operations({manifest}:{manifest:RecordManifest}){
     atpRaw=remote?.atp;wtaRaw=remote?.wta;publishRaw=publishRaw||remote?.publication;
   }
   const history=dailyActivity(atpRaw,wtaRaw,publishRaw,manifest.ingestionHistory);
-  const todayKey=new Date().toISOString().slice(0,10),days=history.slice(0,7);
-  const providers=(['atp','wta'] as const).map(tour=>({tour,status:operationStatus(tour==='atp'?atpRaw:wtaRaw),freshness:manifest.circuitFreshness?.[tour]}));
+  const todayKey=new Date().toISOString().slice(0,10);
+  const providers=(['atp','wta'] as const).map(tour=>{const status=operationStatus(tour==='atp'?atpRaw:wtaRaw);return {tour,status,freshness:manifest.circuitFreshness?.[tour],sla:ingestionSlaStatus(status.successAt),tiers:manifest.ingestionLedger?.tours[tour].tiers||[]}});
   const enrichment=operationStatus(enrichmentRaw),enrichmentEntry=enrichmentRaw&&typeof enrichmentRaw==='object'?enrichmentRaw as Entry:undefined;
-  return <section className={styles.operations} aria-labelledby="operations-title">
-    <header className={styles.heading}>
-      <div><h2 id="operations-title">Actividad diaria</h2><p>La consulta y la fecha del último partido son datos distintos. Si la API no devuelve resultados nuevos, la consulta queda registrada igualmente; las verificaciones con fuentes oficiales pueden añadir resultados sin consumir llamadas.</p></div>
-    </header>
-    <div className={styles.providerGrid} aria-label="Estado de ingestión por circuito">{providers.map(({tour,status,freshness})=><article className={styles.providerCard} key={tour}>
+  const renderDay=(day:DailyActivity)=><li key={day.date}>
+    <header><time dateTime={day.date}>{day.date===todayKey?'Hoy · ':''}{dayLabel(day.date)}</time><span className={styles.dayStatus}>{activityStatus(day)}</span></header>
+    <div className={styles.dayHeadline}>{day.initialSeed?<strong>Carga inicial del archivo</strong>:day.publicationMeasured?<><strong>{day.published?`+${number(day.published)} partidos`:'Sin partidos nuevos'}</strong>{day.corrected>0&&day.corrected<=manifest.matchCount?<span>{number(day.corrected)} correcciones</span>:null}</>:<strong>Consulta registrada; altas sin medir</strong>}</div>
+    {day.splitMeasured?<p className={styles.split}>ATP <b>+{number(day.atpAdded)}</b><span aria-hidden="true"> · </span> WTA <b>+{number(day.wtaAdded)}</b></p>:null}
+    <details className={styles.dayDetail}><summary>Ver consultas y datos recibidos</summary><div className={styles.tourRows}>
+      <div><strong>ATP</strong><span><b>{value(day.atpCallsMeasured,day.atpCalls)}</b> llamadas</span><span><b>{value(day.atpMeasured,day.atpExtracted)}</b> recibidos</span>{day.atpProviderDate?<span>Último resultado: {providerDay(day.atpProviderDate)}</span>:null}</div>
+      <div><strong>WTA</strong><span><b>{value(day.wtaCallsMeasured,day.wtaCalls)}</b> llamadas</span><span><b>{value(day.wtaMeasured,day.wtaExtracted)}</b> recibidos</span>{day.wtaProviderDate?<span>Último resultado: {providerDay(day.wtaProviderDate)}</span>:null}</div>
+    </div><p className={styles.unknown}>— indica que no existe una medición guardada. Los datos recibidos pueden incluir resultados ya publicados.</p></details>
+  </li>;
+  return <section className={styles.operations} id="actividad" aria-labelledby="operations-title">
+    <header className={styles.heading}><h2 id="operations-title">Actividad diaria</h2><p>Las altas son partidos añadidos al archivo. Una consulta correcta puede no traer partidos nuevos.</p></header>
+    {history.length?<><ol className={styles.days} aria-label="Últimas incorporaciones">{history.slice(0,3).map(renderDay)}</ol>{history.length>3?<details className={styles.more}><summary>Ver días anteriores <span>{history.length-3}</span></summary><ol className={styles.days} aria-label="Incorporaciones anteriores">{history.slice(3).map(renderDay)}</ol></details>:null}</>:<p className={styles.empty}>Esta publicación todavía no contiene un registro diario de incorporaciones. No se atribuyen altas a días sin medición.</p>}
+    <details className={styles.more}><summary>Estado de las consultas</summary>
+    <div className={styles.providerGrid} aria-label="Estado de ingestión por circuito">{providers.map(({tour,status,freshness,sla,tiers})=><article className={styles.providerCard} key={tour}>
       <header><strong>{tour.toUpperCase()}</strong><span className={styles.providerStatus} data-tone={statusTone(status.status)}>{statusCopy(status.status)}</span></header>
 
       <dl>{dateTime(status.attemptAt)?<div><dt>Última consulta</dt><dd>{dateTime(status.attemptAt)}</dd></div>:null}{dateTime(status.successAt)?<div><dt>Última consulta correcta</dt><dd>{dateTime(status.successAt)}</dd></div>:null}<div><dt>Último resultado devuelto</dt><dd>{providerDay(status.latestProviderDate)}</dd></div><div><dt>Último resultado publicado</dt><dd>{providerDay(freshness?.latestExactDate)}</dd></div></dl>
-      {status.status==='success'&&status.latestProviderDate&&status.attemptAt?.slice(0,10)!==status.latestProviderDate?<p className={styles.providerNote}>Se consultó correctamente; el proveedor no entregó un resultado {tour.toUpperCase()} terminado posterior.</p>:null}
+      {tiers.length?<div className={styles.tierLedger} aria-label={`Cobertura ${tour.toUpperCase()} por nivel`}>{tiers.map(tier=><div key={tier.category}><strong>{tier.category}</strong><span>{number(tier.matches)} partidos</span><small>{providerDay(tier.latestResultDate)}</small></div>)}</div>:null}
+      {sla.recoveryDue?<p className={styles.providerNote}>La ventana de {manifest.ingestionLedger?.slaHours||36} horas está vencida. El planificador recuperará la consulta antes de publicar.</p>:status.status==='success'&&status.latestProviderDate&&status.attemptAt?.slice(0,10)!==status.latestProviderDate?<p className={styles.providerNote}>Se consultó correctamente; el proveedor no entregó un resultado {tour.toUpperCase()} terminado posterior.</p>:null}
     </article>)}{enrichmentEntry?<article className={styles.providerCard}>
       <header><strong>DETALLE</strong><span className={styles.providerStatus} data-tone={statusTone(enrichment.status)}>{statusCopy(enrichment.status)}</span></header>
       <dl>
@@ -136,14 +147,6 @@ export default async function Operations({manifest}:{manifest:RecordManifest}){
       </dl>
       <p className={styles.providerNote}>Se ejecuta fuera de la navegación, con caché persistente y reserva de cuota. Una ausencia del proveedor nunca se publica como cero.</p>
     </article>:null}</div>
-    {days.length?<div className={styles.activityDetails}><h3>Últimos días registrados</h3><ol className={styles.days} aria-label="Actividad diaria de la API">{days.map(day=><li key={day.date}>
-      <header><time dateTime={day.date}>{day.date===todayKey?'Hoy · ':''}{dayLabel(day.date)}</time><span className={styles.dayStatus}>{activityStatus(day)}</span></header>
-      <div className={styles.tourRows}>
-        <div><strong>ATP</strong><span><b>{value(day.atpCallsMeasured,day.atpCalls)}</b> llamadas</span><span><b>{value(day.atpMeasured,day.atpExtracted)}</b> recibidos</span><span><b>{value(day.splitMeasured,day.atpAdded)}</b> publicados</span>{day.atpProviderDate?<span className={styles.latestResult}>Resultado más reciente: {providerDay(day.atpProviderDate)}</span>:null}</div>
-        <div><strong>WTA</strong><span><b>{value(day.wtaCallsMeasured,day.wtaCalls)}</b> llamadas</span><span><b>{value(day.wtaMeasured,day.wtaExtracted)}</b> recibidos</span><span><b>{value(day.splitMeasured,day.wtaAdded)}</b> publicados</span>{day.wtaProviderDate?<span className={styles.latestResult}>Resultado más reciente: {providerDay(day.wtaProviderDate)}</span>:null}</div>
-      </div>
-      {day.publicationMeasured?<p className={styles.daySummary}>{day.published?<><strong>{number(day.published)}</strong> altas en esta generación</>:<>Sin altas nuevas</>}{day.corrected>0&&day.corrected<=manifest.matchCount?<> · {number(day.corrected)} corregidos</>:null}</p>:null}
-    </li>)}</ol></div>:null}
-
+    </details>
   </section>;
 }

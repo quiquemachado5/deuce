@@ -1,3 +1,5 @@
+import {createApprovedFetch} from './approved-media-fetch.mjs';
+const fetch=createApprovedFetch(["www.wtatennis.com"]);
 // Recover compact country metadata from the same official WTA profiles as the photos.
 import fs from 'node:fs/promises';
 

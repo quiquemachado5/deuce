@@ -1,3 +1,4 @@
+import { DATASET_CACHE_CONTROL } from '@/lib/http-cache';
 import { preparedEloProducts, preparedManifest } from '@/lib/revista/read-records';
 import { rateLimit } from '@/lib/rate-limit';
 import { datasetEtag } from '@/lib/http-cache';
@@ -6,7 +7,7 @@ export async function GET(request: Request) {
   const budget = rateLimit(request,'public-api-overview',120,60_000);
   if (!budget.allowed) return Response.json({error:'Rate limit exceeded'},{status:429,headers:{'Retry-After':String(budget.retryAfter)}});
   const [manifest,elo] = await Promise.all([preparedManifest(),preparedEloProducts()]), etag = datasetEtag(manifest.version,'api-v1-archive');
-  const headers = {'Cache-Control':'public, s-maxage=300, stale-while-revalidate=3600','ETag':etag,'X-DEUCE-Dataset-Version':manifest.version,'X-RateLimit-Remaining':String(budget.remaining),'Access-Control-Allow-Origin':'*'};
+  const headers = {'Cache-Control':DATASET_CACHE_CONTROL,'ETag':etag,'X-DEUCE-Dataset-Version':manifest.version,'X-RateLimit-Remaining':String(budget.remaining),'Access-Control-Allow-Origin':'*'};
   if(request.headers.get('if-none-match')===etag)return new Response(null,{status:304,headers});
   return Response.json({
     api:'DEUCE Read API',version:'v1',dataset:{version:manifest.version,generatedAt:manifest.generatedAt,matches:manifest.matchCount,tours:manifest.summary.tours},

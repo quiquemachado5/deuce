@@ -24,8 +24,7 @@ export default function TournamentFinal({match,heading='La final'}:{match:Match;
         <span className={styles.photoShade} aria-hidden="true"/>
         <span className={styles.finalPortraitCopy}><small>{match.tour==='wta'?'Campeona':'Campeón'} · {match.year}</small><strong>{champion}</strong></span>
       </Link>}
-      <div className={styles.finalScore}>
-        <span className={styles.finalCardLabel}>Marcador de la final</span>
+      <div className={styles.finalScoreShared}>
         <ArchiveMatchRow match={toMatchRecord(match)} showTournamentContext />
       </div>
     </div>

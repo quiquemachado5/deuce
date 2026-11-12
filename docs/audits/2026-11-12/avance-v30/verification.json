@@ -1,0 +1,23 @@
+{
+  "types": "passed",
+  "targetedLint": "passed",
+  "scriptSyntax": "passed",
+  "productionBuild": "passed",
+  "targetedTests": 46,
+  "researchQualityControls": 55,
+  "researchErrors": 0,
+  "layoutDetectorFindings": 0,
+  "browserViewports": [
+    320,
+    390,
+    1366
+  ],
+  "browserHorizontalOverflows": 0,
+  "browserPageErrors": 0,
+  "browserResponses": 18,
+  "liveTennisCalls": 0,
+  "commit": false,
+  "push": false,
+  "deployment": false,
+  "note": "La revisión visual cubre las rutas editadas; el ajuste final de densidad móvil se limita a constantes de altura. No acredita Safari, Firefox, carga real ni completitud histórica."
+}

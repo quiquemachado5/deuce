@@ -1,5 +1,5 @@
 import { readFile, stat, statfs } from 'node:fs/promises'
-import { resolve } from 'node:path'
+import { resolve, isAbsolute } from 'node:path'
 import { pathToFileURL } from 'node:url'
 
 const required = [
@@ -74,6 +74,8 @@ export function validateProductionEnv(values) {
     const retention=Number(values.DEUCE_BACKUP_REMOTE_KEEP_DAYS)
     if(!Number.isSafeInteger(retention)||retention<8||retention>90)errors.push('DEUCE_BACKUP_REMOTE_KEEP_DAYS must be an integer from 8 to 90')
   }
+  if(values.DEUCE_RATE_LIMIT_STORE!=='sqlite')errors.push('DEUCE_RATE_LIMIT_STORE must be sqlite for shared production workers')
+  if(!values.DEUCE_RATE_LIMIT_DB||!isAbsolute(values.DEUCE_RATE_LIMIT_DB)||!values.DEUCE_RATE_LIMIT_DB.startsWith('/app/.deuce-archive/.runtime/')||values.DEUCE_RATE_LIMIT_DB.includes('..'))errors.push('DEUCE_RATE_LIMIT_DB must use the shared archive runtime volume')
   return { errors, archiveMaximum }
 }
 

@@ -1,0 +1,434 @@
+[
+  {
+    "tournament": "Beijing",
+    "year": 2010,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/beijing-2010-wta-a8ff0f7a19.webp",
+      "alt": "Beijing 2010 · cuadro femenino",
+      "credit": "Getty · derechos de terceros; autorización no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1519523",
+      "photoYear": 2010,
+      "objectPosition": "50% 45%",
+      "auditStatus": "candidate",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2019/12/06/c77517de-a0b5-43f4-9252-638131f333b4/GettyImages-105186141.jpg",
+    "sourceTitle": "Wozniacki defeated Vera Zvonareva to win her first Premier Mandatory title at Beijing in 2010 - her sixth title of the year, and one which lifted her to World No.1 for the first time (Getty)",
+    "sourceExcerpt": "Wozniacki defeated Vera Zvonareva to win her first Premier Mandatory title at Beijing in 2010 - her sixth title of the year, and one which lifted her to World No.1 for the first time (Getty)",
+    "sourceSha256": "a8ff0f7a1901149e29d05208d4495a3e62e80d210e5299133c4738e3049eadfd",
+    "width": 1600,
+    "height": 1067,
+    "bytes": 197472,
+    "cmsPhotoId": 1519523,
+    "candidateIndex": 3,
+    "reviewNotes": "Official WTA editorial caption; manual visual review pending."
+  },
+  {
+    "tournament": "Beijing",
+    "year": 2011,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/beijing-2011-wta-b7767f25e2.webp",
+      "alt": "Beijing 2011 · cuadro femenino",
+      "credit": "WTA / Getty Images · derechos de terceros; autorización no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1404739",
+      "photoYear": 2011,
+      "objectPosition": "50% 45%",
+      "auditStatus": "candidate",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/89ae648a-7670-4a46-81aa-4cfa31614be6/OPatKBHl.jpg",
+    "sourceTitle": "Radwanska's first China Open win came in 2011, beating Andrea Petkovic in three sets (Getty)",
+    "sourceExcerpt": "Radwanska's first China Open win came in 2011, beating Andrea Petkovic in three sets (Getty)",
+    "sourceSha256": "b7767f25e29ad64d6b898c4485250ae3216c9dcd349d21dc03ac17aac74f5e68",
+    "width": 1600,
+    "height": 869,
+    "bytes": 169882,
+    "cmsPhotoId": 1404739,
+    "candidateIndex": 4,
+    "reviewNotes": "Official WTA editorial caption; manual visual review pending."
+  },
+  {
+    "tournament": "Beijing",
+    "year": 2012,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/beijing-2012-wta-de99901fcb.webp",
+      "alt": "Beijing 2012 · cuadro femenino",
+      "credit": "WTA / Getty Images · derechos de terceros; autorización no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1408337",
+      "photoYear": 2012,
+      "objectPosition": "50% 45%",
+      "auditStatus": "candidate",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/5a6eb4b2-bce6-46cd-a537-dfc22a0eaa8e/lBhorSOI.jpg",
+    "sourceTitle": "Kerber returns to Sharapova in Beijing in 2012 (Getty)",
+    "sourceExcerpt": "Kerber returns to Sharapova in Beijing in 2012 (Getty)",
+    "sourceSha256": "de99901fcba3691bc1310ed8c983797a10363385f0ece2925eb2e99ba649ed7c",
+    "width": 1600,
+    "height": 869,
+    "bytes": 35386,
+    "cmsPhotoId": 1408337,
+    "candidateIndex": 5,
+    "reviewNotes": "Official WTA editorial caption; manual visual review pending."
+  },
+  {
+    "tournament": "Beijing",
+    "year": 2016,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/beijing-2016-wta-2ca7dde01a.webp",
+      "alt": "Beijing 2016 · cuadro femenino",
+      "credit": "WTA / Getty Images · derechos de terceros; autorización no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1404736",
+      "photoYear": 2016,
+      "objectPosition": "50% 45%",
+      "auditStatus": "candidate",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/fa957e54-58f8-4a49-9b0a-a441689bd0d7/CUFEuuFh.jpg",
+    "sourceTitle": "She was the 2016 China Open champion, beating Johanna Konta 6-4, 6-2 in the final (Getty)",
+    "sourceExcerpt": "She was the 2016 China Open champion, beating Johanna Konta 6-4, 6-2 in the final (Getty)",
+    "sourceSha256": "2ca7dde01a080b59af683f5dd81bcb337b92694779d1162eb61401bdb616e2df",
+    "width": 1600,
+    "height": 869,
+    "bytes": 143112,
+    "cmsPhotoId": 1404736,
+    "candidateIndex": 6,
+    "reviewNotes": "Official WTA editorial caption; manual visual review pending."
+  },
+  {
+    "tournament": "Cincinnati",
+    "year": 2011,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/cincinnati-2011-wta-64248036a6.webp",
+      "alt": "Cincinnati 2011 · cuadro femenino",
+      "credit": "WTA / Getty Images · derechos de terceros; autorización no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1408916",
+      "photoYear": 2011,
+      "objectPosition": "50% 45%",
+      "auditStatus": "candidate",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2019/10/09/c0e9bc0f-99a8-47cf-b944-6b452eb6842d/zvGSzqxK.jpg",
+    "sourceTitle": "One week later, Petkovic reprised the result, beating Kvitova again 6-3, 6-3 in the third round of Cincinnati 2011 (Getty)",
+    "sourceExcerpt": "One week later, Petkovic reprised the result, beating Kvitova again 6-3, 6-3 in the third round of Cincinnati 2011 (Getty)",
+    "sourceSha256": "64248036a6fa2c8de24ba41bae3c1c314694af220289ee12001ac46f9a827692",
+    "width": 1600,
+    "height": 869,
+    "bytes": 92324,
+    "cmsPhotoId": 1408916,
+    "candidateIndex": 8,
+    "reviewNotes": "Official WTA editorial caption; manual visual review pending."
+  },
+  {
+    "tournament": "Doha",
+    "year": 2014,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/doha-2014-wta-6e0b6980dc.webp",
+      "alt": "Doha 2014 · cuadro femenino",
+      "credit": "Getty · derechos de terceros; autorización no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1659592",
+      "photoYear": 2014,
+      "objectPosition": "50% 45%",
+      "auditStatus": "candidate",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2020/04/22/edd9f460-e46b-4f0f-8415-7fd060d3b1b9/GettyImages-463936749.jpg",
+    "sourceTitle": "Halep began 2014 by continuing her upwards trajectory: her maiden Grand Slam quarterfinal at the Australian Open put her inside the Top 10, and the Doha title - her seventh straight victorious final - lifted her into the Top 5.",
+    "sourceExcerpt": "Halep began 2014 by continuing her upwards trajectory: her maiden Grand Slam quarterfinal at the Australian Open put her inside the Top 10, and the Doha title - her seventh straight victorious final - lifted her into the Top 5.",
+    "sourceSha256": "6e0b6980dc52efb6ba48129fed836c60034cc41007b3f11ea7d9ee3c49a90bf2",
+    "width": 1600,
+    "height": 1067,
+    "bytes": 76912,
+    "cmsPhotoId": 1659592,
+    "candidateIndex": 13,
+    "reviewNotes": "Official WTA editorial caption; manual visual review pending."
+  },
+  {
+    "tournament": "Dubai",
+    "year": 2009,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/dubai-2009-wta-314219b670.webp",
+      "alt": "Dubai 2009 · cuadro femenino",
+      "credit": "Getty Images · derechos de terceros; autorización no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/2138225",
+      "photoYear": 2009,
+      "objectPosition": "50% 45%",
+      "auditStatus": "candidate",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2021/05/11/534ce590-36f2-4790-bbe7-828ca211d37b/Serena-Dubai-2009.jpg",
+    "sourceTitle": "Serena Williams, Dubai 2009",
+    "sourceExcerpt": "Serena Williams, Dubai 2009",
+    "sourceSha256": "314219b6701842af61a71686a2950c0cb3686a815e41fc4032a383e21e8d655a",
+    "width": 1600,
+    "height": 1128,
+    "bytes": 106666,
+    "cmsPhotoId": 2138225,
+    "candidateIndex": 9,
+    "reviewNotes": "Official WTA editorial caption; manual visual review pending."
+  },
+  {
+    "tournament": "Dubai",
+    "year": 2011,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/dubai-2011-wta-e3d9e1b009.webp",
+      "alt": "Dubai 2011 · cuadro femenino",
+      "credit": "WTA / Getty Images · derechos de terceros; autorización no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1405221",
+      "photoYear": 2011,
+      "objectPosition": "50% 45%",
+      "auditStatus": "candidate",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/f41138f7-f9e5-45a5-b4b5-00706bc60bef/zekscXZs.jpg",
+    "sourceTitle": "Wozniacki beat Svetlana Kuznetsova to win the 2011 Dubai title (Getty)",
+    "sourceExcerpt": "Wozniacki beat Svetlana Kuznetsova to win the 2011 Dubai title (Getty)",
+    "sourceSha256": "e3d9e1b009cb713ecfdd69dd44eba22ea3bd0b32847e30c4a93ac3270fdf964f",
+    "width": 1600,
+    "height": 869,
+    "bytes": 66176,
+    "cmsPhotoId": 1405221,
+    "candidateIndex": 14,
+    "reviewNotes": "Official WTA editorial caption; manual visual review pending."
+  },
+  {
+    "tournament": "Dubai",
+    "year": 2015,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/dubai-2015-wta-99024d4f64.webp",
+      "alt": "Dubai 2015 · cuadro femenino",
+      "credit": "WTA / Getty Images · derechos de terceros; autorización no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1407185",
+      "photoYear": 2015,
+      "objectPosition": "50% 45%",
+      "auditStatus": "candidate",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/fb444dd9-ee68-4ab6-9cf8-0ee7dd7bb2ce/KYUdRibm.jpg",
+    "sourceTitle": "The pair's first professional meeting was in the final in Dubai back in 2015 which Halep won 6-4 7-6(4) (Getty)",
+    "sourceExcerpt": "The pair's first professional meeting was in the final in Dubai back in 2015 which Halep won 6-4 7-6(4) (Getty)",
+    "sourceSha256": "99024d4f6447820c1264f686c0d4a983964bfa6da47d7855e89eeddf78562d9b",
+    "width": 1600,
+    "height": 869,
+    "bytes": 64592,
+    "cmsPhotoId": 1407185,
+    "candidateIndex": 15,
+    "reviewNotes": "Official WTA editorial caption; manual visual review pending."
+  },
+  {
+    "tournament": "Indian Wells",
+    "year": 2009,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/indian-wells-2009-wta-b44a87ede1.webp",
+      "alt": "Indian Wells 2009 · cuadro femenino",
+      "credit": "Getty Images · derechos de terceros; autorización no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1645446",
+      "photoYear": 2009,
+      "objectPosition": "50% 45%",
+      "auditStatus": "candidate",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2020/03/13/aae59d48-1590-4bc8-970a-e2312a2500be/GettyImages-85506770.jpg",
+    "sourceTitle": "Anastasia Pavlyuchenkova, Indian Wells 2009 (Getty)",
+    "sourceExcerpt": "Anastasia Pavlyuchenkova, Indian Wells 2009 (Getty)",
+    "sourceSha256": "b44a87ede16a2a1288ffcb3cc40ffc593cae774cb36db4ed034efb81d0194d97",
+    "width": 1600,
+    "height": 1070,
+    "bytes": 84928,
+    "cmsPhotoId": 1645446,
+    "candidateIndex": 11,
+    "reviewNotes": "Official WTA editorial caption; manual visual review pending."
+  },
+  {
+    "tournament": "Rome",
+    "year": 2005,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/rome-2005-wta-329fe743c5.webp",
+      "alt": "Rome 2005 · cuadro femenino",
+      "credit": "WTA / Getty Images · derechos de terceros; autorización no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1405608",
+      "photoYear": 2005,
+      "objectPosition": "50% 45%",
+      "auditStatus": "candidate",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/0d8558a5-31d9-4c41-bdf7-e6f4d63e45a8/XiXuYdFg.jpg",
+    "sourceTitle": "Schiavone captured a famous win over Serena Williams in front of her home crowd in Rome 2005, winning 7-6(2), 6-1 (Getty)",
+    "sourceExcerpt": "Schiavone captured a famous win over Serena Williams in front of her home crowd in Rome 2005, winning 7-6(2), 6-1 (Getty)",
+    "sourceSha256": "329fe743c5c6ac3650a6998816eeee176c7cd52c03c99a5850f1eab30a5c7327",
+    "width": 1600,
+    "height": 869,
+    "bytes": 84206,
+    "cmsPhotoId": 1405608,
+    "candidateIndex": 0,
+    "reviewNotes": "Official WTA editorial caption; manual visual review pending."
+  },
+  {
+    "tournament": "Rome",
+    "year": 2006,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/rome-2006-wta-fcdec47a4b.webp",
+      "alt": "Rome 2006 · cuadro femenino",
+      "credit": "Getty Images · derechos de terceros; autorización no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1746503",
+      "photoYear": 2006,
+      "objectPosition": "50% 45%",
+      "auditStatus": "candidate",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2020/08/01/37d7848c-d4e3-4ffa-ae92-5efaa02e18da/GettyImages-57625478.jpg",
+    "sourceTitle": "Anna Smashnova, Rome 2006",
+    "sourceExcerpt": "Anna Smashnova fires a backhand at Rome in 2006.",
+    "sourceSha256": "fcdec47a4b4c9c2b086201551a28a2674abf8cdca63a82d5e3c40895055959f7",
+    "width": 1600,
+    "height": 1051,
+    "bytes": 59546,
+    "cmsPhotoId": 1746503,
+    "candidateIndex": 1,
+    "reviewNotes": "Official WTA editorial caption; manual visual review pending."
+  },
+  {
+    "tournament": "Rome",
+    "year": 2008,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/rome-2008-wta-3d37fd46ff.webp",
+      "alt": "Rome 2008 · cuadro femenino",
+      "credit": "Christophe Simon/AFP via Getty Images · derechos de terceros; autorización no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/4029285",
+      "photoYear": 2008,
+      "objectPosition": "50% 45%",
+      "auditStatus": "candidate",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2024/05/28/aa38ae12-6e90-443e-b2b9-4996aa8a491a/GettyImages-81140178.jpg",
+    "sourceTitle": "Cornet had a breakthrough at top-tier events when she reached the 2008 Rome final as an 18-year-old qualifier. Cornet made her Top 20 debut following that event.",
+    "sourceExcerpt": "Cornet had a breakthrough at top-tier events when she reached the 2008 Rome final as an 18-year-old qualifier. Cornet made her Top 20 debut following that event.",
+    "sourceSha256": "3d37fd46ffebe55351075b97dee74f6540713068f5d520bde5459e594170d66c",
+    "width": 1600,
+    "height": 1053,
+    "bytes": 188724,
+    "cmsPhotoId": 4029285,
+    "candidateIndex": 2,
+    "reviewNotes": "Official WTA editorial caption; manual visual review pending."
+  },
+  {
+    "tournament": "Tokyo",
+    "year": 2013,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/tokyo-2013-wta-ac6c287e2c.webp",
+      "alt": "Tokyo 2013 · cuadro femenino",
+      "credit": "WTA / Getty Images · derechos de terceros; autorización no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1410620",
+      "photoYear": 2013,
+      "objectPosition": "50% 45%",
+      "auditStatus": "candidate",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2019/10/09/63eb836d-8d68-4c28-a54d-ccd5da96c905/IsqtJgvf.jpg",
+    "sourceTitle": "Ranked World No.63 at Tokyo 2013, Venus came from a break down in the third set to upset Halep, freshly minted in the Top 20, 4-6, 7-5, 6-3 en route to the American's biggest semifinal of the year (Getty)",
+    "sourceExcerpt": "Ranked World No.63 at Tokyo 2013, Venus came from a break down in the third set to upset Halep, freshly minted in the Top 20, 4-6, 7-5, 6-3 en route to the American's biggest semifinal of the year (Getty)",
+    "sourceSha256": "ac6c287e2c393a34ab6f768267637b7a490079544a72fc8017d77332cb76d9ca",
+    "width": 1600,
+    "height": 869,
+    "bytes": 83458,
+    "cmsPhotoId": 1410620,
+    "candidateIndex": 7,
+    "reviewNotes": "Official WTA editorial caption; manual visual review pending."
+  },
+  {
+    "tournament": "Wuhan",
+    "year": 2014,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/wuhan-2014-wta-b7af74741c.webp",
+      "alt": "Wuhan 2014 · cuadro femenino",
+      "credit": "WTA / Getty Images · derechos de terceros; autorización no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1486142",
+      "photoYear": 2014,
+      "objectPosition": "50% 45%",
+      "auditStatus": "candidate",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2019/11/06/1bf224b2-b941-4b3f-92c7-3b17aec279b1/ppOypEnZ.jpg",
+    "sourceTitle": "Petra Kvitova won the inaugural Wuhan Open in 2014 by overcoming Eugenie Bouchard, 6-3, 6-4. She did not lose a set all week. (Getty)",
+    "sourceExcerpt": "Petra Kvitova won the inaugural Wuhan Open in 2014 by overcoming Eugenie Bouchard, 6-3, 6-4. She did not lose a set all week. (Getty)",
+    "sourceSha256": "b7af74741cf96e83b701749ecb4e78f2ee540ca18503df114ad52d9cef14196d",
+    "width": 1600,
+    "height": 869,
+    "bytes": 63882,
+    "cmsPhotoId": 1486142,
+    "candidateIndex": 12,
+    "reviewNotes": "Official WTA editorial caption; manual visual review pending."
+  },
+  {
+    "tournament": "Wuhan",
+    "year": 2015,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/wuhan-2015-wta-ca0bafc99c.webp",
+      "alt": "Wuhan 2015 · cuadro femenino",
+      "credit": "Getty Images · derechos de terceros; autorización no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1674331",
+      "photoYear": 2015,
+      "objectPosition": "50% 45%",
+      "auditStatus": "candidate",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2020/05/29/b6eea6ee-d63e-4edc-87e1-6d09b077f324/35.jpg",
+    "sourceTitle": "The Wuhan Open of 2015 proved to be a memorable event as she clocked up her 700th career win by defeating Julia Goerges and picked up a 47th WTA Tour title. It was her biggest title in more than half a decade.",
+    "sourceExcerpt": "The Wuhan Open of 2015 proved to be a memorable event as she clocked up her 700th career win by defeating Julia Goerges and picked up a 47th WTA Tour title. It was her biggest title in more than half a decade.",
+    "sourceSha256": "ca0bafc99c5c9a248381a82d9679cd093ac0077d99c6632c43ad72fa3fd06902",
+    "width": 1600,
+    "height": 1133,
+    "bytes": 125746,
+    "cmsPhotoId": 1674331,
+    "candidateIndex": 10,
+    "reviewNotes": "Official WTA editorial caption; manual visual review pending."
+  }
+]

@@ -5,6 +5,10 @@ const durations = new Map<string, Histogram>();
 const clientEvents = new Map<string, number>();
 const securityEvents = new Map<string, number>();
 const clientMetrics = new Map<string, Histogram>();
+const searchEvents = new Map<string, number>();
+const searchClicks = new Map<string, number>();
+const searchDurations = new Map<string, Histogram>();
+const searchDurationBuckets = [10, 25, 50, 100, 250, 500, 1_000, 2_500] as const;
 const clientMetricBuckets: Record<string, readonly number[]> = {
   TTFB: [200, 500, 800, 1_800, 3_000],
   FCP: [1_000, 1_800, 3_000, 5_000, 8_000],
@@ -19,6 +23,8 @@ const publicTelemetryRoutes = new Set(['buscar', 'cobertura', 'comparar', 'desar
 
 const label = (value: string) => value.replace(/[^a-zA-Z0-9_./-]/g, '_').slice(0, 80);
 const escape = (value: string) => value.replaceAll('\\', '\\\\').replaceAll('"', '\\"').replaceAll('\n', '\\n');
+const release = label(process.env.COMMIT_REF?.slice(0, 12) || 'local');
+const devices = new Set(['mobile', 'tablet', 'desktop']);
 
 /** Keep browser telemetry useful without creating a label for every entity URL. */
 export function telemetryRoute(rawPath: string) {
@@ -42,11 +48,12 @@ export function telemetryRoute(rawPath: string) {
   return publicTelemetryRoutes.has(parts[0]) ? `/${parts[0]}` : '/other';
 }
 
-export function observeClientTelemetry(input: {kind:string;name?:string;value?:number;rating?:string;path?:string;navigationType?:string}) {
+export function observeClientTelemetry(input: {kind:string;name?:string;value?:number;rating?:string;path?:string;navigationType?:string;device?:string}) {
   const route = telemetryRoute(input.path || '/');
+  const device = devices.has(input.device || '') ? input.device! : 'unknown';
   const rating = ['good', 'needs-improvement', 'poor'].includes(input.rating || '') ? input.rating! : 'unrated';
   const event = label(input.kind);
-  const eventKey = `${route}|${event}|${rating}`;
+  const eventKey = `${route}|${event}|${rating}|${device}`;
   clientEvents.set(eventKey, (clientEvents.get(eventKey) || 0) + 1);
   if (!Number.isFinite(input.value)) return;
   const metric = input.kind === 'web-vital' && input.name && clientMetricBuckets[input.name]
@@ -60,12 +67,36 @@ export function observeClientTelemetry(input: {kind:string;name?:string;value?:n
   const buckets = clientMetricBuckets[metric];
   const maximum = metric === 'CLS' ? 10 : 300_000;
   const value = Math.min(maximum, Math.max(0, input.value!));
-  const key = `${route}|${metric}`;
+  const key = `${route}|${metric}|${device}`;
   const histogram = clientMetrics.get(key) || { count: 0, sum: 0, buckets: buckets.map(() => 0) };
   histogram.count++;
   histogram.sum += value;
   buckets.forEach((upper, index) => { if (value <= upper) histogram.buckets[index]++; });
   clientMetrics.set(key, histogram);
+}
+
+const queryLengthBucket = (length: number) => length <= 3 ? '2-3' : length <= 7 ? '4-7' : length <= 15 ? '8-15' : '16-plus';
+const resultBucket = (count: number) => count === 0 ? 'zero' : count <= 5 ? '1-5' : count <= 15 ? '6-15' : '16-plus';
+
+/** Search telemetry keeps only fixed buckets; raw terms, names and URLs are never retained. */
+export function observeSearchTelemetry(input: {mode:'quick'|'full';tour:'atp'|'wta'|'all';queryLength:number;resultCount:number;durationMs:number;outcome?:'success'|'error'}) {
+  const mode = input.mode, tour = input.tour;
+  const outcome = input.outcome === 'error' ? 'error' : input.resultCount === 0 ? 'zero' : 'results';
+  const key = `${mode}|${tour}|${outcome}|${queryLengthBucket(Math.max(0, input.queryLength))}|${resultBucket(Math.max(0, input.resultCount))}`;
+  searchEvents.set(key, (searchEvents.get(key) || 0) + 1);
+  const durationKey = `${mode}|${tour}`;
+  const value = Math.min(30_000, Math.max(0, input.durationMs));
+  const histogram = searchDurations.get(durationKey) || { count: 0, sum: 0, buckets: searchDurationBuckets.map(() => 0) };
+  histogram.count++; histogram.sum += value;
+  searchDurationBuckets.forEach((upper, index) => { if (value <= upper) histogram.buckets[index]++; });
+  searchDurations.set(durationKey, histogram);
+}
+
+/** Click telemetry records only fixed buckets; it cannot reconstruct a search term or destination. */
+export function observeSearchClick(input:{group:'players'|'matches'|'tournaments'|'all';position:number;queryLength:number}) {
+  const position = input.position <= 1 ? '1' : input.position <= 3 ? '2-3' : input.position <= 6 ? '4-6' : '7-plus';
+  const key = `${input.group}|${position}|${queryLengthBucket(Math.max(0,input.queryLength))}`;
+  searchClicks.set(key,(searchClicks.get(key)||0)+1);
 }
 
 /** Route names are fixed call-site labels; query strings and IDs must never be passed here. */
@@ -112,8 +143,8 @@ export function renderPrometheusMetrics(caches: Record<string, Record<string, nu
   }
   lines.push('# HELP deuce_client_events_total Browser events received by route family and rating.', '# TYPE deuce_client_events_total counter');
   for (const [key, value] of [...clientEvents].sort(([a], [b]) => a.localeCompare(b))) {
-    const [route,event,rating] = key.split('|');
-    lines.push(`deuce_client_events_total{route="${escape(route)}",event="${escape(event)}",rating="${escape(rating)}"} ${value}`);
+    const [route,event,rating,device] = key.split('|');
+    lines.push(`deuce_client_events_total{route="${escape(route)}",event="${escape(event)}",rating="${escape(rating)}",device="${device}",release="${release}"} ${value}`);
   }
   lines.push('# HELP deuce_security_events_total Security-sensitive outcomes by fixed surface.', '# TYPE deuce_security_events_total counter');
   for (const [key, value] of [...securityEvents].sort(([a], [b]) => a.localeCompare(b))) {
@@ -122,11 +153,29 @@ export function renderPrometheusMetrics(caches: Record<string, Record<string, nu
   }
   lines.push('# HELP deuce_client_metric_value Browser performance values; milliseconds except CLS.', '# TYPE deuce_client_metric_value histogram');
   for (const [key, histogram] of [...clientMetrics].sort(([a], [b]) => a.localeCompare(b))) {
-    const [route,metric] = key.split('|');
-    clientMetricBuckets[metric].forEach((upper,index)=>lines.push(`deuce_client_metric_value_bucket{route="${escape(route)}",metric="${metric}",le="${upper}"} ${histogram.buckets[index]}`));
-    lines.push(`deuce_client_metric_value_bucket{route="${escape(route)}",metric="${metric}",le="+Inf"} ${histogram.count}`);
-    lines.push(`deuce_client_metric_value_sum{route="${escape(route)}",metric="${metric}"} ${histogram.sum.toFixed(3)}`);
-    lines.push(`deuce_client_metric_value_count{route="${escape(route)}",metric="${metric}"} ${histogram.count}`);
+    const [route,metric,device] = key.split('|');
+    clientMetricBuckets[metric].forEach((upper,index)=>lines.push(`deuce_client_metric_value_bucket{route="${escape(route)}",metric="${metric}",device="${device}",release="${release}",le="${upper}"} ${histogram.buckets[index]}`));
+    lines.push(`deuce_client_metric_value_bucket{route="${escape(route)}",metric="${metric}",device="${device}",release="${release}",le="+Inf"} ${histogram.count}`);
+    lines.push(`deuce_client_metric_value_sum{route="${escape(route)}",metric="${metric}",device="${device}",release="${release}"} ${histogram.sum.toFixed(3)}`);
+    lines.push(`deuce_client_metric_value_count{route="${escape(route)}",metric="${metric}",device="${device}",release="${release}"} ${histogram.count}`);
+  }
+  lines.push('# HELP deuce_searches_total Privacy-safe search outcomes in fixed buckets.', '# TYPE deuce_searches_total counter');
+  for (const [key, value] of [...searchEvents].sort(([a], [b]) => a.localeCompare(b))) {
+    const [mode,tour,outcome,queryBucket,results] = key.split('|');
+    lines.push(`deuce_searches_total{mode="${mode}",tour="${tour}",outcome="${outcome}",query_length="${queryBucket}",results="${results}"} ${value}`);
+  }
+  lines.push('# HELP deuce_search_clicks_total Privacy-safe selected-result clicks in fixed buckets.', '# TYPE deuce_search_clicks_total counter');
+  for(const [key,value] of [...searchClicks].sort(([a],[b])=>a.localeCompare(b))){
+    const [group,position,queryBucket]=key.split('|');
+    lines.push(`deuce_search_clicks_total{group="${group}",position="${position}",query_length="${queryBucket}"} ${value}`);
+  }
+  lines.push('# HELP deuce_search_duration_ms Search response duration without query contents.', '# TYPE deuce_search_duration_ms histogram');
+  for (const [key, histogram] of [...searchDurations].sort(([a], [b]) => a.localeCompare(b))) {
+    const [mode,tour] = key.split('|');
+    searchDurationBuckets.forEach((upper,index)=>lines.push(`deuce_search_duration_ms_bucket{mode="${mode}",tour="${tour}",le="${upper}"} ${histogram.buckets[index]}`));
+    lines.push(`deuce_search_duration_ms_bucket{mode="${mode}",tour="${tour}",le="+Inf"} ${histogram.count}`);
+    lines.push(`deuce_search_duration_ms_sum{mode="${mode}",tour="${tour}"} ${histogram.sum.toFixed(3)}`);
+    lines.push(`deuce_search_duration_ms_count{mode="${mode}",tour="${tour}"} ${histogram.count}`);
   }
   lines.push('# HELP deuce_process_memory_bytes Node.js process memory.', '# TYPE deuce_process_memory_bytes gauge');
   const memory = process.memoryUsage();
@@ -145,4 +194,4 @@ export function renderPrometheusMetrics(caches: Record<string, Record<string, nu
   return `${lines.join('\n')}\n`;
 }
 
-export function resetRuntimeMetrics() { requests.clear(); durations.clear(); clientEvents.clear(); clientMetrics.clear(); securityEvents.clear(); }
+export function resetRuntimeMetrics() { requests.clear(); durations.clear(); clientEvents.clear(); clientMetrics.clear(); securityEvents.clear(); searchEvents.clear(); searchClicks.clear(); searchDurations.clear(); }

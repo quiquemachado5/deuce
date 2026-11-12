@@ -1,3 +1,5 @@
+import {createApprovedFetch} from './approved-media-fetch.mjs';
+const fetch=createApprovedFetch(["query.wikidata.org", "commons.wikimedia.org", "upload.wikimedia.org", "thumb.wikimedia.org"]);
 // Discover reusable player portraits without accepting an ambiguous search result.
 // Usage: node build/discover-player-photos.mjs --scan=250 --max=100
 import fs from 'node:fs/promises';

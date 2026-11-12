@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-11-12T10:33:53.803Z",
+  "tournament": "Canada",
+  "venue": "Toronto",
+  "year": 2000,
+  "tours": [
+    "atp"
+  ],
+  "category": "Masters 1000",
+  "status": "unresolved",
+  "accepted": 0,
+  "photos": [],
+  "decision": "No verified exact-event horizontal photograph meeting the requested criteria was obtained. No fallback photograph is labelled as this edition. No active media index or production data was modified.",
+  "candidates": [
+    {
+      "source": "https://www.championat.com/tennis/article-6109964-marat-safin-vyigral-masters-v-toronto-v-2000-godu-eto-byl-ego-pervyj-trofej-na-turnirah-dannoj-kategorii.html",
+      "originalUrl": "https://img.championat.com/s/1350x900/news/big/h/q/marat-safin_1755939992275774198.jpg",
+      "credit": "Holde Schneider / Getty Images; Championat",
+      "status": "unverified-event",
+      "reason": "Article concerns Toronto 2000 but the photograph has only a generic Marat Safin caption. Visual inspection confirms tennis action, but does not establish the exact tournament. No edition attribution inferred from article topic.",
+      "downloadedDimensions": {
+        "width": 1350,
+        "height": 900
+      },
+      "sourceImageSha256": "1f20b526c99b9464a4f39b439435f4962bad48e3f12fe2291ec0d3dc4f819eef",
+      "visuallyReviewed": true,
+      "reviewedAt": "2026-11-12T10:33:53.803Z"
+    },
+    {
+      "source": "https://www.championat.com/tennis/article-6109964-marat-safin-vyigral-masters-v-toronto-v-2000-godu-eto-byl-ego-pervyj-trofej-na-turnirah-dannoj-kategorii.html",
+      "originalUrl": "https://img.championat.ru/i/y/x/1754038643392434574.jpg",
+      "credit": "Jamie Squire / Getty Images; Championat",
+      "status": "unverified-event",
+      "reason": "Inline caption identifies Safin in 2000, not Toronto. Image shows tennis action and horizontal aspect ratio; exact event is not established.",
+      "downloadedDimensions": {
+        "width": 920,
+        "height": 614
+      },
+      "sourceImageSha256": "b161bdcd7d62219245ffb3fe9d55e635e9d5884a894f51851fe25ab6a404a6cd",
+      "visuallyReviewed": true,
+      "reviewedAt": "2026-11-12T10:33:53.803Z"
+    },
+    {
+      "source": "https://api.tennistv.com/content/atpmedia/video/en/2392063",
+      "originalUrl": "https://resources.prod.atpmedia.pulselive.com/photo-resources/2021/12/03/0649a50e-77b1-4745-a2c7-9fb1f0fc0819/CGW6NswP.jpg?width=1920&height=1080",
+      "credit": "Tennis TV / ATP Media",
+      "publisherPhotoId": 2392062,
+      "status": "rejected-visual-mismatch",
+      "reason": "Official migrated replay metadata labels Toronto 2000 QF, but visual inspection raises an event/era mismatch: open navy neck, navy three-stripe shirt and indoor-looking background differ from the independently observed Safin 2000 kit. A replay thumbnail title is insufficient proof; not activated.",
+      "downloadedDimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "sourceImageSha256": "b3c1cd0da2bee32926a1b209c7a2a97e263dada68ca513758745f40b63f7df53",
+      "visuallyReviewed": true,
+      "reviewedAt": "2026-11-12T10:33:53.803Z"
+    }
+  ],
+  "otherSourcesReviewed": [
+    {
+      "url": "https://www.24ur.com/novice/slovenija/safinu-toronto.html",
+      "finding": "Contemporary article but current image URL belongs to Jul2024; rejected as an edition image."
+    },
+    {
+      "url": "https://www.tvanouvelles.ca/2000/08/06/victoire-de-marat-safin-a-toronto",
+      "finding": "Contemporary match report; no usable historical photograph exposed."
+    },
+    {
+      "url": "https://www.lorientlejour.com/article/430972/Tennis_-_Loutsider_israelien_Havel_Levy_battu_6-2%252C_6-3_Marat_Safin_consacre_aux_Masters_de_Toronto%2528photo%2529.html",
+      "finding": "Contemporary report title mentions a photo, but no usable photo was exposed in accessible text; direct response 403 was respected without bypass."
+    },
+    {
+      "url": "https://www.dgabc.com.br/Noticia/280545/marat-safin-conquista-o-master-series-de-toronto",
+      "finding": "Contemporary report checked, no qualifying event image found."
+    },
+    {
+      "url": "https://www.bridgemanimages.com/en/noartistknown/russian-marat-safin-with-rcmp-officers-after-tennis-masters-series-win-2000-08-06-photo/photograph/asset/7871857",
+      "finding": "Exact-event Reuters/Peter Jones stock original exists (2048×1373), but the accessible preview is watermarked/licensed. No purchase or watermark removal attempted."
+    }
+  ],
+  "previousAudit": "data/media/masters-v31-api-audit.json",
+  "constraints": {
+    "minimumNativeWidth": 740,
+    "horizontal": true,
+    "exactEditionEvidence": true,
+    "noLiveTennisCalls": true,
+    "noPurchase": true,
+    "noAccessControlBypass": true,
+    "noWatermarkRemoval": true
+  }
+}

@@ -44,3 +44,13 @@ test("city names and unknown conditions never acquire invented classifications",
   assert.deepEqual(tournamentCourt({ tournament: "Unknown", year: 2026 }),
     { surface: "unknown", indoor: null, corrected: false });
 });
+
+test("both Madrid directory circuits use current clay without rewriting older editions",()=>{
+ for(const category of ['Masters 1000','WTA 1000'] as const){
+  const fixtures=[{tournament:'Madrid',category,year:2026,surface:'hard',context:{indoor:true}}] as Match[];
+  assert.equal(latestTournamentCourt(fixtures).surface,'clay');
+  assert.equal(latestTournamentCourt(fixtures).indoor,false);
+  assert.equal(fixtures[0].surface,'hard');
+ }
+ assert.equal(tournamentCourt({tournament:'Madrid',category:'Masters 1000',year:2008,surface:'hard'}).surface,'hard');
+});

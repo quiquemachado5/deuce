@@ -1,0 +1,489 @@
+{
+  "schema": 1,
+  "reviewedAt": "2026-11-11T22:49:11.915Z",
+  "datasetVersion": "41e351d8a6e54939db3e",
+  "matches": 148187,
+  "accepted": 46,
+  "reviewedPages": 35,
+  "references": [
+    {
+      "id": "federer-10-slam-finals",
+      "tour": "atp",
+      "accepted": true,
+      "errors": [],
+      "pages": 3,
+      "publishers": 3
+    },
+    {
+      "id": "federer-23-slam-semis",
+      "tour": "atp",
+      "accepted": true,
+      "errors": [],
+      "pages": 3,
+      "publishers": 3
+    },
+    {
+      "id": "federer-36-slam-quarters",
+      "tour": "atp",
+      "accepted": true,
+      "errors": [],
+      "pages": 3,
+      "publishers": 3
+    },
+    {
+      "id": "federer-237-weeks",
+      "tour": "atp",
+      "accepted": true,
+      "errors": [],
+      "pages": 3,
+      "publishers": 3
+    },
+    {
+      "id": "nadal-81-clay",
+      "tour": "atp",
+      "accepted": true,
+      "errors": [],
+      "pages": 3,
+      "publishers": 3
+    },
+    {
+      "id": "nadal-14-roland-garros",
+      "tour": "atp",
+      "accepted": true,
+      "errors": [],
+      "pages": 3,
+      "publishers": 3
+    },
+    {
+      "id": "evert-125-clay",
+      "tour": "wta",
+      "accepted": true,
+      "errors": [],
+      "pages": 3,
+      "publishers": 3
+    },
+    {
+      "id": "evert-13-slam-years",
+      "tour": "wta",
+      "accepted": true,
+      "errors": [],
+      "pages": 3,
+      "publishers": 3
+    },
+    {
+      "id": "navratilova-74-wins",
+      "tour": "wta",
+      "accepted": true,
+      "errors": [],
+      "pages": 3,
+      "publishers": 3
+    },
+    {
+      "id": "navratilova-167-titles",
+      "tour": "wta",
+      "accepted": true,
+      "errors": [],
+      "pages": 3,
+      "publishers": 3
+    },
+    {
+      "id": "vilas-16-titles-1977",
+      "tour": "atp",
+      "accepted": true,
+      "errors": [],
+      "pages": 3,
+      "publishers": 3
+    },
+    {
+      "id": "federer-career-titles-majors",
+      "tour": "atp",
+      "accepted": true,
+      "errors": [],
+      "pages": 2,
+      "publishers": 2
+    },
+    {
+      "id": "federer-career-titles-australia",
+      "tour": "atp",
+      "accepted": true,
+      "errors": [],
+      "pages": 2,
+      "publishers": 2
+    },
+    {
+      "id": "federer-career-titles-roland-garros",
+      "tour": "atp",
+      "accepted": true,
+      "errors": [],
+      "pages": 2,
+      "publishers": 2
+    },
+    {
+      "id": "federer-career-titles-wimbledon",
+      "tour": "atp",
+      "accepted": true,
+      "errors": [],
+      "pages": 2,
+      "publishers": 2
+    },
+    {
+      "id": "federer-career-titles-us-open",
+      "tour": "atp",
+      "accepted": true,
+      "errors": [],
+      "pages": 2,
+      "publishers": 2
+    },
+    {
+      "id": "nadal-career-titles-majors",
+      "tour": "atp",
+      "accepted": true,
+      "errors": [],
+      "pages": 2,
+      "publishers": 2
+    },
+    {
+      "id": "nadal-career-titles-australia",
+      "tour": "atp",
+      "accepted": true,
+      "errors": [],
+      "pages": 2,
+      "publishers": 2
+    },
+    {
+      "id": "nadal-career-titles-wimbledon",
+      "tour": "atp",
+      "accepted": true,
+      "errors": [],
+      "pages": 2,
+      "publishers": 2
+    },
+    {
+      "id": "nadal-career-titles-us-open",
+      "tour": "atp",
+      "accepted": true,
+      "errors": [],
+      "pages": 2,
+      "publishers": 2
+    },
+    {
+      "id": "graf-career-titles-majors",
+      "tour": "wta",
+      "accepted": true,
+      "errors": [],
+      "pages": 2,
+      "publishers": 2
+    },
+    {
+      "id": "graf-career-titles-australia",
+      "tour": "wta",
+      "accepted": true,
+      "errors": [],
+      "pages": 2,
+      "publishers": 2
+    },
+    {
+      "id": "graf-career-titles-roland-garros",
+      "tour": "wta",
+      "accepted": true,
+      "errors": [],
+      "pages": 2,
+      "publishers": 2
+    },
+    {
+      "id": "graf-career-titles-wimbledon",
+      "tour": "wta",
+      "accepted": true,
+      "errors": [],
+      "pages": 2,
+      "publishers": 2
+    },
+    {
+      "id": "graf-career-titles-us-open",
+      "tour": "wta",
+      "accepted": true,
+      "errors": [],
+      "pages": 2,
+      "publishers": 2
+    },
+    {
+      "id": "serena-career-titles-majors",
+      "tour": "wta",
+      "accepted": true,
+      "errors": [],
+      "pages": 2,
+      "publishers": 2
+    },
+    {
+      "id": "serena-career-titles-australia",
+      "tour": "wta",
+      "accepted": true,
+      "errors": [],
+      "pages": 2,
+      "publishers": 2
+    },
+    {
+      "id": "serena-career-titles-roland-garros",
+      "tour": "wta",
+      "accepted": true,
+      "errors": [],
+      "pages": 2,
+      "publishers": 2
+    },
+    {
+      "id": "serena-career-titles-wimbledon",
+      "tour": "wta",
+      "accepted": true,
+      "errors": [],
+      "pages": 2,
+      "publishers": 2
+    },
+    {
+      "id": "serena-career-titles-us-open",
+      "tour": "wta",
+      "accepted": true,
+      "errors": [],
+      "pages": 2,
+      "publishers": 2
+    },
+    {
+      "id": "navratilova-career-titles-majors",
+      "tour": "wta",
+      "accepted": true,
+      "errors": [],
+      "pages": 2,
+      "publishers": 2
+    },
+    {
+      "id": "navratilova-career-titles-australia",
+      "tour": "wta",
+      "accepted": true,
+      "errors": [],
+      "pages": 2,
+      "publishers": 2
+    },
+    {
+      "id": "navratilova-career-titles-roland-garros",
+      "tour": "wta",
+      "accepted": true,
+      "errors": [],
+      "pages": 2,
+      "publishers": 2
+    },
+    {
+      "id": "navratilova-career-titles-wimbledon",
+      "tour": "wta",
+      "accepted": true,
+      "errors": [],
+      "pages": 2,
+      "publishers": 2
+    },
+    {
+      "id": "navratilova-career-titles-us-open",
+      "tour": "wta",
+      "accepted": true,
+      "errors": [],
+      "pages": 2,
+      "publishers": 2
+    },
+    {
+      "id": "evert-career-titles-majors",
+      "tour": "wta",
+      "accepted": true,
+      "errors": [],
+      "pages": 2,
+      "publishers": 2
+    },
+    {
+      "id": "evert-career-titles-australia",
+      "tour": "wta",
+      "accepted": true,
+      "errors": [],
+      "pages": 2,
+      "publishers": 2
+    },
+    {
+      "id": "evert-career-titles-roland-garros",
+      "tour": "wta",
+      "accepted": true,
+      "errors": [],
+      "pages": 2,
+      "publishers": 2
+    },
+    {
+      "id": "evert-career-titles-wimbledon",
+      "tour": "wta",
+      "accepted": true,
+      "errors": [],
+      "pages": 2,
+      "publishers": 2
+    },
+    {
+      "id": "evert-career-titles-us-open",
+      "tour": "wta",
+      "accepted": true,
+      "errors": [],
+      "pages": 2,
+      "publishers": 2
+    },
+    {
+      "id": "graf-107-career-titles",
+      "tour": "wta",
+      "accepted": true,
+      "errors": [],
+      "pages": 2,
+      "publishers": 2
+    },
+    {
+      "id": "graf-calendar-grand-slam-1988",
+      "tour": "wta",
+      "accepted": true,
+      "errors": [],
+      "pages": 2,
+      "publishers": 2
+    },
+    {
+      "id": "federer-career-titles",
+      "tour": "atp",
+      "accepted": true,
+      "errors": [],
+      "pages": 2,
+      "publishers": 2
+    },
+    {
+      "id": "federer-career-wins",
+      "tour": "atp",
+      "accepted": true,
+      "errors": [],
+      "pages": 2,
+      "publishers": 2
+    },
+    {
+      "id": "federer-65-grass-wins",
+      "tour": "atp",
+      "accepted": true,
+      "errors": [],
+      "pages": 2,
+      "publishers": 2
+    },
+    {
+      "id": "nadal-four-majors-no-set-lost",
+      "tour": "atp",
+      "accepted": true,
+      "errors": [],
+      "pages": 2,
+      "publishers": 2
+    }
+  ],
+  "checks": [
+    {
+      "id": "federer-10-slam-finals",
+      "reference": 10,
+      "expectedEditions": 10,
+      "observed": 10,
+      "matched": true,
+      "missing": [],
+      "evidence": [
+        "archive-138855",
+        "archive-138982",
+        "archive-142466",
+        "archive-141992",
+        "archive-142150",
+        "archive-142277",
+        "archive-145631",
+        "archive-145157",
+        "archive-145315",
+        "archive-145442"
+      ],
+      "agrees": true
+    },
+    {
+      "id": "federer-23-slam-semis",
+      "reference": 23,
+      "expectedEditions": 23,
+      "observed": 23,
+      "matched": true,
+      "missing": [],
+      "evidence": [
+        "archive-135535",
+        "archive-135662",
+        "archive-139169",
+        "archive-138695",
+        "archive-138855",
+        "archive-138982",
+        "archive-142466",
+        "archive-141992",
+        "archive-142150",
+        "archive-142277",
+        "archive-145631",
+        "archive-145157",
+        "archive-145315",
+        "archive-145442",
+        "archive-148715",
+        "archive-148243",
+        "archive-148401",
+        "archive-148528",
+        "archive-151843",
+        "archive-151369",
+        "archive-151527",
+        "archive-151654",
+        "archive-152699"
+      ],
+      "agrees": true
+    },
+    {
+      "id": "federer-36-slam-quarters",
+      "reference": 36,
+      "expectedEditions": 36,
+      "observed": 36,
+      "matched": true,
+      "missing": [],
+      "evidence": [
+        "archive-135535",
+        "archive-135662",
+        "archive-139169",
+        "archive-138695",
+        "archive-138855",
+        "archive-138982",
+        "archive-142466",
+        "archive-141992",
+        "archive-142150",
+        "archive-142277",
+        "archive-145631",
+        "archive-145157",
+        "archive-145315",
+        "archive-145442",
+        "archive-148715",
+        "archive-148243",
+        "archive-148401",
+        "archive-148528",
+        "archive-151843",
+        "archive-151369",
+        "archive-151527",
+        "archive-151654",
+        "archive-152699",
+        "archive-153946",
+        "archive-154217",
+        "archive-154888",
+        "archive-155728",
+        "archive-156949",
+        "archive-157220",
+        "archive-157930",
+        "archive-158739",
+        "archive-160081",
+        "archive-160350",
+        "archive-160966",
+        "archive-161744",
+        "archive-163042"
+      ],
+      "agrees": true
+    },
+    {
+      "id": "nadal-14-roland-garros",
+      "reference": 14,
+      "observed": 14,
+      "agrees": true
+    }
+  ],
+  "policy": "At least two distinct pages, publishers and editorial origins for explicitly reviewed additions; existing three-source facts retain that threshold; same singles circuit, metric, period and units. Conflicts cannot be outvoted. Reference facts never overwrite match results."
+}

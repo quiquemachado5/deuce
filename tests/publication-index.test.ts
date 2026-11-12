@@ -23,3 +23,17 @@ test('publication index detects additions and corrections and blocks deletion',(
   assert.throws(()=>comparePublicationIndexes(previous,buildPublicationIndex([added])),/remove a verified match/);
   assert.equal(validPublicationIndex(previous),true);
 });
+
+test('a malformed or duplicate previous index cannot silently hide a published identity',()=>{
+ const previous=buildPublicationIndex([source]);
+ const duplicate={...previous,count:2,entries:[previous.entries[0],previous.entries[0]]};
+ assert.equal(validPublicationIndex(duplicate),false);
+ assert.throws(()=>comparePublicationIndexes(duplicate,previous),/invalid/);
+ for(const identity of ['atp:','wta:publication-1','atp:a/b','atp:with space'])assert.equal(validPublicationIndex({...previous,entries:[{...previous.entries[0],identity}]}),false);
+});
+test('a correction moving season invalidates both old and new seasonal aggregates',()=>{
+ const previous=buildPublicationIndex([{...source,year:2023}]);
+ const next=buildPublicationIndex([{...source,year:2024}]);
+ const changed=comparePublicationIndexes(previous,next);
+ assert.equal(changed.delta.corrected,1);assert.deepEqual(changed.delta.seasons,['atp:2023','atp:2024']);
+});

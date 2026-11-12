@@ -1,0 +1,67 @@
+{
+  "schema": 1,
+  "reviewedOn": "2026-11-11",
+  "discoveryAccount": "https://x.com/OnlyRogerCanFly",
+  "accountAccess": "Direct timeline returns HTTP 403. The discoveries below were read in accessible articles that embed or attribute specific posts; no claim of a complete timeline review.",
+  "publicationRule": "A social post is a lead, not three corroborations. Translations and media repeating the same post count as the same editorial origin. Match counts, retirement and walkover treatment, era, circuit and cutoff must agree.",
+  "discoveries": [
+    {
+      "topic": "Guillermo Vilas: 16 títulos de individuales en 1977",
+      "status": "accepted",
+      "statisticId": "vilas-16-titles-1977",
+      "discoveredIn": "https://www.puntodebreak.com/2020/08/02/record-imposible-alcanzar-tenis-actual",
+      "note": "Contrastado con Tennis.com (2013) y una revisión fija de Wikipedia. Solo se acepta la cifra individual de Vilas en 1977, no todos los rankings o valoraciones del artículo."
+    },
+    {
+      "topic": "Nadal: derrotas tras disponer de punto de partido",
+      "status": "pending-independent-evidence",
+      "discoveredIn": "https://as.com/tenis/mas_tenis/nadal-habia-perdido-otras-ocho-veces-con-puntos-de-partido-n/",
+      "cutoff": "2024-01-05",
+      "note": "AS enumera nueve y cita la cuenta. No se cuentan la noticia y el tuit como dos comprobaciones independientes. Requiere verificación del punto de partido en cada encuentro y otras dos publicaciones de alcance idéntico."
+    },
+    {
+      "topic": "Federer: triunfos en tierra de menos de 60 minutos",
+      "status": "pending-independent-evidence",
+      "discoveredIn": "https://tenisovysvet.sk/federer-neskodny-na-antuke-v-tejto-statistike-strci-do-vrecka-nadala-aj-djokovica/",
+      "alsoSeenIn": "https://www.essentiallysports.com/roger-federer-trumps-rafael-nadal-and-novak-djokovic-in-an-interesting-record-on-clay-atp-tennis-news/",
+      "cutoff": "2020-05-07",
+      "note": "Las dos noticias remiten al mismo tuit; no aportan dos verificaciones independientes. La lista se limita a jugadores activos con un mínimo de 100 victorias y no debe presentarse como una clasificación actual."
+    },
+    {
+      "topic": "Efectividad en pista cubierta",
+      "status": "pending-independent-evidence",
+      "discoveredIn": "https://settenis.com.ar/quienes-son-los-tenistas-con-mayor-efectividad-en-indoor/",
+      "post": "https://twitter.com/OnlyRogerCanFly/status/1580240024997875713",
+      "cutoff": "2022-10-12",
+      "note": "Separar las listas de activos y retirados, concretar mínimo de partidos y nivel del circuito. Se requiere un campo indoor verificable en cada partido; no inferirlo de la superficie."
+    },
+    {
+      "topic": "Partidos de Grand Slam de Federer y Djokovic",
+      "status": "pending-counting-definition",
+      "discoveredIn": "https://www.puntodebreak.com/en/2025/01/13/djokovic-matches-federers-astonishing-historical-record",
+      "cutoff": "2025-01-13",
+      "note": "La cifra de 429 requiere precisar si cuenta walkovers, abandonos y partidos iniciados. No se copia a los agregados de resultados completos de DEUCE."
+    },
+    {
+      "topic": "Títulos ATP 500 desde la creación de la categoría en 2009",
+      "status": "pending-scope-verification",
+      "discoveredIn": "https://www.puntodebreak.com/fr/2026/10/06/alcaraz-lance-devenir-le-joueur-avec-le-plus-titres-atp-500-lhistoire",
+      "cutoff": "2026-10-06",
+      "note": "No mezclar ATP 500 desde 2009 con equivalentes históricos ni clasificar un torneo retrospectivamente por su categoría actual. La traducción automática no cuenta como otra publicación."
+    }
+  ],
+  "sourceConflicts": [
+    {
+      "source": "https://www.guinnessworldrecords.com/world-records/603017-most-consecutive-grand-slam-singles-finals-male",
+      "issue": "Confirma diez finales de Federer pero termina la secuencia en US Open 2008. Tennis.com y Tennis History la terminan en US Open 2007, y el cuadro de Australia 2008 muestra derrota en semifinales. Esta página no se usa como corroboración de ese periodo."
+    },
+    {
+      "topic": "Nadal en Roland Garros: porcentaje de victorias",
+      "issue": "El balance final 112–4 es estable; hay páginas que muestran 96,5 y otras 96,6. Conservar numerador y denominador, no votar sobre porcentajes redondeados."
+    },
+    {
+      "topic": "Inicio de la racha de 125 victorias de Evert en tierra",
+      "issue": "WTA, Wikipedia y Tennis.com sitúan el inicio en agosto de 1973; Tennis Australia escribe septiembre. La cifra aceptada muestra 1973–1979 y no una fecha inicial exacta."
+    }
+  ]
+}

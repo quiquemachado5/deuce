@@ -1,4 +1,5 @@
-import { eligibleMatch } from "../quality";
+import { grandSlamSeasons, bestGrandSlamSeasons, grandSlamSeasonRecords } from '../grand-slam-seasons';
+import { eligibleMatch, isRetirement } from "../quality";
 import type { Match } from "../types";
 import { TOURNAMENTS } from "../types";
 import { buildSeasonAnalytics, rankingMetrics } from "../season-analytics";
@@ -330,7 +331,7 @@ export function recordCatalog(matches: Match[], now = new Date(), only?: string)
                 ? "Victorias ante el número uno el día del partido. Solo ranking de entonces; la división indica encuentros con ese rival."
             : def.unit === "%"
               ? "Porcentaje sobre los casos registrados; cada fila incluye su división."
-              : "Resultados completos. Excluye abandonos, incomparecencias y tanteos en revisión.",
+              : "Resultados validados, incluidas retiradas durante el juego. Excluye incomparecencias y tanteos en revisión.",
       rows,
       min,
       def.unit === "%",
@@ -357,9 +358,9 @@ export function recordCatalog(matches: Match[], now = new Date(), only?: string)
       source,
     );
   for (const specification of [
-    { id: "ganar-menos-juegos", title: "Victorias con menos juegos que el rival", group: "Victorias", definition: "Victorias en las que la suma de juegos del ganador es menor que la de su rival. Solo partidos completos, sin abandonos.", test: (m: Match) => { const totals = m.score_summary.games.reduce((n, set) => [n[0] + set[0], n[1] + set[1]], [0, 0]); return m.winner === 1 ? totals[0] < totals[1] : totals[1] < totals[0]; } },
+    { id: "ganar-menos-juegos", title: "Victorias con menos juegos que el rival", group: "Victorias", definition: "Victorias en las que la suma de juegos del ganador es menor que la de su rival. Solo partidos completos, sin abandonos.", test: (m: Match) => { if(isRetirement(m))return false; const totals = m.score_summary.games.reduce((n, set) => [n[0] + set[0], n[1] + set[1]], [0, 0]); return m.winner === 1 ? totals[0] < totals[1] : totals[1] < totals[0]; } },
     { id: "remontar-rosco", title: "Victorias después de perder un set 6–0", group: "Remontadas y forma del partido", definition: "Partidos ganados tras ceder al menos un set 0–6. Se cuenta una victoria por partido; solo marcadores completos.", test: (m: Match) => m.score_summary.games.some(set => m.winner === 1 ? set[0] === 0 && set[1] === 6 : set[1] === 0 && set[0] === 6) },
-    { id: "finales-cuatro-juegos", title: "Finales ganadas cediendo cuatro juegos o menos", group: "Títulos y finales", definition: "Finales completas en las que el campeón cede como máximo cuatro juegos en total. No incluye abandonos ni incomparecencias.", test: (m: Match) => final(m) && m.score_summary.games.reduce((n, set) => n + set[m.winner === 1 ? 1 : 0], 0) <= 4 },
+    { id: "finales-cuatro-juegos", title: "Finales ganadas cediendo cuatro juegos o menos", group: "Títulos y finales", definition: "Finales completas en las que el campeón cede como máximo cuatro juegos en total. No incluye abandonos ni incomparecencias.", test: (m: Match) => !isRetirement(m) && final(m) && m.score_summary.games.reduce((n, set) => n + set[m.winner === 1 ? 1 : 0], 0) <= 4 },
   ]) {
     if (only && specification.id !== only) continue;
     const counts = new Map<string, { count: number; proof: Match }>();
@@ -622,6 +623,16 @@ export function recordCatalog(matches: Match[], now = new Date(), only?: string)
     "Resultados ganados por jugador y año.",
     grouped(matches, (m, n) => `${n} · ${m.year}`),
   );
+  if(!only||grandSlamSeasonRecords.some(spec=>spec.id===only)){
+    const slamSource=matches.filter(match=>match.category==='Grand Slam'&&!match.context?.qualifying);
+    const seasons=grandSlamSeasons(slamSource);
+    for(const spec of grandSlamSeasonRecords){
+      if(only&&spec.id!==only)continue;
+      add(spec.id,spec.title,spec.metric==='finals'||spec.metric==='titles'?'Títulos y finales':spec.metric==='comebacks'?'Remontadas y forma del partido':'Victorias',
+        'Por jugador y año, solo cuadro principal de Grand Slam y resultados completos validados. Cada jugador aparece una vez con su mejor temporada; en empate se muestra la más reciente. Incluye retiradas con ganador documentado; no incluye incomparecencias.',
+        bestGrandSlamSeasons(seasons,spec.metric).map(row=>person(row.name,row[spec.metric].length,row.evidence.length,String(row.year),row.evidence.at(-1))),1,false,slamSource);
+    }
+  }
   metric("top-10", "Más victorias ante el top 10", "Victorias", "top10-wins");
   metric("top-5", "Más victorias ante el top 5", "Victorias", "top5-wins");
   metric("numero-uno", "Más victorias ante el número uno", "Victorias", "number-one-wins");

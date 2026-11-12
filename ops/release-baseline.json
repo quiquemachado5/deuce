@@ -1,10 +1,16 @@
 {
   "minimumMatches": 83535,
-  "minimumTours": { "atp": 51076, "wta": 32459 },
+  "minimumTours": {
+    "atp": 51076,
+    "wta": 32459
+  },
   "minimumStatistics": 196,
-  "minimumStatisticsByTour": { "atp": 122, "wta": 74 },
+  "minimumStatisticsByTour": {
+    "atp": 122,
+    "wta": 74
+  },
   "maximumDataAgeHours": 72,
-  "requiredRulesVersion": "2026-11-products-v19",
+  "requiredRulesVersion": "2026-11-products-v32-retirements",
   "requireCommit": true,
   "requireStorage": true,
   "requireScheduler": true,

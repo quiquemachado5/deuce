@@ -1,0 +1,29 @@
+[
+  {
+    "tournament": "Indian Wells",
+    "year": 2025,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/indian-wells-2025-wta-4147ad4148.webp",
+      "alt": "Indian Wells 2025 · cuadro femenino",
+      "credit": "Jimmie48/WTA · derechos de terceros; autorización no acreditada",
+      "source": "https://www.wtatennis.com/photos/4229626/iga_swiatek_-_bnp_paribas_open_2025_-_day_3-dsc_2782",
+      "photoYear": 2025,
+      "objectPosition": "50% 45%",
+      "auditStatus": "candidate",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2025/03/08/d5345f4a-6bed-488e-a30a-a09c17aa9fdb/Iga_Swiatek_-_BNP_Paribas_Open_2025_-_Day_3-DSC_2782.jpg",
+    "sourceTitle": "Swiatek - 2025 Indian Wells 2R",
+    "sourceExcerpt": "Swiatek - 2025 Indian Wells 2R",
+    "sourceSha256": "4147ad4148e2346749a9d7dbca69c6e9a7505663a8857aeb501060566e102e96",
+    "width": 1600,
+    "height": 1173,
+    "bytes": 88908,
+    "cmsPhotoId": 4229626,
+    "candidateIndex": 0,
+    "reviewNotes": "Official WTA editorial caption; manual visual review pending."
+  }
+]

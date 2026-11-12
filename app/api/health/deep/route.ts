@@ -8,6 +8,8 @@ import { readSchedulerHealth } from '@/lib/scheduler-health';
 import { compareCircuitFreshness, recentRefreshFreshnessIssue } from '@/lib/circuit-freshness';
 import { dailyUpdateIssue, restoreValidationEvidence } from '@/lib/operational-health';
 import { rateLimit } from '@/lib/rate-limit';
+import {authorizedCronRequest} from '@/lib/cron-auth';
+import {unauthorizedResponse} from '@/lib/security-events';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 30;
@@ -63,6 +65,7 @@ function hostStatus(value: unknown) {
 }
 
 export async function GET(request: Request) {
+  if(!authorizedCronRequest(request,process.env.HEALTH_SECRET||process.env.METRICS_SECRET))return unauthorizedResponse(request,'health-deep');
   const started = performance.now(), id = requestId(request);
   const headers = { 'Cache-Control': 'no-store', 'X-Request-Id': id };
   const budget=rateLimit(request,'health-deep',12,60_000);

@@ -1,4 +1,4 @@
-import { mkdir, rename, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, rename, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { gzipSync } from 'node:zlib';
 import { archiveMatches } from '../lib/live-tennis';
@@ -6,6 +6,7 @@ import { detailMatchesCandidate, type DetailCandidate } from '../lib/enrichment-
 import { hasClosedModernResult } from '../lib/modern-result';
 import { providerRemainingCalls } from '../lib/provider-quota';
 import { eligibleMatch, prepareMatch } from '../lib/quality';
+import {isInPublicationScope} from '../lib/publication-scope';
 
 const base = 'https://api.livetennisapi.com/api/public/v1';
 const key = process.env.TENNIS_API_KEY;
@@ -35,6 +36,11 @@ const roundPriority = (round: string) => ({ Final: 0, Semifinal: 1, 'Cuartos de 
 const categoryPriority = (category: string) => category === 'Grand Slam' ? 0 : /1000/.test(category) ? 1 : /500/.test(category) ? 2 : 3;
 
 async function main() {
+  const day=new Date().toISOString().slice(0,10),attemptPath=join(process.cwd(),'.deuce-cache','integrity','provider-repair-attempts.json');
+  const previousAttempts=await readFile(attemptPath,'utf8').then(JSON.parse).catch(()=>null) as {day?:string;attempts?:Array<{id:string;state:string}>}|null;
+  const attempts=new Map((previousAttempts?.day===day?previousAttempts.attempts||[]:[]).map(row=>[row.id,row]));
+  await mkdir(join(process.cwd(),'.deuce-cache','integrity'),{recursive:true});
+  const saveAttempt=async(id:string,state:string)=>{attempts.set(id,{id,state});await writeFile(`${attemptPath}.tmp`,JSON.stringify({day,attempts:[...attempts.values()]}));await rename(`${attemptPath}.tmp`,attemptPath);};
   const usage = await provider('/usage');
   const remaining = providerRemainingCalls(usage);
   if (!Number.isFinite(remaining)) throw new Error('Provider usage did not include remaining_day');
@@ -45,7 +51,7 @@ async function main() {
   for (let year = startYear; year <= currentYear; year++) {
     // Load saved details so a previously repaired row is not charged again.
     for (const match of await archiveMatches(year)) {
-      if (!/^(?:wta-)?live-\d+$/.test(match.match_id) || match.status.toLowerCase() !== 'finished' || eligibleMatch(prepareMatch(match))) continue;
+      if (!/^(?:wta-)?live-\d+$/.test(match.match_id) || match.status.toLowerCase() !== 'finished' || !isInPublicationScope(match) || eligibleMatch(prepareMatch(match)) || attempts.has(match.match_id)) continue;
       const tour = match.tour === 'wta' ? 'wta' : 'atp';
       candidates.push({
         candidate: { kind: 'modern', id: match.match_id.replace(/^(?:wta-)?live-/, ''), year, round: match.round, tour, players: [match.player1.name, match.player2.name] },
@@ -68,10 +74,12 @@ async function main() {
     // Stay below the documented 60 requests/minute provider ceiling.
     await new Promise(resolve => setTimeout(resolve, 1_100));
     calls++;
+    const identity=`${candidate.tour==='wta'?'wta-':''}live-${candidate.id}`;
     try {
       const payload = await provider(`/history/matches/${candidate.id}?points=complete`);
       if (!detailMatchesCandidate(candidate, payload) || !payload.match || !hasClosedModernResult(payload.match)) {
         rejected++;
+        await saveAttempt(identity,'provider-detail-not-closed');
         continue;
       }
       const filename = `${candidate.tour === 'wta' ? 'wta-' : ''}modern-${candidate.id}.json.gz`;
@@ -79,8 +87,9 @@ async function main() {
       await writeFile(temporary, gzipSync(JSON.stringify(payload)), { mode: 0o600 });
       await rename(temporary, target);
       repaired++;
+      await saveAttempt(identity,'repaired');
     } catch (error) {
-      if (error instanceof Error && /HTTP 404/.test(error.message)) { unavailable++; continue; }
+      if (error instanceof Error && /HTTP 404/.test(error.message)) { unavailable++; await saveAttempt(identity,'unavailable'); continue; }
       throw error;
     }
   }

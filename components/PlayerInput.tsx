@@ -1,16 +1,18 @@
 'use client';
 
+import PlayerFlag from './PlayerFlag';
 import { ChevronDown } from 'lucide-react';
 import { useDeferredValue, useEffect, useId, useRef, useState } from 'react';
 
-type Props = { tour?:'atp'|'wta'; name: string; initial: string; label: string; language?:'es'|'en' };
+type Props = { tour?:'atp'|'wta'; name: string; initial: string; label: string; language?:'es'|'en'; clearOnFocus?:boolean; onValueChange?:(value:string)=>void };
 
-export default function PlayerInput({ name, initial, label, tour='atp', language='es' }: Props) {
+export default function PlayerInput({ name, initial, label, tour='atp', language='es', onValueChange, clearOnFocus=false }: Props) {
   const english=language==='en',playersLabel=english?'players':tour==='wta'?'jugadoras':'jugadores';
-  const listId = useId(), input = useRef<HTMLInputElement>(null);
+  const listId = useId(), input = useRef<HTMLInputElement>(null), preserveFocus = useRef(false);
   const [value, setValue] = useState(initial), deferredValue = useDeferredValue(value);
   const [open, setOpen] = useState(false), [showAll, setShowAll] = useState(false);
   const [active, setActive] = useState(-1), [options, setOptions] = useState<string[]>([]);
+  const [identities,setIdentities]=useState<Record<string,{country?:string}>>({});
   const [total, setTotal] = useState(0), [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -25,7 +27,7 @@ export default function PlayerInput({ name, initial, label, tour='atp', language
         if (!response.ok) throw new Error('players');
         const body = await response.json();
         setOptions(Array.isArray(body.items) ? body.items : []);
-        setTotal(Number(body.total) || 0);
+        setTotal(Number(body.total) || 0);setIdentities(body.identities||{});
       } catch (error) {
         if (!(error instanceof Error && error.name === 'AbortError')) { setOptions([]); setTotal(0); }
       } finally { if (!controller.signal.aborted) setLoading(false); }
@@ -34,14 +36,14 @@ export default function PlayerInput({ name, initial, label, tour='atp', language
   }, [deferredValue, open, showAll,tour]);
 
   const choose = (player: string) => {
-    setValue(player); setOpen(false); setShowAll(false); setActive(-1);
-    input.current?.focus();
+    setValue(player); onValueChange?.(player); setOpen(false); setShowAll(false); setActive(-1);
+    if(document.activeElement!==input.current){preserveFocus.current=true;input.current?.focus();}
   };
 
   return <div className="player-combobox" onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false); }}>
     <input ref={input} name={name} aria-label={label} value={value}
-      onChange={event => { const next=event.target.value;setValue(next);setActive(-1);setShowAll(false);setOpen(true);if(next.trim().length===1){setOptions([]);setTotal(0);setLoading(false);} }}
-      onFocus={() => { setShowAll(true); setOpen(true); }}
+      onChange={event => { const next=event.target.value;setValue(next);onValueChange?.(next);setActive(-1);setShowAll(false);setOpen(true);if(next.trim().length===1){setOptions([]);setTotal(0);setLoading(false);} }}
+      onFocus={() => { if(preserveFocus.current){preserveFocus.current=false;return;} if(clearOnFocus){setValue('');onValueChange?.('');setOptions([]);setTotal(0);} setShowAll(true); setOpen(true); }}
       onKeyDown={event => {
         if (event.key === 'ArrowDown') { event.preventDefault(); setOpen(true); setActive(current => Math.min(current + 1, options.length - 1)); }
         else if (event.key === 'ArrowUp') { event.preventDefault(); setActive(current => Math.max(current - 1, 0)); }
@@ -57,7 +59,7 @@ export default function PlayerInput({ name, initial, label, tour='atp', language
     {open ? <div className="player-combobox-menu" id={listId} role="listbox">
       <div className="player-combobox-count">{loading ? english?'Searching players…':`Buscando ${playersLabel}…` : showAll ? english?`${total} players · alphabetical order`:`${total} ${playersLabel} · orden alfabético` : english?`${options.length} matches`:`${options.length} coincidencias`}</div>
       {options.length ? options.map((player, index) => <button id={`${listId}-${index}`} type="button" role="option" aria-selected={player === value} data-active={index === active ? 'true' : undefined} key={player}
-        onMouseDown={event => event.preventDefault()} onMouseEnter={() => setActive(index)} onClick={() => choose(player)}>{player}</button>)
+        onMouseDown={event => event.preventDefault()} onMouseEnter={() => setActive(index)} onClick={() => choose(player)}><span className="player-option-flag" aria-hidden="true"><PlayerFlag code={identities[player]?.country}/></span><span>{player}</span></button>)
         : !loading && <p>{deferredValue.trim().length === 1 ? english?'Type at least two letters.':'Escribe al menos dos letras.' : english?'No matching players.':`No hay ${playersLabel} que coincidan.`}</p>}
     </div> : null}
   </div>;

@@ -12,7 +12,7 @@ export const displaySetClosed = (match: Match, index: number) =>
 export const displaySetsWon = (match: Match, side: number) =>
   match.score_summary.games.filter(
     (set, index) => displaySetClosed(match, index) && set[side] > set[1 - side],
-  ).length;
+  ).length + (match.score_summary.match_tiebreak && match.score_summary.match_tiebreak[side]>match.score_summary.match_tiebreak[1-side] ? 1 : 0);
 
 /** A walkover has no played score; never render a fabricated 0–0. */
 export const displayTotal = (match: Match, side: number): number | string =>

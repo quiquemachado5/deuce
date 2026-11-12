@@ -44,3 +44,14 @@ export function calendarOrder(entries: TournamentEntry[]) {
       a.name.localeCompare(b.name, "es"),
   );
 }
+
+/** Stable season order for a career table. Dates come from the latest documented
+ * edition of the event, not from the last year this particular player attended. */
+export function careerSeasonPosition(name:string,observedPosition?:number):number {
+  const key=name.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+  const majors:Record<string,number>={'australian open':1,'abierto de australia':1,'roland garros':5.25,'wimbledon':6.25,'us open':8.25,'abierto de estados unidos':8.25};
+  if(majors[key]!==undefined)return majors[key];
+  if(observedPosition!==undefined&&Number.isFinite(observedPosition)&&observedPosition>0&&observedPosition<13)return observedPosition;
+  const fallback:Record<string,number>={doha:2.1,dubai:2.2,'indian wells':3.1,miami:3.2,'monte carlo':4.1,montecarlo:4.1,madrid:4.2,rome:5.1,roma:5.1,canada:8.1,cincinnati:8.2,beijing:9.2,pekin:9.2,wuhan:10.1,shanghai:10.1,shangai:10.1,paris:11,'atp finals':11.2,'wta finals':11.2};
+  return fallback[key]??13;
+}

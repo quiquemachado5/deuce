@@ -27,7 +27,7 @@ function closedSet([a, b]: number[]): boolean {
 export function hasClosedModernResult(row: ResultRow): boolean {
   if (row.outcome !== 'completed' || (row.winner !== 1 && row.winner !== 2)) return false;
   const games = gamesOf(row);
-  const bestOf = row.format === 'BO5' || /australian open|french open|roland garros|wimbledon|us open/i.test(String(row.tournament || '')) ? 5 : 3;
+  const bestOf = row.format === 'BO5' ? 5 : row.format === 'BO3' || row.tour === 'wta' ? 3 : /australian open|french open|roland garros|wimbledon|us open/i.test(String(row.tournament || '')) ? 5 : 3;
   const target = bestOf === 5 ? 3 : 2;
   if (!games.length || games.length > bestOf) return false;
   const sets = [0, 0];

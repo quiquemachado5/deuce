@@ -1,0 +1,209 @@
+{
+  "australian-open": {
+    "name": "Abierto de Australia",
+    "kind": "courts",
+    "remote": "https://nbcsports.brightspotcdn.com/dims4/default/a24550c/2147483647/strip/false/crop/5472x3078%2B0%2B0/resize/1486x836%21/quality/90/?url=https%3A%2F%2Fnbc-sports-production-nbc-sports.s3.us-east-1.amazonaws.com%2Fbrightspot%2F8b%2F57%2Ff0bc658a268f871545a575770f99%2Faussieopen-e1608602668637.jpg",
+    "source": "https://www.nbcsports.com/tennis/news/australian-open-2023-tennis-sans-serena-starts-in-earnest",
+    "credit": "Fuente editorial · NBC Sports",
+    "alt": "Rod Laver Arena llena durante una sesión al atardecer",
+    "focus": "50% 48%"
+  },
+  "roland-garros": {
+    "name": "Roland Garros",
+    "kind": "courts",
+    "remote": "https://images.prismic.io/fft-rg-commun-news/ZmQrCZm069VX1kgD_Emilie_Hautier.JPG?auto=format&compress=true&w=1800",
+    "source": "https://www.rolandgarros.com/en-us/photo-gallery/rg2024-gallery-best-of-the-roland-garros-photographers?photo=0",
+    "credit": "Émilie Hautier · Roland-Garros / FFT",
+    "alt": "Luz del atardecer sobre Philippe-Chatrier durante Roland-Garros",
+    "focus": "50% 50%"
+  },
+  "wimbledon": {
+    "name": "Wimbledon",
+    "kind": "courts",
+    "remote": "https://upload.wikimedia.org/wikipedia/commons/e/e8/2023_Wimbledon_Men%27s_singles_final_%282%29.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:2023_Wimbledon_Men%27s_singles_final_(2).jpg",
+    "credit": "Daniel Cooper · CC BY-SA 2.0 · reencuadre y WebP",
+    "alt": "Centre Court durante la final de Wimbledon de 2023, visto desde las gradas",
+    "focus": "50% 55%"
+  },
+  "us-open": {
+    "name": "Abierto de Estados Unidos",
+    "kind": "courts",
+    "remote": "https://media.gqitalia.it/photos/64e603f9d5a283b90516bf53/master/w_1600%2Cc_limit/GettyImages-1420265430.jpg",
+    "source": "https://www.gqitalia.it/article/us-open-torneo-tennis-piu-odiato",
+    "credit": "Getty Images · vía GQ Italia",
+    "alt": "Arthur Ashe Stadium iluminado y lleno durante una sesión nocturna del US Open",
+    "focus": "50% 50%"
+  },
+  "indian-wells": {
+    "name": "Indian Wells",
+    "kind": "courts",
+    "remote": "https://www.datocms-assets.com/110926/1751426122-20240316_jmw_4116_jw_gb7ooif1_20240316061029.jpg?auto=format&fit=crop&w=1800",
+    "source": "https://bnpparibasopen.com/news/jagger-leach-julieta-pareja-claim-fila-international-junior-titles",
+    "credit": "BNP Paribas Open · fotografía publicada por el torneo",
+    "alt": "El estadio de Indian Wells lleno bajo la luz del sol del desierto",
+    "focus": "50% 50%"
+  },
+  "miami": {
+    "name": "Miami",
+    "kind": "courts",
+    "remote": "https://eu-images.contentstack.com/v3/assets/blt725d5e066dc2264b/bltc89cd732abddbf7f/69d6a87f3032b273334bebdd/260321_MO_RG1993.jpg?auto=webp&disable=upscale&quality=90&width=1800",
+    "source": "https://www.bizbash.com/sporting-events/how-the-record-breaking-2026-miami-open-surprised-and-delighted-fans",
+    "credit": "Miami Open · vía BizBash",
+    "alt": "Vista aérea del recinto del Miami Open alrededor del Hard Rock Stadium",
+    "focus": "50% 50%"
+  },
+  "monte-carlo": {
+    "name": "Montecarlo",
+    "kind": "courts",
+    "remote": "https://www.mccc.mc/medias_upload/moxie/PHOTO_DU_CLUB/VUe_ok_.jpg",
+    "source": "https://www.mccc.mc/en/rolex-monte-carlo-masters-113.html",
+    "credit": "Monte-Carlo Country Club",
+    "alt": "Las pistas de tierra del Monte-Carlo Country Club junto al Mediterráneo",
+    "focus": "50% 50%"
+  },
+  "madrid": {
+    "name": "Madrid",
+    "kind": "courts",
+    "remote": "https://www.2playbook.com/uploads/s1/77/06/4/halep-v-kuzmova-img-5322_26_1236x699.jpeg",
+    "source": "https://www.2playbook.com/patrocinio/openbank-crece-en-deporte-con-patrocinio-mutua-madrid-open_3300_102.html",
+    "credit": "Mutua Madrid Open · vía 2Playbook",
+    "alt": "Partido de tierra batida en la Caja Mágica al caer la tarde",
+    "focus": "50% 50%"
+  },
+  "rome": {
+    "name": "Roma",
+    "kind": "courts",
+    "remote": "https://www.sportesalute.eu/images/Foro_Italico_Drone_.jpeg",
+    "source": "https://www.sportesalute.eu/primo-piano/internazionali-ditalia-bnl-2025-il-bilancio-del-presidente-mezzaroma-edizione-memorabile-la-visione-e-diventata-realta.html",
+    "credit": "Sport e Salute · Foro Italico",
+    "alt": "Vista aérea nocturna de las pistas iluminadas del Foro Itálico",
+    "focus": "50% 50%"
+  },
+  "canada": {
+    "name": "Canadá",
+    "kind": "courts",
+    "remote": "https://imageio.forbes.com/specials-images/imageserve/6813cdc6b605c05caa0cd25e/0x0.jpg?fit=bounds&format=jpg&height=1100&width=1800",
+    "source": "https://www.forbes.com/sites/timnewcomb/2025/05/05/national-bank-open-2025-menu-upgrades/",
+    "credit": "National Bank Open · vía Forbes",
+    "alt": "El recinto del National Bank Open de Montreal visto desde el aire",
+    "focus": "50% 50%"
+  },
+  "cincinnati": {
+    "name": "Cincinnati",
+    "kind": "courts",
+    "remote": "https://cincinnatiopen.com/wp-content/uploads/2025/08/DJI_20250715105520_0618_D-2-1-scaled.jpg",
+    "source": "https://cincinnatiopen.com/news/new-look-same-energy/",
+    "credit": "Cincinnati Open · imagen oficial del recinto renovado",
+    "alt": "Vista aérea del complejo renovado del Cincinnati Open",
+    "focus": "50% 50%"
+  },
+  "shanghai": {
+    "name": "Shanghái",
+    "kind": "courts",
+    "remote": "https://cdn.wearetennis.bnpparibas/media/images/cache/meta_facebook/uploads/article/image/20231005111029000000_23bnp_qizhong01.jpg",
+    "source": "https://wearetennis.bnpparibas/en/news-tennis/opinion-piece/6329-chinas-tennis-dragons-are-awakening",
+    "credit": "We Are Tennis · BNP Paribas",
+    "alt": "El estadio Qizhong de Shanghái iluminado durante un partido nocturno",
+    "focus": "50% 50%"
+  },
+  "paris": {
+    "name": "París",
+    "kind": "courts",
+    "remote": "https://www.performanceinlighting.com/media/immagini/95392_z_Tennis_Pitches_Paris_La_Defence_Arena_Paris_France_01_1.jpg",
+    "source": "https://www.performanceinlighting.com/ww/en/projects-outdoor/sports/tennis/tennis-pitches-paris-la-defense-arena",
+    "credit": "Performance iN Lighting · Paris La Défense Arena",
+    "alt": "La pista del Masters de París en Paris La Défense Arena",
+    "focus": "50% 50%"
+  },
+  "nadal": {
+    "name": "Rafael Nadal",
+    "kind": "players",
+    "remote": "https://images.prismic.io/fft-rg-commun-news/920e1af1-d55a-4a26-b3c5-a36f481bd18c_20220603_RG_NG_24296_web.jpg?auto=format&w=1800",
+    "source": "https://www.rolandgarros.com/en-us/article/rg2022-semi-final-nadal-zverev-injury-report",
+    "credit": "Nicolas Gouhier · Roland-Garros / FFT",
+    "alt": "Rafael Nadal se estira para golpear en Roland-Garros 2022",
+    "focus": "60% 48%"
+  },
+  "federer": {
+    "name": "Roger Federer",
+    "kind": "players",
+    "remote": "https://resizer.glanacion.com/resizer/v2/el-suizo-roger-federer-un-artista-inigualable-de-YPJPY4FH3VDWPGECPGAEA224QY.jpg?auth=953b934988e0d5b736a4f4827c19ba319b723e7fbd949190dc96989cfc178218&focal=1130%2C342&height=1067&quality=90&smart=false&width=1600",
+    "source": "https://www.lanacion.com.ar/deportes/tenis/el-album-de-fotos-que-recorre-la-vida-del-suizo-roger-federer-nid07082021/",
+    "credit": "Fuente editorial · La Nación",
+    "alt": "Roger Federer ejecuta una derecha en salto sobre la hierba de Wimbledon",
+    "focus": "62% 45%"
+  },
+  "djokovic": {
+    "name": "Novak Djokovic",
+    "kind": "players",
+    "remote": "https://media.gq.com.mx/photos/64efc4ffd7b4641b6aa2a422/16%3A9/w_2560%2Cc_limit/Wimbledon_Novak_Djokovic-480506486.jpg",
+    "source": "https://www.gq.com.mx/articulo/torneos-de-tenis-mas-importantes-del-mundo",
+    "credit": "Getty Images · vía GQ",
+    "alt": "Novak Djokovic celebra en la hierba de Wimbledon",
+    "focus": "50% 35%"
+  },
+  "murray": {
+    "name": "Andy Murray",
+    "kind": "players",
+    "remote": "https://www.lta.org.uk/siteassets/news/2024/june/2013-andy-murray-wimbledon-title-crowd.jpg?w=1800",
+    "source": "https://www.lta.org.uk/news/andy-murrays-career-timeline/",
+    "credit": "LTA · imagen de archivo de Wimbledon 2013",
+    "alt": "Andy Murray levanta el trofeo ante el público de Wimbledon en 2013",
+    "focus": "50% 40%"
+  },
+  "serena": {
+    "name": "Serena Williams",
+    "kind": "players",
+    "remote": "https://static.independentespanol.com/2022/08/10/17/SERENA_WILLIAMS_SU_LEGADO_38099.jpg",
+    "source": "https://www.independentespanol.com/ap/serena-williams-grande-dentro-y-fuera-de-las-canchas-b2142493.html",
+    "credit": "AP · vía Independent en Español",
+    "alt": "Serena Williams celebra una victoria con los brazos abiertos",
+    "focus": "50% 32%"
+  },
+  "rubin": {
+    "name": "Chanda Rubin",
+    "kind": "players",
+    "remote": "https://assets.tennismajors.com/uploads/2021/06/CHANDRA_RUBIN_USOPEN_2002-1024x538.jpg",
+    "source": "https://www.tennismajors.com/fr/roland-garros-actualite/3-juin-1995-jana-novotna-chandra-rubin-roland-garros-defaite-413539.html",
+    "credit": "Fuente editorial · Tennis Majors",
+    "alt": "Chanda Rubin se estira para devolver una bola en el US Open 2002",
+    "focus": "50% 40%"
+  },
+  "hantuchova": {
+    "name": "Daniela Hantuchová",
+    "kind": "players",
+    "remote": "https://upload.wikimedia.org/wikipedia/commons/7/76/Daniela_Hantuchova_2011.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Daniela_Hantuchova_2011.jpg",
+    "credit": "Christian Mesiano · Wikimedia Commons · consultar condiciones en la fuente",
+    "alt": "Daniela Hantuchová prepara un revés en una pista dura en 2011",
+    "focus": "50% 30%"
+  },
+  "humbert": {
+    "name": "Ugo Humbert",
+    "kind": "players",
+    "remote": "https://images.prismic.io/fft-site/ZyPxT68jQArT0GVa__NG28635.JPG?auto=format&w=1800",
+    "source": "https://www.fft.fr/actualites/rolex-paris-masters-humbert-ugo-alcaraz-match-victoire",
+    "credit": "FFT · fotografía oficial del Rolex Paris Masters",
+    "alt": "Ugo Humbert celebra durante el Masters de París",
+    "focus": "50% 30%"
+  },
+  "rg-final": {
+    "name": "Final de Roland-Garros 2024",
+    "kind": "courts",
+    "remote": "https://images.prismic.io/fft-rg-commun-news/ZmXNeJm069VX1k7J_CL201185CarlosAlcarazAlexanderZverev.JPG?auto=format&w=1800",
+    "source": "https://www.rolandgarros.com/en-us/photo-gallery/rg2024-gallery-mens-singles-final",
+    "credit": "FFT · galería oficial de Roland-Garros",
+    "alt": "Carlos Alcaraz y Alexander Zverev en un intercambio de la final de Roland-Garros 2024",
+    "focus": "50% 50%"
+  },
+  "isner-mahut": {
+    "name": "John Isner y Nicolas Mahut",
+    "kind": "players",
+    "remote": "https://cloudfront-us-east-1.images.arcpublishing.com/artear/S3QSIRXMFNCMJBJ6XGMEQWJXXI.jpg",
+    "source": "https://tn.com.ar/deportes/tenis/2023/06/22/el-partido-de-tenis-que-termino-dos-dias-despues-duro-mas-de-11-horas-y-el-quinto-set-finalizo-70-68/",
+    "credit": "Fuente editorial · TN",
+    "alt": "John Isner y Nicolas Mahut se saludan en la red de Wimbledon tras su partido de 2010",
+    "focus": "50% 45%"
+  }
+}

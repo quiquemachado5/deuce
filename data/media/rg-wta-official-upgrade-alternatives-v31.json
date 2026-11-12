@@ -1,0 +1,56 @@
+[
+  {
+    "tournament": "Roland Garros",
+    "year": 2006,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/roland-garros-2006-wta-ac9e910776.webp",
+      "alt": "Roland Garros 2006 \u00b7 cuadro femenino",
+      "credit": "Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://www.wtatennis.com/photos/1676318/henin06hori",
+      "photoYear": 2006,
+      "objectPosition": "50% 45%",
+      "auditStatus": "candidate",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2020/06/03/6989b637-9c61-4155-8e80-89c069cf4bf9/Henin06hori.jpg",
+    "sourceTitle": "More success followed for Henin in 2006 as she successfully defended her title by overcoming Svetlana Kuznetsova, 6-4, 6-4.",
+    "sourceExcerpt": "More success followed for Henin in 2006 as she successfully defended her title by overcoming Svetlana Kuznetsova, 6-4, 6-4.",
+    "sourceSha256": "ac9e910776c0c39d2d2cd13429729978276cf4ffdf955b967d6b5965408f4fd9",
+    "width": 1600,
+    "height": 1081,
+    "bytes": 89230,
+    "cmsPhotoId": 1676318,
+    "candidateIndex": 2,
+    "reviewNotes": "Official WTA editorial caption; manual visual review pending."
+  },
+  {
+    "tournament": "Roland Garros",
+    "year": 2006,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/roland-garros-2006-wta-35e2c623f0.webp",
+      "alt": "Roland Garros 2006 \u00b7 cuadro femenino",
+      "credit": "Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://www.wtatennis.com/photos/2161544/2006_justine-henin",
+      "photoYear": 2006,
+      "objectPosition": "50% 45%",
+      "auditStatus": "candidate",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2021/05/27/60616ac1-c574-46f6-8399-4474ebd732be/2006_Justine-Henin.jpg",
+    "sourceTitle": "The 2006 final saw Justine Henin overcome Svetlana Kuznetsova for the third of four titles she would capture in Paris.",
+    "sourceExcerpt": "The 2006 final saw Justine Henin overcome Svetlana Kuznetsova for the third of four titles she would capture in Paris.",
+    "sourceSha256": "35e2c623f074355569f28ac3cf6cc704dfd767c11cf534581c448c75ac19ead9",
+    "width": 1600,
+    "height": 1069,
+    "bytes": 154614,
+    "cmsPhotoId": 2161544,
+    "candidateIndex": 1,
+    "reviewNotes": "Official WTA editorial caption; manual visual review pending."
+  }
+]

@@ -1,11 +1,17 @@
 import 'server-only';
+import {canonicalMatchId} from '../match-identity-aliases';
+import {normalizedCompactSelection,type CompactMatchSelection} from './compact-selection';
+export type {CompactMatchSelection} from './compact-selection';
 import {registerArtifactPacks,readSnapshotArtifact,clearArtifactPacks} from './artifact-packs';
 import {createReadStream} from 'node:fs';
 import {readFile} from 'node:fs/promises';
 import {join} from 'node:path';
-import {createGunzip,gunzipSync} from 'node:zlib';
+import {createGunzip,gunzip} from 'node:zlib';
+import {promisify} from 'node:util';
+const gunzipAsync=promisify(gunzip);
 import {Readable} from 'node:stream';
 import {cache} from 'react';
+import {requestGenerationSelection,generationSelectionKey} from './generation-selection';
 import {cloudArchiveConfigured,cloudProbeRead} from '../cloud-archive';
 import {asyncCache} from '../async-cache';
 import type {Match} from '../types';
@@ -31,7 +37,7 @@ const uncachedBundledIds=new Set(['matches','competition','players','audit','rec
 export function shouldCacheBundledArtifact(id:string) {
  return !uncachedBundledIds.has(id)&&!uncachedBundledPrefixes.some(prefix=>id.startsWith(prefix));
 }
-async function readLocal<T>(id:string):Promise<T>{return JSON.parse(gunzipSync(await readFile(join(readingDirectory(),`${id}.json.gz`))).toString()) as T;}
+async function readLocal<T>(id:string):Promise<T>{return JSON.parse((await gunzipAsync(await readFile(join(readingDirectory(),`${id}.json.gz`)))).toString()) as T;}
 async function local<T>(id:string):Promise<T>{return shouldCacheBundledArtifact(id)?await bundled(id,()=>readLocal<T>(id)) as T:readLocal<T>(id);}
 async function localOptional<T>(id:string,fallback:T):Promise<T>{try{return await local<T>(id);}catch{return fallback;}}
 // Projection strings produce heterogeneous Supabase response shapes.
@@ -88,7 +94,7 @@ export const preparedBundledManifest=cache(async()=>{
  if(manifest.schema!==SNAPSHOT_SCHEMA||manifest.rulesVersion!==RULES_VERSION)throw new Error('Reading snapshot is incompatible; run npm run build');
  return manifest;
 });
-async function selectedSnapshotSource(){return snapshotSources('active',async()=>{
+const selectedSnapshotSource=requestGenerationSelection(async()=>snapshotSources('active',async()=>{
  const base=await preparedBundledManifest();
  const bundled=(fallbackReason?:FallbackReason):GenerationSourceDecision=>({manifest:base,source:'bundled',fallbackReason});
  if(!cloudArchiveConfigured())return bundled();
@@ -105,7 +111,7 @@ async function selectedSnapshotSource(){return snapshotSources('active',async()=
  registerArtifactPacks(fresh.version,fresh.artifactPacks);
  manifestCircuit.succeeded();
  return {manifest:fresh,source:'remote'};
-});}
+}));
 
 function rejectRemoteSnapshot(){
  manifestCircuit.failed();
@@ -119,9 +125,10 @@ function rejectRemoteSnapshot(){
  clearArtifactPacks();
 }
 
-export const preparedGeneration=cache(()=>generations('active',async()=>{
- const base=await preparedBundledManifest();
+export const preparedGeneration=cache(async():Promise<PreparedGeneration>=>{
  const decision=await selectedSnapshotSource();
+ return generations(generationSelectionKey(decision),async()=>{
+ const base=await preparedBundledManifest();
  const bundledGeneration:PreparedGeneration={manifest:base,source:'bundled',matches:()=>preparedCompactArchive('all'),records:()=>local<PlayerRecord[]>('players'),competition:()=>localOptional<Match[]>('competition',[])};
  if(decision.source==='bundled')return {...bundledGeneration,fallbackReason:decision.fallbackReason};
  try{
@@ -140,7 +147,8 @@ export const preparedGeneration=cache(()=>generations('active',async()=>{
   rejectRemoteSnapshot();
   return {...bundledGeneration,fallbackReason:'remote-incomplete' as const};
  }
-}));
+});
+});
 /** The bundled summary stays lightweight; a newer remote generation is validated before use. */
 export const preparedManifest=cache(async()=> (await preparedGeneration()).manifest);
 export type RecordView=GenerationStatus&{manifest:RecordManifest;piece?:RecordMeta;rows:RecordRow[];smallRows:RecordRow[];page:number;smallPage:number;eras:Era[];eraTotal:number;filtered:boolean;exists:boolean;emptyReason?:'ranking';recomputed?:boolean};
@@ -161,7 +169,7 @@ export async function decodeCloudBlob<T>(payload:unknown,part:(index:number)=>Pr
        if(parts.some(value=>!value||typeof value!=='object'||typeof (value as {chunk?:unknown}).chunk!=='string'||!(value as {chunk:string}).chunk.length))return undefined;
        encoded=parts.map(value=>(value as {chunk:string}).chunk).join('');
      }
-     return JSON.parse(gunzipSync(Buffer.from(encoded,'base64')).toString()) as T;
+     return JSON.parse((await gunzipAsync(Buffer.from(encoded,'base64'))).toString()) as T;
    };
    return await Promise.race([decode(),new Promise<undefined>(resolve=>{timeout=setTimeout(()=>resolve(undefined),Math.max(1,budget));})]);
  }catch{return undefined;}finally{if(timeout)clearTimeout(timeout);}
@@ -205,7 +213,7 @@ async function cloudBlob<T>(version:string,id:string):Promise<T|undefined>{
  try{
   const encoded=await cloudBlobBuffer(version,id);
   if(!encoded)return undefined;
-  return JSON.parse(gunzipSync(encoded).toString()) as T;
+  return JSON.parse((await gunzipAsync(encoded)).toString()) as T;
  }catch(error){console.warn('Snapshot blob read failed:',id,error instanceof Error?error.message:'unknown');return undefined;}
 }
 
@@ -299,8 +307,8 @@ export const recordView=cache(async(encoded:string,recomputed=false):Promise<Rec
      : await Promise.all([query(key(m.version,`piece-${q.tour==='wta'?'wta-':''}${meta.id}-chunk${mainChunk}`),`main:payload->pages->p${page}`,1200),query(key(m.version,`piece-${q.tour==='wta'?'wta-':''}${meta.id}-chunk${smallChunk}`),`small:payload->smallPages->p${smallPage}`,1200)]);
    if(main&&small&&(meta.total===0||typeof main.main==='string'||Array.isArray(main.main))&&(meta.smallTotal===0||typeof small.small==='string'||Array.isArray(small.small))){
      try{
-       const decode=(page:RecordRow[]|string|null)=>typeof page==='string'?JSON.parse(gunzipSync(Buffer.from(page,'base64')).toString()):page||[];
-       rows=decode(main.main);smallRows=decode(small.small);
+       const decode=async(page:RecordRow[]|string|null):Promise<RecordRow[]>=>typeof page==='string'?JSON.parse((await gunzipAsync(Buffer.from(page,'base64'))).toString()):page||[];
+       [rows,smallRows]=await Promise.all([decode(main.main),decode(small.small)]);
        if(!Array.isArray(rows)||!Array.isArray(smallRows)||rows.length!==Math.min(PAGE_SIZE,Math.max(0,meta.total-(page-1)*PAGE_SIZE))||smallRows.length!==Math.min(PAGE_SIZE,Math.max(0,meta.smallTotal-(smallPage-1)*PAGE_SIZE)))throw new Error('Incomplete record page');
      }catch{rows=undefined;smallRows=undefined;}
    }
@@ -326,6 +334,7 @@ const decodedBrowserPartitions=asyncCache<Match[]>(IMMUTABLE_CACHE_MS,10,undefin
 // once its concurrent readers finish instead of pinning ~0.5–1 GB in the heap.
 const fullPartitions=asyncCache<Match[]>(IMMUTABLE_CACHE_MS,2,undefined,{maxWeight:64*megabyte,weight:value=>value.length*120_000});
 const matchDetails=asyncCache<Match|undefined>(IMMUTABLE_CACHE_MS,64);
+const matchContexts=asyncCache<{match:Match|undefined;matches:Match[]}>(IMMUTABLE_CACHE_MS,32,undefined,{maxWeight:24*megabyte,weight:value=>(value.matches.length+1)*4_000});
 const compactArchives=asyncCache<Match[]>(IMMUTABLE_CACHE_MS,2,undefined,{maxWeight:40*megabyte,weight:value=>value.length*3_000});
 const compactSelections=asyncCache<Match[]>(IMMUTABLE_CACHE_MS,24,undefined,{maxWeight:64*megabyte,weight:value=>value.length*4_000});
 const competitionArchives=asyncCache<Match[]>(IMMUTABLE_CACHE_MS,2,undefined,{maxWeight:32*megabyte,weight:value=>value.length*1_200});
@@ -382,7 +391,7 @@ async function loadBrowserPartition(source:GenerationSourceDecision,meta:NonNull
  });
 }
 async function selectedBrowserSource(){
- const decision=await selectedSnapshotSource();
+ const decision=await preparedGeneration();
  const base=decision.manifest;
  const localIndex=async()=>browserIndexes(`${base.version}:bundled`,async()=>{
    const stored=await localOptional<MatchBrowserIndex|undefined>('browser-index',undefined);
@@ -502,19 +511,9 @@ export const preparedPublicationIndex=cache(async()=>{
  });
 });
 
-export type CompactMatchSelection={
- tour?:'atp'|'wta'|'all';fromYear?:number;toYear?:number;players?:string[];
- tournament?:string;rounds?:string[];categories?:string[];ids?:string[];surface?:Match['surface'];
-};
-
 /** Decode only rows relevant to a view; raw compact tuples are scanned in bounded decade shards. */
 export async function preparedCompactSelection(selection:CompactMatchSelection) {
- const normalized={
-  ...selection,tour:selection.tour||'all',
-  players:selection.players?.map(normalizeText).sort(),rounds:selection.rounds?.map(normalizeText).sort(),
-  categories:selection.categories?.map(normalizeText).sort(),ids:selection.ids?.slice().sort(),
-  tournament:selection.tournament?normalizeText(selection.tournament):undefined,
- };
+ const normalized=normalizedCompactSelection(selection);
  const source=await selectedBrowserSource();
  const cacheKey=`${source.manifest.version}:${source.source}:${JSON.stringify(normalized)}`;
  return compactSelections(cacheKey,async()=>{
@@ -580,12 +579,12 @@ async function selectedPlayerRecords(source:GenerationSourceDecision) {
 
 /** Player suggestions only open the aggregate artifact for the selected generation. */
 export const preparedPlayerRecords = cache(async () => {
- const source=await selectedSnapshotSource();
+ const source=await preparedGeneration();
  return {records:await selectedPlayerRecords(source),manifest:source.manifest,source:source.source,fallbackReason:source.fallbackReason};
 });
 
 async function preparedProduct<T extends {schema:number}>(id:string) {
- const source=await selectedSnapshotSource(),cacheKey=`${source.manifest.version}:${source.source}:${id}`;
+ const source=await preparedGeneration(),cacheKey=`${source.manifest.version}:${source.source}:${id}`;
  return productArtifacts(cacheKey,async()=>{
   const artifact=source.source==='remote'
    ? await cloudBlob<T>(source.manifest.version,id)
@@ -638,12 +637,13 @@ export async function recoverMatchDetail(
 
 /** Only the requested circuit's full-detail partitions are inflated. */
 export const preparedTourArchive=cache(async(tour:'atp'|'wta'):Promise<Match[]>=>{
- return loadPartitionedArchive(await selectedSnapshotSource(),tour);
+ return loadPartitionedArchive(await preparedGeneration(),tour);
 });
 
 /** Detail readers never allocate the relationship array used by the page. */
 export const preparedMatchDetail=cache(async(id:string)=>{
- let source=await selectedSnapshotSource();
+ id=canonicalMatchId(id);
+ let source=await preparedGeneration();
  return matchDetails(`${source.manifest.version}:${source.source}:${id}`,async()=>{
   let summary:Match|undefined;
   const load=async()=>{
@@ -660,7 +660,7 @@ export const preparedMatchDetail=cache(async(id:string)=>{
   try{return await load();}
   catch(error){
    return recoverMatchDetail(source.source,summary,error,rejectRemoteSnapshot,async()=>{
-    source=await selectedSnapshotSource();
+    source=await preparedGeneration();
     return load();
    });
   }
@@ -670,19 +670,23 @@ export const preparedMatchDetail=cache(async(id:string)=>{
 export const preparedMatch=preparedMatchDetail;
 
 export const preparedMatchContext=cache(async(id:string)=>{
- const match=await preparedMatchDetail(id);
- if(!match)return {match,matches:[] as Match[]};
- const tour=match.tour||'atp';
- const [archive,publication]=await Promise.all([preparedPlayerRecords(),preparedPublicationIndex()]);
- const identity=(name:string)=>normalizeText(name);
- const records=[match.player1.name,match.player2.name].map(name=>archive.records.find(record=>(record.tour||'atp')===tour&&identity(record.name)===identity(name)));
- const secondIds=new Set(records[1]?.matchIds||[]);
- const pairIds=(records[0]?.matchIds||[]).filter(matchId=>secondIds.has(matchId));
- if(!pairIds.includes(match.match_id))pairIds.push(match.match_id);
- const pairIdSet=new Set(pairIds);
- const years=publication.entries.filter(entry=>entry.tour===tour&&pairIdSet.has(entry.identity.slice(entry.identity.indexOf(':')+1))).map(entry=>entry.year);
- const summaries=await preparedCompactSelection({tour,ids:pairIds,...(years.length?{fromYear:Math.min(...years),toYear:Math.max(...years)}:{fromYear:match.year,toYear:match.year})});
- return {match,matches:circuitMatchContext(summaries,match)};
+ id=canonicalMatchId(id);
+ const source=await preparedGeneration();
+ return matchContexts(`${source.manifest.version}:${source.source}:${id}`,async()=>{
+  const match=await preparedMatchDetail(id);
+  if(!match)return {match,matches:[] as Match[]};
+  const tour=match.tour||'atp';
+  const [archive,publication]=await Promise.all([preparedPlayerRecords(),preparedPublicationIndex()]);
+  const identity=(name:string)=>normalizeText(name);
+  const records=[match.player1.name,match.player2.name].map(name=>archive.records.find(record=>(record.tour||'atp')===tour&&identity(record.name)===identity(name)));
+  const secondIds=new Set(records[1]?.matchIds||[]);
+  const pairIds=(records[0]?.matchIds||[]).filter(matchId=>secondIds.has(matchId));
+  if(!pairIds.includes(match.match_id))pairIds.push(match.match_id);
+  const pairIdSet=new Set(pairIds);
+  const years=publication.entries.filter(entry=>entry.tour===tour&&pairIdSet.has(entry.identity.slice(entry.identity.indexOf(':')+1))).map(entry=>entry.year);
+  const summaries=await preparedCompactSelection({tour,ids:pairIds,...(years.length?{fromYear:Math.min(...years),toYear:Math.max(...years)}:{fromYear:match.year,toYear:match.year})});
+  return {match,matches:circuitMatchContext(summaries,match)};
+ });
 });
 
 async function selectedCompetition(source:GenerationSourceDecision) {
@@ -699,7 +703,7 @@ async function selectedCompetition(source:GenerationSourceDecision) {
 /** One edition opens at most the full decade shards that can contain it. */
 export const preparedTournamentArchive=cache(async(year:number,tour:'atp'|'wta'|'all'='all')=>{
  if(!Number.isSafeInteger(year))return [];
- const source=await selectedSnapshotSource();
+ const source=await preparedGeneration();
  const metas=(source.manifest.matchPartitions||[]).filter(partition=>year>=partition.fromYear&&year<=partition.toYear&&(tour==='all'||partition.tour===tour));
  const details:Match[]=[];
  // Keep at most one edition in memory and never inflate ATP and WTA decade
@@ -716,7 +720,7 @@ export const preparedTournamentArchive=cache(async(year:number,tour:'atp'|'wta'|
  */
 export const preparedTournamentEditionArchive=cache(async(year:number,tour:'atp'|'wta',tournament:string)=>{
  if(!Number.isSafeInteger(year)||!tournament)return [];
- const source=await selectedSnapshotSource();
+ const source=await preparedGeneration();
  const normalizedTournament=normalizeText(tournament);
  const metas=(source.manifest.matchPartitions||[]).filter(partition=>partition.tour===tour&&year>=partition.fromYear&&year<=partition.toYear);
  const details:Match[]=[];
@@ -744,8 +748,8 @@ export const preparedCoverageReconciliation=cache(async()=>{
 });
 
 export function preparedDataCacheDiagnostics() {
- return Object.fromEntries(Object.entries({bundled,remotePointers,remoteArtifacts,productArtifacts,generations,snapshotSources,browserIndexes,browserPartitions,decodedBrowserPartitions,fullPartitions,matchDetails,compactArchives,compactSelections,competitionArchives,playerRecords,coverageReconciliations,publicationIndexes})
+ return Object.fromEntries(Object.entries({bundled,remotePointers,remoteArtifacts,productArtifacts,generations,snapshotSources,browserIndexes,browserPartitions,decodedBrowserPartitions,fullPartitions,matchDetails,matchContexts,compactArchives,compactSelections,competitionArchives,playerRecords,coverageReconciliations,publicationIndexes})
   .map(([name,cache])=>[name,cache.stats()]));
 }
 
-export function invalidatePreparedGeneration() { generations.clear(); snapshotSources.clear(); browserIndexes.clear(); browserPartitions.clear(); decodedBrowserPartitions.clear(); fullPartitions.clear(); matchDetails.clear(); compactArchives.clear(); compactSelections.clear(); competitionArchives.clear(); playerRecords.clear(); coverageReconciliations.clear(); publicationIndexes.clear(); remotePointers.clear(); remoteArtifacts.clear(); productArtifacts.clear(); clearArtifactPacks(); manifestCircuit.succeeded(); }
+export function invalidatePreparedGeneration() { generations.clear(); snapshotSources.clear(); browserIndexes.clear(); browserPartitions.clear(); decodedBrowserPartitions.clear(); fullPartitions.clear(); matchDetails.clear(); matchContexts.clear(); compactArchives.clear(); compactSelections.clear(); competitionArchives.clear(); playerRecords.clear(); coverageReconciliations.clear(); publicationIndexes.clear(); remotePointers.clear(); remoteArtifacts.clear(); productArtifacts.clear(); clearArtifactPacks(); manifestCircuit.succeeded(); }

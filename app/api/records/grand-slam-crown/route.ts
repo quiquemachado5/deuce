@@ -1,3 +1,4 @@
+import { DATASET_CACHE_CONTROL } from '@/lib/http-cache';
 import { preparedCompactSelection, preparedGeneration } from '@/lib/revista/read-records';
 import { eligibleMatch } from '@/lib/quality';
 import { roundPosition, winnerName } from '@/lib/editorial';
@@ -18,5 +19,5 @@ export async function GET(request:Request) {
     const total = Math.max(0, ...totals.values());
     years.push({ year, total, leaders: [...totals].filter(([, value]) => value === total).map(([name]) => name).sort((a,b) => a.localeCompare(b,'es')) });
   }
-  return Response.json({ years, tour,calculatedAt:generation.manifest.generatedAt,generation:generation.manifest.version, scope: 'Grand Slam del archivo desde 1968' }, { headers: { 'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=604800' } });
+  return Response.json({ years, tour,calculatedAt:generation.manifest.generatedAt,generation:generation.manifest.version, scope: 'Grand Slam del archivo desde 1968' }, { headers: { 'Cache-Control': DATASET_CACHE_CONTROL } });
 }

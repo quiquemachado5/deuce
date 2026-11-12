@@ -1,0 +1,187 @@
+[
+  {
+    "name": "1971-sportul",
+    "url": "https://www.bibliotecadeva.ro/periodice/sportul/1971/09/sportul_1971_09_6808.pdf",
+    "sha256": "53f6258527a99a5962cba6025bf13a1cae174f4d60d63dc2962768d9c5020149"
+  },
+  {
+    "name": "1972-sportul",
+    "url": "https://www.bibliotecadeva.ro/periodice/sportul/1972/09/sportul_1972_09_7163.pdf",
+    "sha256": "c15ee8b45a9e75781244892fa0ab97e35ded5073328402f3676a56c64ae4ba7d"
+  },
+  {
+    "name": "1981-09-09-herald",
+    "url": "https://cdn.manchesterhistory.org/News/Manchester%20Evening%20Hearld_1981-09-09.pdf",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "name": "1983-usopen",
+    "url": "https://wtafiles.blob.core.windows.net/pdf/draws/archive/1983/905.pdf",
+    "sha256": "33035a6d6e7a25b2775e21c91e6ec076b6baad6d3b578171e5f8acd5fb66fd5c"
+  },
+  {
+    "name": "1981-usopen",
+    "url": "https://wtafiles.blob.core.windows.net/pdf/draws/archive/1981/905.pdf",
+    "sha256": "915b9c62921061f8be83f7790319eff2a3058d55a6175c56758e1e1c22e5e21d"
+  },
+  {
+    "name": "1996-usopen",
+    "url": "https://wtafiles.blob.core.windows.net/pdf/draws/archive/1996/905.pdf",
+    "sha256": "a028ecce566001ae4da6f8639c863ec4fc45bd265a0fdaaa3ae0ae6af5e8285b"
+  },
+  {
+    "name": "2026-hamburg",
+    "url": "https://www.protennislive.com/posting/2026/414/mds.pdf",
+    "sha256": "e8ab9d7e3b4904c5642182378a621d2db9960c5a7d8b79b358c1e2ce95198a08"
+  },
+  {
+    "name": "2026-montecarlo",
+    "url": "https://www.protennislive.com/posting/2026/410/mds.pdf",
+    "sha256": "f303f8b8a2d3a139c17cb73aa9e0defe239751f59a673c51cfe540e12b307a78"
+  },
+  {
+    "name": "2025-monterrey",
+    "url": "https://wtafiles.wtatennis.com/pdf/draws/2025/1039/MDS.pdf",
+    "sha256": "5e86dd825158b0c8aadc80dafbc56fec56d20e27b998fe0aed2f2bd1b506ec0b"
+  },
+  {
+    "name": "2026-rolandgarros",
+    "url": "https://wtafiles.wtatennis.com/pdf/draws/2026/903/MDS.pdf",
+    "error": "HTTP Error 404: The specified blob does not exist."
+  },
+  {
+    "name": "2026-canada",
+    "url": "https://www.protennislive.com/posting/2026/421/mds.pdf",
+    "sha256": "10d6ce3440a8483c63fb812228468651118bbff4088dac637b0644dfb1494cde"
+  },
+  {
+    "name": "1971-cornejo",
+    "url": "https://www.bibliotecadeva.ro/periodice/sportul/1971/09/sportul_1971_09_6804.pdf",
+    "sha256": "853789ff1195f96dd7cf58fe1437b672aaed0c8dfc419244316cb3b87d63485f"
+  },
+  {
+    "name": "1972-owens",
+    "url": "https://www.bibliotecadeva.ro/periodice/sportul/1972/09/sportul_1972_09_7162.pdf",
+    "sha256": "86db479e8a74e03be296f1c49eb732ac6cf16ffa9a6c0a1efafc987de53a2594"
+  },
+  {
+    "name": "1972-sept3",
+    "url": "https://www.bibliotecadeva.ro/periodice/sportul/1972/09/sportul_1972_09_7164.pdf",
+    "sha256": "f1c179be3fde6b44781cdbf2433a13a88920073d3ae6087d2a04b9ce8c1892f5"
+  },
+  {
+    "name": "1972-sept4",
+    "url": "https://www.bibliotecadeva.ro/periodice/sportul/1972/09/sportul_1972_09_7165.pdf",
+    "sha256": "d64fb54aabd1e3edffe6e49a06e4b2dbe73765e76b318c44cc8ff3f73ffcab75"
+  },
+  {
+    "name": "1970-aus-day1",
+    "url": "https://cdn.manchesterhistory.org/News/Manchester%20Evening%20Hearld_1970-01-20.pdf",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "name": "1974-aus-day1",
+    "url": "https://cdn.manchesterhistory.org/News/Manchester%20Evening%20Hearld_1974-12-23.pdf",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "name": "1983-bonder",
+    "url": "https://cdn.manchesterhistory.org/News/Manchester%20Evening%20Hearld_1983-09-01.pdf",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "name": "1969-usopen",
+    "url": "https://cdn.manchesterhistory.org/News/Manchester%20Evening%20Hearld_1969-08-29.pdf",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "name": "1969-usopen-day2",
+    "url": "https://manchesterhistory.org/News/Manchester%20Evening%20Hearld_1969-08-29.pdf",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "name": "1969-usopen-day3",
+    "url": "https://manchesterhistory.org/News/Manchester%20Evening%20Hearld_1969-08-30.pdf",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "name": "1972-usopen-day1",
+    "url": "https://manchesterhistory.org/News/Manchester%20Evening%20Hearld_1972-08-30.pdf",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "name": "1972-usopen-day2",
+    "url": "https://manchesterhistory.org/News/Manchester%20Evening%20Hearld_1972-08-31.pdf",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "name": "1974-aus-new",
+    "url": "https://manchesterhistory.org/News/Manchester%20Evening%20Hearld_1974-12-23.pdf",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "name": "1969-sportul-5973",
+    "url": "https://www.bibliotecadeva.ro/periodice/sportul/1969/08/sportul_1969_08_5973.pdf",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "name": "1969-sportul-5974",
+    "url": "https://www.bibliotecadeva.ro/periodice/sportul/1969/08/sportul_1969_08_5974.pdf",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "name": "1974-atp-580",
+    "url": "https://www.protennislive.com/posting/1974/580/mds.pdf",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "name": "1975-atp-580",
+    "url": "https://www.protennislive.com/posting/1975/580/mds.pdf",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "name": "1972-atp-560",
+    "url": "https://www.protennislive.com/posting/1972/560/mds.pdf",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "name": "1969-sportul-6082",
+    "url": "https://www.bibliotecadeva.ro/periodice/sportul/1969/08/sportul_1969_08_6082.pdf",
+    "sha256": "e479323e5c6924abc05f83e0dcf75c5588ef8b8f09afd8629482539684fb33a4"
+  },
+  {
+    "name": "1969-sportul-6083",
+    "url": "https://www.bibliotecadeva.ro/periodice/sportul/1969/08/sportul_1969_08_6083.pdf",
+    "sha256": "56d5c12eb7b513d49b822b8b73c9c9f4c67cb703703285d8ebf0c4e28cf8f905"
+  },
+  {
+    "name": "1969-sportul-6084",
+    "url": "https://www.bibliotecadeva.ro/periodice/sportul/1969/08/sportul_1969_08_6084.pdf",
+    "sha256": "279e7189022151d2b7bf1b6b3d9f8244eda75b0815ec353877b81b45efe445b1"
+  },
+  {
+    "name": "1974-sportul-7921",
+    "url": "https://www.bibliotecadeva.ro/periodice/sportul/1974/12/sportul_1974_12_7921.pdf",
+    "sha256": "5dd59f85c0c9f041ff835fe21ce928f7793465b2a6f69ed4b54bbdbf13a77468"
+  },
+  {
+    "name": "1974-sportul-7922",
+    "url": "https://www.bibliotecadeva.ro/periodice/sportul/1974/12/sportul_1974_12_7922.pdf",
+    "sha256": "1a0366dd56ee4c8949a507e3add251686cec06a0e48e70cdf2b13d439c057fd7"
+  },
+  {
+    "name": "1974-sportul-7923",
+    "url": "https://www.bibliotecadeva.ro/periodice/sportul/1974/12/sportul_1974_12_7923.pdf",
+    "sha256": "e8961ea4a2e113116ed0dde3214625684c00c94dc2a4d239ce03af45988d4c32"
+  },
+  {
+    "name": "1974-sportul-7924",
+    "url": "https://www.bibliotecadeva.ro/periodice/sportul/1974/12/sportul_1974_12_7924.pdf",
+    "sha256": "df801f008345acdc1e138d2b17ba99b618e7f67cb80e795e9750fbce87a5dad3"
+  },
+  {
+    "name": "1969-wta-official",
+    "url": "https://wtafiles.blob.core.windows.net/pdf/draws/archive/1969/905.pdf",
+    "sha256": "bad0502010679dba7cb917402ccccbc8d538110b864839658df9b79380ce6a3e"
+  }
+]

@@ -8,6 +8,8 @@ const allowed = new Set([
   'DEUCE_LEGACY_HOST',
   'NEXT_PUBLIC_SITE_ORIGIN',
   'DEUCE_MONITOR_URL',
+  'DEUCE_RATE_LIMIT_STORE',
+  'DEUCE_RATE_LIMIT_DB',
 ])
 
 function parse(source) {

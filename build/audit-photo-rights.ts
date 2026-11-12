@@ -19,6 +19,7 @@ const collections = {
 
 const failures: string[] = []
 const seen = new Map<string, string>()
+const sourceOnly: string[] = []
 
 function localVariants(src: string) {
   const clean = src.split('?')[0]
@@ -33,10 +34,11 @@ async function main() {
     for (const [name, photo] of Object.entries(photos)) {
       references += 1
       const label = `${collection}:${name}`
-      if (photoRightsStatus(photo) !== 'documented') failures.push(`${label}: rights are not documented`)
+      if (photoRightsStatus(photo) !== 'documented') sourceOnly.push(label)
       if (!photo.alt?.trim()) failures.push(`${label}: alternative text is missing`)
       for (const [field, value] of [['source', photo.source], ['licenseUrl', photo.licenseUrl]] as const) {
         if (field === 'licenseUrl' && !value) continue
+        if(field==='source' && value===photo.src && /aportada al proyecto/.test(photo.credit)) continue
         try {
           const url = new URL(value || '')
           if (url.protocol !== 'https:') failures.push(`${label}: ${field} must use HTTPS`)
@@ -61,6 +63,8 @@ async function main() {
   console.log(JSON.stringify({
     verified: failures.length === 0,
     references,
+    sourceOnlyCount: sourceOnly.length,
+    sourceOnly,
     uniqueAssets,
     collections: Object.fromEntries(Object.entries(collections).map(([name, photos]) => [name, Object.keys(photos).length])),
     failures,

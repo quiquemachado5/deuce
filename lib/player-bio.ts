@@ -1,7 +1,9 @@
+import wikiContext from './player-wikimedia-context.json';
 import index from './player-bio-index.json';
 import wtaIndex from './wta-player-bio.json';
 import { playerSlug } from './explore';
 import { canonicalName } from './quality';
+const wikiBySlug=new Map(Object.values(wikiContext as Record<string,{name:string;tour:string;birthday?:string;playingHand?:'L'|'R';backhand?:1|2}>).map(person=>[person.tour+':'+playerSlug(canonicalName(person.name)),{...(person.birthday?{birthday:person.birthday}:{}),...(person.playingHand?{hand:person.playingHand}:{}),...(person.backhand?{backhand:person.backhand}:{})}]));
 const wtaBySlug=new Map(Object.entries(wtaIndex as Record<string,PlayerBio>).map(([name,bio])=>[playerSlug(canonicalName(name)),bio]));
 
 export type PlayerBio = {
@@ -74,7 +76,10 @@ export function handLabel(hand: 'L' | 'R'): string { return hand === 'L' ? 'Zurd
 export function backhandLabel(backhand: 1 | 2): string { return backhand === 1 ? 'A una mano' : 'A dos manos'; }
 
 /** Read the compact provider-derived index without blocking a profile on a season blob. */
-export function playerBiography(name: string, tour: 'atp'|'wta' = 'atp'): PlayerBio | undefined {
+export function providerPlayerBiography(name: string, tour: 'atp'|'wta' = 'atp'): PlayerBio | undefined {
   const key = bioKey(name);
   return tour==='wta'?wtaBySlug.get(key):(index as Record<string, PlayerBio>)[key];
+}
+export function playerBiography(name: string, tour: 'atp'|'wta' = 'atp'): PlayerBio | undefined {
+  return mergeBio(providerPlayerBiography(name,tour),wikiBySlug.get(tour+':'+bioKey(name)));
 }

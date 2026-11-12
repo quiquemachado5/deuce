@@ -14,7 +14,7 @@ import {
   playerBiography,
 } from "@/lib/player-bio";
 import type { RivalrySummary } from "@/lib/explore";
-import { matchArchiveHref, playerSlug, tournamentHref } from "@/lib/explore";
+import { tournamentHref } from "@/lib/explore";
 import { tournamentDirectory } from "@/lib/tournament-directory";
 import { findStat, type StatRow } from "@/lib/statistics";
 import { pressure, sentence } from "@/lib/cuaderno/model";
@@ -22,6 +22,8 @@ import PlayerFlag from "@/components/PlayerFlag";
 import { compactMatchDate } from "@/lib/match-date";
 import { matchInsights } from "@/lib/match-insights";
 import { setAnalytics } from "@/lib/set-analytics";
+import { MatchScoreboard } from "@/components/deuce/MatchScoreboard";
+import { toMatchRecord } from "@/data/map-match";
 
 export type PanoramaSection =
   | "resumen"
@@ -50,22 +52,6 @@ type ComparisonGroup = {
   rows: ComparisonRow[];
 };
 
-function ArrowLeft() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="m14 5-7 7 7 7M7 12h12" />
-    </svg>
-  );
-}
-
-function Check() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="m5 12 4 4L19 6" />
-    </svg>
-  );
-}
-
 function ChevronDown() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -90,10 +76,6 @@ function MatchFlag({ name, tour, compact = false }: { name: string; tour: 'atp'|
       <PlayerFlag code={code} />
     </span>
   );
-}
-
-function setTie(score: string, index: number) {
-  return score.trim().split(/\s+/)[index]?.match(/\((\d+)\)/)?.[1];
 }
 
 function valueFromStat(
@@ -308,43 +290,7 @@ function comparisonSentence(match: Match, games: [number, number]) {
 }
 
 function HeroScore({ match }: { match: Match }) {
-  const names = [match.player1.name, match.player2.name];
-  const verified = match.quality?.result !== "review";
-  return (
-    <div
-      className="pm-score"
-      aria-label={`${winnerName(match) || names[0]} ganó el partido`}
-    >
-      {names.map((name, side) => {
-        const won = verified && match.winner === side + 1;
-        return (
-          <div className={`pm-score-row${won ? " is-winner" : ""}`} key={name}>
-            <div className="pm-player">
-              <MatchFlag name={name} tour={match.tour==='wta'?'wta':'atp'} />
-              <Link href={`/jugadores/${playerSlug(name)}${match.tour === 'wta' ? '?tour=wta' : ''}`}><strong>{name}</strong></Link>
-              {won ? <Check /> : null}
-            </div>
-            <div
-              className="pm-sets"
-              aria-label={match.score_summary.games.map((set) => set[side]).join(", ")}
-              style={{ "--score-set-count": match.score_summary.games.length } as CSSProperties}
-            >
-              {match.score_summary.games.map((set, index) => {
-                const tie = setTie(match.final_score, index);
-                const setWon = set[side] > set[1 - side];
-                return (
-                  <span className={setWon ? "won" : undefined} key={index}>
-                    {set[side]}
-                    {tie && !setWon ? <sup>{tie}</sup> : null}
-                  </span>
-                );
-              })}
-            </div>
-          </div>
-        );
-      })}
-    </div>
-  );
+  return <div className="pm-shared-score"><MatchScoreboard match={toMatchRecord(match)} variant="detail"/></div>;
 }
 
 function Summary({ match }: { match: Match }) {
@@ -478,59 +424,14 @@ function SetEvolution({ match }: { match: Match }) {
   );
 }
 
-function categoryClass(category: string) {
-  const value = category.toLowerCase();
-  if (value.includes("grand slam")) return "is-grand-slam";
-  if (value.includes("masters 1000")) return "is-masters";
-  return undefined;
-}
-
 function Meeting({ match, names }: { match: Match; names: [string, string] }) {
-  const positions = names.map((name) =>
-    match.player1.name === name ? 0 : 1,
-  ) as [number, number];
-  return (
-    <article className="pm-h2h-meeting">
-      <header>
-        <strong className={categoryClass(match.category)}>
-          {tournamentName(match.tournament)}
-        </strong>
-        <span>{roundLabel(match.round)} · {matchDate(match)}</span>
-      </header>
-      <div className="pm-mini-score">
-        {names.map((name, row) => {
-          const side = positions[row];
-          const won = match.winner === side + 1;
-          return (
-            <div className={`pm-mini-row${won ? " is-winner" : ""}`} key={name}>
-              <span>
-                <MatchFlag name={name} tour={match.tour==='wta'?'wta':'atp'} compact />
-                <strong>{name}</strong>
-                {won ? <Check /> : null}
-              </span>
-              <div
-                className="pm-mini-sets"
-                style={{
-                  "--meeting-start": 6 - match.score_summary.games.length,
-                } as CSSProperties}
-              >
-                {match.score_summary.games.map((set, index) => {
-                  const setWon = set[side] > set[1 - side];
-                  const tie = setTie(match.final_score, index);
-                  return (
-                    <b className={setWon ? "won" : undefined} key={index}>
-                      {set[side]}
-                      {tie && !setWon ? <sup>{tie}</sup> : null}
-                    </b>
-                  );
-                })}
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </article>
-  );
+  const record=toMatchRecord(match);
+  if(names[0]===match.player2.name){
+    record.players=[record.players[1],record.players[0]];
+    record.winnerIndex=record.winnerIndex===undefined?undefined:record.winnerIndex===0?1:0;
+    record.sets=record.sets.map(set=>({...set,games:[set.games[1],set.games[0]],tieBreak:set.tieBreak?[set.tieBreak[1],set.tieBreak[0]]:undefined}));
+  }
+  return <MatchScoreboard match={record}/>;
 }
 
 function HeadToHead({ rivalry, names, tour }: { rivalry: RivalrySummary; names: [string, string]; tour:'atp'|'wta' }) {
@@ -679,9 +580,6 @@ export default function PanoramaMatch({
         )}
         <div className="pm-photo-shade" aria-hidden="true" />
         <div className="pm-hero-inner">
-          <div className="pm-hero-actions">
-            <Link href={matchArchiveHref(tour)} aria-label="Volver a partidos"><ArrowLeft /></Link>
-          </div>
           <div className="pm-event">
             <h1 id="pm-title"><Link href={eventHref}>{tournamentName(match.tournament)}</Link></h1>
             <p>{roundLabel(match.round)} · {matchDate(match)} · <Link href={eventHref}>Ver edición</Link></p>

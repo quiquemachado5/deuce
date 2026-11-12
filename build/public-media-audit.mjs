@@ -5,6 +5,14 @@ const sourceExtensions = new Set(['.css', '.js', '.json', '.mjs', '.ts', '.tsx']
 const mediaExtensions = new Set(['.avif', '.gif', '.jpeg', '.jpg', '.png', '.svg', '.webp']);
 const sourceRoots = ['app', 'components', 'lib', 'styles'];
 const unoptimizedAllowlist = new Map([
+  // SVG flags/logos/trophies are resolution-independent. EditorialPhoto's
+  // exception is restricted in code to the precompressed reviewed WebP set.
+  ['components/EditorialPhoto.tsx', 1],
+  ['components/deuce/DeuceFooter.tsx', 1],
+  ['components/deuce/MatchScoreboard.tsx', 1],
+  ['components/player/ProfileArchiveProposal.tsx', 6],
+  ['components/tournament/TournamentDirectoryStudy.tsx', 1],
+  ['components/tournament/TournamentExperience.tsx', 1],
   ['app/compare/page.tsx', 1],
   ['app/comparar/CompareSelection.tsx', 1],
   ['app/licencias/page.tsx', 1],
@@ -72,13 +80,16 @@ function virtualSourceReference(reference) {
 export async function auditPublicMedia(root = process.cwd()) {
   const sources = (await Promise.all(sourceRoots.map(directory => walk(join(root, directory))))).flat()
     .filter(path => sourceExtensions.has(extname(path)));
+  // Licencias reads this catalogue dynamically. These are live references, not
+  // orphaned files just because their paths do not occur in a TSX literal.
+  sources.push(...(await walk(join(root,'data','media'))).filter(path=>path===join(root,'data','media','tournament-library.json')));
   const references = new Set();
   const unoptimizedViolations = [];
   const unoptimizedCounts = {};
 
   for (const path of sources) {
     const content = await readFile(path, 'utf8');
-    for (const match of content.matchAll(/["'`](\/(?:fonts|images|videos)\/[^"'`)\\?#]+(?:\?[^"'`)\\]*)?)["'`]/g)) {
+    for (const match of content.matchAll(/["'`](\/(?:fonts|images|videos|media)\/[^"'`)\\?#]+(?:\?[^"'`)\\]*)?)["'`]/g)) {
       references.add(match[1].split('?')[0]);
     }
     if (!path.endsWith('.tsx')) continue;
@@ -91,14 +102,26 @@ export async function auditPublicMedia(root = process.cwd()) {
     }
   }
 
+  // Home photos are assembled from catalogue keys, not literal file paths.
+  const home=await readFile(join(root,'lib','home-media-refresh.json'),'utf8').then(JSON.parse).catch(()=>({}));
+  for(const key of Object.keys(home)){
+    const stem=key==='wimbledon'?'wimbledon-final-2023':key;
+    references.add(`/images/home-curated/${stem}.webp`);
+    references.add(`/images/home-curated/${stem}-small.webp`);
+  }
   const expectedResponsive = new Set([...references].flatMap(responsiveVariants));
   const allowed = new Set([...references, ...expectedResponsive]);
-  const media = (await walk(join(root, 'public', 'images'))).filter(path => mediaExtensions.has(extname(path).toLowerCase()));
+  const media = (await Promise.all(['images','media'].map(directory=>walk(join(root,'public',directory))))).flat().filter(path => mediaExtensions.has(extname(path).toLowerCase()));
   const present = new Set(media.map(path => publicPath(root, path)));
   const missingReferenced = [...references].filter(path =>
-    path.startsWith('/images/') && mediaExtensions.has(extname(path).toLowerCase()) &&
+    /^\/(?:images|media)\//.test(path) && mediaExtensions.has(extname(path).toLowerCase()) &&
     !path.includes('${') && !path.startsWith('/images/players/wta/') &&
     !virtualSourceReference(path) && !present.has(path));
+  // The static loader serves these siblings of registered originals.
+  for(const path of present){
+    const parent=path.replace(/-(?:small|640|734|1024|1068|1440|2400)(?=\.webp$)/,'');
+    if(parent!==path&&references.has(parent))allowed.add(path);
+  }
   const orphaned = media.map(path => publicPath(root, path)).filter(path =>
     !allowed.has(path) && !path.startsWith('/images/flags/'));
   const missingResponsive = [...expectedResponsive].filter(path => !present.has(path));

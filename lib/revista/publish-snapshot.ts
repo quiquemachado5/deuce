@@ -14,6 +14,7 @@ import {compileMatchBrowser,matchBrowserArtifact} from '../match-browser-snapsho
 import {reconcileCoverage} from '../coverage-reconciliation';
 import historyBaseline from '../../ops/wta-history-baseline.json';
 import {buildPublicationIndex} from '../publication-index';
+import {assertNoBlockingDrawAnomalies} from '../draw-anomalies';
 function compressedPages(id:string,piece:RecordPages):Array<[string,unknown]> {
  const chunks=new Map<number,{encoding:string;pages:Record<string,string>;smallPages:Record<string,string>}>([[0,{encoding:'gzip-base64',pages:{},smallPages:{}}]]);
  for(const group of ['pages','smallPages'] as const)for(const [page,rows] of Object.entries(piece[group])){
@@ -43,8 +44,9 @@ export async function writeBundledSnapshot(snapshot:Snapshot) {
   assertPublishableArchive(snapshot.matches);
   const browser=compileMatchBrowser(snapshot.matches);
   const reconciliation=reconcileCoverage(snapshot.matches,snapshot.audit,historyBaseline.allowedPendingCohorts);
+  const drawAnomalies=assertNoBlockingDrawAnomalies(snapshot.matches,snapshot.audit);
   const fullPartitions=partitionMatches(snapshot.matches);
-  const artifacts:Record<string,unknown>={eras:snapshot.eras,matches:snapshot.matches,players:snapshot.players,competition:snapshot.competition,audit:snapshot.audit,reconciliation,'edition-products':snapshot.products.editions,'player-directory':snapshot.products.players,'search-products':snapshot.products.search,'elo-products':snapshot.products.elo,'time-machine':snapshot.products.timeMachine,'publication-index':snapshot.publicationIndex||buildPublicationIndex(snapshot.matches),'browser-index':browser.index,...Object.fromEntries(fullPartitions.map(group=>[group.meta.id,group.matches])),...Object.fromEntries(browser.partitions.map(partition=>[matchBrowserArtifact(partition.id),partition])),...Object.fromEntries(Object.entries(snapshot.pieces).map(([id,p])=>[`piece-${id}`,p])),manifest:snapshot.manifest};
+  const artifacts:Record<string,unknown>={eras:snapshot.eras,matches:snapshot.matches,players:snapshot.players,competition:snapshot.competition,audit:snapshot.audit,reconciliation,'draw-anomalies':drawAnomalies,'edition-products':snapshot.products.editions,'player-directory':snapshot.products.players,'search-products':snapshot.products.search,'elo-products':snapshot.products.elo,'time-machine':snapshot.products.timeMachine,'publication-index':snapshot.publicationIndex||buildPublicationIndex(snapshot.matches),'browser-index':browser.index,...Object.fromEntries(fullPartitions.map(group=>[group.meta.id,group.matches])),...Object.fromEntries(browser.partitions.map(partition=>[matchBrowserArtifact(partition.id),partition])),...Object.fromEntries(Object.entries(snapshot.pieces).map(([id,p])=>[`piece-${id}`,p])),manifest:snapshot.manifest};
   let written=0,reused=0;
   for(const [id,value] of Object.entries(artifacts)) {
     const path=join(dir,`${id}.json.gz`),encoded=gzipSync(JSON.stringify(value));
@@ -73,6 +75,7 @@ export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotSt
   const previousCount=(published as RecordManifest|undefined)?.rulesVersion===snapshot.manifest.rulesVersion
     ? (published as RecordManifest).matchCount : 0;
   assertPublishableArchive(matches,previousCount);
+  const drawAnomalies=assertNoBlockingDrawAnomalies(matches,audit);
   const manifest=attachIngestionHistory(published as RecordManifest | undefined,attachRecordChanges(published as RecordManifest | undefined,snapshot.manifest));
   if((published as RecordManifest|undefined)?.artifactPacks&&published&&typeof published==='object'&&isDeepStrictEqual(publishedGeneration(published as RecordManifest),publishedGeneration(manifest))){
     if(Date.parse(manifest.generatedAt)>Date.parse((published as RecordManifest).generatedAt))await storage.write('reading-v2-manifest',{...manifest,artifactPacks:(published as RecordManifest).artifactPacks});
@@ -87,7 +90,7 @@ export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotSt
     for(const [id,piece] of Object.entries(pieces))yield* compressedPages(id,piece);
     for(const group of partitionMatches(matches))yield* await compressedBlob(group.meta.id,group.matches);
     for(const partition of browser.partitions)yield* await compressedBlob(matchBrowserArtifact(partition.id),partition);
-    for(const [id,value] of [['browser-index',browser.index],['publication-index',snapshot.publicationIndex||buildPublicationIndex(matches)],['eras',eras],['players',players],['competition',competition],['audit',audit],['reconciliation',reconciliation],['edition-products',products.editions],['player-directory',products.players],['search-products',products.search],['elo-products',products.elo],['time-machine',products.timeMachine]] as const)yield* await compressedBlob(id,value);
+    for(const [id,value] of [['browser-index',browser.index],['publication-index',snapshot.publicationIndex||buildPublicationIndex(matches)],['eras',eras],['players',players],['competition',competition],['audit',audit],['reconciliation',reconciliation],['draw-anomalies',drawAnomalies],['edition-products',products.editions],['player-directory',products.players],['search-products',products.search],['elo-products',products.elo],['time-machine',products.timeMachine]] as const)yield* await compressedBlob(id,value);
   }
   const artifactPacks: Record<string,string> = {};
   const previousVersion=(published as RecordManifest|undefined)?.version;

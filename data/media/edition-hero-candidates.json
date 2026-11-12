@@ -1,0 +1,3431 @@
+{
+  "schema": 1,
+  "photos": [
+    {
+      "key": "Roland Garros|2025",
+      "tournament": "Roland Garros",
+      "year": 2025,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/36aec3e43811aca7bbb435d2.webp",
+        "alt": "Elena Rybakina hitting a backhand during her first round match against Julia Riera at the 2025 French Opne",
+        "credit": "Kuberzog · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Elena_Rybakina_-_Roland_Garros_2025_-_backhand_close-up.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2025,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Elena Rybakina - Roland Garros 2025 - backhand close-up.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Roland Garros|2025",
+      "tournament": "Roland Garros",
+      "year": 2025,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/f210a6a6a7d61e9709ae65f9.webp",
+        "alt": "Alejandro Davidovich Fokina hitting a sliding backhand during his first round match against Pablo Llamas Ruiz at the 2025 French Open",
+        "credit": "Kuberzog · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:P5261658-edit.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2025,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "P5261658-edit.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Wimbledon|2025",
+      "tournament": "Wimbledon",
+      "year": 2025,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/1f7ebdb748db605b24bb6ab2.webp",
+        "alt": "Carlos Alcaraz serving while playing Jan-Lennard Struff (Wimbledon 2025)",
+        "credit": "12121343A · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Carlos_Alcaraz_serving_while_playing_Jan-Lennard_Struff_(Wimbledon_2025).jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2025,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Carlos Alcaraz serving while playing Jan-Lennard Struff (Wimbledon 2025).jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Australian Open|2025",
+      "tournament": "Australian Open",
+      "year": 2025,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/646191fa231372d0cfcc5d0b.webp",
+        "alt": "Emma Raducanu at the 2025 Australian Open",
+        "credit": "350z33 · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Raducanu2025AO.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2025,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Raducanu2025AO.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Australian Open|2025",
+      "tournament": "Australian Open",
+      "year": 2025,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/b40624078245a6d58344501d.webp",
+        "alt": "Ben Shelton serving during the second round of the 2025 Australian Open",
+        "credit": "350z33 · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:BenShelton2025AO.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2025,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "BenShelton2025AO.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "US Open|2025",
+      "tournament": "US Open",
+      "year": 2025,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/1f655a75094b32e6adffbd71.webp",
+        "alt": "Jannik Sinner at the 2025 US Open (Men's singles final), September 7, 2025. (Official White House Photo by Daniel Torok)",
+        "credit": "The White House derivative work: Kacir · Public domain",
+        "source": "https://commons.wikimedia.org/wiki/File:Jannik_Sinner_US_Open_2025_(cropped).jpg",
+        "photoYear": 2025,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Jannik Sinner US Open 2025 (cropped).jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Roland Garros|2024",
+      "tournament": "Roland Garros",
+      "year": 2024,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/e229b467e09c9b4d3fa98ca1.webp",
+        "alt": "Pablo Carreño-Busta waiting to return serve at the 2024 French Open (Roland-Garros), during his first round match against Mariano Navone (defeat 7/5, 3/6, 1/6, 0/6) on court n°4.",
+        "credit": "Kuberzog · CC BY 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Pablo_Carre%C3%B1o-Busta_-_Roland-Garros_-_28.05.2024.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "photoYear": 2024,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Pablo Carreño-Busta - Roland-Garros - 28.05.2024.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Roland Garros|2024",
+      "tournament": "Roland Garros",
+      "year": 2024,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/5e9fadcedf4721a3f273c980.webp",
+        "alt": "Anna Karolína Schmiedlová serving at the 2024 French Open (Roland-Garros), during her first round match against Sara Errani (defeat 3/6, 2/6) on court n°12.",
+        "credit": "Kuberzog · CC BY 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Anna_Karol%C3%ADna_Schmiedlov%C3%A1_-_Roland-Garros_-_28.05.2024.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "photoYear": 2024,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Anna Karolína Schmiedlová - Roland-Garros - 28.05.2024.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "US Open|2024",
+      "tournament": "US Open",
+      "year": 2024,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/d965b3152a835b577c20a8d2.webp",
+        "alt": "Alexa Noel at practice ahead of the 2024 US Open",
+        "credit": "Hameltion · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Alexa_Noel_(2024_US_Open)_02.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2024,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Alexa Noel (2024 US Open) 02.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "US Open|2024",
+      "tournament": "US Open",
+      "year": 2024,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/18d4fe3a2812a5f8c7cf9902.webp",
+        "alt": "Frances Tiafoe vs. Grigor Dimitrov in a quarterfinals of the 2024 US Open",
+        "credit": "Oleg Yunakov · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Frances_Tiafoe_vs._Grigor_Dimitrov_in_a_quarterfinals_of_the_2024_US_Open_-_01.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2024,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Frances Tiafoe vs. Grigor Dimitrov in a quarterfinals of the 2024 US Open - 01.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Roland Garros|2023",
+      "tournament": "Roland Garros",
+      "year": 2023,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/29c4b1f4df18734cb045778a.webp",
+        "alt": "Aliaksandra Sasnovich and Jil Teichmann after practice in the opening week of Roland Garros 2023",
+        "credit": "Hameltion · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Aliaksandra_Sasnovich_and_Jil_Teichmann_(Roland_Garros_2023)_01.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2023,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Aliaksandra Sasnovich and Jil Teichmann (Roland Garros 2023) 01.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Roland Garros|2023",
+      "tournament": "Roland Garros",
+      "year": 2023,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/febb9e5f9fd7d00fb2af2cf3.webp",
+        "alt": "Aleksandar Kovacevic serving in practice ahead of the 2023 French Open",
+        "credit": "Hameltion · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Aleksandar_Kovacevic_(Roland_Garros_2023)_01.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2023,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Aleksandar Kovacevic (Roland Garros 2023) 01.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Wimbledon|2023",
+      "tournament": "Wimbledon",
+      "year": 2023,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/773f51dd8a24c4e2a344a98b.webp",
+        "alt": "Carlos Alcaraz at the Wimbledon men's singles final in 2023.",
+        "credit": "Daniel Cooper · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Carlos_Alcaraz_-_Wimbledon_Final_2023.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 2023,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Carlos Alcaraz - Wimbledon Final 2023.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Wimbledon|2023",
+      "tournament": "Wimbledon",
+      "year": 2023,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/a96a31283f2802b1d3a2e5e9.webp",
+        "alt": "Barbora Strýcová and Hsieh Su-wei defeated Elise Mertens and Storm Hunter in the women's doubles final at Wimbledon.",
+        "credit": "Daniel Cooper · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:2023_Wimbledon_Women%27s_doubles_final_(1).jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 2023,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "2023 Wimbledon Women's doubles final (1).jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Australian Open|2023",
+      "tournament": "Australian Open",
+      "year": 2023,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/f02a141161c34724902e4cb5.webp",
+        "alt": "'Player Pod' of Rod Laver Arena during the 2023 Australian Open",
+        "credit": "Philip Mallis from Melbourne · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:%27Player_Pod%27_of_Rod_Laver_Arena_during_the_2023_Australian_Open_(52680260745).jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 2023,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "'Player Pod' of Rod Laver Arena during the 2023 Australian Open (52680260745).jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Australian Open|2023",
+      "tournament": "Australian Open",
+      "year": 2023,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/9e28abcde84fd8f2f7f96cba.webp",
+        "alt": "Margaret Court Arena looking south-east during the 2023 Australian Open",
+        "credit": "Philip Mallis from Melbourne · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Margaret_Court_Arena_looking_south-east_during_the_2023_Australian_Open_(52679309117).jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 2023,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Margaret Court Arena looking south-east during the 2023 Australian Open (52679309117).jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "US Open|2023",
+      "tournament": "US Open",
+      "year": 2023,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/0eb57bd30fefb46bbd927737.webp",
+        "alt": "Carson Tanguilig (doubles partner of Fiona Crawley) during the first round of singles at the 2023 US Open",
+        "credit": "Hameltion · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Carson_Tanguilig_(2023_US_Open)_01.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2023,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Carson Tanguilig (2023 US Open) 01.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "US Open|2023",
+      "tournament": "US Open",
+      "year": 2023,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/e8d94ffc3c7e0145b21dc8ec.webp",
+        "alt": "Albert Ramos Viñolas playing in the first round of the 2023 US Open",
+        "credit": "Hameltion · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Albert_Ramos_Vi%C3%B1olas_(2023_US_Open)_01.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2023,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Albert Ramos Viñolas (2023 US Open) 01.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Roland Garros|2022",
+      "tournament": "Roland Garros",
+      "year": 2022,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/6466cee1c54c180b36d6ed3c.webp",
+        "alt": "Practising with Pablo before the match. Day 4 of Roland Garros 2022.",
+        "credit": "Carine06 from UK · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Martin_Cuevas_(52135109811).jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 2022,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Martin Cuevas (52135109811).jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Miami|2025",
+      "tournament": "Miami",
+      "year": 2025,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/c9b0375070bd085c4e6ec115.webp",
+        "alt": "Adam Walton, Australian tennis player, at the 2025 Miami Open at Hard Rock Stadium in Miami Gardens, Florida .",
+        "credit": "Vbrunophotog · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Adam_Walton_at_2025_Miami_Open_01.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2025,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Adam Walton at 2025 Miami Open 01.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Miami|2025",
+      "tournament": "Miami",
+      "year": 2025,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/146a934b0d70c31b1de864eb.webp",
+        "alt": "Aryna Sabalenka, Belarusian tennis player, at the 2025 Miami Open at Hard Rock Stadium in Miami Gardens, Florida .",
+        "credit": "Vbrunophotog · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Aryna_Sabalenka_at_2025_Miami_Open_03.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2025,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Aryna Sabalenka at 2025 Miami Open 03.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Cincinnati|2025",
+      "tournament": "Cincinnati",
+      "year": 2025,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/a6953eb2398faf9daa01e56b.webp",
+        "alt": "Taylor Townsend at the 2025 Cincinnati Open",
+        "credit": "Navin75 · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Taylor_Townsend_-_2025_Cincinnati_Open.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2025,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Taylor Townsend - 2025 Cincinnati Open.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Cincinnati|2025",
+      "tournament": "Cincinnati",
+      "year": 2025,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/b6140fc16332f6d95146ee7d.webp",
+        "alt": "Champion's Court at the 2025 Cincinnati Open",
+        "credit": "Navin75 · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Reilly_Opelka_-_2025_Cincinnati_Open.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2025,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Reilly Opelka - 2025 Cincinnati Open.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Cincinnati|2024",
+      "tournament": "Cincinnati",
+      "year": 2024,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/05940ba3a9a0befb98f5986f.webp",
+        "alt": "Arthur Fils Cincinnati Open 2024",
+        "credit": "Navin75 · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Arthur_Fils_Cincinnati_2024.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 2024,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Arthur Fils Cincinnati 2024.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Cincinnati|2024",
+      "tournament": "Cincinnati",
+      "year": 2024,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/6779de2e030b8416c6a56f9d.webp",
+        "alt": "Caroline Wozniacki Cincinnati Open 2024",
+        "credit": "Navin75 · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Caroline_Wozniacki_Cincinnati_2024.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 2024,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Caroline Wozniacki Cincinnati 2024.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Miami|2023",
+      "tournament": "Miami",
+      "year": 2023,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/46864bafce97eccbed0e3168.webp",
+        "alt": "Ben Shelton in his singles debut at the Miami Open",
+        "credit": "350z33 · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:BenShelton2023MiamiOpenSingles.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2023,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "BenShelton2023MiamiOpenSingles.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Miami|2023",
+      "tournament": "Miami",
+      "year": 2023,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/d4a98d95693df9dde958483b.webp",
+        "alt": "Varvara Gracheva at the Miami Open",
+        "credit": "350z33 · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:VarvaraGracheva2023MiamiOpen.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2023,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "VarvaraGracheva2023MiamiOpen.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "ATP Finals|2019",
+      "tournament": "ATP Finals",
+      "year": 2019,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/2853881bc400670714eb3dac.webp",
+        "alt": "2019 ATP Finals at the o2",
+        "credit": "Daniel from Glasgow, United Kingdom · CC BY 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:2019_ATP_Finals_at_the_o2_(49069357912).jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "photoYear": 2019,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "2019 ATP Finals at the o2 (49069357912).jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Wimbledon|2022",
+      "tournament": "Wimbledon",
+      "year": 2022,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/2f3c93b7c2dcbf7eccbb890b.webp",
+        "alt": "Alcaraz at Wimbledon in 2022",
+        "credit": "Neil Tilbrook · CC BY 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Carlos_Alcaraz_Wimbledon.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "photoYear": 2022,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Carlos Alcaraz Wimbledon.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Wimbledon|2022",
+      "tournament": "Wimbledon",
+      "year": 2022,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/c155e407cd81a6960ddf5733.webp",
+        "alt": "TIL_0534",
+        "credit": "Neil Tilbrook · CC BY 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Anett_Kontaveit_Wimbledon_2022_1.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "photoYear": 2022,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Anett Kontaveit Wimbledon 2022 1.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Wimbledon|2025",
+      "tournament": "Wimbledon",
+      "year": 2025,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/e17b7f48dcf2db4ed5680018.webp",
+        "alt": "Emily Donovan - Lewes FC Women v AFC Wimbledon Women 30 Oct 2025 by James Boyce",
+        "credit": "jamesboyes · CC BY 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Emily_Donovan_Lewes_FC_Women_0_AFC_Wimbledon_Women_3_30_10_2025-18.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "photoYear": 2025,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Emily Donovan Lewes FC Women 0 AFC Wimbledon Women 3 30 10 2025-18.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Wimbledon|2024",
+      "tournament": "Wimbledon",
+      "year": 2024,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/2294a2249063053c3b3f86e5.webp",
+        "alt": "Lewes FC Women 2 AFC Wimbledon Women 0 17 11 2024-56.jpg",
+        "credit": "James Boyes from UK · CC BY 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Lewes_FC_Women_2_AFC_Wimbledon_Women_0_17_11_2024-56_(54149972388).jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "photoYear": 2024,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Lewes FC Women 2 AFC Wimbledon Women 0 17 11 2024-56 (54149972388).jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Australian Open|2022",
+      "tournament": "Australian Open",
+      "year": 2022,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/b49b44d0e9362e68f20f4807.webp",
+        "alt": "During a match against Botic van de Zandschulp, 20th January 2022",
+        "credit": "Oferze · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Richard_Gasquet,_Australian_Open_2022.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2022,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Richard Gasquet, Australian Open 2022.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Wimbledon|2021",
+      "tournament": "Wimbledon",
+      "year": 2021,
+      "tours": [
+        "atp",
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/ad0a371f3e1c597dbace7371.webp",
+        "alt": "Rotherham United v AFC Wimbledon, New York Stadium, Rotherham, South Yorkshire. Rotherham United won this League One game comfortably 3-0. Taken on the evening of Tuesday the 28the September 2021.",
+        "credit": "Mtaylor848 · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Rotherham_United_v_AFC_Wimbledon_(28th_September_2021)_001.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2021,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Rotherham United v AFC Wimbledon (28th September 2021) 001.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "US Open|2021",
+      "tournament": "US Open",
+      "year": 2021,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/9bcb1e03ae76473621f81239.webp",
+        "alt": "Two professional tennis players practice in Louis Armstrong Stadium in the Billie Jean King National Tennis Center in Flushing Meadow, Queen, New York City during the 2021 U. S. Open tournament.",
+        "credit": "Beyond My Ken · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:2021_US_Open_Armstrong_Stadium_practice.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2021,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "2021 US Open Armstrong Stadium practice.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "US Open|2021",
+      "tournament": "US Open",
+      "year": 2021,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/8ad1e7e986f5a31487f2f203.webp",
+        "alt": "Carlos Alcaraz Garfia' of Spain (left) and Felix Auger-Aliassime of Canada (right) warm up before their men's singles quarter-final match in Arthur Ashe Stadium in the Billie Jean King National Tennis Center in Flushing Meadow, Queen, New York City during the 2021 U. S. Open tournament.",
+        "credit": "Beyond My Ken · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:2021_US_Open_Armstrong_Alcaraz_v._Auger-Aliassime_semi_warm-up.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2021,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "2021 US Open Armstrong Alcaraz v. Auger-Aliassime semi warm-up.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Australian Open|2020",
+      "tournament": "Australian Open",
+      "year": 2020,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/9051ea5197b7cee2a437cba5.webp",
+        "alt": "Melbourne, Australia - 20 January 2020 - Marin Cilic serving on the practice court in the Practice Village (Photo by Rob Keating)",
+        "credit": "Rob Keating from Canberra, Australia, Australia · CC BY 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Australian_Open_2020_(49837600772).jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "photoYear": 2020,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Australian Open 2020 (49837600772).jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Australian Open|2020",
+      "tournament": "Australian Open",
+      "year": 2020,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/a78acbfb735d8e1633466f16.webp",
+        "alt": "Melbourne, Australia - 21 January 2020 - Anastasija Sevastova from Latvia after her practice session. (Photo by Rob Keating)",
+        "credit": "Rob Keating from Canberra, Australia, Australia · CC BY 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Australian_Open_2020_(49837598952).jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "photoYear": 2020,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Australian Open 2020 (49837598952).jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "US Open|2020",
+      "tournament": "US Open",
+      "year": 2020,
+      "tours": [
+        "wta",
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/e497abc8cd278984df88cc0d.webp",
+        "alt": "Serena Williams smiling during her match with Maria Sakkari in the USTA Billie Jean King National Tennis Center's Arthur Ashe Stadium during the 2020 US Open",
+        "credit": "AndrewHenkelman · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Serena-Smiling-2020.png",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2020,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Serena-Smiling-2020.png",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Roland Garros|2019",
+      "tournament": "Roland Garros",
+      "year": 2019,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/d500a51731a45976e8444c47.webp",
+        "alt": "Swedish tennis player Mikael Ymer at French Open 2019, first round, court n°13.",
+        "credit": "Nuvolari72 · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Mikael_Ymer_2019_french_open_Roland_Garros_2019.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2019,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Mikael Ymer 2019 french open Roland Garros 2019.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Roland Garros|2019",
+      "tournament": "Roland Garros",
+      "year": 2019,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/8a20c110307a498310f3d145.webp",
+        "alt": "Maria Sakkari practicing at the French Open in 2019.",
+        "credit": "LHC88 · CC BY 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Sakkari_2019.png",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "photoYear": 2019,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Sakkari 2019.png",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Wimbledon|2019",
+      "tournament": "Wimbledon",
+      "year": 2019,
+      "tours": [
+        "atp",
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/db38dd9d28bd9a90c9a10b99.webp",
+        "alt": "AFC Wimbledon go one goal up at home to Doncaster Rovers, 2019 (Kingsmeadow Stadium)",
+        "credit": "Jack86mkII · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Afc_wim_2019.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2019,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Afc wim 2019.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "US Open|2019",
+      "tournament": "US Open",
+      "year": 2019,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/43d99635a1a5f1f5f8e862ed.webp",
+        "alt": "womenworthwatching Osaka vs Coco, US Open 2019",
+        "credit": "jeff horne from Richmond, VA · CC BY 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:US_OPEN_2019_(48667665777).jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "photoYear": 2019,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "US OPEN 2019 (48667665777).jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Roland Garros|2018",
+      "tournament": "Roland Garros",
+      "year": 2018,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/e6eaba5379ffe4bc3f3ddc39.webp",
+        "alt": "Denis Shapovalov, à l'issue du match du 29 mai 2018, sur le court Lenglen (stade Roland Garros)",
+        "credit": "François GOGLINS · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Paris-FR-75-open_de_tennis-2018-Roland_Garros-stade_Lenglen-29_mai-Denis_Shapovalov-04.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2018,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Paris-FR-75-open de tennis-2018-Roland Garros-stade Lenglen-29 mai-Denis Shapovalov-04.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Roland Garros|2018",
+      "tournament": "Roland Garros",
+      "year": 2018,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/3b20de9349d3a9d39908eca5.webp",
+        "alt": "Yingying Duan, durant le match du 29 mai 2018, sur le court Lenglen (stade Roland Garros) en compétition contre Caroline Garcia.",
+        "credit": "François GOGLINS · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Paris-FR-75-open_de_tennis-2018-Roland_Garros-stade_Lenglen-29_mai-Yingying_Duan-09.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2018,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Paris-FR-75-open de tennis-2018-Roland Garros-stade Lenglen-29 mai-Yingying Duan-09.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Wimbledon|2018",
+      "tournament": "Wimbledon",
+      "year": 2018,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/2f23a19c1091a0bd66570dc0.webp",
+        "alt": "Nicolas Mahut ready to return serve at Wimbledon 2018.",
+        "credit": "LHC88 · CC BY 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Mahut_Wimbledon_2018.png",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "photoYear": 2018,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Mahut Wimbledon 2018.png",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Wimbledon|2018",
+      "tournament": "Wimbledon",
+      "year": 2018,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/6d99bc6420cfa9cccdaeb521.webp",
+        "alt": "Jelena Ostapenko at Wimbledon 2018.",
+        "credit": "LHC88 · CC BY 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Ostapenko_2018.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "photoYear": 2018,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Ostapenko 2018.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Australian Open|2017",
+      "tournament": "Australian Open",
+      "year": 2017,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/c2e982a27b5c78875378f51e.webp",
+        "alt": "Daria Gavrilova and Luke Saville at the Australian_Open_2017",
+        "credit": "Martin Turmine · CC BY 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Daria_Gavrilova_Luke_Saville_Australian_Open_2017.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "photoYear": 2017,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Daria Gavrilova Luke Saville Australian Open 2017.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Australian Open|2017",
+      "tournament": "Australian Open",
+      "year": 2017,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/0f4c75f612565d44719f1137.webp",
+        "alt": "Angelique Kerber serving at the 2017 Australian Open",
+        "credit": "Pulv · CC BY-SA 3.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Angelique_Kerber_Australian_Open_2017.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "photoYear": 2017,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Angelique Kerber Australian Open 2017.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Roland Garros|2017",
+      "tournament": "Roland Garros",
+      "year": 2017,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/90d60e965f59d36f12c71265.webp",
+        "alt": "Taylor Townsend at Roland Garros 2017",
+        "credit": "Carine06 · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Taylor_Townsend_Roland_Garros_2017.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 2017,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Taylor Townsend Roland Garros 2017.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Roland Garros|2017",
+      "tournament": "Roland Garros",
+      "year": 2017,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/756d1fc10aa7a203857389ad.webp",
+        "alt": "Gael Monfils lors des huitièmes de finale contre Stan Wavrinka",
+        "credit": "Fredsit · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Gael_Monfils_Roland_Garros_2017.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2017,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Gael Monfils Roland Garros 2017.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Wimbledon|2017",
+      "tournament": "Wimbledon",
+      "year": 2017,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/d35957fc3666b96bb81f0d91.webp",
+        "alt": "Sloane Stephens hitting a forehand at Wimbledon in 2017.",
+        "credit": "LHC88 · CC BY 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Stephens_Wimbledon_2017.png",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "photoYear": 2017,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Stephens Wimbledon 2017.png",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Wimbledon|2017",
+      "tournament": "Wimbledon",
+      "year": 2017,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/f5596a756a11fb7481b1b97b.webp",
+        "alt": "Andre Sa Raquel Atawo at Wimbledon 2017.",
+        "credit": "LHC88 · CC BY 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Sa_Atawo_2017.png",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "photoYear": 2017,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Sa Atawo 2017.png",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "US Open|2017",
+      "tournament": "US Open",
+      "year": 2017,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/91074dfc212854b7630edc43.webp",
+        "alt": "US Open 2017: Petra Kvitova's Practice",
+        "credit": "Roman Boed from The Netherlands · CC BY 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:US_Open_2017-_Petra_Kvitova%27s_Practice_(36674418890).jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "photoYear": 2017,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "US Open 2017- Petra Kvitova's Practice (36674418890).jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Australian Open|2016",
+      "tournament": "Australian Open",
+      "year": 2016,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/f32febc0c219a27417525090.webp",
+        "alt": "Priscilla Hon at 2016 Australian Open",
+        "credit": "Keroks · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Priscilla_Hon_2016.JPG",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2016,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Priscilla Hon 2016.JPG",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Roland Garros|2016",
+      "tournament": "Roland Garros",
+      "year": 2016,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/e7af77d7256326e2ea3ce4fb.webp",
+        "alt": "Petra Kvitová at the French Open 2016",
+        "credit": "si.robi · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Petra_Kvitov%C3%A1_French_Open_2016.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 2016,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Petra Kvitová French Open 2016.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Roland Garros|2016",
+      "tournament": "Roland Garros",
+      "year": 2016,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/4a5b2fb125e45c1a84ac6f43.webp",
+        "alt": "Cour n°1",
+        "credit": "Jeanlovera · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Court_n%C2%B0_1_du_stade_Roland-Garros_(Jean_Lovera)_2016-02-29-.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2016,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Court n° 1 du stade Roland-Garros (Jean Lovera) 2016-02-29-.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Wimbledon|2016",
+      "tournament": "Wimbledon",
+      "year": 2016,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/6a76745a723850060667d1bd.webp",
+        "alt": "Kayla Day on the Middle Sunday of Wimbledon 2016.",
+        "credit": "Kate · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Kayla_Day_Wimbledon_2016.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 2016,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Kayla Day Wimbledon 2016.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Wimbledon|2016",
+      "tournament": "Wimbledon",
+      "year": 2016,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/1b3d84611a9a66145cc7f105.webp",
+        "alt": "Felix Auger-Aliassime at 2016 Wimbledon",
+        "credit": "Maxwell Fung · CC BY 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Felix_Auger-Aliassime_2016.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "photoYear": 2016,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Felix Auger-Aliassime 2016.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "US Open|2016",
+      "tournament": "US Open",
+      "year": 2016,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/fe28378b33c84de95e7265b7.webp",
+        "alt": "2016 US Open",
+        "credit": "JC · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:2016_US_Open_Puig_(Puerto_Rico)_Olympic_Gold_Medalist_-_Women%27s_Singles_(28681534294).jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 2016,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "2016 US Open Puig (Puerto Rico) Olympic Gold Medalist - Women's Singles (28681534294).jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Australian Open|2015",
+      "tournament": "Australian Open",
+      "year": 2015,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/abd05314e82026d15a7ce41a.webp",
+        "alt": "Andy Murray (GBR)[6] during his 3rd round straight-sets win over Joao Sousa (POR) at the 2015 Australian Open in Hisense Arena.",
+        "credit": "Brendan Dennis · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:2015_Australian_Open_-_Andy_Murray_10.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2015,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "2015 Australian Open - Andy Murray 10.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Roland Garros|2015",
+      "tournament": "Roland Garros",
+      "year": 2015,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/86d2acc92699f543fc300e62.webp",
+        "alt": "Roger Federer during his 2nd round match with Marcel Granollers. Federer won 6-2, 7-6, 6-3 Day 4 of Roland Garros 2015.",
+        "credit": "Carine06 from UK · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Roger_Federer_French_Open_2015.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 2015,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Roger Federer French Open 2015.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Roland Garros|2015",
+      "tournament": "Roland Garros",
+      "year": 2015,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/580d91068639c892aae80d08.webp",
+        "alt": "Ukrainian Elina Svitolina at 2015 French Open. 2015 Roland Garros.",
+        "credit": "Fred Romero from Paris, France · CC BY 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Roland_Garros_2015_-_Elina_Svitolina_(22849725144).jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "photoYear": 2015,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Roland Garros 2015 - Elina Svitolina (22849725144).jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Wimbledon|2015",
+      "tournament": "Wimbledon",
+      "year": 2015,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/92371069f97837d8fe65aab5.webp",
+        "alt": "Aleksandra Krunić competing in the first round of the 2015 Wimbledon Championships against Roberta Vinci.",
+        "credit": "Diliff · CC BY 3.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Aleksandra_Kruni%C4%87_1,_2015_Wimbledon_Championships_-_Diliff.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+        "photoYear": 2015,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Aleksandra Krunić 1, 2015 Wimbledon Championships - Diliff.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Wimbledon|2015",
+      "tournament": "Wimbledon",
+      "year": 2015,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/f91934f95f97ca5e1491faa2.webp",
+        "alt": "Liam Broady competing in the first round of the 2015 Wimbledon Championships.",
+        "credit": "Diliff · CC BY 3.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Liam_Broady_5,_2015_Wimbledon_Championships_-_Diliff.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+        "photoYear": 2015,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Liam Broady 5, 2015 Wimbledon Championships - Diliff.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "US Open|2015",
+      "tournament": "US Open",
+      "year": 2015,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/552eca259ed563e66d86cbae.webp",
+        "alt": "August 27, 2015 Flushing, NY",
+        "credit": "Steven Pisano from Brooklyn, NY, USA · CC BY 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:2015_US_Open_Tennis_-_Qualies_-_A_View_of_Arthur_Ashe_Stadium_Beyond_the_LIRR_Station_(21337749681).jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "photoYear": 2015,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "2015 US Open Tennis - Qualies - A View of Arthur Ashe Stadium Beyond the LIRR Station (21337749681).jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Australian Open|2014",
+      "tournament": "Australian Open",
+      "year": 2014,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/7f46260d231720eb38afa3f3.webp",
+        "alt": "Ana Ivanovic (SRB) [14] during her 2nd round straight-sets win to Annika Beck (GER) at the 2014 Australian Open on Show Court 2.",
+        "credit": "Brendan Dennis · CC BY-SA 3.0",
+        "source": "https://commons.wikimedia.org/wiki/File:2014_Australian_Open_-_Ana_Ivanovic.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "photoYear": 2014,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "2014 Australian Open - Ana Ivanovic.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Australian Open|2014",
+      "tournament": "Australian Open",
+      "year": 2014,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/91658de5da3796cffe73311e.webp",
+        "alt": "Tommy Robredo (ESP) [17] during his 2nd round 4-set win to Julien Benneteau (FRA) at the 2014 Australian Open on Show Court 2.",
+        "credit": "Brendan Dennis · CC BY-SA 3.0",
+        "source": "https://commons.wikimedia.org/wiki/File:2014_Australian_Open_-_Tommy_Robredo_1.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "photoYear": 2014,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "2014 Australian Open - Tommy Robredo 1.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Roland Garros|2014",
+      "tournament": "Roland Garros",
+      "year": 2014,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/6877033fc405adf8c2fa4895.webp",
+        "alt": "Internationaux de France de tennis , le 2 juin 2014, sur le court Philippe Chatrier : Kiki Bertens",
+        "credit": "François GOGLINS · CC BY-SA 3.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Paris-FR-75-Roland_Garros-2_juin_2014-Kiki_Bertens-08.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "photoYear": 2014,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Paris-FR-75-Roland Garros-2 juin 2014-Kiki Bertens-08.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Roland Garros|2014",
+      "tournament": "Roland Garros",
+      "year": 2014,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/bd1fa2c2f4c0fa9d6b8a9177.webp",
+        "alt": "Internationaux de France de tennis , le 2 juin 2014, sur le court Philippe Chatrier : Dušan Lajović",
+        "credit": "François GOGLINS · CC BY-SA 3.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Paris-FR-75-Roland_Garros-2_juin_2014-Lajovic-03.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "photoYear": 2014,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Paris-FR-75-Roland Garros-2 juin 2014-Lajovic-03.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Wimbledon|2014",
+      "tournament": "Wimbledon",
+      "year": 2014,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/e3b53483836eaf9dfca37c50.webp",
+        "alt": "Day 4 of Wimbledon 2014.",
+        "credit": "Carine06 from UK · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Camila_Giorgi_Wimbledon_2014.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 2014,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Camila Giorgi Wimbledon 2014.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Wimbledon|2014",
+      "tournament": "Wimbledon",
+      "year": 2014,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/601aa569546fbe2abcd4dbdb.webp",
+        "alt": "Day 4 of Wimbledon 2014.",
+        "credit": "Carine06 from UK · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Tommy_Robredo_Wimbledon_2014.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 2014,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Tommy Robredo Wimbledon 2014.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "US Open|2014",
+      "tournament": "US Open",
+      "year": 2014,
+      "tours": [
+        "wta",
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/412e9d9a263612283da3a7e7.webp",
+        "alt": "The 2014 US Open is a tennis tournament played on the outdoor hard courts. It is the 134th edition of the US Open, the fourth and final Grand Slam event of the year. It is currently taking place at the USTA Billie Jean King National Tennis Center. Roger Federer Ana Ivanovic Bill Diblasio David Dinkins Martina Navratilova",
+        "credit": "Michael Vadon · CC BY 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:US_Open_2014_(15048894005).jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "photoYear": 2014,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "US Open 2014 (15048894005).jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Australian Open|2013",
+      "tournament": "Australian Open",
+      "year": 2013,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/caf1b6efd2785b5e9ca69965.webp",
+        "alt": "Jack Sock",
+        "credit": "JC · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:2013_Australian_Open_Jack_Sock_(8395627647).jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 2013,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "2013 Australian Open Jack Sock (8395627647).jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Australian Open|2013",
+      "tournament": "Australian Open",
+      "year": 2013,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/164d76f14edc9db5a3a4e54b.webp",
+        "alt": "Maria Sharapova - Aussie Open 2013",
+        "credit": "JC · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:2013_Australian_Open_Maria_Sharapova_-_Aussie_Open_2013_(8406827702).jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 2013,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "2013 Australian Open Maria Sharapova - Aussie Open 2013 (8406827702).jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Roland Garros|2013",
+      "tournament": "Roland Garros",
+      "year": 2013,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/c495c9a952da59685ef33b93.webp",
+        "alt": "2ème tour Roland Garros 2013 : Jo-Wilfried Tsonga (FRA) def. Jarkko Nieminen (FIN)",
+        "credit": "Yann Caradec · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Jarkko_Nieminen_-_Roland-Garros_2013_-_002.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 2013,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Jarkko Nieminen - Roland-Garros 2013 - 002.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Roland Garros|2013",
+      "tournament": "Roland Garros",
+      "year": 2013,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/07038f16a70e276824d8c783.webp",
+        "alt": "Dinah Pfizenmaier at the 2013 French Open",
+        "credit": "Passion Leica · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Dinah_Pfizenmaier_at_the_2013_French_Open_2.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 2013,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Dinah Pfizenmaier at the 2013 French Open 2.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Wimbledon|2013",
+      "tournament": "Wimbledon",
+      "year": 2013,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/7844e0ce051d3db9bb0b6894.webp",
+        "alt": "Petra Martic during her first round win against Anna Tatishvili at Wimbledon in 2013.",
+        "credit": "Diliff · CC BY-SA 3.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Petra_Martic_1,_Wimbledon_2013_-_Diliff.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "photoYear": 2013,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Petra Martic 1, Wimbledon 2013 - Diliff.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Wimbledon|2013",
+      "tournament": "Wimbledon",
+      "year": 2013,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/0ba04e71c70aa9b72e3fb782.webp",
+        "alt": "Roberto Bautista-Agut in the first round at Wimbledon in 2013.",
+        "credit": "Diliff · CC BY-SA 3.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Roberto_Bautista-Agut_1,_Wimbledon_2013_-_Diliff.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "photoYear": 2013,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Roberto Bautista-Agut 1, Wimbledon 2013 - Diliff.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "US Open|2013",
+      "tournament": "US Open",
+      "year": 2013,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/0d6ff6954fcfd11c2fd74ce0.webp",
+        "alt": "Alice Matteucci at the 2013 US Open",
+        "credit": "robbiesaurus · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Alice_Matteucci_at_the_2013_US_Open.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 2013,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Alice Matteucci at the 2013 US Open.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "US Open|2013",
+      "tournament": "US Open",
+      "year": 2013,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/021ed88f83e4f1727ed99cd0.webp",
+        "alt": "US Open 2012 Men's Singles 3rd Round (Louis Armstrong Stadium) Stanislas Wawrinka [9] vs. Cyprus Marcos Baghdatis 6–3, 6–2, 6–7(1–7), 7–6(9–7)",
+        "credit": "karlnorling from New York, USA · CC BY 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Stanislas_Wawrinka_(9)_vs._Marcos_Baghdatis_US_Open_2013_(9658673736).jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "photoYear": 2013,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Stanislas Wawrinka (9) vs. Marcos Baghdatis US Open 2013 (9658673736).jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Australian Open|2012",
+      "tournament": "Australian Open",
+      "year": 2012,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/844f984c48c30ebbde0a49d1.webp",
+        "alt": "Maria Sharapova at the 2012 Australian Open",
+        "credit": "James Mulholland James Mulholland Photography · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Sharapova_Melbourne_2012.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 2012,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Sharapova Melbourne 2012.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Roland Garros|2012",
+      "tournament": "Roland Garros",
+      "year": 2012,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/e2fe5c0c489f1be3668e3059.webp",
+        "alt": "Paula Ormaechea à Roland-Garros le 27 mai 2012, match contre Venus Williams. Paris, France",
+        "credit": "Poudou99 · CC BY 3.0",
+        "source": "https://commons.wikimedia.org/wiki/File:P_Ormaechea_-_Roland-Garros_2012-IMG_3734.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+        "photoYear": 2012,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "P Ormaechea - Roland-Garros 2012-IMG 3734.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Roland Garros|2012",
+      "tournament": "Roland Garros",
+      "year": 2012,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/8bbb1c2773001b89b253020c.webp",
+        "alt": "Gilles Simon, Roland-Garros 2012.",
+        "credit": "Création CARAVEO · CC BY 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Gilles_Simon_2012_(4).jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "photoYear": 2012,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Gilles Simon 2012 (4).jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Wimbledon|2012",
+      "tournament": "Wimbledon",
+      "year": 2012,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/cfed863851a5666665e01d88.webp",
+        "alt": "Sabine Lisicki in her match against Sharapova",
+        "credit": "Miyagawa · CC BY-SA 3.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Lisicki_at_Wimbledon_2012_2.JPG",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "photoYear": 2012,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Lisicki at Wimbledon 2012 2.JPG",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Wimbledon|2012",
+      "tournament": "Wimbledon",
+      "year": 2012,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/c7c75c8a7dc1ad929c1ffb64.webp",
+        "alt": "Dominic Inglot in action in the doubles at Wimbledon 2012",
+        "credit": "Bromleyred · CC BY-SA 3.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Dominic_Inglot_Wimbledon_2012.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "photoYear": 2012,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Dominic Inglot Wimbledon 2012.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "US Open|2012",
+      "tournament": "US Open",
+      "year": 2012,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/8f9ba2b315d3bd5ce456ce33.webp",
+        "alt": "Aleksandra Wozniak at the 2012 US Open",
+        "credit": "robbiesaurus · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Aleksandra_Wozniak_at_the_2012_US_Open_1.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 2012,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Aleksandra Wozniak at the 2012 US Open 1.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "US Open|2012",
+      "tournament": "US Open",
+      "year": 2012,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/e5ca1ab125d4399adffac019.webp",
+        "alt": "2012 US Open Novak Đ vs Paolo Lorenzi",
+        "credit": "Neshy · CC BY-SA 3.0",
+        "source": "https://commons.wikimedia.org/wiki/File:2012_US_Open_Novak_%C4%90_vs_Paolo_Lorenzi2.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "photoYear": 2012,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "2012 US Open Novak Đ vs Paolo Lorenzi2.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Australian Open|2011",
+      "tournament": "Australian Open",
+      "year": 2011,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/fffb9bd72b384ec027073837.webp",
+        "alt": "Tomáš Berdych at the 2011 Australian Open",
+        "credit": "n.hewson · CC BY 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Tom%C3%A1%C5%A1_Berdych_at_the_2011_Australian_Open1.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "photoYear": 2011,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Tomáš Berdych at the 2011 Australian Open1.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Roland Garros|2011",
+      "tournament": "Roland Garros",
+      "year": 2011,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/d15df356a02d3b6db8f6a47c.webp",
+        "alt": "Gael Monfils (FRA) def. Guillaume Rufin (FRA) Roland Garros 2011 - mercredi 25 mai - 2ème tour - Court Philippe Chatrier",
+        "credit": "Yann Caradec · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Guillaume_Rufin_-_Roland_Garros_2011.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 2011,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Guillaume Rufin - Roland Garros 2011.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Roland Garros|2011",
+      "tournament": "Roland Garros",
+      "year": 2011,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/ec55904fa2c73bbf5f58de0a.webp",
+        "alt": "At the end of a practice session. Roland Garros 2011.",
+        "credit": "Kate · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Andrea_Petkovic_-_Roland_Garros_2011(2).jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 2011,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Andrea Petkovic - Roland Garros 2011(2).jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Wimbledon|2011",
+      "tournament": "Wimbledon",
+      "year": 2011,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/b1f805642a1ce04e5287db84.webp",
+        "alt": "Karol Beck",
+        "credit": "Rakkhi Samarasekera · CC BY 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Karol_Beck_-_2011_Wimbledon(2).jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "photoYear": 2011,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Karol Beck - 2011 Wimbledon(2).jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "US Open|2011",
+      "tournament": "US Open",
+      "year": 2011,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/825c2f86ed008ebe0394c03e.webp",
+        "alt": "Jamie Hampton at the U.S. Open, Tuesday, Aug. 30, 2011",
+        "credit": "Robbie Mendelson · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Jamie_Hampton_at_the_2011_US_Open.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 2011,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Jamie Hampton at the 2011 US Open.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "US Open|2011",
+      "tournament": "US Open",
+      "year": 2011,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/433106ea3f97ef30c34afacd.webp",
+        "alt": "US Open 2011 semifinal.",
+        "credit": "Mad Ball · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Novak_Djokovic_and_Roger_Federer_at_USO_2011.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 2011,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Novak Djokovic and Roger Federer at USO 2011.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Australian Open|2010",
+      "tournament": "Australian Open",
+      "year": 2010,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/6f22cdb431f9871302307b3d.webp",
+        "alt": "Taken at the Australian Open 2010",
+        "credit": "Rob Young · CC BY 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Andy_Roddick_at_the_2010_Australian_Open_01.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "photoYear": 2010,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Andy Roddick at the 2010 Australian Open 01.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Wimbledon|2010",
+      "tournament": "Wimbledon",
+      "year": 2010,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/588ca2a2a0b97cadd626ce8c.webp",
+        "alt": "Tennis in Wimbledon 2010",
+        "credit": "Marc Di Luzio · CC BY 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Rafael_Nadal_at_the_2010_Wimbledon_Championships_03.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "photoYear": 2010,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Rafael Nadal at the 2010 Wimbledon Championships 03.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Wimbledon|2010",
+      "tournament": "Wimbledon",
+      "year": 2010,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/8784b58461e2aab654a24cd8.webp",
+        "alt": "Venus Williams at the 2010 Wimbledon Championships",
+        "credit": "Tim Schofield · CC BY 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Venus_Williams_at_the_2010_Wimbledon_Championships_01.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "photoYear": 2010,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Venus Williams at the 2010 Wimbledon Championships 01.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "US Open|2010",
+      "tournament": "US Open",
+      "year": 2010,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/fd231066243e614120e934d6.webp",
+        "alt": "U.S. Open Aug. 31, 2010",
+        "credit": "Robbie Mendelson · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Robby_Ginepri_at_the_2010_US_Open_03.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 2010,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Robby Ginepri at the 2010 US Open 03.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "US Open|2010",
+      "tournament": "US Open",
+      "year": 2010,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/d0564776392e4fc90fbed460.webp",
+        "alt": "Dominika Cibulková at the 2010 U.S. Open Saturday, Sept. 4, 2010",
+        "credit": "Robbie Mendelson · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Dominika_Cibulkov%C3%A1_at_the_2010_US_Open_08.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 2010,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Dominika Cibulková at the 2010 US Open 08.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Australian Open|2009",
+      "tournament": "Australian Open",
+      "year": 2009,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/1c8545825da856f82fe008ad.webp",
+        "alt": "Roger Federer returning against Evgeny Korolev in the second round of the 2009 Australian Open",
+        "credit": "Richard.Fisher · CC BY 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Roger_Federer_at_the_2009_Australian_Open.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "photoYear": 2009,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Roger Federer at the 2009 Australian Open.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Roland Garros|2009",
+      "tournament": "Roland Garros",
+      "year": 2009,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/20b29714b04da9b1772c9746.webp",
+        "alt": "Ernests Gulbis at 2009 Roland Garros , Paris, France",
+        "credit": "Charlie Cowins , Belmont, NC, USA · CC BY 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Gulbis_Roland_Garros_2009_4.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "photoYear": 2009,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Gulbis Roland Garros 2009 4.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Wimbledon|2009",
+      "tournament": "Wimbledon",
+      "year": 2009,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/8e2c2cedcd98770a79b6756b.webp",
+        "alt": "Diego Junqueira against Guillermo Cañas in the 2009 Wimbledon Championships first round.",
+        "credit": "Bruno Girin · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Diego_Junqueira_at_the_2009_Wimbledon_Championships_01.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 2009,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Diego Junqueira at the 2009 Wimbledon Championships 01.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Wimbledon|2009",
+      "tournament": "Wimbledon",
+      "year": 2009,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/8ed33dd4eaf718696f4f1776.webp",
+        "alt": "Tsvetana Pironkova against Jill Craybas in the 2009 Wimbledon Championships first round",
+        "credit": "Bruno Girin · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Tsvetana_Pironkova_at_the_2009_Wimbledon_Championships_01.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 2009,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Tsvetana Pironkova at the 2009 Wimbledon Championships 01.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "US Open|2009",
+      "tournament": "US Open",
+      "year": 2009,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/2d598a1d039bc0478067ba0f.webp",
+        "alt": "Radek Štěpánek at the 2009 US Open",
+        "credit": "Edwin Martinez · CC BY 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:US_Open_2009_4th_round_484.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "photoYear": 2009,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "US Open 2009 4th round 484.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "US Open|2009",
+      "tournament": "US Open",
+      "year": 2009,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/34f26422862b656d568d40b9.webp",
+        "alt": "Vera Dushevina at the 2009 US Open",
+        "credit": "Edwin Martinez · CC BY 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:US_Open_2009_123.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "photoYear": 2009,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "US Open 2009 123.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Australian Open|2008",
+      "tournament": "Australian Open",
+      "year": 2008,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/48de8ef2b87db768dbf3a8da.webp",
+        "alt": "- Camera phone upload powered by ShoZu",
+        "credit": "MD111 · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:2008_Australian_Open_Tennis,_Rod_Laver_Arena,_Melbourne.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 2008,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "2008 Australian Open Tennis, Rod Laver Arena, Melbourne.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Roland Garros|2008",
+      "tournament": "Roland Garros",
+      "year": 2008,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/289a742d1be8c1a3b1fdeaed.webp",
+        "alt": "Ana Ivanovic en quart de finale à Roland Garros 2008.",
+        "credit": "Yann Caradec from Paris, France · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Ana_Ivanovic_en_quart_de_finale_%C3%A0_Roland_Garros_2008_(3).jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 2008,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Ana Ivanovic en quart de finale à Roland Garros 2008 (3).jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Roland Garros|2008",
+      "tournament": "Roland Garros",
+      "year": 2008,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/b2977500c6b47f822107efef.webp",
+        "alt": "Nicolas Almagro en quart de finale de Roland Garros 2008.",
+        "credit": "Yann Caradec from Paris, France · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Nicolas_Almagro_en_quart_de_finale_de_Roland_Garros_2008_(3).jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 2008,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Nicolas Almagro en quart de finale de Roland Garros 2008 (3).jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Wimbledon|2008",
+      "tournament": "Wimbledon",
+      "year": 2008,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/cdd2e4cad411e03af2d7e9e3.webp",
+        "alt": "Serena Williams at the 2008 Wimbledon Championships",
+        "credit": "Chris Eason Camera location 51° 26′ 00.77″ N, 0° 12′ 49.34″ W View this and other nearby images on: OpenStreetMap 51.433546; -0.213705 · CC BY 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Serena_Williams_Wimbledon_2008.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "photoYear": 2008,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Serena Williams Wimbledon 2008.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "US Open|2008",
+      "tournament": "US Open",
+      "year": 2008,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/4d6c05ca909dc2968da0b2fb.webp",
+        "alt": "Andy Murray cruises at the 2008 US Open",
+        "credit": "Charlie Cowins · CC BY 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Andy_Murray_at_the_2008_US_Open2.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "photoYear": 2008,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Andy Murray at the 2008 US Open2.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Australian Open|2007",
+      "tournament": "Australian Open",
+      "year": 2007,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/a58222efc6a017ab187070a9.webp",
+        "alt": "Inside Rod Laver arena, prior to an evening session.",
+        "credit": "Rg030 · Public domain",
+        "source": "https://commons.wikimedia.org/wiki/File:Australian_Open_2007_Night_Session.JPG",
+        "photoYear": 2007,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Australian Open 2007 Night Session.JPG",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Roland Garros|2007",
+      "tournament": "Roland Garros",
+      "year": 2007,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/f7294d5583bd647fa58094e2.webp",
+        "alt": "Ágnes Szávay , Hungarian tennis player in French Open",
+        "credit": "Ralf Reinecke · Public domain",
+        "source": "https://commons.wikimedia.org/wiki/File:Agnes_Szavay_Roland_Garros_2007.jpg",
+        "photoYear": 2007,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Agnes Szavay Roland Garros 2007.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "US Open|2007",
+      "tournament": "US Open",
+      "year": 2007,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/c9ddfc947bdd9f0daa78ce8a.webp",
+        "alt": "Michael Llodra At The 2007 US Open",
+        "credit": "Alexisrael · CC BY-SA 3.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Llodra_2007_US_Open.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "photoYear": 2007,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Llodra 2007 US Open.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Australian Open|2006",
+      "tournament": "Australian Open",
+      "year": 2006,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/501e29f06e78c43105ca23cc.webp",
+        "alt": "Juan Carlos Ferrero at the 2006 Australian Open",
+        "credit": "Brianna Laugher · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Ferrero_2006_Australian_Open.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 2006,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Ferrero 2006 Australian Open.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Roland Garros|2006",
+      "tournament": "Roland Garros",
+      "year": 2006,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/53d5b0e9de313119f2b772e7.webp",
+        "alt": "Daniela Hantuchová at Roland Garros 2006",
+        "credit": "No machine-readable author provided. Yulia Romero assumed (based on copyright claims). · Public domain",
+        "source": "https://commons.wikimedia.org/wiki/File:Daniela_Hantuchova_Roland_Garros_2006_V.jpg",
+        "photoYear": 2006,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Daniela Hantuchova Roland Garros 2006 V.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Roland Garros|2006",
+      "tournament": "Roland Garros",
+      "year": 2006,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/93114a24f128b93f8ee75816.webp",
+        "alt": "Rafael Nadal prepares to receive Roger Federer's serve during the final of the 2006 French Open",
+        "credit": "Sylvain WEBER · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Rafael_Nadal_and_Roger_Federer_at_the_2006_French_Open.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 2006,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Rafael Nadal and Roger Federer at the 2006 French Open.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Wimbledon|2006",
+      "tournament": "Wimbledon",
+      "year": 2006,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/80915e5496a46b1ecf1cdd57.webp",
+        "alt": "Kim Clijsters à la réception de service (Wimbledon 2006)",
+        "credit": "davidgold · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Kim_Clijsters_Wimbledon_2006.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 2006,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Kim Clijsters Wimbledon 2006.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Wimbledon|2006",
+      "tournament": "Wimbledon",
+      "year": 2006,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/bbbefa2036cae61686fcff76.webp",
+        "alt": "Rafael Nadal (left) serves in the final game on the way to a win on Court No.1 at the 2006 Wimbledon Championships",
+        "credit": "Clavecin · Public domain",
+        "source": "https://commons.wikimedia.org/wiki/File:Court_1_Nadal_2006.JPG",
+        "photoYear": 2006,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Court 1 Nadal 2006.JPG",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "US Open|2006",
+      "tournament": "US Open",
+      "year": 2006,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/e7b9d5d3394536389cf3475a.webp",
+        "alt": "Argentine tennis player David Nalbandian in the 2006 US Open. David Nalbandian",
+        "credit": "Donna and Keith · CC BY 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:David_Nalbandian_-_US_Open_2006.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "photoYear": 2006,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "David Nalbandian - US Open 2006.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Roland Garros|2005",
+      "tournament": "Roland Garros",
+      "year": 2005,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/e127dcdb47a3a4aec051ed80.webp",
+        "alt": "Mathilde Johansson, Roland Garros 2005",
+        "credit": "Mathieu Marquer from Paris, FRANCE · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Mathilde_Johansson,_Roland_Garros_2005_(4280167424).jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 2005,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Mathilde Johansson, Roland Garros 2005 (4280167424).jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Wimbledon|2005",
+      "tournament": "Wimbledon",
+      "year": 2005,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/76961afadfea3de85fffc975.webp",
+        "alt": "Tim Henman preparing to hit a serve. The left arm is extended, having just launched the ball into the air. The right arm will be raised up and forward at speed so that the racket connects with the ball. Tim Henman playing at Wimbledon, 2005.",
+        "credit": "Spiralz · CC BY 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Tim_Henman_Wimbledon_2005_1.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "photoYear": 2005,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Tim Henman Wimbledon 2005 1.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "US Open|2005",
+      "tournament": "US Open",
+      "year": 2005,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/af2a48f178dd7b318b4f6058.webp",
+        "alt": "The Arthur Ashe Stadium is the main tennis stadium for the US Open held in New York each year.",
+        "credit": "TigerPuppala · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Arthur_Ashe_stadium_2005.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 2005,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Arthur Ashe stadium 2005.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Wimbledon|2004",
+      "tournament": "Wimbledon",
+      "year": 2004,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/55456329a20e99e3107fa2e1.webp",
+        "alt": "Tim Henman backhand volley Wimbledon 2004.jpg",
+        "credit": " · CC BY 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Tim_Henman_backhand_volley_Wimbledon_2004.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "photoYear": 2004,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Tim Henman backhand volley Wimbledon 2004.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Wimbledon|2004",
+      "tournament": "Wimbledon",
+      "year": 2004,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/573c980cb85529c7cd161fc8.webp",
+        "alt": "Maria Sharapova at Wimbledon (2004) (2).jpg",
+        "credit": " · CC BY 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Maria_Sharapova_at_Wimbledon_(2004)_(2).jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "photoYear": 2004,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Maria Sharapova at Wimbledon (2004) (2).jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "US Open|2004",
+      "tournament": "US Open",
+      "year": 2004,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/5c4e6ce0236117ec769f84ff.webp",
+        "alt": "Paradorn Srichaphan, Thai tennis player, at the US Open 2004.",
+        "credit": "Scott Klettke · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Paradorn_Srichaphan_US_Open_2004.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 2004,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Paradorn Srichaphan US Open 2004.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Wimbledon|2002",
+      "tournament": "Wimbledon",
+      "year": 2002,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/8448c928a20b011b027d9629.webp",
+        "alt": "Five Modern cast Wimbledon Lawn Tennis Championships Medals dating from AD 1978 to 2002 awarded to Peter Fleming. The four runners up medals are sterling silver and the semi finalist medal is copper alloy. Medal 1. Obverse: A classical female draped victory figure in front of a tennis net holding a victory on globe in her left hand and supporting a segmented globe with an equatorial laureate band between her right hand and right knee. Sunburst behind, scrolling foliate decoration below. Reverse: THE LAWN TENNIS CHAMPIONSHIPS / MEN'S DOUBLES / RUNNERS-UP / P. FLEMING / J. P. McENROE / 1978. Hallmarks: F S for Fattorini Sons, Birmingham assay office anchor, lion passant and date letter D (1978). Dimensions: diameter: 38.02mm; weight: 24.97g Medal 2. Obverse: A classical female draped victory figure in front of a tennis net holding a victory on globe in her left hand and supporting a segmented globe with an equatorial laureate band between her right hand and right knee. Sunburst behind, scrolling foliate decoration below. Reverse: THE LAWN TENNIS CHAMPIONSHIPS / GENTLEMEN'S DOUBLES / RUNNERS-UP / P. FLEMING / J. P. McENROE / 1982. Hallmarks: F S for Fattorini Sons, Birmingham assay office anchor, lion passant and date letter H (1982). Dimensions: diameter: 37.83mm; weight: 21.29g Medal 3. Obverse: A classical female draped victory figure in front of a tennis net holding a victory on globe in her left hand and supporting a segmented globe with an equatorial laureate band between her right hand and right knee. Sunburst behind, scrolling foliate decoration below. Reverse: THE LAWN TENNIS CHAMPIONSHIPS / GENTLEMEN'S DOUBLES / 1985 / SEMI-FINALISTS / P. FLEMING / J. P. Mc ENROE. Dimensions: diameter: 38.11mm; weight: 18.54g Medal 4. Obverse: A classical female draped victory figure in front of a tennis net holding a victory on globe in her left hand and supporting a segmented globe with an equatorial laureate band between her right hand and right knee. Sunburst behind, scrolling foliate decoration below. Reverse: THE LAWN TENNIS CHAMPIONSHIPS / GENTLEMEN'S DOUBLES / RUNNERS UP / P. FLEMING / G. DONNELLY / 1986. Hallmarks: F S for Fattorini Sons, Birmingham assay office anchor, lion passant and date letter K (1984). Dimensions: diameter: 37.94mm; weight: 21.22g Medal 5. Obverse: A classical female draped victory figure in front of a tennis net holding a victory on globe in her left hand and supporting a segmented globe with an equatorial laureate band between her right hand and right knee. Sunburst behind, scrolling foliate decoration below. Reverse: THE LAWN TENNIS CHAMPIONSHIPS / 45 AND OVER / GENTLEMEN'S INVITATION / DOUBLES / RUNNERS UP / 2002. Hallmarks: T F for Thomas Fattorini, 925, Birmingham assay office anchor, lion passant and date letter b (2001). Dimensions: diameter: 37.78mm; weight: 26.89g",
+        "credit": "The Portable Antiquities Scheme, Stuart Wyatt, 2020-09-09 15:57:16 · CC BY 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Wimbledon_Lawn_Tennis_Championships_Medal_AD_2002_(FindID_1010578-1115329).jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "photoYear": 2002,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Wimbledon Lawn Tennis Championships Medal AD 2002 (FindID 1010578-1115329).jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Roland Garros|2000",
+      "tournament": "Roland Garros",
+      "year": 2000,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/2d05d4accc9c230bf4d37d4e.webp",
+        "alt": "Marcelo Rios gjør seg klar til å serve i French Open 2000.",
+        "credit": "Asadnoy · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Marcelo_Rios_French_Open_2000.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2000,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Marcelo Rios French Open 2000.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Wimbledon|2000",
+      "tournament": "Wimbledon",
+      "year": 2000,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/0b3466b67853aaaaca6d9778.webp",
+        "alt": "Government Publishing Office U.S. Congress Senate Committee on Agriculture, Nutrition, and Forestry TO REVIEW THE AGRICULTURAL RISK PROTECTION ACT OF 2000 AND RELATED CROP INSURANCE ISSUES Date(s) Held: 2005-06-28 109th Congress, 1st Session GPO Document Source: a href=\" https://www.gpo.gov/fdsys/pkg/CHRG-109shrg22647/content-detail.html \" rel=\"nofollow\" CHRG-109shrg22647 /a Superintendents of Documents ID: Y 4.AG 8/3 Witnesses: Babcock, A. Bruce, Director, Center for Agriculture and Rural Development, Iowa State University, Ames, Iowa Brichler, Ron, American Association of Crop Insurers, Cincinnati, Ohio Buttars, Ray, Chairman, Domestic Policy Committee, National Association of Wheat Growers, Weston, Idaho Collins, Keith, Chief Economist, U.S. Department of Agriculture, Washington, DC Clemens, Mike, Wimbledon, North Dakota, on behalf of the American Soybean Association National Sunflower Association and U.S. Canola Association Davidson, Ross J. JR., Administrator, Risk Management Agency, U.S. Department of Agriculture, Washington, DC Little, Bert, Assistant Vice President for Research and Professor of Computer Science and Mathmatics, Tarleton State University, Stevenville, Texas Nielson, Norman A., On Behalf of the Independent Insurance Agents Brokers of America, Preston, Iowa Rose, Billy, President and Chief Executive Officer Crop Insurance, Urbandale, Iowa Related Items: Subjects: 109th;Senate",
+        "credit": "Committee on Agriculture, Nutrition, and Forestry · Public domain",
+        "source": "https://commons.wikimedia.org/wiki/File:TO_REVIEW_THE_AGRICULTURAL_RISK_PROTECTION_ACT_OF_2000_AND_RELATED_CROP_INSURANCE_ISSUES_(IA_gov.gpo.fdsys.CHRG-109shrg22647).pdf",
+        "photoYear": 2000,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "TO REVIEW THE AGRICULTURAL RISK PROTECTION ACT OF 2000 AND RELATED CROP INSURANCE ISSUES (IA gov.gpo.fdsys.CHRG-109shrg22647).pdf",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "WTA Finals|2025",
+      "tournament": "WTA Finals",
+      "year": 2025,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/99a9165f057b48b47066559b.webp",
+        "alt": "13 November 2025; Caroline Garcia, Professional Tennis Player, WTA Finals champion Co-host Tennis Insider Club, on Sport Summit Stage during day three of Web Summit 2025 at the MEO Arena in Lisbon, Portugal. Photo by Shauna Clinton/Web Summit via Sportsfile",
+        "credit": "Web Summit · CC BY 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Caroline_Garcia_during_the_Web_Summit_2025_at_the_MEO_Arena_in_Lisbon,_Portugal.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "photoYear": 2025,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Caroline Garcia during the Web Summit 2025 at the MEO Arena in Lisbon, Portugal.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Indian Wells|2025",
+      "tournament": "Indian Wells",
+      "year": 2025,
+      "tours": [
+        "atp",
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/e193b662f25b70abd9730699.webp",
+        "alt": "View southeast from the Indian Wells Overlook along the Mid-State Trail within Rothrock State Forest in Harris Township, Centre County, Pennsylvania",
+        "credit": "Famartin · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:2025-08-31_11_23_40_View_southeast_from_the_Indian_Wells_Overlook_along_the_Mid-State_Trail_within_Rothrock_State_Forest_in_Harris_Township,_Centre_County,_Pennsylvania.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2025,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "2025-08-31 11 23 40 View southeast from the Indian Wells Overlook along the Mid-State Trail within Rothrock State Forest in Harris Township, Centre County, Pennsylvania.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Indian Wells|2024",
+      "tournament": "Indian Wells",
+      "year": 2024,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/6c68e698f5f93b9e91e66b71.webp",
+        "alt": "Sebastian Korda practicing heading a soccer ball at Indian Wells 2024.",
+        "credit": "Pahcal123 · CC BY 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Sebastian_Korda_heading_a_soccer_ball_Indian_Wells_2024.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "photoYear": 2024,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Sebastian Korda heading a soccer ball Indian Wells 2024.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Monte Carlo|2023",
+      "tournament": "Monte Carlo",
+      "year": 2023,
+      "tours": [
+        "atp",
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/7fde33721b6e4d6015eb9557.webp",
+        "alt": "Un match de double sur le Court des Princes de Monte Carlo en 2023.",
+        "credit": "LHC88 · CC BY 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Court_des_Princes_2023.png",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "photoYear": 2023,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Court des Princes 2023.png",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "ATP Finals|2022",
+      "tournament": "ATP Finals",
+      "year": 2022,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/6b05221e8f6cf4e8520c9037.webp",
+        "alt": "Lorenzo Musetti in the match with Dominic Stricker for Next Generation ATP Finals 2022.",
+        "credit": "Saggittarius A · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Lorenzo_Musetti_2022_Milano_3.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2022,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Lorenzo Musetti 2022 Milano 3.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Monte Carlo|2022",
+      "tournament": "Monte Carlo",
+      "year": 2022,
+      "tours": [
+        "atp",
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/b09ee508275da92eeea7a6b6.webp",
+        "alt": "2 November 2022; Speakers from left, Andrey Khusid, Miro; Barr Moses, Monte Carlo; Andy Serwer, Yahoo Finance on Centre stage during day one of Web Summit 2022 at the Altice Arena in Lisbon, Portugal. Photo by Ramsey Cardy/Web Summit via Sportsfile",
+        "credit": "Web Summit · CC BY 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:2022_-_Centre_Stage_RC1_5354_(52472843243).jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "photoYear": 2022,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "2022 - Centre Stage RC1 5354 (52472843243).jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Miami|2019",
+      "tournament": "Miami",
+      "year": 2019,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/7034883a400d651adf1cb4c9.webp",
+        "alt": "Daniil Medvedev at the 2019 Miami Open",
+        "credit": "LacosteWiki · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Danill_Medvedev_Miami_2019.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2019,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Danill Medvedev Miami 2019.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Canada|2018",
+      "tournament": "Canada",
+      "year": 2018,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/f20335a715701269ef16e4a7.webp",
+        "alt": "Golfer Brooke Henderson , upon winning the 2018 CP Canadian Women's Open Championship on 26 August 2018",
+        "credit": "Peter Kirkpatrick, photographer · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Brooke_Henderson_2018_Canadian_Open.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2018,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Brooke Henderson 2018 Canadian Open.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Madrid|2017",
+      "tournament": "Madrid",
+      "year": 2017,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/eef30c3d01af95def82a06da.webp",
+        "alt": "El tenista español Rafa Nadal se ha alzado con la victoria en la final del Mutua Madrid Open 2017 ante el austríaco Dominic Thiem. Ha sido en La Caja Mágica en dos sets: 7-6 y 6-4, tras casi tres horas de partido. Es el tercer título de Nadal de 2017 tras Montecarlo y el Godó. La alcaldesa de Madrid, Manuela Carmena, ha hecho entrega del premio al deportista mallorquín, que ha conquistado su quinto Open de Madrid.",
+        "credit": "Diario de Madrid · CC BY 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Entrega_de_premios_del_Mutua_Madrid_Open_2017_02.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "photoYear": 2017,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Entrega de premios del Mutua Madrid Open 2017 02.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Paris|2017",
+      "tournament": "Paris",
+      "year": 2017,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/0fc8e6ead1e4d0f595bf8ff5.webp",
+        "alt": "huitième de finale entre John Ismer et Grigor Dimitrov au Rolex Paris Masters 2017",
+        "credit": "Xenophôn · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Match_entre_John_Isner_et_Grigor_Dimiotrov_au_Rolex_Paris_Masters_2017.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2017,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Match entre John Isner et Grigor Dimiotrov au Rolex Paris Masters 2017.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Miami|2015",
+      "tournament": "Miami",
+      "year": 2015,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/1a5a81c0ba35aa4903126db0.webp",
+        "alt": "The 2015 Miami Open women's final",
+        "credit": "Christophe95 · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Serena_Williams-Carla_Su%C3%A1rez_Navarro_2015_Miami_Open.JPG",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2015,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Serena Williams-Carla Suárez Navarro 2015 Miami Open.JPG",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Miami|2015",
+      "tournament": "Miami",
+      "year": 2015,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/2838a4ca245e90484324b2de.webp",
+        "alt": "Tim Smyczek (6)",
+        "credit": "JC · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:2015_Miami_Open_Tim_Smyczek_(6)_(16942027436).jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 2015,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "2015 Miami Open Tim Smyczek (6) (16942027436).jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Madrid|2015",
+      "tournament": "Madrid",
+      "year": 2015,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/81762f882f801ef349ab168c.webp",
+        "alt": "Javier Martí at the Madrid Open 2015, Madrid, Spain.",
+        "credit": "Carlos Delgado · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Javier_Mart%C3%AD_-_Masters_de_Madrid_2015_-_03.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2015,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Javier Martí - Masters de Madrid 2015 - 03.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Madrid|2015",
+      "tournament": "Madrid",
+      "year": 2015,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/6b87a12526986c9141cd3989.webp",
+        "alt": "Andreea Mitu at the Madrid Open 2015, Madrid, Spain.",
+        "credit": "Carlos Delgado · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Andreea_Mitu_-_Masters_de_Madrid_2015_-_11.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2015,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Andreea Mitu - Masters de Madrid 2015 - 11.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Cincinnati|2015",
+      "tournament": "Cincinnati",
+      "year": 2015,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/993418b470ad1503318099b1.webp",
+        "alt": "Cincinnati-Tennis-2015-ATP-WTA-150",
+        "credit": "Eleodor · CC BY 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Federer_and_Djokovic_Cincinnati_Masters_2015.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "photoYear": 2015,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Federer and Djokovic Cincinnati Masters 2015.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Wimbledon|1994",
+      "tournament": "Wimbledon",
+      "year": 1994,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/64c92f5c4e35ca201bea3f3a.webp",
+        "alt": "With Wimbledon over for another year, I have been checking that I have documented all my tournament memorabilia. This sticker has adorned our filing cabinet since 1994 and for some reason I have never photographed it! Checking whether that could have been the year I was forced to buy the big Wimbledon umbrella, Google tells me that \"Yes, it did rain during the 1994 Wimbledon Championships. The wet weather caused a few notable disruptions throughout the fortnight, most famously during the shocking first-round women's singles match where defending champion Steffi Graf was upset by Lori McNeil, which was interrupted by two rain delays\"",
+        "credit": "Amanda Slater · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:1994_%E2%80%9CI%E2%80%99ve_queued_at_Wimbledon%E2%80%9D_sticker.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 1994,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "1994 “I’ve queued at Wimbledon” sticker.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Wimbledon|1991",
+      "tournament": "Wimbledon",
+      "year": 1991,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/0c48b54819c87239e7461cdb.webp",
+        "alt": "Jimmy Connors at Wimbledon 1991",
+        "credit": "Barry Shimmon · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Jimmy_Connors_at_Wimbledon_1991_-_geograph.org.uk_-_5019428.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 1991,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Jimmy Connors at Wimbledon 1991 - geograph.org.uk - 5019428.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "US Open|1989",
+      "tournament": "US Open",
+      "year": 1989,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/aceab5a80a42424afd093b63.webp",
+        "alt": "the guy in the shades was the president of Head and the woman in the middle was an old friend of his from Plano TX. My winning wit had charmed the two of them, along with her husband, the night before at Sfuzzi, and they invited me to join them at the Open. We were sitting right in back of Arthur Ashe.",
+        "credit": "Karen Green · CC BY-SA 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:At_the_1989_US_Open_with_new_(and_short-lived)_friends.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "photoYear": 1989,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "At the 1989 US Open with new (and short-lived) friends.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Wimbledon|1988",
+      "tournament": "Wimbledon",
+      "year": 1988,
+      "tours": [
+        "atp",
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/6e13e1d8b603dcf09036eda7.webp",
+        "alt": "Centre Court at Wimbledon in 1988",
+        "credit": "Yottanesia · CC BY-SA 3.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Centre_Court_Wimbledon_1988.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "photoYear": 1988,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Centre Court Wimbledon 1988.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Barcelona|2023",
+      "tournament": "Barcelona",
+      "year": 2023,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/248f6c6955c1469c8c4973ab.webp",
+        "alt": "Forehand, Chilean No 1 player",
+        "credit": "Gordons203 · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Nicol%C3%A1s_Jarry_Sabadell_Barcelona_Open_2023_(Pic_Gordon_Simmonds).jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2023,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Nicolás Jarry Sabadell Barcelona Open 2023 (Pic Gordon Simmonds).jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Basel|2025",
+      "tournament": "Basel",
+      "year": 2025,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/562d16e37ecd4c870249bf0e.webp",
+        "alt": "Valtin Vacherot in the round of 32 against Taylor Fritz at the Swiss Indoors Basel 2025.",
+        "credit": "Peter Arnold · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Valtin_Vacherot_in_the_round_of_32_against_Taylor_Fritz_at_the_Swiss_Indoors_Basel_2025..jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2025,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Valtin Vacherot in the round of 32 against Taylor Fritz at the Swiss Indoors Basel 2025..jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Queen's Club|2025",
+      "tournament": "Queen's Club",
+      "year": 2025,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/314599c472988baeaefa5517.webp",
+        "alt": "Emma Raducanu at the HSBC WTA Queens Club Championships 2025",
+        "credit": "Akhofi · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Emma_Raducanu_Queens_2025.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2025,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Emma Raducanu Queens 2025.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Beijing|2025",
+      "tournament": "Beijing",
+      "year": 2025,
+      "tours": [
+        "wta"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/2a3a4ff8b8a6541624272f12.webp",
+        "alt": "Women’s Singles Final at the VICTOR China Open 2025 Women’s Singles Final — Sunday, July 27, 2025 Champion: Wang Zhiyi (China, 2nd seed) Runner-up: Han Yue (China, 4th seed) Final Score: 21–8, 21–13 in favor of Wang Zhiyi WangZhiyi #HanYue #VictorChinaOpen2025 ChinaOpen2025 #BWF2025 #WomensSinglesFinal ChineseBadminton #BadmintonChampion #changzhou WangsMasterclass #FinalDominance #CourtControl AggressiveRallies #ComposedFinish #ChangzhouChampion FinalSmashes #BadmintonSkills #ChampionVibes WangZhiyi #HanYue #ChinaOpenWSFinal",
+        "credit": "Badminton Sphere · CC BY 3.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Wang_Zhiyi_triumph_in_all-Chinese_China_Open_finals_I_China_Open_2025.webm",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+        "photoYear": 2025,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Wang Zhiyi triumph in all-Chinese China Open finals I China Open 2025.webm",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Rotterdam|2024",
+      "tournament": "Rotterdam",
+      "year": 2024,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/af984d389ea1ffda56ef2905.webp",
+        "alt": "Thijs Boogaard op het ABN AMRO Open in Rotterdam (2024)",
+        "credit": "Unknown author Unknown author · CC BY 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Thijs_Boogaard_Rotterdam_2024-3.png",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "photoYear": 2024,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Thijs Boogaard Rotterdam 2024-3.png",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Basel|2024",
+      "tournament": "Basel",
+      "year": 2024,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/c70e9f4353aa7ad4222ab72a.webp",
+        "alt": "Giovanni Mpetshi Perricard, Sieger Swiss Indoors Basel 2024",
+        "credit": "Peter Arnold · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Giovanni_Mpetshi_Perricard,_Sieger_Swiss_Indoors_Basel_2024.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2024,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Giovanni Mpetshi Perricard, Sieger Swiss Indoors Basel 2024.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Basel|2023",
+      "tournament": "Basel",
+      "year": 2023,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/dc9c242e026537fefb97ac78.webp",
+        "alt": "Félix Auger-Aliassime, Swiss Indoors Basel 2023",
+        "credit": "Peter Arnold · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:F%C3%A9lix_Auger-Aliassime,_Swiss_Indoors_Basel_2023.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2023,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Félix Auger-Aliassime, Swiss Indoors Basel 2023.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    },
+    {
+      "key": "Basel|2022",
+      "tournament": "Basel",
+      "year": 2022,
+      "tours": [
+        "atp"
+      ],
+      "photo": {
+        "src": "/images/tournament-library/bf1e2d77ec8423860c124d48.webp",
+        "alt": "Halbfinalist Carlos Alcaraz, Swiss Indoors Basel 2022",
+        "credit": "Peter Arnold · CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Carlos_Alcaraz,_Swiss_Indoors_Basel_2022.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "photoYear": 2022,
+        "objectPosition": "50% 45%",
+        "mobileObjectPosition": "50% 40%"
+      },
+      "sourceTitle": "Carlos Alcaraz, Swiss Indoors Basel 2022.jpg",
+      "validation": "explicit tournament/year in source metadata; circuit from named player or event; visual review required"
+    }
+  ],
+  "searched": [
+    "Wimbledon|2025",
+    "US Open|2025",
+    "Australian Open|2024",
+    "Wimbledon|2024",
+    "Australian Open|2022",
+    "Roland Garros|2022",
+    "US Open|2022",
+    "Australian Open|2021",
+    "Roland Garros|2021",
+    "Wimbledon|2021",
+    "US Open|2021",
+    "Australian Open|2020",
+    "Roland Garros|2020",
+    "Wimbledon|2020",
+    "US Open|2020",
+    "Australian Open|2019",
+    "Roland Garros|2019",
+    "Wimbledon|2019",
+    "US Open|2019",
+    "Australian Open|2018",
+    "Roland Garros|2018",
+    "Wimbledon|2018",
+    "US Open|2018",
+    "Australian Open|2017",
+    "Roland Garros|2017",
+    "Wimbledon|2017",
+    "US Open|2017",
+    "Australian Open|2016",
+    "Roland Garros|2016",
+    "Wimbledon|2016",
+    "US Open|2016",
+    "Australian Open|2015",
+    "Roland Garros|2015",
+    "Wimbledon|2015",
+    "US Open|2015",
+    "Australian Open|2014",
+    "Roland Garros|2014",
+    "Wimbledon|2014",
+    "US Open|2014",
+    "Australian Open|2013",
+    "Roland Garros|2013",
+    "Wimbledon|2013",
+    "US Open|2013",
+    "Australian Open|2012",
+    "Roland Garros|2012",
+    "Wimbledon|2012",
+    "US Open|2012",
+    "Australian Open|2011",
+    "Roland Garros|2011",
+    "Wimbledon|2011",
+    "US Open|2011",
+    "Australian Open|2010",
+    "Roland Garros|2010",
+    "Wimbledon|2010",
+    "US Open|2010",
+    "Australian Open|2009",
+    "Roland Garros|2009",
+    "Wimbledon|2009",
+    "US Open|2009",
+    "Australian Open|2008",
+    "Roland Garros|2008",
+    "Wimbledon|2008",
+    "US Open|2008",
+    "Australian Open|2007",
+    "Roland Garros|2007",
+    "Wimbledon|2007",
+    "US Open|2007",
+    "Australian Open|2006",
+    "Roland Garros|2006",
+    "Wimbledon|2006",
+    "US Open|2006",
+    "Australian Open|2005",
+    "Roland Garros|2005",
+    "Wimbledon|2005",
+    "US Open|2005",
+    "Australian Open|2004",
+    "Roland Garros|2004",
+    "Wimbledon|2004",
+    "US Open|2004",
+    "Australian Open|2003",
+    "Roland Garros|2003",
+    "Wimbledon|2003",
+    "US Open|2003",
+    "Australian Open|2002",
+    "Roland Garros|2002",
+    "Wimbledon|2002",
+    "US Open|2002",
+    "Australian Open|2001",
+    "Roland Garros|2001",
+    "Wimbledon|2001",
+    "US Open|2001",
+    "Australian Open|2000",
+    "Roland Garros|2000",
+    "Wimbledon|2000",
+    "US Open|2000",
+    "ATP Finals|2025",
+    "WTA Finals|2025",
+    "Indian Wells|2025",
+    "Monte Carlo|2025",
+    "Madrid|2025",
+    "Rome|2025",
+    "Canada|2025",
+    "Shanghai|2025",
+    "Paris|2025",
+    "ATP Finals|2024",
+    "WTA Finals|2024",
+    "Indian Wells|2024",
+    "Miami|2024",
+    "Monte Carlo|2024",
+    "Madrid|2024",
+    "Rome|2024",
+    "Canada|2024",
+    "Shanghai|2024",
+    "Paris|2024",
+    "ATP Finals|2023",
+    "WTA Finals|2023",
+    "Indian Wells|2023",
+    "Monte Carlo|2023",
+    "Madrid|2023",
+    "Rome|2023",
+    "Canada|2023",
+    "Cincinnati|2023",
+    "Shanghai|2023",
+    "Paris|2023",
+    "ATP Finals|2022",
+    "WTA Finals|2022",
+    "Indian Wells|2022",
+    "Miami|2022",
+    "Monte Carlo|2022",
+    "Madrid|2022",
+    "Rome|2022",
+    "Canada|2022",
+    "Cincinnati|2022",
+    "Shanghai|2022",
+    "Paris|2022",
+    "ATP Finals|2021",
+    "WTA Finals|2021",
+    "Indian Wells|2021",
+    "Miami|2021",
+    "Monte Carlo|2021",
+    "Madrid|2021",
+    "Rome|2021",
+    "Canada|2021",
+    "Cincinnati|2021",
+    "Shanghai|2021",
+    "Paris|2021",
+    "ATP Finals|2020",
+    "WTA Finals|2020",
+    "Indian Wells|2020",
+    "Miami|2020",
+    "Monte Carlo|2020",
+    "Madrid|2020",
+    "Rome|2020",
+    "Canada|2020",
+    "Cincinnati|2020",
+    "Shanghai|2020",
+    "Paris|2020",
+    "ATP Finals|2019",
+    "WTA Finals|2019",
+    "Indian Wells|2019",
+    "Miami|2019",
+    "Monte Carlo|2019",
+    "Madrid|2019",
+    "Rome|2019",
+    "Canada|2019",
+    "Cincinnati|2019",
+    "Shanghai|2019",
+    "Paris|2019",
+    "ATP Finals|2018",
+    "WTA Finals|2018",
+    "Indian Wells|2018",
+    "Miami|2018",
+    "Monte Carlo|2018",
+    "Madrid|2018",
+    "Rome|2018",
+    "Canada|2018",
+    "Cincinnati|2018",
+    "Shanghai|2018",
+    "Paris|2018",
+    "ATP Finals|2017",
+    "WTA Finals|2017",
+    "Indian Wells|2017",
+    "Miami|2017",
+    "Monte Carlo|2017",
+    "Madrid|2017",
+    "Rome|2017",
+    "Canada|2017",
+    "Cincinnati|2017",
+    "Shanghai|2017",
+    "Paris|2017",
+    "ATP Finals|2016",
+    "WTA Finals|2016",
+    "Indian Wells|2016",
+    "Miami|2016",
+    "Monte Carlo|2016",
+    "Madrid|2016",
+    "Rome|2016",
+    "Canada|2016",
+    "Cincinnati|2016",
+    "Shanghai|2016",
+    "Paris|2016",
+    "ATP Finals|2015",
+    "WTA Finals|2015",
+    "Indian Wells|2015",
+    "Miami|2015",
+    "Monte Carlo|2015",
+    "Madrid|2015",
+    "Rome|2015",
+    "Canada|2015",
+    "Cincinnati|2015",
+    "Shanghai|2015",
+    "Paris|2015",
+    "Australian Open|1999",
+    "Roland Garros|1999",
+    "Wimbledon|1999",
+    "US Open|1999",
+    "Australian Open|1998",
+    "Roland Garros|1998",
+    "Wimbledon|1998",
+    "US Open|1998",
+    "Australian Open|1997",
+    "Roland Garros|1997",
+    "Wimbledon|1997",
+    "US Open|1997",
+    "Australian Open|1996",
+    "Roland Garros|1996",
+    "Wimbledon|1996",
+    "US Open|1996",
+    "Australian Open|1995",
+    "Roland Garros|1995",
+    "Wimbledon|1995",
+    "US Open|1995",
+    "Australian Open|1994",
+    "Roland Garros|1994",
+    "Wimbledon|1994",
+    "US Open|1994",
+    "Australian Open|1993",
+    "Roland Garros|1993",
+    "Wimbledon|1993",
+    "US Open|1993",
+    "Australian Open|1992",
+    "Roland Garros|1992",
+    "Wimbledon|1992",
+    "US Open|1992",
+    "Australian Open|1991",
+    "Roland Garros|1991",
+    "Wimbledon|1991",
+    "US Open|1991",
+    "Australian Open|1990",
+    "Roland Garros|1990",
+    "Wimbledon|1990",
+    "US Open|1990",
+    "Australian Open|1989",
+    "Roland Garros|1989",
+    "Wimbledon|1989",
+    "US Open|1989",
+    "Australian Open|1988",
+    "Roland Garros|1988",
+    "Wimbledon|1988",
+    "US Open|1988",
+    "Barcelona|2025",
+    "Rotterdam|2025",
+    "Dubai|2025",
+    "Acapulco|2025",
+    "Basel|2025",
+    "Vienna|2025",
+    "Halle|2025",
+    "Stuttgart|2025",
+    "Queen's Club|2025",
+    "Tokyo|2025",
+    "Beijing|2025",
+    "Brisbane|2025",
+    "Auckland|2025",
+    "Doha|2025",
+    "Barcelona|2024",
+    "Rotterdam|2024",
+    "Dubai|2024",
+    "Acapulco|2024",
+    "Basel|2024",
+    "Vienna|2024",
+    "Halle|2024",
+    "Stuttgart|2024",
+    "Queen's Club|2024",
+    "Tokyo|2024",
+    "Beijing|2024",
+    "Brisbane|2024",
+    "Auckland|2024",
+    "Doha|2024",
+    "Barcelona|2023",
+    "Rotterdam|2023",
+    "Dubai|2023",
+    "Acapulco|2023",
+    "Basel|2023",
+    "Vienna|2023",
+    "Halle|2023",
+    "Stuttgart|2023",
+    "Queen's Club|2023",
+    "Tokyo|2023",
+    "Beijing|2023",
+    "Brisbane|2023",
+    "Auckland|2023",
+    "Doha|2023",
+    "Barcelona|2022",
+    "Rotterdam|2022",
+    "Dubai|2022",
+    "Acapulco|2022",
+    "Basel|2022",
+    "Vienna|2022",
+    "Halle|2022",
+    "Stuttgart|2022",
+    "Queen's Club|2022",
+    "Tokyo|2022",
+    "Beijing|2022",
+    "Brisbane|2022",
+    "Auckland|2022",
+    "Doha|2022",
+    "Barcelona|2021",
+    "Rotterdam|2021",
+    "Dubai|2021",
+    "Acapulco|2021"
+  ],
+  "errors": [],
+  "updatedAt": "2026-11-12T08:16:10.843Z"
+}

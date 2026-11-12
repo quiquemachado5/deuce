@@ -1,0 +1,431 @@
+[
+  {
+    "tournament": "Dubai",
+    "year": 2013,
+    "tour": "wta",
+    "cms": {
+      "id": 1405843,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Kvitova picked up a straight sets win in Dubai in 2013, 6-2, 6-4 (Getty)",
+      "description": null,
+      "date": "2019-10-08T17:06:47Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1570554407515,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1570554407119,
+      "titleUrlSegment": "kvitova-picked-up-a-straight-sets-win-in-dubai-in-2013-6-2-6-4-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/6e50111b-87fe-420b-a939-dc9044f11ef4/TNaypjEB.jpg",
+      "originalDetails": {
+        "width": 2800,
+        "height": 1520,
+        "aspectRatio": 1.8421053
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/08/6e50111b-87fe-420b-a939-dc9044f11ef4/TNaypjEB.jpg"
+    }
+  },
+  {
+    "tournament": "Dubai",
+    "year": 2020,
+    "tour": "wta",
+    "cms": {
+      "id": 1646438,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Simona Halep - 2020 Dubai",
+      "description": null,
+      "date": "2020-03-17T21:39:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1584481186030,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 314320,
+          "type": "TENNIS_PLAYER",
+          "sid": "314320"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Jimmie48 Photography/WTA"
+      },
+      "titleTranslations": null,
+      "lastModified": 1584481266095,
+      "titleUrlSegment": null,
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2020/03/17/9caa499f-15aa-47fe-9d37-79f1b1586328/Simona_Halep_-_2020_Dubai_Duty_Free_Tennis_Championships_-DSC_0675_original.jpg",
+      "originalDetails": {
+        "width": 4669,
+        "height": 3236,
+        "aspectRatio": 1.4428307
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2020/03/17/24e6ff10-b452-4956-a8ef-068ea42da6f1/Simona_Halep_-_2020_Dubai_Duty_Free_Tennis_Championships_-DSC_0675_original.jpg"
+    }
+  },
+  {
+    "tournament": "Indian Wells",
+    "year": 2015,
+    "tour": "wta",
+    "cms": {
+      "id": 1645860,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Simona Halep and Jelena Jankovic, Indian Wells 2015 (Getty)",
+      "description": "",
+      "date": "2020-03-16T12:55:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1584363332377,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": {
+        "credit": "Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1584363520099,
+      "titleUrlSegment": null,
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": "",
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2020/03/16/7ede3c59-788e-41fc-8bce-8ab650a2a562/GettyImages-467268986.jpg",
+      "originalDetails": {
+        "width": 3816,
+        "height": 2544,
+        "aspectRatio": 1.5
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2020/03/16/de5ea063-f3eb-4f84-a305-aa429bce6845/GettyImages-467268986.jpg"
+    }
+  },
+  {
+    "tournament": "Indian Wells",
+    "year": 2021,
+    "tour": "wta",
+    "cms": {
+      "id": 2416346,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Victoria Azarenka, Indian Wells 2021",
+      "description": null,
+      "date": "2021-12-15T08:01:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1639555300694,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 609,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "609"
+        },
+        {
+          "label": null,
+          "id": 312001,
+          "type": "TENNIS_PLAYER",
+          "sid": "312001"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1639555468148,
+      "titleUrlSegment": "azarenka-qf-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2021/12/15/1af3d424-2898-4dfd-bddb-ef76a0049691/Azarenka-QF-Getty.jpg",
+      "originalDetails": {
+        "width": 4227,
+        "height": 2818,
+        "aspectRatio": 1.5
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2021/12/15/8de15909-7d0d-48fe-80b9-416fbb5093a5/Azarenka-QF-Getty.jpg"
+    }
+  },
+  {
+    "tournament": "Indian Wells",
+    "year": 2025,
+    "tour": "wta",
+    "cms": {
+      "id": 4233117,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Iga Swiatek, Mirra Andreeva - Indian Wells 2025",
+      "description": null,
+      "date": "2025-03-14T08:37:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1741941440738,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 609,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "609"
+        },
+        {
+          "label": null,
+          "id": 331809,
+          "type": "TENNIS_PLAYER",
+          "sid": "331809"
+        },
+        {
+          "label": null,
+          "id": 326408,
+          "type": "TENNIS_PLAYER",
+          "sid": "326408"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Frey/TPN/Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1741941494929,
+      "titleUrlSegment": "swiatek-andreeva-rr",
+      "visibilityOrder": [],
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2025/03/14/4804e9df-8d68-4dcf-852b-4d3f9d3ecb5f/Swiatek-Andreeva-RR.png",
+      "originalDetails": {
+        "width": 1440,
+        "height": 1080,
+        "aspectRatio": 1.3333334
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2025/03/14/031041bc-7920-4603-8949-4139030177de/Swiatek-Andreeva-RR.png"
+    }
+  },
+  {
+    "tournament": "Madrid",
+    "year": 2022,
+    "tour": "wta",
+    "cms": {
+      "id": 2593210,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Aryna Sabalenka, Madrid 2022",
+      "description": null,
+      "date": "2022-04-27T09:39:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1651052364976,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 320760,
+          "type": "TENNIS_PLAYER",
+          "sid": "320760"
+        },
+        {
+          "label": null,
+          "id": 1038,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "1038"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Jimmie48/WTA"
+      },
+      "titleTranslations": null,
+      "lastModified": 1651052422712,
+      "titleUrlSegment": "sabalenka-practice-jimmie",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2022/04/27/6d758a56-2b3e-4f08-b53d-151ba0ed2a71/Sabalenka-practice-Jimmie.jpg",
+      "originalDetails": {
+        "width": 4700,
+        "height": 2990,
+        "aspectRatio": 1.5719063
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2022/04/27/70657959-c0b6-42ea-9f0f-7b9b35b2907d/Sabalenka-practice-Jimmie.jpg"
+    }
+  },
+  {
+    "tournament": "Miami",
+    "year": 2021,
+    "tour": "wta",
+    "cms": {
+      "id": 2091070,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Barty - 2021 Miami SF",
+      "description": null,
+      "date": "2021-04-03T18:09:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1617473368635,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 902,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "902"
+        },
+        {
+          "label": null,
+          "id": 318033,
+          "type": "TENNIS_PLAYER",
+          "sid": "318033"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Miami Open/Peter Staples"
+      },
+      "titleTranslations": null,
+      "lastModified": 1617473779199,
+      "titleUrlSegment": "20210401_mo_ps6_4783_e",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2021/04/03/00be48d3-138d-44e2-8ff8-5cead103073f/20210401_MO_PS6_4783_E.JPG",
+      "originalDetails": {
+        "width": 5568,
+        "height": 3712,
+        "aspectRatio": 1.5
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2021/04/03/065ecbdc-c3b5-4d50-8437-1c1658659b69/20210401_MO_PS6_4783_E.JPG"
+    }
+  },
+  {
+    "tournament": "Miami",
+    "year": 2023,
+    "tour": "wta",
+    "cms": {
+      "id": 3123125,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Aryna Sabalenka Miami 2023",
+      "description": null,
+      "date": "2023-03-28T03:56:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1679975794652,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": {
+        "credit": "WTA/Jimmie48"
+      },
+      "titleTranslations": null,
+      "lastModified": 1679977041893,
+      "titleUrlSegment": "aryna_sabalenka_-_2023_miami_open_-_day_6-dsc_2163",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2023/03/28/25a22466-9484-47cd-a181-e988eadc40eb/Aryna_Sabalenka_-_2023_Miami_Open_-_Day_6-DSC_2163.jpg",
+      "originalDetails": {
+        "width": 4700,
+        "height": 3257,
+        "aspectRatio": 1.4430457
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2023/03/28/8b55e370-9748-4024-97e9-cb57c3a4522d/Aryna_Sabalenka_-_2023_Miami_Open_-_Day_6-DSC_2163.jpg"
+    }
+  }
+]

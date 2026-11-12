@@ -3,6 +3,20 @@ import { eligibleMatch } from './quality';
 import { chronological, roundPosition, winnerName } from './editorial';
 import { buildSeasonAnalytics } from './season-analytics';
 
+/** Editorial priority within the last 45 days; recency wins inside each tier. */
+export function homeRecentResults(matches:Match[],today=new Date()){
+  const priority=(category:string)=>category==='Grand Slam'?0:['Masters 1000','WTA 1000'].includes(category)?1:['ATP 500','WTA 500'].includes(category)?2:3;
+  const end=today.getTime(),start=end-45*86400000;
+  const eligible=matches.filter(match=>match.data_source!=='mock'&&eligibleMatch(match));
+  const dated=eligible.filter(match=>{const stamp=Date.parse(match.context?.date||'');return stamp>=start&&stamp<=end;});
+  const pool=(dated.length?dated:[...eligible].sort((a,b)=>chronological(b,a)).slice(0,24))
+    .sort((a,b)=>priority(a.category)-priority(b.category)||chronological(b,a));
+  const chosen=(['atp','wta'] as const).flatMap(tour=>pool.filter(match=>(match.tour||'atp')===tour).slice(0,3));
+  const ids=new Set(chosen.map(match=>match.match_id));
+  return [...chosen,...pool.filter(match=>!ids.has(match.match_id)).slice(0,Math.max(0,6-chosen.length))]
+    .sort((a,b)=>priority(a.category)-priority(b.category)||chronological(b,a));
+}
+
 export function prepareCircuitHome(matches: Match[]) {
   const summary = (tour: 'atp'|'wta') => {
     const rows=matches.filter(m=>(m.tour||'atp')===tour&&m.data_source!=='mock'&&eligibleMatch(m));

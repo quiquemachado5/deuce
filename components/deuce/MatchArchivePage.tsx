@@ -1,11 +1,9 @@
 import Link from 'next/link';
-import IntentLink from '@/components/IntentLink';
-import { ArrowRight, Check } from 'lucide-react';
-import PlayerFlag from '@/components/PlayerFlag';
 import type { MatchRecord } from '@/types/deuce';
-import { resolvedSetClosed, resolvedWinner } from '@/lib/deuce-score';
+import { MatchScoreboard } from './MatchScoreboard';
 import { matchDatePresentation } from '@/lib/match-date';
 import styles from '@/app/buscar/search.module.css';
+import { ChevronDown } from 'lucide-react';
 
 function matchDate(match: MatchRecord) {
   return matchDatePresentation({
@@ -16,29 +14,8 @@ function matchDate(match: MatchRecord) {
   });
 }
 
-export function ArchiveMatchRow({ match, showContext = false, showTournamentContext = false, showAction = false, prefetch = false }: { match: MatchRecord; showContext?: boolean; showTournamentContext?: boolean; showAction?: boolean; prefetch?: boolean }) {
-  const winner = resolvedWinner(match);
-  const date = matchDate(match);
-  return <IntentLink className={styles.archiveMatch} data-tour={match.tour} href={match.href} prefetch={prefetch}>
-    {showTournamentContext ? <div className={`${styles.archiveMatchContext} ${styles.archiveMatchContextProfile}`}><strong>{match.tournament}</strong><span>{match.round} · {date.long}</span></div> : showContext ? <div className={styles.archiveMatchContext}>{match.round} · {date.long}</div> : null}
-    {match.players.map((player, side) => <div className={styles.archivePlayerRow} data-winner={winner === side || undefined} key={player.id}>
-      <span className={styles.archivePlayer}>
-        <span className={styles.archiveFlag} aria-hidden="true"><PlayerFlag code={player.countryCode} /></span>
-        <strong>{player.name}</strong>
-        {winner === side ? <Check className={styles.archiveWinnerMark} size={15} strokeWidth={2.5} aria-label="Ganador" /> : null}
-      </span>
-      <span className={styles.archiveSets} aria-label={`Marcador de ${player.name}`}>
-        {Array.from({ length: 5 }, (_, index) => {
-          const offset = Math.max(0, 5 - match.sets.length);
-          const set = index >= offset ? match.sets[index - offset] : undefined;
-          const tieBreak = set?.tieBreak?.[side];
-          const setWon = Boolean(set && resolvedSetClosed(set) && set.games[side] > set.games[1 - side]);
-          return <span data-set-won={setWon || undefined} key={index}>{set ? set.games[side] : ''}{tieBreak != null ? <sup>{tieBreak}</sup> : null}</span>;
-        })}
-      </span>
-    </div>)}
-    {showAction ? <span className={styles.archiveMatchAction} aria-hidden="true"><ArrowRight size={16} strokeWidth={2.2} /></span> : null}
-  </IntentLink>;
+export function ArchiveMatchRow({match,prefetch=false}:{match:MatchRecord;showContext?:boolean;showTournamentContext?:boolean;showAction?:boolean;prefetch?:boolean}) {
+  return <MatchScoreboard match={match} prefetch={prefetch}/>;
 }
 
 export function ArchiveTournamentCard({ tournament, matches, totalMatches = matches.length, href, showContext = false }: { tournament: string; matches: MatchRecord[]; totalMatches?: number; href?: string; showContext?: boolean }) {
@@ -78,13 +55,13 @@ export function MatchArchivePage({ matches }: { matches: MatchRecord[] }) {
       const { date, matches: day } = group;
       const tournaments = new Map<string, MatchRecord[]>();
       for (const match of day) tournaments.set(match.tournament, [...(tournaments.get(match.tournament) || []), match]);
-      return <section className={styles.dayGroup} key={key}>
-        <header className={styles.groupHead}>
+      return <details className={styles.dayGroup} open key={key}>
+        <summary className={styles.groupHead}>
           <h2>{date.exact && date.dateTime ? <time dateTime={date.dateTime}><span className={styles.dateLong}>{date.long}</span><span className={styles.dateShort}>{date.short}</span></time> : <><span className={styles.dateLong}>{date.long}</span><span className={styles.dateShort}>{date.short}</span></>}</h2>
-          <p>{day.length} {day.length === 1 ? 'partido' : 'partidos'}</p>
-        </header>
+          <span className={styles.dayMeta}><span>{day.length} {day.length === 1 ? 'partido' : 'partidos'}</span><ChevronDown size={18} aria-hidden="true"/></span>
+        </summary>
         <div className={styles.archiveBoard}>{[...tournaments].map(([tournament, tournamentMatches]) => <ArchiveTournamentCard tournament={tournament} matches={tournamentMatches} key={tournament} />)}</div>
-      </section>;
+      </details>;
     })}
   </div>;
 }

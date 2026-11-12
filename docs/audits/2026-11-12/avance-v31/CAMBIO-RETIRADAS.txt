@@ -1,0 +1,5 @@
+Política local: resultados y estadísticas observadas incluyen retiradas con ganador documentado. Walkovers excluidos. Sets interrumpidos no se suman como ganados.
+Generación: 0cbdd15169d1bc6f3538
+152.191 resultados; 3.889 retiradas admitidas; 148.302 encuentros terminados.
+Verificación del archivo aprobada; 55 controles de investigación sin errores bloqueantes.
+El informe activo es pendientes.csv / informe-actual.json. No incluye las medidas completadas.

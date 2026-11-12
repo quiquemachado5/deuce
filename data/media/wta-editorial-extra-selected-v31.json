@@ -1,0 +1,819 @@
+[
+  {
+    "tournament": "Beijing",
+    "year": 2017,
+    "tour": "wta",
+    "cms": {
+      "id": 2754761,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Caroline Garcia Simona Halep 2017 Beijing",
+      "description": null,
+      "date": "2022-08-21T20:00:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1661112033059,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": {
+        "credit": "Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1661112103237,
+      "titleUrlSegment": "gettyimages-858943572",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2022/08/21/19c9b02a-24b2-4847-bfdd-b9677fa5f082/GettyImages-858943572.jpg",
+      "originalDetails": {
+        "width": 3000,
+        "height": 2136,
+        "aspectRatio": 1.4044944
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2022/08/21/70adcb0b-415a-4999-a623-e7f1fae06f87/GettyImages-858943572.jpg"
+    }
+  },
+  {
+    "tournament": "Charleston",
+    "year": 2002,
+    "tour": "wta",
+    "cms": {
+      "id": 4479916,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Iva Majoli, Charleston 2002",
+      "description": null,
+      "date": "2026-04-01T10:23:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1775038987926,
+      "publishTo": 0,
+      "tags": [
+        {
+          "id": 18263,
+          "label": "legend-profile-image"
+        }
+      ],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 130316,
+          "type": "TENNIS_PLAYER",
+          "sid": "130316"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Andy Lyons/Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1775039036613,
+      "titleUrlSegment": "gettyimages-1418297",
+      "visibilityOrder": [],
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2026/04/01/d8e35e35-6eb9-4cfb-be36-e7b05dae448c/GettyImages-1418297.jpg",
+      "originalDetails": {
+        "width": 1024,
+        "height": 728,
+        "aspectRatio": 1.4065934
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2026/04/01/e2063a9a-ec50-4599-9536-a8d630b6723c/GettyImages-1418297.jpg"
+    }
+  },
+  {
+    "tournament": "Charleston",
+    "year": 2006,
+    "tour": "wta",
+    "cms": {
+      "id": 4480228,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Nadia Petrova, Charleston 2006",
+      "description": null,
+      "date": "2026-04-01T19:41:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1775072469635,
+      "publishTo": 0,
+      "tags": [
+        {
+          "id": 18263,
+          "label": "legend-profile-image"
+        }
+      ],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 160379,
+          "type": "TENNIS_PLAYER",
+          "sid": "160379"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Andy Lyons/Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1775072552711,
+      "titleUrlSegment": "gettyimages-57347181",
+      "visibilityOrder": [],
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2026/04/01/ac44c34c-9507-4cc9-b454-a91b28dde783/GettyImages-57347181.jpg",
+      "originalDetails": {
+        "width": 3144,
+        "height": 2265,
+        "aspectRatio": 1.3880795
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2026/04/01/f6f43be3-857c-4bc6-95dc-161dbe1c7e9d/GettyImages-57347181.jpg"
+    }
+  },
+  {
+    "tournament": "Doha",
+    "year": 2016,
+    "tour": "wta",
+    "cms": {
+      "id": 1624950,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Carla Suarez Navarro - 2016 Doha",
+      "description": null,
+      "date": "2020-02-25T21:28:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1582666115978,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 311338,
+          "type": "TENNIS_PLAYER",
+          "sid": "311338"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1582666226156,
+      "titleUrlSegment": "carla-suarez-navarro-2016-doha",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2020/02/25/3c56e13a-d708-4ec0-9620-4b47a047271c/GettyImages-512662098.jpg",
+      "originalDetails": {
+        "width": 5184,
+        "height": 3456,
+        "aspectRatio": 1.5
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2020/02/25/caeb374f-aec8-4592-81cd-e8f41320cd5e/GettyImages-512662098.jpg"
+    }
+  },
+  {
+    "tournament": "Doha",
+    "year": 2019,
+    "tour": "wta",
+    "cms": {
+      "id": 1450170,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Simona Halep - Doha 2019 - Qatar Total Open/Samer Alrejjal",
+      "description": null,
+      "date": null,
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1550250900000,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1550239200000,
+      "titleUrlSegment": "simona-halep-doha-2019-qatar-total-opensamer-alrejjal",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/11/371f3f0f-76ad-4eff-a275-6e5061edb2f7/hlrOcZsv.jpg",
+      "originalDetails": {
+        "width": 3592,
+        "height": 2189,
+        "aspectRatio": 1.640932
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/11/e824a976-5e76-4676-bcd6-c26739726a49/hlrOcZsv.jpg"
+    }
+  },
+  {
+    "tournament": "Dubai",
+    "year": 2002,
+    "tour": "wta",
+    "cms": {
+      "id": 2504356,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Venus Williams - Dubai 2002",
+      "description": null,
+      "date": "2022-02-25T14:52:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1645800731463,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 718,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "718"
+        },
+        {
+          "label": null,
+          "id": 230220,
+          "type": "TENNIS_PLAYER",
+          "sid": "230220"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1645800785585,
+      "titleUrlSegment": "gettyimages-72503885",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2022/02/25/c6409389-2721-4611-a839-b63ca71c2601/GettyImages-72503885.jpg",
+      "originalDetails": {
+        "width": 3000,
+        "height": 2000,
+        "aspectRatio": 1.5
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2022/02/25/d7082aa0-8e75-49f7-886a-a6b0e8049f17/GettyImages-72503885.jpg"
+    }
+  },
+  {
+    "tournament": "Dubai",
+    "year": 2006,
+    "tour": "wta",
+    "cms": {
+      "id": 1404624,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Justine Henin won her third Dubai title in 2006, beating Maria Sharapova in straight sets (Getty)",
+      "description": null,
+      "date": "2019-10-08T16:53:42Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1570553623781,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1570553622720,
+      "titleUrlSegment": "justine-henin-won-her-third-dubai-title-in-2006-beating-maria-sharapova-in-straight-sets-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/190bcc7d-9dc3-406d-aeeb-aa293ff2ba5e/xwaXUdHp.jpg",
+      "originalDetails": {
+        "width": 2800,
+        "height": 1520,
+        "aspectRatio": 1.8421053
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/08/190bcc7d-9dc3-406d-aeeb-aa293ff2ba5e/xwaXUdHp.jpg"
+    }
+  },
+  {
+    "tournament": "Dubai",
+    "year": 2009,
+    "tour": "wta",
+    "cms": {
+      "id": 1404609,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Dubai Off-Court - Venus Williams 2009 Player Party",
+      "description": null,
+      "date": "2019-10-08T16:53:32Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1570553613778,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1570553612742,
+      "titleUrlSegment": "dubai-off-court-venus-williams-2009-player-party",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/5c350d1a-e5a3-4402-8ae2-41bbc8efa227/CghZpwqs.jpg",
+      "originalDetails": {
+        "width": 2800,
+        "height": 1520,
+        "aspectRatio": 1.8421053
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/08/5c350d1a-e5a3-4402-8ae2-41bbc8efa227/CghZpwqs.jpg"
+    }
+  },
+  {
+    "tournament": "Dubai",
+    "year": 2010,
+    "tour": "wta",
+    "cms": {
+      "id": 1404627,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Venus Williams won her first Dubai trophy in 2010, beating Virginie Razzano in straight sets (Getty)",
+      "description": null,
+      "date": "2019-10-08T16:53:44Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1570553625367,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1570553624842,
+      "titleUrlSegment": "venus-williams-won-her-first-dubai-trophy-in-2010-beating-virginie-razzano-in-straight-sets-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/f6ec792e-7849-4373-bc91-f723e3bd90f7/IimgdBxM.jpg",
+      "originalDetails": {
+        "width": 2800,
+        "height": 1520,
+        "aspectRatio": 1.8421053
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/08/f6ec792e-7849-4373-bc91-f723e3bd90f7/IimgdBxM.jpg"
+    }
+  },
+  {
+    "tournament": "Guadalajara",
+    "year": 2023,
+    "tour": "wta",
+    "cms": {
+      "id": 3697610,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Maria Sakkari, Guadalajara 2023",
+      "description": null,
+      "date": "2023-09-24T09:27:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1695547650004,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 318312,
+          "type": "TENNIS_PLAYER",
+          "sid": "318312"
+        },
+        {
+          "label": null,
+          "id": 2075,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "2075"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Guadalajara Open Akron"
+      },
+      "titleTranslations": null,
+      "lastModified": 1695547786410,
+      "titleUrlSegment": "sakkari-trophy-gdo",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2023/09/24/7d3d812d-eb62-425d-b56a-420862d488d6/Sakkari-trophy-GDO.jpg",
+      "originalDetails": {
+        "width": 4160,
+        "height": 2772,
+        "aspectRatio": 1.5007215
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2023/09/24/f061e53e-216d-47da-b904-9944f8ee4803/Sakkari-trophy-GDO.jpg"
+    }
+  },
+  {
+    "tournament": "Indian Wells",
+    "year": 2014,
+    "tour": "wta",
+    "cms": {
+      "id": 1645447,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Flavia Pennetta, Indian Wells 2014 (Getty)",
+      "description": null,
+      "date": "2020-03-13T17:11:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1584119484233,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": {
+        "credit": "Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1584119513363,
+      "titleUrlSegment": null,
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2020/03/13/bf04e4df-d70e-431a-8017-9a9eab9b52dc/GettyImages-577822970.jpg",
+      "originalDetails": {
+        "width": 3000,
+        "height": 2100,
+        "aspectRatio": 1.4285715
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2020/03/13/7e2a4b2e-138f-461e-a6ec-cec1581cba27/GettyImages-577822970.jpg"
+    }
+  },
+  {
+    "tournament": "Indian Wells",
+    "year": 2017,
+    "tour": "wta",
+    "cms": {
+      "id": 1645455,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Elena Vesnina, Indian Wells 2017 (Getty)",
+      "description": null,
+      "date": "2020-03-13T18:01:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1584122462166,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": {
+        "credit": "Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1584123404046,
+      "titleUrlSegment": null,
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2020/03/13/4ddb2b18-c1fd-4679-8606-d0afafa74af1/GettyImages-655408430.jpg",
+      "originalDetails": {
+        "width": 3000,
+        "height": 2100,
+        "aspectRatio": 1.4285715
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2020/03/13/0a92cafb-16a7-4f67-a3e8-66285b3438fa/GettyImages-655408430.jpg"
+    }
+  },
+  {
+    "tournament": "Miami",
+    "year": 2017,
+    "tour": "wta",
+    "cms": {
+      "id": 2381413,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Johanna Konta, Miami 2017",
+      "description": null,
+      "date": "2021-12-01T07:53:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1638345210677,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 902,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "902"
+        },
+        {
+          "label": null,
+          "id": 313907,
+          "type": "TENNIS_PLAYER",
+          "sid": "313907"
+        }
+      ],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1638345261486,
+      "titleUrlSegment": "konta-miami-2017",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2021/12/01/4223d988-ee44-4b56-a04d-a5648b513944/Konta-Miami-2017.jpg",
+      "originalDetails": {
+        "width": 4296,
+        "height": 3066,
+        "aspectRatio": 1.4011742
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2021/12/01/26fe9f3e-a4b7-45ab-bf84-f176fa3bd6fd/Konta-Miami-2017.jpg"
+    }
+  },
+  {
+    "tournament": "Moscow",
+    "year": 2004,
+    "tour": "wta",
+    "cms": {
+      "id": 1738916,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Anastasia Myskina completed the singles and doubles sweep twice - in Moscow in 2004, then Kolkata the year after.",
+      "description": null,
+      "date": "2020-07-25T11:21:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1595676092227,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": {
+        "credit": "Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1595676140445,
+      "titleUrlSegment": "gettyimages-55767646",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2020/07/25/5ba15bc0-bf39-4eee-86ec-5f9bad1b158d/GettyImages-55767646.jpg",
+      "originalDetails": {
+        "width": 2300,
+        "height": 1729,
+        "aspectRatio": 1.3302487
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2020/07/25/bcc95cce-889d-48a5-81fd-1dbec13e7c5b/GettyImages-55767646.jpg"
+    }
+  },
+  {
+    "tournament": "Moscow",
+    "year": 2016,
+    "tour": "wta",
+    "cms": {
+      "id": 1405241,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Svetlana Kuznetsova won her second Moscow title in 2016, beating Daria Gavrilova 6-2, 6-1 in the final (Getty)",
+      "description": null,
+      "date": "2019-10-08T17:00:22Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1570554022482,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1570554022126,
+      "titleUrlSegment": "svetlana-kuznetsova-won-her-second-moscow-title-in-2016-beating-daria-gavrilova-6-2-6-1-in-the-final-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/0e46aca0-6bcd-44d3-971c-f2ad9c2cce8e/NgZfbwBA.jpg",
+      "originalDetails": {
+        "width": 2800,
+        "height": 1520,
+        "aspectRatio": 1.8421053
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/08/0e46aca0-6bcd-44d3-971c-f2ad9c2cce8e/NgZfbwBA.jpg"
+    }
+  },
+  {
+    "tournament": "Tokyo",
+    "year": 2010,
+    "tour": "wta",
+    "cms": {
+      "id": 1439336,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Wozniacki won the first of her trio of titles in Tokyo in 2010, beating Elena Dementieva in the final (Getty)",
+      "description": null,
+      "date": "2018-09-19T10:30:00Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1537353000000,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1537353000000,
+      "titleUrlSegment": "wozniacki-won-the-first-of-her-trio-of-titles-in-tokyo-in-2010-beating-elena-dementieva-in-the-final-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/11/29a9e105-d29b-447d-a9db-ac6e4108434e/hNQcLCgg.jpg",
+      "originalDetails": {
+        "width": 3000,
+        "height": 2093,
+        "aspectRatio": 1.4333493
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/11/29a9e105-d29b-447d-a9db-ac6e4108434e/hNQcLCgg.jpg"
+    }
+  },
+  {
+    "tournament": "Tokyo",
+    "year": 2015,
+    "tour": "wta",
+    "cms": {
+      "id": 1405412,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Agnieszka Radwanska won her second Tokyo title in 2015, beating Belinda Bencic in the final (Getty)",
+      "description": null,
+      "date": "2019-10-08T17:02:18Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1570554138916,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1570554138348,
+      "titleUrlSegment": "agnieszka-radwanska-won-her-second-tokyo-title-in-2015-beating-belinda-bencic-in-the-final-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/338ac2ab-5350-4455-a851-faa9719e05ac/YouWBPrw.jpg",
+      "originalDetails": {
+        "width": 2800,
+        "height": 1520,
+        "aspectRatio": 1.8421053
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/08/338ac2ab-5350-4455-a851-faa9719e05ac/YouWBPrw.jpg"
+    }
+  }
+]

@@ -18,12 +18,12 @@
 .records-page .nc-wrap.deuce-archive-notice {
   padding: 13px 16px;
   border-color: rgb(255 255 255 / 0.18);
-  background: rgb(1 14 10 / 0.64);
-  color: #dce9e2;
+  background: oklch(from rgb(1 14 10 / 0.64) l c var(--appearance-hue,175.016));
+  color: oklch(from #dce9e2 l c var(--appearance-hue,162.727));
 }
 
 .records-page .deuce-archive-notice strong { color: #fff; }
-.records-page .deuce-archive-notice a { color: #c8ff32; }
+.records-page .deuce-archive-notice a { color: oklch(from #c8ff32 l c var(--appearance-hue,124.521)); }
 
 .ry-help-page {
   width: min(880px, calc(100% - 40px));
@@ -93,12 +93,12 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 
 .home-records {
   color: var(--ink);
-  background: #e2e6e4 !important;
+  background: oklch(from #e2e6e4 l c var(--appearance-hue,164.999)) !important;
 }
 .home-records .section-head h2 { color: var(--ink); }
 .home-records + .tournament-static {
   margin-top: 0;
-  background: #0d281f !important;
+  background: oklch(from #0d281f l c var(--appearance-hue,168.804)) !important;
 }
 
 @media (max-width: 600px) {
@@ -124,7 +124,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 @media (max-width: 560px) {
   .view-root > .inner-title,
   .view-root > header.inner-title {
-    padding-top: 82px !important;
+    padding-top: var(--deuce-section-header-top-mobile) !important;
   }
 
   .global-player-name,
@@ -161,30 +161,4 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   .home-records .section-head .deuce-cta-label { display: none; }
   .home-latest-results .section-head .deuce-cta svg,
   .home-records .section-head .deuce-cta svg { flex: 0 0 18px; color: var(--ink); }
-
-  /* One compact mobile header pattern for every archive directory. */
-  .view-root > .inner-title:has([data-compact-mobile]) {
-    display: grid !important;
-    width: 100% !important;
-    grid-template-columns: minmax(0, 1fr) 44px !important;
-    align-items: center !important;
-    gap: 10px !important;
-    padding: 82px 14px 12px !important;
-  }
-
-  .view-root > .inner-title:has([data-compact-mobile]) > h1 {
-    min-width: 0;
-    margin: 0 !important;
-    font-size: clamp(42px, 13vw, 58px) !important;
-    line-height: .88 !important;
-  }
-
-  .view-root > .inner-title:has([data-compact-mobile]) > :is(.inner-title-tools, [class*="introTools"]) {
-    width: 44px !important;
-    max-width: 44px !important;
-    justify-self: end !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    overflow: visible !important;
-  }
 }

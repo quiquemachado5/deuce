@@ -14,7 +14,7 @@ concurrency:
 jobs:
   harden:
     if: github.repository == 'quiquemachado5/deuce' && inputs.confirmation == 'HARDEN'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 8
     environment: production
     env:

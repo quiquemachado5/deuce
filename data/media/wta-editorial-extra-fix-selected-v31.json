@@ -1,0 +1,43 @@
+[
+  {
+    "tournament": "Indian Wells",
+    "year": 2017,
+    "tour": "wta",
+    "cms": {
+      "id": 1422062,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Svetlana Kuznetsova congratulates Elena Vesnina after losing to her compatriot in the 2017 Indian Wells final (Getty)",
+      "description": null,
+      "date": "2019-10-10T10:35:03Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1570703705750,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1570703703378,
+      "titleUrlSegment": "svetlana-kuznetsova-congratulates-elena-vesnina-after-losing-to-her-compatriot-in-the-2017-indian-wells-final-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/10/d373942c-26c1-4051-a9d1-5ee3e66209f5/EcCNGYIS.jpg",
+      "originalDetails": {
+        "width": 2800,
+        "height": 1520,
+        "aspectRatio": 1.8421053
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/10/d373942c-26c1-4051-a9d1-5ee3e66209f5/EcCNGYIS.jpg"
+    }
+  }
+]

@@ -1,13 +1,16 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
 import { circuitSectionHref, navigationCircuit, type Circuit } from '@/lib/circuit-navigation';
+import { TennisBallMark } from './TennisBallMark';
+import {AppearanceControl} from './AppearanceControl';
 import styles from './deuce-footer.module.css';
 
 function FooterNavigationLinks({ circuit,english=false }: { circuit: Circuit;english?:boolean }) {
-  if(english)return <nav className={styles.navigation} aria-label="Footer navigation"><div className={styles.navigationGroup}><strong>Explore</strong><Link href="/en/matches">Matches</Link><Link href="/en/records">Records</Link><Link href="/en/players">Players</Link><Link href="/en/tournaments">Tournaments</Link><Link href="/en/compare">Compare</Link></div><div className={styles.navigationGroup}><strong>Archive</strong><Link href="/en/time-machine">Time machine</Link><Link href="/en/coverage">Coverage</Link><Link href="/en/developers">Read API</Link><Link href="/licencias">Licences · ES</Link></div><div className={styles.navigationGroup}><strong>DEUCE</strong><Link href="/en">About the archive</Link><Link href="/en/matches?tour=atp">ATP archive</Link><Link href="/en/matches?tour=wta">WTA archive</Link></div></nav>;
+  if(english)return <nav className={styles.navigation} aria-label="Footer navigation"><div className={styles.navigationGroup}><strong>Explore</strong><Link href={"/en/matches"+(circuit==='wta'?'?tour=wta':'')}>Matches</Link><Link href={"/en/records"+(circuit==='wta'?'?tour=wta':'')}>Records</Link><Link href={"/en/players"+(circuit==='wta'?'?tour=wta':'')}>Players</Link><Link href={"/en/tournaments"+(circuit==='wta'?'?tour=wta':'')}>Tournaments</Link><Link href={"/en/compare"+(circuit==='wta'?'?tour=wta':'')}>Compare</Link></div><div className={styles.navigationGroup}><strong>The archive</strong><Link href="/en/coverage">Coverage</Link><Link href="/sobre">About DEUCE · ES</Link><Link href="/licencias">Licences · ES</Link></div></nav>;
   return <nav className={styles.navigation} aria-label="Navegación del pie">
     <div className={styles.navigationGroup}>
       <strong>Explorar</strong>
@@ -18,18 +21,10 @@ function FooterNavigationLinks({ circuit,english=false }: { circuit: Circuit;eng
       <Link href={circuitSectionHref('compare',circuit)}>Comparar</Link>
     </div>
     <div className={styles.navigationGroup}>
-      <strong>Archivo</strong>
+      <strong>El archivo</strong>
       <Link href="/cobertura">Cobertura</Link>
-      <Link href="/info">Cómo se lee</Link>
       <Link href="/licencias">Licencias</Link>
-      <Link href="/maquina-del-tiempo">Máquina del tiempo</Link>
-      <Link href="/desarrolladores">API y exportaciones</Link>
-    </div>
-    <div className={styles.navigationGroup}>
-      <strong>DEUCE</strong>
       <Link href="/sobre">Sobre DEUCE</Link>
-      <Link href={circuitSectionHref('matches','atp')}>Archivo ATP</Link>
-      <Link href={circuitSectionHref('matches','wta')}>Archivo WTA</Link>
     </div>
   </nav>;
 }
@@ -61,7 +56,7 @@ function localizedHref(pathname:string,searchParams:URLSearchParams,target:'es'|
   params.delete('cuadro');
   if(circuit==='atp'||circuit==='wta'){
     if(target==='en')params.set('tour',circuit);
-    else params.set(destination.startsWith('/torneos/')?'cuadro':'circuito',circuit);
+    else params.set(destination.startsWith('/torneos/')?'cuadro':'tour',circuit);
   }
   const query=params.toString();
   return query?`${destination}?${query}`:destination;
@@ -72,7 +67,7 @@ function FooterLanguageSelector(){
   const english=pathname==='/en'||pathname.startsWith('/en/');
   const changeLanguage=(language:string)=>router.push(localizedHref(pathname,new URLSearchParams(searchParams.toString()),language==='en'?'en':'es'));
   return <label className={styles.language} title={english?'Change language':'Cambiar idioma'}>
-    <span className={styles.languageFlag} aria-hidden="true">{english?'🇬🇧':'🇪🇸'}</span>
+    <Image className={styles.languageFlag} src={`/images/flags/${english?'gb':'es'}.svg`} alt="" width={26} height={19} unoptimized aria-hidden="true"/>
     <select aria-label={english?'Select language':'Seleccionar idioma'} value={english?'en':'es'} onChange={(event)=>changeLanguage(event.target.value)}>
       <option value="es">🇪🇸</option>
       <option value="en">🇬🇧</option>
@@ -83,21 +78,20 @@ function FooterLanguageSelector(){
 export function DeuceFooter() {
   const pathname=usePathname();
   const english=pathname==='/en'||pathname.startsWith('/en/');
-  const tone=pathname==='/'?'home':pathname.startsWith('/records')?'dark':'light';
-  return <footer className={styles.footer} data-deuce-footer="" data-tone={tone} aria-label="Pie de página">
+  const tone=pathname==='/'?'home':pathname.startsWith('/records')||pathname.startsWith('/torneos/')||pathname.startsWith('/torneo/')?'dark':'light';
+  return <footer className={styles.footer} data-deuce-footer="" data-tone={tone} data-grand-slam={pathname.match(/^\/(?:torneos|en\/tournaments)\/(australian-open|roland-garros|wimbledon|us-open)(?:\/|$)/)?.[1]} aria-label="Pie de página">
     <div className={styles.transition} aria-hidden="true" />
     <div className={styles.material}>
       <div className={styles.directory}>
         <div className={styles.directoryRow}>
           <div className={styles.brand}>
-            <Link className={styles.logo} href={english?'/en':'/'} aria-label={english?'DEUCE, home':'DEUCE, inicio'}><span aria-hidden="true" />DEUCE</Link>
+            <Link className={styles.logo} href={english?'/en':'/'} aria-label={english?'DEUCE, home':'DEUCE, inicio'}><TennisBallMark/>DEUCE</Link>
             <p>{english?'ATP and WTA tennis archive.':'Archivo estadístico de tenis ATP y WTA.'}</p>
           </div>
           <Suspense fallback={<div className={styles.navigationPending} aria-busy="true"><span className="nc-sr">Cargando navegación del circuito…</span></div>}><CircuitAwareFooterNavigation/></Suspense>
         </div>
         <div className={styles.bottom}>
-          <span>© {new Date().getUTCFullYear()} DEUCE</span>
-          <Suspense fallback={<span className={styles.languagePending} aria-hidden="true"/>}><FooterLanguageSelector/></Suspense>
+          <div className={styles.bottomIdentity}><span>© {new Date().getUTCFullYear()} DEUCE</span><div className={styles.preferences}><Suspense fallback={<span className={styles.languagePending} aria-hidden="true"/>}><FooterLanguageSelector/></Suspense><AppearanceControl english={english}/></div></div>
           <span className={styles.credit}>Made by quiquicius</span>
         </div>
       </div>

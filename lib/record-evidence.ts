@@ -1,6 +1,7 @@
+import { grandSlamSeasons, grandSlamSeasonRecords } from './grand-slam-seasons';
 import type { Match } from './types';
 import type { RecordRow } from './revista/records';
-import { eligibleMatch } from './quality';
+import { eligibleMatch, isRetirement } from './quality';
 import { chronological, winnerName } from './editorial';
 import { lostOpening, isDeciding, statFraction, statNumber, matchStat } from './archive-insights';
 import { shelves, measuredKeys } from './cuaderno/shelves';
@@ -45,6 +46,12 @@ export function recordEvidence(matches: Match[], id: string, row: RecordRow): { 
     result = additional;
     note = 'Encuentros que aportan casos al cálculo. La cifra puede contar sets, juegos, rivales o temporadas, no partidos. Los porcentajes incluyen victorias y derrotas aplicables; consulta la división de la clasificación.';
   }
+  else if (grandSlamSeasonRecords.some(spec=>spec.id===id)) {
+    const spec=grandSlamSeasonRecords.find(spec=>spec.id===id)!;
+    const season=grandSlamSeasons(subject).find(season=>season.name===name&&String(season.year)===row.detail);
+    result=season?.[spec.metric]||[];
+    note='Partidos que aportan a la cifra de esta temporada de Grand Slam. ATP y WTA se calculan por separado; no se suman temporadas empatadas y las incomparecencias no cuentan; las retiradas con ganador documentado sí aportan a las victorias.';
+  }
   else if (id === 'parejas' || id === 'parejas-finales') {
     const names = row.name.split(' – ');
     result = valid.filter(m => names.includes(m.player1.name) && names.includes(m.player2.name) && (id !== 'parejas-finales' || final(m)));
@@ -54,7 +61,7 @@ export function recordEvidence(matches: Match[], id: string, row: RecordRow): { 
   } else if (['finales-ganadas','finales-jugadas','efectividad-finales'].includes(id)) {
     result = subject.filter(m => final(m) && (id !== 'finales-ganadas' || win(m)));
   } else if (['ganar-menos-juegos','remontar-rosco','finales-cuatro-juegos'].includes(id)) {
-    result = subject.filter(m => win(m) && (id === 'ganar-menos-juegos'
+    result = subject.filter(m => win(m) && (id === 'remontar-rosco'||!isRetirement(m)) && (id === 'ganar-menos-juegos'
       ? m.score_summary.games.reduce((n,s)=>n+s[side(m)-1]-s[2-side(m)],0)<0
       : id === 'remontar-rosco' ? m.score_summary.games.some(s=>s[side(m)-1]===0&&s[2-side(m)]===6)
       : final(m)&&m.score_summary.games.reduce((n,s)=>n+s[2-side(m)],0)<=4));
@@ -81,11 +88,11 @@ export function recordEvidence(matches: Match[], id: string, row: RecordRow): { 
   } else if (['top-10','top-5','numero-uno'].includes(id)) {
     const limit = id === 'top-10' ? 10 : id === 'top-5' ? 5 : 1;
     result = subject.filter(m => {const rank = side(m) === 1 ? m.context?.rank2 : m.context?.rank1; return win(m) && m.context?.rankLabel === 'Ranking al jugar' && !!rank && rank > 0 && rank <= limit;});
-  } else if (id === 'sin-ceder-set') result = subject.filter(m => win(m) && m.score_summary.sets.some(n => n === 0));
+  } else if (id === 'sin-ceder-set') result = subject.filter(m => !isRetirement(m) && win(m) && m.score_summary.sets.some(n => n === 0));
   else if (id === 'seis-cero') result = subject.filter(m => m.score_summary.games.some(g => g[side(m)-1] === 6 && g[2-side(m)] === 0));
   else if (id === 'bajo-techo' || id === 'aire-libre') result = subject.filter(m => win(m) && m.context?.indoor === (id === 'bajo-techo'));
   else if (id.startsWith('remontada-')) result = subject.filter(m => win(m) && lostOpening(m,id === 'remontada-dos-sets' ? 2 : 1));
-  else if (id === 'victorias-cinco-sets' || id === 'porcentaje-cinco-sets') result = subject.filter(m => m.score_summary.games.length === 5 && (id === 'porcentaje-cinco-sets' || win(m)));
+  else if (id === 'victorias-cinco-sets' || id === 'porcentaje-cinco-sets') result = subject.filter(m => !isRetirement(m) && m.score_summary.games.length === 5 && (id === 'porcentaje-cinco-sets' || win(m)));
   else if (id === 'sets-decisivos') result = subject.filter(m => win(m) && isDeciding(m));
   else if (id === 'tie-breaks') {
     result = subject.filter(m => m.score_summary.games.some((g,index) => isRecordedTiebreak(m,index) && g[side(m)-1] > g[2-side(m)]));

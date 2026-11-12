@@ -97,8 +97,9 @@ if [[ -n "${expected_commit}" && "${commit}" != "${expected_commit}" ]]; then
   exit 1
 fi
 short="${commit:0:12}"
-repository="${DEUCE_IMAGE_REPOSITORY:-deuce-web}"
-candidate_image="${repository}:${commit}"
+repository="${DEUCE_IMAGE_REPOSITORY:-ghcr.io/quiquemachado5/deuce-web}"
+candidate_tag="${repository}:commit-${commit}"
+candidate_image="${candidate_tag}"
 candidate="deuce-candidate-${short}"
 compose=(docker compose --env-file .env.production)
 caddy_source_sha256="94ccf3d092bdf34ae18a2794bb98f45d7670ccc9614b2ce45285b1c6f58775a6"
@@ -217,8 +218,19 @@ if [[ "${first_release}" != true ]]; then
   fi
 fi
 
-echo "Building immutable release image ${candidate_image}."
-SOURCE_COMMIT="${commit}" DEUCE_WEB_IMAGE="${candidate_image}" "${compose[@]}" build web
+echo "Pulling CI-built immutable release image ${candidate_tag}."
+docker pull "${candidate_tag}"
+revision="$(docker image inspect --format '{{index .Config.Labels "org.opencontainers.image.revision"}}' "${candidate_tag}")"
+if [[ "${revision}" != "${commit}" ]]; then
+  echo "Image revision label does not match ${commit}." >&2
+  exit 1
+fi
+candidate_image="$(docker image inspect --format '{{range .RepoDigests}}{{println .}}{{end}}' "${candidate_tag}" \
+  | grep -F "${repository}@sha256:" | head -n 1)"
+if [[ -z "${candidate_image}" ]]; then
+  echo "The CI-built application image has no immutable repository digest." >&2
+  exit 1
+fi
 prepare_caddy_image
 if ! docker image inspect prom/prometheus:v3.5.0 >/dev/null 2>&1; then
   "${compose[@]}" pull prometheus
@@ -228,10 +240,7 @@ fi
 "${compose[@]}" run --rm --no-deps --entrypoint caddy caddy validate --config /etc/caddy/Caddyfile
 "${compose[@]}" run --rm --no-deps --entrypoint /bin/promtool prometheus check config /etc/prometheus/prometheus.yml
 revision="$(docker image inspect --format '{{index .Config.Labels "org.opencontainers.image.revision"}}' "${candidate_image}")"
-if [[ "${revision}" != "${commit}" ]]; then
-  echo "Image revision label does not match ${commit}." >&2
-  exit 1
-fi
+[[ "${revision}" == "${commit}" ]] || { echo "Resolved image revision does not match ${commit}." >&2; exit 1; }
 
 # Compose owns and labels the stable network and archive volume. On a clean
 # server create the stopped service definitions before attaching the candidate;
@@ -259,6 +268,8 @@ candidate_args=(
   --cpus 1.5
   --env-file .env.production
   --env DEUCE_ARCHIVE_DIR=/app/.deuce-archive
+  --env DEUCE_RATE_LIMIT_STORE=sqlite
+  --env DEUCE_RATE_LIMIT_DB=/app/.deuce-archive/.runtime/rate-limits.sqlite
   --env NODE_ENV=production
   --env NODE_OPTIONS=--max-old-space-size=1536
   --env PORT=3000

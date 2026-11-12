@@ -1,0 +1,34 @@
+[
+  {
+    "tournament": "Rome",
+    "year": 2003,
+    "tours": [
+      "wta"
+    ],
+    "status": "unresolved-quality",
+    "officialSource": "https://internazionalibnlditalia.com/it/champions-gallery",
+    "sourceApi": "https://dp-fitp-ibi-prod-function.azurewebsites.net/api/v1/players/champions/list",
+    "knownCorrectPhoto": "https://www.fitp.it/media_contents/ibi/champions/2003_Kim-Clijsters.jpg",
+    "nativeDimensions": {
+      "width": 638,
+      "height": 850
+    },
+    "reason": "Official champion photo is small portrait; searched contemporary AP, French newspapers, Reuters captioned archive and official WTA CMS. No confirmed horizontal native900px photo available in retrieved sources. No generic/wrong-year image activated."
+  },
+  {
+    "tournament": "Rome",
+    "year": 2004,
+    "tours": [
+      "wta"
+    ],
+    "status": "unresolved-quality",
+    "officialSource": "https://internazionalibnlditalia.com/it/champions-gallery",
+    "sourceApi": "https://dp-fitp-ibi-prod-function.azurewebsites.net/api/v1/players/champions/list",
+    "nativeDimensions": {
+      "width": 569,
+      "height": 850
+    },
+    "reason": "Official Mauresmo champion photo is small portrait. Contemporary French results and retrospective galleries found, but no sufficiently large exact2004 horizontal photo verified. Tennis.com Rome retrospective action photograph has Kappa-era outfit and no exactyear caption, so cannot assign2004.",
+    "knownCorrectPhoto": "https://www.fitp.it/media_contents/ibi/champions/2004_Amelie-Mauresmo.jpg"
+  }
+]

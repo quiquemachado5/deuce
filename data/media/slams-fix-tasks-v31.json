@@ -1,0 +1,28 @@
+[
+  {
+    "tournament": "US Open",
+    "year": 2008,
+    "tour": "wta",
+    "q": "Serena Williams Jelena Jankovic US Open 2008 trophy presentation",
+    "candidates": [
+      {
+        "src": "https://photoresources.wtatennis.com/photo-resources/2022/08/29/cba93585-8c09-4f1e-b855-69b89721d5e8/GettyImages-82720828.jpg?width=1600",
+        "page": "https://www.wtatennis.com/news/2768182/us-open-rewind-serena-williams-championship-runs-in-new-york",
+        "text": "Serena Williams 2008 - WTA article photo under 2008 final heading with explicit figcaption Serena Williams 2008; Getty Images"
+      }
+    ]
+  },
+  {
+    "tournament": "Wimbledon",
+    "year": 2001,
+    "tour": "wta",
+    "q": "Venus Williams Justine Henin Wimbledon 2001 trophy presentation",
+    "candidates": [
+      {
+        "src": "https://hips.hearstapps.com/hmg-prod/images/f392c9f1-518f-4e34-88fc-082042ba8f47.jpeg?crop=1xw%3A1xh%3Bcenter%2Ctop&resize=980%3A%2A",
+        "page": "https://www.townandcountrymag.com/society/tradition/a66012409/wimbledon-katharine-duchess-of-kent-tribute/",
+        "text": "Wimbledon 2001 Venus Williams trophy presentation by Duchess of Kent; caption explicitly identifies 2001"
+      }
+    ]
+  }
+]

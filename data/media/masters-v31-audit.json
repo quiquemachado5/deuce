@@ -1,0 +1,1058 @@
+{
+  "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+  "scope": "Masters ATP/WTA 2000–2026: lote documental parcial, no inventario completo",
+  "accepted": 44,
+  "rejected": 7,
+  "reviews": [
+    {
+      "tournament": "Rome",
+      "year": 2025,
+      "tours": [
+        "wta"
+      ],
+      "source": "https://www.wtatennis.com/news/4267267/top-italian-paolini-cruises-past-gauff-to-claim-historic-rome-title",
+      "originalUrl": "https://photoresources.wtatennis.com/wta/photo/2025/05/17/b492f794-3fe3-42bb-afff-b38ccd20f52e/GettyImages-2214973761.jpg",
+      "sourceTitle": "Paolini beats Gauff in Rome to become first Italian winner in 40 years",
+      "originalDimensions": [
+        8256,
+        5504
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "8b7af88fc1c622ea5de99e0ddbecb5d18b7d60cba63658c964f8e45f68a2835f",
+      "src": "/media/editions-v31/masters/fec85e42025c280120.webp",
+      "webpSha256": "50355962e54f3c3ca691cb78dba471dfb99230f0f54ca36dc38290b18321c00d",
+      "bytes": 110680
+    },
+    {
+      "tournament": "Indian Wells",
+      "year": 2023,
+      "tours": [
+        "wta"
+      ],
+      "source": "https://www.wtatennis.com/news/3116978/rybakina-tops-sabalenka-to-win-indian-wells-title",
+      "originalUrl": "https://photoresources.wtatennis.com/wta/photo/2023/03/19/6979edf0-4e8d-4d6e-88aa-a1507193240e/Elena_Rybakina_-_2023_BNP_Paribas_Open_-_Day_12-DSC_2925.jpg",
+      "sourceTitle": "Rybakina tops Sabalenka to win Indian Wells title",
+      "originalDimensions": [
+        4700,
+        3309
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "86f314e9c0354dc63c8813d6c6e72286128bcb0679d70ea87575a502aed696f9",
+      "src": "/media/editions-v31/masters/72e65df512c898d209.webp",
+      "webpSha256": "9bcb0e452f571ca0e695db1f6d65c40d148ee88a89b630b2d85ff325825ed15a",
+      "bytes": 169248
+    },
+    {
+      "tournament": "Madrid",
+      "year": 2023,
+      "tours": [
+        "wta"
+      ],
+      "source": "https://www.wtatennis.com/news/3324040/sabalenka-topples-swiatek-to-win-second-madrid-title",
+      "originalUrl": "https://photoresources.wtatennis.com/wta/photo/2023/05/06/bfb38d09-4f39-4c26-bb6c-8447f697706a/Aryna_Sabalenka_-_2023_Mutua_Madrid_Open_-_Day_11-DSC_7303.jpg",
+      "sourceTitle": "Sabalenka topples Swiatek to win second Madrid title",
+      "originalDimensions": [
+        4700,
+        3186
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "dd6f6e78d19f97c52c838e5b180785b9ac4823f73cb1c3953bda2a3388ef53d9",
+      "src": "/media/editions-v31/masters/3f7a915c58adc6c18d.webp",
+      "webpSha256": "1744b0dd67c64c7ce997a5cff21720be05c15870baac8bd35ac0cd69cbb322aa",
+      "bytes": 135944
+    },
+    {
+      "tournament": "Rome",
+      "year": 2023,
+      "tours": [
+        "wta"
+      ],
+      "source": "https://www.wtatennis.com/news/3447362/rybakina-takes-rome-title-over-injured-kalinina",
+      "originalUrl": "https://photoresources.wtatennis.com/wta/photo/2023/05/20/37950cd0-8e96-4308-b929-9ec9466fba68/Elena_Rybakina_-_2023_Internazionali_BNL_d_Italia_-_Day_12-DSC_7125.jpg",
+      "sourceTitle": "Rybakina takes Rome title over injured Kalinina",
+      "originalDimensions": [
+        4700,
+        3062
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "72624f2b2e92acb4caad4809822be4fc266146a68ded38d19b25ab35b0c91f80",
+      "src": "/media/editions-v31/masters/67b7c3abce3d645d62.webp",
+      "webpSha256": "ca7f182bc8fff591370f782e4ad5894daaad43a5c31a4eb2472309d680616074",
+      "bytes": 167248
+    },
+    {
+      "tournament": "Miami",
+      "year": 2023,
+      "tours": [
+        "wta"
+      ],
+      "source": "https://www.wtatennis.com/news/3132386/kvitova-snaps-rybakinas-streak-to-win-30th-career-title-in-miami",
+      "originalUrl": "https://photoresources.wtatennis.com/wta/photo/2023/04/01/cbf305fa-f66e-4fd0-920c-e69ae5b8d0b5/Petra_Kvitova_-_2023_Miami_Open_-_Day_12-DSC_9252.jpg",
+      "sourceTitle": "Kvitova snaps Rybakina's streak to win Miami; 30th career title",
+      "originalDimensions": [
+        4700,
+        2955
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "5a4af3f7b49be688dc04313efba48c0ea2cc967f1cc4080d5b1e1bc889949b15",
+      "src": "/media/editions-v31/masters/88c81cf375f49a4cd6.webp",
+      "webpSha256": "a76e898db2ec9cfe457c6ff2b6ffaa37af1b014ff1109a19b2ddf629277f4564",
+      "bytes": 132690
+    },
+    {
+      "tournament": "Madrid",
+      "year": 2024,
+      "tours": [
+        "wta"
+      ],
+      "source": "https://www.wtatennis.com/news/3996189/swiatek-saves-match-points-to-beat-sabalenka-to-win-first-madrid-title",
+      "originalUrl": "https://photoresources.wtatennis.com/wta/photo/2024/05/04/82e9cdd4-b5d8-40cd-8a22-9de219dc0653/GettyImages-2151461019.jpg",
+      "sourceTitle": "Swiatek saves three match points to beat Sabalenka for first Madrid title",
+      "originalDimensions": [
+        4581,
+        3054
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "a305456d93e91cb6e61d8172adb3e51ef0e00114ff1ecdf3bee6a789690cca08",
+      "src": "/media/editions-v31/masters/5e021502cb05b09a2a.webp",
+      "webpSha256": "d175ae32b3a6ec1b3cf350caac3dea823279ea744d7371650a8dda4e41580dd7",
+      "bytes": 347708
+    },
+    {
+      "tournament": "Indian Wells",
+      "year": 2026,
+      "tours": [
+        "wta"
+      ],
+      "source": "https://www.wtatennis.com/news/4469923/aryna-sabalenka-solves-elena-rybakina-to-win-first-indian-wells-23rd-wta-title",
+      "originalUrl": "https://photoresources.wtatennis.com/wta/photo/2026/03/15/f6497f88-74ed-45ee-98b6-af7c1d673404/GettyImages-2266685626.jpg",
+      "sourceTitle": "Sabalenka saves championship point to win Indian Wells thriller over Rybakina",
+      "originalDimensions": [
+        4481,
+        2987
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "b051832631e3704728cd3c9fdd4b94d2c2d141ff984fa69cca83c9cf8033cdc7",
+      "src": "/media/editions-v31/masters/68db2542ad964dab8c.webp",
+      "webpSha256": "66d2f77027825b0a42055cd2cf5ecc7d2c93bec89226a606ecd10f04519ee884",
+      "bytes": 188406
+    },
+    {
+      "tournament": "Rome",
+      "year": 2023,
+      "tours": [
+        "wta"
+      ],
+      "source": "https://www.wtatennis.com/news/3445040/everything-you-need-to-know-about-the-2023-rome-final",
+      "originalUrl": "https://photoresources.wtatennis.com/wta/photo/2023/05/20/1c59e262-030a-4a46-90fe-79d9c0bb0838/FINALISTS-ER-AK-3x2.png",
+      "sourceTitle": "Everything you need to know about the 2023 Rome final",
+      "originalDimensions": [
+        1622,
+        1080
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": false,
+      "reason": "Diseño promocional con texto incrustado: descartado como fotografía de edición.",
+      "originalSha256": "46a18da05bbdfc2b21c1efce9b92970ffd571641ac351f45d57c595ba103bac0"
+    },
+    {
+      "tournament": "Miami",
+      "year": 2024,
+      "tours": [
+        "wta"
+      ],
+      "source": "https://www.wtatennis.com/news/3946195/collins-takes-down-rybakina-in-miami-to-win-first-wta-1000-title",
+      "originalUrl": "https://photoresources.wtatennis.com/wta/photo/2024/03/30/db76273b-b575-4768-8736-7dc68837e2a8/fixeddanielle3x2.png",
+      "sourceTitle": "Collins takes down Rybakina in Miami to win first WTA 1000 title",
+      "originalDimensions": [
+        1650,
+        1080
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": false,
+      "reason": "Diseño promocional con texto incrustado: descartado como fotografía de edición.",
+      "originalSha256": "ea851d76d413bb876c4cf994783c563075fab0ea3456371bc618982db1abef67"
+    },
+    {
+      "tournament": "Cincinnati",
+      "year": 2024,
+      "tours": [
+        "wta"
+      ],
+      "source": "https://www.wtatennis.com/news/4088865/sabalenka-beats-pegula-in-cincinnati-to-capture-sixth-wta-1000-title",
+      "originalUrl": "https://photoresources.wtatennis.com/wta/photo/2024/08/19/719b5803-72df-4578-bb20-2e2c62bbdda2/WTA-Champion_Cincinnati-Sabalenka_3x2.jpg",
+      "sourceTitle": "Sabalenka beats Pegula in Cincinnati to capture sixth WTA 1000 title",
+      "originalDimensions": [
+        1650,
+        1080
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": false,
+      "reason": "Diseño promocional con texto incrustado: descartado como fotografía de edición.",
+      "originalSha256": "e02e4716419b184bd04e93675fbdbfdf308f100af1ea82322483640e896c0a7a"
+    },
+    {
+      "tournament": "Canada",
+      "year": 2024,
+      "tours": [
+        "wta"
+      ],
+      "source": "https://www.wtatennis.com/news/4081426/pegula-holds-off-anisimova-to-win-second-straight-national-bank-open-title",
+      "originalUrl": "https://photoresources.wtatennis.com/wta/photo/2024/08/13/67245cfd-46e4-452e-8b89-c95e319520da/GettyImages-2165998716.jpg",
+      "sourceTitle": "Pegula holds off Anisimova to win second straight National Bank Open title",
+      "originalDimensions": [
+        5129,
+        3420
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "8658f96ef7905eef7d27a522295d70e0950b160ad99ebeab1452f4f5e3714f5d",
+      "src": "/media/editions-v31/masters/3368bfd82492cd001b.webp",
+      "webpSha256": "cfe3a68e8c38978f7f9389672a583bdf540279e37116d088671ce1ac676a4832",
+      "bytes": 197014
+    },
+    {
+      "tournament": "Beijing",
+      "year": 2024,
+      "tours": [
+        "wta"
+      ],
+      "source": "https://www.wtatennis.com/news/4143337/gauff-storms-past-muchova-to-win-china-open-second-title-of-2024",
+      "originalUrl": "https://photoresources.wtatennis.com/wta/photo/2024/10/06/7350bcb8-0eb3-410d-816d-7e975882edb1/WTA_Beijing_Champion-Graphic_Singles_Gauff_3x2.jpg",
+      "sourceTitle": "Gauff storms past Muchova to win China Open, second title of 2024",
+      "originalDimensions": [
+        1650,
+        1080
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": false,
+      "reason": "Diseño promocional con texto incrustado: descartado como fotografía de edición.",
+      "originalSha256": "4b57701b681ac9ba43740b01a47c78e73217e543804e04dc0ab868d3f0b239fa"
+    },
+    {
+      "tournament": "Wuhan",
+      "year": 2024,
+      "tours": [
+        "wta"
+      ],
+      "source": "https://www.wtatennis.com/news/4148283/top-seed-sabalenka-stops-zheng-to-complete-historic-wuhan-three-peat",
+      "originalUrl": "https://photoresources.wtatennis.com/wta/photo/2024/10/13/adae787e-135a-4b78-b15b-bd9d807b165e/Aryna_Sabalenka_-_Dongfeng_Voyah_Wuhan_Open_2024_-_Day_7-DSC_6189.jpg",
+      "sourceTitle": "Top seed Sabalenka holds off Zheng to complete historic Wuhan three-peat",
+      "originalDimensions": [
+        4700,
+        3100
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "fd2a95b8b435bb2371bb3bc66894fd53e1eb3a10873e6e45e4f6ce0e148d8828",
+      "src": "/media/editions-v31/masters/cfe0343b5ad31689e6.webp",
+      "webpSha256": "f2636ed93cfdedab724a9a9eca6d83b3217205ab7c22bfa4ca531e94a24c35e3",
+      "bytes": 222960
+    },
+    {
+      "tournament": "Madrid",
+      "year": 2025,
+      "tours": [
+        "atp"
+      ],
+      "source": "https://www.nittoatpfinals.com/en/news/draper-ruud-madrid-2025-final",
+      "originalUrl": "https://www.nittoatpfinals.com/-/media/images/news/2025/05/04/19/19/ruud-madrid-2025-final-celebration.jpg",
+      "sourceTitle": "Draper Ruud Madrid 2025 Final | Nitto ATP Finals | Tennis",
+      "originalDimensions": [
+        1920,
+        1080
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "1697c9dfa5af9f867fc4b76386b9dcf33cc9fc0fb0a2fe8923ff9d1a53b8865f",
+      "src": "/media/editions-v31/masters/f5043c313009451057.webp",
+      "webpSha256": "7670a7dec0df95f9ab2811c41ee050313f9377ab202b1ab4cc605250c04fa2ea",
+      "bytes": 110080
+    },
+    {
+      "tournament": "Monte Carlo",
+      "year": 2025,
+      "tours": [
+        "atp"
+      ],
+      "source": "https://www.nittoatpfinals.com/en/news/alcaraz-musetti-monte-carlo-2025-final?dm_i=75TZ%2C1UWVO%2C2EVC45%2C5OUF9%2C1",
+      "originalUrl": "https://www.nittoatpfinals.com/-/media/images/news/2025/04/13/12/32/alcaraz-monte-carlo-2025-trophy-shot.jpg",
+      "sourceTitle": "Alcaraz Musetti Monte-Carlo 2025 Final | Nitto ATP Finals | Tennis",
+      "originalDimensions": [
+        1920,
+        1080
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "23d11a8791f609ffd4ec93cfaccec8a9d0db481b475e238cffea3ca3e2bc02bb",
+      "src": "/media/editions-v31/masters/ac7074a3b4439f52d2.webp",
+      "webpSha256": "fc723882a120d6659a0671d898009387907fa15660992a257d70f2b173d76a3e",
+      "bytes": 158566
+    },
+    {
+      "tournament": "Indian Wells",
+      "year": 2025,
+      "tours": [
+        "atp"
+      ],
+      "source": "https://www.nittoatpfinals.com/en/news/draper-rune-indian-wells-2025-final?gsid=4744abc1-266e-4ca9-aab7-c429e3231bcf",
+      "originalUrl": "https://www.nittoatpfinals.com/-/media/images/news/2025/03/16/23/22/draper-indian-wells-2025-trophy-1.jpg",
+      "sourceTitle": "Draper Rune Indian Wells 2025 Final | Nitto ATP Finals | Tennis",
+      "originalDimensions": [
+        1920,
+        1080
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "038876ec3bf245a71895789af5474e8af9ff60130cb18cc5dd51b22bd301d70c",
+      "src": "/media/editions-v31/masters/65b26100b37ea06514.webp",
+      "webpSha256": "e6201b893dd6dee6b731b3ac40536d4a170ce42ab14c515e93260cda70ab64e8",
+      "bytes": 235654
+    },
+    {
+      "tournament": "Rome",
+      "year": 2025,
+      "tours": [
+        "atp"
+      ],
+      "source": "https://www.nittoatpfinals.com/en/news/sinner-alcaraz-rome-2025-final",
+      "originalUrl": "https://www.nittoatpfinals.com/-/media/images/news/2025/05/18/18/03/alcaraz-sinner-rome-2025-final-trophy.jpg",
+      "sourceTitle": "Sinner Alcaraz Rome 2025 Final | Nitto ATP Finals | Tennis",
+      "originalDimensions": [
+        1920,
+        1080
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "dd535755b865317b33ffd351cf0a5183b944d689bc6e8a21abee45e62650e1ff",
+      "src": "/media/editions-v31/masters/22f127368c307598e4.webp",
+      "webpSha256": "3daae939ced88e7860c87ca241b4e911bdd703a6d9683919c57d46f5a596bc19",
+      "bytes": 143788
+    },
+    {
+      "tournament": "Miami",
+      "year": 2024,
+      "tours": [
+        "atp"
+      ],
+      "source": "https://www.nittoatpfinals.com/en/news/sinner-dimitrov-miami-2024-final",
+      "originalUrl": "https://www.nittoatpfinals.com/-/media/images/news/2024/03/31/21/10/sinner-miami-2024-trophy.jpg",
+      "sourceTitle": "Sinner Dimitrov Miami 2024 Final | Nitto ATP Finals | Tennis",
+      "originalDimensions": [
+        1920,
+        1080
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "efa946887e7fce9e6423ae594bc8a9fa0e4a9fa72937ed17241c0f428af5ef09",
+      "src": "/media/editions-v31/masters/458dd71dbe00d40360.webp",
+      "webpSha256": "00177e38b0b355e5d3c357ff02a6f1bde40bf127861f87a8f7d55c8a7054b53f",
+      "bytes": 196240
+    },
+    {
+      "tournament": "Monte Carlo",
+      "year": 2024,
+      "tours": [
+        "atp"
+      ],
+      "source": "https://www.nittoatpfinals.com/en/news/ruud-tsitsipas-monte-carlo-2024-final",
+      "originalUrl": "https://www.nittoatpfinals.com/-/media/images/news/2024/04/14/15/43/tsitsipas-monte-carlo-2024-final-trophy.jpg",
+      "sourceTitle": "Ruud Tsitsipas Monte Carlo 2024 Final | Nitto ATP Finals | Tennis",
+      "originalDimensions": [
+        1920,
+        1080
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "55691ab5c512f4e9a441996e85b2f510ab14ff03a4329ebeeee8d10fdb4963cf",
+      "src": "/media/editions-v31/masters/359f844984502497d3.webp",
+      "webpSha256": "d5ad7e1eced043ec50e8c2a5f922915188bcb58a719fd7cbcfbc571a91127134",
+      "bytes": 179070
+    },
+    {
+      "tournament": "Indian Wells",
+      "year": 2024,
+      "tours": [
+        "atp"
+      ],
+      "source": "https://www.nittoatpfinals.com/en/news/alcaraz-medvedev-indian-wells-2024-final",
+      "originalUrl": "https://www.nittoatpfinals.com/-/media/images/news/2024/03/17/23/51/alcaraz-indian-wells-2024-trophy.jpg",
+      "sourceTitle": "Alcaraz Medvedev Indian Wells 2024 Final | Nitto ATP Finals | Tennis",
+      "originalDimensions": [
+        1920,
+        1080
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "63f6658b3f9ffc28e5ebefe0677338cf9639fc1aef5906f0c84ddd0f647f9fb6",
+      "src": "/media/editions-v31/masters/ffbf2644d87ba63b2b.webp",
+      "webpSha256": "91b06806c821306b6d2306e61b9f49c9a049bdde4925729490e0a1b06a4e034a",
+      "bytes": 219508
+    },
+    {
+      "tournament": "Rome",
+      "year": 2024,
+      "tours": [
+        "atp"
+      ],
+      "source": "https://www.nittoatpfinals.com/en/news/zverev-jarry-rome-2024-final",
+      "originalUrl": "https://www.nittoatpfinals.com/-/media/images/news/2024/05/19/17/05/zverev-rome-2024-final1.jpg",
+      "sourceTitle": "zverev-jarry-rome-2024-final | Nitto ATP Finals | Tennis",
+      "originalDimensions": [
+        1920,
+        1080
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "a7bad21bcded9912e3b6c08853d3b8a38716a2d7b16902e34c2510a863c0e5a1",
+      "src": "/media/editions-v31/masters/31f4d84c9e0f12e373.webp",
+      "webpSha256": "fddac23ef6b6217afd19a928472a563eb61d27be6bc02bd69894775ddee6feb6",
+      "bytes": 231874
+    },
+    {
+      "tournament": "Cincinnati",
+      "year": 2024,
+      "tours": [
+        "atp"
+      ],
+      "source": "https://www.nittoatpfinals.com/en/news/sinner-tiafoe-cincinnati-2024-final",
+      "originalUrl": "https://www.nittoatpfinals.com/-/media/images/news/2024/08/20/00/50/sinner-cincinnati-2024-trophy-1.jpg",
+      "sourceTitle": "Sinner Tiafoe Cincinnati 2024 Final | Nitto ATP Finals | Tennis",
+      "originalDimensions": [
+        1920,
+        1080
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "cc045240852a26482e3bd3bab20256d060f9fe7e7f9351a5f063a47c6c2cc629",
+      "src": "/media/editions-v31/masters/c8fcbf070f0223c973.webp",
+      "webpSha256": "16df5c9c68bd77e8fcd40f4e84f468253cc5ff3efb759b2f8749b5911e32a46f",
+      "bytes": 223558
+    },
+    {
+      "tournament": "Monte Carlo",
+      "year": 2023,
+      "tours": [
+        "atp"
+      ],
+      "source": "https://www.nittoatpfinals.com/en/news/rublev-rune-monte-carlo-2023-sunday-final",
+      "originalUrl": "https://www.nittoatpfinals.com/-/media/images/news/2023/04/16/15/45/rublev-trophy-shot-mc-2023.jpg",
+      "sourceTitle": "Rublev Rune Monte-Carlo 2023 Sunday Final | Nitto ATP Finals | Tennis",
+      "originalDimensions": [
+        1920,
+        1080
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "996fa691c5110ac21bdf15aed8b81c3c63a06e8a60743ff64fce786f77139fcf",
+      "src": "/media/editions-v31/masters/0d9ecdab17da4ed385.webp",
+      "webpSha256": "2f13617b294d52c902e0e8285eff97af5b4b94c8bab3f00bfe2b94f12b277b98",
+      "bytes": 177716
+    },
+    {
+      "tournament": "Madrid",
+      "year": 2023,
+      "tours": [
+        "atp"
+      ],
+      "source": "https://www.nittoatpfinals.com/en/news/alcaraz-struff-madrid-2023-final-sunday",
+      "originalUrl": "https://www.nittoatpfinals.com/-/media/images/news/2023/05/07/19/32/alcaraz-madrid-2023-trophy.jpg",
+      "sourceTitle": "Alcaraz Struff Madrid 2023 Final Sunday | Nitto ATP Finals | Tennis",
+      "originalDimensions": [
+        1920,
+        1080
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "4c73c5d6bd94490eb0eabedbcb64333db3d5513787400e36546894dbce928562",
+      "src": "/media/editions-v31/masters/e440cd749029d30426.webp",
+      "webpSha256": "7a04e2e33efce5f38d130b7b85e034ca47d242432ea0c2ff3720882861aaf0d4",
+      "bytes": 187856
+    },
+    {
+      "tournament": "Cincinnati",
+      "year": 2023,
+      "tours": [
+        "atp"
+      ],
+      "source": "https://www.nittoatpfinals.com/en/news/alcaraz-djokovic-cincinnati",
+      "originalUrl": "https://www.nittoatpfinals.com/-/media/images/news/2023/08/21/01/17/djokovic-cincinnati-2023-sunday-shirt.jpg",
+      "sourceTitle": "Alcaraz Djokovic Cincinnati 2023 Final | Nitto ATP Finals | Tennis",
+      "originalDimensions": [
+        1920,
+        1080
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "7c631095787c57243e78841045f1cb09a33b2b44b18b41f2399c22c10244b996",
+      "src": "/media/editions-v31/masters/3aa32a11ea7b7bf314.webp",
+      "webpSha256": "f878ae020850571e61c08224b2588fbfa926ccd6908ac5d48a1cb50870e91111",
+      "bytes": 187616
+    },
+    {
+      "tournament": "Shanghai",
+      "year": 2023,
+      "tours": [
+        "atp"
+      ],
+      "source": "https://www.nittoatpfinals.com/en/news/hurkacz-rublev-",
+      "originalUrl": "https://www.nittoatpfinals.com/-/media/images/news/2023/10/15/09/15/hurkacz-shanghai-2023-champion.jpg",
+      "sourceTitle": "Hurkacz Rublev Shanghai 2023 Final | Nitto ATP Finals | Tennis",
+      "originalDimensions": [
+        1920,
+        1080
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": false,
+      "reason": "Diseño promocional con texto incrustado: descartado como fotografía de edición.",
+      "originalSha256": "0c6e218b9b6e80acb2fda17b45922ad4f833bd30965d7b93951501d5314777b8"
+    },
+    {
+      "tournament": "Paris",
+      "year": 2023,
+      "tours": [
+        "atp"
+      ],
+      "source": "https://www.nittoatpfinals.com/en/news/djokovic-dimitrov-paris-2023-sunday-final",
+      "originalUrl": "https://www.nittoatpfinals.com/-/media/images/news/2023/11/05/17/33/djokovic-paris-2023-champion-celebration.jpg",
+      "sourceTitle": "Djokovic Dimitrov Paris 2023 Sunday Final | Nitto ATP Finals | Tennis",
+      "originalDimensions": [
+        1920,
+        1080
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": false,
+      "reason": "Diseño promocional con texto incrustado: descartado como fotografía de edición.",
+      "originalSha256": "35abf0526140c205a7c5e415a66a1e7de3a310d0677015b4f90bf337509b5466"
+    },
+    {
+      "tournament": "Beijing",
+      "year": 2024,
+      "tours": [
+        "wta"
+      ],
+      "source": "https://www.lta.org.uk/news/2025/september/china-open-2025-preview-schedule-draw-player-list-how-to-watch/",
+      "originalUrl": "https://www.lta.org.uk/siteassets/news/2025/september/2024-coco-gauff-china-open-trophy.jpg",
+      "sourceTitle": "China Open 2025: Preview, schedule, player list & how to watch | LTA",
+      "originalDimensions": [
+        3407,
+        2271
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "ca28c719c7ad2a86734ac0eb1813b15dd352553fbede17db53e1b358445c59dd",
+      "src": "/media/editions-v31/masters/14c9f54a8d7d899a0a.webp",
+      "webpSha256": "cdb8fe00f79c753d5afd12841586342f947104cc96542c96a686413f59009988",
+      "bytes": 299850
+    },
+    {
+      "tournament": "Cincinnati",
+      "year": 2024,
+      "tours": [
+        "wta"
+      ],
+      "source": "https://www.lta.org.uk/news/cincinnati-open-2025-preview-draws-player-list-and-how-to-watch/",
+      "originalUrl": "https://www.lta.org.uk/4a2246/siteassets/news/2025/july/2024-aryna-sabalenka-cincinnati.jpg?w=3200",
+      "sourceTitle": "Cincinnati Open 2025: Preview, draws, player list & how to watch",
+      "originalDimensions": [
+        3857,
+        2571
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "53e1f66dc6107bffbade19bc101314c22953989eb304f62da7f3fa6bb955412a",
+      "src": "/media/editions-v31/masters/a81d4f26166f05cccf.webp",
+      "webpSha256": "8a025c36f9448ddc15633e871cc8e166ebc4959ef05ff9bf4e7da70cdc0a9932",
+      "bytes": 166696
+    },
+    {
+      "tournament": "Paris",
+      "year": 2023,
+      "tours": [
+        "atp"
+      ],
+      "source": "https://english.aawsat.com/sports/4650041-djokovic-downs-dimitrov-straight-sets-record-extending-7th-title-paris-masters",
+      "originalUrl": "https://static.srpcdigital.com/styles/1037xauto/public/2023-11/402691_0.jpeg",
+      "sourceTitle": "Djokovic Downs Dimitrov in Straight Sets for Record-extending 7th Title at Paris Masters",
+      "originalDimensions": [
+        1500,
+        1000
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "68d3c01be7a50a525fa4be86a2a392962ef85b2621a4e23d4c43585d6e2247f8",
+      "src": "/media/editions-v31/masters/bd446fc7a9d7a437fe.webp",
+      "webpSha256": "9b5b29aa5e92035a2ba1665246ed213d3a0ad3b1d6eba6848a66a5b95612b7e7",
+      "bytes": 169454
+    },
+    {
+      "tournament": "Shanghai",
+      "year": 2023,
+      "tours": [
+        "atp"
+      ],
+      "source": "https://www.nst.com.my/sports/tennis/2023/10/967512/hubert-hurkacz-gains-second-masters-1000-win-shanghai",
+      "originalUrl": "https://assets.nst.com.my/images/articles/z1610hubert02_1697413006.jpg",
+      "sourceTitle": "Hubert Hurkacz gains second Masters 1000 win in Shanghai | New Straits Times",
+      "originalDimensions": [
+        900,
+        600
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "208ebf6082a57291db2dc9554a9974fa2a42a11d876a5e3b2df9c4b4d58a4f0d",
+      "src": "/media/editions-v31/masters/54d9353ded0aeab717.webp",
+      "webpSha256": "3f6f1c4ada7746e07adb437aa72d607cacd58895b7a8d6b0dc594b22f27670e1",
+      "bytes": 77386
+    },
+    {
+      "tournament": "Monte Carlo",
+      "year": 2022,
+      "tours": [
+        "atp"
+      ],
+      "source": "https://www.atptour.com/en/tournaments/monte-carlo/410/overview",
+      "originalUrl": "https://www.nittoatpfinals.com/-/media/images/news/2022/04/17/14/57/tsitsipas-monte-carlo-2022-trophy.jpg",
+      "sourceTitle": "ATP Masters 1000 Monte-Carlo | Overview | ATP Tour | Tennis",
+      "originalDimensions": [
+        1920,
+        1080
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "11a30de1708960680a423bf51ef095e3a3805fa05dc1a510d9845a20b239d20c",
+      "src": "/media/editions-v31/masters/1c160ad6881953c9fa.webp",
+      "webpSha256": "0b571a097661cf400138c2bd9514ee45acc54b79f5e2e7c36b485365c404480f",
+      "bytes": 217636
+    },
+    {
+      "tournament": "Indian Wells",
+      "year": 2022,
+      "tours": [
+        "atp"
+      ],
+      "source": "https://tribune.com.pk/story/2348963/fritz-beats-nadal-to-lift-indian-wells-trophy",
+      "originalUrl": "https://i.tribune.com.pk/media/images/ATP1647853991-0/ATP1647853991-0.jpeg",
+      "sourceTitle": "Fritz beats Nadal to lift Indian Wells trophy",
+      "originalDimensions": [
+        1920,
+        1080
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "411ecf38867eb5c44e19785abd5356c9e5ae6fe00350ceac4fee528d45f9443d",
+      "src": "/media/editions-v31/masters/48fad8047f4abc52b1.webp",
+      "webpSha256": "0eca9b38b52dc10140d0afd693cf2380b870bd25ab8577f5e6f0a657c53fd773",
+      "bytes": 241144
+    },
+    {
+      "tournament": "Miami",
+      "year": 2022,
+      "tours": [
+        "atp"
+      ],
+      "source": "https://elpais.com/deportes/2022-04-03/alcaraz-tumba-a-ruud-y-conquista-miami.html",
+      "originalUrl": "https://imagenes.elpais.com/resizer/v2/DW3L4ACBBK2QP2OLJSBXRPWMSI.jpg?auth=02eab90db95ce3ea6eedcc4f26050b22a7d4feb76c93dd68976b99a8f1516f69&width=1200",
+      "sourceTitle": "Masters de Miami 2022: Carlos Alcaraz proclama su revolución | Deportes | EL PAÍS",
+      "originalDimensions": [
+        1200,
+        800
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "9c4a1f74b1bd8d625875afb6bb8747c6bcc1e94491feb0c413e2a02f8ec90bbb",
+      "src": "/media/editions-v31/masters/f58d0ba1a2e9efe4a4.webp",
+      "webpSha256": "13fef9b79a84f6b54e903b97bea2654bceb3701e9c7ca2e15004b7080c7d39f3",
+      "bytes": 129052
+    },
+    {
+      "tournament": "Rome",
+      "year": 2022,
+      "tours": [
+        "atp"
+      ],
+      "source": "https://english.aawsat.com/home/article/3647961/djokovic-claims-sixth-italian-open-title",
+      "originalUrl": "https://static.srpcdigital.com/styles/1037xauto/public/2022/05/16/djokovic.jpg.webp",
+      "sourceTitle": "Djokovic Claims Sixth Italian Open Title",
+      "originalDimensions": [
+        1500,
+        1106
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "c7dfb8e290b4b0b738a2e7835ef74954423d1bdea63280e7ad5bec3f4b18f4e7",
+      "src": "/media/editions-v31/masters/22c4b2c6180d838d68.webp",
+      "webpSha256": "216ee0bd225ce6c2e280f161e07566ad3428661a1394b609a0660cc50078549f",
+      "bytes": 133684
+    },
+    {
+      "tournament": "Madrid",
+      "year": 2022,
+      "tours": [
+        "atp"
+      ],
+      "source": "https://www.antena3.com/noticias/deportes/tenis/cuanto-dinero-gana-carlos-alcaraz-victoria-mutua-madrid-open-2022_202205096278e070fdd2cc00012a7df3.html",
+      "originalUrl": "https://fotografias.antena3.com/clipping/cmsimages01/2022/05/09/6955E6C8-C598-4DF3-B711-65DE8AF080B7/alcaraz-titulo-mutua-madrid-open_98.jpg?crop=1920%2C1080%2Cx0%2Cy198&format=webply&height=1069&optimize=low&width=1900",
+      "sourceTitle": "¿Cuánto dinero gana Carlos Alcaraz por su victoria en el Mutua Madrid Open 2022?",
+      "originalDimensions": [
+        1900,
+        1069
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "1c04978d32dbf9fcb27813bb04f4b5e37838d824399d8a3e1ba1446dfb5407e5",
+      "src": "/media/editions-v31/masters/220a29ccd80c4b52b1.webp",
+      "webpSha256": "97ec2c64fc22f9a9a38f9e1dfb7da1ab3245b91e0fa33a738519a2c9fc1a4041",
+      "bytes": 121026
+    },
+    {
+      "tournament": "Indian Wells",
+      "year": 2015,
+      "tours": [
+        "atp"
+      ],
+      "source": "https://www.independent.co.uk/sport/tennis/indian-wells-2015-novak-djokovic-beats-roger-federer-in-tournament-final-10126791.html",
+      "originalUrl": "https://static.independent.co.uk/s3fs-public/thumbnails/image/2015/03/23/01/467300340.jpg",
+      "sourceTitle": "Indian Wells 2015: Novak Djokovic beats Roger Federer in tournament final | The Independent | The Independent",
+      "originalDimensions": [
+        2048,
+        1536
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "a38bd8fe7bc1b4aec9d82941b8fda53c6325482cb2ebab781789d2ff05a36a8f",
+      "src": "/media/editions-v31/masters/159b721d81bb137feb.webp",
+      "webpSha256": "cec3a747d0e31e941d877bc825e35a4b0d4be8a0ab73f5ac62a2f592c2df2c0c",
+      "bytes": 367780
+    },
+    {
+      "tournament": "Miami",
+      "year": 2015,
+      "tours": [
+        "atp"
+      ],
+      "source": "https://bleacherreport.com/articles/2420941-miami-open-tennis-2015-results-mens-final-score-winner-and-twitter-reaction",
+      "originalUrl": "https://legacymedia.sportsplatform.io/img/images/photos/003/347/015/hi-res-fea0b535f7e19dc413045f68a542094f_crop_north.jpg?1428264895=&h=1080&w=1920",
+      "sourceTitle": "Miami Open Tennis 2015 Results: Men's Final Score, Winner and Twitter Reaction",
+      "originalDimensions": [
+        1620,
+        1080
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "ad38b6158e94108fe7c82c83db1b7107f8539994b9e90b0ed71f017d0916598c",
+      "src": "/media/editions-v31/masters/cebc346911ccad14de.webp",
+      "webpSha256": "e223a73a1fb60d53f0426e5ebbfafeb518074e93c1d1e59ed339074cbc2e36a3",
+      "bytes": 117050
+    },
+    {
+      "tournament": "Miami",
+      "year": 2010,
+      "tours": [
+        "atp"
+      ],
+      "source": "https://www.rtve.es/deportes/20100404/andy-roddick-se-hace-con-el-master-de-miami/326355.shtml",
+      "originalUrl": "https://img2.rtve.es/n/326355",
+      "sourceTitle": "Andy Roddick se hace con el Master de Miami",
+      "originalDimensions": [
+        3132,
+        1920
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "03aa582a68c833780c46a86b5e39ec93007fbfab16fd41edd19558915cb9d57f",
+      "src": "/media/editions-v31/masters/5f05e73d14cdb2789c.webp",
+      "webpSha256": "03245eb776e6704c3f59f6f015b3f9f45a4e43544ee73f36922bfac8a9889dd4",
+      "bytes": 233374
+    },
+    {
+      "tournament": "Madrid",
+      "year": 2010,
+      "tours": [
+        "atp"
+      ],
+      "source": "https://tt.tennis-warehouse.com/index.php?threads%2Fbig-4s-unique-records-at-madrid-open.748611%2F",
+      "originalUrl": "https://images.neobookings.com/cms/rafanadalacademy.com/section/the-day-nadal-surpassed-agassi/pics/the-day-nadal-surpassed-agassi-dmeo4pkl94.jpeg",
+      "sourceTitle": "Big 4's unique records at Madrid Open :} | Talk Tennis",
+      "originalDimensions": [
+        2000,
+        1333
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "2bc5f4933218a8d2e53f7ece9400d3b102242bab5154b07bf49c8ce3f621d425",
+      "src": "/media/editions-v31/masters/a5861e7b5b5842d479.webp",
+      "webpSha256": "d85605689e93fe0cadb94105ae67d8045953fa3c414dfcb7cfcea26ff8a42fa4",
+      "bytes": 204642
+    },
+    {
+      "tournament": "Rome",
+      "year": 2005,
+      "tours": [
+        "atp"
+      ],
+      "source": "https://www.atptour.com/es/news/nadal-coria-roma-2005-aniversario",
+      "originalUrl": "https://www.nittoatpfinals.com/-/media/images/news/2020/05/12/17/13/nadal-coria-rome-2005-final.jpg",
+      "sourceTitle": "Final Roma 2005 Rafael Nadal vs Guillermo Coria | ATP Tour | Tennis",
+      "originalDimensions": [
+        1920,
+        1080
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": false,
+      "reason": "Diseño promocional con texto incrustado: descartado como fotografía de edición.",
+      "originalSha256": "f93b44693fa0ed45f9b8e519c1437abb2f6a0b54ad7f7f11ac4221501a119fb5"
+    },
+    {
+      "tournament": "Rome",
+      "year": 2018,
+      "tours": [
+        "wta"
+      ],
+      "source": "https://www.independent.co.uk/sport/tennis/elina-svitolina-simona-halep-italian-open-final-a8360271.html",
+      "originalUrl": "https://static.independent.co.uk/s3fs-public/thumbnails/image/2018/05/20/14/svitolina-italian-open.jpg?fit=crop&height=630&width=1200",
+      "sourceTitle": "Elina Svitolina breezes past Simona Halep to defend Italian Open title | The Independent | The Independent",
+      "originalDimensions": [
+        1200,
+        630
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "6b25f382529293acee047fae21c0893ee710d000dc7cbc0bb04a29c66e3631ae",
+      "src": "/media/editions-v31/masters/55397c62fa5f4b30c5.webp",
+      "webpSha256": "82e6d7ecb47ddebbe88097b1548b221304dcf830971cf356ea9a61ca188e2cbc",
+      "bytes": 87304
+    },
+    {
+      "tournament": "Rome",
+      "year": 2017,
+      "tours": [
+        "wta"
+      ],
+      "source": "https://www.independent.co.uk/sport/tennis/rome-open-elina-svitolina-wins-simona-halep-wta-tour-a7748131.html",
+      "originalUrl": "https://static.independent.co.uk/s3fs-public/thumbnails/image/2017/05/21/19/svitolina-win.jpg?crop=1200%3A800&height=800&width=1200",
+      "sourceTitle": "Elina Svitolina wins a tour-leading fourth title of the season with victory in Rome over Simona Halep | The Independent | The Independent",
+      "originalDimensions": [
+        1200,
+        800
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "89a58022c68a59dabc5cf52c01dce1b79e2b35cf754b5de5400d20061ce1fb06",
+      "src": "/media/editions-v31/masters/311d1f7422922d5ce2.webp",
+      "webpSha256": "c0964165630b644542b34a5d31bf2fd75a53b6fb160a2dc6a976d68df7a3b42f",
+      "bytes": 119240
+    },
+    {
+      "tournament": "Rome",
+      "year": 2010,
+      "tours": [
+        "wta"
+      ],
+      "source": "https://www.wtatennis.com/news/1572614/martinez-sanchez-calls-time-on-storied-career",
+      "originalUrl": "https://photoresources.wtatennis.com/photo-resources/2020/01/15/ec0c90d6-3079-49b7-8c3f-e319263b2321/Martinez-Sanchez-Rome-2010.jpg?width=1064",
+      "sourceTitle": "Martínez Sánchez calls time on storied career",
+      "originalDimensions": [
+        1064,
+        708
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "bc4c5ee611044956d4c6cc0f912260a0ffe9fe9bb3140150201f15b323f26c1f",
+      "src": "/media/editions-v31/masters/1a3f23bce87632c385.webp",
+      "webpSha256": "bff86311421873bc0744e13ccc42bbf6a51b27471beb1d507176d505d67bb01f",
+      "bytes": 122652
+    },
+    {
+      "tournament": "Indian Wells",
+      "year": 2015,
+      "tours": [
+        "wta"
+      ],
+      "source": "https://www.espn.com/espn/uk/tennis/story/_/id/12539523/simona-halep-beats-jelena-jankovic-clinch-bnp-paribas-open-title-three-set-thriller-indian-wells",
+      "originalUrl": "https://a.espncdn.com/photo/2015/0322/uk_HalepJankovic_rb_1296x729.jpg",
+      "sourceTitle": "Halep downs Jankovic to clinch Indian Wells title - ESPN",
+      "originalDimensions": [
+        1296,
+        729
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "33750fea0840d4abd787c515e0c992f75dd07ffb347a223949af7fc3cf475159",
+      "src": "/media/editions-v31/masters/8584d976be283bc006.webp",
+      "webpSha256": "81c77c0cfb2f090bbd6835e6f505b0d002ce35bd00d19800e6c76b42cb7ad29f",
+      "bytes": 105766
+    },
+    {
+      "tournament": "Miami",
+      "year": 2009,
+      "tours": [
+        "atp"
+      ],
+      "source": "https://www.lta.org.uk/news/andy-murrays-double-and-a-career-best-trophy-for-johanna-konta-at-the-miami-open/",
+      "originalUrl": "https://www.lta.org.uk/493668/siteassets/news/2024/march/2009-andy-muray-miami-open-trophy.jpg?w=1200",
+      "sourceTitle": "Andy Murray’s double & a career-best trophy for Johanna Konta at the Miami Open | LTA",
+      "originalDimensions": [
+        2452,
+        1635
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "a7b47c040eb6d6c68b77afac95d6c76cc36c14edce4f7adde8542047741b28c5",
+      "src": "/media/editions-v31/masters/3fba241a320ab81232.webp",
+      "webpSha256": "9f049fcb9d6407036b4cffa0f5c4a8893dc31d91c0bab9bc7367b4ba5d854752",
+      "bytes": 186098
+    },
+    {
+      "tournament": "Miami",
+      "year": 2019,
+      "tours": [
+        "wta"
+      ],
+      "source": "https://thepeninsulaqatar.com/article/01/04/2019/Australian-Barty-beats-Pliskova-for-Miami-Open-title",
+      "originalUrl": "https://thepeninsulaqatar.com/get/maximage/20190401_1554073478-221152.jpg",
+      "sourceTitle": "Australian Barty beats Pliskova for Miami Open title | The Peninsula Qatar",
+      "originalDimensions": [
+        1200,
+        871
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "c53c4368ec71d5967c0f3e4686d3f8632609eacd1f2905717bff6ec8d3804b62",
+      "src": "/media/editions-v31/masters/6d032b0b908c7c2584.webp",
+      "webpSha256": "9cda2e3b9bed98fcc512fa8537e391f22e232287260d6c94054194ed88b198dc",
+      "bytes": 133598
+    },
+    {
+      "tournament": "Paris",
+      "year": 2008,
+      "tours": [
+        "atp"
+      ],
+      "source": "https://www.ladepeche.fr/article/2008/10/31/485754-tennis-jo-wilfried-tsonga-200e-place-masters-deux-ans.html",
+      "originalUrl": "https://images.ladepeche.fr/api/v1/images/view/5c178a3f8fe56f2d5d6ecce8/hd/image.jpg",
+      "sourceTitle": "Tennis: Jo-Wilfried Tsonga de la 200e place au Masters en deux ans - ladepeche.fr",
+      "originalDimensions": [
+        1200,
+        675
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "ba30f25878b361b9410ef8667c7a2bbe1b4f8b1e835284a455970f52f8bb523a",
+      "src": "/media/editions-v31/masters/a0790c6cec1d3fd217.webp",
+      "webpSha256": "4eedcc131ac64a4f2393e3f47cc0bf91370f36bbafd26398ff71d098f159796b",
+      "bytes": 62332
+    },
+    {
+      "tournament": "Indian Wells",
+      "year": 2019,
+      "tours": [
+        "atp"
+      ],
+      "source": "https://tennismagazine.jp/article/detail/23505",
+      "originalUrl": "https://images.tennismagazine.jp/media/article/23505/images/main_2ca79bbfff748812386bcaf683558a9e.jpg",
+      "sourceTitle": "2019年大会覇者ティームがインディアンウェルズのワイルドカードを獲得 | テニスマガジンONLINE｜tennismagazine.jp",
+      "originalDimensions": [
+        1280,
+        960
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "bf5e47954d13add643c2d2e904fe8a51d4e9ace01f0defdfb24c6d46fdbc42bb",
+      "src": "/media/editions-v31/masters/345d46da6aa3958a27.webp",
+      "webpSha256": "8186817a882e422764d18d451f970d524c9a61a7772e7a6a809072e366a6e199",
+      "bytes": 117570
+    },
+    {
+      "tournament": "Cincinnati",
+      "year": 2012,
+      "tours": [
+        "atp"
+      ],
+      "source": "https://www.lemonde.fr/sport/article/2012/08/19/tennis-federer-terrasse-djokovic-en-finale-du-tournoi-de-cincinnati_1747611_3242.html",
+      "originalUrl": "https://img.lemde.fr/2012/08/19/0/0/1024/683/1440/960/60/0/ill_1747632_1bba_907349.jpg",
+      "sourceTitle": "Tennis : Federer terrasse Djokovic en finale du tournoi de Cincinnati",
+      "originalDimensions": [
+        1440,
+        960
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "610ae5af80b8efa78078b8204501b1585a97b7d28e64ca01ba703cd374f90479",
+      "src": "/media/editions-v31/masters/2442a1ff2964864a63.webp",
+      "webpSha256": "0da860939171e5297f1fec1f3a52d749a0fec77f99ddc5f6a6ecf227811103f7",
+      "bytes": 82198
+    },
+    {
+      "tournament": "Wuhan",
+      "year": 2019,
+      "tours": [
+        "wta"
+      ],
+      "source": "https://www.wtatennis.com/news/1485806/back-to-back-sabalenka-beats-riske-to-defend-wuhan-title",
+      "originalUrl": "https://photoresources.wtatennis.com/photo-resources/2019/11/06/9b11621b-be67-4759-ac83-0beefa555044/uKxHUqlm.jpg?width=1440",
+      "sourceTitle": "Back to back: Sabalenka beats Riske to defend Wuhan title",
+      "originalDimensions": [
+        1440,
+        960
+      ],
+      "reviewedAt": "2026-11-12T09:03:14.281322+00:00",
+      "accepted": true,
+      "reason": "Fotografía horizontal del torneo y año identificado; revisión visual de identidad, tenis y calidad.",
+      "originalSha256": "52810e2e73a8c9c47d86de565a0599624c5fb25288d6cdc70b5a4007757a8f43",
+      "src": "/media/editions-v31/masters/8cb72d6ae431c119de.webp",
+      "webpSha256": "d69669dbee3d3e84d7ebf666c2e9f72b8326e88b5e73568b202891cf5d0a8fa1",
+      "bytes": 103976
+    }
+  ]
+}

@@ -1,12 +1,16 @@
 import Link from 'next/link';
 import { HeroPlayback } from './HeroPlayback';
-export function HeroVideo({ count, wtaCount = 0, atpFrom = 1968, wtaFrom }: { count:number; wtaCount?:number; atpFrom?:number|null; wtaFrom?:number|null }) {
-  const coverage=wtaCount>0
-    ? `partidos publicados: ATP desde ${atpFrom||1968} y WTA desde ${wtaFrom||'su primera temporada disponible'}.`
-    : `partidos ATP desde ${atpFrom||1968}.`;
-  return <section className="hero" aria-labelledby="hero-title"><div className="hero-media">
-    <HeroPlayback />
-    <div className="hero-shade"/>
-    <div className="hero-copy"><h1 id="hero-title">Archivo del tenis</h1><p>{new Intl.NumberFormat('es-ES').format(count)} {coverage}</p><Link className="round-cta" href="/buscar">Buscar en el archivo <svg className="hero-cta-mark" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 15 15 5M7 5h8v8"/></svg></Link></div>
-  </div></section>;
+import styles from '@/app/home-editorial.module.css';
+export function HeroVideo() {
+  return <section id="home-top" className={styles.hero} aria-labelledby="hero-title" data-home-depth="90">
+    <div className={styles.heroFilm}><HeroPlayback/></div>
+    <div className={styles.heroShade}/>
+    <div className={styles.heroContent}>
+      <h1 id="hero-title">Cada partido<br/><span>cuenta.</span></h1>
+      <div className={styles.heroBottom}>
+        <p>El tenis que recuerdas.<br/>Los datos que te faltaban.</p>
+        <Link className={styles.primaryAction} href="/buscar">Explorar el archivo <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></Link>
+      </div>
+    </div>
+  </section>;
 }

@@ -1,0 +1,163 @@
+{
+  "schema": 1,
+  "reviewedAt": "2026-11-12",
+  "archive": "data/archive/references/edition-format-v31/sources.json",
+  "rules": [
+    {
+      "id": "grampians-2021-unplayed-final",
+      "tournament": "Grampians Trophy",
+      "tour": "wta",
+      "years": [
+        2021
+      ],
+      "format": "interrupted-knockout",
+      "lateRounds": {
+        "5": 4,
+        "6": 2,
+        "7": 0
+      },
+      "finalStatus": "not-played",
+      "reason": "La final no se celebró por el retraso del calendario y el inicio del Australian Open. No se atribuye un resultado ni un ganador de una final inexistente.",
+      "sources": [
+        "https://www.wtatennis.com/news/2018376/grampians",
+        "https://news.err.ee/1608100684/kontaveit-makes-final-that-will-not-be-played-in-melbourne"
+      ]
+    },
+    {
+      "id": "scottsdale-2000-unplayed-final",
+      "tournament": "Scottsdale",
+      "tour": "wta",
+      "years": [
+        2000
+      ],
+      "format": "interrupted-knockout",
+      "lateRounds": {
+        "5": 4,
+        "6": 2,
+        "7": 0
+      },
+      "finalStatus": "not-played",
+      "reason": "La lluvia obligó a cancelar la final Hingis–Davenport. La ausencia del partido no es una laguna del archivo.",
+      "sources": [
+        "https://wtafiles.wtatennis.com/pdf/publications/WTA24MG_RecordBook.pdf",
+        "https://a.espncdn.com/tennis/wta/results/index.html"
+      ]
+    },
+    {
+      "id": "australian-open-1977-two-occurrences",
+      "tournament": "Australian Open",
+      "tour": "any",
+      "years": [
+        1977
+      ],
+      "format": "multiple-occurrences",
+      "lateRounds": {
+        "5": 8,
+        "6": 4,
+        "7": 2
+      },
+      "occurrences": [
+        "1977-01",
+        "1977-12"
+      ],
+      "reason": "En 1977 se celebraron dos ediciones, enero y diciembre. Se conservan ambas y se separan por el mes documentado del encuentro; los snapshots antiguos agregados no se certifican como un único cuadro.",
+      "sources": [
+        "https://ausopen.com/articles/news/story-australian-opens-many-homes",
+        "https://www.atptour.com/en/scores/results-archive?year=1977",
+        "https://longwoodcoveredcourts.com/?page_id=682"
+      ]
+    },
+    {
+      "id": "atp-cup-2020-team-format",
+      "tournament": "Cup",
+      "tour": "atp",
+      "years": [
+        2020
+      ],
+      "format": "team-singles",
+      "category": "ATP Cup",
+      "lateRounds": {
+        "5": 8,
+        "6": 4,
+        "7": 2
+      },
+      "reason": "ATP Cup: 24 selecciones en seis grupos, cuartos de final, semifinales y final. Cada eliminatoria incluye dos individuales; no es un ATP 250 ni un cuadro individual de una sola final.",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money"
+      ]
+    },
+    {
+      "id": "atp-cup-2021-team-format",
+      "tournament": "Cup",
+      "tour": "atp",
+      "years": [
+        2021
+      ],
+      "format": "team-singles",
+      "category": "ATP Cup",
+      "lateRounds": {
+        "5": 0,
+        "6": 4,
+        "7": 2
+      },
+      "reason": "ATP Cup: 12 selecciones en cuatro grupos, acceso directo a semifinales. No hubo ronda de cuartos; cada eliminatoria incluye dos individuales.",
+      "sources": [
+        "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+        "https://www.tennis.com/news/articles/the-2021-atp-cup-draw-is-out-who-s-in-djokovic-and-nadal-s-groups"
+      ]
+    },
+    {
+      "id": "atp-cup-2022-team-format",
+      "tournament": "Cup",
+      "tour": "atp",
+      "years": [
+        2022
+      ],
+      "format": "team-singles",
+      "category": "ATP Cup",
+      "lateRounds": {
+        "5": 0,
+        "6": 4,
+        "7": 2
+      },
+      "reason": "ATP Cup: 16 selecciones en cuatro grupos, acceso directo a semifinales. No hubo ronda de cuartos; cada eliminatoria incluye dos individuales.",
+      "sources": [
+        "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+        "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+        "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/"
+      ]
+    },
+    {
+      "id": "adelaide-2023-two-occurrences",
+      "tournament": "Adelaide 2",
+      "tour": "any",
+      "years": [
+        2023
+      ],
+      "format": "multiple-occurrences",
+      "lateRounds": {
+        "5": 8,
+        "6": 4,
+        "7": 2
+      },
+      "occurrenceWindows": [
+        {
+          "id": "2023-week-1",
+          "from": "2023-01-01",
+          "through": "2023-01-08"
+        },
+        {
+          "id": "2023-week-2",
+          "from": "2023-01-09",
+          "through": "2023-01-14"
+        }
+      ],
+      "reason": "El proveedor reúne Adelaide International 1 y 2. Se separan por fecha documentada; cada semana fue un ATP 250 y un WTA 500 independientes.",
+      "sources": [
+        "https://www.adelaideinternational.com.au/2022/11/adelaide-set-two-week-festival-tennis-2023/",
+        "https://www.thedriveadelaide.com.au/events/2023-adelaide-international/"
+      ]
+    }
+  ]
+}

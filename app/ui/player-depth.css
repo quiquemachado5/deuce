@@ -150,9 +150,9 @@
   --pd-silver-bg: #e7ecf0;
   --pd-silver-ink: #42525d;
   --pd-silver-line: #acbac6;
-  --pd-semi-bg: #e3f2ef;
-  --pd-semi-ink: #185d59;
-  --pd-semi-line: #91c6bd;
+  --pd-semi-bg: oklch(from #e3f2ef l c var(--appearance-hue,182.709));
+  --pd-semi-ink: oklch(from #185d59 l c var(--appearance-hue,189.338));
+  --pd-semi-line: oklch(from #91c6bd l c var(--appearance-hue,183.195));
 }
 [data-theme="dark"] .ry-player-page {
   --pd-gold-bg: #493a10;
@@ -161,9 +161,9 @@
   --pd-silver-bg: #303d49;
   --pd-silver-ink: #dbe6ef;
   --pd-silver-line: #677c8e;
-  --pd-semi-bg: #173b38;
-  --pd-semi-ink: #a9e0d7;
-  --pd-semi-line: #3c8278;
+  --pd-semi-bg: oklch(from #173b38 l c var(--appearance-hue,188.026));
+  --pd-semi-ink: oklch(from #a9e0d7 l c var(--appearance-hue,183.809));
+  --pd-semi-line: oklch(from #3c8278 l c var(--appearance-hue,183.079));
 }
 .ry-player-page [data-player-outcome="champion"] {
   --pd-result-bg: var(--pd-gold-bg);

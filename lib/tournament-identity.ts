@@ -7,6 +7,8 @@ type ProviderTournamentContext = { tour?: Tour; tier?: unknown; level?: unknown 
 
 /** Preserve lower-circuit venue identities while joining known tour-level aliases. */
 export function providerTournamentName(name: string, context: ProviderTournamentContext = {}) {
+  if(context.tier==='atp_finals'||context.tier==='wta_finals')return context.tier==='atp_finals'?'ATP Finals':'WTA Finals';
+  if(name==='ATP Finals'||name.startsWith('WTA Finals'))return name;
   const cleaned = name.trim().replace(/^(?:ATP|WTA)\s+/i, '');
   const normalized = fold(cleaned);
   if (lowLevelVenue(cleaned)) return cleaned;
@@ -57,6 +59,7 @@ const atpVenueAliases: Record<string, string> = {
 
 /** Public identity includes circuit and level so same-city WTA 125 events stay distinct. */
 export function canonicalTournamentName(name: string, year: number, category: string, tour?: Tour) {
+  if(category==='ATP Finals'||category==='WTA Finals')return name;
   if (lowLevelVenue(name)) return name.trim();
   const wta = tour === 'wta' || /^WTA\b/.test(category);
   const canonical = venueAliases[fold(name)] || name.trim();

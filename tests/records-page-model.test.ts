@@ -94,7 +94,7 @@ test("record detail model centralizes title, definition, related records and tou
     dato: "victorias",
   });
   assert.equal(detail.title, "Más victorias");
-  assert.equal(detail.definition, "Partidos ganados.");
+  assert.match(detail.definition||"", /retirada con ganador documentado/);
   assert.equal(detail.relatedLabel, "Victorias");
   assert.deepEqual(detail.tourOptions.map((option) => option.value), ["atp", "wta"]);
   assert.equal(recordFamilyLabel("Remontadas y forma del partido"), "Remontadas");

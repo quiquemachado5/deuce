@@ -1,0 +1,359 @@
+[
+  {
+    "tour": "atp",
+    "year": 1968,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/atp/atp_matches_1968.csv",
+    "sha256": "5c2b13de739adc7f8d5c17df583fc90f81584da97897d6da189ca73820cca3aa",
+    "bytes": 673978
+  },
+  {
+    "tour": "atp",
+    "year": 1969,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/atp/atp_matches_1969.csv",
+    "sha256": "3f67c7c5c1e35479c1030cf03839613133948bb16f11d21e3ec6eaa7d9f00345",
+    "bytes": 494788
+  },
+  {
+    "tour": "atp",
+    "year": 1970,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/atp/atp_matches_1970.csv",
+    "sha256": "4de43ab8539a6de62622ddfc13f74ad547cd059be81873b18c329791b91bb1ea",
+    "bytes": 512410
+  },
+  {
+    "tour": "atp",
+    "year": 1971,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/atp/atp_matches_1971.csv",
+    "sha256": "a51ce273fb3c4d50f71d41fd4274fe76208989e5cbe0f4828c47e5ac2c2d8571",
+    "bytes": 566131
+  },
+  {
+    "tour": "atp",
+    "year": 1972,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/atp/atp_matches_1972.csv",
+    "sha256": "90c052854e14d3c5bd13a29a18e684be643cab5e2545e58e5527c8661878a39b",
+    "bytes": 563440
+  },
+  {
+    "tour": "atp",
+    "year": 1973,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/atp/atp_matches_1973.csv",
+    "sha256": "b621123fadb7c3c2f7a44e83e0c6f9bcf30d77664dd8155933cf38f6bfb56ac1",
+    "bytes": 676606
+  },
+  {
+    "tour": "atp",
+    "year": 1974,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/atp/atp_matches_1974.csv",
+    "sha256": "a38920e4bc2c68705c2708213c46d655f4f2b2aae7c512bdd056882d7d36cf41",
+    "bytes": 671158
+  },
+  {
+    "tour": "atp",
+    "year": 1975,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/atp/atp_matches_1975.csv",
+    "sha256": "a97cb95b0b37c985cba88c4a128a4d4fa2ceb0857786b4e9bebf326931d3d3ec",
+    "bytes": 664790
+  },
+  {
+    "tour": "atp",
+    "year": 1976,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/atp/atp_matches_1976.csv",
+    "sha256": "f608384b2f7021f41b7d8908dfbb1cfcac96ef0ee95b7e053210dc2bd04e5d2a",
+    "bytes": 623651
+  },
+  {
+    "tour": "atp",
+    "year": 1977,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/atp/atp_matches_1977.csv",
+    "sha256": "b54f4e514b0eb365fdafe5a4827d9fe146e5ef8b0e13cf14574e48ad0c21bfed",
+    "bytes": 658101
+  },
+  {
+    "tour": "atp",
+    "year": 1978,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/atp/atp_matches_1978.csv",
+    "sha256": "6b42b2859965c4a13172d17d7763c797311d75d9f98eb6c2b94ae18d2e8864e7",
+    "bytes": 614875
+  },
+  {
+    "tour": "atp",
+    "year": 1980,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/atp/atp_matches_1980.csv",
+    "sha256": "1affa2bd0d0606622968258269580ddefcf8c8831c5e168c37e8e92426bac297",
+    "bytes": 640025
+  },
+  {
+    "tour": "atp",
+    "year": 1981,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/atp/atp_matches_1981.csv",
+    "sha256": "30daad41e573c1c48d59fa4164e25768f9d1f9b1e07f598e5c064e7d685fd9b7",
+    "bytes": 625944
+  },
+  {
+    "tour": "atp",
+    "year": 1982,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/atp/atp_matches_1982.csv",
+    "sha256": "5542264542e6e0f088ad8e40f7d2e9a92c2a4ee56e8afba46c368d46628f0ebf",
+    "bytes": 655284
+  },
+  {
+    "tour": "atp",
+    "year": 1983,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/atp/atp_matches_1983.csv",
+    "sha256": "2e717cf01f6e24d1628a878f67a1d0bf5351dd0e2872517a7e73c69d5dc80c19",
+    "bytes": 563037
+  },
+  {
+    "tour": "atp",
+    "year": 1984,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/atp/atp_matches_1984.csv",
+    "sha256": "f96b0d5cbefb55f96a87abd835e5af0fe5dce4fdd8491639d205b89eed3a2b05",
+    "bytes": 531124
+  },
+  {
+    "tour": "atp",
+    "year": 1985,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/atp/atp_matches_1985.csv",
+    "sha256": "6932e7ff50c2dd6a3898fa3f3ca7af0f76e4e45dc0522a6868319e235cb7e989",
+    "bytes": 558319
+  },
+  {
+    "tour": "atp",
+    "year": 1990,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/atp/atp_matches_1990.csv",
+    "sha256": "4c65abf16c98f1a96634bdc464961f058555677539203cd23b50031155fa037c",
+    "bytes": 630930
+  },
+  {
+    "tour": "atp",
+    "year": 1992,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/atp/atp_matches_1992.csv",
+    "sha256": "b2ede0ff352a34e59b9cdc0e2a7c9af764a6fe6ac7326a09c4c923f5736b7922",
+    "bytes": 760047
+  },
+  {
+    "tour": "atp",
+    "year": 1995,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/atp/atp_matches_1995.csv",
+    "sha256": "d480e93dc75e4631d4811edc1f98c168f9e80f8eab8ab2eb6040a22bda7b3b21",
+    "bytes": 762360
+  },
+  {
+    "tour": "atp",
+    "year": 2001,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/atp/atp_matches_2001.csv",
+    "sha256": "b07bcb7e7239fb451eae6b4e99ef9a0c892083a21185405c8627d5edc9a113be",
+    "bytes": 669112
+  },
+  {
+    "tour": "atp",
+    "year": 2002,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/atp/atp_matches_2002.csv",
+    "sha256": "d161c2ef78158d167372ebc38b7eea2038c5b9e42bbb4b2804d8c19540c33adf",
+    "bytes": 649377
+  },
+  {
+    "tour": "atp",
+    "year": 2004,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/atp/atp_matches_2004.csv",
+    "sha256": "79251fec7d9751ea2eebb005a962f69fea466f827172d53f47b381aac53634af",
+    "bytes": 662757
+  },
+  {
+    "tour": "atp",
+    "year": 2023,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/atp/atp_matches_2023.csv",
+    "sha256": "9b9671aa7c8156e74c2e4466675b7ed4e762bb8a58b7237a30daefd84ffceff5",
+    "bytes": 625341
+  },
+  {
+    "tour": "atp",
+    "year": 2024,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/atp/atp_matches_2024.csv",
+    "sha256": "73aec32247a0db68d8aa8fd8003eefea132905177f1cb145502d9215b53311be",
+    "bytes": 650136
+  },
+  {
+    "tour": "atp",
+    "year": 2026,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/atp/atp_matches_2026.csv",
+    "sha256": "ceb157ae698f79f4148f7bb6253bbcf6a8c8eb9ff94670dd83aa0428802cfd59",
+    "bytes": 300795
+  },
+  {
+    "tour": "wta",
+    "year": 1969,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/wta/wta_matches_1969.csv",
+    "sha256": "01937447ee6ed88e51bef46e7bc71d49a47f97d908b4fa63a9bfd272118d3b44",
+    "bytes": 460327
+  },
+  {
+    "tour": "wta",
+    "year": 1971,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/wta/wta_matches_1971.csv",
+    "sha256": "a8c36b26be5dea7f0d00c4f7a494e73829c27b1af98ed75bda063bb80af38e4e",
+    "bytes": 395834
+  },
+  {
+    "tour": "wta",
+    "year": 1972,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/wta/wta_matches_1972.csv",
+    "sha256": "05674fe8d30516347f61edc0fb4a0033ed16e29f923a5b9e06e03949ae731861",
+    "bytes": 461023
+  },
+  {
+    "tour": "wta",
+    "year": 1973,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/wta/wta_matches_1973.csv",
+    "sha256": "03fa27ecc65506569b0b72903084b7059ada63ec6fde8cd57558b19563e6d232",
+    "bytes": 460296
+  },
+  {
+    "tour": "wta",
+    "year": 1974,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/wta/wta_matches_1974.csv",
+    "sha256": "bb8482d429a36751ea86545432e0d5a8d7b35fc3bfc80472aebcd096dedf0b5a",
+    "bytes": 435483
+  },
+  {
+    "tour": "wta",
+    "year": 1975,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/wta/wta_matches_1975.csv",
+    "sha256": "9a9574bd695698c8bd1af30ac293ceee0ef96eea48704adcba025ce40338d1c6",
+    "bytes": 419181
+  },
+  {
+    "tour": "wta",
+    "year": 1976,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/wta/wta_matches_1976.csv",
+    "sha256": "147238e26da2c65645b86a13b77dbdb413a220fba687f6f28177fafb0fc97757",
+    "bytes": 352964
+  },
+  {
+    "tour": "wta",
+    "year": 1977,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/wta/wta_matches_1977.csv",
+    "sha256": "4844219320426233e56d7f632b373909a1d27ff2b99d6891edb160135de9e576",
+    "bytes": 378808
+  },
+  {
+    "tour": "wta",
+    "year": 1978,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/wta/wta_matches_1978.csv",
+    "sha256": "433da1438d5030e80d0996aaf0f1487c408bb39ffe93f4ca442833f01b9c462c",
+    "bytes": 443782
+  },
+  {
+    "tour": "wta",
+    "year": 1979,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/wta/wta_matches_1979.csv",
+    "sha256": "d5131152f67d4a1ffc0f049ad0528f26fb7592c9ca8020ad75d0d0d635b1fd5d",
+    "bytes": 368780
+  },
+  {
+    "tour": "wta",
+    "year": 1981,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/wta/wta_matches_1981.csv",
+    "sha256": "4197040469abcf03f353045328d56027a4852c6fb4d697b97b7f65dbc0b7173c",
+    "bytes": 553889
+  },
+  {
+    "tour": "wta",
+    "year": 1983,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/wta/wta_matches_1983.csv",
+    "sha256": "ebca6650f36655939e3f065450e89cc4e74e8f2893097aee7b7a670155014c28",
+    "bytes": 418849
+  },
+  {
+    "tour": "wta",
+    "year": 1996,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/wta/wta_matches_1996.csv",
+    "sha256": "953308668c369b19889e2827f947993684d55e57041126e244164e3808a29372",
+    "bytes": 496739
+  },
+  {
+    "tour": "wta",
+    "year": 2006,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/wta/wta_matches_2006.csv",
+    "sha256": "12a23f743850ab7d2963702ead3d894e51a9ec47772fac5aaf4b59b8cc74aab6",
+    "bytes": 549741
+  },
+  {
+    "tour": "wta",
+    "year": 2010,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/wta/wta_matches_2010.csv",
+    "sha256": "05b980e28398ae13e6e0edae544a060b59571cf977623ad0db727d6de3527627",
+    "bytes": 572925
+  },
+  {
+    "tour": "wta",
+    "year": 2011,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/wta/wta_matches_2011.csv",
+    "sha256": "ea0afb5d5e5a1fd230860f722de4f79578f7bd39949358a8b66480f2cae6e101",
+    "bytes": 575703
+  },
+  {
+    "tour": "wta",
+    "year": 2013,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/wta/wta_matches_2013.csv",
+    "sha256": "0d31dde39e721a683b158c30ffbe612293b06bd2386dfeec47ae28e9bad8d93c",
+    "bytes": 559834
+  },
+  {
+    "tour": "wta",
+    "year": 2015,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/wta/wta_matches_2015.csv",
+    "sha256": "9332d0d470c378c8d439553ed7d81379eb3596d04babf39bee7021edae316130",
+    "bytes": 550360
+  },
+  {
+    "tour": "wta",
+    "year": 2016,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/wta/wta_matches_2016.csv",
+    "sha256": "17145270279d6bf5d1abec4038d51d6af3aa71a7b40421b9f175205fafa075f7",
+    "bytes": 602004
+  },
+  {
+    "tour": "wta",
+    "year": 2021,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/wta/wta_matches_2021.csv",
+    "sha256": "3f4b865fe9f68aedb3d51597740cf658cf805f676bae652f2bc93cbab4f6e99f",
+    "bytes": 531828
+  },
+  {
+    "tour": "wta",
+    "year": 2022,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/wta/wta_matches_2022.csv",
+    "sha256": "f638cf65efefb01a1a10368c1d5217d5f90981fb76193ca3a9c3773c2abc2ba7",
+    "bytes": 530984
+  },
+  {
+    "tour": "wta",
+    "year": 2023,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/wta/wta_matches_2023.csv",
+    "sha256": "b73bf74928155b858cdb7045f6334246336cef604286cb361e695df26911ad18",
+    "bytes": 569610
+  },
+  {
+    "tour": "wta",
+    "year": 2024,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/wta/wta_matches_2024.csv",
+    "sha256": "d9bba2a0b3793f63c737ef62a809b82b56b3ad0ee94e1f95e78cecfac7615ed2",
+    "bytes": 542425
+  },
+  {
+    "tour": "wta",
+    "year": 2025,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/wta/wta_matches_2025.csv",
+    "sha256": "e4eb002bc6d828b0bd21e04ed286e68722ddc8ccbbb27ea980bf62e938377f96",
+    "bytes": 565244
+  },
+  {
+    "tour": "wta",
+    "year": 2026,
+    "url": "https://raw.githubusercontent.com/Aneeshers/tennis-sackmann-archive/83733587353df8a41f2fd4f516147d5aa83f5a8d/wta/wta_matches_2026.csv",
+    "sha256": "8fea203e3f4e731308b9ed2845059818d400aa6176c801279b24e846569e9d97",
+    "bytes": 255577
+  }
+]

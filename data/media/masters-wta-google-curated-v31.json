@@ -1,0 +1,54 @@
+[
+  {
+    "tournament": "Beijing",
+    "year": 2013,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-google-curated/beijing-2013-wta-bd42d147c2.webp",
+      "alt": "Beijing 2013 · 5 tournaments Serena Williams has the best win percentage in (https://www.sportskeeda.com/tennis/5-tournaments-serena-williams-best-win-percentage)",
+      "credit": "Fuente: sportskeeda.com · derechos de terceros; autorización no acreditada",
+      "source": "https://www.sportskeeda.com/tennis/5-tournaments-serena-williams-best-win-percentage",
+      "photoYear": 2013,
+      "objectPosition": "50% 45%",
+      "mobileObjectPosition": "50% 40%",
+      "auditStatus": "candidate",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://staticg.sportskeeda.com/editor/2023/10/746f5-16986984675434-1920.jpg",
+    "sourceTitle": "5 tournaments Serena Williams has the best win percentage in (https://www.sportskeeda.com/tennis/5-tournaments-serena-williams-best-win-percentage)",
+    "sourceExcerpt": "5 tournaments Serena Williams has the best win percentage in (https://www.sportskeeda.com/tennis/5-tournaments-serena-williams-best-win-percentage)\nciteturn1137image1 \nImage URL: https://staticg.sportskeeda.com/editor/2023/10/746f5-16986984675434-1920.jpg#Serena Williams with China Open Trophy\n\nSerena Williams stands center court, arms extended high as she holds the gleaming 2013 China Open trophy above her head. The ornate gold cup features detailed floral engravings and two decorative handles, with a plaque inscribed “Women's Singles Champion.” Her joyful expression and the stadium lights in the background underscore the triumph of her 11–1 record at this event.\n\nThis photograph appears in an article ranking Serena Williams’ top five tournaments by win percentage. It highlights her dominant 91% win rate at the China Open, the highest of her career, and situates this victory among her successes at the Australian Open, Wimbledon, US Open, and Miami Open.",
+    "sourceSha256": "bd42d147c2ef94d4aec952613b0950360342501194d4b7d1a8f76e1f35b817a1",
+    "width": 1920,
+    "height": 1280,
+    "bytes": 97748,
+    "reviewNotes": "Search result explicitly associates image with this edition; contact-sheet review pending."
+  },
+  {
+    "tournament": "Rome",
+    "year": 2006,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-google-curated/rome-2006-wta-253aede2d8.webp",
+      "alt": "Rome 2006 · Martina Hingis con il trofeo degli Internazionali BNL d'Italia 2006 (Foto FITP)",
+      "credit": "Fuente: supertennis.tv · derechos de terceros; autorización no acreditada",
+      "source": "https://www.supertennis.tv/Rubriche/Conosci-i-tuoi-campioni/internazionali-bnl-italia-storia-anni-2000-2009-nadal-volandri-schiavone",
+      "photoYear": 2006,
+      "objectPosition": "50% 45%",
+      "mobileObjectPosition": "50% 40%",
+      "auditStatus": "candidate",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://www.supertennis.tv/media/REDAZIONE_APRILE_2025/20250416_hinginsPI0Q5094.jpg",
+    "sourceTitle": "Martina Hingis con il trofeo degli Internazionali BNL d'Italia 2006 (Foto FITP)",
+    "sourceExcerpt": "Martina Hingis con il trofeo degli Internazionali BNL d'Italia 2006 (Foto FITP)",
+    "sourceSha256": "253aede2d89dd36b7871c0c7176780de2af5412fa0b00775cac45b70a2fc99b0",
+    "width": 1024,
+    "height": 683,
+    "bytes": 78772,
+    "reviewNotes": "Search result explicitly associates image with this edition; contact-sheet review pending."
+  }
+]

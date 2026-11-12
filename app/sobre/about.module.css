@@ -1,33 +1,14 @@
-.page { width: min(1120px, calc(100% - 40px)); margin: 0 auto; padding: 136px 0 84px; color: var(--ink); }
-.hero { padding-bottom: clamp(52px, 8vw, 96px); }
-.hero h1 { max-width: 11ch; margin: 0; font: 760 clamp(58px, 9vw, 116px)/.9 var(--font-display); letter-spacing: -.065em; }
-.hero p { max-width: 760px; margin: 28px 0 0; color: var(--ink-soft); font-size: clamp(18px, 2.2vw, 26px); line-height: 1.42; }
-
-.statement { display: grid; grid-template-columns: minmax(0, .85fr) minmax(300px, .7fr); align-items: end; gap: clamp(36px, 9vw, 130px); padding: clamp(42px, 7vw, 82px); border-radius: 32px; background: var(--ink); color: var(--bg-raised); }
-.statement h2 { max-width: 10ch; margin: 0; font: 700 clamp(42px, 6.5vw, 78px)/.96 var(--font-display); letter-spacing: -.055em; }
-.statement p { max-width: 44ch; margin: 0; color: var(--dark-ink-soft); font-size: 15px; line-height: 1.7; }
-
-.section { display: grid; grid-template-columns: minmax(210px, .42fr) minmax(0, 1fr); gap: clamp(36px, 8vw, 120px); padding: clamp(58px, 8vw, 92px) 0; }
-.section + .section { border-top: 1px solid var(--line); }
-.section h2 { margin: 0; font: 720 clamp(32px, 4vw, 50px)/1 var(--font-display); letter-spacing: -.045em; }
-.section > div:first-child > p { max-width: 36ch; margin: 17px 0 0; color: var(--muted); font-size: 13px; line-height: 1.65; }
-.points { display: grid; gap: 28px; }
-.points > div { display: grid; grid-template-columns: minmax(120px, .3fr) minmax(0, 1fr); gap: 24px; }
-.points strong { font-size: 14px; }
-.points p, .correction p { max-width: 590px; margin: 0; color: var(--ink-soft); font-size: 14px; line-height: 1.65; }
-.correction { display: flex; align-items: flex-start; flex-direction: column; gap: 14px; }
-.correction a { display: inline-flex; min-height: 44px; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 999px; background: var(--acid); color: var(--ink); font-size: 13px; font-weight: 760; text-decoration: none; }
-.correction a + a { border: 1px solid var(--line); background: var(--bg-raised); }
-.actions { display: flex; flex-wrap: wrap; gap: 9px; padding-top: 34px; }
-.actions a { display: inline-flex; min-height: 44px; align-items: center; gap: 6px; padding: 10px 15px; border: 1px solid var(--line); border-radius: 999px; background: var(--bg-raised); color: var(--ink); font-size: 12px; font-weight: 740; text-decoration: none; }
-.page a:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
-
-@media (max-width: 760px) {
-  .page { width: calc(100% - 28px); padding: 108px 0 56px; }
-  .statement, .section { grid-template-columns: 1fr; }
-  .statement { align-items: start; gap: 26px; padding: 34px 24px; border-radius: 24px; }
-  .section { gap: 32px; padding: 52px 0; }
-  .points > div { grid-template-columns: 1fr; gap: 8px; }
-  .actions { align-items: stretch; flex-direction: column; }
-  .actions a { justify-content: space-between; }
-}
+.page{width:min(850px,calc(100% - 48px));margin:auto;padding:var(--deuce-section-header-top) 0 42px;color:var(--ink)}
+.hero h1{font:500 clamp(29px,4vw,48px)/1.1 var(--font-display);letter-spacing:-.035em;margin:0 0 32px}
+.hero>p{max-width:16ch;font:500 clamp(38px,7vw,82px)/1.03 var(--font-display);letter-spacing:-.04em;text-wrap:balance;margin:0 0 38px}
+.manifest{max-width:62ch;font-size:clamp(17px,2vw,21px);line-height:1.65;color:var(--muted)}
+.manifest p{margin:0 0 1em}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin:27px 0 40px}
+.actions a{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:8px 16px;border-radius:999px;background:var(--bg-raised);color:var(--ink);text-decoration:none;font-weight:650}
+.actions a:hover{background:var(--ink);color:var(--bg-raised)}
+.notes{display:grid;gap:8px;max-width:65ch}
+.notes details{border-radius:14px;background:var(--bg-sunken);padding:0 15px}
+.notes summary{min-height:44px;padding:12px 0;cursor:pointer;font-weight:650}
+.notes p{line-height:1.55;color:var(--muted);margin:0 0 14px}
+.notes a{display:inline-flex;align-items:center;gap:7px;margin:0 0 14px;color:var(--ink);font-weight:650}
+@media(max-width:759px){.page{width:calc(100% - 28px);padding-top:var(--deuce-section-header-top-mobile)}.hero h1{margin-bottom:20px}.hero>p{margin-bottom:26px}.actions{margin-bottom:28px}}

@@ -1,0 +1,62 @@
+[
+  {
+    "tournament": "Indian Wells",
+    "year": 2025,
+    "tour": "wta",
+    "cms": {
+      "id": 4229626,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Swiatek - 2025 Indian Wells 2R",
+      "description": null,
+      "date": "2025-03-08T01:16:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1741396611888,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 609,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "609"
+        },
+        {
+          "label": null,
+          "id": 326408,
+          "type": "TENNIS_PLAYER",
+          "sid": "326408"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Jimmie48/WTA"
+      },
+      "titleTranslations": null,
+      "lastModified": 1741396898454,
+      "titleUrlSegment": "iga_swiatek_-_bnp_paribas_open_2025_-_day_3-dsc_2782",
+      "visibilityOrder": [],
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2025/03/08/d5345f4a-6bed-488e-a30a-a09c17aa9fdb/Iga_Swiatek_-_BNP_Paribas_Open_2025_-_Day_3-DSC_2782.jpg",
+      "originalDetails": {
+        "width": 4700,
+        "height": 3446,
+        "aspectRatio": 1.3639002
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2025/03/08/bcff8f24-2f4d-472a-b421-eda7cba73b49/Iga_Swiatek_-_BNP_Paribas_Open_2025_-_Day_3-DSC_2782.jpg"
+    }
+  }
+]

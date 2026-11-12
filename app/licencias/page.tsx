@@ -1,11 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
-import { playerPhotos } from "@/lib/player-imagery";
+import { playerPhotos, reviewedPlayerPhotos } from "@/lib/player-imagery";
 import { courtPhotos, type Photo } from "@/lib/imagery";
 import { homeMaterials } from "@/lib/home-photography";
+import { homePhotoCredits } from '@/lib/home-media';
+import { tournamentBrandCredits } from '@/lib/tournament-branding';
 import { tournamentName } from "@/lib/labels";
-import { Pagination } from "@/components/nocturno/Row";
+import { ArrowUpRight, Search } from "lucide-react";
+import styles from "./licences.module.css";
 import { photoRightsStatus, type PhotoRightsStatus } from "@/lib/photo-rights";
+import tournamentLibrary from '@/data/media/tournament-library.json';
 
 export const metadata = {
   title: "Licencias — DEUCE",
@@ -17,6 +21,10 @@ type Kind = "all" | "players" | "courts";
 type Rights = "all" | PhotoRightsStatus;
 type CreditEntry = { key: string; name: string; photo: Photo; kind: Exclude<Kind, "all">; rights: PhotoRightsStatus };
 const photos: CreditEntry[] = [
+  ...tournamentLibrary.photos.map(photo=>({key:`library-${photo.id}`,name:`${photo.context.tournament} · ${photo.context.year}`,kind:'courts' as const,photo:{src:'thumbnailSrc' in photo&&typeof photo.thumbnailSrc==='string'?photo.thumbnailSrc:photo.src,alt:photo.title,credit:photo.credit,source:photo.source,licenseUrl:photo.licenseUrl,caption:photo.license}})),
+  ...Object.entries(reviewedPlayerPhotos).map(([key,photo])=>({key:`reviewed-${key}`,name:key.slice(4),photo,kind:'players' as const})),
+  ...tournamentBrandCredits.map(({name,photo},index)=>({key:`tournament-brand-${index}`,name,photo,kind:'courts' as const,rights:'source-only' as const})),
+  ...homePhotoCredits,
   ...homeMaterials.map(material => ({ key: `material-${material.surface}`, name: material.name, photo: material.photo, kind: "courts" as const })),
   ...Object.entries(courtPhotos).map(([key, photo]) => ({ key: `court-${key}`, name: tournamentName(key), photo, kind: "courts" as const })),
   ...Object.entries(playerPhotos).map(([key, photo]) => ({ key: `player-${key}`, name: key, photo, kind: "players" as const })),
@@ -53,81 +61,41 @@ export default async function Credits({ searchParams }: {
   const page = Math.max(1, Math.min(pages, Number.isFinite(requested) ? Math.floor(requested) : 1));
   const visible = selected.slice((page - 1) * 25, page * 25);
 
-  return (
-    <div className="ry-photo-page nc-wrap">
-      <header className="ry-photo-intro">
-        <div>
-          <h1>Licencias</h1>
-          <p>Procedencia y derechos de los recursos visuales que aparecen en DEUCE.</p>
-        </div>
-      </header>
+  return <div className={styles.page}>
+    <header className={styles.hero}><h1>Licencias</h1><p>Quién creó las imágenes de DEUCE, de dónde proceden y en qué condiciones se pueden reutilizar.</p></header>
 
-      <form className="ry-photo-search" action="/licencias" method="get" role="search">
-        <label htmlFor="photo-query">Buscar recurso</label>
-        <div className="ry-photo-search-fields">
-          <input id="photo-query" name="q" type="search" defaultValue={query} placeholder="Jugador, torneo o autor" />
-          {kind !== "all" && <input type="hidden" name="tipo" value={kind} />}
-          {rights !== "all" && <input type="hidden" name="derechos" value={rights} />}
-          <button type="submit">Buscar</button>
-        </div>
+    <details className={styles.resources}>
+      <summary>Vídeo, tipografía y otros recursos</summary>
+      <dl>
+        <div id="video"><dt>Vídeo de portada · prueba local</dt><dd>Edición muda de planos de juego del tráiler oficial <a href="https://www.youtube.com/watch?v=L21dd0mOTLo">Where Beauty Meets the Battle · Wimbledon 2026</a>. Fuente: The Championships, Wimbledon. Derechos de sus titulares; no se atribuye una licencia abierta a este material.</dd></div>
+        <div id="recreaciones"><dt>Recreaciones</dt><dd>Las imágenes identificadas como recreaciones con IA son ilustraciones editoriales. No son fotografías de un partido real.</dd></div>
+        <div><dt>Tipografía</dt><dd>Sora y Host Grotesk, distribuidas con licencia SIL Open Font License.</dd></div>
+        <div><dt>Banderas</dt><dd>SVG de flag-icons (lipis). <a href="/images/flags/LICENSE.txt">Licencia MIT</a> · <a href="/images/flags/SOURCE.txt">Procedencia</a>.</dd></div>
+      </dl>
+    </details>
+
+    <section aria-labelledby="licence-photos">
+      <div className={styles.heading}><h2 id="licence-photos">Créditos de imágenes</h2><span>{number.format(selected.length)} {selected.length===1?'recurso':'recursos'}</span></div>
+      <form className={styles.search} action="/licencias" role="search">
+        <label>Buscar imagen<input name="q" type="search" defaultValue={query} maxLength={80} placeholder="Jugador, torneo o autor"/></label>
+        <label>Tipo<select name="tipo" defaultValue={kind}><option value="all">Todos</option><option value="players">Jugadores</option><option value="courts">Pistas y torneos</option></select></label>
+        <label>Derechos<select name="derechos" defaultValue={rights}><option value="all">Todos</option><option value="documented">Derechos documentados</option><option value="source-only">Solo fuente registrada</option></select></label>
+        <button type="submit"><Search size={17} aria-hidden="true"/> Buscar</button>
       </form>
-
-      <div className="ry-photo-filter-groups">
-        <section className="ry-photo-filter-group" aria-labelledby="photo-kind-label">
-          <h2 id="photo-kind-label">Tipo de recurso</h2>
-          <nav className="ry-photo-filters" aria-label="Tipo de recurso">
-            {([
-              ["all", "Todo"],
-              ["players", "Jugadores"],
-              ["courts", "Pistas y torneos"],
-            ] as const).map(([value, label]) => <Link key={value} href={href(query, value, rights, 1)} aria-current={kind === value ? "page" : undefined}>
-              {label}<span>{number.format(value === "all" ? photos.length : photos.filter(entry => entry.kind === value).length)}</span>
-            </Link>)}
-          </nav>
-        </section>
-        <section className="ry-photo-filter-group" aria-labelledby="photo-rights-label">
-          <h2 id="photo-rights-label">Estado de derechos</h2>
-          <nav className="ry-photo-filters ry-photo-rights-filter" aria-label="Estado de derechos">
-            {([['all','Todas'],['documented','Derechos documentados'],['source-only','Solo fuente registrada']] as const).map(([value,label])=><Link key={value} href={href(query,kind,value,1)} aria-current={rights===value?'page':undefined}>{label}<span>{number.format(value==='all'?photos.length:photos.filter(entry=>entry.rights===value).length)}</span></Link>)}
-          </nav>
-        </section>
-      </div>
-
-      <div className="ry-photo-result-head">
-        <h2>{kind === "players" ? "Jugadores" : kind === "courts" ? "Pistas y torneos" : "Archivo de imágenes"}</h2>
-        <span>{number.format(selected.length)} {selected.length === 1 ? "imagen" : "imágenes"} · página {page} de {pages}</span>
-      </div>
-
-      {visible.length ? (
-        <div className="ry-photo-grid">
-          {visible.map(({ key, name, photo, kind: photoKind, rights: photoRights }) => (
-            <figure className="ry-photo-entry" key={key}>
-              <a className="ry-photo-image" href={photo.source} target="_blank" rel="noopener noreferrer" aria-label={`Fuente de la fotografía: ${name}`}>
-                <Image src={photo.src} alt={photo.alt} width={380} height={280} sizes="(max-width: 759px) calc(100vw - 32px), (max-width: 1099px) 45vw, 380px" unoptimized={photoKind === "players"} />
-              </a>
-              <figcaption>
-                <h3><a href={photo.source} target="_blank" rel="noopener noreferrer">{name}</a></h3>
-                {photo.caption && <p className="ry-photo-caption">{photo.caption}</p>}
-                <p className="ry-photo-credit">{photo.credit}</p>
-                <p className="ry-photo-audit" data-rights={photoRights}>{photoRights==='documented'?'Derechos documentados':'Fuente guardada · licencia por completar'}</p>
-                <p className="ry-photo-rights">{photo.licenseUrl ? <a href={photo.licenseUrl} target="_blank" rel="noopener noreferrer">Condiciones de uso ↗</a> : <span>Derechos: consultar la fuente original</span>}</p>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-      ) : (
-        <div className="ry-photo-empty" role="status">
-          <p>No hay imágenes para «{query}» con este filtro.</p>
-          <Link href="/licencias">Ver todas</Link>
-        </div>
-      )}
-
-      {selected.length > 25 && <Pagination page={page} total={selected.length} href={(next) => href(query, kind, rights, next)} />}
-      <section className="nc-section" id="recreaciones"><h2>Recreaciones</h2><p>Las imágenes identificadas como recreaciones con IA son ilustraciones editoriales. No documentan visualmente un punto, partido o momento histórico concreto.</p></section>
-      <section className="nc-section" id="video"><h2>Vídeo de portada</h2><p>Un fragmento de un minuto con los mejores puntos oficiales del campeonato de dobles mixtos del US Open 2026, reproducido mediante el reproductor con privacidad mejorada de YouTube. El vídeo solo se solicita cuando la portada está visible, el navegador está inactivo y la conexión no tiene ahorro de datos. Con movimiento reducido se conserva únicamente el fotograma local de respaldo.</p><p><a href="https://www.youtube.com/watch?v=q3wrcFIrwD4" target="_blank" rel="noopener noreferrer">US Open Tennis Championships · vídeo oficial</a> · el contenido permanece alojado por su titular.</p><p>El fotograma de respaldo procede de <a href="https://mixkit.co/free-stock-video/tennis-player-serving-873/" target="_blank" rel="noopener noreferrer">Mixkit · Tennis player serving</a>, bajo la <a href="https://mixkit.co/license/#videoFree" target="_blank" rel="noopener noreferrer">Mixkit Stock Video Free License</a>.</p></section>
-      <section className="nc-section"><h2>Tipografía</h2><p>Host Grotesk, distribuida con licencia SIL Open Font License y alojada localmente por Next.js.</p></section>
-      <section className="nc-section"><h2>Banderas</h2><p>Los SVG de países proceden de flag-icons (lipis), bajo licencia MIT. <a className="nc-link" href="/images/flags/LICENSE.txt">Licencia</a> · <a className="nc-link" href="/images/flags/SOURCE.txt">Procedencia</a></p></section>
-      <p className="ry-photo-endnote"><Link href="/info">Cómo se lee DEUCE</Link></p>
-    </div>
-  );
+      {visible.length?<div className={styles.results}>
+        {visible.map(({key,name,photo,rights:photoRights})=><figure className={styles.entry} key={key}>
+          <Image className={styles.image} src={photo.thumbnail||photo.src} alt={photo.alt} width={160} height={160} sizes="(max-width:759px) 82px, 104px"/>
+          <figcaption>
+            <h3>{name}</h3>
+            <p>{photo.credit}</p>
+            <span className={styles.rights}>{photoRights==='documented'?'Derechos documentados':'Solo fuente registrada'}</span>
+            <div className={styles.links}><a href={photo.source}>Fuente <ArrowUpRight size={14} aria-hidden="true"/></a>{photo.licenseUrl&&<a href={photo.licenseUrl}>Licencia <ArrowUpRight size={14} aria-hidden="true"/></a>}</div>
+          </figcaption>
+        </figure>)}
+      </div>:<div className={styles.empty}><p>No encontramos imágenes con esta búsqueda.</p><Link href="/licencias">Restablecer filtros</Link></div>}
+      {pages>1&&<nav className={styles.pages} aria-label="Páginas de créditos">
+        {page>1?<Link href={href(query,kind,rights,page-1)}>Anterior</Link>:<span/>}<span>Página {page} de {pages}</span>{page<pages?<Link href={href(query,kind,rights,page+1)}>Siguiente</Link>:<span/>}
+      </nav>}
+    </section>
+  </div>;
 }

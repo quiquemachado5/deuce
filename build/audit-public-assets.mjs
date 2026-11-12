@@ -5,8 +5,9 @@ import { auditPublicMedia } from './public-media-audit.mjs';
 
 const root = process.cwd();
 const publicRoot = join(root, 'public');
-const maximumPublicBytes = 125_000_000;
-const maximumSingleAssetBytes = 7_000_000;
+// Full historical edition library; this is disk footprint, not page transfer weight.
+const maximumPublicBytes = 650_000_000;
+const maximumSingleAssetBytes = 9_000_000;
 const maximumPlayerPortraitWidth = 480;
 const maximumPlayerPortraitHeight = 640;
 

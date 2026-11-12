@@ -1,0 +1,217 @@
+[
+  {
+    "tournament": "Tokyo",
+    "year": 2013,
+    "tour": "wta",
+    "category": "WTA 1000",
+    "q": "Petra Kvitova \"Tokyo\" \"2013\" tennis final trophy",
+    "errors": []
+  },
+  {
+    "tournament": "Beijing",
+    "year": 2013,
+    "tour": "wta",
+    "category": "WTA 1000",
+    "q": "Serena Williams \"Beijing\" \"2013\" tennis final trophy",
+    "errors": [
+      {
+        "src": "https://tecolotito.elsiglodetorreon.com.mx/i/2013/10/540822.jpeg",
+        "error": "not sufficiently wide 720x1145"
+      }
+    ]
+  },
+  {
+    "tournament": "Cincinnati",
+    "year": 2011,
+    "tour": "wta",
+    "category": "WTA 1000",
+    "q": "Maria Sharapova \"Cincinnati\" \"2011\" tennis final trophy",
+    "errors": [
+      {
+        "src": "https://st2.depositphotos.com/2081153/9483/i/450/depositphotos_94833822-stock-photo-cincinnati-oh-circa-2011-award.jpg",
+        "error": "not sufficiently wide 600x400"
+      }
+    ]
+  },
+  {
+    "tournament": "Wuhan",
+    "year": 2015,
+    "tour": "wta",
+    "category": "WTA 1000",
+    "q": "women \"Wuhan\" \"2015\" tennis final trophy",
+    "errors": [
+      {
+        "src": "https://s.ndtvimg.com/images/content/2015/oct/806/venus-williams-garbine-muguruza.jpg",
+        "error": "HTTP 403"
+      },
+      {
+        "src": "https://img.championat.com/news/big/k/k/petra-kvitova_14434640521847726055.jpg",
+        "error": "not sufficiently wide 660x495"
+      }
+    ]
+  },
+  {
+    "tournament": "Cincinnati",
+    "year": 2010,
+    "tour": "wta",
+    "category": "WTA 1000",
+    "q": "Kim Clijsters \"Cincinnati\" \"2010\" tennis final trophy",
+    "errors": []
+  },
+  {
+    "tournament": "Indian Wells",
+    "year": 2010,
+    "tour": "wta",
+    "category": "WTA 1000",
+    "q": "Jelena Jankovic \"Indian Wells\" \"2010\" tennis final trophy",
+    "errors": []
+  },
+  {
+    "tournament": "Beijing",
+    "year": 2009,
+    "tour": "wta",
+    "category": "WTA 1000",
+    "q": "Svetlana Kuznetsova \"Beijing\" \"2009\" tennis final trophy",
+    "errors": []
+  },
+  {
+    "tournament": "Miami",
+    "year": 2010,
+    "tour": "wta",
+    "category": "WTA 1000",
+    "q": "Kim Clijsters \"Miami\" \"2010\" tennis final trophy",
+    "errors": [
+      {
+        "src": "https://media.defense.gov/2010/Apr/06/2000377872/2000/2000/0/100403-F-8178N-001.JPG",
+        "error": "HTTP 403"
+      }
+    ]
+  },
+  {
+    "tournament": "Rome",
+    "year": 2007,
+    "tour": "wta",
+    "category": "WTA 1000",
+    "q": "Jelena Jankovic \"Rome\" \"2007\" tennis final trophy",
+    "errors": []
+  },
+  {
+    "tournament": "Rome",
+    "year": 2006,
+    "tour": "wta",
+    "category": "WTA 1000",
+    "q": "Martina Hingis \"Rome\" \"2006\" tennis final trophy",
+    "errors": []
+  },
+  {
+    "tournament": "Rome",
+    "year": 2005,
+    "tour": "wta",
+    "category": "WTA 1000",
+    "q": "Amelie Mauresmo \"Rome\" \"2005\" tennis final trophy",
+    "errors": [
+      {
+        "src": "https://images.tennis.com/image/private/t_16-9_768/f_auto/tenniscom-prd/rv4xw2zburs7wq1njq9v.jpg",
+        "error": "fetch failed"
+      }
+    ]
+  },
+  {
+    "tournament": "Rome",
+    "year": 2004,
+    "tour": "wta",
+    "category": "WTA 1000",
+    "q": "Amelie Mauresmo \"Rome\" \"2004\" tennis final trophy",
+    "errors": [
+      {
+        "src": "https://images.tennis.com/image/private/t_16-9_768/f_auto/tenniscom-prd/rv4xw2zburs7wq1njq9v.jpg",
+        "error": "fetch failed"
+      }
+    ]
+  },
+  {
+    "tournament": "Rome",
+    "year": 2003,
+    "tour": "wta",
+    "category": "WTA 1000",
+    "q": "Kim Clijsters \"Rome\" \"2003\" tennis final trophy",
+    "errors": []
+  },
+  {
+    "tournament": "Rome",
+    "year": 2000,
+    "tour": "wta",
+    "category": "WTA 1000",
+    "q": "Monica Seles \"Rome\" \"2000\" tennis final trophy",
+    "errors": [
+      {
+        "src": "https://parade.com/.image/w_1200%2Ch_630%2Cg_auto%2Cc_fill/ODowMDAwMDAwMDAwOTc2ODA5/us-monica-seles-holds-the-trophy-after-she-beats-frances-amelie-mauresmo-in-the-italian-open-final-21-may-2000-at-the-foro-olimpico-stadium-in-rome-seles-won-62-76-electronic-image-photo-by-gabriel-bo.jpg",
+        "error": "not sufficiently wide 1536x1495"
+      }
+    ]
+  },
+  {
+    "tournament": "Tokyo",
+    "year": 2011,
+    "tour": "wta",
+    "category": "WTA 1000",
+    "q": "Agnieszka Radwanska \"Tokyo\" \"2011\" tennis final trophy",
+    "errors": [
+      {
+        "src": "https://upload.wikimedia.org/wikipedia/commons/9/90/Radwanska_Japan_Victory_%281%29_%28cropped%29.jpg",
+        "error": "not sufficiently wide 1924x2952"
+      }
+    ]
+  },
+  {
+    "tournament": "Beijing",
+    "year": 2012,
+    "tour": "wta",
+    "category": "WTA 1000",
+    "q": "Victoria Azarenka \"Beijing\" \"2012\" tennis final trophy",
+    "errors": [
+      {
+        "src": "https://1.bp.blogspot.com/-9MaKRlJVvXY/UHKBZKNRovI/AAAAAAAAA5A/WsUqi8CXKJM/s1600/Victoria%2BAzarenka%2BWinner%2BChina%2BOpen%2B2012.jpg",
+        "error": "not sufficiently wide 594x396"
+      },
+      {
+        "src": "https://1.bp.blogspot.com/-j4FDZqDk4YA/UHKBWBzxFcI/AAAAAAAAA4o/f6HF84yXyAo/s1600/Victoria%2BAzarenka%2BAnd%2BMaria%2BSharapova%2BChina%2BOpen%2BFinal%2B2012.jpg",
+        "error": "not sufficiently wide 594x396"
+      },
+      {
+        "src": "https://2.bp.blogspot.com/-bsxhvsBwwI4/UHKBXNHEnoI/AAAAAAAAA4w/sD1_3cVWQKI/s1600/Victoria%2BAzarenka%2BChina%2BOpen%2B2012%2BWinner.jpg",
+        "error": "not sufficiently wide 396x594"
+      },
+      {
+        "src": "https://images.tennis.com/image/private/t_16-9_1920/tenniscom-prd/zulfvvycijll9ieqimos.jpg",
+        "error": "fetch failed"
+      }
+    ]
+  },
+  {
+    "tournament": "Tokyo",
+    "year": 2009,
+    "tour": "wta",
+    "category": "WTA 1000",
+    "q": "women \"Tokyo\" \"2009\" tennis final trophy",
+    "errors": [
+      {
+        "src": "https://image.news.livedoor.com/newsimage/d/5/d5d3c3dadd7659778008724906982900.jpg",
+        "error": "not sufficiently wide 425x639"
+      }
+    ]
+  },
+  {
+    "tournament": "Tokyo",
+    "year": 2012,
+    "tour": "wta",
+    "category": "WTA 1000",
+    "q": "Nadia Petrova \"Tokyo\" \"2012\" tennis final trophy",
+    "errors": [
+      {
+        "src": "https://www.novinite.com/media/images/2012-11/photo_verybig_144839.jpg",
+        "error": "not sufficiently wide 480x469"
+      }
+    ]
+  }
+]

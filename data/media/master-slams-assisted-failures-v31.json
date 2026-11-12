@@ -1,0 +1,331 @@
+[
+  {
+    "tournament": "Indian Wells",
+    "year": 2000,
+    "tour": "wta",
+    "q": "Lindsay Davenport Indian Wells 2000 champion trophy women final",
+    "errors": []
+  },
+  {
+    "tournament": "Indian Wells",
+    "year": 2003,
+    "tour": "wta",
+    "q": "Kim Clijsters Indian Wells 2003 champion trophy women final",
+    "errors": []
+  },
+  {
+    "tournament": "Indian Wells",
+    "year": 2004,
+    "tour": "wta",
+    "q": "Justine Henin Indian Wells 2004 champion trophy women final",
+    "errors": []
+  },
+  {
+    "tournament": "Indian Wells",
+    "year": 2005,
+    "tour": "wta",
+    "q": "Kim Clijsters Indian Wells 2005 champion trophy women final",
+    "errors": []
+  },
+  {
+    "tournament": "Indian Wells",
+    "year": 2006,
+    "tour": "wta",
+    "q": "Maria Sharapova Indian Wells 2006 champion trophy women final",
+    "errors": []
+  },
+  {
+    "tournament": "Indian Wells",
+    "year": 2008,
+    "tour": "wta",
+    "q": "Ana Ivanovic Indian Wells 2008 champion trophy women final",
+    "errors": []
+  },
+  {
+    "tournament": "Indian Wells",
+    "year": 2009,
+    "tour": "wta",
+    "q": "Vera Zvonareva Indian Wells 2009 champion trophy women final",
+    "errors": []
+  },
+  {
+    "tournament": "Indian Wells",
+    "year": 2010,
+    "tour": "wta",
+    "q": "Jelena Jankovic Indian Wells 2010 champion trophy women final",
+    "errors": []
+  },
+  {
+    "tournament": "Miami",
+    "year": 2003,
+    "tour": "wta",
+    "q": "Serena Williams Miami 2003 champion trophy women final",
+    "errors": []
+  },
+  {
+    "tournament": "Miami",
+    "year": 2004,
+    "tour": "wta",
+    "q": "Serena Williams Miami 2004 champion trophy women final",
+    "errors": []
+  },
+  {
+    "tournament": "Miami",
+    "year": 2005,
+    "tour": "wta",
+    "q": "Kim Clijsters Miami 2005 champion trophy women final",
+    "errors": []
+  },
+  {
+    "tournament": "Miami",
+    "year": 2006,
+    "tour": "wta",
+    "q": "Svetlana Kuznetsova Miami 2006 champion trophy women final",
+    "errors": []
+  },
+  {
+    "tournament": "Miami",
+    "year": 2007,
+    "tour": "wta",
+    "q": "Serena Williams Miami 2007 champion trophy women final",
+    "errors": []
+  },
+  {
+    "tournament": "Miami",
+    "year": 2008,
+    "tour": "wta",
+    "q": "Serena Williams Miami 2008 champion trophy women final",
+    "errors": []
+  },
+  {
+    "tournament": "Miami",
+    "year": 2009,
+    "tour": "wta",
+    "q": "Victoria Azarenka Miami 2009 champion trophy women final",
+    "errors": []
+  },
+  {
+    "tournament": "Indian Wells",
+    "year": 2007,
+    "tour": "wta",
+    "q": "Daniela Hantuchova Indian Wells 2007 champion trophy women final",
+    "errors": [
+      {
+        "src": "https://cdn.colombia.com/sdi/2013/03/17/d792dc4dd9ff4cbd9c2337f995fd6290.jpg",
+        "error": "not sufficiently wide 650x500"
+      }
+    ]
+  },
+  {
+    "tournament": "Rome",
+    "year": 2004,
+    "tour": "wta",
+    "q": "Amelie Mauresmo Rome 2004 champion trophy women final",
+    "errors": [
+      {
+        "src": "https://images.tennis.com/image/private/t_16-9_768/f_auto/tenniscom-prd/rv4xw2zburs7wq1njq9v.jpg",
+        "error": "fetch failed"
+      }
+    ]
+  },
+  {
+    "tournament": "Rome",
+    "year": 2005,
+    "tour": "wta",
+    "q": "Amelie Mauresmo Rome 2005 champion trophy women final",
+    "errors": [
+      {
+        "src": "https://images.tennis.com/image/private/t_16-9_768/f_auto/tenniscom-prd/rv4xw2zburs7wq1njq9v.jpg",
+        "error": "fetch failed"
+      }
+    ]
+  },
+  {
+    "tournament": "Rome",
+    "year": 2006,
+    "tour": "wta",
+    "q": "Martina Hingis Rome 2006 champion trophy women final",
+    "errors": []
+  },
+  {
+    "tournament": "Rome",
+    "year": 2007,
+    "tour": "wta",
+    "q": "Jelena Jankovic Rome 2007 champion trophy women final",
+    "errors": []
+  },
+  {
+    "tournament": "Rome",
+    "year": 2008,
+    "tour": "wta",
+    "q": "Jelena Jankovic Rome 2008 champion trophy women final",
+    "errors": []
+  },
+  {
+    "tournament": "Miami",
+    "year": 2000,
+    "tour": "wta",
+    "q": "Martina Hingis Miami 2000 champion trophy women final",
+    "errors": [
+      {
+        "src": "https://cdnph.upi.com/pv/upi/d0b9b752d4e71b75860bb196c9e63d94/MIA2000040104.jpg",
+        "error": "not sufficiently wide 589x1000"
+      }
+    ]
+  },
+  {
+    "tournament": "Canada",
+    "year": 2000,
+    "tour": "wta",
+    "q": "Martina Hingis Rogers Cup Canada 2000 champion trophy women final",
+    "errors": []
+  },
+  {
+    "tournament": "Canada",
+    "year": 2001,
+    "tour": "wta",
+    "q": "Serena Williams Rogers Cup Canada 2001 champion trophy women final",
+    "errors": []
+  },
+  {
+    "tournament": "Canada",
+    "year": 2002,
+    "tour": "wta",
+    "q": "Amelie Mauresmo Rogers Cup Canada 2002 champion trophy women final",
+    "errors": []
+  },
+  {
+    "tournament": "Canada",
+    "year": 2003,
+    "tour": "wta",
+    "q": "Justine Henin Rogers Cup Canada 2003 champion trophy women final",
+    "errors": []
+  },
+  {
+    "tournament": "Canada",
+    "year": 2004,
+    "tour": "wta",
+    "q": "Amelie Mauresmo Rogers Cup Canada 2004 champion trophy women final",
+    "errors": []
+  },
+  {
+    "tournament": "Canada",
+    "year": 2005,
+    "tour": "wta",
+    "q": "Kim Clijsters Rogers Cup Canada 2005 champion trophy women final",
+    "errors": []
+  },
+  {
+    "tournament": "Canada",
+    "year": 2006,
+    "tour": "wta",
+    "q": "Ana Ivanovic Rogers Cup Canada 2006 champion trophy women final",
+    "errors": []
+  },
+  {
+    "tournament": "Miami",
+    "year": 2010,
+    "tour": "wta",
+    "q": "Kim Clijsters Miami 2010 champion trophy women final",
+    "errors": [
+      {
+        "src": "https://media.defense.gov/2010/Apr/06/2000377872/2000/2000/0/100403-F-8178N-001.JPG",
+        "error": "HTTP 403"
+      }
+    ]
+  },
+  {
+    "tournament": "Canada",
+    "year": 2008,
+    "tour": "wta",
+    "q": "Dinara Safina Rogers Cup Canada 2008 champion trophy women final",
+    "errors": []
+  },
+  {
+    "tournament": "Rome",
+    "year": 2000,
+    "tour": "wta",
+    "q": "Monica Seles Rome 2000 champion trophy women final",
+    "errors": [
+      {
+        "src": "https://parade.com/.image/w_1200%2Ch_630%2Cg_auto%2Cc_fill/ODowMDAwMDAwMDAwOTc2ODA5/us-monica-seles-holds-the-trophy-after-she-beats-frances-amelie-mauresmo-in-the-italian-open-final-21-may-2000-at-the-foro-olimpico-stadium-in-rome-seles-won-62-76-electronic-image-photo-by-gabriel-bo.jpg",
+        "error": "not sufficiently wide 1536x1495"
+      }
+    ]
+  },
+  {
+    "tournament": "Canada",
+    "year": 2010,
+    "tour": "wta",
+    "q": "Caroline Wozniacki Rogers Cup Canada 2010 champion trophy women final",
+    "errors": []
+  },
+  {
+    "tournament": "Indian Wells",
+    "year": 2002,
+    "tour": "wta",
+    "q": "Daniela Hantuchova Indian Wells 2002 champion trophy women final",
+    "errors": [
+      {
+        "src": "https://www.lequipe.fr/_medias/img-photo-jpg/a-18-ans-daniela-souleve-le-trophee-d-indian-wells-en-2002-max-nelson-afpi-maxppp-maxppp/1500000001646696/0%3A0%2C1309%3A1636-828-1035-75/ca1b6.jpg",
+        "error": "HTTP 403"
+      }
+    ]
+  },
+  {
+    "tournament": "Miami",
+    "year": 2001,
+    "tour": "wta",
+    "q": "Venus Williams Miami 2001 champion trophy women final",
+    "errors": [
+      {
+        "src": "https://images.tennis.com/image/private/t_16-9_768/tenniscom-prd/moyvd1xch0kboxheoxks.jpg",
+        "error": "fetch failed"
+      },
+      {
+        "src": "https://photoresources.wtatennis.com/photo-resources/2024/03/18/f3aa130a-2bcc-4512-821b-21a18c614380/GettyImages-1203647551.jpg?height=1121",
+        "error": "not sufficiently wide 1064x1121"
+      }
+    ]
+  },
+  {
+    "tournament": "Canada",
+    "year": 2009,
+    "tour": "wta",
+    "q": "Elena Dementieva Rogers Cup Canada 2009 champion trophy women final",
+    "errors": [
+      {
+        "src": "https://www2.tennisserver.com/images/photofeed/2009/rogers_cup_toronto/090823/Dementieva-Sharapova/IMG_3945.jpg",
+        "error": "not sufficiently wide 640x426"
+      }
+    ]
+  },
+  {
+    "tournament": "Canada",
+    "year": 2007,
+    "tour": "wta",
+    "q": "Justine Henin Rogers Cup Canada 2007 champion trophy women final",
+    "errors": [
+      {
+        "src": "https://www2.tennisserver.com/images/photofeed/2007/rogers-cup/070818/Henin-Zi/IMG_2724.jpg",
+        "error": "not sufficiently wide 425x640"
+      },
+      {
+        "src": "https://www2.tennisserver.com/images/photofeed/2007/rogers-cup/070816/Henin-Shuai/IMG_9900.jpg",
+        "error": "not sufficiently wide 426x640"
+      },
+      {
+        "src": "https://www2.tennisserver.com/images/photofeed/2007/rogers-cup/070816/Henin-Shuai/IMG_0809.jpg",
+        "error": "not sufficiently wide 426x640"
+      },
+      {
+        "src": "https://www2.tennisserver.com/images/photofeed/2007/rogers-cup/070819/Henin-Jankovic/IMG_3984.jpg",
+        "error": "not sufficiently wide 426x640"
+      },
+      {
+        "src": "https://upload.wikimedia.org/wikipedia/commons/5/52/Justine_Henin_Miami.jpg",
+        "error": "not sufficiently wide 2589x3285"
+      }
+    ]
+  }
+]

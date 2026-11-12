@@ -1,4 +1,5 @@
 import test from 'node:test';
+import type {Match} from '../lib/types';
 import assert from 'node:assert/strict';
 import { gzipSync,gunzipSync } from 'node:zlib';
 import {createHash} from 'node:crypto';
@@ -145,4 +146,16 @@ test('release gate preserves editions whose late rounds were already complete',(
   assert.doesNotThrow(()=>assertEditionCoverage([complete],[{...complete,sourceRows:10,pending:3,completeDraw:false}]));
   assert.throws(()=>assertEditionCoverage([complete],[{...complete,sourceRows:10,completed:6,pending:4,completeDraw:false}]),/complete edition incomplete/);
   assert.throws(()=>assertEditionCoverage([complete],[{...complete,rounds:{'5':4,'6':1,'7':1},missingLateRounds:['1 semifinal'],completeDraw:false}]),/complete edition incomplete/);
+});
+
+test('reviewed scope corrections permit only exact archived exclusions and retain all other release guards',async()=>{
+ const {default:decisions}=await import('../lib/reviewed-fixture-metadata.json');const row=decisions.find(row=>row.matchId==='wta-live-177433')!;
+ const exclusion:Match={...mockMatches[0],match_id:row.matchId,tour:'wta',year:row.year,tournament:row.tournament,round:row.round,player1:{name:row.first,seed:null},player2:{name:row.second,seed:null},context:{date:row.date}};
+ const previous={...after.manifest,matchCount:30,summary:{...after.manifest.summary,tours:{atp:20,wta:10}}};const current={...previous,matchCount:29,summary:{...previous.summary,tours:{atp:20,wta:9}}};
+ assert.doesNotThrow(()=>assertReleaseCoverage(previous,current,[exclusion]));
+ assert.throws(()=>assertReleaseCoverage(previous,current),/lose published/);
+ assert.throws(()=>assertReleaseCoverage(previous,{...current,matchCount:28},[exclusion]),/lose published/);
+ assert.throws(()=>assertReleaseCoverage(previous,{...current,summary:{...current.summary,tours:{atp:19,wta:10}}},[exclusion]),/lose published ATP/);
+ for(const changed of[{match_id:'other'},{year:row.year-1},{context:{date:'2026-08-24'}},{player2:{name:'Other',seed:null}}])assert.throws(()=>assertReleaseCoverage(previous,current,[{...exclusion,...changed}]),/Unverified/);
+ assert.throws(()=>assertReleaseCoverage(previous,current,[exclusion,exclusion]),/Unverified/);
 });

@@ -13,10 +13,13 @@ const refreshJobs = [
 const publicationJob = { name: 'validated publication', path: '/api/cron/publish' }
 const backfillJob = { name: 'optional WTA history', path: '/api/cron/wta-backfill' }
 const enrichmentJob = { name: 'optional match details', path: '/api/cron/enrich' }
-const jobs = [...refreshJobs, publicationJob, backfillJob, enrichmentJob]
+const wikipediaJob = { name: 'optional Wikimedia context', path: '/api/cron/wikipedia' }
+const jobs = [...refreshJobs, publicationJob, backfillJob, enrichmentJob, wikipediaJob]
 const pipelineHour = Number(process.env.DEUCE_PIPELINE_HOUR_UTC || 22)
 const pipelineMinute = Number(process.env.DEUCE_PIPELINE_MINUTE_UTC || 5)
-const catchUpWindow = 12 * 60 * 60 * 1000
+// The publication SLA is 36 hours. A host restored later in the day must still
+// recover the most recent missed window instead of silently waiting overnight.
+const catchUpWindow = Math.max(36 * 60 * 60 * 1000, Number(process.env.DEUCE_SCHEDULER_CATCH_UP_MS || 0))
 const maximumAttempts = Math.max(1, Number(process.env.DEUCE_SCHEDULER_MAX_ATTEMPTS || 5))
 const heartbeatEvery = Math.max(30_000, Number(process.env.DEUCE_SCHEDULER_HEARTBEAT_MS || 60_000))
 const heartbeatOnly = process.env.DEUCE_SCHEDULER_HEARTBEAT_ONLY === '1'
@@ -71,10 +74,10 @@ function targetFor(date) {
   return target
 }
 const dayKey = date => date.toISOString().slice(0, 10)
-const pipelineComplete = value => refreshJobs.every(job => value.stages?.[job.path]?.status === 'success')
-  && value.stages?.[publicationJob.path]?.status === 'success'
+const pipelineComplete = value => publicationReady(value, [...refreshJobs, publicationJob].map(job => job.path))
   && ['success', 'deferred-cycle', 'blocked'].includes(value.stages?.[backfillJob.path]?.status)
   && ['success', 'deferred-cycle', 'blocked'].includes(value.stages?.[enrichmentJob.path]?.status)
+  && ['success', 'deferred-cycle', 'blocked'].includes(value.stages?.[wikipediaJob.path]?.status)
 
 function freshState(day, scheduledAt) {
   return {
@@ -123,7 +126,7 @@ async function runJob(job, { oncePerCycle = false } = {}) {
       nextAttemptAt: retryAfterReset ? result.retryAt : deferred && !oncePerCycle ? new Date(Date.now() + retryDelay(attempt)).toISOString() : canRetry ? new Date(Date.now() + retryDelay(attempt)).toISOString() : undefined,
       error: result.ok || deferred ? undefined : `HTTP ${response.status}`,
     }
-    console.log(JSON.stringify({ event: 'deuce.scheduler', job: job.name, startedAt, finishedAt: new Date().toISOString(), status: response.status, outcome: state.stages[job.path].status, body: body.slice(0, 500) }))
+    console.log(JSON.stringify({ event: 'deuce.scheduler', job: job.name, startedAt, finishedAt: new Date().toISOString(), status: response.status, outcome: state.stages[job.path].status, operationStatus: result.operationStatus }))
     await persist()
     return result.ok
   } catch (error) {
@@ -147,6 +150,7 @@ async function runPipeline(day, scheduledAt) {
   console.log(JSON.stringify({ event: 'deuce.scheduler.pipeline.started', day, stages: state.stages, at: new Date().toISOString() }))
   for (const job of dueStages(refreshJobs, state)) await runJob(job)
   if (publicationReady(state, refreshJobs.map(job => job.path))) {
+    for (const job of dueStages([wikipediaJob], state)) await runJob(job, { oncePerCycle: true })
     for (const job of dueStages([publicationJob], state)) await runJob(job)
   }
   if (state.stages?.[publicationJob.path]?.status === 'success') {
