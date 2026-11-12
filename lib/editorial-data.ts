@@ -4,13 +4,17 @@ import { asyncCache } from './async-cache'
 import { invalidateDataCache, getMatches, getAnalyzableMatches } from './data'
 import type { Match } from './types'
 import { sentence } from './cuaderno/model'
+import { mergeEditionReferences } from './verified-editions'
+import { publishedMatches } from './publication-scope'
 /** Detail enriches the archive without changing its validated result universe. */
 const merged = asyncCache<Match[]>(300_000, 1)
 export const editorialArchive = cache(async (year?:number) => {
   const matches = await merged('all', async () => {
     const [summaries,details]=await Promise.all([getMatches(undefined,undefined,true),getAnalyzableMatches()])
     const byId=new Map(details.map(match=>[match.match_id,match]))
-    return summaries.map(match=>byId.get(match.match_id)||match)
+    // Compact listings deliberately omit measurements. Reattach reviewed
+    // official measurements after that projection, keeping provider IDs.
+    return publishedMatches(mergeEditionReferences(summaries.map(match=>byId.get(match.match_id)||match)))
   })
   return year ? matches.filter(match=>match.year===year) : matches
 })

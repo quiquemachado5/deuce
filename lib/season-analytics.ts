@@ -1,7 +1,7 @@
 import type { Match, MatchStat, Surface, Tour } from './types'
 import { matchStat, statNumber, statFraction } from './archive-insights'
 import { analyzePointTape } from './analytics/engine'
-import { eligibleMatch } from './quality'
+import { eligibleMatch, completedSets, isRetirement } from './quality'
 import { publishedMatchMinutes } from './duration'
 import { chronological } from './editorial'
 import { isRecordedTiebreak } from './historical-rules'
@@ -107,19 +107,19 @@ function calculateSeasonAnalytics(matches: Match[]) {
     records.set(firstKey, first)
     records.set(secondKey, second)
     const games = match.score_summary.games
-    const sets = [games.filter(([a, b]) => a > b).length, games.filter(([a, b]) => b > a).length]
+    const closed = completedSets(match)
+    const sets = [closed.filter(([a, b]) => a > b).length, closed.filter(([a, b]) => b > a).length]
     const winner = match.winner! - 1
     const isFinal = match.round.toLowerCase() === 'final'
-    const deciding = games.length > 1 && Math.abs(sets[0] - sets[1]) === 1
+    const deciding = !isRetirement(match) && games.length > 1 && Math.abs(sets[0] - sets[1]) === 1
     const tieBreaks = games.filter((_,index) => isRecordedTiebreak(match,index))
-    const tapeReport = match.point_tape.length && match.quality?.tape!=='partial' ? analyzePointTape(match.point_tape) : null
+    const tapeReport = match.point_tape.length && match.quality?.tape==='reliable' ? analyzePointTape(match.point_tape) : null
     for (const [index, record] of [first, second].entries()) {
       const ex = record.extra
       const add = (key: string, n = 1) => { ex[key] = (ex[key] || 0) + n }
       const won = index === winner
-      const openingWon = games[0][index] > games[0][1-index]
-      add(openingWon ? 'openingWon' : 'openingLost')
-      if(won) add(openingWon ? 'afterOpeningWon' : 'afterOpeningLost')
+      const openingWon = !!closed[0] && closed[0][index] > closed[0][1-index]
+      if(closed[0]){add(openingWon ? 'openingWon' : 'openingLost');if(won)add(openingWon ? 'afterOpeningWon' : 'afterOpeningLost')}
       if(games.length >= 3 && games.slice(0,2).every(set=>set[index]<set[1-index])) {add('twoDown');if(won)add('twoDownWins')}
       add('gamesWon',games.reduce((sum,set)=>sum+set[index],0));add('gamesLost',games.reduce((sum,set)=>sum+set[1-index],0))
       const rank = index===0?match.context?.rank1:match.context?.rank2
@@ -162,15 +162,15 @@ function calculateSeasonAnalytics(matches: Match[]) {
       if (match.round.toLowerCase() === 'semifinal') record.semifinalsPlayed++
       if (match.round.toLowerCase() === 'quarterfinal') record.quarterfinalsPlayed++
       if (deciding) record.decidingSetPlayed++
-      if (games.length === 5) record.fiveSetPlayed++
+      if (!isRetirement(match) && games.length === 5) record.fiveSetPlayed++
       record.tieBreaksPlayed += tieBreaks.length
       record.tieBreaksWon += tieBreaks.filter(([a, b]) => index === 0 ? a > b : b > a).length
       record.sixLoveSets += games.filter(set => set[index] === 6 && set[1 - index] === 0).length
-      record.closeSetsWon += games.filter(set => set[index] > set[1 - index] && set[index] - set[1 - index] <= 2).length
+      record.closeSetsWon += closed.filter(set => set[index] > set[1 - index] && set[index] - set[1 - index] <= 2).length
       if (index === winner) {
         record.wins++
         record.opponentsBeaten.push(index===0?second.name:first.name)
-        if (games.length === 5) record.fiveSetWins++
+        if (!isRetirement(match) && games.length === 5) record.fiveSetWins++
         if (games.length >= 2 && games[0][index] < games[0][1 - index]) record.firstSetComebacks++
         if (games.length >= 3 && games.slice(0, 2).every(set => set[index] < set[1 - index])) record.twoSetComebacks++
         record.surfaces[match.surface].wins++
@@ -184,7 +184,7 @@ function calculateSeasonAnalytics(matches: Match[]) {
           if (match.category === 'Masters 1000' || match.category === 'WTA 1000') record.mastersFinalsWon++
         }
         if (deciding) record.decidingSetWins++
-        if (sets[1 - index] === 0) record.straightSetWins++
+        if (!isRetirement(match) && sets[1 - index] === 0) record.straightSetWins++
       } else record.losses++
     }
     const derived:MatchStat[]=[]

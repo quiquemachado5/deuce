@@ -1,3 +1,4 @@
+import { DATASET_CACHE_CONTROL } from '@/lib/http-cache';
 import { NextRequest } from 'next/server'
 import { dataMode, getMatches } from '@/lib/data'
 import { parseRepositoryQuery, selectRepository } from '@/lib/repository-query'
@@ -42,7 +43,7 @@ export async function GET(request: NextRequest) {
     const payload={ ...result, matches, mode, criteria: ARCHIVE_CRITERIA, ...(selectedGeneration ? generationMetadata(selectedGeneration) : {}) }
     return selectedGeneration
       ? versionedJson(request,payload,{version:selectedGeneration.manifest.version,scope:requestCacheScope(request,'matches'),route:'matches',started,headers:{'X-RateLimit-Remaining':String(budget.remaining)}})
-      : Response.json(payload,{headers:{'Cache-Control':'public, s-maxage=60, stale-while-revalidate=300'}})
+      : Response.json(payload,{headers:{'Cache-Control':DATASET_CACHE_CONTROL}})
   } catch (error) {
     if (error instanceof RangeError) return Response.json({ error: error.message }, { status: 400 })
     return Response.json({ error: 'No se pudo leer el repositorio. Inténtalo de nuevo.' }, { status: 503 })

@@ -22,8 +22,8 @@ export function toMatchRecord(match: Match): MatchRecord {
     environment: match.context?.indoor === true ? 'Bajo techo' : match.context?.indoor === false ? 'Al aire libre' : undefined,
     requiredSets: /(?:BO3|mejor de 3)/i.test(match.context?.format || '') ? 2 : /(?:BO5|mejor de 5)/i.test(match.context?.format || '') || (match.category === 'Grand Slam' && match.tour !== 'wta') ? 3 : 2,
     players: [match.player1,match.player2].map(player => ({ id: playerSlug(player.name), name: displayPlayerName(player.name), countryCode: playerBiography(player.name,match.tour||'atp')?.country || '' })) as MatchRecord['players'],
-    sets: match.score_summary.games.flatMap((games,index) => games.length === 2 && games.every(n => Number.isFinite(n) && n >= 0) ? [{
-      games: [games[0],games[1]], completed: displaySetClosed(match,index),
+    sets: [...match.score_summary.games,...(match.score_summary.match_tiebreak?[match.score_summary.match_tiebreak]:[])].flatMap((games,index) => games.length === 2 && games.every(n => Number.isFinite(n) && n >= 0) ? [{
+      games: [games[0],games[1]], completed: index===match.score_summary.games.length&&!!match.score_summary.match_tiebreak?match.quality?.result==='consistent':displaySetClosed(match,index),
       tieBreak: ties[index] !== undefined ? (games[0] < games[1] ? [Number(ties[index]),null] : [null,Number(ties[index])]) : undefined,
     }] : []),
     href: `/match/${match.match_id}`, isFinal: roundPosition(match.round) === 7,

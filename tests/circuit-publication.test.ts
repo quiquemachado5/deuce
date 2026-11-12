@@ -127,3 +127,9 @@ test('a quota interruption resumes the next WTA page without publishing or repea
   const completed=await reconcileSeasonResults(2024,2026,null,async()=>{throw Error('Must not repeat a completed page');},'wta',{...progress,resume:checkpoint});
   assert.deepEqual(completed.data,resumed.data);
 });
+
+test('raw publication reconciliation rejects duplicate baselines and invalidates both seasons on correction',()=>{
+ const row={...mockMatches[0],match_id:'moving-year',tour:'atp' as const,year:2023};
+ assert.throws(()=>comparePublishedMatches([row,row],[row]),/Duplicate previous/);
+ assert.deepEqual(comparePublishedMatches([row],[{...row,year:2024}]).delta.seasons,['atp:2023','atp:2024']);
+});

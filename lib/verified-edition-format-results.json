@@ -1,0 +1,68 @@
+[
+  {
+    "id": "adelaide2-2023-bencic-kudermetova-wo",
+    "tour": "wta",
+    "tournament": "Adelaide 2",
+    "year": 2023,
+    "category": "WTA 500",
+    "surface": "hard",
+    "first": "Belinda Bencic",
+    "second": "Veronika Kudermetova",
+    "round": "Semifinal",
+    "date": "2023-01-13",
+    "dateLabel": "Fecha de la retirada",
+    "format": "BO3",
+    "score": "",
+    "status": "Walkover",
+    "source": "https://wtafiles.wtatennis.com/pdf/draws/2023/2014/MDS.pdf",
+    "corroboration": "https://www.tennis.com/news/articles/paula-badosa-out-of-adelaide-international-with-thigh-injury",
+    "evidence": [
+      "https://www.tennismajors.com/wta-tour-news/adelaide-international-2-bencic-makes-final-653603.html"
+    ],
+    "reviewedAt": "2026-11-12T09:15:00Z"
+  },
+  {
+    "id": "adelaide2-2023-kasatkina-badosa-wo",
+    "tour": "wta",
+    "tournament": "Adelaide 2",
+    "year": 2023,
+    "category": "WTA 500",
+    "surface": "hard",
+    "first": "Daria Kasatkina",
+    "second": "Paula Badosa",
+    "round": "Semifinal",
+    "date": "2023-01-13",
+    "dateLabel": "Fecha de la retirada",
+    "format": "BO3",
+    "score": "",
+    "status": "Walkover",
+    "source": "https://wtafiles.wtatennis.com/pdf/draws/2023/2014/MDS.pdf",
+    "corroboration": "https://www.tennis.com/news/articles/paula-badosa-out-of-adelaide-international-with-thigh-injury",
+    "evidence": [
+      "https://www.tennismajors.com/wta-tour-news/adelaide-international-2-bencic-makes-final-653603.html"
+    ],
+    "reviewedAt": "2026-11-12T09:15:00Z"
+  },
+  {
+    "id": "adelaide2-2023-kudermetova-alexandrova-wo",
+    "tour": "wta",
+    "tournament": "Adelaide 2",
+    "year": 2023,
+    "category": "WTA 500",
+    "surface": "hard",
+    "first": "Veronika Kudermetova",
+    "second": "Ekaterina Alexandrova",
+    "round": "Octavos de final",
+    "date": "2023-01-11",
+    "dateLabel": "Fecha de la retirada",
+    "format": "BO3",
+    "score": "",
+    "status": "Walkover",
+    "source": "https://wtafiles.wtatennis.com/pdf/draws/2023/2014/MDS.pdf",
+    "corroboration": "https://epub.stripes.com/docs/GSS_GSS_120123/GSS_GSS_120123.pdf",
+    "evidence": [
+      "https://edgeup.gg/tennis/h2h/tennis-wta-alexandrova-e/tennis-wta-kudermetova-v"
+    ],
+    "reviewedAt": "2026-11-12T09:15:00Z"
+  }
+]

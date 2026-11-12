@@ -1,0 +1,90 @@
+{
+  "verified": false,
+  "routes": 20,
+  "clientComponents": 59,
+  "sourceCssBytes": 1159121,
+  "standaloneBytes": 163164964,
+  "productCompressed": 4857254,
+  "productInflated": 29994943,
+  "thresholds": {
+    "html": 450000,
+    "routeCss": 450000,
+    "routeJs": 1250000,
+    "sourceCss": 875000,
+    "sourceCssFile": 240000,
+    "heroPoster": 100000,
+    "clientComponents": 44,
+    "standalone": 165000000,
+    "productCompressed": 16000000,
+    "productInflated": 64000000
+  },
+  "largestRoutes": [
+    {
+      "page": "propuestas/nadal.html",
+      "htmlBytes": 228333,
+      "cssBytes": 615854,
+      "jsBytes": 727327
+    },
+    {
+      "page": "index.html",
+      "htmlBytes": 152473,
+      "cssBytes": 512570,
+      "jsBytes": 665802
+    },
+    {
+      "page": "laboratorio/marcadores.html",
+      "htmlBytes": 97123,
+      "cssBytes": 467600,
+      "jsBytes": 640313
+    },
+    {
+      "page": "propuestas/filtros.html",
+      "htmlBytes": 26264,
+      "cssBytes": 380461,
+      "jsBytes": 673611
+    },
+    {
+      "page": "propuestas/transiciones.html",
+      "htmlBytes": 25690,
+      "cssBytes": 374575,
+      "jsBytes": 668503
+    }
+  ],
+  "largestSourceCss": [
+    {
+      "path": "styles/refinement-2026-10.css",
+      "bytes": 228313
+    },
+    {
+      "path": "components/tournament-detail.module.css",
+      "bytes": 98278
+    },
+    {
+      "path": "app/records/records-redesign.module.css",
+      "bytes": 87938
+    },
+    {
+      "path": "app/players/player-profile-proposal.module.css",
+      "bytes": 62559
+    },
+    {
+      "path": "styles/deuce-system.css",
+      "bytes": 62263
+    }
+  ],
+  "warnings": [
+    "index.html CSS: 113.9% of budget (512570/450000)",
+    "laboratorio/marcadores.html CSS: 103.9% of budget (467600/450000)",
+    "propuestas/nadal.html CSS: 136.9% of budget (615854/450000)",
+    "Source CSS: 132.5% of budget (1159121/875000)",
+    "Client Components: 134.1% of budget (59/44)",
+    "Standalone deployment: 98.9% of budget (163164964/165000000)"
+  ],
+  "failures": [
+    "index.html: CSS 512570 > 450000",
+    "laboratorio/marcadores.html: CSS 467600 > 450000",
+    "propuestas/nadal.html: CSS 615854 > 450000",
+    "Source CSS: 1159121 > 875000",
+    "Client Components: 59 > 44"
+  ]
+}

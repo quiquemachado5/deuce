@@ -6,6 +6,7 @@ import discovered from './player-photo-discovery.json'
 import curatedSelections from './player-photo-curated.json'
 import wtaPortraits from './player-photo-wta.json'
 import top50Refresh from './player-photo-top50.json'
+import reviewed from './player-photo-reviewed.json'
 import type { Photo } from './imagery'
 import { playerPhotoFocus } from './player-photo-focus'
 import { photoRightsStatus } from './photo-rights'
@@ -35,21 +36,8 @@ const publishableCuratedSelections: Record<string, Photo> = Object.fromEntries(
     .filter(([, photo]) => photoRightsStatus(photo) === 'documented'),
 )
 
-// The public refresh intentionally excludes candidates whose search result was
-// a venue, a crowd or a distant group rather than a recognisable player image.
-const withheldTop50Candidates = new Set([
-  'John McEnroe',
-  'Rod Laver',
-  'Guillermo Vilas',
-  'Lleyton Hewitt',
-  'Goran Ivanisevic',
-  'Michael Stich',
-])
-
-const top50PlayerPhotos: Record<string, Photo> = Object.fromEntries(
-  Object.entries(top50Refresh as Record<string, Photo>)
-    .filter(([name]) => !withheldTop50Candidates.has(name)),
-)
+const top50PlayerPhotos = top50Refresh as Record<string, Photo>
+export const reviewedPlayerPhotos = reviewed as Record<string, Photo>
 
 // The directory gives its largest slots to a small set of familiar players.
 // These documented, higher-resolution moments avoid stretching their compact
@@ -117,7 +105,7 @@ function directoryReadyPhoto(photo: Photo | null): Photo | null {
 }
 
 export function playerDirectoryPhoto(name: string, tour: 'atp'|'wta' = 'atp'): Photo | null {
-  return directoryReadyPhoto((tour==='atp'?(top50PlayerPhotos[name] || editorialPlayerPhotos[name] || curated[name] || directoryPlayerPhotos[name]):null) || playerPhoto(name,tour))
+  return directoryReadyPhoto(reviewedPhoto(name,tour) || (tour==='atp'?(top50PlayerPhotos[name] || editorialPlayerPhotos[name] || curated[name] || directoryPlayerPhotos[name]):null) || playerPhoto(name,tour))
 }
 
 // These final overrides favour the moment over the portrait: play, ceremony and
@@ -233,7 +221,7 @@ export const publishableWtaPortraits: Record<string, Photo> = Object.fromEntries
     .filter(([, photo]) => photoRightsStatus(photo) === 'documented'),
 )
 
-export const playerPhotos: Record<string, Photo> = { ...(cached as Record<string, Photo>), ...curated, ...(refreshed as Record<string, Photo>), ...(documented as Record<string, Photo>), ...(discovered as Record<string, Photo>), ...editorialPlayerPhotos, ...publishableCuratedSelections }
+export const playerPhotos: Record<string, Photo> = { ...(cached as Record<string, Photo>), ...curated, ...(refreshed as Record<string, Photo>), ...(documented as Record<string, Photo>), ...(discovered as Record<string, Photo>), ...editorialPlayerPhotos, ...publishableCuratedSelections, ...top50PlayerPhotos }
 
 function normalizeName(name: string) {
   return name.normalize('NFKD').replace(/[\u0300-\u036f]/g, '')
@@ -244,8 +232,12 @@ const normalizedPhotos = new Map(
   Object.entries(playerPhotos).map(([name, photo]) => [normalizeName(name), photo]),
 )
 
+function reviewedPhoto(name:string,tour:'atp'|'wta') {
+  return reviewedPlayerPhotos[`${tour}:${name}`] || Object.entries(reviewedPlayerPhotos).find(([key])=>key.startsWith(tour+':')&&normalizeName(key.slice(4))===normalizeName(name))?.[1]
+}
+
 export function playerPhoto(name: string, tour: 'atp'|'wta' = 'atp'): Photo | null {
-  const photo = tour==='wta'?(publishableWtaPortraits[name]||Object.entries(publishableWtaPortraits).find(([key])=>normalizeName(key)===normalizeName(name))?.[1]):playerPhotos[name] || normalizedPhotos.get(normalizeName(name))
+  const photo = reviewedPhoto(name,tour) || (tour==='wta'?(publishableWtaPortraits[name]||Object.entries(publishableWtaPortraits).find(([key])=>normalizeName(key)===normalizeName(name))?.[1]):playerPhotos[name] || normalizedPhotos.get(normalizeName(name)))
   if (!photo) return null
   const focus = playerPhotoFocus[name]
   return {

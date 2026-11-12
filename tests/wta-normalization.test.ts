@@ -105,7 +105,7 @@ test('historical WTA levels publish conservative circuit categories', () => {
   assert.equal(historicalTournamentCategory('P', 2019, 'wta', 'Rome'), 'WTA 1000');
   assert.equal(historicalTournamentCategory('P', 2019, 'wta', 'Stuttgart'), 'WTA 500');
   assert.equal(historicalTournamentCategory('I', 2019, 'wta', 'Auckland'), 'WTA 250');
-  assert.equal(historicalTournamentCategory('P', 2015, 'wta', 'Zhuhai'), 'WTA Finals');
+  assert.equal(historicalTournamentCategory('P', 2015, 'wta', 'Zhuhai'), 'WTA Elite Trophy');
   assert.equal(historicalTournamentCategory('C', 2019, 'wta'), 'WTA 125');
   assert.equal(historicalTournamentCategory(25, 2019, 'wta'), 'Circuito ITF femenino');
 });

@@ -27,12 +27,13 @@ export default function EditorialPhoto({
   const [failedSrc, setFailedSrc] = useState<string | null>(null);
   if (src && failedSrc !== src) {
     return <Image
-      className={className}
+      className={className ? `art-directed-photo ${className}` : 'art-directed-photo'}
       src={src}
       alt={alt}
       fill
       priority={priority}
       quality={88}
+      unoptimized={src.startsWith('/images/players/top50-horizontal/') || src.startsWith('/images/players/reviewed/')}
       sizes={sizes}
       style={imageFocus(objectPosition, mobileObjectPosition || objectPosition)}
       onError={() => setFailedSrc(src)}

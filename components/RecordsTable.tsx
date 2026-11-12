@@ -16,15 +16,15 @@ export function RecordsPagination({ page, total, href }: { page: number; total: 
   </nav>;
 }
 
-export default function RecordsTable({ rows, offset = 0, percent = false, asYear = false, priorValue, id, query, small = false, minimal = false }: {
-  rows: RecordRow[]; offset?: number; percent?: boolean; asYear?: boolean; priorValue?: number; id: string; query: Record<string, string | undefined>; small?: boolean; minimal?: boolean;
+export default function RecordsTable({ rows, offset = 0, percent = false, asYear = false, priorValue, id, query, small = false, minimal = false, valueLabel, caption }: {
+  rows: RecordRow[]; offset?: number; percent?: boolean; asYear?: boolean; priorValue?: number; id: string; query: Record<string, string | undefined>; small?: boolean; minimal?: boolean; valueLabel?:string; caption?:string;
 }) {
   const sortedByValue = !query.sort || query.sort === 'value';
   const ceiling = percent ? 100 : Math.max(0, ...rows.map(row => row.value));
   return <div className={styles.tableWrap}>
     <table className={styles.table}>
-      <caption className="nc-sr">{small ? 'Clasificación con muestras pequeñas' : 'Clasificación de la estadística'}</caption>
-      <thead><tr><th scope="col">N.º</th><th scope="col">Jugador o partido</th><th scope="col">{asYear ? 'Año' : percent ? 'Porcentaje' : 'Cifra'}</th><th scope="col"><span className="nc-sr">Partidos de la clasificación</span></th></tr></thead>
+      <caption className="nc-sr">{caption|| (small ? 'Clasificación con muestras pequeñas' : 'Clasificación de la estadística')}</caption>
+      <thead><tr><th scope="col">N.º</th><th scope="col">Jugador o partido</th><th scope="col">{valueLabel||(asYear ? 'Año' : percent ? 'Porcentaje' : 'Total')}</th><th scope="col"><span className="nc-sr">Partidos de la clasificación</span></th></tr></thead>
       <tbody>{rows.map((row, index) => {
         const tied = sortedByValue && (rows[index - 1]?.value ?? priorValue) === row.value;
         const proof = row.href.startsWith('/match/') ? row.href : evidenceHref(id, row, query);

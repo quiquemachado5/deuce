@@ -33,6 +33,7 @@ export function tournamentCourt(input: CourtInput): {
       corrected: surface !== knownSurface,
     };
   }
+  if(input.tournament==='Madrid'&&input.category==='WTA 1000'&&input.year>=2009)return {surface:'clay',indoor:false,corrected:surface!=='clay'};
   return { surface, indoor, corrected: false };
 }
 

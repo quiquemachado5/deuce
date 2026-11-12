@@ -1,0 +1,275 @@
+[
+  {
+    "tour": "atp",
+    "year": 1968,
+    "url": "https://stats.tennismylife.org/data/1968.csv",
+    "sha256": "772e13b9fd09ab149c7ca888785ce67b5bcf01f1e79fd39328b529f48ba77e99",
+    "bytes": 578555
+  },
+  {
+    "tour": "atp",
+    "year": 1969,
+    "url": "https://stats.tennismylife.org/data/1969.csv",
+    "sha256": "4815d8d3a0de94aa008ef9c866aeec337a09ce39689a4cfa3d8e3fb6d0340417",
+    "bytes": 561850
+  },
+  {
+    "tour": "atp",
+    "year": 1970,
+    "url": "https://stats.tennismylife.org/data/1970.csv",
+    "sha256": "8fb361b0d8dc9a20066b1134cb1493a8ee3e2d9998583669447d3cc9dbb2c64d",
+    "bytes": 506669
+  },
+  {
+    "tour": "atp",
+    "year": 1971,
+    "url": "https://stats.tennismylife.org/data/1971.csv",
+    "sha256": "e961ff0c2156ca7dcaec3f5c06da2a95aa378fb7f212e0cd552d9997a7940f7b",
+    "bytes": 591563
+  },
+  {
+    "tour": "atp",
+    "year": 1972,
+    "url": "https://stats.tennismylife.org/data/1972.csv",
+    "sha256": "a01e77e88460eec1b8e1ff2cf139da485baf3e1114dd0672b3cf4f7d9a799662",
+    "bytes": 602546
+  },
+  {
+    "tour": "atp",
+    "year": 1973,
+    "url": "https://stats.tennismylife.org/data/1973.csv",
+    "sha256": "320a06c473c0e97f3b8481763012c142bf62d27274b62b6899c55db90133b95f",
+    "bytes": 687163
+  },
+  {
+    "tour": "atp",
+    "year": 1974,
+    "url": "https://stats.tennismylife.org/data/1974.csv",
+    "sha256": "a89168e243359921baf476ea2762881088329e7212cbe109c4203af77c6ff35e",
+    "bytes": 699003
+  },
+  {
+    "tour": "atp",
+    "year": 1975,
+    "url": "https://stats.tennismylife.org/data/1975.csv",
+    "sha256": "9f2efc460bd86a72134b6f1734e7cacd3ead86d06a4196a607b6a70abd9fad89",
+    "bytes": 692018
+  },
+  {
+    "tour": "atp",
+    "year": 1976,
+    "url": "https://stats.tennismylife.org/data/1976.csv",
+    "sha256": "7480b8cb5a5dd9358bb2769361d0fd8c1a3e45e2c6329bbac5757851c104814b",
+    "bytes": 662284
+  },
+  {
+    "tour": "atp",
+    "year": 1977,
+    "url": "https://stats.tennismylife.org/data/1977.csv",
+    "sha256": "5020628aeb527ed7716db046148f66ed686508831ca0422be5278179d7fe7f2d",
+    "bytes": 700895
+  },
+  {
+    "tour": "atp",
+    "year": 1978,
+    "url": "https://stats.tennismylife.org/data/1978.csv",
+    "sha256": "10def0519664f8399b86bc05f0e58c9a044e57a42313b49256eee02bcde52da7",
+    "bytes": 652236
+  },
+  {
+    "tour": "atp",
+    "year": 1980,
+    "url": "https://stats.tennismylife.org/data/1980.csv",
+    "sha256": "a31e5932622a6980c87ad81f538770dcf6835b9005b4d223089181a93d942c87",
+    "bytes": 657496
+  },
+  {
+    "tour": "atp",
+    "year": 1981,
+    "url": "https://stats.tennismylife.org/data/1981.csv",
+    "sha256": "6cf25eafb33017e87d329ef8972d2f3385ac3ce0214b6913548b9078dcfcc302",
+    "bytes": 659536
+  },
+  {
+    "tour": "atp",
+    "year": 1982,
+    "url": "https://stats.tennismylife.org/data/1982.csv",
+    "sha256": "9247edb74bdafcd0119009a01441bf1fef324220fc85b7154b3cca07a281bdcf",
+    "bytes": 695025
+  },
+  {
+    "tour": "atp",
+    "year": 1983,
+    "url": "https://stats.tennismylife.org/data/1983.csv",
+    "sha256": "c90c6be771ffa559a671209ed3d8bf2aba5eee3122363b2a48d91129508aa2ba",
+    "bytes": 592323
+  },
+  {
+    "tour": "atp",
+    "year": 1984,
+    "url": "https://stats.tennismylife.org/data/1984.csv",
+    "sha256": "a274038b2c78aa0ee6ee75b87f785d4564ff3cd1d2413a46bb83e27c621f3ebf",
+    "bytes": 548012
+  },
+  {
+    "tour": "atp",
+    "year": 1985,
+    "url": "https://stats.tennismylife.org/data/1985.csv",
+    "sha256": "984b3a3d3279de1c289baf79f63b23a597970e3b072d8e33a97da448837a603d",
+    "bytes": 563767
+  },
+  {
+    "tour": "atp",
+    "year": 1990,
+    "url": "https://stats.tennismylife.org/data/1990.csv",
+    "sha256": "9f0197ba13baf4cb18c50072e2fe6a598b84b9c309ee8eb1b258bfcdb1283275",
+    "bytes": 636773
+  },
+  {
+    "tour": "atp",
+    "year": 1992,
+    "url": "https://stats.tennismylife.org/data/1992.csv",
+    "sha256": "cba939da445960c2f0d91755754c3b62c75bafd96abac7745291672bb2c90ecd",
+    "bytes": 770846
+  },
+  {
+    "tour": "atp",
+    "year": 1995,
+    "url": "https://stats.tennismylife.org/data/1995.csv",
+    "sha256": "25ba29c1c2f4e61c07b5feca9780983cc22859dfc222d088d066a819d67cfeea",
+    "bytes": 772971
+  },
+  {
+    "tour": "atp",
+    "year": 2001,
+    "url": "https://stats.tennismylife.org/data/2001.csv",
+    "sha256": "9b4de4721103e6a2bfcffab124ce17c095c4074d117f3a5af7b3ea8aa92cae6e",
+    "bytes": 677928
+  },
+  {
+    "tour": "atp",
+    "year": 2002,
+    "url": "https://stats.tennismylife.org/data/2002.csv",
+    "sha256": "bd5e665341d34dfc26e944ad66c65f2b269ad599bcebbb3f905737fb70639bcc",
+    "bytes": 657543
+  },
+  {
+    "tour": "atp",
+    "year": 2004,
+    "url": "https://stats.tennismylife.org/data/2004.csv",
+    "sha256": "f643048815ed56ed504335063cd0490e4fa64d1ac13b82d940ec6e86f0dac269",
+    "bytes": 674584
+  },
+  {
+    "tour": "atp",
+    "year": 2023,
+    "url": "https://stats.tennismylife.org/data/2023.csv",
+    "sha256": "95bae30031f5d8c8a4290fc8e576233fba5eececac39f341ecbc0d8d25376d0b",
+    "bytes": 630594
+  },
+  {
+    "tour": "atp",
+    "year": 2024,
+    "url": "https://stats.tennismylife.org/data/2024.csv",
+    "sha256": "bf6d2f18a422453e25fe5ed0dba08e7450c02735a491d7342b24cb22013c793c",
+    "bytes": 653554
+  },
+  {
+    "tour": "atp",
+    "year": 2026,
+    "url": "https://stats.tennismylife.org/data/2026.csv",
+    "sha256": "f86136dd14494ebbe1eb48b732c2a7abc9bc625eef2a3643006555fdecf5e956",
+    "bytes": 587122
+  },
+  {
+    "tour": "wta",
+    "year": 1996,
+    "url": "https://stats.tennismylife.org/data/1996_wta.csv",
+    "sha256": "97369d6001446076af5911c997696696212edf98a903ad6308a36b61664d3ea1",
+    "bytes": 441108
+  },
+  {
+    "tour": "wta",
+    "year": 2006,
+    "url": "https://stats.tennismylife.org/data/2006_wta.csv",
+    "sha256": "24f5abe5f76618351d535aa2abd17d6253e00a0a2aa2d806bd4b1a76ffec76be",
+    "bytes": 532255
+  },
+  {
+    "tour": "wta",
+    "year": 2010,
+    "url": "https://stats.tennismylife.org/data/2010_wta.csv",
+    "sha256": "cc1658fdd9fd7a7689f2ac110c7787c57eebeabc6dc4540992e4bcdb8e276dcc",
+    "bytes": 552456
+  },
+  {
+    "tour": "wta",
+    "year": 2011,
+    "url": "https://stats.tennismylife.org/data/2011_wta.csv",
+    "sha256": "c658659c3273c1ee38932b3add22b2aff67c09f6265b712ed3c96f70a13453bb",
+    "bytes": 557995
+  },
+  {
+    "tour": "wta",
+    "year": 2013,
+    "url": "https://stats.tennismylife.org/data/2013_wta.csv",
+    "sha256": "7b3a56bf3fda117315c924d79593bf4a8f214abcee81c13e2f042c794fce921d",
+    "bytes": 542098
+  },
+  {
+    "tour": "wta",
+    "year": 2015,
+    "url": "https://stats.tennismylife.org/data/2015_wta.csv",
+    "sha256": "8e09a906b34c42edb13a63a2afba061795eb767a20ad8a4b676e4b6265d3f1a4",
+    "bytes": 528299
+  },
+  {
+    "tour": "wta",
+    "year": 2016,
+    "url": "https://stats.tennismylife.org/data/2016_wta.csv",
+    "sha256": "1d4e28820e3f484c67b698744afc6d12ae7e80e26ecf078656f3050c3903b3b9",
+    "bytes": 612758
+  },
+  {
+    "tour": "wta",
+    "year": 2021,
+    "url": "https://stats.tennismylife.org/data/2021_wta.csv",
+    "sha256": "58fd393593bb9cdc20cef35ef51acad7d4ad0bc7cef69cb5edee4aeee36c3949",
+    "bytes": 545354
+  },
+  {
+    "tour": "wta",
+    "year": 2022,
+    "url": "https://stats.tennismylife.org/data/2022_wta.csv",
+    "sha256": "abbb572c2242c330a56b4042b1944b8d7647a1248f6bd0d3310a9aea4ce8c7aa",
+    "bytes": 545277
+  },
+  {
+    "tour": "wta",
+    "year": 2023,
+    "url": "https://stats.tennismylife.org/data/2023_wta.csv",
+    "sha256": "6586853eb9fd4fdcb2d59b6600e526fa9524772ed9c3b78406e6c8b014baa034",
+    "bytes": 584483
+  },
+  {
+    "tour": "wta",
+    "year": 2024,
+    "url": "https://stats.tennismylife.org/data/2024_wta.csv",
+    "sha256": "08c1b8ef7c52c00fce506de25dd8cd8ab2d47c2b9c5611b44159931ac55aabcd",
+    "bytes": 552261
+  },
+  {
+    "tour": "wta",
+    "year": 2025,
+    "url": "https://stats.tennismylife.org/data/2025_wta.csv",
+    "sha256": "0a0fea0ec5b9480c8e3dc904a09f5d02f5ff152fecb95110fd5052d5925fc1ed",
+    "bytes": 549474
+  },
+  {
+    "tour": "wta",
+    "year": 2026,
+    "url": "https://stats.tennismylife.org/data/2026_wta.csv",
+    "sha256": "ffb0be477ff4c6c4f474a20b228eefde7f4e762852c2c4f0a553d08fcc4ccafb",
+    "bytes": 528149
+  }
+]

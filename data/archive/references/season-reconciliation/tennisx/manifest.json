@@ -1,0 +1,412 @@
+[
+  {
+    "url": "https://www.tennis-x.com/results/australian-open/alberto-martin.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/b4824e10d393d58406fc.html.gz",
+    "sha256": "590d94fd04941f326b0992958a6159e158cffd0bf163e35a98adb0e6b8a91a0d"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/australian-open/alejandro-tabilo.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/7bf254392b1a5e856102.html.gz",
+    "sha256": "4d6fbf1718cff2079064973a3ab6a1b8a4f03bb60d8d4e5b47e13d23aec47aa8"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/australian-open/alvin-gardiner.php",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/australian-open/amanda-anisimova.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/2779443af7a5d01475ba.html.gz",
+    "sha256": "fb09fa68e7f696a1d5a4517491c6fcda47c59f1a102d75796373ea5b2103cdaa"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/australian-open/anastasija-sevastova.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/9e1b051e58f9c9932940.html.gz",
+    "sha256": "9695285d848d355d12a34f08de1908efed7d1f7fcded78f8fbc7dfd929d7c3b3"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/australian-open/carla-suarez-navarro.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/e67d9de522870d4cf764.html.gz",
+    "sha256": "96569b0e0ab8bdef85ae7e5da362e7cd03c7e850c758ecd864b609534c5af030"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/australian-open/graeme-thomson.php",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/australian-open/greg-rusedski.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/045c5f28f3824f7322a0.html.gz",
+    "sha256": "4591c06f6f333692128697d3717488ba9020da51b861d1f5d66c02ce133d1986"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/australian-open/hans-simonsson.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/56f47f740072835b0622.html.gz",
+    "sha256": "39e36c6844ae1aae1426d4dcf23bc3471945520e23fae36886abe64110333cf6"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/australian-open/john-sadri.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/338b5ebac1f191031d4d.html.gz",
+    "sha256": "7dbd65eba814443635400d3fc44ac68d76af63a299ee4aa7ada4665ee6999d7d"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/australian-open/marc-flur.php",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/australian-open/marc-rosset.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/415c9a474f045e7536a6.html.gz",
+    "sha256": "81985bdb88edf88e3ce71c65a9ed3270d727aace2eda74d4279f29e167d3e7e3"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/australian-open/ned-neely.php",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/australian-open/onny-parun.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/8303852a2199003bca9b.html.gz",
+    "sha256": "fb9f641e19fb8f6d9e75d7cb85c6a39fe1bbdce8f640966ffa3c7c35097aa5a3"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/australian-open/wally-masur.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/721731a9ae3a4308708d.html.gz",
+    "sha256": "059f6978c73168912cc5380eebbf2887d6481121fa0a587be62f90636e930a74"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/australian-open/xinyun-han.php",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/french-open/amanda-anisimova.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/e758e33e1d11e00e8e56.html.gz",
+    "sha256": "f456461cd415ad7e0c0e30719246e9c3e4901039ea39cab29c8b4354b7d9f6ba"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/french-open/anastasia-pavlyuchenkova.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/bee9063c30fb308af78a.html.gz",
+    "sha256": "f6fa55d8ee8d90da57336f6e759c02ca7a4e2568ad1a704df81a2bdac6a173e8"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/french-open/arantxa-rus.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/2d12b46755cd1dd692af.html.gz",
+    "sha256": "65c7f4b5b784cd2b82f107876dcfc91804e0e2a4fb7e29a39584c637409927f8"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/french-open/aurora-corvi.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/935cad887df014915da1.html.gz",
+    "sha256": "8216b5911ebfef6438819f66102c335fccca5b6ec835dbd85cb57124a4b7622b"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/french-open/bianca-andreescu.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/5c00f15d40e0218af58a.html.gz",
+    "sha256": "bd839279e5cdb416bf22606597c2230fed63c71ec14242b20dd24f2dbe425135"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/french-open/charlotte-van-zonneveld.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/3c40ca8e18330a58868b.html.gz",
+    "sha256": "6a73eb796abf4ecf346dfe05b365cfd3d72b3ce6af4dbf4d2ff98a214cc89b66"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/french-open/danielle-collins.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/dce2b7027a10698cde8c.html.gz",
+    "sha256": "0fdb9ca60eb7a5f03f8f28c8a0a25e530284ef4afbb8770debe7068dd3ed2179"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/french-open/elena-rybakina.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/9d075044a79b7a513845.html.gz",
+    "sha256": "1186d0cf483a4ab20dd30f791dfc6831915d4dde2cde2087144b0ccdcddffe3f"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/french-open/elise-mertens.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/0db9f10e8ff14e4b8232.html.gz",
+    "sha256": "08dd6ee4381884e536f525126fa93883a7b407972f802f9372b004f37263a719"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/french-open/elizabeth-mandlik.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/71c6b6242a54617a5721.html.gz",
+    "sha256": "2e9fa6762dd8df16e8deac18d7de2dfac4f7f306f1cc35918c8bac356917c25f"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/french-open/emiliana-arango.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/8429b445d35c472e89d5.html.gz",
+    "sha256": "e7942ad4232bce0eedd9ec1cf5a551c321a2576228422b2f8fe9bf720223dcd5"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/french-open/emma-navarro.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/3e62b8abfbcbfa7f56cf.html.gz",
+    "sha256": "b0c3496c8d5e76e197dfabfe1bc0dd90d4ff269dafc10e184c4cf24b5e9ffe7b"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/french-open/john-alexander.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/92ce98d6a349e8794368.html.gz",
+    "sha256": "5acb089f57c9c73876ccd97c0e5933400360f74c846ead8a77b45c92fd53ca47"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/french-open/juan-aguilera.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/e6755ac1afa8dd98b58c.html.gz",
+    "sha256": "16f619c843c7022e80f0762b005860c1fb8acfaf99d539053e1f11c875241425"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/french-open/marcos-hocevar.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/3a87fe260857ce360355.html.gz",
+    "sha256": "ccd842bf15a4bcfa592d4c4d70f4158cbca75cf4b8bc40c04558fb5412ffe531"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/french-open/marketa-vondrousova.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/35952be68c6cd3c60f9e.html.gz",
+    "sha256": "2d559b2518965118fdc9df87b2ce3a3fe419e23f407044391b8da70f12e7d889"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/french-open/oleksandra-oliynykova.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/d2ceef3edb9d6627c7d8.html.gz",
+    "sha256": "e5f9f08855de64ae75b20aec45a8702cd8ccc3ea04d2da7d46047c7a63d7afd3"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/french-open/ons-jabeur.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/b5b372c2ccac87881e53.html.gz",
+    "sha256": "f336ab1f6a5f0f26bafbc54298ff7d0c4ed990057f1ca81e251c9d3f2061acba"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/french-open/patrice-kuchna.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/dc85dff5d18b4e14aaae.html.gz",
+    "sha256": "70f66fe94f5b29bd08c558ec5018a135db1711b2a3c3740efc59cf37cb05d5b9"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/french-open/simon-youl.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/0d2dce5ae002810b3c25.html.gz",
+    "sha256": "70fc54c6f19673a84a9ab9af48f3e0e5fcbedc9860378301598a718232cf14ed"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/french-open/varvara-gracheva.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/8b6ad75b95533772f1eb.html.gz",
+    "sha256": "b9fecaf7af676ca489565700b6c7fe2a9e14bf15e9d1843452c8dbd0f22960bf"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/french-open/victoria-azarenka.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/ddfa866e4f2b4d7e68a8.html.gz",
+    "sha256": "fa3a3485dd812e464b4dc6f45f9abab617e8649fd88225c4e8d5e34eab195d11"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/french-open/wally-masur.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/9cbcae83a2a748492971.html.gz",
+    "sha256": "bebc4cf95f9d27676e5ed56e9f0c9d04c5592003e7a66bccb39c5942bec7558c"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/us-open/andrew-pattison.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/f1c69a1a2c3da50e46dc.html.gz",
+    "sha256": "199257dcb0d5d4ed0556eb05eec404b87ac27cfc88b32155c60f9a08a7b9c91b"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/us-open/arantxa-rus.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/a65d305bbbe040193902.html.gz",
+    "sha256": "f4927a03c3d4b955f800e314d1e6eac24b57d17a0d37856c9b6bb5e218e6c5e0"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/us-open/beatriz-haddad-maia.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/f4247f84dbf3a171bf8a.html.gz",
+    "sha256": "771ba8cb84a551b5496633c1bd6ffa3207df840e21eac69bd4df20611e14b9ae"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/us-open/bjorn-borg.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/b28376689e92bcd13115.html.gz",
+    "sha256": "abaa7c1522770d5be165311dca2c50d502fb944e3f8ef737bafece8e7a354370"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/us-open/chukwumelije-clarke.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/5bbd4eb8231cfb6c16de.html.gz",
+    "sha256": "d39d55db6befb134f2ba8311520978558d7c646014c66476e5bcb6bf1b10e580"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/us-open/emma-navarro.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/6f985256f711cf5a45e5.html.gz",
+    "sha256": "4f0a20d1a9de6cb6e400b48e9e9564051e1544b7dc3feab445f89c807d8a8120"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/us-open/guillermo-canas.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/926db006b58f112ac587.html.gz",
+    "sha256": "1b38b8d6e8360cf9689ef42b46c844db3cff7308f90130f18479dc390be1305e"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/us-open/ilie-nastase.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/a10842cbee570366e31d.html.gz",
+    "sha256": "8109d1572be46642c1a5497fce43ba826e03e283b6a1d8e9cfb06bd427c4ce74"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/us-open/jimmy-connors.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/c5f31b7a1a1c55bb5baf.html.gz",
+    "sha256": "13079a0aeda19408dafb8f05ffe05a219ba8724410e9e50c4c3d2f63b9dea27e"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/us-open/john-alexander.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/9b0920c4fe6826349115.html.gz",
+    "sha256": "b491f6e66ad7ccf37e7b28d45613a3eddf0eaf8f5acdf89df1a1d80391cfc33d"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/us-open/joyce-portman.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/19fca4153f07b412ae72.html.gz",
+    "sha256": "919cd5c3f19b378b8c7bd3a77a2a58c3b2951e3e01883c36b87ecd7bbafafafc"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/us-open/jurgen-fassbender.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/28fb1a12d3dc31df850c.html.gz",
+    "sha256": "36ce7549c78fdf3f6c9dda7760c8612ad9ad03ade6777beb7b8eb0b6bab38e5b"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/us-open/karolina-muchova.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/47c33f5094c4cc00370f.html.gz",
+    "sha256": "49f8db35c8f7e4cc809d8d01b937478337b871de2d168c3a2cc217f412baf2ba"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/us-open/lisa-bonder.php",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/us-open/liudmila-samsonova.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/cf7177705f5636911dbe.html.gz",
+    "sha256": "b4d8d0dfe767681713cf1534b0bbae5155a3aa53ed617baf2412e3d8e2e849b8"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/us-open/marie-bouzkova.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/8c32a587d62033e74892.html.gz",
+    "sha256": "b3c880da178c49dfd25decfc37b39a50af22816f860ad87727d3371ac7d79d47"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/us-open/mauricio-hadad.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/c63e4a30471ed9f4b929.html.gz",
+    "sha256": "641dd748ede6d888ef95dedccffc09c0d1321ec167950c77f5c02535814afc3f"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/us-open/natalia-zvereva.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/67e46ea87cd148904d8d.html.gz",
+    "sha256": "bcfc4426007650f0e85422989351d88d5222e67b8919008349eb1229def3431a"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/us-open/owen-davidson.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/1ba48c3c3a5bd3b1fe84.html.gz",
+    "sha256": "752d2e6aedc3bcac42380f948be51a5ffaaa13f8eb5994ffd7cd38a1673c3353"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/us-open/ramesh-krishnan.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/db64c20f9b64491d4f0b.html.gz",
+    "sha256": "d3da51abe714210adb36bedc1e79b08afd96f36e70a7abff12e481208aa4ad5a"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/us-open/raul-ramirez.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/f0579b6c6266500ddb00.html.gz",
+    "sha256": "95831e20e44f1e34b5a39ff27ce62423e04fd5caf6c0adc0b020a068ddf15bdd"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/us-open/ross-case.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/4d9cd7d4abe308fdc2cc.html.gz",
+    "sha256": "75d343b50d8a738faa1a57e8e31454d621b5aab8691d00ce849006b22d704437"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/us-open/sara-errani.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/ca8d5dd289202a1e2747.html.gz",
+    "sha256": "719f7b44e6e19a629e0a2253cf1e53990a95403004044d771d2f20a4f7960846"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/us-open/sherry-acker.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/b870fa429d06abf7c9fe.html.gz",
+    "sha256": "78418426f517a30f89f9f52eb1ea9610249705357c66712a8d4e606ca53284ec"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/us-open/sjeng-schalken.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/c434732cff2e01e3ded9.html.gz",
+    "sha256": "6ebf575dfee3a9a5c41e6cf501b5d2721982d258c2fbc71f595e12386a75aaf4"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/us-open/thomaz-koch.php",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/us-open/tommy-ho.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/8636d65def5a1fd91623.html.gz",
+    "sha256": "d67d910d3067a75cc307a7ffdb496f2ba11d464c92af32debd99e9fa7ec4acaa"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/us-open/tracy-austin.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/a6b85540feb128897561.html.gz",
+    "sha256": "faf621d6b001c991c2b0ea6287ca12eec833fc7fd23b7b9ce73b21ce1a3e4155"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/us-open/wendy-overton.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/f007532d98b42dcae500.html.gz",
+    "sha256": "86bd3f62da2464e4364b5e8a54a91deb00d0e26d247154a5f49cf40254cdcd10"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/wimbledon/aliaksandra-sasnovich.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/ca23b9cb1f62d1263d9b.html.gz",
+    "sha256": "e47c5d6116b4063cfb39c81425cc39ecae2578f34c5921d8c470e5e2e990b6ea"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/wimbledon/graham-stilwell.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/91ec7e8f4af772b53fbf.html.gz",
+    "sha256": "5d12987e3720a96856d783916deb1a1d6bf35c23866de6b7a966988228ea5063"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/wimbledon/kent-kinnear.php",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/wimbledon/laura-rossouw.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/fdb046210a0d7c8fe9e5.html.gz",
+    "sha256": "ec039ccc90c083a42239eacfe25e8e329c5f45079ec803db3b3db6a0aff53e7d"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/wimbledon/lily-yuriko-miyazaki.php",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/wimbledon/linky-boshoff.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/cc5288b8a83faca229a8.html.gz",
+    "sha256": "075dbebba22b7b084c15177dcd9d7bd1abc14e076879c4482deeb09223609122"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/wimbledon/marina-erakovic.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/605e2cfe7485ae051854.html.gz",
+    "sha256": "63c724ccf98bf06a259c4d3ac717642bd1c78266cd2d6a8420e694c45983c1e6"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/wimbledon/ove-bengtson.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/70a9ef19047473b146a9.html.gz",
+    "sha256": "c3dfadc521fac00def3dd8d40b35be316e8164546c4bbc3961e8ae8002563679"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/australian-open/ian-bidmeade.php",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/australian-open/jeremy-bates.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/07c53b1a3af0ec1eb4fa.html.gz",
+    "sha256": "8ae64d3bc3d5fcf9ada25ced8cd060a599727bd028e82b8ae36a55f0a4d06518"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/australian-open/mariana-duque-marino.php",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/australian-open/mike-prineas.php",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/australian-open/richard-russell.php",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/us-open/patricio-cornejo.php",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/us-open/renata-tomanova.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/d2ac4bc30102641b84dd.html.gz",
+    "sha256": "4ea03d714719bbccc0faf0985ea5e5f298317945a6b0c1ad4f94921b32679f38"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/wimbledon/carl-uwe-steeb.php",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "url": "https://www.tennis-x.com/results/wimbledon/tamara-korpatsch.php",
+    "file": "data/archive/references/season-reconciliation/tennisx/552baca7f3e0c4e4dbda.html.gz",
+    "sha256": "cd76efedb936f265eccbd44c1a2057089fd3ba08a4e9e00c8e16b1466914f46b"
+  }
+]

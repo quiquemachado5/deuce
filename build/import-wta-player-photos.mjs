@@ -1,3 +1,5 @@
+import {createApprovedFetch} from './approved-media-fetch.mjs';
+const fetch=createApprovedFetch(["www.wtatennis.com", "photoresources.wtatennis.com"]);
 // Collect official WTA player portraits for an internal rights review. A source
 // page is not a republication licence, so this command must never write into
 // `public/` or the manifest consumed by the site.

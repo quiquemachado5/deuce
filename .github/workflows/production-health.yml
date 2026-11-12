@@ -13,7 +13,7 @@ concurrency:
 jobs:
   monitor:
     if: github.repository == 'quiquemachado5/deuce' && github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 5
     permissions:
       contents: read
@@ -29,5 +29,6 @@ jobs:
         run: node ops/monitor.mjs
         env:
           GITHUB_TOKEN: ${{ github.token }}
+          METRICS_SECRET: ${{ secrets.DEUCE_METRICS_SECRET }}
           DEUCE_MONITOR_URL: ${{ vars.DEUCE_MONITOR_URL }}
           DEUCE_EXPECTED_COMMIT: ${{ (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && github.sha || '' }}

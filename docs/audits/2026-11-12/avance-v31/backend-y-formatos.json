@@ -1,0 +1,145 @@
+{
+  "reviewedAt": "2026-11-12T10:25:06.378379+00:00",
+  "scope": "Local implementation only; no production settings inspected or changed, no Live Tennis calls, no UI changes.",
+  "criticisms": [
+    {
+      "id": 31,
+      "status": "Parcial",
+      "implementation": "Actual provider fetch attempts and retries now charge persisted budget before dispatch; failed attempts are not refunded. Existing provider lease still lacks a proven fencing/heartbeat crash experiment."
+    },
+    {
+      "id": 32,
+      "status": "Parcial",
+      "implementation": "Physical-attempt ledger is read from durable store under existing provider lease. Corruption/unknown quota fails closed, reserve retained, usage reconciliation conservative. Multi-host lease fencing not certified."
+    },
+    {
+      "id": 33,
+      "status": "Resuelto en local",
+      "implementation": "SQLite atomic shared limiter across Node workers; explicit production config uses shared archive volume. Private0600 file,8MiB database ceiling,32,768activeactors,25msbusytimeout,expiryGC1024rowsper sweep; storage failure rejects request and never falls back to per-worker memory. Caddy now also covers public APIv1. Production deployment not executed."
+    },
+    {
+      "id": 36,
+      "status": "Parcial",
+      "implementation": "Host-approved HTTPS, redirect rejection and streaming byte/time bounds migrated to11 importers. Raw admin/provider fixed-host paths not fully migrated."
+    },
+    {
+      "id": 20,
+      "status": "Parcial",
+      "implementation": "Publication delta invalidates both old and new season on year-changing correction and rejects duplicate identities. Full production dependency invalidation remains unverified."
+    },
+    {
+      "id": 57,
+      "status": "Parcial",
+      "implementation": "Publication index/delta reject duplicate IDs and account for old/new season corrections. Not a claim that every derived product has an archived semantic changelog."
+    },
+    {
+      "id": 3,
+      "status": "Parcial",
+      "implementation": "16 formerly false edition audits reduced to1 unresolved fixture after reviewed formats/occurrences,3 sourced walkovers,5 exact metadata corrections and3 historical result/season corrections. Null means uncertified, not complete=true."
+    },
+    {
+      "id": 6,
+      "status": "Resuelto en local para el caso Federer–Nadal",
+      "implementation": "The absent40th contest was the2006Dubai final, excluded by modern-tier scope. Admits the complete31-fixture edition under source-accurate ATP International Series Gold; filter equivalenceATP500 does not rename history. Full official draw, contemporary newspaper and independent category evidence archived. H2H40andNadal24–16 verified. Other incomplete careers are not certified by this case."
+    },
+    {
+      "id": 67,
+      "status": "Resuelto en local",
+      "implementation": "Mutable JSON cache capped at300s fresh plus300s stale; stale week/day overrides removed. Browser revalidates versioned ETags. Installed NextexpireTime configured600s instead of31536000; framework cache header generator tested. Unversioned images/media/videos revalidate after86400s without extra stale; immutable fonts unchanged. Proxy config preserves appheaders. Production not deployed/probed."
+    },
+    {
+      "id": 68,
+      "status": "Parcial",
+      "implementation": "Per-RSC-render pointer selected once usingReactcache. Generation process cache keyed by source+version instead ofactive, and all browser/product/detail readers consume that fully validated decision, includingbundled fallback. Real ReactFlight renderer changes pointer during suspend; firstresponseA/A/A, nextresponseB/B/B whileprocesscacheAremainswarm. IndependentHTMLandprefetchedRSCrequests can legitimately use laterpublications; no clientnavigationversionpinningprotocol introduced."
+    },
+    {
+      "id": 69,
+      "status": "Parcial",
+      "implementation": "Reproducible offline synthetic x10 detailed-shard streaming profile:1483020rows,1185304889decodedbytes,177012736peakRSS,55057216peakheap,26440ms with256MiB V8heap cap; baseline148302rows163332096peakRSS2789ms. Budget384MiBRSS. This proves bounded streaming-phase memory, not full publication/all-statisticspipeline atx10."
+    }
+  ],
+  "dataRepairs": {
+    "formatRules": "lib/edition-format-evidence.json",
+    "rawSources": "data/archive/references/edition-format-v31/sources.json",
+    "reviewedMetadata": "lib/reviewed-fixture-metadata.json",
+    "adelaideWalkovers": "lib/verified-edition-format-results.json",
+    "historicalResults": [
+      "archive-21163 AO1973 official season identity",
+      "archive-16694 US1972 Davidson–Owens6–4 7–6 3–6 4–6 6–3: L’Équipe+TennisMyLife+WikipediaDE",
+      "archive-29689 AO1975 Thomson–Prineas6–4 6–3 6–3: TennisMyLife+Wikipedia; secondary-source confidence and conflicting original retained"
+    ],
+    "remaining": {
+      "matchId": "wta-archive-855948",
+      "fixture": "USOpen1969 WendyOverton–JitkaHorcickova",
+      "problem": "Official/derivative sources repeat impossible7–3set; no score inferred, remains excluded from incompatible statistics."
+    },
+    "releaseGuard": "Reviewed exact old-generation scope exclusions may reduce only their own total/circuit count. No global thresholds or measured coverage guards weakened.",
+    "teamCompetition": {
+      "registry": "lib/reviewed-team-competition-scope.json",
+      "rawRowsRetained": 170,
+      "previouslyPublishedATP250RowsExcluded": 167,
+      "identityContract": "Exact sourceID + tour/year/tournament/date/round/both normalized players. Stale publication baselines also filtered. RR and Fase de grupos are normalized identically because they are the same provider round.",
+      "productionChanged": false
+    },
+    "historicalEdition": {
+      "registry": "lib/reviewed-historical-editions.json",
+      "sources": "data/archive/references/h2h-federer-nadal-v31/sources.json",
+      "edition": "ATP Dubai2006",
+      "fixtureEntries": 31,
+      "playedResults": 30,
+      "walkovers": 1,
+      "historicalCategory": "ATP International Series Gold",
+      "modernFilteringEquivalent": "ATP 500",
+      "identityCorrection": "archive-141681 originalOmarAwadhy→OmarBehrouzyan, officialATPdraw+contemporarytournamentnewspaper; attributed ranking/age cleared",
+      "h2hFedererNadal": {
+        "played": 40,
+        "federer": 16,
+        "nadal": 24
+      },
+      "completeCertification": "Exact31fixtureidentities+official32draw16/8/4/2/1; no global inferred historical tier widening"
+    }
+  },
+  "verification": {
+    "dataRegressionTests": 33,
+    "releaseGuardTests": 14,
+    "sharedRateLimitTests": 5,
+    "opsConfigTests": 12,
+    "webReconciliation": {
+      "verified": true,
+      "corrections": 708,
+      "hashedSeasonSources": 130,
+      "liveTennisCalls": 0
+    },
+    "backendPreviousTests": "26TypeScript+4MJS passed before data/limiter additions",
+    "typecheck": "npx tsc --noEmit --incremental false passed",
+    "targetedLint": "passed",
+    "limiterBenchmark": {
+      "requests": 1000,
+      "medianMs": 0.0656250000001819,
+      "p95Ms": 2.874125000000049,
+      "p99Ms": 4.709375000000136,
+      "sumMs": 433.12399399999777,
+      "environment": "local warm single process; not a production latency measurement"
+    },
+    "finalRegressionTests": {
+      "typescript": 73,
+      "mjs": 16,
+      "teamScopeAdditionalBatch": 23
+    },
+    "dubaiRegressionTests": 40,
+    "dubaiTypecheck": "passed",
+    "dubaiLint": "passed",
+    "cacheAndGeneration": {
+      "regressionTests": 30,
+      "typecheck": "passed",
+      "lint": "passed",
+      "realRscDrill": "docs/audits/2026-11-12/avance-v31/experiments/generation-render.json",
+      "scale1": "docs/audits/2026-11-12/avance-v31/experiments/archive-stream-scale1.json",
+      "scale10": "docs/audits/2026-11-12/avance-v31/experiments/archive-stream-scale10.json",
+      "scaleCommand": "npm run performance:scale",
+      "liveCalls": 0,
+      "productionMutations": 0
+    }
+  },
+  "rebuild": "Root coordinates DEUCE_VERIFY_REMOTE_RELEASE=false npm run data:rebuild, then data:verify, data:evidence, verify-web-reconciliation, budgets:verify; individual gzip files must not be overwritten independently."
+}

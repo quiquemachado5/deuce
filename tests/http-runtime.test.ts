@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { datasetEtag, requestCacheScope, versionedJson } from '../lib/http-cache';
-import { observeApiRequest, observeClientTelemetry, observeSecurityEvent, renderPrometheusMetrics, resetRuntimeMetrics, telemetryRoute } from '../lib/runtime-metrics';
+import { observeApiRequest, observeClientTelemetry, observeSearchClick, observeSearchTelemetry, observeSecurityEvent, renderPrometheusMetrics, resetRuntimeMetrics, telemetryRoute } from '../lib/runtime-metrics';
 import { GET as metricsRoute } from '../app/api/metrics/route';
 import { POST as telemetryEndpoint } from '../app/api/telemetry/route';
 
@@ -53,18 +53,29 @@ test('browser telemetry is aggregated into bounded route families',()=>{
   assert.equal(telemetryRoute('/en/players/serena-williams'),'/en/players/:slug');
   assert.equal(telemetryRoute('/en/unknown/place'),'/en/other');
   assert.equal(telemetryRoute('/invented/entity/123'),'/other');
-  observeClientTelemetry({kind:'web-vital',name:'LCP',value:3100,rating:'needs-improvement',path:'/match/live-123'});
-  observeClientTelemetry({kind:'navigation',navigationType:'skeleton',value:5200,path:'/torneos/wimbledon/2026'});
-  observeClientTelemetry({kind:'navigation',navigationType:'route-transition',value:820,path:'/partidos'});
+  observeClientTelemetry({kind:'web-vital',name:'LCP',value:3100,rating:'needs-improvement',path:'/match/live-123',device:'mobile'});
+  observeClientTelemetry({kind:'navigation',navigationType:'skeleton',value:5200,path:'/torneos/wimbledon/2026',device:'tablet'});
+  observeClientTelemetry({kind:'navigation',navigationType:'route-transition',value:820,path:'/partidos',device:'desktop'});
   observeClientTelemetry({kind:'navigation',value:1e308,path:'/invented/entity/123'});
   const output=renderPrometheusMetrics();
-  assert.match(output,/deuce_client_events_total\{route="\/match\/:id",event="web-vital",rating="needs-improvement"\} 1/);
-  assert.match(output,/deuce_client_metric_value_count\{route="\/match\/:id",metric="LCP"\} 1/);
-  assert.match(output,/deuce_client_metric_value_count\{route="\/torneos\/:slug\/:year",metric="skeleton"\} 1/);
-  assert.match(output,/deuce_client_metric_value_count\{route="\/partidos",metric="route-transition"\} 1/);
-  assert.match(output,/deuce_client_metric_value_sum\{route="\/other",metric="navigation"\} 300000\.000/);
+  assert.match(output,/deuce_client_events_total\{route="\/match\/:id",event="web-vital",rating="needs-improvement",device="mobile",release="[^"]+"\} 1/);
+  assert.match(output,/deuce_client_metric_value_count\{route="\/match\/:id",metric="LCP",device="mobile",release="[^"]+"\} 1/);
+  assert.match(output,/deuce_client_metric_value_count\{route="\/torneos\/:slug\/:year",metric="skeleton",device="tablet",release="[^"]+"\} 1/);
+  assert.match(output,/deuce_client_metric_value_count\{route="\/partidos",metric="route-transition",device="desktop",release="[^"]+"\} 1/);
+  assert.match(output,/deuce_client_metric_value_sum\{route="\/other",metric="navigation",device="unknown",release="[^"]+"\} 300000\.000/);
   assert.doesNotMatch(output,/live-123|live-456/);
   assert.doesNotMatch(output,/Infinity|1e\+308/);
+});
+
+test('search telemetry stores buckets but never the query',()=>{
+  resetRuntimeMetrics();
+  observeSearchTelemetry({mode:'quick',tour:'all',queryLength:12,resultCount:0,durationMs:42});
+  observeSearchClick({group:'players',position:2,queryLength:12});
+  const output=renderPrometheusMetrics();
+  assert.match(output,/deuce_searches_total\{mode="quick",tour="all",outcome="zero",query_length="8-15",results="zero"\} 1/);
+  assert.match(output,/deuce_search_duration_ms_count\{mode="quick",tour="all"\} 1/);
+  assert.match(output,/deuce_search_clicks_total\{group="players",position="2-3",query_length="8-15"\} 1/);
+  assert.doesNotMatch(output,/rafael|nadal|query=/i);
 });
 
 test('telemetry rejects malformed measurements before aggregation',async()=>{

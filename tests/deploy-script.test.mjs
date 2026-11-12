@@ -122,10 +122,10 @@ test('deploy and watchdog share a lock before touching the stack', () => {
   assert.match(watchdog, /no release has been promoted yet/)
 })
 
-test('deploy rejects every non-ignored checkout change before building the image', () => {
+test('deploy rejects every non-ignored checkout change before pulling the image', () => {
   assert.match(source, /git status --porcelain\)"/)
   assert.doesNotMatch(source, /--untracked-files=no/)
-  assert.ok(source.indexOf('git status --porcelain') < source.indexOf('build web'))
+  assert.ok(source.indexOf('git status --porcelain') < source.indexOf('docker pull "${candidate_tag}"'))
 })
 
 test('CI-triggered deployment accepts only the exact approved main commit', () => {
@@ -140,14 +140,14 @@ test('a stale offsite backup is rebuilt and restore-tested before the release im
   const freshness = source.indexOf('node ops/vps/recovery-freshness.mjs', gate)
   const backup = source.indexOf('ops/vps/backup.sh', freshness)
   const restore = source.indexOf('ops/vps/restore-drill.sh', backup)
-  const build = source.indexOf('"${compose[@]}" build web')
-  assert.ok(gate >= 0 && gate < freshness && freshness < backup && backup < restore && restore < build)
-  assert.match(source.slice(gate, build), /DEUCE_BACKUP_MAX_AGE_HOURS:-36/)
-  assert.match(source.slice(gate, build), /first_release/)
-  assert.match(source.slice(gate, build), /--network none/)
-  assert.match(source.slice(gate, build), /target=\/workspace,readonly/)
-  assert.match(source.slice(gate, build), /load_production_environment/)
-  assert.doesNotMatch(source.slice(gate, build), /\beval\b/)
+  const pull = source.indexOf('docker pull "${candidate_tag}"')
+  assert.ok(gate >= 0 && gate < freshness && freshness < backup && backup < restore && restore < pull)
+  assert.match(source.slice(gate, pull), /DEUCE_BACKUP_MAX_AGE_HOURS:-36/)
+  assert.match(source.slice(gate, pull), /first_release/)
+  assert.match(source.slice(gate, pull), /--network none/)
+  assert.match(source.slice(gate, pull), /target=\/workspace,readonly/)
+  assert.match(source.slice(gate, pull), /load_production_environment/)
+  assert.doesNotMatch(source.slice(gate, pull), /\beval\b/)
 })
 
 test('every candidate migrates incompatible storage and can restore its prior pointer', () => {
@@ -267,7 +267,7 @@ test('release markers are atomic, authoritative last, and retain rollback until 
 })
 
 test('a failed first promotion is cleaned and retries as a first release', () => {
-  const classification = source.slice(source.indexOf('first_release=true'), source.indexOf('echo "Building immutable release image'))
+  const classification = source.slice(source.indexOf('first_release=true'), source.indexOf('echo "Pulling CI-built immutable release image'))
   assert.match(classification, /if \[\[ -s "\$\{STATE_DIR\}\/active-image" \]\]/)
   assert.match(classification, /first_release=false/)
   assert.doesNotMatch(classification, /known_web_id[^\n]*first_release=false|first_release=false[^\n]*known_web_id/)

@@ -5,7 +5,9 @@ import { usePathname } from 'next/navigation';
 import { useReportWebVitals } from 'next/web-vitals';
 
 function send(payload: Record<string, unknown>) {
-  const body = JSON.stringify({ ...payload, path: location.pathname });
+  const width = window.innerWidth;
+  const device = width < 760 ? 'mobile' : width < 1100 ? 'tablet' : 'desktop';
+  const body = JSON.stringify({ ...payload, path: location.pathname, device });
   if (!navigator.sendBeacon?.('/api/telemetry', body)) {
     void fetch('/api/telemetry', { method: 'POST', body, keepalive: true, headers: { 'Content-Type': 'application/json' } });
   }

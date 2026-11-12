@@ -1,0 +1,223 @@
+{
+  "scope": "Production-mode localhost; 4 fixed routes, concurrency4, bundled generation; no Internet traffic or Live Tennis calls. Not production RUM or a global SLO.",
+  "at": "2026-11-12T10:32:18.920Z",
+  "warmP95Ms": 515,
+  "samples": [
+    {
+      "path": "/match/live-215181",
+      "phase": "cold-first",
+      "status": 200,
+      "ttfbMs": 934,
+      "totalMs": 937,
+      "bytes": 80021,
+      "errorPage": false
+    },
+    {
+      "path": "/comparar?a=Roger+Federer&b=Rafael+Nadal",
+      "phase": "cold-first",
+      "status": 200,
+      "ttfbMs": 31,
+      "totalMs": 304,
+      "bytes": 147941,
+      "errorPage": false
+    },
+    {
+      "path": "/torneos/wimbledon/2008?cuadro=wta",
+      "phase": "cold-first",
+      "status": 200,
+      "ttfbMs": 20,
+      "totalMs": 887,
+      "bytes": 326914,
+      "errorPage": false
+    },
+    {
+      "path": "/jugadores/rafael-nadal",
+      "phase": "cold-first",
+      "status": 200,
+      "ttfbMs": 169,
+      "totalMs": 173,
+      "bytes": 237166,
+      "errorPage": false
+    },
+    {
+      "path": "/match/live-215181",
+      "phase": "warm-concurrency-4",
+      "status": 200,
+      "ttfbMs": 39,
+      "totalMs": 54,
+      "bytes": 80064,
+      "errorPage": false
+    },
+    {
+      "path": "/jugadores/rafael-nadal",
+      "phase": "warm-concurrency-4",
+      "status": 200,
+      "ttfbMs": 48,
+      "totalMs": 55,
+      "bytes": 237209,
+      "errorPage": false
+    },
+    {
+      "path": "/comparar?a=Roger+Federer&b=Rafael+Nadal",
+      "phase": "warm-concurrency-4",
+      "status": 200,
+      "ttfbMs": 46,
+      "totalMs": 515,
+      "bytes": 147941,
+      "errorPage": false
+    },
+    {
+      "path": "/torneos/wimbledon/2008?cuadro=wta",
+      "phase": "warm-concurrency-4",
+      "status": 200,
+      "ttfbMs": 48,
+      "totalMs": 703,
+      "bytes": 326585,
+      "errorPage": false
+    },
+    {
+      "path": "/comparar?a=Roger+Federer&b=Rafael+Nadal",
+      "phase": "warm-concurrency-4",
+      "status": 200,
+      "ttfbMs": 71,
+      "totalMs": 86,
+      "bytes": 148061,
+      "errorPage": false
+    },
+    {
+      "path": "/jugadores/rafael-nadal",
+      "phase": "warm-concurrency-4",
+      "status": 200,
+      "ttfbMs": 71,
+      "totalMs": 93,
+      "bytes": 237209,
+      "errorPage": false
+    },
+    {
+      "path": "/match/live-215181",
+      "phase": "warm-concurrency-4",
+      "status": 200,
+      "ttfbMs": 69,
+      "totalMs": 94,
+      "bytes": 80064,
+      "errorPage": false
+    },
+    {
+      "path": "/torneos/wimbledon/2008?cuadro=wta",
+      "phase": "warm-concurrency-4",
+      "status": 200,
+      "ttfbMs": 71,
+      "totalMs": 457,
+      "bytes": 326585,
+      "errorPage": false
+    },
+    {
+      "path": "/comparar?a=Roger+Federer&b=Rafael+Nadal",
+      "phase": "warm-concurrency-4",
+      "status": 200,
+      "ttfbMs": 67,
+      "totalMs": 83,
+      "bytes": 148061,
+      "errorPage": false
+    },
+    {
+      "path": "/match/live-215181",
+      "phase": "warm-concurrency-4",
+      "status": 200,
+      "ttfbMs": 67,
+      "totalMs": 87,
+      "bytes": 80064,
+      "errorPage": false
+    },
+    {
+      "path": "/jugadores/rafael-nadal",
+      "phase": "warm-concurrency-4",
+      "status": 200,
+      "ttfbMs": 68,
+      "totalMs": 88,
+      "bytes": 237209,
+      "errorPage": false
+    },
+    {
+      "path": "/torneos/wimbledon/2008?cuadro=wta",
+      "phase": "warm-concurrency-4",
+      "status": 200,
+      "ttfbMs": 68,
+      "totalMs": 450,
+      "bytes": 326585,
+      "errorPage": false
+    },
+    {
+      "path": "/comparar?a=Roger+Federer&b=Rafael+Nadal",
+      "phase": "warm-concurrency-4",
+      "status": 200,
+      "ttfbMs": 62,
+      "totalMs": 77,
+      "bytes": 148061,
+      "errorPage": false
+    },
+    {
+      "path": "/match/live-215181",
+      "phase": "warm-concurrency-4",
+      "status": 200,
+      "ttfbMs": 62,
+      "totalMs": 83,
+      "bytes": 80064,
+      "errorPage": false
+    },
+    {
+      "path": "/jugadores/rafael-nadal",
+      "phase": "warm-concurrency-4",
+      "status": 200,
+      "ttfbMs": 63,
+      "totalMs": 83,
+      "bytes": 237209,
+      "errorPage": false
+    },
+    {
+      "path": "/torneos/wimbledon/2008?cuadro=wta",
+      "phase": "warm-concurrency-4",
+      "status": 200,
+      "ttfbMs": 63,
+      "totalMs": 452,
+      "bytes": 326585,
+      "errorPage": false
+    },
+    {
+      "path": "/comparar?a=Roger+Federer&b=Rafael+Nadal",
+      "phase": "warm-concurrency-4",
+      "status": 200,
+      "ttfbMs": 69,
+      "totalMs": 83,
+      "bytes": 148061,
+      "errorPage": false
+    },
+    {
+      "path": "/match/live-215181",
+      "phase": "warm-concurrency-4",
+      "status": 200,
+      "ttfbMs": 69,
+      "totalMs": 89,
+      "bytes": 80064,
+      "errorPage": false
+    },
+    {
+      "path": "/jugadores/rafael-nadal",
+      "phase": "warm-concurrency-4",
+      "status": 200,
+      "ttfbMs": 69,
+      "totalMs": 89,
+      "bytes": 237209,
+      "errorPage": false
+    },
+    {
+      "path": "/torneos/wimbledon/2008?cuadro=wta",
+      "phase": "warm-concurrency-4",
+      "status": 200,
+      "ttfbMs": 69,
+      "totalMs": 447,
+      "bytes": 326585,
+      "errorPage": false
+    }
+  ]
+}

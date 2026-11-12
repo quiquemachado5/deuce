@@ -1,0 +1,34 @@
+{
+  "source": "https://www.youtube.com/watch?v=L21dd0mOTLo",
+  "publisher": "Wimbledon",
+  "title": "Where Beauty Meets the Battle \u2014 2026 trailer",
+  "segmentsSeconds": [
+    [
+      0,
+      0.95
+    ],
+    [
+      12.2,
+      17.4
+    ],
+    [
+      18.7,
+      20.5
+    ],
+    [
+      43.6,
+      46.9
+    ],
+    [
+      49.6,
+      53.5
+    ],
+    [
+      53.5,
+      54.1
+    ]
+  ],
+  "audio": false,
+  "output": "1280x720 H.264, local preview",
+  "rights": "Official editorial source; no open reuse licence asserted."
+}

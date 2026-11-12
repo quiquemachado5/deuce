@@ -1,0 +1,929 @@
+[
+  {
+    "tournament": "Roland Garros",
+    "year": 2000,
+    "tours": [
+      "atp"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/roland-garros/atp-2000-official-kuerten-7d0fea4cb83b.webp",
+      "alt": "Gustavo Kuerten en la entrega del trofeo de Roland Garros 2000",
+      "credit": "FFT / Roland-Garros",
+      "source": "https://www.rolandgarros.com/en-us/video/rg-archives-gustavo-kuerten-2000-final-victory-speech",
+      "photoYear": 2000,
+      "objectPosition": "50% 45%",
+      "mobileObjectPosition": "50% 40%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "originalUrl": "https://cf-images.eu-west-1.prod.boltdns.net/v1/static/5581259076001/a95b9998-4965-4187-9914-763cb8faf4f4/219c80eb-d3a9-4fd9-afd0-dae438c4dbdc/1280x720/match/image.jpg",
+    "sourceSha256": "7d0fea4cb83b8657009e1dd637b580cd45bf5df97c49cb502b18ab13069e0b28",
+    "width": 1065,
+    "height": 720,
+    "originalWidth": 1065,
+    "originalHeight": 720,
+    "bytes": 104690,
+    "qualityTier": "high-resolution-horizontal",
+    "reviewNotes": "Edición y sujeto revisados visualmente; original conservado mediante hash. Sin ampliación."
+  },
+  {
+    "tournament": "Roland Garros",
+    "year": 2001,
+    "tours": [
+      "atp"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/roland-garros/atp-2001-provided-47a044ee8294.webp",
+      "alt": "Roland Garros 2001 · fotografía de la edición",
+      "credit": "atptour.com · archivo aportado por el usuario",
+      "source": "https://www.atptour.com/-/media/images/news/2020/07/07/19/07/kuerten-roland-garros-2001-trophy.jpg",
+      "photoYear": 2001,
+      "objectPosition": "50% 45%",
+      "mobileObjectPosition": "50% 40%",
+      "auditStatus": "user-associated-reviewed",
+      "rightsKnown": false
+    },
+    "originalUrl": "https://www.atptour.com/-/media/images/news/2020/07/07/19/07/kuerten-roland-garros-2001-trophy.jpg",
+    "sourceSha256": "47a044ee8294da983775b59c13e0ef771a837f61a83494a288826be54267b144",
+    "width": 1800,
+    "height": 1013,
+    "originalWidth": 1920,
+    "originalHeight": 1080,
+    "bytes": 278044,
+    "qualityTier": "high-resolution-horizontal",
+    "reviewNotes": "Archivo aportado por el usuario: rg2001.jpg. Año contrastado con URL, identidad visual y archivo oficial cuando existe; correcciones 2016/2017/2012 conservadas en registro. Derechos no acreditados.",
+    "providedFile": "rg2001.jpg"
+  },
+  {
+    "tournament": "Roland Garros",
+    "year": 2002,
+    "tours": [
+      "atp"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/roland-garros/atp-2002-provided-f60bb0699410.webp",
+      "alt": "Roland Garros 2002 · fotografía de la edición",
+      "credit": "lavanguardia.com · archivo aportado por el usuario",
+      "source": "https://www.lavanguardia.com/files/og_thumbnail/uploads/2020/05/28/5fa9176515d6c.jpeg",
+      "photoYear": 2002,
+      "objectPosition": "50% 45%",
+      "mobileObjectPosition": "50% 40%",
+      "auditStatus": "user-associated-reviewed",
+      "rightsKnown": false
+    },
+    "originalUrl": "https://www.lavanguardia.com/files/og_thumbnail/uploads/2020/05/28/5fa9176515d6c.jpeg",
+    "sourceSha256": "f60bb0699410307a808a19f0b0b600963270d990b90300e727c81268e7b5dc95",
+    "width": 1200,
+    "height": 675,
+    "originalWidth": 1200,
+    "originalHeight": 675,
+    "bytes": 92700,
+    "qualityTier": "high-resolution-horizontal",
+    "reviewNotes": "Archivo aportado por el usuario: rg2002.jpeg. Año contrastado con URL, identidad visual y archivo oficial cuando existe; correcciones 2016/2017/2012 conservadas en registro. Derechos no acreditados.",
+    "providedFile": "rg2002.jpeg"
+  },
+  {
+    "tournament": "Roland Garros",
+    "year": 2003,
+    "tours": [
+      "atp"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/roland-garros/atp-2003-official-ferrero-2e2595094b01.webp",
+      "alt": "Juan Carlos Ferrero y Martin Verkerk en la entrega de premios de Roland Garros 2003",
+      "credit": "FFT / Roland-Garros",
+      "source": "https://www.rolandgarros.com/en-us/article/tennis-hall-of-fame-class-of-2022-the-ballot-is-set",
+      "photoYear": 2003,
+      "objectPosition": "50% 45%",
+      "mobileObjectPosition": "50% 40%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "originalUrl": "https://images.prismic.io/fft-rg-commun-news/ee6d2b08-cd7c-4ac2-ae87-e317339ac8dd_prixmessieurs8903%C2%A9FFT.JPG",
+    "sourceSha256": "2e2595094b0176aa79daa7b2b5ce2b23bc9d6b986702b5b2a498427474c11ee4",
+    "width": 1800,
+    "height": 1200,
+    "originalWidth": 1800,
+    "originalHeight": 1200,
+    "bytes": 283444,
+    "qualityTier": "high-resolution-horizontal",
+    "reviewNotes": "Edición y sujeto revisados visualmente; original conservado mediante hash. Sin ampliación."
+  },
+  {
+    "tournament": "Roland Garros",
+    "year": 2004,
+    "tours": [
+      "atp"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/roland-garros/atp-2004-provided-31d052a37f5a.webp",
+      "alt": "Roland Garros 2004 · fotografía de la edición",
+      "credit": "atptour.com · archivo aportado por el usuario",
+      "source": "https://www.atptour.com/-/media/images/news/2024/06/06/20/25/gaudio-roland-garros-2004-trophy.jpg",
+      "photoYear": 2004,
+      "objectPosition": "50% 45%",
+      "mobileObjectPosition": "50% 40%",
+      "auditStatus": "user-associated-reviewed",
+      "rightsKnown": false
+    },
+    "originalUrl": "https://www.atptour.com/-/media/images/news/2024/06/06/20/25/gaudio-roland-garros-2004-trophy.jpg",
+    "sourceSha256": "31d052a37f5a8610baa7c518ffb9d8eed889156f4b39c18fc62cd6d6f68ec52b",
+    "width": 1800,
+    "height": 1013,
+    "originalWidth": 1920,
+    "originalHeight": 1080,
+    "bytes": 260982,
+    "qualityTier": "high-resolution-horizontal",
+    "reviewNotes": "Archivo aportado por el usuario: rg2004.jpg. Año contrastado con URL, identidad visual y archivo oficial cuando existe; correcciones 2016/2017/2012 conservadas en registro. Derechos no acreditados.",
+    "providedFile": "rg2004.jpg"
+  },
+  {
+    "tournament": "Roland Garros",
+    "year": 2005,
+    "tours": [
+      "atp"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/roland-garros/atp-2005-provided-0dd64e63d66e.webp",
+      "alt": "Roland Garros 2005 · fotografía de la edición",
+      "credit": "s1.abcstatics.com · archivo aportado por el usuario",
+      "source": "https://s1.abcstatics.com/abc/www/multimedia/deportes/2024/05/26/2005-afp-RnmsjOLFH9L1qsai0tYzPKL-1200x840@diario_abc.jpg",
+      "photoYear": 2005,
+      "objectPosition": "50% 45%",
+      "mobileObjectPosition": "50% 40%",
+      "auditStatus": "user-associated-reviewed",
+      "rightsKnown": false
+    },
+    "originalUrl": "https://s1.abcstatics.com/abc/www/multimedia/deportes/2024/05/26/2005-afp-RnmsjOLFH9L1qsai0tYzPKL-1200x840@diario_abc.jpg",
+    "sourceSha256": "0dd64e63d66eba9bf08bbdefc2abea1e84f6546e266b508c960d78c39800acbb",
+    "width": 1200,
+    "height": 840,
+    "originalWidth": 1200,
+    "originalHeight": 840,
+    "bytes": 230466,
+    "qualityTier": "high-resolution-horizontal",
+    "reviewNotes": "Archivo aportado por el usuario: rg2005.webp. Año contrastado con URL, identidad visual y archivo oficial cuando existe; correcciones 2016/2017/2012 conservadas en registro. Derechos no acreditados.",
+    "providedFile": "rg2005.webp"
+  },
+  {
+    "tournament": "Roland Garros",
+    "year": 2006,
+    "tours": [
+      "atp"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/roland-garros/atp-2006-provided-d129e8726e16.webp",
+      "alt": "Roland Garros 2006 · fotografía de la edición",
+      "credit": "atptour.com · archivo aportado por el usuario",
+      "source": "https://www.atptour.com/-/media/images/news/2026/06/11/11/04/roland-garros-2006-nadal-federer-final.jpg",
+      "photoYear": 2006,
+      "objectPosition": "50% 45%",
+      "mobileObjectPosition": "50% 40%",
+      "auditStatus": "user-associated-reviewed",
+      "rightsKnown": false
+    },
+    "originalUrl": "https://www.atptour.com/-/media/images/news/2026/06/11/11/04/roland-garros-2006-nadal-federer-final.jpg",
+    "sourceSha256": "d129e8726e161c71ac1546862a6f47f8ab2b03b00c94fa204c74e35d31ceaf0e",
+    "width": 1800,
+    "height": 1013,
+    "originalWidth": 1920,
+    "originalHeight": 1080,
+    "bytes": 192688,
+    "qualityTier": "high-resolution-horizontal",
+    "reviewNotes": "Archivo aportado por el usuario: rg2006.jpg. Año contrastado con URL, identidad visual y archivo oficial cuando existe; correcciones 2016/2017/2012 conservadas en registro. Derechos no acreditados.",
+    "providedFile": "rg2006.jpg"
+  },
+  {
+    "tournament": "Roland Garros",
+    "year": 2007,
+    "tours": [
+      "atp"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/roland-garros/atp-2007-official-gallery-e73fa0054282.webp",
+      "alt": "Rafael Nadal, Gustavo Kuerten & Roger Federer / Remise de prix Roland-Garros 2007",
+      "credit": "©Christophe Saïdi / FFT",
+      "source": "https://www.rolandgarros.com/en-us/photo-gallery/rafael-nadal-22-grand-slam-titles-pictures",
+      "photoYear": 2007,
+      "objectPosition": "50% 45%",
+      "mobileObjectPosition": "50% 40%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "originalUrl": "https://images.prismic.io/fft-rg-commun-news/Z0b0_5bqstJ97z5i_3-RafaelNadal%2CGustavoKuerten%26RogerFederer-Remisedeprix-Roland-Garros2007-ChristopheSa%C3%AFdiFFT.jpg?auto=format,compress",
+    "sourceSha256": "e73fa0054282f1e022842ebe739546d7cd888882c568e69d49e65d25e13e3285",
+    "width": 1800,
+    "height": 1200,
+    "originalWidth": 1800,
+    "originalHeight": 1200,
+    "bytes": 182238,
+    "qualityTier": "high-resolution-horizontal",
+    "reviewNotes": "Edición y sujeto revisados visualmente; original conservado mediante hash. Sin ampliación."
+  },
+  {
+    "tournament": "Roland Garros",
+    "year": 2008,
+    "tours": [
+      "atp"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/roland-garros/atp-2008-official-gallery-1e3ed925ab64.webp",
+      "alt": "Rafael Nadal / Remise de prix Roland-Garros 2008",
+      "credit": "©Philippe Montigny / FFT",
+      "source": "https://www.rolandgarros.com/en-us/photo-gallery/rafael-nadal-22-grand-slam-titles-pictures",
+      "photoYear": 2008,
+      "objectPosition": "50% 45%",
+      "mobileObjectPosition": "50% 40%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "originalUrl": "https://images.prismic.io/fft-rg-commun-news/Z0b1AZbqstJ97z5j_4-RafaelNadal-Remisedeprix-Roland-Garros2008-PhilippeMontignyFFT.jpg?auto=format,compress",
+    "sourceSha256": "1e3ed925ab64ef4d6d26c686f63d17654f07c27510e676644bdc92a102e0e1c0",
+    "width": 1800,
+    "height": 1196,
+    "originalWidth": 1800,
+    "originalHeight": 1196,
+    "bytes": 188668,
+    "qualityTier": "high-resolution-horizontal",
+    "reviewNotes": "Edición y sujeto revisados visualmente; original conservado mediante hash. Sin ampliación."
+  },
+  {
+    "tournament": "Roland Garros",
+    "year": 2009,
+    "tours": [
+      "atp"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/roland-garros/atp-2009-provided-98407fa68ae9.webp",
+      "alt": "Roland Garros 2009 · fotografía de la edición",
+      "credit": "cdn.artphotolimited.com · archivo aportado por el usuario",
+      "source": "https://cdn.artphotolimited.com/images/59888232b0ba742a2efde168/1000x1000/roger-federer-roland-garros-2009.jpg",
+      "photoYear": 2009,
+      "objectPosition": "50% 45%",
+      "mobileObjectPosition": "50% 40%",
+      "auditStatus": "user-associated-reviewed",
+      "rightsKnown": false
+    },
+    "originalUrl": "https://cdn.artphotolimited.com/images/59888232b0ba742a2efde168/1000x1000/roger-federer-roland-garros-2009.jpg",
+    "sourceSha256": "98407fa68ae95fc163f8ee6e92d40c7eea5d495cd7e9d63bce48cbf8c938dad0",
+    "width": 1000,
+    "height": 665,
+    "originalWidth": 1000,
+    "originalHeight": 665,
+    "bytes": 69098,
+    "qualityTier": "high-resolution-horizontal",
+    "reviewNotes": "Archivo aportado por el usuario: rg2009.jpg. Año contrastado con URL, identidad visual y archivo oficial cuando existe; correcciones 2016/2017/2012 conservadas en registro. Derechos no acreditados.",
+    "providedFile": "rg2009.jpg"
+  },
+  {
+    "tournament": "Roland Garros",
+    "year": 2010,
+    "tours": [
+      "atp"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/roland-garros/atp-2010-provided-5c4197c52a63.webp",
+      "alt": "Roland Garros 2010 · fotografía de la edición",
+      "credit": "img.rtve.es · archivo aportado por el usuario",
+      "source": "https://img.rtve.es/n/331989/?w=1600",
+      "photoYear": 2010,
+      "objectPosition": "50% 45%",
+      "mobileObjectPosition": "50% 40%",
+      "auditStatus": "user-associated-reviewed",
+      "rightsKnown": false
+    },
+    "originalUrl": "https://img.rtve.es/n/331989/?w=1600",
+    "sourceSha256": "5c4197c52a63e8793d6041f98660dcd21a2cfcb54425b6f8968097bfe4175af2",
+    "width": 1600,
+    "height": 1049,
+    "originalWidth": 1600,
+    "originalHeight": 1049,
+    "bytes": 729470,
+    "qualityTier": "high-resolution-horizontal",
+    "reviewNotes": "Archivo aportado por el usuario: rg2010.jpeg. Año contrastado con URL, identidad visual y archivo oficial cuando existe; correcciones 2016/2017/2012 conservadas en registro. Derechos no acreditados.",
+    "providedFile": "rg2010.jpeg"
+  },
+  {
+    "tournament": "Roland Garros",
+    "year": 2011,
+    "tours": [
+      "atp"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/roland-garros/atp-2011-provided-76f42a61d8fe.webp",
+      "alt": "Roland Garros 2011 · fotografía de la edición",
+      "credit": "a.espncdn.com · archivo aportado por el usuario",
+      "source": "https://a.espncdn.com/combiner/i?img=%2Fphoto%2F2025%2F0327%2Fr1470002_1296x729_16%2D9.jpg",
+      "photoYear": 2011,
+      "objectPosition": "50% 45%",
+      "mobileObjectPosition": "50% 40%",
+      "auditStatus": "user-associated-reviewed",
+      "rightsKnown": false
+    },
+    "originalUrl": "https://a.espncdn.com/combiner/i?img=%2Fphoto%2F2025%2F0327%2Fr1470002_1296x729_16%2D9.jpg",
+    "sourceSha256": "76f42a61d8fea67e4d5fca6bceea6292116ce57a570e8c3dc5fe05098ef4aa66",
+    "width": 1296,
+    "height": 729,
+    "originalWidth": 1296,
+    "originalHeight": 729,
+    "bytes": 91516,
+    "qualityTier": "high-resolution-horizontal",
+    "reviewNotes": "Archivo aportado por el usuario: rg11.jpeg. Año contrastado con URL, identidad visual y archivo oficial cuando existe; correcciones 2016/2017/2012 conservadas en registro. Derechos no acreditados.",
+    "providedFile": "rg11.jpeg"
+  },
+  {
+    "tournament": "Roland Garros",
+    "year": 2012,
+    "tours": [
+      "atp"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/roland-garros/atp-2012-provided-bda57d0207e1.webp",
+      "alt": "Pista de Roland Garros 2012",
+      "credit": "upload.wikimedia.org · archivo aportado por el usuario",
+      "source": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Roland-Garros_2012-IMG_3463.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original",
+      "photoYear": 2012,
+      "objectPosition": "50% 45%",
+      "mobileObjectPosition": "50% 40%",
+      "auditStatus": "user-associated-reviewed",
+      "rightsKnown": false
+    },
+    "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Roland-Garros_2012-IMG_3463.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original",
+    "sourceSha256": "bda57d0207e12dcbb0d7835d9120ebef618dddc11314d8a771b971954d7e9edc",
+    "width": 1800,
+    "height": 1200,
+    "originalWidth": 5184,
+    "originalHeight": 3456,
+    "bytes": 573646,
+    "qualityTier": "high-resolution-horizontal",
+    "reviewNotes": "Archivo aportado por el usuario: rg13.jpg. Año contrastado con URL, identidad visual y archivo oficial cuando existe; correcciones 2016/2017/2012 conservadas en registro. Derechos no acreditados.",
+    "providedFile": "rg13.jpg"
+  },
+  {
+    "tournament": "Roland Garros",
+    "year": 2012,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/roland-garros/atp-2012-provided-bda57d0207e1.webp",
+      "alt": "Pista de Roland Garros 2012",
+      "credit": "upload.wikimedia.org · archivo aportado por el usuario",
+      "source": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Roland-Garros_2012-IMG_3463.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original",
+      "photoYear": 2012,
+      "objectPosition": "50% 45%",
+      "mobileObjectPosition": "50% 40%",
+      "auditStatus": "user-associated-reviewed",
+      "rightsKnown": false
+    },
+    "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Roland-Garros_2012-IMG_3463.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original",
+    "sourceSha256": "bda57d0207e12dcbb0d7835d9120ebef618dddc11314d8a771b971954d7e9edc",
+    "width": 1800,
+    "height": 1200,
+    "originalWidth": 5184,
+    "originalHeight": 3456,
+    "bytes": 573646,
+    "qualityTier": "high-resolution-horizontal",
+    "reviewNotes": "Archivo aportado por el usuario: rg13.jpg. Año contrastado con URL, identidad visual y archivo oficial cuando existe; correcciones 2016/2017/2012 conservadas en registro. Derechos no acreditados.",
+    "providedFile": "rg13.jpg"
+  },
+  {
+    "tournament": "Roland Garros",
+    "year": 2013,
+    "tours": [
+      "atp"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/roland-garros/atp-2013-official-gallery-dbaa9efea3a2.webp",
+      "alt": "Rafael Nadal / Remise de prix Roland-Garros 2013",
+      "credit": "©Christophe Saïdi / FFT",
+      "source": "https://www.rolandgarros.com/en-us/photo-gallery/rafael-nadal-22-grand-slam-titles-pictures",
+      "photoYear": 2013,
+      "objectPosition": "50% 45%",
+      "mobileObjectPosition": "50% 40%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "originalUrl": "https://images.prismic.io/fft-rg-commun-news/Z0b1FJbqstJ97z5u_12-RafaelNadal-Remisedeprix-Roland-Garros2013-ChristopheSa%C3%AFdiFFT.jpg?auto=format,compress",
+    "sourceSha256": "dbaa9efea3a2e821768b864625bb9084a56a882aa0c78e7707e3e7f9328acc07",
+    "width": 1800,
+    "height": 1198,
+    "originalWidth": 1800,
+    "originalHeight": 1198,
+    "bytes": 130134,
+    "qualityTier": "high-resolution-horizontal",
+    "reviewNotes": "Edición y sujeto revisados visualmente; original conservado mediante hash. Sin ampliación."
+  },
+  {
+    "tournament": "Roland Garros",
+    "year": 2014,
+    "tours": [
+      "atp"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/roland-garros/atp-2014-provided-a57bce4f431b.webp",
+      "alt": "Roland Garros 2014 · fotografía de la edición",
+      "credit": "img.rtve.es · archivo aportado por el usuario",
+      "source": "https://img.rtve.es/n/950781/?w=1600",
+      "photoYear": 2014,
+      "objectPosition": "50% 45%",
+      "mobileObjectPosition": "50% 40%",
+      "auditStatus": "user-associated-reviewed",
+      "rightsKnown": false
+    },
+    "originalUrl": "https://img.rtve.es/n/950781/?w=1600",
+    "sourceSha256": "a57bce4f431b8207136f5fa5cfe03b6ba3ed92227e1f897b51a82f9a1dc0987c",
+    "width": 1600,
+    "height": 901,
+    "originalWidth": 1600,
+    "originalHeight": 901,
+    "bytes": 117234,
+    "qualityTier": "high-resolution-horizontal",
+    "reviewNotes": "Archivo aportado por el usuario: rg14.jpeg. Año contrastado con URL, identidad visual y archivo oficial cuando existe; correcciones 2016/2017/2012 conservadas en registro. Derechos no acreditados.",
+    "providedFile": "rg14.jpeg"
+  },
+  {
+    "tournament": "Roland Garros",
+    "year": 2015,
+    "tours": [
+      "atp"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/roland-garros/atp-2015-provided-395adec87356.webp",
+      "alt": "Roland Garros 2015 · fotografía de la edición",
+      "credit": "futbolsapiens.com · archivo aportado por el usuario",
+      "source": "https://www.futbolsapiens.com/wp-content/uploads/2015/06/228205-944-690.jpg",
+      "photoYear": 2015,
+      "objectPosition": "50% 45%",
+      "mobileObjectPosition": "50% 40%",
+      "auditStatus": "user-associated-reviewed",
+      "rightsKnown": false
+    },
+    "originalUrl": "https://www.futbolsapiens.com/wp-content/uploads/2015/06/228205-944-690.jpg",
+    "sourceSha256": "395adec873561821c13c861c7e804b9253ddea7460afd3348c6ba56cd42dd1f5",
+    "width": 944,
+    "height": 690,
+    "originalWidth": 944,
+    "originalHeight": 690,
+    "bytes": 85874,
+    "qualityTier": "standard-horizontal",
+    "reviewNotes": "Archivo aportado por el usuario: rg15.jpg. Año contrastado con URL, identidad visual y archivo oficial cuando existe; correcciones 2016/2017/2012 conservadas en registro. Derechos no acreditados.",
+    "providedFile": "rg15.jpg"
+  },
+  {
+    "tournament": "Roland Garros",
+    "year": 2016,
+    "tours": [
+      "atp"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/roland-garros/atp-2016-provided-c2392a8ee8e1.webp",
+      "alt": "Roland Garros 2016 · fotografía de la edición",
+      "credit": "img.rtve.es · archivo aportado por el usuario",
+      "source": "https://img.rtve.es/imagenes/djokovic-murray-final-roland-garros-2016-grand-slam/1465147259384.JPG",
+      "photoYear": 2016,
+      "objectPosition": "50% 45%",
+      "mobileObjectPosition": "50% 40%",
+      "auditStatus": "user-associated-reviewed",
+      "rightsKnown": false
+    },
+    "originalUrl": "https://img.rtve.es/imagenes/djokovic-murray-final-roland-garros-2016-grand-slam/1465147259384.JPG",
+    "sourceSha256": "c2392a8ee8e17dc201dcfedca0a34a1d39c3072dd58b8301c55deaa95657fba0",
+    "width": 1800,
+    "height": 1200,
+    "originalWidth": 2200,
+    "originalHeight": 1467,
+    "bytes": 144686,
+    "qualityTier": "high-resolution-horizontal",
+    "reviewNotes": "Archivo aportado por el usuario: rg17.jpeg. Año contrastado con URL, identidad visual y archivo oficial cuando existe; correcciones 2016/2017/2012 conservadas en registro. Derechos no acreditados.",
+    "providedFile": "rg17.jpeg"
+  },
+  {
+    "tournament": "Roland Garros",
+    "year": 2017,
+    "tours": [
+      "atp"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/roland-garros/atp-2017-provided-ceb50a5f235d.webp",
+      "alt": "Roland Garros 2017 · fotografía de la edición",
+      "credit": "images.ecestaticos.com · archivo aportado por el usuario",
+      "source": "https://images.ecestaticos.com/9JyQ4p0FtxphHX7hb_zXtjesQSc=/2x86:2271x1363/1338x752/filters:fill(white):format(jpg)/f.elconfidencial.com%2Foriginal%2Fb14%2Faf4%2Fb6b%2Fb14af4b6b94f99f58315208f75e88baf.jpg",
+      "photoYear": 2017,
+      "objectPosition": "50% 45%",
+      "mobileObjectPosition": "50% 40%",
+      "auditStatus": "user-associated-reviewed",
+      "rightsKnown": false
+    },
+    "originalUrl": "https://images.ecestaticos.com/9JyQ4p0FtxphHX7hb_zXtjesQSc=/2x86:2271x1363/1338x752/filters:fill(white):format(jpg)/f.elconfidencial.com%2Foriginal%2Fb14%2Faf4%2Fb6b%2Fb14af4b6b94f99f58315208f75e88baf.jpg",
+    "sourceSha256": "ceb50a5f235da271ecc9aab1801ae22b64949c8abeb3c7cce2ba61414c11da6e",
+    "width": 1338,
+    "height": 752,
+    "originalWidth": 1338,
+    "originalHeight": 752,
+    "bytes": 95628,
+    "qualityTier": "high-resolution-horizontal",
+    "reviewNotes": "Archivo aportado por el usuario: rg16.jpg. Año contrastado con URL, identidad visual y archivo oficial cuando existe; correcciones 2016/2017/2012 conservadas en registro. Derechos no acreditados.",
+    "providedFile": "rg16.jpg"
+  },
+  {
+    "tournament": "Roland Garros",
+    "year": 2018,
+    "tours": [
+      "atp"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/roland-garros/atp-2018-provided-6720983d8242.webp",
+      "alt": "Roland Garros 2018 · fotografía de la edición",
+      "credit": "images.prismic.io · archivo aportado por el usuario",
+      "source": "https://images.prismic.io/fft-rg-commun-news/ffc3a489bb2e3856ebfe245ce79ed714d69d6dcd_20180608_rg_ng_0922_web.jpg?auto=compress,format",
+      "photoYear": 2018,
+      "objectPosition": "50% 45%",
+      "mobileObjectPosition": "50% 40%",
+      "auditStatus": "user-associated-reviewed",
+      "rightsKnown": false
+    },
+    "originalUrl": "https://images.prismic.io/fft-rg-commun-news/ffc3a489bb2e3856ebfe245ce79ed714d69d6dcd_20180608_rg_ng_0922_web.jpg?auto=compress,format",
+    "sourceSha256": "6720983d824255c7301df982392d70b4a5174732b3eed2f8fdb15e727addd448",
+    "width": 1000,
+    "height": 667,
+    "originalWidth": 1000,
+    "originalHeight": 667,
+    "bytes": 88084,
+    "qualityTier": "high-resolution-horizontal",
+    "reviewNotes": "Archivo aportado por el usuario: rg18.avif. Año contrastado con URL, identidad visual y archivo oficial cuando existe; correcciones 2016/2017/2012 conservadas en registro. Derechos no acreditados.",
+    "providedFile": "rg18.avif"
+  },
+  {
+    "tournament": "Roland Garros",
+    "year": 2019,
+    "tours": [
+      "atp"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/roland-garros/atp-2019-provided-cd4739021f97.webp",
+      "alt": "Roland Garros 2019 · fotografía de la edición",
+      "credit": "e00-marca.uecdn.es · archivo aportado por el usuario",
+      "source": "https://e00-marca.uecdn.es/assets/multimedia/imagenes/2019/06/07/15599130734836.jpg",
+      "photoYear": 2019,
+      "objectPosition": "50% 45%",
+      "mobileObjectPosition": "50% 40%",
+      "auditStatus": "user-associated-reviewed",
+      "rightsKnown": false
+    },
+    "originalUrl": "https://e00-marca.uecdn.es/assets/multimedia/imagenes/2019/06/07/15599130734836.jpg",
+    "sourceSha256": "cd4739021f970016b7b2c782867b0ab06be3fc0c00671c50b88bc20ad125f28f",
+    "width": 990,
+    "height": 557,
+    "originalWidth": 990,
+    "originalHeight": 557,
+    "bytes": 55792,
+    "qualityTier": "standard-horizontal",
+    "reviewNotes": "Archivo aportado por el usuario: rg19.jpg. Año contrastado con URL, identidad visual y archivo oficial cuando existe; correcciones 2016/2017/2012 conservadas en registro. Derechos no acreditados.",
+    "providedFile": "rg19.jpg"
+  },
+  {
+    "tournament": "Roland Garros",
+    "year": 2019,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/roland-garros/wta-2019-champion-d8a169f5cb.webp",
+      "alt": "Ashleigh Barty · Roland Garros 2019",
+      "credit": "FFT / Roland-Garros",
+      "source": "https://www.rolandgarros.com/en-us/palmares/",
+      "photoYear": 2019,
+      "objectPosition": "50% 45%",
+      "mobileObjectPosition": "50% 40%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "originalUrl": "https://images.prismic.io/fft-rg-site%2F6693b0fa-4550-46f4-901c-fe85c12f1242_20190608_rg_ng_1640_web.jpg?auto=compress,format&rect=167,0,667,667&w=200&h=200",
+    "sourceSha256": "d8a169f5cb84ec26cb1ba44b741185ced87d462e6c02820026b3229e6258407f",
+    "width": 1000,
+    "height": 667,
+    "bytes": 38894,
+    "reviewNotes": "Campeona y edición contrastadas con palmarés oficial FFT. Dimensiones nativas con fit=max, sin ampliación."
+  },
+  {
+    "tournament": "Roland Garros",
+    "year": 2020,
+    "tours": [
+      "atp"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/roland-garros/atp-2020-provided-e83dd96cc555.webp",
+      "alt": "Roland Garros 2020 · fotografía de la edición",
+      "credit": "img.rtve.es · archivo aportado por el usuario",
+      "source": "https://img.rtve.es/n/2044286/?w=1600",
+      "photoYear": 2020,
+      "objectPosition": "50% 45%",
+      "mobileObjectPosition": "50% 40%",
+      "auditStatus": "user-associated-reviewed",
+      "rightsKnown": false
+    },
+    "originalUrl": "https://img.rtve.es/n/2044286/?w=1600",
+    "sourceSha256": "e83dd96cc555089e878ac21dfe71455d0ca33463048e840a208ab40ec7f34ca7",
+    "width": 1600,
+    "height": 900,
+    "originalWidth": 1600,
+    "originalHeight": 900,
+    "bytes": 93690,
+    "qualityTier": "high-resolution-horizontal",
+    "reviewNotes": "Archivo aportado por el usuario: rg2020.jpeg. Año contrastado con URL, identidad visual y archivo oficial cuando existe; correcciones 2016/2017/2012 conservadas en registro. Derechos no acreditados.",
+    "providedFile": "rg2020.jpeg"
+  },
+  {
+    "tournament": "Roland Garros",
+    "year": 2020,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/roland-garros/wta-2020-champion-9fe7d32255.webp",
+      "alt": "Iga Swiatek · Roland Garros 2020",
+      "credit": "FFT / Roland-Garros",
+      "source": "https://www.rolandgarros.com/en-us/palmares/",
+      "photoYear": 2020,
+      "objectPosition": "50% 45%",
+      "mobileObjectPosition": "50% 40%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "originalUrl": "https://images.prismic.io/fft-rg-site/2c309d50-fd50-404b-b9ff-f453f112892e_20201010_RG_CD_3257_web.jpg?auto=compress,format&rect=0,0,665,665&w=200&h=200",
+    "sourceSha256": "9fe7d3225572dd346dfc0894b9bf13e19143c085ca29a3697f6f4b1a40623c5f",
+    "width": 1000,
+    "height": 665,
+    "bytes": 74302,
+    "reviewNotes": "Campeona y edición contrastadas con palmarés oficial FFT. Dimensiones nativas con fit=max, sin ampliación."
+  },
+  {
+    "tournament": "Roland Garros",
+    "year": 2021,
+    "tours": [
+      "atp"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/roland-garros/atp-2021-provided-1965c3f2d2bf.webp",
+      "alt": "Roland Garros 2021 · fotografía de la edición",
+      "credit": "e01-elmundo.uecdn.es · archivo aportado por el usuario",
+      "source": "https://e01-elmundo.uecdn.es/assets/multimedia/imagenes/2021/06/14/16236604825264.jpg",
+      "photoYear": 2021,
+      "objectPosition": "50% 45%",
+      "mobileObjectPosition": "50% 40%",
+      "auditStatus": "user-associated-reviewed",
+      "rightsKnown": false
+    },
+    "originalUrl": "https://e01-elmundo.uecdn.es/assets/multimedia/imagenes/2021/06/14/16236604825264.jpg",
+    "sourceSha256": "1965c3f2d2bf579c8de772ac87320a0da6087596197bcf02e7e8211ae091724f",
+    "width": 1800,
+    "height": 1327,
+    "originalWidth": 3072,
+    "originalHeight": 2265,
+    "bytes": 137900,
+    "qualityTier": "high-resolution-horizontal",
+    "reviewNotes": "Archivo aportado por el usuario: rg21.jpg. Año contrastado con URL, identidad visual y archivo oficial cuando existe; correcciones 2016/2017/2012 conservadas en registro. Derechos no acreditados.",
+    "providedFile": "rg21.jpg"
+  },
+  {
+    "tournament": "Roland Garros",
+    "year": 2022,
+    "tours": [
+      "atp"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/roland-garros/atp-2022-provided-ba3db8652447.webp",
+      "alt": "Roland Garros 2022 · fotografía de la edición",
+      "credit": "image.ondacero.es · archivo aportado por el usuario",
+      "source": "https://image.ondacero.es/clipping/cmsimages02/2022/06/03/DA168C32-7855-4D2C-9F14-49317B0FA56B/cuando-juega-rafa-nadal-final-roland-garros-dia-hora-rival_103.jpg?crop=1772,1329,x0,y0&width=1200&height=900&optimize=low&format=webply",
+      "photoYear": 2022,
+      "objectPosition": "50% 45%",
+      "mobileObjectPosition": "50% 40%",
+      "auditStatus": "user-associated-reviewed",
+      "rightsKnown": false
+    },
+    "originalUrl": "https://image.ondacero.es/clipping/cmsimages02/2022/06/03/DA168C32-7855-4D2C-9F14-49317B0FA56B/cuando-juega-rafa-nadal-final-roland-garros-dia-hora-rival_103.jpg?crop=1772,1329,x0,y0&width=1200&height=900&optimize=low&format=webply",
+    "sourceSha256": "ba3db8652447a47cce4c340070d028ff16304f71cb3ba9a7a9e0f4a6c12cb7e4",
+    "width": 1200,
+    "height": 900,
+    "originalWidth": 1200,
+    "originalHeight": 900,
+    "bytes": 91532,
+    "qualityTier": "high-resolution-horizontal",
+    "reviewNotes": "Archivo aportado por el usuario: rg22.webp. Año contrastado con URL, identidad visual y archivo oficial cuando existe; correcciones 2016/2017/2012 conservadas en registro. Derechos no acreditados.",
+    "providedFile": "rg22.webp"
+  },
+  {
+    "tournament": "Roland Garros",
+    "year": 2022,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/roland-garros/wta-2022-champion-dc85fa2b51.webp",
+      "alt": "Iga Swiatek · Roland Garros 2022",
+      "credit": "©Corinne Dubreuil / FFT",
+      "source": "https://www.rolandgarros.com/en-us/palmares/",
+      "photoYear": 2022,
+      "objectPosition": "50% 45%",
+      "mobileObjectPosition": "50% 40%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "originalUrl": "https://images.prismic.io/fft-rg-site/72aac275-a503-4093-b17e-a3fef31f114b_20220604_RG_CD_6061_web.jpg?auto=compress,format&rect=167,0,667,667&w=200&h=200",
+    "sourceSha256": "dc85fa2b51a84a0fe65af2811eea5cdd888a0a4dd539cb8f08bd77c71b335e6e",
+    "width": 1000,
+    "height": 667,
+    "bytes": 54462,
+    "reviewNotes": "Campeona y edición contrastadas con palmarés oficial FFT. Dimensiones nativas con fit=max, sin ampliación."
+  },
+  {
+    "tournament": "Roland Garros",
+    "year": 2023,
+    "tours": [
+      "atp"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/roland-garros/atp-2023-provided-f90d1d13f000.webp",
+      "alt": "Roland Garros 2023 · fotografía de la edición",
+      "credit": "atptour.com · archivo aportado por el usuario",
+      "source": "https://www.atptour.com/-/media/images/news/2023/06/09/21/00/djokovic-roland-garros-2023-sf-forehand.jpg",
+      "photoYear": 2023,
+      "objectPosition": "50% 45%",
+      "mobileObjectPosition": "50% 40%",
+      "auditStatus": "user-associated-reviewed",
+      "rightsKnown": false
+    },
+    "originalUrl": "https://www.atptour.com/-/media/images/news/2023/06/09/21/00/djokovic-roland-garros-2023-sf-forehand.jpg",
+    "sourceSha256": "f90d1d13f000886fc67303b88c714c8be751dbdd9ec731abefe618e3834cb8e9",
+    "width": 1800,
+    "height": 1013,
+    "originalWidth": 1920,
+    "originalHeight": 1080,
+    "bytes": 142874,
+    "qualityTier": "high-resolution-horizontal",
+    "reviewNotes": "Archivo aportado por el usuario: rg23.jpg. Año contrastado con URL, identidad visual y archivo oficial cuando existe; correcciones 2016/2017/2012 conservadas en registro. Derechos no acreditados.",
+    "providedFile": "rg23.jpg"
+  },
+  {
+    "tournament": "Roland Garros",
+    "year": 2023,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/roland-garros/wta-2023-champion-91df95f023.webp",
+      "alt": "Iga Swiatek · Roland Garros 2023",
+      "credit": "© Corinne Dubreuil/FFT",
+      "source": "https://www.rolandgarros.com/en-us/palmares/",
+      "photoYear": 2023,
+      "objectPosition": "50% 45%",
+      "mobileObjectPosition": "50% 40%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "originalUrl": "https://images.prismic.io/fft-rg-site/d4093189-f2a5-4617-bca1-a64a61d876f7_20230611_RG_CD_3483.jpg?auto=compress,format&rect=500,0,2000,2000&w=200&h=200",
+    "sourceSha256": "91df95f02340bb8f57bfaa901a35ec54c892e63568875f200557ecfd450d877b",
+    "width": 1800,
+    "height": 1200,
+    "bytes": 68700,
+    "reviewNotes": "Campeona y edición contrastadas con palmarés oficial FFT. Dimensiones nativas con fit=max, sin ampliación."
+  },
+  {
+    "tournament": "Roland Garros",
+    "year": 2024,
+    "tours": [
+      "atp"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/roland-garros/atp-2024-provided-471e650b00e2.webp",
+      "alt": "Roland Garros 2024 · fotografía de la edición",
+      "credit": "media.revistavanityfair.es · archivo aportado por el usuario",
+      "source": "https://media.revistavanityfair.es/photos/6665f51700435b186fc53841/16:9/w_2560%2Cc_limit/GettyImages-2156801999.jpg",
+      "photoYear": 2024,
+      "objectPosition": "50% 45%",
+      "mobileObjectPosition": "50% 40%",
+      "auditStatus": "user-associated-reviewed",
+      "rightsKnown": false
+    },
+    "originalUrl": "https://media.revistavanityfair.es/photos/6665f51700435b186fc53841/16:9/w_2560%2Cc_limit/GettyImages-2156801999.jpg",
+    "sourceSha256": "471e650b00e2f49496eeb5918f6819ee51974330cfd0d17566a51648aa123892",
+    "width": 1800,
+    "height": 1013,
+    "originalWidth": 2560,
+    "originalHeight": 1440,
+    "bytes": 187560,
+    "qualityTier": "high-resolution-horizontal",
+    "reviewNotes": "Archivo aportado por el usuario: rg24.webp. Año contrastado con URL, identidad visual y archivo oficial cuando existe; correcciones 2016/2017/2012 conservadas en registro. Derechos no acreditados.",
+    "providedFile": "rg24.webp"
+  },
+  {
+    "tournament": "Roland Garros",
+    "year": 2024,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/roland-garros/wta-2024-champion-f7bac1c4d9.webp",
+      "alt": "Iga Swiatek · Roland Garros 2024",
+      "credit": "FFT / Roland-Garros",
+      "source": "https://www.rolandgarros.com/en-us/palmares/",
+      "photoYear": 2024,
+      "objectPosition": "50% 45%",
+      "mobileObjectPosition": "50% 40%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "originalUrl": "https://images.prismic.io/fft-rg-site/ZmXpd5m069VX1lAD_20240608_RG_CL_5443_web.jpg?auto=format,compress?auto=compress,format&rect=167,0,667,667&w=200&h=200",
+    "sourceSha256": "f7bac1c4d9ea173f06e8b150314d249c7666d733626e6937fd3d65e92a50479a",
+    "width": 1000,
+    "height": 667,
+    "bytes": 51936,
+    "reviewNotes": "Campeona y edición contrastadas con palmarés oficial FFT. Dimensiones nativas con fit=max, sin ampliación."
+  },
+  {
+    "tournament": "Roland Garros",
+    "year": 2025,
+    "tours": [
+      "atp"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/roland-garros/atp-2025-provided-3dbe776db3bb.webp",
+      "alt": "Roland Garros 2025 · fotografía de la edición",
+      "credit": "atptour.com · archivo aportado por el usuario",
+      "source": "https://www.atptour.com/-/media/images/news/2025/06/08/23/01/alcaraz-roland-garros-2025-final-clock.jpg",
+      "photoYear": 2025,
+      "objectPosition": "50% 45%",
+      "mobileObjectPosition": "50% 40%",
+      "auditStatus": "user-associated-reviewed",
+      "rightsKnown": false
+    },
+    "originalUrl": "https://www.atptour.com/-/media/images/news/2025/06/08/23/01/alcaraz-roland-garros-2025-final-clock.jpg",
+    "sourceSha256": "3dbe776db3bb28756967309da66bac8651f1d7099533868e9bee362de9f15fe7",
+    "width": 1800,
+    "height": 1013,
+    "originalWidth": 1920,
+    "originalHeight": 1080,
+    "bytes": 275336,
+    "qualityTier": "high-resolution-horizontal",
+    "reviewNotes": "Archivo aportado por el usuario: rg25.jpg. Año contrastado con URL, identidad visual y archivo oficial cuando existe; correcciones 2016/2017/2012 conservadas en registro. Derechos no acreditados.",
+    "providedFile": "rg25.jpg"
+  },
+  {
+    "tournament": "Roland Garros",
+    "year": 2026,
+    "tours": [
+      "atp"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/roland-garros/atp-2026-provided-7dd522480bd8.webp",
+      "alt": "Pelotas y pista de Roland Garros 2026",
+      "credit": "images.prismic.io · archivo aportado por el usuario",
+      "source": "https://images.prismic.io/fft-rg-commun-news/agiAXqYofJOwHS0j_Balles-Roland-Garros2026-GuillaumeAmat.jpg?auto=format,compress",
+      "photoYear": 2026,
+      "objectPosition": "50% 45%",
+      "mobileObjectPosition": "50% 40%",
+      "auditStatus": "user-associated-reviewed",
+      "rightsKnown": false
+    },
+    "originalUrl": "https://images.prismic.io/fft-rg-commun-news/agiAXqYofJOwHS0j_Balles-Roland-Garros2026-GuillaumeAmat.jpg?auto=format,compress",
+    "sourceSha256": "7dd522480bd819c9840e6bc034540694e015b323e4693f7f5a5770efd2d7fed0",
+    "width": 1800,
+    "height": 1200,
+    "originalWidth": 3000,
+    "originalHeight": 2000,
+    "bytes": 198304,
+    "qualityTier": "high-resolution-horizontal",
+    "reviewNotes": "Archivo aportado por el usuario: rg26.avif. Año contrastado con URL, identidad visual y archivo oficial cuando existe; correcciones 2016/2017/2012 conservadas en registro. Derechos no acreditados.",
+    "providedFile": "rg26.avif"
+  },
+  {
+    "tournament": "Roland Garros",
+    "year": 2026,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/roland-garros/atp-2026-provided-7dd522480bd8.webp",
+      "alt": "Pelotas y pista de Roland Garros 2026",
+      "credit": "images.prismic.io · archivo aportado por el usuario",
+      "source": "https://images.prismic.io/fft-rg-commun-news/agiAXqYofJOwHS0j_Balles-Roland-Garros2026-GuillaumeAmat.jpg?auto=format,compress",
+      "photoYear": 2026,
+      "objectPosition": "50% 45%",
+      "mobileObjectPosition": "50% 40%",
+      "auditStatus": "user-associated-reviewed",
+      "rightsKnown": false
+    },
+    "originalUrl": "https://images.prismic.io/fft-rg-commun-news/agiAXqYofJOwHS0j_Balles-Roland-Garros2026-GuillaumeAmat.jpg?auto=format,compress",
+    "sourceSha256": "7dd522480bd819c9840e6bc034540694e015b323e4693f7f5a5770efd2d7fed0",
+    "width": 1800,
+    "height": 1200,
+    "originalWidth": 3000,
+    "originalHeight": 2000,
+    "bytes": 198304,
+    "qualityTier": "high-resolution-horizontal",
+    "reviewNotes": "Archivo aportado por el usuario: rg26.avif. Año contrastado con URL, identidad visual y archivo oficial cuando existe; correcciones 2016/2017/2012 conservadas en registro. Derechos no acreditados.",
+    "providedFile": "rg26.avif"
+  }
+]

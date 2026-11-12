@@ -1,0 +1,4773 @@
+{
+  "summary": {
+    "at": "2026-11-11T19:05:17.987783+00:00",
+    "datasetVersion": "2be3b9a020e9752675c8",
+    "published": 148181,
+    "finalsPublished": 1627,
+    "finalsByTour": {
+      "wta": 809,
+      "atp": 818
+    },
+    "finalsSourceRows": 1709,
+    "referenceFinals2015": 15,
+    "finalsMeasured": 440,
+    "remainingCalls": 201,
+    "reservedCalls": 200,
+    "criticismStatus": {
+      "Pendiente": 61,
+      "Resuelto en local": 6,
+      "Parcial": 33
+    },
+    "researchDefinitions": 100,
+    "qualityControls": 55,
+    "calculatedSelections": 143,
+    "blockedSelections": 57,
+    "qualityErrors": 0,
+    "editionAudit": {
+      "None": 3081,
+      "False": 62,
+      "True": 3
+    },
+    "productionChanged": false
+  },
+  "criticisms": [
+    {
+      "id": 1,
+      "priority": "Alta · P0",
+      "finding": "No existe un porcentaje global de cobertura demostrable: el denominador externo no está cerrado.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 2,
+      "priority": "Alta · P0",
+      "finding": "2.945 ediciones no están certificadas: no pueden respaldar promesas de totalidad.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 3,
+      "priority": "Alta · P0",
+      "finding": "74 ediciones constan como incompletas: afectan cuadros y agregados.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 4,
+      "priority": "Alta · P0",
+      "finding": "Seis pares Miami reference/live comparten ronda, pareja y score: posible doble cómputo.",
+      "status": "Resuelto en local",
+      "progress": "Seis alias Miami canónicos; regresión y redirección de URL antigua."
+    },
+    {
+      "id": 5,
+      "priority": "Alta · P0",
+      "finding": "Scheduler bloqueado y publicación posterior exitosa discrepan: alerta operativa ambigua.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 6,
+      "priority": "Alta · P0",
+      "finding": "H2H del archivo puede parecer el historial oficial: 34 Federer–Nadal frente a 40 ATP.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 7,
+      "priority": "Alta · P0",
+      "finding": "Una racha puede atravesar encuentros desconocidos y alargarse artificialmente.",
+      "status": "Parcial",
+      "progress": "Rachas nuevas limitadas a la muestra; no se certifica continuidad mundial."
+    },
+    {
+      "id": 8,
+      "priority": "Alta · P0",
+      "finding": "Máximos de una muestra incompleta pueden anunciarse como récord mundial.",
+      "status": "Parcial",
+      "progress": "Productos nuevos no son elegibles como récord absoluto; catálogo público anterior pendiente de certificación."
+    },
+    {
+      "id": 9,
+      "priority": "Alta · P0",
+      "finding": "Inicio del torneo y temporada se confunden en fronteras de diciembre.",
+      "status": "Parcial",
+      "progress": "Temporada leída de source_id y no del enero civil siguiente; faltan entidades completas de edición."
+    },
+    {
+      "id": 10,
+      "priority": "Alta · P0",
+      "finding": "Asociar torneos por ciudad mezcla entidades históricas y categorías.",
+      "status": "Parcial",
+      "progress": "Finals se resuelven por identificadores revisados; falta registro universal de series."
+    },
+    {
+      "id": 11,
+      "priority": "Alta · P1",
+      "finding": "Solo cerca del 13 % tiene fecha exacta: cronologías precisas no son universales.",
+      "status": "Parcial",
+      "progress": "Fechas aproximadas excluidas de fórmulas diarias; no se han obtenido todas las fechas."
+    },
+    {
+      "id": 12,
+      "priority": "Alta · P1",
+      "finding": "Menos del 1 % tiene estadísticas de partido: análisis de servicio/resto sesgados.",
+      "status": "Parcial",
+      "progress": "440 partidos de Finals con mediciones guardadas; no hay cobertura universal de servicio/resto."
+    },
+    {
+      "id": 13,
+      "priority": "Alta · P1",
+      "finding": "Punto a punto aún más escaso: no permite récords de presión globales.",
+      "status": "Parcial",
+      "progress": "Cintas reconstruidas no se tratan como puntos observados; siguen faltando puntos reales."
+    },
+    {
+      "id": 14,
+      "priority": "Alta · P1",
+      "finding": "WTA 2018 cae a 1.070 filas frente a años vecinos: discontinuidad sin explicación cerrada.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 15,
+      "priority": "Alta · P1",
+      "finding": "ATP 2023–2026 no registra partidos con ranking de ambos en el producto inspeccionado.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 16,
+      "priority": "Alta · P1",
+      "finding": "Persisten diez conflictos: más filas no garantiza mejor verdad.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 17,
+      "priority": "Alta · P1",
+      "finding": "URLs de procedencia apenas aparecen en la proyección de lectura.",
+      "status": "Parcial",
+      "progress": "Finals conservan archivo fuente, hash, endpoint y localizador; no cubre aún cada resultado del archivo."
+    },
+    {
+      "id": 18,
+      "priority": "Alta · P1",
+      "finding": "Conservar un raw sin localizar la fila no hace una cifra reproducible.",
+      "status": "Parcial",
+      "progress": "Linaje por fila del nuevo paquete; no de todas las fuentes heredadas."
+    },
+    {
+      "id": 19,
+      "priority": "Alta · P1",
+      "finding": "Tres páginas pueden copiar una única fuente equivocada.",
+      "status": "Parcial",
+      "progress": "Consenso exige tres orígenes y editores distintos; antiguos hechos aún no recontrastados."
+    },
+    {
+      "id": 20,
+      "priority": "Alta · P1",
+      "finding": "Reparación manual sin dependencia de métricas deja récords obsoletos.",
+      "status": "Parcial",
+      "progress": "Dataset y productos recalculados por versión local; publicación remota no tocada."
+    },
+    {
+      "id": 21,
+      "priority": "Alta · P1",
+      "finding": "Hay candidatos de duración extrema; los outliers pueden contaminar rankings.",
+      "status": "Parcial",
+      "progress": "Duraciones extremas detectadas y muestras limitadas; quedan revisiones de hechos."
+    },
+    {
+      "id": 22,
+      "priority": "Alta · P1",
+      "finding": "Reglas modernas aplicadas al pasado invalidarían sets legítimos.",
+      "status": "Parcial",
+      "progress": "Excepciones históricas Tokyo1970 y finales WTA BO5; faltan prosets1975–77."
+    },
+    {
+      "id": 23,
+      "priority": "Alta · P1",
+      "finding": "BYE, walkover y abandono no son resultados terminados intercambiables.",
+      "status": "Resuelto en local",
+      "progress": "Previas Q1–Q5 fuera del cuadro principal; walkover/abandono no generan victorias de partido terminado."
+    },
+    {
+      "id": 24,
+      "priority": "Alta · P1",
+      "finding": "Contar final no equivale siempre a ganar un título oficial.",
+      "status": "Parcial",
+      "progress": "No se infieren títulos desde una final no jugada; faltan premios separados para round-robin/W-O."
+    },
+    {
+      "id": 25,
+      "priority": "Alta · P1",
+      "finding": "Cambio de nombre o nacionalidad puede crear personas falsas o duplicadas.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 26,
+      "priority": "Alta · P1",
+      "finding": "Ranking actual o posterior puede filtrarse a métricas históricas.",
+      "status": "Parcial",
+      "progress": "Investigación exige ranking al jugar; ranking en descarga no sustituye al histórico."
+    },
+    {
+      "id": 27,
+      "priority": "Alta · P1",
+      "finding": "Caché de detalles acumula muchas expulsiones y fallos.",
+      "status": "Parcial",
+      "progress": "Alias de detalle canónicos; falta perfil completo de caché en producción."
+    },
+    {
+      "id": 28,
+      "priority": "Alta · P1",
+      "finding": "Selecciones compactas tienen baja reutilización observada.",
+      "status": "Parcial",
+      "progress": "Claves equivalentes de selecciones normalizadas; hit-rate real pendiente."
+    },
+    {
+      "id": 29,
+      "priority": "Alta · P1",
+      "finding": "Gzip/JSON síncrono grande puede bloquear el proceso bajo concurrencia.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 30,
+      "priority": "Alta · P1",
+      "finding": "No está demostrado el p95 de `/match` y `/comparar` en carga real.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 31,
+      "priority": "Alta · P1",
+      "finding": "Un timeout puede disparar reintentos mientras el job anterior sigue vivo.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 32,
+      "priority": "Alta · P1",
+      "finding": "Nuevos workers podrían multiplicar cuotas si el presupuesto no es compartido.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 33,
+      "priority": "Alta · P1",
+      "finding": "Rate limiting en memoria es local al proceso.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 34,
+      "priority": "Alta · P1",
+      "finding": "Identificación por forwarded IP depende de la configuración del proxy.",
+      "status": "Parcial",
+      "progress": "Extracción común de IP tras proxy; falta comprobación de toda la cadena desplegada."
+    },
+    {
+      "id": 35,
+      "priority": "Alta · P1",
+      "finding": "Diagnóstico profundo público revela operación, cuota y capacidad.",
+      "status": "Resuelto en local",
+      "progress": "Diagnóstico profundo autenticado; readiness público mínimo. HTTP401/200 comprobados."
+    },
+    {
+      "id": 36,
+      "priority": "Alta · P1",
+      "finding": "Descarga de medios/fuentes puede convertirse en SSRF si acepta URLs sin controles.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 37,
+      "priority": "Alta · P1",
+      "finding": "CSP permite scripts inline: reduce defensa frente a una inyección.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 38,
+      "priority": "Alta · P1",
+      "finding": "Archivos de migración no acreditan RLS y permisos de producción.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 39,
+      "priority": "Alta · P1",
+      "finding": "No está demostrado que el host perdido pueda recuperarse sin sus secretos locales.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 40,
+      "priority": "Alta · P1",
+      "finding": "Cifrado y retención resistente al borrado no quedan probados por `rclone --immutable`.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 41,
+      "priority": "Alta · P1",
+      "finding": "HTML público permite reconstrucción por scraping y coste de agregaciones.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 42,
+      "priority": "Alta · P1",
+      "finding": "Tráfico legítimo y bot agresivo no están caracterizados en esta revisión.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 43,
+      "priority": "Alta · P1",
+      "finding": "Extraer datos públicos no garantiza permiso de redistribución de cada fuente.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 44,
+      "priority": "Alta · P1",
+      "finding": "Una cita en Licencias no concede licencia sobre una fotografía.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 45,
+      "priority": "Alta · P1",
+      "finding": "Fotografía de persona equivocada es un error editorial grave.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 46,
+      "priority": "Alta · P1",
+      "finding": "Facetas indexables pueden crear un universo de URLs pobres.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 47,
+      "priority": "Alta · P1",
+      "finding": "Canonicals de combinaciones o parejas invertidas pueden divergir.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 48,
+      "priority": "Alta · P1",
+      "finding": "ES/EN podrían declararse equivalentes sin conservar filtros/contexto.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 49,
+      "priority": "Alta · P1",
+      "finding": "Indexación real y soft 404 no están medidos con Search Console.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 50,
+      "priority": "Alta · P1",
+      "finding": "JSON-LD usa EventCompleted, ausente de EventStatusType: semántica inválida.",
+      "status": "Resuelto en local",
+      "progress": "Eliminado EventCompleted no válido en JSON-LD."
+    },
+    {
+      "id": 51,
+      "priority": "Media · P2",
+      "finding": "El modelo central de dos personas no soporta equipos/dobles sin ampliación.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 52,
+      "priority": "Media · P2",
+      "finding": "Etiquetas modernas pueden anacronizar categorías anteriores a ATP500/WTA1000.",
+      "status": "Parcial",
+      "progress": "Finals e identidades históricas corregidas; normalizaciones de otros niveles requieren censo."
+    },
+    {
+      "id": 53,
+      "priority": "Media · P2",
+      "finding": "Torneo serie, sede, patrocinador y edición no son la misma entidad.",
+      "status": "Parcial",
+      "progress": "1986WTA mantiene dos campeonatos; falta registro completo de serie/sede/patrocinador."
+    },
+    {
+      "id": 54,
+      "priority": "Media · P2",
+      "finding": "Australia 1977 no cabe en una sola clave torneo+año.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 55,
+      "priority": "Media · P2",
+      "finding": "Dos Tokyo del mismo año pueden ser torneos distintos, no duplicados.",
+      "status": "Resuelto en local",
+      "progress": "Clave semántica incluye categoría; el caso Tokyo500/250 está cubierto por regresión."
+    },
+    {
+      "id": 56,
+      "priority": "Media · P2",
+      "finding": "Una actualización de raw puede alterar silenciosamente un hecho ya publicado.",
+      "status": "Parcial",
+      "progress": "Raw de Finals sellado y correcciones versionadas; no resuelve toda la gobernanza de cambios."
+    },
+    {
+      "id": 57,
+      "priority": "Media · P2",
+      "finding": "Un hash de dataset no explica por sí solo qué cambió.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 58,
+      "priority": "Media · P2",
+      "finding": "Un catálogo de métricas sin versión de definición no es reproducible.",
+      "status": "Parcial",
+      "progress": "100 definiciones de investigación versionadas; métricas anteriores aún requieren revisión por definición."
+    },
+    {
+      "id": 59,
+      "priority": "Media · P2",
+      "finding": "Comparar porcentajes con denominadores desiguales induce conclusiones falsas.",
+      "status": "Parcial",
+      "progress": "Elegibilidad/exclusión por fórmula; falta validación editorial de comparaciones existentes."
+    },
+    {
+      "id": 60,
+      "priority": "Media · P2",
+      "finding": "Sesgo por partidos con ranking/estadísticas no es aleatorio.",
+      "status": "Parcial",
+      "progress": "Muestras condicionadas registradas; no se ha eliminado el sesgo de disponibilidad."
+    },
+    {
+      "id": 61,
+      "priority": "Media · P2",
+      "finding": "Elo inicial y orden aproximado de encuentros alteran estimaciones.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 62,
+      "priority": "Media · P2",
+      "finding": "«Mejor ranking observado» no equivale a ranking oficial de fin de año.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 63,
+      "priority": "Media · P2",
+      "finding": "Nacionalidad actual aplicada al pasado distorsiona estadísticas por país.",
+      "status": "Parcial",
+      "progress": "Contrato de país fechado; sin registros externos suficientes, bloqueado."
+    },
+    {
+      "id": 64,
+      "priority": "Media · P2",
+      "finding": "Ausencia de una edición puede parecer inactividad o derrota.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 65,
+      "priority": "Media · P2",
+      "finding": "Topología del cuadro no puede inferirse solo desde cantidad de partidos.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 66,
+      "priority": "Media · P2",
+      "finding": "ETag ligado solo a datos no cambia al cambiar la representación/código.",
+      "status": "Resuelto en local",
+      "progress": "ETag incorpora versión de representación además del dataset y ámbito;304 sin cuerpo probado."
+    },
+    {
+      "id": 67,
+      "priority": "Media · P2",
+      "finding": "Cabecera observada permite una ventana stale muy larga.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 68,
+      "priority": "Media · P2",
+      "finding": "HTML, RSC y productos podrían resolver generaciones distintas.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 69,
+      "priority": "Media · P2",
+      "finding": "No hay perfil de memoria medido con volumen x10 en esta revisión.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 70,
+      "priority": "Media · P2",
+      "finding": "Retener generaciones y detalles sin GC puede agotar objetos/disco.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 71,
+      "priority": "Media · P2",
+      "finding": "No se han medido LCP/CLS/INP de usuarios reales.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 72,
+      "priority": "Media · P2",
+      "finding": "Vídeo hero puede consumir datos y desplazar el LCP.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 73,
+      "priority": "Media · P2",
+      "finding": "Parallax no debe convertirse en bloqueo del scroll o información invisible.",
+      "status": "Parcial",
+      "progress": "Today usa scroll nativo y reduced-motion; revisión del resto de efectos no exhaustiva."
+    },
+    {
+      "id": 74,
+      "priority": "Media · P2",
+      "finding": "Componentes móviles extremadamente compactos pierden lectura o targets.",
+      "status": "Parcial",
+      "progress": "Ajustes pedidos comprobados a320/390px; accesibilidad global sigue pendiente."
+    },
+    {
+      "id": 75,
+      "priority": "Media · P2",
+      "finding": "Compatibilidad de colores relativos depende del parque real de navegadores.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 76,
+      "priority": "Media · P2",
+      "finding": "Colores de temporada y Grand Slam pueden degradar contraste.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 77,
+      "priority": "Media · P2",
+      "finding": "Autoplay sin pausa accesible o reduced-motion perjudica accesibilidad.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 78,
+      "priority": "Media · P2",
+      "finding": "Tablas visuales sin contexto semántico dificultan investigación asistida.",
+      "status": "Parcial",
+      "progress": "Balance H2H identifica nombres/cifras a lectores; resto de tablas no auditado íntegramente."
+    },
+    {
+      "id": 79,
+      "priority": "Media · P2",
+      "finding": "CSS acumulado y excepciones hacen impredecibles los siguientes retoques.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 80,
+      "priority": "Media · P2",
+      "finding": "El árbol local incluye muchos cambios aún no publicados.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 81,
+      "priority": "Media · P2",
+      "finding": "SBOM y estado real de dependencias no se han auditado aquí.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 82,
+      "priority": "Media · P2",
+      "finding": "Rotación/recuperación de claves no está acreditada en esta revisión.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 83,
+      "priority": "Media · P2",
+      "finding": "Una copia recuperable puede seguir conteniendo corrupción semántica.",
+      "status": "Parcial",
+      "progress": "55 controles ejecutables en verify; restauración total aún no ensayada."
+    },
+    {
+      "id": 84,
+      "priority": "Media · P2",
+      "finding": "RPO/RTO no han sido cronometrados tras pérdida total de host.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 85,
+      "priority": "Media · P2",
+      "finding": "Monitores locales no detectan caída simultánea del servidor y monitor.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 86,
+      "priority": "Media · P2",
+      "finding": "Éxito HTTP de ingestión no demuestra novedades publicadas.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 87,
+      "priority": "Media · P2",
+      "finding": "Totales de estadísticas diferentes entre local y producción no son comparables sin versión.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 88,
+      "priority": "Media · P2",
+      "finding": "Retención de logs sin política puede exponer identificadores innecesarios.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 89,
+      "priority": "Media · P2",
+      "finding": "Métricas de bots/caché sin ventana temporal dificultan decisiones.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 90,
+      "priority": "Media · P2",
+      "finding": "Un stack de monitorización excesivo añade coste y mantenimiento.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 91,
+      "priority": "Media · P3",
+      "finding": "Contenido diario basado en fechas aproximadas cuenta aniversarios falsos.",
+      "status": "Parcial",
+      "progress": "Today exige fecha exacta; otras efemérides históricas necesitan pruebas externas."
+    },
+    {
+      "id": 92,
+      "priority": "Media · P3",
+      "finding": "Noticias generadas pueden convertir correlación en causalidad deportiva.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 93,
+      "priority": "Media · P3",
+      "finding": "Wikipedia sin revisión guardada impide reproducir una corrección futura.",
+      "status": "Parcial",
+      "progress": "Consenso Wikipedia exige revisión capturada; no se ha ingerido toda Wikipedia."
+    },
+    {
+      "id": 94,
+      "priority": "Media · P3",
+      "finding": "Estadísticas de X pueden omitir formato, periodo o empates.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 95,
+      "priority": "Media · P3",
+      "finding": "Incorporar IA en cada visita eleva coste sin mejorar el dato.",
+      "status": "Parcial",
+      "progress": "Cálculos nuevos se realizan fuera de la navegación; no se añadieron llamadas IA por visita."
+    },
+    {
+      "id": 96,
+      "priority": "Media · P3",
+      "finding": "Fuentes externas pueden inyectar instrucciones a un proceso de IA.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 97,
+      "priority": "Media · P3",
+      "finding": "Sin URLs de consulta versionadas el periodista no puede citar un resultado estable.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 98,
+      "priority": "Media · P3",
+      "finding": "Exportaciones sin diccionario ni licencia crean ambigüedad de uso.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    },
+    {
+      "id": 99,
+      "priority": "Media · P3",
+      "finding": "Cien métricas nuevas antes de certificar diez aumentan deuda editorial.",
+      "status": "Parcial",
+      "progress": "Cálculos privados y bloqueos explícitos; no se publican cien récords sin certificación."
+    },
+    {
+      "id": 100,
+      "priority": "Media · P3",
+      "finding": "Competir a la vez en directo, historia, predicción y noticias diluye la ventaja.",
+      "status": "Pendiente",
+      "progress": "Sin cierre acreditado en esta ronda; mantiene la solución propuesta en la auditoría."
+    }
+  ],
+  "research": [
+    {
+      "id": 1,
+      "tour": "atp",
+      "title": "Victorias de Grand Slam por temporada",
+      "status": "calculated-in-sample",
+      "eligible": 74075,
+      "excluded": 0,
+      "rows": 100,
+      "leader": {
+        "entity": "Novak Djokovic · 2015",
+        "value": 27,
+        "sample": 28,
+        "proof": [
+          "archive-169761",
+          "archive-169759",
+          "archive-169755",
+          "archive-169747",
+          "archive-169731"
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "tour": "atp",
+      "title": "Finales en las cuatro sedes de Grand Slam",
+      "status": "calculated-in-sample",
+      "eligible": 74075,
+      "excluded": 0,
+      "rows": 8,
+      "leader": {
+        "entity": "Jannik Sinner · 2025",
+        "value": 4,
+        "sample": 4,
+        "proof": [
+          "live-140658",
+          "live-113393",
+          "live-95082",
+          "live-36682"
+        ]
+      }
+    },
+    {
+      "id": 3,
+      "tour": "atp",
+      "title": "Semifinales en las cuatro sedes de Grand Slam",
+      "status": "calculated-in-sample",
+      "eligible": 74075,
+      "excluded": 0,
+      "rows": 18,
+      "leader": {
+        "entity": "Alexander Zverev · 2026",
+        "value": 4,
+        "sample": 4,
+        "proof": [
+          "live-189069",
+          "live-18464",
+          "live-9611",
+          "live-208635"
+        ]
+      }
+    },
+    {
+      "id": 4,
+      "tour": "atp",
+      "title": "Balance anual con mínimo 20 partidos",
+      "status": "calculated-in-sample",
+      "eligible": 74075,
+      "excluded": 0,
+      "rows": 100,
+      "leader": {
+        "entity": "Rod Laver · 1969",
+        "value": 100,
+        "sample": 26,
+        "proof": [
+          "archive-5926",
+          "archive-5925",
+          "archive-5923",
+          "archive-5919",
+          "archive-5911"
+        ]
+      }
+    },
+    {
+      "id": 5,
+      "tour": "atp",
+      "title": "Mejora interanual de efectividad",
+      "status": "calculated-in-sample",
+      "eligible": 74075,
+      "excluded": 0,
+      "rows": 100,
+      "leader": {
+        "entity": "David Goffin · 2014",
+        "value": 33.52490421455939,
+        "sample": 65,
+        "proof": [
+          "archive-163794",
+          "archive-163234",
+          "archive-162919",
+          "archive-161630",
+          "archive-163722"
+        ],
+        "detail": "Diferencia en puntos porcentuales; mínimo 20 en ambos años"
+      }
+    },
+    {
+      "id": 6,
+      "tour": "atp",
+      "title": "Años consecutivos con título por nivel",
+      "status": "calculated-in-sample",
+      "eligible": 74075,
+      "excluded": 0,
+      "rows": 100,
+      "leader": {
+        "entity": "Rafael Nadal · ATP 500",
+        "value": 10,
+        "sample": 21,
+        "proof": [
+          "archive-150761",
+          "archive-150303",
+          "archive-155130",
+          "archive-158172",
+          "archive-156574"
+        ]
+      }
+    },
+    {
+      "id": 7,
+      "tour": "atp",
+      "title": "Victorias en cuatro décadas",
+      "status": "calculated-in-sample",
+      "eligible": 74075,
+      "excluded": 0,
+      "rows": 0
+    },
+    {
+      "id": 8,
+      "tour": "atp",
+      "title": "Distancia entre primera y última final",
+      "status": "calculated-in-sample",
+      "eligible": 10081,
+      "excluded": 63994,
+      "rows": 72,
+      "leader": {
+        "entity": "Rafael Nadal",
+        "value": 5859,
+        "sample": 3,
+        "proof": [
+          "live-105364",
+          "archive-148401",
+          "archive-158740"
+        ]
+      }
+    },
+    {
+      "id": 9,
+      "tour": "atp",
+      "title": "Éxito en tres superficies durante una temporada",
+      "status": "calculated-in-sample",
+      "eligible": 74075,
+      "excluded": 0,
+      "rows": 36,
+      "leader": {
+        "entity": "Pete Sampras · 1994",
+        "value": 4,
+        "sample": 51,
+        "proof": [
+          "archive-101143",
+          "archive-101127",
+          "archive-101095",
+          "archive-101031",
+          "archive-100287"
+        ]
+      }
+    },
+    {
+      "id": 10,
+      "tour": "atp",
+      "title": "Consistencia de cinco temporadas consecutivas",
+      "status": "calculated-in-sample",
+      "eligible": 74075,
+      "excluded": 0,
+      "rows": 100,
+      "leader": {
+        "entity": "Taylor Fritz · 2022–2026",
+        "value": 0.914864583388009,
+        "sample": 314,
+        "proof": [
+          "archive-188137",
+          "archive-187685",
+          "archive-187680",
+          "archive-187671",
+          "archive-187653"
+        ],
+        "detail": "Desviación estándar de efectividad; menor = más consistente"
+      }
+    },
+    {
+      "id": 11,
+      "tour": "atp",
+      "title": "Títulos por participación en una serie",
+      "status": "calculated-in-sample",
+      "eligible": 74075,
+      "excluded": 0,
+      "rows": 100,
+      "leader": {
+        "entity": "Alejandro Davidovich Fokina · Chengdu",
+        "value": 100,
+        "sample": 4,
+        "proof": [
+          "live-197114",
+          "live-196435",
+          "live-195883",
+          "live-195527"
+        ]
+      }
+    },
+    {
+      "id": 12,
+      "tour": "atp",
+      "title": "Títulos consecutivos en una serie",
+      "status": "calculated-in-sample",
+      "eligible": 74075,
+      "excluded": 0,
+      "rows": 100,
+      "leader": {
+        "entity": "Rafael Nadal · Monte Carlo",
+        "value": 8,
+        "sample": 79,
+        "proof": [
+          "archive-131079",
+          "archive-131069",
+          "archive-131048",
+          "archive-137673",
+          "archive-137671"
+        ]
+      }
+    },
+    {
+      "id": 13,
+      "tour": "atp",
+      "title": "Finales perdidas antes del primer título",
+      "status": "calculated-in-sample",
+      "eligible": 10081,
+      "excluded": 63994,
+      "rows": 100,
+      "leader": {
+        "entity": "Alejandro Davidovich Fokina",
+        "value": 4,
+        "sample": 7,
+        "proof": [
+          "live-137384",
+          "live-53859",
+          "live-46969",
+          "live-197114",
+          "live-15671"
+        ]
+      }
+    },
+    {
+      "id": 14,
+      "tour": "atp",
+      "title": "Ganadores de la última edición de torneos desaparecidos",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74075,
+      "rows": 0
+    },
+    {
+      "id": 15,
+      "tour": "atp",
+      "title": "Campeones antes y después de un cambio de sede",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74075,
+      "rows": 0
+    },
+    {
+      "id": 16,
+      "tour": "atp",
+      "title": "Intervalo entre títulos de una serie",
+      "status": "calculated-in-sample",
+      "eligible": 10081,
+      "excluded": 63994,
+      "rows": 100,
+      "leader": {
+        "entity": "Novak Djokovic · Australian Open",
+        "value": 4018,
+        "sample": 3,
+        "proof": [
+          "live-29299",
+          "archive-158740",
+          "live-208886"
+        ]
+      }
+    },
+    {
+      "id": 17,
+      "tour": "atp",
+      "title": "Título en la primera participación registrada",
+      "status": "calculated-in-sample",
+      "eligible": 74075,
+      "excluded": 0,
+      "rows": 100,
+      "leader": {
+        "entity": "Albert Montanes · Bucharest",
+        "value": 1,
+        "sample": 9,
+        "proof": [
+          "archive-152024",
+          "archive-152023",
+          "archive-152021",
+          "archive-152016",
+          "archive-152006"
+        ]
+      }
+    },
+    {
+      "id": 18,
+      "tour": "atp",
+      "title": "Ronda alcanzada por participación",
+      "status": "calculated-in-sample",
+      "eligible": 74075,
+      "excluded": 0,
+      "rows": 100,
+      "leader": {
+        "entity": "Adrian Mannarino · Astana · 2023",
+        "value": 8,
+        "sample": 5,
+        "proof": [
+          "live-132352",
+          "live-131730",
+          "live-131138",
+          "live-130212",
+          "live-129630"
+        ]
+      }
+    },
+    {
+      "id": 19,
+      "tour": "atp",
+      "title": "Campeones diferentes por torneo y década",
+      "status": "calculated-in-sample",
+      "eligible": 74075,
+      "excluded": 0,
+      "rows": 100,
+      "leader": {
+        "entity": "Gstaad · 2010",
+        "value": 10,
+        "sample": 10,
+        "proof": [
+          "archive-154504",
+          "archive-157520",
+          "archive-160516",
+          "archive-163525",
+          "archive-166460"
+        ]
+      }
+    },
+    {
+      "id": 20,
+      "tour": "atp",
+      "title": "Concentración de títulos en los tres mayores ganadores",
+      "status": "calculated-in-sample",
+      "eligible": 74075,
+      "excluded": 0,
+      "rows": 100,
+      "leader": {
+        "entity": "Adelaide 1",
+        "value": 100,
+        "sample": 1,
+        "proof": [
+          "archive-186072"
+        ]
+      }
+    },
+    {
+      "id": 21,
+      "tour": "atp",
+      "title": "Títulos en superficies distintas en semanas consecutivas",
+      "status": "calculated-in-sample",
+      "eligible": 10081,
+      "excluded": 63994,
+      "rows": 100,
+      "leader": {
+        "entity": "Adrian Mannarino",
+        "value": 0,
+        "sample": 5,
+        "proof": [
+          "live-153429",
+          "live-132352",
+          "live-98531",
+          "live-88863",
+          "live-41313"
+        ]
+      }
+    },
+    {
+      "id": 22,
+      "tour": "atp",
+      "title": "Primer partido tras cambiar de superficie",
+      "status": "calculated-in-sample",
+      "eligible": 10081,
+      "excluded": 63994,
+      "rows": 100,
+      "leader": {
+        "entity": "Alexander Ritschard",
+        "value": 100,
+        "sample": 7,
+        "proof": [
+          "live-95447",
+          "live-61860",
+          "live-60556",
+          "live-39006",
+          "live-38236"
+        ]
+      }
+    },
+    {
+      "id": 23,
+      "tour": "atp",
+      "title": "Racha de victorias por superficie en el archivo",
+      "status": "calculated-in-sample",
+      "eligible": 10081,
+      "excluded": 63994,
+      "rows": 100,
+      "leader": {
+        "entity": "Jannik Sinner · hard",
+        "value": 29,
+        "sample": 167,
+        "proof": [
+          "live-150767",
+          "live-136687",
+          "live-135648",
+          "live-135070",
+          "live-117801"
+        ]
+      }
+    },
+    {
+      "id": 24,
+      "tour": "atp",
+      "title": "Especialización con mínimo 20 partidos por superficie",
+      "status": "calculated-in-sample",
+      "eligible": 74075,
+      "excluded": 0,
+      "rows": 100,
+      "leader": {
+        "entity": "Adrian Mannarino",
+        "value": 36.68498168498168,
+        "sample": 681,
+        "proof": [
+          "live-149456",
+          "live-136127",
+          "live-116436",
+          "live-115615",
+          "live-114938"
+        ]
+      }
+    },
+    {
+      "id": 25,
+      "tour": "atp",
+      "title": "Títulos indoor y outdoor en una temporada",
+      "status": "calculated-in-sample",
+      "eligible": 74075,
+      "excluded": 0,
+      "rows": 13,
+      "leader": {
+        "entity": "Ben Shelton · 2026",
+        "value": 2,
+        "sample": 4,
+        "proof": [
+          "live-189546",
+          "live-174316",
+          "live-44036",
+          "live-216535"
+        ]
+      }
+    },
+    {
+      "id": 26,
+      "tour": "atp",
+      "title": "Hierba antes y después de Wimbledon",
+      "status": "blocked",
+      "eligible": 10081,
+      "excluded": 63994,
+      "rows": 0
+    },
+    {
+      "id": 27,
+      "tour": "atp",
+      "title": "Victoria tras derrota con margen de 10 juegos",
+      "status": "calculated-in-sample",
+      "eligible": 10081,
+      "excluded": 63994,
+      "rows": 100,
+      "leader": {
+        "entity": "Alexander Shevchenko",
+        "value": 6,
+        "sample": 130,
+        "proof": [
+          "live-133850",
+          "live-115296",
+          "live-110043",
+          "live-90196",
+          "live-76194"
+        ]
+      }
+    },
+    {
+      "id": 28,
+      "tour": "atp",
+      "title": "Sets decisivos por superficie y década",
+      "status": "calculated-in-sample",
+      "eligible": 74075,
+      "excluded": 0,
+      "rows": 24,
+      "leader": {
+        "entity": "carpet · 1970",
+        "value": 40.33613445378151,
+        "sample": 119,
+        "proof": [
+          "archive-9476",
+          "archive-9475",
+          "archive-9474",
+          "archive-9473",
+          "archive-9472"
+        ]
+      }
+    },
+    {
+      "id": 29,
+      "tour": "atp",
+      "title": "Victoria con menos juegos por superficie",
+      "status": "calculated-in-sample",
+      "eligible": 74075,
+      "excluded": 0,
+      "rows": 100,
+      "leader": {
+        "entity": "John Isner · hard",
+        "value": 10,
+        "sample": 523,
+        "proof": [
+          "live-116000",
+          "live-115308",
+          "live-109750",
+          "live-49849",
+          "live-43812"
+        ]
+      }
+    },
+    {
+      "id": 30,
+      "tour": "atp",
+      "title": "Cambio de tierra a hierba por días de descanso",
+      "status": "calculated-in-sample",
+      "eligible": 10081,
+      "excluded": 63994,
+      "rows": 100,
+      "leader": {
+        "entity": "Leandro Riedi · 2025",
+        "value": 348,
+        "sample": 2,
+        "proof": [
+          "live-102534",
+          "live-106602"
+        ],
+        "detail": "Derrota"
+      }
+    },
+    {
+      "id": 31,
+      "tour": "atp",
+      "title": "Edad al ganar cada categoría",
+      "status": "calculated-in-sample",
+      "eligible": 63726,
+      "excluded": 10349,
+      "rows": 100,
+      "leader": {
+        "entity": "Michael Chang · Grand Slam",
+        "value": 17.2,
+        "sample": 4,
+        "proof": [
+          "archive-82222",
+          "archive-103819",
+          "archive-108846",
+          "archive-106050"
+        ]
+      }
+    },
+    {
+      "id": 32,
+      "tour": "atp",
+      "title": "Victorias ante top 10 antes de los 20",
+      "status": "calculated-in-sample",
+      "eligible": 58923,
+      "excluded": 15152,
+      "rows": 100,
+      "leader": {
+        "entity": "Rafael Nadal",
+        "value": 14,
+        "sample": 1071,
+        "proof": [
+          "archive-132423",
+          "archive-132386",
+          "archive-132304",
+          "archive-132275",
+          "archive-132216"
+        ]
+      }
+    },
+    {
+      "id": 33,
+      "tour": "atp",
+      "title": "Años desde primera victoria hasta primer título",
+      "status": "calculated-in-sample",
+      "eligible": 10081,
+      "excluded": 63994,
+      "rows": 100,
+      "leader": {
+        "entity": "Quentin Halys",
+        "value": 3.5592791090850597,
+        "sample": 133,
+        "proof": [
+          "live-135628",
+          "live-133837",
+          "live-115310",
+          "live-91311",
+          "live-90873"
+        ]
+      }
+    },
+    {
+      "id": 34,
+      "tour": "atp",
+      "title": "Títulos antes y después de los 30",
+      "status": "calculated-in-sample",
+      "eligible": 63726,
+      "excluded": 10349,
+      "rows": 100,
+      "leader": {
+        "entity": "Novak Djokovic · antes de 30",
+        "value": 61,
+        "sample": 87,
+        "proof": [
+          "archive-145442",
+          "archive-144431",
+          "archive-144007",
+          "archive-144102",
+          "archive-148717"
+        ]
+      }
+    },
+    {
+      "id": 35,
+      "tour": "atp",
+      "title": "Duración entre primera y última victoria de Grand Slam",
+      "status": "calculated-in-sample",
+      "eligible": 10081,
+      "excluded": 63994,
+      "rows": 100,
+      "leader": {
+        "entity": "Rafael Nadal",
+        "value": 5307,
+        "sample": 7,
+        "proof": [
+          "live-25681",
+          "live-25442",
+          "live-81025",
+          "archive-148401",
+          "archive-158740"
+        ]
+      }
+    },
+    {
+      "id": 36,
+      "tour": "atp",
+      "title": "Temporadas con finales después de los 35",
+      "status": "calculated-in-sample",
+      "eligible": 63726,
+      "excluded": 10349,
+      "rows": 100,
+      "leader": {
+        "entity": "Ivo Karlovic",
+        "value": 5,
+        "sample": 13,
+        "proof": [
+          "archive-153036",
+          "archive-163424",
+          "archive-166359",
+          "archive-166305",
+          "archive-165826"
+        ]
+      }
+    },
+    {
+      "id": 37,
+      "tour": "atp",
+      "title": "Finales con mayor diferencia de edad",
+      "status": "calculated-in-sample",
+      "eligible": 63726,
+      "excluded": 10349,
+      "rows": 100,
+      "leader": {
+        "entity": "Jimmy Connors – Ken Rosewall",
+        "value": 17.9,
+        "sample": 1,
+        "proof": [
+          "archive-25420"
+        ]
+      }
+    },
+    {
+      "id": 38,
+      "tour": "atp",
+      "title": "Rendimiento por edad observada",
+      "status": "calculated-in-sample",
+      "eligible": 63726,
+      "excluded": 10349,
+      "rows": 100,
+      "leader": {
+        "entity": "Bjorn Borg · 23",
+        "value": 95.83333333333333,
+        "sample": 24,
+        "proof": [
+          "archive-45911",
+          "archive-45907",
+          "archive-45899",
+          "archive-45883",
+          "archive-45851"
+        ]
+      }
+    },
+    {
+      "id": 39,
+      "tour": "atp",
+      "title": "Mismo torneo ganado adolescente y veterano",
+      "status": "calculated-in-sample",
+      "eligible": 63726,
+      "excluded": 10349,
+      "rows": 7,
+      "leader": {
+        "entity": "Andre Agassi · Miami",
+        "value": 1,
+        "sample": 7,
+        "proof": [
+          "archive-83802",
+          "archive-98898",
+          "archive-102852",
+          "archive-113986",
+          "archive-124404"
+        ]
+      }
+    },
+    {
+      "id": 40,
+      "tour": "atp",
+      "title": "Edad media de finalistas por década",
+      "status": "calculated-in-sample",
+      "eligible": 63726,
+      "excluded": 10349,
+      "rows": 7,
+      "leader": {
+        "entity": "1960",
+        "value": 28.343749999999996,
+        "sample": 8,
+        "proof": [
+          "archive-838",
+          "archive-743",
+          "archive-496",
+          "archive-899",
+          "archive-5926"
+        ]
+      }
+    },
+    {
+      "id": 41,
+      "tour": "atp",
+      "title": "Victorias ante números uno por temporada",
+      "status": "calculated-in-sample",
+      "eligible": 58954,
+      "excluded": 15121,
+      "rows": 100,
+      "leader": {
+        "entity": "Novak Djokovic · 2011",
+        "value": 5,
+        "sample": 67,
+        "proof": [
+          "archive-157932",
+          "archive-157930",
+          "archive-157918",
+          "archive-157902",
+          "archive-157870"
+        ]
+      }
+    },
+    {
+      "id": 42,
+      "tour": "atp",
+      "title": "Títulos derrotando a varios top 10",
+      "status": "calculated-in-sample",
+      "eligible": 58954,
+      "excluded": 15121,
+      "rows": 100,
+      "leader": {
+        "entity": "Andy Murray · ATP Finals · 2016",
+        "value": 5,
+        "sample": 5,
+        "proof": [
+          "archive-173199",
+          "archive-173200",
+          "archive-173201",
+          "archive-173203",
+          "archive-173204"
+        ]
+      }
+    },
+    {
+      "id": 43,
+      "tour": "atp",
+      "title": "Ranking mediano de rivales del campeón",
+      "status": "calculated-in-sample",
+      "eligible": 58954,
+      "excluded": 15121,
+      "rows": 100,
+      "leader": {
+        "entity": "Sam Querrey · Los Cabos · 2017",
+        "value": 256,
+        "sample": 4,
+        "proof": [
+          "archive-175277",
+          "archive-175275",
+          "archive-175271",
+          "archive-175263"
+        ]
+      }
+    },
+    {
+      "id": 44,
+      "tour": "atp",
+      "title": "Victorias fuera del top 100 ante top 10",
+      "status": "calculated-in-sample",
+      "eligible": 58954,
+      "excluded": 15121,
+      "rows": 100,
+      "leader": {
+        "entity": "Borna Coric",
+        "value": 4,
+        "sample": 305,
+        "proof": [
+          "archive-163536",
+          "archive-166797",
+          "archive-166747",
+          "archive-167227",
+          "archive-167225"
+        ]
+      }
+    },
+    {
+      "id": 45,
+      "tour": "atp",
+      "title": "Mayor diferencia de ranking en una final",
+      "status": "calculated-in-sample",
+      "eligible": 58954,
+      "excluded": 15121,
+      "rows": 100,
+      "leader": {
+        "entity": "Benjamin Becker – Raemon Sluiter",
+        "value": 784,
+        "sample": 1,
+        "proof": [
+          "archive-150885"
+        ]
+      }
+    },
+    {
+      "id": 46,
+      "tour": "atp",
+      "title": "Efectividad ante top 5, 10 y 20",
+      "status": "calculated-in-sample",
+      "eligible": 58954,
+      "excluded": 15121,
+      "rows": 100,
+      "leader": {
+        "entity": "Bjorn Borg · top 20",
+        "value": 80,
+        "sample": 125,
+        "proof": [
+          "archive-25471",
+          "archive-21098",
+          "archive-21084",
+          "archive-21057",
+          "archive-21003"
+        ]
+      }
+    },
+    {
+      "id": 47,
+      "tour": "atp",
+      "title": "Victorias frente a todos los miembros de un top 10 fechado",
+      "status": "blocked",
+      "eligible": 7,
+      "excluded": 74068,
+      "rows": 0
+    },
+    {
+      "id": 48,
+      "tour": "atp",
+      "title": "Racha ante top 20 en la muestra fechada",
+      "status": "calculated-in-sample",
+      "eligible": 7,
+      "excluded": 74068,
+      "rows": 6,
+      "leader": {
+        "entity": "Novak Djokovic",
+        "value": 3,
+        "sample": 4,
+        "proof": [
+          "archive-158740",
+          "archive-180645",
+          "archive-184834",
+          "archive-187385"
+        ]
+      }
+    },
+    {
+      "id": 49,
+      "tour": "atp",
+      "title": "Elo medio por superficie con modelo fechado",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74075,
+      "rows": 0
+    },
+    {
+      "id": 50,
+      "tour": "atp",
+      "title": "Dificultad Elo del camino al título",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74075,
+      "rows": 0
+    },
+    {
+      "id": 51,
+      "tour": "atp",
+      "title": "Remontadas desde dos sets en contra",
+      "status": "calculated-in-sample",
+      "eligible": 74075,
+      "excluded": 0,
+      "rows": 100,
+      "leader": {
+        "entity": "Andy Murray",
+        "value": 10,
+        "sample": 836,
+        "proof": [
+          "live-149452",
+          "live-133185",
+          "live-116001",
+          "live-115295",
+          "live-107754"
+        ]
+      }
+    },
+    {
+      "id": 52,
+      "tour": "atp",
+      "title": "Remontadas del primer set por formato y ronda",
+      "status": "calculated-in-sample",
+      "eligible": 74075,
+      "excluded": 0,
+      "rows": 100,
+      "leader": {
+        "entity": "Fernando Verdasco · Al mejor de 3 sets · Ronda de 32",
+        "value": 35,
+        "sample": 212,
+        "proof": [
+          "archive-130873",
+          "archive-133236",
+          "archive-134373",
+          "archive-137248",
+          "archive-136521"
+        ]
+      }
+    },
+    {
+      "id": 53,
+      "tour": "atp",
+      "title": "Victorias tras recibir un 0–6",
+      "status": "calculated-in-sample",
+      "eligible": 74075,
+      "excluded": 0,
+      "rows": 100,
+      "leader": {
+        "entity": "Nikoloz Basilashvili",
+        "value": 7,
+        "sample": 320,
+        "proof": [
+          "live-43813",
+          "live-25534",
+          "live-38227",
+          "live-33963",
+          "live-32681"
+        ]
+      }
+    },
+    {
+      "id": 54,
+      "tour": "atp",
+      "title": "Victorias con diferencia negativa de juegos",
+      "status": "calculated-in-sample",
+      "eligible": 74075,
+      "excluded": 0,
+      "rows": 100,
+      "leader": {
+        "entity": "John Isner",
+        "value": 14,
+        "sample": 727,
+        "proof": [
+          "live-116000",
+          "live-115308",
+          "live-109750",
+          "live-89381",
+          "live-75149"
+        ]
+      }
+    },
+    {
+      "id": 55,
+      "tour": "atp",
+      "title": "Finales con varios tie-breaks",
+      "status": "calculated-in-sample",
+      "eligible": 74075,
+      "excluded": 0,
+      "rows": 100,
+      "leader": {
+        "entity": "Atlanta · 2013",
+        "value": 3,
+        "sample": 1,
+        "proof": [
+          "archive-163498"
+        ]
+      }
+    },
+    {
+      "id": 56,
+      "tour": "atp",
+      "title": "Campeones sin perder sets en edición certificada",
+      "status": "calculated-in-sample",
+      "eligible": 52,
+      "excluded": 74023,
+      "rows": 0
+    },
+    {
+      "id": 57,
+      "tour": "atp",
+      "title": "Campeones con todos sus partidos al set decisivo",
+      "status": "calculated-in-sample",
+      "eligible": 52,
+      "excluded": 74023,
+      "rows": 0
+    },
+    {
+      "id": 58,
+      "tour": "atp",
+      "title": "Tie-breaks por torneo y formato",
+      "status": "calculated-in-sample",
+      "eligible": 74075,
+      "excluded": 0,
+      "rows": 100,
+      "leader": {
+        "entity": "Brussels · BO3",
+        "value": 38.983050847457626,
+        "sample": 25,
+        "proof": [
+          "live-133264",
+          "live-132823",
+          "live-132806",
+          "live-132357",
+          "live-132364"
+        ]
+      }
+    },
+    {
+      "id": 59,
+      "tour": "atp",
+      "title": "Racha de sets ganados en la muestra fechada",
+      "status": "calculated-in-sample",
+      "eligible": 10081,
+      "excluded": 63994,
+      "rows": 100,
+      "leader": {
+        "entity": "Jannik Sinner",
+        "value": 27,
+        "sample": 256,
+        "proof": [
+          "live-150767",
+          "live-136687",
+          "live-135648",
+          "live-135070",
+          "live-117801"
+        ]
+      }
+    },
+    {
+      "id": 60,
+      "tour": "atp",
+      "title": "Margen medio de juegos en finales por década",
+      "status": "calculated-in-sample",
+      "eligible": 74075,
+      "excluded": 0,
+      "rows": 7,
+      "leader": {
+        "entity": "1970",
+        "value": 7.081632653061225,
+        "sample": 49,
+        "proof": [
+          "archive-9414",
+          "archive-9307",
+          "archive-9180",
+          "archive-9461",
+          "archive-16864"
+        ]
+      }
+    },
+    {
+      "id": 61,
+      "tour": "atp",
+      "title": "Balance de parejas por torneo y fecha",
+      "status": "calculated-in-sample",
+      "eligible": 10081,
+      "excluded": 63994,
+      "rows": 100,
+      "leader": {
+        "entity": "Alexander Zverev – Ben Shelton · US Open · 2026-09-13T18:20:00Z",
+        "value": 6,
+        "sample": 1,
+        "proof": [
+          "live-189546"
+        ],
+        "detail": "Ventaja acumulada del primer nombre"
+      }
+    },
+    {
+      "id": 62,
+      "tour": "atp",
+      "title": "Cambios de líder en una rivalidad",
+      "status": "calculated-in-sample",
+      "eligible": 10081,
+      "excluded": 63994,
+      "rows": 100,
+      "leader": {
+        "entity": "Adrian Mannarino – Jordan Thompson",
+        "value": 2,
+        "sample": 7,
+        "proof": [
+          "live-103815",
+          "live-97515",
+          "live-82490",
+          "live-33979",
+          "live-160533"
+        ]
+      }
+    },
+    {
+      "id": 63,
+      "tour": "atp",
+      "title": "Finales de una pareja en las tres superficies",
+      "status": "calculated-in-sample",
+      "eligible": 74075,
+      "excluded": 0,
+      "rows": 7,
+      "leader": {
+        "entity": "Andy Murray – Novak Djokovic",
+        "value": 3,
+        "sample": 18,
+        "proof": [
+          "archive-147583",
+          "archive-150177",
+          "archive-155729",
+          "archive-160972",
+          "archive-161270"
+        ]
+      }
+    },
+    {
+      "id": 64,
+      "tour": "atp",
+      "title": "Rivales derrotados en las cuatro sedes de Grand Slam",
+      "status": "calculated-in-sample",
+      "eligible": 74075,
+      "excluded": 0,
+      "rows": 20,
+      "leader": {
+        "entity": "Alexander Zverev ante Frances Tiafoe",
+        "value": 4,
+        "sample": 4,
+        "proof": [
+          "live-77226",
+          "archive-175014",
+          "archive-173430",
+          "archive-181158"
+        ]
+      }
+    },
+    {
+      "id": 65,
+      "tour": "atp",
+      "title": "Revancha tras perder la anterior final de una serie",
+      "status": "calculated-in-sample",
+      "eligible": 10081,
+      "excluded": 63994,
+      "rows": 100,
+      "leader": {
+        "entity": "Adrian Mannarino · Astana",
+        "value": 0,
+        "sample": 1,
+        "proof": [
+          "live-132352"
+        ]
+      }
+    },
+    {
+      "id": 66,
+      "tour": "atp",
+      "title": "Victorias seguidas ante un mismo rival",
+      "status": "calculated-in-sample",
+      "eligible": 10081,
+      "excluded": 63994,
+      "rows": 100,
+      "leader": {
+        "entity": "Jannik Sinner ante Alexander Zverev",
+        "value": 10,
+        "sample": 11,
+        "proof": [
+          "live-117801",
+          "live-140677",
+          "live-36682",
+          "live-137383",
+          "live-18913"
+        ]
+      }
+    },
+    {
+      "id": 67,
+      "tour": "atp",
+      "title": "Balance opuesto en tierra y dura con mínimo 5 duelos",
+      "status": "calculated-in-sample",
+      "eligible": 74075,
+      "excluded": 0,
+      "rows": 7,
+      "leader": {
+        "entity": "Andy Murray – Stan Wawrinka",
+        "value": 46.96969696969697,
+        "sample": 19,
+        "proof": [
+          "live-80655",
+          "archive-140714",
+          "archive-148517",
+          "archive-147518",
+          "archive-147395"
+        ]
+      }
+    },
+    {
+      "id": 68,
+      "tour": "atp",
+      "title": "Duelos de la misma pareja en semanas consecutivas",
+      "status": "calculated-in-sample",
+      "eligible": 10081,
+      "excluded": 63994,
+      "rows": 100,
+      "leader": {
+        "entity": "Adam Walton – Ignacio Buse",
+        "value": 1,
+        "sample": 2,
+        "proof": [
+          "live-174733",
+          "live-178287"
+        ]
+      }
+    },
+    {
+      "id": 69,
+      "tour": "atp",
+      "title": "Tiempo entre primer y último duelo",
+      "status": "calculated-in-sample",
+      "eligible": 10081,
+      "excluded": 63994,
+      "rows": 100,
+      "leader": {
+        "entity": "Novak Djokovic – Rafael Nadal",
+        "value": 3775,
+        "sample": 3,
+        "proof": [
+          "archive-158740",
+          "archive-184834",
+          "archive-187385"
+        ]
+      }
+    },
+    {
+      "id": 70,
+      "tour": "atp",
+      "title": "Rendimiento frente a zurdos y diestros",
+      "status": "blocked",
+      "eligible": 74075,
+      "excluded": 0,
+      "rows": 0
+    },
+    {
+      "id": 71,
+      "tour": "atp",
+      "title": "Primer campeón registrado de cada país y nivel",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74075,
+      "rows": 0
+    },
+    {
+      "id": 72,
+      "tour": "atp",
+      "title": "Finales entre compatriotas por década",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74075,
+      "rows": 0
+    },
+    {
+      "id": 73,
+      "tour": "atp",
+      "title": "Países con finalistas en las cuatro sedes de Grand Slam",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74075,
+      "rows": 0
+    },
+    {
+      "id": 74,
+      "tour": "atp",
+      "title": "Diversidad de países en cuartos por edición",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74075,
+      "rows": 0
+    },
+    {
+      "id": 75,
+      "tour": "atp",
+      "title": "Victorias entre generaciones de nacimiento",
+      "status": "blocked",
+      "eligible": 74075,
+      "excluded": 0,
+      "rows": 0
+    },
+    {
+      "id": 76,
+      "tour": "atp",
+      "title": "Dominio por país y década",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74075,
+      "rows": 0
+    },
+    {
+      "id": 77,
+      "tour": "atp",
+      "title": "Títulos locales y en el extranjero en una temporada",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74075,
+      "rows": 0
+    },
+    {
+      "id": 78,
+      "tour": "atp",
+      "title": "Campeones distintos por país y superficie",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74075,
+      "rows": 0
+    },
+    {
+      "id": 79,
+      "tour": "atp",
+      "title": "Países campeones ATP y WTA en una misma semana",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74075,
+      "rows": 0
+    },
+    {
+      "id": 80,
+      "tour": "atp",
+      "title": "Carreras con cambios de nacionalidad fechados",
+      "status": "blocked",
+      "eligible": 10081,
+      "excluded": 63994,
+      "rows": 0
+    },
+    {
+      "id": 81,
+      "tour": "atp",
+      "title": "Días entre semifinal y final",
+      "status": "calculated-in-sample",
+      "eligible": 10081,
+      "excluded": 63994,
+      "rows": 100,
+      "leader": {
+        "entity": "Jakub Menšik · Miami · 2025",
+        "value": 3,
+        "sample": 6,
+        "proof": [
+          "live-65975",
+          "live-65435",
+          "live-64679",
+          "live-63375",
+          "live-62450"
+        ]
+      }
+    },
+    {
+      "id": 82,
+      "tour": "atp",
+      "title": "Minutos acumulados antes de la final con cobertura completa",
+      "status": "calculated-in-sample",
+      "eligible": 10081,
+      "excluded": 63994,
+      "rows": 2,
+      "leader": {
+        "entity": "Ben Shelton · Paris · 2026",
+        "value": 435,
+        "sample": 5,
+        "proof": [
+          "live-214432",
+          "live-216535",
+          "live-216279",
+          "live-215934",
+          "live-215465"
+        ]
+      }
+    },
+    {
+      "id": 83,
+      "tour": "atp",
+      "title": "Victoria al día siguiente de disputar cinco sets",
+      "status": "calculated-in-sample",
+      "eligible": 10081,
+      "excluded": 63994,
+      "rows": 100,
+      "leader": {
+        "entity": "Roman Safiullin",
+        "value": 2,
+        "sample": 118,
+        "proof": [
+          "live-150768",
+          "live-149857",
+          "live-149455",
+          "live-135646",
+          "live-134515"
+        ]
+      }
+    },
+    {
+      "id": 84,
+      "tour": "atp",
+      "title": "Jornadas con dos victorias individuales",
+      "status": "calculated-in-sample",
+      "eligible": 10081,
+      "excluded": 63994,
+      "rows": 57,
+      "leader": {
+        "entity": "Aleksandar Vukic · 2023-07-29",
+        "value": 2,
+        "sample": 2,
+        "proof": [
+          "live-102630",
+          "live-102246"
+        ]
+      }
+    },
+    {
+      "id": 85,
+      "tour": "atp",
+      "title": "Semanas consecutivas con título",
+      "status": "calculated-in-sample",
+      "eligible": 10081,
+      "excluded": 63994,
+      "rows": 100,
+      "leader": {
+        "entity": "Daniil Medvedev",
+        "value": 3,
+        "sample": 16,
+        "proof": [
+          "live-119652",
+          "live-73023",
+          "live-53330",
+          "live-48568",
+          "live-148993"
+        ]
+      }
+    },
+    {
+      "id": 86,
+      "tour": "atp",
+      "title": "Títulos tras inactividad certificada",
+      "status": "blocked",
+      "eligible": 52,
+      "excluded": 74023,
+      "rows": 0
+    },
+    {
+      "id": 87,
+      "tour": "atp",
+      "title": "Intervalo entre títulos en continentes distintos",
+      "status": "blocked",
+      "eligible": 10081,
+      "excluded": 63994,
+      "rows": 0
+    },
+    {
+      "id": 88,
+      "tour": "atp",
+      "title": "Descanso entre torneos por era",
+      "status": "calculated-in-sample",
+      "eligible": 10081,
+      "excluded": 63994,
+      "rows": 100,
+      "leader": {
+        "entity": "John Isner · 2023",
+        "value": 4584,
+        "sample": 2,
+        "proof": [
+          "archive-154156",
+          "live-24549"
+        ]
+      }
+    },
+    {
+      "id": 89,
+      "tour": "atp",
+      "title": "Juegos acumulados hasta ganar un título",
+      "status": "calculated-in-sample",
+      "eligible": 52,
+      "excluded": 74023,
+      "rows": 1,
+      "leader": {
+        "entity": "Carlos Alcaraz · Paris · 2026",
+        "value": 101,
+        "sample": 4,
+        "proof": [
+          "live-216535",
+          "live-216324",
+          "live-216051",
+          "live-215143"
+        ]
+      }
+    },
+    {
+      "id": 90,
+      "tour": "atp",
+      "title": "Aplazamientos con fecha prevista y real",
+      "status": "blocked",
+      "eligible": 10081,
+      "excluded": 63994,
+      "rows": 0
+    },
+    {
+      "id": 91,
+      "tour": "atp",
+      "title": "Menor porcentaje de breaks concedidos en una edición",
+      "status": "calculated-in-sample",
+      "eligible": 52,
+      "excluded": 74023,
+      "rows": 0
+    },
+    {
+      "id": 92,
+      "tour": "atp",
+      "title": "Victorias con menos puntos totales que el rival",
+      "status": "calculated-in-sample",
+      "eligible": 650,
+      "excluded": 73425,
+      "rows": 100,
+      "leader": {
+        "entity": "Ben Shelton",
+        "value": 2,
+        "sample": 18,
+        "proof": [
+          "live-159612",
+          "live-73483",
+          "live-201676",
+          "live-189546",
+          "live-188711"
+        ]
+      }
+    },
+    {
+      "id": 93,
+      "tour": "atp",
+      "title": "Sets ganados sin afrontar bola de break",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74075,
+      "rows": 0
+    },
+    {
+      "id": 94,
+      "tour": "atp",
+      "title": "Victorias salvando puntos de partido observados",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74075,
+      "rows": 0
+    },
+    {
+      "id": 95,
+      "tour": "atp",
+      "title": "Secuencias de breaks consecutivos",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74075,
+      "rows": 0
+    },
+    {
+      "id": 96,
+      "tour": "atp",
+      "title": "Rendimiento al servir para cerrar un partido",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74075,
+      "rows": 0
+    },
+    {
+      "id": 97,
+      "tour": "atp",
+      "title": "Tie-breaks remontados desde cinco puntos abajo",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74075,
+      "rows": 0
+    },
+    {
+      "id": 98,
+      "tour": "atp",
+      "title": "Longitud observada de intercambios por superficie",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74075,
+      "rows": 0
+    },
+    {
+      "id": 99,
+      "tour": "atp",
+      "title": "Ventaja del sacador por régimen reglamentario",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74075,
+      "rows": 0
+    },
+    {
+      "id": 100,
+      "tour": "atp",
+      "title": "Registro de hitos certificados",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74075,
+      "rows": 0
+    },
+    {
+      "id": 1,
+      "tour": "wta",
+      "title": "Victorias de Grand Slam por temporada",
+      "status": "calculated-in-sample",
+      "eligible": 74106,
+      "excluded": 0,
+      "rows": 100,
+      "leader": {
+        "entity": "Martina Hingis · 1997",
+        "value": 27,
+        "sample": 28,
+        "proof": [
+          "wta-archive-933921",
+          "wta-archive-933919",
+          "wta-archive-933915",
+          "wta-archive-933907",
+          "wta-archive-933891"
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "tour": "wta",
+      "title": "Finales en las cuatro sedes de Grand Slam",
+      "status": "calculated-in-sample",
+      "eligible": 74106,
+      "excluded": 0,
+      "rows": 9,
+      "leader": {
+        "entity": "Chris Evert · 1984",
+        "value": 4,
+        "sample": 4,
+        "proof": [
+          "wta-archive-898686",
+          "wta-archive-899067",
+          "wta-archive-898940",
+          "wta-archive-898813"
+        ]
+      }
+    },
+    {
+      "id": 3,
+      "tour": "wta",
+      "title": "Semifinales en las cuatro sedes de Grand Slam",
+      "status": "calculated-in-sample",
+      "eligible": 74106,
+      "excluded": 0,
+      "rows": 27,
+      "leader": {
+        "entity": "Aryna Sabalenka · 2023",
+        "value": 4,
+        "sample": 4,
+        "proof": [
+          "wta-live-28209",
+          "wta-live-78998",
+          "wta-live-94083",
+          "wta-live-118986"
+        ]
+      }
+    },
+    {
+      "id": 4,
+      "tour": "wta",
+      "title": "Balance anual con mínimo 20 partidos",
+      "status": "calculated-in-sample",
+      "eligible": 74106,
+      "excluded": 0,
+      "rows": 100,
+      "leader": {
+        "entity": "Margaret Court · 1970",
+        "value": 100,
+        "sample": 23,
+        "proof": [
+          "wta-archive-858976",
+          "wta-archive-858974",
+          "wta-archive-858970",
+          "wta-archive-858962",
+          "wta-archive-858946"
+        ]
+      }
+    },
+    {
+      "id": 5,
+      "tour": "wta",
+      "title": "Mejora interanual de efectividad",
+      "status": "calculated-in-sample",
+      "eligible": 74106,
+      "excluded": 0,
+      "rows": 100,
+      "leader": {
+        "entity": "Su-Wei Hsieh · 2018",
+        "value": 39.015151515151516,
+        "sample": 46,
+        "proof": [
+          "wta-archive-992031",
+          "wta-archive-991964",
+          "wta-archive-991944",
+          "wta-archive-991904",
+          "wta-archive-992325"
+        ],
+        "detail": "Diferencia en puntos porcentuales; mínimo 20 en ambos años"
+      }
+    },
+    {
+      "id": 6,
+      "tour": "wta",
+      "title": "Años consecutivos con título por nivel",
+      "status": "calculated-in-sample",
+      "eligible": 74106,
+      "excluded": 0,
+      "rows": 100,
+      "leader": {
+        "entity": "Chris Evert · Grand Slam",
+        "value": 13,
+        "sample": 34,
+        "proof": [
+          "wta-archive-870431",
+          "wta-archive-867604",
+          "wta-archive-867509",
+          "wta-archive-870589",
+          "wta-archive-870494"
+        ]
+      }
+    },
+    {
+      "id": 7,
+      "tour": "wta",
+      "title": "Victorias en cuatro décadas",
+      "status": "calculated-in-sample",
+      "eligible": 74106,
+      "excluded": 0,
+      "rows": 4,
+      "leader": {
+        "entity": "Kimiko Date Krumm",
+        "value": 4,
+        "sample": 239,
+        "proof": [
+          "wta-archive-912236",
+          "wta-archive-912099",
+          "wta-archive-912010",
+          "wta-archive-911951",
+          "wta-archive-914997"
+        ]
+      }
+    },
+    {
+      "id": 8,
+      "tour": "wta",
+      "title": "Distancia entre primera y última final",
+      "status": "calculated-in-sample",
+      "eligible": 9549,
+      "excluded": 64557,
+      "rows": 78,
+      "leader": {
+        "entity": "Petra Kvitova",
+        "value": 2793,
+        "sample": 3,
+        "proof": [
+          "wta-live-86736",
+          "wta-live-53082",
+          "reference-wta-finals-2015-15"
+        ]
+      }
+    },
+    {
+      "id": 9,
+      "tour": "wta",
+      "title": "Éxito en tres superficies durante una temporada",
+      "status": "calculated-in-sample",
+      "eligible": 74106,
+      "excluded": 0,
+      "rows": 37,
+      "leader": {
+        "entity": "Martina Navratilova · 1984",
+        "value": 4,
+        "sample": 29,
+        "proof": [
+          "wta-archive-898684",
+          "wta-archive-898680",
+          "wta-archive-898672",
+          "wta-archive-898656",
+          "wta-archive-898624"
+        ]
+      }
+    },
+    {
+      "id": 10,
+      "tour": "wta",
+      "title": "Consistencia de cinco temporadas consecutivas",
+      "status": "calculated-in-sample",
+      "eligible": 74106,
+      "excluded": 0,
+      "rows": 100,
+      "leader": {
+        "entity": "Leylah Fernandez · 2022–2026",
+        "value": 0.9822494894279139,
+        "sample": 230,
+        "proof": [
+          "wta-archive-1002894",
+          "wta-archive-1003729",
+          "wta-archive-1003771",
+          "wta-archive-1003792",
+          "wta-archive-1003803"
+        ],
+        "detail": "Desviación estándar de efectividad; menor = más consistente"
+      }
+    },
+    {
+      "id": 11,
+      "tour": "wta",
+      "title": "Títulos por participación en una serie",
+      "status": "calculated-in-sample",
+      "eligible": 74106,
+      "excluded": 0,
+      "rows": 100,
+      "leader": {
+        "entity": "Adriana Gersi · Basle",
+        "value": 100,
+        "sample": 5,
+        "proof": [
+          "wta-archive-947818",
+          "wta-archive-947817",
+          "wta-archive-947815",
+          "wta-archive-947810",
+          "wta-archive-947801"
+        ]
+      }
+    },
+    {
+      "id": 12,
+      "tour": "wta",
+      "title": "Títulos consecutivos en una serie",
+      "status": "calculated-in-sample",
+      "eligible": 74106,
+      "excluded": 0,
+      "rows": 100,
+      "leader": {
+        "entity": "Martina Navratilova · Wimbledon",
+        "value": 6,
+        "sample": 133,
+        "proof": [
+          "wta-archive-867584",
+          "wta-archive-867563",
+          "wta-archive-867536",
+          "wta-archive-870498",
+          "wta-archive-873411"
+        ]
+      }
+    },
+    {
+      "id": 13,
+      "tour": "wta",
+      "title": "Finales perdidas antes del primer título",
+      "status": "calculated-in-sample",
+      "eligible": 9549,
+      "excluded": 64557,
+      "rows": 100,
+      "leader": {
+        "entity": "Daria Kasatkina",
+        "value": 5,
+        "sample": 8,
+        "proof": [
+          "wta-live-25308",
+          "wta-live-88887",
+          "wta-live-29337",
+          "wta-live-40814",
+          "wta-live-62506"
+        ]
+      }
+    },
+    {
+      "id": 14,
+      "tour": "wta",
+      "title": "Ganadores de la última edición de torneos desaparecidos",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74106,
+      "rows": 0
+    },
+    {
+      "id": 15,
+      "tour": "wta",
+      "title": "Campeones antes y después de un cambio de sede",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74106,
+      "rows": 0
+    },
+    {
+      "id": 16,
+      "tour": "wta",
+      "title": "Intervalo entre títulos de una serie",
+      "status": "calculated-in-sample",
+      "eligible": 9549,
+      "excluded": 64557,
+      "rows": 100,
+      "leader": {
+        "entity": "Coco Gauff · Cincinnati",
+        "value": 1099,
+        "sample": 2,
+        "proof": [
+          "wta-live-112024",
+          "wta-live-177496"
+        ]
+      }
+    },
+    {
+      "id": 17,
+      "tour": "wta",
+      "title": "Título en la primera participación registrada",
+      "status": "calculated-in-sample",
+      "eligible": 74106,
+      "excluded": 0,
+      "rows": 100,
+      "leader": {
+        "entity": "Adriana Gersi · Basle",
+        "value": 1,
+        "sample": 5,
+        "proof": [
+          "wta-archive-947818",
+          "wta-archive-947817",
+          "wta-archive-947815",
+          "wta-archive-947810",
+          "wta-archive-947801"
+        ]
+      }
+    },
+    {
+      "id": 18,
+      "tour": "wta",
+      "title": "Ronda alcanzada por participación",
+      "status": "calculated-in-sample",
+      "eligible": 74106,
+      "excluded": 0,
+      "rows": 100,
+      "leader": {
+        "entity": "Adriana Gersi · Basle · 2001",
+        "value": 8,
+        "sample": 5,
+        "proof": [
+          "wta-archive-947818",
+          "wta-archive-947817",
+          "wta-archive-947815",
+          "wta-archive-947810",
+          "wta-archive-947801"
+        ]
+      }
+    },
+    {
+      "id": 19,
+      "tour": "wta",
+      "title": "Campeones diferentes por torneo y década",
+      "status": "calculated-in-sample",
+      "eligible": 74106,
+      "excluded": 0,
+      "rows": 100,
+      "leader": {
+        "entity": "Linz · 2010",
+        "value": 10,
+        "sample": 10,
+        "proof": [
+          "wta-archive-971407",
+          "wta-archive-974191",
+          "wta-archive-977013",
+          "wta-archive-979756",
+          "wta-archive-982507"
+        ]
+      }
+    },
+    {
+      "id": 20,
+      "tour": "wta",
+      "title": "Concentración de títulos en los tres mayores ganadores",
+      "status": "calculated-in-sample",
+      "eligible": 74106,
+      "excluded": 0,
+      "rows": 100,
+      "leader": {
+        "entity": "'s-Hertogenbosch",
+        "value": 100,
+        "sample": 4,
+        "proof": [
+          "wta-archive-962096",
+          "wta-archive-964905",
+          "wta-archive-967727",
+          "wta-archive-969199"
+        ]
+      }
+    },
+    {
+      "id": 21,
+      "tour": "wta",
+      "title": "Títulos en superficies distintas en semanas consecutivas",
+      "status": "calculated-in-sample",
+      "eligible": 9549,
+      "excluded": 64557,
+      "rows": 100,
+      "leader": {
+        "entity": "Danielle Collins",
+        "value": 1,
+        "sample": 3,
+        "proof": [
+          "wta-live-59199",
+          "wta-live-62506",
+          "wta-live-80559"
+        ]
+      }
+    },
+    {
+      "id": 22,
+      "tour": "wta",
+      "title": "Primer partido tras cambiar de superficie",
+      "status": "calculated-in-sample",
+      "eligible": 9549,
+      "excluded": 64557,
+      "rows": 100,
+      "leader": {
+        "entity": "Anastasia Gasanova",
+        "value": 100,
+        "sample": 3,
+        "proof": [
+          "wta-live-117021",
+          "wta-live-15520",
+          "wta-live-16159"
+        ]
+      }
+    },
+    {
+      "id": 23,
+      "tour": "wta",
+      "title": "Racha de victorias por superficie en el archivo",
+      "status": "calculated-in-sample",
+      "eligible": 9549,
+      "excluded": 64557,
+      "rows": 100,
+      "leader": {
+        "entity": "Iga Swiatek · clay",
+        "value": 20,
+        "sample": 72,
+        "proof": [
+          "wta-live-61880",
+          "wta-live-62416",
+          "wta-live-62967",
+          "wta-live-65257",
+          "wta-live-65850"
+        ]
+      }
+    },
+    {
+      "id": 24,
+      "tour": "wta",
+      "title": "Especialización con mínimo 20 partidos por superficie",
+      "status": "calculated-in-sample",
+      "eligible": 74106,
+      "excluded": 0,
+      "rows": 100,
+      "leader": {
+        "entity": "Tamarine Tanasugarn",
+        "value": 45.027752081406106,
+        "sample": 438,
+        "proof": [
+          "wta-archive-929393",
+          "wta-archive-929373",
+          "wta-archive-933900",
+          "wta-archive-933877",
+          "wta-archive-933831"
+        ]
+      }
+    },
+    {
+      "id": 25,
+      "tour": "wta",
+      "title": "Títulos indoor y outdoor en una temporada",
+      "status": "calculated-in-sample",
+      "eligible": 74106,
+      "excluded": 0,
+      "rows": 7,
+      "leader": {
+        "entity": "Belinda Bencic · 2025",
+        "value": 2,
+        "sample": 2,
+        "proof": [
+          "wta-live-43254",
+          "wta-live-137404"
+        ]
+      }
+    },
+    {
+      "id": 26,
+      "tour": "wta",
+      "title": "Hierba antes y después de Wimbledon",
+      "status": "blocked",
+      "eligible": 9549,
+      "excluded": 64557,
+      "rows": 0
+    },
+    {
+      "id": 27,
+      "tour": "wta",
+      "title": "Victoria tras derrota con margen de 10 juegos",
+      "status": "calculated-in-sample",
+      "eligible": 9549,
+      "excluded": 64557,
+      "rows": 100,
+      "leader": {
+        "entity": "Tatjana Maria",
+        "value": 7,
+        "sample": 159,
+        "proof": [
+          "wta-live-23874",
+          "wta-live-24835",
+          "wta-live-25728",
+          "wta-live-30188",
+          "wta-live-31167"
+        ]
+      }
+    },
+    {
+      "id": 28,
+      "tour": "wta",
+      "title": "Sets decisivos por superficie y década",
+      "status": "calculated-in-sample",
+      "eligible": 74106,
+      "excluded": 0,
+      "rows": 25,
+      "leader": {
+        "entity": "carpet · 1990",
+        "value": 37.414965986394556,
+        "sample": 147,
+        "proof": [
+          "wta-archive-916259",
+          "wta-archive-916260",
+          "wta-archive-916261",
+          "wta-archive-916262",
+          "wta-archive-916263"
+        ]
+      }
+    },
+    {
+      "id": 29,
+      "tour": "wta",
+      "title": "Victoria con menos juegos por superficie",
+      "status": "calculated-in-sample",
+      "eligible": 74106,
+      "excluded": 0,
+      "rows": 100,
+      "leader": {
+        "entity": "Daniela Hantuchova · hard",
+        "value": 9,
+        "sample": 500,
+        "proof": [
+          "wta-archive-943608",
+          "wta-archive-944984",
+          "wta-archive-946042",
+          "wta-archive-945675",
+          "wta-archive-946376"
+        ]
+      }
+    },
+    {
+      "id": 30,
+      "tour": "wta",
+      "title": "Cambio de tierra a hierba por días de descanso",
+      "status": "calculated-in-sample",
+      "eligible": 9549,
+      "excluded": 64557,
+      "rows": 100,
+      "leader": {
+        "entity": "Anastasia Gasanova · 2026",
+        "value": 342,
+        "sample": 2,
+        "proof": [
+          "wta-live-117021",
+          "wta-live-15520"
+        ],
+        "detail": "Victoria"
+      }
+    },
+    {
+      "id": 31,
+      "tour": "wta",
+      "title": "Edad al ganar cada categoría",
+      "status": "calculated-in-sample",
+      "eligible": 64097,
+      "excluded": 10009,
+      "rows": 100,
+      "leader": {
+        "entity": "Nicole Vaidisova · WTA 250",
+        "value": 15.2,
+        "sample": 6,
+        "proof": [
+          "wta-archive-956806",
+          "wta-archive-956899",
+          "wta-archive-959278",
+          "wta-archive-959307",
+          "wta-archive-959555"
+        ]
+      }
+    },
+    {
+      "id": 32,
+      "tour": "wta",
+      "title": "Victorias ante top 10 antes de los 20",
+      "status": "calculated-in-sample",
+      "eligible": 58350,
+      "excluded": 15756,
+      "rows": 100,
+      "leader": {
+        "entity": "Martina Hingis",
+        "value": 35,
+        "sample": 415,
+        "proof": [
+          "wta-archive-928648",
+          "wta-archive-928636",
+          "wta-archive-928612",
+          "wta-archive-928563",
+          "wta-archive-928406"
+        ]
+      }
+    },
+    {
+      "id": 33,
+      "tour": "wta",
+      "title": "Años desde primera victoria hasta primer título",
+      "status": "calculated-in-sample",
+      "eligible": 9549,
+      "excluded": 64557,
+      "rows": 100,
+      "leader": {
+        "entity": "Petra Kvitova",
+        "value": 7.425203802952833,
+        "sample": 54,
+        "proof": [
+          "wta-live-24493",
+          "wta-live-25075",
+          "wta-live-25471",
+          "wta-live-25731",
+          "wta-live-35660"
+        ]
+      }
+    },
+    {
+      "id": 34,
+      "tour": "wta",
+      "title": "Títulos antes y después de los 30",
+      "status": "calculated-in-sample",
+      "eligible": 64097,
+      "excluded": 10009,
+      "rows": 100,
+      "leader": {
+        "entity": "Kim Clijsters · antes de 30",
+        "value": 39,
+        "sample": 56,
+        "proof": [
+          "wta-archive-943950",
+          "wta-archive-943923",
+          "wta-archive-944813",
+          "wta-archive-945880",
+          "wta-archive-946475"
+        ]
+      }
+    },
+    {
+      "id": 35,
+      "tour": "wta",
+      "title": "Duración entre primera y última victoria de Grand Slam",
+      "status": "calculated-in-sample",
+      "eligible": 9549,
+      "excluded": 64557,
+      "rows": 100,
+      "leader": {
+        "entity": "Elena Rybakina",
+        "value": 1335,
+        "sample": 62,
+        "proof": [
+          "wta-live-25484",
+          "wta-live-25753",
+          "wta-live-26230",
+          "wta-live-26622",
+          "wta-live-27007"
+        ]
+      }
+    },
+    {
+      "id": 36,
+      "tour": "wta",
+      "title": "Temporadas con finales después de los 35",
+      "status": "calculated-in-sample",
+      "eligible": 64097,
+      "excluded": 10009,
+      "rows": 100,
+      "leader": {
+        "entity": "Serena Williams",
+        "value": 4,
+        "sample": 89,
+        "proof": [
+          "wta-archive-939787",
+          "wta-archive-943977",
+          "wta-archive-944139",
+          "wta-archive-943869",
+          "wta-archive-943815"
+        ]
+      }
+    },
+    {
+      "id": 37,
+      "tour": "wta",
+      "title": "Finales con mayor diferencia de edad",
+      "status": "calculated-in-sample",
+      "eligible": 64097,
+      "excluded": 10009,
+      "rows": 100,
+      "leader": {
+        "entity": "Bianca Andreescu – Serena Williams",
+        "value": 18.799999999999997,
+        "sample": 1,
+        "proof": [
+          "wta-archive-997788"
+        ]
+      }
+    },
+    {
+      "id": 38,
+      "tour": "wta",
+      "title": "Rendimiento por edad observada",
+      "status": "calculated-in-sample",
+      "eligible": 64097,
+      "excluded": 10009,
+      "rows": 100,
+      "leader": {
+        "entity": "Margaret Court · 27",
+        "value": 100,
+        "sample": 18,
+        "proof": [
+          "wta-archive-856004",
+          "wta-archive-856003",
+          "wta-archive-856001",
+          "wta-archive-855989",
+          "wta-archive-855973"
+        ]
+      }
+    },
+    {
+      "id": 39,
+      "tour": "wta",
+      "title": "Mismo torneo ganado adolescente y veterano",
+      "status": "calculated-in-sample",
+      "eligible": 64097,
+      "excluded": 10009,
+      "rows": 7,
+      "leader": {
+        "entity": "Chris Evert · Roland Garros",
+        "value": 1,
+        "sample": 9,
+        "proof": [
+          "wta-archive-867509",
+          "wta-archive-870494",
+          "wta-archive-873319",
+          "wta-archive-883321",
+          "wta-archive-885741"
+        ]
+      }
+    },
+    {
+      "id": 40,
+      "tour": "wta",
+      "title": "Edad media de finalistas por década",
+      "status": "calculated-in-sample",
+      "eligible": 64097,
+      "excluded": 10009,
+      "rows": 7,
+      "leader": {
+        "entity": "1960",
+        "value": 26.6875,
+        "sample": 8,
+        "proof": [
+          "wta-archive-853020",
+          "wta-archive-852957",
+          "wta-archive-852862",
+          "wta-archive-852767",
+          "wta-archive-856004"
+        ]
+      }
+    },
+    {
+      "id": 41,
+      "tour": "wta",
+      "title": "Victorias ante números uno por temporada",
+      "status": "calculated-in-sample",
+      "eligible": 58361,
+      "excluded": 15745,
+      "rows": 100,
+      "leader": {
+        "entity": "Belinda Bencic · 2019",
+        "value": 3,
+        "sample": 64,
+        "proof": [
+          "wta-archive-997823",
+          "wta-archive-997870",
+          "wta-archive-997893",
+          "wta-archive-997448",
+          "wta-archive-997492"
+        ]
+      }
+    },
+    {
+      "id": 42,
+      "tour": "wta",
+      "title": "Títulos derrotando a varios top 10",
+      "status": "calculated-in-sample",
+      "eligible": 58361,
+      "excluded": 15745,
+      "rows": 100,
+      "leader": {
+        "entity": "Elina Svitolina · WTA Finals · 2018",
+        "value": 5,
+        "sample": 5,
+        "proof": [
+          "wta-archive-993660",
+          "wta-archive-993662",
+          "wta-archive-993664",
+          "wta-archive-993672",
+          "wta-archive-993674"
+        ]
+      }
+    },
+    {
+      "id": 43,
+      "tour": "wta",
+      "title": "Ranking mediano de rivales del campeón",
+      "status": "calculated-in-sample",
+      "eligible": 58361,
+      "excluded": 15745,
+      "rows": 100,
+      "leader": {
+        "entity": "Sloane Stephens · Guadalajara · 2022",
+        "value": 276.5,
+        "sample": 4,
+        "proof": [
+          "wta-archive-1003079",
+          "wta-archive-1003082",
+          "wta-archive-1003087",
+          "wta-archive-1003097"
+        ]
+      }
+    },
+    {
+      "id": 44,
+      "tour": "wta",
+      "title": "Victorias fuera del top 100 ante top 10",
+      "status": "calculated-in-sample",
+      "eligible": 58361,
+      "excluded": 15745,
+      "rows": 100,
+      "leader": {
+        "entity": "Tsvetana Pironkova",
+        "value": 5,
+        "sample": 370,
+        "proof": [
+          "wta-archive-959305",
+          "wta-archive-959302",
+          "wta-archive-959296",
+          "wta-archive-959285",
+          "wta-archive-959664"
+        ]
+      }
+    },
+    {
+      "id": 45,
+      "tour": "wta",
+      "title": "Mayor diferencia de ranking en una final",
+      "status": "calculated-in-sample",
+      "eligible": 58361,
+      "excluded": 15745,
+      "rows": 100,
+      "leader": {
+        "entity": "Anabel Medina Garrigues – Fabiola Zuluaga",
+        "value": 455,
+        "sample": 1,
+        "proof": [
+          "wta-archive-953455"
+        ]
+      }
+    },
+    {
+      "id": 46,
+      "tour": "wta",
+      "title": "Efectividad ante top 5, 10 y 20",
+      "status": "calculated-in-sample",
+      "eligible": 58361,
+      "excluded": 15745,
+      "rows": 100,
+      "leader": {
+        "entity": "Steffi Graf · top 20",
+        "value": 79.16666666666667,
+        "sample": 326,
+        "proof": [
+          "wta-archive-898677",
+          "wta-archive-898666",
+          "wta-archive-898644",
+          "wta-archive-898991",
+          "wta-archive-898930"
+        ]
+      }
+    },
+    {
+      "id": 47,
+      "tour": "wta",
+      "title": "Victorias frente a todos los miembros de un top 10 fechado",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74106,
+      "rows": 0
+    },
+    {
+      "id": 48,
+      "tour": "wta",
+      "title": "Racha ante top 20 en la muestra fechada",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74106,
+      "rows": 0
+    },
+    {
+      "id": 49,
+      "tour": "wta",
+      "title": "Elo medio por superficie con modelo fechado",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74106,
+      "rows": 0
+    },
+    {
+      "id": 50,
+      "tour": "wta",
+      "title": "Dificultad Elo del camino al título",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74106,
+      "rows": 0
+    },
+    {
+      "id": 51,
+      "tour": "wta",
+      "title": "Remontadas desde dos sets en contra",
+      "status": "calculated-in-sample",
+      "eligible": 74106,
+      "excluded": 0,
+      "rows": 100,
+      "leader": {
+        "entity": "A. Ibragimova",
+        "value": 0,
+        "sample": 1,
+        "proof": [
+          "wta-live-210367"
+        ]
+      }
+    },
+    {
+      "id": 52,
+      "tour": "wta",
+      "title": "Remontadas del primer set por formato y ronda",
+      "status": "calculated-in-sample",
+      "eligible": 74106,
+      "excluded": 0,
+      "rows": 100,
+      "leader": {
+        "entity": "Daniela Hantuchova · Al mejor de 3 sets · Ronda de 32",
+        "value": 33,
+        "sample": 248,
+        "proof": [
+          "wta-archive-944452",
+          "wta-archive-944351",
+          "wta-archive-944580",
+          "wta-archive-944984",
+          "wta-archive-944601"
+        ]
+      }
+    },
+    {
+      "id": 53,
+      "tour": "wta",
+      "title": "Victorias tras recibir un 0–6",
+      "status": "calculated-in-sample",
+      "eligible": 74106,
+      "excluded": 0,
+      "rows": 100,
+      "leader": {
+        "entity": "Angelique Kerber",
+        "value": 6,
+        "sample": 664,
+        "proof": [
+          "wta-live-30355",
+          "wta-live-35985",
+          "wta-live-51207",
+          "wta-live-52382",
+          "wta-live-55603"
+        ]
+      }
+    },
+    {
+      "id": 54,
+      "tour": "wta",
+      "title": "Victorias con diferencia negativa de juegos",
+      "status": "calculated-in-sample",
+      "eligible": 74106,
+      "excluded": 0,
+      "rows": 100,
+      "leader": {
+        "entity": "Caroline Garcia",
+        "value": 13,
+        "sample": 537,
+        "proof": [
+          "wta-live-24847",
+          "wta-live-25078",
+          "wta-live-25556",
+          "wta-live-25946",
+          "wta-live-26461"
+        ]
+      }
+    },
+    {
+      "id": 55,
+      "tour": "wta",
+      "title": "Finales con varios tie-breaks",
+      "status": "calculated-in-sample",
+      "eligible": 74106,
+      "excluded": 0,
+      "rows": 24,
+      "leader": {
+        "entity": "Strasbourg · 2022",
+        "value": 3,
+        "sample": 1,
+        "proof": [
+          "wta-archive-1003655"
+        ]
+      }
+    },
+    {
+      "id": 56,
+      "tour": "wta",
+      "title": "Campeones sin perder sets en edición certificada",
+      "status": "calculated-in-sample",
+      "eligible": 151,
+      "excluded": 73955,
+      "rows": 0
+    },
+    {
+      "id": 57,
+      "tour": "wta",
+      "title": "Campeones con todos sus partidos al set decisivo",
+      "status": "calculated-in-sample",
+      "eligible": 151,
+      "excluded": 73955,
+      "rows": 0
+    },
+    {
+      "id": 58,
+      "tour": "wta",
+      "title": "Tie-breaks por torneo y formato",
+      "status": "calculated-in-sample",
+      "eligible": 74106,
+      "excluded": 0,
+      "rows": 100,
+      "leader": {
+        "entity": "Iasi, Romania · BO3",
+        "value": 50,
+        "sample": 1,
+        "proof": [
+          "wta-live-19454"
+        ]
+      }
+    },
+    {
+      "id": 59,
+      "tour": "wta",
+      "title": "Racha de sets ganados en la muestra fechada",
+      "status": "calculated-in-sample",
+      "eligible": 9549,
+      "excluded": 64557,
+      "rows": 100,
+      "leader": {
+        "entity": "Aryna Sabalenka",
+        "value": 22,
+        "sample": 267,
+        "proof": [
+          "wta-live-24010",
+          "wta-live-24235",
+          "wta-live-24334",
+          "wta-live-24417",
+          "wta-live-25553"
+        ]
+      }
+    },
+    {
+      "id": 60,
+      "tour": "wta",
+      "title": "Margen medio de juegos en finales por década",
+      "status": "calculated-in-sample",
+      "eligible": 74106,
+      "excluded": 0,
+      "rows": 7,
+      "leader": {
+        "entity": "1960",
+        "value": 6.125,
+        "sample": 8,
+        "proof": [
+          "wta-archive-853020",
+          "wta-archive-852957",
+          "wta-archive-852862",
+          "wta-archive-852767",
+          "wta-archive-856004"
+        ]
+      }
+    },
+    {
+      "id": 61,
+      "tour": "wta",
+      "title": "Balance de parejas por torneo y fecha",
+      "status": "calculated-in-sample",
+      "eligible": 9549,
+      "excluded": 64557,
+      "rows": 100,
+      "leader": {
+        "entity": "Aryna Sabalenka – Qinwen Zheng · Miami · 2026-03-23T21:15:00Z",
+        "value": 7,
+        "sample": 1,
+        "proof": [
+          "wta-live-70"
+        ],
+        "detail": "Ventaja acumulada del primer nombre"
+      }
+    },
+    {
+      "id": 62,
+      "tour": "wta",
+      "title": "Cambios de líder en una rivalidad",
+      "status": "calculated-in-sample",
+      "eligible": 9549,
+      "excluded": 64557,
+      "rows": 100,
+      "leader": {
+        "entity": "Coco Gauff – Jessica Pegula",
+        "value": 2,
+        "sample": 10,
+        "proof": [
+          "wta-live-88383",
+          "wta-live-108405",
+          "wta-live-93192",
+          "wta-live-129037",
+          "wta-live-17612"
+        ]
+      }
+    },
+    {
+      "id": 63,
+      "tour": "wta",
+      "title": "Finales de una pareja en las tres superficies",
+      "status": "calculated-in-sample",
+      "eligible": 74106,
+      "excluded": 0,
+      "rows": 8,
+      "leader": {
+        "entity": "Arantxa Sanchez Vicario – Steffi Graf",
+        "value": 3,
+        "sample": 8,
+        "proof": [
+          "wta-archive-912067",
+          "wta-archive-926044",
+          "wta-archive-925663",
+          "wta-archive-928532",
+          "wta-archive-928405"
+        ]
+      }
+    },
+    {
+      "id": 64,
+      "tour": "wta",
+      "title": "Rivales derrotados en las cuatro sedes de Grand Slam",
+      "status": "calculated-in-sample",
+      "eligible": 74106,
+      "excluded": 0,
+      "rows": 29,
+      "leader": {
+        "entity": "Arantxa Sanchez Vicario ante Naoko Sawamatsu",
+        "value": 4,
+        "sample": 4,
+        "proof": [
+          "wta-archive-920557",
+          "wta-archive-922912",
+          "wta-archive-928272",
+          "wta-archive-931105"
+        ]
+      }
+    },
+    {
+      "id": 65,
+      "tour": "wta",
+      "title": "Revancha tras perder la anterior final de una serie",
+      "status": "calculated-in-sample",
+      "eligible": 9549,
+      "excluded": 64557,
+      "rows": 100,
+      "leader": {
+        "entity": "Elena Rybakina · Australian Open",
+        "value": 1,
+        "sample": 2,
+        "proof": [
+          "wta-live-28958",
+          "wta-live-208788"
+        ]
+      }
+    },
+    {
+      "id": 66,
+      "tour": "wta",
+      "title": "Victorias seguidas ante un mismo rival",
+      "status": "calculated-in-sample",
+      "eligible": 9549,
+      "excluded": 64557,
+      "rows": 100,
+      "leader": {
+        "entity": "Aryna Sabalenka ante Qinwen Zheng",
+        "value": 6,
+        "sample": 9,
+        "proof": [
+          "wta-live-118231",
+          "wta-live-34849",
+          "wta-live-131858",
+          "wta-live-155791",
+          "wta-live-63972"
+        ]
+      }
+    },
+    {
+      "id": 67,
+      "tour": "wta",
+      "title": "Balance opuesto en tierra y dura con mínimo 5 duelos",
+      "status": "calculated-in-sample",
+      "eligible": 74106,
+      "excluded": 0,
+      "rows": 6,
+      "leader": {
+        "entity": "Carla Suarez Navarro – Simona Halep",
+        "value": 63.33333333333333,
+        "sample": 12,
+        "proof": [
+          "wta-archive-971597",
+          "wta-archive-976457",
+          "wta-archive-978131",
+          "wta-archive-978514",
+          "wta-archive-977195"
+        ]
+      }
+    },
+    {
+      "id": 68,
+      "tour": "wta",
+      "title": "Duelos de la misma pareja en semanas consecutivas",
+      "status": "calculated-in-sample",
+      "eligible": 9549,
+      "excluded": 64557,
+      "rows": 100,
+      "leader": {
+        "entity": "Alexandra Eala – Diana Shnaider",
+        "value": 1,
+        "sample": 2,
+        "proof": [
+          "wta-live-207187",
+          "wta-live-212135"
+        ]
+      }
+    },
+    {
+      "id": 69,
+      "tour": "wta",
+      "title": "Tiempo entre primer y último duelo",
+      "status": "calculated-in-sample",
+      "eligible": 9549,
+      "excluded": 64557,
+      "rows": 100,
+      "leader": {
+        "entity": "Jessica Pegula – Marta Kostyuk",
+        "value": 1390,
+        "sample": 7,
+        "proof": [
+          "wta-live-26231",
+          "wta-live-49493",
+          "wta-live-63387",
+          "wta-live-30178",
+          "wta-live-2188"
+        ]
+      }
+    },
+    {
+      "id": 70,
+      "tour": "wta",
+      "title": "Rendimiento frente a zurdos y diestros",
+      "status": "blocked",
+      "eligible": 74106,
+      "excluded": 0,
+      "rows": 0
+    },
+    {
+      "id": 71,
+      "tour": "wta",
+      "title": "Primer campeón registrado de cada país y nivel",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74106,
+      "rows": 0
+    },
+    {
+      "id": 72,
+      "tour": "wta",
+      "title": "Finales entre compatriotas por década",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74106,
+      "rows": 0
+    },
+    {
+      "id": 73,
+      "tour": "wta",
+      "title": "Países con finalistas en las cuatro sedes de Grand Slam",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74106,
+      "rows": 0
+    },
+    {
+      "id": 74,
+      "tour": "wta",
+      "title": "Diversidad de países en cuartos por edición",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74106,
+      "rows": 0
+    },
+    {
+      "id": 75,
+      "tour": "wta",
+      "title": "Victorias entre generaciones de nacimiento",
+      "status": "blocked",
+      "eligible": 74106,
+      "excluded": 0,
+      "rows": 0
+    },
+    {
+      "id": 76,
+      "tour": "wta",
+      "title": "Dominio por país y década",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74106,
+      "rows": 0
+    },
+    {
+      "id": 77,
+      "tour": "wta",
+      "title": "Títulos locales y en el extranjero en una temporada",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74106,
+      "rows": 0
+    },
+    {
+      "id": 78,
+      "tour": "wta",
+      "title": "Campeones distintos por país y superficie",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74106,
+      "rows": 0
+    },
+    {
+      "id": 79,
+      "tour": "wta",
+      "title": "Países campeones ATP y WTA en una misma semana",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74106,
+      "rows": 0
+    },
+    {
+      "id": 80,
+      "tour": "wta",
+      "title": "Carreras con cambios de nacionalidad fechados",
+      "status": "blocked",
+      "eligible": 9549,
+      "excluded": 64557,
+      "rows": 0
+    },
+    {
+      "id": 81,
+      "tour": "wta",
+      "title": "Días entre semifinal y final",
+      "status": "calculated-in-sample",
+      "eligible": 9549,
+      "excluded": 64557,
+      "rows": 100,
+      "leader": {
+        "entity": "Alexandra Eala · Washington · 2026",
+        "value": 2,
+        "sample": 5,
+        "proof": [
+          "wta-live-23002",
+          "wta-live-168565",
+          "wta-live-169592",
+          "wta-live-169869",
+          "wta-live-170108"
+        ]
+      }
+    },
+    {
+      "id": 82,
+      "tour": "wta",
+      "title": "Minutos acumulados antes de la final con cobertura completa",
+      "status": "calculated-in-sample",
+      "eligible": 9549,
+      "excluded": 64557,
+      "rows": 0
+    },
+    {
+      "id": 83,
+      "tour": "wta",
+      "title": "Victoria al día siguiente de disputar cinco sets",
+      "status": "calculated-in-sample",
+      "eligible": 9549,
+      "excluded": 64557,
+      "rows": 100,
+      "leader": {
+        "entity": "A. Ibragimova",
+        "value": 0,
+        "sample": 1,
+        "proof": [
+          "wta-live-210367"
+        ]
+      }
+    },
+    {
+      "id": 84,
+      "tour": "wta",
+      "title": "Jornadas con dos victorias individuales",
+      "status": "calculated-in-sample",
+      "eligible": 9549,
+      "excluded": 64557,
+      "rows": 63,
+      "leader": {
+        "entity": "Ann Li · 2025-08-21",
+        "value": 2,
+        "sample": 2,
+        "proof": [
+          "wta-live-131956",
+          "wta-live-132652"
+        ]
+      }
+    },
+    {
+      "id": 85,
+      "tour": "wta",
+      "title": "Semanas consecutivas con título",
+      "status": "calculated-in-sample",
+      "eligible": 9549,
+      "excluded": 64557,
+      "rows": 100,
+      "leader": {
+        "entity": "Danielle Collins",
+        "value": 2,
+        "sample": 3,
+        "proof": [
+          "wta-live-59199",
+          "wta-live-62506",
+          "wta-live-80559"
+        ]
+      }
+    },
+    {
+      "id": 86,
+      "tour": "wta",
+      "title": "Títulos tras inactividad certificada",
+      "status": "blocked",
+      "eligible": 151,
+      "excluded": 73955,
+      "rows": 0
+    },
+    {
+      "id": 87,
+      "tour": "wta",
+      "title": "Intervalo entre títulos en continentes distintos",
+      "status": "blocked",
+      "eligible": 9549,
+      "excluded": 64557,
+      "rows": 0
+    },
+    {
+      "id": 88,
+      "tour": "wta",
+      "title": "Descanso entre torneos por era",
+      "status": "calculated-in-sample",
+      "eligible": 9549,
+      "excluded": 64557,
+      "rows": 100,
+      "leader": {
+        "entity": "Simona Halep · 2024",
+        "value": 3064,
+        "sample": 2,
+        "proof": [
+          "reference-wta-finals-2015-09",
+          "wta-live-55208"
+        ]
+      }
+    },
+    {
+      "id": 89,
+      "tour": "wta",
+      "title": "Juegos acumulados hasta ganar un título",
+      "status": "calculated-in-sample",
+      "eligible": 151,
+      "excluded": 73955,
+      "rows": 2,
+      "leader": {
+        "entity": "Madison Keys · Australian Open · 2025",
+        "value": 189,
+        "sample": 7,
+        "proof": [
+          "wta-live-31442",
+          "wta-live-32782",
+          "wta-live-33635",
+          "wta-live-34245",
+          "wta-live-35034"
+        ]
+      }
+    },
+    {
+      "id": 90,
+      "tour": "wta",
+      "title": "Aplazamientos con fecha prevista y real",
+      "status": "blocked",
+      "eligible": 9549,
+      "excluded": 64557,
+      "rows": 0
+    },
+    {
+      "id": 91,
+      "tour": "wta",
+      "title": "Menor porcentaje de breaks concedidos en una edición",
+      "status": "calculated-in-sample",
+      "eligible": 2,
+      "excluded": 74104,
+      "rows": 2,
+      "leader": {
+        "entity": "Madison Keys · Australian Open · 2025",
+        "value": 21.428571428571427,
+        "sample": 1,
+        "proof": [
+          "wta-live-36430"
+        ]
+      }
+    },
+    {
+      "id": 92,
+      "tour": "wta",
+      "title": "Victorias con menos puntos totales que el rival",
+      "status": "calculated-in-sample",
+      "eligible": 344,
+      "excluded": 73762,
+      "rows": 75,
+      "leader": {
+        "entity": "Aryna Sabalenka",
+        "value": 1,
+        "sample": 13,
+        "proof": [
+          "wta-live-36430",
+          "wta-live-60288",
+          "wta-live-65462",
+          "wta-live-140339",
+          "wta-live-30456"
+        ]
+      }
+    },
+    {
+      "id": 93,
+      "tour": "wta",
+      "title": "Sets ganados sin afrontar bola de break",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74106,
+      "rows": 0
+    },
+    {
+      "id": 94,
+      "tour": "wta",
+      "title": "Victorias salvando puntos de partido observados",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74106,
+      "rows": 0
+    },
+    {
+      "id": 95,
+      "tour": "wta",
+      "title": "Secuencias de breaks consecutivos",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74106,
+      "rows": 0
+    },
+    {
+      "id": 96,
+      "tour": "wta",
+      "title": "Rendimiento al servir para cerrar un partido",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74106,
+      "rows": 0
+    },
+    {
+      "id": 97,
+      "tour": "wta",
+      "title": "Tie-breaks remontados desde cinco puntos abajo",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74106,
+      "rows": 0
+    },
+    {
+      "id": 98,
+      "tour": "wta",
+      "title": "Longitud observada de intercambios por superficie",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74106,
+      "rows": 0
+    },
+    {
+      "id": 99,
+      "tour": "wta",
+      "title": "Ventaja del sacador por régimen reglamentario",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74106,
+      "rows": 0
+    },
+    {
+      "id": 100,
+      "tour": "wta",
+      "title": "Registro de hitos certificados",
+      "status": "blocked",
+      "eligible": 0,
+      "excluded": 74106,
+      "rows": 0
+    }
+  ],
+  "quality": {
+    "controls": 55,
+    "matches": 148181,
+    "checks": [
+      {
+        "id": 1,
+        "label": "Identificador estable no vacío",
+        "severity": "error",
+        "criticism": [
+          18,
+          25
+        ],
+        "passed": 148181,
+        "failed": 0,
+        "unknown": 0,
+        "examples": []
+      },
+      {
+        "id": 2,
+        "label": "Circuito ATP/WTA explícito",
+        "severity": "error",
+        "criticism": [
+          10,
+          25
+        ],
+        "passed": 148181,
+        "failed": 0,
+        "unknown": 0,
+        "examples": []
+      },
+      {
+        "id": 3,
+        "label": "Identidad del primer participante",
+        "severity": "error",
+        "criticism": [
+          25
+        ],
+        "passed": 148181,
+        "failed": 0,
+        "unknown": 0,
+        "examples": []
+      },
+      {
+        "id": 4,
+        "label": "Identidad del segundo participante",
+        "severity": "error",
+        "criticism": [
+          25
+        ],
+        "passed": 148181,
+        "failed": 0,
+        "unknown": 0,
+        "examples": []
+      },
+      {
+        "id": 5,
+        "label": "No hay autoenfrentamiento",
+        "severity": "error",
+        "criticism": [
+          25
+        ],
+        "passed": 148181,
+        "failed": 0,
+        "unknown": 0,
+        "examples": []
+      },
+      {
+        "id": 6,
+        "label": "Temporada histórica entera",
+        "severity": "error",
+        "criticism": [
+          9
+        ],
+        "passed": 148181,
+        "failed": 0,
+        "unknown": 0,
+        "examples": []
+      },
+      {
+        "id": 7,
+        "label": "Serie de torneo identificada",
+        "severity": "error",
+        "criticism": [
+          10,
+          53
+        ],
+        "passed": 148181,
+        "failed": 0,
+        "unknown": 0,
+        "examples": []
+      },
+      {
+        "id": 8,
+        "label": "Categoría dentro del circuito publicado",
+        "severity": "error",
+        "criticism": [
+          10,
+          52
+        ],
+        "passed": 148181,
+        "failed": 0,
+        "unknown": 0,
+        "examples": []
+      },
+      {
+        "id": 9,
+        "label": "Superficie controlada",
+        "severity": "error",
+        "criticism": [
+          1,
+          52
+        ],
+        "passed": 148181,
+        "failed": 0,
+        "unknown": 0,
+        "examples": []
+      },
+      {
+        "id": 10,
+        "label": "Ganador identificable",
+        "severity": "error",
+        "criticism": [
+          23,
+          24
+        ],
+        "passed": 148181,
+        "failed": 0,
+        "unknown": 0,
+        "examples": []
+      },
+      {
+        "id": 11,
+        "label": "Estado terminado independiente de walkover/abandono",
+        "severity": "error",
+        "criticism": [
+          23
+        ],
+        "passed": 148181,
+        "failed": 0,
+        "unknown": 0,
+        "examples": []
+      },
+      {
+        "id": 12,
+        "label": "Resultado válido con reglas históricas",
+        "severity": "error",
+        "criticism": [
+          22,
+          23
+        ],
+        "passed": 148181,
+        "failed": 0,
+        "unknown": 0,
+        "examples": []
+      },
+      {
+        "id": 13,
+        "label": "Dos valores por set",
+        "severity": "error",
+        "criticism": [
+          22
+        ],
+        "passed": 148181,
+        "failed": 0,
+        "unknown": 0,
+        "examples": []
+      },
+      {
+        "id": 14,
+        "label": "Juegos enteros no negativos",
+        "severity": "error",
+        "criticism": [
+          22
+        ],
+        "passed": 148181,
+        "failed": 0,
+        "unknown": 0,
+        "examples": []
+      },
+      {
+        "id": 15,
+        "label": "Marcador final publicado no vacío",
+        "severity": "error",
+        "criticism": [
+          22
+        ],
+        "passed": 148181,
+        "failed": 0,
+        "unknown": 0,
+        "examples": []
+      },
+      {
+        "id": 16,
+        "label": "Ronda presente",
+        "severity": "warning",
+        "criticism": [
+          65
+        ],
+        "passed": 148179,
+        "failed": 2,
+        "unknown": 0,
+        "examples": [
+          "wta-live-3112",
+          "live-587"
+        ]
+      },
+      {
+        "id": 17,
+        "label": "Fecha civil válida si existe",
+        "severity": "error",
+        "criticism": [
+          9,
+          11
+        ],
+        "passed": 148181,
+        "failed": 0,
+        "unknown": 0,
+        "examples": []
+      },
+      {
+        "id": 18,
+        "label": "Fecha diaria declarada solo con fecha válida",
+        "severity": "error",
+        "criticism": [
+          11,
+          91
+        ],
+        "passed": 19630,
+        "failed": 0,
+        "unknown": 128551,
+        "examples": []
+      },
+      {
+        "id": 19,
+        "label": "Duración entera positiva",
+        "severity": "warning",
+        "criticism": [
+          21
+        ],
+        "passed": 63665,
+        "failed": 3,
+        "unknown": 84513,
+        "examples": [
+          "wta-archive-990748",
+          "wta-archive-997920",
+          "wta-archive-1002227"
+        ]
+      },
+      {
+        "id": 20,
+        "label": "Duración extrema revisable",
+        "severity": "warning",
+        "criticism": [
+          21
+        ],
+        "passed": 63661,
+        "failed": 7,
+        "unknown": 84513,
+        "examples": [
+          "archive-170400",
+          "archive-174466",
+          "wta-archive-992973",
+          "wta-archive-990748",
+          "wta-archive-997920"
+        ]
+      },
+      {
+        "id": 21,
+        "label": "Ranking 1 entero positivo",
+        "severity": "warning",
+        "criticism": [
+          26
+        ],
+        "passed": 118539,
+        "failed": 0,
+        "unknown": 29642,
+        "examples": []
+      },
+      {
+        "id": 22,
+        "label": "Ranking 2 entero positivo",
+        "severity": "warning",
+        "criticism": [
+          26
+        ],
+        "passed": 118731,
+        "failed": 0,
+        "unknown": 29450,
+        "examples": []
+      },
+      {
+        "id": 23,
+        "label": "Rankings históricos declarados al jugar",
+        "severity": "warning",
+        "criticism": [
+          15,
+          26
+        ],
+        "passed": 119955,
+        "failed": 0,
+        "unknown": 28226,
+        "examples": []
+      },
+      {
+        "id": 24,
+        "label": "Edad del primer jugador plausible",
+        "severity": "warning",
+        "criticism": [
+          31
+        ],
+        "passed": 128149,
+        "failed": 2,
+        "unknown": 20030,
+        "examples": [
+          "wta-archive-870457",
+          "wta-archive-896455"
+        ]
+      },
+      {
+        "id": 25,
+        "label": "Edad del segundo jugador plausible",
+        "severity": "warning",
+        "criticism": [
+          31
+        ],
+        "passed": 128142,
+        "failed": 2,
+        "unknown": 20037,
+        "examples": [
+          "wta-archive-870416",
+          "wta-archive-896343"
+        ]
+      },
+      {
+        "id": 26,
+        "label": "Cabeza de serie 1 entera positiva",
+        "severity": "warning",
+        "criticism": [
+          25
+        ],
+        "passed": 43836,
+        "failed": 0,
+        "unknown": 104345,
+        "examples": []
+      },
+      {
+        "id": 27,
+        "label": "Cabeza de serie 2 entera positiva",
+        "severity": "warning",
+        "criticism": [
+          25
+        ],
+        "passed": 43111,
+        "failed": 0,
+        "unknown": 105070,
+        "examples": []
+      },
+      {
+        "id": 28,
+        "label": "Ningún fixture de demo en datos reales",
+        "severity": "error",
+        "criticism": [
+          80
+        ],
+        "passed": 148181,
+        "failed": 0,
+        "unknown": 0,
+        "examples": []
+      },
+      {
+        "id": 29,
+        "label": "Fuente pública del resultado con esquema seguro",
+        "severity": "warning",
+        "criticism": [
+          17,
+          18
+        ],
+        "passed": 1004,
+        "failed": 0,
+        "unknown": 147177,
+        "examples": []
+      },
+      {
+        "id": 30,
+        "label": "Enlaces de contexto con esquema seguro",
+        "severity": "error",
+        "criticism": [
+          17,
+          36
+        ],
+        "passed": 2348,
+        "failed": 0,
+        "unknown": 145833,
+        "examples": []
+      },
+      {
+        "id": 31,
+        "label": "Fecha de revisión parseable",
+        "severity": "warning",
+        "criticism": [
+          56
+        ],
+        "passed": 735,
+        "failed": 0,
+        "unknown": 147446,
+        "examples": []
+      },
+      {
+        "id": 32,
+        "label": "Observación del proveedor fechada",
+        "severity": "warning",
+        "criticism": [
+          56
+        ],
+        "passed": 19383,
+        "failed": 0,
+        "unknown": 128798,
+        "examples": []
+      },
+      {
+        "id": 33,
+        "label": "Versión de proveedor positiva",
+        "severity": "warning",
+        "criticism": [
+          56
+        ],
+        "passed": 19383,
+        "failed": 0,
+        "unknown": 128798,
+        "examples": []
+      },
+      {
+        "id": 34,
+        "label": "Estadísticas atribuidas a un participante o al partido",
+        "severity": "error",
+        "criticism": [
+          12
+        ],
+        "passed": 148181,
+        "failed": 0,
+        "unknown": 0,
+        "examples": []
+      },
+      {
+        "id": 35,
+        "label": "Nombres y periodo de estadísticas presentes",
+        "severity": "error",
+        "criticism": [
+          58
+        ],
+        "passed": 148181,
+        "failed": 0,
+        "unknown": 0,
+        "examples": []
+      },
+      {
+        "id": 36,
+        "label": "Numeradores finitos no negativos",
+        "severity": "warning",
+        "criticism": [
+          59
+        ],
+        "passed": 148181,
+        "failed": 0,
+        "unknown": 0,
+        "examples": []
+      },
+      {
+        "id": 37,
+        "label": "Denominadores finitos no negativos",
+        "severity": "warning",
+        "criticism": [
+          59
+        ],
+        "passed": 148181,
+        "failed": 0,
+        "unknown": 0,
+        "examples": []
+      },
+      {
+        "id": 38,
+        "label": "Numerador no supera denominador",
+        "severity": "warning",
+        "criticism": [
+          59
+        ],
+        "passed": 148181,
+        "failed": 0,
+        "unknown": 0,
+        "examples": []
+      },
+      {
+        "id": 39,
+        "label": "Porcentajes en intervalo 0–100",
+        "severity": "warning",
+        "criticism": [
+          59
+        ],
+        "passed": 148181,
+        "failed": 0,
+        "unknown": 0,
+        "examples": []
+      },
+      {
+        "id": 40,
+        "label": "Puntos con set y juego positivos",
+        "severity": "warning",
+        "criticism": [
+          13
+        ],
+        "passed": 148181,
+        "failed": 0,
+        "unknown": 0,
+        "examples": []
+      },
+      {
+        "id": 41,
+        "label": "Servidor de punto válido o desconocido",
+        "severity": "error",
+        "criticism": [
+          13
+        ],
+        "passed": 148181,
+        "failed": 0,
+        "unknown": 0,
+        "examples": []
+      },
+      {
+        "id": 42,
+        "label": "Ganador de punto válido o desconocido",
+        "severity": "error",
+        "criticism": [
+          13
+        ],
+        "passed": 148181,
+        "failed": 0,
+        "unknown": 0,
+        "examples": []
+      },
+      {
+        "id": 43,
+        "label": "Longitud de intercambio positiva o desconocida",
+        "severity": "warning",
+        "criticism": [
+          13
+        ],
+        "passed": 148181,
+        "failed": 0,
+        "unknown": 0,
+        "examples": []
+      },
+      {
+        "id": 44,
+        "label": "Probabilidad no sale de 0–1",
+        "severity": "warning",
+        "criticism": [
+          13
+        ],
+        "passed": 148181,
+        "failed": 0,
+        "unknown": 0,
+        "examples": []
+      },
+      {
+        "id": 45,
+        "label": "Ninguna cinta reconstruida se usa como observación",
+        "severity": "error",
+        "criticism": [
+          13,
+          92
+        ],
+        "passed": 512,
+        "failed": 0,
+        "unknown": 147669,
+        "examples": []
+      },
+      {
+        "id": 46,
+        "label": "Cinta fiable antes de estudiar presión",
+        "severity": "warning",
+        "criticism": [
+          7,
+          13
+        ],
+        "passed": 0,
+        "failed": 219,
+        "unknown": 147962,
+        "examples": [
+          "live-162317",
+          "live-162316",
+          "live-159612",
+          "live-159617",
+          "live-158076"
+        ]
+      },
+      {
+        "id": 47,
+        "label": "Puntos de partido tienen beneficiario identificable",
+        "severity": "warning",
+        "criticism": [
+          13
+        ],
+        "passed": 148181,
+        "failed": 0,
+        "unknown": 0,
+        "examples": []
+      },
+      {
+        "id": 48,
+        "label": "Fecha de fin no precede a la de inicio",
+        "severity": "warning",
+        "criticism": [
+          11,
+          81
+        ],
+        "passed": 3,
+        "failed": 0,
+        "unknown": 148178,
+        "examples": []
+      },
+      {
+        "id": 49,
+        "label": "Indoors es booleano o desconocido",
+        "severity": "error",
+        "criticism": [
+          52
+        ],
+        "passed": 19691,
+        "failed": 0,
+        "unknown": 128490,
+        "examples": []
+      },
+      {
+        "id": 50,
+        "label": "Nombres sin caracteres de control",
+        "severity": "error",
+        "criticism": [
+          25,
+          96
+        ],
+        "passed": 148181,
+        "failed": 0,
+        "unknown": 0,
+        "examples": []
+      },
+      {
+        "id": 51,
+        "label": "Efemérides solo con fecha exacta",
+        "severity": "warning",
+        "criticism": [
+          91
+        ],
+        "passed": 0,
+        "failed": 0,
+        "unknown": 148181,
+        "examples": []
+      },
+      {
+        "id": 52,
+        "label": "Sets agregados coinciden con el marcador de juegos",
+        "severity": "warning",
+        "criticism": [
+          22,
+          59
+        ],
+        "passed": 148181,
+        "failed": 0,
+        "unknown": 0,
+        "examples": []
+      },
+      {
+        "id": 53,
+        "label": "No atribuir métricas a raw sin observación",
+        "severity": "warning",
+        "criticism": [
+          18
+        ],
+        "passed": 994,
+        "failed": 0,
+        "unknown": 147187,
+        "examples": []
+      },
+      {
+        "id": 54,
+        "label": "No se publica raw del proveedor por accidente",
+        "severity": "error",
+        "criticism": [
+          41,
+          43
+        ],
+        "passed": 148181,
+        "failed": 0,
+        "unknown": 0,
+        "examples": []
+      },
+      {
+        "id": 55,
+        "label": "Estadísticas con etiquetas únicas por jugador/periodo",
+        "severity": "warning",
+        "criticism": [
+          56,
+          58
+        ],
+        "passed": 148181,
+        "failed": 0,
+        "unknown": 0,
+        "examples": []
+      }
+    ],
+    "duplicateIds": [],
+    "semanticDuplicates": [],
+    "errorCount": 0
+  }
+}

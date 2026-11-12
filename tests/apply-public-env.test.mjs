@@ -22,6 +22,8 @@ test('public production configuration changes only public origins and preserves 
     'DEUCE_LEGACY_HOST=old.example.com',
     'NEXT_PUBLIC_SITE_ORIGIN=https://deucearchive.com',
     'DEUCE_MONITOR_URL=https://deucearchive.com',
+    'DEUCE_RATE_LIMIT_STORE=sqlite',
+    'DEUCE_RATE_LIMIT_DB=/app/.deuce-archive/.runtime/rate-limits.sqlite',
     '',
   ].join('\n'))
 
@@ -31,6 +33,8 @@ test('public production configuration changes only public origins and preserves 
   assert.match(updated, /^DEUCE_WWW_HOST=www\.deucearchive\.com$/m)
   assert.match(updated, /^DEUCE_LEGACY_HOST=old\.example\.com$/m)
   assert.match(updated, /^CRON_SECRET=keep-this-secret$/m)
+  assert.match(updated, /^DEUCE_RATE_LIMIT_STORE=sqlite$/m)
+  assert.match(updated, /^DEUCE_RATE_LIMIT_DB=\/app\/\.deuce-archive\/\.runtime\/rate-limits\.sqlite$/m)
   assert.equal((await stat(envPath)).mode & 0o777, 0o600)
   assert.equal(await applyPublicEnv(envPath, configPath), false)
 })

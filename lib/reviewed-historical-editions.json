@@ -1,0 +1,307 @@
+{
+  "schema": 1,
+  "reviewedAt": "2026-11-12",
+  "editions": [
+    {
+      "tour": "atp",
+      "year": 2006,
+      "tournament": "Dubai",
+      "category": "ATP International Series Gold",
+      "modernEquivalent": "ATP 500",
+      "originalCategory": "ATP Tour · nivel no especificado",
+      "drawSize": 32,
+      "expectedRounds": {
+        "3": 16,
+        "4": 8,
+        "5": 4,
+        "6": 2,
+        "7": 1
+      },
+      "source": "https://www.protennislive.com/posting/2006/495/mds.pdf",
+      "categorySource": "https://gulfnews.com/sport/tennis/dubai-duty-free-tennis-wins-tournament-of-the-year-award-1.197519",
+      "corroboration": "https://en.wikipedia.org/wiki/2006_Dubai_Tennis_Championships",
+      "note": "Full edition reviewed, not selective H2H repair.30played results+1walkover. Official original tier retained; equivalent is a grouping dimension, not a retroactive name. Source identity correction141681 documented separately.",
+      "entries": [
+        {
+          "matchId": "archive-141710",
+          "date": "2006-02-27",
+          "round": "Final",
+          "people": [
+            "rafaelnadal",
+            "rogerfederer"
+          ]
+        },
+        {
+          "matchId": "archive-141709",
+          "date": "2006-02-27",
+          "round": "Semifinal",
+          "people": [
+            "rafaelnadal",
+            "rainerschuettler"
+          ]
+        },
+        {
+          "matchId": "archive-141708",
+          "date": "2006-02-27",
+          "round": "Semifinal",
+          "people": [
+            "mikhailyouzhny",
+            "rogerfederer"
+          ]
+        },
+        {
+          "matchId": "archive-141707",
+          "date": "2006-02-27",
+          "round": "Cuartos de final",
+          "people": [
+            "rafaelnadal",
+            "timhenman"
+          ]
+        },
+        {
+          "matchId": "archive-141706",
+          "date": "2006-02-27",
+          "round": "Cuartos de final",
+          "people": [
+            "bjornphau",
+            "rainerschuettler"
+          ]
+        },
+        {
+          "matchId": "archive-141705",
+          "date": "2006-02-27",
+          "round": "Cuartos de final",
+          "people": [
+            "mikhailyouzhny",
+            "olivierrochus"
+          ]
+        },
+        {
+          "matchId": "archive-141704",
+          "date": "2006-02-27",
+          "round": "Cuartos de final",
+          "people": [
+            "robinvik",
+            "rogerfederer"
+          ]
+        },
+        {
+          "matchId": "archive-141703",
+          "date": "2006-02-27",
+          "round": "Octavos de final",
+          "people": [
+            "rafaelnadal",
+            "youneselaynaoui"
+          ]
+        },
+        {
+          "matchId": "archive-141702",
+          "date": "2006-02-27",
+          "round": "Octavos de final",
+          "people": [
+            "radekstepanek",
+            "timhenman"
+          ]
+        },
+        {
+          "matchId": "archive-141701",
+          "date": "2006-02-27",
+          "round": "Octavos de final",
+          "people": [
+            "andreagassi",
+            "bjornphau"
+          ]
+        },
+        {
+          "matchId": "archive-141700",
+          "date": "2006-02-27",
+          "round": "Octavos de final",
+          "people": [
+            "ivoklec",
+            "rainerschuettler"
+          ]
+        },
+        {
+          "matchId": "archive-141699",
+          "date": "2006-02-27",
+          "round": "Octavos de final",
+          "people": [
+            "igorandreev",
+            "mikhailyouzhny"
+          ]
+        },
+        {
+          "matchId": "archive-141698",
+          "date": "2006-02-27",
+          "round": "Octavos de final",
+          "people": [
+            "maratsafin",
+            "olivierrochus"
+          ]
+        },
+        {
+          "matchId": "archive-141697",
+          "date": "2006-02-27",
+          "round": "Octavos de final",
+          "people": [
+            "robinvik",
+            "tomasberdych"
+          ]
+        },
+        {
+          "matchId": "archive-141696",
+          "date": "2006-02-27",
+          "round": "Octavos de final",
+          "people": [
+            "mohammadghareeb",
+            "rogerfederer"
+          ]
+        },
+        {
+          "matchId": "archive-141695",
+          "date": "2006-02-27",
+          "round": "Ronda de 32",
+          "people": [
+            "paulhenrimathieu",
+            "rafaelnadal"
+          ]
+        },
+        {
+          "matchId": "archive-141694",
+          "date": "2006-02-27",
+          "round": "Ronda de 32",
+          "people": [
+            "wesleymoodie",
+            "youneselaynaoui"
+          ]
+        },
+        {
+          "matchId": "archive-141693",
+          "date": "2006-02-27",
+          "round": "Ronda de 32",
+          "people": [
+            "felicianolopez",
+            "timhenman"
+          ]
+        },
+        {
+          "matchId": "archive-141692",
+          "date": "2006-02-27",
+          "round": "Ronda de 32",
+          "people": [
+            "johnvanlottum",
+            "radekstepanek"
+          ]
+        },
+        {
+          "matchId": "archive-141691",
+          "date": "2006-02-27",
+          "round": "Ronda de 32",
+          "people": [
+            "andreagassi",
+            "gregrusedski"
+          ]
+        },
+        {
+          "matchId": "archive-141690",
+          "date": "2006-02-27",
+          "round": "Ronda de 32",
+          "people": [
+            "bjornphau",
+            "giorgiogalimberti"
+          ]
+        },
+        {
+          "matchId": "archive-141689",
+          "date": "2006-02-27",
+          "round": "Ronda de 32",
+          "people": [
+            "danielebracciali",
+            "ivoklec"
+          ]
+        },
+        {
+          "matchId": "archive-141688",
+          "date": "2006-02-27",
+          "round": "Ronda de 32",
+          "people": [
+            "davidferrer",
+            "rainerschuettler"
+          ]
+        },
+        {
+          "matchId": "archive-141687",
+          "date": "2006-02-27",
+          "round": "Ronda de 32",
+          "people": [
+            "dominikhrbaty",
+            "mikhailyouzhny"
+          ]
+        },
+        {
+          "matchId": "archive-141686",
+          "date": "2006-02-27",
+          "round": "Ronda de 32",
+          "people": [
+            "andreasseppi",
+            "igorandreev"
+          ]
+        },
+        {
+          "matchId": "archive-141685",
+          "date": "2006-02-27",
+          "round": "Ronda de 32",
+          "people": [
+            "fabricesantoro",
+            "olivierrochus"
+          ]
+        },
+        {
+          "matchId": "archive-141684",
+          "date": "2006-02-27",
+          "round": "Ronda de 32",
+          "people": [
+            "maratsafin",
+            "nikolaydavydenko"
+          ]
+        },
+        {
+          "matchId": "archive-141683",
+          "date": "2006-02-27",
+          "round": "Ronda de 32",
+          "people": [
+            "christopherochus",
+            "tomasberdych"
+          ]
+        },
+        {
+          "matchId": "archive-141682",
+          "date": "2006-02-27",
+          "round": "Ronda de 32",
+          "people": [
+            "jankotipsarevic",
+            "robinvik"
+          ]
+        },
+        {
+          "matchId": "archive-141681",
+          "date": "2006-02-27",
+          "round": "Ronda de 32",
+          "people": [
+            "mohammadghareeb",
+            "omarbehrouzyan"
+          ]
+        },
+        {
+          "matchId": "archive-141680",
+          "date": "2006-02-27",
+          "round": "Ronda de 32",
+          "people": [
+            "rogerfederer",
+            "stanwawrinka"
+          ]
+        }
+      ]
+    }
+  ]
+}

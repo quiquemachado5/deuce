@@ -1,0 +1,6 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {corroboratedBiographies} from '../lib/research/biography-evidence';
+const subject={name:'Player',tour:'atp' as const,birthday:'1990-01-02',playingHand:'L' as const,revision:123,source:'https://www.wikidata.org/w/index.php?oldid=123'};
+test('birth date and playing hand require agreement with an independently stored provider bio',()=>{const e=corroboratedBiographies([subject],()=>({birthday:'1990-01-02',hand:'L'}));assert.equal(e.birthdays.get('atp|Player'),'1990-01-02');assert.equal(e.hands.get('atp|Player'),'L');assert.equal(e.proofs.length,2)});
+test('missing, conflicting, contested and mutable evidence is not promoted',()=>{const e=corroboratedBiographies([{...subject,contestedFields:['playingHand']},{...subject,name:'Mutable',source:'https://www.wikidata.org/wiki/Q1'}],()=>({birthday:'1991-01-02',hand:'L'}));assert.equal(e.birthdays.size,0);assert.equal(e.hands.size,0);assert.equal(e.conflicts.length,1);assert.equal(e.proofs.length,0)});
+test('same name in ATP and WTA retains distinct keys and values',()=>{const e=corroboratedBiographies([subject,{...subject,tour:'wta',playingHand:'R'}],(_name,tour)=>({birthday:'1990-01-02',hand:tour==='atp'?'L':'R'}));assert.equal(e.hands.get('atp|Player'),'L');assert.equal(e.hands.get('wta|Player'),'R')});

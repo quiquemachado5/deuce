@@ -26,6 +26,7 @@ import { withOperationHistory } from './archive-operations'
 import { latestProviderResultDate } from './circuit-freshness'
 import { PROVIDER_PUBLICATION_TIERS } from './publication-scope'
 import { WTA_HISTORICAL_COHORTS, wtaBackfillCycle, wtaHistoricalCohortIds, wtaHistoricalCohortPlan, wtaHistoryProgress } from './wta-backfill-schedule'
+import {reserveProviderAttempt,reconcileProviderAttempts,ProviderAttemptBudgetExceeded} from './provider-attempt-budget'
 import { isProviderFreeHistoryLimit, providerHasRequestAfterUsage, providerMinimumReserve, providerQuotaRetryAt, providerQuotaSnapshot, providerRemainingCalls, type ProviderOperation } from './provider-quota'
 import { materializeBundledWtaArchive } from './wta-archive-bootstrap'
 import {completeEnrichment,deferEnrichment,enrichmentQueueCounts,persistentEnrichmentPlan,readEnrichmentQueue} from './enrichment-queue'
@@ -193,16 +194,23 @@ async function provider(path: string) {
   let lastError: unknown
   for (let attempt = 0; attempt < 2; attempt++) {
     try {
+      // Every retry is a paid attempt. The provider lease serializes this durable reservation.
+      const ledger=reserveProviderAttempt(await readArchiveObject('provider-attempt-budget'),path==='/usage')
+      await cloudWrite('provider-attempt-budget',ledger)
       const response = await fetch(`${base}${path}`, { headers: { 'X-API-Key': process.env.TENNIS_API_KEY }, cache: 'no-store', signal: AbortSignal.timeout(20_000) })
       const text=await response.text()
       let payload:ArchiveRow={}
       try{payload=JSON.parse(text)}catch{}
-      if (response.ok) return payload
+      if (response.ok) {
+        if(path==='/usage')await cloudWrite('provider-attempt-budget',reconcileProviderAttempts(ledger,payload))
+        return payload
+      }
       const detail=String(payload.detail||payload.message||response.statusText||'request failed').slice(0,160)
       const failure=new TennisProviderError(response.status,detail,payload,retryAfter(response.headers.get('retry-after')))
       if (response.status !== 429 && response.status < 500) throw failure
       lastError = failure
     } catch (error) {
+      if(error instanceof ProviderAttemptBudgetExceeded)throw new TennisProviderError(429,error.message,{},error.retryAt)
       lastError = error
       if (error instanceof Error && !['AbortError', 'TimeoutError', 'TypeError'].includes(error.name)) throw error
     }

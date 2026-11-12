@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-21T17:41:51.172867+00:00",
+  "generatedAt": "2026-11-10T12:32:57.012980+00:00",
   "title": "Design System: DEUCE",
   "extensions": {
     "colorMeta": {
@@ -437,6 +437,104 @@
           "oklch(84% 0.0898 24.2)",
           "oklch(95% 0.0898 24.2)"
         ]
+      },
+      "records-bg": {
+        "role": "neutral",
+        "displayName": "Negro verdoso de récords",
+        "tonalRamp": [
+          "oklch(15% 0.0325 170.6)",
+          "oklch(26% 0.0325 170.6)",
+          "oklch(38% 0.0325 170.6)",
+          "oklch(49% 0.0325 170.6)",
+          "oklch(61% 0.0325 170.6)",
+          "oklch(72% 0.0325 170.6)",
+          "oklch(84% 0.0325 170.6)",
+          "oklch(95% 0.0325 170.6)"
+        ]
+      },
+      "records-panel": {
+        "role": "neutral",
+        "displayName": "Verde de panel de récords",
+        "tonalRamp": [
+          "oklch(15% 0.0464 168.2)",
+          "oklch(26% 0.0464 168.2)",
+          "oklch(38% 0.0464 168.2)",
+          "oklch(49% 0.0464 168.2)",
+          "oklch(61% 0.0464 168.2)",
+          "oklch(72% 0.0464 168.2)",
+          "oklch(84% 0.0464 168.2)",
+          "oklch(95% 0.0464 168.2)"
+        ]
+      },
+      "records-lime": {
+        "role": "primary",
+        "displayName": "Lima editorial de récords",
+        "tonalRamp": [
+          "oklch(15% 0.2038 120.7)",
+          "oklch(26% 0.2038 120.7)",
+          "oklch(38% 0.2038 120.7)",
+          "oklch(49% 0.2038 120.7)",
+          "oklch(61% 0.2038 120.7)",
+          "oklch(72% 0.2038 120.7)",
+          "oklch(84% 0.2038 120.7)",
+          "oklch(95% 0.2038 120.7)"
+        ]
+      },
+      "records-hard": {
+        "role": "secondary",
+        "displayName": "Azul de dura de récords",
+        "tonalRamp": [
+          "oklch(15% 0.1050 244.6)",
+          "oklch(26% 0.1050 244.6)",
+          "oklch(38% 0.1050 244.6)",
+          "oklch(49% 0.1050 244.6)",
+          "oklch(61% 0.1050 244.6)",
+          "oklch(72% 0.1050 244.6)",
+          "oklch(84% 0.1050 244.6)",
+          "oklch(95% 0.1050 244.6)"
+        ]
+      },
+      "records-clay": {
+        "role": "secondary",
+        "displayName": "Terracota de récords",
+        "tonalRamp": [
+          "oklch(15% 0.1170 39.7)",
+          "oklch(26% 0.1170 39.7)",
+          "oklch(38% 0.1170 39.7)",
+          "oklch(49% 0.1170 39.7)",
+          "oklch(61% 0.1170 39.7)",
+          "oklch(72% 0.1170 39.7)",
+          "oklch(84% 0.1170 39.7)",
+          "oklch(95% 0.1170 39.7)"
+        ]
+      },
+      "records-grass": {
+        "role": "secondary",
+        "displayName": "Hierba de récords",
+        "tonalRamp": [
+          "oklch(15% 0.1353 133.0)",
+          "oklch(26% 0.1353 133.0)",
+          "oklch(38% 0.1353 133.0)",
+          "oklch(49% 0.1353 133.0)",
+          "oklch(61% 0.1353 133.0)",
+          "oklch(72% 0.1353 133.0)",
+          "oklch(84% 0.1353 133.0)",
+          "oklch(95% 0.1353 133.0)"
+        ]
+      },
+      "records-footer": {
+        "role": "neutral",
+        "displayName": "Cierre verde de récords",
+        "tonalRamp": [
+          "oklch(15% 0.0375 168.8)",
+          "oklch(26% 0.0375 168.8)",
+          "oklch(38% 0.0375 168.8)",
+          "oklch(49% 0.0375 168.8)",
+          "oklch(61% 0.0375 168.8)",
+          "oklch(72% 0.0375 168.8)",
+          "oklch(84% 0.0375 168.8)",
+          "oklch(95% 0.0375 168.8)"
+        ]
       }
     },
     "typographyMeta": {
@@ -487,6 +585,16 @@
         "name": "reduced-motion",
         "value": "none",
         "purpose": "Desactiva animaciones, transiciones y desplazamiento suave con prefers-reduced-motion."
+      },
+      {
+        "name": "home-venues-autoplay",
+        "value": "4800ms",
+        "purpose": "Temporizador desde montaje; pausa por hover, foco, interacción táctil (9s), pestaña oculta o movimiento reducido."
+      },
+      {
+        "name": "tournament-gallery-interaction-pause",
+        "value": "9000ms",
+        "purpose": "Pausa tras interacción táctil; también pausa con puntero, foco, pestaña oculta o galería fuera de pantalla. El retorno automático al inicio es instantáneo y el movimiento reducido desactiva el avance."
       }
     ],
     "breakpoints": [
@@ -580,11 +688,18 @@
       "description": "Tabla de sets con acento de superficie y total destacado.",
       "html": "<div class=\"ds-score-scroll\"><table class=\"ds-scoreboard\"><thead><tr><th>Final · muestra</th><th>Sets</th><th>1</th><th>2</th></tr></thead><tbody><tr><th>Jugador A</th><td class=\"ds-total\">2</td><td class=\"ds-won\">6</td><td class=\"ds-won\">7</td></tr><tr><th>Jugador B</th><td class=\"ds-total\">0</td><td>4</td><td>6</td></tr></tbody></table></div>",
       "css": ".ds-score-scroll{width:100%;overflow-x:auto;border-radius:24px;background:var(--bg-raised);color:var(--ink)}.ds-scoreboard{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}.ds-scoreboard thead th{padding:8px 16px;text-align:center;font:400 12px var(--font-interface);color:var(--muted)}.ds-scoreboard thead th:first-child{text-align:left}.ds-scoreboard tbody th{padding:16px;font:600 24px/1.08 var(--font-display);text-align:left;white-space:nowrap}.ds-scoreboard td{padding:24px 16px;text-align:center;white-space:nowrap;font:500 32px var(--font-display);color:var(--muted)}.ds-scoreboard tr+tr td,.ds-scoreboard tr+tr th{border-top:1px solid var(--line)}.ds-scoreboard .ds-won{color:var(--event-accent,var(--court));font-weight:650}.ds-scoreboard .ds-total{color:var(--ink);font-weight:700;border-right:1px solid var(--line)}"
+    },
+    {
+      "name": "Récords: barra de superficie",
+      "kind": "custom",
+      "description": "Variante local editorial: porcentaje real escrito y barra proporcional con acceso a la clasificación. La vista previa es ilustrativa; la interfaz usa el manifiesto del circuito.",
+      "html": "<a class=\"ds-record-surface\" href=\"#clasificacion\"><div><h3>Dura</h3><strong>80 %</strong></div><div class=\"ds-record-track\" aria-hidden=\"true\"><span></span></div><p>Líder del archivo <span aria-hidden=\"true\">→</span></p></a>",
+      "css": ".ds-record-surface{display:block;padding:24px;border-radius:23px;background:#15382c;color:#f2f5ef;text-decoration:none;font-family:var(--font-interface, sans-serif)}.ds-record-surface>div:first-child{display:flex;align-items:baseline;justify-content:space-between;gap:15px;margin-bottom:13px}.ds-record-surface h3{margin:0;font-size:17px;font-weight:500}.ds-record-surface strong{font-size:29px;font-weight:500;color:#73b6ed;white-space:nowrap;font-variant-numeric:tabular-nums}.ds-record-track{height:13px;border-radius:20px;overflow:hidden;background:#284c3e}.ds-record-track>span{display:block;width:80%;height:100%;border-radius:inherit;background:#73b6ed}.ds-record-surface p{display:flex;justify-content:space-between;gap:15px;margin:12px 0 0;font-size:14px;line-height:1.4}.ds-record-surface:hover p{text-decoration:underline;text-underline-offset:4px}.ds-record-surface:focus-visible{outline:2px solid #d9ff45;outline-offset:5px}"
     }
   ],
   "narrative": {
     "northStar": "El archivo deportivo visual",
-    "overview": "La jerarquía de Apple Sports y los controles de Revolut se expresan en fotografía deportiva real, cifras legibles y titulares con carácter. Bricolage Grotesque aporta energía; Geist sostiene nombres, tablas y lectura. El archivo debe sentirse cercano y vivo sin presentar los resultados observados como datos en directo.\n\nLos paneles claros o carbón descansan sobre un fondo neutro. El color de la pista conecta torneo, marcador y análisis; los rostros ayudan a reconocer a los jugadores. La interfaz conserva densidad suficiente para explorar estadísticas, con espacio y cambios de escala que explican qué mirar primero.",
+    "overview": "La jerarquía de Apple Sports y los controles de Revolut se expresan en fotografía deportiva real, cifras legibles y titulares con carácter. Host Grotesk sostiene una sola voz editorial para titulares, nombres, tablas y lectura. El archivo debe sentirse cercano y vivo sin presentar los resultados observados como datos en directo.\n\nLos paneles claros o carbón descansan sobre un fondo neutro. El color de la pista conecta torneo, marcador y análisis; los rostros ayudan a reconocer a los jugadores. La interfaz conserva densidad suficiente para explorar estadísticas, con espacio y cambios de escala que explican qué mirar primero.",
     "keyCharacteristics": [
       "Fotografía licenciada de sedes y jugadores, con procedencia accesible.",
       "Titulares expresivos y cifras tabulares coherentes.",
@@ -597,10 +712,25 @@
         "name": "The Court Meaning Rule",
         "body": "El color vincula una cifra con su pista o jugador; nombres, etiquetas y valores siguen explicando el dato por sí mismos.",
         "section": "colors"
+      },
+      {
+        "name": "Archivo plano por año",
+        "body": "La efeméride usa año, duelo y foto de contexto sin tarjeta de récord; las demás historias se eligen con un selector horizontal. Los grupos por fecha de Partidos son desplegables nativos abiertos e independientes.",
+        "section": "components"
+      },
+      {
+        "name": "Alcance local del archivo",
+        "body": "Récords comparte el ancho de contenido de 1120px y muestra periodo y categorías del manifiesto, filtros oscuros y un único icono por familia. El ensayo no indexable /laboratorio/cabecera conserva sus reglas de navegación y título aisladas a esa ruta.",
+        "section": "components"
+      },
+      {
+        "name": "Idioma al cierre",
+        "body": "El selector de idioma sigue inmediatamente al copyright en ambos tamaños: bandera SVG local rectangular de 26 × 19px sobre objetivo transparente de 44 × 44px. Se conservan los colores y degradados del footer.",
+        "section": "components"
       }
     ],
     "dos": [
-      "**Do** conservar Bricolage para titulares y Geist para lectura y tablas.",
+      "**Do** usar Sora en titulares editoriales y Host Grotesk en interfaz, tablas y lectura.",
       "**Do** enlazar color de superficie, marcador y gráfico con la misma semántica en ambos temas.",
       "**Do** mostrar muestras, cobertura y elegibilidad junto a las cifras que explican.",
       "**Do** mantener nombres, resultados y acciones legibles al apilar la vista móvil.",

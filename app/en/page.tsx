@@ -18,7 +18,7 @@ export default async function EnglishHome() {
       <Link href="/en/tournaments"><span>03</span><strong>Tournaments</strong><p>Editions, finals, champions and tournament history.</p></Link>
       <Link href="/en/records"><span>04</span><strong>Records</strong><p>Reproducible rankings calculated from the archive.</p></Link>
       <Link href="/en/compare"><span>05</span><strong>Compare</strong><p>Put two documented careers on the same scale.</p></Link>
-      <Link href="/en/time-machine"><span>06</span><strong>Time machine</strong><p>Open the archive on this day across tennis history.</p></Link>
+      <Link href="/en/coverage#por-fecha"><span>06</span><strong>Results by date</strong><p>Open the archive on this day across tennis history.</p></Link>
     </section>
   </main>;
 }

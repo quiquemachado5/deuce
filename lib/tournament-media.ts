@@ -1,4 +1,12 @@
 import { playerDirectoryPhoto, playerPhoto } from './player-imagery';
+import reviewedEditionPhotos from './tournament-edition-photo-reviewed.json';
+import reviewedEditionHeroes from './tournament-edition-hero-reviewed.json';
+import type {Photo} from './imagery';
+
+/** Identity and edition reviewed together; never borrow another season's trophy. */
+export function reviewedPhotoForEdition(tournament:string, year:number, player:string, tour:'atp'|'wta'):Photo|null {
+  return (reviewedEditionPhotos.find(row=>row.tournament===tournament&&row.year===year&&row.player===player&&row.tour===tour)?.photo as Photo|undefined)||null;
+}
 
 export type TournamentEditionMedia = {
   tournament: string;
@@ -104,4 +112,42 @@ export function latestMediaForTournament(tournament: string, years?: number[]) {
   return tournamentEditionMedia
     .filter(item => item.tournament === tournament && (!years || years.includes(item.year)))
     .sort((a,b) => b.year-a.year)[0] || null;
+}
+
+/** Circuit, season and historical category identify a draw. A Tokyo Pan Pacific
+ * photo must never decorate the Japan Open played in the same city and year. */
+export type ReviewedEditionHero = {
+  tournament: string;
+  year: number;
+  tours: readonly string[];
+  /** Required by the media activation audit when one name/year has multiple draws. */
+  category?: string;
+  /** True when the canonical audit lists another category even without a reviewed image. */
+  requiresCategory?: boolean;
+  photo: Photo;
+};
+
+export function createEditionHeroResolver(rows: readonly ReviewedEditionHero[]) {
+  const index = new Map<string, ReviewedEditionHero[]>();
+  for (const row of rows) for (const tour of row.tours) {
+    const key = `${row.tournament}|${row.year}|${tour}`;
+    index.set(key, [...(index.get(key) || []), row]);
+  }
+  return (tournament: string, year: number, tour: 'atp' | 'wta', category?: string): Photo | null => {
+    const candidates = index.get(`${tournament}|${year}|${tour}`) || [];
+    const qualified = candidates.filter(row => row.category !== undefined);
+    // Category-scoped evidence cannot support another draw. An unqualified request
+    // is compatible only with a single unambiguous edition; duplicates fail closed.
+    if (qualified.length) {
+      if (!category) return candidates.length === 1 && !candidates[0].requiresCategory ? candidates[0].photo : null;
+      const exact = qualified.filter(row => row.category === category);
+      return exact.length === 1 ? exact[0].photo : null;
+    }
+    return candidates.length === 1 && !candidates[0].requiresCategory ? candidates[0].photo : null;
+  };
+}
+
+const editionHeroResolver = createEditionHeroResolver(reviewedEditionHeroes as ReviewedEditionHero[]);
+export function editionHeroPhotoForTournament(tournament: string, year: number, tour: 'atp' | 'wta', category?: string): Photo | null {
+  return editionHeroResolver(tournament, year, tour, category);
 }

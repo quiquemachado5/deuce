@@ -1,0 +1,90 @@
+[
+  {
+    "tournament": "Canada",
+    "year": 2004,
+    "tours": [
+      "wta"
+    ],
+    "category": "WTA 1000",
+    "photo": {
+      "src": "/media/editions-v31/masters/wta-official-old/canada-2004-1686533.webp",
+      "alt": "Magdalena Maleeva in Rogers Cup action in 2004",
+      "credit": "Getty Images / WTA",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1686533",
+      "rightsKnown": false,
+      "photoYear": 2004,
+      "objectPosition": "50% 42%",
+      "mobileObjectPosition": "50% 40%",
+      "reviewedAt": "2026-11-12T10:30:26.275938+00:00",
+      "auditStatus": "verified"
+    },
+    "sourceTitle": "Magdalena Maleeva in Rogers Cup action in 2004",
+    "originalUrl": "https://photoresources.wtatennis.com/photo-resources/2020/06/19/92b032d6-07c4-49bb-a444-bb0e121e0b55/GettyImages-51149286.jpg",
+    "downloadedDimensions": {
+      "width": 2400,
+      "height": 1666
+    },
+    "sourceImageSha256": "46d0656ddb1c2d87a19b3229bab77f7e030a72f34c7a9f6b64c09375762cb139",
+    "optimizedImageSha256": "e2e74adede5a732fb146bee760af0d30beb28649e6dcc7c4ef1e866f0208cb07",
+    "reviewNotes": "Official WTA editorial caption explicitly identifies Magdalena Maleeva in Rogers Cup action in 2004. Visually reviewed as clean landscape on-court action; original 3000×2083, delivered WebP1800px without enlargement."
+  },
+  {
+    "tournament": "Zurich",
+    "year": 2006,
+    "tours": [
+      "wta"
+    ],
+    "category": "WTA 1000",
+    "photo": {
+      "src": "/media/editions-v31/masters/wta-official-old/zurich-2006-sharapova-commons.webp",
+      "alt": "Maria Sharapova durante el Abierto de Zúrich 2006",
+      "credit": "Reto Stauffer / Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Sharapowa061021-04.jpg",
+      "rightsKnown": true,
+      "photoYear": 2006,
+      "objectPosition": "50% 42%",
+      "mobileObjectPosition": "50% 40%",
+      "reviewedAt": "2026-11-12T10:30:26.275938+00:00",
+      "auditStatus": "verified",
+      "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/"
+    },
+    "sourceTitle": "Maria Sharapova am Zurich Open 2006 — 21.10.06",
+    "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/5/52/Sharapowa061021-04.jpg",
+    "downloadedDimensions": {
+      "width": 1024,
+      "height": 768
+    },
+    "sourceImageSha256": "91b0c6f098405adb671fc597d86654ca69070570ebe818cdb0e63421364c97ea",
+    "optimizedImageSha256": "66dfba8b2cff25ddf84a1b62ccd6724eede05483edbf470fb729cb37d165b99b",
+    "reviewNotes": "Original Commons source description dates action 21 October 2006 at Zurich Open; visibly matches Sharapova on indoor court. Native horizontal1024×768 preserved; public-domain declaration from author."
+  },
+  {
+    "tournament": "Zurich",
+    "year": 2007,
+    "tours": [
+      "wta"
+    ],
+    "category": "WTA 1000",
+    "photo": {
+      "src": "/media/editions-v31/masters/wta-official-old/zurich-2007-henin-afp.webp",
+      "alt": "Justine Henin levanta el trofeo del Abierto de Zúrich 2007",
+      "credit": "AFP / Michele Limina / AFPBB News",
+      "source": "https://www.afpbb.com/articles/-/2301202",
+      "rightsKnown": false,
+      "photoYear": 2007,
+      "objectPosition": "50% 42%",
+      "mobileObjectPosition": "50% 40%",
+      "reviewedAt": "2026-11-12T10:30:26.275938+00:00",
+      "auditStatus": "verified"
+    },
+    "sourceTitle": "Henin wins Zurich Open2007, 21October2007",
+    "originalUrl": "https://afpbb.ismcdn.jp/mwimgs/7/d/-/img_7dba1a137324d7ba6d765ddd49e4bb3f187743.jpg",
+    "downloadedDimensions": {
+      "width": 1024,
+      "height": 685
+    },
+    "sourceImageSha256": "0faa4d9e3f4792478106f5401e2487dffe360cac491170048e2cdd742b4e49a5",
+    "optimizedImageSha256": "59b0a52d11f3ab81094317e6289be1e16bc2ffd5a015b4356024ec4a87f12fcb",
+    "reviewNotes": "Exact contemporary AFPBB report21October2007, main photograph Henin holding Zurich Open trophy. Native1024×685 horizontal; AFPBB visual watermark retained fully and unaltered. Rights unconfirmed; source attribution retained, lower priority than clean licensed replacement."
+  }
+]

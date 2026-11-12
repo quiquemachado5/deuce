@@ -1,0 +1,457 @@
+{
+  "schema": 1,
+  "at": "2026-11-11T18:53:05.621Z",
+  "count": 1709,
+  "byTour": {
+    "atp": 834,
+    "wta": 875
+  },
+  "editions": [
+    {
+      "edition": "atp|1970|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|1971|ATP Finals",
+      "rows": 21
+    },
+    {
+      "edition": "atp|1972|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|1973|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|1974|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|1975|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|1976|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|1977|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|1978|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|1979|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|1980|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|1981|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|1982|ATP Finals",
+      "rows": 11
+    },
+    {
+      "edition": "atp|1983|ATP Finals",
+      "rows": 11
+    },
+    {
+      "edition": "atp|1984|ATP Finals",
+      "rows": 11
+    },
+    {
+      "edition": "atp|1985|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|1986|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|1987|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|1988|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|1989|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|1990|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|1991|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|1992|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|1993|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|1994|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|1995|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|1996|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|1997|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|1998|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|1999|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|2000|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|2001|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|2002|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|2003|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|2004|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|2005|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|2006|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|2007|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|2008|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|2009|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|2010|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|2011|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|2012|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|2013|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|2014|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|2015|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|2016|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|2017|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|2018|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|2019|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|2020|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|2021|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|2022|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|2023|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|2024|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "atp|2025|ATP Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|1972|WTA Finals",
+      "rows": 62
+    },
+    {
+      "edition": "wta|1973|WTA Finals",
+      "rows": 31
+    },
+    {
+      "edition": "wta|1974|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|1975|WTA Finals",
+      "rows": 24
+    },
+    {
+      "edition": "wta|1976|WTA Finals",
+      "rows": 24
+    },
+    {
+      "edition": "wta|1977|WTA Finals",
+      "rows": 14
+    },
+    {
+      "edition": "wta|1978|WTA Finals",
+      "rows": 14
+    },
+    {
+      "edition": "wta|1979|WTA Finals",
+      "rows": 14
+    },
+    {
+      "edition": "wta|1980|WTA Finals",
+      "rows": 13
+    },
+    {
+      "edition": "wta|1981|WTA Finals",
+      "rows": 14
+    },
+    {
+      "edition": "wta|1982|WTA Finals",
+      "rows": 14
+    },
+    {
+      "edition": "wta|1983|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|1984|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|1985|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|1986|WTA Finals · marzo de 1986",
+      "rows": 15
+    },
+    {
+      "edition": "wta|1986|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|1987|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|1988|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|1989|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|1990|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|1991|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|1992|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|1993|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|1994|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|1995|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|1996|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|1997|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|1998|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|1999|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|2000|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|2001|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|2002|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|2003|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|2004|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|2005|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|2006|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|2007|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|2008|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|2009|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|2010|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|2011|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|2012|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|2013|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|2014|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|2016|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|2017|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|2018|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|2019|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|2021|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|2022|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|2023|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|2024|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|2025|WTA Finals",
+      "rows": 15
+    },
+    {
+      "edition": "wta|2026|WTA Finals",
+      "rows": 6
+    }
+  ],
+  "excluded": [
+    "Next Gen Finals",
+    "WCT Finals",
+    "WTA Elite Trophy / Zhuhai / Tournament of Champions"
+  ],
+  "certification": "Provider results imported; completeness by historical format requires independent edition certification."
+}

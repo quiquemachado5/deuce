@@ -3,6 +3,9 @@ import { analyzePointTape, chooseSocialHighlight } from './analytics/engine'
 import { normalizeText } from './quality'
 export function roundPosition(round: string) {
   const value = normalizeText(round)
+  if(value==='rr'||value==='fase de grupos'||value==='round robin')return .5
+  if(value==='ronda no especificada')return .25
+  if(value==='br'||value==='tercer puesto')return 6.5
   const order: Record<string,number> = { final:7, semifinal:6, 'semifinales':6, quarterfinal:5, 'cuartos de final':5, 'round of 16':4, 'octavos de final':4, 'round of 32':3, 'ronda de 32':3, 'tercera ronda':3, 'round of 64':2, 'ronda de 64':2, 'segunda ronda':2, 'round of 128':1, 'ronda de 128':1, 'primera ronda':1 }
   return order[value] || 0
 }

@@ -1,3 +1,4 @@
+import {approvedMediaFetch as fetch} from './approved-media-fetch.mjs';
 // Explicitly reviewed Commons files only. This is a manual import, never a build-time crawl.
 import fs from 'node:fs/promises';
 import path from 'node:path';

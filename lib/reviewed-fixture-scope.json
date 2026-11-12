@@ -1,0 +1,54 @@
+[
+  {
+    "matchId": "live-177640",
+    "tour": "atp",
+    "year": 2026,
+    "tournament": "US Open",
+    "date": "2026-08-23",
+    "round": "",
+    "first": "Dali Blanch",
+    "second": "Jack Secord",
+    "reason": "US Open Qualifying Wild Card Challenge: invitation playoff, not the Grand Slam main draw or qualifying draw.",
+    "source": "https://www.usopen.org/amp/en_US/news/articles/2026-08-23/jordyn_hazelitt_and_jack_secord_win_2026_us_open_qualifying_wild_card_challenge.html",
+    "corroboration": "https://tenniskalamazoo.blogspot.com/2026/08/zheng-among-2026-us-open-main-draw-wild.html"
+  },
+  {
+    "matchId": "live-177436",
+    "tour": "atp",
+    "year": 2026,
+    "tournament": "US Open",
+    "date": "2026-08-23",
+    "round": "Semifinal",
+    "first": "Jack Secord",
+    "second": "Ozan Baris",
+    "reason": "US Open Qualifying Wild Card Challenge: invitation playoff, not the Grand Slam main draw or qualifying draw.",
+    "source": "https://www.usopen.org/amp/en_US/news/articles/2026-08-23/jordyn_hazelitt_and_jack_secord_win_2026_us_open_qualifying_wild_card_challenge.html",
+    "corroboration": "https://tenniskalamazoo.blogspot.com/2026/08/zheng-among-2026-us-open-main-draw-wild.html"
+  },
+  {
+    "matchId": "live-177435",
+    "tour": "atp",
+    "year": 2026,
+    "tournament": "US Open",
+    "date": "2026-08-23",
+    "round": "Semifinal",
+    "first": "Dali Blanch",
+    "second": "Keaton Hance",
+    "reason": "US Open Qualifying Wild Card Challenge: invitation playoff, not the Grand Slam main draw or qualifying draw.",
+    "source": "https://www.usopen.org/amp/en_US/news/articles/2026-08-23/jordyn_hazelitt_and_jack_secord_win_2026_us_open_qualifying_wild_card_challenge.html",
+    "corroboration": "https://tenniskalamazoo.blogspot.com/2026/08/zheng-among-2026-us-open-main-draw-wild.html"
+  },
+  {
+    "matchId": "wta-live-177641",
+    "tour": "wta",
+    "year": 2026,
+    "tournament": "US Open",
+    "date": "2026-08-23",
+    "round": "",
+    "first": "Chukwumelije Clarke",
+    "second": "Jordyn Hazelitt",
+    "reason": "US Open Qualifying Wild Card Challenge: invitation playoff, not the Grand Slam main draw or qualifying draw.",
+    "source": "https://www.usopen.org/amp/en_US/news/articles/2026-08-23/jordyn_hazelitt_and_jack_secord_win_2026_us_open_qualifying_wild_card_challenge.html",
+    "corroboration": "https://tenniskalamazoo.blogspot.com/2026/08/zheng-among-2026-us-open-main-draw-wild.html"
+  }
+]

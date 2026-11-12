@@ -1,0 +1,46 @@
+[
+  {
+    "width": 320,
+    "overflow": false,
+    "height": 1037,
+    "visibleStories": [
+      {
+        "opacity": "1",
+        "wordOpacity": "1",
+        "display": "block"
+      }
+    ]
+  },
+  {
+    "width": 390,
+    "overflow": false,
+    "height": 1025.1875,
+    "visibleStories": [
+      {
+        "opacity": "1",
+        "wordOpacity": "1",
+        "display": "block"
+      }
+    ]
+  },
+  {
+    "reducedMotion": [
+      {
+        "opacity": "1",
+        "position": "static"
+      }
+    ]
+  },
+  {
+    "width": 1366,
+    "overflow": false,
+    "height": 408.828125,
+    "visibleStories": [
+      {
+        "opacity": "1",
+        "wordOpacity": "1",
+        "display": "none"
+      }
+    ]
+  }
+]

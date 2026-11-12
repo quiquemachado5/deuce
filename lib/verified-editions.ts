@@ -1,9 +1,15 @@
+import web2025 from "./verified-web-2025.json";
+import formatResults from "./verified-edition-format-results.json";
+import webNovember11 from "./verified-web-2026-11-11.json";
+import wta2018Completion from './verified-wta-2018-completion.json';
 import type { Match } from "./types";
 import { roundPosition } from "./editorial";
 import miamiDraw from "./verified-miami-2026.json";
 import rolandGarrosDraw from "./verified-roland-garros-2026.json";
 import wtaNovemberDraws from "./verified-wta-november-2026.json";
 import atpSpringDraws from "./verified-atp-spring-2026.json";
+import parisDraw from './verified-paris-2026.json';
+import finals2015 from './verified-finals-2015.json';
 /** Result-only references for entries absent from the principal provider. No points or measurements are inferred. */
 const australianOpenReferences = [
   {
@@ -61,14 +67,24 @@ type EditionReference = {
   status: string;
   source: string;
   corroboration?: string;
+  evidence?: string[];
   tournament: string;
   category: string;
   surface: Match["surface"];
   format: string;
   dateLabel: string;
   tour: Match["tour"];
+  minutes?:number;
+  statistics?:Match['statistics'];
+  reviewedAt?:string;
 };
 const references: EditionReference[] = [
+  ...formatResults.map(r=>({...r,surface:r.surface as Match["surface"],tour:r.tour as Match["tour"]})),
+  ...wta2018Completion.map(r=>({...r,surface:r.surface as Match['surface'],tour:r.tour as Match['tour']})),
+  ...webNovember11.map(r=>({...r,surface:r.surface as Match["surface"],tour:r.tour as Match["tour"]})),
+  ...finals2015.map(r=>({...r,surface:r.surface as Match['surface'],tour:r.tour as Match['tour']})),
+  ...web2025.map(r=>({...r,surface:r.surface as Match["surface"],tour:r.tour as Match["tour"]})),
+  ...parisDraw.map(r=>({...r,year:2026,tournament:'Paris',category:'Masters 1000',surface:'hard' as const,format:'BO3',tour:'atp' as const,dateLabel:'Fecha del partido',statistics:r.statistics as Match['statistics'],reviewedAt:'2026-11-10T14:16:31Z'})),
   ...australianOpenReferences.map((r) => ({
     ...r,
     year: 2026,
@@ -178,13 +194,15 @@ export const editionReferenceMatches: Match[] = references.map((r) => {
     },
     data_source: "reference",
     point_tape: [],
-    statistics: [],
+    statistics: r.statistics||[],
     context: {
       date: r.date,
       dateLabel: r.dateLabel,
       format: r.format,
       resultSource: r.source,
-      ...(r.corroboration ? { metadataSources: [{ field: 'resultado', url: r.corroboration }] } : {}),
+      ...(r.reviewedAt?{resultReviewedAt:r.reviewedAt}:{}),
+      ...(r.minutes!=null?{minutes:r.minutes}:{}),
+      ...(r.corroboration ? { metadataSources: [{ field: 'resultado', url: r.corroboration },...(r.evidence||[]).map(url=>({field:'contraste del marcador; no fecha exacta',url}))] } : {}),
     },
   };
 });
@@ -219,7 +237,7 @@ export function mergeEditionReferences(
     byKey = new Map(editionReferenceMatches.map((m) => [identity(m), m]));
   const rows = source.map((m) => {
     const ref = byKey.get(identity(m));
-    if (!ref || !["Finished", "Review", "Walkover"].includes(m.status))
+    if (!ref || !["Finished", "Review", "Walkover", "Retired", "retired", "walkover"].includes(m.status))
       return m;
     const reversed = fold(m.player1.name) !== fold(ref.player1.name),
       games = ref.score_summary.games.map(([a, b]) =>
@@ -243,8 +261,8 @@ export function mergeEditionReferences(
       status: ref.status,
       winner: (reversed ? 2 : 1) as 1 | 2,
       point_tape: changed ? [] : m.point_tape,
-      statistics: changed ? [] : m.statistics,
-      context: { ...m.context, resultSource: ref.context?.resultSource },
+      statistics: ref.statistics.length ? ref.statistics.map(stat=>({...stat,player:stat.player&&reversed?(3-stat.player) as 1|2:stat.player})) : changed ? [] : m.statistics,
+      context: { ...m.context, resultSource: ref.context?.resultSource, ...(ref.context?.resultReviewedAt?{resultReviewedAt:ref.context.resultReviewedAt}:{}), ...(ref.context?.minutes!=null?{minutes:ref.context.minutes,date:ref.context.date,dateLabel:ref.context.dateLabel}:{}), metadataSources:ref.context?.metadataSources||m.context?.metadataSources },
     };
   });
   return [

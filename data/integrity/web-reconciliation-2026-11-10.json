@@ -1,0 +1,70 @@
+{
+  "at": "2026-11-10",
+  "datasetVersion": "15dd0b11e68a81a08d9e",
+  "beforePending": 1014,
+  "afterPending": 3,
+  "corrections": 705,
+  "byTour": {
+    "wta": 621,
+    "atp": 84
+  },
+  "retirements": 35,
+  "remaining": [
+    {
+      "id": "confirmed:atp:Australian Open:1974:Grand Slam",
+      "tour": "atp",
+      "kind": "draw",
+      "state": "confirmed",
+      "reason": "unresolved-results",
+      "title": "Abierto de Australia · 1974",
+      "detail": "1 resultado no tiene un estado terminal verificable.",
+      "count": 1,
+      "year": 1974,
+      "tournament": "Australian Open",
+      "category": "Grand Slam",
+      "sourceRows": 63,
+      "pending": 1
+    },
+    {
+      "id": "confirmed:atp:US Open:1972:Grand Slam",
+      "tour": "atp",
+      "kind": "draw",
+      "state": "confirmed",
+      "reason": "unresolved-results",
+      "title": "Abierto de Estados Unidos · 1972",
+      "detail": "1 resultado no tiene un estado terminal verificable.",
+      "count": 1,
+      "year": 1972,
+      "tournament": "US Open",
+      "category": "Grand Slam",
+      "sourceRows": 127,
+      "pending": 1
+    },
+    {
+      "id": "confirmed:wta:US Open:1969:Grand Slam",
+      "tour": "wta",
+      "kind": "draw",
+      "state": "confirmed",
+      "reason": "unresolved-results",
+      "title": "Abierto de Estados Unidos · 1969",
+      "detail": "1 resultado no tiene un estado terminal verificable.",
+      "count": 1,
+      "year": 1969,
+      "tournament": "US Open",
+      "category": "Grand Slam",
+      "sourceRows": 63,
+      "pending": 1
+    }
+  ],
+  "round2": {
+    "startingPending": 28,
+    "corrected": 21,
+    "reclassifiedOutsideMainDraw": 4,
+    "remaining": 3
+  },
+  "metadataOnlyRebuild": {
+    "at": "2026-11-11T12:20:47.209Z",
+    "previousVersion": "569fc90581a7f7aadfe3",
+    "resultsVerifiedUnchanged": true
+  }
+}

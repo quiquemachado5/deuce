@@ -4,7 +4,8 @@ import { releaseFailures } from './release-policy.mjs'
 const baseline = JSON.parse(await readFile(new URL('./release-baseline.json', import.meta.url), 'utf8'))
 const argument = name => process.argv.find(value => value.startsWith(`--${name}=`))?.slice(name.length + 3)
 const url = argument('url') || process.env.DEUCE_RELEASE_HEALTH_URL || `${baseline.productionUrl}/api/health/deep`
-const response = await fetch(url, { signal: AbortSignal.timeout(30_000), cache: 'no-store' })
+const healthSecret=process.env.HEALTH_SECRET||process.env.METRICS_SECRET
+const response = await fetch(url, {headers:healthSecret?{Authorization:'Bearer '+healthSecret}:{},signal: AbortSignal.timeout(30_000), cache: 'no-store' })
 if (!response.ok) throw new Error(`Health endpoint: HTTP ${response.status}`)
 const health = await response.json()
 const failures = releaseFailures(health, baseline, {

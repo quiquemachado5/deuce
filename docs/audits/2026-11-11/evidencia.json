@@ -1,0 +1,1073 @@
+{
+  "scope": "Local immutable reading snapshot; published consistent singles, not all tennis in history",
+  "tours": {
+    "atp": {
+      "matches": 73263,
+      "fields": {
+        "exactDate": {
+          "present": 10037,
+          "percent": 13.7
+        },
+        "rankBoth": {
+          "present": 58244,
+          "percent": 79.5
+        },
+        "ageBoth": {
+          "present": 62952,
+          "percent": 85.93
+        },
+        "minutes": {
+          "present": 49710,
+          "percent": 67.85
+        },
+        "statistics": {
+          "present": 690,
+          "percent": 0.94
+        },
+        "points": {
+          "present": 523,
+          "percent": 0.71
+        },
+        "games": {
+          "present": 73263,
+          "percent": 100.0
+        },
+        "sourceUrl": {
+          "present": 1233,
+          "percent": 1.68
+        },
+        "provenanceObject": {
+          "present": 0,
+          "percent": 0.0
+        }
+      },
+      "duplicateIds": 0,
+      "candidateSameEditionRoundPair": [
+        {
+          "key": "('atp', 'Chennai', 2012, 'Octavos de final', ('Benoit Paire', 'Dudi Sela'))",
+          "ids": [
+            "archive-161522",
+            "archive-158518"
+          ]
+        },
+        {
+          "key": "('atp', 'Brisbane', 2018, 'Octavos de final', ('Grigor Dimitrov', 'John Millman'))",
+          "ids": [
+            "archive-179030",
+            "archive-176139"
+          ]
+        },
+        {
+          "key": "('atp', 'Miami', 2026, 'Octavos de final', ('Tomas Martin Etcheverry', 'Tommy Paul'))",
+          "ids": [
+            "reference-miami-2026-ms010",
+            "live-218144"
+          ]
+        },
+        {
+          "key": "('atp', 'Miami', 2026, 'Octavos de final', ('Frances Tiafoe', 'Terence Atmane'))",
+          "ids": [
+            "reference-miami-2026-ms014",
+            "live-218145"
+          ]
+        },
+        {
+          "key": "('atp', 'Miami', 2026, 'Cuartos de final', ('Jiri Lehecka', 'Martin Landaluce'))",
+          "ids": [
+            "reference-miami-2026-ms004",
+            "live-218146"
+          ]
+        },
+        {
+          "key": "('atp', 'Miami', 2026, 'Cuartos de final', ('Alexander Zverev', 'Francisco Cerundolo'))",
+          "ids": [
+            "reference-miami-2026-ms006",
+            "live-218147"
+          ]
+        },
+        {
+          "key": "('atp', 'Miami', 2026, 'Semifinal', ('Arthur Fils', 'Jiri Lehecka'))",
+          "ids": [
+            "reference-miami-2026-ms002",
+            "live-218148"
+          ]
+        },
+        {
+          "key": "('atp', 'Miami', 2026, 'Semifinal', ('Alexander Zverev', 'Jannik Sinner'))",
+          "ids": [
+            "reference-miami-2026-ms003",
+            "live-218149"
+          ]
+        },
+        {
+          "key": "('atp', 'Australian Open', 1977, 'Ronda de 64', ('Robin Drysdale', 'Steve Docherty'))",
+          "ids": [
+            "archive-37919",
+            "archive-37834"
+          ]
+        }
+      ],
+      "sources": {
+        "api": 73245,
+        "reference": 18
+      },
+      "categories": {
+        "Grand Slam": 27571,
+        "Masters 1000": 20183,
+        "ATP 500": 6995,
+        "ATP 250": 18514
+      },
+      "years": {
+        "1990": 1010,
+        "1991": 1012,
+        "1992": 1008,
+        "1993": 1013,
+        "1994": 1010,
+        "1995": 1012,
+        "1996": 1007,
+        "1997": 1004,
+        "1998": 996,
+        "1999": 1006,
+        "2010": 2554,
+        "2011": 2551,
+        "2012": 2569,
+        "2013": 2502,
+        "2014": 2395,
+        "2015": 2512,
+        "2016": 2512,
+        "2017": 2515,
+        "2018": 2624,
+        "2019": 2432,
+        "1980": 433,
+        "1981": 438,
+        "1982": 469,
+        "1983": 468,
+        "1984": 467,
+        "1985": 470,
+        "1986": 378,
+        "1987": 471,
+        "1988": 500,
+        "1989": 502,
+        "2000": 1045,
+        "2001": 1047,
+        "2002": 1032,
+        "2003": 1032,
+        "2004": 1072,
+        "2005": 1069,
+        "2006": 1071,
+        "2007": 1024,
+        "2008": 1022,
+        "2009": 2599,
+        "1968": 366,
+        "1969": 414,
+        "2023": 2601,
+        "2024": 2618,
+        "2025": 2473,
+        "2026": 2356,
+        "2020": 1308,
+        "2021": 2423,
+        "2022": 2584,
+        "1970": 390,
+        "1971": 458,
+        "1972": 377,
+        "1973": 435,
+        "1974": 427,
+        "1975": 441,
+        "1976": 373,
+        "1977": 497,
+        "1978": 435,
+        "1979": 434
+      },
+      "suspiciousMinutes": [
+        {
+          "id": "archive-170400",
+          "minutes": 1146
+        }
+      ]
+    },
+    "wta": {
+      "matches": 73297,
+      "fields": {
+        "exactDate": {
+          "present": 9486,
+          "percent": 12.94
+        },
+        "rankBoth": {
+          "present": 57829,
+          "percent": 78.9
+        },
+        "ageBoth": {
+          "present": 63352,
+          "percent": 86.43
+        },
+        "minutes": {
+          "present": 13417,
+          "percent": 18.3
+        },
+        "statistics": {
+          "present": 217,
+          "percent": 0.3
+        },
+        "points": {
+          "present": 121,
+          "percent": 0.17
+        },
+        "games": {
+          "present": 73297,
+          "percent": 100.0
+        },
+        "sourceUrl": {
+          "present": 1143,
+          "percent": 1.56
+        },
+        "provenanceObject": {
+          "present": 0,
+          "percent": 0.0
+        }
+      },
+      "duplicateIds": 0,
+      "candidateSameEditionRoundPair": [
+        {
+          "key": "('wta', 'Tokyo', 2015, 'Ronda de 32', ('Carla Suarez Navarro', 'Kateryna Bondarenko'))",
+          "ids": [
+            "wta-archive-986356",
+            "wta-archive-985502"
+          ]
+        }
+      ],
+      "sources": {
+        "api": 73281,
+        "reference": 16
+      },
+      "categories": {
+        "Grand Slam": 25617,
+        "WTA 500": 11100,
+        "WTA 250": 22993,
+        "WTA 1000": 13587
+      },
+      "years": {
+        "1968": 278,
+        "1969": 247,
+        "1970": 255,
+        "1971": 274,
+        "1972": 273,
+        "1973": 274,
+        "1974": 271,
+        "1975": 250,
+        "1976": 250,
+        "1977": 314,
+        "1978": 283,
+        "1979": 278,
+        "2023": 2369,
+        "2024": 2400,
+        "2025": 2359,
+        "2026": 2358,
+        "2020": 1060,
+        "2021": 2095,
+        "2022": 2239,
+        "1990": 500,
+        "1991": 505,
+        "1992": 504,
+        "1993": 504,
+        "1994": 501,
+        "1995": 559,
+        "1996": 503,
+        "1997": 496,
+        "1998": 502,
+        "1999": 502,
+        "2010": 2352,
+        "2011": 2351,
+        "2012": 2346,
+        "2013": 2337,
+        "2014": 2275,
+        "2015": 2392,
+        "2016": 2438,
+        "2017": 2435,
+        "2018": 1070,
+        "2019": 2292,
+        "1980": 308,
+        "1981": 370,
+        "1982": 364,
+        "1983": 441,
+        "1984": 440,
+        "1985": 441,
+        "1986": 376,
+        "1987": 475,
+        "1988": 504,
+        "1989": 504,
+        "2000": 2273,
+        "2001": 2444,
+        "2002": 2485,
+        "2003": 2254,
+        "2004": 2310,
+        "2005": 2456,
+        "2006": 2379,
+        "2007": 2411,
+        "2008": 2248,
+        "2009": 2323
+      },
+      "suspiciousMinutes": [
+        {
+          "id": "wta-archive-1003679",
+          "minutes": 1
+        },
+        {
+          "id": "wta-archive-992973",
+          "minutes": 1094
+        }
+      ]
+    }
+  },
+  "version": "569fc90581a7f7aadfe3",
+  "generatedAt": "2026-11-10T20:49:32.529Z",
+  "total": 146560,
+  "reconciliation": {
+    "editions": 3022,
+    "confirmed": 74,
+    "verification": 2945,
+    "conflicts": 10,
+    "rankingGroups": 459,
+    "queuedCohorts": 0,
+    "pendingRows": 3
+  },
+  "drawAudit": {
+    "editions": 3022,
+    "completeTrue": 3,
+    "uncertified": 2945,
+    "completeFalse": 74,
+    "noFinal": 13
+  },
+  "publicObservation": {
+    "status": "degraded",
+    "healthIssues": [
+      "scheduler"
+    ],
+    "servingDataset": {
+      "role": "active",
+      "version": "60be75eb14cd5a4aed32",
+      "generatedAt": "2026-11-10T23:41:28.576Z",
+      "matches": 144987,
+      "source": "remote"
+    },
+    "bundledDataset": {
+      "role": "validated-fallback",
+      "version": "11ed832c8adac8f11f49",
+      "generatedAt": "2026-11-09T12:50:50.219Z",
+      "matches": 144354
+    },
+    "matches": 144987,
+    "tours": {
+      "atp": 72329,
+      "wta": 72658
+    },
+    "scheduler": {
+      "configured": true,
+      "status": "degraded",
+      "day": "2026-11-10",
+      "heartbeatAt": "2026-11-11T17:11:02.694Z",
+      "heartbeatAgeSeconds": 22,
+      "nextRunAt": "2026-11-11T22:05:00.001Z",
+      "stages": {
+        "/api/cron/refresh": {
+          "status": "success",
+          "optional": false,
+          "attempts": 1,
+          "lastAttemptAt": "2026-11-10T22:05:00.007Z",
+          "operationStatus": "success"
+        },
+        "/api/cron/wta": {
+          "status": "success",
+          "optional": false,
+          "attempts": 1,
+          "lastAttemptAt": "2026-11-10T22:06:20.918Z",
+          "operationStatus": "success"
+        },
+        "/api/cron/publish": {
+          "status": "blocked",
+          "optional": false,
+          "attempts": 5,
+          "lastAttemptAt": "2026-11-10T23:40:33.488Z",
+          "error": "The operation was aborted due to timeout"
+        },
+        "/api/cron/wta-backfill": {
+          "status": "pending",
+          "optional": true,
+          "attempts": 0
+        },
+        "/api/cron/enrich": {
+          "status": "pending",
+          "optional": true,
+          "attempts": 0
+        }
+      }
+    },
+    "dailyUpdate": {
+      "refresh": {
+        "status": "success",
+        "at": "2026-11-10T22:06:20.712Z",
+        "lastSuccessAt": "2026-11-10T22:06:20.712Z",
+        "latestProviderDate": "2026-11-08",
+        "initialSeed": false,
+        "ageHours": 19.1,
+        "lastSuccessAgeHours": 19.1
+      },
+      "atp": {
+        "status": "success",
+        "at": "2026-11-10T22:06:20.712Z",
+        "lastSuccessAt": "2026-11-10T22:06:20.712Z",
+        "latestProviderDate": "2026-11-08",
+        "initialSeed": false,
+        "ageHours": 19.1,
+        "lastSuccessAgeHours": 19.1
+      },
+      "wta": {
+        "status": "success",
+        "at": "2026-11-10T22:06:26.186Z",
+        "phase": "current-season",
+        "lastSuccessAt": "2026-11-10T22:06:26.186Z",
+        "latestProviderDate": "2026-11-02",
+        "probe": {
+          "usage": "ok",
+          "currentSeason": "ok"
+        },
+        "initialSeed": false,
+        "ageHours": 19.1,
+        "lastSuccessAgeHours": 19.1
+      },
+      "publication": {
+        "status": "success",
+        "at": "2026-11-10T23:46:35.733Z",
+        "lastSuccessAt": "2026-11-10T23:46:35.733Z",
+        "initialSeed": false,
+        "ageHours": 17.4,
+        "lastSuccessAgeHours": 17.4
+      },
+      "staleAfterHours": 36
+    },
+    "recovery": {
+      "backup": {
+        "status": "success",
+        "at": "2026-11-11T03:22:11Z",
+        "initialSeed": false,
+        "ageHours": 13.8,
+        "lastSuccessAgeHours": null,
+        "restoreValidated": true,
+        "archive": "deuce-archive-20261111T032052Z.tar.gz"
+      },
+      "restore": {
+        "status": "success",
+        "at": "2026-11-09T21:00:50Z",
+        "initialSeed": false,
+        "ageHours": 44.2,
+        "lastSuccessAgeHours": null,
+        "restoreValidated": true,
+        "backupAt": "2026-11-09T20:58:52Z",
+        "backupAgeHours": 0,
+        "archive": "deuce-archive-20261109T205852Z.tar.gz"
+      },
+      "backupStaleAfterHours": 36,
+      "restoreStaleAfterHours": 192
+    },
+    "cache": {
+      "bundled": {
+        "hits": 2488,
+        "misses": 1,
+        "evictions": 0,
+        "failures": 0,
+        "entries": 1,
+        "capacity": 48,
+        "weight": 0,
+        "maxWeight": 0
+      },
+      "remotePointers": {
+        "hits": 0,
+        "misses": 216,
+        "evictions": 0,
+        "failures": 0,
+        "entries": 1,
+        "capacity": 4,
+        "weight": 0,
+        "maxWeight": 0
+      },
+      "remoteArtifacts": {
+        "hits": 29799,
+        "misses": 480,
+        "evictions": 448,
+        "failures": 0,
+        "entries": 16,
+        "capacity": 16,
+        "weight": 3324284,
+        "maxWeight": 50331648
+      },
+      "productArtifacts": {
+        "hits": 755,
+        "misses": 5,
+        "evictions": 0,
+        "failures": 0,
+        "entries": 4,
+        "capacity": 8,
+        "weight": 11669082,
+        "maxWeight": 33554432
+      },
+      "generations": {
+        "hits": 95,
+        "misses": 80,
+        "evictions": 0,
+        "failures": 0,
+        "entries": 1,
+        "capacity": 1,
+        "weight": 0,
+        "maxWeight": 0
+      },
+      "snapshotSources": {
+        "hits": 112897,
+        "misses": 216,
+        "evictions": 0,
+        "failures": 0,
+        "entries": 1,
+        "capacity": 1,
+        "weight": 0,
+        "maxWeight": 0
+      },
+      "browserIndexes": {
+        "hits": 65216,
+        "misses": 2,
+        "evictions": 0,
+        "failures": 0,
+        "entries": 1,
+        "capacity": 2,
+        "weight": 5219532,
+        "maxWeight": 8388608
+      },
+      "browserPartitions": {
+        "hits": 61674,
+        "misses": 7384,
+        "evictions": 7379,
+        "failures": 0,
+        "entries": 2,
+        "capacity": 12,
+        "weight": 49738800,
+        "maxWeight": 50331648
+      },
+      "decodedBrowserPartitions": {
+        "hits": 16,
+        "misses": 4,
+        "evictions": 0,
+        "failures": 0,
+        "entries": 4,
+        "capacity": 10,
+        "weight": 22326000,
+        "maxWeight": 50331648
+      },
+      "fullPartitions": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "failures": 0,
+        "entries": 0,
+        "capacity": 2,
+        "weight": 0,
+        "maxWeight": 67108864
+      },
+      "matchDetails": {
+        "hits": 5260,
+        "misses": 22560,
+        "evictions": 22432,
+        "failures": 0,
+        "entries": 64,
+        "capacity": 64,
+        "weight": 0,
+        "maxWeight": 0
+      },
+      "compactArchives": {
+        "hits": 0,
+        "misses": 0,
+        "evictions": 0,
+        "failures": 0,
+        "entries": 0,
+        "capacity": 2,
+        "weight": 0,
+        "maxWeight": 41943040
+      },
+      "compactSelections": {
+        "hits": 599,
+        "misses": 41251,
+        "evictions": 41203,
+        "failures": 0,
+        "entries": 24,
+        "capacity": 24,
+        "weight": 212000,
+        "maxWeight": 67108864
+      },
+      "competitionArchives": {
+        "hits": 1,
+        "misses": 1,
+        "evictions": 0,
+        "failures": 0,
+        "entries": 1,
+        "capacity": 2,
+        "weight": 5512800,
+        "maxWeight": 33554432
+      },
+      "playerRecords": {
+        "hits": 19231,
+        "misses": 2,
+        "evictions": 0,
+        "failures": 0,
+        "entries": 1,
+        "capacity": 2,
+        "weight": 1748160,
+        "maxWeight": 16777216
+      },
+      "coverageReconciliations": {
+        "hits": 1,
+        "misses": 1,
+        "evictions": 0,
+        "failures": 0,
+        "entries": 1,
+        "capacity": 2,
+        "weight": 1811160,
+        "maxWeight": 8388608
+      },
+      "publicationIndexes": {
+        "hits": 22561,
+        "misses": 2,
+        "evictions": 0,
+        "failures": 0,
+        "entries": 1,
+        "capacity": 2,
+        "weight": 26097660,
+        "maxWeight": 33554432
+      }
+    },
+    "hostBudget": {
+      "status": "healthy",
+      "diskUsedPercent": 32,
+      "webMemoryBytes": 1559015424,
+      "webMemoryLimitBytes": 2147483648
+    }
+  },
+  "methodology": {
+    "exactDate": "context.dateLabel == Fecha del partido",
+    "sourceUrl": "URL in published provenance/context/source fields; not all raw lineage",
+    "duplicateCandidates": "same tour,tournament,year,round,unordered pair; false positives possible",
+    "coverage": "global historical denominator not established",
+    "recommendationsImplemented": false
+  },
+  "uiVerification": {
+    "rows": [
+      {
+        "width": 390,
+        "route": "/",
+        "overflow": false
+      },
+      {
+        "width": 390,
+        "route": "/propuestas/nadal",
+        "overflow": false
+      },
+      {
+        "width": 390,
+        "route": "/propuestas/comparar",
+        "overflow": false
+      },
+      {
+        "width": 390,
+        "playerFlagCount": 1
+      },
+      {
+        "width": 390,
+        "route": "/torneos/paris",
+        "overflow": false
+      },
+      {
+        "width": 390,
+        "route": "/torneos/paris",
+        "filterWidth": 44,
+        "visibleCircuitLinks": 0
+      },
+      {
+        "width": 390,
+        "route": "/torneos/cincinnati",
+        "overflow": false
+      },
+      {
+        "width": 390,
+        "route": "/torneos/cincinnati",
+        "filterWidth": 44,
+        "visibleCircuitLinks": 0
+      },
+      {
+        "width": 390,
+        "route": "/torneos/shanghai",
+        "overflow": false
+      },
+      {
+        "width": 390,
+        "route": "/torneos?tour=wta",
+        "overflow": false
+      },
+      {
+        "wtaMajors": 4,
+        "australianDuplicate": 0
+      },
+      {
+        "width": 1366,
+        "route": "/",
+        "overflow": false
+      },
+      {
+        "width": 1366,
+        "route": "/propuestas/nadal",
+        "overflow": false
+      },
+      {
+        "width": 1366,
+        "route": "/propuestas/comparar",
+        "overflow": false
+      },
+      {
+        "width": 1366,
+        "playerFlagCount": 1
+      },
+      {
+        "width": 1366,
+        "route": "/torneos/paris",
+        "overflow": false
+      },
+      {
+        "width": 1366,
+        "route": "/torneos/paris",
+        "filterWidth": 99.40625,
+        "visibleCircuitLinks": 0
+      },
+      {
+        "width": 1366,
+        "route": "/torneos/cincinnati",
+        "overflow": false
+      },
+      {
+        "width": 1366,
+        "route": "/torneos/cincinnati",
+        "filterWidth": 99.40625,
+        "visibleCircuitLinks": 2
+      },
+      {
+        "width": 1366,
+        "route": "/torneos/shanghai",
+        "overflow": false
+      },
+      {
+        "width": 1366,
+        "route": "/torneos?tour=wta",
+        "overflow": false
+      },
+      {
+        "wtaMajors": 4,
+        "australianDuplicate": 0
+      }
+    ],
+    "errors": []
+  },
+  "themeAndFocusVerification": [
+    {
+      "route": "/torneos/australian-open",
+      "season": "clay",
+      "marks": [
+        {
+          "ball": "rgb(217, 255, 69)",
+          "seam": "rgb(11, 43, 32)"
+        },
+        {
+          "ball": "rgb(217, 255, 69)",
+          "seam": "rgb(11, 43, 32)"
+        }
+      ]
+    },
+    {
+      "route": "/torneos/australian-open",
+      "season": "grass",
+      "marks": [
+        {
+          "ball": "rgb(217, 255, 69)",
+          "seam": "rgb(11, 43, 32)"
+        },
+        {
+          "ball": "rgb(217, 255, 69)",
+          "seam": "rgb(11, 43, 32)"
+        }
+      ]
+    },
+    {
+      "route": "/torneos/australian-open",
+      "season": "hard",
+      "marks": [
+        {
+          "ball": "rgb(217, 255, 69)",
+          "seam": "rgb(11, 43, 32)"
+        },
+        {
+          "ball": "rgb(217, 255, 69)",
+          "seam": "rgb(11, 43, 32)"
+        }
+      ]
+    },
+    {
+      "route": "/torneos/roland-garros",
+      "season": "clay",
+      "marks": [
+        {
+          "ball": "rgb(217, 255, 69)",
+          "seam": "rgb(11, 43, 32)"
+        },
+        {
+          "ball": "rgb(217, 255, 69)",
+          "seam": "rgb(11, 43, 32)"
+        }
+      ]
+    },
+    {
+      "route": "/torneos/roland-garros",
+      "season": "grass",
+      "marks": [
+        {
+          "ball": "rgb(217, 255, 69)",
+          "seam": "rgb(11, 43, 32)"
+        },
+        {
+          "ball": "rgb(217, 255, 69)",
+          "seam": "rgb(11, 43, 32)"
+        }
+      ]
+    },
+    {
+      "route": "/torneos/roland-garros",
+      "season": "hard",
+      "marks": [
+        {
+          "ball": "rgb(217, 255, 69)",
+          "seam": "rgb(11, 43, 32)"
+        },
+        {
+          "ball": "rgb(217, 255, 69)",
+          "seam": "rgb(11, 43, 32)"
+        }
+      ]
+    },
+    {
+      "route": "/torneos/wimbledon",
+      "season": "clay",
+      "marks": [
+        {
+          "ball": "rgb(217, 255, 69)",
+          "seam": "rgb(11, 43, 32)"
+        },
+        {
+          "ball": "rgb(217, 255, 69)",
+          "seam": "rgb(11, 43, 32)"
+        }
+      ]
+    },
+    {
+      "route": "/torneos/wimbledon",
+      "season": "grass",
+      "marks": [
+        {
+          "ball": "rgb(217, 255, 69)",
+          "seam": "rgb(11, 43, 32)"
+        },
+        {
+          "ball": "rgb(217, 255, 69)",
+          "seam": "rgb(11, 43, 32)"
+        }
+      ]
+    },
+    {
+      "route": "/torneos/wimbledon",
+      "season": "hard",
+      "marks": [
+        {
+          "ball": "rgb(217, 255, 69)",
+          "seam": "rgb(11, 43, 32)"
+        },
+        {
+          "ball": "rgb(217, 255, 69)",
+          "seam": "rgb(11, 43, 32)"
+        }
+      ]
+    },
+    {
+      "route": "/torneos/us-open",
+      "season": "clay",
+      "marks": [
+        {
+          "ball": "rgb(217, 255, 69)",
+          "seam": "rgb(11, 43, 32)"
+        },
+        {
+          "ball": "rgb(217, 255, 69)",
+          "seam": "rgb(11, 43, 32)"
+        }
+      ]
+    },
+    {
+      "route": "/torneos/us-open",
+      "season": "grass",
+      "marks": [
+        {
+          "ball": "rgb(217, 255, 69)",
+          "seam": "rgb(11, 43, 32)"
+        },
+        {
+          "ball": "rgb(217, 255, 69)",
+          "seam": "rgb(11, 43, 32)"
+        }
+      ]
+    },
+    {
+      "route": "/torneos/us-open",
+      "season": "hard",
+      "marks": [
+        {
+          "ball": "rgb(217, 255, 69)",
+          "seam": "rgb(11, 43, 32)"
+        },
+        {
+          "ball": "rgb(217, 255, 69)",
+          "seam": "rgb(11, 43, 32)"
+        }
+      ]
+    },
+    {
+      "focusOpacity": "1"
+    },
+    {
+      "width": 320,
+      "route": "/",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "route": "/propuestas/nadal",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "route": "/propuestas/comparar",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "route": "/torneos/cincinnati",
+      "overflow": false
+    }
+  ],
+  "structuralScan": {
+    "atp": {
+      "surface:hard": 37376,
+      "surface:grass": 12325,
+      "surface:clay": 22424,
+      "surface:carpet": 1138
+    },
+    "wta": {
+      "surface:grass": 11455,
+      "surface:clay": 20345,
+      "surface:hard": 40300,
+      "surface:carpet": 1197
+    }
+  },
+  "bothRankedByYear": {
+    "atp": {
+      "1990": 1008,
+      "1991": 1010,
+      "1992": 1002,
+      "1993": 1004,
+      "1994": 988,
+      "1995": 1000,
+      "1996": 996,
+      "1997": 988,
+      "1998": 980,
+      "1999": 993,
+      "2010": 2547,
+      "2011": 2549,
+      "2012": 2561,
+      "2013": 2494,
+      "2014": 2394,
+      "2015": 2503,
+      "2016": 2505,
+      "2017": 2511,
+      "2018": 2616,
+      "2019": 2421,
+      "1980": 218,
+      "1981": 179,
+      "1982": 160,
+      "1983": 178,
+      "1984": 393,
+      "1985": 467,
+      "1986": 375,
+      "1987": 470,
+      "1988": 499,
+      "1989": 502,
+      "2000": 1034,
+      "2001": 1044,
+      "2002": 1031,
+      "2003": 1032,
+      "2004": 1071,
+      "2005": 1068,
+      "2006": 1070,
+      "2007": 1021,
+      "2008": 1021,
+      "2009": 2593,
+      "2020": 1298,
+      "2021": 2417,
+      "2022": 2582,
+      "1973": 136,
+      "1974": 383,
+      "1975": 345,
+      "1977": 198,
+      "1978": 194,
+      "1979": 195
+    },
+    "wta": {
+      "2020": 1051,
+      "2021": 2084,
+      "2022": 2225,
+      "1990": 494,
+      "1991": 498,
+      "1992": 500,
+      "1993": 498,
+      "1994": 482,
+      "1995": 548,
+      "1996": 498,
+      "1997": 491,
+      "1998": 491,
+      "1999": 485,
+      "2010": 2328,
+      "2011": 2349,
+      "2012": 2338,
+      "2013": 2321,
+      "2014": 2270,
+      "2015": 2388,
+      "2016": 2433,
+      "2017": 2423,
+      "2018": 1069,
+      "2019": 2279,
+      "1984": 241,
+      "1985": 53,
+      "1986": 240,
+      "1987": 455,
+      "1988": 490,
+      "1989": 494,
+      "2000": 2250,
+      "2001": 2403,
+      "2002": 2445,
+      "2003": 2243,
+      "2004": 2240,
+      "2005": 2442,
+      "2006": 2360,
+      "2007": 2397,
+      "2008": 2233,
+      "2009": 2300
+    }
+  }
+}

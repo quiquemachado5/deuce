@@ -1,5 +1,10 @@
 import 'server-only'
 import {mergeEditionReferences,editionReferenceMatches} from './verified-editions'
+import {verifiedSeasonResult} from './verified-season-results'
+import {reviewedFixtureMetadata} from './reviewed-fixture-metadata'
+import {classifyReviewedTeamCompetition} from './reviewed-team-competition-scope'
+import {classifyReviewedHistoricalEdition} from './reviewed-historical-editions'
+import {reviewedProviderEdition} from './reviewed-provider-editions'
 import {isCompetitionOnly,prepareCompetitionMatch} from './competition'
 import { pointPosition } from './point-position'
 import { closedSet,prepareMatch } from './quality'
@@ -15,10 +20,13 @@ import { modernTournamentCategory, historicalTournamentCategory } from './tourna
 import { dedupeArchiveTourRows } from './archive-tour-dedupe'
 import { hasClosedModernResult, recoveredModernResult } from './modern-result'
 import { reconcileEditionSummaries } from './edition-reconcile'
+import { mergeProviderRefresh } from './provider-refresh'
 import { providerRoundName, publishableWtaArchiveRow, publishableWtaModernRow } from './provider-publication'
 import { providerTournamentName } from './tournament-identity'
 import { isInPublicationScope, providerTierInPublicationScope, publishedMatches } from './publication-scope'
 import { WTA_HISTORICAL_LAST_YEAR, wtaHistoricalLevelsForSeason } from './wta-backfill-schedule'
+import {finalsArchiveRows} from './finals-archive'
+import {finalsIdentity} from './finals-identity'
 
 const archive = join(process.cwd(), 'data', 'archive')
 const listsDir = join(archive, 'lists')
@@ -47,6 +55,18 @@ async function listFiles(prefix: string) {
   return (await filesPromise).filter(name=>name.startsWith(prefix))
 }
 async function rowsFor(prefix: string): Promise<Row[]> {
+  let rows = await baseRowsFor(prefix)
+  const season = prefix.match(/^modern-(\d{4})-$/)
+  if (!season) return rows
+  for (const tour of ['atp','wta'] as const) {
+    const refresh = await readZip(join(archive, 'refresh', `modern-${season[1]}-${tour}.json.gz`)).catch(() => undefined)
+    if (!refresh) continue
+    if (refresh.complete !== true || refresh.count !== refresh.data?.length) throw new Error('Incomplete provider refresh')
+    rows = mergeProviderRefresh(rows, refresh.data.map((row:Row)=>({...row,_deuce_retrieved_at:refresh.at})), tour)
+  }
+  return rows
+}
+async function baseRowsFor(prefix: string): Promise<Row[]> {
   const season = prefix.match(/^modern-(\d{4})-$/)
   if (season) {
     const [cloud, women, localWomen] = await Promise.all([
@@ -220,7 +240,7 @@ function modernStats(detail: Row | undefined): MatchStat[] {
       const entry = stat(index, category, name, total != null ? `${value} / ${total}` : value, numeric(value), total)
       if (entry) all.push(entry)
     }
-    for (const [field, category, name, totalField] of [
+    if(!isReconstructedDetail(detail))for (const [field, category, name, totalField] of [
       ['hold_pct', 'Service', 'Hold percentage', null], ['break_pct', 'Breaks', 'Break percentage', null],
       ['service_games_played', 'Service', 'Service games played', null], ['service_games_won', 'Service', 'Service games won', 'service_games_played'],
       ['return_games_played', 'Return', 'Return games played', null], ['return_games_won', 'Return', 'Return games won', 'return_games_played'],
@@ -320,7 +340,12 @@ function matchPointFor(previous: Row | undefined, bestOf: number): 1 | 2 | null 
   }
   return null
 }
+export function isReconstructedDetail(detail:Row|undefined){
+  return [detail?.meta?.coverage,detail?.meta?.point_source,detail?.match?.score?.origin].some(value=>/reconstruct|mixed/i.test(String(value||'')))||
+    Array.isArray(detail?.tape)&&detail.tape.some((point:Row)=>/reconstruct/i.test(String(point.origin||'')));
+}
 function tapePoints(detail: Row | undefined): Point[] {
+  if(isReconstructedDetail(detail))return [];
   if (!Array.isArray(detail?.tape)) return []
   const points: Point[] = []
   let previous: Row | undefined
@@ -354,34 +379,41 @@ function modern(row: Row, detail?: Row, summary = false): Match {
   const games = gamesFromScore(source.score?.games)
   const year = Number(String(source.scheduled_time || source.created_at || '').slice(0, 4)) || 2026
   const tour = rowTour(row)
-  const tournament = providerTournamentName(row.tournament || '', { tour, tier: row.tier })
-  return {
+  const finals=finalsIdentity(row)
+  const reviewedEdition=reviewedProviderEdition({...row,tour});
+  const tournament = finals?.tournament||reviewedEdition?.tournament || providerTournamentName(row.tournament || '', { tour, tier: row.tier })
+  const finalsRound=finalsIdentity(row)&&!row.round_code&&/group|round robin|grupo/i.test(row.round||'')?'RR':null;
+  return reviewedFixtureMetadata(verifiedSeasonResult({
+    provider_revision: row._deuce_retrieved_at ? {retrieved_at:row._deuce_retrieved_at,updated_at:row.result_restated_at||row.updated_at,version:row.result_version} : undefined,
     match_id: `${tour === 'wta' ? 'wta-' : ''}live-${row.id}`, tour, tournament, surface: surface(row.surface),
-    category: ['Australian Open','Roland Garros','Wimbledon','US Open'].includes(tournament) ? 'Grand Slam' : modernTournamentCategory(row.tier, tournament, year, tour), year,
+    category: finals?.category||reviewedEdition?.category || (['Australian Open','Roland Garros','Wimbledon','US Open'].includes(tournament) ? 'Grand Slam' : modernTournamentCategory(row.tier, tournament, year, tour)), year,
     player1: player(1, row.players?.p1?.name, null), player2: player(2, row.players?.p2?.name, null),
     score_summary: { sets: source.score?.sets || [], games, points: source.score?.points || [], server: source.score?.server ?? null, is_tiebreak: !!source.score?.is_tiebreak, win_probability_p1: source.score?.win_probability_p1 ?? null, timestamp: source.scheduled_time || `${year}-01-01T00:00:00Z` },
-    final_score: games.map(([a, b], i) => { const end = detail?.tape?.find((p: Row) => Array.isArray(p.tiebreak_final) && gamesFromScore(p.games)[i]?.[0] === a && gamesFromScore(p.games)[i]?.[1] === b && gamesFromScore(p.games).length === i + 1); return `${a}–${b}${end && Math.max(a,b) === 7 && Math.min(a,b) === 6 ? `(${Math.min(...end.tiebreak_final)})` : ''}` }).join(' '), round: roundName(row.round_code || ''), winner: source.winner === 1 || source.winner === 2 ? source.winner : null,
+    final_score: games.map(([a, b], i) => { const end = Array.isArray(detail?.tape)?detail.tape.find((p: Row) => Array.isArray(p.tiebreak_final) && gamesFromScore(p.games)[i]?.[0] === a && gamesFromScore(p.games)[i]?.[1] === b && gamesFromScore(p.games).length === i + 1):undefined; return `${a}–${b}${end && Math.max(a,b) === 7 && Math.min(a,b) === 6 ? `(${Math.min(...end.tiebreak_final)})` : ''}` }).join(' '), round: roundName(row.round_code || finalsRound || (finals?'Ronda no especificada':'')), winner: source.winner === 1 || source.winner === 2 ? source.winner : null,
     status: source.outcome === 'completed' ? 'Finished' : source.outcome === 'retired' ? 'Retired' : source.outcome || row.status || 'Finished',
     point_tape: summary ? [] : tapePoints(detail), statistics: summary ? [] : modernStats(detail),
-    raw_fixture: summary ? undefined : detail || row, raw_point_tape: summary ? undefined : detail?.tape,
+    raw_fixture: summary ? undefined : detail ? {...detail, provider_list:row} : row, raw_point_tape: summary ? undefined : detail?.tape,
     data_source: 'api', coverage: summary ? 'Solo resultado' : detail?.tape?.length ? 'Puntos documentados' : detail ? 'Estadísticas disponibles' : 'Solo resultado',
-    context: { date: row.scheduled_time || null, dateLabel: 'Fecha del partido', rank1: numeric(row.players?.p1?.ranking), rank2: numeric(row.players?.p2?.ranking), rankLabel: 'Ranking en la descarga', age1: null, age2: null, minutes: null, format: row.format || null, indoor: row.indoor ?? null },
-  }
+    context: { pointSource:isReconstructedDetail(detail)?'reconstructed':detail?.tape?.length?'observed':'unknown',derivationVersion:'2026-11-finals-v2', date: row.scheduled_time || null, dateLabel: 'Fecha del partido', rank1: numeric(row.players?.p1?.ranking), rank2: numeric(row.players?.p2?.ranking), rankLabel: 'Ranking en la descarga', age1: null, age2: null, minutes: null, format: row.format || null, indoor: row.indoor ?? null,...(reviewedEdition?{metadataSources:reviewedEdition.sources}:{} ) },
+  }))
 }
 function historical(row: Row, detail?: Row, summary = false): Match {
   const games = archiveGames(row.score || '')
-  const year = Number(String(row.event_date || '').slice(0, 4)) || 0
+  const finals=finalsIdentity(row)
+  const year = Number(String(row.source_id||'').match(/^(?:atp|wta):(\d{4})-/)?.[1]||String(row.event_date || '').slice(0, 4)) || 0
+  const matchTie = String(row.score||'').match(/\[(\d+)[–-](\d+)\]/);
+  const matchTiebreak = matchTie ? [Number(matchTie[1]),Number(matchTie[2])] : undefined;
   const tour = rowTour(row)
-  const tournament = providerTournamentName(row.tournament || '', { tour, level: row.level })
-  return {
-    match_id: `${tour === 'wta' ? 'wta-' : ''}archive-${row.id}`, tour, tournament, surface: surface(row.surface), category: historicalTournamentCategory(row.level, year, tour, tournament), year,
+  const tournament = finals?.tournament || providerTournamentName(row.tournament || '', { tour, level: row.level })
+  return classifyReviewedTeamCompetition(classifyReviewedHistoricalEdition(verifiedSeasonResult({
+    match_id: `${tour === 'wta' ? 'wta-' : ''}archive-${row.id}`, tour, tournament, surface: surface(row.surface), category: finals?.category || historicalTournamentCategory(row.level, year, tour, tournament), year,
     player1: player(1, row.winner?.name, row.winner?.seed), player2: player(2, row.loser?.name, row.loser?.seed),
-    score_summary: { sets: [games.filter(([a,b])=>a>b).length, games.filter(([a,b])=>b>a).length], games, points: [], server: null, is_tiebreak: false, win_probability_p1: null, timestamp: row.event_date ? `${row.event_date}T00:00:00Z` : `${year}-01-01T00:00:00Z` },
-    final_score: row.score?.replace(/(\d)-(\d)/g, '$1–$2') || scoreFromGames(games), round: roundName(row.round || ''), winner: 1, status: row.outcome === 'completed' ? 'Finished' : row.outcome || 'Finished',
+    score_summary: { sets: [games.filter(([a,b])=>a>b).length+(matchTiebreak&&matchTiebreak[0]>matchTiebreak[1]?1:0), games.filter(([a,b])=>b>a).length+(matchTiebreak&&matchTiebreak[1]>matchTiebreak[0]?1:0)], games, ...(matchTiebreak?{match_tiebreak:matchTiebreak}:{}), points: [], server: null, is_tiebreak: false, win_probability_p1: null, timestamp: row.event_date ? `${row.event_date}T00:00:00Z` : `${year}-01-01T00:00:00Z` },
+    final_score: row.score?.replace(/(\d)-(\d)/g, '$1–$2') || scoreFromGames(games), round: roundName(finals?.tour==='atp'&&year<=1971?'RR':row.round || ''), winner: 1, status: row.outcome === 'completed' ? 'Finished' : row.outcome || 'Finished',
     point_tape: [], statistics: summary ? [] : archiveStats(detail), raw_fixture: summary ? undefined : detail || row,
     data_source: 'api', coverage: 'Sin puntos',
-    context: { date: row.event_date || null, dateLabel: 'Inicio del torneo', rank1: numeric(row.winner?.rank), rank2: numeric(row.loser?.rank), rankLabel: 'Ranking al jugar', age1: numeric(row.winner?.age), age2: numeric(row.loser?.age), minutes: numeric(row.minutes), format: row.best_of ? `Al mejor de ${row.best_of} sets` : null, indoor: null },
-  }
+    context: { date: row.event_date || null, dateLabel: 'Inicio del torneo', rank1: numeric(row.winner?.rank), rank2: numeric(row.loser?.rank), rankLabel: 'Ranking al jugar', age1: numeric(row.winner?.age), age2: numeric(row.loser?.age), minutes: numeric(row.minutes), format: row.best_of ? `Al mejor de ${row.best_of} sets` : null, indoor: null,...(finals?{derivationVersion:'2026-11-finals-v2',metadataSources:[{field:'Identidad y formato de las Finals',url:finals.tour==='atp'?'https://www.nittoatpfinals.com/en/heritage/results-1970-1999':'https://wtafiles.wtatennis.com/pdf/publications/WTAMG25_WTAFinals.pdf'}]}:{}) },
+  })))
 }
 async function readSavedDetail(kind: 'modern' | 'archive', row: Row): Promise<Row | undefined> {
   const key = detailKey(kind, row)
@@ -431,7 +463,10 @@ async function readArchiveMatches(year?: number, summary = false): Promise<Match
     const rows = (await wtaArchiveRows(y, level)).filter(row => !/^Q[1-4]$/.test(row.round || ''))
     return Promise.all(rows.map(async row => historical(row, summary ? undefined : await readSavedDetail('archive', row), summary)))
   })())
-  return mergeEditionReferences((await Promise.all(tasks)).flat(),year)
+  const finals=(await finalsArchiveRows()).filter(entry=>!year||finalsIdentity(entry.row)?.season===year);
+  tasks.push(Promise.all(finals.map(async({kind,row})=>(kind==='modern'?modern:historical)(row,summary?undefined:await readSavedDetail(kind,row),summary))));
+  const unique=new Map<string,Match>();for(const match of (await Promise.all(tasks)).flat())if(!unique.has(match.match_id))unique.set(match.match_id,match);
+  return mergeEditionReferences([...unique.values()],year)
 }
 /** Reads only detail files already stored locally; never calls the provider. */
 export function archiveDetailedMatches(year?: number): Promise<Match[]> {
@@ -456,7 +491,12 @@ async function readArchiveDetailedMatches(year?: number): Promise<Match[]> {
     const rows = (await wtaArchiveRows(y, level)).filter(row => !/^Q[1-4]$/.test(row.round || '') && (existsSync(join(detailsDir, `${detailKey('archive', row)}.json.gz`)) || remote[detailKey('archive', row)]))
     for (const match of await Promise.all(rows.map(async row => historical(row, await readSavedDetail('archive', row))))) results.push(match)
   }
-  return results
+  for(const {kind,row} of await finalsArchiveRows()){
+    if(year&&finalsIdentity(row)?.season!==year)continue;
+    if(!existsSync(join(detailsDir,`${detailKey(kind,row)}.json.gz`))&&!remote[detailKey(kind,row)])continue;
+    results.push((kind==='modern'?modern:historical)(row,await readSavedDetail(kind,row)));
+  }
+  return [...new Map(results.map(match=>[match.match_id,match])).values()]
 }
 let indexPromise: Promise<Record<string, string>> | undefined
 async function matchIndex(): Promise<Record<string, string>> {
@@ -470,6 +510,8 @@ export async function archiveMatch(id: string): Promise<Match | undefined> {
   const tour: Tour = matchId[1] ? 'wta' : 'atp'
   const kind = matchId[2] === 'live' ? 'modern' : 'archive'
   const providerId = matchId[3]
+  const finals=(await finalsArchiveRows()).find(entry=>entry.kind===kind&&rowTour(entry.row)===tour&&String(entry.row.id)===providerId);
+  if(finals)return (kind==='modern'?modern:historical)(finals.row,await readDetail(kind,finals.row));
   const indexedFile = (await matchIndex())[id]
   if (kind === 'modern') {
     const indexedYear = indexedFile ? Number(indexedFile.split('-')[1]) : undefined
@@ -558,19 +600,19 @@ export async function bundledEnrichmentCandidates(): Promise<import('./enrichmen
 
 /** Terminal draw entries are visible in editions but never enter statistical rankings. */
 export async function competitionEntries():Promise<Match[]> {
- const entries:Match[]=[];
+ const entries=new Map<string,Match>();
  for(let year=1968;year<=new Date().getUTCFullYear();year++)for(const match of await readArchiveMatches(year,true))if(isCompetitionOnly(match)){
-  const prepared=prepareCompetitionMatch(match);if(isInPublicationScope(prepared))entries.push(prepared);
+  const prepared=prepareCompetitionMatch(match);if(isInPublicationScope(prepared))entries.set((prepared.tour||'atp')+'|'+prepared.match_id,prepared);
  }
- return entries;
+ return [...entries.values()];
 }
 
 export async function editionSourceAudit(){
- const {auditEditions}=await import('./edition-audit');const result=[];
+ const {auditEditions}=await import('./edition-audit');const unique=new Map<string,Match>();
  for(let year=1968;year<=new Date().getUTCFullYear();year++){
   const [summaries,details]=await Promise.all([readArchiveMatches(year,true),archiveDetailedMatches(year)]);
   const scoped=reconcileEditionSummaries(summaries,details).filter(match=>isInPublicationScope(prepareMatch(match)));
-  result.push(...auditEditions(scoped));
+  for(const match of scoped)unique.set((match.tour||'atp')+'|'+match.match_id,match);
  }
- return result.sort((a,b)=>b.year-a.year||b.pending-a.pending||a.tournament.localeCompare(b.tournament,'es'));
+ return auditEditions([...unique.values()]);
 }

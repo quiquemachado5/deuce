@@ -1,0 +1,394 @@
+[
+  {
+    "tournament": "Beijing",
+    "year": 2017,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/beijing-2017-wta-b2caa66184.webp",
+      "alt": "Beijing 2017 \u00b7 cuadro femenino",
+      "credit": "Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/2754761",
+      "photoYear": 2017,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2022/08/21/19c9b02a-24b2-4847-bfdd-b9677fa5f082/GettyImages-858943572.jpg",
+    "sourceTitle": "Caroline Garcia Simona Halep 2017 Beijing",
+    "sourceExcerpt": "Caroline Garcia Simona Halep 2017 Beijing",
+    "sourceSha256": "b2caa661840df7cf43586e9cd6986afae9d734e3f9287ad463af48eee6d1294d",
+    "width": 1600,
+    "height": 1139,
+    "bytes": 236224,
+    "cmsPhotoId": 2754761,
+    "candidateIndex": 0,
+    "reviewNotes": "Manually reviewed contact sheet and explicit WTA editorial source. Press parties and historical reference false years rejected.",
+    "reviewedAt": "2026-11-12"
+  },
+  {
+    "tournament": "Charleston",
+    "year": 2002,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/charleston-2002-wta-2f17839f5d.webp",
+      "alt": "Charleston 2002 \u00b7 cuadro femenino",
+      "credit": "Andy Lyons/Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/4479916",
+      "photoYear": 2002,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2026/04/01/d8e35e35-6eb9-4cfb-be36-e7b05dae448c/GettyImages-1418297.jpg",
+    "sourceTitle": "Iva Majoli, Charleston 2002",
+    "sourceExcerpt": "Iva Majoli, Charleston 2002",
+    "sourceSha256": "2f17839f5d51747f30be19eccc51103d5b53e3f761c4d17869986fa4a004edb8",
+    "width": 1600,
+    "height": 1138,
+    "bytes": 117644,
+    "cmsPhotoId": 4479916,
+    "candidateIndex": 1,
+    "reviewNotes": "Manually reviewed contact sheet and explicit WTA editorial source. Press parties and historical reference false years rejected.",
+    "reviewedAt": "2026-11-12"
+  },
+  {
+    "tournament": "Charleston",
+    "year": 2006,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/charleston-2006-wta-ac1034c9ca.webp",
+      "alt": "Charleston 2006 \u00b7 cuadro femenino",
+      "credit": "Andy Lyons/Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/4480228",
+      "photoYear": 2006,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2026/04/01/ac44c34c-9507-4cc9-b454-a91b28dde783/GettyImages-57347181.jpg",
+    "sourceTitle": "Nadia Petrova, Charleston 2006",
+    "sourceExcerpt": "Nadia Petrova, Charleston 2006",
+    "sourceSha256": "ac1034c9ca593857e21caca7ec47bae15ffd4a375fa945db9c49e2650c375094",
+    "width": 1600,
+    "height": 1153,
+    "bytes": 118082,
+    "cmsPhotoId": 4480228,
+    "candidateIndex": 2,
+    "reviewNotes": "Manually reviewed contact sheet and explicit WTA editorial source. Press parties and historical reference false years rejected.",
+    "reviewedAt": "2026-11-12"
+  },
+  {
+    "tournament": "Doha",
+    "year": 2016,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/doha-2016-wta-cb02e9d7eb.webp",
+      "alt": "Doha 2016 \u00b7 cuadro femenino",
+      "credit": "Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1624950",
+      "photoYear": 2016,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2020/02/25/3c56e13a-d708-4ec0-9620-4b47a047271c/GettyImages-512662098.jpg",
+    "sourceTitle": "Carla Suarez Navarro - 2016 Doha",
+    "sourceExcerpt": "Carla Suarez Navarro - 2016 Doha",
+    "sourceSha256": "cb02e9d7ebe660e0ab831de572391dba3121e7ab80216cb8e5d9ec239ecac9fe",
+    "width": 1600,
+    "height": 1067,
+    "bytes": 57512,
+    "cmsPhotoId": 1624950,
+    "candidateIndex": 3,
+    "reviewNotes": "Manually reviewed contact sheet and explicit WTA editorial source. Press parties and historical reference false years rejected.",
+    "reviewedAt": "2026-11-12"
+  },
+  {
+    "tournament": "Doha",
+    "year": 2019,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/doha-2019-wta-63ceb9d383.webp",
+      "alt": "Doha 2019 \u00b7 cuadro femenino",
+      "credit": "WTA / Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1450170",
+      "photoYear": 2019,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2019/10/11/371f3f0f-76ad-4eff-a275-6e5061edb2f7/hlrOcZsv.jpg",
+    "sourceTitle": "Simona Halep - Doha 2019 - Qatar Total Open/Samer Alrejjal",
+    "sourceExcerpt": "Simona Halep - Doha 2019 - Qatar Total Open/Samer Alrejjal",
+    "sourceSha256": "63ceb9d3839e3da3b17e20a4c8fd37528d7860937fb73a17870cb03303c190b5",
+    "width": 1600,
+    "height": 975,
+    "bytes": 48392,
+    "cmsPhotoId": 1450170,
+    "candidateIndex": 4,
+    "reviewNotes": "Manually reviewed contact sheet and explicit WTA editorial source. Press parties and historical reference false years rejected.",
+    "reviewedAt": "2026-11-12"
+  },
+  {
+    "tournament": "Dubai",
+    "year": 2006,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/dubai-2006-wta-79da0d2959.webp",
+      "alt": "Dubai 2006 \u00b7 cuadro femenino",
+      "credit": "WTA / Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1404624",
+      "photoYear": 2006,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/190bcc7d-9dc3-406d-aeeb-aa293ff2ba5e/xwaXUdHp.jpg",
+    "sourceTitle": "Justine Henin won her third Dubai title in 2006, beating Maria Sharapova in straight sets (Getty)",
+    "sourceExcerpt": "Justine Henin won her third Dubai title in 2006, beating Maria Sharapova in straight sets (Getty)",
+    "sourceSha256": "79da0d2959ca6e622a465780b3f03fffddf2ca17e7c1456a8aee7d7572a0b511",
+    "width": 1600,
+    "height": 869,
+    "bytes": 66610,
+    "cmsPhotoId": 1404624,
+    "candidateIndex": 6,
+    "reviewNotes": "Manually reviewed contact sheet and explicit WTA editorial source. Press parties and historical reference false years rejected.",
+    "reviewedAt": "2026-11-12"
+  },
+  {
+    "tournament": "Guadalajara",
+    "year": 2023,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/guadalajara-2023-wta-95c95c72da.webp",
+      "alt": "Guadalajara 2023 \u00b7 cuadro femenino",
+      "credit": "Guadalajara Open Akron \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/3697610",
+      "photoYear": 2023,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2023/09/24/7d3d812d-eb62-425d-b56a-420862d488d6/Sakkari-trophy-GDO.jpg",
+    "sourceTitle": "Maria Sakkari, Guadalajara 2023",
+    "sourceExcerpt": "Maria Sakkari, Guadalajara 2023",
+    "sourceSha256": "95c95c72da2db7b473627c6c5ecf8c21cfa7dd0d446f4da7a4a1b1c5a062a918",
+    "width": 1600,
+    "height": 1066,
+    "bytes": 186566,
+    "cmsPhotoId": 3697610,
+    "candidateIndex": 9,
+    "reviewNotes": "Manually reviewed contact sheet and explicit WTA editorial source. Press parties and historical reference false years rejected.",
+    "reviewedAt": "2026-11-12"
+  },
+  {
+    "tournament": "Indian Wells",
+    "year": 2014,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/indian-wells-2014-wta-d456dfcf4c.webp",
+      "alt": "Indian Wells 2014 \u00b7 cuadro femenino",
+      "credit": "Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1645447",
+      "photoYear": 2014,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2020/03/13/bf04e4df-d70e-431a-8017-9a9eab9b52dc/GettyImages-577822970.jpg",
+    "sourceTitle": "Flavia Pennetta, Indian Wells 2014 (Getty)",
+    "sourceExcerpt": "Flavia Pennetta, Indian Wells 2014 (Getty)",
+    "sourceSha256": "d456dfcf4cdede4859cd94dfdd79cf97a10504d1a8d82d892190db88736a7395",
+    "width": 1600,
+    "height": 1120,
+    "bytes": 148748,
+    "cmsPhotoId": 1645447,
+    "candidateIndex": 10,
+    "reviewNotes": "Manually reviewed contact sheet and explicit WTA editorial source. Press parties and historical reference false years rejected.",
+    "reviewedAt": "2026-11-12"
+  },
+  {
+    "tournament": "Indian Wells",
+    "year": 2017,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/indian-wells-2017-wta-db9e4a06bb.webp",
+      "alt": "Indian Wells 2017 \u00b7 cuadro femenino",
+      "credit": "WTA / Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1422062",
+      "photoYear": 2017,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2019/10/10/d373942c-26c1-4051-a9d1-5ee3e66209f5/EcCNGYIS.jpg",
+    "sourceTitle": "Svetlana Kuznetsova congratulates Elena Vesnina after losing to her compatriot in the 2017 Indian Wells final (Getty)",
+    "sourceExcerpt": "Svetlana Kuznetsova congratulates Elena Vesnina after losing to her compatriot in the 2017 Indian Wells final (Getty)",
+    "sourceSha256": "db9e4a06bbc71fd4fda2fecb54d0a469c574fe5786b1b5e326d81983339d4db6",
+    "width": 1600,
+    "height": 869,
+    "bytes": 111668,
+    "cmsPhotoId": 1422062,
+    "candidateIndex": 0,
+    "reviewNotes": "Manually reviewed contact sheet and explicit WTA editorial source. Press parties and historical reference false years rejected.",
+    "reviewedAt": "2026-11-12"
+  },
+  {
+    "tournament": "Miami",
+    "year": 2017,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/miami-2017-wta-9af7a598bf.webp",
+      "alt": "Miami 2017 \u00b7 cuadro femenino",
+      "credit": "WTA / Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/2381413",
+      "photoYear": 2017,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2021/12/01/4223d988-ee44-4b56-a04d-a5648b513944/Konta-Miami-2017.jpg",
+    "sourceTitle": "Johanna Konta, Miami 2017",
+    "sourceExcerpt": "Johanna Konta, Miami 2017",
+    "sourceSha256": "9af7a598bf8d8c3101ba1bac29913290f5d093eef8a3707d406cfd2932b922d2",
+    "width": 1600,
+    "height": 1142,
+    "bytes": 123088,
+    "cmsPhotoId": 2381413,
+    "candidateIndex": 12,
+    "reviewNotes": "Manually reviewed contact sheet and explicit WTA editorial source. Press parties and historical reference false years rejected.",
+    "reviewedAt": "2026-11-12"
+  },
+  {
+    "tournament": "Moscow",
+    "year": 2004,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/moscow-2004-wta-f0739077c1.webp",
+      "alt": "Moscow 2004 \u00b7 cuadro femenino",
+      "credit": "Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1738916",
+      "photoYear": 2004,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2020/07/25/5ba15bc0-bf39-4eee-86ec-5f9bad1b158d/GettyImages-55767646.jpg",
+    "sourceTitle": "Anastasia Myskina completed the singles and doubles sweep twice - in Moscow in 2004, then Kolkata the year after.",
+    "sourceExcerpt": "Anastasia Myskina completed the singles and doubles sweep twice - in Moscow in 2004, then Kolkata the year after.",
+    "sourceSha256": "f0739077c1ba3bb4e68186241c5d72a85483d10b93036a67219b7e724c265fb1",
+    "width": 1600,
+    "height": 1203,
+    "bytes": 125904,
+    "cmsPhotoId": 1738916,
+    "candidateIndex": 13,
+    "reviewNotes": "Manually reviewed contact sheet and explicit WTA editorial source. Press parties and historical reference false years rejected.",
+    "reviewedAt": "2026-11-12"
+  },
+  {
+    "tournament": "Moscow",
+    "year": 2016,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/moscow-2016-wta-f07d8d3cf2.webp",
+      "alt": "Moscow 2016 \u00b7 cuadro femenino",
+      "credit": "WTA / Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1405241",
+      "photoYear": 2016,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/0e46aca0-6bcd-44d3-971c-f2ad9c2cce8e/NgZfbwBA.jpg",
+    "sourceTitle": "Svetlana Kuznetsova won her second Moscow title in 2016, beating Daria Gavrilova 6-2, 6-1 in the final (Getty)",
+    "sourceExcerpt": "Svetlana Kuznetsova won her second Moscow title in 2016, beating Daria Gavrilova 6-2, 6-1 in the final (Getty)",
+    "sourceSha256": "f07d8d3cf2bd9639145ae4347d1fb8eab0cc390b18d31c41cd999db33ee6fa64",
+    "width": 1600,
+    "height": 869,
+    "bytes": 69242,
+    "cmsPhotoId": 1405241,
+    "candidateIndex": 14,
+    "reviewNotes": "Manually reviewed contact sheet and explicit WTA editorial source. Press parties and historical reference false years rejected.",
+    "reviewedAt": "2026-11-12"
+  },
+  {
+    "tournament": "Tokyo",
+    "year": 2010,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/tokyo-2010-wta-31c1ffd40b.webp",
+      "alt": "Tokyo 2010 \u00b7 cuadro femenino",
+      "credit": "WTA / Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1439336",
+      "photoYear": 2010,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2019/10/11/29a9e105-d29b-447d-a9db-ac6e4108434e/hNQcLCgg.jpg",
+    "sourceTitle": "Wozniacki won the first of her trio of titles in Tokyo in 2010, beating Elena Dementieva in the final (Getty)",
+    "sourceExcerpt": "Wozniacki won the first of her trio of titles in Tokyo in 2010, beating Elena Dementieva in the final (Getty)",
+    "sourceSha256": "31c1ffd40b145040754a92f2d1139bc034412c0b46f62efa83cc54d6984c82ae",
+    "width": 1600,
+    "height": 1116,
+    "bytes": 70802,
+    "cmsPhotoId": 1439336,
+    "candidateIndex": 15,
+    "reviewNotes": "Manually reviewed contact sheet and explicit WTA editorial source. Press parties and historical reference false years rejected.",
+    "reviewedAt": "2026-11-12"
+  },
+  {
+    "tournament": "Tokyo",
+    "year": 2015,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/tokyo-2015-wta-587c93347b.webp",
+      "alt": "Tokyo 2015 \u00b7 cuadro femenino",
+      "credit": "WTA / Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1405412",
+      "photoYear": 2015,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/338ac2ab-5350-4455-a851-faa9719e05ac/YouWBPrw.jpg",
+    "sourceTitle": "Agnieszka Radwanska won her second Tokyo title in 2015, beating Belinda Bencic in the final (Getty)",
+    "sourceExcerpt": "Agnieszka Radwanska won her second Tokyo title in 2015, beating Belinda Bencic in the final (Getty)",
+    "sourceSha256": "587c93347ba1f2a1932622df157e4aafb28623e67b67906bf151be895c9992c7",
+    "width": 1600,
+    "height": 869,
+    "bytes": 124594,
+    "cmsPhotoId": 1405412,
+    "candidateIndex": 16,
+    "reviewNotes": "Manually reviewed contact sheet and explicit WTA editorial source. Press parties and historical reference false years rejected.",
+    "reviewedAt": "2026-11-12"
+  }
+]

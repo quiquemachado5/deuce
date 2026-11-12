@@ -1,3 +1,5 @@
+import { DATASET_CACHE_CONTROL } from '@/lib/http-cache';
+import {playerBiography} from '@/lib/player-bio';
 import { normalizeText } from '@/lib/quality';
 import { rateLimit } from '@/lib/rate-limit';
 import { generationMetadata } from '@/lib/revista/generation';
@@ -15,8 +17,8 @@ export async function GET(request: Request) {
   const tour=new URL(request.url).searchParams.get('tour')==='wta'?'wta':'atp';
   const names = [...new Set(generation.records.filter(player=>(player.tour||'atp')===tour).map(player => player.name))].sort((a, b) => a.localeCompare(b, 'es'));
   const items = (needle ? names.filter(name => normalizeText(name).includes(needle)) : names).slice(0, query ? 30 : 80);
-  return versionedJson(request,{ tour,items, total: needle ? items.length : names.length, ...generationMetadata(generation) },{
-    version:generation.manifest.version,scope:requestCacheScope(request,'players'),route:'players',started,
-    cacheControl:'public, s-maxage=300, stale-while-revalidate=900',headers:{'X-RateLimit-Remaining':String(budget.remaining)},
+  return versionedJson(request,{ tour,items,identities:Object.fromEntries(items.map(name=>[name,{country:playerBiography(name,tour)?.country}])), total: needle ? items.length : names.length, ...generationMetadata(generation) },{
+    version:generation.manifest.version,scope:requestCacheScope(request,'players-v2'),route:'players',started,
+    cacheControl:DATASET_CACHE_CONTROL,headers:{'X-RateLimit-Remaining':String(budget.remaining)},
   });
 }

@@ -5,8 +5,8 @@ const reverseScore = (score: string) => score.split(/[–-]/).reverse().join('�
 export function orientMatch(match: Match): Match {
   if (match.player1.name.localeCompare(match.player2.name, 'es') <= 0) return match
   return { ...match, player1: match.player2, player2: match.player1, winner: flip(match.winner),
-    final_score: match.final_score.split(/\s+/).map(set=>set.replace(/^(\d+)[–-](\d+)/,'$2–$1')).join(' '),
-    score_summary: {...match.score_summary, sets:[...match.score_summary.sets].reverse(), games:match.score_summary.games.map(s=>[...s].reverse()), points:[...match.score_summary.points].reverse(),server:flip(match.score_summary.server),win_probability_p1:match.score_summary.win_probability_p1===null?null:1-match.score_summary.win_probability_p1},
+    final_score: match.final_score.split(/\s+/).map(set=>set.replace(/^(\[?)(\d+)[–-](\d+)/,'$1$3–$2')).join(' '),
+    score_summary: {...match.score_summary, sets:[...match.score_summary.sets].reverse(), games:match.score_summary.games.map(s=>[...s].reverse()),...(match.score_summary.match_tiebreak?{match_tiebreak:[...match.score_summary.match_tiebreak].reverse()}:{}), points:[...match.score_summary.points].reverse(),server:flip(match.score_summary.server),win_probability_p1:match.score_summary.win_probability_p1===null?null:1-match.score_summary.win_probability_p1},
     statistics:match.statistics.map(s=>({...s,player:flip(s.player)})),
     point_tape:match.point_tape.map((p):Point=>({...p,winner:flip(p.winner),server:flip(p.server),match_point_for:flip(p.match_point_for??null),score:reverseScore(p.score),score_before:p.score_before?reverseScore(p.score_before):undefined,win_probability_p1:typeof p.win_probability_p1==='number'?1-p.win_probability_p1:p.win_probability_p1})),
     context:match.context?{...match.context,rank1:match.context.rank2,rank2:match.context.rank1,age1:match.context.age2,age2:match.context.age1}:undefined,

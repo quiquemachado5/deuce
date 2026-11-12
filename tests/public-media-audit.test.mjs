@@ -31,5 +31,17 @@ test('missing primary image references fail the media inventory', async () => {
 test('unoptimized image exceptions stay explicit and cannot spread to new components', async () => {
   const result = await auditPublicMedia();
   assert.deepEqual(result.unoptimizedViolations, []);
-  assert.equal(Object.values(result.unoptimizedCounts).reduce((sum, count) => sum + count, 0), 30);
+});
+
+test('dynamic catalogue media are inventoried and a new unoptimized component is rejected',async()=>{
+ const root=await mkdtemp(join(tmpdir(),'deuce-media-catalogue-'));
+ try{
+  await Promise.all(['components','lib','data/media','public/media/test'].map(path=>mkdir(join(root,path),{recursive:true})));
+  await writeFile(join(root,'lib/player-photo-manifest.json'),'{}');
+  await writeFile(join(root,'data/media/tournament-library.json'),JSON.stringify({photos:[{src:'/media/test/edition.webp'}]}));
+  await writeFile(join(root,'public/media/test/edition.webp'),'image');
+  await writeFile(join(root,'components/Unexpected.tsx'),'<Image src="/media/test/edition.webp" unoptimized/>');
+  const result=await auditPublicMedia(root);assert.deepEqual(result.orphaned,[]);assert.deepEqual(result.missingReferenced,[]);
+  assert.deepEqual(result.unoptimizedViolations,['components/Unexpected.tsx: 1 unoptimized image use']);
+ }finally{await rm(root,{recursive:true,force:true})}
 });

@@ -51,3 +51,10 @@ test('a newer edition identity replaces stale draw issues but retains review sem
   assert.equal(normalized.issues.length, 1);
   assert.equal(normalized.issues[0].reason, 'uncertified-draw-size');
 });
+
+test('overfull rounds are an explicit incident, not an uncertified draw',()=>{
+ const report=reconcileCoverage([], [audit({completeDraw:false,rounds:{'5':4,'6':4,'7':1}})]);
+ assert.equal(report.issues[0].reason,'extra-round-results');
+ assert.match(report.issues[0].detail,/4 en semifinales/);
+ assert.doesNotMatch(report.issues[0].detail,/no está certificado/);
+});

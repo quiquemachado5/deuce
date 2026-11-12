@@ -1,6 +1,9 @@
-import Link from 'next/link';
-import { preparedTimeMachineProducts } from '@/lib/revista/read-records';
-import styles from '../archive.module.css';
+import { permanentRedirect } from 'next/navigation';
 
-export const metadata={title:'Tennis time machine — DEUCE',description:'Documented tennis matches played on this calendar day.',alternates:{canonical:'/en/time-machine',languages:{es:'/maquina-del-tiempo',en:'/en/time-machine'}}};
-export default async function EnglishTimeMachine({searchParams}:{searchParams:Promise<{date?:string;tour?:string}>}){const query=await searchParams,tour=query.tour==='wta'?'wta':query.tour==='atp'?'atp':'all',today=new Date(),date=/^\d{2}-\d{2}$/.test(query.date||'')?query.date!:`${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`,products=await preparedTimeMachineProducts(),rows=(products.days[date]||[]).filter(row=>tour==='all'||row.tour===tour);return <main className={styles.page} lang="en"><header className={styles.heading}><div><h1>On this day</h1><p>{date.slice(3)}/{date.slice(0)} across the documented archive.</p></div><nav className={styles.switcher}>{(['all','atp','wta'] as const).map(value=><Link href={`/en/time-machine?date=${date}${value==='all'?'':`&tour=${value}`}`} aria-current={tour===value?'page':undefined} key={value}>{value==='all'?'All':value.toUpperCase()}</Link>)}</nav></header>{rows.length?<section className={styles.list}>{rows.map(row=><Link className={styles.row} href={`/en/matches/${row.id}`} key={row.id}><strong>{row.players[0]} · {row.players[1]}</strong><span>{row.tournament} · {row.round}</span><b>{row.year}</b><small>{row.score}</small></Link>)}</section>:<p className={styles.empty}>No exact match dates are documented for this day and circuit.</p>}</main>}
+export default async function TimeMachineRedirect({ searchParams }: { searchParams: Promise<{ date?: string; tour?: string }> }) {
+  const { date, tour } = await searchParams;
+  const query = new URLSearchParams();
+  if (typeof date === 'string' && /^(?:2000-)?\d{2}-\d{2}$/.test(date)) query.set('date', date);
+  if (tour === 'atp' || tour === 'wta') query.set('tour', tour);
+  permanentRedirect('/en/coverage' + (query.size ? '?' + query : '') + '#por-fecha');
+}

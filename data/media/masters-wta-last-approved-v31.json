@@ -1,0 +1,166 @@
+[
+  {
+    "tournament": "Rome",
+    "year": 2000,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-last/rome-2000-wta-a4f2f08f4e.webp",
+      "alt": "US Monica Seles holds the trophy after she beats France Amelie Mauresmo in the Italian Open final, 21 May 2000, Foro Olimpico, Rome",
+      "credit": "Gabriel Bouys / AFP · Parade · derechos de terceros; autorización no acreditada",
+      "source": "https://internazionalibnlditalia.com/it/champions-gallery",
+      "photoYear": 2000,
+      "objectPosition": "50% 40%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://parade.com/.image/w_1200%2Ch_630%2Cg_auto%2Cc_fill/ODowMDAwMDAwMDAwOTc2ODA5/us-monica-seles-holds-the-trophy-after-she-beats-frances-amelie-mauresmo-in-the-italian-open-final-21-may-2000-at-the-foro-olimpico-stadium-in-rome-seles-won-62-76-electronic-image-photo-by-gabriel-bo.jpg",
+    "sourceTitle": "US Monica Seles holds the trophy after she beats France Amelie Mauresmo in the Italian Open final, 21 May 2000, Foro Olimpico, Rome",
+    "sourceExcerpt": "US Monica Seles holds the trophy after she beats France Amelie Mauresmo in the Italian Open final, 21 May 2000, Foro Olimpico, Rome",
+    "sourceSha256": "a4f2f08f4e9bfd41b74d4652b5b136fb608375964057b201b63e72cbcfe0017d",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 128096,
+    "sourceOriginalDetails": {
+      "width": 1536,
+      "height": 1495,
+      "crop": {
+        "left": 0,
+        "top": 0,
+        "width": 1536,
+        "height": 1024
+      }
+    },
+    "sourceApi": "https://dp-fitp-ibi-prod-function.azurewebsites.net/api/v1/players/champions/list",
+    "reviewedAt": "2026-11-12",
+    "reviewNotes": "Rome championship verified against official FITP champions API. Original publisher asset filename explicitly captions 21 May 2000, Seles, Mauresmo, Rome and photographer. Horizontal crop from native1536×1495; crop recorded, no enlargement."
+  },
+  {
+    "tournament": "Dubai",
+    "year": 2010,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-last/dubai-2010-wta-c4e1ea888a.webp",
+      "alt": "Fit for a seven-time grand slam champion? The court for the 2010 match — Venus Williams vs Shahar Peer, Dubai semifinal",
+      "credit": "Colin Simpson / Afaranwide · derechos de terceros; autorización no acreditada",
+      "source": "https://afaranwide.com/williams-peer-dubai-2010/",
+      "photoYear": 2010,
+      "objectPosition": "50% 40%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://afaranwide.com/wp-content/uploads/2021/02/Tennis10Court.jpg",
+    "sourceTitle": "Fit for a seven-time grand slam champion? The court for the 2010 match — Venus Williams vs Shahar Peer, Dubai semifinal",
+    "sourceExcerpt": "Fit for a seven-time grand slam champion? The court for the 2010 match — Venus Williams vs Shahar Peer, Dubai semifinal",
+    "sourceSha256": "c4e1ea888ad2ca53249c3ce47d507c609183bea02c92653af7d05a0e6b3559ab",
+    "width": 1280,
+    "height": 853,
+    "bytes": 160534,
+    "sourceOriginalDetails": {
+      "width": 1280,
+      "height": 853
+    },
+    "reviewedAt": "2026-11-12",
+    "reviewNotes": "Photographer’s firsthand report explicitly dates court photograph to February2010 Williams–Peer semifinal. Panorama on playing court, no generic reuse. Original1280×853, no enlargement."
+  },
+  {
+    "tournament": "Indian Wells",
+    "year": 2010,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-last/indian-wells-2010-wta-217b36f326.webp",
+      "alt": "Tapte finalen — Caroline Wozniacki, Indian Wells, 21 March2010",
+      "credit": "Danny Moloshok / Reuters / Scanpix · Aftenbladet · derechos de terceros; autorización no acreditada",
+      "source": "https://www.aftenbladet.no/lokalt/i/lry93/tapte-finalen",
+      "photoYear": 2010,
+      "objectPosition": "50% 40%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://premium.vgc.no/v2/images/508bdcfb-7df2-4893-9ea4-e7664e149468?fit=crop&format=auto&h=834&w=1200&s=d25b1a8cb63fc73c9b5426a15d788249c645e254",
+    "sourceTitle": "Tapte finalen — Caroline Wozniacki, Indian Wells, 21 March2010",
+    "sourceExcerpt": "Tapte finalen — Caroline Wozniacki, Indian Wells, 21 March2010",
+    "sourceSha256": "217b36f3268344e4b490558956acad1002d40da5046f438f80d15ceeb846b485",
+    "width": 1200,
+    "height": 834,
+    "bytes": 132014,
+    "sourceOriginalDetails": {
+      "width": 1200,
+      "height": 834
+    },
+    "reviewedAt": "2026-11-12",
+    "reviewNotes": "Contemporaneous21March2010IndianWellsfinalreport with originalReuters photo. Photograph shows finalistWozniacki oncourt, not champion Jankovic; do not caption as trophy/champion. OriginalCMSdimensions1200×834."
+  },
+  {
+    "tournament": "Tokyo",
+    "year": 2012,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-last/tokyo-2012-wta-710631c6bc.webp",
+      "alt": "L’uragano Petrova conquista Tokyo — Nadia Petrova, Pan Pacific Open champion, 29September2012",
+      "credit": "Il Tennis Italiano / Getty Images · derechos de terceros; autorización no acreditada",
+      "source": "https://www.tennisitaliano.it/luragano-petrova-conquista-tokyo-tennis-5668/",
+      "photoYear": 2012,
+      "objectPosition": "50% 40%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://www.tennisitaliano.it/wp-content/uploads/2012/09/152984014.jpg",
+    "sourceTitle": "L’uragano Petrova conquista Tokyo — Nadia Petrova, Pan Pacific Open champion, 29September2012",
+    "sourceExcerpt": "L’uragano Petrova conquista Tokyo — Nadia Petrova, Pan Pacific Open champion, 29September2012",
+    "sourceSha256": "710631c6bc4fe0c7a1d08f7d4329ebc7595e1e18fbe2564682abf17773f749a9",
+    "width": 1200,
+    "height": 666,
+    "bytes": 61728,
+    "sourceOriginalDetails": {
+      "width": 1200,
+      "height": 666
+    },
+    "reviewedAt": "2026-11-12",
+    "reviewNotes": "ContemporaneousreportandvisualreviewverifyPetrova, blueFilaoutfit anddistinctive2012Tokyochampionshipplatter. Native1200×666landscape, no enlargement. IndependentTennis.comfinalretrospectiveconfirmsoutfitandpairedtrophies."
+  },
+  {
+    "tournament": "Tokyo",
+    "year": 2009,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-last/tokyo-2009-wta-ad143b5c58.webp",
+      "alt": "Ana Ivanovic on the opening day of the Toray Pan Pacific Open 2009 in Tokyo, 27September2009",
+      "credit": "Eckhard Pecher (Arcimboldo) / Wikimedia Commons",
+      "source": "https://commons.wikimedia.org/wiki/File:Toray_PPO_2009_Ana_Ivanovic.jpg",
+      "photoYear": 2009,
+      "objectPosition": "50% 40%",
+      "auditStatus": "verified",
+      "rightsKnown": true,
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0"
+    },
+    "sourceImage": "https://upload.wikimedia.org/wikipedia/commons/1/12/Toray_PPO_2009_Ana_Ivanovic.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "sourceTitle": "Ana Ivanovic on the opening day of the Toray Pan Pacific Open 2009 in Tokyo, 27September2009",
+    "sourceExcerpt": "Ana Ivanovic on the opening day of the Toray Pan Pacific Open 2009 in Tokyo, 27September2009",
+    "sourceSha256": "ad143b5c580b76ddfcc31f026e5aa05e46bfe0346b8ab6ff6cdfd4846367f1a4",
+    "width": 1600,
+    "height": 1067,
+    "bytes": 62442,
+    "sourceOriginalDetails": {
+      "width": 2304,
+      "height": 3456,
+      "crop": {
+        "left": 0,
+        "top": 450,
+        "width": 2304,
+        "height": 1536
+      }
+    },
+    "reviewedAt": "2026-11-12",
+    "reviewNotes": "Commonsoriginalcapturemetadata27September2009andexacttournamentcaption. OncourtIvanovicpreparingreturn. Cropfromnative2304×3456, explicitcroprectpreserved; no enlargement."
+  }
+]

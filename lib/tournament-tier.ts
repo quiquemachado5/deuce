@@ -1,3 +1,4 @@
+import {finalsIdentity} from './finals-identity';
 /** The provider reports the tier; official calendars repair reviewed 2026 gaps only. */
 const officialAtp2026: Record<string, string> = {
   almaty: 'ATP 250', brussels: 'ATP 250', lyon: 'ATP 250', auvergne: 'ATP 250',
@@ -95,11 +96,10 @@ const historicalAtpGeneralCategory = (year: number, tournament: string) => {
   return officialAtp500ByYear[year]?.has(withoutProviderPrefix) ? 'ATP 500' : 'ATP 250';
 };
 
-const historicalWtaFinal = (tournament: string) => /(?:finals?|tour championships?|tournament of champions?|zhuhai)/i.test(tournament);
-
 export function historicalWtaTournamentCategory(level: unknown, year: number, tournament = ''): string {
   if (level === 'G') return 'Grand Slam';
-  if (historicalWtaFinal(tournament) || level === 'F') return 'WTA Finals';
+  if (finalsIdentity({tour:'wta',level,tournament,event_date:`${year}-01-01`})) return 'WTA Finals';
+  if (/^(?:Zhuhai|Tournament of Champions)$/i.test(tournament)) return 'WTA Elite Trophy';
   // The source files retain T1-T5. These present-day navigation buckets are
   // explicit normalisations, not a rewrite of the historical provider tier.
   // WTA records group Tier I/II as Premier and Tier III/IV/V as International:
@@ -137,6 +137,8 @@ export function visibleTournamentCategory(category: string, tournament: string, 
 
 export function modernTournamentCategory(tier: unknown, tournament = '', year = 0, tour: 'atp' | 'wta' = 'atp'): string {
   switch (tier) {
+    case 'atp_finals': return tour==='atp'?'ATP Finals':'Otro torneo WTA'
+    case 'wta_finals': return tour==='wta'?'WTA Finals':'Otro torneo ATP'
     case 'grand_slam': return 'Grand Slam'
     case 'atp_1000': return 'Masters 1000'
     case 'atp_500': return 'ATP 500'
@@ -153,6 +155,7 @@ export function modernTournamentCategory(tier: unknown, tournament = '', year = 
 export function historicalTournamentCategory(level: unknown, year: number, tour: 'atp' | 'wta' = 'atp', tournament = ''): string {
   if (level === 'G') return 'Grand Slam'
   if (tour === 'wta') return historicalWtaTournamentCategory(level, year, tournament)
+  if (finalsIdentity({tour,level,tournament,event_date:`${year}-01-01`})) return 'ATP Finals'
   if (level === 'M') return year < 1990 ? 'Precursores de Masters' : 'Masters 1000'
   if (level === 'A') return historicalAtpGeneralCategory(year, tournament)
   return 'Otro torneo ATP'

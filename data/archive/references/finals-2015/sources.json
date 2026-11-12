@@ -1,0 +1,34 @@
+[
+  {
+    "url": "https://wtafiles.wtatennis.com/pdf/draws/2015/808/MDS.pdf",
+    "file": "official-draw.pdf.gz",
+    "sha256": "3f6263184acdedba3c55a803231254f02d75778f09a6ac64fbd8ed2b9c71163d"
+  },
+  {
+    "url": "https://www.sport12x.com/en/statistics/tennis/wta-tour-championships?seas=2015",
+    "file": "sport12x.html.gz",
+    "sha256": "c23a3ecf3911891e2d6a097d725e67fd84c5648ad6771d3882319fd6e1a1c841"
+  },
+  {
+    "url": "https://tennis-db.com/wta/tournaments/balldontlie_wta%3A99/wta-finals?season=2015",
+    "file": "tennisdb.html.gz",
+    "sha256": "7a4f9de6104c987b574c9906816de13edf5e57fbe7e6353c10bc7f467800eafc",
+    "acceptedFields": [
+      "players",
+      "round",
+      "score"
+    ],
+    "rejectedFields": [
+      "exact match date: repeated tournament-start date on round-robin rows"
+    ]
+  },
+  {
+    "url": "https://api.livetennisapi.com/api/public/v1/history/matches?tour=wta&tier=wta_finals&draw=singles&from=2015-01-01&to=2015-12-31&limit=200&offset=0",
+    "file": "provider-empty.json.gz",
+    "sha256": "ef361cdd91b8e6129ddfe00d3414aef275c8eb004ca567860ca4651c6323ff91",
+    "acceptedFields": [
+      "proof of zero records returned for the bounded query"
+    ],
+    "capturedAt": "2026-11-11T19:07:06.733405+00:00"
+  }
+]

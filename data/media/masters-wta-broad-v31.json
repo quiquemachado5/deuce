@@ -1,0 +1,732 @@
+[
+  {
+    "tournament": "Beijing",
+    "year": 2019,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/beijing-2019-wta-04df55de9c.webp",
+      "alt": "Beijing 2019 \u00b7 cuadro femenino",
+      "credit": "Getty \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1656814",
+      "photoYear": 2019,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2020/04/16/89573811-e920-41f3-994d-4284354f647c/GettyImages-1173947455.jpg",
+    "sourceTitle": "Osaka ended 2019 in hot form, picking up a first title on home soil in Osaka and following that with the Beijing trophy - ultimately putting together a 14-match winning streak, the longest of her career to date.",
+    "sourceExcerpt": "Osaka ended 2019 in hot form, picking up a first title on home soil in Osaka and following that with the Beijing trophy - ultimately putting together a 14-match winning streak, the longest of her career to date.",
+    "sourceSha256": "04df55de9c8c20909060856419e5e99c89e761d1a3c5744c018316c8aab39aa5",
+    "width": 1600,
+    "height": 1067,
+    "bytes": 176170,
+    "cmsPhotoId": 1656814,
+    "candidateIndex": 3,
+    "reviewNotes": "Official WTA editorial source names edition; contact-sheet manually reviewed for player, gender and tournament/year consistency.",
+    "reviewedAt": "2026-11-12"
+  },
+  {
+    "tournament": "Beijing",
+    "year": 2023,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/beijing-2023-wta-8faac16cf7.webp",
+      "alt": "Beijing 2023 \u00b7 cuadro femenino",
+      "credit": "China Open / VCG \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/3729688",
+      "photoYear": 2023,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2023/10/08/eaa482f5-3ce3-432e-8818-3e414fd2d03e/VCG111458332693.jpg",
+    "sourceTitle": "Iga Swiatek Beijing 2023 Trophy",
+    "sourceExcerpt": "Iga Swiatek Beijing 2023 Trophy",
+    "sourceSha256": "8faac16cf732c21200c6f9d52d34f4cd0aaa04ddb67551f0c5d90f22f35be8a7",
+    "width": 1600,
+    "height": 1066,
+    "bytes": 94168,
+    "cmsPhotoId": 3729688,
+    "candidateIndex": 15,
+    "reviewNotes": "Official WTA editorial source names edition; contact-sheet manually reviewed for player, gender and tournament/year consistency.",
+    "reviewedAt": "2026-11-12"
+  },
+  {
+    "tournament": "Canada",
+    "year": 2010,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/canada-2010-wta-4f3dbf5ece.webp",
+      "alt": "Canada 2010 \u00b7 cuadro femenino",
+      "credit": "WTA / Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1405217",
+      "photoYear": 2010,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/704ac20c-e1a7-41c9-a399-befe9e0cbe14/XoqSaTaM.jpg",
+    "sourceTitle": "Wozniacki is all smiles as she picks up the Canadian Open trophy in 2010 after beating Vera Zvonareva 6-3, 6-2 (Getty)",
+    "sourceExcerpt": "Wozniacki is all smiles as she picks up the Canadian Open trophy in 2010 after beating Vera Zvonareva 6-3, 6-2 (Getty)",
+    "sourceSha256": "4f3dbf5ece56505182eef76a21d0c037ca122917c3b763cfca9c7f299d99f619",
+    "width": 1600,
+    "height": 869,
+    "bytes": 80642,
+    "cmsPhotoId": 1405217,
+    "candidateIndex": 17,
+    "reviewNotes": "Official WTA editorial source names edition; contact-sheet manually reviewed for player, gender and tournament/year consistency.",
+    "reviewedAt": "2026-11-12"
+  },
+  {
+    "tournament": "Canada",
+    "year": 2012,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/canada-2012-wta-78ca71a9a0.webp",
+      "alt": "Canada 2012 \u00b7 cuadro femenino",
+      "credit": "WTA / Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1405117",
+      "photoYear": 2012,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/f7bc191c-f354-427b-8046-9dc8c7e59f8d/nOghXkLA.jpg",
+    "sourceTitle": "Kvitova won a topsy-turvy semifinal in Montreal in 2012, 3-6, 6-2, 6-3 (Getty)",
+    "sourceExcerpt": "Kvitova won a topsy-turvy semifinal in Montreal in 2012, 3-6, 6-2, 6-3 (Getty)",
+    "sourceSha256": "78ca71a9a05242abd3046284c0b88340bf396579000e6628298ca6cb9d09512c",
+    "width": 1600,
+    "height": 869,
+    "bytes": 71470,
+    "cmsPhotoId": 1405117,
+    "candidateIndex": 11,
+    "reviewNotes": "Official WTA editorial source names edition; contact-sheet manually reviewed for player, gender and tournament/year consistency.",
+    "reviewedAt": "2026-11-12"
+  },
+  {
+    "tournament": "Canada",
+    "year": 2016,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/canada-2016-wta-c9d36d4087.webp",
+      "alt": "Canada 2016 \u00b7 cuadro femenino",
+      "credit": "WTA / Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1407180",
+      "photoYear": 2016,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/01cf047d-6c94-455d-8e7a-32b3ce921a3a/BzXJkQKt.jpg",
+    "sourceTitle": "Halep dispatched Pliskova 6-3, 6-3 in the third round of Montr\u00e9al 2016 on her way to lifting the trophy (Getty)",
+    "sourceExcerpt": "Halep dispatched Pliskova 6-3, 6-3 in the third round of Montr\u00e9al 2016 on her way to lifting the trophy (Getty)",
+    "sourceSha256": "c9d36d408770b3070310da02a89ef0333739e14c370235be0022808df27b19ae",
+    "width": 1600,
+    "height": 869,
+    "bytes": 74872,
+    "cmsPhotoId": 1407180,
+    "candidateIndex": 12,
+    "reviewNotes": "Official WTA editorial source names edition; contact-sheet manually reviewed for player, gender and tournament/year consistency.",
+    "reviewedAt": "2026-11-12"
+  },
+  {
+    "tournament": "Canada",
+    "year": 2017,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/canada-2017-wta-68722f5e67.webp",
+      "alt": "Canada 2017 \u00b7 cuadro femenino",
+      "credit": "WTA / Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1409412",
+      "photoYear": 2017,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2019/10/09/e6327eb2-0a4b-4641-8e27-5010d6d02c4f/CUwfrLXu.jpg",
+    "sourceTitle": "Svitolina was at her best in routing Halep 6-1, 6-1 in the semifinals of Toronto 2017 en route to lifting her fifth trophy of the year (Getty)",
+    "sourceExcerpt": "Svitolina was at her best in routing Halep 6-1, 6-1 in the semifinals of Toronto 2017 en route to lifting her fifth trophy of the year (Getty)",
+    "sourceSha256": "68722f5e67a10e198cd0b3e1d1ba22a3fef80db8eebdb6b4ba8d4ad5288636b5",
+    "width": 1600,
+    "height": 869,
+    "bytes": 23008,
+    "cmsPhotoId": 1409412,
+    "candidateIndex": 9,
+    "reviewNotes": "Official WTA editorial source names edition; contact-sheet manually reviewed for player, gender and tournament/year consistency.",
+    "reviewedAt": "2026-11-12"
+  },
+  {
+    "tournament": "Canada",
+    "year": 2019,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/canada-2019-wta-f52d07cc8f.webp",
+      "alt": "Canada 2019 \u00b7 cuadro femenino",
+      "credit": "WTA/Jimmie48 \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/2218743",
+      "photoYear": 2019,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2021/08/14/6e6bec85-0c48-48f7-a7f4-50e2c4597b56/Bianca_Andreescu_-_2019_Rogers_Cup_-DSC_2808_original.jpg",
+    "sourceTitle": "Bianca Andreescu won the title in 2019, becoming the first Canadian champion since 1969 after Serena Williams retired from their final.",
+    "sourceExcerpt": "Bianca Andreescu won the title in 2019, becoming the first Canadian champion since 1969 after Serena Williams retired from their final.",
+    "sourceSha256": "f52d07cc8fc2e7e4098997bfc7a403ad9b4cc2b425de1e6d4e373ac57de42093",
+    "width": 1600,
+    "height": 1119,
+    "bytes": 71874,
+    "cmsPhotoId": 2218743,
+    "candidateIndex": 25,
+    "reviewNotes": "Official WTA editorial source names edition; contact-sheet manually reviewed for player, gender and tournament/year consistency.",
+    "reviewedAt": "2026-11-12"
+  },
+  {
+    "tournament": "Canada",
+    "year": 2023,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/canada-2023-wta-037cfb65bc.webp",
+      "alt": "Canada 2023 \u00b7 cuadro femenino",
+      "credit": "Minas Panagiotakis/Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/4060957",
+      "photoYear": 2023,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2024/07/18/c42c1306-c2b2-4182-b39f-c0220ac181d7/GettyImages-1597105584.jpg",
+    "sourceTitle": "Jessica Pegula, 2023 Montreal trophy (Getty)",
+    "sourceExcerpt": "Jessica Pegula, 2023 Montreal trophy (Getty)",
+    "sourceSha256": "037cfb65bc0cece366426befafb0194fc6fbf4ae9a2a163efd3b36cce14af276",
+    "width": 1600,
+    "height": 1067,
+    "bytes": 126180,
+    "cmsPhotoId": 4060957,
+    "candidateIndex": 10,
+    "reviewNotes": "Official WTA editorial source names edition; contact-sheet manually reviewed for player, gender and tournament/year consistency.",
+    "reviewedAt": "2026-11-12"
+  },
+  {
+    "tournament": "Cincinnati",
+    "year": 2012,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/cincinnati-2012-wta-cc4c5a87c8.webp",
+      "alt": "Cincinnati 2012 \u00b7 cuadro femenino",
+      "credit": "Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1409233",
+      "photoYear": 2012,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2019/10/09/59bc3fff-88f5-4c94-b6d9-48df7ed9fbd2/jSfvOccO.jpg",
+    "sourceTitle": "Li Na lifted the trophy in 2012, beating Angelique Kerber, 1-6, 6-3, 6-1.",
+    "sourceExcerpt": "Li Na lifted the trophy in 2012, beating Angelique Kerber, 1-6, 6-3, 6-1.",
+    "sourceSha256": "cc4c5a87c8326992d91464b690c9b0badc2e107a56b8bb1e6b93a9913a99d436",
+    "width": 1600,
+    "height": 869,
+    "bytes": 57970,
+    "cmsPhotoId": 1409233,
+    "candidateIndex": 16,
+    "reviewNotes": "Official WTA editorial source names edition; contact-sheet manually reviewed for player, gender and tournament/year consistency.",
+    "reviewedAt": "2026-11-12"
+  },
+  {
+    "tournament": "Cincinnati",
+    "year": 2015,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/cincinnati-2015-wta-cf72749a22.webp",
+      "alt": "Cincinnati 2015 \u00b7 cuadro femenino",
+      "credit": "WTA / Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1484372",
+      "photoYear": 2015,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2019/11/06/0d8f3ea7-926a-487a-b535-642b07223518/augGeAyh.jpg",
+    "sourceTitle": "Serena Williams is the only player to have won back-to-back Cincinnati titles since the 1970s, having defeated Simona Halep to claim the 2015 trophy (Getty)",
+    "sourceExcerpt": "Serena Williams is the only player to have won back-to-back Cincinnati titles since the 1970s, having defeated Simona Halep to claim the 2015 trophy (Getty)",
+    "sourceSha256": "cf72749a22401d8039b5dd821b30dbe80431a4df66f8e4818a2363cce583b918",
+    "width": 1600,
+    "height": 869,
+    "bytes": 109732,
+    "cmsPhotoId": 1484372,
+    "candidateIndex": 13,
+    "reviewNotes": "Official WTA editorial source names edition; contact-sheet manually reviewed for player, gender and tournament/year consistency.",
+    "reviewedAt": "2026-11-12"
+  },
+  {
+    "tournament": "Cincinnati",
+    "year": 2016,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/cincinnati-2016-wta-fcb9e7b8c3.webp",
+      "alt": "Cincinnati 2016 \u00b7 cuadro femenino",
+      "credit": "Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1658564",
+      "photoYear": 2016,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2020/04/21/1feb94de-56f4-48cd-b717-b78e25389cd2/GettyImages-618416806.jpg",
+    "sourceTitle": "Successive wins over Svetlana Kuznetsova, Garbi\u00f1e Muguruza and Angelique Kerber helped her to score her first Premier tournament title in Cincinnati in August 2016, her sixth WTA Tour trophy.",
+    "sourceExcerpt": "Successive wins over Svetlana Kuznetsova, Garbi\u00f1e Muguruza and Angelique Kerber helped her to score her first Premier tournament title in Cincinnati in August 2016, her sixth WTA Tour trophy.",
+    "sourceSha256": "fcb9e7b8c3b10a97ecad06c617fe3b98fe2601a95b13ecceb54b1b0098f3726a",
+    "width": 1600,
+    "height": 1066,
+    "bytes": 94224,
+    "cmsPhotoId": 1658564,
+    "candidateIndex": 14,
+    "reviewNotes": "Official WTA editorial source names edition; contact-sheet manually reviewed for player, gender and tournament/year consistency.",
+    "reviewedAt": "2026-11-12"
+  },
+  {
+    "tournament": "Cincinnati",
+    "year": 2023,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/cincinnati-2023-wta-822864493b.webp",
+      "alt": "Cincinnati 2023 \u00b7 cuadro femenino",
+      "credit": "Jimmie48/WTA \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/3645099",
+      "photoYear": 2023,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2023/08/21/c13e98c9-6f68-4e33-b13c-65d7592ad627/Gauff-trophy-Jimmie.jpg",
+    "sourceTitle": "Two weeks after winning her first title on home soil, Coco Gauff lifted her second at Cincinnati 2023 -- the first WTA 1000 trophy of the 19-year-old's career.",
+    "sourceExcerpt": "Two weeks after winning her first title on home soil, Coco Gauff lifted her second at Cincinnati 2023 -- the first WTA 1000 trophy of the 19-year-old's career.",
+    "sourceSha256": "822864493b0883b83a4662f05c8cdbc6e4630dbfc10ac7be312e988f9a45fed8",
+    "width": 1600,
+    "height": 1114,
+    "bytes": 65310,
+    "cmsPhotoId": 3645099,
+    "candidateIndex": 2,
+    "reviewNotes": "Official WTA editorial source names edition; contact-sheet manually reviewed for player, gender and tournament/year consistency.",
+    "reviewedAt": "2026-11-12"
+  },
+  {
+    "tournament": "Doha",
+    "year": 2018,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/doha-2018-wta-5699c91979.webp",
+      "alt": "Doha 2018 \u00b7 cuadro femenino",
+      "credit": "Jimmie48/WTA \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/3236732",
+      "photoYear": 2018,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2023/04/26/2fe676fb-004f-4413-84cd-cde8cd17cd81/DSC_6107.jpg",
+    "sourceTitle": "Kvitova - 2018 Doha",
+    "sourceExcerpt": "Singles champion Petra Kvitova holds the WTA 1000 Doha trophy in 2018.",
+    "sourceSha256": "5699c919795997b5098bdd331027891c7e36a66721d27127609e46098de9debd",
+    "width": 1600,
+    "height": 1170,
+    "bytes": 90668,
+    "cmsPhotoId": 3236732,
+    "candidateIndex": 19,
+    "reviewNotes": "Official WTA editorial source names edition; contact-sheet manually reviewed for player, gender and tournament/year consistency.",
+    "reviewedAt": "2026-11-12"
+  },
+  {
+    "tournament": "Dubai",
+    "year": 2018,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/dubai-2018-wta-54831fc44f.webp",
+      "alt": "Dubai 2018 \u00b7 cuadro femenino",
+      "credit": "WTA / Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1484363",
+      "photoYear": 2018,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2019/11/06/53abe14e-295a-4e6f-b54a-9b26f05bd942/ZANSHuoW.jpg",
+    "sourceTitle": "Elina Svitolina is the only player to have successfully defended multiple titles since 2015, having won a second Dubai trophy in 2018 over Daria Kasatkina in the final (Getty)",
+    "sourceExcerpt": "Elina Svitolina is the only player to have successfully defended multiple titles since 2015, having won a second Dubai trophy in 2018 over Daria Kasatkina in the final (Getty)",
+    "sourceSha256": "54831fc44f55b0d399ee06bafbc5b521bc2cc1951dbae1df3d5deda115e7188f",
+    "width": 1600,
+    "height": 869,
+    "bytes": 112838,
+    "cmsPhotoId": 1484363,
+    "candidateIndex": 18,
+    "reviewNotes": "Official WTA editorial source names edition; contact-sheet manually reviewed for player, gender and tournament/year consistency.",
+    "reviewedAt": "2026-11-12"
+  },
+  {
+    "tournament": "Indian Wells",
+    "year": 2011,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/indian-wells-2011-wta-33cd5fa5c9.webp",
+      "alt": "Indian Wells 2011 \u00b7 cuadro femenino",
+      "credit": "Getty \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1640625",
+      "photoYear": 2011,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2020/03/08/8007524e-b8cf-4a8e-8045-8c539ae2166d/GettyImages-110495382-1-.jpg",
+    "sourceTitle": "Caroline Wozniacki routed Maria Sharapova 6-1, 6-2 in the semifinals and battled past Marion Bartoli 6-1, 2-6, 6-3 in the final to win her 14th career trophy in 2011.",
+    "sourceExcerpt": "Caroline Wozniacki routed Maria Sharapova 6-1, 6-2 in the semifinals and battled past Marion Bartoli 6-1, 2-6, 6-3 in the final to win her 14th career trophy in 2011.",
+    "sourceSha256": "33cd5fa5c9a5fbbe56b98d33e4786b88127e6434a1912ad1b5d77015e5fbe864",
+    "width": 1600,
+    "height": 1120,
+    "bytes": 163198,
+    "cmsPhotoId": 1640625,
+    "candidateIndex": 8,
+    "reviewNotes": "Official WTA editorial source names edition; contact-sheet manually reviewed for player, gender and tournament/year consistency.",
+    "reviewedAt": "2026-11-12",
+    "sceneType": "champion-trophy-portrait-offcourt"
+  },
+  {
+    "tournament": "Indian Wells",
+    "year": 2018,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/indian-wells-2018-wta-c79879764a.webp",
+      "alt": "Indian Wells 2018 \u00b7 cuadro femenino",
+      "credit": "Getty \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1411646",
+      "photoYear": 2018,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2019/10/09/ece369f9-6728-4a9e-95be-7f00ecc99db6/LLQvNBkf.jpg",
+    "sourceTitle": "Osaka transformed from dangerous floater to title threat at Indian Wells 2018, pummelling a succession of former World No.1s and Slam champions to storm to her maiden trophy.",
+    "sourceExcerpt": "Osaka transformed from dangerous floater to title threat at Indian Wells 2018, pummelling a succession of former World No.1s and Slam champions to storm to her maiden trophy.",
+    "sourceSha256": "c79879764af9132f11406a4fc2995ca7b74dab29769e24116bc0f5654f3b2cb5",
+    "width": 1600,
+    "height": 869,
+    "bytes": 122224,
+    "cmsPhotoId": 1411646,
+    "candidateIndex": 0,
+    "reviewNotes": "Official WTA editorial source names edition; contact-sheet manually reviewed for player, gender and tournament/year consistency.",
+    "reviewedAt": "2026-11-12",
+    "sceneType": "champion-trophy-portrait-offcourt"
+  },
+  {
+    "tournament": "Madrid",
+    "year": 2012,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/madrid-2012-wta-4eb23b21e2.webp",
+      "alt": "Madrid 2012 \u00b7 cuadro femenino",
+      "credit": "WTA / Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1405191",
+      "photoYear": 2012,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/1a801e89-9c18-4758-960e-24e49423591c/shWZucsc.jpg",
+    "sourceTitle": "Serena had her name etched on the trophy once more in 2012 as she scored a 6-3, 6-4 victory over rival Maria Sharapova. (Getty)",
+    "sourceExcerpt": "Serena had her name etched on the trophy once more in 2012 as she scored a 6-3, 6-4 victory over rival Maria Sharapova. (Getty)",
+    "sourceSha256": "4eb23b21e29599f6750f80107eca5c9634bfa0da89415818c7b6c956adcbfa71",
+    "width": 1600,
+    "height": 869,
+    "bytes": 178750,
+    "cmsPhotoId": 1405191,
+    "candidateIndex": 7,
+    "reviewNotes": "Official WTA editorial source names edition; contact-sheet manually reviewed for player, gender and tournament/year consistency.",
+    "reviewedAt": "2026-11-12"
+  },
+  {
+    "tournament": "Madrid",
+    "year": 2014,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/madrid-2014-wta-9e3c76ce30.webp",
+      "alt": "Madrid 2014 \u00b7 cuadro femenino",
+      "credit": "WTA / Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1403084",
+      "photoYear": 2014,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/2070d548-7f09-4b33-8980-ca22a500bfbe/FQBdUPTv.jpg",
+    "sourceTitle": "Sharapova maintained her dominance in the pair's first final meeting, winning the Madrid trophy 1-6, 6-2, 6-3 in 2014 (Getty)",
+    "sourceExcerpt": "Sharapova maintained her dominance in the pair's first final meeting, winning the Madrid trophy 1-6, 6-2, 6-3 in 2014 (Getty)",
+    "sourceSha256": "9e3c76ce30610eeadee2e9c88034ad6ee47778bc382f500404c79ee04387d2b5",
+    "width": 1600,
+    "height": 869,
+    "bytes": 83636,
+    "cmsPhotoId": 1403084,
+    "candidateIndex": 4,
+    "reviewNotes": "Official WTA editorial source names edition; contact-sheet manually reviewed for player, gender and tournament/year consistency.",
+    "reviewedAt": "2026-11-12"
+  },
+  {
+    "tournament": "Madrid",
+    "year": 2016,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/madrid-2016-wta-453c05d347.webp",
+      "alt": "Madrid 2016 \u00b7 cuadro femenino",
+      "credit": "WTA / Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1407305",
+      "photoYear": 2016,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/d42ed422-3c87-4536-a021-e57519364e77/hfseCnsA.jpg",
+    "sourceTitle": "Having been runner up two years previously, Halep defeated Dominika Cibulkova, 6-2, 6-4, to lift her first Madrid trophy in 2016. (Getty)",
+    "sourceExcerpt": "Having been runner up two years previously, Halep defeated Dominika Cibulkova, 6-2, 6-4, to lift her first Madrid trophy in 2016. (Getty)",
+    "sourceSha256": "453c05d3473c2056d88e673a58dbab1ac8bb64b1ff27649174bc3be2c6c324fa",
+    "width": 1600,
+    "height": 869,
+    "bytes": 167990,
+    "cmsPhotoId": 1407305,
+    "candidateIndex": 5,
+    "reviewNotes": "Official WTA editorial source names edition; contact-sheet manually reviewed for player, gender and tournament/year consistency.",
+    "reviewedAt": "2026-11-12"
+  },
+  {
+    "tournament": "Madrid",
+    "year": 2017,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/madrid-2017-wta-f63f3fb24e.webp",
+      "alt": "Madrid 2017 \u00b7 cuadro femenino",
+      "credit": "WTA / Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1403625",
+      "photoYear": 2017,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/fc39edad-d51d-450e-8dbb-fc48eae91365/kKDHVvha.jpg",
+    "sourceTitle": "Finally after two hours and 44 minutes Halep became the 2017 Mutua Madrid Open champion. (\u00a9Getty Images)",
+    "sourceExcerpt": "Finally after two hours and 44 minutes Halep became the 2017 Mutua Madrid Open champion. (\u00a9Getty Images)",
+    "sourceSha256": "f63f3fb24e828c54fb5bb7e9bc3c3d64ad2624e79d9a6a1fac29b3fce47def79",
+    "width": 1600,
+    "height": 869,
+    "bytes": 60506,
+    "cmsPhotoId": 1403625,
+    "candidateIndex": 24,
+    "reviewNotes": "Official WTA editorial source names edition; contact-sheet manually reviewed for player, gender and tournament/year consistency.",
+    "reviewedAt": "2026-11-12"
+  },
+  {
+    "tournament": "Madrid",
+    "year": 2018,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/madrid-2018-wta-090f683ede.webp",
+      "alt": "Madrid 2018 \u00b7 cuadro femenino",
+      "credit": "Jimmie48/WTA \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1666287",
+      "photoYear": 2018,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2020/05/08/bab82376-8f13-4109-b4ab-a802cf90bda1/Kvitova-F-celebration-J48-.jpg",
+    "sourceTitle": "A marathon final saw Petra Kvitova triumph over Kiki Bertens 7-6(6), 4-6, 6-3 after two hours and 52 minutes to seal her fourth title of 2018, and 24th overall - as well as becoming the first player to lift the Madrid trophy three times.",
+    "sourceExcerpt": "A marathon final saw Petra Kvitova triumph over Kiki Bertens 7-6(6), 4-6, 6-3 after two hours and 52 minutes to seal her fourth title of 2018, and 24th overall - as well as becoming the first player to lift the Madrid trophy three times.",
+    "sourceSha256": "090f683ede4ea2f1d264c980561a141e00940f8704871d46b2846fa7769a8f86",
+    "width": 1600,
+    "height": 1227,
+    "bytes": 114446,
+    "cmsPhotoId": 1666287,
+    "candidateIndex": 6,
+    "reviewNotes": "Official WTA editorial source names edition; contact-sheet manually reviewed for player, gender and tournament/year consistency.",
+    "reviewedAt": "2026-11-12"
+  },
+  {
+    "tournament": "Miami",
+    "year": 2011,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/miami-2011-wta-e1b3e5b90e.webp",
+      "alt": "Miami 2011 \u00b7 cuadro femenino",
+      "credit": "Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1410884",
+      "photoYear": 2011,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2021/03/22/51315f17-b96f-4424-92af-754eff245ae9/YgEWDIIn.jpg",
+    "sourceTitle": "Victoria Azarenka became a two-time Miami champion in 2011, defeating Maria Sharapova, 6-1, 6-4, in the final. Azarenka won the event two years prior, defeating Serena Williams in the 2009 final.",
+    "sourceExcerpt": "Victoria Azarenka became a two-time Miami champion in 2011, defeating Maria Sharapova, 6-1, 6-4, in the final. Azarenka won the event two years prior, defeating Serena Williams in the 2009 final.",
+    "sourceSha256": "e1b3e5b90e10b0356e71dce96c915ffbeced3e6ef70feab16aaaa4186dc29de2",
+    "width": 1600,
+    "height": 1067,
+    "bytes": 98722,
+    "cmsPhotoId": 1410884,
+    "candidateIndex": 22,
+    "reviewNotes": "Official WTA editorial source names edition; contact-sheet manually reviewed for player, gender and tournament/year consistency.",
+    "reviewedAt": "2026-11-12"
+  },
+  {
+    "tournament": "Miami",
+    "year": 2012,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/miami-2012-wta-a04ba160ca.webp",
+      "alt": "Miami 2012 \u00b7 cuadro femenino",
+      "credit": "WTA / Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1404738",
+      "photoYear": 2012,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/46ff7338-1ef3-4c1e-af4e-f667d13001d0/giIjJEkc.jpg",
+    "sourceTitle": "Radwanska smiles in the bubbles as the 2012 Miami Open champion (Getty)",
+    "sourceExcerpt": "Radwanska smiles in the bubbles as the 2012 Miami Open champion (Getty)",
+    "sourceSha256": "a04ba160ca879eb914a37c9fd3b6fc19bd90fcfb933c6953cc3bd3cea586671c",
+    "width": 1600,
+    "height": 869,
+    "bytes": 115982,
+    "cmsPhotoId": 1404738,
+    "candidateIndex": 20,
+    "reviewNotes": "Official WTA editorial source names edition; contact-sheet manually reviewed for player, gender and tournament/year consistency.",
+    "reviewedAt": "2026-11-12"
+  },
+  {
+    "tournament": "Miami",
+    "year": 2015,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/miami-2015-wta-7d1fc7e6a1.webp",
+      "alt": "Miami 2015 \u00b7 cuadro femenino",
+      "credit": "Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1410888",
+      "photoYear": 2015,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2021/03/22/99c6a77f-5f81-4497-924c-88395398d1b7/rvroxbJg.jpg",
+    "sourceTitle": "A record eighth Miami crown for Serena Williams followed in 2015, as the two-time defending champion swept past Carla Su\u00e1rez Navarro in the final, 6\u20132, 6\u20130.",
+    "sourceExcerpt": "A record eighth Miami crown for Serena Williams followed in 2015, as the two-time defending champion swept past Carla Su\u00e1rez Navarro in the final, 6\u20132, 6\u20130.",
+    "sourceSha256": "7d1fc7e6a11a798470d9d576078544a2ebcd126645d70d6818e299f395658c74",
+    "width": 1600,
+    "height": 1019,
+    "bytes": 198406,
+    "cmsPhotoId": 1410888,
+    "candidateIndex": 21,
+    "reviewNotes": "Official WTA editorial source names edition; contact-sheet manually reviewed for player, gender and tournament/year consistency.",
+    "reviewedAt": "2026-11-12"
+  },
+  {
+    "tournament": "Rome",
+    "year": 2014,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/rome-2014-wta-14f808c7ab.webp",
+      "alt": "Rome 2014 \u00b7 cuadro femenino",
+      "credit": "WTA / Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/1484377",
+      "photoYear": 2014,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2019/11/06/47c12125-af6c-414d-9d31-eec6068772e7/ddzeNRgQ.jpg",
+    "sourceTitle": "2014 saw Serena Williams successfully defend five titles, the most in any season of her career, including a victory over Sara Errani to win a third Rome trophy (Getty)",
+    "sourceExcerpt": "2014 saw Serena Williams successfully defend five titles, the most in any season of her career, including a victory over Sara Errani to win a third Rome trophy (Getty)",
+    "sourceSha256": "14f808c7abf676134e4d767bfe9e185dd7bea247ff45cd7bd9da51227907f35a",
+    "width": 1600,
+    "height": 869,
+    "bytes": 97372,
+    "cmsPhotoId": 1484377,
+    "candidateIndex": 1,
+    "reviewNotes": "Official WTA editorial source names edition; contact-sheet manually reviewed for player, gender and tournament/year consistency.",
+    "reviewedAt": "2026-11-12"
+  },
+  {
+    "tournament": "Rome",
+    "year": 2021,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/rome-2021-wta-a9c33df90d.webp",
+      "alt": "Rome 2021 \u00b7 cuadro femenino",
+      "credit": "WTA / Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://api.wtatennis.com/content/wta/photo/en/2145047",
+      "photoYear": 2021,
+      "objectPosition": "50% 45%",
+      "auditStatus": "verified",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2021/05/16/5ddd3282-3e12-40ed-af6d-64bd8d94626e/Iga_Swiatek_-_2021_Internazionali_BNL_d_Italia_Day_6_-DSC_9103_original.jpg",
+    "sourceTitle": "Iga Swiatek, Rome 2021, Champion",
+    "sourceExcerpt": "Photo by Jimmie48/WTA",
+    "sourceSha256": "a9c33df90da6ac2a5d254bf316acdda63f52df9a6a79f27262477da102a226c2",
+    "width": 1600,
+    "height": 1006,
+    "bytes": 86650,
+    "cmsPhotoId": 2145047,
+    "candidateIndex": 23,
+    "reviewNotes": "Official WTA editorial source names edition; contact-sheet manually reviewed for player, gender and tournament/year consistency.",
+    "reviewedAt": "2026-11-12"
+  }
+]

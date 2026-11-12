@@ -6,6 +6,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ArrowRight, ChevronDown, Menu, Search, X } from 'lucide-react';
 import { circuitSectionHref, navigationCircuit, type Circuit, type CircuitSection, type SearchCircuit } from '@/lib/circuit-navigation';
+import { TennisBallMark } from './TennisBallMark';
 import styles from './deuce-topbar.module.css';
 
 type MegaSection = Exclude<CircuitSection, 'compare'>;
@@ -40,13 +41,6 @@ function tournamentHref(tour: Circuit, category?: string) {
   return `/torneos${query ? `?${query}` : ''}`;
 }
 
-function searchHref(tour: Circuit | 'all', values: Record<string, string> = {}) {
-  const params = new URLSearchParams(values);
-  if (tour !== 'atp') params.set('tour', tour);
-  const query = params.toString();
-  return `/buscar${query ? `?${query}` : ''}`;
-}
-
 function matchHref(tour: Circuit | 'all', values: Record<string, string> = {}) {
   const params = new URLSearchParams(values);
   if (tour !== 'atp') params.set('tour', tour);
@@ -68,6 +62,7 @@ function panelFor(section: MegaSection, tour: Circuit): MegaPanel {
       { label: 'Archivo ATP', detail: 'Resultados del circuito masculino', href: '/partidos' },
       { label: 'Archivo WTA', detail: 'Resultados del circuito femenino', href: '/partidos?tour=wta' },
       { label: 'ATP + WTA', detail: 'Buscar en todo el archivo', href: '/partidos?tour=all' },
+      { label: 'Buscar por nombre', detail: 'Encontrar jugadores y jugadoras', href: `/jugadores?tour=${tour}&filtros=nombre` },
       { label: 'Grand Slam', detail: `Partidos ${tour.toUpperCase()} de los cuatro grandes`, href: matchHref(tour, { category: 'Grand Slam' }) },
     ],
     feature: {
@@ -121,7 +116,7 @@ function panelFor(section: MegaSection, tour: Circuit): MegaPanel {
       { label: 'Jugadores ATP', detail: 'Directorio del circuito masculino', href: '/jugadores' },
       { label: 'Jugadoras WTA', detail: 'Directorio del circuito femenino', href: '/jugadores?tour=wta' },
       { label: 'Comparar jugadores', detail: 'Cruzar dos carreras', href: circuitSectionHref('compare', tour) },
-      { label: 'Buscar por nombre', detail: 'Encontrar una carrera en segundos', href: `${searchHref('all')}#buscar` },
+      { label: 'Buscar por nombre', detail: 'Encontrar una carrera en segundos', href: `/jugadores?tour=${tour}&filtros=nombre` },
     ],
     feature: {
       value: 'Dos carreras',
@@ -188,7 +183,7 @@ function MegaPanelContent({ panel, section, close }: { panel: MegaPanel; section
       <Link href={panel.overview} onClick={close}>Ver toda la sección <ArrowRight size={16} aria-hidden="true" /></Link>
     </div>
     <nav className={styles.megaLinks} aria-label={`Accesos de ${panel.title}`}>
-      {panel.links.map(link => <Link href={link.href} onClick={close} key={link.href}>
+      {panel.links.map(link => <Link href={link.href} onClick={()=>{close();if(link.href.includes('filtros=nombre'))window.dispatchEvent(new Event('deuce:player-search'))}} key={link.href}>
         <span><strong>{link.label}</strong><small>{link.detail}</small></span>
         <ArrowRight size={16} aria-hidden="true" />
       </Link>)}
@@ -376,6 +371,11 @@ export function DeuceTopbar() {
     closeAll();
     router.push(english?`/en/matches?${new URLSearchParams({q:text}).toString()}`:`/buscar?${new URLSearchParams({ q: text, tour: searchTour }).toString()}`);
   };
+  const recordSearchClick=(group:string,position:number)=>{
+    const normalized=['Jugadores','Players'].includes(group)?'players':['Partidos','Matches'].includes(group)?'matches':'tournaments';
+    const payload=JSON.stringify({kind:'search-click',group:normalized,position,queryLength:query.trim().length});
+    navigator.sendBeacon?.('/api/telemetry',new Blob([payload],{type:'application/json'}));
+  };
   const queryLength = query.trim().length;
   const loading = queryLength >= 2 && (result.query !== query.trim() || result.tour !== searchTour);
   const visibleItems = result.tour === searchTour && result.query === query.trim() ? result.items : [];
@@ -406,6 +406,7 @@ export function DeuceTopbar() {
       ref={shell}
       className={`${styles.topbar}${scrolled ? ` ${styles.scrolled}` : ''}${navHidden && !expanded ? ` ${styles.hidden}` : ''}${expanded ? ` ${styles.expanded}` : ''}${(activePanel && !panelOpen && !menu) || menuClosing ? ` ${styles.panelClosing}` : ''}${searchMounted && !searchOpen ? ` ${styles.searchClosing}` : ''}`}
       data-deuce-topbar=""
+      data-grand-slam={pathname.match(/^\/(?:torneos|en\/tournaments)\/(australian-open|roland-garros|wimbledon|us-open)(?:\/|$)/)?.[1]}
       data-scrolled={scrolled || undefined}
       data-search-open={searchMounted || undefined}
       data-hidden={navHidden && !expanded || undefined}
@@ -415,7 +416,7 @@ export function DeuceTopbar() {
     >
       <div className={styles.shell}>
         <div className={styles.topline}>
-          <Link className={styles.logo} href={english?'/en':'/'} aria-label={english?'DEUCE, home':'DEUCE, inicio'} onClick={closeAll}><span className={styles.logoMark} aria-hidden="true"><svg viewBox="0 0 32 32" focusable="false"><circle cx="16" cy="16" r="13"/><path d="M7.5 5.8c5.1 4.2 6.5 15.4 1.2 20.3M24.5 5.8c-5.1 4.2-6.5 15.4-1.2 20.3"/></svg></span><span className={styles.logoWord}>DEUCE</span></Link>
+          <Link className={styles.logo} href={english?'/en':'/'} aria-label={english?'DEUCE, home':'DEUCE, inicio'} onClick={closeAll}><span className={styles.logoMark} aria-hidden="true"><TennisBallMark/></span><span className={styles.logoWord}>DEUCE</span></Link>
           <nav className={styles.desktopNavigation} aria-label={english ? 'Main navigation' : 'Principal'} aria-hidden={searchMounted} inert={searchMounted || undefined}>
             <Link className={`${styles.navTrigger} ${styles.homeLink}`} aria-current={pathname === (english?'/en':'/') ? 'page' : undefined} href={english?'/en':'/'} onClick={closeAll}>{english?'Home':'Inicio'}</Link>
             {navigationItems.map(({ label, section, href }) => english||section === 'compare'
@@ -457,7 +458,7 @@ export function DeuceTopbar() {
               </div>
               : queryLength < 2 ? <p className={styles.searchStatus}>{english?'Enter at least two characters.':'Escribe al menos dos caracteres.'}</p>
               : result.error ? <p className={styles.searchStatus}>{english?'Suggestions could not be loaded. Press Enter to search.':'No se pudieron cargar las sugerencias. Pulsa Intro para buscar.'}</p>
-              : hasPresentedResults || completingSearch ? <div className={`${styles.searchGroups}${tournamentItems.length ? ` ${styles.searchGroupsThree}` : ''}`}>{searchColumns.map(column => <section key={column.label} aria-label={column.label}><h2>{column.label}</h2>{column.items.length ? column.items.map(item => {const href=resultHref(item);return <Link className={item.image ? styles.searchResultWithPhoto : undefined} href={href} prefetch={false} key={item.href} data-search-result="" onPointerEnter={() => router.prefetch(href)} onFocus={() => router.prefetch(href)} onClick={closeAll}>{item.image&&<Image className={styles.searchResultPhoto} src={item.image} alt={item.imageAlt||''} width={88} height={88} style={{objectPosition:item.imagePosition}}/>}<span><strong>{item.name}</strong>{item.detail && <small>{item.detail}</small>}</span><ArrowRight size={15} aria-hidden="true" /></Link>}) : <p className={styles.searchColumnStatus}>{completingSearch ? (english?'Searching…':'Buscando…') : (english?'No matches':'Sin coincidencias')}</p>}</section>)}</div>
+              : hasPresentedResults || completingSearch ? <div className={`${styles.searchGroups}${tournamentItems.length ? ` ${styles.searchGroupsThree}` : ''}`}>{searchColumns.map(column => <section key={column.label} aria-label={column.label}><h2>{column.label}</h2>{column.items.length ? column.items.map((item,index) => {const href=resultHref(item);return <Link className={item.image ? styles.searchResultWithPhoto : undefined} href={href} prefetch={false} key={item.href} data-search-result="" onPointerEnter={() => router.prefetch(href)} onFocus={() => router.prefetch(href)} onClick={()=>{recordSearchClick(column.label,index+1);closeAll();}}>{item.image&&<Image className={styles.searchResultPhoto} src={item.image} alt={item.imageAlt||''} width={88} height={88} style={{objectPosition:item.imagePosition}}/>}<span><strong>{item.name}</strong>{item.detail && <small>{item.detail}</small>}</span><ArrowRight size={15} aria-hidden="true" /></Link>}) : <p className={styles.searchColumnStatus}>{completingSearch ? (english?'Searching…':'Buscando…') : (english?'No matches':'Sin coincidencias')}</p>}</section>)}</div>
               : <p className={styles.searchStatus}>{english?`No results for “${query}”. Try another player, tournament or year.`:`No hay resultados para «${query}». Prueba con otro nombre, torneo o año.`}</p>}
             </section>
             : menu || menuClosing ? <nav id="deuce-mobile-navigation" className={styles.mobileNavigation} aria-label={english ? 'Main navigation' : 'Principal'} aria-hidden={menuClosing || undefined} inert={menuClosing || undefined}>
@@ -466,7 +467,7 @@ export function DeuceTopbar() {
                 <button type="button" aria-expanded={activePanel === section} onClick={() => togglePanel(section)}><span>{label}</span><ChevronDown size={18} aria-hidden="true" /></button>
                 <div className={styles.mobileSubmenu}><div>
                   <Link className={styles.mobileOverview} href={panelFor(section, navigationTour).overview} onClick={closeAll}>Ver toda la sección <ArrowRight size={15} aria-hidden="true" /></Link>
-                  {panelFor(section, navigationTour).links.map(link => <Link href={link.href} onClick={closeAll} key={link.href}><strong>{link.label}</strong><small>{link.detail}</small></Link>)}
+                  {panelFor(section, navigationTour).links.map(link => <Link href={link.href} onClick={()=>{closeAll();if(link.href.includes('filtros=nombre'))window.dispatchEvent(new Event('deuce:player-search'))}} key={link.href}><strong>{link.label}</strong><small>{link.detail}</small></Link>)}
                 </div></div>
               </div>)}
             </nav>

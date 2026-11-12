@@ -1,0 +1,914 @@
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "serialNumber": "urn:uuid:13ba7928-d0b3-4f76-a1bf-ed2188ec7813",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-11-12T08:13:19.271Z",
+    "lifecycles": [
+      {
+        "phase": "build"
+      }
+    ],
+    "tools": [
+      {
+        "vendor": "npm",
+        "name": "cli",
+        "version": "11.17.0"
+      }
+    ],
+    "component": {
+      "bom-ref": "deuce-slam@0.1.0",
+      "type": "library",
+      "name": "deuce-world-class",
+      "version": "0.1.0",
+      "scope": "required",
+      "purl": "pkg:npm/deuce-slam@0.1.0",
+      "properties": [
+        {
+          "name": "cdx:npm:package:private",
+          "value": "true"
+        }
+      ],
+      "externalReferences": []
+    }
+  },
+  "components": [
+    {
+      "bom-ref": "@next/swc-darwin-arm64@16.4.5",
+      "type": "library",
+      "name": "@next/swc-darwin-arm64",
+      "version": "16.4.5",
+      "scope": "optional",
+      "purl": "pkg:npm/%40next/swc-darwin-arm64@16.4.5",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@next/swc-darwin-arm64/-/swc-darwin-arm64-16.4.5.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/vercel/next.js"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "5b94e7881cd628049b34dc0767f4bf7f53314145d4fcb76392554c580d148db7e5ed2667533165b38e613b48bfb05ec1c758c9056a7b5969a841a8d7b57fcef0"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@supabase/auth-js@2.118.0",
+      "type": "library",
+      "name": "@supabase/auth-js",
+      "version": "2.118.0",
+      "scope": "required",
+      "author": "Supabase",
+      "description": "Official SDK for Supabase Auth",
+      "purl": "pkg:npm/%40supabase/auth-js@2.118.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@supabase/auth-js/-/auth-js-2.118.0.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/supabase/supabase-js.git"
+        },
+        {
+          "type": "website",
+          "url": "https://github.com/supabase/supabase-js/tree/master/packages/core/auth-js"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "c567cf5f2852d8a0d27c09de32d23aa7fb419db762cffe6f69129712a51fcdf0bd5829e22abd83b39a391bb4481a28346e89b8cfac1463dcda574ed60d54df9d"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@supabase/functions-js@2.118.0",
+      "type": "library",
+      "name": "@supabase/functions-js",
+      "version": "2.118.0",
+      "scope": "required",
+      "author": "Supabase",
+      "description": "JS SDK to interact with Supabase Functions.",
+      "purl": "pkg:npm/%40supabase/functions-js@2.118.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@supabase/functions-js/-/functions-js-2.118.0.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/supabase/supabase-js.git"
+        },
+        {
+          "type": "website",
+          "url": "https://github.com/supabase/supabase-js/tree/master/packages/core/functions-js"
+        },
+        {
+          "type": "issue-tracker",
+          "url": "https://github.com/supabase/supabase-js/issues"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "e287e57ad3dafe7a0a014e8a1deaac777173b46cd13d410945ecb530a634a3e3c81da55e3ea44f4a1217b65dfb81c57221668533eccd83aafdce1d2e51214e48"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@supabase/phoenix@0.4.5",
+      "type": "library",
+      "name": "@supabase/phoenix",
+      "version": "0.4.5",
+      "scope": "required",
+      "author": "Chris McCord <chris@chrismccord.com> (https://www.phoenixframework.org)",
+      "description": "The official JavaScript client for the Phoenix web framework.",
+      "purl": "pkg:npm/%40supabase/phoenix@0.4.5",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@supabase/phoenix/-/phoenix-0.4.5.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "git://github.com/supabase/phoenix.git"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "6809fd1fda2f572780a4acb5d4e58eaeb386abc0d5ebcc96787e2e77694df5fce7e1a3bc65be462cbf66d69520f672ea21c4fe6437c072c65ed04fe7a9dbf697"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@supabase/postgrest-js@2.118.0",
+      "type": "library",
+      "name": "@supabase/postgrest-js",
+      "version": "2.118.0",
+      "scope": "required",
+      "author": "Supabase",
+      "description": "Isomorphic PostgREST client",
+      "purl": "pkg:npm/%40supabase/postgrest-js@2.118.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@supabase/postgrest-js/-/postgrest-js-2.118.0.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/supabase/supabase-js.git"
+        },
+        {
+          "type": "website",
+          "url": "https://github.com/supabase/supabase-js/tree/master/packages/core/postgrest-js"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "257cbedfb28f0291ecca8b5a4000a8beffc9cbd136dab7e258b46e4fed948e810070021e943148aec17f158e3b0f2d7d98eee52344eafb30c25fca09d8ecdf8b"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@supabase/realtime-js@2.118.0",
+      "type": "library",
+      "name": "@supabase/realtime-js",
+      "version": "2.118.0",
+      "scope": "required",
+      "author": "Supabase",
+      "description": "Listen to realtime updates to your PostgreSQL database",
+      "purl": "pkg:npm/%40supabase/realtime-js@2.118.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@supabase/realtime-js/-/realtime-js-2.118.0.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/supabase/supabase-js.git"
+        },
+        {
+          "type": "website",
+          "url": "https://github.com/supabase/supabase-js/tree/master/packages/core/realtime-js"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "a730881168ea0f9ff1a846507aba6dfaaf6bb2062472b92008981fd16d942ea0b87d851e07fa7d0856b7b7dbe7f88561e9d30df6be19084dbada566f502f817f"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@supabase/storage-js@2.118.0",
+      "type": "library",
+      "name": "@supabase/storage-js",
+      "version": "2.118.0",
+      "scope": "required",
+      "author": "Supabase",
+      "description": "Isomorphic storage client for Supabase.",
+      "purl": "pkg:npm/%40supabase/storage-js@2.118.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@supabase/storage-js/-/storage-js-2.118.0.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/supabase/supabase-js.git"
+        },
+        {
+          "type": "website",
+          "url": "https://github.com/supabase/supabase-js/tree/master/packages/core/storage-js"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "e4c3642add8ca32ec9b9dfec3d7effdbc070743c593025471894f4d1bf28a772916bd2ca4a3380614e4871f19622cb5a6ac02a63c1a46c0ea82372110e007561"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@supabase/supabase-js@2.118.0",
+      "type": "library",
+      "name": "@supabase/supabase-js",
+      "version": "2.118.0",
+      "scope": "required",
+      "author": "Supabase",
+      "description": "Isomorphic Javascript SDK for Supabase",
+      "purl": "pkg:npm/%40supabase/supabase-js@2.118.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@supabase/supabase-js/-/supabase-js-2.118.0.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/supabase/supabase-js.git"
+        },
+        {
+          "type": "website",
+          "url": "https://github.com/supabase/supabase-js/tree/master/packages/core/supabase-js"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "17123c5173150b6506ec891e888f1fb9066aab6a08dc9792b8df0c3c80b644b55aa04031292d27a84ea48a2f44c29abc7fd80d3ccea08add58f1fd2f37f40b17"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "@swc/helpers@0.5.23",
+      "type": "library",
+      "name": "@swc/helpers",
+      "version": "0.5.23",
+      "scope": "required",
+      "author": "강동윤 <kdy1997.dev@gmail.com>",
+      "description": "External helpers for the swc project.",
+      "purl": "pkg:npm/%40swc/helpers@0.5.23",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@swc/helpers/-/helpers-0.5.23.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "git+https://github.com/swc-project/swc.git"
+        },
+        {
+          "type": "website",
+          "url": "https://swc.rs"
+        },
+        {
+          "type": "issue-tracker",
+          "url": "https://github.com/swc-project/swc/issues"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "e654ac30e4d751178f8250dfbee01052a9067a4f47836924b0e61acb69b4f9747ef9bd8d5982ffe2c5b2baf54122cf282a725ac64762f7085a2ffb2a375dda7f"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "client-only@0.0.1",
+      "type": "library",
+      "name": "client-only",
+      "version": "0.0.1",
+      "scope": "required",
+      "description": "This is a marker package to indicate that a module can only be used in Client Components.",
+      "purl": "pkg:npm/client-only@0.0.1",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/client-only/-/client-only-0.0.1.tgz"
+        },
+        {
+          "type": "website",
+          "url": "https://reactjs.org/"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "215dcebb48d233366b777a59e3c9cb913f4303b020d699cfcda8908695bb73745b72aab3bf3cd5bbe2fc81fa8ca7ff08336310b528aa682c6badc7eef08f2b30"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "iceberg-js@0.8.1",
+      "type": "library",
+      "name": "iceberg-js",
+      "version": "0.8.1",
+      "scope": "required",
+      "author": "mandarini",
+      "description": "A small, framework-agnostic JavaScript/TypeScript client for the Apache Iceberg REST Catalog",
+      "purl": "pkg:npm/iceberg-js@0.8.1",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/iceberg-js/-/iceberg-js-0.8.1.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/supabase/iceberg-js"
+        },
+        {
+          "type": "website",
+          "url": "https://github.com/supabase/iceberg-js#readme"
+        },
+        {
+          "type": "issue-tracker",
+          "url": "https://github.com/supabase/iceberg-js/issues"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "d5d8554195e17078deefbf7c21533ec68a3fd597557f338c21cf3fae05528a344adfc103a8e2681ae95af4dffc648e510fc413c4d42d2bf1a8ce9afea94a9144"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "lucide-react@0.441.0",
+      "type": "library",
+      "name": "lucide-react",
+      "version": "0.441.0",
+      "scope": "required",
+      "author": "Eric Fennis",
+      "description": "A Lucide icon library package for React applications",
+      "purl": "pkg:npm/lucide-react@0.441.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/lucide-react/-/lucide-react-0.441.0.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/lucide-icons/lucide.git"
+        },
+        {
+          "type": "website",
+          "url": "https://lucide.dev"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "d2f7c4c58b6f4838640b696a834cd8556d54bbd1ac238927b95f463fd6f2e73d1785ce198b945e8d3c5fcfd2ec8d1982c965731c226fc4629959c472bd009656"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "next@16.4.5",
+      "type": "library",
+      "name": "next",
+      "version": "16.4.5",
+      "scope": "required",
+      "description": "The React Framework",
+      "purl": "pkg:npm/next@16.4.5",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/next/-/next-16.4.5.tgz"
+        },
+        {
+          "type": "website",
+          "url": "https://nextjs.org"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "ae675fb16a2c8d350efba4744b72a8928224e8a8f4b160d14def3ab591dda9a587fe85eafee757dffe316fe6108bb6966f2105a20943539e246a27cb09d5db07"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "postcss@8.5.23",
+      "type": "library",
+      "name": "postcss",
+      "version": "8.5.23",
+      "scope": "required",
+      "author": "Andrey Sitnik <andrey@sitnik.es>",
+      "description": "Tool for transforming styles with JS plugins",
+      "purl": "pkg:npm/postcss@8.5.23",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/postcss/-/postcss-8.5.23.tgz"
+        },
+        {
+          "type": "website",
+          "url": "https://postcss.org/"
+        },
+        {
+          "type": "issue-tracker",
+          "url": "https://github.com/postcss/postcss/issues"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "839d39f3acebe1b666c0589395f94cbbc1346c34dbe48e607abb60c002a6b1d5254d022166dba7cd4943d564b3c1c5563e8015a6cac0eaf95f083ee85ef47082"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "react@19.3.1",
+      "type": "library",
+      "name": "react",
+      "version": "19.3.1",
+      "scope": "required",
+      "description": "React is a JavaScript library for building user interfaces.",
+      "purl": "pkg:npm/react@19.3.1",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/react/-/react-19.3.1.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/react/react.git"
+        },
+        {
+          "type": "website",
+          "url": "https://react.dev/"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "40d85676dee7ae05565901b9f10b86b004778efdc76dee266f8bf3ef0d9cb271dabdc89926075ad423cd6a5745e9e571bfdd2e7778d45e92a51cbebd80edfccb"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "react-dom@19.3.1",
+      "type": "library",
+      "name": "react-dom",
+      "version": "19.3.1",
+      "scope": "required",
+      "description": "React package for working with the DOM.",
+      "purl": "pkg:npm/react-dom@19.3.1",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/react-dom/-/react-dom-19.3.1.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/react/react.git"
+        },
+        {
+          "type": "website",
+          "url": "https://react.dev/"
+        },
+        {
+          "type": "issue-tracker",
+          "url": "https://github.com/react/react/issues"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "6346c0473e77961102d4d302012b34fe3f9f681ff3aaddd1f21a6f8357bcfbad59549e142f451d0b87016d77d931c22e86b7e07882d32def9978109abd03ed29"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "scheduler@0.28.0",
+      "type": "library",
+      "name": "scheduler",
+      "version": "0.28.0",
+      "scope": "required",
+      "description": "Cooperative scheduler for the browser environment.",
+      "purl": "pkg:npm/scheduler@0.28.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/scheduler/-/scheduler-0.28.0.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/react/react.git"
+        },
+        {
+          "type": "website",
+          "url": "https://react.dev/"
+        },
+        {
+          "type": "issue-tracker",
+          "url": "https://github.com/react/react/issues"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "8eea2b7c2988908c3cb53fa9e415d29ba3c98d017fc9c11898acb3511088b7f45a64884bf8fba56d0f58bb6cf51dd3890dda834e5c40d7ec4a0661d726c73303"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "server-only@0.0.1",
+      "type": "library",
+      "name": "server-only",
+      "version": "0.0.1",
+      "scope": "required",
+      "description": "This is a marker package to indicate that a module can only be used in Server Components.",
+      "purl": "pkg:npm/server-only@0.0.1",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/server-only/-/server-only-0.0.1.tgz"
+        },
+        {
+          "type": "website",
+          "url": "https://reactjs.org/"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "a9ea4cc7627101ae638dfcf11bbf723cfabef01b854e81ddd619bb908f99e3302ad5fb5088fec77313210c322dadbb7055e2e0fdc6362672a7adc1649a2b3034"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "styled-jsx@5.1.6",
+      "type": "library",
+      "name": "styled-jsx",
+      "version": "5.1.6",
+      "scope": "required",
+      "description": "Full CSS support for JSX without compromises",
+      "purl": "pkg:npm/styled-jsx@5.1.6",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/styled-jsx/-/styled-jsx-5.1.6.tgz"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "a925720d378ca2d76f418a0758b346c111491c2fa2f99bdd051628b0e1600be5a0d6fc787eb376fd11bf340ed262aaaf28d2dfdfd3f62d2440da9bba9f45d864"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "tslib@2.8.1",
+      "type": "library",
+      "name": "tslib",
+      "version": "2.8.1",
+      "scope": "required",
+      "author": "Microsoft Corp.",
+      "description": "Runtime library for TypeScript helper functions",
+      "purl": "pkg:npm/tslib@2.8.1",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/tslib/-/tslib-2.8.1.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/Microsoft/tslib.git"
+        },
+        {
+          "type": "website",
+          "url": "https://www.typescriptlang.org/"
+        },
+        {
+          "type": "issue-tracker",
+          "url": "https://github.com/Microsoft/TypeScript/issues"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "a0916ef781d06fe29576e49440bef09e99aa9df98bb0e03f9c087a6fa107d30084a0ad3f98f79753a737c0a0d5f373243ae1cf447b525ca294f7d2016b34bfdb"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "0BSD"
+          }
+        }
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "deuce-slam@0.1.0",
+      "dependsOn": [
+        "@supabase/supabase-js@2.118.0",
+        "lucide-react@0.441.0",
+        "next@16.4.5",
+        "react@19.3.1",
+        "react-dom@19.3.1",
+        "server-only@0.0.1"
+      ]
+    },
+    {
+      "ref": "@next/swc-darwin-arm64@16.4.5",
+      "dependsOn": []
+    },
+    {
+      "ref": "@supabase/auth-js@2.118.0",
+      "dependsOn": [
+        "tslib@2.8.1"
+      ]
+    },
+    {
+      "ref": "@supabase/functions-js@2.118.0",
+      "dependsOn": [
+        "tslib@2.8.1"
+      ]
+    },
+    {
+      "ref": "@supabase/phoenix@0.4.5",
+      "dependsOn": []
+    },
+    {
+      "ref": "@supabase/postgrest-js@2.118.0",
+      "dependsOn": [
+        "tslib@2.8.1"
+      ]
+    },
+    {
+      "ref": "@supabase/realtime-js@2.118.0",
+      "dependsOn": [
+        "@supabase/phoenix@0.4.5",
+        "tslib@2.8.1"
+      ]
+    },
+    {
+      "ref": "@supabase/storage-js@2.118.0",
+      "dependsOn": [
+        "iceberg-js@0.8.1",
+        "tslib@2.8.1"
+      ]
+    },
+    {
+      "ref": "@supabase/supabase-js@2.118.0",
+      "dependsOn": [
+        "@supabase/auth-js@2.118.0",
+        "@supabase/functions-js@2.118.0",
+        "@supabase/postgrest-js@2.118.0",
+        "@supabase/realtime-js@2.118.0",
+        "@supabase/storage-js@2.118.0"
+      ]
+    },
+    {
+      "ref": "@swc/helpers@0.5.23",
+      "dependsOn": [
+        "tslib@2.8.1"
+      ]
+    },
+    {
+      "ref": "client-only@0.0.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "iceberg-js@0.8.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "lucide-react@0.441.0",
+      "dependsOn": [
+        "react@19.3.1"
+      ]
+    },
+    {
+      "ref": "next@16.4.5",
+      "dependsOn": [
+        "react@19.3.1",
+        "react-dom@19.3.1",
+        "@swc/helpers@0.5.23",
+        "postcss@8.5.23",
+        "styled-jsx@5.1.6",
+        "@next/swc-darwin-arm64@16.4.5"
+      ]
+    },
+    {
+      "ref": "postcss@8.5.23",
+      "dependsOn": []
+    },
+    {
+      "ref": "react@19.3.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "react-dom@19.3.1",
+      "dependsOn": [
+        "react@19.3.1",
+        "scheduler@0.28.0"
+      ]
+    },
+    {
+      "ref": "scheduler@0.28.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "server-only@0.0.1",
+      "dependsOn": []
+    },
+    {
+      "ref": "styled-jsx@5.1.6",
+      "dependsOn": [
+        "react@19.3.1",
+        "client-only@0.0.1"
+      ]
+    },
+    {
+      "ref": "tslib@2.8.1",
+      "dependsOn": []
+    }
+  ]
+}

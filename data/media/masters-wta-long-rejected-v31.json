@@ -1,0 +1,83 @@
+[
+  {
+    "tournament": "Canada",
+    "year": 2011,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/canada-2011-wta-580418d365.webp",
+      "alt": "Canada 2011 \u00b7 cuadro femenino",
+      "credit": "WTA / Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://www.wtatennis.com/photos/1408973/in-2011-an-injury-sustained-in-canada-forced-kim-clijsters-to-withdraw-from-the-us-open-as-the-defending-champion-for-the-second-time-this-time-an-abdominal-issue-suffered-in-the-second-round-of-toronto-against-zheng-jie-getty",
+      "photoYear": 2011,
+      "objectPosition": "50% 45%",
+      "auditStatus": "candidate",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2019/10/09/28fec4a7-d5f0-4be6-bbf0-624a39a0f000/dxojqJyr.jpg",
+    "sourceTitle": "In 2011, an injury sustained in Canada forced Kim Clijsters to withdraw from the US Open as the defending champion for the second time - this time an abdominal issue suffered in the second round of Toronto against Zheng Jie (Getty)",
+    "sourceExcerpt": "In 2011, an injury sustained in Canada forced Kim Clijsters to withdraw from the US Open as the defending champion for the second time - this time an abdominal issue suffered in the second round of Toronto against Zheng Jie (Getty)",
+    "sourceSha256": "580418d365a9f661678bca70d7c7a410dfa9a57caa3091bcfae2940d898619fa",
+    "width": 1600,
+    "height": 869,
+    "bytes": 135152,
+    "cmsPhotoId": 1408973,
+    "candidateIndex": 9,
+    "reviewNotes": "Official WTA editorial caption; manual visual review pending."
+  },
+  {
+    "tournament": "Charleston",
+    "year": 2012,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/charleston-2012-wta-d561d13280.webp",
+      "alt": "Charleston 2012 \u00b7 cuadro femenino",
+      "credit": "WTA / Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://www.wtatennis.com/photos/1410653/serena-williams-won-her-second-charleston-title-in-2012-dropping-just-one-game-as-she-defeated-lucie-safarova-6-0-6-1-getty",
+      "photoYear": 2012,
+      "objectPosition": "50% 45%",
+      "auditStatus": "candidate",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2019/10/09/e0045846-80ab-4479-b49a-75fd5c6fbb3f/vAQXdkFW.jpg",
+    "sourceTitle": "Serena Williams won her second Charleston title in 2012, dropping just one game as she defeated Lucie Safarova 6-0, 6-1 (Getty)",
+    "sourceExcerpt": "Serena Williams won her second Charleston title in 2012, dropping just one game as she defeated Lucie Safarova 6-0, 6-1 (Getty)",
+    "sourceSha256": "d561d132809fc0b21177436627a08b444a1c6951dc6d3d1f722fd0723ad6e2d2",
+    "width": 1600,
+    "height": 869,
+    "bytes": 64672,
+    "cmsPhotoId": 1410653,
+    "candidateIndex": 17,
+    "reviewNotes": "Official WTA editorial caption; manual visual review pending."
+  },
+  {
+    "tournament": "Hilton Head",
+    "year": 2000,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/hilton-head-2000-wta-9cd01c4e9a.webp",
+      "alt": "Hilton Head 2000 \u00b7 cuadro femenino",
+      "credit": "Getty Images \u00b7 derechos de terceros; autorizaci\u00f3n no acreditada",
+      "source": "https://www.wtatennis.com/photos/1675357/null",
+      "photoYear": 2000,
+      "objectPosition": "50% 45%",
+      "auditStatus": "candidate",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2020/05/31/4223dd9f-917e-4bdb-affd-a331fbcf4ce1/Pierce-2000-RG.jpg",
+    "sourceTitle": "In 2000, Mary Pierce claimed a title on the green clay of Hilton Head before she hoisted the trophy on home soil at Roland Garros.",
+    "sourceExcerpt": "In 2000, Mary Pierce claimed a title on the green clay of Hilton Head before she hoisted the trophy on home soil at Roland Garros.",
+    "sourceSha256": "9cd01c4e9ae617babeddd19a6904c2e34c9155682f6f742f5794ecf96c4c1b7f",
+    "width": 1600,
+    "height": 1058,
+    "bytes": 415074,
+    "cmsPhotoId": 1675357,
+    "candidateIndex": 16,
+    "reviewNotes": "Official WTA editorial caption; manual visual review pending."
+  }
+]

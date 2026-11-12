@@ -1,0 +1,587 @@
+[
+  {
+    "label": "Cinco sets · final · tres tie-breaks",
+    "match": {
+      "id": "archive-180645",
+      "tournament": "Wimbledon",
+      "round": "Final",
+      "date": "2019-07-14",
+      "dateLabel": "Fecha del partido",
+      "year": 2019,
+      "status": "Finished",
+      "category": "Grand Slam",
+      "tour": "atp",
+      "surface": "grass",
+      "requiredSets": 3,
+      "players": [
+        {
+          "id": "novak-djokovic",
+          "name": "Novak Djokovic",
+          "countryCode": "srb"
+        },
+        {
+          "id": "roger-federer",
+          "name": "Roger Federer",
+          "countryCode": "sui"
+        }
+      ],
+      "sets": [
+        {
+          "games": [
+            7,
+            6
+          ],
+          "completed": true,
+          "tieBreak": [
+            null,
+            5
+          ]
+        },
+        {
+          "games": [
+            1,
+            6
+          ],
+          "completed": true
+        },
+        {
+          "games": [
+            7,
+            6
+          ],
+          "completed": true,
+          "tieBreak": [
+            null,
+            4
+          ]
+        },
+        {
+          "games": [
+            4,
+            6
+          ],
+          "completed": true
+        },
+        {
+          "games": [
+            13,
+            12
+          ],
+          "completed": true,
+          "tieBreak": [
+            null,
+            3
+          ]
+        }
+      ],
+      "href": "/match/archive-180645",
+      "isFinal": true,
+      "winnerIndex": 0,
+      "tags": [
+        "Grand Slam",
+        "2019",
+        "Finales"
+      ]
+    }
+  },
+  {
+    "label": "Cuatro sets · semifinal",
+    "match": {
+      "id": "archive-180644",
+      "tournament": "Wimbledon",
+      "round": "Semifinales",
+      "date": "2019-07-01",
+      "dateLabel": "Inicio del torneo",
+      "year": 2019,
+      "status": "Finished",
+      "category": "Grand Slam",
+      "tour": "atp",
+      "surface": "grass",
+      "requiredSets": 3,
+      "players": [
+        {
+          "id": "rafael-nadal",
+          "name": "Rafael Nadal",
+          "countryCode": "esp"
+        },
+        {
+          "id": "roger-federer",
+          "name": "Roger Federer",
+          "countryCode": "sui"
+        }
+      ],
+      "sets": [
+        {
+          "games": [
+            6,
+            7
+          ],
+          "completed": true,
+          "tieBreak": [
+            3,
+            null
+          ]
+        },
+        {
+          "games": [
+            6,
+            1
+          ],
+          "completed": true
+        },
+        {
+          "games": [
+            3,
+            6
+          ],
+          "completed": true
+        },
+        {
+          "games": [
+            4,
+            6
+          ],
+          "completed": true
+        }
+      ],
+      "href": "/match/archive-180644",
+      "isFinal": false,
+      "winnerIndex": 1,
+      "tags": [
+        "Grand Slam",
+        "2019"
+      ]
+    }
+  },
+  {
+    "label": "Tres sets · WTA · tie-break",
+    "match": {
+      "id": "wta-archive-998277",
+      "tournament": "Moscow",
+      "round": "Semifinales",
+      "date": "2019-10-14",
+      "dateLabel": "Inicio del torneo",
+      "year": 2019,
+      "status": "Finished",
+      "category": "WTA 250",
+      "tour": "wta",
+      "surface": "hard",
+      "requiredSets": 2,
+      "players": [
+        {
+          "id": "anastasia-pavlyuchenkova",
+          "name": "Anastasia Pavlyuchenkova",
+          "countryCode": "rus"
+        },
+        {
+          "id": "karolina-muchova",
+          "name": "Karolina Muchova",
+          "countryCode": "cze"
+        }
+      ],
+      "sets": [
+        {
+          "games": [
+            6,
+            4
+          ],
+          "completed": true
+        },
+        {
+          "games": [
+            6,
+            7
+          ],
+          "completed": true,
+          "tieBreak": [
+            6,
+            null
+          ]
+        },
+        {
+          "games": [
+            6,
+            1
+          ],
+          "completed": true
+        }
+      ],
+      "href": "/match/wta-archive-998277",
+      "isFinal": false,
+      "winnerIndex": 0,
+      "tags": [
+        "WTA 250",
+        "2019"
+      ]
+    }
+  },
+  {
+    "label": "Nombres largos · ATP",
+    "match": {
+      "id": "archive-180806",
+      "tournament": "Hamburg",
+      "round": "Ronda de 32",
+      "date": "2019-07-22",
+      "dateLabel": "Inicio del torneo",
+      "year": 2019,
+      "status": "Finished",
+      "category": "ATP 500",
+      "tour": "atp",
+      "surface": "clay",
+      "requiredSets": 2,
+      "players": [
+        {
+          "id": "alejandro-davidovich-fokina",
+          "name": "Alejandro Davidovich Fokina",
+          "countryCode": "esp"
+        },
+        {
+          "id": "juan-ignacio-londero",
+          "name": "Juan Ignacio Londero",
+          "countryCode": "arg"
+        }
+      ],
+      "sets": [
+        {
+          "games": [
+            3,
+            6
+          ],
+          "completed": true
+        },
+        {
+          "games": [
+            2,
+            6
+          ],
+          "completed": true
+        }
+      ],
+      "href": "/match/archive-180806",
+      "isFinal": false,
+      "winnerIndex": 1,
+      "tags": [
+        "ATP 500",
+        "2019"
+      ]
+    }
+  },
+  {
+    "label": "Nombres largos · WTA · cuartos",
+    "match": {
+      "id": "wta-archive-998275",
+      "tournament": "Moscow",
+      "round": "Cuartos de final",
+      "date": "2019-10-14",
+      "dateLabel": "Inicio del torneo",
+      "year": 2019,
+      "status": "Finished",
+      "category": "WTA 250",
+      "tour": "wta",
+      "surface": "hard",
+      "requiredSets": 2,
+      "players": [
+        {
+          "id": "anastasia-pavlyuchenkova",
+          "name": "Anastasia Pavlyuchenkova",
+          "countryCode": "rus"
+        },
+        {
+          "id": "veronika-kudermetova",
+          "name": "Veronika Kudermetova",
+          "countryCode": "rus"
+        }
+      ],
+      "sets": [
+        {
+          "games": [
+            7,
+            6
+          ],
+          "completed": true,
+          "tieBreak": [
+            null,
+            5
+          ]
+        },
+        {
+          "games": [
+            7,
+            5
+          ],
+          "completed": true
+        }
+      ],
+      "href": "/match/wta-archive-998275",
+      "isFinal": false,
+      "winnerIndex": 0,
+      "tags": [
+        "WTA 250",
+        "2019"
+      ]
+    }
+  },
+  {
+    "label": "Torneo largo · tres sets",
+    "match": {
+      "id": "archive-179213",
+      "tournament": "Abierto de Australia",
+      "round": "Cuartos de final",
+      "date": "2019-01-14",
+      "dateLabel": "Inicio del torneo",
+      "year": 2019,
+      "status": "Finished",
+      "category": "Grand Slam",
+      "tour": "atp",
+      "surface": "hard",
+      "requiredSets": 3,
+      "players": [
+        {
+          "id": "frances-tiafoe",
+          "name": "Frances Tiafoe",
+          "countryCode": "usa"
+        },
+        {
+          "id": "rafael-nadal",
+          "name": "Rafael Nadal",
+          "countryCode": "esp"
+        }
+      ],
+      "sets": [
+        {
+          "games": [
+            3,
+            6
+          ],
+          "completed": true
+        },
+        {
+          "games": [
+            4,
+            6
+          ],
+          "completed": true
+        },
+        {
+          "games": [
+            2,
+            6
+          ],
+          "completed": true
+        }
+      ],
+      "href": "/match/archive-179213",
+      "isFinal": false,
+      "winnerIndex": 1,
+      "tags": [
+        "Grand Slam",
+        "2019"
+      ]
+    }
+  },
+  {
+    "label": "Dos sets · final WTA",
+    "match": {
+      "id": "wta-archive-996913",
+      "tournament": "Limoges",
+      "round": "Final",
+      "date": "2019-12-16",
+      "dateLabel": "Inicio del torneo",
+      "year": 2019,
+      "status": "Finished",
+      "category": "WTA 250",
+      "tour": "wta",
+      "surface": "hard",
+      "requiredSets": 2,
+      "players": [
+        {
+          "id": "aliaksandra-sasnovich",
+          "name": "Aliaksandra Sasnovich",
+          "countryCode": "blr"
+        },
+        {
+          "id": "ekaterina-alexandrova",
+          "name": "Ekaterina Alexandrova",
+          "countryCode": "rus"
+        }
+      ],
+      "sets": [
+        {
+          "games": [
+            1,
+            6
+          ],
+          "completed": true
+        },
+        {
+          "games": [
+            3,
+            6
+          ],
+          "completed": true
+        }
+      ],
+      "href": "/match/wta-archive-996913",
+      "isFinal": true,
+      "winnerIndex": 1,
+      "tags": [
+        "WTA 250",
+        "2019",
+        "Finales"
+      ]
+    }
+  },
+  {
+    "label": "Tie-break de dos cifras",
+    "match": {
+      "id": "archive-181527",
+      "tournament": "Basel",
+      "round": "Ronda de 32",
+      "date": "2019-10-21",
+      "dateLabel": "Inicio del torneo",
+      "year": 2019,
+      "status": "Finished",
+      "category": "ATP 500",
+      "tour": "atp",
+      "surface": "hard",
+      "requiredSets": 2,
+      "players": [
+        {
+          "id": "cristian-garin",
+          "name": "Cristian Garin",
+          "countryCode": "chi"
+        },
+        {
+          "id": "reilly-opelka",
+          "name": "Reilly Opelka",
+          "countryCode": "usa"
+        }
+      ],
+      "sets": [
+        {
+          "games": [
+            6,
+            7
+          ],
+          "completed": true,
+          "tieBreak": [
+            5,
+            null
+          ]
+        },
+        {
+          "games": [
+            6,
+            7
+          ],
+          "completed": true,
+          "tieBreak": [
+            10,
+            null
+          ]
+        }
+      ],
+      "href": "/match/archive-181527",
+      "isFinal": false,
+      "winnerIndex": 1,
+      "tags": [
+        "ATP 500",
+        "2019"
+      ]
+    }
+  },
+  {
+    "label": "Abandono · set incompleto",
+    "match": {
+      "id": "archive-181182",
+      "tournament": "Abierto de Estados Unidos",
+      "round": "Octavos de final",
+      "date": "2019-08-26",
+      "dateLabel": "Inicio del torneo",
+      "year": 2019,
+      "status": "retired",
+      "category": "Grand Slam",
+      "tour": "atp",
+      "surface": "hard",
+      "requiredSets": 3,
+      "players": [
+        {
+          "id": "novak-djokovic",
+          "name": "Novak Djokovic",
+          "countryCode": "srb"
+        },
+        {
+          "id": "stan-wawrinka",
+          "name": "Stan Wawrinka",
+          "countryCode": "sui"
+        }
+      ],
+      "sets": [
+        {
+          "games": [
+            4,
+            6
+          ],
+          "completed": true
+        },
+        {
+          "games": [
+            5,
+            7
+          ],
+          "completed": true
+        },
+        {
+          "games": [
+            1,
+            2
+          ],
+          "completed": false
+        }
+      ],
+      "href": "/match/archive-181182",
+      "isFinal": false,
+      "winnerIndex": 1,
+      "tags": [
+        "Grand Slam",
+        "2019"
+      ]
+    }
+  },
+  {
+    "label": "Walkover · sin marcador",
+    "match": {
+      "id": "archive-181165",
+      "tournament": "Abierto de Estados Unidos",
+      "round": "Ronda de 64",
+      "date": "2019-08-26",
+      "dateLabel": "Inicio del torneo",
+      "year": 2019,
+      "status": "walkover",
+      "category": "Grand Slam",
+      "tour": "atp",
+      "surface": "hard",
+      "requiredSets": 3,
+      "players": [
+        {
+          "id": "rafael-nadal",
+          "name": "Rafael Nadal",
+          "countryCode": "esp"
+        },
+        {
+          "id": "thanasi-kokkinakis",
+          "name": "Thanasi Kokkinakis",
+          "countryCode": "aus"
+        }
+      ],
+      "sets": [],
+      "href": "/match/archive-181165",
+      "isFinal": false,
+      "winnerIndex": 0,
+      "tags": [
+        "Grand Slam",
+        "2019"
+      ]
+    }
+  }
+]

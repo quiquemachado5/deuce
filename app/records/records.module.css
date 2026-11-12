@@ -252,7 +252,7 @@
   position: absolute;
   z-index: -1;
   inset: 0;
-  background: linear-gradient(0deg, rgb(3 18 14 / 0.94), rgb(3 18 14 / 0.14) 72%);
+  background: linear-gradient(0deg, oklch(from rgb(3 18 14 / 0.94) l c var(--appearance-hue,175.526)), oklch(from rgb(3 18 14 / 0.14) l c var(--appearance-hue,175.526)) 72%);
 }
 .detail > .heading::after {
   display: none;
@@ -657,8 +657,8 @@
   margin-top: 16px;
   padding: 14px 16px;
   border-radius: 16px;
-  background: #102d26;
-  color: #edf6f1;
+  background: oklch(from #102d26 l c var(--appearance-hue,175.318));
+  color: oklch(from #edf6f1 l c var(--appearance-hue,162.050));
   font-size: 12px;
   line-height: 1.5;
 }
@@ -673,8 +673,8 @@
   min-height: 40px;
   padding: 0 14px;
   border-radius: 999px;
-  background: #c8ff32;
-  color: #082219;
+  background: oklch(from #c8ff32 l c var(--appearance-hue,124.521));
+  color: oklch(from #082219 l c var(--appearance-hue,167.397));
   font-weight: 600;
   text-decoration: none;
 }

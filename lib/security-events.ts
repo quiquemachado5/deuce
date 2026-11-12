@@ -1,14 +1,10 @@
 import { createHmac } from 'node:crypto';
 import { logEvent, requestId } from '@/lib/structured-log';
 import { observeSecurityEvent } from '@/lib/runtime-metrics';
-
-function requestAddress(request: Request) {
-  const forwarded = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim();
-  return forwarded || request.headers.get('x-real-ip')?.trim() || request.headers.get('cf-connecting-ip')?.trim();
-}
+import {clientAddress} from './client-address';
 
 export function securityActorHash(request: Request, salt = process.env.SECURITY_LOG_SALT) {
-  const address = requestAddress(request);
+  const address = clientAddress(request);
   if (!address || !salt) return undefined;
   return createHmac('sha256', salt).update(address).digest('hex').slice(0, 24);
 }

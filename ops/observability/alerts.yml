@@ -65,40 +65,58 @@ groups:
           description: "Revisar los eventos security.auth.denied y el acceso al endpoint afectado."
 
       - alert: DeucePoorLcpP75
-        expr: histogram_quantile(0.75, sum by (le) (rate(deuce_client_metric_value_bucket{metric="LCP"}[30m]))) > 4000 and sum(increase(deuce_client_metric_value_count{metric="LCP"}[30m])) >= 20
+        expr: histogram_quantile(0.75, sum by (route, device, le) (rate(deuce_client_metric_value_bucket{metric="LCP"}[30m]))) > 4000 and on(route, device) sum by (route, device) (increase(deuce_client_metric_value_count{metric="LCP"}[30m])) >= 20
         for: 15m
         labels:
           severity: warning
         annotations:
-          summary: "El LCP real p75 supera 4 segundos"
-          description: "La experiencia real agregada acumula al menos veinte muestras y permanece en rango deficiente."
+          summary: "LCP p75 deficiente en {{ $labels.route }} ({{ $labels.device }})"
+          description: "La ruta y dispositivo acumulan al menos veinte muestras y superan 4 segundos."
+
+      - alert: DeucePoorTtfbP75
+        expr: histogram_quantile(0.75, sum by (route, device, le) (rate(deuce_client_metric_value_bucket{metric="TTFB"}[30m]))) > 1800 and on(route, device) sum by (route, device) (increase(deuce_client_metric_value_count{metric="TTFB"}[30m])) >= 20
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "TTFB p75 deficiente en {{ $labels.route }} ({{ $labels.device }})"
+          description: "La respuesta inicial supera 1,8 segundos con una muestra real suficiente."
 
       - alert: DeucePoorInpP75
-        expr: histogram_quantile(0.75, sum by (le) (rate(deuce_client_metric_value_bucket{metric="INP"}[30m]))) > 500 and sum(increase(deuce_client_metric_value_count{metric="INP"}[30m])) >= 20
+        expr: histogram_quantile(0.75, sum by (route, device, le) (rate(deuce_client_metric_value_bucket{metric="INP"}[30m]))) > 500 and on(route, device) sum by (route, device) (increase(deuce_client_metric_value_count{metric="INP"}[30m])) >= 20
         for: 15m
         labels:
           severity: warning
         annotations:
-          summary: "El INP real p75 supera 500 milisegundos"
-          description: "La interacción real agregada acumula al menos veinte muestras y permanece en rango deficiente."
+          summary: "INP p75 deficiente en {{ $labels.route }} ({{ $labels.device }})"
+          description: "La interacción supera 500 milisegundos con una muestra real suficiente."
 
       - alert: DeucePoorClsP75
-        expr: histogram_quantile(0.75, sum by (le) (rate(deuce_client_metric_value_bucket{metric="CLS"}[30m]))) > 0.25 and sum(increase(deuce_client_metric_value_count{metric="CLS"}[30m])) >= 20
+        expr: histogram_quantile(0.75, sum by (route, device, le) (rate(deuce_client_metric_value_bucket{metric="CLS"}[30m]))) > 0.25 and on(route, device) sum by (route, device) (increase(deuce_client_metric_value_count{metric="CLS"}[30m])) >= 20
         for: 15m
         labels:
           severity: warning
         annotations:
-          summary: "El CLS real p75 supera 0,25"
-          description: "La estabilidad visual real agregada acumula al menos veinte muestras y permanece en rango deficiente."
+          summary: "CLS p75 deficiente en {{ $labels.route }} ({{ $labels.device }})"
+          description: "La estabilidad visual supera 0,25 con una muestra real suficiente."
 
       - alert: DeuceSlowRouteTransitionP75
-        expr: histogram_quantile(0.75, sum by (le) (rate(deuce_client_metric_value_bucket{metric="route-transition"}[30m]))) > 2500 and sum(increase(deuce_client_metric_value_count{metric="route-transition"}[30m])) >= 20
+        expr: histogram_quantile(0.75, sum by (route, device, le) (rate(deuce_client_metric_value_bucket{metric="route-transition"}[30m]))) > 2500 and on(route, device) sum by (route, device) (increase(deuce_client_metric_value_count{metric="route-transition"}[30m])) >= 20
         for: 15m
         labels:
           severity: warning
         annotations:
-          summary: "Las navegaciones internas superan 2,5 segundos"
-          description: "La transición real p75 entre páginas acumula al menos veinte muestras por encima del presupuesto."
+          summary: "Navegación lenta en {{ $labels.route }} ({{ $labels.device }})"
+          description: "La transición p75 acumula veinte muestras y supera 2,5 segundos."
+
+      - alert: DeuceSearchZeroResultsBurst
+        expr: sum by (tour) (increase(deuce_searches_total{outcome="zero"}[30m])) / clamp_min(sum by (tour) (increase(deuce_searches_total{outcome=~"zero|results"}[30m])), 1) > 0.35 and sum by (tour) (increase(deuce_searches_total{outcome=~"zero|results"}[30m])) >= 30
+        for: 15m
+        labels:
+          severity: info
+        annotations:
+          summary: "Muchas búsquedas {{ $labels.tour }} terminan sin resultado"
+          description: "Más del 35 % de las búsquedas recientes no devuelve coincidencias; revisar el índice y los alias."
 
       - alert: DeuceClientErrorsBurst
         expr: sum(increase(deuce_client_events_total{event=~"client-error|unhandled-rejection"}[15m])) > 10
@@ -108,3 +126,21 @@ groups:
         annotations:
           summary: "Aumento de errores en navegadores reales"
           description: "Se han recibido más de diez errores o promesas rechazadas en quince minutos."
+
+      - alert: DeuceQuotaTelemetryMissing
+        expr: absent(deuce_operational_value{name="providerSafeAvailable"})
+        for: 30m
+        labels:
+          severity: warning
+        annotations:
+          summary: "No hay telemetría de cuota del proveedor"
+          description: "Comprobar la publicación de provider-quota-status antes de autorizar nuevas importaciones. Una métrica ausente no equivale a cuota disponible."
+
+      - alert: DeuceAccessDenialsSurge
+        expr: sum(increase(caddy_http_requests_total{code=~"401|403"}[10m])) > 100
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Aumento sostenido de accesos rechazados"
+          description: "Contrastar logs del proxy con security.auth.denied. No bloquear automáticamente por este aviso."

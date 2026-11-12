@@ -1,0 +1,21 @@
+import {createApprovedFetch} from './approved-media-fetch.mjs';
+const fetch=createApprovedFetch(["en.wikipedia.org", "commons.wikimedia.org", "upload.wikimedia.org", "thumb.wikimedia.org"]);
+import fs from 'node:fs/promises';
+import crypto from 'node:crypto';
+import sharp from 'sharp';
+const rows=JSON.parse(await fs.readFile('.deuce-cache/media-review/top200.json','utf8'));
+const manifest=JSON.parse(await fs.readFile('lib/player-photo-reviewed.json','utf8'));
+const aliases={'Na Li':'Li Na','Evonne Goolagong':'Evonne Goolagong Cawley','Mima Jausovec':'Mima Jaušovec','Ann Jones':'Ann Jones (tennis)','Barbara Jordan':'Barbara Jordan (tennis)','Chris Oneil':"Chris O'Neil",'Shuai Peng':'Peng Shuai','Julia Goerges':'Julia Görges','Shahar Peer':"Shahar Pe'er",'Kate Makarova':'Ekaterina Makarova','Albert Ramos':'Albert Ramos Viñolas'};
+const outcomes=[];let cursor=0;
+await Promise.all(Array.from({length:2},async()=>{while(cursor<rows.length){const row=rows[cursor++],key=row.tour+':'+row.name;try{
+ if(manifest[key]||row.width>=1000&&!row.error)continue;
+ await new Promise(resolve=>setTimeout(resolve,700));let source=row.photo?.source,url;
+ if(row.error){const response=await fetch('https://en.wikipedia.org/api/rest_v1/page/summary/'+encodeURIComponent((aliases[row.name]||row.name).replaceAll(' ','_')),{signal:AbortSignal.timeout(15000)});if(!response.ok)throw Error('Biography HTTP '+response.status);const summary=await response.json();url=summary.originalimage?.source?.split('?')[0];if(!url)throw Error('No image on identified biography');const title=decodeURIComponent(new URL(url).pathname.split('/').at(-1));source='https://commons.wikimedia.org/wiki/File:'+encodeURIComponent(title);
+ }else if(source?.includes('/wiki/File:')){const title=decodeURIComponent(source.split('/wiki/File:')[1]).replaceAll(' ','_');const hash=crypto.createHash('md5').update(title).digest('hex');url='https://upload.wikimedia.org/wikipedia/commons/'+hash[0]+'/'+hash.slice(0,2)+'/'+encodeURIComponent(title);}else throw Error('Manual source required');
+ const response=await fetch(url,{signal:AbortSignal.timeout(20000)});if(!response.ok)throw Error('Image HTTP '+response.status);if(Number(response.headers.get('content-length'))>25000000)throw Error('Original over 25 MB');const bytes=Buffer.from(await response.arrayBuffer());const meta=await sharp(bytes).metadata();if(!meta.width||!meta.height)throw Error('Invalid image');
+ if(!row.error&&meta.width<=row.width&&meta.height<=row.height){outcomes.push({key,status:'source-resolution-limit',width:meta.width,height:meta.height});continue;}
+ const slug=row.name.normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9]+/g,'-').toLowerCase(),file=row.tour+'-'+slug;
+ const detail=await sharp(bytes).rotate().resize({width:1600,withoutEnlargement:true}).webp({quality:87}).toFile('public/images/players/reviewed/'+file+'.webp');await sharp(bytes).rotate().resize({width:280,withoutEnlargement:true}).webp({quality:82}).toFile('public/images/players/reviewed/'+file+'-small.webp');
+ manifest[key]={...row.photo,src:'/images/players/reviewed/'+file+'.webp',thumbnail:'/images/players/reviewed/'+file+'-small.webp',alt:row.name,source,credit:row.photo?.credit||'Wikimedia Commons · imagen de la biografía identificada · fuente enlazada',width:detail.width,height:detail.height,objectPosition:row.photo?.objectPosition||'50% 22%',mobileObjectPosition:row.photo?.mobileObjectPosition||'50% 20%',reviewedAt:new Date().toISOString(),identitySource:row.error?'Identified biographical summary; original image URL':'Original of the exact attributed photograph'};outcomes.push({key,status:'restored',width:detail.width,height:detail.height});
+ }catch(error){outcomes.push({key,status:'needs-review',reason:error.message});}}}));
+await fs.writeFile('lib/player-photo-reviewed.json.tmp',JSON.stringify(manifest,null,2)+'\n');await fs.rename('lib/player-photo-reviewed.json.tmp','lib/player-photo-reviewed.json');await fs.writeFile('.deuce-cache/media-review/original-restoration.json',JSON.stringify(outcomes,null,2));console.log({photos:Object.keys(manifest).length,results:outcomes.reduce((a,r)=>(a[r.status]=(a[r.status]||0)+1,a),{}),unresolved:outcomes.filter(r=>r.status==='needs-review')});

@@ -5,7 +5,7 @@ import type { Match, Tour } from './types';
 
 export type CoverageIssueKind = 'draw' | 'verification' | 'conflict' | 'ranking' | 'history';
 export type CoverageIssueState = 'confirmed' | 'review' | 'queued';
-export type CoverageIssueReason = 'missing-late-rounds'|'duplicate-identifiers'|'unresolved-results'|'uncertified-draw-size'|'conflicting-results'|'missing-ranking-history'|'pending-provider-cohort';
+export type CoverageIssueReason = 'missing-late-rounds'|'duplicate-identifiers'|'extra-round-results'|'draw-size-mismatch'|'unresolved-results'|'uncertified-draw-size'|'conflicting-results'|'missing-ranking-history'|'pending-provider-cohort';
 
 export type CoverageIssue = {
   id: string;
@@ -44,15 +44,20 @@ const sortIssues = (issues: CoverageIssue[]) => issues.sort((a, b) => {
 const tourOf = (value: Match | EditionAudit): Tour => value.tour === 'wta' ? 'wta' : 'atp';
 
 function drawIssue(row: EditionAudit, state: CoverageIssueState): CoverageIssue {
+  const overfull=[{position:5,label:'cuartos',expected:4},{position:6,label:'semifinales',expected:2},{position:7,label:'finales',expected:1}].filter(round=>(row.rounds[String(round.position)]||0)>round.expected);
   const reason:CoverageIssueReason=row.missingLateRounds.length?'missing-late-rounds'
-    :row.duplicateIds?'duplicate-identifiers':row.pending?'unresolved-results':'uncertified-draw-size';
+    :row.duplicateIds?'duplicate-identifiers':row.pending?'unresolved-results':overfull.length?'extra-round-results':state==='confirmed'?'draw-size-mismatch':'uncertified-draw-size';
   const missing = row.missingLateRounds.length
     ? `Rondas finales por contrastar: ${row.missingLateRounds.join(', ')}.`
     : row.duplicateIds
       ? `${row.duplicateIds} identificadores repetidos requieren contraste.`
       : row.pending
         ? `${row.pending} ${row.pending === 1 ? 'resultado no tiene' : 'resultados no tienen'} un estado terminal verificable.`
-        : 'El tamaño completo del cuadro no está certificado por la fuente.';
+        : overfull.length
+          ? `Hay más resultados de los esperados: ${overfull.map(round=>`${row.rounds[String(round.position)]} en ${round.label} (se esperan ${round.expected})`).join('; ')}. Se revisan identidades y rondas, no se añaden partidos por deducción.`
+          : state==='confirmed'
+            ? 'El reparto de resultados no coincide con el tamaño de cuadro documentado.'
+            : 'El tamaño completo del cuadro no está certificado por la fuente.';
   return {
     id: `${state}:${tourOf(row)}:${row.tournament}:${row.year}:${row.category}`,
     tour: tourOf(row),

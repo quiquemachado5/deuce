@@ -1,3 +1,5 @@
+import {publishedWikiContexts} from '@/lib/wikimedia-refresh'
+import {enrichMatchAges} from '@/lib/wikimedia-context'
 import { authorizedCronRequest } from '@/lib/cron-auth'
 import { unauthorizedResponse } from '@/lib/security-events'
 import {cloudRead,cloudWrite} from '@/lib/cloud-archive'
@@ -54,13 +56,14 @@ export async function GET(request: Request) {
         if(wtaRefresh?.status!=='success'||!Number.isFinite(Date.parse(lastSuccessfulWta))||Date.now()-Date.parse(lastSuccessfulWta)>MAX_REFRESH_AGE_MS)throw new Error('No recent successful WTA refresh; keeping the previous publication')
       }
       const [loadedInput,previousAudit]=await Promise.all([publicationArchive(),preparedEditionAudit()])
-      const input=loadedInput
+      const input=enrichMatchAges(loadedInput,await publishedWikiContexts())
       sampleMemory('archive-loaded')
       console.info('Daily publication: archive loaded',input.length,Math.round(process.memoryUsage().rss/1048576))
       const snapshot = compileRecordSnapshot(input,new Date(),await competitionEntries(),await editionSourceAudit())
       // compileRecordSnapshot owns normalized copies. Release the large raw
       // array before opening any previous-generation metadata.
       input.length=0
+      loadedInput.length=0
       sampleMemory('compiled')
       const circuitFreshness = {
         atp: assertCircuitPublicationFreshness('atp',refresh.latestProviderDate,snapshot.manifest.circuitFreshness?.atp.latestExactDate),

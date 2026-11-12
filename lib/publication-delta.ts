@@ -10,6 +10,7 @@ export type PublicationDelta = {
 export function comparePublishedMatches(previous: Match[], next: Match[]) {
   const identity = (m: Match) => `${m.tour || 'atp'}:${m.match_id}`;
   const before = new Map(previous.map(m => [identity(m), m]));
+  if(before.size!==previous.length)throw new Error('Duplicate previous published identity');
   const seen = new Set<string>();
   const seasons = new Set<string>();
   const delta: PublicationDelta = { added: 0, corrected: 0, tours: { atp: { added: 0, corrected: 0 }, wta: { added: 0, corrected: 0 } }, seasons: [] };
@@ -24,6 +25,7 @@ export function comparePublishedMatches(previous: Match[], next: Match[]) {
     const kind = old ? 'corrected' : 'added';
     delta[kind]++; delta.tours[match.tour][kind]++;
     seasons.add(`${match.tour}:${match.year}`);
+    if(old)seasons.add(`${old.tour||'atp'}:${old.year}`);
     changes.push({ identity: key, before: old || null, after: match });
   }
   for (const key of before.keys()) if (!seen.has(key)) throw new Error(`Publication would remove a verified match: ${key}`);

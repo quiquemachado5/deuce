@@ -11,7 +11,7 @@ async function run(){
  page.on('pageerror',error=>errors.push(error.message));
  const go=async(route)=>{const response=await page.goto('http://localhost:3000'+route,{waitUntil:'networkidle',timeout:120000});expect(response.status()).toBe(200);};
  await go('/');
- const featured=await page.locator('.global-scoreboard--overlay').getAttribute('href');
+ const featured=await page.locator('[data-scorecard]').first().getAttribute('href');
  expect(await page.locator('video').getAttribute('src')).toBeNull();
  checks.push('Reduced motion: poster only, no video download');
  await page.keyboard.press('Tab');
@@ -40,7 +40,7 @@ async function run(){
  await expect(page.getByRole('button',{name:'Quitar filtro Tierra'})).toBeVisible();
  checks.push('Mobile menu, real player search, immediate surface filter and shared URL reload');
  await go('/buscar?fiveSets=true');
- await expect(page.locator('.global-player').first().locator('.global-set')).toHaveCount(5);
+ await expect(page.locator('[data-score-player]').first().locator('[data-score-set]')).toHaveCount(5);
  await go('/records');
  await page.getByText('Superficie',{exact:true}).first().click();
  await page.getByRole('button',{name:'Hierba',exact:true}).click();

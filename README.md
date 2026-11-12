@@ -51,7 +51,8 @@ La copia incluida contiene 83.535 partidos y 196 listas. Una generación remota 
 ## Salud, diagnóstico y versiones
 
 - `/api/health`: liveness rápida; no abre Supabase ni el archivo completo.
-- `/api/health/deep`: generación activa, antigüedad, fallback, almacenamiento y metadatos del despliegue.
+- `/api/health/ready`: disponibilidad mínima y versión de lectura; responde 503 si no hay una generación lista.
+- `/api/health/deep`: diagnóstico privado; requiere `Authorization: Bearer` con `HEALTH_SECRET` o `METRICS_SECRET`. Incluye generación, antigüedad, fallback y almacenamiento.
 - Las APIs públicas envían `datasetVersion`, `X-DEUCE-Dataset-Version` y `X-Request-Id`.
 - Los eventos y Web Vitals se registran como JSON estructurado, sin texto de búsquedas ni mensajes de error del usuario.
 

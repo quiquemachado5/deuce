@@ -21,6 +21,27 @@ test('bootstrap heartbeat starts without runnable or blocked pipeline stages', (
   assert.deepEqual(heartbeatBootstrapState(), { schema: 2, day: 'bootstrap', stages: {} })
 })
 
+test('HTTP 200 cannot turn a failed, busy or malformed operation into a publication prerequisite', () => {
+  for (const body of ['<html>Sign in</html>', 'null', '[]', '{}', '{"error":"failed"}', '{"status":"error"}', '{"status":"busy"}', '{"status":"running"}', '{"status":"unexpected"}', '{"status":"success","error":"failed"}']) {
+    const result = parseJobResponse(200, body)
+    assert.equal(result.ok, false, body)
+    assert.equal(result.retryable, true, body)
+    assert.equal(publicationReady({stages:{'/atp':{status:result.ok?'success':'retrying'},'/wta':{status:'success'}}}, ['/atp','/wta']), false)
+  }
+  for (const status of ['success', 'backfill-progress', 'already-attempted'])
+    assert.equal(parseJobResponse(200, JSON.stringify({status})).ok, true)
+  assert.equal(parseJobResponse(503, '{"status":"success"}').ok, false)
+})
+
+test('resource and evidence deferrals remain deferred even with HTTP 200', () => {
+  for (const status of ['quota-reserve','free-history-limit','storage-reserve','storage-unverified','waiting-current-publication','deferred']) {
+    const result=parseJobResponse(200,JSON.stringify({status}))
+    assert.equal(result.ok,false)
+    assert.equal(result.deferred,true)
+    assert.equal(result.retryable,false)
+  }
+})
+
 test('ATP and WTA remain independent while publication waits for both', () => {
   const jobs = [{ path: '/atp' }, { path: '/wta' }]
   const state = { stages: {
@@ -39,4 +60,7 @@ test('ATP and WTA remain independent while publication waits for both', () => {
   state.stages['/atp'].status = 'success'
   state.stages['/wta'].status = 'success'
   assert.equal(publicationReady(state, ['/atp', '/wta']), true)
+  state.stages['/wta'].operationStatus = 'busy'
+  assert.equal(publicationReady(state, ['/atp', '/wta']), false)
+  assert.deepEqual(dueStages(jobs,state).map(job=>job.path),['/wta'])
 })

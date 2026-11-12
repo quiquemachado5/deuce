@@ -1,0 +1,29 @@
+[
+  {
+    "tournament": "Rome",
+    "year": 2000,
+    "tours": [
+      "atp"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters/rome-2000-norman-orange-v31.webp",
+      "alt": "Magnus Norman · Roma 2000",
+      "credit": "Panoramic / Orange Sports · Media365",
+      "source": "https://sports.orange.fr/tennis/diaporama/masters-de-rome-les-10-derniers-gagnants-exclu-CNT000001ARL0m/photos/magnus-norman-2000-9b3925f5f7be7b0244f1743a62ec3d20.html",
+      "rightsKnown": false,
+      "photoYear": 2000,
+      "objectPosition": "50% 40%",
+      "mobileObjectPosition": "50% 40%",
+      "reviewedAt": "2026-11-12T09:54:58.718270+00:00",
+      "auditStatus": "verified"
+    },
+    "sourceTitle": "Magnus Norman (2000) · Masters de Rome : les 10 derniers gagnants",
+    "originalUrl": "https://media2.woopic.com/api/v1/images/504%2Fsport%2FMedia365-Sport-News%2F099%2Fd0b%2F350e22f0ca004b293448f95f91%2Fnorman-110521.jpg",
+    "originalDimensions": {
+      "width": 1200,
+      "height": 498
+    },
+    "sourceImageSha256": "0c46660e5e5a2b848e7cb7d2a55a9744e018f20d9c863ce3981d542f7d598eca",
+    "reviewNotes": "Editorial Orange Sports gallery explicitly associates this Panoramic photograph with Magnus Norman, champion of Rome 2000. Downloaded original URL without resizing parameters, native 1200×498 landscape. Visually inspected: Norman playing on court, no score overlay or watermark. Rights not asserted as cleared."
+  }
+]

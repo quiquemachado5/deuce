@@ -1,0 +1,17 @@
+[
+  {
+    "url": "https://github.com/ryantjx/tennis-match-data/releases/download/data-latest/wta.parquet",
+    "sha256": "3fbee88d052402ccb0552027cf5617a1ac7528fb81561b474f9699d24b352ece",
+    "bytes": 17327642
+  },
+  {
+    "url": "https://github.com/ryantjx/tennis-match-data/releases/download/data-latest/sources.parquet",
+    "sha256": "b452ebb3e44aa318ac34caa843489f43b8bfed373711d76ce44b3d1102e8535c",
+    "bytes": 23952
+  },
+  {
+    "url": "https://github.com/ryantjx/tennis-match-data/releases/download/data-latest/provenance.parquet",
+    "sha256": "6dbf5acb9e716a326c828dbf12d45ea1a329b9a1d2f2328ba8bed9ec1a84af9b",
+    "bytes": 19400530
+  }
+]

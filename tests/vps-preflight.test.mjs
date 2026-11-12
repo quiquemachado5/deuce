@@ -4,6 +4,8 @@ import { parseEnvFile, validateProductionEnv } from '../ops/vps/preflight.mjs'
 
 const valid = {
   DEUCE_HOST: 'deuce.example.net',
+  DEUCE_RATE_LIMIT_STORE:'sqlite',
+  DEUCE_RATE_LIMIT_DB:'/app/.deuce-archive/.runtime/rate-limits.sqlite',
   DEUCE_WWW_HOST: 'www.deuce.example.net',
   NEXT_PUBLIC_SITE_ORIGIN: 'https://deuce.example.net',
   DEUCE_MONITOR_URL: 'https://deuce.example.net',
@@ -47,3 +49,8 @@ test('production preflight rejects placeholders, weak secrets and mismatched ori
   assert.ok(result.errors.some(error=>error.includes('250 to 2000')))
   assert.ok(result.errors.some(error=>error.includes('8 to 90')))
 })
+
+
+test('production preflight rejects per-worker rate limits and unshared SQLite paths',()=>{
+ for(const values of [{...valid,DEUCE_RATE_LIMIT_STORE:'memory'},{...valid,DEUCE_RATE_LIMIT_DB:'/tmp/limits.sqlite'},{...valid,DEUCE_RATE_LIMIT_DB:'/app/.deuce-archive/.runtime/../limits.sqlite'}])assert.ok(validateProductionEnv(values).errors.some(error=>error.includes('RATE_LIMIT')));
+});

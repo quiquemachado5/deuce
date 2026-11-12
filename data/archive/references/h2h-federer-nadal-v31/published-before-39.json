@@ -1,0 +1,4164 @@
+[
+  {
+    "match_id": "archive-134088",
+    "tour": "atp",
+    "tournament": "Miami",
+    "surface": "hard",
+    "category": "Masters 1000",
+    "year": 2004,
+    "player1": {
+      "name": "Rafael Nadal",
+      "seed": 32
+    },
+    "player2": {
+      "name": "Roger Federer",
+      "seed": 1
+    },
+    "score_summary": {
+      "sets": [
+        2,
+        0
+      ],
+      "games": [
+        [
+          6,
+          3
+        ],
+        [
+          6,
+          3
+        ]
+      ],
+      "points": [],
+      "server": null,
+      "is_tiebreak": false,
+      "win_probability_p1": null,
+      "timestamp": "2004-03-22T00:00:00Z"
+    },
+    "final_score": "6–3 6–3",
+    "round": "Ronda de 32",
+    "winner": 1,
+    "status": "Finished",
+    "point_tape": [],
+    "statistics": [],
+    "data_source": "api",
+    "coverage": "Solo resultado",
+    "context": {
+      "date": "2004-03-22",
+      "dateLabel": "Inicio del torneo",
+      "rank1": 34,
+      "rank2": 1,
+      "rankLabel": "Ranking al jugar",
+      "age1": 17.8,
+      "age2": 22.6,
+      "minutes": 70,
+      "format": "Al mejor de 3 sets",
+      "indoor": null
+    },
+    "quality": {
+      "result": "consistent",
+      "tape": "none"
+    }
+  },
+  {
+    "match_id": "archive-138695",
+    "tour": "atp",
+    "tournament": "Roland Garros",
+    "surface": "clay",
+    "category": "Grand Slam",
+    "year": 2005,
+    "player1": {
+      "name": "Rafael Nadal",
+      "seed": 4
+    },
+    "player2": {
+      "name": "Roger Federer",
+      "seed": 1
+    },
+    "score_summary": {
+      "sets": [
+        3,
+        1
+      ],
+      "games": [
+        [
+          6,
+          3
+        ],
+        [
+          4,
+          6
+        ],
+        [
+          6,
+          4
+        ],
+        [
+          6,
+          3
+        ]
+      ],
+      "points": [],
+      "server": null,
+      "is_tiebreak": false,
+      "win_probability_p1": null,
+      "timestamp": "2005-05-23T00:00:00Z"
+    },
+    "final_score": "6–3 4–6 6–4 6–3",
+    "round": "Semifinal",
+    "winner": 1,
+    "status": "Finished",
+    "point_tape": [],
+    "statistics": [],
+    "data_source": "api",
+    "coverage": "Solo resultado",
+    "context": {
+      "date": "2005-05-23",
+      "dateLabel": "Inicio del torneo",
+      "rank1": 5,
+      "rank2": 1,
+      "rankLabel": "Ranking al jugar",
+      "age1": 18.9,
+      "age2": 23.7,
+      "minutes": 167,
+      "format": "Al mejor de 5 sets",
+      "indoor": null,
+      "metadataSources": [
+        {
+          "field": "formato",
+          "url": "https://www.itftennis.com/en/about-us/tennis-tech/science-behind-tennis/rules-and-regulations/"
+        },
+        {
+          "field": "formato",
+          "url": "https://www.wimbledon.com/en_GB/about_wimbledon/rules.html"
+        }
+      ]
+    },
+    "quality": {
+      "result": "consistent",
+      "tape": "none"
+    }
+  },
+  {
+    "match_id": "archive-137453",
+    "tour": "atp",
+    "tournament": "Miami",
+    "surface": "hard",
+    "category": "Masters 1000",
+    "year": 2005,
+    "player1": {
+      "name": "Rafael Nadal",
+      "seed": 29
+    },
+    "player2": {
+      "name": "Roger Federer",
+      "seed": 1
+    },
+    "score_summary": {
+      "sets": [
+        2,
+        3
+      ],
+      "games": [
+        [
+          6,
+          2
+        ],
+        [
+          7,
+          6
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          1,
+          6
+        ]
+      ],
+      "points": [],
+      "server": null,
+      "is_tiebreak": false,
+      "win_probability_p1": null,
+      "timestamp": "2005-03-21T00:00:00Z"
+    },
+    "final_score": "6–2 7–6(4) 6–7(5) 3–6 1–6",
+    "round": "Final",
+    "winner": 2,
+    "status": "Finished",
+    "point_tape": [],
+    "statistics": [],
+    "data_source": "api",
+    "coverage": "Solo resultado",
+    "context": {
+      "date": "2005-03-21",
+      "dateLabel": "Inicio del torneo",
+      "rank1": 31,
+      "rank2": 1,
+      "rankLabel": "Ranking al jugar",
+      "age1": 18.7,
+      "age2": 23.6,
+      "minutes": 223,
+      "format": "Al mejor de 5 sets",
+      "indoor": null
+    },
+    "quality": {
+      "result": "consistent",
+      "tape": "none"
+    }
+  },
+  {
+    "match_id": "archive-142150",
+    "tour": "atp",
+    "tournament": "Wimbledon",
+    "surface": "grass",
+    "category": "Grand Slam",
+    "year": 2006,
+    "player1": {
+      "name": "Rafael Nadal",
+      "seed": 2
+    },
+    "player2": {
+      "name": "Roger Federer",
+      "seed": 1
+    },
+    "score_summary": {
+      "sets": [
+        1,
+        3
+      ],
+      "games": [
+        [
+          0,
+          6
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          7,
+          6
+        ],
+        [
+          3,
+          6
+        ]
+      ],
+      "points": [],
+      "server": null,
+      "is_tiebreak": false,
+      "win_probability_p1": null,
+      "timestamp": "2006-06-26T00:00:00Z"
+    },
+    "final_score": "0–6 6–7(5) 7–6(2) 3–6",
+    "round": "Final",
+    "winner": 2,
+    "status": "Finished",
+    "point_tape": [],
+    "statistics": [],
+    "data_source": "api",
+    "coverage": "Solo resultado",
+    "context": {
+      "date": "2006-06-26",
+      "dateLabel": "Inicio del torneo",
+      "rank1": 2,
+      "rank2": 1,
+      "rankLabel": "Ranking al jugar",
+      "age1": 20,
+      "age2": 24.8,
+      "minutes": 178,
+      "format": "Al mejor de 5 sets",
+      "indoor": null,
+      "metadataSources": [
+        {
+          "field": "formato",
+          "url": "https://www.itftennis.com/en/about-us/tennis-tech/science-behind-tennis/rules-and-regulations/"
+        },
+        {
+          "field": "formato",
+          "url": "https://www.wimbledon.com/en_GB/about_wimbledon/rules.html"
+        }
+      ]
+    },
+    "quality": {
+      "result": "consistent",
+      "tape": "none"
+    }
+  },
+  {
+    "match_id": "archive-141992",
+    "tour": "atp",
+    "tournament": "Roland Garros",
+    "surface": "clay",
+    "category": "Grand Slam",
+    "year": 2006,
+    "player1": {
+      "name": "Rafael Nadal",
+      "seed": 2
+    },
+    "player2": {
+      "name": "Roger Federer",
+      "seed": 1
+    },
+    "score_summary": {
+      "sets": [
+        3,
+        1
+      ],
+      "games": [
+        [
+          1,
+          6
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          6,
+          4
+        ],
+        [
+          7,
+          6
+        ]
+      ],
+      "points": [],
+      "server": null,
+      "is_tiebreak": false,
+      "win_probability_p1": null,
+      "timestamp": "2006-05-29T00:00:00Z"
+    },
+    "final_score": "1–6 6–1 6–4 7–6(4)",
+    "round": "Final",
+    "winner": 1,
+    "status": "Finished",
+    "point_tape": [],
+    "statistics": [],
+    "data_source": "api",
+    "coverage": "Solo resultado",
+    "context": {
+      "date": "2006-05-29",
+      "dateLabel": "Inicio del torneo",
+      "rank1": 2,
+      "rank2": 1,
+      "rankLabel": "Ranking al jugar",
+      "age1": 19.9,
+      "age2": 24.8,
+      "minutes": 182,
+      "format": "Al mejor de 5 sets",
+      "indoor": null,
+      "metadataSources": [
+        {
+          "field": "formato",
+          "url": "https://www.itftennis.com/en/about-us/tennis-tech/science-behind-tennis/rules-and-regulations/"
+        },
+        {
+          "field": "formato",
+          "url": "https://www.wimbledon.com/en_GB/about_wimbledon/rules.html"
+        }
+      ]
+    },
+    "quality": {
+      "result": "consistent",
+      "tape": "none"
+    }
+  },
+  {
+    "match_id": "archive-141094",
+    "tour": "atp",
+    "tournament": "Rome",
+    "surface": "clay",
+    "category": "Masters 1000",
+    "year": 2006,
+    "player1": {
+      "name": "Rafael Nadal",
+      "seed": 2
+    },
+    "player2": {
+      "name": "Roger Federer",
+      "seed": 1
+    },
+    "score_summary": {
+      "sets": [
+        3,
+        2
+      ],
+      "games": [
+        [
+          6,
+          7
+        ],
+        [
+          7,
+          6
+        ],
+        [
+          6,
+          4
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          7,
+          6
+        ]
+      ],
+      "points": [],
+      "server": null,
+      "is_tiebreak": false,
+      "win_probability_p1": null,
+      "timestamp": "2006-05-08T00:00:00Z"
+    },
+    "final_score": "6–7(0) 7–6(5) 6–4 2–6 7–6(5)",
+    "round": "Final",
+    "winner": 1,
+    "status": "Finished",
+    "point_tape": [],
+    "statistics": [],
+    "data_source": "api",
+    "coverage": "Solo resultado",
+    "context": {
+      "date": "2006-05-08",
+      "dateLabel": "Inicio del torneo",
+      "rank1": 2,
+      "rank2": 1,
+      "rankLabel": "Ranking al jugar",
+      "age1": 19.9,
+      "age2": 24.7,
+      "minutes": 305,
+      "format": "Al mejor de 5 sets",
+      "indoor": null
+    },
+    "quality": {
+      "result": "consistent",
+      "tape": "none"
+    }
+  },
+  {
+    "match_id": "archive-140968",
+    "tour": "atp",
+    "tournament": "Monte Carlo",
+    "surface": "clay",
+    "category": "Masters 1000",
+    "year": 2006,
+    "player1": {
+      "name": "Rafael Nadal",
+      "seed": 2
+    },
+    "player2": {
+      "name": "Roger Federer",
+      "seed": 1
+    },
+    "score_summary": {
+      "sets": [
+        3,
+        1
+      ],
+      "games": [
+        [
+          6,
+          2
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          7,
+          6
+        ]
+      ],
+      "points": [],
+      "server": null,
+      "is_tiebreak": false,
+      "win_probability_p1": null,
+      "timestamp": "2006-04-17T00:00:00Z"
+    },
+    "final_score": "6–2 6–7(2) 6–3 7–6(5)",
+    "round": "Final",
+    "winner": 1,
+    "status": "Finished",
+    "point_tape": [],
+    "statistics": [],
+    "data_source": "api",
+    "coverage": "Solo resultado",
+    "context": {
+      "date": "2006-04-17",
+      "dateLabel": "Inicio del torneo",
+      "rank1": 2,
+      "rank2": 1,
+      "rankLabel": "Ranking al jugar",
+      "age1": 19.8,
+      "age2": 24.6,
+      "minutes": 230,
+      "format": "Al mejor de 5 sets",
+      "indoor": null
+    },
+    "quality": {
+      "result": "consistent",
+      "tape": "none"
+    }
+  },
+  {
+    "match_id": "archive-145315",
+    "tour": "atp",
+    "tournament": "Wimbledon",
+    "surface": "grass",
+    "category": "Grand Slam",
+    "year": 2007,
+    "player1": {
+      "name": "Rafael Nadal",
+      "seed": 2
+    },
+    "player2": {
+      "name": "Roger Federer",
+      "seed": 1
+    },
+    "score_summary": {
+      "sets": [
+        2,
+        3
+      ],
+      "games": [
+        [
+          6,
+          7
+        ],
+        [
+          6,
+          4
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          2,
+          6
+        ]
+      ],
+      "points": [],
+      "server": null,
+      "is_tiebreak": false,
+      "win_probability_p1": null,
+      "timestamp": "2007-06-25T00:00:00Z"
+    },
+    "final_score": "6–7(7) 6–4 6–7(3) 6–2 2–6",
+    "round": "Final",
+    "winner": 2,
+    "status": "Finished",
+    "point_tape": [],
+    "statistics": [],
+    "data_source": "api",
+    "coverage": "Solo resultado",
+    "context": {
+      "date": "2007-06-25",
+      "dateLabel": "Inicio del torneo",
+      "rank1": 2,
+      "rank2": 1,
+      "rankLabel": "Ranking al jugar",
+      "age1": 21,
+      "age2": 25.8,
+      "minutes": 225,
+      "format": "Al mejor de 5 sets",
+      "indoor": null,
+      "metadataSources": [
+        {
+          "field": "formato",
+          "url": "https://www.itftennis.com/en/about-us/tennis-tech/science-behind-tennis/rules-and-regulations/"
+        },
+        {
+          "field": "formato",
+          "url": "https://www.wimbledon.com/en_GB/about_wimbledon/rules.html"
+        }
+      ]
+    },
+    "quality": {
+      "result": "consistent",
+      "tape": "none"
+    }
+  },
+  {
+    "match_id": "archive-145157",
+    "tour": "atp",
+    "tournament": "Roland Garros",
+    "surface": "clay",
+    "category": "Grand Slam",
+    "year": 2007,
+    "player1": {
+      "name": "Rafael Nadal",
+      "seed": 2
+    },
+    "player2": {
+      "name": "Roger Federer",
+      "seed": 1
+    },
+    "score_summary": {
+      "sets": [
+        3,
+        1
+      ],
+      "games": [
+        [
+          6,
+          3
+        ],
+        [
+          4,
+          6
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          6,
+          4
+        ]
+      ],
+      "points": [],
+      "server": null,
+      "is_tiebreak": false,
+      "win_probability_p1": null,
+      "timestamp": "2007-05-28T00:00:00Z"
+    },
+    "final_score": "6–3 4–6 6–3 6–4",
+    "round": "Final",
+    "winner": 1,
+    "status": "Finished",
+    "point_tape": [],
+    "statistics": [],
+    "data_source": "api",
+    "coverage": "Solo resultado",
+    "context": {
+      "date": "2007-05-28",
+      "dateLabel": "Inicio del torneo",
+      "rank1": 2,
+      "rank2": 1,
+      "rankLabel": "Ranking al jugar",
+      "age1": 20.9,
+      "age2": 25.8,
+      "minutes": 190,
+      "format": "Al mejor de 5 sets",
+      "indoor": null,
+      "metadataSources": [
+        {
+          "field": "formato",
+          "url": "https://www.itftennis.com/en/about-us/tennis-tech/science-behind-tennis/rules-and-regulations/"
+        },
+        {
+          "field": "formato",
+          "url": "https://www.wimbledon.com/en_GB/about_wimbledon/rules.html"
+        }
+      ]
+    },
+    "quality": {
+      "result": "consistent",
+      "tape": "none"
+    }
+  },
+  {
+    "match_id": "archive-144243",
+    "tour": "atp",
+    "tournament": "Hamburg Masters",
+    "surface": "clay",
+    "category": "Masters 1000",
+    "year": 2007,
+    "player1": {
+      "name": "Rafael Nadal",
+      "seed": 2
+    },
+    "player2": {
+      "name": "Roger Federer",
+      "seed": 1
+    },
+    "score_summary": {
+      "sets": [
+        1,
+        2
+      ],
+      "games": [
+        [
+          6,
+          2
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          0,
+          6
+        ]
+      ],
+      "points": [],
+      "server": null,
+      "is_tiebreak": false,
+      "win_probability_p1": null,
+      "timestamp": "2007-05-14T00:00:00Z"
+    },
+    "final_score": "6–2 2–6 0–6",
+    "round": "Final",
+    "winner": 2,
+    "status": "Finished",
+    "point_tape": [],
+    "statistics": [],
+    "data_source": "api",
+    "coverage": "Solo resultado",
+    "context": {
+      "date": "2007-05-14",
+      "dateLabel": "Inicio del torneo",
+      "rank1": 2,
+      "rank2": 1,
+      "rankLabel": "Ranking al jugar",
+      "age1": 20.9,
+      "age2": 25.7,
+      "minutes": 115,
+      "format": "Al mejor de 3 sets",
+      "indoor": null
+    },
+    "quality": {
+      "result": "consistent",
+      "tape": "none"
+    }
+  },
+  {
+    "match_id": "archive-144188",
+    "tour": "atp",
+    "tournament": "Monte Carlo",
+    "surface": "clay",
+    "category": "Masters 1000",
+    "year": 2007,
+    "player1": {
+      "name": "Rafael Nadal",
+      "seed": 2
+    },
+    "player2": {
+      "name": "Roger Federer",
+      "seed": 1
+    },
+    "score_summary": {
+      "sets": [
+        2,
+        0
+      ],
+      "games": [
+        [
+          6,
+          4
+        ],
+        [
+          6,
+          4
+        ]
+      ],
+      "points": [],
+      "server": null,
+      "is_tiebreak": false,
+      "win_probability_p1": null,
+      "timestamp": "2007-04-15T00:00:00Z"
+    },
+    "final_score": "6–4 6–4",
+    "round": "Final",
+    "winner": 1,
+    "status": "Finished",
+    "point_tape": [],
+    "statistics": [],
+    "data_source": "api",
+    "coverage": "Solo resultado",
+    "context": {
+      "date": "2007-04-15",
+      "dateLabel": "Inicio del torneo",
+      "rank1": 2,
+      "rank2": 1,
+      "rankLabel": "Ranking al jugar",
+      "age1": 20.8,
+      "age2": 25.6,
+      "minutes": 95,
+      "format": "Al mejor de 3 sets",
+      "indoor": null
+    },
+    "quality": {
+      "result": "consistent",
+      "tape": "none"
+    }
+  },
+  {
+    "match_id": "archive-148401",
+    "tour": "atp",
+    "tournament": "Wimbledon",
+    "surface": "grass",
+    "category": "Grand Slam",
+    "year": 2008,
+    "player1": {
+      "name": "Rafael Nadal",
+      "seed": 2
+    },
+    "player2": {
+      "name": "Roger Federer",
+      "seed": 1
+    },
+    "score_summary": {
+      "sets": [
+        3,
+        2
+      ],
+      "games": [
+        [
+          6,
+          4
+        ],
+        [
+          6,
+          4
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          9,
+          7
+        ]
+      ],
+      "points": [],
+      "server": null,
+      "is_tiebreak": false,
+      "win_probability_p1": null,
+      "timestamp": "2008-06-23T00:00:00Z"
+    },
+    "final_score": "6–4 6–4 6–7(5) 6–7(8) 9–7",
+    "round": "Final",
+    "winner": 1,
+    "status": "Finished",
+    "point_tape": [],
+    "statistics": [],
+    "data_source": "api",
+    "coverage": "Solo resultado",
+    "context": {
+      "date": "2008-07-06",
+      "dateLabel": "Fecha del partido",
+      "rank1": 2,
+      "rank2": 1,
+      "rankLabel": "Ranking al jugar",
+      "age1": 22,
+      "age2": 26.8,
+      "minutes": 288,
+      "format": "Al mejor de 5 sets",
+      "indoor": null,
+      "metadataSources": [
+        {
+          "field": "Fecha de inicio del partido",
+          "url": "https://www.bbc.co.uk/sport/tennis/44517976"
+        },
+        {
+          "field": "formato",
+          "url": "https://www.itftennis.com/en/about-us/tennis-tech/science-behind-tennis/rules-and-regulations/"
+        },
+        {
+          "field": "formato",
+          "url": "https://www.wimbledon.com/en_GB/about_wimbledon/rules.html"
+        }
+      ]
+    },
+    "quality": {
+      "result": "consistent",
+      "tape": "none"
+    }
+  },
+  {
+    "match_id": "archive-148243",
+    "tour": "atp",
+    "tournament": "Roland Garros",
+    "surface": "clay",
+    "category": "Grand Slam",
+    "year": 2008,
+    "player1": {
+      "name": "Rafael Nadal",
+      "seed": 2
+    },
+    "player2": {
+      "name": "Roger Federer",
+      "seed": 1
+    },
+    "score_summary": {
+      "sets": [
+        3,
+        0
+      ],
+      "games": [
+        [
+          6,
+          1
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          6,
+          0
+        ]
+      ],
+      "points": [],
+      "server": null,
+      "is_tiebreak": false,
+      "win_probability_p1": null,
+      "timestamp": "2008-05-25T00:00:00Z"
+    },
+    "final_score": "6–1 6–3 6–0",
+    "round": "Final",
+    "winner": 1,
+    "status": "Finished",
+    "point_tape": [],
+    "statistics": [],
+    "data_source": "api",
+    "coverage": "Solo resultado",
+    "context": {
+      "date": "2008-05-25",
+      "dateLabel": "Inicio del torneo",
+      "rank1": 2,
+      "rank2": 1,
+      "rankLabel": "Ranking al jugar",
+      "age1": 21.9,
+      "age2": 26.7,
+      "minutes": 108,
+      "format": "Al mejor de 5 sets",
+      "indoor": null,
+      "metadataSources": [
+        {
+          "field": "formato",
+          "url": "https://www.itftennis.com/en/about-us/tennis-tech/science-behind-tennis/rules-and-regulations/"
+        },
+        {
+          "field": "formato",
+          "url": "https://www.wimbledon.com/en_GB/about_wimbledon/rules.html"
+        }
+      ]
+    },
+    "quality": {
+      "result": "consistent",
+      "tape": "none"
+    }
+  },
+  {
+    "match_id": "archive-147356",
+    "tour": "atp",
+    "tournament": "Hamburg Masters",
+    "surface": "clay",
+    "category": "Masters 1000",
+    "year": 2008,
+    "player1": {
+      "name": "Rafael Nadal",
+      "seed": 2
+    },
+    "player2": {
+      "name": "Roger Federer",
+      "seed": 1
+    },
+    "score_summary": {
+      "sets": [
+        2,
+        1
+      ],
+      "games": [
+        [
+          7,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          6,
+          3
+        ]
+      ],
+      "points": [],
+      "server": null,
+      "is_tiebreak": false,
+      "win_probability_p1": null,
+      "timestamp": "2008-05-11T00:00:00Z"
+    },
+    "final_score": "7–5 6–7(3) 6–3",
+    "round": "Final",
+    "winner": 1,
+    "status": "Finished",
+    "point_tape": [],
+    "statistics": [],
+    "data_source": "api",
+    "coverage": "Solo resultado",
+    "context": {
+      "date": "2008-05-11",
+      "dateLabel": "Inicio del torneo",
+      "rank1": 2,
+      "rank2": 1,
+      "rankLabel": "Ranking al jugar",
+      "age1": 21.9,
+      "age2": 26.7,
+      "minutes": 172,
+      "format": "Al mejor de 3 sets",
+      "indoor": null
+    },
+    "quality": {
+      "result": "consistent",
+      "tape": "none"
+    }
+  },
+  {
+    "match_id": "archive-147301",
+    "tour": "atp",
+    "tournament": "Monte Carlo",
+    "surface": "clay",
+    "category": "Masters 1000",
+    "year": 2008,
+    "player1": {
+      "name": "Rafael Nadal",
+      "seed": 2
+    },
+    "player2": {
+      "name": "Roger Federer",
+      "seed": 1
+    },
+    "score_summary": {
+      "sets": [
+        2,
+        0
+      ],
+      "games": [
+        [
+          7,
+          5
+        ],
+        [
+          7,
+          5
+        ]
+      ],
+      "points": [],
+      "server": null,
+      "is_tiebreak": false,
+      "win_probability_p1": null,
+      "timestamp": "2008-04-20T00:00:00Z"
+    },
+    "final_score": "7–5 7–5",
+    "round": "Final",
+    "winner": 1,
+    "status": "Finished",
+    "point_tape": [],
+    "statistics": [],
+    "data_source": "api",
+    "coverage": "Solo resultado",
+    "context": {
+      "date": "2008-04-20",
+      "dateLabel": "Inicio del torneo",
+      "rank1": 2,
+      "rank2": 1,
+      "rankLabel": "Ranking al jugar",
+      "age1": 21.8,
+      "age2": 26.7,
+      "minutes": 103,
+      "format": "Al mejor de 3 sets",
+      "indoor": null
+    },
+    "quality": {
+      "result": "consistent",
+      "tape": "none"
+    }
+  },
+  {
+    "match_id": "archive-151843",
+    "tour": "atp",
+    "tournament": "Australian Open",
+    "surface": "hard",
+    "category": "Grand Slam",
+    "year": 2009,
+    "player1": {
+      "name": "Rafael Nadal",
+      "seed": 1
+    },
+    "player2": {
+      "name": "Roger Federer",
+      "seed": 2
+    },
+    "score_summary": {
+      "sets": [
+        3,
+        2
+      ],
+      "games": [
+        [
+          7,
+          5
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          7,
+          6
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          6,
+          2
+        ]
+      ],
+      "points": [],
+      "server": null,
+      "is_tiebreak": false,
+      "win_probability_p1": null,
+      "timestamp": "2009-01-19T00:00:00Z"
+    },
+    "final_score": "7–5 3–6 7–6(3) 3–6 6–2",
+    "round": "Final",
+    "winner": 1,
+    "status": "Finished",
+    "point_tape": [],
+    "statistics": [],
+    "data_source": "api",
+    "coverage": "Solo resultado",
+    "context": {
+      "date": "2009-01-19",
+      "dateLabel": "Inicio del torneo",
+      "rank1": 1,
+      "rank2": 2,
+      "rankLabel": "Ranking al jugar",
+      "age1": 22.6,
+      "age2": 27.4,
+      "minutes": 259,
+      "format": "Al mejor de 5 sets",
+      "indoor": null,
+      "metadataSources": [
+        {
+          "field": "formato",
+          "url": "https://www.itftennis.com/en/about-us/tennis-tech/science-behind-tennis/rules-and-regulations/"
+        },
+        {
+          "field": "formato",
+          "url": "https://www.wimbledon.com/en_GB/about_wimbledon/rules.html"
+        }
+      ]
+    },
+    "quality": {
+      "result": "consistent",
+      "tape": "none"
+    }
+  },
+  {
+    "match_id": "archive-149395",
+    "tour": "atp",
+    "tournament": "Madrid",
+    "surface": "clay",
+    "category": "Masters 1000",
+    "year": 2009,
+    "player1": {
+      "name": "Rafael Nadal",
+      "seed": 1
+    },
+    "player2": {
+      "name": "Roger Federer",
+      "seed": 2
+    },
+    "score_summary": {
+      "sets": [
+        0,
+        2
+      ],
+      "games": [
+        [
+          4,
+          6
+        ],
+        [
+          4,
+          6
+        ]
+      ],
+      "points": [],
+      "server": null,
+      "is_tiebreak": false,
+      "win_probability_p1": null,
+      "timestamp": "2009-05-10T00:00:00Z"
+    },
+    "final_score": "4–6 4–6",
+    "round": "Final",
+    "winner": 2,
+    "status": "Finished",
+    "point_tape": [],
+    "statistics": [],
+    "data_source": "api",
+    "coverage": "Solo resultado",
+    "context": {
+      "date": "2009-05-10",
+      "dateLabel": "Inicio del torneo",
+      "rank1": 1,
+      "rank2": 2,
+      "rankLabel": "Ranking al jugar",
+      "age1": 22.9,
+      "age2": 27.7,
+      "minutes": 86,
+      "format": "Al mejor de 3 sets",
+      "indoor": null
+    },
+    "quality": {
+      "result": "consistent",
+      "tape": "none"
+    }
+  },
+  {
+    "match_id": "archive-153775",
+    "tour": "atp",
+    "tournament": "Madrid",
+    "surface": "clay",
+    "category": "Masters 1000",
+    "year": 2010,
+    "player1": {
+      "name": "Rafael Nadal",
+      "seed": 2
+    },
+    "player2": {
+      "name": "Roger Federer",
+      "seed": 1
+    },
+    "score_summary": {
+      "sets": [
+        2,
+        0
+      ],
+      "games": [
+        [
+          6,
+          4
+        ],
+        [
+          7,
+          6
+        ]
+      ],
+      "points": [],
+      "server": null,
+      "is_tiebreak": false,
+      "win_probability_p1": null,
+      "timestamp": "2010-05-09T00:00:00Z"
+    },
+    "final_score": "6–4 7–6(5)",
+    "round": "Final",
+    "winner": 1,
+    "status": "Finished",
+    "point_tape": [],
+    "statistics": [],
+    "data_source": "api",
+    "coverage": "Solo resultado",
+    "context": {
+      "date": "2010-05-09",
+      "dateLabel": "Inicio del torneo",
+      "rank1": 3,
+      "rank2": 1,
+      "rankLabel": "Ranking al jugar",
+      "age1": 23.9,
+      "age2": 28.7,
+      "minutes": 131,
+      "format": "Al mejor de 3 sets",
+      "indoor": null
+    },
+    "quality": {
+      "result": "consistent",
+      "tape": "none"
+    }
+  },
+  {
+    "match_id": "archive-156949",
+    "tour": "atp",
+    "tournament": "Roland Garros",
+    "surface": "clay",
+    "category": "Grand Slam",
+    "year": 2011,
+    "player1": {
+      "name": "Rafael Nadal",
+      "seed": 1
+    },
+    "player2": {
+      "name": "Roger Federer",
+      "seed": 3
+    },
+    "score_summary": {
+      "sets": [
+        3,
+        1
+      ],
+      "games": [
+        [
+          7,
+          5
+        ],
+        [
+          7,
+          6
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          6,
+          1
+        ]
+      ],
+      "points": [],
+      "server": null,
+      "is_tiebreak": false,
+      "win_probability_p1": null,
+      "timestamp": "2011-05-22T00:00:00Z"
+    },
+    "final_score": "7–5 7–6(3) 5–7 6–1",
+    "round": "Final",
+    "winner": 1,
+    "status": "Finished",
+    "point_tape": [],
+    "statistics": [],
+    "data_source": "api",
+    "coverage": "Solo resultado",
+    "context": {
+      "date": "2011-05-22",
+      "dateLabel": "Inicio del torneo",
+      "rank1": 1,
+      "rank2": 3,
+      "rankLabel": "Ranking al jugar",
+      "age1": 24.9,
+      "age2": 29.7,
+      "minutes": 220,
+      "format": "Al mejor de 5 sets",
+      "indoor": null,
+      "metadataSources": [
+        {
+          "field": "formato",
+          "url": "https://www.itftennis.com/en/about-us/tennis-tech/science-behind-tennis/rules-and-regulations/"
+        },
+        {
+          "field": "formato",
+          "url": "https://www.wimbledon.com/en_GB/about_wimbledon/rules.html"
+        }
+      ]
+    },
+    "quality": {
+      "result": "consistent",
+      "tape": "none"
+    }
+  },
+  {
+    "match_id": "archive-156712",
+    "tour": "atp",
+    "tournament": "Madrid",
+    "surface": "clay",
+    "category": "Masters 1000",
+    "year": 2011,
+    "player1": {
+      "name": "Rafael Nadal",
+      "seed": 1
+    },
+    "player2": {
+      "name": "Roger Federer",
+      "seed": 3
+    },
+    "score_summary": {
+      "sets": [
+        2,
+        1
+      ],
+      "games": [
+        [
+          5,
+          7
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          6,
+          3
+        ]
+      ],
+      "points": [],
+      "server": null,
+      "is_tiebreak": false,
+      "win_probability_p1": null,
+      "timestamp": "2011-05-01T00:00:00Z"
+    },
+    "final_score": "5–7 6–1 6–3",
+    "round": "Semifinal",
+    "winner": 1,
+    "status": "Finished",
+    "point_tape": [],
+    "statistics": [],
+    "data_source": "api",
+    "coverage": "Solo resultado",
+    "context": {
+      "date": "2011-05-01",
+      "dateLabel": "Inicio del torneo",
+      "rank1": 1,
+      "rank2": 3,
+      "rankLabel": "Ranking al jugar",
+      "age1": 24.9,
+      "age2": 29.7,
+      "minutes": 156,
+      "format": "Al mejor de 3 sets",
+      "indoor": null
+    },
+    "quality": {
+      "result": "consistent",
+      "tape": "none"
+    }
+  },
+  {
+    "match_id": "archive-156408",
+    "tour": "atp",
+    "tournament": "Miami",
+    "surface": "hard",
+    "category": "Masters 1000",
+    "year": 2011,
+    "player1": {
+      "name": "Rafael Nadal",
+      "seed": 1
+    },
+    "player2": {
+      "name": "Roger Federer",
+      "seed": 3
+    },
+    "score_summary": {
+      "sets": [
+        2,
+        0
+      ],
+      "games": [
+        [
+          6,
+          3
+        ],
+        [
+          6,
+          2
+        ]
+      ],
+      "points": [],
+      "server": null,
+      "is_tiebreak": false,
+      "win_probability_p1": null,
+      "timestamp": "2011-03-23T00:00:00Z"
+    },
+    "final_score": "6–3 6–2",
+    "round": "Semifinal",
+    "winner": 1,
+    "status": "Finished",
+    "point_tape": [],
+    "statistics": [],
+    "data_source": "api",
+    "coverage": "Solo resultado",
+    "context": {
+      "date": "2011-03-23",
+      "dateLabel": "Inicio del torneo",
+      "rank1": 1,
+      "rank2": 3,
+      "rankLabel": "Ranking al jugar",
+      "age1": 24.7,
+      "age2": 29.6,
+      "minutes": 79,
+      "format": "Al mejor de 3 sets",
+      "indoor": null
+    },
+    "quality": {
+      "result": "consistent",
+      "tape": "none"
+    }
+  },
+  {
+    "match_id": "archive-158739",
+    "tour": "atp",
+    "tournament": "Australian Open",
+    "surface": "hard",
+    "category": "Grand Slam",
+    "year": 2012,
+    "player1": {
+      "name": "Rafael Nadal",
+      "seed": 2
+    },
+    "player2": {
+      "name": "Roger Federer",
+      "seed": 3
+    },
+    "score_summary": {
+      "sets": [
+        3,
+        1
+      ],
+      "games": [
+        [
+          6,
+          7
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          7,
+          6
+        ],
+        [
+          6,
+          4
+        ]
+      ],
+      "points": [],
+      "server": null,
+      "is_tiebreak": false,
+      "win_probability_p1": null,
+      "timestamp": "2012-01-16T00:00:00Z"
+    },
+    "final_score": "6–7(5) 6–2 7–6(5) 6–4",
+    "round": "Semifinal",
+    "winner": 1,
+    "status": "Finished",
+    "point_tape": [],
+    "statistics": [],
+    "data_source": "api",
+    "coverage": "Solo resultado",
+    "context": {
+      "date": "2012-01-16",
+      "dateLabel": "Inicio del torneo",
+      "rank1": 2,
+      "rank2": 3,
+      "rankLabel": "Ranking al jugar",
+      "age1": 25.6,
+      "age2": 30.4,
+      "minutes": 222,
+      "format": "Al mejor de 5 sets",
+      "indoor": null,
+      "metadataSources": [
+        {
+          "field": "formato",
+          "url": "https://www.itftennis.com/en/about-us/tennis-tech/science-behind-tennis/rules-and-regulations/"
+        },
+        {
+          "field": "formato",
+          "url": "https://www.wimbledon.com/en_GB/about_wimbledon/rules.html"
+        }
+      ]
+    },
+    "quality": {
+      "result": "consistent",
+      "tape": "none"
+    }
+  },
+  {
+    "match_id": "archive-159312",
+    "tour": "atp",
+    "tournament": "Indian Wells",
+    "surface": "hard",
+    "category": "Masters 1000",
+    "year": 2012,
+    "player1": {
+      "name": "Rafael Nadal",
+      "seed": 2
+    },
+    "player2": {
+      "name": "Roger Federer",
+      "seed": 3
+    },
+    "score_summary": {
+      "sets": [
+        0,
+        2
+      ],
+      "games": [
+        [
+          3,
+          6
+        ],
+        [
+          4,
+          6
+        ]
+      ],
+      "points": [],
+      "server": null,
+      "is_tiebreak": false,
+      "win_probability_p1": null,
+      "timestamp": "2012-03-08T00:00:00Z"
+    },
+    "final_score": "3–6 4–6",
+    "round": "Semifinal",
+    "winner": 2,
+    "status": "Finished",
+    "point_tape": [],
+    "statistics": [],
+    "data_source": "api",
+    "coverage": "Solo resultado",
+    "context": {
+      "date": "2012-03-08",
+      "dateLabel": "Inicio del torneo",
+      "rank1": 2,
+      "rank2": 3,
+      "rankLabel": "Ranking al jugar",
+      "age1": 25.7,
+      "age2": 30.5,
+      "minutes": 92,
+      "format": "Al mejor de 3 sets",
+      "indoor": null
+    },
+    "quality": {
+      "result": "consistent",
+      "tape": "none"
+    }
+  },
+  {
+    "match_id": "archive-163732",
+    "tour": "atp",
+    "tournament": "Cincinnati",
+    "surface": "hard",
+    "category": "Masters 1000",
+    "year": 2013,
+    "player1": {
+      "name": "Rafael Nadal",
+      "seed": 4
+    },
+    "player2": {
+      "name": "Roger Federer",
+      "seed": 5
+    },
+    "score_summary": {
+      "sets": [
+        2,
+        1
+      ],
+      "games": [
+        [
+          5,
+          7
+        ],
+        [
+          6,
+          4
+        ],
+        [
+          6,
+          3
+        ]
+      ],
+      "points": [],
+      "server": null,
+      "is_tiebreak": false,
+      "win_probability_p1": null,
+      "timestamp": "2013-08-11T00:00:00Z"
+    },
+    "final_score": "5–7 6–4 6–3",
+    "round": "Cuartos de final",
+    "winner": 1,
+    "status": "Finished",
+    "point_tape": [],
+    "statistics": [],
+    "data_source": "api",
+    "coverage": "Solo resultado",
+    "context": {
+      "date": "2013-08-11",
+      "dateLabel": "Inicio del torneo",
+      "rank1": 3,
+      "rank2": 5,
+      "rankLabel": "Ranking al jugar",
+      "age1": 27.1,
+      "age2": 32,
+      "minutes": 134,
+      "format": "Al mejor de 3 sets",
+      "indoor": null
+    },
+    "quality": {
+      "result": "consistent",
+      "tape": "none"
+    }
+  },
+  {
+    "match_id": "archive-162864",
+    "tour": "atp",
+    "tournament": "Rome",
+    "surface": "clay",
+    "category": "Masters 1000",
+    "year": 2013,
+    "player1": {
+      "name": "Rafael Nadal",
+      "seed": 5
+    },
+    "player2": {
+      "name": "Roger Federer",
+      "seed": 2
+    },
+    "score_summary": {
+      "sets": [
+        2,
+        0
+      ],
+      "games": [
+        [
+          6,
+          1
+        ],
+        [
+          6,
+          3
+        ]
+      ],
+      "points": [],
+      "server": null,
+      "is_tiebreak": false,
+      "win_probability_p1": null,
+      "timestamp": "2013-05-12T00:00:00Z"
+    },
+    "final_score": "6–1 6–3",
+    "round": "Final",
+    "winner": 1,
+    "status": "Finished",
+    "point_tape": [],
+    "statistics": [
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "Aces",
+        "value": "1",
+        "won": 1,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "Double Faults",
+        "value": "1",
+        "won": 1,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "1st serve in",
+        "value": "31 / 42",
+        "won": 31,
+        "total": 42
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "1st serve points won",
+        "value": "22 / 31",
+        "won": 22,
+        "total": 31
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "2nd serve points won",
+        "value": "8 / 11",
+        "won": 8,
+        "total": 11
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "Service games played",
+        "value": "8",
+        "won": 8,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "Service points played",
+        "value": "42",
+        "won": 42,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Breaks",
+        "name": "Break points saved",
+        "value": "1 / 2",
+        "won": 1,
+        "total": 2
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Breaks",
+        "name": "Break points faced",
+        "value": "2",
+        "won": 2,
+        "total": null
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "Aces",
+        "value": "3",
+        "won": 3,
+        "total": null
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "Double Faults",
+        "value": "0",
+        "won": 0,
+        "total": null
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "1st serve in",
+        "value": "30 / 53",
+        "won": 30,
+        "total": 53
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "1st serve points won",
+        "value": "17 / 30",
+        "won": 17,
+        "total": 30
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "2nd serve points won",
+        "value": "7 / 23",
+        "won": 7,
+        "total": 23
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "Service games played",
+        "value": "8",
+        "won": 8,
+        "total": null
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "Service points played",
+        "value": "53",
+        "won": 53,
+        "total": null
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Breaks",
+        "name": "Break points saved",
+        "value": "1 / 6",
+        "won": 1,
+        "total": 6
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Breaks",
+        "name": "Break points faced",
+        "value": "6",
+        "won": 6,
+        "total": null
+      }
+    ],
+    "data_source": "api",
+    "coverage": "Estadísticas disponibles",
+    "context": {
+      "date": "2013-05-12",
+      "dateLabel": "Inicio del torneo",
+      "rank1": 5,
+      "rank2": 3,
+      "rankLabel": "Ranking al jugar",
+      "age1": 26.9,
+      "age2": 31.7,
+      "minutes": 69,
+      "format": "Al mejor de 3 sets",
+      "indoor": null
+    },
+    "quality": {
+      "result": "consistent",
+      "tape": "none"
+    }
+  },
+  {
+    "match_id": "archive-162308",
+    "tour": "atp",
+    "tournament": "Indian Wells",
+    "surface": "hard",
+    "category": "Masters 1000",
+    "year": 2013,
+    "player1": {
+      "name": "Rafael Nadal",
+      "seed": 5
+    },
+    "player2": {
+      "name": "Roger Federer",
+      "seed": 2
+    },
+    "score_summary": {
+      "sets": [
+        2,
+        0
+      ],
+      "games": [
+        [
+          6,
+          4
+        ],
+        [
+          6,
+          2
+        ]
+      ],
+      "points": [],
+      "server": null,
+      "is_tiebreak": false,
+      "win_probability_p1": null,
+      "timestamp": "2013-03-07T00:00:00Z"
+    },
+    "final_score": "6–4 6–2",
+    "round": "Cuartos de final",
+    "winner": 1,
+    "status": "Finished",
+    "point_tape": [],
+    "statistics": [],
+    "data_source": "api",
+    "coverage": "Solo resultado",
+    "context": {
+      "date": "2013-03-07",
+      "dateLabel": "Inicio del torneo",
+      "rank1": 5,
+      "rank2": 2,
+      "rankLabel": "Ranking al jugar",
+      "age1": 26.7,
+      "age2": 31.5,
+      "minutes": 85,
+      "format": "Al mejor de 3 sets",
+      "indoor": null
+    },
+    "quality": {
+      "result": "consistent",
+      "tape": "none"
+    }
+  },
+  {
+    "match_id": "archive-164687",
+    "tour": "atp",
+    "tournament": "Australian Open",
+    "surface": "hard",
+    "category": "Grand Slam",
+    "year": 2014,
+    "player1": {
+      "name": "Rafael Nadal",
+      "seed": 1
+    },
+    "player2": {
+      "name": "Roger Federer",
+      "seed": 6
+    },
+    "score_summary": {
+      "sets": [
+        3,
+        0
+      ],
+      "games": [
+        [
+          7,
+          6
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          6,
+          3
+        ]
+      ],
+      "points": [],
+      "server": null,
+      "is_tiebreak": false,
+      "win_probability_p1": null,
+      "timestamp": "2014-01-13T00:00:00Z"
+    },
+    "final_score": "7–6(4) 6–3 6–3",
+    "round": "Semifinal",
+    "winner": 1,
+    "status": "Finished",
+    "point_tape": [],
+    "statistics": [],
+    "data_source": "api",
+    "coverage": "Solo resultado",
+    "context": {
+      "date": "2014-01-13",
+      "dateLabel": "Inicio del torneo",
+      "rank1": 1,
+      "rank2": 6,
+      "rankLabel": "Ranking al jugar",
+      "age1": 27.6,
+      "age2": 32.4,
+      "minutes": 144,
+      "format": "Al mejor de 5 sets",
+      "indoor": null,
+      "metadataSources": [
+        {
+          "field": "formato",
+          "url": "https://www.itftennis.com/en/about-us/tennis-tech/science-behind-tennis/rules-and-regulations/"
+        },
+        {
+          "field": "formato",
+          "url": "https://www.wimbledon.com/en_GB/about_wimbledon/rules.html"
+        }
+      ]
+    },
+    "quality": {
+      "result": "consistent",
+      "tape": "none"
+    }
+  },
+  {
+    "match_id": "archive-170171",
+    "tour": "atp",
+    "tournament": "Basel",
+    "surface": "hard",
+    "category": "ATP 500",
+    "year": 2015,
+    "player1": {
+      "name": "Rafael Nadal",
+      "seed": 3
+    },
+    "player2": {
+      "name": "Roger Federer",
+      "seed": 1
+    },
+    "score_summary": {
+      "sets": [
+        1,
+        2
+      ],
+      "games": [
+        [
+          3,
+          6
+        ],
+        [
+          7,
+          5
+        ],
+        [
+          3,
+          6
+        ]
+      ],
+      "points": [],
+      "server": null,
+      "is_tiebreak": false,
+      "win_probability_p1": null,
+      "timestamp": "2015-10-26T00:00:00Z"
+    },
+    "final_score": "3–6 7–5 3–6",
+    "round": "Final",
+    "winner": 2,
+    "status": "Finished",
+    "point_tape": [],
+    "statistics": [],
+    "data_source": "api",
+    "coverage": "Solo resultado",
+    "context": {
+      "date": "2015-10-26",
+      "dateLabel": "Inicio del torneo",
+      "rank1": 7,
+      "rank2": 3,
+      "rankLabel": "Ranking al jugar",
+      "age1": 29.3,
+      "age2": 34.2,
+      "minutes": 123,
+      "format": "Al mejor de 3 sets",
+      "indoor": null
+    },
+    "quality": {
+      "result": "consistent",
+      "tape": "none"
+    }
+  },
+  {
+    "match_id": "archive-173474",
+    "tour": "atp",
+    "tournament": "Australian Open",
+    "surface": "hard",
+    "category": "Grand Slam",
+    "year": 2017,
+    "player1": {
+      "name": "Rafael Nadal",
+      "seed": 9
+    },
+    "player2": {
+      "name": "Roger Federer",
+      "seed": 17
+    },
+    "score_summary": {
+      "sets": [
+        2,
+        3
+      ],
+      "games": [
+        [
+          4,
+          6
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          1,
+          6
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          3,
+          6
+        ]
+      ],
+      "points": [],
+      "server": null,
+      "is_tiebreak": false,
+      "win_probability_p1": null,
+      "timestamp": "2017-01-16T00:00:00Z"
+    },
+    "final_score": "4–6 6–3 1–6 6–3 3–6",
+    "round": "Final",
+    "winner": 2,
+    "status": "Finished",
+    "point_tape": [],
+    "statistics": [
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "Aces",
+        "value": "20",
+        "won": 20,
+        "total": null
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "Double Faults",
+        "value": "3",
+        "won": 3,
+        "total": null
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "1st serve in",
+        "value": "85 / 138",
+        "won": 85,
+        "total": 138
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "1st serve points won",
+        "value": "65 / 85",
+        "won": 65,
+        "total": 85
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "2nd serve points won",
+        "value": "26 / 53",
+        "won": 26,
+        "total": 53
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "Service games played",
+        "value": "22",
+        "won": 22,
+        "total": null
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "Service points played",
+        "value": "138",
+        "won": 138,
+        "total": null
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Breaks",
+        "name": "Break points saved",
+        "value": "13 / 17",
+        "won": 13,
+        "total": 17
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Breaks",
+        "name": "Break points faced",
+        "value": "17",
+        "won": 17,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "Aces",
+        "value": "4",
+        "won": 4,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "Double Faults",
+        "value": "3",
+        "won": 3,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "1st serve in",
+        "value": "110 / 151",
+        "won": 110,
+        "total": 151
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "1st serve points won",
+        "value": "69 / 110",
+        "won": 69,
+        "total": 110
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "2nd serve points won",
+        "value": "23 / 41",
+        "won": 23,
+        "total": 41
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "Service games played",
+        "value": "22",
+        "won": 22,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "Service points played",
+        "value": "151",
+        "won": 151,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Breaks",
+        "name": "Break points saved",
+        "value": "14 / 20",
+        "won": 14,
+        "total": 20
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Breaks",
+        "name": "Break points faced",
+        "value": "20",
+        "won": 20,
+        "total": null
+      }
+    ],
+    "data_source": "api",
+    "coverage": "Estadísticas disponibles",
+    "context": {
+      "date": "2017-01-16",
+      "dateLabel": "Inicio del torneo",
+      "rank1": 9,
+      "rank2": 17,
+      "rankLabel": "Ranking al jugar",
+      "age1": 30.6,
+      "age2": 35.4,
+      "minutes": 217,
+      "format": "Al mejor de 5 sets",
+      "indoor": null,
+      "metadataSources": [
+        {
+          "field": "formato",
+          "url": "https://www.itftennis.com/en/about-us/tennis-tech/science-behind-tennis/rules-and-regulations/"
+        },
+        {
+          "field": "formato",
+          "url": "https://www.wimbledon.com/en_GB/about_wimbledon/rules.html"
+        }
+      ]
+    },
+    "quality": {
+      "result": "consistent",
+      "tape": "none"
+    }
+  },
+  {
+    "match_id": "archive-175885",
+    "tour": "atp",
+    "tournament": "Shanghai",
+    "surface": "hard",
+    "category": "Masters 1000",
+    "year": 2017,
+    "player1": {
+      "name": "Rafael Nadal",
+      "seed": 1
+    },
+    "player2": {
+      "name": "Roger Federer",
+      "seed": 2
+    },
+    "score_summary": {
+      "sets": [
+        0,
+        2
+      ],
+      "games": [
+        [
+          4,
+          6
+        ],
+        [
+          3,
+          6
+        ]
+      ],
+      "points": [],
+      "server": null,
+      "is_tiebreak": false,
+      "win_probability_p1": null,
+      "timestamp": "2017-10-09T00:00:00Z"
+    },
+    "final_score": "4–6 3–6",
+    "round": "Final",
+    "winner": 2,
+    "status": "Finished",
+    "point_tape": [],
+    "statistics": [
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "Aces",
+        "value": "10",
+        "won": 10,
+        "total": null
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "Double Faults",
+        "value": "0",
+        "won": 0,
+        "total": null
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "1st serve in",
+        "value": "30 / 44",
+        "won": 30,
+        "total": 44
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "1st serve points won",
+        "value": "25 / 30",
+        "won": 25,
+        "total": 30
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "2nd serve points won",
+        "value": "11 / 14",
+        "won": 11,
+        "total": 14
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "Service games played",
+        "value": "9",
+        "won": 9,
+        "total": null
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "Service points played",
+        "value": "44",
+        "won": 44,
+        "total": null
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Breaks",
+        "name": "Break points saved",
+        "value": "0 / 0",
+        "won": 0,
+        "total": 0
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Breaks",
+        "name": "Break points faced",
+        "value": "0",
+        "won": 0,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "Aces",
+        "value": "4",
+        "won": 4,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "Double Faults",
+        "value": "0",
+        "won": 0,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "1st serve in",
+        "value": "45 / 61",
+        "won": 45,
+        "total": 61
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "1st serve points won",
+        "value": "28 / 45",
+        "won": 28,
+        "total": 45
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "2nd serve points won",
+        "value": "8 / 16",
+        "won": 8,
+        "total": 16
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "Service games played",
+        "value": "10",
+        "won": 10,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "Service points played",
+        "value": "61",
+        "won": 61,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Breaks",
+        "name": "Break points saved",
+        "value": "4 / 7",
+        "won": 4,
+        "total": 7
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Breaks",
+        "name": "Break points faced",
+        "value": "7",
+        "won": 7,
+        "total": null
+      }
+    ],
+    "data_source": "api",
+    "coverage": "Estadísticas disponibles",
+    "context": {
+      "date": "2017-10-09",
+      "dateLabel": "Inicio del torneo",
+      "rank1": 1,
+      "rank2": 2,
+      "rankLabel": "Ranking al jugar",
+      "age1": 31.3,
+      "age2": 36.1,
+      "minutes": 72,
+      "format": "Al mejor de 3 sets",
+      "indoor": null
+    },
+    "quality": {
+      "result": "consistent",
+      "tape": "none"
+    }
+  },
+  {
+    "match_id": "archive-174136",
+    "tour": "atp",
+    "tournament": "Miami",
+    "surface": "hard",
+    "category": "Masters 1000",
+    "year": 2017,
+    "player1": {
+      "name": "Rafael Nadal",
+      "seed": 5
+    },
+    "player2": {
+      "name": "Roger Federer",
+      "seed": 4
+    },
+    "score_summary": {
+      "sets": [
+        0,
+        2
+      ],
+      "games": [
+        [
+          3,
+          6
+        ],
+        [
+          4,
+          6
+        ]
+      ],
+      "points": [],
+      "server": null,
+      "is_tiebreak": false,
+      "win_probability_p1": null,
+      "timestamp": "2017-03-20T00:00:00Z"
+    },
+    "final_score": "3–6 4–6",
+    "round": "Final",
+    "winner": 2,
+    "status": "Finished",
+    "point_tape": [],
+    "statistics": [
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "Aces",
+        "value": "5",
+        "won": 5,
+        "total": null
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "Double Faults",
+        "value": "1",
+        "won": 1,
+        "total": null
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "1st serve in",
+        "value": "39 / 62",
+        "won": 39,
+        "total": 62
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "1st serve points won",
+        "value": "34 / 39",
+        "won": 34,
+        "total": 39
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "2nd serve points won",
+        "value": "11 / 23",
+        "won": 11,
+        "total": 23
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "Service games played",
+        "value": "10",
+        "won": 10,
+        "total": null
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "Service points played",
+        "value": "62",
+        "won": 62,
+        "total": null
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Breaks",
+        "name": "Break points saved",
+        "value": "4 / 4",
+        "won": 4,
+        "total": 4
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Breaks",
+        "name": "Break points faced",
+        "value": "4",
+        "won": 4,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "Aces",
+        "value": "4",
+        "won": 4,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "Double Faults",
+        "value": "1",
+        "won": 1,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "1st serve in",
+        "value": "41 / 65",
+        "won": 41,
+        "total": 65
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "1st serve points won",
+        "value": "27 / 41",
+        "won": 27,
+        "total": 41
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "2nd serve points won",
+        "value": "12 / 24",
+        "won": 12,
+        "total": 24
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "Service games played",
+        "value": "9",
+        "won": 9,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "Service points played",
+        "value": "65",
+        "won": 65,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Breaks",
+        "name": "Break points saved",
+        "value": "7 / 9",
+        "won": 7,
+        "total": 9
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Breaks",
+        "name": "Break points faced",
+        "value": "9",
+        "won": 9,
+        "total": null
+      }
+    ],
+    "data_source": "api",
+    "coverage": "Estadísticas disponibles",
+    "context": {
+      "date": "2017-03-20",
+      "dateLabel": "Inicio del torneo",
+      "rank1": 7,
+      "rank2": 6,
+      "rankLabel": "Ranking al jugar",
+      "age1": 30.7,
+      "age2": 35.6,
+      "minutes": 94,
+      "format": "Al mejor de 3 sets",
+      "indoor": null
+    },
+    "quality": {
+      "result": "consistent",
+      "tape": "none"
+    }
+  },
+  {
+    "match_id": "archive-174028",
+    "tour": "atp",
+    "tournament": "Indian Wells",
+    "surface": "hard",
+    "category": "Masters 1000",
+    "year": 2017,
+    "player1": {
+      "name": "Rafael Nadal",
+      "seed": 5
+    },
+    "player2": {
+      "name": "Roger Federer",
+      "seed": 9
+    },
+    "score_summary": {
+      "sets": [
+        0,
+        2
+      ],
+      "games": [
+        [
+          2,
+          6
+        ],
+        [
+          3,
+          6
+        ]
+      ],
+      "points": [],
+      "server": null,
+      "is_tiebreak": false,
+      "win_probability_p1": null,
+      "timestamp": "2017-03-06T00:00:00Z"
+    },
+    "final_score": "2–6 3–6",
+    "round": "Octavos de final",
+    "winner": 2,
+    "status": "Finished",
+    "point_tape": [],
+    "statistics": [],
+    "data_source": "api",
+    "coverage": "Solo resultado",
+    "context": {
+      "date": "2017-03-06",
+      "dateLabel": "Inicio del torneo",
+      "rank1": 6,
+      "rank2": 10,
+      "rankLabel": "Ranking al jugar",
+      "age1": 30.7,
+      "age2": 35.5,
+      "minutes": 68,
+      "format": "Al mejor de 3 sets",
+      "indoor": null
+    },
+    "quality": {
+      "result": "consistent",
+      "tape": "none"
+    }
+  },
+  {
+    "match_id": "archive-180644",
+    "tour": "atp",
+    "tournament": "Wimbledon",
+    "surface": "grass",
+    "category": "Grand Slam",
+    "year": 2019,
+    "player1": {
+      "name": "Rafael Nadal",
+      "seed": 3
+    },
+    "player2": {
+      "name": "Roger Federer",
+      "seed": 2
+    },
+    "score_summary": {
+      "sets": [
+        1,
+        3
+      ],
+      "games": [
+        [
+          6,
+          7
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          4,
+          6
+        ]
+      ],
+      "points": [],
+      "server": null,
+      "is_tiebreak": false,
+      "win_probability_p1": null,
+      "timestamp": "2019-07-01T00:00:00Z"
+    },
+    "final_score": "6–7(3) 6–1 3–6 4–6",
+    "round": "Semifinal",
+    "winner": 2,
+    "status": "Finished",
+    "point_tape": [],
+    "statistics": [],
+    "data_source": "api",
+    "coverage": "Solo resultado",
+    "context": {
+      "date": "2019-07-01",
+      "dateLabel": "Inicio del torneo",
+      "rank1": 2,
+      "rank2": 3,
+      "rankLabel": "Ranking al jugar",
+      "age1": 33,
+      "age2": 37.8,
+      "minutes": 182,
+      "format": "Al mejor de 5 sets",
+      "indoor": null,
+      "metadataSources": [
+        {
+          "field": "formato",
+          "url": "https://www.itftennis.com/en/about-us/tennis-tech/science-behind-tennis/rules-and-regulations/"
+        },
+        {
+          "field": "formato",
+          "url": "https://www.wimbledon.com/en_GB/about_wimbledon/rules.html"
+        }
+      ]
+    },
+    "quality": {
+      "result": "consistent",
+      "tape": "none"
+    }
+  },
+  {
+    "match_id": "archive-180347",
+    "tour": "atp",
+    "tournament": "Roland Garros",
+    "surface": "clay",
+    "category": "Grand Slam",
+    "year": 2019,
+    "player1": {
+      "name": "Rafael Nadal",
+      "seed": 2
+    },
+    "player2": {
+      "name": "Roger Federer",
+      "seed": 3
+    },
+    "score_summary": {
+      "sets": [
+        3,
+        0
+      ],
+      "games": [
+        [
+          6,
+          3
+        ],
+        [
+          6,
+          4
+        ],
+        [
+          6,
+          2
+        ]
+      ],
+      "points": [],
+      "server": null,
+      "is_tiebreak": false,
+      "win_probability_p1": null,
+      "timestamp": "2019-05-27T00:00:00Z"
+    },
+    "final_score": "6–3 6–4 6–2",
+    "round": "Semifinal",
+    "winner": 1,
+    "status": "Finished",
+    "point_tape": [],
+    "statistics": [],
+    "data_source": "api",
+    "coverage": "Solo resultado",
+    "context": {
+      "date": "2019-05-27",
+      "dateLabel": "Inicio del torneo",
+      "rank1": 2,
+      "rank2": 3,
+      "rankLabel": "Ranking al jugar",
+      "age1": 32.9,
+      "age2": 37.7,
+      "minutes": 145,
+      "format": "Al mejor de 5 sets",
+      "indoor": null,
+      "metadataSources": [
+        {
+          "field": "formato",
+          "url": "https://www.itftennis.com/en/about-us/tennis-tech/science-behind-tennis/rules-and-regulations/"
+        },
+        {
+          "field": "formato",
+          "url": "https://www.wimbledon.com/en_GB/about_wimbledon/rules.html"
+        }
+      ]
+    },
+    "quality": {
+      "result": "consistent",
+      "tape": "none"
+    }
+  },
+  {
+    "match_id": "archive-142470",
+    "tour": "atp",
+    "tournament": "ATP Finals",
+    "surface": "hard",
+    "category": "ATP Finals",
+    "year": 2006,
+    "player1": {
+      "name": "Rafael Nadal",
+      "seed": null
+    },
+    "player2": {
+      "name": "Roger Federer",
+      "seed": null
+    },
+    "score_summary": {
+      "sets": [
+        0,
+        2
+      ],
+      "games": [
+        [
+          4,
+          6
+        ],
+        [
+          5,
+          7
+        ]
+      ],
+      "points": [],
+      "server": null,
+      "is_tiebreak": false,
+      "win_probability_p1": null,
+      "timestamp": "2006-11-13T00:00:00Z"
+    },
+    "final_score": "4–6 5–7",
+    "round": "Semifinal",
+    "winner": 2,
+    "status": "Finished",
+    "point_tape": [],
+    "statistics": [
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "Aces",
+        "value": "7",
+        "won": 7,
+        "total": null
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "Double Faults",
+        "value": "4",
+        "won": 4,
+        "total": null
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "1st serve in",
+        "value": "37 / 60",
+        "won": 37,
+        "total": 60
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "1st serve points won",
+        "value": "32 / 37",
+        "won": 32,
+        "total": 37
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "2nd serve points won",
+        "value": "10 / 23",
+        "won": 10,
+        "total": 23
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "Service games played",
+        "value": "11",
+        "won": 11,
+        "total": null
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "Service points played",
+        "value": "60",
+        "won": 60,
+        "total": null
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Breaks",
+        "name": "Break points saved",
+        "value": "1 / 2",
+        "won": 1,
+        "total": 2
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Breaks",
+        "name": "Break points faced",
+        "value": "2",
+        "won": 2,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "Aces",
+        "value": "0",
+        "won": 0,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "Double Faults",
+        "value": "2",
+        "won": 2,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "1st serve in",
+        "value": "55 / 80",
+        "won": 55,
+        "total": 80
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "1st serve points won",
+        "value": "33 / 55",
+        "won": 33,
+        "total": 55
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "2nd serve points won",
+        "value": "14 / 25",
+        "won": 14,
+        "total": 25
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "Service games played",
+        "value": "11",
+        "won": 11,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "Service points played",
+        "value": "80",
+        "won": 80,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Breaks",
+        "name": "Break points saved",
+        "value": "8 / 11",
+        "won": 8,
+        "total": 11
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Breaks",
+        "name": "Break points faced",
+        "value": "11",
+        "won": 11,
+        "total": null
+      }
+    ],
+    "data_source": "api",
+    "coverage": "Estadísticas disponibles",
+    "context": {
+      "date": "2006-11-13",
+      "dateLabel": "Inicio del torneo",
+      "rank1": 2,
+      "rank2": 1,
+      "rankLabel": "Ranking al jugar",
+      "age1": 20.4,
+      "age2": 25.2,
+      "minutes": 113,
+      "format": "Al mejor de 3 sets",
+      "indoor": null
+    },
+    "quality": {
+      "result": "consistent",
+      "tape": "none"
+    }
+  },
+  {
+    "match_id": "archive-145635",
+    "tour": "atp",
+    "tournament": "ATP Finals",
+    "surface": "hard",
+    "category": "ATP Finals",
+    "year": 2007,
+    "player1": {
+      "name": "Rafael Nadal",
+      "seed": null
+    },
+    "player2": {
+      "name": "Roger Federer",
+      "seed": null
+    },
+    "score_summary": {
+      "sets": [
+        0,
+        2
+      ],
+      "games": [
+        [
+          4,
+          6
+        ],
+        [
+          1,
+          6
+        ]
+      ],
+      "points": [],
+      "server": null,
+      "is_tiebreak": false,
+      "win_probability_p1": null,
+      "timestamp": "2007-11-12T00:00:00Z"
+    },
+    "final_score": "4–6 1–6",
+    "round": "Semifinal",
+    "winner": 2,
+    "status": "Finished",
+    "point_tape": [],
+    "statistics": [
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "Aces",
+        "value": "11",
+        "won": 11,
+        "total": null
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "Double Faults",
+        "value": "0",
+        "won": 0,
+        "total": null
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "1st serve in",
+        "value": "39 / 48",
+        "won": 39,
+        "total": 48
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "1st serve points won",
+        "value": "32 / 39",
+        "won": 32,
+        "total": 39
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "2nd serve points won",
+        "value": "5 / 9",
+        "won": 5,
+        "total": 9
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "Service games played",
+        "value": "9",
+        "won": 9,
+        "total": null
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "Service points played",
+        "value": "48",
+        "won": 48,
+        "total": null
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Breaks",
+        "name": "Break points saved",
+        "value": "1 / 1",
+        "won": 1,
+        "total": 1
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Breaks",
+        "name": "Break points faced",
+        "value": "1",
+        "won": 1,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "Aces",
+        "value": "1",
+        "won": 1,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "Double Faults",
+        "value": "1",
+        "won": 1,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "1st serve in",
+        "value": "28 / 39",
+        "won": 28,
+        "total": 39
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "1st serve points won",
+        "value": "17 / 28",
+        "won": 17,
+        "total": 28
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "2nd serve points won",
+        "value": "6 / 11",
+        "won": 6,
+        "total": 11
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "Service games played",
+        "value": "8",
+        "won": 8,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "Service points played",
+        "value": "39",
+        "won": 39,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Breaks",
+        "name": "Break points saved",
+        "value": "1 / 4",
+        "won": 1,
+        "total": 4
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Breaks",
+        "name": "Break points faced",
+        "value": "4",
+        "won": 4,
+        "total": null
+      }
+    ],
+    "data_source": "api",
+    "coverage": "Estadísticas disponibles",
+    "context": {
+      "date": "2007-11-12",
+      "dateLabel": "Inicio del torneo",
+      "rank1": 2,
+      "rank2": 1,
+      "rankLabel": "Ranking al jugar",
+      "age1": 21.4,
+      "age2": 26.2,
+      "minutes": 59,
+      "format": "Al mejor de 3 sets",
+      "indoor": null
+    },
+    "quality": {
+      "result": "consistent",
+      "tape": "none"
+    }
+  },
+  {
+    "match_id": "archive-155438",
+    "tour": "atp",
+    "tournament": "ATP Finals",
+    "surface": "hard",
+    "category": "ATP Finals",
+    "year": 2010,
+    "player1": {
+      "name": "Rafael Nadal",
+      "seed": null
+    },
+    "player2": {
+      "name": "Roger Federer",
+      "seed": null
+    },
+    "score_summary": {
+      "sets": [
+        1,
+        2
+      ],
+      "games": [
+        [
+          3,
+          6
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          1,
+          6
+        ]
+      ],
+      "points": [],
+      "server": null,
+      "is_tiebreak": false,
+      "win_probability_p1": null,
+      "timestamp": "2010-11-21T00:00:00Z"
+    },
+    "final_score": "3–6 6–3 1–6",
+    "round": "Final",
+    "winner": 2,
+    "status": "Finished",
+    "point_tape": [],
+    "statistics": [
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "Aces",
+        "value": "7",
+        "won": 7,
+        "total": null
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "Double Faults",
+        "value": "1",
+        "won": 1,
+        "total": null
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "1st serve in",
+        "value": "40 / 64",
+        "won": 40,
+        "total": 64
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "1st serve points won",
+        "value": "37 / 40",
+        "won": 37,
+        "total": 40
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "2nd serve points won",
+        "value": "14 / 24",
+        "won": 14,
+        "total": 24
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "Service games played",
+        "value": "13",
+        "won": 13,
+        "total": null
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "Service points played",
+        "value": "64",
+        "won": 64,
+        "total": null
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Breaks",
+        "name": "Break points saved",
+        "value": "1 / 2",
+        "won": 1,
+        "total": 2
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Breaks",
+        "name": "Break points faced",
+        "value": "2",
+        "won": 2,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "Aces",
+        "value": "1",
+        "won": 1,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "Double Faults",
+        "value": "1",
+        "won": 1,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "1st serve in",
+        "value": "51 / 66",
+        "won": 51,
+        "total": 66
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "1st serve points won",
+        "value": "33 / 51",
+        "won": 33,
+        "total": 51
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "2nd serve points won",
+        "value": "10 / 15",
+        "won": 10,
+        "total": 15
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "Service games played",
+        "value": "12",
+        "won": 12,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "Service points played",
+        "value": "66",
+        "won": 66,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Breaks",
+        "name": "Break points saved",
+        "value": "0 / 3",
+        "won": 0,
+        "total": 3
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Breaks",
+        "name": "Break points faced",
+        "value": "3",
+        "won": 3,
+        "total": null
+      }
+    ],
+    "data_source": "api",
+    "coverage": "Estadísticas disponibles",
+    "context": {
+      "date": "2010-11-21",
+      "dateLabel": "Inicio del torneo",
+      "rank1": 1,
+      "rank2": 2,
+      "rankLabel": "Ranking al jugar",
+      "age1": 24.4,
+      "age2": 29.2,
+      "minutes": 98,
+      "format": "Al mejor de 3 sets",
+      "indoor": null
+    },
+    "quality": {
+      "result": "consistent",
+      "tape": "none"
+    }
+  },
+  {
+    "match_id": "archive-158454",
+    "tour": "atp",
+    "tournament": "ATP Finals",
+    "surface": "hard",
+    "category": "ATP Finals",
+    "year": 2011,
+    "player1": {
+      "name": "Rafael Nadal",
+      "seed": null
+    },
+    "player2": {
+      "name": "Roger Federer",
+      "seed": null
+    },
+    "score_summary": {
+      "sets": [
+        0,
+        2
+      ],
+      "games": [
+        [
+          3,
+          6
+        ],
+        [
+          0,
+          6
+        ]
+      ],
+      "points": [],
+      "server": null,
+      "is_tiebreak": false,
+      "win_probability_p1": null,
+      "timestamp": "2011-11-20T00:00:00Z"
+    },
+    "final_score": "3–6 0–6",
+    "round": "Fase de grupos",
+    "winner": 2,
+    "status": "Finished",
+    "point_tape": [],
+    "statistics": [
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "Aces",
+        "value": "6",
+        "won": 6,
+        "total": null
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "Double Faults",
+        "value": "1",
+        "won": 1,
+        "total": null
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "1st serve in",
+        "value": "27 / 40",
+        "won": 27,
+        "total": 40
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "1st serve points won",
+        "value": "23 / 27",
+        "won": 23,
+        "total": 27
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "2nd serve points won",
+        "value": "9 / 13",
+        "won": 9,
+        "total": 13
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "Service games played",
+        "value": "8",
+        "won": 8,
+        "total": null
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "Service points played",
+        "value": "40",
+        "won": 40,
+        "total": null
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Breaks",
+        "name": "Break points saved",
+        "value": "0 / 0",
+        "won": 0,
+        "total": 0
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Breaks",
+        "name": "Break points faced",
+        "value": "0",
+        "won": 0,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "Aces",
+        "value": "1",
+        "won": 1,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "Double Faults",
+        "value": "0",
+        "won": 0,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "1st serve in",
+        "value": "30 / 41",
+        "won": 30,
+        "total": 41
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "1st serve points won",
+        "value": "14 / 30",
+        "won": 14,
+        "total": 30
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "2nd serve points won",
+        "value": "5 / 11",
+        "won": 5,
+        "total": 11
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "Service games played",
+        "value": "7",
+        "won": 7,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "Service points played",
+        "value": "41",
+        "won": 41,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Breaks",
+        "name": "Break points saved",
+        "value": "2 / 6",
+        "won": 2,
+        "total": 6
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Breaks",
+        "name": "Break points faced",
+        "value": "6",
+        "won": 6,
+        "total": null
+      }
+    ],
+    "data_source": "api",
+    "coverage": "Estadísticas disponibles",
+    "context": {
+      "date": "2011-11-20",
+      "dateLabel": "Inicio del torneo",
+      "rank1": 2,
+      "rank2": 4,
+      "rankLabel": "Ranking al jugar",
+      "age1": 25.4,
+      "age2": 30.2,
+      "minutes": 61,
+      "format": "Al mejor de 3 sets",
+      "indoor": null
+    },
+    "quality": {
+      "result": "consistent",
+      "tape": "none"
+    }
+  },
+  {
+    "match_id": "archive-164418",
+    "tour": "atp",
+    "tournament": "ATP Finals",
+    "surface": "hard",
+    "category": "ATP Finals",
+    "year": 2013,
+    "player1": {
+      "name": "Rafael Nadal",
+      "seed": 1
+    },
+    "player2": {
+      "name": "Roger Federer",
+      "seed": 6
+    },
+    "score_summary": {
+      "sets": [
+        2,
+        0
+      ],
+      "games": [
+        [
+          7,
+          5
+        ],
+        [
+          6,
+          3
+        ]
+      ],
+      "points": [],
+      "server": null,
+      "is_tiebreak": false,
+      "win_probability_p1": null,
+      "timestamp": "2013-11-04T00:00:00Z"
+    },
+    "final_score": "7–5 6–3",
+    "round": "Semifinal",
+    "winner": 1,
+    "status": "Finished",
+    "point_tape": [],
+    "statistics": [
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "Aces",
+        "value": "2",
+        "won": 2,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "Double Faults",
+        "value": "0",
+        "won": 0,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "1st serve in",
+        "value": "43 / 56",
+        "won": 43,
+        "total": 56
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "1st serve points won",
+        "value": "32 / 43",
+        "won": 32,
+        "total": 43
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "2nd serve points won",
+        "value": "9 / 13",
+        "won": 9,
+        "total": 13
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "Service games played",
+        "value": "10",
+        "won": 10,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Service",
+        "name": "Service points played",
+        "value": "56",
+        "won": 56,
+        "total": null
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Breaks",
+        "name": "Break points saved",
+        "value": "3 / 4",
+        "won": 3,
+        "total": 4
+      },
+      {
+        "player": 1,
+        "period": "match",
+        "category": "Breaks",
+        "name": "Break points faced",
+        "value": "4",
+        "won": 4,
+        "total": null
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "Aces",
+        "value": "6",
+        "won": 6,
+        "total": null
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "Double Faults",
+        "value": "1",
+        "won": 1,
+        "total": null
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "1st serve in",
+        "value": "39 / 59",
+        "won": 39,
+        "total": 59
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "1st serve points won",
+        "value": "27 / 39",
+        "won": 27,
+        "total": 39
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "2nd serve points won",
+        "value": "8 / 20",
+        "won": 8,
+        "total": 20
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "Service games played",
+        "value": "11",
+        "won": 11,
+        "total": null
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Service",
+        "name": "Service points played",
+        "value": "59",
+        "won": 59,
+        "total": null
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Breaks",
+        "name": "Break points saved",
+        "value": "0 / 4",
+        "won": 0,
+        "total": 4
+      },
+      {
+        "player": 2,
+        "period": "match",
+        "category": "Breaks",
+        "name": "Break points faced",
+        "value": "4",
+        "won": 4,
+        "total": null
+      }
+    ],
+    "data_source": "api",
+    "coverage": "Estadísticas disponibles",
+    "context": {
+      "date": "2013-11-04",
+      "dateLabel": "Inicio del torneo",
+      "rank1": 1,
+      "rank2": 7,
+      "rankLabel": "Ranking al jugar",
+      "age1": 27.4,
+      "age2": 32.2,
+      "minutes": 80,
+      "format": "Al mejor de 3 sets",
+      "indoor": null
+    },
+    "quality": {
+      "result": "consistent",
+      "tape": "none"
+    }
+  }
+]

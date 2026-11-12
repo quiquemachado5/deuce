@@ -1,0 +1,261 @@
+{
+  "schema": 1,
+  "sources": [
+    {
+      "id": "grampians-err",
+      "url": "https://news.err.ee/1608100684/kontaveit-makes-final-that-will-not-be-played-in-melbourne",
+      "file": "grampians-err.html.gz",
+      "bytes": 123947,
+      "sha256": "cbb1e5d5872afc23640e59a02a4666c49d1677419a7f09ec600bdafb89fe036e",
+      "retrievedAt": "2026-11-12T09:03:01.394Z"
+    },
+    {
+      "id": "ao1977-official",
+      "url": "https://ausopen.com/articles/news/story-australian-opens-many-homes",
+      "file": "ao1977-official.html.gz",
+      "bytes": 169900,
+      "sha256": "403ee0ffd336c99e6b69ddd9bb12141e4499df6da8575e0dcfc56caa962fb4f8",
+      "retrievedAt": "2026-11-12T09:03:01.500Z"
+    },
+    {
+      "id": "grampians-wta",
+      "url": "https://www.wtatennis.com/news/2018376/grampians",
+      "file": "grampians-wta.html.gz",
+      "bytes": 180635,
+      "sha256": "6980851cf74077e40a2bffe311317e25aa4a25632287526640baa5f24e7ab92d",
+      "retrievedAt": "2026-11-12T09:03:01.648Z"
+    },
+    {
+      "id": "scottsdale-espn",
+      "url": "https://a.espncdn.com/tennis/wta/results/index.html",
+      "file": "scottsdale-espn.html.gz",
+      "bytes": 26644,
+      "sha256": "3f57f0708c4cf2cbd991fab042717b55d0c1692498f60c2704be7af8b5532731",
+      "retrievedAt": "2026-11-12T09:03:01.756Z"
+    },
+    {
+      "id": "ao1977-ioc",
+      "url": "https://www.olympics.com/ioc/news/australian-open-era-tennis-champions-winners-singles-men-women",
+      "error": "HTTP 403"
+    },
+    {
+      "id": "scottsdale-wta",
+      "url": "https://wtafiles.wtatennis.com/pdf/publications/WTA24MG_RecordBook.pdf",
+      "file": "scottsdale-wta.pdf.gz",
+      "bytes": 281252,
+      "sha256": "271d1243851c9bfff1e12d945ab67029ec4e05c7cc9c50e2d7d5f65928adc495",
+      "retrievedAt": "2026-11-12T09:03:02.644Z"
+    },
+    {
+      "id": "cup2021-ao",
+      "url": "https://ausopen.com/articles/news/worlds-top-four-players-action-on-day-1-atp-cup",
+      "file": "cup2021-ao.html.gz",
+      "bytes": 66251,
+      "sha256": "5ee5dd2fe0c8c0cc2e8306e6e87300482d846b0d5e7b966398926ab50729dd68",
+      "retrievedAt": "2026-11-12T09:03:03.589Z"
+    },
+    {
+      "id": "cup2020-tennisnet",
+      "url": "https://www.tennisnet.com/en/news/atp-cup-tv-livestream-players-prize-money",
+      "file": "cup2020-tennisnet.html.gz",
+      "bytes": 93317,
+      "sha256": "df125f4f5941d36acea3f7a2d16a638d4be29944d62adcaf8ffeddd9530f4a66",
+      "retrievedAt": "2026-11-12T09:03:03.779Z"
+    },
+    {
+      "id": "cup2020-ta",
+      "url": "https://www.tennis.com.au/nsw/files/2021/08/TNSW-2020-Annual-Report.pdf",
+      "error": "HTTP 404"
+    },
+    {
+      "id": "cup2022-atp",
+      "url": "https://www.atptour.com/-/media/files/rulebook/2022/2022-atp-rulebook_chapter-4_world-championships-21dec.pdf",
+      "error": "HTTP 403"
+    },
+    {
+      "id": "cup2021-tenniscom",
+      "url": "https://www.tennis.com/news/articles/the-2021-atp-cup-draw-is-out-who-s-in-djokovic-and-nadal-s-groups",
+      "file": "cup2021-tenniscom.html.gz",
+      "bytes": 63760,
+      "sha256": "0bbbe8cf6a644d7adc53c01cf7d7f4117c41cde0bc8dd91af619f888403c1f1a",
+      "retrievedAt": "2026-11-12T09:03:04.391Z"
+    },
+    {
+      "id": "cup2022-ptv",
+      "url": "https://ptvnews.ph/sydney-2022-atp-tennis-tournament-brackets-announced/",
+      "file": "cup2022-ptv.html.gz",
+      "bytes": 340795,
+      "sha256": "87cda466b664b0a9f0665fb9ea3b999bb369fb57e694c94f6389d5c84fd5f255",
+      "retrievedAt": "2026-11-12T09:03:05.599Z"
+    },
+    {
+      "id": "ao1977-longwood",
+      "url": "https://longwoodcoveredcourts.com/?page_id=682",
+      "file": "ao1977-longwood.html.gz",
+      "bytes": 20652,
+      "sha256": "5b5dba05252e653135f905affc833f19c94ca3bb7fbdbe53147a9ff78b8d78b9",
+      "retrievedAt": "2026-11-12T09:06:41.979Z"
+    },
+    {
+      "id": "cup2022-ta",
+      "url": "https://www.tennis.com.au/fan-zone/news/2021/12/07/atp-cup-2022-australia-lands-in-tough-group",
+      "error": "HTTP 403"
+    },
+    {
+      "id": "cup2022-rules-mirror",
+      "url": "https://nyc3.digitaloceanspaces.com/sportsarchive-documents/prod/62fea80ab23ca/2022-atp-rulebook_29june.pdf",
+      "file": "cup2022-rules-mirror.pdf.gz",
+      "bytes": 3370718,
+      "sha256": "b7e3cf4a2a2c2c7a3d5dabea498c0d7b7a43d08195cbe259445accbd101f1d0e",
+      "retrievedAt": "2026-11-12T09:06:45.422Z"
+    },
+    {
+      "id": "scottsdale-wta-pdf",
+      "url": "https://wtafiles.wtatennis.com/pdf/publications/WTA24MG_RecordBook.pdf?source=records",
+      "file": "scottsdale-wta-pdf.pdf.gz",
+      "bytes": 281252,
+      "sha256": "271d1243851c9bfff1e12d945ab67029ec4e05c7cc9c50e2d7d5f65928adc495",
+      "retrievedAt": "2026-11-12T09:06:46.403Z"
+    },
+    {
+      "id": "adelaide-2023-official",
+      "url": "https://adelaideinternational.com.au/2022/11/adelaide-set-two-week-festival-tennis-2023/",
+      "error": "Media redirect rejected"
+    },
+    {
+      "id": "adelaide-2023-venue",
+      "url": "https://www.thedriveadelaide.com.au/events/2023-adelaide-international/",
+      "file": "adelaide-2023-venue.html.gz",
+      "bytes": 115757,
+      "sha256": "fee51d49014f775d98ef02e747f0222a6da538053259e3047d69b0e32f8dd36a",
+      "retrievedAt": "2026-11-12T09:11:23.286Z"
+    },
+    {
+      "id": "adelaide2-2023-draw",
+      "url": "https://wtafiles.wtatennis.com/pdf/draws/2023/2014/MDS.pdf",
+      "file": "adelaide2-2023-draw.pdf.gz",
+      "bytes": 313644,
+      "sha256": "6ad3b518ef89e75102fadfad738898d0f420dacad867c9565a9f37f6756c535e",
+      "retrievedAt": "2026-11-12T09:11:24.212Z"
+    },
+    {
+      "id": "adelaide2-2023-withdrawals",
+      "url": "https://www.tennis.com/news/articles/paula-badosa-out-of-adelaide-international-with-thigh-injury",
+      "file": "adelaide2-2023-withdrawals.html.gz",
+      "bytes": 54287,
+      "sha256": "666ed5d33602218c5ab267f9d8fd83208f52f0a2b3fb627f6226c1c9086ac491",
+      "retrievedAt": "2026-11-12T09:11:24.540Z"
+    },
+    {
+      "id": "ao1973-parun-wikipedia",
+      "url": "https://en.wikipedia.org/wiki/1973_Australian_Open_%E2%80%93_Men%27s_singles",
+      "file": "ao1973-parun-wikipedia.html.gz",
+      "bytes": 582039,
+      "sha256": "b4cdb0fd52aff6b66eeeb732c5de19e81e41ba46417d4f353c8a2231b7cd3d92",
+      "retrievedAt": "2026-11-12T09:11:25.133Z"
+    },
+    {
+      "id": "review-206dc9985128",
+      "url": "https://www.tennis.com.au/fan-zone/news/2023/01/08/qualifying-singles-draws-revealed-for-australian-open-2023",
+      "error": "HTTP 403"
+    },
+    {
+      "id": "review-adccd4b11898",
+      "url": "https://nos.nl/artikel/2459309-rus-en-van-rijthoven-sneuvelen-direct-in-kwalificatie-australian-open",
+      "file": "review-adccd4b11898.html.gz",
+      "bytes": 178074,
+      "sha256": "b0c180ba33d5dc232b281ca16fe1f8a084248cf0e545a6c76d913316eb1b1156",
+      "retrievedAt": "2026-11-12T09:18:26.956Z"
+    },
+    {
+      "id": "review-841b513978aa",
+      "url": "https://donald.au/tennis/2023/2023-australian-open-singles.pdf",
+      "file": "review-841b513978aa.pdf.gz",
+      "bytes": 650748,
+      "sha256": "73104c759af3926abfacb201934c44620c549fb3cd24646ba832f97d8cb34a3a",
+      "retrievedAt": "2026-11-12T09:18:29.780Z"
+    },
+    {
+      "id": "review-a4be0fb7c805",
+      "url": "https://en.tennistemple.com/competitions/australian-open/2023/draw-qualifications",
+      "error": "HTTP 403"
+    },
+    {
+      "id": "review-757407aa5fe2",
+      "url": "https://www.usopen.org/amp/en_US/news/articles/2026-08-23/jordyn_hazelitt_and_jack_secord_win_2026_us_open_qualifying_wild_card_challenge.html",
+      "file": "review-757407aa5fe2.html.gz",
+      "bytes": 32515,
+      "sha256": "0419136feaaf7d6c08cbf851a5922d3f909c0cfc8cfd59441831a9dc981b893a",
+      "retrievedAt": "2026-11-12T09:18:30.095Z"
+    },
+    {
+      "id": "review-38cdce77f788",
+      "url": "https://tenniskalamazoo.blogspot.com/2026/08/zheng-among-2026-us-open-main-draw-wild.html",
+      "file": "review-38cdce77f788.html.gz",
+      "bytes": 180634,
+      "sha256": "15fae2bad3227550dcfb0662c15bb9f94de2f76ecbafe7029ce08fd2a69ed846",
+      "retrievedAt": "2026-11-12T09:18:30.715Z"
+    },
+    {
+      "id": "review-fd85e8a8edb2",
+      "url": "https://setlex.co/en/tournaments/rome/2026/women?tab=seeds",
+      "error": "Media redirect rejected"
+    },
+    {
+      "id": "review-95155b679429",
+      "url": "https://www.wtatennis.com/videos/4500194/ostapenko-tops-ruse-in-pietrangeli-rollercoaster-into-rome-third-round",
+      "file": "review-95155b679429.html.gz",
+      "bytes": 190825,
+      "sha256": "4a54cfbcd066f29acb58c75d9fa70ccb92c2da2364b0b9ff56ba7a6af7ff037e",
+      "retrievedAt": "2026-11-12T09:18:31.890Z"
+    },
+    {
+      "id": "review-691475e64173",
+      "url": "https://www.wtatennis.com/news/4499994/amanda-anisimova-pulls-out-of-rome-with-left-wrist-injury",
+      "file": "review-691475e64173.html.gz",
+      "bytes": 192690,
+      "sha256": "ef9471e91d22cc69faf9c912a0926019a26b5ccfc88b2966dfc395a775104bc2",
+      "retrievedAt": "2026-11-12T09:18:32.264Z"
+    },
+    {
+      "id": "review-d23713e4747f",
+      "url": "https://www.adelaideinternational.com.au/2022/11/adelaide-set-two-week-festival-tennis-2023/",
+      "error": "Media redirect rejected"
+    },
+    {
+      "id": "review-a642404e1be0",
+      "url": "https://epub.stripes.com/docs/GSS_GSS_120123/GSS_GSS_120123.pdf",
+      "error": "fetch failed"
+    },
+    {
+      "id": "us1972-wikipedia-de",
+      "url": "https://de.wikipedia.org/wiki/US_Open_1972/Herreneinzel",
+      "file": "us1972-wikipedia-de.html.gz",
+      "bytes": 774789,
+      "sha256": "bce3bfe4b62dcecc6a69bfcf66a6cb12e76d0ecd119fe20375364cd867a48a99",
+      "retrievedAt": "2026-11-12T09:26:51.238Z"
+    },
+    {
+      "id": "us1972-lequipe",
+      "url": "https://www.lequipe.fr/Tennis/us-open/epreuve-simple-messieurs/annee-1972/page-tableau-tournoi",
+      "file": "us1972-lequipe.html.gz",
+      "bytes": 1065124,
+      "sha256": "ff96bd6773ee85bba2d93d576cf0fa2503a01ac91fc664a6b648e881fa7b8d74",
+      "retrievedAt": "2026-11-12T09:26:51.917Z"
+    },
+    {
+      "id": "ao1975-wikipedia",
+      "url": "https://en.wikipedia.org/wiki/1975_Australian_Open_%E2%80%93_Men%27s_singles",
+      "file": "ao1975-wikipedia.html.gz",
+      "bytes": 658715,
+      "sha256": "ded86817c8624292503360a891ce268d8035515656754a62e2980e486da6d577",
+      "retrievedAt": "2026-11-12T09:26:52.962Z"
+    },
+    {
+      "id": "ao1975-ao-legacy",
+      "url": "https://ausopen.com/en_AU/event_guide/history/draws/1975_MS_1.html",
+      "error": "Media redirect rejected",
+      "retrievedAt": "2026-11-12T09:26:53.071Z"
+    }
+  ]
+}

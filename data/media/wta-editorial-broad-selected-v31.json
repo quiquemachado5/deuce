@@ -1,0 +1,1274 @@
+[
+  {
+    "tournament": "Indian Wells",
+    "year": 2018,
+    "tour": "wta",
+    "cms": {
+      "id": 1411646,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Osaka transformed from dangerous floater to title threat at Indian Wells 2018, pummelling a succession of former World No.1s and Slam champions to storm to her maiden trophy.",
+      "description": null,
+      "date": "2019-10-09T10:12:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1570615966919,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 319998,
+          "type": "TENNIS_PLAYER",
+          "sid": "319998"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Getty"
+      },
+      "titleTranslations": null,
+      "lastModified": 1587039655171,
+      "titleUrlSegment": "osaka-transformed-from-dangerous-floater-to-title-threat-at-indian-wells-2018-pummelling-a-succession-of-former-world-no1s-and-slam-champions-to-storm-to-her-maiden-trophy-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/09/ece369f9-6728-4a9e-95be-7f00ecc99db6/LLQvNBkf.jpg",
+      "originalDetails": {
+        "width": 2800,
+        "height": 1520,
+        "aspectRatio": 1.8421053
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/09/8e4272ed-e970-47d1-a082-e75a940c392d/LLQvNBkf.jpg"
+    },
+    "searchUrl": "https://api.wtatennis.com/content/wta/photo/en/1411646"
+  },
+  {
+    "tournament": "Rome",
+    "year": 2014,
+    "tour": "wta",
+    "cms": {
+      "id": 1484377,
+      "accountId": 29,
+      "type": "photo",
+      "title": "2014 saw Serena Williams successfully defend five titles, the most in any season of her career, including a victory over Sara Errani to win a third Rome trophy (Getty)",
+      "description": null,
+      "date": "2019-11-06T11:42:32Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1573040552792,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1573040552379,
+      "titleUrlSegment": "2014-saw-serena-williams-successfully-defend-five-titles-the-most-in-any-season-of-her-career-including-a-victory-over-sara-errani-to-win-a-third-rome-trophy-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/11/06/47c12125-af6c-414d-9d31-eec6068772e7/ddzeNRgQ.jpg",
+      "originalDetails": {
+        "width": 2800,
+        "height": 1520,
+        "aspectRatio": 1.8421053
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/11/06/47c12125-af6c-414d-9d31-eec6068772e7/ddzeNRgQ.jpg"
+    },
+    "searchUrl": "https://api.wtatennis.com/content/wta/photo/en/1484377"
+  },
+  {
+    "tournament": "Cincinnati",
+    "year": 2023,
+    "tour": "wta",
+    "cms": {
+      "id": 3645099,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Two weeks after winning her first title on home soil, Coco Gauff lifted her second at Cincinnati 2023 -- the first WTA 1000 trophy of the 19-year-old's career.",
+      "description": null,
+      "date": "2023-08-21T05:41:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1692596509795,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 1017,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "1017"
+        },
+        {
+          "label": null,
+          "id": 328560,
+          "type": "TENNIS_PLAYER",
+          "sid": "328560"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Jimmie48/WTA"
+      },
+      "titleTranslations": null,
+      "lastModified": 1692596603671,
+      "titleUrlSegment": "gauff-trophy-jimmie",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2023/08/21/c13e98c9-6f68-4e33-b13c-65d7592ad627/Gauff-trophy-Jimmie.jpg",
+      "originalDetails": {
+        "width": 4700,
+        "height": 3273,
+        "aspectRatio": 1.4359914
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2023/08/21/fb418dd7-2cfa-4f84-b886-6c6a87943edc/Gauff-trophy-Jimmie.jpg"
+    },
+    "searchUrl": "https://api.wtatennis.com/content/wta/photo/en/3645099"
+  },
+  {
+    "tournament": "Beijing",
+    "year": 2019,
+    "tour": "wta",
+    "cms": {
+      "id": 1656814,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Osaka ended 2019 in hot form, picking up a first title on home soil in Osaka and following that with the Beijing trophy - ultimately putting together a 14-match winning streak, the longest of her career to date.",
+      "description": null,
+      "date": "2020-04-16T12:14:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1587039282911,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 319998,
+          "type": "TENNIS_PLAYER",
+          "sid": "319998"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Getty"
+      },
+      "titleTranslations": null,
+      "lastModified": 1587039402386,
+      "titleUrlSegment": null,
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2020/04/16/89573811-e920-41f3-994d-4284354f647c/GettyImages-1173947455.jpg",
+      "originalDetails": {
+        "width": 3000,
+        "height": 2000,
+        "aspectRatio": 1.5
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2020/04/16/752be857-61b5-4bb7-a7c2-035b65e9347b/GettyImages-1173947455.jpg"
+    },
+    "searchUrl": "https://api.wtatennis.com/content/wta/photo/en/1656814"
+  },
+  {
+    "tournament": "Madrid",
+    "year": 2014,
+    "tour": "wta",
+    "cms": {
+      "id": 1403084,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Sharapova maintained her dominance in the pair's first final meeting, winning the Madrid trophy 1-6, 6-2, 6-3 in 2014 (Getty)",
+      "description": null,
+      "date": "2019-10-08T16:34:01Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1570552442226,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1570552441776,
+      "titleUrlSegment": "sharapova-maintained-her-dominance-in-the-pairs-first-final-meeting-winning-the-madrid-trophy-1-6-6-2-6-3-in-2014-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/2070d548-7f09-4b33-8980-ca22a500bfbe/FQBdUPTv.jpg",
+      "originalDetails": {
+        "width": 2800,
+        "height": 1520,
+        "aspectRatio": 1.8421053
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/08/2070d548-7f09-4b33-8980-ca22a500bfbe/FQBdUPTv.jpg"
+    },
+    "searchUrl": "https://api.wtatennis.com/content/wta/photo/en/1403084"
+  },
+  {
+    "tournament": "Madrid",
+    "year": 2016,
+    "tour": "wta",
+    "cms": {
+      "id": 1407305,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Having been runner up two years previously, Halep defeated Dominika Cibulkova, 6-2, 6-4, to lift her first Madrid trophy in 2016. (Getty)",
+      "description": null,
+      "date": "2019-10-09T10:00:07Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1570555352236,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1570615207452,
+      "titleUrlSegment": "having-been-runner-up-two-years-previously-halep-defeated-dominika-cibulkova-6-2-6-4-to-lift-her-first-madrid-trophy-in-2016-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/d42ed422-3c87-4536-a021-e57519364e77/hfseCnsA.jpg",
+      "originalDetails": {
+        "width": 2800,
+        "height": 1520,
+        "aspectRatio": 1.8421053
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/08/330fda63-fe2b-4787-a37d-c6dcc87acf64/hfseCnsA.jpg"
+    },
+    "searchUrl": "https://api.wtatennis.com/content/wta/photo/en/1407305"
+  },
+  {
+    "tournament": "Madrid",
+    "year": 2018,
+    "tour": "wta",
+    "cms": {
+      "id": 1666287,
+      "accountId": 29,
+      "type": "photo",
+      "title": "A marathon final saw Petra Kvitova triumph over Kiki Bertens 7-6(6), 4-6, 6-3 after two hours and 52 minutes to seal her fourth title of 2018, and 24th overall - as well as becoming the first player to lift the Madrid trophy three times.",
+      "description": null,
+      "date": "2020-05-08T06:35:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1588919737077,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 1038,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "1038"
+        },
+        {
+          "label": null,
+          "id": 314206,
+          "type": "TENNIS_PLAYER",
+          "sid": "314206"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Jimmie48/WTA"
+      },
+      "titleTranslations": null,
+      "lastModified": 1588940470453,
+      "titleUrlSegment": null,
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2020/05/08/bab82376-8f13-4109-b4ab-a802cf90bda1/Kvitova-F-celebration-J48-.jpg",
+      "originalDetails": {
+        "width": 4445,
+        "height": 3408,
+        "aspectRatio": 1.3042841
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2020/05/08/8cdebc38-2941-4046-8ac7-8c3ec27f4819/Kvitova-F-celebration-J48-.jpg"
+    },
+    "searchUrl": "https://api.wtatennis.com/content/wta/photo/en/1666287"
+  },
+  {
+    "tournament": "Madrid",
+    "year": 2012,
+    "tour": "wta",
+    "cms": {
+      "id": 1405191,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Serena had her name etched on the trophy once more in 2012 as she scored a 6-3, 6-4 victory over rival Maria Sharapova. (Getty)",
+      "description": null,
+      "date": "2019-11-06T11:41:19Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1570553988526,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1573040479055,
+      "titleUrlSegment": "serena-had-her-name-etched-on-the-trophy-once-more-in-2012-as-she-scored-a-6-3-6-4-victory-over-rival-maria-sharapova-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/1a801e89-9c18-4758-960e-24e49423591c/shWZucsc.jpg",
+      "originalDetails": {
+        "width": 2800,
+        "height": 1520,
+        "aspectRatio": 1.8421053
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/08/55a06bdf-4951-44ab-a118-a9cb34c4afdc/shWZucsc.jpg"
+    },
+    "searchUrl": "https://api.wtatennis.com/content/wta/photo/en/1405191"
+  },
+  {
+    "tournament": "Indian Wells",
+    "year": 2011,
+    "tour": "wta",
+    "cms": {
+      "id": 1640625,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Caroline Wozniacki routed Maria Sharapova 6-1, 6-2 in the semifinals and battled past Marion Bartoli 6-1, 2-6, 6-3 in the final to win her 14th career trophy in 2011.",
+      "description": null,
+      "date": "2020-03-08T11:25:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1583666731109,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 313402,
+          "type": "TENNIS_PLAYER",
+          "sid": "313402"
+        },
+        {
+          "label": null,
+          "id": 609,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "609"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Getty"
+      },
+      "titleTranslations": null,
+      "lastModified": 1583672596057,
+      "titleUrlSegment": null,
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2020/03/08/8007524e-b8cf-4a8e-8045-8c539ae2166d/GettyImages-110495382-1-.jpg",
+      "originalDetails": {
+        "width": 2760,
+        "height": 1932,
+        "aspectRatio": 1.4285715
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2020/03/08/44e0aa90-81dc-41b1-9d56-f44d7ad2bfda/GettyImages-110495382-1-.jpg"
+    },
+    "searchUrl": "https://api.wtatennis.com/content/wta/photo/en/1640625"
+  },
+  {
+    "tournament": "Canada",
+    "year": 2017,
+    "tour": "wta",
+    "cms": {
+      "id": 1409412,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Svitolina was at her best in routing Halep 6-1, 6-1 in the semifinals of Toronto 2017 en route to lifting her fifth trophy of the year (Getty)",
+      "description": null,
+      "date": "2019-11-06T12:21:03Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1570614664921,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1573042863740,
+      "titleUrlSegment": "svitolina-was-at-her-best-in-routing-halep-6-1-6-1-in-the-semifinals-of-toronto-2017-en-route-to-lifting-her-fifth-trophy-of-the-year-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/09/e6327eb2-0a4b-4641-8e27-5010d6d02c4f/CUwfrLXu.jpg",
+      "originalDetails": {
+        "width": 2800,
+        "height": 1520,
+        "aspectRatio": 1.8421053
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/09/96742366-cd03-4d8e-8ec6-8b621ba9ac7e/CUwfrLXu.jpg"
+    },
+    "searchUrl": "https://api.wtatennis.com/content/wta/photo/en/1409412"
+  },
+  {
+    "tournament": "Canada",
+    "year": 2023,
+    "tour": "wta",
+    "cms": {
+      "id": 4060957,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Jessica Pegula, 2023 Montreal trophy (Getty)",
+      "description": null,
+      "date": "2024-07-18T02:40:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1721270457748,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": {
+        "credit": "Minas Panagiotakis/Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1721285419967,
+      "titleUrlSegment": "gettyimages-1597105584",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2024/07/18/c42c1306-c2b2-4182-b39f-c0220ac181d7/GettyImages-1597105584.jpg",
+      "originalDetails": {
+        "width": 3000,
+        "height": 2000,
+        "aspectRatio": 1.5
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2024/07/18/d9810234-56b9-42ad-a12d-6db21c8fc326/GettyImages-1597105584.jpg"
+    },
+    "searchUrl": "https://api.wtatennis.com/content/wta/photo/en/4060957"
+  },
+  {
+    "tournament": "Canada",
+    "year": 2012,
+    "tour": "wta",
+    "cms": {
+      "id": 1405117,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Kvitova won a topsy-turvy semifinal in Montreal in 2012, 3-6, 6-2, 6-3 (Getty)",
+      "description": null,
+      "date": "2019-10-08T16:59:00Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1570553940674,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1570553940152,
+      "titleUrlSegment": "kvitova-won-a-topsy-turvy-semifinal-in-montreal-in-2012-3-6-6-2-6-3-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/f7bc191c-f354-427b-8046-9dc8c7e59f8d/nOghXkLA.jpg",
+      "originalDetails": {
+        "width": 2800,
+        "height": 1520,
+        "aspectRatio": 1.8421053
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/08/f7bc191c-f354-427b-8046-9dc8c7e59f8d/nOghXkLA.jpg"
+    },
+    "searchUrl": "https://api.wtatennis.com/content/wta/photo/en/1405117"
+  },
+  {
+    "tournament": "Canada",
+    "year": 2016,
+    "tour": "wta",
+    "cms": {
+      "id": 1407180,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Halep dispatched Pliskova 6-3, 6-3 in the third round of Montr\u00e9al 2016 on her way to lifting the trophy (Getty)",
+      "description": null,
+      "date": "2019-11-06T12:21:09Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1570555275519,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1573042869373,
+      "titleUrlSegment": "halep-dispatched-pliskova-6-3-6-3-in-the-third-round-of-montreal-2016-on-her-way-to-lifting-the-trophy-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/01cf047d-6c94-455d-8e7a-32b3ce921a3a/BzXJkQKt.jpg",
+      "originalDetails": {
+        "width": 2800,
+        "height": 1520,
+        "aspectRatio": 1.8421053
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/08/550bea20-9381-4a63-9e05-3a6197ffbf63/BzXJkQKt.jpg"
+    },
+    "searchUrl": "https://api.wtatennis.com/content/wta/photo/en/1407180"
+  },
+  {
+    "tournament": "Cincinnati",
+    "year": 2015,
+    "tour": "wta",
+    "cms": {
+      "id": 1484372,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Serena Williams is the only player to have won back-to-back Cincinnati titles since the 1970s, having defeated Simona Halep to claim the 2015 trophy (Getty)",
+      "description": null,
+      "date": "2019-11-06T11:42:29Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1573040550051,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1573040549666,
+      "titleUrlSegment": "serena-williams-is-the-only-player-to-have-won-back-to-back-cincinnati-titles-since-the-1970s-having-defeated-simona-halep-to-claim-the-2015-trophy-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/11/06/0d8f3ea7-926a-487a-b535-642b07223518/augGeAyh.jpg",
+      "originalDetails": {
+        "width": 2800,
+        "height": 1520,
+        "aspectRatio": 1.8421053
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/11/06/0d8f3ea7-926a-487a-b535-642b07223518/augGeAyh.jpg"
+    },
+    "searchUrl": "https://api.wtatennis.com/content/wta/photo/en/1484372"
+  },
+  {
+    "tournament": "Cincinnati",
+    "year": 2016,
+    "tour": "wta",
+    "cms": {
+      "id": 1658564,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Successive wins over Svetlana Kuznetsova, Garbi\u00f1e Muguruza and Angelique Kerber helped her to score her first Premier tournament title in Cincinnati in August 2016, her sixth WTA Tour trophy.",
+      "description": null,
+      "date": "2020-04-21T06:36:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1587451009574,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": {
+        "credit": "Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1587451425653,
+      "titleUrlSegment": null,
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2020/04/21/1feb94de-56f4-48cd-b717-b78e25389cd2/GettyImages-618416806.jpg",
+      "originalDetails": {
+        "width": 2291,
+        "height": 1527,
+        "aspectRatio": 1.5003275
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2020/04/21/7894f836-88b0-4faf-a11e-a65089cba1f9/GettyImages-618416806.jpg"
+    },
+    "searchUrl": "https://api.wtatennis.com/content/wta/photo/en/1658564"
+  },
+  {
+    "tournament": "Beijing",
+    "year": 2023,
+    "tour": "wta",
+    "cms": {
+      "id": 3729688,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Iga Swiatek Beijing 2023 Trophy",
+      "description": null,
+      "date": "2023-10-08T14:00:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1696773642057,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": {
+        "credit": "China Open / VCG"
+      },
+      "titleTranslations": null,
+      "lastModified": 1696773680925,
+      "titleUrlSegment": "vcg111458332693",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2023/10/08/eaa482f5-3ce3-432e-8818-3e414fd2d03e/VCG111458332693.jpg",
+      "originalDetails": {
+        "width": 4000,
+        "height": 2665,
+        "aspectRatio": 1.500938
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2023/10/08/6da3b7a2-f957-4fb9-b7e1-7fe48e9c3a3c/VCG111458332693.jpg"
+    },
+    "searchUrl": "https://api.wtatennis.com/content/wta/photo/en/3729688"
+  },
+  {
+    "tournament": "Cincinnati",
+    "year": 2012,
+    "tour": "wta",
+    "cms": {
+      "id": 1409233,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Li Na lifted the trophy in 2012, beating Angelique Kerber, 1-6, 6-3, 6-1.",
+      "description": null,
+      "date": "2019-10-09T09:49:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1570614559896,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": {
+        "credit": "Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1595194245363,
+      "titleUrlSegment": "li-na-lifted-the-trophy-in-2012-beating-angelique-kerber-1-6-6-3-6-1-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/09/59bc3fff-88f5-4c94-b6d9-48df7ed9fbd2/jSfvOccO.jpg",
+      "originalDetails": {
+        "width": 2800,
+        "height": 1520,
+        "aspectRatio": 1.8421053
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/09/de81aad1-d37b-443e-9352-773725b58701/jSfvOccO.jpg"
+    },
+    "searchUrl": "https://api.wtatennis.com/content/wta/photo/en/1409233"
+  },
+  {
+    "tournament": "Canada",
+    "year": 2010,
+    "tour": "wta",
+    "cms": {
+      "id": 1405217,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Wozniacki is all smiles as she picks up the Canadian Open trophy in 2010 after beating Vera Zvonareva 6-3, 6-2 (Getty)",
+      "description": null,
+      "date": "2019-10-08T17:00:05Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1570554006287,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1570554005770,
+      "titleUrlSegment": "wozniacki-is-all-smiles-as-she-picks-up-the-canadian-open-trophy-in-2010-after-beating-vera-zvonareva-6-3-6-2-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/704ac20c-e1a7-41c9-a399-befe9e0cbe14/XoqSaTaM.jpg",
+      "originalDetails": {
+        "width": 2800,
+        "height": 1520,
+        "aspectRatio": 1.8421053
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/08/704ac20c-e1a7-41c9-a399-befe9e0cbe14/XoqSaTaM.jpg"
+    },
+    "searchUrl": "https://api.wtatennis.com/content/wta/photo/en/1405217"
+  },
+  {
+    "tournament": "Dubai",
+    "year": 2018,
+    "tour": "wta",
+    "cms": {
+      "id": 1484363,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Elina Svitolina is the only player to have successfully defended multiple titles since 2015, having won a second Dubai trophy in 2018 over Daria Kasatkina in the final (Getty)",
+      "description": null,
+      "date": "2019-11-06T11:42:24Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1573040544979,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1573040544599,
+      "titleUrlSegment": "elina-svitolina-is-the-only-player-to-have-successfully-defended-multiple-titles-since-2015-having-won-a-second-dubai-trophy-in-2018-over-daria-kasatkina-in-the-final-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/11/06/53abe14e-295a-4e6f-b54a-9b26f05bd942/ZANSHuoW.jpg",
+      "originalDetails": {
+        "width": 2800,
+        "height": 1520,
+        "aspectRatio": 1.8421053
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/11/06/53abe14e-295a-4e6f-b54a-9b26f05bd942/ZANSHuoW.jpg"
+    },
+    "searchUrl": "https://api.wtatennis.com/content/wta/photo/en/1484363"
+  },
+  {
+    "tournament": "Doha",
+    "year": 2018,
+    "tour": "wta",
+    "cms": {
+      "id": 3236732,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Kvitova - 2018 Doha",
+      "description": "Singles champion Petra Kvitova holds the WTA 1000 Doha trophy in 2018.",
+      "date": "2023-04-26T16:53:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1682528015047,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 1003,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "1003"
+        },
+        {
+          "label": null,
+          "id": 314206,
+          "type": "TENNIS_PLAYER",
+          "sid": "314206"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Jimmie48/WTA"
+      },
+      "titleTranslations": null,
+      "lastModified": 1682528165906,
+      "titleUrlSegment": "dsc_6107",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": "Singles champion Petra Kvitova holds the WTA 1000 Doha trophy in 2018.",
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2023/04/26/2fe676fb-004f-4413-84cd-cde8cd17cd81/DSC_6107.jpg",
+      "originalDetails": {
+        "width": 4343,
+        "height": 3177,
+        "aspectRatio": 1.3670129
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2023/04/26/ee78e34a-55f9-4858-9a41-94fcf28ced0e/DSC_6107.jpg"
+    },
+    "searchUrl": "https://api.wtatennis.com/content/wta/photo/en/3236732"
+  },
+  {
+    "tournament": "Miami",
+    "year": 2012,
+    "tour": "wta",
+    "cms": {
+      "id": 1404738,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Radwanska smiles in the bubbles as the 2012 Miami Open champion (Getty)",
+      "description": null,
+      "date": "2019-10-08T16:54:54Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1570553694748,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1570553694121,
+      "titleUrlSegment": "radwanska-smiles-in-the-bubbles-as-the-2012-miami-open-champion-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/46ff7338-1ef3-4c1e-af4e-f667d13001d0/giIjJEkc.jpg",
+      "originalDetails": {
+        "width": 2800,
+        "height": 1520,
+        "aspectRatio": 1.8421053
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/08/46ff7338-1ef3-4c1e-af4e-f667d13001d0/giIjJEkc.jpg"
+    },
+    "searchUrl": "https://api.wtatennis.com/content/wta/photo/en/1404738"
+  },
+  {
+    "tournament": "Miami",
+    "year": 2015,
+    "tour": "wta",
+    "cms": {
+      "id": 1410888,
+      "accountId": 29,
+      "type": "photo",
+      "title": "A record eighth Miami crown for Serena Williams followed in 2015, as the two-time defending champion swept past Carla Su\u00e1rez Navarro in the final, 6\u20132, 6\u20130.",
+      "description": null,
+      "date": "2019-10-09T10:05:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1570615538322,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 230234,
+          "type": "TENNIS_PLAYER",
+          "sid": "230234"
+        },
+        {
+          "label": null,
+          "id": 902,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "902"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1616447577593,
+      "titleUrlSegment": "a-record-eighth-crown-for-serena-followed-in-2015-as-she-swept-past-carla-suarez-navarro-in-the-final-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2021/03/22/99c6a77f-5f81-4497-924c-88395398d1b7/rvroxbJg.jpg",
+      "originalDetails": {
+        "width": 2610,
+        "height": 1663,
+        "aspectRatio": 1.5694528
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2021/03/22/d64b6982-f8c0-4885-94d2-7fd2c12bd71f/rvroxbJg.jpg"
+    },
+    "searchUrl": "https://api.wtatennis.com/content/wta/photo/en/1410888"
+  },
+  {
+    "tournament": "Miami",
+    "year": 2011,
+    "tour": "wta",
+    "cms": {
+      "id": 1410884,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Victoria Azarenka became a two-time Miami champion in 2011, defeating Maria Sharapova, 6-1, 6-4, in the final. Azarenka won the event two years prior, defeating Serena Williams in the 2009 final.",
+      "description": null,
+      "date": "2019-10-09T10:05:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1570615535401,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 312001,
+          "type": "TENNIS_PLAYER",
+          "sid": "312001"
+        },
+        {
+          "label": null,
+          "id": 902,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "902"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1616446007040,
+      "titleUrlSegment": "azarenka-became-a-two-time-winner-in-2011-defeating-maria-sharapova-6-1-6-4-in-the-final-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2021/03/22/51315f17-b96f-4424-92af-754eff245ae9/YgEWDIIn.jpg",
+      "originalDetails": {
+        "width": 3703,
+        "height": 2469,
+        "aspectRatio": 1.4997975
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2021/03/22/30363417-f548-4393-96e0-8b46aea81741/YgEWDIIn.jpg"
+    },
+    "searchUrl": "https://api.wtatennis.com/content/wta/photo/en/1410884"
+  },
+  {
+    "tournament": "Rome",
+    "year": 2021,
+    "tour": "wta",
+    "cms": {
+      "id": 2145047,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Iga Swiatek, Rome 2021, Champion",
+      "description": "Photo by Jimmie48/WTA",
+      "date": "2021-05-16T14:14:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1621174479482,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 326408,
+          "type": "TENNIS_PLAYER",
+          "sid": "326408"
+        },
+        {
+          "label": null,
+          "id": 709,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "709"
+        }
+      ],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1621174996363,
+      "titleUrlSegment": "iga_swiatek_-_2021_internazionali_bnl_d_italia_day_6_-dsc_9103_original",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2021/05/16/5ddd3282-3e12-40ed-af6d-64bd8d94626e/Iga_Swiatek_-_2021_Internazionali_BNL_d_Italia_Day_6_-DSC_9103_original.jpg",
+      "originalDetails": {
+        "width": 2825,
+        "height": 1776,
+        "aspectRatio": 1.5906532
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2021/05/16/9980546b-5b0d-491d-9c49-d5bcd9791f79/Iga_Swiatek_-_2021_Internazionali_BNL_d_Italia_Day_6_-DSC_9103_original.jpg"
+    },
+    "searchUrl": "https://api.wtatennis.com/content/wta/photo/en/2145047"
+  },
+  {
+    "tournament": "Madrid",
+    "year": 2017,
+    "tour": "wta",
+    "cms": {
+      "id": 1403625,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Finally after two hours and 44 minutes Halep became the 2017 Mutua Madrid Open champion. (\u00a9Getty Images)",
+      "description": null,
+      "date": "2019-10-08T16:40:55Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1570552856213,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1570552855717,
+      "titleUrlSegment": "finally-after-two-hours-and-44-minutes-halep-became-the-2017-mutua-madrid-open-champion-getty-images",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/fc39edad-d51d-450e-8dbb-fc48eae91365/kKDHVvha.jpg",
+      "originalDetails": {
+        "width": 2800,
+        "height": 1520,
+        "aspectRatio": 1.8421053
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/08/fc39edad-d51d-450e-8dbb-fc48eae91365/kKDHVvha.jpg"
+    },
+    "searchUrl": "https://api.wtatennis.com/content/wta/photo/en/1403625"
+  },
+  {
+    "tournament": "Canada",
+    "year": 2019,
+    "tour": "wta",
+    "cms": {
+      "id": 2218743,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Bianca Andreescu won the title in 2019, becoming the first Canadian champion since 1969 after Serena Williams retired from their final.",
+      "description": null,
+      "date": "2021-08-14T20:27:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1628972826154,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 325088,
+          "type": "TENNIS_PLAYER",
+          "sid": "325088"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "WTA/Jimmie48"
+      },
+      "titleTranslations": null,
+      "lastModified": 1629138228280,
+      "titleUrlSegment": "bianca_andreescu_-_2019_rogers_cup_-dsc_2808_original",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2021/08/14/6e6bec85-0c48-48f7-a7f4-50e2c4597b56/Bianca_Andreescu_-_2019_Rogers_Cup_-DSC_2808_original.jpg",
+      "originalDetails": {
+        "width": 2840,
+        "height": 1986,
+        "aspectRatio": 1.4300101
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2021/08/14/41865499-298d-4ec8-ba3a-b6183af78c92/Bianca_Andreescu_-_2019_Rogers_Cup_-DSC_2808_original.jpg"
+    },
+    "searchUrl": "https://api.wtatennis.com/content/wta/photo/en/2218743"
+  }
+]

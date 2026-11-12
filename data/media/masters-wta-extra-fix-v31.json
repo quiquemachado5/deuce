@@ -1,0 +1,29 @@
+[
+  {
+    "tournament": "Indian Wells",
+    "year": 2017,
+    "tours": [
+      "wta"
+    ],
+    "photo": {
+      "src": "/media/editions-v31/masters-wta-official/indian-wells-2017-wta-db9e4a06bb.webp",
+      "alt": "Indian Wells 2017 · cuadro femenino",
+      "credit": "WTA / Getty Images · derechos de terceros; autorización no acreditada",
+      "source": "https://www.wtatennis.com/photos/1422062/svetlana-kuznetsova-congratulates-elena-vesnina-after-losing-to-her-compatriot-in-the-2017-indian-wells-final-getty",
+      "photoYear": 2017,
+      "objectPosition": "50% 45%",
+      "auditStatus": "candidate",
+      "rightsKnown": false
+    },
+    "sourceImage": "https://photoresources.wtatennis.com/photo-resources/2019/10/10/d373942c-26c1-4051-a9d1-5ee3e66209f5/EcCNGYIS.jpg",
+    "sourceTitle": "Svetlana Kuznetsova congratulates Elena Vesnina after losing to her compatriot in the 2017 Indian Wells final (Getty)",
+    "sourceExcerpt": "Svetlana Kuznetsova congratulates Elena Vesnina after losing to her compatriot in the 2017 Indian Wells final (Getty)",
+    "sourceSha256": "db9e4a06bbc71fd4fda2fecb54d0a469c574fe5786b1b5e326d81983339d4db6",
+    "width": 1600,
+    "height": 869,
+    "bytes": 111668,
+    "cmsPhotoId": 1422062,
+    "candidateIndex": 0,
+    "reviewNotes": "Official WTA editorial caption; manual visual review pending."
+  }
+]

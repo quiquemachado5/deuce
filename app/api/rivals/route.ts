@@ -1,3 +1,4 @@
+import { DATASET_CACHE_CONTROL } from '@/lib/http-cache';
 import { generationMetadata } from '@/lib/revista/generation';
 import { playerIdentity, rivalryPair } from "@/lib/explore";
 import { preparedCompactSelection, preparedMatchBrowserIndex } from '@/lib/revista/read-records';
@@ -23,7 +24,7 @@ export async function GET(request: Request) {
     const pair = selectedPlayer&&selectedOpponent?rivalryPair(matches, [selectedPlayer, selectedOpponent], tour):null;
     return Response.json(
       { pair, ...generationMetadata(data) },
-      { headers: { "Cache-Control": "public, s-maxage=300, stale-while-revalidate=3600", "X-DEUCE-Dataset-Version": data.manifest.version, "X-RateLimit-Remaining": String(budget.remaining) } },
+      { headers: { "Cache-Control": DATASET_CACHE_CONTROL, "X-DEUCE-Dataset-Version": data.manifest.version, "X-RateLimit-Remaining": String(budget.remaining) } },
     );
   }
   const matches=selectedPlayer?await preparedCompactSelection({tour,players:[selectedPlayer]}):[];
@@ -37,7 +38,7 @@ export async function GET(request: Request) {
     { names, ...generationMetadata(data) },
     {
       headers: {
-        "Cache-Control": "public, s-maxage=300, stale-while-revalidate=3600",
+        "Cache-Control": DATASET_CACHE_CONTROL,
         "X-DEUCE-Dataset-Version": data.manifest.version,
         "X-RateLimit-Remaining": String(budget.remaining),
       },

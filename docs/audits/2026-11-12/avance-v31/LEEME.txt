@@ -1,0 +1,11 @@
+INFORME ACTIVO · SOLO PENDIENTES
+
+Consultar pendientes.csv o informe-actual.json. Los listados completos anteriores se conservan como historial, no como tareas pendientes.
+
+Generación actual: 0cbdd15169d1bc6f3538
+152.191 resultados: 148.302 terminados y 3.889 retiradas.
+Las retiradas cuentan en resultados y en estadísticas observadas. Solo se agregan sets cerrados; los walkovers no se cuentan como partidos jugados.
+Verificación de datos, tipos y regresiones de retirada aprobadas. Investigación: 55 controles, cero errores bloqueantes; 154 selecciones calculadas y 46 bloqueadas por evidencia.
+
+Quedan 88 puntos de auditoría parciales/pendientes y 24 ideas sin cálculo completo en ambos circuitos. No se certifican como resueltos mediante esta actualización.
+Todo en local, sin commit, push o despliegue.

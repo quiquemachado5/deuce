@@ -1,0 +1,5678 @@
+[
+  {
+    "tournament": "Beijing",
+    "year": 2014,
+    "tour": "wta",
+    "cms": {
+      "id": 1403944,
+      "accountId": 29,
+      "type": "photo",
+      "title": "But she won eight of her last nine matches of 2014, the semis in Beijing and a title in Osaka.",
+      "description": null,
+      "date": "2019-10-08T16:44:17Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1570553058024,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1570553057553,
+      "titleUrlSegment": "but-she-won-eight-of-her-last-nine-matches-of-2014-the-semis-in-beijing-and-a-title-in-osaka",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/612a0272-d8ad-4049-8897-6150117dea4e/arsmUHee.jpg",
+      "originalDetails": {
+        "width": 2800,
+        "height": 1520,
+        "aspectRatio": 1.8421053
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/08/612a0272-d8ad-4049-8897-6150117dea4e/arsmUHee.jpg"
+    }
+  },
+  {
+    "tournament": "Beijing",
+    "year": 2018,
+    "tour": "wta",
+    "cms": {
+      "id": 1438859,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Naomi Osaka - Beijing 2018 - Jimmie48/WTA",
+      "description": null,
+      "date": null,
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1539001800000,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1538991900000,
+      "titleUrlSegment": "naomi-osaka-beijing-2018-jimmie48wta",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/11/e6fdd99e-e9b6-493f-93ee-850594192949/YKzEXLVw.jpg",
+      "originalDetails": {
+        "width": 4446,
+        "height": 3152,
+        "aspectRatio": 1.410533
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/11/a7567049-d6f3-442c-ae90-c58d223f1d03/YKzEXLVw.jpg"
+    }
+  },
+  {
+    "tournament": "Beijing",
+    "year": 2019,
+    "tour": "wta",
+    "cms": {
+      "id": 1507506,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Naomi Osaka, Bianca Andreescu, Beijing 2019 (Jimmie48/WTA)",
+      "description": null,
+      "date": "2019-11-29T13:41:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1575034869897,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 319998,
+          "type": "TENNIS_PLAYER",
+          "sid": "319998"
+        },
+        {
+          "label": null,
+          "id": 1020,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "1020"
+        },
+        {
+          "label": null,
+          "id": 325088,
+          "type": "TENNIS_PLAYER",
+          "sid": "325088"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Jimmie48/WTA"
+      },
+      "titleTranslations": null,
+      "lastModified": 1575034977592,
+      "titleUrlSegment": "naomi-osaka-bianca-andreescu-beijing-2019-jimmie48wta",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/11/29/30b51fca-c893-4f66-9a8f-defd9ec496dd/Naomi_Osaka_Bianca_Andreescu_-_2019_China_Open_-DSC_9735_original.jpg",
+      "originalDetails": {
+        "width": 4458,
+        "height": 3014,
+        "aspectRatio": 1.4790975
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/11/29/dd408e42-982e-4c69-afcf-ff50e6123e5e/Naomi_Osaka_Bianca_Andreescu_-_2019_China_Open_-DSC_9735_original.jpg"
+    }
+  },
+  {
+    "tournament": "Beijing",
+    "year": 2023,
+    "tour": "wta",
+    "cms": {
+      "id": 3729688,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Iga Swiatek Beijing 2023 Trophy",
+      "description": null,
+      "date": "2023-10-08T14:00:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1696773642057,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": {
+        "credit": "China Open / VCG"
+      },
+      "titleTranslations": null,
+      "lastModified": 1696773680925,
+      "titleUrlSegment": "vcg111458332693",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2023/10/08/eaa482f5-3ce3-432e-8818-3e414fd2d03e/VCG111458332693.jpg",
+      "originalDetails": {
+        "width": 4000,
+        "height": 2665,
+        "aspectRatio": 1.500938
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2023/10/08/6da3b7a2-f957-4fb9-b7e1-7fe48e9c3a3c/VCG111458332693.jpg"
+    }
+  },
+  {
+    "tournament": "Beijing",
+    "year": 2024,
+    "tour": "wta",
+    "cms": {
+      "id": 4143492,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Coco Gauff Beijing 2024",
+      "description": null,
+      "date": "2024-10-06T13:05:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1728219958478,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": {
+        "credit": "Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1728228109266,
+      "titleUrlSegment": "gettyimages-2176174466",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2024/10/06/eab807a7-8f53-48cf-b278-48bb56a78d1e/GettyImages-2176174466.jpg",
+      "originalDetails": {
+        "width": 5888,
+        "height": 3928,
+        "aspectRatio": 1.4989817
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2024/10/06/73013855-45e6-4968-a830-5fd225a83523/GettyImages-2176174466.jpg"
+    }
+  },
+  {
+    "tournament": "Beijing",
+    "year": 2025,
+    "tour": "wta",
+    "cms": {
+      "id": 4370414,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Iga Swiatek, Beijing 2025",
+      "description": null,
+      "date": "2025-09-27T06:28:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1758954519733,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 326408,
+          "type": "TENNIS_PLAYER",
+          "sid": "326408"
+        },
+        {
+          "label": null,
+          "id": 1020,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "1020"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Greg Baker/AFP via Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1758955009455,
+      "titleUrlSegment": "swiatek-r2-greg-baker-afp",
+      "visibilityOrder": [],
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2025/09/27/527db026-be01-412c-9315-fd4952bab2e5/Swiatek-R2-Greg-Baker-AFP.jpg",
+      "originalDetails": {
+        "width": 5195,
+        "height": 3462,
+        "aspectRatio": 1.5005777
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2025/09/27/5a1ccace-b38a-4465-b700-f3565b703772/Swiatek-R2-Greg-Baker-AFP.jpg"
+    }
+  },
+  {
+    "tournament": "Beijing",
+    "year": 2026,
+    "tour": "wta",
+    "cms": {
+      "id": 4586999,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Coco Gauff, Beijing 2026",
+      "description": null,
+      "date": "2026-10-05T15:36:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1791214594475,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 328560,
+          "type": "TENNIS_PLAYER",
+          "sid": "328560"
+        },
+        {
+          "label": null,
+          "id": 1020,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "1020"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Fred Lee/Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1791214627674,
+      "titleUrlSegment": "gettyimages-2298128962",
+      "visibilityOrder": [],
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2026/10/05/00e04da6-3bbf-4062-b13c-1ed69efff776/GettyImages-2298128962.jpg",
+      "originalDetails": {
+        "width": 7136,
+        "height": 4760,
+        "aspectRatio": 1.4991597
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2026/10/05/9cdc04a0-5e39-4918-beed-c6ca6cab55bc/GettyImages-2298128962.jpg"
+    }
+  },
+  {
+    "tournament": "Canada",
+    "year": 2015,
+    "tour": "wta",
+    "cms": {
+      "id": 2736822,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Serena Williiams Belinda Bencic Toronto 2015",
+      "description": null,
+      "date": "2022-08-09T22:52:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1660085548772,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": {
+        "credit": "Getty Images/Vaughn Ridley"
+      },
+      "titleTranslations": null,
+      "lastModified": 1660085801774,
+      "titleUrlSegment": "gettyimages-484172644",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2022/08/09/3e6484df-8148-4dfa-af81-f546933da8de/GettyImages-484172644.jpg",
+      "originalDetails": {
+        "width": 2484,
+        "height": 1772,
+        "aspectRatio": 1.4018059
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2022/08/09/106810e1-052a-49df-b35b-6d8002055ddf/GettyImages-484172644.jpg"
+    }
+  },
+  {
+    "tournament": "Canada",
+    "year": 2016,
+    "tour": "wta",
+    "cms": {
+      "id": 1409146,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Halep holds a 4-3 advantage in the career head-to-head thanks to her 3-6, 6-1, 6-1 win in Montreal back in 2016. (Getty)",
+      "description": null,
+      "date": "2019-10-09T09:48:26Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1570614507043,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1570614506555,
+      "titleUrlSegment": "halep-holds-a-4-3-advantage-in-the-career-head-to-head-thanks-to-her-3-6-6-1-6-1-win-in-montreal-back-in-2016-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/09/776ead19-7ae8-4d10-a3cc-6ed2a80640f0/lpRfABVJ.jpg",
+      "originalDetails": {
+        "width": 2800,
+        "height": 1520,
+        "aspectRatio": 1.8421053
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/09/776ead19-7ae8-4d10-a3cc-6ed2a80640f0/lpRfABVJ.jpg"
+    }
+  },
+  {
+    "tournament": "Canada",
+    "year": 2018,
+    "tour": "wta",
+    "cms": {
+      "id": 1447204,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Simona Halep 2018 Montreal Getty",
+      "description": null,
+      "date": "2019-06-28T11:00:00Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1561719600000,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1561719600000,
+      "titleUrlSegment": "simona-halep-2018-montreal-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/11/90d706a5-007d-45a6-a712-39f04994ff9a/rMiHWSfH.jpg",
+      "originalDetails": {
+        "width": 3446,
+        "height": 1938,
+        "aspectRatio": 1.7781218
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/11/90d706a5-007d-45a6-a712-39f04994ff9a/rMiHWSfH.jpg"
+    }
+  },
+  {
+    "tournament": "Canada",
+    "year": 2019,
+    "tour": "wta",
+    "cms": {
+      "id": 2735885,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Bianca Andreescu, Toronto 2019",
+      "description": null,
+      "date": "2022-08-09T08:31:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1660033890599,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 806,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "806"
+        },
+        {
+          "label": null,
+          "id": 325088,
+          "type": "TENNIS_PLAYER",
+          "sid": "325088"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Steve Russell/Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1660034286000,
+      "titleUrlSegment": "andreescu-toronto-2019-steve-russell",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2022/08/09/2463bd09-8bb8-433b-a437-9a002823460e/Andreescu-Toronto-2019-Steve-Russell.jpg",
+      "originalDetails": {
+        "width": 5184,
+        "height": 3120,
+        "aspectRatio": 1.6615385
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2022/08/09/ce55c553-1f47-4f3d-8575-6958fa7829ca/Andreescu-Toronto-2019-Steve-Russell.jpg"
+    }
+  },
+  {
+    "tournament": "Canada",
+    "year": 2021,
+    "tour": "wta",
+    "cms": {
+      "id": 2215265,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Pegula and Jabeur, 2021 Montreal QF",
+      "description": null,
+      "date": "2021-08-14T04:19:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1628914770393,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 806,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "806"
+        },
+        {
+          "label": null,
+          "id": 316847,
+          "type": "TENNIS_PLAYER",
+          "sid": "316847"
+        },
+        {
+          "label": null,
+          "id": 316956,
+          "type": "TENNIS_PLAYER",
+          "sid": "316956"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1628914835831,
+      "titleUrlSegment": "gettyimages-1234663661",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2021/08/14/1ee23744-fb5c-44ba-9f25-9064b90b592b/GettyImages-1234663661.jpg",
+      "originalDetails": {
+        "width": 4000,
+        "height": 2668,
+        "aspectRatio": 1.4992504
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2021/08/14/d84681d0-92e8-42c8-b6cd-00428a7f5d4d/GettyImages-1234663661.jpg"
+    }
+  },
+  {
+    "tournament": "Canada",
+    "year": 2022,
+    "tour": "wta",
+    "cms": {
+      "id": 2744209,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Halep - 2022 Toronto final",
+      "description": null,
+      "date": "2022-08-14T20:42:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1660509773936,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 806,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "806"
+        },
+        {
+          "label": null,
+          "id": 314320,
+          "type": "TENNIS_PLAYER",
+          "sid": "314320"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Tyler Anderson/Tennis Canada"
+      },
+      "titleTranslations": null,
+      "lastModified": 1660509837311,
+      "titleUrlSegment": "20220814_ta_nbo2022_ta103908",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2022/08/14/6c83d8fb-dcbf-426f-85ca-4fd8e77cc67c/20220814_TA_NBO2022_TA103908.jpg",
+      "originalDetails": {
+        "width": 5000,
+        "height": 3333,
+        "aspectRatio": 1.50015
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2022/08/14/807b88be-b519-45c4-ba06-6e6b766d8bea/20220814_TA_NBO2022_TA103908.jpg"
+    }
+  },
+  {
+    "tournament": "Canada",
+    "year": 2023,
+    "tour": "wta",
+    "cms": {
+      "id": 4060957,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Jessica Pegula, 2023 Montreal trophy (Getty)",
+      "description": null,
+      "date": "2024-07-18T02:40:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1721270457748,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": {
+        "credit": "Minas Panagiotakis/Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1721285419967,
+      "titleUrlSegment": "gettyimages-1597105584",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2024/07/18/c42c1306-c2b2-4182-b39f-c0220ac181d7/GettyImages-1597105584.jpg",
+      "originalDetails": {
+        "width": 3000,
+        "height": 2000,
+        "aspectRatio": 1.5
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2024/07/18/d9810234-56b9-42ad-a12d-6db21c8fc326/GettyImages-1597105584.jpg"
+    }
+  },
+  {
+    "tournament": "Canada",
+    "year": 2024,
+    "tour": "wta",
+    "cms": {
+      "id": 4081447,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Pegula - 2024 Toronto final",
+      "description": null,
+      "date": "2024-08-13T01:03:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1723511035236,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 806,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "806"
+        },
+        {
+          "label": null,
+          "id": 316956,
+          "type": "TENNIS_PLAYER",
+          "sid": "316956"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Julian Avram/Icon Sportswire via Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1723511081280,
+      "titleUrlSegment": "gettyimages-2165998716",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2024/08/13/dd52721e-e302-4ea2-b500-b40a4ef698aa/GettyImages-2165998716.jpg",
+      "originalDetails": {
+        "width": 5129,
+        "height": 3420,
+        "aspectRatio": 1.4997076
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2024/08/13/67245cfd-46e4-452e-8b89-c95e319520da/GettyImages-2165998716.jpg"
+    }
+  },
+  {
+    "tournament": "Canada",
+    "year": 2025,
+    "tour": "wta",
+    "cms": {
+      "id": 4329104,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Pegula - 2025 Montreal 2R",
+      "description": null,
+      "date": "2025-07-30T22:02:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1753912940466,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 806,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "806"
+        },
+        {
+          "label": null,
+          "id": 316956,
+          "type": "TENNIS_PLAYER",
+          "sid": "316956"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Minas Panagiotakis/Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1753912985567,
+      "titleUrlSegment": "gettyimages-2227090543",
+      "visibilityOrder": [],
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2025/07/30/cbd10fae-826a-4279-ab6f-4acc7f559e71/GettyImages-2227090543.jpg",
+      "originalDetails": {
+        "width": 6441,
+        "height": 4294,
+        "aspectRatio": 1.5
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2025/07/30/0b80d247-49eb-4502-b709-aa0ec40630bd/GettyImages-2227090543.jpg"
+    }
+  },
+  {
+    "tournament": "Canada",
+    "year": 2026,
+    "tour": "wta",
+    "cms": {
+      "id": 4556026,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Elena Rybakina, Toronto 2026",
+      "description": null,
+      "date": "2026-08-07T18:17:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1786126658283,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 806,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "806"
+        },
+        {
+          "label": null,
+          "id": 324166,
+          "type": "TENNIS_PLAYER",
+          "sid": "324166"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Julian Avram/Icon Sportswire via Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1786126702306,
+      "titleUrlSegment": "rybakina-r2-julian-avram",
+      "visibilityOrder": [],
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2026/08/07/2ae5f56f-ac2a-496b-947e-876cfcb49e7c/Rybakina-R2-Julian-Avram.jpg",
+      "originalDetails": {
+        "width": 8066,
+        "height": 5378,
+        "aspectRatio": 1.499814
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2026/08/07/567647cc-a1bb-4ff4-862f-6cd70bbd4113/Rybakina-R2-Julian-Avram.jpg"
+    }
+  },
+  {
+    "tournament": "Cincinnati",
+    "year": 2009,
+    "tour": "wta",
+    "cms": {
+      "id": 4479831,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Jelena Jankovic, Cincinnati 2009",
+      "description": null,
+      "date": "2026-04-01T08:18:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1775031483776,
+      "publishTo": 0,
+      "tags": [
+        {
+          "id": 18263,
+          "label": "legend-profile-image"
+        }
+      ],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 100153,
+          "type": "TENNIS_PLAYER",
+          "sid": "100153"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Kevin C. Cox/Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1775031541621,
+      "titleUrlSegment": "gettyimages-90344609",
+      "visibilityOrder": [],
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2026/04/01/553b0beb-eb35-41e3-84d4-0418a94dc44f/GettyImages-90344609.jpg",
+      "originalDetails": {
+        "width": 1024,
+        "height": 722,
+        "aspectRatio": 1.4182825
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2026/04/01/04102809-5ae1-450f-8cde-e364b69f0787/GettyImages-90344609.jpg"
+    }
+  },
+  {
+    "tournament": "Cincinnati",
+    "year": 2015,
+    "tour": "wta",
+    "cms": {
+      "id": 1425425,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Serena Williams 2015 Cincinnati Getty",
+      "description": null,
+      "date": "2019-10-10T13:08:43Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1570712925902,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1570712923727,
+      "titleUrlSegment": "serena-williams-2015-cincinnati-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/10/98897740-1274-4d5b-81c3-dda8285aa84b/oReXjEud.jpg",
+      "originalDetails": {
+        "width": 2800,
+        "height": 1520,
+        "aspectRatio": 1.8421053
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/10/98897740-1274-4d5b-81c3-dda8285aa84b/oReXjEud.jpg"
+    }
+  },
+  {
+    "tournament": "Cincinnati",
+    "year": 2017,
+    "tour": "wta",
+    "cms": {
+      "id": 1405143,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Pliskova got the win in Cincinnati in 2017, 6-2, 6-4 (Getty)",
+      "description": null,
+      "date": "2019-10-08T16:59:15Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1570553956277,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1570553955798,
+      "titleUrlSegment": "pliskova-got-the-win-in-cincinnati-in-2017-6-2-6-4-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/a7d23028-466c-4b25-b6b9-1f32120722ab/mbztOGsE.jpg",
+      "originalDetails": {
+        "width": 2800,
+        "height": 1520,
+        "aspectRatio": 1.8421053
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/08/a7d23028-466c-4b25-b6b9-1f32120722ab/mbztOGsE.jpg"
+    }
+  },
+  {
+    "tournament": "Cincinnati",
+    "year": 2018,
+    "tour": "wta",
+    "cms": {
+      "id": 1440158,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Daria Gavrilova - Cincinnati 2018 - Jimmie48/WTA",
+      "description": null,
+      "date": "2018-08-19T08:00:00Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1534665600000,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1534665600000,
+      "titleUrlSegment": "daria-gavrilova-cincinnati-2018-jimmie48wta",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/11/43f427e9-56c6-42c1-b366-2573e66828f6/EwTnWsco.jpg",
+      "originalDetails": {
+        "width": 3895,
+        "height": 2527,
+        "aspectRatio": 1.5413533
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/11/43f427e9-56c6-42c1-b366-2573e66828f6/EwTnWsco.jpg"
+    }
+  },
+  {
+    "tournament": "Cincinnati",
+    "year": 2019,
+    "tour": "wta",
+    "cms": {
+      "id": 3253722,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Aryna Sabalenka Maria Sakkari Cincinnati 2019",
+      "description": null,
+      "date": "2023-05-03T19:01:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1683140463074,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": {
+        "credit": "WTA/Jimmie48"
+      },
+      "titleTranslations": null,
+      "lastModified": 1683141808460,
+      "titleUrlSegment": "aryna_sabalenka_-_2019_western_southern_open_-dsc_5445",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2023/05/03/0351b649-e5f2-4534-926e-861dce56bd5f/Aryna_Sabalenka_-_2019_Western_Southern_Open_-DSC_5445.jpg",
+      "originalDetails": {
+        "width": 4507,
+        "height": 3099,
+        "aspectRatio": 1.4543401
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2023/05/03/e8d89298-cd62-423b-99ba-c5c053519448/Aryna_Sabalenka_-_2019_Western_Southern_Open_-DSC_5445.jpg"
+    }
+  },
+  {
+    "tournament": "Cincinnati",
+    "year": 2020,
+    "tour": "wta",
+    "cms": {
+      "id": 1769410,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Caroline Garcia, Cincinnati 2020 (Getty)",
+      "description": null,
+      "date": "2020-08-24T00:37:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1598229425585,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": {
+        "credit": "Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1598229474717,
+      "titleUrlSegment": "gettyimages-1268113029",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2020/08/24/f4c254ff-29c7-4faa-92dc-acdfe0b57318/GettyImages-1268113029.jpg",
+      "originalDetails": {
+        "width": 4142,
+        "height": 2761,
+        "aspectRatio": 1.5001811
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2020/08/24/039c283e-381f-45e6-8536-f32822736633/GettyImages-1268113029.jpg"
+    }
+  },
+  {
+    "tournament": "Cincinnati",
+    "year": 2021,
+    "tour": "wta",
+    "cms": {
+      "id": 2230191,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Ashleigh Barty, Cincinnati 2021",
+      "description": null,
+      "date": "2021-08-23T12:03:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1629720186320,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 1017,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "1017"
+        },
+        {
+          "label": null,
+          "id": 318033,
+          "type": "TENNIS_PLAYER",
+          "sid": "318033"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Jimmie48/WTA"
+      },
+      "titleTranslations": null,
+      "lastModified": 1629720260781,
+      "titleUrlSegment": "barty-f-trophy",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2021/08/23/310f22e0-11d3-4fae-a264-6c00c7f78ce2/Barty-F-trophy.jpg",
+      "originalDetails": {
+        "width": 5977,
+        "height": 3760,
+        "aspectRatio": 1.5896276
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2021/08/23/5a68b48a-bcad-44d3-97cd-3ada6261c4ac/Barty-F-trophy.jpg"
+    }
+  },
+  {
+    "tournament": "Cincinnati",
+    "year": 2022,
+    "tour": "wta",
+    "cms": {
+      "id": 2754850,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Caroline Garcia Cincinnati 2022",
+      "description": null,
+      "date": "2022-08-21T20:38:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1661114316063,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 1017,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "1017"
+        },
+        {
+          "label": null,
+          "id": 315391,
+          "type": "TENNIS_PLAYER",
+          "sid": "315391"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1661124722052,
+      "titleUrlSegment": "gettyimages-1416595507",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2022/08/21/b7675158-208a-45e1-bb97-6b947f224e9c/GettyImages-1416595507.jpg",
+      "originalDetails": {
+        "width": 4951,
+        "height": 3302,
+        "aspectRatio": 1.4993943
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2022/08/21/3384da04-80f6-4196-9dbf-7343e402a8c6/GettyImages-1416595507.jpg"
+    }
+  },
+  {
+    "tournament": "Cincinnati",
+    "year": 2023,
+    "tour": "wta",
+    "cms": {
+      "id": 4078823,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Gauff - 2023 Cincinnati final",
+      "description": null,
+      "date": "2024-08-09T02:14:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1723169681636,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 1017,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "1017"
+        },
+        {
+          "label": null,
+          "id": 328560,
+          "type": "TENNIS_PLAYER",
+          "sid": "328560"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Jimmie48/WTA"
+      },
+      "titleTranslations": null,
+      "lastModified": 1723169728894,
+      "titleUrlSegment": "coco_gauff_-_2023_western_southern_open_-_day_7-dsc_5975",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2024/08/09/5b3daadf-abd8-488c-9aed-a99859317803/Coco_Gauff_-_2023_Western_Southern_Open_-_Day_7-DSC_5975.jpg",
+      "originalDetails": {
+        "width": 4700,
+        "height": 2874,
+        "aspectRatio": 1.6353514
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2024/08/09/432966c1-02b6-4a8d-a25b-94562898d1ce/Coco_Gauff_-_2023_Western_Southern_Open_-_Day_7-DSC_5975.jpg"
+    }
+  },
+  {
+    "tournament": "Cincinnati",
+    "year": 2024,
+    "tour": "wta",
+    "cms": {
+      "id": 4081855,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Karolina Pliskova, Cincinnati 2024",
+      "description": null,
+      "date": "2024-08-13T17:01:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1723568491283,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 313974,
+          "type": "TENNIS_PLAYER",
+          "sid": "313974"
+        },
+        {
+          "label": null,
+          "id": 1017,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "1017"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Dylan Buell/Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1723568553274,
+      "titleUrlSegment": "pliskova-r1-dylan-buell-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2024/08/13/828dc747-c6c5-4188-a2b9-9ea4fd0437e9/Pliskova-R1-Dylan-Buell-Getty.jpg",
+      "originalDetails": {
+        "width": 6866,
+        "height": 4577,
+        "aspectRatio": 1.5001092
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2024/08/13/755eb60a-0e24-45d3-b204-5498288805e8/Pliskova-R1-Dylan-Buell-Getty.jpg"
+    }
+  },
+  {
+    "tournament": "Cincinnati",
+    "year": 2025,
+    "tour": "wta",
+    "cms": {
+      "id": 4338880,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Sorana Cirstea, Cincinnati 2025",
+      "description": null,
+      "date": "2025-08-11T21:45:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1754948713776,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 1017,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "1017"
+        },
+        {
+          "label": null,
+          "id": 312469,
+          "type": "TENNIS_PLAYER",
+          "sid": "312469"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Daniel Kopatsch/Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1754948765224,
+      "titleUrlSegment": "cirstea-r3-daniel-kopatsch",
+      "visibilityOrder": [],
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2025/08/11/24a16ba7-7410-4f1f-86f8-4bb5b76e096e/Cirstea-R3-Daniel-Kopatsch.jpg",
+      "originalDetails": {
+        "width": 7027,
+        "height": 4685,
+        "aspectRatio": 1.4998933
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2025/08/11/6357654e-ba78-432e-a415-c017d000b8ad/Cirstea-R3-Daniel-Kopatsch.jpg"
+    }
+  },
+  {
+    "tournament": "Cincinnati",
+    "year": 2026,
+    "tour": "wta",
+    "cms": {
+      "id": 4564656,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Coco Gauff, Cincinnati 2026",
+      "description": null,
+      "date": "2026-08-22T04:33:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1787373204897,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 1017,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "1017"
+        },
+        {
+          "label": null,
+          "id": 328560,
+          "type": "TENNIS_PLAYER",
+          "sid": "328560"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Dylan Buell/Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1787373240947,
+      "titleUrlSegment": "gettyimages-2291485997",
+      "visibilityOrder": [],
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2026/08/22/27e6fc8b-193d-4289-884f-f91a8dcf2019/GettyImages-2291485997.jpg",
+      "originalDetails": {
+        "width": 5080,
+        "height": 3386,
+        "aspectRatio": 1.5002953
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2026/08/22/c6b9ea64-5f53-43d5-85cc-d3162dd178e0/GettyImages-2291485997.jpg"
+    }
+  },
+  {
+    "tournament": "Doha",
+    "year": 2013,
+    "tour": "wta",
+    "cms": {
+      "id": 1405875,
+      "accountId": 29,
+      "type": "photo",
+      "title": "It was another win for Williams against Kvitova in Doha in 2013 (Getty)",
+      "description": null,
+      "date": "2019-10-08T17:07:08Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1570554428774,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1570554428237,
+      "titleUrlSegment": "it-was-another-win-for-williams-against-kvitova-in-doha-in-2013-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/1bfea9bd-86af-429f-b248-f74eb2e4151c/HBaBjjMS.jpg",
+      "originalDetails": {
+        "width": 2800,
+        "height": 1520,
+        "aspectRatio": 1.8421053
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/08/1bfea9bd-86af-429f-b248-f74eb2e4151c/HBaBjjMS.jpg"
+    }
+  },
+  {
+    "tournament": "Doha",
+    "year": 2017,
+    "tour": "wta",
+    "cms": {
+      "id": 1405139,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Pliskova beat Wozniacki in the 2017 Doha final, 6-3, 6-4 (Getty)",
+      "description": null,
+      "date": "2019-10-08T16:59:13Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1570553954184,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1570553953401,
+      "titleUrlSegment": "pliskova-beat-wozniacki-in-the-2017-doha-final-6-3-6-4-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/b2ce3e99-fca7-443c-b891-92630dbae838/yRshDLLK.jpg",
+      "originalDetails": {
+        "width": 2800,
+        "height": 1520,
+        "aspectRatio": 1.8421053
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/08/b2ce3e99-fca7-443c-b891-92630dbae838/yRshDLLK.jpg"
+    }
+  },
+  {
+    "tournament": "Doha",
+    "year": 2018,
+    "tour": "wta",
+    "cms": {
+      "id": 3931382,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Wozniacki won both of the pair's matches in 2018 in three sets, first in the quarterfinals in Doha.",
+      "description": null,
+      "date": "2024-03-12T04:10:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1710216630087,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": {
+        "credit": "Karim Jaafar/AFP via Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1710216933287,
+      "titleUrlSegment": "gettyimages-919082266",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2024/03/12/415366ae-6803-43e7-8b4f-74445c1de15d/GettyImages-919082266.jpg",
+      "originalDetails": {
+        "width": 5472,
+        "height": 3648,
+        "aspectRatio": 1.5
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2024/03/12/1d809f24-fa2b-4cb5-9020-556db437de01/GettyImages-919082266.jpg"
+    }
+  },
+  {
+    "tournament": "Doha",
+    "year": 2020,
+    "tour": "wta",
+    "cms": {
+      "id": 1630428,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Sabalenka 2020 Doha Final - Getty",
+      "description": null,
+      "date": "2020-02-29T17:44:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1582998285688,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1582998288985,
+      "titleUrlSegment": "sabalenka-2020-doha-final-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2020/02/29/50e70e90-1fbd-4210-bd0b-506df4b2eac4/Sabalenka-2020-Doha-Final-Getty.jpg",
+      "originalDetails": {
+        "width": 5472,
+        "height": 3648,
+        "aspectRatio": 1.5
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2020/02/29/50e70e90-1fbd-4210-bd0b-506df4b2eac4/Sabalenka-2020-Doha-Final-Getty.jpg"
+    }
+  },
+  {
+    "tournament": "Doha",
+    "year": 2021,
+    "tour": "wta",
+    "cms": {
+      "id": 2056233,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Petra Kvitova, Doha 2021",
+      "description": null,
+      "date": "2021-03-06T16:56:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1615049796208,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 1003,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "1003"
+        },
+        {
+          "label": null,
+          "id": 314206,
+          "type": "TENNIS_PLAYER",
+          "sid": "314206"
+        }
+      ],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1615049839807,
+      "titleUrlSegment": "kvitova-doha-trophy",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2021/03/06/5046cc5b-0eea-409c-8a94-0d24e7140abe/Kvitova-Doha-trophy.jpg",
+      "originalDetails": {
+        "width": 4720,
+        "height": 3184,
+        "aspectRatio": 1.4824121
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2021/03/06/835cd327-e113-4d25-9c72-eb4c9859b08a/Kvitova-Doha-trophy.jpg"
+    }
+  },
+  {
+    "tournament": "Doha",
+    "year": 2022,
+    "tour": "wta",
+    "cms": {
+      "id": 2506425,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Swiatek - 2022 Doha SF",
+      "description": null,
+      "date": "2022-02-26T16:16:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1645892218218,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 1003,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "1003"
+        },
+        {
+          "label": null,
+          "id": 326408,
+          "type": "TENNIS_PLAYER",
+          "sid": "326408"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Paul Zimmer/Qatar TotalEnergies Open"
+      },
+      "titleTranslations": null,
+      "lastModified": 1645894007918,
+      "titleUrlSegment": "pzswiatek22wtadohah44",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2022/02/26/cc5dda1f-35fb-482a-b07e-bf5b01666004/pzswiatek-22wta-doha-h44.jpg",
+      "originalDetails": {
+        "width": 7639,
+        "height": 5429,
+        "aspectRatio": 1.4070731
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2022/02/26/6c8963eb-9bb0-4b4d-8837-5c1b595f193b/pzswiatek-22wta-doha-h44.jpg"
+    }
+  },
+  {
+    "tournament": "Doha",
+    "year": 2023,
+    "tour": "wta",
+    "cms": {
+      "id": 3071034,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Swiatek - 2023 Doha final",
+      "description": null,
+      "date": "2023-02-18T16:11:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1676736696258,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 1003,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "1003"
+        },
+        {
+          "label": null,
+          "id": 326408,
+          "type": "TENNIS_PLAYER",
+          "sid": "326408"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Karim Jaafar/AFP via Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1676736780741,
+      "titleUrlSegment": "gettyimages-1247257415",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2023/02/18/b8932d6b-e0ca-4aaa-9462-4d6e83f2dd6b/GettyImages-1247257415.jpg",
+      "originalDetails": {
+        "width": 5527,
+        "height": 3684,
+        "aspectRatio": 1.5002714
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2023/02/18/6abaf602-cf57-4d3d-a6da-e1e0b1657f94/GettyImages-1247257415.jpg"
+    }
+  },
+  {
+    "tournament": "Doha",
+    "year": 2024,
+    "tour": "wta",
+    "cms": {
+      "id": 3900537,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Swiatek - 2024 Doha",
+      "description": null,
+      "date": "2024-02-17T18:14:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1708193655455,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 1003,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "1003"
+        },
+        {
+          "label": null,
+          "id": 326408,
+          "type": "TENNIS_PLAYER",
+          "sid": "326408"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Clive Brunskill/Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1708193980893,
+      "titleUrlSegment": "gettyimages-2018126351",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2024/02/17/9ba5c484-9e0c-4c1e-a921-a19de51b7fbd/GettyImages-2018126351.jpg",
+      "originalDetails": {
+        "width": 6000,
+        "height": 4000,
+        "aspectRatio": 1.5
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2024/02/17/ea1b4438-13be-43cf-93d1-5d2529136ea8/GettyImages-2018126351.jpg"
+    }
+  },
+  {
+    "tournament": "Doha",
+    "year": 2025,
+    "tour": "wta",
+    "cms": {
+      "id": 4215588,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Iga Swiatek, Doha 2025",
+      "description": null,
+      "date": "2025-02-13T16:08:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1739462912440,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 1003,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "1003"
+        },
+        {
+          "label": null,
+          "id": 326408,
+          "type": "TENNIS_PLAYER",
+          "sid": "326408"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Mahmud Hams/AFP via Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1739462958993,
+      "titleUrlSegment": "swiatek-qf-mahmud-hams",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2025/02/13/5bc70d19-1765-4d21-875a-0327c1ca91fd/Swiatek-QF-Mahmud-Hams.jpg",
+      "originalDetails": {
+        "width": 8256,
+        "height": 5504,
+        "aspectRatio": 1.5
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2025/02/13/84b0fcc1-fea3-48af-81e1-904be24fe1ed/Swiatek-QF-Mahmud-Hams.jpg"
+    }
+  },
+  {
+    "tournament": "Doha",
+    "year": 2026,
+    "tour": "wta",
+    "cms": {
+      "id": 4449419,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Iga Swiatek, Doha 2026",
+      "description": null,
+      "date": "2026-02-12T15:21:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1770909680284,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 1003,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "1003"
+        },
+        {
+          "label": null,
+          "id": 326408,
+          "type": "TENNIS_PLAYER",
+          "sid": "326408"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Jimmie48/WTA"
+      },
+      "titleTranslations": null,
+      "lastModified": 1770909712713,
+      "titleUrlSegment": "swiatek-qf-jimmie",
+      "visibilityOrder": [],
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2026/02/12/fe1aab09-365b-476d-bab0-71482a2eaec6/Swiatek-QF-Jimmie.jpg",
+      "originalDetails": {
+        "width": 4700,
+        "height": 3011,
+        "aspectRatio": 1.5609432
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2026/02/12/86ac1a75-fef7-4910-8095-178664359a89/Swiatek-QF-Jimmie.jpg"
+    }
+  },
+  {
+    "tournament": "Dubai",
+    "year": 2013,
+    "tour": "wta",
+    "cms": {
+      "id": 1403918,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Petra Kvitova is also among the roster of former Dubai champions, conquering the event in 2013.",
+      "description": null,
+      "date": "2019-10-08T16:44:02Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1570553043399,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1570553042975,
+      "titleUrlSegment": "petra-kvitova-is-also-among-the-roster-of-former-dubai-champions-conquering-the-event-in-2013",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/88b63971-6cce-47a5-8a02-52dc6937f577/NzYvrKfS.jpg",
+      "originalDetails": {
+        "width": 2800,
+        "height": 1520,
+        "aspectRatio": 1.8421053
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/08/88b63971-6cce-47a5-8a02-52dc6937f577/NzYvrKfS.jpg"
+    }
+  },
+  {
+    "tournament": "Dubai",
+    "year": 2016,
+    "tour": "wta",
+    "cms": {
+      "id": 1404617,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Petra Kvitova at the 2016 WTA Pre-Wimbledon Party presented by Dubai Duty Free (Getty)",
+      "description": null,
+      "date": "2019-10-08T16:53:37Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1570553618533,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1570553617789,
+      "titleUrlSegment": "petra-kvitova-at-the-2016-wta-pre-wimbledon-party-presented-by-dubai-duty-free-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/5ff334dd-76e4-47f4-bf45-afe65d153940/AkfjjdfE.jpg",
+      "originalDetails": {
+        "width": 2800,
+        "height": 1520,
+        "aspectRatio": 1.8421053
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/08/5ff334dd-76e4-47f4-bf45-afe65d153940/AkfjjdfE.jpg"
+    }
+  },
+  {
+    "tournament": "Dubai",
+    "year": 2018,
+    "tour": "wta",
+    "cms": {
+      "id": 1422109,
+      "accountId": 29,
+      "type": "photo",
+      "title": "2018 Dubai highlights: Svitolina surges past Kasatkina to retain title",
+      "description": null,
+      "date": "2019-10-10T10:37:00Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1570703822954,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1570703820839,
+      "titleUrlSegment": "2018-dubai-highlights-svitolina-surges-past-kasatkina-to-retain-title",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/10/bad50ca6-a8e9-47b2-95b3-fff1ee03e468/vSPvXeFQ.jpg",
+      "originalDetails": {
+        "width": 2800,
+        "height": 1520,
+        "aspectRatio": 1.8421053
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/10/bad50ca6-a8e9-47b2-95b3-fff1ee03e468/vSPvXeFQ.jpg"
+    }
+  },
+  {
+    "tournament": "Dubai",
+    "year": 2019,
+    "tour": "wta",
+    "cms": {
+      "id": 1450080,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Elina Svitolina - Dubai 2019 - Dubai Duty Free Tennis Championships/Regi Verghese",
+      "description": null,
+      "date": "2019-02-19T10:00:00Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1550570400000,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1550570400000,
+      "titleUrlSegment": "elina-svitolina-dubai-2019-dubai-duty-free-tennis-championshipsregi-verghese",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/11/6d7e2b43-5dfd-44be-b62a-2e576b832b56/JbQICdWj.jpg",
+      "originalDetails": {
+        "width": 3979,
+        "height": 2764,
+        "aspectRatio": 1.4395803
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/11/6d7e2b43-5dfd-44be-b62a-2e576b832b56/JbQICdWj.jpg"
+    }
+  },
+  {
+    "tournament": "Dubai",
+    "year": 2020,
+    "tour": "wta",
+    "cms": {
+      "id": 1661219,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Simona Halep, Dubai 2020",
+      "description": null,
+      "date": "2020-04-26T10:25:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1587896723096,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 718,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "718"
+        },
+        {
+          "label": null,
+          "id": 314320,
+          "type": "TENNIS_PLAYER",
+          "sid": "314320"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Jimmie48/WTA"
+      },
+      "titleTranslations": null,
+      "lastModified": 1587896817972,
+      "titleUrlSegment": null,
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2020/04/26/ac2377dd-f83e-4534-b8bf-8ad1648676e8/Simona_Halep_-_2020_Dubai_Duty_Free_Tennis_Championships_-DSC_9754_original.jpg",
+      "originalDetails": {
+        "width": 5286,
+        "height": 3424,
+        "aspectRatio": 1.5438085
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2020/04/26/7993ec72-ea66-4bb9-a3ff-dac2487066a3/Simona_Halep_-_2020_Dubai_Duty_Free_Tennis_Championships_-DSC_9754_original.jpg"
+    }
+  },
+  {
+    "tournament": "Dubai",
+    "year": 2021,
+    "tour": "wta",
+    "cms": {
+      "id": 2062063,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Aryna Sabalenka, Dubai 2021",
+      "description": null,
+      "date": "2021-03-10T11:50:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1615377059476,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 718,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "718"
+        },
+        {
+          "label": null,
+          "id": 320760,
+          "type": "TENNIS_PLAYER",
+          "sid": "320760"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Jimmie48/WTA"
+      },
+      "titleTranslations": null,
+      "lastModified": 1615377153041,
+      "titleUrlSegment": "aryna_sabalenka_-_2021_dubai_duty_free_tennis_championships_day_4_-dsc_2764_original",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2021/03/10/91ba0afc-4fe5-47e4-bc03-2c0106efe9a5/Aryna_Sabalenka_-_2021_Dubai_Duty_Free_Tennis_Championships_Day_4_-DSC_2764_original.jpg",
+      "originalDetails": {
+        "width": 4257,
+        "height": 3005,
+        "aspectRatio": 1.416639
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2021/03/10/2fba72fc-a390-4e39-8852-514dc98b1754/Aryna_Sabalenka_-_2021_Dubai_Duty_Free_Tennis_Championships_Day_4_-DSC_2764_original.jpg"
+    }
+  },
+  {
+    "tournament": "Dubai",
+    "year": 2022,
+    "tour": "wta",
+    "cms": {
+      "id": 2482677,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Aryna Sabalenka 2022 Dubai",
+      "description": null,
+      "date": "2022-02-12T16:37:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1644683871813,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": {
+        "credit": "WTA/Jimmie48"
+      },
+      "titleTranslations": null,
+      "lastModified": 1644683916442,
+      "titleUrlSegment": "aryna_sabalenka_-_2022_dubai_duty_free_tennis_championships_-_saturday_qualifications-dsc_6185_original",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2022/02/12/5bb0815d-5e9d-4e5c-a386-12d7103512b6/Aryna_Sabalenka_-_2022_Dubai_Duty_Free_Tennis_Championships_-_Saturday_Qualifications-DSC_6185_original.jpg",
+      "originalDetails": {
+        "width": 4700,
+        "height": 2968,
+        "aspectRatio": 1.583558
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2022/02/12/b6988b1a-d1a5-4e70-aa93-55ca325fe897/Aryna_Sabalenka_-_2022_Dubai_Duty_Free_Tennis_Championships_-_Saturday_Qualifications-DSC_6185_original.jpg"
+    }
+  },
+  {
+    "tournament": "Dubai",
+    "year": 2023,
+    "tour": "wta",
+    "cms": {
+      "id": 3078469,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Aryna Sabalenka, Dubai 2023",
+      "description": null,
+      "date": "2023-02-22T17:06:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1677085580361,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 718,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "718"
+        },
+        {
+          "label": null,
+          "id": 320760,
+          "type": "TENNIS_PLAYER",
+          "sid": "320760"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Jorge Ferrari"
+      },
+      "titleTranslations": null,
+      "lastModified": 1677085617333,
+      "titleUrlSegment": "sabalenka-r3-jf",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2023/02/22/026a7ebf-5130-454a-a792-f3397d279594/Sabalenka-R3-JF.jpg",
+      "originalDetails": {
+        "width": 6000,
+        "height": 4000,
+        "aspectRatio": 1.5
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2023/02/22/06d9357c-cd49-4c8f-ab24-f76851cc8ab9/Sabalenka-R3-JF.jpg"
+    }
+  },
+  {
+    "tournament": "Dubai",
+    "year": 2024,
+    "tour": "wta",
+    "cms": {
+      "id": 3904014,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Aryna Sabalenka, Dubai 2024",
+      "description": null,
+      "date": "2024-02-20T10:08:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1708423689505,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 718,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "718"
+        },
+        {
+          "label": null,
+          "id": 320760,
+          "type": "TENNIS_PLAYER",
+          "sid": "320760"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Jimmie48/WTA"
+      },
+      "titleTranslations": null,
+      "lastModified": 1708423742782,
+      "titleUrlSegment": "sabalenka-r2-jimmie",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2024/02/20/a33557c0-b95d-4114-a30e-08a0038e6260/Sabalenka-R2-Jimmie.jpg",
+      "originalDetails": {
+        "width": 4700,
+        "height": 3123,
+        "aspectRatio": 1.5049632
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2024/02/20/863bd57b-1c64-4ff0-8f56-292d4f266977/Sabalenka-R2-Jimmie.jpg"
+    }
+  },
+  {
+    "tournament": "Dubai",
+    "year": 2025,
+    "tour": "wta",
+    "cms": {
+      "id": 4217918,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Sabalenka - 2025 Dubai 2R",
+      "description": null,
+      "date": "2025-02-18T19:22:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1739906575062,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 718,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "718"
+        },
+        {
+          "label": null,
+          "id": 320760,
+          "type": "TENNIS_PLAYER",
+          "sid": "320760"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Jimmie48/WTA"
+      },
+      "titleTranslations": null,
+      "lastModified": 1739906626175,
+      "titleUrlSegment": "aryna_sabalenka_-_dubai_duty_free_tennis_championships_2025_-_day_3-dsc_8687",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2025/02/18/3f03af49-d9e4-4bb8-a3f0-9b70c4738e4a/Aryna_Sabalenka_-_Dubai_Duty_Free_Tennis_Championships_2025_-_Day_3-DSC_8687.jpg",
+      "originalDetails": {
+        "width": 4700,
+        "height": 2935,
+        "aspectRatio": 1.6013628
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2025/02/18/fe921a58-6510-46c4-8bac-57888eaeb9cd/Aryna_Sabalenka_-_Dubai_Duty_Free_Tennis_Championships_2025_-_Day_3-DSC_8687.jpg"
+    }
+  },
+  {
+    "tournament": "Dubai",
+    "year": 2026,
+    "tour": "wta",
+    "cms": {
+      "id": 4454393,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Elina Svitolina, Dubai 2026",
+      "description": null,
+      "date": "2026-02-20T19:55:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1771617346904,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 718,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "718"
+        },
+        {
+          "label": null,
+          "id": 316738,
+          "type": "TENNIS_PLAYER",
+          "sid": "316738"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Ryan Lim/AFP via Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1771617381420,
+      "titleUrlSegment": "svitolina-sf-rl-2",
+      "visibilityOrder": [],
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2026/02/20/7db53e95-70f0-47d3-a412-37d8265469f5/Svitolina-SF-RL-2.jpg",
+      "originalDetails": {
+        "width": 6530,
+        "height": 4352,
+        "aspectRatio": 1.5004596
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2026/02/20/ad55561b-5157-4df1-b09b-10a4c0fb5a0a/Svitolina-SF-RL-2.jpg"
+    }
+  },
+  {
+    "tournament": "Guadalajara",
+    "year": 2022,
+    "tour": "wta",
+    "cms": {
+      "id": 2872646,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Jessica Pegula, Guadalajara 1000 2022",
+      "description": null,
+      "date": "2022-10-24T05:51:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1666590711125,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 316956,
+          "type": "TENNIS_PLAYER",
+          "sid": "316956"
+        },
+        {
+          "label": null,
+          "id": 2075,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "2075"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Carlos Zepeda/Jam Media/Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1666591136816,
+      "titleUrlSegment": "pegula-tropy-carlos-zepeda-jam-media",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2022/10/24/2fe996af-042f-410b-b0e3-c38918944274/Pegula-tropy-Carlos-Zepeda-Jam-Media.jpg",
+      "originalDetails": {
+        "width": 5472,
+        "height": 3648,
+        "aspectRatio": 1.5
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2022/10/24/166a6812-5d65-45bc-8ffb-bc304373d78a/Pegula-tropy-Carlos-Zepeda-Jam-Media.jpg"
+    }
+  },
+  {
+    "tournament": "Indian Wells",
+    "year": 2006,
+    "tour": "wta",
+    "cms": {
+      "id": 1404314,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Sharapova's first Indian Wells title came back in 2006. She beat Elena Dementieva in that final.",
+      "description": null,
+      "date": "2019-10-08T16:48:36Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1570553316499,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1570553316172,
+      "titleUrlSegment": "sharapovas-first-indian-wells-title-came-back-in-2006-she-beat-elena-dementieva-in-that-final",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/2beb1dc6-21e6-4299-af3d-ee113bd9604a/QRISviRw.jpg",
+      "originalDetails": {
+        "width": 2800,
+        "height": 1520,
+        "aspectRatio": 1.8421053
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/08/2beb1dc6-21e6-4299-af3d-ee113bd9604a/QRISviRw.jpg"
+    }
+  },
+  {
+    "tournament": "Indian Wells",
+    "year": 2011,
+    "tour": "wta",
+    "cms": {
+      "id": 1519518,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Wozniacki defeated Maria Sharapova and Marion Bartoli in the last two rounds to win Indian Wells in 2011 (Getty)",
+      "description": "",
+      "date": "2019-12-06T11:25:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1575631506588,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 313402,
+          "type": "TENNIS_PLAYER",
+          "sid": "313402"
+        },
+        {
+          "label": null,
+          "id": 609,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "609"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Getty"
+      },
+      "titleTranslations": null,
+      "lastModified": 1575639837452,
+      "titleUrlSegment": "wozniacki-defeated-maria-sharapova-and-marion-bartoli-in-the-last-two-rounds-to-win-indian-wells-in-2011-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/12/06/5eb85aca-4266-46ca-90b6-a7459cb0a653/GettyImages-110495382.jpg",
+      "originalDetails": {
+        "width": 2760,
+        "height": 1932,
+        "aspectRatio": 1.4285715
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/12/06/8d93e658-4b16-4b74-83d1-7df3fa36e01c/GettyImages-110495382.jpg"
+    }
+  },
+  {
+    "tournament": "Indian Wells",
+    "year": 2012,
+    "tour": "wta",
+    "cms": {
+      "id": 1403082,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Maria Sharapova won her first meeting with Simona Halep in straight sets, 6-3, 6-4 in Indian Wells in 2012 (Getty)",
+      "description": null,
+      "date": "2019-10-08T16:34:00Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1570552441225,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1570552440645,
+      "titleUrlSegment": "maria-sharapova-won-her-first-meeting-with-simona-halep-in-straight-sets-6-3-6-4-in-indian-wells-in-2012-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/09684baf-e8b3-42e8-b7e2-1efed8e3e526/SaJLonap.jpg",
+      "originalDetails": {
+        "width": 2800,
+        "height": 1520,
+        "aspectRatio": 1.8421053
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/08/09684baf-e8b3-42e8-b7e2-1efed8e3e526/SaJLonap.jpg"
+    }
+  },
+  {
+    "tournament": "Indian Wells",
+    "year": 2013,
+    "tour": "wta",
+    "cms": {
+      "id": 1411783,
+      "accountId": 29,
+      "type": "photo",
+      "title": "They have met only once in a final, Sharapova claiming the Indian Wells title of 2013 with a 6-2, 6-2 win. (Getty)",
+      "description": null,
+      "date": "2019-10-09T10:14:05Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1570616046267,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1570616045916,
+      "titleUrlSegment": "they-have-met-only-once-in-a-final-sharapova-claiming-the-indian-wells-title-of-2013-with-a-6-2-6-2-win-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/09/b77ea929-68bc-4176-b80f-98ac34898c3f/WSWwTFcC.jpg",
+      "originalDetails": {
+        "width": 2800,
+        "height": 1520,
+        "aspectRatio": 1.8421053
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/09/b77ea929-68bc-4176-b80f-98ac34898c3f/WSWwTFcC.jpg"
+    }
+  },
+  {
+    "tournament": "Indian Wells",
+    "year": 2015,
+    "tour": "wta",
+    "cms": {
+      "id": 1645862,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Simona Halep, Indian Wells 2015 (Getty)",
+      "description": null,
+      "date": "2020-03-16T12:55:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1584363335370,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": {
+        "credit": "Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1584363402489,
+      "titleUrlSegment": null,
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2020/03/16/c47ccfa0-dcf4-48fd-8acb-0be819e6030c/GettyImages-467301130.jpg",
+      "originalDetails": {
+        "width": 4775,
+        "height": 3183,
+        "aspectRatio": 1.5001571
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2020/03/16/47fc41e5-5f8c-4c39-97ea-592ea6f7a2f1/GettyImages-467301130.jpg"
+    }
+  },
+  {
+    "tournament": "Indian Wells",
+    "year": 2016,
+    "tour": "wta",
+    "cms": {
+      "id": 1442799,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Serena Williams and Victoria Azarenka smile at Indian Wells in 2016 (Getty)",
+      "description": null,
+      "date": "2018-05-04T06:00:00Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1525413600000,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1525413600000,
+      "titleUrlSegment": "serena-williams-and-victoria-azarenka-smile-at-indian-wells-in-2016-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/11/cb9d3695-de0a-4dc6-8372-2d76d79f4c8c/rIdKOiUy.jpg",
+      "originalDetails": {
+        "width": 3711,
+        "height": 2764,
+        "aspectRatio": 1.3426194
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/11/cb9d3695-de0a-4dc6-8372-2d76d79f4c8c/rIdKOiUy.jpg"
+    }
+  },
+  {
+    "tournament": "Indian Wells",
+    "year": 2018,
+    "tour": "wta",
+    "cms": {
+      "id": 2523136,
+      "accountId": 29,
+      "type": "photo",
+      "title": "2018 Indian Wells champion Naomi Osaka kept things casual as she waited for her tiebreak against Amanda Anisimova.",
+      "description": null,
+      "date": "2022-03-09T19:39:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1646854747436,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": {
+        "credit": "WTA/Jimmie48"
+      },
+      "titleTranslations": null,
+      "lastModified": 1646870819395,
+      "titleUrlSegment": "naomi_osaka_-_2022_bnp_paribas_open_-_day_2-dsc_8377_original",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2022/03/09/fccc1253-d1a5-431a-8530-6d9cee2bb604/Naomi_Osaka_-_2022_BNP_Paribas_Open_-_Day_2-DSC_8377_original.jpg",
+      "originalDetails": {
+        "width": 4700,
+        "height": 3076,
+        "aspectRatio": 1.5279584
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2022/03/09/92f1e43b-0bf7-44e1-9303-56bedc7a317c/Naomi_Osaka_-_2022_BNP_Paribas_Open_-_Day_2-DSC_8377_original.jpg"
+    }
+  },
+  {
+    "tournament": "Indian Wells",
+    "year": 2019,
+    "tour": "wta",
+    "cms": {
+      "id": 1449561,
+      "accountId": 29,
+      "type": "photo",
+      "title": "2019 Indian Wells Final Preview: Another generational clash awaits in Kerber vs. Andreescu",
+      "description": null,
+      "date": null,
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1552845600000,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1552775400000,
+      "titleUrlSegment": "2019-indian-wells-final-preview-another-generational-clash-awaits-in-kerber-vs-andreescu",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/11/3f4affaa-48d0-417a-aed7-a44110fa9397/StgAWKTA.jpg",
+      "originalDetails": {
+        "width": 3493,
+        "height": 2342,
+        "aspectRatio": 1.4914603
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/11/2a79a19a-33a0-4289-8601-f334607a2f4e/StgAWKTA.jpg"
+    }
+  },
+  {
+    "tournament": "Indian Wells",
+    "year": 2021,
+    "tour": "wta",
+    "cms": {
+      "id": 2289386,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Victoria Azarenka, Indian Wells 2021",
+      "description": null,
+      "date": "2021-10-15T10:25:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1634293516399,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 609,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "609"
+        },
+        {
+          "label": null,
+          "id": 312001,
+          "type": "TENNIS_PLAYER",
+          "sid": "312001"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Jimmie48/WTA"
+      },
+      "titleTranslations": null,
+      "lastModified": 1634293567276,
+      "titleUrlSegment": "azarenka-shades-jimmie",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2021/10/15/0d5dadf9-6723-40ca-84d6-993eba25c9b2/Azarenka-shades-Jimmie.jpg",
+      "originalDetails": {
+        "width": 5516,
+        "height": 3555,
+        "aspectRatio": 1.5516174
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2021/10/15/8bb9ab77-bf6c-445d-997c-c0c32fdabd62/Azarenka-shades-Jimmie.jpg"
+    }
+  },
+  {
+    "tournament": "Indian Wells",
+    "year": 2022,
+    "tour": "wta",
+    "cms": {
+      "id": 2532939,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Swiatek - Indian Wells 2022 - 3R",
+      "description": null,
+      "date": "2022-03-14T00:43:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1647218597848,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 609,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "609"
+        },
+        {
+          "label": null,
+          "id": 326408,
+          "type": "TENNIS_PLAYER",
+          "sid": "326408"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1647218655376,
+      "titleUrlSegment": "iga-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2022/03/14/f0f8171f-9637-448b-a35c-6e6ae76c0ece/IGA-getty.jpg",
+      "originalDetails": {
+        "width": 5543,
+        "height": 3581,
+        "aspectRatio": 1.5478916
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2022/03/14/89a9fb37-e488-4e90-a58c-b3abda70716a/IGA-getty.jpg"
+    }
+  },
+  {
+    "tournament": "Indian Wells",
+    "year": 2023,
+    "tour": "wta",
+    "cms": {
+      "id": 3885453,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Rybakina, Sabalenka - 2023 Indian Wells final",
+      "description": null,
+      "date": "2024-02-07T19:44:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1707335073857,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 320760,
+          "type": "TENNIS_PLAYER",
+          "sid": "320760"
+        },
+        {
+          "label": null,
+          "id": 324166,
+          "type": "TENNIS_PLAYER",
+          "sid": "324166"
+        },
+        {
+          "label": null,
+          "id": 609,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "609"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Jimmie48/WTA"
+      },
+      "titleTranslations": null,
+      "lastModified": 1707335136676,
+      "titleUrlSegment": "elena_rybakina_aryna_sabalenka_-_2023_bnp_paribas_open_-_day_12-dsc_2478",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2024/02/07/a8fc26ac-b13a-4216-aec7-b5be6238dd91/Elena_Rybakina_Aryna_Sabalenka_-_2023_BNP_Paribas_Open_-_Day_12-DSC_2478.jpg",
+      "originalDetails": {
+        "width": 4700,
+        "height": 2912,
+        "aspectRatio": 1.6140109
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2024/02/07/be438b20-1fc8-4185-9250-0e7e6d0e8361/Elena_Rybakina_Aryna_Sabalenka_-_2023_BNP_Paribas_Open_-_Day_12-DSC_2478.jpg"
+    }
+  },
+  {
+    "tournament": "Indian Wells",
+    "year": 2024,
+    "tour": "wta",
+    "cms": {
+      "id": 3935912,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Swiatek - 2024 Indian Wells final",
+      "description": null,
+      "date": "2024-03-17T19:41:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1710704474110,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 609,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "609"
+        },
+        {
+          "label": null,
+          "id": 326408,
+          "type": "TENNIS_PLAYER",
+          "sid": "326408"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Frey/TPN/Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1710704515077,
+      "titleUrlSegment": "gettyimages-2091961467",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2024/03/17/1d3e9e85-c60f-4616-ae93-26145e00e309/GettyImages-2091961467.jpg",
+      "originalDetails": {
+        "width": 6000,
+        "height": 4000,
+        "aspectRatio": 1.5
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2024/03/17/ea161e28-19b0-4d5a-a741-6097be4a053c/GettyImages-2091961467.jpg"
+    }
+  },
+  {
+    "tournament": "Indian Wells",
+    "year": 2025,
+    "tour": "wta",
+    "cms": {
+      "id": 4413682,
+      "accountId": 29,
+      "type": "photo",
+      "title": "aryna sabalenka mirra andreeva indian wells final 2025",
+      "description": null,
+      "date": "2025-12-03T15:27:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1764775639672,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": {},
+      "titleTranslations": null,
+      "lastModified": 1764775675365,
+      "titleUrlSegment": "aryna-sabalenka-mirra-andreeva-indian-wells-final-2025",
+      "visibilityOrder": [],
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2025/12/03/7aa471a5-8374-41cc-987b-50b8fb0df76a/Indian-Wells-2025-thumbnail-2-1-.png",
+      "originalDetails": {
+        "width": 1920,
+        "height": 1080,
+        "aspectRatio": 1.7777778
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2025/12/03/44d9f0ab-fd36-4df2-85c7-a88c4e23349d/Indian-Wells-2025-thumbnail-2-1-.png"
+    }
+  },
+  {
+    "tournament": "Indian Wells",
+    "year": 2026,
+    "tour": "wta",
+    "cms": {
+      "id": 4607476,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Mirra Andreeva, Aryna Sabalenka - WTA Finals Indian Wells 2026",
+      "description": null,
+      "date": "2026-11-10T18:09:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1794334166439,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 320760,
+          "type": "TENNIS_PLAYER",
+          "sid": "320760"
+        },
+        {
+          "label": null,
+          "id": 331809,
+          "type": "TENNIS_PLAYER",
+          "sid": "331809"
+        },
+        {
+          "label": null,
+          "id": 808,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "808"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Katelyn Mulcahy/Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1794334296645,
+      "titleUrlSegment": "andreeva-sabalenka-rr",
+      "visibilityOrder": [],
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2026/11/10/dd4f1030-11b4-44d2-9acd-e61cc3158513/Andreeva-Sabalenka-RR.png",
+      "originalDetails": {
+        "width": 1440,
+        "height": 1080,
+        "aspectRatio": 1.3333334
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2026/11/10/280d0c94-e53b-4a7e-bbb0-db13d15d943b/Andreeva-Sabalenka-RR.png"
+    }
+  },
+  {
+    "tournament": "Madrid",
+    "year": 2010,
+    "tour": "wta",
+    "cms": {
+      "id": 3992597,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Serena Williams, Madrid 2010",
+      "description": "Serena Williams celebrates the longest match win of her career in 2010.",
+      "date": "2024-05-03T08:16:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1714724174408,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 230234,
+          "type": "TENNIS_PLAYER",
+          "sid": "230234"
+        },
+        {
+          "label": null,
+          "id": 1038,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "1038"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Jasper Juinen/Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1714725478762,
+      "titleUrlSegment": "serena-2010-jasper-juinen-getty-images",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2024/05/03/84585b89-9b73-4269-9a07-1f0d71f3e6df/Serena-2010-Jasper-Juinen-Getty-Images.jpg",
+      "originalDetails": {
+        "width": 3000,
+        "height": 2113,
+        "aspectRatio": 1.4197823
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2024/05/03/5c505671-8e70-4e20-bc4c-0391e82b8180/Serena-2010-Jasper-Juinen-Getty-Images.jpg"
+    }
+  },
+  {
+    "tournament": "Madrid",
+    "year": 2011,
+    "tour": "wta",
+    "cms": {
+      "id": 3236721,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Kvitova - 2011 Madrid",
+      "description": null,
+      "date": "2023-04-26T16:35:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1682526928516,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 1038,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "1038"
+        },
+        {
+          "label": null,
+          "id": 314206,
+          "type": "TENNIS_PLAYER",
+          "sid": "314206"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Julian Finney/Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1682527082630,
+      "titleUrlSegment": "gettyimages-113845341",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2023/04/26/e874df52-638c-4d17-a37a-69856930db4f/GettyImages-113845341.jpg",
+      "originalDetails": {
+        "width": 4456,
+        "height": 2954,
+        "aspectRatio": 1.5084631
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2023/04/26/c34bce29-83fe-4bc9-b0d6-0ef131778bc7/GettyImages-113845341.jpg"
+    }
+  },
+  {
+    "tournament": "Madrid",
+    "year": 2015,
+    "tour": "wta",
+    "cms": {
+      "id": 1664319,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Serena Williams, Madrid 2015",
+      "description": null,
+      "date": "2020-05-04T13:29:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1588598995018,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 230234,
+          "type": "TENNIS_PLAYER",
+          "sid": "230234"
+        },
+        {
+          "label": null,
+          "id": 1038,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "1038"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Getty"
+      },
+      "titleTranslations": null,
+      "lastModified": 1588599114115,
+      "titleUrlSegment": null,
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2020/05/04/849a173c-ee1f-439a-b1cb-64808f0dd5bc/GettyImages-472320020.jpg",
+      "originalDetails": {
+        "width": 4520,
+        "height": 3013,
+        "aspectRatio": 1.5001659
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2020/05/04/2af336fb-d0a3-42a8-896a-01f7adf243b8/GettyImages-472320020.jpg"
+    }
+  },
+  {
+    "tournament": "Madrid",
+    "year": 2017,
+    "tour": "wta",
+    "cms": {
+      "id": 3992596,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Maria Sharapova, Eugenie Bouchard - Madrid 2017",
+      "description": null,
+      "date": "2024-05-03T08:16:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1714724174376,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 316161,
+          "type": "TENNIS_PLAYER",
+          "sid": "316161"
+        },
+        {
+          "label": null,
+          "id": 1038,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "1038"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Julian Finney/Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1714725021742,
+      "titleUrlSegment": "bouchard-2017-julian-finney",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2024/05/03/10f540bb-445c-4162-aecd-101388aa6504/Bouchard-2017-Julian-Finney.jpg",
+      "originalDetails": {
+        "width": 3366,
+        "height": 2290,
+        "aspectRatio": 1.469869
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2024/05/03/ad8d221d-0d68-4626-a8d0-69edc99b8096/Bouchard-2017-Julian-Finney.jpg"
+    }
+  },
+  {
+    "tournament": "Madrid",
+    "year": 2018,
+    "tour": "wta",
+    "cms": {
+      "id": 1666257,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Maria Sharapova - 2018 Madrid",
+      "description": null,
+      "date": "2020-05-07T18:53:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1588877623327,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": {
+        "credit": "Jimmie48 Photography/WTA"
+      },
+      "titleTranslations": null,
+      "lastModified": 1588877810911,
+      "titleUrlSegment": null,
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2020/05/07/3ee5ca02-b6a8-4186-bc73-5c7a3cfa156c/DSC_3808_original.jpg",
+      "originalDetails": {
+        "width": 5004,
+        "height": 3547,
+        "aspectRatio": 1.4107697
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2020/05/07/39739763-24eb-4b24-b1e5-14021d823ecf/DSC_3808_original.jpg"
+    }
+  },
+  {
+    "tournament": "Madrid",
+    "year": 2019,
+    "tour": "wta",
+    "cms": {
+      "id": 1448541,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Simona Halep, Madrid 2019 (Getty)",
+      "description": null,
+      "date": "2019-05-05T14:15:00Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1557065700000,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1557065700000,
+      "titleUrlSegment": "simona-halep-madrid-2019-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/11/84393397-6ec9-4cfc-ad9e-9173a1820e51/lbGyaKgi.jpg",
+      "originalDetails": {
+        "width": 5472,
+        "height": 3648,
+        "aspectRatio": 1.5
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/11/84393397-6ec9-4cfc-ad9e-9173a1820e51/lbGyaKgi.jpg"
+    }
+  },
+  {
+    "tournament": "Madrid",
+    "year": 2021,
+    "tour": "wta",
+    "cms": {
+      "id": 2121034,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Simona Halep, Madrid 2021",
+      "description": null,
+      "date": "2021-04-27T10:15:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1619518552708,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 1038,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "1038"
+        },
+        {
+          "label": null,
+          "id": 314320,
+          "type": "TENNIS_PLAYER",
+          "sid": "314320"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Mutua Madrid Open"
+      },
+      "titleTranslations": null,
+      "lastModified": 1619518794786,
+      "titleUrlSegment": "simona-halep_entrenamiento_ds4213",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2021/04/27/3407f338-e596-447d-8ac0-1f1681eda5b1/Simona-Halep_Entrenamiento_DS4213.JPG",
+      "originalDetails": {
+        "width": 7290,
+        "height": 4860,
+        "aspectRatio": 1.5
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2021/04/27/2018c5b8-c02e-47cb-97f6-d601567e1fec/Simona-Halep_Entrenamiento_DS4213.JPG"
+    }
+  },
+  {
+    "tournament": "Madrid",
+    "year": 2022,
+    "tour": "wta",
+    "cms": {
+      "id": 2594016,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Iga Swiatek Madrid 2022",
+      "description": null,
+      "date": "2022-04-27T21:49:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1651096192784,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": {
+        "credit": "WTA/Jimmie48"
+      },
+      "titleTranslations": null,
+      "lastModified": 1651096229086,
+      "titleUrlSegment": "iga_swiatek_-_2022_mutua_madrid_open_-_qualifications_day_1-dsc_7907_original-1",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2022/04/27/8c37f167-8817-4ffa-a9ce-145916cad854/Iga_Swiatek_-_2022_Mutua_Madrid_Open_-_Qualifications_Day_1-DSC_7907_original-1-.jpg",
+      "originalDetails": {
+        "width": 4700,
+        "height": 2910,
+        "aspectRatio": 1.6151203
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2022/04/27/a3604e43-ae7d-4463-88a4-29ae49f1ac01/Iga_Swiatek_-_2022_Mutua_Madrid_Open_-_Qualifications_Day_1-DSC_7907_original-1-.jpg"
+    }
+  },
+  {
+    "tournament": "Madrid",
+    "year": 2023,
+    "tour": "wta",
+    "cms": {
+      "id": 3324165,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Swiatek - 2023 Madrid final",
+      "description": null,
+      "date": "2023-05-06T18:45:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1683398760742,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 326408,
+          "type": "TENNIS_PLAYER",
+          "sid": "326408"
+        },
+        {
+          "label": null,
+          "id": 1038,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "1038"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Diego Souto/Mutua Madrid Open"
+      },
+      "titleTranslations": null,
+      "lastModified": 1683398813575,
+      "titleUrlSegment": "diego-souto-mmo-2",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2023/05/06/6ded19d6-aa82-4f7e-9b95-f8894c3522db/Diego-Souto-MMO-2-.jpg",
+      "originalDetails": {
+        "width": 5812,
+        "height": 3874,
+        "aspectRatio": 1.5002581
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2023/05/06/96c03aff-ca9e-4ad7-9b13-734ea37bd336/Diego-Souto-MMO-2-.jpg"
+    }
+  },
+  {
+    "tournament": "Madrid",
+    "year": 2024,
+    "tour": "wta",
+    "cms": {
+      "id": 4256858,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Swiatek, Sabalenka - 2024 Madrid final",
+      "description": null,
+      "date": "2025-04-30T22:19:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1746051595492,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 320760,
+          "type": "TENNIS_PLAYER",
+          "sid": "320760"
+        },
+        {
+          "label": null,
+          "id": 326408,
+          "type": "TENNIS_PLAYER",
+          "sid": "326408"
+        },
+        {
+          "label": null,
+          "id": 1038,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "1038"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Jimmie48/WTA"
+      },
+      "titleTranslations": null,
+      "lastModified": 1746051635201,
+      "titleUrlSegment": "aryna_sabalenka_iga_swiatek_-_2024_mutua_madrid_open_-_day_12-dsc_1991",
+      "visibilityOrder": [],
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2025/04/30/0de07b43-0c4f-4726-950b-10cb8d2482e3/Aryna_Sabalenka_Iga_Swiatek_-_2024_Mutua_Madrid_Open_-_Day_12-DSC_1991.jpg",
+      "originalDetails": {
+        "width": 4700,
+        "height": 3042,
+        "aspectRatio": 1.5450362
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2025/04/30/10cb2be4-22fe-401f-992d-f42261c6afad/Aryna_Sabalenka_Iga_Swiatek_-_2024_Mutua_Madrid_Open_-_Day_12-DSC_1991.jpg"
+    }
+  },
+  {
+    "tournament": "Madrid",
+    "year": 2025,
+    "tour": "wta",
+    "cms": {
+      "id": 4258483,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Sabalenka - 2025 Madrid Final",
+      "description": null,
+      "date": "2025-05-03T19:35:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1746300949825,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 320760,
+          "type": "TENNIS_PLAYER",
+          "sid": "320760"
+        },
+        {
+          "label": null,
+          "id": 1038,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "1038"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Clive Brunskill/Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1746301009351,
+      "titleUrlSegment": "gettyimages-2213225678",
+      "visibilityOrder": [],
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2025/05/03/298026e3-bb9e-44d2-a840-c090a3fc506f/GettyImages-2213225678.jpg",
+      "originalDetails": {
+        "width": 5635,
+        "height": 3756,
+        "aspectRatio": 1.5002662
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2025/05/03/1e58a582-2678-4276-b8cc-1e80c06f7120/GettyImages-2213225678.jpg"
+    }
+  },
+  {
+    "tournament": "Madrid",
+    "year": 2026,
+    "tour": "wta",
+    "cms": {
+      "id": 4493497,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Iga Swiatek, Madrid 2026",
+      "description": null,
+      "date": "2026-04-25T14:45:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1777128355601,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 326408,
+          "type": "TENNIS_PLAYER",
+          "sid": "326408"
+        },
+        {
+          "label": null,
+          "id": 1038,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "1038"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Madrid Trophy Promotion"
+      },
+      "titleTranslations": null,
+      "lastModified": 1777128383581,
+      "titleUrlSegment": "swiatek-r3-mtp",
+      "visibilityOrder": [],
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2026/04/25/9f0f8ab8-8004-4e82-a910-77f86bded9b3/Swiatek-R3-MTP.jpg",
+      "originalDetails": {
+        "width": 5109,
+        "height": 3406,
+        "aspectRatio": 1.5
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2026/04/25/ad6acea9-cd35-4394-a6aa-627d41c6902d/Swiatek-R3-MTP.jpg"
+    }
+  },
+  {
+    "tournament": "Miami",
+    "year": 2002,
+    "tour": "wta",
+    "cms": {
+      "id": 3944269,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Venus Williams, Serena Williams, Miami 2002",
+      "description": null,
+      "date": "2024-03-29T11:41:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1711712477977,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 230234,
+          "type": "TENNIS_PLAYER",
+          "sid": "230234"
+        },
+        {
+          "label": null,
+          "id": 230220,
+          "type": "TENNIS_PLAYER",
+          "sid": "230220"
+        },
+        {
+          "label": null,
+          "id": 902,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "902"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Clive Brunskill/Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1711712640111,
+      "titleUrlSegment": "venus-serena-clive-brunskill",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2024/03/29/8082403e-1c46-41d6-a93d-7833525344ca/Venus-Serena-Clive-Brunskill.jpg",
+      "originalDetails": {
+        "width": 3008,
+        "height": 1960,
+        "aspectRatio": 1.5346938
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2024/03/29/578f6304-d363-4f11-9c04-5502a27e00c9/Venus-Serena-Clive-Brunskill.jpg"
+    }
+  },
+  {
+    "tournament": "Miami",
+    "year": 2004,
+    "tour": "wta",
+    "cms": {
+      "id": 2138230,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Serena Williams, Miami 2004",
+      "description": null,
+      "date": "2021-05-11T17:44:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1620755064754,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 230234,
+          "type": "TENNIS_PLAYER",
+          "sid": "230234"
+        },
+        {
+          "label": null,
+          "id": 902,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "902"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1620755410747,
+      "titleUrlSegment": "serena-miami-2004",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2021/05/11/9b4680d4-9a71-4161-a29e-d9ee674d0f34/Serena-Miami-2004.jpg",
+      "originalDetails": {
+        "width": 2464,
+        "height": 1648,
+        "aspectRatio": 1.4951457
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2021/05/11/c10c800e-16b8-4878-945f-b70b6cb2d84b/Serena-Miami-2004.jpg"
+    }
+  },
+  {
+    "tournament": "Miami",
+    "year": 2007,
+    "tour": "wta",
+    "cms": {
+      "id": 2138231,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Serena Williams, Miami 2007",
+      "description": null,
+      "date": "2021-05-11T17:44:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1620755064773,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 230234,
+          "type": "TENNIS_PLAYER",
+          "sid": "230234"
+        },
+        {
+          "label": null,
+          "id": 902,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "902"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1620755433837,
+      "titleUrlSegment": "serena-miami-2007",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2021/05/11/72e5a836-67c5-4365-9232-bca1ba311a9a/Serena-Miami-2007.jpg",
+      "originalDetails": {
+        "width": 3000,
+        "height": 1999,
+        "aspectRatio": 1.5007504
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2021/05/11/de718f06-6ed2-4b94-a59b-5ba052257d91/Serena-Miami-2007.jpg"
+    }
+  },
+  {
+    "tournament": "Miami",
+    "year": 2009,
+    "tour": "wta",
+    "cms": {
+      "id": 1443784,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Serena Williams and Victoria Azarenka ahead of the 2009 Miami final (Getty)",
+      "description": null,
+      "date": "2018-03-15T00:00:00Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1521072000000,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1521072000000,
+      "titleUrlSegment": "serena-williams-and-victoria-azarenka-ahead-of-the-2009-miami-final-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/11/9653a404-fc26-4739-8a55-ed6765c1349c/VPHjDcLR.jpg",
+      "originalDetails": {
+        "width": 3504,
+        "height": 2336,
+        "aspectRatio": 1.5
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/11/9653a404-fc26-4739-8a55-ed6765c1349c/VPHjDcLR.jpg"
+    }
+  },
+  {
+    "tournament": "Miami",
+    "year": 2011,
+    "tour": "wta",
+    "cms": {
+      "id": 1407832,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Azarenka claimed her second Miami title in 2011. Sharapova was beaten 6-1, 6-4 in the final.",
+      "description": null,
+      "date": "2019-10-08T17:28:04Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1570555685214,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1570555684854,
+      "titleUrlSegment": "azarenka-claimed-her-second-miami-title-in-2011-sharapova-was-beaten-6-1-6-4-in-the-final",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/08/57748d30-a8c0-4a02-a150-73ee92acf64e/zfuSYUko.jpg",
+      "originalDetails": {
+        "width": 2800,
+        "height": 1520,
+        "aspectRatio": 1.8421053
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/08/57748d30-a8c0-4a02-a150-73ee92acf64e/zfuSYUko.jpg"
+    }
+  },
+  {
+    "tournament": "Miami",
+    "year": 2016,
+    "tour": "wta",
+    "cms": {
+      "id": 1651091,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Victoria Azarenka, Miami 2016 (Getty)",
+      "description": "",
+      "date": "2020-03-31T19:36:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1585683385383,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": {
+        "credit": "Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1585690454674,
+      "titleUrlSegment": null,
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2020/03/31/87155cd0-0160-4070-92ee-8fc875cd6a4f/GettyImages-517915140.jpg",
+      "originalDetails": {
+        "width": 4504,
+        "height": 2720,
+        "aspectRatio": 1.6558824
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2020/03/31/7350719b-e68a-42b3-8ea7-2e34f3f959fe/GettyImages-517915140.jpg"
+    }
+  },
+  {
+    "tournament": "Miami",
+    "year": 2018,
+    "tour": "wta",
+    "cms": {
+      "id": 1437536,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Sloane Stephens beat Victoria Azarenka 3-6, 6-2, 6-1 in Miami in 2018 (Getty)",
+      "description": null,
+      "date": "2018-12-30T10:30:00Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1546165800000,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1546165800000,
+      "titleUrlSegment": "sloane-stephens-beat-victoria-azarenka-3-6-6-2-6-1-in-miami-in-2018-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/11/687ee4f3-4fec-4f0a-bde1-c1a239a0092e/VeJOtMSO.jpg",
+      "originalDetails": {
+        "width": 3000,
+        "height": 1999,
+        "aspectRatio": 1.5007504
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/11/687ee4f3-4fec-4f0a-bde1-c1a239a0092e/VeJOtMSO.jpg"
+    }
+  },
+  {
+    "tournament": "Miami",
+    "year": 2019,
+    "tour": "wta",
+    "cms": {
+      "id": 1449217,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Victoria Azarenka - Miami 2019 - Getty",
+      "description": null,
+      "date": "2019-04-02T22:30:00Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1554244200000,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1554244200000,
+      "titleUrlSegment": "victoria-azarenka-miami-2019-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/11/ca8d9276-d524-4665-a090-e8e594795aab/DflrOprD.jpg",
+      "originalDetails": {
+        "width": 5159,
+        "height": 3439,
+        "aspectRatio": 1.5001454
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/11/ca8d9276-d524-4665-a090-e8e594795aab/DflrOprD.jpg"
+    }
+  },
+  {
+    "tournament": "Miami",
+    "year": 2021,
+    "tour": "wta",
+    "cms": {
+      "id": 2096985,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Barty 2021 Miami PS",
+      "description": null,
+      "date": "2021-04-07T17:47:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1617817633640,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 318033,
+          "type": "TENNIS_PLAYER",
+          "sid": "318033"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Miami Open/Peter Staples"
+      },
+      "titleTranslations": null,
+      "lastModified": 1617821982463,
+      "titleUrlSegment": "20210403_mo_p6s_7408_e",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2021/04/07/d8cd1467-290e-46c1-863e-be7bc55b6428/20210403_MO_P6S_7408_E.JPG",
+      "originalDetails": {
+        "width": 5568,
+        "height": 3712,
+        "aspectRatio": 1.5
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2021/04/07/ecc5e4ef-5ab3-464c-98c0-78d6bce3a366/20210403_MO_P6S_7408_E.JPG"
+    }
+  },
+  {
+    "tournament": "Miami",
+    "year": 2022,
+    "tour": "wta",
+    "cms": {
+      "id": 3935882,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Swiatek - 2022 Miami",
+      "description": null,
+      "date": "2024-03-17T18:07:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1710698845835,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 902,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "902"
+        },
+        {
+          "label": null,
+          "id": 326408,
+          "type": "TENNIS_PLAYER",
+          "sid": "326408"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Jimmie48/WTA"
+      },
+      "titleTranslations": null,
+      "lastModified": 1710698915718,
+      "titleUrlSegment": "iga_swiatek_-_2022_miami_open_-_day_5-dsc_8791",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2024/03/17/54d26f04-d4c0-4acb-8172-b653410c63ca/Iga_Swiatek_-_2022_Miami_Open_-_Day_5-DSC_8791.jpg",
+      "originalDetails": {
+        "width": 4700,
+        "height": 3006,
+        "aspectRatio": 1.5635396
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2024/03/17/152782ca-22e6-4a56-9a48-0e519652bba7/Iga_Swiatek_-_2022_Miami_Open_-_Day_5-DSC_8791.jpg"
+    }
+  },
+  {
+    "tournament": "Miami",
+    "year": 2023,
+    "tour": "wta",
+    "cms": {
+      "id": 3326097,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Serena and Venus Williams, 2023 Miami Grand Prix (Getty)",
+      "description": null,
+      "date": "2023-05-07T21:31:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1683495099199,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": {
+        "credit": "Dan Istitene - Formula 1/Formula 1 via Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1683496746340,
+      "titleUrlSegment": "gettyimages-1488216342",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2023/05/07/d4ecdfd5-19ad-48ee-95fe-12f04bb80c04/GettyImages-1488216342.jpg",
+      "originalDetails": {
+        "width": 6000,
+        "height": 3375,
+        "aspectRatio": 1.7777778
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2023/05/07/251ae99c-5a45-4a44-9c83-48cd602f7158/GettyImages-1488216342.jpg"
+    }
+  },
+  {
+    "tournament": "Miami",
+    "year": 2024,
+    "tour": "wta",
+    "cms": {
+      "id": 3940511,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Sorana Cirstea, Miami 2024",
+      "description": null,
+      "date": "2024-03-24T18:05:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1711303518643,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 902,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "902"
+        },
+        {
+          "label": null,
+          "id": 312469,
+          "type": "TENNIS_PLAYER",
+          "sid": "312469"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Al Bello/Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1711303602231,
+      "titleUrlSegment": "cirstea-r2-al-bello-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2024/03/24/0ef20351-2b50-4028-82e6-001b73cd708d/Cirstea-R2-Al-Bello-Getty.jpg",
+      "originalDetails": {
+        "width": 6000,
+        "height": 4000,
+        "aspectRatio": 1.5
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2024/03/24/b991655c-3183-46f6-8054-b90f7e886246/Cirstea-R2-Al-Bello-Getty.jpg"
+    }
+  },
+  {
+    "tournament": "Miami",
+    "year": 2025,
+    "tour": "wta",
+    "cms": {
+      "id": 4241461,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Sabalenka - 2025 Miami final",
+      "description": null,
+      "date": "2025-03-31T05:35:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1743399333510,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 320760,
+          "type": "TENNIS_PLAYER",
+          "sid": "320760"
+        },
+        {
+          "label": null,
+          "id": 902,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "902"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Jimmie48/WTA"
+      },
+      "titleTranslations": null,
+      "lastModified": 1743399375836,
+      "titleUrlSegment": "aryna_sabalenka_-_miami_open_2025_-_day_12-dsc_8731",
+      "visibilityOrder": [],
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2025/03/31/9d9a93df-c271-40e7-92ff-b08744fed29b/Aryna_Sabalenka_-_Miami_Open_2025_-_Day_12-DSC_8731.jpg",
+      "originalDetails": {
+        "width": 4700,
+        "height": 3031,
+        "aspectRatio": 1.5506433
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2025/03/31/768b77ce-6822-43b7-a81b-db0bb5fec288/Aryna_Sabalenka_-_Miami_Open_2025_-_Day_12-DSC_8731.jpg"
+    }
+  },
+  {
+    "tournament": "Miami",
+    "year": 2026,
+    "tour": "wta",
+    "cms": {
+      "id": 4480800,
+      "accountId": 29,
+      "type": "photo",
+      "title": "iga swiatek miami 2026",
+      "description": null,
+      "date": "2026-04-02T16:36:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1775147790752,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": {
+        "credit": "Photo by Chris Arjoon/Icon Sportswire via Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1775147833978,
+      "titleUrlSegment": "iga-swiatek-miami-2026",
+      "visibilityOrder": [],
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2026/04/02/baced4de-06c6-4998-8eac-e6eb8cf3913b/GettyImages-2266932959.jpg",
+      "originalDetails": {
+        "width": 6000,
+        "height": 4000,
+        "aspectRatio": 1.5
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2026/04/02/b8e26d6c-648e-4141-af28-1443fd9fcbe2/GettyImages-2266932959.jpg"
+    }
+  },
+  {
+    "tournament": "Rome",
+    "year": 2013,
+    "tour": "wta",
+    "cms": {
+      "id": 2138229,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Serena Williams, Rome 2013",
+      "description": null,
+      "date": "2021-05-11T17:44:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1620755064647,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 230234,
+          "type": "TENNIS_PLAYER",
+          "sid": "230234"
+        },
+        {
+          "label": null,
+          "id": 709,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "709"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1620755464202,
+      "titleUrlSegment": "serena-rome-2013",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2021/05/11/43f15b3a-177d-43d0-87ec-09c5f8c780b6/Serena-Rome-2013.jpg",
+      "originalDetails": {
+        "width": 4446,
+        "height": 3060,
+        "aspectRatio": 1.4529412
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2021/05/11/f2e8fc93-171f-4b34-89d9-4f61beb41387/Serena-Rome-2013.jpg"
+    }
+  },
+  {
+    "tournament": "Rome",
+    "year": 2015,
+    "tour": "wta",
+    "cms": {
+      "id": 1667666,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Maria Sharapova - 2015 Rome",
+      "description": null,
+      "date": "2020-05-11T18:38:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1589222297027,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": {
+        "credit": "Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1589222591539,
+      "titleUrlSegment": null,
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2020/05/11/a80d4c8b-4ed1-437d-a196-95b7d4b2e4c5/GettyImages-473736514.jpg",
+      "originalDetails": {
+        "width": 4928,
+        "height": 3280,
+        "aspectRatio": 1.502439
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2020/05/11/d1936d4b-5b37-4169-bd88-0f2c0548f6e5/GettyImages-473736514.jpg"
+    }
+  },
+  {
+    "tournament": "Rome",
+    "year": 2016,
+    "tour": "wta",
+    "cms": {
+      "id": 1421267,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Serena Williams - Rome 2016 - Getty",
+      "description": null,
+      "date": "2019-10-10T10:01:02Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1570701522324,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1570701662370,
+      "titleUrlSegment": "serena-williams-rome-2016-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/10/f68b8ba3-2e8f-4b3d-a3e3-168865a02e80/liyHoAyJ.jpg",
+      "originalDetails": {
+        "width": 2800,
+        "height": 1520,
+        "aspectRatio": 1.8421053
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/10/44237c2f-c5b6-4463-962c-6d90385db0fd/liyHoAyJ.jpg"
+    }
+  },
+  {
+    "tournament": "Rome",
+    "year": 2017,
+    "tour": "wta",
+    "cms": {
+      "id": 1668466,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Halep Svitolina Rome 2017 (Getty)",
+      "description": null,
+      "date": "2020-05-13T18:01:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1589392863272,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": {
+        "credit": "Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1589392901599,
+      "titleUrlSegment": null,
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2020/05/13/98b5c4c2-040a-461f-81e3-e856839b88e6/GettyImages-686282736.jpg",
+      "originalDetails": {
+        "width": 5568,
+        "height": 3712,
+        "aspectRatio": 1.5
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2020/05/13/c76ab474-1c33-42c5-a1b8-e638b6976f44/GettyImages-686282736.jpg"
+    }
+  },
+  {
+    "tournament": "Rome",
+    "year": 2018,
+    "tour": "wta",
+    "cms": {
+      "id": 1675339,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Halep Rome 2018",
+      "description": null,
+      "date": "2020-05-31T10:19:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1590920373625,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1590920479513,
+      "titleUrlSegment": null,
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2020/05/31/6122cabf-d4e6-4e63-bf56-f3e108a5a311/Halep-Rome-2018.jpg",
+      "originalDetails": {
+        "width": 5568,
+        "height": 3712,
+        "aspectRatio": 1.5
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2020/05/31/6122cabf-d4e6-4e63-bf56-f3e108a5a311/Halep-Rome-2018.jpg"
+    }
+  },
+  {
+    "tournament": "Rome",
+    "year": 2019,
+    "tour": "wta",
+    "cms": {
+      "id": 1449132,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Simona Halep and Elina Svitolina, 2019 Rome (Getty)",
+      "description": null,
+      "date": null,
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1554469200000,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1554397200000,
+      "titleUrlSegment": "simona-halep-and-elina-svitolina-2019-rome-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/11/54808abf-00a8-41b2-a802-9c43d4bb5729/SSGchHdp.jpg",
+      "originalDetails": {
+        "width": 4824,
+        "height": 3144,
+        "aspectRatio": 1.5343511
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/11/bc994f9f-f541-4d9e-8dea-ebef53bd1f0e/SSGchHdp.jpg"
+    }
+  },
+  {
+    "tournament": "Rome",
+    "year": 2020,
+    "tour": "wta",
+    "cms": {
+      "id": 1836177,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Simona Halep - 2020 Rome - Getty Images",
+      "description": "Crowds return to the WTA Tour for the first time since the coronavirus shutdown.",
+      "date": "2020-09-20T12:02:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1600603360554,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1600603474584,
+      "titleUrlSegment": "gettyimages-1228611341",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2020/09/20/7c682b7a-90b9-41ec-b5c5-df80d274344a/GettyImages-1228611341.jpg",
+      "originalDetails": {
+        "width": 5288,
+        "height": 3576,
+        "aspectRatio": 1.4787472
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2020/09/20/896a6bcc-04d5-4570-9662-d93df927b214/GettyImages-1228611341.jpg"
+    }
+  },
+  {
+    "tournament": "Rome",
+    "year": 2021,
+    "tour": "wta",
+    "cms": {
+      "id": 2145047,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Iga Swiatek, Rome 2021, Champion",
+      "description": "Photo by Jimmie48/WTA",
+      "date": "2021-05-16T14:14:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1621174479482,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 326408,
+          "type": "TENNIS_PLAYER",
+          "sid": "326408"
+        },
+        {
+          "label": null,
+          "id": 709,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "709"
+        }
+      ],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1621174996363,
+      "titleUrlSegment": "iga_swiatek_-_2021_internazionali_bnl_d_italia_day_6_-dsc_9103_original",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2021/05/16/5ddd3282-3e12-40ed-af6d-64bd8d94626e/Iga_Swiatek_-_2021_Internazionali_BNL_d_Italia_Day_6_-DSC_9103_original.jpg",
+      "originalDetails": {
+        "width": 2825,
+        "height": 1776,
+        "aspectRatio": 1.5906532
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2021/05/16/9980546b-5b0d-491d-9c49-d5bcd9791f79/Iga_Swiatek_-_2021_Internazionali_BNL_d_Italia_Day_6_-DSC_9103_original.jpg"
+    }
+  },
+  {
+    "tournament": "Rome",
+    "year": 2022,
+    "tour": "wta",
+    "cms": {
+      "id": 3108717,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Iga Swiatek, Bianca Andreescu - Rome 2022",
+      "description": null,
+      "date": "2023-03-13T08:12:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1678695123681,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 326408,
+          "type": "TENNIS_PLAYER",
+          "sid": "326408"
+        },
+        {
+          "label": null,
+          "id": 709,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "709"
+        },
+        {
+          "label": null,
+          "id": 325088,
+          "type": "TENNIS_PLAYER",
+          "sid": "325088"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Tiziana Fabi/AFP/Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1678695202252,
+      "titleUrlSegment": "swiatek-andreescu-qf-tiziana-fabi-afp",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2023/03/13/f0d34527-478a-4610-9fc2-98f4fa52af35/Swiatek-Andreescu-QF-Tiziana-Fabi-AFP.jpg",
+      "originalDetails": {
+        "width": 6000,
+        "height": 4000,
+        "aspectRatio": 1.5
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2023/03/13/86f8c0fd-f6b2-4b6a-a466-8840f56976a5/Swiatek-Andreescu-QF-Tiziana-Fabi-AFP.jpg"
+    }
+  },
+  {
+    "tournament": "Rome",
+    "year": 2023,
+    "tour": "wta",
+    "cms": {
+      "id": 3603418,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Iga Swiatek, Rome 2023 (Getty)",
+      "description": null,
+      "date": "2023-07-25T17:12:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1690305173832,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": {
+        "credit": "Alex Pantling/Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1690305244978,
+      "titleUrlSegment": "gettyimages-1490062844",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": "",
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2023/07/25/2400bcc5-0bb0-4b6e-bf24-4683972ddd49/GettyImages-1490062844.jpg",
+      "originalDetails": {
+        "width": 5112,
+        "height": 3408,
+        "aspectRatio": 1.5
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2023/07/25/7ee0556f-bd2b-4a2c-99e0-cc8520730edb/GettyImages-1490062844.jpg"
+    }
+  },
+  {
+    "tournament": "Rome",
+    "year": 2024,
+    "tour": "wta",
+    "cms": {
+      "id": 4019680,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Swiatek - 2024 Rome final",
+      "description": null,
+      "date": "2024-05-18T17:08:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1716052085505,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 326408,
+          "type": "TENNIS_PLAYER",
+          "sid": "326408"
+        },
+        {
+          "label": null,
+          "id": 709,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "709"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Tiziana Fabi/AFP via Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1716052158308,
+      "titleUrlSegment": "gettyimages-2152986304",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2024/05/18/bb90f758-bc8a-4e86-81b3-25506c33867d/GettyImages-2152986304.jpg",
+      "originalDetails": {
+        "width": 5568,
+        "height": 3712,
+        "aspectRatio": 1.5
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2024/05/18/8aa2dfd1-c0eb-494f-8f64-c587531069c2/GettyImages-2152986304.jpg"
+    }
+  },
+  {
+    "tournament": "Rome",
+    "year": 2025,
+    "tour": "wta",
+    "cms": {
+      "id": 4264633,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Jelena Ostapenko, Rome 2025",
+      "description": null,
+      "date": "2025-05-13T06:52:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1747119163352,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 319939,
+          "type": "TENNIS_PLAYER",
+          "sid": "319939"
+        },
+        {
+          "label": null,
+          "id": 709,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "709"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Dan Istitene/Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1747119247510,
+      "titleUrlSegment": "ostapenko-r4-di",
+      "visibilityOrder": [],
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2025/05/13/d89b8b4a-cf51-47d7-b61a-18fefe98c025/Ostapenko-R4-DI.jpg",
+      "originalDetails": {
+        "width": 6000,
+        "height": 4000,
+        "aspectRatio": 1.5
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2025/05/13/785d79fc-587c-4579-9a30-0f7b0735fbcb/Ostapenko-R4-DI.jpg"
+    }
+  },
+  {
+    "tournament": "Rome",
+    "year": 2026,
+    "tour": "wta",
+    "cms": {
+      "id": 4501730,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Iga Swiatek, Rome 2026",
+      "description": null,
+      "date": "2026-05-10T18:05:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1778436308059,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 326408,
+          "type": "TENNIS_PLAYER",
+          "sid": "326408"
+        },
+        {
+          "label": null,
+          "id": 709,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "709"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Alberto PIZZOLI / AFP via Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1778436351466,
+      "titleUrlSegment": "gettyimages-2274954571",
+      "visibilityOrder": [],
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2026/05/10/e00a9632-46ae-4391-8331-55d5abee89c8/GettyImages-2274954571.jpg",
+      "originalDetails": {
+        "width": 6160,
+        "height": 4264,
+        "aspectRatio": 1.4446529
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2026/05/10/b63cc11d-bd00-4c65-9bf3-fc0225d97d8f/GettyImages-2274954571.jpg"
+    }
+  },
+  {
+    "tournament": "Wuhan",
+    "year": 2018,
+    "tour": "wta",
+    "cms": {
+      "id": 1439185,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Petra Kvitova, Wuhan 2018 (Getty Images)",
+      "description": null,
+      "date": null,
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1537879500000,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1537859700000,
+      "titleUrlSegment": "petra-kvitova-wuhan-2018-getty-images",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/11/311fc2c9-1edd-418c-bee1-c07f1c3da25f/bNdjpqrA.jpg",
+      "originalDetails": {
+        "width": 4928,
+        "height": 3280,
+        "aspectRatio": 1.502439
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/11/556c15da-08ea-43f8-80b7-c681368b65f1/bNdjpqrA.jpg"
+    }
+  },
+  {
+    "tournament": "Wuhan",
+    "year": 2019,
+    "tour": "wta",
+    "cms": {
+      "id": 1485805,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Aryna Sabalenka, Wuhan 2019 (Getty)",
+      "description": null,
+      "date": "2019-09-28T10:30:00Z",
+      "location": "",
+      "coordinates": null,
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1569666600000,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": null,
+      "titleTranslations": null,
+      "lastModified": 1569666600000,
+      "titleUrlSegment": "aryna-sabalenka-wuhan-2019-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/11/06/9b11621b-be67-4759-ac83-0beefa555044/uKxHUqlm.jpg",
+      "originalDetails": {
+        "width": 5568,
+        "height": 3712,
+        "aspectRatio": 1.5
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/11/06/9b11621b-be67-4759-ac83-0beefa555044/uKxHUqlm.jpg"
+    }
+  },
+  {
+    "tournament": "Wuhan",
+    "year": 2024,
+    "tour": "wta",
+    "cms": {
+      "id": 4147539,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Aryna Sabalenka, Wuhan 2024",
+      "description": null,
+      "date": "2024-10-11T10:55:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1728644142157,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 320760,
+          "type": "TENNIS_PLAYER",
+          "sid": "320760"
+        },
+        {
+          "label": null,
+          "id": 1075,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "1075"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Wang Zhao/AFP via Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1728644365289,
+      "titleUrlSegment": "sabalenka-qf-wang-zhao-afp",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2024/10/11/6057c278-533d-4258-8d37-65c505dc1846/Sabalenka-QF-Wang-Zhao-AFP.jpg",
+      "originalDetails": {
+        "width": 5124,
+        "height": 3416,
+        "aspectRatio": 1.5
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2024/10/11/16f81e44-fcda-4279-8104-31c342dc3733/Sabalenka-QF-Wang-Zhao-AFP.jpg"
+    }
+  },
+  {
+    "tournament": "Wuhan",
+    "year": 2025,
+    "tour": "wta",
+    "cms": {
+      "id": 4577846,
+      "accountId": 29,
+      "type": "photo",
+      "title": "aryna sabalenka wuhan 2025",
+      "description": null,
+      "date": "2026-09-17T14:37:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1789655867038,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": {
+        "credit": "Photo by Eurasia Sport Images/Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1789655928395,
+      "titleUrlSegment": "aryna-sabalenka-wuhan-2025",
+      "visibilityOrder": [],
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2026/09/17/d8564d90-1c0d-4bfd-b97a-8886efc05d89/GettyImages-2239953773.jpg",
+      "originalDetails": {
+        "width": 5000,
+        "height": 3333,
+        "aspectRatio": 1.50015
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2026/09/17/416f3262-e410-4ae3-8fb0-d9eb254d23ea/GettyImages-2239953773.jpg"
+    }
+  },
+  {
+    "tournament": "Wuhan",
+    "year": 2026,
+    "tour": "wta",
+    "cms": {
+      "id": 4599209,
+      "accountId": 29,
+      "type": "photo",
+      "title": "aryna sabalenka wuhan 2026",
+      "description": null,
+      "date": "2026-10-26T17:48:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1793036921942,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": {
+        "credit": "Photo by Robert Prange/Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1793036952134,
+      "titleUrlSegment": "aryna-sabalenka-wuhan-2026",
+      "visibilityOrder": [],
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2026/10/26/774f6c7d-4959-4486-a614-85aed0b6e6da/GettyImages-2299606909.jpg",
+      "originalDetails": {
+        "width": 4700,
+        "height": 3196,
+        "aspectRatio": 1.4705882
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2026/10/26/67b640fb-9373-4fbc-94f3-043850d16414/GettyImages-2299606909.jpg"
+    }
+  }
+]

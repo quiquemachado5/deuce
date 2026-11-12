@@ -225,9 +225,8 @@ export function recordDetailModel(
       piece?.title ||
       manifest.pieces.find((entry) => entry.id === query.dato)?.title ||
       "Récords",
-    definition: piece?.definition
-      ? `${piece.definition.split(". ")[0].replace(/\.$/, "")}.`
-      : undefined,
+    definition: piece?.id==='victorias'?'Victorias en individuales, sumadas partido a partido y ordenadas por jugador. Incluye victorias por retirada con ganador documentado; las incomparecencias no cuentan como partidos disputados.':piece?.definition,
+    valueLabel: query.dato==='tal-dia-como-hoy'?'Año':piece?.percent?'Porcentaje':/victorias|remontad/.test(piece?.id||'')?'Victorias':piece?.id==='partidos-disputados'?'Partidos':/finales-ganadas|titulos/.test(piece?.id||'')?'Títulos':piece?.id==='mas-juegos'?'Juegos':piece?.id==='aces'?'Aces':'Total',
     marathonPreview: query.dato === "mas-juegos" && query.full !== "true",
     relatedPieces,
     relatedLabel: recordFamilyLabel(piece?.group),

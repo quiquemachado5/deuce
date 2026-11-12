@@ -11,11 +11,11 @@
   --court: var(--ink);
   --court-deep: var(--bg-sunken);
   --gold: #9b742a;
-  --grass: #17774b;
+  --grass: oklch(from #17774b l c var(--appearance-hue,157.600));
   --clay: #aa4326;
   --hard: #2169b3;
   --carpet: #7949ab;
-  --win: #17774b;
+  --win: oklch(from #17774b l c var(--appearance-hue,157.600));
   --loss: #bb4c36;
   --p1: #2169b3;
   --p2: #aa4326;
@@ -71,11 +71,11 @@ html[data-theme="dark"] {
   --court: var(--ink);
   --court-deep: var(--bg-sunken);
   --gold: #e3c675;
-  --grass: #88d9a8;
+  --grass: oklch(from #88d9a8 l c var(--appearance-hue,156.575));
   --clay: #f39a72;
   --hard: #86bbf2;
   --carpet: #c4a3ef;
-  --win: #88d9a8;
+  --win: oklch(from #88d9a8 l c var(--appearance-hue,156.575));
   --loss: #f39a72;
   --p1: #86bbf2;
   --p2: #f39a72;

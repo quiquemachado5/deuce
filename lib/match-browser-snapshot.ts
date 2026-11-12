@@ -422,11 +422,20 @@ function rowOrder(a: RowRef, b: RowRef) {
   return bp - ap || ar[0].localeCompare(br[0]);
 }
 
-function exactTerms(partition: MatchBrowserPartition, row: MatchBrowserRow, terms: string[]) {
-  if (!terms.length) return true;
+/** Resolve each term against dictionaries once, rather than allocating/searching
+ * the same six text fields for every match in a circuit. */
+function exactRowMatcher(partition: MatchBrowserPartition, terms: string[]) {
   const d = normalized(partition);
-  const fields = [d.players[row[6]], d.players[row[8]], d.tournaments[row[2]], d.categories[row[3]], d.rounds[row[5]], String(row[1])];
-  return terms.every(term => fields.some(field => field?.includes(term)));
+  const lookups = terms.map(term => ({
+    term,
+    players: d.players.map(field => Boolean(field?.includes(term))),
+    tournaments: d.tournaments.map(field => Boolean(field?.includes(term))),
+    categories: d.categories.map(field => Boolean(field?.includes(term))),
+    rounds: d.rounds.map(field => Boolean(field?.includes(term))),
+  }));
+  return (row: MatchBrowserRow) => lookups.every(fields =>
+    fields.players[row[6]] || fields.players[row[8]] || fields.tournaments[row[2]]
+    || fields.categories[row[3]] || fields.rounds[row[5]] || String(row[1]).includes(fields.term));
 }
 
 function fuzzyTerms(partition: MatchBrowserPartition, row: MatchBrowserRow, terms: string[]) {
@@ -437,6 +446,7 @@ function fuzzyTerms(partition: MatchBrowserPartition, row: MatchBrowserRow, term
 
 function createRowMatcher(filter: BrowserFilter, fuzzy: boolean) {
   const intent = matchSearchIntent(filter.q || '');
+  const exactMatchers = new WeakMap<MatchBrowserPartition, ReturnType<typeof exactRowMatcher>>();
   const normalizedRound = normalizeText(filter.round || '');
   const requestedRoundPosition = ({ f: 7, sf: 6, qf: 5, r16: 4 } as Record<string, number>)[normalizedRound]
     || (normalizedRound ? roundPosition(filter.round || '') : 0);
@@ -463,7 +473,11 @@ function createRowMatcher(filter: BrowserFilter, fuzzy: boolean) {
       const age = normalizeText(value(d.players, row[6])) === requestedPlayer ? row[16] : normalizeText(value(d.players, row[8])) === requestedPlayer ? row[17] : null;
       if (age === null || Math.floor(age) !== filter.age) return false;
     }
-    return fuzzy ? fuzzyTerms(partition, row, intent.terms) : exactTerms(partition, row, intent.terms);
+    if (!intent.terms.length) return true;
+    if (fuzzy) return fuzzyTerms(partition, row, intent.terms);
+    let exact = exactMatchers.get(partition);
+    if (!exact) { exact = exactRowMatcher(partition, intent.terms); exactMatchers.set(partition, exact); }
+    return exact(row);
   };
 }
 

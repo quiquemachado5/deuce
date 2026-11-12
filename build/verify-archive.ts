@@ -12,6 +12,7 @@ import { MATCH_BROWSER_DICTIONARIES, MATCH_BROWSER_ROW_LENGTH, MATCH_BROWSER_SCH
 import { reconcileCoverage, type CoverageReconciliation } from '../lib/coverage-reconciliation';
 import historyBaseline from '../ops/wta-history-baseline.json';
 import { buildPublicationIndex, validPublicationIndex } from '../lib/publication-index';
+import { detectDrawAnomalies, type DrawAnomalyReport } from '../lib/draw-anomalies';
 
 async function main() {
   const root = readingSource();
@@ -28,6 +29,7 @@ async function main() {
   const audit: EditionAudit[] = await read('audit');
   const reconciliation: CoverageReconciliation = await read('reconciliation');
   const publicationIndex = await read('publication-index');
+  const drawAnomalies: DrawAnomalyReport = await read('draw-anomalies');
   const players = await read('players');
   const eras = await read('eras');
   assert.equal(competition.length, manifest.competitionCount);
@@ -40,6 +42,8 @@ async function main() {
   assert.deepEqual(reconciliation, reconcileCoverage(matches, audit, historyBaseline.allowedPendingCohorts));
   assert.ok(validPublicationIndex(publicationIndex));
   assert.deepEqual(publicationIndex,buildPublicationIndex(matches));
+  assert.deepEqual(drawAnomalies,detectDrawAnomalies(matches,audit));
+  assert.equal(drawAnomalies.blocking,0);
   assert.ok(manifest.summary.surfaces.carpet > 1_000);
   assert.equal(Object.values(manifest.summary.surfaces).reduce((sum,count)=>sum+count,0),matches.length);
   for (const reference of reviewedFinals) {

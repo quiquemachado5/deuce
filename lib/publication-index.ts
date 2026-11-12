@@ -1,4 +1,4 @@
-import { createHash } from 'node:crypto';
+import {publicationSummaryHash} from './publication-hash.mjs';
 import type { Match, Tour } from './types';
 
 export const PUBLICATION_INDEX_SCHEMA = 1;
@@ -23,33 +23,8 @@ export type PublicationIndexChange = {
 };
 
 const identity = (match: Match) => `${match.tour || 'atp'}:${match.match_id}`;
-const stableValue=(value:unknown):unknown=>{
-  if(Array.isArray(value))return value.map(stableValue);
-  if(value&&typeof value==='object')return Object.fromEntries(Object.entries(value as Record<string,unknown>)
-    .filter(([,entry])=>entry!==undefined).sort(([a],[b])=>a.localeCompare(b)).map(([key,entry])=>[key,stableValue(entry)]));
-  return value;
-};
-
-/**
- * The publication ledger intentionally hashes the public match summary, not
- * the large point/stat arrays. Their coverage is tracked separately in the
- * manifest, while this projection detects result and metadata corrections
- * without inflating the previous full generation in memory.
- */
-export function publicationMatchHash(match: Match) {
-  const { raw_fixture: _fixture, raw_point_tape: _tape, point_tape, statistics, listingCapabilities: storedCapabilities, editorial_highlight:_derivedHighlight, context, ...summary } = match;
-  void _fixture; void _tape; void _derivedHighlight;
-  const listingCapabilities = {
-    statistics: storedCapabilities?.statistics ?? statistics.length > 0,
-    points: storedCapabilities?.points ?? point_tape.length > 0,
-  };
-  return createHash('sha256').update(JSON.stringify(stableValue({
-    ...summary,
-    tour: match.tour || 'atp',
-    ...(context&&Object.keys(context).length?{context}:{}),
-    listingCapabilities,
-  }))).digest('hex').slice(0, 24);
-}
+/** Shared with physical restore verification; large point/stat tapes are tracked separately. */
+export function publicationMatchHash(match:Match){return publicationSummaryHash(match)}
 
 export function buildPublicationIndex(matches: readonly Match[]): PublicationIndex {
   const entries: PublicationIndexEntry[] = [], seen = new Set<string>();
@@ -67,11 +42,16 @@ export function buildPublicationIndex(matches: readonly Match[]): PublicationInd
 export function validPublicationIndex(value: unknown): value is PublicationIndex {
   if (!value || typeof value !== 'object') return false;
   const index = value as Partial<PublicationIndex>;
+  const identities=new Set<string>();
   return index.schema === PUBLICATION_INDEX_SCHEMA && Number.isSafeInteger(index.count)
     && Array.isArray(index.entries) && index.entries.length === index.count
-    && index.entries.every(entry => entry && (entry.tour === 'atp' || entry.tour === 'wta')
-      && typeof entry.identity === 'string' && entry.identity.startsWith(`${entry.tour}:`)
-      && Number.isSafeInteger(entry.year) && typeof entry.hash === 'string' && /^[a-f0-9]{24}$/.test(entry.hash));
+    && index.entries.every(entry => {
+      if(!entry||(entry.tour!=='atp'&&entry.tour!=='wta')||typeof entry.identity!=='string'
+        ||!entry.identity.startsWith(`${entry.tour}:`)||!/^(?:atp|wta):[^\s/\\?#]+$/.test(entry.identity)
+        ||!Number.isSafeInteger(entry.year)||entry.year<1||entry.year>9999
+        ||typeof entry.hash!=='string'||!(/^[a-f0-9]{24}$/).test(entry.hash)||identities.has(entry.identity))return false;
+      identities.add(entry.identity);return true;
+    });
 }
 
 /** Count identities, reject deletions and retain hashes as immutable evidence. */
@@ -89,6 +69,7 @@ export function comparePublicationIndexes(previous: PublicationIndex, next: Publ
     const kind = old ? 'corrected' : 'added';
     delta[kind]++; delta.tours[entry.tour][kind]++;
     seasons.add(`${entry.tour}:${entry.year}`);
+    if(old)seasons.add(`${old.tour}:${old.year}`);
     changes.push({ identity: entry.identity, beforeHash: old?.hash || null, afterHash: entry.hash });
   }
   for (const key of before.keys()) if (!seen.has(key)) throw new Error(`Publication would remove a verified match: ${key}`);

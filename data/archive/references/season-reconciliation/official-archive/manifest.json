@@ -1,0 +1,58 @@
+[
+  {
+    "year": 1968,
+    "tour": "atp",
+    "url": "https://assets.wimbledon.com/archive/draws/pdfs/draws/1968_MS_A4.pdf",
+    "file": "data/archive/references/season-reconciliation/official-archive/wimbledon-1968-atp.pdf",
+    "sha256": "9c0a6f9165a402ec633ff5bcd8a4b9f4c5a7f29c49235486dd5a5afc38361efb"
+  },
+  {
+    "year": 1969,
+    "tour": "atp",
+    "url": "https://assets.wimbledon.com/archive/draws/pdfs/draws/1969_MS_A4.pdf",
+    "file": "data/archive/references/season-reconciliation/official-archive/wimbledon-1969-atp.pdf",
+    "sha256": "237e025dacbdf14cab9e19afe2d7915959d123f6fb2a5bc0d980892fac6ab2d5"
+  },
+  {
+    "year": 1971,
+    "tour": "wta",
+    "url": "https://assets.wimbledon.com/archive/draws/pdfs/draws/1971_LS_A4.pdf",
+    "file": "data/archive/references/season-reconciliation/official-archive/wimbledon-1971-wta.pdf",
+    "sha256": "fd788444217b4791a1f9e82b2153437c81ef485096dde5e68bb683a27d761a63"
+  },
+  {
+    "year": 1975,
+    "tour": "wta",
+    "url": "https://assets.wimbledon.com/archive/draws/pdfs/draws/1975_LS_A4.pdf",
+    "file": "data/archive/references/season-reconciliation/official-archive/wimbledon-1975-wta.pdf",
+    "sha256": "fec8e5cd8cb3cee12ee6a271f52e66897d29577f026a22dd19be46238766fd38"
+  },
+  {
+    "year": 1992,
+    "tour": "atp",
+    "url": "https://assets.wimbledon.com/archive/draws/pdfs/draws/1992_MS_A4.pdf",
+    "file": "data/archive/references/season-reconciliation/official-archive/wimbledon-1992-atp.pdf",
+    "sha256": "a44f2770b329d63f132f5db7449e0558e5425a096d6288d60a528e5e8c50db69"
+  },
+  {
+    "year": 2013,
+    "tour": "wta",
+    "url": "https://assets.wimbledon.com/archive/draws/pdfs/draws/2013_LS_A4.pdf",
+    "file": "data/archive/references/season-reconciliation/official-archive/wimbledon-2013-wta.pdf",
+    "sha256": "8bbb64729e79d006222a06659af735a113de7e7cb0f8929791f753017b106bfd"
+  },
+  {
+    "year": 2015,
+    "tour": "wta",
+    "url": "https://assets.wimbledon.com/archive/draws/pdfs/draws/2015_LS_A4.pdf",
+    "file": "data/archive/references/season-reconciliation/official-archive/wimbledon-2015-wta.pdf",
+    "sha256": "aeb86643a917248aed157479694e6f0279a9b2bf3537398602d738ac1cb01ea6"
+  },
+  {
+    "year": 2024,
+    "tour": "wta",
+    "url": "https://assets.wimbledon.com/archive/draws/pdfs/draws/2024_LS_A4.pdf",
+    "file": "data/archive/references/season-reconciliation/official-archive/wimbledon-2024-wta.pdf",
+    "sha256": "9d31c346b7ce4a93a752dff9d6b58724ab769b25fe13f27e22c3e8915f4a6bf1"
+  }
+]

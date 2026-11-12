@@ -1,0 +1,196 @@
+[
+  {
+    "matchId": "live-217813",
+    "tour": "atp",
+    "year": 2023,
+    "tournament": "Australian Open",
+    "date": "2023-01-09",
+    "round": "Cuartos de final",
+    "first": "Leandro Riedi",
+    "second": "Tim van Rijthoven",
+    "correctedRound": "Previa · primera ronda",
+    "qualifying": true,
+    "outsideMainDraw": true,
+    "reason": "Primera ronda de la fase previa, no cuartos de final del cuadro principal. Se conserva la retirada sin inventar sets.",
+    "source": "https://donald.au/tennis/2023/2023-australian-open-singles.pdf",
+    "corroboration": "https://nos.nl/artikel/2459309-rus-en-van-rijthoven-sneuvelen-direct-in-kwalificatie-australian-open"
+  },
+  {
+    "matchId": "live-217793",
+    "tour": "atp",
+    "year": 2023,
+    "tournament": "Australian Open",
+    "date": "2023-01-09",
+    "round": "Cuartos de final",
+    "first": "Marco Cecchinato",
+    "second": "Max Purcell",
+    "correctedRound": "Previa · primera ronda",
+    "qualifying": true,
+    "outsideMainDraw": true,
+    "reason": "Primera ronda de la fase previa, no cuartos de final del cuadro principal. Se conserva la retirada sin inventar sets.",
+    "source": "https://www.tennis.com.au/fan-zone/news/2023/01/08/qualifying-singles-draws-revealed-for-australian-open-2023",
+    "corroboration": "https://en.tennistemple.com/competitions/australian-open/2023/draw-qualifications"
+  },
+  {
+    "matchId": "wta-live-177433",
+    "tour": "wta",
+    "year": 2026,
+    "tournament": "US Open",
+    "date": "2026-08-23",
+    "round": "Semifinal",
+    "first": "Chukwumelije Clarke",
+    "second": "Kennedy Drenser-Hagmann",
+    "correctedRound": "Invitacional · semifinal",
+    "outsideMainDraw": true,
+    "reason": "Semifinal del US Open Qualifying Wild Card Challenge: competición invitacional para conseguir una plaza en la previa, no semifinal del Grand Slam.",
+    "source": "https://www.usopen.org/amp/en_US/news/articles/2026-08-23/jordyn_hazelitt_and_jack_secord_win_2026_us_open_qualifying_wild_card_challenge.html",
+    "corroboration": "https://tenniskalamazoo.blogspot.com/2026/08/zheng-among-2026-us-open-main-draw-wild.html"
+  },
+  {
+    "matchId": "wta-live-177434",
+    "tour": "wta",
+    "year": 2026,
+    "tournament": "US Open",
+    "date": "2026-08-23",
+    "round": "Semifinal",
+    "first": "Shannon Lam",
+    "second": "Jordyn Hazelitt",
+    "correctedRound": "Invitacional · semifinal",
+    "outsideMainDraw": true,
+    "reason": "Semifinal del US Open Qualifying Wild Card Challenge: competición invitacional para conseguir una plaza en la previa, no semifinal del Grand Slam.",
+    "source": "https://www.usopen.org/amp/en_US/news/articles/2026-08-23/jordyn_hazelitt_and_jack_secord_win_2026_us_open_qualifying_wild_card_challenge.html",
+    "corroboration": "https://tenniskalamazoo.blogspot.com/2026/08/zheng-among-2026-us-open-main-draw-wild.html"
+  },
+  {
+    "matchId": "wta-live-1059",
+    "tour": "wta",
+    "year": 2026,
+    "tournament": "Rome",
+    "date": "2026-05-07",
+    "round": "Cuartos de final",
+    "first": "Jelena Ostapenko",
+    "second": "Gabriela Elena Ruse",
+    "correctedRound": "Ronda de 64",
+    "outsideMainDraw": false,
+    "reason": "Segunda ronda del cuadro de 96 jugadoras, no cuartos de final. Las crónicas identifican a Ruse como sustituta de Anisimova.",
+    "source": "https://www.wtatennis.com/videos/4500194/ostapenko-tops-ruse-in-pietrangeli-rollercoaster-into-rome-third-round",
+    "corroboration": "https://setlex.co/en/tournaments/rome/2026/women?tab=seeds",
+    "evidence": [
+      "https://www.wtatennis.com/news/4499994/amanda-anisimova-pulls-out-of-rome-with-left-wrist-injury"
+    ]
+  },
+  {
+    "matchId": "wta-live-215414",
+    "tour": "wta",
+    "year": 2026,
+    "tournament": "WTA Finals",
+    "date": "2026-11-09",
+    "round": "Ronda no especificada",
+    "first": "Aryna Sabalenka",
+    "second": "Karolina Muchova",
+    "correctedRound": "Fase de grupos",
+    "qualifying": false,
+    "outsideMainDraw": false,
+    "reason": "Encuentro de round robin contrastado por fecha y participantes. No se infiere la ronda por el nombre Finals.",
+    "source": "https://www.wtatennis.com/tournaments/808/wta-finals/2026/",
+    "corroboration": "https://en.wikipedia.org/wiki/2026_WTA_Finals_%E2%80%93_Singles",
+    "evidence": [
+      "https://www.tennis.com/tournaments/wta-finals?date=2026-11-09"
+    ]
+  },
+  {
+    "matchId": "wta-live-215415",
+    "tour": "wta",
+    "year": 2026,
+    "tournament": "WTA Finals",
+    "date": "2026-11-09",
+    "round": "Ronda no especificada",
+    "first": "Elina Svitolina",
+    "second": "Mirra Andreeva",
+    "correctedRound": "Fase de grupos",
+    "qualifying": false,
+    "outsideMainDraw": false,
+    "reason": "Encuentro de round robin contrastado por fecha y participantes. No se infiere la ronda por el nombre Finals.",
+    "source": "https://www.wtatennis.com/tournaments/808/wta-finals/2026/",
+    "corroboration": "https://en.wikipedia.org/wiki/2026_WTA_Finals_%E2%80%93_Singles",
+    "evidence": [
+      "https://www.tennis.com/tournaments/wta-finals?date=2026-11-09"
+    ]
+  },
+  {
+    "matchId": "wta-live-215417",
+    "tour": "wta",
+    "year": 2026,
+    "tournament": "WTA Finals",
+    "date": "2026-11-10",
+    "round": "Ronda no especificada",
+    "first": "Coco Gauff",
+    "second": "Linda Noskova",
+    "correctedRound": "Fase de grupos",
+    "qualifying": false,
+    "outsideMainDraw": false,
+    "reason": "Encuentro de round robin contrastado por fecha y participantes. No se infiere la ronda por el nombre Finals.",
+    "source": "https://www.wtatennis.com/tournaments/808/wta-finals/2026/",
+    "corroboration": "https://en.wikipedia.org/wiki/2026_WTA_Finals_%E2%80%93_Singles",
+    "evidence": [
+      "https://www.tennis.com/tournaments/wta-finals?date=2026-11-10"
+    ]
+  },
+  {
+    "matchId": "wta-live-215427",
+    "tour": "wta",
+    "year": 2026,
+    "tournament": "WTA Finals",
+    "date": "2026-11-08",
+    "round": "Ronda no especificada",
+    "first": "Coco Gauff",
+    "second": "Jessica Pegula",
+    "correctedRound": "Fase de grupos",
+    "qualifying": false,
+    "outsideMainDraw": false,
+    "reason": "Encuentro de round robin contrastado por fecha y participantes. No se infiere la ronda por el nombre Finals.",
+    "source": "https://www.wtatennis.com/tournaments/808/wta-finals/2026/",
+    "corroboration": "https://en.wikipedia.org/wiki/2026_WTA_Finals_%E2%80%93_Singles",
+    "evidence": [
+      "https://www.tennis.com/tournaments/wta-finals?date=2026-11-08"
+    ]
+  },
+  {
+    "matchId": "wta-live-216547",
+    "tour": "wta",
+    "year": 2026,
+    "tournament": "WTA Finals",
+    "date": "2026-11-08",
+    "round": "Ronda no especificada",
+    "first": "Linda Noskova",
+    "second": "Marta Kostyuk",
+    "correctedRound": "Fase de grupos",
+    "qualifying": false,
+    "outsideMainDraw": false,
+    "reason": "Encuentro de round robin contrastado por fecha y participantes. No se infiere la ronda por el nombre Finals.",
+    "source": "https://www.wtatennis.com/tournaments/808/wta-finals/2026/",
+    "corroboration": "https://en.wikipedia.org/wiki/2026_WTA_Finals_%E2%80%93_Singles",
+    "evidence": [
+      "https://www.tennis.com/tournaments/wta-finals?date=2026-11-08"
+    ]
+  },
+  {
+    "matchId": "wta-live-216549",
+    "tour": "wta",
+    "year": 2026,
+    "tournament": "WTA Finals",
+    "date": "2026-11-10",
+    "round": "Ronda no especificada",
+    "first": "Jessica Pegula",
+    "second": "Marta Kostyuk",
+    "correctedRound": "Fase de grupos",
+    "qualifying": false,
+    "outsideMainDraw": false,
+    "reason": "Encuentro de round robin contrastado por fecha y participantes. No se infiere la ronda por el nombre Finals.",
+    "source": "https://www.wtatennis.com/tournaments/808/wta-finals/2026/",
+    "corroboration": "https://en.wikipedia.org/wiki/2026_WTA_Finals_%E2%80%93_Singles",
+    "evidence": [
+      "https://www.tennis.com/tournaments/wta-finals?date=2026-11-10"
+    ]
+  }
+]

@@ -1,0 +1,317 @@
+{
+  "rows": [
+    {
+      "width": 320,
+      "route": "/",
+      "status": 200,
+      "overflow": false,
+      "details": {
+        "header": "Tal día como hoy.12 de noviembre de 2025",
+        "headlines": [
+          "Jannik Sinner vence a Alexander Zverev en fase de grupos de ATP Finals",
+          "Jannik Sinner vence a Alexander Zverev en fase de grupos de ATP Finals"
+        ],
+        "height": 54,
+        "courtScores": [
+          "6–4, 6–3",
+          "6–4, 6–3"
+        ]
+      }
+    },
+    {
+      "width": 320,
+      "route": "/records?dato=victorias",
+      "status": 200,
+      "overflow": false,
+      "details": {
+        "canonical": "https://deucearchive.com/records?dato=victorias",
+        "languages": [
+          {
+            "lang": "es",
+            "href": "https://deucearchive.com/records?dato=victorias"
+          },
+          {
+            "lang": "en",
+            "href": "https://deucearchive.com/en/records"
+          }
+        ],
+        "h1": "Más victorias en este archivo",
+        "tableHeaders": [
+          "N.º",
+          "Jugador o partido",
+          "Victorias",
+          "Partidos de la clasificación"
+        ]
+      }
+    },
+    {
+      "width": 320,
+      "route": "/records?dato=remontada-dos-sets",
+      "status": 200,
+      "overflow": false,
+      "details": {
+        "canonical": "https://deucearchive.com/records?dato=remontada-dos-sets",
+        "languages": [],
+        "h1": "Más remontadas tras perder dos sets",
+        "tableHeaders": [
+          "N.º",
+          "Jugador o partido",
+          "Victorias",
+          "Partidos de la clasificación"
+        ]
+      }
+    },
+    {
+      "width": 320,
+      "route": "/records?dato=efectividad-hard&tour=wta",
+      "status": 200,
+      "overflow": false,
+      "details": {
+        "canonical": "https://deucearchive.com/records?dato=efectividad-hard&tour=wta",
+        "languages": [],
+        "h1": "Porcentaje de victorias en dura",
+        "tableHeaders": [
+          "N.º",
+          "Jugador o partido",
+          "Porcentaje",
+          "Partidos de la clasificación"
+        ]
+      }
+    },
+    {
+      "width": 320,
+      "route": "/torneos",
+      "status": 200,
+      "overflow": false,
+      "details": [
+        {
+          "class": "",
+          "bg": "rgb(236, 224, 216)",
+          "href": "/torneos/madrid?cuadro=atp&categoria=Masters%201000"
+        }
+      ]
+    },
+    {
+      "width": 320,
+      "route": "/torneos?tour=wta",
+      "status": 200,
+      "overflow": false,
+      "details": [
+        {
+          "class": "",
+          "bg": "rgb(236, 224, 216)",
+          "href": "/torneos/madrid?cuadro=wta&categoria=WTA%201000"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "route": "/",
+      "status": 200,
+      "overflow": false,
+      "details": {
+        "header": "Tal día como hoy.12 de noviembre de 2025",
+        "headlines": [
+          "Jannik Sinner vence a Alexander Zverev en fase de grupos de ATP Finals",
+          "Jannik Sinner vence a Alexander Zverev en fase de grupos de ATP Finals"
+        ],
+        "height": 42.1875,
+        "courtScores": [
+          "6–4, 6–3",
+          "6–4, 6–3"
+        ]
+      }
+    },
+    {
+      "width": 390,
+      "route": "/records?dato=victorias",
+      "status": 200,
+      "overflow": false,
+      "details": {
+        "canonical": "https://deucearchive.com/records?dato=victorias",
+        "languages": [
+          {
+            "lang": "es",
+            "href": "https://deucearchive.com/records?dato=victorias"
+          },
+          {
+            "lang": "en",
+            "href": "https://deucearchive.com/en/records"
+          }
+        ],
+        "h1": "Más victorias en este archivo",
+        "tableHeaders": [
+          "N.º",
+          "Jugador o partido",
+          "Victorias",
+          "Partidos de la clasificación"
+        ]
+      }
+    },
+    {
+      "width": 390,
+      "route": "/records?dato=remontada-dos-sets",
+      "status": 200,
+      "overflow": false,
+      "details": {
+        "canonical": "https://deucearchive.com/records?dato=remontada-dos-sets",
+        "languages": [],
+        "h1": "Más remontadas tras perder dos sets",
+        "tableHeaders": [
+          "N.º",
+          "Jugador o partido",
+          "Victorias",
+          "Partidos de la clasificación"
+        ]
+      }
+    },
+    {
+      "width": 390,
+      "route": "/records?dato=efectividad-hard&tour=wta",
+      "status": 200,
+      "overflow": false,
+      "details": {
+        "canonical": "https://deucearchive.com/records?dato=efectividad-hard&tour=wta",
+        "languages": [],
+        "h1": "Porcentaje de victorias en dura",
+        "tableHeaders": [
+          "N.º",
+          "Jugador o partido",
+          "Porcentaje",
+          "Partidos de la clasificación"
+        ]
+      }
+    },
+    {
+      "width": 390,
+      "route": "/torneos",
+      "status": 200,
+      "overflow": false,
+      "details": [
+        {
+          "class": "",
+          "bg": "rgb(236, 224, 216)",
+          "href": "/torneos/madrid?cuadro=atp&categoria=Masters%201000"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "route": "/torneos?tour=wta",
+      "status": 200,
+      "overflow": false,
+      "details": [
+        {
+          "class": "",
+          "bg": "rgb(236, 224, 216)",
+          "href": "/torneos/madrid?cuadro=wta&categoria=WTA%201000"
+        }
+      ]
+    },
+    {
+      "width": 1366,
+      "route": "/",
+      "status": 200,
+      "overflow": false,
+      "details": {
+        "header": "Tal día como hoy.12 de noviembre de 2025",
+        "headlines": [
+          "Jannik Sinner vence a Alexander Zverev en fase de grupos de ATP Finals",
+          "Jannik Sinner vence a Alexander Zverev en fase de grupos de ATP Finals"
+        ],
+        "height": 408.828125,
+        "courtScores": [
+          "6–4, 6–3",
+          "6–4, 6–3"
+        ]
+      }
+    },
+    {
+      "width": 1366,
+      "route": "/records?dato=victorias",
+      "status": 200,
+      "overflow": false,
+      "details": {
+        "canonical": "https://deucearchive.com/records?dato=victorias",
+        "languages": [
+          {
+            "lang": "es",
+            "href": "https://deucearchive.com/records?dato=victorias"
+          },
+          {
+            "lang": "en",
+            "href": "https://deucearchive.com/en/records"
+          }
+        ],
+        "h1": "Más victorias en este archivo",
+        "tableHeaders": [
+          "N.º",
+          "Jugador o partido",
+          "Victorias",
+          "Partidos de la clasificación"
+        ]
+      }
+    },
+    {
+      "width": 1366,
+      "route": "/records?dato=remontada-dos-sets",
+      "status": 200,
+      "overflow": false,
+      "details": {
+        "canonical": "https://deucearchive.com/records?dato=remontada-dos-sets",
+        "languages": [],
+        "h1": "Más remontadas tras perder dos sets",
+        "tableHeaders": [
+          "N.º",
+          "Jugador o partido",
+          "Victorias",
+          "Partidos de la clasificación"
+        ]
+      }
+    },
+    {
+      "width": 1366,
+      "route": "/records?dato=efectividad-hard&tour=wta",
+      "status": 200,
+      "overflow": false,
+      "details": {
+        "canonical": "https://deucearchive.com/records?dato=efectividad-hard&tour=wta",
+        "languages": [],
+        "h1": "Porcentaje de victorias en dura",
+        "tableHeaders": [
+          "N.º",
+          "Jugador o partido",
+          "Porcentaje",
+          "Partidos de la clasificación"
+        ]
+      }
+    },
+    {
+      "width": 1366,
+      "route": "/torneos",
+      "status": 200,
+      "overflow": false,
+      "details": [
+        {
+          "class": "",
+          "bg": "rgb(236, 224, 216)",
+          "href": "/torneos/madrid?cuadro=atp&categoria=Masters%201000"
+        }
+      ]
+    },
+    {
+      "width": 1366,
+      "route": "/torneos?tour=wta",
+      "status": 200,
+      "overflow": false,
+      "details": [
+        {
+          "class": "",
+          "bg": "rgb(236, 224, 216)",
+          "href": "/torneos/madrid?cuadro=wta&categoria=WTA%201000"
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

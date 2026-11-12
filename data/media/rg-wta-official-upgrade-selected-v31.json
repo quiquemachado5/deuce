@@ -1,0 +1,199 @@
+[
+  {
+    "tournament": "Roland Garros",
+    "year": 2005,
+    "tour": "wta",
+    "cms": {
+      "id": 1673079,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Justine Henin - 2005 French Open",
+      "description": null,
+      "date": "2020-05-25T21:33:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1590442435445,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": {
+        "credit": "Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1590443019796,
+      "titleUrlSegment": null,
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2020/05/25/b4a32dd5-18c1-4f95-bfde-f428bd69f516/GettyImages-52971772.jpg",
+      "originalDetails": {
+        "width": 3000,
+        "height": 2212,
+        "aspectRatio": 1.3562387
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2020/05/25/d04db5ba-88c9-4be1-8907-3fb27dfe792e/GettyImages-52971772.jpg"
+    }
+  },
+  {
+    "tournament": "Roland Garros",
+    "year": 2006,
+    "tour": "wta",
+    "cms": {
+      "id": 2161544,
+      "accountId": 29,
+      "type": "photo",
+      "title": "The 2006 final saw Justine Henin overcome Svetlana Kuznetsova for the third of four titles she would capture in Paris.",
+      "description": null,
+      "date": "2021-05-27T04:05:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1622088336116,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [
+        {
+          "label": null,
+          "id": 903,
+          "type": "TENNIS_TOURNAMENTGROUP",
+          "sid": "903"
+        },
+        {
+          "label": null,
+          "id": 80350,
+          "type": "TENNIS_PLAYER",
+          "sid": "80350"
+        }
+      ],
+      "related": [],
+      "metadata": {
+        "credit": "Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1622088714850,
+      "titleUrlSegment": "2006_justine-henin",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2021/05/27/60616ac1-c574-46f6-8399-4474ebd732be/2006_Justine-Henin.jpg",
+      "originalDetails": {
+        "width": 2892,
+        "height": 1932,
+        "aspectRatio": 1.4968944
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2021/05/27/6bc4dfa2-0215-4d44-9e76-38483d6cb250/2006_Justine-Henin.jpg"
+    }
+  },
+  {
+    "tournament": "Roland Garros",
+    "year": 2006,
+    "tour": "wta",
+    "cms": {
+      "id": 1676318,
+      "accountId": 29,
+      "type": "photo",
+      "title": "More success followed for Henin in 2006 as she successfully defended her title by overcoming Svetlana Kuznetsova, 6-4, 6-4.",
+      "description": null,
+      "date": "2020-06-03T08:59:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1591174749534,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "PULSE_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": {
+        "credit": "Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1591175873060,
+      "titleUrlSegment": "henin06hori",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2020/06/03/6989b637-9c61-4155-8e80-89c069cf4bf9/Henin06hori.jpg",
+      "originalDetails": {
+        "width": 3351,
+        "height": 2264,
+        "aspectRatio": 1.4801236
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2020/06/03/b1880225-a45a-44a6-b548-9693eacf6222/Henin06hori.jpg"
+    }
+  },
+  {
+    "tournament": "Roland Garros",
+    "year": 2006,
+    "tour": "wta",
+    "cms": {
+      "id": 1410195,
+      "accountId": 29,
+      "type": "photo",
+      "title": "Back-to-back titles were claimed by Henin in 2006. Indeed, she did not drop a single set, overcoming Kuznetsova, 6-4, 6-4 in the final.",
+      "description": null,
+      "date": "2019-10-09T09:58:00Z",
+      "location": null,
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "commentsOn": false,
+      "copyright": null,
+      "publishFrom": 1570615131979,
+      "publishTo": 0,
+      "tags": [],
+      "platform": "WTA_CMS",
+      "language": "en",
+      "additionalInfo": {},
+      "canonicalUrl": "",
+      "references": [],
+      "related": [],
+      "metadata": {
+        "credit": "Getty Images"
+      },
+      "titleTranslations": null,
+      "lastModified": 1590393973082,
+      "titleUrlSegment": "back-to-back-titles-were-claimed-by-henin-in-2006-indeed-she-did-not-drop-a-single-set-overcoming-kuznetsova-6-4-6-4-in-the-final-getty",
+      "allowedUserGroups": [],
+      "allowedTerritories": [],
+      "subtitle": null,
+      "variants": [],
+      "onDemandUrl": "https://photoresources.wtatennis.com/photo-resources/2019/10/09/ca54a7a8-d321-4bda-a748-0eba1aaea164/ODFkOLlL.jpg",
+      "originalDetails": {
+        "width": 2800,
+        "height": 1520,
+        "aspectRatio": 1.8421053
+      },
+      "imageUrl": "https://photoresources.wtatennis.com/wta/photo/2019/10/09/27139148-5139-4629-8ecc-ab94a294deec/ODFkOLlL.jpg"
+    }
+  }
+]
