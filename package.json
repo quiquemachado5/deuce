@@ -59,7 +59,7 @@
     "test:browser:legacy": "playwright test --ignore-snapshots --grep-invert \"current release|published generation, circuit isolation|global search opens\""
   },
   "dependencies": {
-    "@supabase/supabase-js": "2.118.0",
+    "@supabase/supabase-js": "2.119.0",
     "lucide-react": "^0.441.0",
     "next": "16.4.5",
     "react": "^19.3.1",
