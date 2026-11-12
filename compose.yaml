@@ -26,7 +26,7 @@ services:
     cap_drop:
       - ALL
     pids_limit: 256
-    mem_limit: 2g
+    mem_limit: 4g
     cpus: 1.5
     env_file:
       - .env.production
@@ -35,7 +35,7 @@ services:
       DEUCE_RATE_LIMIT_STORE: sqlite
       DEUCE_RATE_LIMIT_DB: /app/.deuce-archive/.runtime/rate-limits.sqlite
       NODE_ENV: production
-      NODE_OPTIONS: --max-old-space-size=1536
+      NODE_OPTIONS: --max-old-space-size=3072
     volumes:
       - archive:/app/.deuce-archive
       - next_cache:/app/.next/cache

@@ -264,14 +264,14 @@ candidate_args=(
   --read-only
   --tmpfs /tmp:rw,noexec,nosuid,size=64m
   --pids-limit 256
-  --memory 2g
+  --memory 4g
   --cpus 1.5
   --env-file .env.production
   --env DEUCE_ARCHIVE_DIR=/app/.deuce-archive
   --env DEUCE_RATE_LIMIT_STORE=sqlite
   --env DEUCE_RATE_LIMIT_DB=/app/.deuce-archive/.runtime/rate-limits.sqlite
   --env NODE_ENV=production
-  --env NODE_OPTIONS=--max-old-space-size=1536
+  --env NODE_OPTIONS=--max-old-space-size=3072
   --env PORT=3000
   --mount type=volume,source=deuce_archive,target=/app/.deuce-archive
   --mount type=volume,source=deuce_next_cache,target=/app/.next/cache
