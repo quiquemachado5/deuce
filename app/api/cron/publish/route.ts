@@ -7,7 +7,7 @@ import {assertEditionCoverage,assertReleaseCoverage} from '@/lib/revista/release
 import {revalidatePath} from 'next/cache'
 import {buildPublicationIndex,comparePublicationIndexes,validPublicationIndex} from '@/lib/publication-index'
 import {gzipSync} from 'node:zlib'
-import {preparedGeneration,invalidatePreparedGeneration,preparedEditionAudit,preparedPublicationIndex,preparedMatchDetail} from '@/lib/revista/read-records'
+import {preparedGeneration,invalidatePreparedGeneration,preparedEditionAudit,preparedPublicationIndex,preparedTourArchive} from '@/lib/revista/read-records'
 import {readFile} from 'node:fs/promises'
 import {gunzipSync} from 'node:zlib'
 import {join} from 'node:path'
@@ -16,6 +16,7 @@ import type {RecordManifest} from '@/lib/revista/snapshot'
 import {withOperationHistory} from '@/lib/archive-operations'
 import {readingDirectory} from '@/lib/reading-directory'
 import {assertCircuitPublicationFreshness} from '@/lib/circuit-freshness'
+import {preservePublishedArchive} from '@/lib/revista/release-source'
 import {publishedMatches} from '@/lib/publication-scope'
 import {acquireArchiveLease} from '@/lib/archive-store'
 
@@ -57,20 +58,14 @@ export async function GET(request: Request) {
         if(wtaRefresh?.status!=='success'||!Number.isFinite(Date.parse(lastSuccessfulWta))||Date.now()-Date.parse(lastSuccessfulWta)>MAX_REFRESH_AGE_MS)throw new Error('No recent successful WTA refresh; keeping the previous publication')
       }
       const [loadedInput,previousAudit]=await Promise.all([publicationArchive(),preparedEditionAudit()])
-      // A provider refresh is incremental, not proof that an archived match vanished.
-      // Keep previously published identities absent from raw lists, with their original
-      // evidence, while reviewed scope exclusions still apply through publishedMatches.
-      const previousIndex=await preparedPublicationIndex()
-      if(!validPublicationIndex(previousIndex))throw new Error('Previous publication index is invalid')
-      const loadedIds=new Set(loadedInput.map(match=>`${match.tour||'atp'}:${match.match_id}`))
-      for(const entry of previousIndex.entries){
-        if(loadedIds.has(entry.identity))continue
-        const id=entry.identity.slice(entry.tour.length+1)
-        const saved=await preparedMatchDetail(id)
-        if(!saved||saved.tour!==entry.tour||saved.year!==entry.year||saved.match_id!==id)throw new Error('Previously published match cannot be recovered: '+entry.identity)
-        loadedInput.push(...publishedMatches([saved]))
-      }
-      const input=enrichMatchAges(loadedInput,await publishedWikiContexts())
+      // Reuse the same evidence-preserving merge as the build pipeline: an
+      // incremental provider list must not remove archived rows or measurements.
+      const baselineManifest=compatibleManifest(remote)?remote:bundled
+      const mergedInput=await preservePublishedArchive(loadedInput,baselineManifest,async()=>[
+        ...await preparedTourArchive('atp'),...await preparedTourArchive('wta'),
+      ])
+      const input=enrichMatchAges(publishedMatches(mergedInput),await publishedWikiContexts())
+      mergedInput.length=0
       sampleMemory('archive-loaded')
       console.info('Daily publication: archive loaded',input.length,Math.round(process.memoryUsage().rss/1048576))
       const snapshot = compileRecordSnapshot(input,new Date(),await competitionEntries(),await editionSourceAudit())
