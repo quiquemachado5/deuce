@@ -1,3 +1,4 @@
+import {isReconstructedDetail} from '../reconstructed-evidence';
 import type { Match } from '../types';
 import type { RecordManifest } from './snapshot';
 import { eligibleMatch } from '../quality';
@@ -46,4 +47,22 @@ export async function preservePublishedArchive(
   for(const m of local){const key=`${m.tour||'atp'}:${m.match_id}`,previous=rows.get(key);rows.set(key,previous?mergeCorrection(previous,m,Date.parse(published.generatedAt||'')||0):m);}
   const result=[...rows.values()];
   return result.length===restored.length&&result.every((match,index)=>match===restored[index])?restored:result;
+}
+
+export type MeasurementCorrection={previous:Match;current:Match};
+const reconstructedFields=new Set(['Hold percentage','Break percentage','Service games played','Service games won','Return games played','Return games won','Service points played','Service points won','Return points played','Return points won','Points played','Total points won','Break points faced','Break points saved','Break points played','Break points converted']);
+/** Only an explicit raw-provider reclassification can retire derived measurements. */
+export function reviewedMeasurementCorrection({previous,current}:MeasurementCorrection) {
+  return previous.match_id===current.match_id&&(previous.tour||'atp')===(current.tour||'atp')
+    &&previous.year===current.year&&previous.winner===current.winner
+    &&previous.player1.name===current.player1.name&&previous.player2.name===current.player2.name
+    &&JSON.stringify(previous.score_summary.games)===JSON.stringify(current.score_summary.games)
+    &&current.context?.pointSource==='reconstructed'&&current.context.derivationVersion==='2026-11-finals-v2'
+    &&previous.context?.derivationVersion!==current.context.derivationVersion
+    &&isReconstructedDetail(current.raw_fixture)
+    &&previous.statistics.every(stat=>current.statistics.some(next=>next.player===stat.player&&next.period.toLowerCase()===stat.period.toLowerCase()&&next.name===stat.name)||reconstructedFields.has(stat.name));
+}
+export function measurementCorrections(previous:Match[],current:Match[]):MeasurementCorrection[] {
+  const prior=new Map(previous.map(m=>[`${m.tour||'atp'}:${m.match_id}`,m]));
+  return current.flatMap(match=>{const before=prior.get(`${match.tour||'atp'}:${match.match_id}`);const pair=before?{previous:before,current:match}:undefined;return pair&&reviewedMeasurementCorrection(pair)?[pair]:[];});
 }

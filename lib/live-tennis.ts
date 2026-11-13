@@ -1,3 +1,5 @@
+import {isReconstructedDetail,reconstructedEvidence} from './reconstructed-evidence'
+export {isReconstructedDetail} from './reconstructed-evidence'
 import 'server-only'
 import {mergeEditionReferences,editionReferenceMatches} from './verified-editions'
 import {verifiedSeasonResult} from './verified-season-results'
@@ -340,10 +342,6 @@ function matchPointFor(previous: Row | undefined, bestOf: number): 1 | 2 | null 
   }
   return null
 }
-export function isReconstructedDetail(detail:Row|undefined){
-  return [detail?.meta?.coverage,detail?.meta?.point_source,detail?.match?.score?.origin].some(value=>/reconstruct|mixed/i.test(String(value||'')))||
-    Array.isArray(detail?.tape)&&detail.tape.some((point:Row)=>/reconstruct/i.test(String(point.origin||'')));
-}
 function tapePoints(detail: Row | undefined): Point[] {
   if(isReconstructedDetail(detail))return [];
   if (!Array.isArray(detail?.tape)) return []
@@ -550,7 +548,7 @@ export async function publicationArchive():Promise<Match[]> {
   const result:Match[]=[]
   for(const year of years){
     const [summaries,details]=await Promise.all([readArchiveMatches(year,true),archiveDetailedMatches(year)])
-    for(const row of reconcileEditionSummaries(summaries,details))result.push(prepareMatch(row))
+    for(const row of reconcileEditionSummaries(summaries,details))result.push({...prepareMatch(row),raw_fixture:reconstructedEvidence(row.raw_fixture)})
   }
   return publishedMatches(result)
 }

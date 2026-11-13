@@ -16,7 +16,7 @@ import type {RecordManifest} from '@/lib/revista/snapshot'
 import {withOperationHistory} from '@/lib/archive-operations'
 import {readingDirectory} from '@/lib/reading-directory'
 import {assertCircuitPublicationFreshness} from '@/lib/circuit-freshness'
-import {preservePublishedArchive} from '@/lib/revista/release-source'
+import {preservePublishedArchive,measurementCorrections} from '@/lib/revista/release-source'
 import {publishedMatches} from '@/lib/publication-scope'
 import {acquireArchiveLease} from '@/lib/archive-store'
 
@@ -61,10 +61,11 @@ export async function GET(request: Request) {
       // Reuse the same evidence-preserving merge as the build pipeline: an
       // incremental provider list must not remove archived rows or measurements.
       const baselineManifest=compatibleManifest(remote)?remote:bundled
-      const mergedInput=await preservePublishedArchive(loadedInput,baselineManifest,async()=>[
-        ...await preparedTourArchive('atp'),...await preparedTourArchive('wta'),
-      ])
+      const priorMatches=[...await preparedTourArchive('atp'),...await preparedTourArchive('wta')]
+      const mergedInput=await preservePublishedArchive(loadedInput,baselineManifest,async()=>priorMatches)
+      const sourceCorrections=measurementCorrections(priorMatches,mergedInput)
       const input=enrichMatchAges(publishedMatches(mergedInput),await publishedWikiContexts())
+      priorMatches.length=0
       mergedInput.length=0
       sampleMemory('archive-loaded')
       console.info('Daily publication: archive loaded',input.length,Math.round(process.memoryUsage().rss/1048576))
@@ -81,8 +82,8 @@ export async function GET(request: Request) {
       assertEditionCoverage(previousAudit,snapshot.audit)
       console.info('Daily publication: compiled',Math.round(process.memoryUsage().rss/1048576))
       if (!snapshot.matches.length) throw new Error('Cannot publish an empty reading snapshot')
-      assertReleaseCoverage(bundled,snapshot.manifest)
-      if(compatibleManifest(remote))assertReleaseCoverage(remote,snapshot.manifest)
+      assertReleaseCoverage(bundled,snapshot.manifest,[],sourceCorrections)
+      if(compatibleManifest(remote))assertReleaseCoverage(remote,snapshot.manifest,[],sourceCorrections)
       const baseline=await preparedGeneration()
       snapshot.publicationIndex=buildPublicationIndex(snapshot.matches)
       const storedIndex=await preparedPublicationIndex()
@@ -93,6 +94,7 @@ export async function GET(request: Request) {
       // Immutable correction provenance survives serving-generation retention.
       // It is written before the pointer; an interrupted attempt cannot lose evidence.
       if(changes.length)await cloudWrite(`archive-history-${snapshot.manifest.version}`,{encoding:'gzip-base64',gzip:gzipSync(JSON.stringify({at:attemptAt,fromVersion:baseline.manifest.version,toVersion:snapshot.manifest.version,source:'Live Tennis API',sourceUrl:'https://api.livetennisapi.com/api/public/v1',validation:'explicit circuit, unique identity, preserved published IDs',changes})).toString('base64')})
+      if(sourceCorrections.length)await cloudWrite(`archive-measurement-review-${snapshot.manifest.version}`,{at:attemptAt,fromVersion:baselineManifest.version,reason:'Provider explicitly marks reconstructed points; derived values are not observed measurements',matches:sourceCorrections.map(({previous,current})=>({identity:`${current.tour||'atp'}:${current.match_id}`,removedStatistics:previous.statistics.filter(stat=>!current.statistics.some(next=>next.player===stat.player&&next.period===stat.period&&next.name===stat.name)).map(stat=>({player:stat.player,period:stat.period,name:stat.name})),source:current.context?.pointSource,providerEvidence:current.raw_fixture,derivationVersion:current.context?.derivationVersion}))})
       const published=await publishRecordSnapshot(snapshot)
       sampleMemory('published')
       invalidatePreparedGeneration()
