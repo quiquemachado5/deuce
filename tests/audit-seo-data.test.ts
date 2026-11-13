@@ -103,23 +103,17 @@ test('edition sitemap paths match every canonical category and circuit variant',
   ]));
 });
 
-test('match sitemap lastmod uses the verified sporting date and omits approximate dates', () => {
+test('Spanish match sitemaps use recorded page edits, never sporting or publication dates', () => {
   const matches: Match[] = [
     { ...base, match_id: 'approximate', year: 2022, context: { date: '2022-05-23', dateLabel: 'Inicio del torneo' } },
     { ...base, match_id: 'exact', year: 2022, context: { date: '2022-05-31', dateLabel: 'Fecha del partido' } },
     { ...base, match_id: 'other-year', year: 2021 },
   ];
-  const entries = matchSitemapEntries(matches, 2022);
-  assert.equal(entries.length, 4);
-  assert.deepEqual(entries.map(entry => entry.url), [
-    `${SITE_ORIGIN}/match/approximate`,
-    `${SITE_ORIGIN}/en/matches/approximate`,
-    `${SITE_ORIGIN}/match/exact`,
-    `${SITE_ORIGIN}/en/matches/exact`,
-  ]);
-  assert.deepEqual(entries.map(entry => entry.lastModified), [undefined, undefined, '2022-05-31T12:00:00.000Z', '2022-05-31T12:00:00.000Z']);
-  assert.ok(entries.every(entry => entry.changeFrequency === 'never' && entry.priority === 0.5));
-  assert.ok(entries.every(entry => entry.alternates?.languages?.es && entry.alternates.languages.en));
+  const entries = matchSitemapEntries(matches, 2022, {'/match/exact':'2026-11-13T12:00:00Z'});
+  assert.deepEqual(entries.map(entry => entry.url), [`${SITE_ORIGIN}/match/approximate`,`${SITE_ORIGIN}/match/exact`]);
+  assert.deepEqual(entries.map(entry => entry.lastModified), [undefined,'2026-11-13T12:00:00Z']);
+  assert.ok(entries.every(entry => entry.changeFrequency === 'weekly' && entry.priority === 0.5));
+  assert.ok(entries.every(entry => !('alternates' in entry)));
 });
 
 test('a tournament start is shown as an edition, never as an exact match day', () => {

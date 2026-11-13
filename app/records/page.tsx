@@ -9,7 +9,7 @@ import {
 import { recordView } from "@/lib/revista/read-records";
 import { description } from "@/lib/revista/records";
 import { RecordEras, recordValue } from "@/components/nocturno/RecordsViews";
-import { recordFilters, recordsCanonical, recordsHaveTransientState, recordsUrl, recordLanguageAlternates, type RecordQuery } from "@/lib/records-url";
+import { recordFilters, recordsCanonical, recordsHaveTransientState, recordsUrl, type RecordQuery } from "@/lib/records-url";
 import ArchiveNotice from "@/components/nocturno/ArchiveNotice";
 import RecordsControls from "@/components/RecordsControls";
 import RecordsTable, { RecordsPagination } from "@/components/RecordsTable";
@@ -48,7 +48,7 @@ export async function generateMetadata({
   return {
     title: `${title} — DEUCE`,
     description: metadataDescription,
-    alternates: { canonical, languages:recordLanguageAlternates(raw) },
+    alternates: { canonical, },
     openGraph: {
       title: `${title} — DEUCE`,
       description: metadataDescription,

@@ -1,3 +1,4 @@
+import { generationMetadata } from '@/lib/revista/generation';
 import { DATASET_CACHE_CONTROL } from '@/lib/http-cache';
 import { preparedMatchBrowser } from '@/lib/revista/read-records';
 import { queryMatchBrowserPage } from '@/lib/match-browser-snapshot';
@@ -38,6 +39,6 @@ export async function GET(request: Request) {
     const body=[columns.join(','),...result.matches.map(match=>[match.match_id,match.tour,match.year,match.tournament,match.category,match.round,match.surface,match.player1.name,match.player2.name,match.winner,match.final_score].map(csvCell).join(','))].join('\n');
     return new Response(`\uFEFF${body}\n`,{headers});
   }
-  return Response.json({apiVersion:'v1',datasetVersion:browser.manifest.version,generatedAt:browser.manifest.generatedAt,attribution:'DEUCE archive; cite datasetVersion and this request URL.',page,limit,total:result.total,matches:result.matches},{headers});
+  return Response.json({apiVersion:'v1',...generationMetadata(browser),attribution:'DEUCE archive; cite datasetVersion and this request URL.',page,limit,total:result.total,matches:result.matches},{headers});
 }
 export function OPTIONS(){return new Response(null,{status:204,headers:{'Access-Control-Allow-Origin':'*','Access-Control-Allow-Methods':'GET, OPTIONS','Access-Control-Allow-Headers':'Accept, If-None-Match'}})}

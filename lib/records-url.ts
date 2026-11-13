@@ -16,13 +16,6 @@ export function recordsCanonical(query: RecordQuery) {
   });
 }
 
-/** Only career wins currently has an equivalent English statistics page. */
-export function recordLanguageAlternates(query:RecordQuery){
-  if(query.dato!=='victorias'||recordsHaveTransientState(query))return undefined;
-  const suffix=query.tour==='wta'?'?tour=wta':'';
-  return {es:recordsCanonical(query),en:'/en/records'+suffix};
-}
-
 export function recordsHaveTransientState(query: RecordQuery) {
   return Object.entries(query).some(([key, value]) =>
     Boolean(value && value !== 'all' && key !== 'dato' && key !== 'tour'));

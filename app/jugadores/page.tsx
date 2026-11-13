@@ -12,7 +12,7 @@ export async function generateMetadata({ searchParams }: {
     ? 'El directorio WTA de DEUCE está en preparación. Consulta mientras tanto los jugadores y partidos ATP publicados.'
     : `${tour==='wta'?'Jugadoras':'Jugadores'} ${tour.toUpperCase()} del archivo DEUCE, con temporadas, resultados y rendimiento documentados.`;
   const canonical=tour==='wta'?'/jugadores?tour=wta':'/jugadores';
-  return {title,description,alternates:{canonical,languages:{es:canonical,en:`/en/players${tour==='wta'?'?tour=wta':''}`}},openGraph:{title,description,url:canonical},robots:robotsForUnavailableTour(generation.manifest.summary,tour)};
+  return {title,description,alternates:{canonical,},openGraph:{title,description,url:canonical},robots:robotsForUnavailableTour(generation.manifest.summary,tour)};
 }
 
 export default async function Players({searchParams}:{searchParams:Promise<{q?:string;page?:string;tour?:string;orden?:string;tipo?:string;filtros?:string}>}){

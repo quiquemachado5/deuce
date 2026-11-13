@@ -28,7 +28,7 @@ import { providerTournamentName } from './tournament-identity'
 import { isInPublicationScope, providerTierInPublicationScope, publishedMatches } from './publication-scope'
 import { WTA_HISTORICAL_LAST_YEAR, wtaHistoricalLevelsForSeason } from './wta-backfill-schedule'
 import {finalsArchiveRows} from './finals-archive'
-import {finalsIdentity} from './finals-identity'
+import {finalsIdentity,reviewedFinalsRound,WTA_FINALS_2026_ROUND_SOURCES} from './finals-identity'
 
 const archive = join(process.cwd(), 'data', 'archive')
 const listsDir = join(archive, 'lists')
@@ -380,19 +380,19 @@ function modern(row: Row, detail?: Row, summary = false): Match {
   const finals=finalsIdentity(row)
   const reviewedEdition=reviewedProviderEdition({...row,tour});
   const tournament = finals?.tournament||reviewedEdition?.tournament || providerTournamentName(row.tournament || '', { tour, tier: row.tier })
-  const finalsRound=finalsIdentity(row)&&!row.round_code&&/group|round robin|grupo/i.test(row.round||'')?'RR':null;
+  const finalsRound=reviewedFinalsRound(row);
   return reviewedFixtureMetadata(verifiedSeasonResult({
     provider_revision: row._deuce_retrieved_at ? {retrieved_at:row._deuce_retrieved_at,updated_at:row.result_restated_at||row.updated_at,version:row.result_version} : undefined,
     match_id: `${tour === 'wta' ? 'wta-' : ''}live-${row.id}`, tour, tournament, surface: surface(row.surface),
     category: finals?.category||reviewedEdition?.category || (['Australian Open','Roland Garros','Wimbledon','US Open'].includes(tournament) ? 'Grand Slam' : modernTournamentCategory(row.tier, tournament, year, tour)), year,
     player1: player(1, row.players?.p1?.name, null), player2: player(2, row.players?.p2?.name, null),
     score_summary: { sets: source.score?.sets || [], games, points: source.score?.points || [], server: source.score?.server ?? null, is_tiebreak: !!source.score?.is_tiebreak, win_probability_p1: source.score?.win_probability_p1 ?? null, timestamp: source.scheduled_time || `${year}-01-01T00:00:00Z` },
-    final_score: games.map(([a, b], i) => { const end = Array.isArray(detail?.tape)?detail.tape.find((p: Row) => Array.isArray(p.tiebreak_final) && gamesFromScore(p.games)[i]?.[0] === a && gamesFromScore(p.games)[i]?.[1] === b && gamesFromScore(p.games).length === i + 1):undefined; return `${a}–${b}${end && Math.max(a,b) === 7 && Math.min(a,b) === 6 ? `(${Math.min(...end.tiebreak_final)})` : ''}` }).join(' '), round: roundName(row.round_code || finalsRound || (finals?'Ronda no especificada':'')), winner: source.winner === 1 || source.winner === 2 ? source.winner : null,
+    final_score: games.map(([a, b], i) => { const end = Array.isArray(detail?.tape)?detail.tape.find((p: Row) => Array.isArray(p.tiebreak_final) && gamesFromScore(p.games)[i]?.[0] === a && gamesFromScore(p.games)[i]?.[1] === b && gamesFromScore(p.games).length === i + 1):undefined; return `${a}–${b}${end && Math.max(a,b) === 7 && Math.min(a,b) === 6 ? `(${Math.min(...end.tiebreak_final)})` : ''}` }).join(' '), round: roundName(finalsRound || row.round_code || (finals?'Ronda no especificada':'')), winner: source.winner === 1 || source.winner === 2 ? source.winner : null,
     status: source.outcome === 'completed' ? 'Finished' : source.outcome === 'retired' ? 'Retired' : source.outcome || row.status || 'Finished',
     point_tape: summary ? [] : tapePoints(detail), statistics: summary ? [] : modernStats(detail),
     raw_fixture: summary ? undefined : detail ? {...detail, provider_list:row} : row, raw_point_tape: summary ? undefined : detail?.tape,
     data_source: 'api', coverage: summary ? 'Solo resultado' : detail?.tape?.length ? 'Puntos documentados' : detail ? 'Estadísticas disponibles' : 'Solo resultado',
-    context: { pointSource:isReconstructedDetail(detail)?'reconstructed':detail?.tape?.length?'observed':'unknown',derivationVersion:'2026-11-finals-v2', date: row.scheduled_time || null, dateLabel: 'Fecha del partido', rank1: numeric(row.players?.p1?.ranking), rank2: numeric(row.players?.p2?.ranking), rankLabel: 'Ranking en la descarga', age1: null, age2: null, minutes: null, format: row.format || null, indoor: row.indoor ?? null,...(reviewedEdition?{metadataSources:reviewedEdition.sources}:{} ) },
+    context: { pointSource:isReconstructedDetail(detail)?'reconstructed':detail?.tape?.length?'observed':'unknown',derivationVersion:'2026-11-finals-v2', date: row.scheduled_time || null, dateLabel: 'Fecha del partido', rank1: numeric(row.players?.p1?.ranking), rank2: numeric(row.players?.p2?.ranking), rankLabel: 'Ranking en la descarga', age1: null, age2: null, minutes: null, format: row.format || null, indoor: row.indoor ?? null,metadataSources:[...(reviewedEdition?.sources||[]),...(finalsRound&&finals?.tour==='wta'&&year===2026?WTA_FINALS_2026_ROUND_SOURCES:[])] },
   }))
 }
 function historical(row: Row, detail?: Row, summary = false): Match {

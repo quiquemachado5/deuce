@@ -49,7 +49,7 @@ export async function generateMetadata({
   return {
     title,
     description: `${title.replace(" — DEUCE", "")}. ${description}`,
-    alternates: { canonical, languages: { es: canonical, en: `/en/matches/${id}` } },
+    alternates: { canonical, },
     openGraph: { title, description, images: [`/match/${id}/opengraph-image`], type: "article", url: canonical },
     twitter: { card: "summary_large_image", title, description, images: [`/match/${id}/opengraph-image`] },
     robots: matchHasTransientState(query) ? noIndexFollow : undefined,

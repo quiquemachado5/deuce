@@ -15,7 +15,7 @@ import {latestTournamentCourt} from '@/lib/tournament-presentation';
 import {singlesMatches} from '@/lib/match-discipline';
 import {homePhoto} from '@/lib/home-media';
 import styles from '../jugadores/player-index.module.css';
-export const metadata:Metadata={title:'Torneos ATP y WTA: Grand Slam, 1000, 500 y 250 — DEUCE',description:'Explora torneos ATP y WTA, sus campeones, estadísticas, ediciones y cuadros históricos.',alternates:{canonical:'/torneos',languages:{es:'/torneos',en:'/en/tournaments'}},openGraph:{title:'Torneos ATP y WTA — DEUCE',description:'Campeones, cuadros, ediciones y estadísticas del tenis.',url:'/torneos',images:['/opengraph-image']},twitter:{card:'summary_large_image',title:'Torneos ATP y WTA — DEUCE',images:['/opengraph-image']}};
+export const metadata:Metadata={title:'Torneos ATP y WTA: Grand Slam, 1000, 500 y 250 — DEUCE',description:'Explora torneos ATP y WTA, sus campeones, estadísticas, ediciones y cuadros históricos.',alternates:{canonical:'/torneos',},openGraph:{title:'Torneos ATP y WTA — DEUCE',description:'Campeones, cuadros, ediciones y estadísticas del tenis.',url:'/torneos',images:['/opengraph-image']},twitter:{card:'summary_large_image',title:'Torneos ATP y WTA — DEUCE',images:['/opengraph-image']}};
 export default async function TournamentProposal({searchParams}:{searchParams:Promise<{tour?:string;circuito?:string;categoria?:string}>}){
   const query=await searchParams,tour=(query.tour||query.circuito)==='wta'?'wta':'atp',levels=tour==='wta'?['Grand Slam','WTA Finals','WTA 1000','WTA 500','WTA 250']:['Grand Slam','ATP Finals','Masters 1000','ATP 500','ATP 250'];
   const entries=calendarOrder(tournamentDirectory(singlesMatches(await preparedCompactSelection({tour,rounds:['Final']}))));

@@ -975,7 +975,7 @@
     margin-inline: 4px;
   }
   .chips button {
-    min-height: 38px;
+    min-height: 44px;
   }
   .leader {
     grid-template-columns: 1fr;

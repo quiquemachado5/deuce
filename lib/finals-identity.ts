@@ -24,3 +24,19 @@ export function finalsIdentity(row:FinalsProviderRow):{tour:Tour;category:string
  const march1986=season===1986&&String(row.event_date||'').slice(5,7)==='03';
  return {tour,season,category:'WTA Finals',tournament:march1986?'WTA Finals · marzo de 1986':'WTA Finals'};
 }
+
+export const WTA_FINALS_2026_ROUND_SOURCES = [
+ {field:'Fase de grupos de las WTA Finals 2026',url:'https://wtafiles.wtatennis.com/pdf/matchnotes/2026/808_3.pdf'},
+ {field:'Calendario oficial de las WTA Finals',url:'https://www.wtatennis.com/tournaments/wta-finals/match-schedule'},
+];
+
+/** Date-bounded, reviewed format correction. Never infer an old edition's format from its name. */
+export function reviewedFinalsRound(row:FinalsProviderRow & {round_code?:unknown;round?:unknown}):'RR'|null {
+ const identity=finalsIdentity(row);
+ if(!identity)return null;
+ const explicit=String(row.round_code||row.round||'').trim();
+ if(/^(RR|round robin|group(?: stage)?|fase de grupos)$/i.test(explicit))return 'RR';
+ if(explicit&&!/^(unknown|not specified|ronda no especificada)$/i.test(explicit))return null;
+ const day=String(row.scheduled_time||'').slice(0,10);
+ return identity.tour==='wta'&&identity.season===2026&&day>='2026-11-08'&&day<='2026-11-13'?'RR':null;
+}

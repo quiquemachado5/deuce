@@ -22,3 +22,5 @@
   .categories dl>div{gap:4px}
 }
 @media(max-width:360px){.categories dl>div{display:grid;gap:1px}}
+
+.activityIntro>a{display:inline-flex;align-items:center;gap:8px;min-height:44px;margin-top:10px;font-size:15px;font-weight:600;color:var(--ink)}

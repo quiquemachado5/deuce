@@ -1,6 +1,5 @@
 import type { Match } from './types';
 import { SITE_ORIGIN } from './site-origin';
-import { exactDay } from './archive-freshness';
 
 export const SITEMAP_ORIGIN = SITE_ORIGIN;
 
@@ -21,15 +20,9 @@ export const SITEMAP_STATIC_PATHS = [
   '/torneos',
   '/licencias',
   '/cobertura',
+  '/cobertura/correcciones',
   '/sobre',
   '/desarrolladores',
-  '/en',
-  '/en/matches',
-  '/en/players',
-  '/en/tournaments',
-  '/en/records',
-  '/en/coverage',
-  '/en/developers',
 ] as const;
 
 /**
@@ -47,28 +40,11 @@ export function sitemapLocation(path: string) {
   })[character]!);
 }
 
-export function matchSitemapEntries(matches: Match[], year: number) {
-  return matches.filter(match => match.year === year).flatMap(match => {
-    const playedOn = match.context?.dateLabel === 'Fecha del partido'
-      ? exactDay(match.context.date)
-      : null;
-    const lastModified = playedOn ? { lastModified: `${playedOn}T12:00:00.000Z` } : {};
-    const languages = {
-      es: `${SITEMAP_ORIGIN}/match/${match.match_id}`,
-      en: `${SITEMAP_ORIGIN}/en/matches/${match.match_id}`,
-    };
-    return [{
-      url: languages.es,
-      ...lastModified,
-      alternates: { languages },
-      changeFrequency: 'never' as const,
-      priority: 0.5,
-    }, {
-      url: languages.en,
-      ...(playedOn ? { lastModified: `${playedOn}T12:00:00.000Z` } : {}),
-      alternates: { languages },
-      changeFrequency: 'never' as const,
-      priority: 0.5,
-    }];
-  });
+export function matchSitemapEntries(matches: Match[], year: number, modified:Record<string,string>={}) {
+  return matches.filter(match => match.year === year).map(match => ({
+    url: `${SITEMAP_ORIGIN}/match/${match.match_id}`,
+    ...(modified[`/match/${match.match_id}`]?{lastModified:modified[`/match/${match.match_id}`]}:{}),
+    changeFrequency: 'weekly' as const,
+    priority: 0.5,
+  }));
 }

@@ -29,9 +29,6 @@ const navigation: ReadonlyArray<{ label: string; section: CircuitSection }> = [
   { label: 'Torneos', section: 'tournaments' },
   { label: 'Comparar', section: 'compare' },
 ];
-const englishNavigation: Record<CircuitSection,{label:string;href:string}>={
-  matches:{label:'Matches',href:'/en/matches'},records:{label:'Records',href:'/en/records'},players:{label:'Players',href:'/en/players'},tournaments:{label:'Tournaments',href:'/en/tournaments'},compare:{label:'Compare',href:'/en/compare'},
-};
 
 function tournamentHref(tour: Circuit, category?: string) {
   const params = new URLSearchParams();
@@ -159,7 +156,6 @@ function panelFor(section: MegaSection, tour: Circuit): MegaPanel {
 }
 
 function isSectionActive(section: CircuitSection, pathname: string) {
-  if(pathname.startsWith('/en/'))return englishNavigation[section].href===pathname||pathname.startsWith(`${englishNavigation[section].href}/`);
   if (section === 'matches') return pathname === '/partidos' || pathname === '/buscar' || pathname.startsWith('/match/');
   if (section === 'players') return pathname.startsWith('/jugadores') || pathname.startsWith('/players/');
   if (section === 'tournaments') return pathname.startsWith('/torneos') || /^\/[a-z0-9-]+\/\d{4}$/.test(pathname);
@@ -206,10 +202,9 @@ function MegaPanelContent({ panel, section, close }: { panel: MegaPanel; section
 
 export function DeuceTopbar() {
   const pathname = usePathname(), router = useRouter(), searchParams = useSearchParams();
-  const english=pathname==='/en'||pathname.startsWith('/en/');
   const navigationTour = navigationCircuit(pathname, searchParams);
   const searchTour: SearchCircuit = 'all';
-  const navigationItems = navigation.map(item => english?{...item,...englishNavigation[item.section]}:{ ...item, href: circuitSectionHref(item.section, navigationTour) });
+  const navigationItems = navigation.map(item => ({ ...item, href: circuitSectionHref(item.section, navigationTour) }));
   const [scrolled, setScrolled] = useState(false), [navHidden, setNavHidden] = useState(false);
   const [menu, setMenu] = useState(false), [menuClosing, setMenuClosing] = useState(false), [activePanel, setActivePanel] = useState<MegaSection | null>(null), [panelOpen, setPanelOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false), [searchMounted, setSearchMounted] = useState(false), [query, setQuery] = useState('');
@@ -369,7 +364,7 @@ export function DeuceTopbar() {
     const text = query.trim();
     if (!text) return;
     closeAll();
-    router.push(english?`/en/matches?${new URLSearchParams({q:text}).toString()}`:`/buscar?${new URLSearchParams({ q: text, tour: searchTour }).toString()}`);
+    router.push(`/buscar?${new URLSearchParams({ q: text, tour: searchTour }).toString()}`);
   };
   const recordSearchClick=(group:string,position:number)=>{
     const normalized=['Jugadores','Players'].includes(group)?'players':['Partidos','Matches'].includes(group)?'matches':'tournaments';
@@ -380,12 +375,12 @@ export function DeuceTopbar() {
   const loading = queryLength >= 2 && (result.query !== query.trim() || result.tour !== searchTour);
   const visibleItems = result.tour === searchTour && result.query === query.trim() ? result.items : [];
   const searchColumns = [
-    { label: english?'Players':'Jugadores', items: visibleItems.filter(item => item.group === 'Jugadores').slice(0, 6) },
-    { label: english?'Matches':'Partidos', items: visibleItems.filter(item => item.group === 'Partidos').slice(0, 6) },
+    { label: 'Jugadores', items: visibleItems.filter(item => item.group === 'Jugadores').slice(0, 6) },
+    { label: 'Partidos', items: visibleItems.filter(item => item.group === 'Partidos').slice(0, 6) },
   ];
   const tournamentItems = visibleItems.filter(item => item.group === 'Torneos' || item.group === 'Ediciones').slice(0, 6);
-  if (tournamentItems.length) searchColumns.push({ label: english?'Tournaments':'Torneos', items: tournamentItems });
-  const resultHref=(item:Result)=>{if(!english)return item.href;if(item.href.startsWith('/match/'))return item.href.replace('/match/','/en/matches/');if(item.href.startsWith('/jugadores/'))return item.href.replace('/jugadores/','/en/players/');if(item.href.startsWith('/torneos/'))return item.href.replace('/torneos/','/en/tournaments/').split('?')[0];if(item.href.startsWith('/torneo/'))return `/en/tournaments/${item.href.split('/')[2]}`;if(item.href.startsWith('/records'))return '/en/records';return '/en/matches';};
+  if (tournamentItems.length) searchColumns.push({ label: 'Torneos', items: tournamentItems });
+  const resultHref=(item:Result)=>item.href;
   const hasPresentedResults = searchColumns.some(column => column.items.length > 0);
   const completingSearch = loading || result.phase === 'quick';
   const moveResult = (direction: 1 | -1) => {
@@ -401,7 +396,7 @@ export function DeuceTopbar() {
   };
 
   return <>
-    {(menu || searchMounted) && <button className={styles.backdrop} type="button" aria-label={english ? 'Close navigation' : 'Cerrar navegación'} onClick={menu ? closeMobileMenu : closeAll} />}
+    {(menu || searchMounted) && <button className={styles.backdrop} type="button" aria-label={'Cerrar navegación'} onClick={menu ? closeMobileMenu : closeAll} />}
     <header
       ref={shell}
       className={`${styles.topbar}${scrolled ? ` ${styles.scrolled}` : ''}${navHidden && !expanded ? ` ${styles.hidden}` : ''}${expanded ? ` ${styles.expanded}` : ''}${(activePanel && !panelOpen && !menu) || menuClosing ? ` ${styles.panelClosing}` : ''}${searchMounted && !searchOpen ? ` ${styles.searchClosing}` : ''}`}
@@ -416,10 +411,10 @@ export function DeuceTopbar() {
     >
       <div className={styles.shell}>
         <div className={styles.topline}>
-          <Link className={styles.logo} href={english?'/en':'/'} aria-label={english?'DEUCE, home':'DEUCE, inicio'} onClick={closeAll}><span className={styles.logoMark} aria-hidden="true"><TennisBallMark/></span><span className={styles.logoWord}>DEUCE</span></Link>
-          <nav className={styles.desktopNavigation} aria-label={english ? 'Main navigation' : 'Principal'} aria-hidden={searchMounted} inert={searchMounted || undefined}>
-            <Link className={`${styles.navTrigger} ${styles.homeLink}`} aria-current={pathname === (english?'/en':'/') ? 'page' : undefined} href={english?'/en':'/'} onClick={closeAll}>{english?'Home':'Inicio'}</Link>
-            {navigationItems.map(({ label, section, href }) => english||section === 'compare'
+          <Link className={styles.logo} href={'/'} aria-label={'DEUCE, inicio'} onClick={closeAll}><span className={styles.logoMark} aria-hidden="true"><TennisBallMark/></span><span className={styles.logoWord}>DEUCE</span></Link>
+          <nav className={styles.desktopNavigation} aria-label={'Principal'} aria-hidden={searchMounted} inert={searchMounted || undefined}>
+            <Link className={`${styles.navTrigger} ${styles.homeLink}`} aria-current={pathname === ('/') ? 'page' : undefined} href={'/'} onClick={closeAll}>{'Inicio'}</Link>
+            {navigationItems.map(({ label, section, href }) => section === 'compare'
               ? <Link className={`${styles.compareLink}${isSectionActive(section, pathname) ? ` ${styles.current}` : ''}`} aria-current={isSectionActive(section, pathname) ? 'page' : undefined} href={href} onClick={closeAll} key={section}>{label}</Link>
               : <button
                 ref={node => { if (node) navTriggers.current.set(section, node); else navTriggers.current.delete(section); }}
@@ -436,34 +431,34 @@ export function DeuceTopbar() {
               >{label}<ChevronDown size={13} aria-hidden="true" /></button>)}
           </nav>
           <div className={styles.actions} aria-hidden={searchMounted} inert={searchMounted || undefined}>
-            <button ref={searchTrigger} className={styles.searchTrigger} type="button" onClick={openSearch} aria-label={english?'Search DEUCE':'Buscar en DEUCE'} aria-expanded={searchOpen} aria-controls="global-search-results"><Search size={19} aria-hidden="true" /></button>
-            <button ref={menuTrigger} className={styles.menuTrigger} type="button" aria-label={menu ? (english ? 'Close menu' : 'Cerrar men\u00fa') : (english ? 'Open menu' : 'Abrir men\u00fa')} aria-expanded={menu} aria-controls="deuce-mobile-navigation" onClick={() => { clearPanelUnmountTimer(); clearMenuUnmountTimer(); setSearchOpen(false); setPanelOpen(false); setActivePanel(null); setNavHidden(false); if (menu) closeMobileMenu(); else { setMenuClosing(false); setMenu(true); } }}>{menu ? <X size={19} aria-hidden="true" /> : <Menu size={19} aria-hidden="true" />}</button>
+            <button ref={searchTrigger} className={styles.searchTrigger} type="button" onClick={openSearch} aria-label={'Buscar en DEUCE'} aria-expanded={searchOpen} aria-controls="global-search-results"><Search size={19} aria-hidden="true" /></button>
+            <button ref={menuTrigger} className={styles.menuTrigger} type="button" aria-label={menu ? ('Cerrar men\u00fa') : ('Abrir men\u00fa')} aria-expanded={menu} aria-controls="deuce-mobile-navigation" onClick={() => { clearPanelUnmountTimer(); clearMenuUnmountTimer(); setSearchOpen(false); setPanelOpen(false); setActivePanel(null); setNavHidden(false); if (menu) closeMobileMenu(); else { setMenuClosing(false); setMenu(true); } }}>{menu ? <X size={19} aria-hidden="true" /> : <Menu size={19} aria-hidden="true" />}</button>
           </div>
           <form className={`${styles.searchForm}${searchOpen ? ` ${styles.searchFormOpen}` : ''}`} role="search" aria-hidden={!searchOpen} onSubmit={event => { event.preventDefault(); submit(); }}>
             <Search size={19} aria-hidden="true" />
-            <label className="nc-sr" htmlFor="global-search">{english?'Search players, matches or tournaments':'Buscar jugadores, partidos o torneos'}</label>
-            <input ref={field} id="global-search" type="search" name="q" value={query} onChange={event => setQuery(event.target.value)} onKeyDown={event => { if (event.key === 'ArrowDown') { event.preventDefault(); moveResult(1); } }} placeholder={english?'Player, tournament, match or record':'Jugador, torneo, partido o récord'} autoComplete="off" tabIndex={searchOpen ? 0 : -1} aria-controls="global-search-results" />
-            {query && <button className={styles.clearSearch} type="button" onClick={() => { setQuery(''); field.current?.focus(); }} aria-label={english ? 'Clear search' : 'Borrar búsqueda'} tabIndex={searchOpen ? 0 : -1}><X size={16} aria-hidden="true" /></button>}
-            <button className={styles.submitSearch} type="submit" aria-label={english ? 'View all results' : 'Ver todos los resultados'} tabIndex={searchOpen ? 0 : -1}><ArrowRight size={18} aria-hidden="true" /></button>
-            <button className={styles.closeSearch} type="button" onClick={closeSearch} aria-label={english ? 'Close search' : 'Cerrar búsqueda'} tabIndex={searchOpen ? 0 : -1}><X size={18} aria-hidden="true" /></button>
+            <label className="nc-sr" htmlFor="global-search">{'Buscar jugadores, partidos o torneos'}</label>
+            <input ref={field} id="global-search" type="search" name="q" value={query} onChange={event => setQuery(event.target.value)} onKeyDown={event => { if (event.key === 'ArrowDown') { event.preventDefault(); moveResult(1); } }} placeholder={'Jugador, torneo, partido o récord'} autoComplete="off" tabIndex={searchOpen ? 0 : -1} aria-controls="global-search-results" />
+            {query && <button className={styles.clearSearch} type="button" onClick={() => { setQuery(''); field.current?.focus(); }} aria-label={'Borrar búsqueda'} tabIndex={searchOpen ? 0 : -1}><X size={16} aria-hidden="true" /></button>}
+            <button className={styles.submitSearch} type="submit" aria-label={'Ver todos los resultados'} tabIndex={searchOpen ? 0 : -1}><ArrowRight size={18} aria-hidden="true" /></button>
+            <button className={styles.closeSearch} type="button" onClick={closeSearch} aria-label={'Cerrar búsqueda'} tabIndex={searchOpen ? 0 : -1}><X size={18} aria-hidden="true" /></button>
           </form>
         </div>
 
         <div className={styles.panelFrame} id="deuce-mega-panel">
           <div className={styles.panelClip}>
-            {searchMounted ? <section id="global-search-results" className={styles.searchResults} aria-label={english ? 'Search suggestions' : 'Sugerencias de búsqueda'} aria-live="polite" aria-busy={loading} aria-hidden={!searchOpen} inert={!searchOpen || undefined} onKeyDown={event => { if (event.key === 'ArrowDown' || event.key === 'ArrowUp') { event.preventDefault(); moveResult(event.key === 'ArrowDown' ? 1 : -1); } }}>
+            {searchMounted ? <section id="global-search-results" className={styles.searchResults} aria-label={'Sugerencias de búsqueda'} aria-live="polite" aria-busy={loading} aria-hidden={!searchOpen} inert={!searchOpen || undefined} onKeyDown={event => { if (event.key === 'ArrowDown' || event.key === 'ArrowUp') { event.preventDefault(); moveResult(event.key === 'ArrowDown' ? 1 : -1); } }}>
               {!query.trim() ? <div className={styles.searchEmpty}>
-                <div><h2>{english?'All tennis, one search':'Todo el tenis, una búsqueda'}</h2><p>{english?'ATP and WTA players, matches, tournaments and records.':'Jugadores, jugadoras, partidos, torneos y récords ATP y WTA.'}</p></div>
-                <nav aria-label={english ? 'Search shortcuts' : 'Accesos de búsqueda'}>{navigationItems.slice(0, 4).map(({ label, section, href }) => <Link key={section} href={href} onClick={closeAll}>{label}<ArrowRight size={15} aria-hidden="true" /></Link>)}</nav>
+                <div><h2>{'Todo el tenis, una búsqueda'}</h2><p>{'Jugadores, jugadoras, partidos, torneos y récords ATP y WTA.'}</p></div>
+                <nav aria-label={'Accesos de búsqueda'}>{navigationItems.slice(0, 4).map(({ label, section, href }) => <Link key={section} href={href} onClick={closeAll}>{label}<ArrowRight size={15} aria-hidden="true" /></Link>)}</nav>
               </div>
-              : queryLength < 2 ? <p className={styles.searchStatus}>{english?'Enter at least two characters.':'Escribe al menos dos caracteres.'}</p>
-              : result.error ? <p className={styles.searchStatus}>{english?'Suggestions could not be loaded. Press Enter to search.':'No se pudieron cargar las sugerencias. Pulsa Intro para buscar.'}</p>
-              : hasPresentedResults || completingSearch ? <div className={`${styles.searchGroups}${tournamentItems.length ? ` ${styles.searchGroupsThree}` : ''}`}>{searchColumns.map(column => <section key={column.label} aria-label={column.label}><h2>{column.label}</h2>{column.items.length ? column.items.map((item,index) => {const href=resultHref(item);return <Link className={item.image ? styles.searchResultWithPhoto : undefined} href={href} prefetch={false} key={item.href} data-search-result="" onPointerEnter={() => router.prefetch(href)} onFocus={() => router.prefetch(href)} onClick={()=>{recordSearchClick(column.label,index+1);closeAll();}}>{item.image&&<Image className={styles.searchResultPhoto} src={item.image} alt={item.imageAlt||''} width={88} height={88} style={{objectPosition:item.imagePosition}}/>}<span><strong>{item.name}</strong>{item.detail && <small>{item.detail}</small>}</span><ArrowRight size={15} aria-hidden="true" /></Link>}) : <p className={styles.searchColumnStatus}>{completingSearch ? (english?'Searching…':'Buscando…') : (english?'No matches':'Sin coincidencias')}</p>}</section>)}</div>
-              : <p className={styles.searchStatus}>{english?`No results for “${query}”. Try another player, tournament or year.`:`No hay resultados para «${query}». Prueba con otro nombre, torneo o año.`}</p>}
+              : queryLength < 2 ? <p className={styles.searchStatus}>{'Escribe al menos dos caracteres.'}</p>
+              : result.error ? <p className={styles.searchStatus}>{'No se pudieron cargar las sugerencias. Pulsa Intro para buscar.'}</p>
+              : hasPresentedResults || completingSearch ? <div className={`${styles.searchGroups}${tournamentItems.length ? ` ${styles.searchGroupsThree}` : ''}`}>{searchColumns.map(column => <section key={column.label} aria-label={column.label}><h2>{column.label}</h2>{column.items.length ? column.items.map((item,index) => {const href=resultHref(item);return <Link className={item.image ? styles.searchResultWithPhoto : undefined} href={href} prefetch={false} key={item.href} data-search-result="" onPointerEnter={() => router.prefetch(href)} onFocus={() => router.prefetch(href)} onClick={()=>{recordSearchClick(column.label,index+1);closeAll();}}>{item.image&&<Image className={styles.searchResultPhoto} src={item.image} alt={item.imageAlt||''} width={88} height={88} style={{objectPosition:item.imagePosition}}/>}<span><strong>{item.name}</strong>{item.detail && <small>{item.detail}</small>}</span><ArrowRight size={15} aria-hidden="true" /></Link>}) : <p className={styles.searchColumnStatus}>{completingSearch ? ('Buscando…') : ('Sin coincidencias')}</p>}</section>)}</div>
+              : <p className={styles.searchStatus}>{`No hay resultados para «${query}». Prueba con otro nombre, torneo o año.`}</p>}
             </section>
-            : menu || menuClosing ? <nav id="deuce-mobile-navigation" className={styles.mobileNavigation} aria-label={english ? 'Main navigation' : 'Principal'} aria-hidden={menuClosing || undefined} inert={menuClosing || undefined}>
-              <Link className={`${styles.mobileDirectLink} ${styles.mobileHomeLink}`} href={english?'/en':'/'} onClick={closeAll}>{english?'Home':'Inicio'}<ArrowRight size={17} aria-hidden="true" /></Link>
-              {navigationItems.map(({ label, section, href }) => english||section === 'compare' ? <Link className={styles.mobileDirectLink} href={href} onClick={closeAll} key={section}>{label}<ArrowRight size={17} aria-hidden="true" /></Link> : <div className={styles.mobileGroup} data-open={activePanel === section || undefined} key={section}>
+            : menu || menuClosing ? <nav id="deuce-mobile-navigation" className={styles.mobileNavigation} aria-label={'Principal'} aria-hidden={menuClosing || undefined} inert={menuClosing || undefined}>
+              <Link className={`${styles.mobileDirectLink} ${styles.mobileHomeLink}`} href={'/'} onClick={closeAll}>{'Inicio'}<ArrowRight size={17} aria-hidden="true" /></Link>
+              {navigationItems.map(({ label, section, href }) => section === 'compare' ? <Link className={styles.mobileDirectLink} href={href} onClick={closeAll} key={section}>{label}<ArrowRight size={17} aria-hidden="true" /></Link> : <div className={styles.mobileGroup} data-open={activePanel === section || undefined} key={section}>
                 <button type="button" aria-expanded={activePanel === section} onClick={() => togglePanel(section)}><span>{label}</span><ChevronDown size={18} aria-hidden="true" /></button>
                 <div className={styles.mobileSubmenu}><div>
                   <Link className={styles.mobileOverview} href={panelFor(section, navigationTour).overview} onClick={closeAll}>Ver toda la sección <ArrowRight size={15} aria-hidden="true" /></Link>

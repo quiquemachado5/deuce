@@ -9,7 +9,7 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
     ...metadata,
     alternates: {
       ...metadata.alternates,
-      languages: { es: metadata.alternates.canonical, en: '/en/matches' },
+
     },
   };
 }

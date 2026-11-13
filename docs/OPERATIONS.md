@@ -84,7 +84,7 @@ docker compose --env-file .env.production exec prometheus promtool query instant
 
 Las reglas locales no envían correo por sí solas. La disponibilidad externa continúa en `production-health.yml`; si se añade Alertmanager, debe mantenerse privado y documentarse su receptor sin guardar credenciales en Git. Prometheus no forma parte del gate de disponibilidad de la web: un fallo suyo queda visible en el estado de recursos y el watchdog lo reintenta, pero nunca revierte una versión sana de la aplicación y el proxy.
 
-La CSP usa SRI para scripts externos, impide framing, objetos, atributos JavaScript inline y orígenes no declarados. `unsafe-inline` permanece únicamente en `script-src` porque la hidratación estática de Next inserta scripts inline. Eliminarlo exige nonces por petición y convertir las páginas afectadas en dinámicas; no hacer ese cambio sin medir CDN y TTFB.
+La CSP usa SRI para scripts externos, impide framing, objetos, atributos JavaScript inline y orígenes no declarados. `unsafe-inline` permanece en `script-src` y `style-src` porque la hidratación estática de Next inserta scripts inline. Eliminarlo exige nonces por petición y convertir las páginas afectadas en dinámicas; no hacer ese cambio sin medir CDN y TTFB. Véase el plan y sus criterios de aceptación en [CSP sin inline](CSP-SIN-INLINE.md).
 
 ## Seguridad verificada el 21/10/2026
 
