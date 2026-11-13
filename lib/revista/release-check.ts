@@ -39,13 +39,13 @@ export function assertReleaseCoverage(previous: RecordManifest, current: RecordM
   const allowances=(tour:'atp'|'wta')=>{
     const pairs=measurementCorrections.filter(row=>(row.current.tour||'atp')===tour);
     if(!pairs.length)return new Map<string,number>();
+    const before=new Map<string,Set<string>>(),after=new Map<string,Set<string>>();
+    recordCatalog(pairs.map(row=>row.previous),undefined,undefined,true,before);
+    recordCatalog(pairs.map(row=>row.current),undefined,undefined,true,after);
     const losses=new Map<string,number>();
-    for(const pair of pairs){
-      const before=recordCatalog([pair.previous],undefined,undefined,true),after=new Map(recordCatalog([pair.current],undefined,undefined,true).map(row=>[row.id,row.sample]));
-      for(const metric of before.filter(row=>row.measured)){
-        const loss=Math.max(0,metric.sample-(after.get(metric.id)||0));
-        if(loss)losses.set(metric.id,(losses.get(metric.id)||0)+loss);
-      }
+    for(const [metric,identities] of before){
+      const retained=after.get(metric);
+      losses.set(metric,[...identities].filter(identity=>!retained?.has(identity)).length);
     }
     return losses;
   };
