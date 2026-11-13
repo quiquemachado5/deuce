@@ -163,7 +163,7 @@ function grouped(
   );
 }
 const cache = new WeakMap<Match[], { day: string; pieces: RecordPiece[] }>();
-export function recordCatalog(matches: Match[], now = new Date(), only?: string, includeEmpty = false): RecordPiece[] {
+export function recordCatalog(matches: Match[], now = new Date(), only?: string, includeEmpty = false, sampleIdentities?: Map<string,Set<string>>): RecordPiece[] {
   if (new Set(matches.map(m=>m.tour||'atp')).size>1) throw new Error('Statistics require one explicit circuit');
   const day = now.toISOString().slice(0, 10);
   const cached = includeEmpty ? undefined : cache.get(matches);
@@ -188,6 +188,7 @@ export function recordCatalog(matches: Match[], now = new Date(), only?: string,
     asc = false,
   ) => {
     if (only && id !== only) return;
+    if(measured&&sampleIdentities)sampleIdentities.set(id,new Set(source.map(match=>`${match.tour||'atp'}:${match.match_id}`)));
     rows = (typeof rows === 'function' ? rows() : rows)
       .filter(
         (r) =>
