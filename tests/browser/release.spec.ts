@@ -43,7 +43,9 @@ test('mobile topbar search controls have a 44px touch target',async({page})=>{
  await page.getByRole('button',{name:'Buscar en DEUCE',exact:true}).click();
  await page.getByRole('searchbox').first().fill('Nadal');
  for(const label of ['Ver todos los resultados','Borrar búsqueda']){
-  const box=await page.getByRole('button',{name:label,exact:true}).boundingBox();expect(box?.width).toBeGreaterThanOrEqual(44);expect(box?.height).toBeGreaterThanOrEqual(44);
+  const box=await page.getByRole('button',{name:label,exact:true}).boundingBox();expect(box).not.toBeNull();
+  // CSS transforms can report 43.999998 for a 44px control in Chromium.
+  expect(Math.round(box!.width*100)/100).toBeGreaterThanOrEqual(44);expect(Math.round(box!.height*100)/100).toBeGreaterThanOrEqual(44);
  }
 });
 
