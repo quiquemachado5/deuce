@@ -5,7 +5,8 @@ import {compileNavigationProducts,type NavigationIndex} from '../lib/navigation-
 import type {PlayerRecord} from '../lib/season-analytics';
 import type {Match} from '../lib/types';
 import type {RecordManifest} from '../lib/revista/snapshot';
-const directory=join(process.cwd(),'data','reading');
+async function main(){
+const directory=process.argv[2]||join(process.cwd(),'data','reading');
 const read=async<T>(id:string)=>JSON.parse(gunzipSync(await readFile(join(directory,`${id}.json.gz`))).toString()) as T;
 const manifest=await read<RecordManifest>('manifest');
 const existing=await read<NavigationIndex>('navigation-index').catch(()=>undefined);
@@ -21,3 +22,6 @@ else{
  await write('navigation-index',products.index);
  console.info('Navigation products prepared:',JSON.stringify({matches:matches.length,entities,bytes}));
 }
+
+}
+main().catch(error=>{console.error(error);process.exitCode=1;});

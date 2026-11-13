@@ -25,7 +25,8 @@ export function WebVitals() {
   useEffect(()=>{dispatchEvent(new Event('deuce:route-commit'));},[pathname,search]);
   useEffect(() => {
     const initial=()=>{const navigation=performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming|undefined;if(navigation&&navigation.duration>0)send({kind:'navigation',value:navigation.duration,navigationType:navigation.type});};
-    if(document.readyState==='complete')initial();else addEventListener('load',initial,{once:true});
+    const onLoad=()=>requestAnimationFrame(initial);
+    if(document.readyState==='complete')initial();else addEventListener('load',onLoad,{once:true});
     const onError = (event: ErrorEvent) => send({ kind: 'client-error', error: event.error instanceof Error ? event.error.name : 'Error' });
     const onRejection = (event: PromiseRejectionEvent) => send({
       kind: 'unhandled-rejection',
@@ -51,7 +52,8 @@ export function WebVitals() {
       begin(routeKey(target.href));
     };
     const sampleCompletion=()=>{
-      if(!pending||!pending.committed||routeKey(location.href)!==pending.target)return;
+      if(!pending||!pending.committed)return;
+      if(pending.kind==='filter-transition'?new URL(pending.target,location.href).pathname!==location.pathname:routeKey(location.href)!==pending.target)return;
       if(performance.now()-pending.start>60_000){pending=null;return;}
       if(!pending.first){send({kind:'navigation',value:performance.now()-pending.start,navigationType:'first-content'});pending.first=true;}
       if(document.querySelector('[role="status"][aria-label="Cargando contenido"]'))return;
@@ -65,6 +67,8 @@ export function WebVitals() {
     const onCommit=()=>{if(pending)pending.committed=true;sampleCompletion();};
     const onHistoryNavigation=()=>{pending={start:performance.now(),target:routeKey(location.href),kind:'route-transition',committed:false,first:false};};
     document.addEventListener('click',onInternalNavigation,true);document.addEventListener('submit',onSubmit,true);
+    const onFilterInput=(event:Event)=>{const control=event.target;if(control instanceof HTMLInputElement||control instanceof HTMLSelectElement){const form=control.form;if(form&&form.method.toLowerCase()==='get'){const target=new URL(form.action,location.href);if(target.origin===location.origin&&target.pathname===location.pathname){target.search=new URLSearchParams([...new FormData(form)].filter((row):row is [string,string]=>typeof row[1]==='string')).toString();begin(routeKey(target.href));}}}};
+    document.addEventListener('input',onFilterInput,true);document.addEventListener('change',onFilterInput,true);
     addEventListener('popstate',onHistoryNavigation);addEventListener('deuce:route-commit',onCommit);
 
     let skeletonStart: number | null = null;
@@ -87,9 +91,10 @@ export function WebVitals() {
     const observer = new MutationObserver(scheduleSkeletonSample);
     observer.observe(skeletonRoot, { childList: true, subtree: true });
     return () => {
-      removeEventListener('load',initial);
+      removeEventListener('load',onLoad);
       removeEventListener('deuce:route-commit',onCommit);
       document.removeEventListener('submit',onSubmit,true);
+      document.removeEventListener('input',onFilterInput,true);document.removeEventListener('change',onFilterInput,true);
       if(completionFrame!==null)cancelAnimationFrame(completionFrame);
       removeEventListener('error', onError);
       removeEventListener('unhandledrejection', onRejection);
