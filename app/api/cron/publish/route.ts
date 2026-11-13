@@ -21,11 +21,11 @@ import {preservePublishedArchive,measurementCorrections} from '@/lib/revista/rel
 import {publishedMatches} from '@/lib/publication-scope'
 import {acquireArchiveLease} from '@/lib/archive-store'
 import {runIsolatedPublication} from '@/lib/isolated-publication'
+import {publicationRefreshCheckpoint} from '@/lib/operational-health'
 
 export const runtime = 'nodejs'
 export const maxDuration = 720
 export const dynamic = 'force-dynamic'
-const MAX_REFRESH_AGE_MS = 36 * 3_600_000
 
 export async function GET(request: Request) {
   const cronAuthorized = authorizedCronRequest(request)
@@ -53,9 +53,8 @@ export async function GET(request: Request) {
     try {
       await cloudWrite('publish-status',withOperationHistory(previousStatus,{status:'running',at:attemptAt,attemptAt,lastSuccessAt}))
       console.info('Daily publication: started')
-      const refresh=await cloudRead('sync-status')
-      const lastSuccessfulRefresh = refresh?.status === 'success' ? refresh.at : refresh?.lastSuccessAt
-      if(refresh?.status!=='success'||!Number.isFinite(Date.parse(lastSuccessfulRefresh))||Date.now()-Date.parse(lastSuccessfulRefresh)>MAX_REFRESH_AGE_MS)throw new Error('No recent successful provider refresh; keeping the previous publication')
+      const refresh=publicationRefreshCheckpoint(await cloudRead('sync-status'))
+      if(!refresh)throw new Error('No recent successful provider refresh; keeping the previous publication')
       const [{ publicationArchive, competitionEntries, editionSourceAudit }, { compileRecordSnapshot }, { publishRecordSnapshot }] = await Promise.all([
         import('@/lib/live-tennis'),
         import('@/lib/revista/snapshot'),
@@ -63,11 +62,10 @@ export async function GET(request: Request) {
       ])
       const bundled=JSON.parse(gunzipSync(await readFile(join(readingDirectory(),'manifest.json.gz'))).toString()) as RecordManifest
       const remote=await cloudRead('reading-v2-manifest')
-      const wtaRefresh=await cloudRead('wta-sync-status')
+      const wtaRefresh=publicationRefreshCheckpoint(await cloudRead('wta-sync-status'))
       const publishedWta=compatibleManifest(remote)?remote.summary.tours.wta:bundled.summary.tours.wta
       if(publishedWta>0){
-        const lastSuccessfulWta=wtaRefresh?.status==='success'?wtaRefresh.at:wtaRefresh?.lastSuccessAt
-        if(wtaRefresh?.status!=='success'||!Number.isFinite(Date.parse(lastSuccessfulWta))||Date.now()-Date.parse(lastSuccessfulWta)>MAX_REFRESH_AGE_MS)throw new Error('No recent successful WTA refresh; keeping the previous publication')
+        if(!wtaRefresh)throw new Error('No recent successful WTA refresh; keeping the previous publication')
       }
       const [loadedInput,previousAudit]=await Promise.all([publicationArchive(),preparedEditionAudit()])
       // Reuse the same evidence-preserving merge as the build pipeline: an
@@ -91,7 +89,7 @@ export async function GET(request: Request) {
       sampleMemory('compiled')
       const circuitFreshness = {
         atp: assertCircuitPublicationFreshness('atp',refresh.latestProviderDate,snapshot.manifest.circuitFreshness?.atp.latestExactDate),
-        ...(publishedWta>0?{wta:assertCircuitPublicationFreshness('wta',wtaRefresh.latestProviderDate,snapshot.manifest.circuitFreshness?.wta.latestExactDate)}:{}),
+        ...(publishedWta>0?{wta:assertCircuitPublicationFreshness('wta',wtaRefresh!.latestProviderDate,snapshot.manifest.circuitFreshness?.wta.latestExactDate)}:{}),
       }
       assertEditionCoverage(previousAudit,snapshot.audit)
       console.info('Daily publication: compiled',Math.round(process.memoryUsage().rss/1048576))
