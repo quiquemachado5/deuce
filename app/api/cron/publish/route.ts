@@ -21,7 +21,7 @@ import {publishedMatches} from '@/lib/publication-scope'
 import {acquireArchiveLease} from '@/lib/archive-store'
 
 export const runtime = 'nodejs'
-export const maxDuration = 300
+export const maxDuration = 720
 export const dynamic = 'force-dynamic'
 const MAX_REFRESH_AGE_MS = 36 * 3_600_000
 
