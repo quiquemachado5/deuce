@@ -46,3 +46,18 @@ test('mobile topbar search controls have a 44px touch target',async({page})=>{
   const box=await page.getByRole('button',{name:label,exact:true}).boundingBox();expect(box?.width).toBeGreaterThanOrEqual(44);expect(box?.height).toBeGreaterThanOrEqual(44);
  }
 });
+
+test('winner ticks stay next to names, including five sets and long names',async({page})=>{
+ for(const width of [320,390,1440]){
+  await page.setViewportSize({width,height:900});await page.goto('/laboratorio/marcadores');
+  const winners=page.locator('[data-score-player][data-winner]');expect(await winners.count()).toBeGreaterThan(5);
+  for(const row of await winners.all()){
+   const name=await row.locator('[data-score-name]').boundingBox(),tick=await row.locator('[data-score-winner-mark]').boundingBox();
+   expect(name).not.toBeNull();expect(tick).not.toBeNull();
+   expect(tick!.x-(name!.x+name!.width)).toBeGreaterThanOrEqual(0);
+   expect(tick!.x-(name!.x+name!.width)).toBeLessThanOrEqual(10);
+   expect(Math.abs(tick!.y+tick!.height/2-(name!.y+name!.height/2))).toBeLessThan(2);
+  }
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
+ }
+});
