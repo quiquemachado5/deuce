@@ -16,8 +16,8 @@ export function ScoreRows({match,playerLinks=false,language='es'}:{match:MatchRe
     {match.players.map((player,side)=><div className={styles.playerRow} data-score-player data-winner={winner===side||undefined} key={`${side}-${player.id}`}>
       <span className={styles.player}>
         <span className={styles.flag} aria-hidden="true"><PlayerFlag code={player.countryCode}/></span>
-        <strong title={player.name}>{playerLinks?<Link href={`/jugadores/${player.id}${match.tour==='wta'?'?tour=wta':''}`}>{player.name}</Link>:player.name}</strong>
-        {winner===side&&<Check className={styles.winnerMark} size={15} strokeWidth={2.5} aria-label={en?'Winner':'Ganador'}/>}
+        <strong data-score-name title={player.name}>{playerLinks?<Link href={`/jugadores/${player.id}${match.tour==='wta'?'?tour=wta':''}`}>{player.name}</Link>:player.name}</strong>
+        {winner===side&&<Check data-score-winner-mark className={styles.winnerMark} size={15} strokeWidth={2.5} aria-label={en?'Winner':'Ganador'}/>}
       </span>
       <span className={styles.sets} aria-label={en?`Score for ${player.name}`:`Marcador de ${player.name}`}>
         {match.sets.map((set,index)=>{

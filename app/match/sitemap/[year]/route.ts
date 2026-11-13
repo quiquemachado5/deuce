@@ -1,4 +1,4 @@
-import { preparedMatchSitemapArchive } from '@/lib/revista/read-records'
+import { preparedPageRevisions, preparedMatchSitemapArchive } from '@/lib/revista/read-records'
 import { matchSitemapEntries } from '@/lib/sitemap-locations'
 
 export const dynamic = 'force-dynamic'
@@ -13,18 +13,17 @@ const escapeXml = (value: unknown) => String(value).replace(/[&<>"']/g, characte
 })[character]!)
 
 function sitemapXml(year: number) {
-  return preparedMatchSitemapArchive(year).then(matches => {
-    const entries = matchSitemapEntries(matches, year)
+  return preparedMatchSitemapArchive(year).then(async matches => {
+    const revisions=await preparedPageRevisions();
+    const modified=Object.fromEntries(Object.entries(revisions?.pages||{}).flatMap(([path,row])=>row.modifiedAt?[[path,row.modifiedAt]]:[]));
+    const entries = matchSitemapEntries(matches, year,modified)
     const urls = entries.map(entry => {
       const lastModified = entry.lastModified
         ? `<lastmod>${escapeXml(entry.lastModified)}</lastmod>`
         : ''
-      const alternates = Object.entries(entry.alternates?.languages ?? {})
-        .map(([language, href]) => `<xhtml:link rel="alternate" hreflang="${escapeXml(language)}" href="${escapeXml(href)}" />`)
-        .join('')
-      return `<url><loc>${escapeXml(entry.url)}</loc>${lastModified}<changefreq>${entry.changeFrequency}</changefreq><priority>${entry.priority}</priority>${alternates}</url>`
+      return `<url><loc>${escapeXml(entry.url)}</loc>${lastModified}<changefreq>${entry.changeFrequency}</changefreq><priority>${entry.priority}</priority></url>`
     }).join('')
-    return `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">${urls}</urlset>`
+    return `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls}</urlset>`
   })
 }
 

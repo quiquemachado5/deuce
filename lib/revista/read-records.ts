@@ -753,3 +753,21 @@ export function preparedDataCacheDiagnostics() {
 }
 
 export function invalidatePreparedGeneration() { generations.clear(); snapshotSources.clear(); browserIndexes.clear(); browserPartitions.clear(); decodedBrowserPartitions.clear(); fullPartitions.clear(); matchDetails.clear(); matchContexts.clear(); compactArchives.clear(); compactSelections.clear(); competitionArchives.clear(); playerRecords.clear(); coverageReconciliations.clear(); publicationIndexes.clear(); remotePointers.clear(); remoteArtifacts.clear(); productArtifacts.clear(); clearArtifactPacks(); manifestCircuit.succeeded(); }
+
+/** Optional on older immutable generations; never fabricate historical change dates. */
+export const preparedPageRevisions=cache(async()=>{
+ const source=await preparedGeneration();
+ const value=source.source==='remote'?await cloudBlob<import('../publication-pages').PageRevisions>(source.manifest.version,'page-revisions'):await localOptional<import('../publication-pages').PageRevisions|undefined>('page-revisions',undefined);
+ if(value){const {validPageRevisions}=await import('../publication-pages');if(!validPageRevisions(value))throw new Error('Invalid page revision index');}
+ return value;
+});
+
+/** A small public feed, read from the same generation without loading the SEO index. */
+export const preparedCorrections=cache(async()=>{
+ const {validCorrection}=await import('../publication-pages');
+ const source=await preparedGeneration();
+ const rows=source.source==='remote'
+   ?await cloudBlob<unknown>(source.manifest.version,'correction-history')
+   :await localOptional<unknown>('correction-history',[]);
+ return Array.isArray(rows)?rows.filter(validCorrection):[];
+});

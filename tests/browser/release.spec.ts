@@ -21,3 +21,45 @@ test('global search opens, finds Nadal and closes with Escape',async({page})=>{
  await page.goto('/');await page.getByRole('button',{name:'Buscar en DEUCE',exact:true}).click();
  const input=page.getByRole('searchbox').first();await input.fill('Nadal');await expect(page.getByText('Rafael Nadal',{exact:true}).first()).toBeVisible();await input.press('Escape');await expect(page.getByRole('button',{name:'Buscar en DEUCE',exact:true})).toBeVisible();
 });
+
+test('English URLs redirect permanently to their Spanish entity',async({request})=>{
+ for(const [from,to] of [['/en','/'],['/en/matches/live-216535','/match/live-216535'],['/en/players/rafael-nadal','/jugadores/rafael-nadal'],['/en/players/iga-swiatek?tour=wta','/jugadores/iga-swiatek?tour=wta'],['/en/tournaments/wimbledon/2022?tour=wta','/torneos/wimbledon/2022?cuadro=wta']]){
+  const response=await request.get(from,{maxRedirects:0});expect(response.status()).toBe(308);
+  const location=new URL(response.headers().location,response.url());expect(location.pathname+location.search).toBe(to);
+ }
+});
+test('Spanish SEO and totals agree with the selected generation',async({page,request})=>{
+ const summary=await(await request.get('/api/overview')).json();
+ expect(summary.totalMatches).toBe(summary.totalsByTour.atp+summary.totalsByTour.wta);
+ expect(summary.freshness.publishedAt).toBe(summary.generatedAt);
+ await page.goto('/');expect(await page.locator('link[hreflang]').count()).toBe(0);
+ const dataset=await page.locator('script[type="application/ld+json"]').evaluateAll(scripts=>scripts.map(script=>JSON.parse(script.textContent||'{}')).find(data=>data['@type']==='Dataset'));
+ expect(dataset.size).toBe(summary.totalMatches);expect(dataset.version).toBe(summary.datasetVersion);
+ const sitemap=await(await request.get('/sitemap.xml')).text();expect(sitemap).not.toContain('/en/');expect(sitemap).not.toContain('hreflang');
+ expect((await request.get('/cobertura/correcciones')).status()).toBe(200);
+});
+test('mobile topbar search controls have a 44px touch target',async({page})=>{
+ await page.setViewportSize({width:390,height:844});await page.goto('/');
+ await page.getByRole('button',{name:'Buscar en DEUCE',exact:true}).click();
+ await page.getByRole('searchbox').first().fill('Nadal');
+ for(const label of ['Ver todos los resultados','Borrar búsqueda']){
+  const box=await page.getByRole('button',{name:label,exact:true}).boundingBox();expect(box).not.toBeNull();
+  // CSS transforms can report 43.999998 for a 44px control in Chromium.
+  expect(Math.round(box!.width*100)/100).toBeGreaterThanOrEqual(44);expect(Math.round(box!.height*100)/100).toBeGreaterThanOrEqual(44);
+ }
+});
+
+test('winner ticks stay next to names, including five sets and long names',async({page})=>{
+ for(const width of [320,390,1440]){
+  await page.setViewportSize({width,height:900});await page.goto('/laboratorio/marcadores');
+  const winners=page.locator('[data-score-player][data-winner]');expect(await winners.count()).toBeGreaterThan(5);
+  for(const row of await winners.all()){
+   const name=await row.locator('[data-score-name]').boundingBox(),tick=await row.locator('[data-score-winner-mark]').boundingBox();
+   expect(name).not.toBeNull();expect(tick).not.toBeNull();
+   expect(tick!.x-(name!.x+name!.width)).toBeGreaterThanOrEqual(0);
+   expect(tick!.x-(name!.x+name!.width)).toBeLessThanOrEqual(10);
+   expect(Math.abs(tick!.y+tick!.height/2-(name!.y+name!.height/2))).toBeLessThan(2);
+  }
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
+ }
+});

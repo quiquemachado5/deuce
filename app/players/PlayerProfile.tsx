@@ -85,8 +85,7 @@ export async function generateMetadata({params,searchParams}:Props){
   const description=player?`${player.name}: resultados, temporadas, rivales y rendimiento dentro de la muestra publicada en DEUCE.`:'Resultados de los torneos ATP y WTA guardados en DEUCE.';
   const canonicalParams=new URLSearchParams();if(tour==='wta')canonicalParams.set('tour','wta');if(query.year)canonicalParams.set('year',query.year);
   const canonical=`/jugadores/${slug}${canonicalParams.size?`?${canonicalParams}`:''}`;
-  const englishCanonical=`/en/players/${slug}${tour==='wta'?'?tour=wta':''}`;
-  return {title,description,alternates:{canonical,languages:{es:canonical,en:englishCanonical}},openGraph:{title,description,type:'profile',url:canonical},twitter:{card:'summary_large_image',title,description}};
+  return {title,description,alternates:{canonical,},openGraph:{title,description,type:'profile',url:canonical},twitter:{card:'summary_large_image',title,description}};
 }
 
 export default function Player(props:Props){ return <PlayerProfile {...props}/>; }

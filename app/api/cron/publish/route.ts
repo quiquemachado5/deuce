@@ -1,3 +1,4 @@
+import {matchCorrections} from '@/lib/publication-pages'
 import {publishedWikiContexts} from '@/lib/wikimedia-refresh'
 import {enrichMatchAges} from '@/lib/wikimedia-context'
 import { authorizedCronRequest } from '@/lib/cron-auth'
@@ -64,12 +65,14 @@ export async function GET(request: Request) {
       const priorMatches=[...await preparedTourArchive('atp'),...await preparedTourArchive('wta')]
       const mergedInput=await preservePublishedArchive(loadedInput,baselineManifest,async()=>priorMatches)
       const sourceCorrections=measurementCorrections(priorMatches,mergedInput)
+      const corrections=matchCorrections(priorMatches,mergedInput,attemptAt)
       const input=enrichMatchAges(publishedMatches(mergedInput),await publishedWikiContexts())
       priorMatches.length=0
       mergedInput.length=0
       sampleMemory('archive-loaded')
       console.info('Daily publication: archive loaded',input.length,Math.round(process.memoryUsage().rss/1048576))
       const snapshot = compileRecordSnapshot(input,new Date(),await competitionEntries(),await editionSourceAudit(),baselineManifest)
+      snapshot.corrections=corrections
       // compileRecordSnapshot owns normalized copies. Release the large raw
       // array before opening any previous-generation metadata.
       input.length=0
@@ -94,7 +97,7 @@ export async function GET(request: Request) {
       snapshot.manifest.publicationDelta=delta
       // Immutable correction provenance survives serving-generation retention.
       // It is written before the pointer; an interrupted attempt cannot lose evidence.
-      if(changes.length)await cloudWrite(`archive-history-${snapshot.manifest.version}`,{encoding:'gzip-base64',gzip:gzipSync(JSON.stringify({at:attemptAt,fromVersion:baseline.manifest.version,toVersion:snapshot.manifest.version,source:'Live Tennis API',sourceUrl:'https://api.livetennisapi.com/api/public/v1',validation:'explicit circuit, unique identity, preserved published IDs',changes})).toString('base64')})
+      if(changes.length)await cloudWrite(`archive-history-${snapshot.manifest.version}`,{encoding:'gzip-base64',gzip:gzipSync(JSON.stringify({at:attemptAt,fromVersion:baseline.manifest.version,toVersion:snapshot.manifest.version,source:'Live Tennis API',sourceUrl:'https://api.livetennisapi.com/api/public/v1',validation:'explicit circuit, unique identity, preserved published IDs',changes,corrections})).toString('base64')})
       if(sourceCorrections.length)await cloudWrite(`archive-measurement-review-${snapshot.manifest.version}`,{at:attemptAt,fromVersion:baselineManifest.version,reason:'Provider explicitly marks reconstructed points; derived values are not observed measurements',matches:sourceCorrections.map(({previous,current})=>({identity:`${current.tour||'atp'}:${current.match_id}`,removedStatistics:previous.statistics.filter(stat=>!current.statistics.some(next=>next.player===stat.player&&next.period===stat.period&&next.name===stat.name)).map(stat=>({player:stat.player,period:stat.period,name:stat.name})),source:current.context?.pointSource,providerEvidence:current.raw_fixture,derivationVersion:current.context?.derivationVersion}))})
       const published=await publishRecordSnapshot(snapshot)
       sampleMemory('published')

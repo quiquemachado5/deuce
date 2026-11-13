@@ -69,6 +69,21 @@ export function assertGenerationCoherence(
 }
 
 export function generationMetadata(generation: Pick<PreparedGeneration, 'manifest' | 'source' | 'fallbackReason'>) {
-  return { datasetVersion: generation.manifest.version, rulesVersion: generation.manifest.rulesVersion,
-    generatedAt: generation.manifest.generatedAt, source: generation.source, fallbackReason: generation.fallbackReason || null };
+  const {manifest}=generation;
+  const incorporationDays=(manifest.ingestionHistory||[]).filter(day=>day.added>0||Boolean(day.corrected)
+    ||Object.values(day.included||{}).some(count=>count>0)).map(day=>day.date).sort();
+  return {
+    datasetVersion: manifest.version,
+    rulesVersion: manifest.rulesVersion,
+    generatedAt: manifest.generatedAt,
+    totalMatches: manifest.matchCount,
+    totalsByTour: manifest.summary.tours,
+    freshness: {
+      publishedAt: manifest.generatedAt,
+      latestMatchDate: manifest.extent?.latestExactDate||null,
+      latestIncorporationDate: incorporationDays.at(-1)||null,
+    },
+    source: generation.source,
+    fallbackReason: generation.fallbackReason||null,
+  };
 }

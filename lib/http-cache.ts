@@ -10,7 +10,7 @@ type VersionedJsonOptions = {
   headers?: HeadersInit;
   representation?: string;
 };
-export const JSON_REPRESENTATION_VERSION='2026-11-v3';
+export const JSON_REPRESENTATION_VERSION='2026-11-v4';
 
 /** Mutable dataset URLs must not outlive a publication by hours or days. Browsers
  * revalidate with the versioned ETag; a shared cache gets at most five minutes. */

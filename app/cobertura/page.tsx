@@ -45,7 +45,7 @@ export default async function Coverage({ searchParams }:{ searchParams:Promise<{
       <div className={styles.sectionHeading}><h2 id="coverage-scope-title">Qué puedes consultar</h2><span>{number(manifest.matchCount)} partidos</span></div>
       <div className={styles.circuits}>{(['atp','wta'] as const).map(tour=>{
         const summary=circuits[tour];
-        const total=summary.years.reduce((sum,year)=>sum+year.matches,0);
+        const total=manifest.summary.tours[tour];
         const first=summary.years.at(-1)?.year,last=summary.years[0]?.year;
         const date=manifest.circuitFreshness?.[tour].latestExactDate;
         return <article className={styles.circuit} key={tour}>
@@ -61,7 +61,7 @@ export default async function Coverage({ searchParams }:{ searchParams:Promise<{
       })}</div>
     </section>
     <section className={styles.activity} aria-labelledby="coverage-activity-title">
-      <div className={styles.activityIntro}><h2 id="coverage-activity-title">Qué se añade cada día</h2><p>Fecha de incorporación al archivo, no del partido.</p></div>
+      <div className={styles.activityIntro}><h2 id="coverage-activity-title">Qué se añade cada día</h2><p>Fecha de incorporación al archivo, no del partido.</p><Link href="/cobertura/correcciones">Historial de correcciones <ArrowUpRight size={16} aria-hidden="true"/></Link></div>
       <div className={styles.journal}>{days.length?<><ol>{days.slice(0,3).map(day=><PublicationDay key={day.date} day={day}/>)}</ol>{days.length>3&&<details className={styles.previous}><summary>Días anteriores <ChevronDown size={17}/></summary><ol>{days.slice(3).map(day=><PublicationDay key={day.date} day={day}/>)}</ol></details>}</>:<p>Todavía no hay publicaciones registradas.</p>}</div>
     </section>
     <section className={styles.quality} id="calidad" aria-labelledby="coverage-quality-title"><Check size={23} aria-hidden="true"/><div><h2 id="coverage-quality-title">Un archivo en revisión continua</h2><p>Contrastamos los resultados y actualizamos las estadísticas con cada corrección.{review?` Última revisión: ${number(review.references)} resultados contrastados en la web. Quedan ${number(review.afterConfirmed)} incidencias de cuadros en revisión.`:''}</p><details><summary>Cómo interpretar los datos <ChevronDown size={16}/></summary><p>La presencia de un torneo no garantiza que su cuadro esté completo. Las estadísticas de servicio, ranking y punto a punto aparecen únicamente cuando están documentadas. Los resultados pendientes de verificar no se presentan como confirmados.</p><p>Los récords y el palmarés se recalculan al publicar resultados nuevos. Las biografías de Wikipedia/Wikidata pueden completar edades cuando conocemos el día exacto del partido; nunca sustituyen un marcador ni un dato ya recibido del proveedor.</p></details></div></section>

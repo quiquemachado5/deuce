@@ -47,7 +47,7 @@
  .detailClassification table thead th:first-child{width:30px}.detailClassification table thead th:nth-child(3){width:66px}.detailClassification table thead th:last-child{width:46px}
  .detailClassification table tbody tr>td,.detailClassification table tbody tr>th{padding:17px 7px}.detailClassification table th[scope=row]>a{font-size:15px;overflow-wrap:anywhere}
  .detailClassification table td strong{font-size:23px}.detailClassification table td:first-child{font-size:14px}.detailClassification table td:last-child a>span{display:none}
- .detailClassification table td:last-child a{min-width:32px;min-height:38px}.detailRelated{padding-top:24px}.detailRelated strong{font-size:16px}
+ .detailClassification table td:last-child a{min-width:44px;min-height:44px}.detailRelated{padding-top:24px}.detailRelated strong{font-size:16px}
 }
 
 /* Keep percentages together, and retain readable table controls on narrow screens. */
@@ -72,6 +72,6 @@
  .detailToolbar{margin-bottom:12px}.page .detailHero{padding-bottom:20px}.page .detailHero p{font-size:16px;line-height:1.5}
  .detailClassification>div:first-child{gap:8px}.detailClassification>div:first-child h2{font-size:21px}
  .detailClassification nav[aria-label="Ordenar clasificación"]>span{display:none}.detailClassification nav[aria-label="Ordenar clasificación"] a{padding:8px;font-size:14px}
- .detailClassification table thead th:first-child{width:28px}.detailClassification table thead th:nth-child(3){width:80px}.detailClassification table thead th:last-child{width:35px}
+ .detailClassification table thead th:first-child{width:28px}.detailClassification table thead th:nth-child(3){width:80px}.detailClassification table thead th:last-child{width:58px}
  .detailClassification table tbody tr>td,.detailClassification table tbody tr>th{padding:16px 7px}.detailClassification table th[scope=row]>a{font-size:16px}
 }

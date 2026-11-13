@@ -72,20 +72,17 @@ function publishedMatchDates(match: Match) {
   return { ...(startDate ? { startDate } : {}), ...(endDate ? { endDate } : {}) };
 }
 
-function playerUrl(name: string, tour: Tour, language: 'es' | 'en' = 'es') {
+function playerUrl(name: string, tour: Tour) {
   const query = tour === 'wta' ? '?tour=wta' : '';
-  const root = language === 'en' ? '/en/players' : '/jugadores';
+  const root = '/jugadores';
   return absoluteSiteUrl(`${root}/${playerSlug(name)}${query}`);
 }
 
-export function matchJsonLd(match: Match, options: { language?: 'es' | 'en' } = {}) {
+export function matchJsonLd(match: Match) {
   const tour = match.tour || 'atp';
-  const language = options.language || 'es';
-  const canonical = language === 'en' ? `/en/matches/${match.match_id}` : matchCanonicalPath(match.match_id);
-  const eventName = language === 'en' ? match.tournament : tournamentName(match.tournament);
-  const description = language === 'en'
-    ? `${eventName} ${match.year}. ${score(match)}. Documented ${tour.toUpperCase()} result in DEUCE.`
-    : `${eventName} ${match.year}. ${score(match)}. Resultado ${tour.toUpperCase()} documentado en DEUCE.`;
+  const canonical = matchCanonicalPath(match.match_id);
+  const eventName = tournamentName(match.tournament);
+  const description = `${eventName} ${match.year}. ${score(match)}. Resultado ${tour.toUpperCase()} documentado en DEUCE.`;
   return {
     '@context': 'https://schema.org',
     '@type': 'SportsEvent',
@@ -102,7 +99,7 @@ export function matchJsonLd(match: Match, options: { language?: 'es' | 'en' } = 
     competitor: [match.player1, match.player2].map((player) => ({
       '@type': 'Person',
       name: player.name,
-      url: playerUrl(player.name, tour, language),
+      url: playerUrl(player.name, tour),
     })),
     organizer: { '@type': 'SportsOrganization', name: tour.toUpperCase() },
   };

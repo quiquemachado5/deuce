@@ -42,7 +42,7 @@ export async function generateMetadata({ searchParams }: Props) {
   const description = `Torneos individuales ${tour.toUpperCase()} de Grand Slam y categorías 1000, 500 y 250, sin mezclar circuitos ni modalidades.`;
   const page = Math.max(1, Math.floor(Number(query.page) || 1));
   const canonical = tournamentDirectoryUrl(tour, category, page);
-  return { title, description, alternates: { canonical, languages: { es: canonical, en: `/en/tournaments${tour==='wta'?'?tour=wta':''}` } }, openGraph: { title, description, url: canonical }, twitter: { card: 'summary_large_image', title, description }, robots: robotsForUnavailableTour(manifest.summary, tour) };
+  return { title, description, alternates: { canonical, }, openGraph: { title, description, url: canonical }, twitter: { card: 'summary_large_image', title, description }, robots: robotsForUnavailableTour(manifest.summary, tour) };
 }
 
 export default async function TournamentDirectory({ searchParams }: Props) {

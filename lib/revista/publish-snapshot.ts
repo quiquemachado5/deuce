@@ -1,7 +1,8 @@
+import {buildPageRevisions,validPageRevisions,type PageRevisions} from '../publication-pages';
 import 'server-only';
 import {packArtifacts} from './artifact-packs';
 import { attachRecordChanges, assertSnapshotIntegrity } from './record-changes';
-import {gzipSync,createGzip} from 'node:zlib';
+import {gzipSync,gunzipSync,createGzip} from 'node:zlib';
 import {Readable} from 'node:stream';
 import {pipeline} from 'node:stream/promises';
 import {mkdir,writeFile,rename,readdir,unlink,readFile} from 'node:fs/promises';
@@ -47,6 +48,9 @@ export async function writeBundledSnapshot(snapshot:Snapshot) {
   const drawAnomalies=assertNoBlockingDrawAnomalies(snapshot.matches,snapshot.audit);
   const fullPartitions=partitionMatches(snapshot.matches);
   const artifacts:Record<string,unknown>={eras:snapshot.eras,matches:snapshot.matches,players:snapshot.players,competition:snapshot.competition,audit:snapshot.audit,reconciliation,'draw-anomalies':drawAnomalies,'edition-products':snapshot.products.editions,'player-directory':snapshot.products.players,'search-products':snapshot.products.search,'elo-products':snapshot.products.elo,'time-machine':snapshot.products.timeMachine,'publication-index':snapshot.publicationIndex||buildPublicationIndex(snapshot.matches),'browser-index':browser.index,...Object.fromEntries(fullPartitions.map(group=>[group.meta.id,group.matches])),...Object.fromEntries(browser.partitions.map(partition=>[matchBrowserArtifact(partition.id),partition])),...Object.fromEntries(Object.entries(snapshot.pieces).map(([id,p])=>[`piece-${id}`,p])),manifest:snapshot.manifest};
+  const priorPages=await readFile(join(dir,'page-revisions.json.gz')).then(b=>JSON.parse(gunzipSync(b).toString())).catch(()=>undefined);
+  artifacts['page-revisions']=buildPageRevisions(snapshot.matches,snapshot.pieces,validPageRevisions(priorPages)?priorPages:undefined,snapshot.manifest.generatedAt);
+  artifacts['correction-history']=(artifacts['page-revisions'] as PageRevisions).corrections;
   let written=0,reused=0;
   for(const [id,value] of Object.entries(artifacts)) {
     const path=join(dir,`${id}.json.gz`),encoded=gzipSync(JSON.stringify(value));
@@ -71,13 +75,28 @@ export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotSt
   assertSnapshotIntegrity(snapshot);
   const {pieces,eras,matches,players,competition,audit,products}=snapshot;
   const published=await storage.read('reading-v2-manifest');
-  if((published as RecordManifest|undefined)?.version===snapshot.manifest.version&&(published as RecordManifest).artifactPacks)return published as RecordManifest;
+  if((published as RecordManifest|undefined)?.version===snapshot.manifest.version&&(published as RecordManifest).artifactPacks?.['page-revisions'])return published as RecordManifest;
+  let priorPages:PageRevisions|undefined;
+  const previousManifest=published as RecordManifest|undefined;
+  const previousPacksRead=new Map<string,Promise<unknown>>();
+  const readArtifact=async(id:string)=>{
+    const pack=previousManifest?.artifactPacks?.[id];if(!pack)return undefined;
+    if(!previousPacksRead.has(pack))previousPacksRead.set(pack,storage.read(snapshotKey(previousManifest!.version,pack)));
+    const payload=await previousPacksRead.get(pack) as {artifacts?:Record<string,unknown>}|undefined;
+    if(!payload?.artifacts?.[id])throw new Error('Previous page revision artifact is missing');
+    return payload.artifacts[id];
+  };
+  const encoded=await readArtifact('page-revisions') as {gzip?:string;chunks?:number}|undefined;
+  if(encoded){let zipped=encoded.gzip||'';if(encoded.chunks)for(let i=0;i<encoded.chunks;i++)zipped+=(await readArtifact('page-revisions-chunk'+i) as {chunk:string}).chunk;
+    const decoded=JSON.parse(gunzipSync(Buffer.from(zipped,'base64')).toString());if(!validPageRevisions(decoded))throw new Error('Previous page revisions are invalid');priorPages=decoded;}
+  const pageRevisions=buildPageRevisions(matches,pieces,priorPages,snapshot.manifest.generatedAt,snapshot.corrections);
+  snapshot.pageRevisions=pageRevisions;
   const previousCount=(published as RecordManifest|undefined)?.rulesVersion===snapshot.manifest.rulesVersion
     ? (published as RecordManifest).matchCount : 0;
   assertPublishableArchive(matches,previousCount);
   const drawAnomalies=assertNoBlockingDrawAnomalies(matches,audit);
   const manifest=attachIngestionHistory(published as RecordManifest | undefined,attachRecordChanges(published as RecordManifest | undefined,snapshot.manifest));
-  if((published as RecordManifest|undefined)?.artifactPacks&&published&&typeof published==='object'&&isDeepStrictEqual(publishedGeneration(published as RecordManifest),publishedGeneration(manifest))){
+  if((published as RecordManifest|undefined)?.artifactPacks?.['page-revisions']&&published&&typeof published==='object'&&isDeepStrictEqual(publishedGeneration(published as RecordManifest),publishedGeneration(manifest))){
     if(Date.parse(manifest.generatedAt)>Date.parse((published as RecordManifest).generatedAt))await storage.write('reading-v2-manifest',{...manifest,artifactPacks:(published as RecordManifest).artifactPacks});
     return manifest;
   }
@@ -90,7 +109,7 @@ export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotSt
     for(const [id,piece] of Object.entries(pieces))yield* compressedPages(id,piece);
     for(const group of partitionMatches(matches))yield* await compressedBlob(group.meta.id,group.matches);
     for(const partition of browser.partitions)yield* await compressedBlob(matchBrowserArtifact(partition.id),partition);
-    for(const [id,value] of [['browser-index',browser.index],['publication-index',snapshot.publicationIndex||buildPublicationIndex(matches)],['eras',eras],['players',players],['competition',competition],['audit',audit],['reconciliation',reconciliation],['draw-anomalies',drawAnomalies],['edition-products',products.editions],['player-directory',products.players],['search-products',products.search],['elo-products',products.elo],['time-machine',products.timeMachine]] as const)yield* await compressedBlob(id,value);
+    for(const [id,value] of [['page-revisions',pageRevisions],['correction-history',pageRevisions.corrections],['browser-index',browser.index],['publication-index',snapshot.publicationIndex||buildPublicationIndex(matches)],['eras',eras],['players',players],['competition',competition],['audit',audit],['reconciliation',reconciliation],['draw-anomalies',drawAnomalies],['edition-products',products.editions],['player-directory',products.players],['search-products',products.search],['elo-products',products.elo],['time-machine',products.timeMachine]] as const)yield* await compressedBlob(id,value);
   }
   const artifactPacks: Record<string,string> = {};
   const previousVersion=(published as RecordManifest|undefined)?.version;
