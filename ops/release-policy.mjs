@@ -88,3 +88,13 @@ export function releaseFailures(health, baseline, options = {}) {
   }
   return [...new Set(failures)]
 }
+
+
+/** A live, bounded publication may block HTTP liveness while recalculating. */
+export function activePublicationLease(publication, lease, now = Date.now()) {
+  const started = Date.parse(publication?.attemptAt || publication?.at || '')
+  const expires = Date.parse(lease?.expiresAt || '')
+  return publication?.status === 'running' && typeof lease?.owner === 'string' && lease.owner.length > 0
+    && Number.isFinite(started) && now >= started && now - started < 900_000
+    && Number.isFinite(expires) && expires > now && expires - now <= 900_000
+}

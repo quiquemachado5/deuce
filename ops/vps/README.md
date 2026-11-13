@@ -62,3 +62,7 @@ journalctl -u deuce-backup.service -u deuce-restore-drill.service --since today
 Mantén `DEUCE_ARCHIVE_MAX_BYTES` por debajo del espacio total para reservar capacidad a imágenes, compilaciones, logs y copias locales rotatorias.
 `DEUCE_PROVIDER_MIN_REMAINING` reserva por defecto 200 llamadas del saldo contratado. `DEUCE_PROVIDER_DAILY_MAX_CALLS` añade un techo propio de 400 llamadas por día para el conjunto de ATP, WTA, históricos, enriquecimiento y detalles solicitados desde la web. Cada operación conserva además su presupuesto individual. `provider-quota-status` guarda observaciones sin credenciales y `/api/metrics` expone límites, utilización y saldo seguro.
 `deuce-resource-check.timer` publica memoria, disco y estado de contenedores cada cinco minutos; `deuce-maintenance.timer` elimina únicamente capas de construcción e imágenes sin uso y nunca poda volúmenes.
+
+### Publicación diaria de archivos grandes
+
+El publicador dispone de una espera HTTP interna absoluta de 12 minutos, con respuesta limitada a 256 KiB; evita el corte implícito de cinco minutos de `fetch`. El supervisor solo aplaza el reinicio de un contenedor que sigue vivo cuando hay una publicación en estado `running`, iniciada hace menos de 15 minutos y con una concesión de escritura todavía válida y acotada. Un proceso detenido, una concesión vencida o un intento fuera de plazo conserva la recuperación normal. Las comprobaciones de partidos, circuitos y mediciones se ejecutan antes de cambiar el puntero del dataset.

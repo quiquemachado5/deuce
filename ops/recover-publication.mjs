@@ -1,3 +1,4 @@
+import { internalRequest } from './internal-request.mjs'
 import { recoverableDailyPublicationFailure } from './release-policy.mjs'
 
 const argument = name => process.argv.find(value => value.startsWith(`--${name}=`))?.slice(name.length + 3)
@@ -16,13 +17,12 @@ if (!recoverableDailyPublicationFailure(health)) {
   if (!secret) throw new Error('CRON_SECRET is required to repair publication state')
   let repaired = false
   for (let attempt = 1; attempt <= 3; attempt += 1) {
-    const response = await fetch(publishUrl, {
+    const response = await internalRequest(publishUrl, {
       headers: { Authorization: `Bearer ${secret}` },
-      signal: AbortSignal.timeout(310_000),
-      cache: 'no-store',
+      timeoutMs: 720_000,
     })
-    const body = await response.json().catch(() => ({}))
-    if (response.ok && body.status === 'success') {
+    const body = JSON.parse(response.body || '{}')
+    if (response.status === 200 && body.status === 'success') {
       console.log(JSON.stringify({ status: 'repaired', version: body.version, matches: body.matches, tours: body.tours }))
       repaired = true
       break

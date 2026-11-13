@@ -41,8 +41,16 @@ running="$(docker inspect --format '{{.State.Running}}' "${web_id}")"
 health="$(docker inspect --format '{{if .State.Health}}{{.State.Health.Status}}{{else}}none{{end}}' "${web_id}")"
 
 if [[ "${running}" != "true" || "${health}" == "unhealthy" ]]; then
-  echo "DEUCE web container is ${health}; restarting it."
-  "${compose[@]}" restart web
+  if [[ "${running}" == "true" ]] && docker exec "$web_id" node --input-type=module -e '
+    import fs from "node:fs";import {activePublicationLease} from "/app/ops/release-policy.mjs";
+    try{const root=process.env.DEUCE_ARCHIVE_DIR||"/app/.deuce-archive";
+      if(!activePublicationLease(JSON.parse(fs.readFileSync(root+"/publish-status.json")),JSON.parse(fs.readFileSync(root+"/.lease-tennis-provider.lock"))))process.exit(1);
+    }catch{process.exit(1)}'; then
+    echo "DEUCE publication holds a live bounded lease; deferring the web restart."
+  else
+    echo "DEUCE web container is ${health}; restarting it."
+    "${compose[@]}" restart web
+  fi
 fi
 
 for service in scheduler caddy prometheus; do

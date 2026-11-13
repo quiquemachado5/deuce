@@ -1,3 +1,4 @@
+import { internalRequest } from '../internal-request.mjs'
 import { mkdir, readFile, rename, writeFile } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
 import { dueStages, heartbeatBootstrapState, nextRetryAt, parseJobResponse, publicationReady, retryDelay } from '../scheduler-core.mjs'
@@ -111,11 +112,11 @@ async function runJob(job, { oncePerCycle = false } = {}) {
   state.stages[job.path] = { ...previous, status: 'running', attempts: attempt, lastAttemptAt: startedAt, nextAttemptAt: undefined, error: undefined }
   await persist()
   try {
-    const response = await fetch(`${base}${job.path}`, {
-      headers: { Authorization: `Bearer ${secret}` },
-      signal: AbortSignal.timeout(290_000),
-    })
-    const body = await response.text()
+    const headers = { Authorization: `Bearer ${secret}` }
+    const response = job.path === publicationJob.path
+      ? await internalRequest(`${base}${job.path}`, { headers, timeoutMs: 720_000 })
+      : await fetch(`${base}${job.path}`, { headers, signal: AbortSignal.timeout(290_000) })
+    const body = typeof response.body === 'string' ? response.body : await response.text()
     const result = parseJobResponse(response.status, body)
     const canRetry = !oncePerCycle && !result.ok && result.retryable && attempt < maximumAttempts
     const deferred = !result.ok && result.deferred === true
