@@ -56,7 +56,6 @@ export function assertReleaseCoverage(previous: RecordManifest, current: RecordM
     }
     const nextIds = new Set(nextCatalogues[tour].map(piece => piece.id));
     const missing = priorCatalogues[tour]
-      .filter(piece=>piece.sample>(correctedSamples.get(piece.id)||0))
       .map(piece => piece.id)
       .filter(id => !EPHEMERAL_RECORD_PIECES.has(id) && !nextIds.has(id));
     if (missing.length) throw new Error(`Release would lose ${tour.toUpperCase()} record catalogue entries: ${missing.join(', ')}`);

@@ -1,4 +1,3 @@
-import {retainCatalogueDefinitions} from '@/lib/revista/catalogue-definitions'
 import {publishedWikiContexts} from '@/lib/wikimedia-refresh'
 import {enrichMatchAges} from '@/lib/wikimedia-context'
 import { authorizedCronRequest } from '@/lib/cron-auth'
@@ -70,7 +69,7 @@ export async function GET(request: Request) {
       mergedInput.length=0
       sampleMemory('archive-loaded')
       console.info('Daily publication: archive loaded',input.length,Math.round(process.memoryUsage().rss/1048576))
-      const snapshot = compileRecordSnapshot(input,new Date(),await competitionEntries(),await editionSourceAudit())
+      const snapshot = compileRecordSnapshot(input,new Date(),await competitionEntries(),await editionSourceAudit(),baselineManifest)
       // compileRecordSnapshot owns normalized copies. Release the large raw
       // array before opening any previous-generation metadata.
       input.length=0
@@ -83,7 +82,6 @@ export async function GET(request: Request) {
       assertEditionCoverage(previousAudit,snapshot.audit)
       console.info('Daily publication: compiled',Math.round(process.memoryUsage().rss/1048576))
       if (!snapshot.matches.length) throw new Error('Cannot publish an empty reading snapshot')
-      retainCatalogueDefinitions(snapshot,baselineManifest)
       assertReleaseCoverage(bundled,snapshot.manifest,[],sourceCorrections)
       if(compatibleManifest(remote))assertReleaseCoverage(remote,snapshot.manifest,[],sourceCorrections)
       const baseline=await preparedGeneration()

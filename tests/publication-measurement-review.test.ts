@@ -12,7 +12,7 @@ const clean:Match={...previous,statistics:[],context:{...previous.context,pointS
 const manifest=(match:Match)=>compileRecordSnapshot([match],new Date('2026-11-13')).manifest;
 test('explicit provider reclassification retires only its reconstructed measurements, never matches',()=>{
  const corrections=measurementCorrections([previous],[clean]);assert.equal(corrections.length,1);
- const before=manifest(previous),after=manifest(clean);
+ const before=manifest(previous),after=compileRecordSnapshot([clean],new Date(),[],[],before).manifest;
  assert.throws(()=>assertReleaseCoverage(before,after),/measured coverage/);
  assert.doesNotThrow(()=>assertReleaseCoverage(before,after,[],corrections));
  assert.throws(()=>assertReleaseCoverage(before,{...after,matchCount:0},[],corrections),/lose published matches/);
@@ -40,12 +40,10 @@ test('compact review evidence retains the provider labels and omits the tape and
 });
 
 test('a retired source leaves an empty record definition, never an old leader or statistic',async()=>{
- const {retainCatalogueDefinitions}=await import('../lib/revista/catalogue-definitions');
- const before=manifest(previous),snapshot=compileRecordSnapshot([clean]);
- retainCatalogueDefinitions(snapshot,before);
+ const before=manifest(previous),snapshot=compileRecordSnapshot([clean],new Date(),[],[],before);
  const empty=snapshot.manifest.pieces.find(row=>row.id==='total-points');
  assert.equal(empty?.sample,0);assert.equal(empty?.total,0);assert.equal(empty?.leader,undefined);
- assert.deepEqual(snapshot.pieces['total-points'],{pages:{},smallPages:{}});
+ assert.deepEqual(Object.values(snapshot.pieces['total-points'].pages).flat(),[]);
  assert.doesNotThrow(()=>assertReleaseCoverage(before,snapshot.manifest,[],measurementCorrections([previous],[clean])));
 });
 
@@ -56,4 +54,14 @@ test('coverage reviews count measured matches even when none qualifies for the r
  const before=compileRecordSnapshot([ordinary,genuine]).manifest,after=compileRecordSnapshot([reviewed,genuine]).manifest;
  assert.throws(()=>assertReleaseCoverage(before,after),/measured coverage/);
  assert.doesNotThrow(()=>assertReleaseCoverage(before,after,[],measurementCorrections([ordinary],[reviewed])));
+});
+
+test('a record with no qualifying result retains the true remaining measurement sample',()=>{
+ const ordinary={...previous,winner:1 as const},reviewed={...clean,winner:1 as const};
+ const derived={...ordinary,statistics:ordinary.statistics.map(s=>s.name==='Total points won'?{...s,value:s.player===1?'60':'80'}:s)};
+ const genuine={...ordinary,match_id:'genuine'};
+ const before=compileRecordSnapshot([derived,genuine]).manifest;
+ const snapshot=compileRecordSnapshot([reviewed,genuine],new Date(),[],[],before);
+ assert.equal(snapshot.manifest.pieces.find(row=>row.id==='ganar-con-menos-puntos')?.sample,1);
+ assert.doesNotThrow(()=>assertReleaseCoverage(before,snapshot.manifest,[],measurementCorrections([derived],[reviewed])));
 });
