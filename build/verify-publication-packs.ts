@@ -17,7 +17,9 @@ const snapshot:Snapshot={manifest,pieces:Object.fromEntries(await Promise.all(id
   }};
 let uploads=0,bytes=0,logicalArtifacts=0,firstPack:{key:string;payload:ArtifactPack}|undefined;
 const writes:string[]=[];
+const stored=new Map<string,unknown>();
 const published=await publishRecordSnapshot(snapshot,{read:async()=>undefined,write:async(key,payload)=>{
+  stored.set(key,payload);
   writes.push(key);uploads++;bytes+=Buffer.byteLength(JSON.stringify(payload));
   const pack=payload as ArtifactPack;
   if(pack.artifacts){logicalArtifacts+=Object.keys(pack.artifacts).length;firstPack||={key,payload:pack};}
@@ -28,8 +30,9 @@ const id=Object.keys(firstPack.payload.artifacts)[0];
 assert.deepEqual(await readSnapshotArtifact(`reading-v2-${published.version}-${id}`,async key=>key===firstPack?.key?firstPack.payload:undefined),firstPack.payload.artifacts[id]);
 clearArtifactPacks();
 const baseline={...published,version:'0'.repeat(20)};
+const readBaseline=async(key:string)=>key==='reading-v2-manifest'?baseline:stored.get(key.replace(baseline.version,published.version));
 let pointer=baseline;
-await assert.rejects(publishRecordSnapshot(snapshot,{read:async()=>baseline,write:async(key,payload)=>{
+await assert.rejects(publishRecordSnapshot(snapshot,{read:readBaseline,write:async(key,payload)=>{
   if(key==='reading-v2-manifest')pointer=payload as RecordManifest;
   else throw Error('Injected Blob failure');
 }}),/Injected Blob failure/);
@@ -38,7 +41,7 @@ let retryWrites=0;
 await publishRecordSnapshot(snapshot,{read:async()=>published,write:async()=>{retryWrites++;}});
 assert.equal(retryWrites,0,'A completed retry must not upload the generation again');
 let reused=0,incrementalWrites:string[]=[];
-await publishRecordSnapshot(snapshot,{read:async()=>baseline,reuse:async(source,destination)=>{
+await publishRecordSnapshot(snapshot,{read:readBaseline,reuse:async(source,destination)=>{
   assert.match(source,new RegExp(`^reading-v2-${baseline.version}-pack-`));
   assert.match(destination,new RegExp(`^reading-v2-${snapshot.manifest.version}-pack-`));
   reused++;return true;

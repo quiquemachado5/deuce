@@ -72,6 +72,6 @@
  .detailToolbar{margin-bottom:12px}.page .detailHero{padding-bottom:20px}.page .detailHero p{font-size:16px;line-height:1.5}
  .detailClassification>div:first-child{gap:8px}.detailClassification>div:first-child h2{font-size:21px}
  .detailClassification nav[aria-label="Ordenar clasificación"]>span{display:none}.detailClassification nav[aria-label="Ordenar clasificación"] a{padding:8px;font-size:14px}
- .detailClassification table thead th:first-child{width:28px}.detailClassification table thead th:nth-child(3){width:80px}.detailClassification table thead th:last-child{width:35px}
+ .detailClassification table thead th:first-child{width:28px}.detailClassification table thead th:nth-child(3){width:80px}.detailClassification table thead th:last-child{width:58px}
  .detailClassification table tbody tr>td,.detailClassification table tbody tr>th{padding:16px 7px}.detailClassification table th[scope=row]>a{font-size:16px}
 }

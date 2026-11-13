@@ -25,7 +25,7 @@ test('global search opens, finds Nadal and closes with Escape',async({page})=>{
 test('English URLs redirect permanently to their Spanish entity',async({request})=>{
  for(const [from,to] of [['/en','/'],['/en/matches/live-216535','/match/live-216535'],['/en/players/rafael-nadal','/jugadores/rafael-nadal'],['/en/players/iga-swiatek?tour=wta','/jugadores/iga-swiatek?tour=wta'],['/en/tournaments/wimbledon/2022?tour=wta','/torneos/wimbledon/2022?cuadro=wta']]){
   const response=await request.get(from,{maxRedirects:0});expect(response.status()).toBe(308);
-  const location=new URL(response.headers().location);expect(location.pathname+location.search).toBe(to);
+  const location=new URL(response.headers().location,response.url());expect(location.pathname+location.search).toBe(to);
  }
 });
 test('Spanish SEO and totals agree with the selected generation',async({page,request})=>{
@@ -41,7 +41,8 @@ test('Spanish SEO and totals agree with the selected generation',async({page,req
 test('mobile topbar search controls have a 44px touch target',async({page})=>{
  await page.setViewportSize({width:390,height:844});await page.goto('/');
  await page.getByRole('button',{name:'Buscar en DEUCE',exact:true}).click();
- for(const label of ['Ver todos los resultados','Cerrar búsqueda']){
+ await page.getByRole('searchbox').first().fill('Nadal');
+ for(const label of ['Ver todos los resultados','Borrar búsqueda']){
   const box=await page.getByRole('button',{name:label,exact:true}).boundingBox();expect(box?.width).toBeGreaterThanOrEqual(44);expect(box?.height).toBeGreaterThanOrEqual(44);
  }
 });
