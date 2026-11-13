@@ -79,3 +79,15 @@ test('new measurements on another reviewed match never cancel a verified source 
  const inflated={...before,pieces:before.pieces.map(row=>row.id==='breaks-salvados-victoria'?{...row,sample:row.sample+2}:row)};
  assert.throws(()=>assertReleaseCoverage(inflated,after,[],measurementCorrections([lost,lostAgain,gainedBefore],[clean,cleanAgain,gainedAfter])),/measured coverage/);
 });
+
+
+test('subsequent publications use corrected active coverage without historical waivers',()=>{
+ const bundled=manifest(previous);
+ const active=compileRecordSnapshot([clean],new Date(),[],[],bundled).manifest;
+ assert.doesNotThrow(()=>assertReleaseCoverage(bundled,active,[],measurementCorrections([previous],[clean])));
+ const next=compileRecordSnapshot([clean],new Date(),[],[],active).manifest;
+ assert.equal(measurementCorrections([clean],[clean]).length,0);
+ assert.throws(()=>assertReleaseCoverage(bundled,next),/measured coverage/);
+ assert.doesNotThrow(()=>assertReleaseCoverage(active,next));
+ assert.throws(()=>assertReleaseCoverage(active,{...next,matchCount:0}),/lose published matches/);
+});
