@@ -39,8 +39,15 @@ export function assertReleaseCoverage(previous: RecordManifest, current: RecordM
   const allowances=(tour:'atp'|'wta')=>{
     const pairs=measurementCorrections.filter(row=>(row.current.tour||'atp')===tour);
     if(!pairs.length)return new Map<string,number>();
-    const before=recordCatalog(pairs.map(row=>row.previous),undefined,undefined,true),after=recordCatalog(pairs.map(row=>row.current),undefined,undefined,true);
-    return new Map(before.map(row=>[row.id,Math.max(0,row.sample-(after.find(next=>next.id===row.id)?.sample||0))]));
+    const losses=new Map<string,number>();
+    for(const pair of pairs){
+      const before=recordCatalog([pair.previous],undefined,undefined,true),after=new Map(recordCatalog([pair.current],undefined,undefined,true).map(row=>[row.id,row.sample]));
+      for(const metric of before.filter(row=>row.measured)){
+        const loss=Math.max(0,metric.sample-(after.get(metric.id)||0));
+        if(loss)losses.set(metric.id,(losses.get(metric.id)||0)+loss);
+      }
+    }
+    return losses;
   };
   const catalogues = (manifest: RecordManifest) => ({
     atp: manifest.pieces,

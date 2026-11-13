@@ -65,3 +65,17 @@ test('a record with no qualifying result retains the true remaining measurement 
  assert.equal(snapshot.manifest.pieces.find(row=>row.id==='ganar-con-menos-puntos')?.sample,1);
  assert.doesNotThrow(()=>assertReleaseCoverage(before,snapshot.manifest,[],measurementCorrections([derived],[reviewed])));
 });
+
+
+test('new measurements on another reviewed match never cancel a verified source retirement',()=>{
+ const fraction={player:previous.winner!,name:'Break points saved',value:'2/3',period:'match',category:'Return',won:2,total:3};
+ const lost={...previous,statistics:[...previous.statistics,fraction]};
+ const gainedBefore={...previous,match_id:'new-measurement',statistics:[]};
+ const gainedAfter={...clean,match_id:'new-measurement',statistics:[fraction]};
+ const lostAgain={...lost,match_id:'second-retirement'},cleanAgain={...clean,match_id:'second-retirement'};
+ const before=compileRecordSnapshot([lost,lostAgain,gainedBefore]).manifest;
+ const after=compileRecordSnapshot([clean,cleanAgain,gainedAfter],new Date(),[],[],before).manifest;
+ assert.doesNotThrow(()=>assertReleaseCoverage(before,after,[],measurementCorrections([lost,lostAgain,gainedBefore],[clean,cleanAgain,gainedAfter])));
+ const inflated={...before,pieces:before.pieces.map(row=>row.id==='breaks-salvados-victoria'?{...row,sample:row.sample+2}:row)};
+ assert.throws(()=>assertReleaseCoverage(inflated,after,[],measurementCorrections([lost,lostAgain,gainedBefore],[clean,cleanAgain,gainedAfter])),/measured coverage/);
+});
