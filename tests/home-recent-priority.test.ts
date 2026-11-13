@@ -26,3 +26,8 @@ test('unknown dates, edition start dates and future results cannot enter latest 
  const rows=[match('played','ATP 250','2026-11-09'),match('future','Grand Slam','2026-11-11'),{...match('edition','Grand Slam','2026-11-10'),context:{date:'2026-11-10',dateLabel:'Inicio del torneo'}},match('invalid','ATP 500','2026-02-30')];
  assert.deepEqual(homeRecentResults(rows,today).map(row=>row.match_id),['played']);
 });
+
+test('the played timestamp wins over edition year and round ordering',()=>{
+ const rows=[{...match('new-year','ATP 250','2026-01-02T15:00:00Z'),year:2025},match('earlier','ATP 250','2026-01-01T20:00:00Z')];
+ assert.deepEqual(homeRecentResults(rows,today).map(row=>row.match_id),['new-year','earlier']);
+});

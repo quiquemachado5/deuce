@@ -7,11 +7,12 @@ import { buildSeasonAnalytics } from './season-analytics';
 /** Latest three dated results per circuit; editorial importance never changes recency. */
 export function homeRecentResults(matches:Match[],today=new Date()){
   const end=today.getTime();
+  const newestFirst=(a:Match,b:Match)=>Date.parse(b.context!.date!)-Date.parse(a.context!.date!)||a.match_id.localeCompare(b.match_id);
   const pool=matches.filter(match=>match.data_source!=='mock'&&eligibleMatch(match)
     &&match.context?.dateLabel==='Fecha del partido'&&!!exactDay(match.context.date)
-    &&Date.parse(match.context.date!)<=end).sort((a,b)=>chronological(b,a)||a.match_id.localeCompare(b.match_id));
+    &&Date.parse(match.context.date!)<=end).sort(newestFirst);
   const chosen=(['atp','wta'] as const).flatMap(tour=>pool.filter(match=>(match.tour||'atp')===tour).slice(0,3));
-  return chosen.sort((a,b)=>chronological(b,a)||a.match_id.localeCompare(b.match_id));
+  return chosen.sort(newestFirst);
 }
 
 export function prepareCircuitHome(matches: Match[]) {
