@@ -1,3 +1,6 @@
+import {selectPlayerCareer} from '../player-career';
+import {playerSlug} from '../explore';
+import {navigationKey,type NavigationIndex,type NavigationEntity} from '../navigation-products';
 import 'server-only';
 import {canonicalMatchId} from '../match-identity-aliases';
 import {normalizedCompactSelection,type CompactMatchSelection} from './compact-selection';
@@ -116,7 +119,7 @@ const selectedSnapshotSource=requestGenerationSelection(async()=>snapshotSources
 function rejectRemoteSnapshot(){
  manifestCircuit.failed();
  snapshotSources.clear();
- generations.clear();
+ navigationIndexes.clear(); navigationEntities.clear(); generations.clear();
  remotePointers.clear();
  remoteArtifacts.clear();
  browserIndexes.clear();
@@ -511,6 +514,37 @@ export const preparedPublicationIndex=cache(async()=>{
  });
 });
 
+const navigationEntities=asyncCache<NavigationEntity>(IMMUTABLE_CACHE_MS,48,undefined,{maxWeight:24*1024*1024,weight:remoteArtifactWeight});
+const navigationIndexes=asyncCache<NavigationIndex|undefined>(IMMUTABLE_CACHE_MS,2);
+async function navigationIndex(source:Awaited<ReturnType<typeof selectedBrowserSource>>){
+ return navigationIndexes(`${source.source}:${source.manifest.version}`,async()=>{
+  if(source.source==='remote'&&!source.manifest.artifactPacks?.['navigation-index'])return undefined;
+  const index=source.source==='remote'?await cloudBlob<NavigationIndex>(source.manifest.version,'navigation-index'):await localOptional<NavigationIndex|undefined>('navigation-index',undefined);
+  if(!index)return undefined;
+  if(index.schema!==1||index.count!==source.manifest.matchCount)throw new Error('Navigation index does not match active generation');
+  return index;
+ });
+}
+async function navigationEntity(source:Awaited<ReturnType<typeof selectedBrowserSource>>,id:string){
+ return navigationEntities(`${source.source}:${source.manifest.version}:${id}`,async()=>{
+  const entity=source.source==='remote'?await cloudBlob<NavigationEntity>(source.manifest.version,id):await local<NavigationEntity>(id);
+  if(entity?.schema!==1||entity.partition?.id!==id)throw new Error('Missing navigation entity in selected generation');
+  return entity;
+ });
+}
+export const preparedIndexedPlayer=cache(async(slug:string,tour:'atp'|'wta')=>{
+ const source=await selectedBrowserSource(),index=await navigationIndex(source);if(!index)return undefined;
+ const id=Object.entries(index.players).find(([name])=>name.startsWith(tour+':')&&playerSlug(name.slice(4))===slug)?.[1];if(!id)return null;
+ const entity=await navigationEntity(source,id);if(!entity.record)return undefined;
+ const matches=entity.partition.rows.map(row=>decodeMatchBrowserRow(entity.partition,row)),records=[entity.record];
+ const selected=selectPlayerCareer(matches,records,slug,tour);
+ return selected?{manifest:source.manifest,source:source.source,fallbackReason:source.fallbackReason,matches,records,...selected}:null;
+});
+export const preparedTournamentOverview=cache(async(name:string,tour:'atp'|'wta',category:string)=>{
+ const source=await selectedBrowserSource(),index=await navigationIndex(source),id=index?.tournaments[navigationKey(tour,name)];
+ return id?(await navigationEntity(source,id)).overviews?.[category]:undefined;
+});
+
 /** Decode only rows relevant to a view; raw compact tuples are scanned in bounded decade shards. */
 export async function preparedCompactSelection(selection:CompactMatchSelection) {
  const normalized=normalizedCompactSelection(selection);
@@ -522,14 +556,22 @@ export async function preparedCompactSelection(selection:CompactMatchSelection) 
   const players=normalized.players?new Set(normalized.players):undefined;
   const rounds=normalized.rounds?new Set(normalized.rounds):undefined;
   const categories=normalized.categories?new Set(normalized.categories):undefined;
+  const index=normalized.players?.length||normalized.tournament?await navigationIndex(source):undefined;
+  let selected:MatchBrowserPartition[]|undefined;
+  if(index){
+   const tours=normalized.tour==='all'?['atp','wta'] as const:[normalized.tour] as const;
+   const entityIds=new Set<string>();
+   for(const tour of tours)for(const name of normalized.players?.length?normalized.players:[normalized.tournament!]){
+    const id=index[normalized.players?.length?'players':'tournaments'][navigationKey(tour,name)];if(id)entityIds.add(id);
+   }
+   selected=[];for(const id of entityIds)selected.push((await navigationEntity(source,id)).partition);
+  }
   const metas=(source.manifest.matchPartitions||[]).filter(meta=>(normalized.tour==='all'||meta.tour===normalized.tour)
     &&(normalized.fromYear===undefined||meta.toYear>=normalized.fromYear)&&(normalized.toYear===undefined||meta.fromYear<=normalized.toYear));
-  // A normal career spans at most three decade shards. Fetching that small,
-  // bounded set concurrently removes avoidable network waterfalls without
-  // opening the entire archive in parallel for unbounded directory queries.
-  const prefetched=metas.length<=3?await Promise.all(metas.map(meta=>loadBrowserPartition(source,meta))):undefined;
-  for(let metaIndex=0;metaIndex<metas.length;metaIndex++){
-   const meta=metas[metaIndex],partition=prefetched?.[metaIndex]||await loadBrowserPartition(source,meta),d=partition.dictionaries;
+  const prefetched=selected??(metas.length<=3?await Promise.all(metas.map(meta=>loadBrowserPartition(source,meta))):undefined);
+  const seen=new Set<string>();
+  for(let metaIndex=0;metaIndex<(selected?selected.length:metas.length);metaIndex++){
+   const partition=prefetched?.[metaIndex]||await loadBrowserPartition(source,metas[metaIndex]),d=partition.dictionaries;
    const playerIndexes=players?new Set(d.players.flatMap((name,index)=>players.has(normalizeText(name))?[index]:[])):undefined;
    const tournamentIndexes=normalized.tournament?new Set(d.tournaments.flatMap((name,index)=>normalizeText(name)===normalized.tournament?[index]:[])):undefined;
    const roundIndexes=rounds?new Set(d.rounds.flatMap((name,index)=>rounds.has(normalizeText(name))?[index]:[])):undefined;
@@ -542,6 +584,7 @@ export async function preparedCompactSelection(selection:CompactMatchSelection) 
     if(roundIndexes&&!roundIndexes.has(row[5])&&!roundIndexes.has(row[42]))continue;
     if(categoryIndexes&&!categoryIndexes.has(row[3])&&!categoryIndexes.has(row[41]))continue;
     if(normalized.surface&&row[4]!==({hard:0,clay:1,grass:2,carpet:3,unknown:4} as const)[normalized.surface])continue;
+    const identity=`${partition.tour}:${row[0]}`;if(seen.has(identity))continue;seen.add(identity);
     result.push(decodeMatchBrowserRow(partition,row));
    }
   }
@@ -676,15 +719,9 @@ export const preparedMatchContext=cache(async(id:string)=>{
   const match=await preparedMatchDetail(id);
   if(!match)return {match,matches:[] as Match[]};
   const tour=match.tour||'atp';
-  const [archive,publication]=await Promise.all([preparedPlayerRecords(),preparedPublicationIndex()]);
-  const identity=(name:string)=>normalizeText(name);
-  const records=[match.player1.name,match.player2.name].map(name=>archive.records.find(record=>(record.tour||'atp')===tour&&identity(record.name)===identity(name)));
-  const secondIds=new Set(records[1]?.matchIds||[]);
-  const pairIds=(records[0]?.matchIds||[]).filter(matchId=>secondIds.has(matchId));
-  if(!pairIds.includes(match.match_id))pairIds.push(match.match_id);
-  const pairIdSet=new Set(pairIds);
-  const years=publication.entries.filter(entry=>entry.tour===tour&&pairIdSet.has(entry.identity.slice(entry.identity.indexOf(':')+1))).map(entry=>entry.year);
-  const summaries=await preparedCompactSelection({tour,ids:pairIds,...(years.length?{fromYear:Math.min(...years),toYear:Math.max(...years)}:{fromYear:match.year,toYear:match.year})});
+  const summaries=(await preparedCompactSelection({tour,players:[match.player1.name]})).filter(item=>
+    normalizeText(item.player1.name)===normalizeText(match.player2.name)||normalizeText(item.player2.name)===normalizeText(match.player2.name));
+  if(!summaries.some(item=>item.match_id===match.match_id))summaries.push(match);
   return {match,matches:circuitMatchContext(summaries,match)};
  });
 });
@@ -752,7 +789,7 @@ export function preparedDataCacheDiagnostics() {
   .map(([name,cache])=>[name,cache.stats()]));
 }
 
-export function invalidatePreparedGeneration() { generations.clear(); snapshotSources.clear(); browserIndexes.clear(); browserPartitions.clear(); decodedBrowserPartitions.clear(); fullPartitions.clear(); matchDetails.clear(); matchContexts.clear(); compactArchives.clear(); compactSelections.clear(); competitionArchives.clear(); playerRecords.clear(); coverageReconciliations.clear(); publicationIndexes.clear(); remotePointers.clear(); remoteArtifacts.clear(); productArtifacts.clear(); clearArtifactPacks(); manifestCircuit.succeeded(); }
+export function invalidatePreparedGeneration() { navigationIndexes.clear(); navigationEntities.clear(); generations.clear(); snapshotSources.clear(); browserIndexes.clear(); browserPartitions.clear(); decodedBrowserPartitions.clear(); fullPartitions.clear(); matchDetails.clear(); matchContexts.clear(); compactArchives.clear(); compactSelections.clear(); competitionArchives.clear(); playerRecords.clear(); coverageReconciliations.clear(); publicationIndexes.clear(); remotePointers.clear(); remoteArtifacts.clear(); productArtifacts.clear(); clearArtifactPacks(); manifestCircuit.succeeded(); }
 
 /** Optional on older immutable generations; never fabricate historical change dates. */
 export const preparedPageRevisions=cache(async()=>{

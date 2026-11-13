@@ -1,6 +1,6 @@
 import "server-only";
 import { cache } from "react";
-import { preparedCompactSelection, preparedPlayerRecords, preparedPlayerSummaryArchive } from "../revista/read-records";
+import { preparedIndexedPlayer,preparedCompactSelection, preparedPlayerRecords, preparedPlayerSummaryArchive } from "../revista/read-records";
 import { playerDirectory, playerSlug, rivalryDirectory, type PlayerSummary } from "../explore";
 import { asyncCache } from "../async-cache";
 import { canonicalName } from "../quality";
@@ -50,6 +50,8 @@ const cachedPlayers = asyncCache<PlayerNotebook | null>(VERSIONED_CACHE_MS, 32);
 
 /** Build only the requested career instead of materialising every player. */
 export const playerNotebook = cache(async (rawSlug: string, tour: 'atp' | 'wta' = 'atp') => {
+  const indexed=await preparedIndexedPlayer(playerSlug(canonicalName(rawSlug.replace(/-/g,' '))),tour);
+  if(indexed!==undefined)return indexed;
   const archive = await preparedPlayerRecords();
   const requestedSlug = playerSlug(canonicalName(rawSlug.replace(/-/g, ' ')));
   const cacheKey = `${archive.manifest.version}:${archive.source}:${archive.fallbackReason || ''}:${tour}:${requestedSlug}`;

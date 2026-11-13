@@ -34,6 +34,7 @@ if (preserveWorkingSnapshot) {
 try {
   await node('--import', './build/register.mjs', '--import', 'tsx', 'build/audit-tournament-media.ts')
   await node('build/ensure-snapshot.mjs')
+  await node('--import','./build/register.mjs','--import','tsx','build/prepare-navigation-products.ts')
   await node('--import', './build/register.mjs', '--import', 'tsx', 'build/prepare-player-bio.ts')
   await node('node_modules/next/dist/bin/next', 'build', '--webpack')
   // Next has already consumed these manifests to materialize the standalone

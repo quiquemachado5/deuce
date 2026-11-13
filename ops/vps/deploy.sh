@@ -273,6 +273,7 @@ candidate_args=(
   --env DEUCE_RATE_LIMIT_DB=/app/.deuce-archive/.runtime/rate-limits.sqlite
   --env NODE_ENV=production
   --env NODE_OPTIONS=--max-old-space-size=3072
+  --env DEUCE_ISOLATED_PUBLICATION=1
   --env PORT=3000
   --mount type=volume,source=deuce_archive,target=/app/.deuce-archive
   --mount type=volume,source=deuce_next_cache,target=/app/.next/cache
