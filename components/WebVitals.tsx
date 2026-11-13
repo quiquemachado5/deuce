@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import { usePathname } from 'next/navigation';
+import { useEffect } from 'react';
+import { usePathname,useSearchParams } from 'next/navigation';
 import { useReportWebVitals } from 'next/web-vitals';
 
 function send(payload: Record<string, unknown>) {
@@ -20,24 +20,12 @@ const report: ReportWebVitalsCallback = metric => send({
 });
 
 export function WebVitals() {
-  const pathname = usePathname();
-  const transitionStart = useRef<number | null>(null);
+  const pathname=usePathname(),search=useSearchParams();
   useReportWebVitals(report);
+  useEffect(()=>{dispatchEvent(new Event('deuce:route-commit'));},[pathname,search]);
   useEffect(() => {
-    if (transitionStart.current === null) return;
-    const startedAt = transitionStart.current;
-    transitionStart.current = null;
-    const frame = requestAnimationFrame(() => send({
-      kind: 'navigation',
-      value: performance.now() - startedAt,
-      navigationType: 'route-transition',
-    }));
-    return () => cancelAnimationFrame(frame);
-  }, [pathname]);
-  useEffect(() => {
-    const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined;
-    if (navigation) send({ kind: 'navigation', value: navigation.duration, navigationType: navigation.type });
-
+    const initial=()=>{const navigation=performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming|undefined;if(navigation&&navigation.duration>0)send({kind:'navigation',value:navigation.duration,navigationType:navigation.type});};
+    if(document.readyState==='complete')initial();else addEventListener('load',initial,{once:true});
     const onError = (event: ErrorEvent) => send({ kind: 'client-error', error: event.error instanceof Error ? event.error.name : 'Error' });
     const onRejection = (event: PromiseRejectionEvent) => send({
       kind: 'unhandled-rejection',
@@ -46,23 +34,45 @@ export function WebVitals() {
     addEventListener('error', onError);
     addEventListener('unhandledrejection', onRejection);
 
-    const onInternalNavigation = (event: MouseEvent) => {
-      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-      const anchor = (event.target as Element | null)?.closest<HTMLAnchorElement>('a[href]');
-      if (!anchor || anchor.target === '_blank' || anchor.hasAttribute('download')) return;
-      const destination = new URL(anchor.href, location.href);
-      if (destination.origin !== location.origin || destination.pathname === location.pathname) return;
-      transitionStart.current = performance.now();
+    const routeKey=(value:string)=>{const url=new URL(value,location.href);url.searchParams.sort();return url.pathname+url.search;};
+    let pending:{start:number;target:string;kind:string;committed:boolean;first:boolean}|null=null;
+    let completionFrame:number|null=null;
+    const begin=(target:string)=>{if(target===routeKey(location.href))return;pending={start:performance.now(),target,kind:new URL(target,location.href).pathname===location.pathname?'filter-transition':'route-transition',committed:false,first:false};};
+    const onInternalNavigation=(event:MouseEvent)=>{
+      if(event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;
+      const anchor=(event.target as Element|null)?.closest<HTMLAnchorElement>('a[href]');
+      if(!anchor||anchor.target==='_blank'||anchor.hasAttribute('download'))return;
+      const target=new URL(anchor.href,location.href);if(target.origin===location.origin)begin(routeKey(target.href));
     };
-    const onHistoryNavigation = () => { transitionStart.current = performance.now(); };
-    document.addEventListener('click', onInternalNavigation, true);
-    addEventListener('popstate', onHistoryNavigation);
+    const onSubmit=(event:SubmitEvent)=>{
+      const form=event.target;if(!(form instanceof HTMLFormElement)||form.method.toLowerCase()!=='get')return;
+      const target=new URL(form.action,location.href);if(target.origin!==location.origin)return;
+      target.search='';for(const [key,value] of new FormData(form,event.submitter))if(typeof value==='string')target.searchParams.append(key,value);
+      begin(routeKey(target.href));
+    };
+    const sampleCompletion=()=>{
+      if(!pending||!pending.committed||routeKey(location.href)!==pending.target)return;
+      if(performance.now()-pending.start>60_000){pending=null;return;}
+      if(!pending.first){send({kind:'navigation',value:performance.now()-pending.start,navigationType:'first-content'});pending.first=true;}
+      if(document.querySelector('[role="status"][aria-label="Cargando contenido"]'))return;
+      const sample=pending;
+      if(completionFrame!==null)cancelAnimationFrame(completionFrame);
+      completionFrame=requestAnimationFrame(()=>{completionFrame=requestAnimationFrame(()=>{
+        completionFrame=null;if(pending!==sample||document.querySelector('[role="status"][aria-label="Cargando contenido"]'))return;
+        send({kind:'navigation',value:performance.now()-sample.start,navigationType:sample.kind});pending=null;
+      });});
+    };
+    const onCommit=()=>{if(pending)pending.committed=true;sampleCompletion();};
+    const onHistoryNavigation=()=>{pending={start:performance.now(),target:routeKey(location.href),kind:'route-transition',committed:false,first:false};};
+    document.addEventListener('click',onInternalNavigation,true);document.addEventListener('submit',onSubmit,true);
+    addEventListener('popstate',onHistoryNavigation);addEventListener('deuce:route-commit',onCommit);
 
     let skeletonStart: number | null = null;
     let sampleFrame: number | null = null;
     const skeletonRoot = document.getElementById('main-content') || document.body;
     const sampleSkeleton = () => {
       sampleFrame = null;
+      sampleCompletion();
       const loading = Boolean(skeletonRoot.querySelector('[role="status"][aria-label="Cargando contenido"]'));
       if (loading && skeletonStart === null) skeletonStart = performance.now();
       if (!loading && skeletonStart !== null) {
@@ -77,6 +87,10 @@ export function WebVitals() {
     const observer = new MutationObserver(scheduleSkeletonSample);
     observer.observe(skeletonRoot, { childList: true, subtree: true });
     return () => {
+      removeEventListener('load',initial);
+      removeEventListener('deuce:route-commit',onCommit);
+      document.removeEventListener('submit',onSubmit,true);
+      if(completionFrame!==null)cancelAnimationFrame(completionFrame);
       removeEventListener('error', onError);
       removeEventListener('unhandledrejection', onRejection);
       document.removeEventListener('click', onInternalNavigation, true);

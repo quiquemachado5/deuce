@@ -2,12 +2,12 @@ import { notFound,permanentRedirect } from "next/navigation";
 import {canonicalMatchId} from '@/lib/match-identity-aliases';
 import Link from "next/link";
 import type { Metadata } from "next";
-import { cache } from "react";
-import { preparedMatchContext } from "@/lib/revista/read-records";
+import { cache,Suspense } from "react";
+import { preparedMatchContext,preparedMatchDetail } from "@/lib/revista/read-records";
 import { ReadingHead } from "@/components/nocturno/Reading";
 import ReadingLine from "@/components/nocturno/ReadingLine";
 import ComparePicker from "@/components/nocturno/Compare";
-import PanoramaMatch, { type PanoramaSection } from "@/components/PanoramaMatch";
+import PanoramaMatch, { HeadToHead,type PanoramaSection } from "@/components/PanoramaMatch";
 import {
   neighboringMeetings,
   winnerName,
@@ -28,7 +28,7 @@ type Props = {
 // The published snapshot already contains the validated match and its detail.
 // Reading it first keeps cold navigations off the slower provider archive path.
 const pageMatch = cache(async (id: string) => {
-  return preparedMatchContext(canonicalMatchId(id));
+  return preparedMatchDetail(canonicalMatchId(id));
 });
 
 export async function generateMetadata({
@@ -37,7 +37,7 @@ export async function generateMetadata({
 }: Props): Promise<Metadata> {
   const { id } = await params,
     query = await searchParams,
-    { match } = await pageMatch(id);
+    match = await pageMatch(id);
   if (!match) return { title: "Página no encontrada — DEUCE" };
   const title = `${match.player1.name} – ${match.player2.name} · ${score(match)} · ${tournamentName(match.tournament)} ${match.year} — DEUCE`,
     description = match.point_tape.length
@@ -61,8 +61,37 @@ export default async function MatchPage({ params, searchParams }: Props) {
   if(canonicalMatchId(requested)!==requested)permanentRedirect('/match/'+canonicalMatchId(requested));
   const { id } = await params,
     { junto, vista } = await searchParams,
-    { match, matches } = await pageMatch(id);
+    match = await pageMatch(id);
   if (!match) notFound();
+  const initial = (
+      {
+        resumen: "resumen",
+        estadisticas: "estadisticas",
+        medidas: "estadisticas",
+        presion: "presion",
+        "cara-a-cara": "cara-a-cara",
+        alrededor: "cara-a-cara",
+      } as Record<string, PanoramaSection>
+    )[vista || ""] || (junto ? "cara-a-cara" : "resumen");
+  return <>
+    <StructuredData value={[
+      matchJsonLd(match),
+      breadcrumbJsonLd([
+        { name: "Inicio", path: "/" },
+        { name: "Partidos", path: `/partidos?tour=${matchCircuit(match)}` },
+        { name: `${match.player1.name} – ${match.player2.name}`, path: matchCanonicalPath(id) },
+      ]),
+    ]} />
+    <PanoramaMatch
+      match={match}
+      active={initial}
+      relationship={<Suspense fallback={<div role="status" aria-label="Cargando contenido" className="skeleton skeleton-card"/>}><MatchRelationships id={id} junto={junto}/></Suspense>}
+    />
+  </>;
+}
+
+async function MatchRelationships({id,junto}:{id:string;junto?:string}){
+ const {match,matches}=await preparedMatchContext(id);if(!match)return null;
   const pairMatches = matches.filter(
     (item) =>
       (item.player1.name === match.player1.name &&
@@ -86,17 +115,7 @@ export default async function MatchPage({ params, searchParams }: Props) {
     other =
       junto && junto !== "elige" && junto !== id
         ? findCircuitMatch(matches, junto, matchCircuit(match))
-        : null,
-    initial = (
-      {
-        resumen: "resumen",
-        estadisticas: "estadisticas",
-        medidas: "estadisticas",
-        presion: "presion",
-        "cara-a-cara": "cara-a-cara",
-        alrededor: "cara-a-cara",
-      } as Record<string, PanoramaSection>
-    )[vista || ""] || (junto ? "cara-a-cara" : "resumen");
+        : null;
   const around = (
     <>
       {(neighbors.previous || neighbors.next) && (
@@ -149,20 +168,5 @@ export default async function MatchPage({ params, searchParams }: Props) {
       )}
     </>
   );
-  return <>
-    <StructuredData value={[
-      matchJsonLd(match),
-      breadcrumbJsonLd([
-        { name: "Inicio", path: "/" },
-        { name: "Partidos", path: `/partidos?tour=${matchCircuit(match)}` },
-        { name: `${match.player1.name} – ${match.player2.name}`, path: matchCanonicalPath(id) },
-      ]),
-    ]} />
-    <PanoramaMatch
-      match={match}
-      rivalry={rivalry}
-      active={initial}
-      supplemental={junto ? around : undefined}
-    />
-  </>;
+ return <><HeadToHead rivalry={rivalry} names={[match.player1.name,match.player2.name]} tour={matchCircuit(match)}/>{junto&&<section className="pm-supplemental">{around}</section>}</>;
 }

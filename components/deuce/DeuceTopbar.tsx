@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import Link from '@/components/IntentLink';
 import Image from 'next/image';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -453,7 +453,7 @@ export function DeuceTopbar() {
               </div>
               : queryLength < 2 ? <p className={styles.searchStatus}>{'Escribe al menos dos caracteres.'}</p>
               : result.error ? <p className={styles.searchStatus}>{'No se pudieron cargar las sugerencias. Pulsa Intro para buscar.'}</p>
-              : hasPresentedResults || completingSearch ? <div className={`${styles.searchGroups}${tournamentItems.length ? ` ${styles.searchGroupsThree}` : ''}`}>{searchColumns.map(column => <section key={column.label} aria-label={column.label}><h2>{column.label}</h2>{column.items.length ? column.items.map((item,index) => {const href=resultHref(item);return <Link className={item.image ? styles.searchResultWithPhoto : undefined} href={href} prefetch={false} key={item.href} data-search-result="" onPointerEnter={() => router.prefetch(href)} onFocus={() => router.prefetch(href)} onClick={()=>{recordSearchClick(column.label,index+1);closeAll();}}>{item.image&&<Image className={styles.searchResultPhoto} src={item.image} alt={item.imageAlt||''} width={88} height={88} style={{objectPosition:item.imagePosition}}/>}<span><strong>{item.name}</strong>{item.detail && <small>{item.detail}</small>}</span><ArrowRight size={15} aria-hidden="true" /></Link>}) : <p className={styles.searchColumnStatus}>{completingSearch ? ('Buscando…') : ('Sin coincidencias')}</p>}</section>)}</div>
+              : hasPresentedResults || completingSearch ? <div className={`${styles.searchGroups}${tournamentItems.length ? ` ${styles.searchGroupsThree}` : ''}`}>{searchColumns.map(column => <section key={column.label} aria-label={column.label}><h2>{column.label}</h2>{column.items.length ? column.items.map((item,index) => {const href=resultHref(item);return <Link className={item.image ? styles.searchResultWithPhoto : undefined} href={href} prefetch={false} key={item.href} data-search-result="" onClick={()=>{recordSearchClick(column.label,index+1);closeAll();}}>{item.image&&<Image className={styles.searchResultPhoto} src={item.image} alt={item.imageAlt||''} width={88} height={88} style={{objectPosition:item.imagePosition}}/>}<span><strong>{item.name}</strong>{item.detail && <small>{item.detail}</small>}</span><ArrowRight size={15} aria-hidden="true" /></Link>}) : <p className={styles.searchColumnStatus}>{completingSearch ? ('Buscando…') : ('Sin coincidencias')}</p>}</section>)}</div>
               : <p className={styles.searchStatus}>{`No hay resultados para «${query}». Prueba con otro nombre, torneo o año.`}</p>}
             </section>
             : menu || menuClosing ? <nav id="deuce-mobile-navigation" className={styles.mobileNavigation} aria-label={'Principal'} aria-hidden={menuClosing || undefined} inert={menuClosing || undefined}>

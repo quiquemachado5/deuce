@@ -1,3 +1,4 @@
+import {compileNavigationProducts} from '../navigation-products';
 import {buildPageRevisions,validPageRevisions,type PageRevisions} from '../publication-pages';
 import 'server-only';
 import {packArtifacts} from './artifact-packs';
@@ -44,10 +45,13 @@ export async function writeBundledSnapshot(snapshot:Snapshot) {
   const dir=join(process.cwd(),'data','reading');await mkdir(dir,{recursive:true});
   assertPublishableArchive(snapshot.matches);
   const browser=compileMatchBrowser(snapshot.matches);
+  const navigation=compileNavigationProducts(snapshot.matches,snapshot.players);
   const reconciliation=reconcileCoverage(snapshot.matches,snapshot.audit,historyBaseline.allowedPendingCohorts);
   const drawAnomalies=assertNoBlockingDrawAnomalies(snapshot.matches,snapshot.audit);
   const fullPartitions=partitionMatches(snapshot.matches);
   const artifacts:Record<string,unknown>={eras:snapshot.eras,matches:snapshot.matches,players:snapshot.players,competition:snapshot.competition,audit:snapshot.audit,reconciliation,'draw-anomalies':drawAnomalies,'edition-products':snapshot.products.editions,'player-directory':snapshot.products.players,'search-products':snapshot.products.search,'elo-products':snapshot.products.elo,'time-machine':snapshot.products.timeMachine,'publication-index':snapshot.publicationIndex||buildPublicationIndex(snapshot.matches),'browser-index':browser.index,...Object.fromEntries(fullPartitions.map(group=>[group.meta.id,group.matches])),...Object.fromEntries(browser.partitions.map(partition=>[matchBrowserArtifact(partition.id),partition])),...Object.fromEntries(Object.entries(snapshot.pieces).map(([id,p])=>[`piece-${id}`,p])),manifest:snapshot.manifest};
+  artifacts['navigation-index']=navigation.index;
+  for(const [id,entity] of navigation.entities())artifacts[id]=entity;
   const priorPages=await readFile(join(dir,'page-revisions.json.gz')).then(b=>JSON.parse(gunzipSync(b).toString())).catch(()=>undefined);
   artifacts['page-revisions']=buildPageRevisions(snapshot.matches,snapshot.pieces,validPageRevisions(priorPages)?priorPages:undefined,snapshot.manifest.generatedAt);
   artifacts['correction-history']=(artifacts['page-revisions'] as PageRevisions).corrections;
@@ -75,7 +79,7 @@ export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotSt
   assertSnapshotIntegrity(snapshot);
   const {pieces,eras,matches,players,competition,audit,products}=snapshot;
   const published=await storage.read('reading-v2-manifest');
-  if((published as RecordManifest|undefined)?.version===snapshot.manifest.version&&(published as RecordManifest).artifactPacks?.['page-revisions'])return published as RecordManifest;
+  if((published as RecordManifest|undefined)?.version===snapshot.manifest.version&&(published as RecordManifest).artifactPacks?.['navigation-index'])return published as RecordManifest;
   let priorPages:PageRevisions|undefined;
   const previousManifest=published as RecordManifest|undefined;
   const previousPacksRead=new Map<string,Promise<unknown>>();
@@ -96,7 +100,7 @@ export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotSt
   assertPublishableArchive(matches,previousCount);
   const drawAnomalies=assertNoBlockingDrawAnomalies(matches,audit);
   const manifest=attachIngestionHistory(published as RecordManifest | undefined,attachRecordChanges(published as RecordManifest | undefined,snapshot.manifest));
-  if((published as RecordManifest|undefined)?.artifactPacks?.['page-revisions']&&published&&typeof published==='object'&&isDeepStrictEqual(publishedGeneration(published as RecordManifest),publishedGeneration(manifest))){
+  if((published as RecordManifest|undefined)?.artifactPacks?.['navigation-index']&&published&&typeof published==='object'&&isDeepStrictEqual(publishedGeneration(published as RecordManifest),publishedGeneration(manifest))){
     if(Date.parse(manifest.generatedAt)>Date.parse((published as RecordManifest).generatedAt))await storage.write('reading-v2-manifest',{...manifest,artifactPacks:(published as RecordManifest).artifactPacks});
     return manifest;
   }
@@ -105,6 +109,9 @@ export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotSt
   }
   async function* artifacts():AsyncGenerator<[string,unknown]> {
     const browser=compileMatchBrowser(matches);
+    const navigation=compileNavigationProducts(matches,players);
+    yield* await compressedBlob('navigation-index',navigation.index);
+    for(const [id,entity] of navigation.entities())yield* await compressedBlob(id,entity);
     const reconciliation=reconcileCoverage(matches,audit,historyBaseline.allowedPendingCohorts);
     for(const [id,piece] of Object.entries(pieces))yield* compressedPages(id,piece);
     for(const group of partitionMatches(matches))yield* await compressedBlob(group.meta.id,group.matches);

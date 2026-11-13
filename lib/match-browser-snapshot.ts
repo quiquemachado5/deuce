@@ -140,7 +140,7 @@ function dictionary() {
   };
 }
 
-function createPartition(id: string, tour: Tour, fromYear: number, rows: Match[]): MatchBrowserPartition {
+export function createPartition(id: string, tour: Tour, fromYear: number, rows: Match[]): MatchBrowserPartition {
   const players = dictionary(), tournaments = dictionary(), categories = dictionary(), rounds = dictionary();
   const statuses = dictionary(), dateLabels = dictionary(), formats = dictionary();
   const rankLabels = dictionary(), resultSources = dictionary(), metadataSources = dictionary();

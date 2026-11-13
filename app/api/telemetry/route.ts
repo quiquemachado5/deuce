@@ -1,5 +1,5 @@
 import { rateLimit } from '@/lib/rate-limit';
-import { observeClientTelemetry, observeSearchClick } from '@/lib/runtime-metrics';
+import { observeClientTelemetry, observeSearchClick,telemetryRoute } from '@/lib/runtime-metrics';
 import { logEvent, requestId } from '@/lib/structured-log';
 
 const allowedKinds = new Set(['web-vital', 'client-error', 'unhandled-rejection', 'navigation', 'search-click']);
@@ -32,7 +32,7 @@ export async function POST(request: Request) {
     const value = expectsValue && rawValue !== null
       ? Math.min(maximumValue, Math.max(0, rawValue))
       : undefined;
-    const path = typeof body.path === 'string' ? body.path.slice(0, 180) : undefined;
+    const path = typeof body.path === 'string' ? telemetryRoute(body.path.slice(0,180)) : undefined;
     const rating = typeof body.rating === 'string' ? body.rating.slice(0, 24) : undefined;
     const navigationType = typeof body.navigationType === 'string' ? body.navigationType.slice(0, 24) : undefined;
     const device = typeof body.device === 'string' && ['mobile','tablet','desktop'].includes(body.device) ? body.device : undefined;

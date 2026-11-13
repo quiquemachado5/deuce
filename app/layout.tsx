@@ -5,6 +5,7 @@ import "./audit-fixes.css";
 import "@/styles/statistical-numerals.css";
 import "@/styles/route-motion.css";
 import "@/styles/appearance.css";
+import {Suspense} from 'react';
 import type { Metadata, Viewport } from "next";
 import { Host_Grotesk, Sora } from 'next/font/google';
 import { DeuceShell } from '@/components/deuce/DeuceShell';
@@ -68,7 +69,7 @@ export default function RootLayout({
           '@context':'https://schema.org','@type':'WebSite',name:'DEUCE',url:`${SITE_ORIGIN}/`,inLanguage:'es',
           potentialAction:{'@type':'SearchAction',target:`${SITE_ORIGIN}/buscar?tour=all&q={search_term_string}`,'query-input':'required name=search_term_string'},
         }}/>
-        <WebVitals />
+        <Suspense fallback={null}><WebVitals /></Suspense>
         <DeuceShell>{children}</DeuceShell>
       </body>
     </html>

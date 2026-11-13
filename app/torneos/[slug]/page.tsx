@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { courtPhoto } from "@/lib/imagery";
-import { preparedTournamentSummaryArchive } from "@/lib/revista/read-records";
+import { preparedTournamentSummaryArchive,preparedTournamentOverview } from "@/lib/revista/read-records";
 import { tournamentName } from "@/lib/labels";
 import { categoryLabel, tournamentCategory, tournamentDirectory } from "@/lib/tournament-directory";
 import { tournamentDetailPhoto } from "@/lib/tournament-detail-media";
@@ -64,5 +64,5 @@ export default async function Tournament({ params, searchParams }: Props) {
   return <><StructuredData value={[
     tournamentSeriesJsonLd({name:titleName,slug,category,tour:selectedTour,years,description:`Ediciones y resultados ${selectedTour.toUpperCase()} de ${titleName} en DEUCE.`}),
     breadcrumbJsonLd([{name:'Inicio',path:'/'},{name:'Torneos',path:`/torneos?circuito=${selectedTour}`},{name:titleName,path:`/torneos/${slug}?cuadro=${selectedTour}`}]),
-  ]}/><TournamentOverviewExperience slug={slug} name={titleName} rawName={tournament.name} category={category} tour={selectedTour} matches={registered} allMatches={singles} photo={photo}/></>;
+  ]}/><TournamentOverviewExperience slug={slug} name={titleName} rawName={tournament.name} category={category} tour={selectedTour} matches={registered} allMatches={singles} photo={photo} overview={await preparedTournamentOverview(tournament.name,selectedTour,category)}/></>;
 }

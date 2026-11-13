@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import Link from '@/components/IntentLink';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
 import { circuitSectionHref, navigationCircuit, type Circuit } from '@/lib/circuit-navigation';

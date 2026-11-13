@@ -434,7 +434,7 @@ function Meeting({ match, names }: { match: Match; names: [string, string] }) {
   return <MatchScoreboard match={record}/>;
 }
 
-function HeadToHead({ rivalry, names, tour }: { rivalry: RivalrySummary; names: [string, string]; tour:'atp'|'wta' }) {
+export function HeadToHead({ rivalry, names, tour }: { rivalry: RivalrySummary; names: [string, string]; tour:'atp'|'wta' }) {
   const wins = names.map((name) => rivalry.wins[rivalry.names.indexOf(name)]) as [number, number];
   const matches = [...rivalry.matches].sort((a, b) => chronological(b, a));
   const leading = wins[0] === wins[1] ? null : wins[0] > wins[1] ? 0 : 1;
@@ -536,11 +536,13 @@ export default function PanoramaMatch({
   rivalry,
   active = "resumen",
   supplemental,
+  relationship,
 }: {
   match: Match;
   rivalry?: RivalrySummary;
   active?: PanoramaSection;
   supplemental?: ReactNode;
+  relationship?: ReactNode;
 }) {
   const tour = match.tour === 'wta' ? 'wta' : 'atp';
   const names = [match.player1.name, match.player2.name] as [string, string];
@@ -553,11 +555,11 @@ export default function PanoramaMatch({
     ? "resumen"
     : active === "presion" && !hasPressure
       ? "resumen"
-      : active === "cara-a-cara" && !rivalry
+      : active === "cara-a-cara" && !rivalry && !relationship
         ? "resumen"
         : active;
   return (
-    <article className="pm-page">
+    <article className="pm-page" data-navigation-ready="">
       <section
         className={`pm-hero pm-surface-${match.surface}${photo ? "" : " pm-hero-no-photo"}`}
         aria-labelledby="pm-title"
@@ -593,11 +595,12 @@ export default function PanoramaMatch({
         active={current}
         hasStatistics={Boolean(groups.length)}
         hasPressure={hasPressure}
-        hasHeadToHead={Boolean(rivalry)}
+        hasHeadToHead={Boolean(rivalry||relationship)}
       />
       <Summary match={match} />
       <SetEvolution match={match} />
       <Statistics match={match} groups={groups} />
+      {relationship}
       {rivalry ? <HeadToHead rivalry={rivalry} names={names} tour={tour} /> : null}
       {supplemental ? <section className="pm-supplemental">{supplemental}</section> : null}
     </article>

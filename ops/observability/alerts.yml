@@ -144,3 +144,10 @@ groups:
         annotations:
           summary: "Aumento sostenido de accesos rechazados"
           description: "Contrastar logs del proxy con security.auth.denied. No bloquear automáticamente por este aviso."
+
+  - name: deuce-navigation
+    rules:
+      - record: deuce:navigation_p50_ms:30m
+        expr: histogram_quantile(0.50, sum by (le, route, metric, device) (rate(deuce_client_metric_value_bucket{metric=~"route-transition|filter-transition|first-content"}[30m])))
+      - record: deuce:navigation_p95_ms:30m
+        expr: histogram_quantile(0.95, sum by (le, route, metric, device) (rate(deuce_client_metric_value_bucket{metric=~"route-transition|filter-transition|first-content"}[30m])))

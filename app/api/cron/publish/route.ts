@@ -20,6 +20,7 @@ import {assertCircuitPublicationFreshness} from '@/lib/circuit-freshness'
 import {preservePublishedArchive,measurementCorrections} from '@/lib/revista/release-source'
 import {publishedMatches} from '@/lib/publication-scope'
 import {acquireArchiveLease} from '@/lib/archive-store'
+import {runIsolatedPublication} from '@/lib/isolated-publication'
 
 export const runtime = 'nodejs'
 export const maxDuration = 720
@@ -30,6 +31,16 @@ export async function GET(request: Request) {
   const cronAuthorized = authorizedCronRequest(request)
   const backfillAuthorized = authorizedCronRequest(request, process.env.WTA_BACKFILL_SECRET)
   if (!cronAuthorized && !backfillAuthorized) return unauthorizedResponse(request, 'cron.publish')
+  if(process.env.DEUCE_ISOLATED_PUBLICATION==='1'&&process.env.DEUCE_PUBLICATION_CHILD!=='1'){
+    try{
+      const response=await runIsolatedPublication(request.headers.get('authorization')!);
+      if(response.ok){invalidatePreparedGeneration();revalidatePath('/','layout')}
+      return response;
+    }catch(error){
+      console.error('Isolated publication failed:',error instanceof Error?error.message:'unknown');
+      return Response.json({status:'error',error:'Publication worker failed; previous generation retained'},{status:503});
+    }
+  }
   const release=await acquireArchiveLease('tennis-provider',600)
   if(!release)return Response.json({status:'busy',error:'Archive mutation is already in progress'},{status:503,headers:{'Cache-Control':'no-store'}})
   try {

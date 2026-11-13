@@ -16,6 +16,8 @@ const clientMetricBuckets: Record<string, readonly number[]> = {
   INP: [100, 200, 500, 1_000, 2_000],
   CLS: [0.05, 0.1, 0.25, 0.5, 1],
   navigation: [500, 1_000, 2_500, 5_000, 10_000, 30_000],
+  'first-content': [100,250,500,1000,2500,5000,10000,30000],
+  'filter-transition': [100,250,500,1000,2500,5000,10000,30000],
   'route-transition': [100, 250, 500, 1_000, 2_500, 5_000, 10_000],
   skeleton: [500, 1_000, 2_500, 5_000, 10_000, 30_000],
 };
@@ -60,8 +62,8 @@ export function observeClientTelemetry(input: {kind:string;name?:string;value?:n
     ? input.name
     : input.kind === 'navigation' && input.navigationType === 'skeleton'
       ? 'skeleton'
-      : input.kind === 'navigation' && input.navigationType === 'route-transition'
-        ? 'route-transition'
+      : input.kind === 'navigation' && ['route-transition','filter-transition','first-content'].includes(input.navigationType||'')
+        ? input.navigationType!
       : input.kind === 'navigation' ? 'navigation' : null;
   if (!metric) return;
   const buckets = clientMetricBuckets[metric];

@@ -1,3 +1,4 @@
+import {buildTournamentOverview,type TournamentOverview} from '@/lib/navigation-products';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { CSSProperties, ReactNode } from 'react';
@@ -17,8 +18,8 @@ import { TournamentDataAtlas } from './TournamentDataAtlas';
 import { TournamentRoundLens } from './TournamentRoundLens';
 import { TournamentFilm } from './TournamentFilm';
 import { number } from '@/lib/cuaderno/model';
-import { categoryLabel, tournamentRows } from '@/lib/tournament-directory';
-import { chronological, durationLabel, roundPosition, scoreFor, winnerName } from '@/lib/editorial';
+import { categoryLabel } from '@/lib/tournament-directory';
+import { durationLabel, roundPosition, scoreFor, winnerName } from '@/lib/editorial';
 import { playerSlug } from '@/lib/explore';
 import { browserRound } from '@/lib/match-browser';
 import { gamesInMatch, isDeciding, lostOpening, tiebreakCount } from '@/lib/archive-insights';
@@ -63,18 +64,16 @@ function pressureData(matches:Match[]){
   return [['Al set decisivo',matches.filter(isDeciding).length],['Con tie-break',matches.filter(match=>tiebreakCount(match)>0).length],['Remontadas del primer set',matches.filter(match=>lostOpening(match)).length]].map(([label,count])=>({label:String(label),count:Number(count),rate:matches.length?Number(count)/matches.length*100:0}));
 }
 
-export function TournamentOverviewExperience(props:BaseProps){
+export function TournamentOverviewExperience(props:BaseProps&{overview?:TournamentOverview}){
   const {matches,tour,rawName,slug}=props;
-  const completed=matches.filter(eligibleMatch),pieces=tournamentRows(completed);
-  const finals=completed.filter(match=>roundPosition(match.round)===7&&winnerName(match)).sort((a,b)=>chronological(b,a));
-  const years=[...new Set(matches.map(match=>match.year))].sort((a,b)=>b-a);
+  const overview=props.overview||buildTournamentOverview(matches),completed=matches.filter(eligibleMatch),pieces=overview.pieces;
+  const byId=new Map(completed.map(match=>[match.match_id,match]));
+  const finals=overview.finals.map(id=>byId.get(id)).filter((match):match is Match=>Boolean(match)),years=overview.years;
   const options=tournamentArchiveOptions(slug,props.allMatches,props.category,tour).find(option=>option.tour===tour);
   const editionHref=(year:number)=>options?.editions.find(edition=>edition.year===year)?.href||`/torneos/${slug}/${year}?cuadro=${tour}`;
-  const totalGames=completed.reduce((sum,match)=>sum+gamesInMatch(match),0),totalSets=completed.reduce((sum,match)=>sum+match.score_summary.games.length,0);
+  const totalGames=overview.games,totalSets=overview.sets;
   const leader=pieces.titles[0],leaderPhoto=leader?playerImage(leader.name,tour,rawName):null;
-  const counts=new Map<number,number>();for(const match of completed){const decade=Math.floor(match.year/10)*10;counts.set(decade,(counts.get(decade)||0)+1);}
-  const decades=[...counts].sort(([a],[b])=>a-b);
-  const marathon=[...completed].sort((a,b)=>gamesInMatch(b)-gamesInMatch(a))[0];
+  const decades=overview.decades,marathon=overview.marathon?byId.get(overview.marathon):undefined;
   const rateLeader=pieces.rate[0],film=tour==='atp'?latestMediaForTournament(rawName,years):null;
   return <World props={props}>
     {finals.length>0&&<TournamentStoryRail title={tour==='wta'?'Las campeonas. Sus ediciones.':'Los campeones. Sus ediciones.'}>{finals.slice(0,10).map(final=>{
@@ -88,11 +87,11 @@ export function TournamentOverviewExperience(props:BaseProps){
       <PalmaresRail rows={pieces.titles.map(row=>({...row,href:`${row.href}${tour==='wta'?'?tour=wta':''}`}))}/>
     </div></section>}
     <section className={styles.dataJournal} id="datos"><div className={styles.sectionTitle}><h2>El torneo, por dentro.</h2></div><dl className={styles.totals}>{[['Ediciones',years.length],['Partidos',completed.length],['Sets',totalSets],['Juegos',totalGames]].map(([label,value])=><div key={label}><dt>{label}</dt><dd>{number(Number(value))}</dd></div>)}</dl>
-      <TournamentDataAtlas decades={decades} pressure={pressureData(completed)} rhythm={[{label:'Juegos por partido',value:number(completed.length?totalGames/completed.length:0,1)},{label:'Juegos por set',value:number(totalSets?totalGames/totalSets:0,1)},...(rateLeader?[{label:`Efectividad · ${rateLeader.name}`,value:`${number(rateLeader.value,1)} %`}]:[])]}/>
+      <TournamentDataAtlas decades={decades} pressure={overview.pressure} rhythm={[{label:'Juegos por partido',value:number(completed.length?totalGames/completed.length:0,1)},{label:'Juegos por set',value:number(totalSets?totalGames/totalSets:0,1)},...(rateLeader?[{label:`Efectividad · ${rateLeader.name}`,value:`${number(rateLeader.value,1)} %`}]:[])]}/>
       {marathon&&<MatchFeature match={marathon} title={`${number(gamesInMatch(marathon))} juegos. Un solo partido.`} detail={`El partido con más juegos del archivo de ${props.name}.`}/>}
     </section>
     {film&&<TournamentFilm video={film.video} photo={film.trophy}/>}
-    <section className={styles.archive} id="ediciones"><div className={styles.sectionTitle}><h2>Todas las ediciones.</h2></div><EditionYearRail editions={years.map(year=>{const final=finals.find(match=>match.year===year);return {year,href:editionHref(year),champion:final?winnerName(final)||'Ver cuadro':'Ver cuadro',matches:matches.filter(match=>match.year===year).length};})}/></section>
+    <section className={styles.archive} id="ediciones"><div className={styles.sectionTitle}><h2>Todas las ediciones.</h2></div><EditionYearRail editions={years.map(year=>{const final=finals.find(match=>match.year===year);return {year,href:editionHref(year),champion:final?winnerName(final)||'Ver cuadro':'Ver cuadro',matches:overview.editions[year]||0};})}/></section>
   </World>;
 }
 
