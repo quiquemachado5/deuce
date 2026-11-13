@@ -163,10 +163,10 @@ function grouped(
   );
 }
 const cache = new WeakMap<Match[], { day: string; pieces: RecordPiece[] }>();
-export function recordCatalog(matches: Match[], now = new Date(), only?: string): RecordPiece[] {
+export function recordCatalog(matches: Match[], now = new Date(), only?: string, includeEmpty = false): RecordPiece[] {
   if (new Set(matches.map(m=>m.tour||'atp')).size>1) throw new Error('Statistics require one explicit circuit');
   const day = now.toISOString().slice(0, 10);
-  const cached = cache.get(matches);
+  const cached = includeEmpty ? undefined : cache.get(matches);
   if (cached?.day === day) return only ? cached.pieces.filter(p => p.id === only) : cached.pieces;
   const cacheKey = matches;
   matches = matches.filter(eligibleMatch);
@@ -201,7 +201,7 @@ export function recordCatalog(matches: Match[], now = new Date(), only?: string)
           b.sample - a.sample ||
           a.name.localeCompare(b.name, "es"),
       );
-    if (rows.length)
+    if (rows.length || includeEmpty)
       result.push({
         id,
         title,
@@ -1030,7 +1030,7 @@ export function recordCatalog(matches: Match[], now = new Date(), only?: string)
   if(cacheKey[0]?.tour==='wta')for(const piece of result)for(const row of piece.rows){
     if(row.href.startsWith('/jugadores/')||row.href.startsWith('/comparar?')){const url=new URL(row.href,SITE_ORIGIN);url.searchParams.set('tour','wta');row.href=url.pathname+url.search+url.hash;}
   }
-  if (!only) cache.set(cacheKey, { day, pieces: result });
+  if (!only && !includeEmpty) cache.set(cacheKey, { day, pieces: result });
   return result;
 }
 export function playerFact(

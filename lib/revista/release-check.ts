@@ -39,7 +39,7 @@ export function assertReleaseCoverage(previous: RecordManifest, current: RecordM
   const allowances=(tour:'atp'|'wta')=>{
     const pairs=measurementCorrections.filter(row=>(row.current.tour||'atp')===tour);
     if(!pairs.length)return new Map<string,number>();
-    const before=recordCatalog(pairs.map(row=>row.previous)),after=recordCatalog(pairs.map(row=>row.current));
+    const before=recordCatalog(pairs.map(row=>row.previous),undefined,undefined,true),after=recordCatalog(pairs.map(row=>row.current),undefined,undefined,true);
     return new Map(before.map(row=>[row.id,Math.max(0,row.sample-(after.find(next=>next.id===row.id)?.sample||0))]));
   };
   const catalogues = (manifest: RecordManifest) => ({

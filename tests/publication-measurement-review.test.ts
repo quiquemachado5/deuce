@@ -48,3 +48,12 @@ test('a retired source leaves an empty record definition, never an old leader or
  assert.deepEqual(snapshot.pieces['total-points'],{pages:{},smallPages:{}});
  assert.doesNotThrow(()=>assertReleaseCoverage(before,snapshot.manifest,[],measurementCorrections([previous],[clean])));
 });
+
+test('coverage reviews count measured matches even when none qualifies for the record itself',()=>{
+ const ordinary={...previous,winner:1 as const};
+ const reviewed={...clean,winner:1 as const};
+ const genuine={...previous,match_id:'genuine',winner:1 as const,statistics:previous.statistics.map(s=>s.name==='Total points won'?{...s,value:s.player===1?'60':'80'}:s)};
+ const before=compileRecordSnapshot([ordinary,genuine]).manifest,after=compileRecordSnapshot([reviewed,genuine]).manifest;
+ assert.throws(()=>assertReleaseCoverage(before,after),/measured coverage/);
+ assert.doesNotThrow(()=>assertReleaseCoverage(before,after,[],measurementCorrections([ordinary],[reviewed])));
+});
