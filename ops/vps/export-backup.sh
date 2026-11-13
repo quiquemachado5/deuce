@@ -15,7 +15,8 @@ elif [[ "$original" =~ ^ack:(deuce-archive-[0-9]{8}T[0-9]{6}Z\.tar\.gz\.enc):([a
 const fs=require('fs');const root=process.env.DEUCE_ARCHIVE_DIR||'/app/.deuce-archive';const [archive,hash]=process.argv.slice(2);
 const local=JSON.parse(fs.readFileSync(root+'/backup-local-status.json','utf8'));
 if(local.encryptedArchive!==archive||local.encryptedSha256!==hash||!local.restoreValidated)throw Error('Receipt does not match validated backup');
-const at=new Date().toISOString(),value={...local,status:'success',at,offsiteVerified:true,remote:'github-release:quiquemachado5/deuce',release:'archive-backup-'+archive.slice(14,30)};
+const age=Date.now()-Date.parse(local.at||'');if(!Number.isFinite(age)||age<0||age>36*3600000)throw Error('Validated backup is stale');
+const at=new Date().toISOString(),value={...local,status:'success',at,offsiteVerified:true,remote:'github-release:quiquemachado5/deuce',release:'archive-backup-'+archive.slice('deuce-archive-'.length)};
 fs.writeFileSync(root+'/backup-status.json.tmp',JSON.stringify(value),{mode:0o600});fs.renameSync(root+'/backup-status.json.tmp',root+'/backup-status.json');console.log(JSON.stringify({status:'verified',archive,at}));
 NODE
   printf '{"archive":"%s","sha256":"%s"}\n' "$archive" "$hash" > "$directory/last-offsite.json.tmp"

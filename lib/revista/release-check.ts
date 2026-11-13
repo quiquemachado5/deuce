@@ -1,3 +1,5 @@
+import {recordCatalog} from './records';
+import {reviewedMeasurementCorrection,type MeasurementCorrection} from './release-source';
 import type { RecordManifest } from './snapshot';
 import {isReviewedOutsideMainDraw} from '../reviewed-fixture-scope';
 import type {Match} from '../types';
@@ -10,7 +12,7 @@ import { editionCompleteness } from '../edition-audit';
 const EPHEMERAL_RECORD_PIECES = new Set(['tal-dia-como-hoy']);
 
 /** Intentional reductions require review, never an unnoticed degraded build. */
-export function assertReleaseCoverage(previous: RecordManifest, current: RecordManifest, reviewedScopeExclusions:Match[]=[]) {
+export function assertReleaseCoverage(previous: RecordManifest, current: RecordManifest, reviewedScopeExclusions:Match[]=[], measurementCorrections:MeasurementCorrection[]=[]) {
   if (!Number.isSafeInteger(previous.matchCount) || !Array.isArray(previous.pieces)) throw new Error('Published baseline is invalid');
   // A reviewed rules change may intentionally narrow the public universe. All
   // subsequent publications under that rules version regain the strict guard.
@@ -28,15 +30,36 @@ export function assertReleaseCoverage(previous: RecordManifest, current: RecordM
   for (const tour of ['atp', 'wta'] as const) {
     if (currentTours[tour] < previousTours[tour]-exclusions[tour]) throw new Error(`Release would lose published ${tour.toUpperCase()} matches`);
   }
+  const reviewedIds=new Set<string>();
+  for(const correction of measurementCorrections){
+    const key=`${correction.current.tour||'atp'}:${correction.current.match_id}`;
+    if(reviewedIds.has(key)||!reviewedMeasurementCorrection(correction))throw new Error('Unverified measurement correction');
+    reviewedIds.add(key);
+  }
+  const allowances=(tour:'atp'|'wta')=>{
+    const pairs=measurementCorrections.filter(row=>(row.current.tour||'atp')===tour);
+    if(!pairs.length)return new Map<string,number>();
+    const losses=new Map<string,number>();
+    for(const pair of pairs){
+      const before=recordCatalog([pair.previous],undefined,undefined,true),after=new Map(recordCatalog([pair.current],undefined,undefined,true).map(row=>[row.id,row.sample]));
+      for(const metric of before.filter(row=>row.measured)){
+        const loss=Math.max(0,metric.sample-(after.get(metric.id)||0));
+        if(loss)losses.set(metric.id,(losses.get(metric.id)||0)+loss);
+      }
+    }
+    return losses;
+  };
   const catalogues = (manifest: RecordManifest) => ({
     atp: manifest.pieces,
     wta: manifest.circuitPieces?.wta || [],
   });
   const priorCatalogues = catalogues(previous), nextCatalogues = catalogues(current);
   for (const tour of ['atp', 'wta'] as const) {
+    const correctedSamples=allowances(tour);
     for (const metric of priorCatalogues[tour].filter(piece => piece.measured)) {
       const next = nextCatalogues[tour].find(piece => piece.id === metric.id);
-      if (!next || next.sample < metric.sample) throw new Error(`Release would lose measured${tour === 'atp' ? '' : ` ${tour.toUpperCase()}`} coverage: ${metric.id}`);
+      const retainedSample=Math.max(0,metric.sample-(correctedSamples.get(metric.id)||0));
+      if ((!next&&retainedSample>0) || (next&&next.sample < retainedSample)) throw new Error(`Release would lose measured${tour === 'atp' ? '' : ` ${tour.toUpperCase()}`} coverage: ${metric.id}`);
     }
     const nextIds = new Set(nextCatalogues[tour].map(piece => piece.id));
     const missing = priorCatalogues[tour]

@@ -113,9 +113,13 @@ export function attachIngestionHistory(previous: RecordManifest | undefined, nex
   } else history.push({date,added,...(corrected===undefined?{}:{corrected}),total:next.matchCount,included,totals:current,tourAdded,tourTotals});
   return {...next,ingestionHistory:history};
 }
-export function compileRecordSnapshot(input: Match[], now = new Date(), competitionInput:Match[]=[],audit:EditionAudit[]=[]): Snapshot {
+export function compileRecordSnapshot(input: Match[], now = new Date(), competitionInput:Match[]=[],audit:EditionAudit[]=[],catalogueBaseline?:RecordManifest): Snapshot {
   audit=audit.map(row=>({...row,...editionCompleteness(row)}));
-  const matches=publishedMatches(input).map(m=>stripSource({...m,tour:m.tour||'atp'})), atp=matches.filter(m=>m.tour==='atp'), wta=matches.filter(m=>m.tour==='wta'), catalog=recordCatalog(atp,now), wtaCatalog=recordCatalog(wta,now), wtaMetas:RecordMeta[]=[], pieces:Snapshot['pieces']={}, metas:RecordMeta[]=[];
+  const catalogue=(rows:Match[],tour:'atp'|'wta')=>{
+    const retained=new Set((tour==='atp'?catalogueBaseline?.pieces:catalogueBaseline?.circuitPieces?.wta)?.map(piece=>piece.id)||[]);
+    return recordCatalog(rows,now,undefined,!!catalogueBaseline).filter(piece=>piece.rows.length||retained.has(piece.id)&&piece.id!=='tal-dia-como-hoy');
+  };
+  const matches=publishedMatches(input).map(m=>stripSource({...m,tour:m.tour||'atp'})), atp=matches.filter(m=>m.tour==='atp'), wta=matches.filter(m=>m.tour==='wta'), catalog=catalogue(atp,'atp'), wtaCatalog=catalogue(wta,'wta'), wtaMetas:RecordMeta[]=[], pieces:Snapshot['pieces']={}, metas:RecordMeta[]=[];
   const publishedIds=new Set(matches.map(m=>(m.tour||'atp')+'|'+m.match_id));
   const competition=[...new Map(competitionInput.filter(isInPublicationScope).filter(m=>!publishedIds.has((m.tour||'atp')+'|'+m.match_id)).map(m=>[(m.tour||'atp')+'|'+m.match_id,proofSummary({...m,tour:m.tour||'atp'})])).values()];
   // A match can substantiate many rankings. Share its compact proof instead of

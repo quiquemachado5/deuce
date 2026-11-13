@@ -31,6 +31,9 @@ jobs:
           ssh -i ~/.ssh/backup -o BatchMode=yes -o StrictHostKeyChecking=yes "deuce@$BACKUP_HOST" metadata > metadata.json
           name=$(jq -er '.archive | select(test("^deuce-archive-[0-9]{8}T[0-9]{6}Z\\.tar\\.gz\\.enc$"))' metadata.json)
           hash=$(jq -er '.sha256 | select(test("^[a-f0-9]{64}$"))' metadata.json)
+          created=$(jq -er '.createdAt' metadata.json)
+          age=$(( $(date -u +%s) - $(date -u -d "$created" +%s) ))
+          test "$age" -ge 0 && test "$age" -le 129600
           ssh -i ~/.ssh/backup -o BatchMode=yes -o StrictHostKeyChecking=yes "deuce@$BACKUP_HOST" "download:$name" > "$name"
           printf '%s  %s\n' "$hash" "$name" > "$name.sha256"
           sha256sum -c "$name.sha256"
