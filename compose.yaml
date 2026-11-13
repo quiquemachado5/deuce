@@ -41,6 +41,9 @@ services:
       - next_cache:/app/.next/cache
     tmpfs:
       - /tmp:rw,noexec,nosuid,size=64m
+      # Next 16 stores regenerated HTML/RSC here, outside its fetch cache.
+      # Ephemeral per-container storage prevents stale HTML crossing releases.
+      - /app/.next/server/route-cache:rw,noexec,nosuid,size=128m,uid=1001,gid=1001,mode=0700
     expose:
       - "3000"
     logging: *deuce-logging

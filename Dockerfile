@@ -56,7 +56,7 @@ COPY --from=builder --chown=nextjs:nodejs /app/build/restore-drill.mjs ./build/r
 COPY --from=builder --chown=nextjs:nodejs /app/build/restore-validation.mjs ./build/restore-validation.mjs
 COPY --from=builder --chown=nextjs:nodejs /app/lib/publication-hash.mjs ./lib/publication-hash.mjs
 COPY --from=builder --chown=nextjs:nodejs /app/lib/match-browser-contract.json ./lib/match-browser-contract.json
-RUN mkdir -p /app/.deuce-archive /app/.next/cache \
+RUN mkdir -p /app/.deuce-archive /app/.next/cache /app/.next/server/route-cache \
   && chown -R nextjs:nodejs /app/.deuce-archive /app/.next
 
 USER nextjs
