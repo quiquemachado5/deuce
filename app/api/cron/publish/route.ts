@@ -82,8 +82,9 @@ export async function GET(request: Request) {
       assertEditionCoverage(previousAudit,snapshot.audit)
       console.info('Daily publication: compiled',Math.round(process.memoryUsage().rss/1048576))
       if (!snapshot.matches.length) throw new Error('Cannot publish an empty reading snapshot')
-      assertReleaseCoverage(bundled,snapshot.manifest,[],sourceCorrections)
-      if(compatibleManifest(remote))assertReleaseCoverage(remote,snapshot.manifest,[],sourceCorrections)
+      // The active generation is authoritative after a reviewed source correction.
+      // Bundled coverage is only the fallback when no compatible active manifest exists.
+      assertReleaseCoverage(baselineManifest,snapshot.manifest,[],sourceCorrections)
       const baseline=await preparedGeneration()
       snapshot.publicationIndex=buildPublicationIndex(snapshot.matches)
       const storedIndex=await preparedPublicationIndex()
