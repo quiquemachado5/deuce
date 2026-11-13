@@ -38,3 +38,13 @@ test('compact review evidence retains the provider labels and omits the tape and
  assert.equal(JSON.stringify(evidence).includes('unrelated'),false);
  assert.equal(reconstructedEvidence({meta:{coverage:'observed'}}),undefined);
 });
+
+test('a retired source leaves an empty record definition, never an old leader or statistic',async()=>{
+ const {retainCatalogueDefinitions}=await import('../lib/revista/catalogue-definitions');
+ const before=manifest(previous),snapshot=compileRecordSnapshot([clean]);
+ retainCatalogueDefinitions(snapshot,before);
+ const empty=snapshot.manifest.pieces.find(row=>row.id==='total-points');
+ assert.equal(empty?.sample,0);assert.equal(empty?.total,0);assert.equal(empty?.leader,undefined);
+ assert.deepEqual(snapshot.pieces['total-points'],{pages:{},smallPages:{}});
+ assert.doesNotThrow(()=>assertReleaseCoverage(before,snapshot.manifest,[],measurementCorrections([previous],[clean])));
+});

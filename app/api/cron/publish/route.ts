@@ -1,3 +1,4 @@
+import {retainCatalogueDefinitions} from '@/lib/revista/catalogue-definitions'
 import {publishedWikiContexts} from '@/lib/wikimedia-refresh'
 import {enrichMatchAges} from '@/lib/wikimedia-context'
 import { authorizedCronRequest } from '@/lib/cron-auth'
@@ -82,6 +83,7 @@ export async function GET(request: Request) {
       assertEditionCoverage(previousAudit,snapshot.audit)
       console.info('Daily publication: compiled',Math.round(process.memoryUsage().rss/1048576))
       if (!snapshot.matches.length) throw new Error('Cannot publish an empty reading snapshot')
+      retainCatalogueDefinitions(snapshot,baselineManifest)
       assertReleaseCoverage(bundled,snapshot.manifest,[],sourceCorrections)
       if(compatibleManifest(remote))assertReleaseCoverage(remote,snapshot.manifest,[],sourceCorrections)
       const baseline=await preparedGeneration()
