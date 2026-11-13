@@ -16,7 +16,7 @@ async function files(dir,extension){
 // These ceilings are a ratchet over the verified production bundle, not aspirational
 // targets. Keep enough headroom for deterministic minifier differences between local
 // and CI builds while still failing any meaningful regression.
-const thresholds={html:450_000,routeCss:650_000,routeJs:1_250_000,sourceCss:1_200_000,sourceCssFile:240_000,heroPoster:100_000,clientComponents:62,standalone:165_000_000,productCompressed:16_000_000,productInflated:64_000_000};
+const thresholds={html:450_000,routeCss:650_000,routeJs:1_250_000,sourceCss:1_200_000,sourceCssFile:240_000,heroPoster:100_000,clientComponents:62,standalone:200_000_000,applicationAndBaseData:165_000_000,navigationCompressed:32_000_000,productCompressed:16_000_000,productInflated:64_000_000};
 const warn=(name,value,maximum)=>{const utilization=value/maximum;if(utilization>=.85)warnings.push(`${name}: ${(utilization*100).toFixed(1)}% of budget (${value}/${maximum})`);return utilization;};
 const htmlFiles=await files(join(next,'server','app'),'.html');
 if(!htmlFiles.length)failures.push('No prerendered HTML was found; run the production build first');
@@ -50,6 +50,15 @@ const standalone=join(next,'standalone');
 const standaloneFiles=await files(standalone,'');
 const standaloneRelative=new Set(standaloneFiles.map(path=>relative(standalone,path)));
 const standaloneBytes=(await Promise.all(standaloneFiles.map(async path=>(await stat(path)).size))).reduce((sum,value)=>sum+value,0);
+// Entity projections trade bounded server storage for request-time CPU. Keep
+// the existing application/base-data limit unchanged and budget projections
+// separately; none of these bytes become browser JavaScript.
+const navigationFiles=standaloneFiles.filter(path=>/^data\/reading\/navigation-(?:index|entity-[a-f0-9]+)\.json\.gz$/.test(relative(standalone,path)));
+const navigationCompressed=(await Promise.all(navigationFiles.map(async path=>(await stat(path)).size))).reduce((sum,size)=>sum+size,0);
+const applicationAndBaseDataBytes=standaloneBytes-navigationCompressed;
+if(applicationAndBaseDataBytes>thresholds.applicationAndBaseData)failures.push(`Application and base data: ${applicationAndBaseDataBytes} > ${thresholds.applicationAndBaseData}`);
+if(navigationCompressed>thresholds.navigationCompressed)failures.push(`Navigation projections: ${navigationCompressed} > ${thresholds.navigationCompressed}`);
+if(!navigationFiles.length)failures.push('Navigation projections are missing from standalone');
 if(!standaloneFiles.length)failures.push('No standalone deployment was found; run the production build first');
 if(standaloneBytes>thresholds.standalone)failures.push(`Standalone deployment: ${standaloneBytes} > ${thresholds.standalone}`);
 warn('Standalone deployment',standaloneBytes,thresholds.standalone);
@@ -81,5 +90,5 @@ for(const name of sourceWta){
 }
 routes.sort((a,b)=>b.htmlBytes+b.cssBytes+b.jsBytes-(a.htmlBytes+a.cssBytes+a.jsBytes));
 sourceCssRows.sort((a,b)=>b.bytes-a.bytes);
-console.log(JSON.stringify({verified:!failures.length,routes:htmlFiles.length,clientComponents:clients,sourceCssBytes,standaloneBytes,productCompressed,productInflated,thresholds,largestRoutes:routes.slice(0,5),largestSourceCss:sourceCssRows.slice(0,5),warnings,failures},null,2));
+console.log(JSON.stringify({verified:!failures.length,routes:htmlFiles.length,clientComponents:clients,sourceCssBytes,standaloneBytes,applicationAndBaseDataBytes,navigationCompressed,productCompressed,productInflated,thresholds,largestRoutes:routes.slice(0,5),largestSourceCss:sourceCssRows.slice(0,5),warnings,failures},null,2));
 if(failures.length)process.exitCode=1;
