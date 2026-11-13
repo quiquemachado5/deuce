@@ -263,6 +263,7 @@ candidate_args=(
   --cap-drop ALL
   --read-only
   --tmpfs /tmp:rw,noexec,nosuid,size=64m
+  --tmpfs /app/.next/server/route-cache:rw,noexec,nosuid,size=128m,uid=1001,gid=1001,mode=0700
   --pids-limit 256
   --memory 4g
   --cpus 1.5

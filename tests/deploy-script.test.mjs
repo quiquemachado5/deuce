@@ -34,6 +34,8 @@ test('production preflight and container confinement run before promotion', () =
   assert.match(candidate, /--cap-drop ALL/)
   assert.match(candidate, /--read-only/)
   assert.match(candidate, /--tmpfs \/tmp:rw,noexec,nosuid,size=64m/)
+  assert.match(candidate, /--tmpfs \/app\/\.next\/server\/route-cache:rw,noexec,nosuid,size=128m,uid=1001,gid=1001,mode=0700/)
+  assert.match(compose.slice(compose.indexOf('web:'), compose.indexOf('scheduler:')), /\/app\/\.next\/server\/route-cache:rw,noexec,nosuid,size=128m,uid=1001,gid=1001,mode=0700/)
   assert.match(candidate, /--pids-limit 256/)
   assert.match(candidate, /--env NODE_OPTIONS=--max-old-space-size=3072/)
   assert.match(compose, /web:[\s\S]*NODE_OPTIONS: --max-old-space-size=3072[\s\S]*scheduler:/)
