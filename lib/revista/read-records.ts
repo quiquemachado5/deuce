@@ -842,7 +842,7 @@ const publicArchiveFallback=asyncCache<import('../public-archive-products').Publ
 async function preparedRecordPages(g:PreparedGeneration,id:string,meta:RecordMeta):Promise<RecordPages>{
  if(g.source!=='remote')return local<RecordPages>('piece-'+id);
  const pages:RecordPages={pages:{},smallPages:{}};
- const count=Math.ceil(Math.max(meta.total,meta.smallTotal)/PAGE_SIZE/50)||1;
+ const count=pieceChunk(Math.max(1,Math.ceil(Math.max(meta.total,meta.smallTotal)/PAGE_SIZE)))+1;
  for(let chunk=0;chunk<count;chunk++){
   const value=(await query(key(g.manifest.version,`piece-${id}-chunk${chunk}`),'payload',25000))?.payload;
   if(!value||value.encoding!=='gzip-base64')throw new Error('Missing published record pages');

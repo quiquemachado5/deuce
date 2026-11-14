@@ -19,7 +19,8 @@ export function statisticInputHash(matches:Match[],rules:string,year:number){
 export function compilationPlan(matches:Match[],previous:RecordManifest,now:Date){
  const inputs={atp:statisticInputHash(matches.filter(match=>match.tour!=='wta'),previous.rulesVersion,now.getUTCFullYear()),wta:statisticInputHash(matches.filter(match=>match.tour==='wta'),previous.rulesVersion,now.getUTCFullYear())};
  const old=previous.compilation;
- const verifyFull=!old||now.getTime()-Date.parse(old.fullVerifiedAt)>=7*86400_000;
+ const verifiedAt=old?Date.parse(old.fullVerifiedAt):NaN;
+ const verifyFull=!old||!Number.isFinite(verifiedAt)||now.getTime()-verifiedAt>=7*86400_000;
  const unchanged=(['atp','wta'] as const).filter(tour=>old?.inputs[tour]===inputs[tour]);
  return{inputs,unchanged,reuse:verifyFull?[]:unchanged,verifyFull,fullVerifiedAt:verifyFull?now.toISOString():old!.fullVerifiedAt};
 }

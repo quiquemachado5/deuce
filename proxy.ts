@@ -13,9 +13,10 @@ export async function proxy(request:NextRequest){
  let response:NextResponse;
  const profile=/^\/jugadores\/([^/]+)$/.exec(request.nextUrl.pathname);
  if(profile){
-  const slug=playerSlug(canonicalName(decodeURIComponent(profile[1]).replace(/-/g,' '))),tour=request.nextUrl.searchParams.get('tour');
+  let slug='';try{slug=playerSlug(canonicalName(decodeURIComponent(profile[1]).replace(/-/g,' ')));}catch{}
+  const tour=request.nextUrl.searchParams.get('tour');
   const directory=await preparedSearchProducts();
-  const exists=directory.players.some(player=>playerSlug(player.name)===slug&&(tour==='wta'?(player.tour==='wta'):tour==='atp'?player.tour!=='wta':true));
+  const exists=directory.players.some(player=>playerSlug(player.name)===slug&&(tour==='wta'?(player.tour==='wta'):tour?player.tour!=='wta':true));
   // Decide status before a loading/Suspense boundary can flush an HTTP 200.
   response=exists?NextResponse.next(options):NextResponse.rewrite(new URL('/archivo-no-encontrado',request.url),{...options,status:404});
   if(!exists)response.headers.set('X-Robots-Tag','noindex');
