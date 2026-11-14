@@ -110,7 +110,6 @@ export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotSt
     await storage.prune([(published as RecordManifest).version]).catch(error=>console.warn('Snapshot retention preflight failed:',error instanceof Error?error.name:'unknown'));
   }
   async function* artifacts():AsyncGenerator<[string,unknown]> {
-    yield* await compressedBlob('public-archive',compilePublicArchiveProducts(matches,players,manifest,pageRevisions,audit));
     const browser=compileMatchBrowser(matches);
     const navigation=compileNavigationProducts(matches,players);
     yield* await compressedBlob('navigation-index',navigation.index);
@@ -120,6 +119,7 @@ export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotSt
     for(const group of partitionMatches(matches))yield* await compressedBlob(group.meta.id,group.matches);
     for(const partition of browser.partitions)yield* await compressedBlob(matchBrowserArtifact(partition.id),partition);
     for(const [id,value] of [['page-revisions',pageRevisions],['correction-history',pageRevisions.corrections],['browser-index',browser.index],['publication-index',snapshot.publicationIndex||buildPublicationIndex(matches)],['eras',eras],['players',players],['competition',competition],['audit',audit],['reconciliation',reconciliation],['draw-anomalies',drawAnomalies],['edition-products',products.editions],['player-directory',products.players],['search-products',products.search],['elo-products',products.elo],['time-machine',products.timeMachine]] as const)yield* await compressedBlob(id,value);
+    yield* await compressedBlob('public-archive',compilePublicArchiveProducts(matches,players,manifest,pageRevisions,audit));
   }
   const artifactPacks: Record<string,string> = {};
   const previousVersion=(published as RecordManifest|undefined)?.version;

@@ -82,6 +82,7 @@ export async function GET(request: Request) {
       const changeTypes=classifyPublicationChanges(priorMatches,input,new Set(comparison.changes.filter(change=>change.beforeHash).map(change=>change.identity)))
       const compiledAt=new Date()
       const plan=compilationPlan(input,baselineManifest,compiledAt)
+      console.info('Daily publication: compilation plan',JSON.stringify({reusedCircuits:plan.reuse,verifyFull:plan.verifyFull}))
       const compilationBaseline=await preparedCompilationBaseline(plan.unchanged)
       priorMatches.length=0
       mergedInput.length=0
@@ -127,8 +128,8 @@ export async function GET(request: Request) {
       const tours=snapshot.manifest.summary.tours
       const lists=snapshot.manifest.pieces.length+(snapshot.manifest.circuitPieces?.wta.length||0)
       const peakRssBytes=Math.max(...memory.map(row=>row.rssBytes))
-      await cloudWrite('publish-status',withOperationHistory(previousStatus,{status:'success',attemptAt,lastSuccessAt:new Date().toISOString(),delta,publicationAt:published.generatedAt,at:new Date().toISOString(),version:snapshot.manifest.version,matches:snapshot.manifest.matchCount,tours,lists,incompleteEditions,circuitFreshness,memory:{peakRssBytes,phases:memory}}))
-      return Response.json({ status: 'success', at: new Date().toISOString(), matches: snapshot.manifest.matchCount, tours, lists, incompleteEditions, version:snapshot.manifest.version, circuitFreshness }, { headers: { 'Cache-Control':'no-store' } })
+      await cloudWrite('publish-status',withOperationHistory(previousStatus,{status:'success',attemptAt,lastSuccessAt:new Date().toISOString(),delta,publicationAt:published.generatedAt,at:new Date().toISOString(),version:snapshot.manifest.version,matches:snapshot.manifest.matchCount,tours,lists,incompleteEditions,circuitFreshness,compilation:snapshot.manifest.compilation,memory:{peakRssBytes,phases:memory}}))
+      return Response.json({ status: 'success', at: new Date().toISOString(), matches: snapshot.manifest.matchCount, tours, lists, incompleteEditions, version:snapshot.manifest.version, compilation:snapshot.manifest.compilation, circuitFreshness }, { headers: { 'Cache-Control':'no-store' } })
     } catch (error) {
       const reason = error instanceof Error ? error.message : 'unknown error'
       sampleMemory('failed')
