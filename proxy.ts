@@ -24,4 +24,4 @@ export async function proxy(request:NextRequest){
  response.headers.set('Content-Security-Policy',policy);
  return response;
 }
-export const config={matcher:['/((?!api|_next|images|media|videos|fonts|icons|.*\\.).*)']};
+export const config={matcher:['/en','/en/:path*','/((?!api|_next|images|media|videos|fonts|icons|.*\\.).*)']};
