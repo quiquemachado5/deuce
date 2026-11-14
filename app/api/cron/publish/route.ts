@@ -1,3 +1,4 @@
+import {warmPublishedNavigation} from '@/lib/publication-warmup'
 import {compilationPlan,assertCompilationEquivalent} from '@/lib/revista/incremental-compilation'
 import {classifyPublicationChanges} from '@/lib/publication-change-types'
 import {matchCorrections} from '@/lib/publication-pages'
@@ -36,7 +37,7 @@ export async function GET(request: Request) {
   if(process.env.DEUCE_ISOLATED_PUBLICATION==='1'&&process.env.DEUCE_PUBLICATION_CHILD!=='1'){
     try{
       const response=await runIsolatedPublication(request.headers.get('authorization')!);
-      if(response.ok){invalidatePreparedGeneration();revalidatePath('/','layout')}
+      if(response.ok){invalidatePreparedGeneration();revalidatePath('/','layout');const warmup=await warmPublishedNavigation(Number(process.env.PORT)||3000).catch(()=>[]);console.info('Published navigation warmed:',JSON.stringify(warmup))}
       return response;
     }catch(error){
       console.error('Isolated publication failed:',error instanceof Error?error.message:'unknown');

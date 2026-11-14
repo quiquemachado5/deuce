@@ -77,7 +77,7 @@ test('strict script CSP preserves search and has a fresh nonce per response',asy
  await page.goto('/records?dato=victorias');
  await page.getByRole('searchbox',{name:'Buscar en toda la clasificación'}).fill('Nadal');
  await page.getByRole('button',{name:'Buscar',exact:true}).click();
- await expect(page.getByRole('status').filter({hasText:'resultados para'})).toContainText('Nadal');
+ await expect(page.getByRole('status').filter({hasText:/resultados? para/})).toContainText('Nadal');
  await expect(page.locator('tbody tr')).toHaveCount(1);
  await expect(page.locator('tbody tr')).toContainText('Rafael Nadal');
  await page.getByRole('link',{name:'Sobre los datos y el cálculo',exact:true}).click();

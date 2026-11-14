@@ -2,7 +2,7 @@ import 'server-only';
 import type {Match} from './types';
 import {asyncCache} from './async-cache';
 import {comparisonCanonical} from './comparison-canonical';
-import {preparedManifest} from './revista/read-records';
+import {preparedPublicArchive} from './revista/read-records';
 import {comparePlayer,comparisonHeadToHead,comparisonLeadTimeline,comparisonPlayerWon,sharedCareerWindow} from './player-comparison';
 import {playerBiography} from './player-bio';
 import {playerDirectoryPhoto} from './player-imagery';
@@ -22,7 +22,7 @@ function compileComparison(source:Match[],q:Record<string,string|undefined>,tour
 const comparisons=asyncCache<ReturnType<typeof compileComparison>>(86_400_000,16,undefined,{maxWeight:16*1024*1024,weight:value=>JSON.stringify(value).length*2});
 export async function preparedComparison(q:Record<string,string|undefined>,tour:'atp'|'wta',requested:string[],load:()=>Promise<Match[]>){
  const names=[...requested].sort((a,b)=>a.localeCompare(b,'es'));
- const manifest=await preparedManifest();
+ const manifest=await preparedPublicArchive();
  const key=manifest.version+':'+comparisonCanonical({...q,tour,a:names[0],b:names[1]});
  const value=await comparisons(key,async()=>compileComparison(await load(),q,tour,names));
  if(requested[0]===names[0])return value;

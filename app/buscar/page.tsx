@@ -1,3 +1,4 @@
+import {cachedMatchBrowserQuery} from '@/lib/match-browser-query-cache';
 import { ArchiveMasthead } from '@/components/deuce/ArchiveMasthead';
 import Link from 'next/link';
 import { ArrowUpRight, ChevronDown } from 'lucide-react';
@@ -13,8 +14,8 @@ import { MatchArchivePage } from '@/components/deuce/MatchArchivePage';
 import { toMatchRecord } from '@/data/map-match';
 import { matchSearchIntent } from '@/lib/search-intent';
 import EmptyState from '@/components/EmptyState';
-import { preparedManifest, preparedMatchBrowser } from '@/lib/revista/read-records';
-import { queryMatchBrowser, type MatchBrowserCircuit, type MatchBrowserEvent } from '@/lib/match-browser-snapshot';
+import { preparedManifest, preparedMatchBrowserIndex, preparedMatchBrowser } from '@/lib/revista/read-records';
+import { type MatchBrowserCircuit, type MatchBrowserEvent } from '@/lib/match-browser-snapshot';
 import { approximateName, canonicalSearchText } from '@/lib/search-text';
 import { playerSlug } from '@/lib/explore';
 import { noIndexFollow, robotsForUnavailableTour } from '@/lib/seo-metadata';
@@ -62,7 +63,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
   if (query.round) query.round = ({ Octavos: 'Octavos de final', Cuartos: 'Cuartos de final', Semifinal: 'Semifinales', RR: 'Fase de grupos', BR: 'Partido por el bronce', ER: 'Rondas iniciales' } as Record<string, string>)[query.round] || query.round;
   const tour: 'atp' | 'wta' | 'all' = query.tour === 'wta' ? 'wta' : query.tour === 'all' ? 'all' : 'atp';
   query.tour = tour;
-  const browser = await preparedMatchBrowser(tour);
+  const browser = await preparedMatchBrowserIndex();
   const selectedCircuits = (tour === 'all' ? ['atp', 'wta'] : [tour]) as Array<'atp' | 'wta'>;
   const circuitData = selectedCircuits.map(circuit => ({ circuit, ...browser.index.circuits[circuit] }));
   const years = [...new Set(circuitData.flatMap(circuit => circuit.years))].sort((a, b) => b - a);
@@ -95,7 +96,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
   const requestedLimit = Number(query.limit);
   const dailyLimit = Number.isFinite(requestedLimit) && requestedLimit > 0 ? Math.max(2, Math.floor(requestedLimit)) : 2;
   const seasonLimit = Number.isFinite(requestedLimit) && requestedLimit > 0 ? Math.max(3, Math.floor(requestedLimit)) : 3;
-  const result = queryMatchBrowser(browser.partitions, {
+  const result = await cachedMatchBrowserQuery({version:browser.manifest.version,source:browser.source,tour}, {
     q: query.q,
     year: selectedYear,
     fromYear: query.fromYear ? Number(query.fromYear) : undefined,
@@ -107,7 +108,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
     age: query.age ? Number(query.age) : undefined,
     fiveSets: query.fiveSets === 'true',
     data: query.data === 'measures' || query.data === 'points' ? query.data : undefined,
-  }, dailyLimit, seasonLimit);
+  }, async()=>(await preparedMatchBrowser(tour)).partitions, dailyLimit, seasonLimit);
   const groups: MatchEdition[] = result.editions.map(edition => {
     const matchTour = edition.matches[0]?.tour || 'atp';
     const year = edition.matches[0]?.year;

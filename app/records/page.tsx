@@ -201,7 +201,7 @@ export default async function Records({
               {Object.entries(query).filter(([key,value])=>value&&!['find','page','smallPage'].includes(key)).map(([key,value])=><input key={key} type="hidden" name={key} value={value}/>)}
               <label htmlFor="record-find">Buscar en toda la clasificación</label><div><input id="record-find" name="find" type="search" defaultValue={query.find||''} maxLength={100} placeholder="Nombre del jugador o jugadora"/><button type="submit">Buscar</button>{query.find&&<Link href={recordsUrl(query,{find:undefined,page:undefined,smallPage:undefined})}>Ver todos</Link>}</div>
             </Form>
-            {query.find&&<p role="status">{piece.total} resultados para «{query.find.slice(0,100)}». Se conserva la posición del récord.</p>}
+            {query.find&&<p role="status">{piece.total} {piece.total===1?'resultado':'resultados'} para «{query.find.slice(0,100)}». Se conserva la posición del récord.</p>}
             {view.rows.length ? (
               <RecordsTable
                 id={piece.id}

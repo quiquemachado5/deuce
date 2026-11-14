@@ -35,6 +35,7 @@ import historyBaseline from '../../ops/wta-history-baseline.json';
 import {buildPublicationIndex,validPublicationIndex,type PublicationIndex} from '../publication-index';
 import { ARCHIVE_PRODUCTS_SCHEMA, editionProductKey, type EditionProducts, type EloProducts, type PlayerDirectoryProducts, type SearchProducts, type TimeMachineProducts } from '../archive-products';
 const IMMUTABLE_CACHE_MS = 86_400_000;
+const classificationNames=new Intl.Collator('es');
 const bundled=asyncCache<unknown>(IMMUTABLE_CACHE_MS,48);
 const uncachedBundledPrefixes=['matches-','browser-'] as const;
 const uncachedBundledIds=new Set(['matches','competition','players','audit','reconciliation']);
@@ -289,9 +290,10 @@ export const recordView=cache(async(encoded:string,recomputed=false):Promise<Rec
    const main=Object.values(stored.pages).flat(),minor=Object.values(stored.smallPages).flat(),sequence=main.length>1?main:minor;
    const firstValue=sequence[0]?.value??0,nextValue=sequence.find(row=>row.value!==firstValue)?.value??firstValue;
    const direction=nextValue>firstValue?1:-1;
-   const all=[...main,...minor].sort((a,b)=>direction*(a.value-b.value)||b.sample-a.sample||a.name.localeCompare(b.name,'es'));
-   const sort=(rows:RecordRow[])=>q.sort==='name'?rows.sort((a,b)=>a.name.localeCompare(b.name,'es')):q.sort==='sample'?rows.sort((a,b)=>b.sample-a.sample||b.value-a.value):rows;
-   const big=sort(searchRecordRows(all.filter(row=>!meta.percent||row.sample>=minimum),q.find||'')),small=sort(searchRecordRows(meta.percent?all.filter(row=>row.sample<minimum):[],q.find||''));
+   const usePublished=!meta.percent||minimum===50;
+   const all=usePublished?[]:[...main,...minor].sort((a,b)=>direction*(a.value-b.value)||b.sample-a.sample||classificationNames.compare(a.name,b.name));
+   const sort=(rows:RecordRow[])=>q.sort==='name'?rows.sort((a,b)=>classificationNames.compare(a.name,b.name)):q.sort==='sample'?rows.sort((a,b)=>b.sample-a.sample||b.value-a.value):rows;
+   const big=sort(searchRecordRows(usePublished?main:all.filter(row=>row.sample>=minimum),q.find||'')),small=sort(searchRecordRows(usePublished?minor:all.filter(row=>row.sample<minimum),q.find||''));
    const page=clampPage(q.page,big.length),smallPage=clampPage(q.smallPage,small.length);
    return {...initial(g),manifest:m,piece:{...meta,total:big.length,smallTotal:small.length},page,smallPage,rows:big.slice((page-1)*PAGE_SIZE,page*PAGE_SIZE),smallRows:small.slice((smallPage-1)*PAGE_SIZE,smallPage*PAGE_SIZE)};
  }
@@ -300,7 +302,7 @@ export const recordView=cache(async(encoded:string,recomputed=false):Promise<Rec
    const catalog=await selectedCatalog(g,q,q.dato,loadSelection),piece=catalog.find(p=>p.id===q.dato),view={...initial(g),filtered,recomputed,exists:m.pieces.some(p=>p.id===q.dato)};
    if(q.dato==='dos-epocas'){const rows=eraComparisons(selected,Number(q.corte)||2020);view.eraTotal=rows.length;view.page=clampPage(q.page,rows.length);view.eras=rows.slice((view.page-1)*PAGE_SIZE,view.page*PAGE_SIZE);return view;}
    if(!piece)return {...view,...(['top-10','top-5','numero-uno'].includes(q.dato)&&selected.length>0&&!selected.some(x=>x.context?.rank1||x.context?.rank2)?{emptyReason:'ranking' as const}:{})};
-   const sortRows=(rows:RecordRow[])=>q.sort==='name'?[...rows].sort((a,b)=>a.name.localeCompare(b.name,'es')):q.sort==='sample'?[...rows].sort((a,b)=>b.sample-a.sample||b.value-a.value):rows;
+   const sortRows=(rows:RecordRow[])=>q.sort==='name'?[...rows].sort((a,b)=>classificationNames.compare(a.name,b.name)):q.sort==='sample'?[...rows].sort((a,b)=>b.sample-a.sample||b.value-a.value):rows;
    const requestedMinimum = Number(q.min);
    const sampleMinimum = piece.percent && [10,30,50,80,100].includes(requestedMinimum) ? requestedMinimum : 50;
    const big=sortRows(searchRecordRows(piece.rows.filter(r=>!piece.percent||r.sample>=sampleMinimum),q.find||'')),small=sortRows(searchRecordRows(piece.percent?piece.rows.filter(r=>r.sample<sampleMinimum):[],q.find||''));
@@ -530,7 +532,7 @@ export const preparedPublicationIndex=cache(async()=>{
 
 const navigationEntities=asyncCache<NavigationEntity>(IMMUTABLE_CACHE_MS,48,undefined,{maxWeight:24*1024*1024,weight:remoteArtifactWeight});
 const navigationIndexes=asyncCache<NavigationIndex|undefined>(IMMUTABLE_CACHE_MS,2);
-async function navigationIndex(source:Awaited<ReturnType<typeof selectedBrowserSource>>){
+async function navigationIndex(source:GenerationSourceDecision){
  return navigationIndexes(`${source.source}:${source.manifest.version}`,async()=>{
   if(source.source==='remote'&&!source.manifest.artifactPacks?.['navigation-index'])return undefined;
   const index=source.source==='remote'?await cloudBlob<NavigationIndex>(source.manifest.version,'navigation-index'):await localOptional<NavigationIndex|undefined>('navigation-index',undefined);
@@ -539,7 +541,7 @@ async function navigationIndex(source:Awaited<ReturnType<typeof selectedBrowserS
   return index;
  });
 }
-async function navigationEntity(source:Awaited<ReturnType<typeof selectedBrowserSource>>,id:string){
+async function navigationEntity(source:GenerationSourceDecision,id:string){
  return navigationEntities(`${source.source}:${source.manifest.version}:${id}`,async()=>{
   const entity=source.source==='remote'?await cloudBlob<NavigationEntity>(source.manifest.version,id):await local<NavigationEntity>(id);
   if(entity?.schema!==1||entity.partition?.id!==id)throw new Error('Missing navigation entity in selected generation');
@@ -547,7 +549,7 @@ async function navigationEntity(source:Awaited<ReturnType<typeof selectedBrowser
  });
 }
 export const preparedIndexedPlayer=cache(async(slug:string,tour:'atp'|'wta')=>{
- const source=await selectedBrowserSource(),index=await navigationIndex(source);if(!index)return undefined;
+ const source=await selectedSnapshotSource(),index=await navigationIndex(source);if(!index)return undefined;
  const id=Object.entries(index.players).find(([name])=>name.startsWith(tour+':')&&playerSlug(name.slice(4))===slug)?.[1];if(!id)return null;
  const entity=await navigationEntity(source,id);if(!entity.record)return undefined;
  const matches=entity.partition.rows.map(row=>decodeMatchBrowserRow(entity.partition,row)),records=[entity.record];
@@ -562,7 +564,9 @@ export const preparedTournamentOverview=cache(async(name:string,tour:'atp'|'wta'
 /** Decode only rows relevant to a view; raw compact tuples are scanned in bounded decade shards. */
 export async function preparedCompactSelection(selection:CompactMatchSelection) {
  const normalized=normalizedCompactSelection(selection);
- const source=await selectedBrowserSource();
+ const candidate=await selectedSnapshotSource();
+ const navigation=normalized.players?.length||normalized.tournament?await navigationIndex(candidate):undefined;
+ const source=navigation?candidate:await selectedBrowserSource();
  const cacheKey=`${source.manifest.version}:${source.source}:${JSON.stringify(normalized)}`;
  return compactSelections(cacheKey,async()=>{
   const result:Match[]=[];
@@ -570,7 +574,7 @@ export async function preparedCompactSelection(selection:CompactMatchSelection) 
   const players=normalized.players?new Set(normalized.players):undefined;
   const rounds=normalized.rounds?new Set(normalized.rounds):undefined;
   const categories=normalized.categories?new Set(normalized.categories):undefined;
-  const index=normalized.players?.length||normalized.tournament?await navigationIndex(source):undefined;
+  const index=navigation;
   let selected:MatchBrowserPartition[]|undefined;
   if(index){
    const tours=normalized.tour==='all'?['atp','wta'] as const:[normalized.tour] as const;
@@ -825,13 +829,15 @@ export const preparedCorrections=cache(async()=>{
 
 /** Small, generation-bound projections: no match enumeration in sitemap/coverage requests. */
 export const preparedPublicArchive=cache(async()=>{
- const source=await preparedGeneration();
+ const source=await selectedSnapshotSource();
  const value=source.source==='remote'&&source.manifest.artifactPacks?.['public-archive']
   ? await cloudBlob<import('../public-archive-products').PublicArchiveProducts>(source.manifest.version,'public-archive')
   : source.source==='bundled'?await localOptional<import('../public-archive-products').PublicArchiveProducts|undefined>('public-archive',undefined):undefined;
- if(value?.schema===1&&value.version===source.manifest.version)return value;
+ if(value?.schema===1&&value.version===source.manifest.version&&Array.isArray(value.coverage)&&value.players&&value.coverage.reduce((sum,row)=>sum+row.matches,0)===source.manifest.matchCount)return value;
  // Migration fallback is process-cached and disappears on the next publication.
  return publicArchiveFallback(source.manifest.version+':'+source.source,async()=>{
+  const validated=await preparedGeneration();
+  if(validated.manifest.version!==source.manifest.version)throw new Error('Public archive does not match selected generation');
   const {compilePublicArchiveProducts}=await import('../public-archive-products');
   const [matches,players,revisions,audit]=await Promise.all([preparedCompactArchive('all'),preparedPlayerRecords(),preparedPageRevisions(),preparedEditionAudit()]);
   return compilePublicArchiveProducts(matches,players.records,source.manifest,revisions,audit);
@@ -839,14 +845,19 @@ export const preparedPublicArchive=cache(async()=>{
 });
 const publicArchiveFallback=asyncCache<import('../public-archive-products').PublicArchiveProducts>(IMMUTABLE_CACHE_MS,2);
 
-async function preparedRecordPages(g:PreparedGeneration,id:string,meta:RecordMeta):Promise<RecordPages>{
+const recordPageSets=asyncCache<RecordPages>(IMMUTABLE_CACHE_MS,8,undefined,{maxWeight:32*1024*1024,weight:pages=>(Object.values(pages.pages).reduce((sum,rows)=>sum+rows.length,0)+Object.values(pages.smallPages).reduce((sum,rows)=>sum+rows.length,0))*2000});
+function preparedRecordPages(g:PreparedGeneration,id:string,meta:RecordMeta):Promise<RecordPages>{return recordPageSets(`${g.manifest.version}:${g.source}:${id}`,()=>loadRecordPages(g,id,meta));}
+async function loadRecordPages(g:PreparedGeneration,id:string,meta:RecordMeta):Promise<RecordPages>{
  if(g.source!=='remote')return local<RecordPages>('piece-'+id);
  const pages:RecordPages={pages:{},smallPages:{}};
  const count=pieceChunk(Math.max(1,Math.ceil(Math.max(meta.total,meta.smallTotal)/PAGE_SIZE)))+1;
  for(let chunk=0;chunk<count;chunk++){
   const value=(await query(key(g.manifest.version,`piece-${id}-chunk${chunk}`),'payload',25000))?.payload;
   if(!value||value.encoding!=='gzip-base64')throw new Error('Missing published record pages');
-  for(const kind of ['pages','smallPages'] as const)for(const [page,encoded] of Object.entries(value[kind]||{}))pages[kind][page.replace(/^p/,'')]=typeof encoded==='string'?JSON.parse((await gunzipAsync(Buffer.from(encoded,'base64'))).toString()):encoded as RecordRow[];
+  for(const kind of ['pages','smallPages'] as const){
+   const decoded=await Promise.all(Object.entries(value[kind]||{}).map(async([page,encoded])=>[page.replace(/^p/,''),typeof encoded==='string'?JSON.parse((await gunzipAsync(Buffer.from(encoded,'base64'))).toString()):encoded] as [string,RecordRow[]]));
+   for(const [page,rows] of decoded)pages[kind][page]=rows;
+  }
  }
  if(Object.values(pages.pages).flat().length!==meta.total||Object.values(pages.smallPages).flat().length!==meta.smallTotal)throw new Error('Incomplete published classification');
  return pages;
@@ -865,3 +876,9 @@ export async function preparedCompilationBaseline(tours:readonly ('atp'|'wta')[]
  if(tours.includes('atp'))baseline.eras=g.source==='remote'?await cloudBlob<Record<string,Era[]>>(g.manifest.version,'eras'):await local<Record<string,Era[]>>('eras');
  return baseline;
 }
+
+export const preparedPlayerExists=cache(async(slug:string,tour:'atp'|'wta'|'all')=>{
+ const source=await selectedSnapshotSource(),index=await navigationIndex(source);
+ if(index)return Object.keys(index.players).some(key=>(tour==='all'||key.startsWith(tour+':'))&&playerSlug(key.slice(4))===slug);
+ return (await preparedSearchProducts()).players.some(player=>playerSlug(player.name)===slug&&(tour==='all'||(player.tour||'atp')===tour));
+});
