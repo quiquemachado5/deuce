@@ -20,7 +20,8 @@ export function compilePublicArchiveProducts(matches:Match[],players:PlayerRecor
  const people=Object.fromEntries(players.map(player=>[`${player.tour||'atp'}:${playerSlug(player.name)}`,player.name]));
  const comparisons=CURATED_COMPARISONS.filter(pair=>[pair.a,pair.b].every(name=>people[`${pair.tour}:${playerSlug(name)}`])).map(pair=>comparisonCanonical(pair));
  const paths=[...SITEMAP_STATIC_PATHS,...(hasWomen?['/torneos?circuito=wta','/jugadores?tour=wta','/partidos?tour=wta','/records?tour=wta']:[]),
- ...manifest.pieces.flatMap(piece=>[recordsCanonical({dato:piece.id,tour:'atp'}),...(manifest.circuitPieces?.wta.some(row=>row.id===piece.id)?[recordsCanonical({dato:piece.id,tour:'wta'})]:[])]),
+ ...manifest.pieces.map(piece=>recordsCanonical({dato:piece.id,tour:'atp'})),
+ ...(manifest.circuitPieces?.wta||[]).map(piece=>recordsCanonical({dato:piece.id,tour:'wta'})),
  ...events.flatMap(event=>[...(event.matches.some(match=>match.tour!=='wta')?[`/torneos/${event.slug}`]:[]),...(event.matches.some(match=>match.tour==='wta')?[`/torneos/${event.slug}?cuadro=wta`]:[]),...tournamentEditionCanonicalPaths(event.slug,event.matches)]),
  ...players.map(player=>`/jugadores/${playerSlug(player.name)}${player.tour==='wta'?'?tour=wta':''}`),...comparisons];
  const sitemap:MetadataRoute.Sitemap=[...new Set(paths)].map(path=>({url:sitemapLocation(path),...(revisions?.pages[path]?.modifiedAt?{lastModified:revisions.pages[path].modifiedAt}:{}),changeFrequency:path===''?'daily':'weekly',priority:path===''?1:path==='/partidos'||path==='/records'?0.9:0.7}));
