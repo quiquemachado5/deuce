@@ -1,3 +1,4 @@
+import {searchRecordRows} from '../records-search';
 import {selectPlayerCareer} from '../player-career';
 import {playerSlug} from '../explore';
 import {navigationKey,type NavigationIndex,type NavigationEntity} from '../navigation-products';
@@ -281,6 +282,19 @@ export const recordView=cache(async(encoded:string,recomputed=false):Promise<Rec
    const pieces=catalog.filter(piece=>piece.rows.length>0).map(piece=>{const big=piece.rows.filter(r=>!piece.percent||r.sample>=50),small=piece.percent?piece.rows.filter(r=>r.sample<50):[];const {rows:_,...meta}=piece;void _;return {...meta,total:big.length,smallTotal:small.length,leader:big[0],pagePrior:pageBoundaryTies(big),smallPagePrior:pageBoundaryTies(small)};});
    return {...initial(g),filtered:true,manifest:{...m,pieces,matchCount:selected.length,years:[...new Set(selected.map(match=>match.year))].sort((a,b)=>b-a)}};
  }
+ if(!filtered&&!recomputed&&q.dato!=='dos-epocas'&&(q.find||q.sort||q.min)){
+   const meta=m.pieces.find(piece=>piece.id===q.dato);if(!meta)return {...initial(g),exists:false};
+   const stored=await preparedRecordPages(g,q.tour==='wta'?'wta-'+meta.id:meta.id,meta);
+   const minimum=meta.percent&&[10,30,50,80,100].includes(Number(q.min))?Number(q.min):50;
+   const main=Object.values(stored.pages).flat(),minor=Object.values(stored.smallPages).flat(),sequence=main.length>1?main:minor;
+   const firstValue=sequence[0]?.value??0,nextValue=sequence.find(row=>row.value!==firstValue)?.value??firstValue;
+   const direction=nextValue>firstValue?1:-1;
+   const all=[...main,...minor].sort((a,b)=>direction*(a.value-b.value)||b.sample-a.sample||a.name.localeCompare(b.name,'es'));
+   const sort=(rows:RecordRow[])=>q.sort==='name'?rows.sort((a,b)=>a.name.localeCompare(b.name,'es')):q.sort==='sample'?rows.sort((a,b)=>b.sample-a.sample||b.value-a.value):rows;
+   const big=sort(searchRecordRows(all.filter(row=>!meta.percent||row.sample>=minimum),q.find||'')),small=sort(searchRecordRows(meta.percent?all.filter(row=>row.sample<minimum):[],q.find||''));
+   const page=clampPage(q.page,big.length),smallPage=clampPage(q.smallPage,small.length);
+   return {...initial(g),manifest:m,piece:{...meta,total:big.length,smallTotal:small.length},page,smallPage,rows:big.slice((page-1)*PAGE_SIZE,page*PAGE_SIZE),smallRows:small.slice((smallPage-1)*PAGE_SIZE,smallPage*PAGE_SIZE)};
+ }
  if(filtered||recomputed||q.sort||q.min){
    const selected=await selectedArchive(g,q,loadSelection);
    const catalog=await selectedCatalog(g,q,q.dato,loadSelection),piece=catalog.find(p=>p.id===q.dato),view={...initial(g),filtered,recomputed,exists:m.pieces.some(p=>p.id===q.dato)};
@@ -289,7 +303,7 @@ export const recordView=cache(async(encoded:string,recomputed=false):Promise<Rec
    const sortRows=(rows:RecordRow[])=>q.sort==='name'?[...rows].sort((a,b)=>a.name.localeCompare(b.name,'es')):q.sort==='sample'?[...rows].sort((a,b)=>b.sample-a.sample||b.value-a.value):rows;
    const requestedMinimum = Number(q.min);
    const sampleMinimum = piece.percent && [10,30,50,80,100].includes(requestedMinimum) ? requestedMinimum : 50;
-   const big=sortRows(piece.rows.filter(r=>!piece.percent||r.sample>=sampleMinimum)),small=sortRows(piece.percent?piece.rows.filter(r=>r.sample<sampleMinimum):[]);
+   const big=sortRows(searchRecordRows(piece.rows.filter(r=>!piece.percent||r.sample>=sampleMinimum),q.find||'')),small=sortRows(searchRecordRows(piece.percent?piece.rows.filter(r=>r.sample<sampleMinimum):[],q.find||''));
    const leader=piece.rows.find(row=>!piece.percent||row.sample>=sampleMinimum);
    view.piece={...piece,total:big.length,smallTotal:small.length,leader,pagePrior:pageBoundaryTies(big),smallPagePrior:pageBoundaryTies(small)};view.page=clampPage(q.page,big.length);view.smallPage=clampPage(q.smallPage,small.length);view.rows=big.slice((view.page-1)*PAGE_SIZE,view.page*PAGE_SIZE);view.smallRows=small.slice((view.smallPage-1)*PAGE_SIZE,view.smallPage*PAGE_SIZE);return view;
  }
@@ -808,3 +822,46 @@ export const preparedCorrections=cache(async()=>{
    :await localOptional<unknown>('correction-history',[]);
  return Array.isArray(rows)?rows.filter(validCorrection):[];
 });
+
+/** Small, generation-bound projections: no match enumeration in sitemap/coverage requests. */
+export const preparedPublicArchive=cache(async()=>{
+ const source=await preparedGeneration();
+ const value=source.source==='remote'&&source.manifest.artifactPacks?.['public-archive']
+  ? await cloudBlob<import('../public-archive-products').PublicArchiveProducts>(source.manifest.version,'public-archive')
+  : source.source==='bundled'?await localOptional<import('../public-archive-products').PublicArchiveProducts|undefined>('public-archive',undefined):undefined;
+ if(value?.schema===1&&value.version===source.manifest.version)return value;
+ // Migration fallback is process-cached and disappears on the next publication.
+ return publicArchiveFallback(source.manifest.version+':'+source.source,async()=>{
+  const {compilePublicArchiveProducts}=await import('../public-archive-products');
+  const [matches,players,revisions,audit]=await Promise.all([preparedCompactArchive('all'),preparedPlayerRecords(),preparedPageRevisions(),preparedEditionAudit()]);
+  return compilePublicArchiveProducts(matches,players.records,source.manifest,revisions,audit);
+ });
+});
+const publicArchiveFallback=asyncCache<import('../public-archive-products').PublicArchiveProducts>(IMMUTABLE_CACHE_MS,2);
+
+async function preparedRecordPages(g:PreparedGeneration,id:string,meta:RecordMeta):Promise<RecordPages>{
+ if(g.source!=='remote')return local<RecordPages>('piece-'+id);
+ const pages:RecordPages={pages:{},smallPages:{}};
+ const count=Math.ceil(Math.max(meta.total,meta.smallTotal)/PAGE_SIZE/50)||1;
+ for(let chunk=0;chunk<count;chunk++){
+  const value=(await query(key(g.manifest.version,`piece-${id}-chunk${chunk}`),'payload',25000))?.payload;
+  if(!value||value.encoding!=='gzip-base64')throw new Error('Missing published record pages');
+  for(const kind of ['pages','smallPages'] as const)for(const [page,encoded] of Object.entries(value[kind]||{}))pages[kind][page.replace(/^p/,'')]=typeof encoded==='string'?JSON.parse((await gunzipAsync(Buffer.from(encoded,'base64'))).toString()):encoded as RecordRow[];
+ }
+ if(Object.values(pages.pages).flat().length!==meta.total||Object.values(pages.smallPages).flat().length!==meta.smallTotal)throw new Error('Incomplete published classification');
+ return pages;
+}
+
+/** Publication worker only: reuse unchanged circuit statistics, never cross generations. */
+export async function preparedCompilationBaseline(tours:readonly ('atp'|'wta')[]){
+ const g=await preparedGeneration(),baseline:import('./incremental-compilation').CompilationBaseline={};
+ for(const tour of tours){
+  const meta=tour==='wta'?g.manifest.circuitPieces?.wta:g.manifest.pieces;
+  if(!meta)continue;
+  const pieces:Record<string,RecordPages>={};
+  for(const item of meta){if(item.id==='tal-dia-como-hoy')continue;const id=(tour==='wta'?'wta-':'')+item.id;pieces[id]=await preparedRecordPages(g,id,item);}
+  baseline[tour]={meta,pieces};
+ }
+ if(tours.includes('atp'))baseline.eras=g.source==='remote'?await cloudBlob<Record<string,Era[]>>(g.manifest.version,'eras'):await local<Record<string,Era[]>>('eras');
+ return baseline;
+}

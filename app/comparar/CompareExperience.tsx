@@ -1,3 +1,4 @@
+import {preparedComparison} from '@/lib/prepared-comparison';
 import {Suspense} from 'react';
 import Form from 'next/form';
 import type {Match} from '@/lib/types';
@@ -6,12 +7,8 @@ import ArchiveFilterBar from '@/components/ArchiveFilterBar';
 import {HomeMotion} from '@/components/deuce/HomeMotion';
 import ComparisonPlayerField from '@/app/propuestas/comparar/ComparisonPlayerField';
 import {preparedSearchProducts,preparedCompactSelection} from '@/lib/revista/read-records';
-import {comparePlayer,comparisonHeadToHead,comparisonLeadTimeline,comparisonPlayerWon,sharedCareerWindow} from '@/lib/player-comparison';
 import {playerSlug} from '@/lib/explore';
-import {playerBiography} from '@/lib/player-bio';
 import {playerDirectoryPhoto} from '@/lib/player-imagery';
-import {isDeciding,lostOpening} from '@/lib/archive-insights';
-import {toMatchRecord} from '@/data/map-match';
 import {HeadToHeadEvolution} from '@/components/deuce/HeadToHeadEvolution';
 import ComparisonStudy from '@/app/propuestas/comparar/ComparisonStudy';
 import styles from '@/app/propuestas/comparar/comparison-study.module.css';
@@ -37,14 +34,6 @@ async function ComparisonFilters({q,tour,names,basePath,sourcePromise}:ResolvedC
  </ArchiveFilterBar>;
 }
 async function ComparisonContent({q,tour,names,valid,sourcePromise}:ResolvedComparison&{valid:boolean}){
- const source=await sourcePromise;
- const years=[...new Set(source.map(m=>m.year))].sort((a,b)=>a-b);
- const from=Number(q.from)||years[0],to=Number(q.to)||years.at(-1);
- let cohort=source.filter(m=>(!from||m.year>=from)&&(!to||m.year<=to));
- if(valid&&q.period==='shared'){const window=sharedCareerWindow(cohort,names as string[],tour);cohort=window?cohort.filter(m=>m.year>=window.first&&m.year<=window.last):[];}
- const models=valid?names.map(name=>comparePlayer(cohort,name!,{tour,surface:q.surface||'all',competition:q.competition||'all',age:q.age,minimum:q.minimum},tour)):[];
- const direct=valid?comparisonHeadToHead(cohort,names as string[],models.map(m=>m.matches),tour):[];
- const players=models.map(model=>({name:model.name,country:playerBiography(model.name,tour)?.country,photo:playerDirectoryPhoto(model.name,tour),played:model.played,wins:model.won,losses:model.lost,titles:model.titles,finals:model.finals,rate:model.rate,top10:model.top10Won,surfaces:model.surfaces,straight:model.matches.filter(m=>comparisonPlayerWon(m,model.name,tour)&&m.score_summary.games.length>0&&m.score_summary.games.every(set=>set[m.winner!-1]>set[2-m.winner!])).length,comebacks:model.matches.filter(m=>comparisonPlayerWon(m,model.name,tour)&&lostOpening(m)).length,deciding:model.matches.filter(m=>comparisonPlayerWon(m,model.name,tour)&&isDeciding(m)).length,
- years:[...new Set(model.matches.map(m=>m.year))].sort((a,b)=>a-b).map(year=>{const ms=model.matches.filter(m=>m.year===year);const wins=ms.filter(m=>comparisonPlayerWon(m,model.name,tour)).length;return{year,played:ms.length,wins,rate:ms.length?wins/ms.length*100:null}})}));
- return <><span hidden data-navigation-ready=""/> {valid?<ComparisonStudy key={JSON.stringify(q)} players={players} tour={tour} evolution={<HeadToHeadEvolution names={names as string[]} points={comparisonLeadTimeline(direct,names as string[],tour).map(p=>({match:toMatchRecord(p.match),wins:p.wins}))}/>} meetings={direct.map(toMatchRecord)} wins={names.map(name=>direct.filter(m=>comparisonPlayerWon(m,name!,tour)).length)}/>:<p role="status">Elige dos nombres distintos del directorio para comparar sus carreras.</p>}</>;
+ const data=valid?await preparedComparison(q,tour,names as string[],()=>sourcePromise):null;
+ return <><span hidden data-navigation-ready=""/> {valid?<ComparisonStudy key={JSON.stringify(q)} players={data!.players} tour={tour} evolution={<HeadToHeadEvolution names={names as string[]} points={data!.timeline}/>} meetings={data!.meetings} wins={data!.wins}/>:<p role="status">Elige dos nombres distintos del directorio para comparar sus carreras.</p>}</>;
 }

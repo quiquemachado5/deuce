@@ -151,3 +151,9 @@ groups:
         expr: histogram_quantile(0.50, sum by (le, route, metric, device) (rate(deuce_client_metric_value_bucket{metric=~"route-transition|filter-transition|first-content"}[30m])))
       - record: deuce:navigation_p95_ms:30m
         expr: histogram_quantile(0.95, sum by (le, route, metric, device) (rate(deuce_client_metric_value_bucket{metric=~"route-transition|filter-transition|first-content"}[30m])))
+      - record: deuce:navigation_samples:24h
+        expr: sum by (route, metric, device) (increase(deuce_client_metric_value_count{metric=~"route-transition|filter-transition|first-content"}[24h]))
+      - record: deuce:navigation_p50_ms:24h
+        expr: histogram_quantile(0.50, sum by (le, route, metric, device) (rate(deuce_client_metric_value_bucket{metric=~"route-transition|filter-transition|first-content"}[24h]))) and on(route, metric, device) (deuce:navigation_samples:24h >= 5)
+      - record: deuce:navigation_p95_ms:24h
+        expr: histogram_quantile(0.95, sum by (le, route, metric, device) (rate(deuce_client_metric_value_bucket{metric=~"route-transition|filter-transition|first-content"}[24h]))) and on(route, metric, device) (deuce:navigation_samples:24h >= 5)

@@ -25,6 +25,7 @@ export type IngestionDay = {
   date: string;
   added: number;
   corrected?: number;
+  changeTypes?: import('../publication-change-types').PublicationChangeTypes;
   total: number;
   included?: IngestionBreakdown;
   totals?: IngestionBreakdown;
@@ -33,7 +34,7 @@ export type IngestionDay = {
 };
 export type MatchPartition = { id:string; tour:'atp'|'wta'; fromYear:number; toYear:number; count:number };
 export type CircuitCoverage = { matches:number; firstYear:number|null; lastYear:number|null; tournaments:number };
-export type RecordManifest = { publicationDelta?: import('../publication-delta').PublicationDelta; ingestionLedger?:IngestionLedger; circuitCoverage?:{atp:CircuitCoverage;wta:CircuitCoverage}; circuitSummary?:ReturnType<typeof summarizeCircuits>; circuitFreshness?:{atp:ReturnType<typeof archiveExtent>;wta:ReturnType<typeof archiveExtent>}; circuitPieces?: {atp:RecordMeta[];wta:RecordMeta[]}; artifactPacks?: import('./artifact-packs').ArtifactPacks; schema: number; rulesVersion: string; version: string; generatedAt: string; extent?: ReturnType<typeof archiveExtent>; leaderChanges?: LeaderChange[]; ingestionHistory?: IngestionDay[]; matchPartitions?:MatchPartition[]; home?: { circuits?: ReturnType<typeof prepareCircuitHome>; date: string; selection: ReturnType<typeof homeSelection>; tournaments: string[]; daily?: PreparedHomeIndex }; years: number[]; pieces: RecordMeta[]; eraCuts: number[]; matchCount: number; competitionCount?:number; editionCount?:number; mode: 'DEMO' | 'ARCHIVO REAL'; summary: ReturnType<typeof summarizeDataset> };
+export type RecordManifest = { compilation?:import('./incremental-compilation').CompilationState; publicationDelta?: import('../publication-delta').PublicationDelta; publicationChangeTypes?:import('../publication-change-types').PublicationChangeTypes; ingestionLedger?:IngestionLedger; circuitCoverage?:{atp:CircuitCoverage;wta:CircuitCoverage}; circuitSummary?:ReturnType<typeof summarizeCircuits>; circuitFreshness?:{atp:ReturnType<typeof archiveExtent>;wta:ReturnType<typeof archiveExtent>}; circuitPieces?: {atp:RecordMeta[];wta:RecordMeta[]}; artifactPacks?: import('./artifact-packs').ArtifactPacks; schema: number; rulesVersion: string; version: string; generatedAt: string; extent?: ReturnType<typeof archiveExtent>; leaderChanges?: LeaderChange[]; ingestionHistory?: IngestionDay[]; matchPartitions?:MatchPartition[]; home?: { circuits?: ReturnType<typeof prepareCircuitHome>; date: string; selection: ReturnType<typeof homeSelection>; tournaments: string[]; daily?: PreparedHomeIndex }; years: number[]; pieces: RecordMeta[]; eraCuts: number[]; matchCount: number; competitionCount?:number; editionCount?:number; mode: 'DEMO' | 'ARCHIVO REAL'; summary: ReturnType<typeof summarizeDataset> };
 export type RecordPages = { pages: Record<string, RecordRow[]>; smallPages: Record<string, RecordRow[]> };
 export type Snapshot = { manifest: RecordManifest; pieces: Record<string, RecordPages>; eras: Record<string, Era[]>; matches: Match[]; players: PlayerRecord[]; competition:Match[]; audit:EditionAudit[]; products:ArchiveProducts; pageRevisions?:import('../publication-pages').PageRevisions; corrections?:import('../publication-pages').Correction[]; publicationIndex?:PublicationIndex };
 function circuitCoverage(matches:Match[],tour:'atp'|'wta'):CircuitCoverage {
@@ -97,6 +98,7 @@ export function attachIngestionHistory(previous: RecordManifest | undefined, nex
     const previousIncluded=last.included||{matches:last.added,ranking:0,statistics:0,points:0};
     history[history.length-1]={
       date,
+      ...(next.publicationChangeTypes?{changeTypes:Object.fromEntries(Object.entries(next.publicationChangeTypes).map(([key,value])=>[key,value+(last.changeTypes?.[key as keyof typeof next.publicationChangeTypes]||0)])) as import('../publication-change-types').PublicationChangeTypes}:{}),
       ...(corrected===undefined?{}:{corrected:(last.corrected||0)+corrected}),
       added:last.added+added,
       total:next.matchCount,
@@ -110,12 +112,13 @@ export function attachIngestionHistory(previous: RecordManifest | undefined, nex
       tourAdded:{atp:(last.tourAdded?.atp||0)+tourAdded.atp,wta:(last.tourAdded?.wta||0)+tourAdded.wta},
       tourTotals,
     };
-  } else history.push({date,added,...(corrected===undefined?{}:{corrected}),total:next.matchCount,included,totals:current,tourAdded,tourTotals});
+  } else history.push({date,added,...(next.publicationChangeTypes?{changeTypes:next.publicationChangeTypes}:{}),...(corrected===undefined?{}:{corrected}),total:next.matchCount,included,totals:current,tourAdded,tourTotals});
   return {...next,ingestionHistory:history};
 }
-export function compileRecordSnapshot(input: Match[], now = new Date(), competitionInput:Match[]=[],audit:EditionAudit[]=[],catalogueBaseline?:RecordManifest): Snapshot {
+export function compileRecordSnapshot(input: Match[], now = new Date(), competitionInput:Match[]=[],audit:EditionAudit[]=[],catalogueBaseline?:RecordManifest,reuse:import('./incremental-compilation').CompilationBaseline={}): Snapshot {
   audit=audit.map(row=>({...row,...editionCompleteness(row)}));
   const catalogue=(rows:Match[],tour:'atp'|'wta')=>{
+    if(reuse[tour])return recordCatalog(rows,now,'tal-dia-como-hoy',true).filter(piece=>piece.rows.length>0);
     const retained=new Set((tour==='atp'?catalogueBaseline?.pieces:catalogueBaseline?.circuitPieces?.wta)?.map(piece=>piece.id)||[]);
     return recordCatalog(rows,now,undefined,!!catalogueBaseline).filter(piece=>piece.rows.length||retained.has(piece.id)&&piece.id!=='tal-dia-como-hoy');
   };
@@ -138,8 +141,14 @@ export function compileRecordSnapshot(input: Match[], now = new Date(), competit
     (tour==='wta'?wtaMetas:metas).push({...meta,total:big.length,smallTotal:small.length,leader:big[0],leaders:big.filter(row=>row.value===big[0]?.value).map(({name,value,href})=>({name,value,href})),pagePrior:pageBoundaryTies(big),smallPagePrior:pageBoundaryTies(small)});
     pieces[`${tour==='wta'?'wta-':''}${piece.id}`]={pages:paginate(big),smallPages:paginate(small)};
   }
-  const eras:Snapshot['eras']={};
-  for(const cut of [2010,2020,now.getUTCFullYear()]) {
+  for(const tour of ['atp','wta'] as const){const prior=reuse[tour];if(!prior)continue;
+    const target=tour==='wta'?wtaMetas:metas,daily=target.find(meta=>meta.id==='tal-dia-como-hoy');
+    target.splice(0,target.length,...prior.meta.flatMap(meta=>meta.id==='tal-dia-como-hoy'?(daily?[daily]:[]):[meta]));
+    if(daily&&!prior.meta.some(meta=>meta.id==='tal-dia-como-hoy'))target.push(daily);
+    for(const [id,pages] of Object.entries(prior.pieces))if(!id.endsWith('tal-dia-como-hoy'))pieces[id]=pages;
+  }
+  const eras:Snapshot['eras']=reuse.eras?{...reuse.eras}:{};
+  for(const cut of reuse.eras?[]:[2010,2020,now.getUTCFullYear()]) {
     const rows=eraComparisons(atp,cut).map(e=>({...e,proof:proofSummary(e.proof)}));
     if(rows.length)eras[String(cut)]=rows;
   }

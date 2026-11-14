@@ -1,3 +1,4 @@
+import Form from 'next/form';
 import ArchiveFilterBar from '@/components/ArchiveFilterBar';
 import RecordsExperience from "./RecordsExperience";
 import Link from "next/link";
@@ -44,18 +45,20 @@ export async function generateMetadata({
     : piece?.definition || (tour === 'wta'
       ? recordScope(view.manifest,'wta')
       : description.replace('ATP y WTA', 'ATP'));
+  const seoTitle = `${title} · ${tour.toUpperCase()} — DEUCE`;
+  const seoDescription = `${tour.toUpperCase()}: ${metadataDescription}`;
   const canonical = recordsCanonical(query);
   return {
-    title: `${title} — DEUCE`,
-    description: metadataDescription,
+    title: seoTitle,
+    description: seoDescription,
     alternates: { canonical, },
     openGraph: {
-      title: `${title} — DEUCE`,
-      description: metadataDescription,
+      title: seoTitle,
+      description: seoDescription,
       url: canonical,
       images: ['/opengraph-image'],
     },
-    twitter: { card: 'summary_large_image' as const, title: `${title} — DEUCE`, description: metadataDescription, images: ['/opengraph-image'] },
+    twitter: { card: 'summary_large_image' as const, title: seoTitle, description: seoDescription, images: ['/opengraph-image'] },
     robots: recordsHaveTransientState(raw) ? noIndexFollow : robotsForUnavailableTour(view.manifest.summary, tour),
   };
 }
@@ -151,7 +154,7 @@ export default async function Records({
         <div className={detail.detailHeroCopy}>
           <h1>{title}</h1>
           <p>{detailDefinition}</p>
-          {piece && <Link className={detail.detailMethodLink} href={`/cobertura?dato=${encodeURIComponent(piece.id)}#estadistica`}>Sobre los datos y el cálculo</Link>}
+          {piece && <Link className={detail.detailMethodLink} href={`/cobertura?dato=${encodeURIComponent(piece.id)}&tour=${query.tour}#estadistica`}>Sobre los datos y el cálculo</Link>}
         </div>
       </header>
       {!piece ? (
@@ -194,6 +197,11 @@ export default async function Records({
               ))}
             </nav>
             </div>
+            <Form action="/records" prefetch={false} className={detail.rankingSearch} role="search" aria-label="Buscar en esta clasificación">
+              {Object.entries(query).filter(([key,value])=>value&&!['find','page','smallPage'].includes(key)).map(([key,value])=><input key={key} type="hidden" name={key} value={value}/>)}
+              <label htmlFor="record-find">Buscar en toda la clasificación</label><div><input id="record-find" name="find" type="search" defaultValue={query.find||''} maxLength={100} placeholder="Nombre del jugador o jugadora"/><button type="submit">Buscar</button>{query.find&&<Link href={recordsUrl(query,{find:undefined,page:undefined,smallPage:undefined})}>Ver todos</Link>}</div>
+            </Form>
+            {query.find&&<p role="status">{piece.total} resultados para «{query.find.slice(0,100)}». Se conserva la posición del récord.</p>}
             {view.rows.length ? (
               <RecordsTable
                 id={piece.id}

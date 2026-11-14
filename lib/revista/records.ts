@@ -20,6 +20,7 @@ import { SITE_ORIGIN } from '../site-origin';
 export const description =
   "Grand Slams y torneos ATP y WTA, leídos por el dato.";
 export type RecordRow = {
+  position?: number;
   name: string;
   value: number;
   display?: string;
@@ -170,6 +171,12 @@ export function recordCatalog(matches: Match[], now = new Date(), only?: string,
   if (cached?.day === day) return only ? cached.pieces.filter(p => p.id === only) : cached.pieces;
   const cacheKey = matches;
   matches = matches.filter(eligibleMatch);
+  if(only==='tal-dia-como-hoy'){
+    const anniversary=matches.filter(match=>match.context?.dateLabel==='Fecha del partido'&&match.context.date?.slice(5,10)===day.slice(5,10));
+    const rows=anniversary.map(match=>matchRow(match,match.year)).sort((a,b)=>b.value-a.value||b.sample-a.sample||a.name.localeCompare(b.name,'es'));
+    return rows.length||includeEmpty?[{id:only,title:'Tal día como hoy',group:'Tiempo, edad y calendario',definition:'Fechas exactas de partido, nunca el inicio del torneo.',minimum:1,percent:false,measured:false,rows,sample:anniversary.length,years:years(anniversary)}]:[];
+  }
+
   const records = () => buildSeasonAnalytics(cacheKey).players,
     reliable = matches.filter((m) => m.quality?.tape === "reliable"),
     prs = () => buildSeasonAnalytics(reliable).players,

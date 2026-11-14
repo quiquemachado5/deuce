@@ -75,3 +75,5 @@
  .detailClassification table thead th:first-child{width:28px}.detailClassification table thead th:nth-child(3){width:80px}.detailClassification table thead th:last-child{width:58px}
  .detailClassification table tbody tr>td,.detailClassification table tbody tr>th{padding:16px 7px}.detailClassification table th[scope=row]>a{font-size:16px}
 }
+
+.rankingSearch{display:grid;gap:10px;margin:8px 0 26px}.rankingSearch>label{font-size:15px;font-weight:600}.rankingSearch>div{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.rankingSearch input[type=search]{min-width:180px;flex:1;max-width:440px;min-height:44px;border:1px solid var(--line);border-radius:12px;padding:10px 14px;background:var(--bg-raised);color:var(--ink);font:inherit}.rankingSearch button,.rankingSearch a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 18px;border:0;border-radius:24px;background:var(--brand-panel,#17392e);color:white;font:inherit;font-weight:600;cursor:pointer}.rankingSearch a{background:transparent;color:inherit}

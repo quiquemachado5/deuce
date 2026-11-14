@@ -1,4 +1,26 @@
 import {NextResponse,type NextRequest} from 'next/server';
 import {spanishArchiveUrl} from './lib/legacy-english';
-export function proxy(request:NextRequest){return NextResponse.redirect(spanishArchiveUrl(new URL(request.url)),308)}
-export const config={matcher:['/en','/en/:path*']};
+import {randomBytes} from 'node:crypto';
+import {contentSecurityPolicy} from './lib/security-policy';
+import {preparedSearchProducts} from './lib/revista/read-records';
+import {playerSlug} from './lib/explore';
+import {canonicalName} from './lib/quality';
+export async function proxy(request:NextRequest){
+ if(/^\/en(?:\/|$)/.test(request.nextUrl.pathname))return NextResponse.redirect(spanishArchiveUrl(new URL(request.url)),308);
+ const nonce=randomBytes(18).toString('base64'),policy=contentSecurityPolicy(nonce,process.env.NODE_ENV==='development');
+ const headers=new Headers(request.headers);headers.set('x-nonce',nonce);headers.set('Content-Security-Policy',policy);
+ const options={request:{headers}};
+ let response:NextResponse;
+ const profile=/^\/jugadores\/([^/]+)$/.exec(request.nextUrl.pathname);
+ if(profile){
+  const slug=playerSlug(canonicalName(decodeURIComponent(profile[1]).replace(/-/g,' '))),tour=request.nextUrl.searchParams.get('tour');
+  const directory=await preparedSearchProducts();
+  const exists=directory.players.some(player=>playerSlug(player.name)===slug&&(tour==='wta'?(player.tour==='wta'):tour==='atp'?player.tour!=='wta':true));
+  // Decide status before a loading/Suspense boundary can flush an HTTP 200.
+  response=exists?NextResponse.next(options):NextResponse.rewrite(new URL('/archivo-no-encontrado',request.url),{...options,status:404});
+  if(!exists)response.headers.set('X-Robots-Tag','noindex');
+ }else response=NextResponse.next(options);
+ response.headers.set('Content-Security-Policy',policy);
+ return response;
+}
+export const config={matcher:['/((?!api|_next|images|media|videos|fonts|icons|.*\\.).*)']};

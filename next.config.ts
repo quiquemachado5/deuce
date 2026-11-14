@@ -1,6 +1,4 @@
 import type { NextConfig } from 'next'
-const youtubeEmbedOrigin = 'https://www.youtube-nocookie.com'
-const developmentScriptPolicy = process.env.NODE_ENV === 'development' ? " 'unsafe-eval'" : ''
 const nextConfig: NextConfig = {
   output: 'standalone',
   cacheMaxMemorySize: 128 * 1024 * 1024,
@@ -27,7 +25,6 @@ const nextConfig: NextConfig = {
       {key:'X-Content-Type-Options',value:'nosniff'},
       {key:'Referrer-Policy',value:'strict-origin-when-cross-origin'},
       {key:'X-Frame-Options',value:'DENY'},
-      {key:'Content-Security-Policy',value:`default-src 'self'; script-src 'self' 'unsafe-inline'${developmentScriptPolicy}; script-src-attr 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; media-src 'self'; connect-src 'self'; frame-src ${youtubeEmbedOrigin}; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; manifest-src 'self'; upgrade-insecure-requests`},
       {key:'Permissions-Policy',value:'camera=(), microphone=(), geolocation=()'},
       {key:'Strict-Transport-Security',value:'max-age=63072000; includeSubDomains; preload'},
       {key:'Cross-Origin-Opener-Policy',value:'same-origin'},

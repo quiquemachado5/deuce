@@ -1,0 +1,17 @@
+{
+  "identity": "wta:wta-archive-855948",
+  "tournament": "US Open",
+  "year": 1969,
+  "round": "Ronda de 64",
+  "winner": "Wendy Overton",
+  "loser": "Jitka Horcickova",
+  "reviewedAt": "2026-11-14",
+  "status": "source-conflict",
+  "sources": [
+    {"url":"https://www.itftennis.com/en/tournament/draws-and-results/print/?circuitCode=WT&eventClassificationCode=M&matchTypeCode=S&tournamentId=1020000161","score":"7–3 6–2","publisher":"ITF / World Tennis","observed":"Cuadro oficial: Wendy OVERTON / Jitka VOLAVKOVA, primera ronda; primer set inválido."},
+    {"url":"https://www.db4old.zavodni.hu/us-open/women-singles/1969/complete-draw-sheet","score":"6–3 6–2","publisher":"DB4Tennis","observed":"Cuadro completo, posiciones 13 y 14: Wendy Overton / Jitka Horcickova."},
+    {"url":"https://www.tennisabstract.com/cgi-bin/wtourney.cgi?t=1969-W-SL-USA-01A-1969%2FUS-Open","score":"7–3 6–2","publisher":"Tennis Abstract","observed":"Reproduce el marcador inválido de la fuente oficial; no es corroboración independiente de 6–3."}
+  ],
+  "decision": "Conservar el original en cuarentena; no reemplazar 7–3 por 6–3 sin una segunda evidencia independiente. No certificar el cuadro ni introducir juegos supuestos.",
+  "neededEvidence": "Acta original del torneo o crónica contemporánea con el marcador de ambos sets."
+}

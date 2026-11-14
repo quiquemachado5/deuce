@@ -1,3 +1,4 @@
+import {compilePublicArchiveProducts} from '../public-archive-products';
 import {compileNavigationProducts} from '../navigation-products';
 import {buildPageRevisions,validPageRevisions,type PageRevisions} from '../publication-pages';
 import 'server-only';
@@ -55,6 +56,7 @@ export async function writeBundledSnapshot(snapshot:Snapshot) {
   const priorPages=await readFile(join(dir,'page-revisions.json.gz')).then(b=>JSON.parse(gunzipSync(b).toString())).catch(()=>undefined);
   artifacts['page-revisions']=buildPageRevisions(snapshot.matches,snapshot.pieces,validPageRevisions(priorPages)?priorPages:undefined,snapshot.manifest.generatedAt);
   artifacts['correction-history']=(artifacts['page-revisions'] as PageRevisions).corrections;
+  artifacts['public-archive']=compilePublicArchiveProducts(snapshot.matches,snapshot.players,snapshot.manifest,artifacts['page-revisions'] as PageRevisions,snapshot.audit);
   let written=0,reused=0;
   for(const [id,value] of Object.entries(artifacts)) {
     const path=join(dir,`${id}.json.gz`),encoded=gzipSync(JSON.stringify(value));
@@ -79,7 +81,7 @@ export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotSt
   assertSnapshotIntegrity(snapshot);
   const {pieces,eras,matches,players,competition,audit,products}=snapshot;
   const published=await storage.read('reading-v2-manifest');
-  if((published as RecordManifest|undefined)?.version===snapshot.manifest.version&&(published as RecordManifest).artifactPacks?.['navigation-index'])return published as RecordManifest;
+  if((published as RecordManifest|undefined)?.version===snapshot.manifest.version&&(published as RecordManifest).artifactPacks?.['public-archive'])return published as RecordManifest;
   let priorPages:PageRevisions|undefined;
   const previousManifest=published as RecordManifest|undefined;
   const previousPacksRead=new Map<string,Promise<unknown>>();
@@ -100,7 +102,7 @@ export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotSt
   assertPublishableArchive(matches,previousCount);
   const drawAnomalies=assertNoBlockingDrawAnomalies(matches,audit);
   const manifest=attachIngestionHistory(published as RecordManifest | undefined,attachRecordChanges(published as RecordManifest | undefined,snapshot.manifest));
-  if((published as RecordManifest|undefined)?.artifactPacks?.['navigation-index']&&published&&typeof published==='object'&&isDeepStrictEqual(publishedGeneration(published as RecordManifest),publishedGeneration(manifest))){
+  if((published as RecordManifest|undefined)?.artifactPacks?.['public-archive']&&published&&typeof published==='object'&&isDeepStrictEqual(publishedGeneration(published as RecordManifest),publishedGeneration(manifest))){
     if(Date.parse(manifest.generatedAt)>Date.parse((published as RecordManifest).generatedAt))await storage.write('reading-v2-manifest',{...manifest,artifactPacks:(published as RecordManifest).artifactPacks});
     return manifest;
   }
@@ -108,6 +110,7 @@ export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotSt
     await storage.prune([(published as RecordManifest).version]).catch(error=>console.warn('Snapshot retention preflight failed:',error instanceof Error?error.name:'unknown'));
   }
   async function* artifacts():AsyncGenerator<[string,unknown]> {
+    yield* await compressedBlob('public-archive',compilePublicArchiveProducts(matches,players,manifest,pageRevisions,audit));
     const browser=compileMatchBrowser(matches);
     const navigation=compileNavigationProducts(matches,players);
     yield* await compressedBlob('navigation-index',navigation.index);
