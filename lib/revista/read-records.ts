@@ -1,3 +1,4 @@
+import {PUBLIC_ARCHIVE_SCHEMA,validPublicArchiveProof} from '../public-archive-proof';
 import {searchRecordRows} from '../records-search';
 import {selectPlayerCareer} from '../player-career';
 import {playerSlug} from '../explore';
@@ -136,6 +137,21 @@ export const preparedGeneration=cache(async():Promise<PreparedGeneration>=>{
  const base=await preparedBundledManifest();
  const bundledGeneration:PreparedGeneration={manifest:base,source:'bundled',matches:()=>preparedCompactArchive('all'),records:()=>local<PlayerRecord[]>('players'),competition:()=>localOptional<Match[]>('competition',[])};
  if(decision.source==='bundled')return {...bundledGeneration,fallbackReason:decision.fallbackReason};
+ if(decision.manifest.publicArchiveSchema===PUBLIC_ARCHIVE_SCHEMA){
+  try{
+   const [index,publicArchive]=await Promise.all([
+    browserIndexes(`${decision.manifest.version}:remote`,async()=>await cloudBlob<MatchBrowserIndex>(decision.manifest.version,'browser-index') as MatchBrowserIndex),
+    cloudBlob<import('../public-archive-products').PublicArchiveProducts>(decision.manifest.version,'public-archive'),
+   ]);
+   const mapping=decision.manifest.artifactPacks;
+   if(!browserIndexMatchesManifest(index,decision.manifest)||!validPublicArchiveProof(publicArchive,decision.manifest)||!mapping?.players||(decision.manifest.competitionCount&&!mapping.competition))throw new Error('Invalid publication integrity proof');
+   let records:Promise<PlayerRecord[]>|undefined,competition:Promise<Match[]>|undefined;
+   return {manifest:decision.manifest,source:'remote' as const,publicArchive,matches:()=>preparedCompactArchive('all'),
+    records:()=>records??=(async()=>{const rows=await cloudBlob<PlayerRecord[]>(decision.manifest.version,'players');if(!Array.isArray(rows)||rows.length!==publicArchive.integrity.players||rows.reduce((sum,row)=>sum+row.played,0)!==publicArchive.integrity.playerParticipations){rejectRemoteSnapshot();throw new Error('Player records disagree with selected generation');}return rows;})(),
+    competition:()=>competition??=(async()=>{if(!publicArchive.integrity.competition)return [];const rows=await cloudBlob<Match[]>(decision.manifest.version,'competition');if(!Array.isArray(rows)||rows.length!==publicArchive.integrity.competition){rejectRemoteSnapshot();throw new Error('Competition records disagree with selected generation');}return rows;})(),
+   };
+  }catch{rejectRemoteSnapshot();return {...bundledGeneration,fallbackReason:'remote-incomplete' as const};}
+ }
  try{
   const [index,records,competition]=await Promise.all([
    cloudBlob<MatchBrowserIndex>(decision.manifest.version,'browser-index'),
@@ -549,7 +565,7 @@ async function navigationEntity(source:GenerationSourceDecision,id:string){
  });
 }
 export const preparedIndexedPlayer=cache(async(slug:string,tour:'atp'|'wta')=>{
- const source=await selectedSnapshotSource(),index=await navigationIndex(source);if(!index)return undefined;
+ const source=await preparedGeneration(),index=await navigationIndex(source);if(!index)return undefined;
  const id=Object.entries(index.players).find(([name])=>name.startsWith(tour+':')&&playerSlug(name.slice(4))===slug)?.[1];if(!id)return null;
  const entity=await navigationEntity(source,id);if(!entity.record)return undefined;
  const matches=entity.partition.rows.map(row=>decodeMatchBrowserRow(entity.partition,row)),records=[entity.record];
@@ -564,9 +580,7 @@ export const preparedTournamentOverview=cache(async(name:string,tour:'atp'|'wta'
 /** Decode only rows relevant to a view; raw compact tuples are scanned in bounded decade shards. */
 export async function preparedCompactSelection(selection:CompactMatchSelection) {
  const normalized=normalizedCompactSelection(selection);
- const candidate=await selectedSnapshotSource();
- const navigation=normalized.players?.length||normalized.tournament?await navigationIndex(candidate):undefined;
- const source=navigation?candidate:await selectedBrowserSource();
+ const source=await selectedBrowserSource();
  const cacheKey=`${source.manifest.version}:${source.source}:${JSON.stringify(normalized)}`;
  return compactSelections(cacheKey,async()=>{
   const result:Match[]=[];
@@ -574,7 +588,7 @@ export async function preparedCompactSelection(selection:CompactMatchSelection) 
   const players=normalized.players?new Set(normalized.players):undefined;
   const rounds=normalized.rounds?new Set(normalized.rounds):undefined;
   const categories=normalized.categories?new Set(normalized.categories):undefined;
-  const index=navigation;
+  const index=normalized.players?.length||normalized.tournament?await navigationIndex(source):undefined;
   let selected:MatchBrowserPartition[]|undefined;
   if(index){
    const tours=normalized.tour==='all'?['atp','wta'] as const:[normalized.tour] as const;
@@ -829,15 +843,22 @@ export const preparedCorrections=cache(async()=>{
 
 /** Small, generation-bound projections: no match enumeration in sitemap/coverage requests. */
 export const preparedPublicArchive=cache(async()=>{
- const source=await selectedSnapshotSource();
+ const source=await preparedGeneration();
+ if(source.publicArchive)return source.publicArchive;
+ type ReadablePublicArchive=Omit<import('../public-archive-products').PublicArchiveProducts,'schema'|'integrity'>&{schema:number;integrity?:import('../public-archive-products').PublicArchiveProducts['integrity']};
  const value=source.source==='remote'&&source.manifest.artifactPacks?.['public-archive']
-  ? await cloudBlob<import('../public-archive-products').PublicArchiveProducts>(source.manifest.version,'public-archive')
-  : source.source==='bundled'?await localOptional<import('../public-archive-products').PublicArchiveProducts|undefined>('public-archive',undefined):undefined;
- if(value?.schema===1&&value.version===source.manifest.version&&Array.isArray(value.coverage)&&value.players&&value.coverage.reduce((sum,row)=>sum+row.matches,0)===source.manifest.matchCount)return value;
+  ? await cloudBlob<ReadablePublicArchive>(source.manifest.version,'public-archive')
+  : source.source==='bundled'?await localOptional<ReadablePublicArchive|undefined>('public-archive',undefined):undefined;
+ if(validPublicArchiveProof(value,source.manifest))return value;
+ if(value?.schema===1&&value.version===source.manifest.version){
+  // Old generations already passed the full reader validation. Reuse their
+  // prepared routes while upgrading the next publication's integrity format.
+  const records=await source.records();
+  const migrated={...value,schema:PUBLIC_ARCHIVE_SCHEMA,integrity:{matches:source.manifest.matchCount,players:records.length,playerParticipations:records.reduce((sum,row)=>sum+row.played,0),competition:source.manifest.competitionCount||0}};
+  if(validPublicArchiveProof(migrated,source.manifest))return migrated;
+ }
  // Migration fallback is process-cached and disappears on the next publication.
  return publicArchiveFallback(source.manifest.version+':'+source.source,async()=>{
-  const validated=await preparedGeneration();
-  if(validated.manifest.version!==source.manifest.version)throw new Error('Public archive does not match selected generation');
   const {compilePublicArchiveProducts}=await import('../public-archive-products');
   const [matches,players,revisions,audit]=await Promise.all([preparedCompactArchive('all'),preparedPlayerRecords(),preparedPageRevisions(),preparedEditionAudit()]);
   return compilePublicArchiveProducts(matches,players.records,source.manifest,revisions,audit);
@@ -878,7 +899,7 @@ export async function preparedCompilationBaseline(tours:readonly ('atp'|'wta')[]
 }
 
 export const preparedPlayerExists=cache(async(slug:string,tour:'atp'|'wta'|'all')=>{
- const source=await selectedSnapshotSource(),index=await navigationIndex(source);
+ const source=await preparedGeneration(),index=await navigationIndex(source);
  if(index)return Object.keys(index.players).some(key=>(tour==='all'||key.startsWith(tour+':'))&&playerSlug(key.slice(4))===slug);
  return (await preparedSearchProducts()).players.some(player=>playerSlug(player.name)===slug&&(tour==='all'||(player.tour||'atp')===tour));
 });

@@ -1,3 +1,4 @@
+import {validPublicArchiveProof} from '../lib/public-archive-proof';
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import {mockMatches} from '../lib/mocks';
@@ -58,4 +59,15 @@ test('reused circuit classification matches the complete compiler, including cal
  const reused=compileRecordSnapshot([match],now,[],[],full.manifest,baseline);
  assert.deepEqual(reused.manifest.pieces,full.manifest.pieces);
  assertCompilationEquivalent(reused.pieces,baseline);
+});
+
+test('light publication proofs reject altered totals, missing players and wrong generations',()=>{
+ const snapshot=compileRecordSnapshot([match],new Date('2026-11-14'));
+ const proof=compilePublicArchiveProducts(snapshot.matches,snapshot.players,snapshot.manifest);
+ assert.equal(validPublicArchiveProof(proof,snapshot.manifest),true);
+ assert.equal(validPublicArchiveProof({...proof,version:'wrong'},snapshot.manifest),false);
+ assert.equal(validPublicArchiveProof({...proof,players:{}},snapshot.manifest),false);
+ assert.equal(validPublicArchiveProof({...proof,integrity:{...proof.integrity,playerParticipations:1}},snapshot.manifest),false);
+ assert.equal(validPublicArchiveProof({...proof,coverage:[]},snapshot.manifest),false);
+ assert.throws(()=>compilePublicArchiveProducts(snapshot.matches,[],snapshot.manifest),/participation/);
 });

@@ -1,3 +1,4 @@
+import {PUBLIC_ARCHIVE_SCHEMA} from '../public-archive-proof';
 import {compilePublicArchiveProducts} from '../public-archive-products';
 import {compileNavigationProducts} from '../navigation-products';
 import {buildPageRevisions,validPageRevisions,type PageRevisions} from '../publication-pages';
@@ -81,7 +82,7 @@ export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotSt
   assertSnapshotIntegrity(snapshot);
   const {pieces,eras,matches,players,competition,audit,products}=snapshot;
   const published=await storage.read('reading-v2-manifest');
-  if((published as RecordManifest|undefined)?.version===snapshot.manifest.version&&(published as RecordManifest).artifactPacks?.['public-archive'])return published as RecordManifest;
+  if((published as RecordManifest|undefined)?.version===snapshot.manifest.version&&(published as RecordManifest).artifactPacks?.['public-archive']&&(published as RecordManifest).publicArchiveSchema===PUBLIC_ARCHIVE_SCHEMA)return published as RecordManifest;
   let priorPages:PageRevisions|undefined;
   const previousManifest=published as RecordManifest|undefined;
   const previousPacksRead=new Map<string,Promise<unknown>>();
@@ -101,8 +102,8 @@ export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotSt
     ? (published as RecordManifest).matchCount : 0;
   assertPublishableArchive(matches,previousCount);
   const drawAnomalies=assertNoBlockingDrawAnomalies(matches,audit);
-  const manifest=attachIngestionHistory(published as RecordManifest | undefined,attachRecordChanges(published as RecordManifest | undefined,snapshot.manifest));
-  if((published as RecordManifest|undefined)?.artifactPacks?.['public-archive']&&published&&typeof published==='object'&&isDeepStrictEqual(publishedGeneration(published as RecordManifest),publishedGeneration(manifest))){
+  const manifest={...attachIngestionHistory(published as RecordManifest | undefined,attachRecordChanges(published as RecordManifest | undefined,snapshot.manifest)),publicArchiveSchema:PUBLIC_ARCHIVE_SCHEMA};
+  if((published as RecordManifest|undefined)?.artifactPacks?.['public-archive']&&(published as RecordManifest).publicArchiveSchema===PUBLIC_ARCHIVE_SCHEMA&&published&&typeof published==='object'&&isDeepStrictEqual(publishedGeneration(published as RecordManifest),publishedGeneration(manifest))){
     if(Date.parse(manifest.generatedAt)>Date.parse((published as RecordManifest).generatedAt))await storage.write('reading-v2-manifest',{...manifest,artifactPacks:(published as RecordManifest).artifactPacks});
     return manifest;
   }
