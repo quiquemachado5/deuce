@@ -26,10 +26,10 @@ export default function RecordsTable({ rows, offset = 0, percent = false, asYear
       <caption className="nc-sr">{caption|| (small ? 'Clasificación con muestras pequeñas' : 'Clasificación de la estadística')}</caption>
       <thead><tr><th scope="col">N.º</th><th scope="col">Jugador o partido</th><th scope="col">{valueLabel||(asYear ? 'Año' : percent ? 'Porcentaje' : 'Total')}</th><th scope="col"><span className="nc-sr">Partidos de la clasificación</span></th></tr></thead>
       <tbody>{rows.map((row, index) => {
-        const tied = sortedByValue && (rows[index - 1]?.value ?? priorValue) === row.value;
+        const tied = !row.position && sortedByValue && (rows[index - 1]?.value ?? priorValue) === row.value;
         const proof = row.href.startsWith('/match/') ? row.href : evidenceHref(id, row, query);
         return <tr key={`${row.href}-${row.name}-${index}`}>
-          <td className={styles.place}>{tied ? <span aria-label="Empatado con la posición anterior">=</span> : number(offset + index + 1)}</td>
+          <td className={styles.place}>{tied ? <span aria-label="Empatado con la posición anterior">=</span> : number(row.position || offset + index + 1)}</td>
           <th scope="row" className={styles.person}><Link href={row.href}>{row.name}</Link>{!minimal && row.detail && <span>{row.detail}</span>}
             {!minimal && !asYear && sortedByValue && ceiling > 0 && offset === 0 && <span className={styles.track} aria-hidden="true"><span style={{ width: `${Math.min(100, Math.max(0, row.value / ceiling * 100))}%` }} /></span>}
           </th>

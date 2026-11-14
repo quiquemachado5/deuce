@@ -1,3 +1,4 @@
+import {curatedComparison} from '@/lib/curated-comparisons';
 import CompareExperience from './CompareExperience';
 import {comparisonCanonical} from '@/lib/comparison-canonical';
 
@@ -27,7 +28,7 @@ export async function generateMetadata({searchParams}:{searchParams:Promise<Quer
   const description=tour==='wta'
     ? 'Compara dos jugadoras WTA del archivo DEUCE por trayectoria, rendimiento, superficie y enfrentamientos directos.'
     : baseMetadata.description;
-  return {...baseMetadata,title,description,alternates:{canonical},openGraph:{...baseMetadata.openGraph,title,description,url:canonical},twitter:{...baseMetadata.twitter,title,description}};
+  return {...baseMetadata,robots:{index:!!curatedComparison(q),follow:true},title,description,alternates:{canonical},openGraph:{...baseMetadata.openGraph,title,description,url:canonical},twitter:{...baseMetadata.twitter,title,description}};
 }
 export const revalidate = 300;
 type Query = Record<string, string | undefined>;

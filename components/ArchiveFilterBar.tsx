@@ -169,6 +169,7 @@ export default function ArchiveFilterBar({
         ref={trigger}
         className={styles.trigger}
         data-labelled={desktopLabel ? true : undefined}
+        data-mobile-only={!children || undefined}
         type="button"
         aria-expanded={open}
         aria-controls={open ? panelId : undefined}

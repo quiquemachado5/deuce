@@ -63,3 +63,23 @@ test('winner ticks stay next to names, including five sets and long names',async
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
  }
 });
+
+test('invalid player profiles return a real 404 before streaming',async({request})=>{
+ const response=await request.get('/jugadores/jugador-inexistente-auditoria');expect(response.status()).toBe(404);
+ expect(await response.text()).toContain('Este enlace no está en el archivo');
+});
+test('strict script CSP preserves search and has a fresh nonce per response',async({page,request})=>{
+ const one=await request.get('/records?dato=victorias'),two=await request.get('/records?dato=victorias');
+ const policy=one.headers()['content-security-policy'];expect(policy).toBeTruthy();
+ const scripts=policy.split(';').find(value=>value.trim().startsWith('script-src '))!;
+ expect(scripts).toContain("'nonce-");expect(scripts).not.toContain("'unsafe-inline'");
+ expect(two.headers()['content-security-policy']).not.toBe(policy);
+ await page.goto('/records?dato=victorias');
+ await page.getByRole('searchbox',{name:'Buscar en toda la clasificación'}).fill('Nadal');
+ await page.getByRole('button',{name:'Buscar',exact:true}).click();
+ await expect(page.getByRole('status').filter({hasText:'resultados para'})).toContainText('Nadal');
+ await expect(page.locator('tbody tr')).toHaveCount(1);
+ await expect(page.locator('tbody tr')).toContainText('Rafael Nadal');
+ await page.getByRole('link',{name:'Sobre los datos y el cálculo',exact:true}).click();
+ await expect(page.locator('#estadistica')).toContainText('Más victorias en este archivo');
+});

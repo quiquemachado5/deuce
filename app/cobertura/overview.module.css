@@ -24,3 +24,5 @@
 @media(max-width:360px){.categories dl>div{display:grid;gap:1px}}
 
 .activityIntro>a{display:inline-flex;align-items:center;gap:8px;min-height:44px;margin-top:10px;font-size:15px;font-weight:600;color:var(--ink)}
+
+.matrix{margin-top:28px;padding:24px;background:var(--bg-raised);border-radius:20px}.matrix>summary{min-height:44px;display:flex;align-items:center;gap:12px;font-size:18px;font-weight:600;cursor:pointer}.matrix p{max-width:75ch;color:var(--muted);line-height:1.6}.matrixScroll{overflow:auto}.matrix table{width:100%;border-collapse:collapse;font-size:15px}.matrix caption{text-align:left;margin:16px 0;font-weight:600}.matrix th,.matrix td{text-align:left;padding:14px 12px;border-bottom:1px solid var(--line);white-space:nowrap}.matrix td small{display:block;color:var(--muted);margin-top:4px}.quality[id=estadistica]{scroll-margin-top:110px}.quality a{display:inline-flex;gap:8px;align-items:center;min-height:44px;font-weight:600}

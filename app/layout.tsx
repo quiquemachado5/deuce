@@ -1,3 +1,4 @@
+import {headers} from 'next/headers';
 import "./deuce.css";
 import "@/styles/deuce-system.css";
 import "@/styles/refinement-2026-10.css";
@@ -57,14 +58,15 @@ export const viewport: Viewport = {
     { media: '(prefers-color-scheme: dark)', color: '#0e1215' },
   ],
 };
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const nonce=(await headers()).get('x-nonce')||undefined;
   return (
     <html lang="es" suppressHydrationWarning className={`${sans.variable} ${headline.variable}`}>
-      <head><script dangerouslySetInnerHTML={{__html:`try{var m=localStorage.getItem('deuce-appearance'),d=new Date(),n=d.getUTCMonth()+1,a=d.getUTCDate();document.documentElement.dataset.appearance=m==='season'?'season':'classic';document.documentElement.dataset.season=n===4||n===5||n===6&&a<=7?'clay':n===6||n===7&&a<=14?'grass':'hard'}catch(e){}`}}/></head><body>
+      <head><script nonce={nonce} dangerouslySetInnerHTML={{__html:`try{var m=localStorage.getItem('deuce-appearance'),d=new Date(),n=d.getUTCMonth()+1,a=d.getUTCDate();document.documentElement.dataset.appearance=m==='season'?'season':'classic';document.documentElement.dataset.season=n===4||n===5||n===6&&a<=7?'clay':n===6||n===7&&a<=14?'grass':'hard'}catch(e){}`}}/></head><body>
         <StructuredData value={{
           '@context':'https://schema.org','@type':'WebSite',name:'DEUCE',url:`${SITE_ORIGIN}/`,inLanguage:'es',
           potentialAction:{'@type':'SearchAction',target:`${SITE_ORIGIN}/buscar?tour=all&q={search_term_string}`,'query-input':'required name=search_term_string'},

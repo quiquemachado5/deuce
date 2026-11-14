@@ -1,0 +1,13 @@
+# Revisión de producción · 14 de noviembre de 2026
+
+Implementación de las 14 medidas de la auditoría: sitemap preparado por generación; filtro de circuito sin panel vacío; metodología de cada récord; caché acotada del comparador por pareja canónica, filtros y versión; matriz de cobertura por circuito/categoría/década; motivos de actualización separados de resultados deportivos; metadatos específicos ATP/WTA y jugadores; ocho comparaciones editoriales indexables; HTTP 404 temprano para perfiles inexistentes; búsqueda completa en clasificaciones conservando posiciones; muestras y percentiles de navegación de 24 horas; recorridos HTTP sintéticos en la monitorización ya programada; reutilización de clasificaciones del circuito sin cambios con contraste completo semanal; CSP de scripts con nonce por respuesta, sin `unsafe-inline`.
+
+La publicación sigue siendo atómica y conserva el control de identidades: una generación que pierde partidos no puede sustituir la activa. Los cálculos globales que dependen de ambos circuitos se reconstruyen; la reutilización se limita a clasificaciones de un circuito cuyos datos de entrada y reglas coinciden. Cualquier diferencia en la comprobación semanal bloquea la publicación.
+
+Los percentiles de 24 horas exigen cinco muestras y se consultan junto a `deuce:navigation_samples:24h`. Los recorridos de `ops/synthetic-journeys.mjs` comprueban HTTP y contenido desde el monitor existente; sus tiempos se guardan en el informe de ejecución, separados de las mediciones de usuarios. No son Core Web Vitals ni simulan una conexión móvil.
+
+## Incidencia que no puede cerrarse con la evidencia disponible
+
+US Open femenino 1969, Wendy Overton–Jitka Horcickova, primera ronda. La fuente oficial ITF/World Tennis publica el primer set **7–3**, inválido; DB4Tennis lo publica **6–3**. Tennis Abstract y otras páginas repiten **7–3**, así que contar sitios no aporta una corroboración independiente de **6–3**. Se conserva la fila original en cuarentena. No se fabrica un marcador para eliminar una alerta.
+
+Registro completo de fuentes, decisión y evidencia que falta: `data/integrity/us-open-1969-score-review.json`. Hace falta un acta original o una crónica contemporánea con ambos sets. Esta es la única medida de las 14 que sigue abierta por falta de evidencia fiable; la discrepancia se explica también en Cobertura.

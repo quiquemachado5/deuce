@@ -66,6 +66,7 @@ export function monitorMarkdown(report) {
     ['Cuota proveedor', Number.isFinite(report.providerQuota.remaining) ? `${integer.format(report.providerQuota.remaining)} restantes · reserva ${integer.format(report.providerQuota.reserve || 0)}` : '—'],
     ['Almacenamiento', Number.isFinite(report.storage.bytes) && Number.isFinite(report.storage.maximumBytes) ? `${decimal.format(report.storage.bytes / 1_000_000)} MB / ${decimal.format(report.storage.maximumBytes / 1_000_000_000)} GB` : '—'],
   ]
+  for(const journey of report.syntheticJourneys||[])rows.push([`HTTP ${journey.path}`,`${journey.status} · TTFB ${journey.ttfbMs??'—'} ms · total ${journey.totalMs} ms`]);
   const incidents = report.failures.length
     ? `\n### Incidencias\n\n${report.failures.map(failure => `- ${failure}`).join('\n')}\n`
     : ''

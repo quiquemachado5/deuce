@@ -61,3 +61,5 @@
 }
 
 @media(max-width:759px){.bar[data-mobile-icon-only] .mobileSelection,.bar[data-mobile-icon-only] .desktopSelection{display:none}.bar[data-mobile-icon-only] .trigger{width:44px;height:44px;min-width:44px;min-height:44px;padding:0;border-radius:50%;display:grid;place-items:center}.bar[data-mobile-icon-only]{width:44px;min-width:44px;padding:0;border-radius:50%}}
+
+@media(min-width:760px){.trigger[data-mobile-only]{display:none}}

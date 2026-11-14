@@ -81,8 +81,8 @@ export async function generateMetadata({params,searchParams}:Props){
   const fallback=!requested&&!query.tour?await playerNotebook(slug,'wta'):null;
   const tour=fallback?'wta':requestedTour;
   const player=(requested||fallback)?.player;
-  const title=`${player?.name||'Jugador'} — DEUCE`;
-  const description=player?`${player.name}: resultados, temporadas, rivales y rendimiento dentro de la muestra publicada en DEUCE.`:'Resultados de los torneos ATP y WTA guardados en DEUCE.';
+  const title=player?`${player.name}: estadísticas, títulos y partidos ${tour.toUpperCase()} — DEUCE`:'Jugador no encontrado — DEUCE';
+  const description=player?`${player.name}: ${number(player.won)} victorias en ${number(player.played)} partidos ${tour.toUpperCase()} documentados. Palmarés, temporadas, superficies y cara a cara; consulta la cobertura de cada dato.`:'Este jugador no figura en el archivo publicado de DEUCE.';
   const canonicalParams=new URLSearchParams();if(tour==='wta')canonicalParams.set('tour','wta');if(query.year)canonicalParams.set('year',query.year);
   const canonical=`/jugadores/${slug}${canonicalParams.size?`?${canonicalParams}`:''}`;
   return {title,description,alternates:{canonical,},openGraph:{title,description,type:'profile',url:canonical},twitter:{card:'summary_large_image',title,description}};

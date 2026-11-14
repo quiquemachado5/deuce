@@ -1,3 +1,5 @@
+import {compilationPlan,assertCompilationEquivalent} from '@/lib/revista/incremental-compilation'
+import {classifyPublicationChanges} from '@/lib/publication-change-types'
 import {matchCorrections} from '@/lib/publication-pages'
 import {publishedWikiContexts} from '@/lib/wikimedia-refresh'
 import {enrichMatchAges} from '@/lib/wikimedia-context'
@@ -8,7 +10,7 @@ import {assertEditionCoverage,assertReleaseCoverage} from '@/lib/revista/release
 import {revalidatePath} from 'next/cache'
 import {buildPublicationIndex,comparePublicationIndexes,validPublicationIndex} from '@/lib/publication-index'
 import {gzipSync} from 'node:zlib'
-import {preparedGeneration,invalidatePreparedGeneration,preparedEditionAudit,preparedPublicationIndex,preparedTourArchive} from '@/lib/revista/read-records'
+import {preparedCompilationBaseline,preparedGeneration,invalidatePreparedGeneration,preparedEditionAudit,preparedPublicationIndex,preparedTourArchive} from '@/lib/revista/read-records'
 import {readFile} from 'node:fs/promises'
 import {gunzipSync} from 'node:zlib'
 import {join} from 'node:path'
@@ -76,12 +78,20 @@ export async function GET(request: Request) {
       const sourceCorrections=measurementCorrections(priorMatches,mergedInput)
       const corrections=matchCorrections(priorMatches,mergedInput,attemptAt)
       const input=enrichMatchAges(publishedMatches(mergedInput),await publishedWikiContexts())
+      const comparison=comparePublicationIndexes(await preparedPublicationIndex(),buildPublicationIndex(input))
+      const changeTypes=classifyPublicationChanges(priorMatches,input,new Set(comparison.changes.filter(change=>change.beforeHash).map(change=>change.identity)))
+      const compiledAt=new Date()
+      const plan=compilationPlan(input,baselineManifest,compiledAt)
+      const compilationBaseline=await preparedCompilationBaseline(plan.unchanged)
       priorMatches.length=0
       mergedInput.length=0
       sampleMemory('archive-loaded')
       console.info('Daily publication: archive loaded',input.length,Math.round(process.memoryUsage().rss/1048576))
-      const snapshot = compileRecordSnapshot(input,new Date(),await competitionEntries(),await editionSourceAudit(),baselineManifest)
+      const snapshot = compileRecordSnapshot(input,compiledAt,await competitionEntries(),await editionSourceAudit(),baselineManifest,plan.verifyFull?{}:compilationBaseline)
+      if(plan.verifyFull)assertCompilationEquivalent(snapshot.pieces,compilationBaseline)
+      snapshot.manifest.compilation={inputs:plan.inputs,fullVerifiedAt:plan.fullVerifiedAt,reusedCircuits:[...plan.reuse]}
       snapshot.corrections=corrections
+      snapshot.manifest.publicationChangeTypes=changeTypes
       // compileRecordSnapshot owns normalized copies. Release the large raw
       // array before opening any previous-generation metadata.
       input.length=0

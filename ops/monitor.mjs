@@ -1,3 +1,4 @@
+import {syntheticJourneys} from './synthetic-journeys.mjs';
 import { appendFile, readFile, writeFile } from 'node:fs/promises';
 import { releaseFailures } from './release-policy.mjs';
 import { recoveryFailures } from './recovery-policy.mjs';
@@ -48,7 +49,9 @@ async function check() {
 let result = await check();
 if (result.failures.length) { await new Promise(resolve => setTimeout(resolve,5000)); result = await check(); }
 const { health, failures } = result;
-const report = monitorReport(health, failures, productionUrl);
+const journeys=await syntheticJourneys(productionUrl);
+for(const journey of journeys)if(!journey.valid)failures.push(`Synthetic journey failed: ${journey.path} (${journey.status})`);
+const report = {...monitorReport(health, failures, productionUrl),syntheticJourneys:journeys};
 const reportArgument = process.argv.find(value => value.startsWith('--report='))?.slice(9);
 if (reportArgument) await writeFile(reportArgument, JSON.stringify(report, null, 2)+'\n');
 if (process.env.GITHUB_STEP_SUMMARY) await appendFile(process.env.GITHUB_STEP_SUMMARY, monitorMarkdown(report)+'\n');
