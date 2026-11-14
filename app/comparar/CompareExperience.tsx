@@ -6,7 +6,7 @@ import {ArchiveMasthead} from '@/components/deuce/ArchiveMasthead';
 import ArchiveFilterBar from '@/components/ArchiveFilterBar';
 import {HomeMotion} from '@/components/deuce/HomeMotion';
 import ComparisonPlayerField from '@/app/propuestas/comparar/ComparisonPlayerField';
-import {preparedSearchProducts,preparedCompactSelection} from '@/lib/revista/read-records';
+import {preparedPublicArchive,preparedCompactSelection} from '@/lib/revista/read-records';
 import {playerSlug} from '@/lib/explore';
 import {playerDirectoryPhoto} from '@/lib/player-imagery';
 import {HeadToHeadEvolution} from '@/components/deuce/HeadToHeadEvolution';
@@ -14,7 +14,7 @@ import ComparisonStudy from '@/app/propuestas/comparar/ComparisonStudy';
 import styles from '@/app/propuestas/comparar/comparison-study.module.css';
 export default async function CompareExperience({searchParams,basePath='/comparar'}:{searchParams:Promise<Record<string,string|undefined>>;basePath?:string}){
  const q={...await searchParams};q.from=q.from||q.fromYear||(q.year!=='all'?q.year:undefined);q.to=q.to||q.toYear||(q.year!=='all'?q.year:undefined);const tour=q.tour==='wta'?'wta':'atp';
- const archive=await preparedSearchProducts(),records=archive.players.filter(p=>(p.tour||'atp')===tour);
+ const archive=await preparedPublicArchive(),records=Object.entries(archive.players).filter(([id])=>id.startsWith(tour+':')).map(([,name])=>({name}));
  const defaults=tour==='wta'?['Serena Williams','Steffi Graf']:['Roger Federer','Rafael Nadal'];
  const resolve=(name:string|undefined,fallback:string)=>records.find(r=>playerSlug(r.name)===playerSlug(name||fallback))?.name;
  const names=[resolve(q.a,defaults[0]),resolve(q.b,defaults[1])];

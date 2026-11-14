@@ -2,7 +2,7 @@ import {NextResponse,type NextRequest} from 'next/server';
 import {spanishArchiveUrl} from './lib/legacy-english';
 import {randomBytes} from 'node:crypto';
 import {contentSecurityPolicy} from './lib/security-policy';
-import {preparedSearchProducts} from './lib/revista/read-records';
+import {preparedPlayerExists} from './lib/revista/read-records';
 import {playerSlug} from './lib/explore';
 import {canonicalName} from './lib/quality';
 export async function proxy(request:NextRequest){
@@ -15,8 +15,7 @@ export async function proxy(request:NextRequest){
  if(profile){
   let slug='';try{slug=playerSlug(canonicalName(decodeURIComponent(profile[1]).replace(/-/g,' ')));}catch{}
   const tour=request.nextUrl.searchParams.get('tour');
-  const directory=await preparedSearchProducts();
-  const exists=directory.players.some(player=>playerSlug(player.name)===slug&&(tour==='wta'?(player.tour==='wta'):tour?player.tour!=='wta':true));
+  const exists=await preparedPlayerExists(slug,tour==='wta'?'wta':tour?'atp':'all');
   // Decide status before a loading/Suspense boundary can flush an HTTP 200.
   response=exists?NextResponse.next(options):NextResponse.rewrite(new URL('/archivo-no-encontrado',request.url),{...options,status:404});
   if(!exists)response.headers.set('X-Robots-Tag','noindex');

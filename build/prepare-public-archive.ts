@@ -1,3 +1,4 @@
+import {PUBLIC_ARCHIVE_SCHEMA} from '../lib/public-archive-proof';
 import {readFile,writeFile,rename} from 'node:fs/promises';
 import {join} from 'node:path';
 import {gzipSync,gunzipSync} from 'node:zlib';
@@ -9,7 +10,7 @@ async function main(){
  const read=async<T>(id:string)=>JSON.parse(gunzipSync(await readFile(join(dir,id+'.json.gz'))).toString()) as T;
  const manifest=await read<RecordManifest>('manifest');
  const current=await read<import('../lib/public-archive-products').PublicArchiveProducts>('public-archive').catch(()=>undefined);
- if(current?.schema===1&&current.version===manifest.version)return;
+ if(current?.schema===PUBLIC_ARCHIVE_SCHEMA&&current.version===manifest.version)return;
  const matches:Match[]=[];for(const part of manifest.matchPartitions||[])matches.push(...await read<Match[]>(part.id));
  if(matches.length!==manifest.matchCount)throw new Error('Public archive projection lost matches');
  const product=compilePublicArchiveProducts(matches,await read('players'),manifest,await read<import('../lib/publication-pages').PageRevisions>('page-revisions').catch(()=>undefined),await read('audit'));

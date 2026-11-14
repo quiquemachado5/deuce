@@ -8,6 +8,7 @@ export type FallbackReason = 'remote-unavailable' | 'remote-incompatible' | 'rem
 export type GenerationStatus = { source: 'bundled' | 'remote'; fallbackReason?: FallbackReason };
 export type GenerationSourceDecision = GenerationStatus & { manifest: RecordManifest };
 export type PreparedGeneration = GenerationStatus & {
+  publicArchive?:import('../public-archive-products').PublicArchiveProducts;
   manifest: RecordManifest;
   matches: () => Promise<Match[]>;
   records: () => Promise<PlayerRecord[]>;

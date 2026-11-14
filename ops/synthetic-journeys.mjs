@@ -1,6 +1,6 @@
 /** Read-only HTTP journeys; kept separate from real browser/CWV measurements. */
 export async function syntheticJourneys(origin,request=fetch){
- const paths=['/','/partidos?tour=wta','/jugadores/rafael-nadal','/comparar?a=Roger+Federer&b=Rafael+Nadal','/records?dato=victorias&find=Nadal','/sitemap.xml'];
+ const paths=['/','/partidos','/partidos?tour=wta','/jugadores/rafael-nadal','/comparar?a=Roger+Federer&b=Rafael+Nadal','/records?dato=victorias&find=Nadal','/sitemap.xml'];
  const rows=[];
  for(const path of paths){
   const started=performance.now();

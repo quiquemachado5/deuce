@@ -1,3 +1,4 @@
+import {PUBLIC_ARCHIVE_SCHEMA,validPublicArchiveProof} from '../public-archive-proof';
 import {searchRecordRows} from '../records-search';
 import {selectPlayerCareer} from '../player-career';
 import {playerSlug} from '../explore';
@@ -35,6 +36,7 @@ import historyBaseline from '../../ops/wta-history-baseline.json';
 import {buildPublicationIndex,validPublicationIndex,type PublicationIndex} from '../publication-index';
 import { ARCHIVE_PRODUCTS_SCHEMA, editionProductKey, type EditionProducts, type EloProducts, type PlayerDirectoryProducts, type SearchProducts, type TimeMachineProducts } from '../archive-products';
 const IMMUTABLE_CACHE_MS = 86_400_000;
+const classificationNames=new Intl.Collator('es');
 const bundled=asyncCache<unknown>(IMMUTABLE_CACHE_MS,48);
 const uncachedBundledPrefixes=['matches-','browser-'] as const;
 const uncachedBundledIds=new Set(['matches','competition','players','audit','reconciliation']);
@@ -135,6 +137,21 @@ export const preparedGeneration=cache(async():Promise<PreparedGeneration>=>{
  const base=await preparedBundledManifest();
  const bundledGeneration:PreparedGeneration={manifest:base,source:'bundled',matches:()=>preparedCompactArchive('all'),records:()=>local<PlayerRecord[]>('players'),competition:()=>localOptional<Match[]>('competition',[])};
  if(decision.source==='bundled')return {...bundledGeneration,fallbackReason:decision.fallbackReason};
+ if(decision.manifest.publicArchiveSchema===PUBLIC_ARCHIVE_SCHEMA){
+  try{
+   const [index,publicArchive]=await Promise.all([
+    browserIndexes(`${decision.manifest.version}:remote`,async()=>await cloudBlob<MatchBrowserIndex>(decision.manifest.version,'browser-index') as MatchBrowserIndex),
+    cloudBlob<import('../public-archive-products').PublicArchiveProducts>(decision.manifest.version,'public-archive'),
+   ]);
+   const mapping=decision.manifest.artifactPacks;
+   if(!browserIndexMatchesManifest(index,decision.manifest)||!validPublicArchiveProof(publicArchive,decision.manifest)||!mapping?.players||(decision.manifest.competitionCount&&!mapping.competition))throw new Error('Invalid publication integrity proof');
+   let records:Promise<PlayerRecord[]>|undefined,competition:Promise<Match[]>|undefined;
+   return {manifest:decision.manifest,source:'remote' as const,publicArchive,matches:()=>preparedCompactArchive('all'),
+    records:()=>records??=(async()=>{const rows=await cloudBlob<PlayerRecord[]>(decision.manifest.version,'players');if(!Array.isArray(rows)||rows.length!==publicArchive.integrity.players||rows.reduce((sum,row)=>sum+row.played,0)!==publicArchive.integrity.playerParticipations){rejectRemoteSnapshot();throw new Error('Player records disagree with selected generation');}return rows;})(),
+    competition:()=>competition??=(async()=>{if(!publicArchive.integrity.competition)return [];const rows=await cloudBlob<Match[]>(decision.manifest.version,'competition');if(!Array.isArray(rows)||rows.length!==publicArchive.integrity.competition){rejectRemoteSnapshot();throw new Error('Competition records disagree with selected generation');}return rows;})(),
+   };
+  }catch{rejectRemoteSnapshot();return {...bundledGeneration,fallbackReason:'remote-incomplete' as const};}
+ }
  try{
   const [index,records,competition]=await Promise.all([
    cloudBlob<MatchBrowserIndex>(decision.manifest.version,'browser-index'),
@@ -289,9 +306,10 @@ export const recordView=cache(async(encoded:string,recomputed=false):Promise<Rec
    const main=Object.values(stored.pages).flat(),minor=Object.values(stored.smallPages).flat(),sequence=main.length>1?main:minor;
    const firstValue=sequence[0]?.value??0,nextValue=sequence.find(row=>row.value!==firstValue)?.value??firstValue;
    const direction=nextValue>firstValue?1:-1;
-   const all=[...main,...minor].sort((a,b)=>direction*(a.value-b.value)||b.sample-a.sample||a.name.localeCompare(b.name,'es'));
-   const sort=(rows:RecordRow[])=>q.sort==='name'?rows.sort((a,b)=>a.name.localeCompare(b.name,'es')):q.sort==='sample'?rows.sort((a,b)=>b.sample-a.sample||b.value-a.value):rows;
-   const big=sort(searchRecordRows(all.filter(row=>!meta.percent||row.sample>=minimum),q.find||'')),small=sort(searchRecordRows(meta.percent?all.filter(row=>row.sample<minimum):[],q.find||''));
+   const usePublished=!meta.percent||minimum===50;
+   const all=usePublished?[]:[...main,...minor].sort((a,b)=>direction*(a.value-b.value)||b.sample-a.sample||classificationNames.compare(a.name,b.name));
+   const sort=(rows:RecordRow[])=>q.sort==='name'?rows.sort((a,b)=>classificationNames.compare(a.name,b.name)):q.sort==='sample'?rows.sort((a,b)=>b.sample-a.sample||b.value-a.value):rows;
+   const big=sort(searchRecordRows(usePublished?main:all.filter(row=>row.sample>=minimum),q.find||'')),small=sort(searchRecordRows(usePublished?minor:all.filter(row=>row.sample<minimum),q.find||''));
    const page=clampPage(q.page,big.length),smallPage=clampPage(q.smallPage,small.length);
    return {...initial(g),manifest:m,piece:{...meta,total:big.length,smallTotal:small.length},page,smallPage,rows:big.slice((page-1)*PAGE_SIZE,page*PAGE_SIZE),smallRows:small.slice((smallPage-1)*PAGE_SIZE,smallPage*PAGE_SIZE)};
  }
@@ -300,7 +318,7 @@ export const recordView=cache(async(encoded:string,recomputed=false):Promise<Rec
    const catalog=await selectedCatalog(g,q,q.dato,loadSelection),piece=catalog.find(p=>p.id===q.dato),view={...initial(g),filtered,recomputed,exists:m.pieces.some(p=>p.id===q.dato)};
    if(q.dato==='dos-epocas'){const rows=eraComparisons(selected,Number(q.corte)||2020);view.eraTotal=rows.length;view.page=clampPage(q.page,rows.length);view.eras=rows.slice((view.page-1)*PAGE_SIZE,view.page*PAGE_SIZE);return view;}
    if(!piece)return {...view,...(['top-10','top-5','numero-uno'].includes(q.dato)&&selected.length>0&&!selected.some(x=>x.context?.rank1||x.context?.rank2)?{emptyReason:'ranking' as const}:{})};
-   const sortRows=(rows:RecordRow[])=>q.sort==='name'?[...rows].sort((a,b)=>a.name.localeCompare(b.name,'es')):q.sort==='sample'?[...rows].sort((a,b)=>b.sample-a.sample||b.value-a.value):rows;
+   const sortRows=(rows:RecordRow[])=>q.sort==='name'?[...rows].sort((a,b)=>classificationNames.compare(a.name,b.name)):q.sort==='sample'?[...rows].sort((a,b)=>b.sample-a.sample||b.value-a.value):rows;
    const requestedMinimum = Number(q.min);
    const sampleMinimum = piece.percent && [10,30,50,80,100].includes(requestedMinimum) ? requestedMinimum : 50;
    const big=sortRows(searchRecordRows(piece.rows.filter(r=>!piece.percent||r.sample>=sampleMinimum),q.find||'')),small=sortRows(searchRecordRows(piece.percent?piece.rows.filter(r=>r.sample<sampleMinimum):[],q.find||''));
@@ -530,7 +548,7 @@ export const preparedPublicationIndex=cache(async()=>{
 
 const navigationEntities=asyncCache<NavigationEntity>(IMMUTABLE_CACHE_MS,48,undefined,{maxWeight:24*1024*1024,weight:remoteArtifactWeight});
 const navigationIndexes=asyncCache<NavigationIndex|undefined>(IMMUTABLE_CACHE_MS,2);
-async function navigationIndex(source:Awaited<ReturnType<typeof selectedBrowserSource>>){
+async function navigationIndex(source:GenerationSourceDecision){
  return navigationIndexes(`${source.source}:${source.manifest.version}`,async()=>{
   if(source.source==='remote'&&!source.manifest.artifactPacks?.['navigation-index'])return undefined;
   const index=source.source==='remote'?await cloudBlob<NavigationIndex>(source.manifest.version,'navigation-index'):await localOptional<NavigationIndex|undefined>('navigation-index',undefined);
@@ -539,7 +557,7 @@ async function navigationIndex(source:Awaited<ReturnType<typeof selectedBrowserS
   return index;
  });
 }
-async function navigationEntity(source:Awaited<ReturnType<typeof selectedBrowserSource>>,id:string){
+async function navigationEntity(source:GenerationSourceDecision,id:string){
  return navigationEntities(`${source.source}:${source.manifest.version}:${id}`,async()=>{
   const entity=source.source==='remote'?await cloudBlob<NavigationEntity>(source.manifest.version,id):await local<NavigationEntity>(id);
   if(entity?.schema!==1||entity.partition?.id!==id)throw new Error('Missing navigation entity in selected generation');
@@ -547,7 +565,7 @@ async function navigationEntity(source:Awaited<ReturnType<typeof selectedBrowser
  });
 }
 export const preparedIndexedPlayer=cache(async(slug:string,tour:'atp'|'wta')=>{
- const source=await selectedBrowserSource(),index=await navigationIndex(source);if(!index)return undefined;
+ const source=await preparedGeneration(),index=await navigationIndex(source);if(!index)return undefined;
  const id=Object.entries(index.players).find(([name])=>name.startsWith(tour+':')&&playerSlug(name.slice(4))===slug)?.[1];if(!id)return null;
  const entity=await navigationEntity(source,id);if(!entity.record)return undefined;
  const matches=entity.partition.rows.map(row=>decodeMatchBrowserRow(entity.partition,row)),records=[entity.record];
@@ -826,10 +844,19 @@ export const preparedCorrections=cache(async()=>{
 /** Small, generation-bound projections: no match enumeration in sitemap/coverage requests. */
 export const preparedPublicArchive=cache(async()=>{
  const source=await preparedGeneration();
+ if(source.publicArchive)return source.publicArchive;
+ type ReadablePublicArchive=Omit<import('../public-archive-products').PublicArchiveProducts,'schema'|'integrity'>&{schema:number;integrity?:import('../public-archive-products').PublicArchiveProducts['integrity']};
  const value=source.source==='remote'&&source.manifest.artifactPacks?.['public-archive']
-  ? await cloudBlob<import('../public-archive-products').PublicArchiveProducts>(source.manifest.version,'public-archive')
-  : source.source==='bundled'?await localOptional<import('../public-archive-products').PublicArchiveProducts|undefined>('public-archive',undefined):undefined;
- if(value?.schema===1&&value.version===source.manifest.version)return value;
+  ? await cloudBlob<ReadablePublicArchive>(source.manifest.version,'public-archive')
+  : source.source==='bundled'?await localOptional<ReadablePublicArchive|undefined>('public-archive',undefined):undefined;
+ if(validPublicArchiveProof(value,source.manifest))return value;
+ if(value?.schema===1&&value.version===source.manifest.version){
+  // Old generations already passed the full reader validation. Reuse their
+  // prepared routes while upgrading the next publication's integrity format.
+  const records=await source.records();
+  const migrated={...value,schema:PUBLIC_ARCHIVE_SCHEMA,integrity:{matches:source.manifest.matchCount,players:records.length,playerParticipations:records.reduce((sum,row)=>sum+row.played,0),competition:source.manifest.competitionCount||0}};
+  if(validPublicArchiveProof(migrated,source.manifest))return migrated;
+ }
  // Migration fallback is process-cached and disappears on the next publication.
  return publicArchiveFallback(source.manifest.version+':'+source.source,async()=>{
   const {compilePublicArchiveProducts}=await import('../public-archive-products');
@@ -839,14 +866,19 @@ export const preparedPublicArchive=cache(async()=>{
 });
 const publicArchiveFallback=asyncCache<import('../public-archive-products').PublicArchiveProducts>(IMMUTABLE_CACHE_MS,2);
 
-async function preparedRecordPages(g:PreparedGeneration,id:string,meta:RecordMeta):Promise<RecordPages>{
+const recordPageSets=asyncCache<RecordPages>(IMMUTABLE_CACHE_MS,8,undefined,{maxWeight:32*1024*1024,weight:pages=>(Object.values(pages.pages).reduce((sum,rows)=>sum+rows.length,0)+Object.values(pages.smallPages).reduce((sum,rows)=>sum+rows.length,0))*2000});
+function preparedRecordPages(g:PreparedGeneration,id:string,meta:RecordMeta):Promise<RecordPages>{return recordPageSets(`${g.manifest.version}:${g.source}:${id}`,()=>loadRecordPages(g,id,meta));}
+async function loadRecordPages(g:PreparedGeneration,id:string,meta:RecordMeta):Promise<RecordPages>{
  if(g.source!=='remote')return local<RecordPages>('piece-'+id);
  const pages:RecordPages={pages:{},smallPages:{}};
  const count=pieceChunk(Math.max(1,Math.ceil(Math.max(meta.total,meta.smallTotal)/PAGE_SIZE)))+1;
  for(let chunk=0;chunk<count;chunk++){
   const value=(await query(key(g.manifest.version,`piece-${id}-chunk${chunk}`),'payload',25000))?.payload;
   if(!value||value.encoding!=='gzip-base64')throw new Error('Missing published record pages');
-  for(const kind of ['pages','smallPages'] as const)for(const [page,encoded] of Object.entries(value[kind]||{}))pages[kind][page.replace(/^p/,'')]=typeof encoded==='string'?JSON.parse((await gunzipAsync(Buffer.from(encoded,'base64'))).toString()):encoded as RecordRow[];
+  for(const kind of ['pages','smallPages'] as const){
+   const decoded=await Promise.all(Object.entries(value[kind]||{}).map(async([page,encoded])=>[page.replace(/^p/,''),typeof encoded==='string'?JSON.parse((await gunzipAsync(Buffer.from(encoded,'base64'))).toString()):encoded] as [string,RecordRow[]]));
+   for(const [page,rows] of decoded)pages[kind][page]=rows;
+  }
  }
  if(Object.values(pages.pages).flat().length!==meta.total||Object.values(pages.smallPages).flat().length!==meta.smallTotal)throw new Error('Incomplete published classification');
  return pages;
@@ -865,3 +897,9 @@ export async function preparedCompilationBaseline(tours:readonly ('atp'|'wta')[]
  if(tours.includes('atp'))baseline.eras=g.source==='remote'?await cloudBlob<Record<string,Era[]>>(g.manifest.version,'eras'):await local<Record<string,Era[]>>('eras');
  return baseline;
 }
+
+export const preparedPlayerExists=cache(async(slug:string,tour:'atp'|'wta'|'all')=>{
+ const source=await preparedGeneration(),index=await navigationIndex(source);
+ if(index)return Object.keys(index.players).some(key=>(tour==='all'||key.startsWith(tour+':'))&&playerSlug(key.slice(4))===slug);
+ return (await preparedSearchProducts()).players.some(player=>playerSlug(player.name)===slug&&(tour==='all'||(player.tour||'atp')===tour));
+});
