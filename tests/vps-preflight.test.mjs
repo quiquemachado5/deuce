@@ -15,8 +15,8 @@ const valid = {
   METRICS_SECRET: 'c'.repeat(64),
   DEUCE_ARCHIVE_MAX_BYTES: '40000000000',
   DEUCE_BACKUP_REMOTE: 'crypt:deuce/production',
-  DEUCE_PROVIDER_MIN_REMAINING:'200',
-  DEUCE_PROVIDER_DAILY_MAX_CALLS:'400',
+  DEUCE_PROVIDER_MIN_REMAINING:'10',
+  DEUCE_PROVIDER_DAILY_MAX_CALLS:'90',
   DEUCE_BACKUP_REMOTE_KEEP_DAYS:'14',
 }
 
@@ -35,7 +35,7 @@ test('production preflight rejects placeholders, weak secrets and mismatched ori
     WTA_BACKFILL_SECRET: 'short',
     METRICS_SECRET: 'short',
     DEUCE_BACKUP_REMOTE: '/local/backups',
-    DEUCE_PROVIDER_MIN_REMAINING:'199',
+    DEUCE_PROVIDER_MIN_REMAINING:'0',
     DEUCE_PROVIDER_DAILY_MAX_CALLS:'2001',
     DEUCE_BACKUP_REMOTE_KEEP_DAYS:'7',
   })
@@ -45,8 +45,8 @@ test('production preflight rejects placeholders, weak secrets and mismatched ori
   assert.ok(result.errors.some(error => error.includes('at least 48')))
   assert.ok(result.errors.some(error => error.includes('must be different')))
   assert.ok(result.errors.some(error => error.includes('rclone remote')))
-  assert.ok(result.errors.some(error=>error.includes('at least 200')))
-  assert.ok(result.errors.some(error=>error.includes('250 to 2000')))
+  assert.ok(result.errors.some(error=>error.includes('at least one daily call')))
+  assert.ok(result.errors.some(error=>error.includes('1 to 2000')))
   assert.ok(result.errors.some(error=>error.includes('8 to 90')))
 })
 

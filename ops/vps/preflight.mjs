@@ -64,11 +64,11 @@ export function validateProductionEnv(values) {
   if (!Number.isSafeInteger(archiveMaximum) || archiveMaximum < 1_000_000_000) errors.push('DEUCE_ARCHIVE_MAX_BYTES must be an integer of at least 1 GB')
   if(values.DEUCE_PROVIDER_MIN_REMAINING!==undefined){
     const reserve=Number(values.DEUCE_PROVIDER_MIN_REMAINING)
-    if(!Number.isSafeInteger(reserve)||reserve<200)errors.push('DEUCE_PROVIDER_MIN_REMAINING must preserve at least 200 daily calls')
+    if(!Number.isSafeInteger(reserve)||reserve<1)errors.push('DEUCE_PROVIDER_MIN_REMAINING must preserve at least one daily call')
   }
   if(values.DEUCE_PROVIDER_DAILY_MAX_CALLS!==undefined){
     const dailyMaximum=Number(values.DEUCE_PROVIDER_DAILY_MAX_CALLS)
-    if(!Number.isSafeInteger(dailyMaximum)||dailyMaximum<250||dailyMaximum>2000)errors.push('DEUCE_PROVIDER_DAILY_MAX_CALLS must be an integer from 250 to 2000')
+    if(!Number.isSafeInteger(dailyMaximum)||dailyMaximum<1||dailyMaximum>2000)errors.push('DEUCE_PROVIDER_DAILY_MAX_CALLS must be an integer from 1 to 2000')
   }
   if(values.DEUCE_BACKUP_REMOTE_KEEP_DAYS!==undefined){
     const retention=Number(values.DEUCE_BACKUP_REMOTE_KEEP_DAYS)

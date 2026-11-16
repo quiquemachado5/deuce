@@ -5,15 +5,19 @@ import {join} from 'node:path';
 import {tmpdir} from 'node:os';
 import {downloadCloudDetail} from '../lib/cloud-archive';
 
-test('a retried detail persists every attempt and the next job cannot spend the reserve',async()=>{
+test('a retried detail persists every attempt and the next job stops at the free-plan reserve',async()=>{
  const root=await mkdtemp(join(tmpdir(),'deuce-provider-budget-')),priorRoot=process.env.DEUCE_ARCHIVE_DIR,priorKey=process.env.TENNIS_API_KEY,priorFetch=global.fetch,priorCI=process.env.CI;
  // Exercise the provider path with a mocked transport; production CI stays fail-closed.
  delete process.env.CI;
  process.env.DEUCE_ARCHIVE_DIR=root;process.env.TENNIS_API_KEY='test-only-no-network';
- let calls=0;
+ let calls=0,usageChecks=0;
  global.fetch=async input=>{
   calls++;const url=String(input);
-  if(url.endsWith('/usage'))return Response.json({today:{remaining_day:202,used_day:10,reset_at:new Date(Date.now()+3600000).toISOString()}});
+  if(url.endsWith('/usage')){
+   usageChecks++;
+   const remaining=usageChecks===1?13:10;
+   return Response.json({today:{remaining_day:remaining,used_day:usageChecks===1?20:23,reset_at:new Date(Date.now()+3600000).toISOString()}});
+  }
   if(calls===2)return Response.json({detail:'temporary unavailability'},{status:503});
   return Response.json({match:{id:'budget-test-a'}});
  };
@@ -21,9 +25,9 @@ test('a retried detail persists every attempt and the next job cannot spend the 
   assert.ok(await downloadCloudDetail('modern','budget-test-a'));
   assert.equal(calls,3);
   const state=JSON.parse(await readFile(join(root,'provider-attempt-budget.json'),'utf8'));
-  assert.equal(state.attempts,3);assert.equal(state.remaining,200);
+  assert.equal(state.attempts,3);assert.equal(state.remaining,11);
   assert.equal(await downloadCloudDetail('modern','budget-test-b'),undefined);
-  assert.equal(calls,3,'the reserve rejection happens before a usage probe or detail request');
+  assert.equal(calls,4,'only the usage check runs; provider details stop at the reserve');
  }finally{
   global.fetch=priorFetch;
   if(priorCI===undefined)delete process.env.CI;else process.env.CI=priorCI;

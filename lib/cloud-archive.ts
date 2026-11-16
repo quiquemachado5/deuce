@@ -267,7 +267,8 @@ export async function refreshCloudArchive() {
     calls++
     quota = await provider('/usage')
     const remaining = providerRemainingCalls(quota)
-    const wtaReserve=Math.max(40,providerMinimumReserve()),callLimit=await recordProviderQuota('atp-refresh',quota,35)
+    const dailyOnly=process.env.DEUCE_PROVIDER_DAILY_ONLY==='1'
+    const wtaReserve=Math.max(40,providerMinimumReserve()),callLimit=await recordProviderQuota('atp-refresh',quota,dailyOnly?45:35)
     if (remaining <= wtaReserve || callLimit<=1) {
       const result = { status: 'quota-reserve', phase:'current-season', attemptAt, at: new Date().toISOString(), remaining, calls, extracted:0, lastSuccessAt, retryAt:providerQuotaRetryAt(quota), probe:{usage:'ok',currentSeason:'deferred'} }
       await cloudWrite('sync-status', withOperationHistory(priorStatus,result))
@@ -288,7 +289,8 @@ export async function refreshCloudArchive() {
     let rows:ArchiveRow[]=[],data:ArchiveRow[]=[]
     // Migrate every saved modern season once. Afterwards, poll result restatements
     // across all years as well as the current fixture window.
-    for(const season of [year,...Array.from({length:Math.max(0,year-2023)},(_,i)=>2023+i)]){
+    const seasons=dailyOnly?[year]:[year,...Array.from({length:Math.max(0,year-2023)},(_,i)=>2023+i)]
+    for(const season of seasons){
       const previous=season===year?old:mergeSeasonBaseline(await bundledTourSeason(season) as Season,await cloudRead(`season-${season}`))
       for (const row of previous?.data || []) previousRows.set(String(row.id), row)
       const refreshed=await reconcileSeasonResults(season,year,previous,request)
@@ -316,7 +318,7 @@ export async function refreshCloudArchive() {
     const overrides = new Set<string>((await cloudRead('detail-overrides'))?.keys || [])
     const checked:Record<string,string>=(await cloudRead('refresh-detail-state'))?.checked || {}
     const planned=detailRefreshPlan(detailCandidates as (ArchiveRow & {id:unknown})[],previousRows as Map<string,ArchiveRow & {id:unknown}>,id=>id.startsWith('wta-')?known.has(`wta-modern-${id.slice(4)}`):known.has(`modern-${id}`)||hasBundledDetail('modern',id),checked,Date.now(),row=>!hasClosedModernResult(row),row=>row.tour==='wta'?`wta-${row.id}`:String(row.id))
-    for (const row of planned) {
+    for (const row of planned.slice(0,dailyOnly?4:16)) {
       // Result repair is part of the daily ingestion budget, not a four-row
       // trickle. Quota and wall-clock reserves still cap the operation.
       if (detailsAdded+detailsRefreshed >= 16 || calls >= callLimit-3 || remaining-calls<=wtaReserve+2 || Date.now() - started > 190_000) break
@@ -335,7 +337,7 @@ export async function refreshCloudArchive() {
     await cloudWriteMany([{key:'detail-overrides',payload:{keys:[...overrides],at:new Date().toISOString()}},{key:'refresh-detail-state',payload:{checked}}])
     let historicalAdded=0,archiveRecentAdded=0
     let enrichmentQueue=readEnrichmentQueue(await cloudRead('enrichment-queue'))
-    const backfill=persistentEnrichmentPlan(await bundledEnrichmentCandidates(),known,enrichmentQueue,4)
+    const backfill=dailyOnly?[]:persistentEnrichmentPlan(await bundledEnrichmentCandidates(),known,enrichmentQueue,4)
     for(const row of backfill){
       if(calls>=callLimit-1||remaining-calls<=wtaReserve+1||Date.now()-started>190_000)break
       try{
@@ -509,7 +511,8 @@ export async function refreshCloudWta() {
       const result={status:'quota-reserve',phase:'current-season',attemptAt,at:new Date().toISOString(),remaining,calls,extracted:0,lastSuccessAt,retryAt:providerQuotaRetryAt(quota),probe:{usage:'ok',currentSeason:'deferred'}}
       await save(result);return result
     }
-    const callLimit=await recordProviderQuota('wta-refresh',quota,30)
+    const dailyOnly=process.env.DEUCE_PROVIDER_DAILY_ONLY==='1'
+    const callLimit=await recordProviderQuota('wta-refresh',quota,dailyOnly?45:30)
     const request=async(path:string)=>{
       if(calls>=callLimit||Date.now()-started>220_000)throw new Error('WTA current sync safety budget reached')
       await new Promise(resolve=>setTimeout(resolve,1300));calls++;return provider(path)

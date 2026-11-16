@@ -37,6 +37,9 @@ services:
       NODE_ENV: production
       NODE_OPTIONS: --max-old-space-size=3072
       DEUCE_ISOLATED_PUBLICATION: "1"
+      DEUCE_PROVIDER_DAILY_ONLY: "1"
+      DEUCE_PROVIDER_MIN_REMAINING: "10"
+      DEUCE_PROVIDER_DAILY_MAX_CALLS: "90"
     volumes:
       - archive:/app/.deuce-archive
       - next_cache:/app/.next/cache
@@ -72,6 +75,9 @@ services:
       DEUCE_ARCHIVE_DIR: /app/.deuce-archive
       DEUCE_SCHEDULER_HEARTBEAT_ONLY: ${DEUCE_SCHEDULER_HEARTBEAT_ONLY:-0}
       DEUCE_SCHEDULER_PIPELINE_DELAY_MS: ${DEUCE_SCHEDULER_PIPELINE_DELAY_MS:-0}
+      DEUCE_PROVIDER_DAILY_ONLY: "1"
+      DEUCE_PIPELINE_HOUR_UTC: "0"
+      DEUCE_PIPELINE_MINUTE_UTC: "20"
     command: ["node", "/app/ops/oracle/scheduler.mjs"]
     volumes:
       - archive:/app/.deuce-archive
