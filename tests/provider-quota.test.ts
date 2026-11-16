@@ -13,28 +13,28 @@ test('missing reset metadata uses the next UTC quota day', () => {
   assert.equal(providerRemainingCalls({today:{remaining_day:null}}),Number.POSITIVE_INFINITY);
 });
 
-test('scheduled work preserves the default provider safety reserve', () => {
-  assert.equal(providerMinimumReserve(), 200);
+test('free plan shares a daily cap and preserves a safety reserve', () => {
+  assert.equal(providerMinimumReserve(), 10);
   assert.equal(providerHasRequestAfterUsage({today:{remaining_day:0}}), false);
-  assert.equal(providerHasRequestAfterUsage({today:{remaining_day:200}}), false);
-  assert.equal(providerHasRequestAfterUsage({today:{remaining_day:201}}), true);
+  assert.equal(providerHasRequestAfterUsage({today:{remaining_day:10}}), false);
+  assert.equal(providerHasRequestAfterUsage({today:{remaining_day:11}}), true);
   assert.equal(providerHasRequestAfterUsage({today:{remaining_day:null}}), true);
-  assert.equal(providerCallsAboveReserve({today:{remaining_day:237}}),37);
-  assert.equal(providerOperationCallLimit({today:{remaining_day:205}},30),6);
+  assert.equal(providerCallsAboveReserve({today:{remaining_day:47}}),37);
+  assert.equal(providerOperationCallLimit({today:{remaining_day:15}},30),6);
   assert.equal(providerOperationCallLimit({today:{remaining_day:900}},30),30);
-  assert.equal(providerDailyCallCap(),400);
-  assert.equal(providerCallsBelowDailyCap({today:{used_day:390}}),10);
-  assert.equal(providerHasRequestAfterUsage({today:{remaining_day:900,used_day:400}}),false);
-  assert.equal(providerOperationCallLimit({today:{remaining_day:900,used_day:395}},30),6);
+  assert.equal(providerDailyCallCap(),90);
+  assert.equal(providerCallsBelowDailyCap({today:{used_day:80}}),10);
+  assert.equal(providerHasRequestAfterUsage({today:{remaining_day:900,used_day:90}}),false);
+  assert.equal(providerOperationCallLimit({today:{remaining_day:900,used_day:85}},30),6);
 });
 
 test('operation budgets and the persisted quota snapshot share one policy',()=>{
   const quota={today:{remaining_day:250,limit_day:1000,used_day:350,reset_at:'2026-11-04T22:00:00.000Z'}};
-  assert.equal(providerOperationBudget(quota,'enrichment',90),51);
+  assert.equal(providerOperationBudget(quota,'enrichment',90),1);
   assert.deepEqual(providerQuotaSnapshot(quota,'enrichment',90,new Date('2026-11-04T20:00:00.000Z')),{
     at:'2026-11-04T20:00:00.000Z',operation:'enrichment',remaining:250,dailyLimit:1000,used:350,
-    reserve:200,safeAvailable:50,dailyCallCap:400,dailyCapAvailable:50,dailyCapUtilization:.875,
-    operationLimit:51,retryAt:'2026-11-04T22:00:00.000Z',
+    reserve:10,safeAvailable:240,dailyCallCap:90,dailyCapAvailable:0,dailyCapUtilization:1,
+    operationLimit:1,retryAt:'2026-11-04T22:00:00.000Z',
   });
 });
 

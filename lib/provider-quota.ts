@@ -3,8 +3,8 @@ export type ProviderOperation = 'detail-download'|'atp-refresh'|'wta-refresh'|'w
 
 const operationDefaults:Record<ProviderOperation,number>={
   'detail-download':2,
-  'atp-refresh':35,
-  'wta-refresh':30,
+  'atp-refresh':45,
+  'wta-refresh':45,
   'wta-history':90,
   enrichment:90,
 };
@@ -54,14 +54,14 @@ const quotaNumber=(quota:ProviderQuota|undefined,...names:string[])=>{
 
 /** Keep a production safety margin so scheduled work cannot exhaust paid quota. */
 export function providerMinimumReserve() {
-  const configured = Number(process.env.DEUCE_PROVIDER_MIN_REMAINING ?? 200);
-  return Number.isSafeInteger(configured) && configured >= 1 ? configured : 200;
+  const configured = Number(process.env.DEUCE_PROVIDER_MIN_REMAINING ?? 10);
+  return Number.isSafeInteger(configured) && configured >= 1 ? configured : 10;
 }
 
 /** Hard ceiling for all provider traffic in one quota day, including probes. */
 export function providerDailyCallCap() {
-  const configured=Number(process.env.DEUCE_PROVIDER_DAILY_MAX_CALLS??400);
-  return Number.isSafeInteger(configured)&&configured>0?configured:400;
+  const configured=Number(process.env.DEUCE_PROVIDER_DAILY_MAX_CALLS??90);
+  return Number.isSafeInteger(configured)&&configured>0?configured:90;
 }
 
 /** Calls that can still be made before reaching DEUCE's own daily ceiling. */

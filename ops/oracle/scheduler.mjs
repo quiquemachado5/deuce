@@ -16,8 +16,10 @@ const backfillJob = { name: 'optional WTA history', path: '/api/cron/wta-backfil
 const enrichmentJob = { name: 'optional match details', path: '/api/cron/enrich' }
 const wikipediaJob = { name: 'optional Wikimedia context', path: '/api/cron/wikipedia' }
 const jobs = [...refreshJobs, publicationJob, backfillJob, enrichmentJob, wikipediaJob]
-const pipelineHour = Number(process.env.DEUCE_PIPELINE_HOUR_UTC || 22)
-const pipelineMinute = Number(process.env.DEUCE_PIPELINE_MINUTE_UTC || 5)
+// Run after the previous UTC day is complete so late match results are included.
+const pipelineHour = Number(process.env.DEUCE_PIPELINE_HOUR_UTC ?? 0)
+const pipelineMinute = Number(process.env.DEUCE_PIPELINE_MINUTE_UTC ?? 20)
+const dailyOnly = process.env.DEUCE_PROVIDER_DAILY_ONLY === '1'
 // The publication SLA is 36 hours. A host restored later in the day must still
 // recover the most recent missed window instead of silently waiting overnight.
 const catchUpWindow = Math.max(36 * 60 * 60 * 1000, Number(process.env.DEUCE_SCHEDULER_CATCH_UP_MS || 0))
@@ -75,10 +77,14 @@ function targetFor(date) {
   return target
 }
 const dayKey = date => date.toISOString().slice(0, 10)
+function previousUtcDay(date = new Date()) {
+  const day = new Date(date)
+  day.setUTCDate(day.getUTCDate() - 1)
+  return dayKey(day)
+}
+const optionalJobs = dailyOnly ? [] : [backfillJob, enrichmentJob, wikipediaJob]
 const pipelineComplete = value => publicationReady(value, [...refreshJobs, publicationJob].map(job => job.path))
-  && ['success', 'deferred-cycle', 'blocked'].includes(value.stages?.[backfillJob.path]?.status)
-  && ['success', 'deferred-cycle', 'blocked'].includes(value.stages?.[enrichmentJob.path]?.status)
-  && ['success', 'deferred-cycle', 'blocked'].includes(value.stages?.[wikipediaJob.path]?.status)
+  && optionalJobs.every(job => ['success', 'deferred-cycle', 'blocked'].includes(value.stages?.[job.path]?.status))
 
 function freshState(day, scheduledAt) {
   return {
@@ -90,19 +96,20 @@ function freshState(day, scheduledAt) {
 function pipelinePlan(allowCatchUp) {
   const now = new Date(), today = targetFor(now)
   const previous = today <= now ? today : new Date(today.getTime() - 86_400_000)
-  const previousDay = dayKey(previous), age = now.getTime() - previous.getTime()
-  if (allowCatchUp && age >= 0 && age <= catchUpWindow && state.day === previousDay && !pipelineComplete(state)) {
+  const age = now.getTime() - previous.getTime()
+  const matchDay = previousUtcDay(previous)
+  if (allowCatchUp && age >= 0 && age <= catchUpWindow && state.day === matchDay && !pipelineComplete(state)) {
     const retryAt = nextRetryAt(state)
-    if (retryAt) return { wait: Math.max(1_000, retryAt - Date.now()), day: previousDay, scheduledAt: previous.getTime() }
+    if (retryAt) return { wait: Math.max(1_000, retryAt - Date.now()), day: matchDay, scheduledAt: previous.getTime() }
     const blocked = Object.values(state.stages).some(stage => stage.status === 'blocked')
-    if (!blocked) return { wait: 1_000, day: previousDay, scheduledAt: previous.getTime() }
+    if (!blocked) return { wait: 1_000, day: matchDay, scheduledAt: previous.getTime() }
   }
-  if (allowCatchUp && age >= 0 && age <= catchUpWindow && state.day !== previousDay) {
-    return { wait: 1_000, day: previousDay, scheduledAt: previous.getTime() }
+  if (allowCatchUp && age >= 0 && age <= catchUpWindow && state.day !== matchDay) {
+    return { wait: 1_000, day: matchDay, scheduledAt: previous.getTime() }
   }
   const next = new Date(today)
   if (next <= now || (state.day === dayKey(next) && pipelineComplete(state))) next.setUTCDate(next.getUTCDate() + 1)
-  return { wait: Math.max(1_000, next.getTime() - now.getTime()), day: dayKey(next), scheduledAt: next.getTime() }
+  return { wait: Math.max(1_000, next.getTime() - now.getTime()), day: previousUtcDay(next), scheduledAt: next.getTime() }
 }
 
 async function runJob(job, { oncePerCycle = false } = {}) {
@@ -151,10 +158,10 @@ async function runPipeline(day, scheduledAt) {
   console.log(JSON.stringify({ event: 'deuce.scheduler.pipeline.started', day, stages: state.stages, at: new Date().toISOString() }))
   for (const job of dueStages(refreshJobs, state)) await runJob(job)
   if (publicationReady(state, refreshJobs.map(job => job.path))) {
-    for (const job of dueStages([wikipediaJob], state)) await runJob(job, { oncePerCycle: true })
+    if (!dailyOnly) for (const job of dueStages([wikipediaJob], state)) await runJob(job, { oncePerCycle: true })
     for (const job of dueStages([publicationJob], state)) await runJob(job)
   }
-  if (state.stages?.[publicationJob.path]?.status === 'success') {
+  if (!dailyOnly && state.stages?.[publicationJob.path]?.status === 'success') {
     for (const job of dueStages([backfillJob], state)) await runJob(job, { oncePerCycle: true })
     for (const job of dueStages([enrichmentJob], state)) await runJob(job, { oncePerCycle: true })
   }

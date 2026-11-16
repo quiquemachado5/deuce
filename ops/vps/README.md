@@ -60,7 +60,7 @@ journalctl -u deuce-backup.service -u deuce-restore-drill.service --since today
 ```
 
 Mantén `DEUCE_ARCHIVE_MAX_BYTES` por debajo del espacio total para reservar capacidad a imágenes, compilaciones, logs y copias locales rotatorias.
-`DEUCE_PROVIDER_MIN_REMAINING` reserva por defecto 200 llamadas del saldo contratado. `DEUCE_PROVIDER_DAILY_MAX_CALLS` añade un techo propio de 400 llamadas por día para el conjunto de ATP, WTA, históricos, enriquecimiento y detalles solicitados desde la web. Cada operación conserva además su presupuesto individual. `provider-quota-status` guarda observaciones sin credenciales y `/api/metrics` expone límites, utilización y saldo seguro.
+Con el plan gratuito de 100 llamadas, el scheduler ejecuta una sola pasada diaria a las 00:20 UTC para consultar el día natural completo anterior. `DEUCE_PROVIDER_DAILY_MAX_CALLS=90` limita el consumo conjunto de ATP y WTA y `DEUCE_PROVIDER_MIN_REMAINING=10` conserva margen. El modo `DEUCE_PROVIDER_DAILY_ONLY=1` centra la cuota en la temporada actual, limita los detalles recientes y desactiva el enriquecimiento histórico opcional. La cuota es compartida entre circuitos. `provider-quota-status` guarda observaciones sin credenciales y `/api/metrics` expone límites y consumo.
 `deuce-resource-check.timer` publica memoria, disco y estado de contenedores cada cinco minutos; `deuce-maintenance.timer` elimina únicamente capas de construcción e imágenes sin uso y nunca poda volúmenes.
 
 ### Publicación diaria de archivos grandes
