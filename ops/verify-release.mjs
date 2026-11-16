@@ -12,6 +12,7 @@ const failures = releaseFailures(health, baseline, {
   allowDegraded: process.argv.includes('--allow-degraded'),
   allowHostIssue: process.argv.includes('--allow-host-issue'),
   allowInitialDailyUnavailable: process.argv.includes('--allow-initial-daily-unavailable'),
+  allowDailyUpdateCatchup: process.argv.includes('--allow-daily-update-catchup'),
   expectedCommit: argument('expected-commit') || process.env.DEUCE_EXPECTED_COMMIT,
   expectedDatasetVersion: argument('expected-dataset') || process.env.DEUCE_EXPECTED_DATASET_VERSION,
 })

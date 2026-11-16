@@ -45,6 +45,27 @@ function initialDailyBootstrapReady(health) {
     && Number.isFinite(daily.publication.ageHours) && daily.publication.ageHours <= staleAfterHours
 }
 
+function dailyCatchupReady(health, baseline) {
+  if (health?.status !== 'degraded'
+    || !Array.isArray(health.healthIssues)
+    || health.healthIssues.length !== 1
+    || health.healthIssues[0] !== 'daily-update'
+    || health.storage?.available !== true
+    || health.fallbackReason
+    || health.scheduler?.configured !== true
+    || health.scheduler?.status !== 'healthy') return false
+  const maximumAge = baseline.maximumDataAgeHours || 72
+  if (!Number.isFinite(health.ageHours) || health.ageHours > maximumAge) return false
+  const daily = health.dailyUpdate
+  if (!daily || typeof daily !== 'object') return false
+  const hasRecentSuccess = row => {
+    if (!row || typeof row !== 'object') return false
+    const age = row.status === 'success' ? row.ageHours : row.lastSuccessAgeHours
+    return Number.isFinite(age) && age <= maximumAge
+  }
+  return hasRecentSuccess(daily.atp) && hasRecentSuccess(daily.wta) && hasRecentSuccess(daily.publication)
+}
+
 export function releaseFailures(health, baseline, options = {}) {
   const failures = []
   const allowDegraded = options.allowDegraded === true
@@ -59,7 +80,12 @@ export function releaseFailures(health, baseline, options = {}) {
   // Stale/error rows and every other release check remain blocking.
   const initialDailyBootstrap = options.allowInitialDailyUnavailable === true
     && health.status === 'degraded' && initialDailyBootstrapReady(health)
-  if (health.status !== 'healthy' && !(allowDegraded && health.status === 'degraded') && !initialDailyBootstrap && !hostIssueOnly) failures.push(`Estado ${String(health.status).slice(0, 30)}`)
+  // A stale daily-update flag can otherwise deadlock a release: the candidate
+  // scheduler stays heartbeat-only until promotion, so it cannot perform the
+  // catch-up needed to clear that flag. Permit only this isolated condition,
+  // with a fresh-enough dataset, verified storage, and a healthy scheduler.
+  const dailyCatchup = options.allowDailyUpdateCatchup === true && dailyCatchupReady(health, baseline)
+  if (health.status !== 'healthy' && !(allowDegraded && health.status === 'degraded') && !initialDailyBootstrap && !hostIssueOnly && !dailyCatchup) failures.push(`Estado ${String(health.status).slice(0, 30)}`)
   if (!Number.isFinite(health.ageHours) || health.ageHours > (baseline.maximumDataAgeHours || 72)) failures.push('Datos fuera de la ventana de frescura permitida')
   if ((integer(health.matches) || 0) < baseline.minimumMatches) failures.push('Pérdida de volumen frente a la última release validada')
   if ((integer(health.statistics) || 0) < baseline.minimumStatistics) failures.push('Pérdida de catálogo frente a la última release validada')

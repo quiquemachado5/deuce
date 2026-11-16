@@ -50,6 +50,30 @@ test('first release accepts only absent daily rows and keeps every other gate st
   assert.ok(releaseFailures(noStorage, baseline, { allowInitialDailyUnavailable: true }).includes('Capacidad del archivo no verificada'))
 })
 
+test('release may pass an isolated daily-update backlog so the promoted scheduler can catch up', () => {
+  const degraded = {
+    ...healthy,
+    status: 'degraded',
+    healthIssues: ['daily-update'],
+    dailyUpdate: {
+      atp: { status: 'success', ageHours: 40 },
+      wta: { status: 'quota-reserve', lastSuccessAgeHours: 40 },
+      publication: { status: 'success', ageHours: 40 },
+    },
+  }
+  assert.deepEqual(releaseFailures(degraded, baseline, { allowDailyUpdateCatchup: true }), [])
+  assert.ok(releaseFailures(degraded, baseline).includes('Estado degraded'))
+  assert.ok(releaseFailures({ ...degraded, healthIssues: ['daily-update', 'scheduler'] }, baseline,
+    { allowDailyUpdateCatchup: true }).includes('Estado degraded'))
+  assert.ok(releaseFailures({ ...degraded, ageHours: 73 }, baseline,
+    { allowDailyUpdateCatchup: true }).includes('Estado degraded'))
+  assert.ok(releaseFailures({ ...degraded, storage: { available: false } }, baseline,
+    { allowDailyUpdateCatchup: true }).includes('Estado degraded'))
+  assert.ok(releaseFailures({ ...degraded, dailyUpdate: { ...degraded.dailyUpdate,
+    atp: { status: 'error', lastSuccessAgeHours: 73 } } }, baseline,
+    { allowDailyUpdateCatchup: true }).includes('Estado degraded'))
+})
+
 test('candidate verification may ignore only the suspended host monitor', () => {
   const hostOnly = { ...healthy, status: 'degraded', healthIssues: ['host'] }
   assert.deepEqual(releaseFailures(hostOnly, baseline, { allowHostIssue: true }), [])
