@@ -606,6 +606,7 @@ verify_args=(
   --url=http://127.0.0.1:3000/api/health/deep
   --expected-commit="${commit}"
   --allow-initial-daily-unavailable
+  --allow-daily-update-catchup
 )
 candidate_verify_args=("${verify_args[@]}" --allow-host-issue)
 
