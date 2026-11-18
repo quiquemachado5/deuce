@@ -9,7 +9,8 @@ export function finalsIdentity(row:FinalsProviderRow):{tour:Tour;category:string
  if(!Number.isInteger(season)||season<1970||season>new Date().getUTCFullYear())return null;
  if(tour==='atp'){
   const december1986=name==='masters dec'&&row.level==='M'&&/^atp:1986-605:/.test(String(row.source_id||''));
-  if(!(tier==='atp_finals'||(['tour finals','masters cup'].includes(name)&&row.level==='F')||(name==='masters'&&row.level==='M'&&season<=1989)||december1986))return null;
+  const turin2026=season===2026&&String(row.tournament_id)==='2794'&&name==='finals - turin'&&String(row.scheduled_time||'').slice(0,10)>='2026-11-01'&&String(row.scheduled_time||'').slice(0,10)<='2026-11-30';
+  if(!(tier==='atp_finals'||(['tour finals','masters cup'].includes(name)&&row.level==='F')||(name==='masters'&&row.level==='M'&&season<=1989)||december1986||turin2026))return null;
   return {tour,season,category:'ATP Finals',tournament:'ATP Finals'};
  }
  if(season<1972)return null;

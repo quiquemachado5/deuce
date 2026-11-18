@@ -42,10 +42,9 @@ export async function reconcileSeasonResults(
           `from=${new Date(Math.max(Date.UTC(season, 0, 1), last - 7 * 86400000)).toISOString().slice(0, 10)}&to=${season}-12-31`,
           full + since,
         ];
-  // The current Riyadh event is catalogued as tour_finals but has a null tier.
-  // A bounded November date window recovers only its exact reviewed identity;
-  // it never widens the public archive to arbitrary tier-less WTA rows.
-  if(tour==='wta'&&season===2026)plannedWindows.push('from=2026-11-01&to=2026-11-30&deuce_finals_probe=1');
+  // The current Finals can have a null tier. Recover only the exact Turin or
+  // Riyadh identity from a bounded date window, outside the tier-filtered list.
+  if(season===2026)plannedWindows.push('from=2026-11-01&to=2026-11-30&deuce_finals_probe=1');
   const saved = progress?.resume;
   const resume = saved?.season === season && saved.tour === tour
     && saved.baselineAt === previous?.at && Array.isArray(saved.rows)

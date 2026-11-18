@@ -16,6 +16,8 @@ test('Finals identities exclude Elite Trophy, WCT, Next Gen and unrelated city t
  assert.equal(finalsIdentity({tour:'atp',tournament:'Masters Dec',level:'M',source_id:'atp:1986-605:1'})?.season,1986);
  for(const [source_id,tournament] of [['wta:1972-1038:1','Boca Raton'],['wta:1973-1047:1','Boca Raton'],['wta:1974-1027:1','Los Angeles']])assert.equal(finalsIdentity({tour:'wta',tournament,level:'W',source_id})?.category,'WTA Finals');
  assert.equal(finalsIdentity({tour:'wta',tournament:'Los Angeles',level:'W',source_id:'wta:1973-1005:16'}),null);
+ assert.equal(finalsIdentity({tour:'atp',tournament_id:'2794',tournament:'Finals - Turin',scheduled_time:'2026-11-16T12:00:00Z',tier:null})?.category,'ATP Finals');
+ assert.equal(finalsIdentity({tour:'atp',tournament_id:'2795',tournament:'Finals - Turin',scheduled_time:'2026-11-16T12:00:00Z',tier:null}),null);
 });
 test('sealed Finals pack contains both tours without duplicate IDs',async()=>{
  const rows=await finalsArchiveRows();assert.ok(rows.length>=1580);assert.equal(new Set(rows.map(e=>e.kind+'|'+e.row.tour+'|'+e.row.id)).size,rows.length);
@@ -57,5 +59,10 @@ test('mixed metadata or one synthetic tape row blocks observed-point classificat
 test('Riyadh null-tier recovery does not admit other WTA tournaments',async()=>{
  const rows=[{id:1,tour:'wta',tournament_id:'3195',tournament:'Finals - Riyadh',scheduled_time:'2026-11-10T12:00:00Z',tier:null},{id:2,tour:'wta',tournament_id:'99',tournament:'Some other tournament',scheduled_time:'2026-11-10T12:00:00Z',tier:null}];
  const result=await reconcileSeasonResults(2026,2026,{scope:'wta-main-v2',at:'2026-11-10T00:00:00Z',data:[]},async path=>({data:path.includes('tier=')?[]:rows,meta:{has_more:false,limit:200}}),'wta');
+ assert.deepEqual(result.data.map(r=>r.id),[1]);
+});
+test('Turin null-tier recovery does not admit other ATP tournaments',async()=>{
+ const rows=[{id:1,tour:'atp',tournament_id:'2794',tournament:'Finals - Turin',scheduled_time:'2026-11-16T12:00:00Z',tier:null},{id:2,tour:'atp',tournament_id:'99',tournament:'Some other tournament',scheduled_time:'2026-11-16T12:00:00Z',tier:null}];
+ const result=await reconcileSeasonResults(2026,2026,{scope:'atp-main-v2',at:'2026-11-10T00:00:00Z',data:[]},async path=>({data:path.includes('tier=')?[]:rows,meta:{has_more:false,limit:200}}),'atp');
  assert.deepEqual(result.data.map(r=>r.id),[1]);
 });
