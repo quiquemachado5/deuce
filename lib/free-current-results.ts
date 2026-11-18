@@ -13,8 +13,10 @@ const tiers:Record<Tour,Set<string>>={
  wta:new Set(['grand_slam','wta_1000','wta_500','wta_finals']),
 };
 function wanted(row:Row,tour:Tour){
- return (row.tour===undefined||row.tour===tour)&&row.draw==='singles'&&row.is_qualifying===false
-  &&(typeof row.tier==='string'&&tiers[tour].has(row.tier)||finalsIdentity({...row,tour})!==null);
+ const finals=finalsIdentity({...row,tour})!==null;
+ return (row.tour===undefined||row.tour===tour)&&row.draw==='singles'
+  &&(row.is_qualifying===false&&typeof row.tier==='string'&&tiers[tour].has(row.tier)
+   ||row.is_qualifying!==true&&finals);
 }
 /** FREE match detail can settle an ID discovered while it was upcoming. */
 export async function collectFreeCurrentResults(tour:Tour,previous:Season,saved:FreeCurrentQueue|undefined,request:(path:string)=>Promise<Page|Row|FixturePage>,maxCalls:number,now=new Date()){
@@ -24,9 +26,10 @@ export async function collectFreeCurrentResults(tour:Tour,previous:Season,saved:
  const fresh:Row[]=[];
  const otherYears=new Map<number,Row[]>();
  // The FREE fixture feed can still expose a finished Finals match by ID after
- // it has disappeared from the FREE upcoming list. Bootstrap only this reviewed
- // 2026 gap, once, when no queue exists yet.
- if(!saved&&now.getTime()>=Date.parse('2026-11-16T00:00:00Z')&&now.getTime()<Date.parse('2026-12-01T00:00:00Z')&&maxCalls>3){
+ // it has disappeared from the FREE upcoming list. Check this reviewed 2026
+ // Finals window daily, since a newly finished fixture may never be upcoming
+ // at the exact time of our one daily poll.
+ if(now.getTime()>=Date.parse('2026-11-16T00:00:00Z')&&now.getTime()<Date.parse('2026-12-01T00:00:00Z')&&maxCalls>3){
   const fixtures=await request(`/fixtures?tour=${tour}&draw=singles&limit=200&offset=0`) as FixturePage;
   calls++;
   if(!Array.isArray(fixtures.data))throw new Error('Incomplete FREE fixture page');
