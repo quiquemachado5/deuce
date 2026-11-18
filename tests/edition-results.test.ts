@@ -117,10 +117,12 @@ test("a migrated current season polls old January corrections as well as recent 
       return { data: [], meta: { has_more: false } };
     },
   );
-  assert.equal(calls.length, 2);
+  assert.equal(calls.length, 3);
   assert.match(calls[0], /from=2026-10-14/);
   assert.match(calls[1], /from=2026-01-01/);
   assert.match(calls[1], /restated_since=/);
+  assert.match(calls[2], /from=2026-11-01&to=2026-11-30/);
+  assert.doesNotMatch(calls[2], /tier=/);
 });
 
 test("women's seasons use their own provider query and publication scope", async () => {
