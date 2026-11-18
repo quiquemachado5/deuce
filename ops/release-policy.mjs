@@ -29,6 +29,15 @@ export function recoverableDailyPublicationFailure(health) {
     && (failedPublication || migrationPublication))
 }
 
+/** A stale active generation needs a real refresh before the candidate gate can pass. */
+export function recoverableStaleDataset(health) {
+  const issues = health?.healthIssues
+  return health?.status === 'degraded'
+    && Array.isArray(issues) && issues.includes('dataset-stale')
+    && issues.every(issue => ['dataset-stale', 'daily-update', 'circuit-freshness', 'scheduler', 'host'].includes(issue))
+    && health.storage?.available === true && !health.fallbackReason
+}
+
 function initialDailyBootstrapReady(health) {
   const daily = health?.dailyUpdate
   if (!daily || typeof daily !== 'object') return false

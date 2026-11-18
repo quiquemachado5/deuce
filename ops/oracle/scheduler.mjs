@@ -19,7 +19,7 @@ const jobs = [...refreshJobs, publicationJob, backfillJob, enrichmentJob, wikipe
 // Run after the previous UTC day is complete so late match results are included.
 const pipelineHour = Number(process.env.DEUCE_PIPELINE_HOUR_UTC ?? 0)
 const pipelineMinute = Number(process.env.DEUCE_PIPELINE_MINUTE_UTC ?? 20)
-const dailyOnly = process.env.DEUCE_PROVIDER_DAILY_ONLY === '1'
+const dailyOnly = process.env.DEUCE_PROVIDER_DAILY_ONLY !== '0'
 // The publication SLA is 36 hours. A host restored later in the day must still
 // recover the most recent missed window instead of silently waiting overnight.
 const catchUpWindow = Math.max(36 * 60 * 60 * 1000, Number(process.env.DEUCE_SCHEDULER_CATCH_UP_MS || 0))
