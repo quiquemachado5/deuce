@@ -578,11 +578,9 @@ if [[ "${seed_complete}" != true ]]; then
   exit 1
 fi
 
-# A previous image may have persisted a failed publication attempt even though
-# its last valid generation and both circuit refreshes are still fresh. Run the
-# candidate publisher once in that narrow state so its fix is proven before
-# promotion. This consumes no provider calls, and the deployment backup above
-# restores the prior pointer and status if the repair or a later gate fails.
+# Repair a failed publication, or refresh both circuits when the active dataset
+# is already stale. The candidate must publish and pass the same release gate
+# before promotion; failed repairs leave the previous image serving traffic.
 if ! docker exec "${candidate}" node /app/ops/recover-publication.mjs \
   --health-url=http://127.0.0.1:3000/api/health/deep \
   --publish-url=http://127.0.0.1:3000/api/cron/publish; then

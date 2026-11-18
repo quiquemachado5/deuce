@@ -4,7 +4,7 @@ import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { gzipSync } from 'node:zlib'
-import { recoverableDailyPublicationFailure, releaseFailures } from '../ops/release-policy.mjs'
+import { recoverableDailyPublicationFailure, recoverableStaleDataset, releaseFailures } from '../ops/release-policy.mjs'
 import { hasRequiredSnapshotArtifacts, satisfiesReleaseSnapshot } from '../build/snapshot-policy.mjs'
 
 const baseline = {
@@ -127,6 +127,16 @@ test('candidate republishes a migrated snapshot only when saved circuit data can
     ...lagging.circuitFreshness,
     atp: { materiallyBehind: false, latestProviderDate: '2026-11-08', latestPublishedDate: '2026-11-08' },
   } }), false)
+})
+
+test('candidate refreshes a stale dataset only with intact storage and no unrelated incident', () => {
+  const stale = { ...healthy, status: 'degraded', ageHours: 80,
+    healthIssues: ['dataset-stale', 'daily-update', 'scheduler'] }
+  assert.equal(recoverableStaleDataset(stale), true)
+  assert.equal(recoverableStaleDataset({ ...stale, healthIssues: ['daily-update'] }), false)
+  assert.equal(recoverableStaleDataset({ ...stale, healthIssues: [...stale.healthIssues, 'archive-fallback'] }), false)
+  assert.equal(recoverableStaleDataset({ ...stale, storage: { available: false } }), false)
+  assert.equal(recoverableStaleDataset({ ...stale, fallbackReason: 'remote-unavailable' }), false)
 })
 
 test('bundled snapshot policy requires the record catalogue of both circuits', () => {

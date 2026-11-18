@@ -267,7 +267,7 @@ export async function refreshCloudArchive() {
     calls++
     quota = await provider('/usage')
     const remaining = providerRemainingCalls(quota)
-    const dailyOnly=process.env.DEUCE_PROVIDER_DAILY_ONLY==='1'
+    const dailyOnly=process.env.DEUCE_PROVIDER_DAILY_ONLY!=='0'
     const wtaReserve=Math.max(40,providerMinimumReserve()),callLimit=await recordProviderQuota('atp-refresh',quota,dailyOnly?45:35)
     if (remaining <= wtaReserve || callLimit<=1) {
       const result = { status: 'quota-reserve', phase:'current-season', attemptAt, at: new Date().toISOString(), remaining, calls, extracted:0, lastSuccessAt, retryAt:providerQuotaRetryAt(quota), probe:{usage:'ok',currentSeason:'deferred'} }
@@ -283,6 +283,21 @@ export async function refreshCloudArchive() {
     const year = new Date().getUTCFullYear()
     const {bundledTourSeason}=await import('./live-tennis')
     const old = mergeSeasonBaseline(await bundledTourSeason(year) as Season,await cloudRead(`season-${year}`))
+    if(dailyOnly){
+      const {collectFreeCurrentResults}=await import('./free-current-results')
+      const refreshed=await collectFreeCurrentResults('atp',old,await cloudRead('free-current-atp'),request,Math.max(0,Math.min(callLimit-calls-1,remaining-calls-wtaReserve-1)))
+      for(const [playedYear,rows] of refreshed.otherYears){
+        const key=`season-${playedYear}`
+        const previous=mergeSeasonBaseline(await bundledTourSeason(playedYear) as Season,await cloudRead(key))
+        const merged=new Map((previous?.data||[]).map(row=>[String(row.id),row]))
+        for(const row of rows)merged.set(String(row.id),row)
+        await cloudWrite(key,{data:[...merged.values()],scope:refreshed.scope,at:refreshed.at})
+      }
+      await cloudWrite(`season-${year}`,{data:refreshed.data,scope:refreshed.scope,at:refreshed.at})
+      await cloudWrite('free-current-atp',refreshed.queue)
+      const result={status:refreshed.complete?'success':'quota-reserve',phase:'current-season',attemptAt,at:new Date().toISOString(),lastSuccessAt:refreshed.complete?new Date().toISOString():lastSuccessAt,year,calls,updated:refreshed.fresh.length,extracted:refreshed.fresh.length,pending:refreshed.queue.ids.length,complete:refreshed.complete,latestProviderDate:latestProviderResultDate([...refreshed.data,...refreshed.fresh]),...(!refreshed.complete?{retryAt:providerQuotaRetryAt(quota)}:{})}
+      await cloudWrite('sync-status',withOperationHistory(priorStatus,result));return result
+    }
     const seasonsRefreshed:number[]=[]
     const detailCandidates:ArchiveRow[]=[]
     const previousRows=new Map<string,ArchiveRow>()
@@ -511,7 +526,7 @@ export async function refreshCloudWta() {
       const result={status:'quota-reserve',phase:'current-season',attemptAt,at:new Date().toISOString(),remaining,calls,extracted:0,lastSuccessAt,retryAt:providerQuotaRetryAt(quota),probe:{usage:'ok',currentSeason:'deferred'}}
       await save(result);return result
     }
-    const dailyOnly=process.env.DEUCE_PROVIDER_DAILY_ONLY==='1'
+    const dailyOnly=process.env.DEUCE_PROVIDER_DAILY_ONLY!=='0'
     const callLimit=await recordProviderQuota('wta-refresh',quota,dailyOnly?45:30)
     const request=async(path:string)=>{
       if(calls>=callLimit||Date.now()-started>220_000)throw new Error('WTA current sync safety budget reached')
@@ -520,6 +535,21 @@ export async function refreshCloudWta() {
     const year=new Date().getUTCFullYear()
     const {bundledTourSeason}=await import('./live-tennis')
     const previous=mergeSeasonBaseline(await bundledTourSeason(year,'wta') as Season,await cloudRead(`season-wta-${year}`),'wta')
+    if(dailyOnly){
+      const {collectFreeCurrentResults}=await import('./free-current-results')
+      const refreshed=await collectFreeCurrentResults('wta',previous,await cloudRead('free-current-wta'),request,Math.max(0,callLimit-calls-1))
+      for(const [playedYear,rows] of refreshed.otherYears){
+        const key=`season-wta-${playedYear}`
+        const prior=mergeSeasonBaseline(await bundledTourSeason(playedYear,'wta') as Season,await cloudRead(key),'wta')
+        const merged=new Map((prior?.data||[]).map(row=>[String(row.id),row]))
+        for(const row of rows)merged.set(String(row.id),row)
+        await cloudWrite(key,{data:[...merged.values()],scope:refreshed.scope,at:refreshed.at})
+      }
+      await cloudWrite(`season-wta-${year}`,{data:refreshed.data,scope:refreshed.scope,at:refreshed.at})
+      await cloudWrite('free-current-wta',refreshed.queue)
+      const at=new Date().toISOString(),result={status:refreshed.complete?'success':'quota-reserve',phase:'current-season',attemptAt,at,lastSuccessAt:refreshed.complete?at:lastSuccessAt,calls,year,seasonsRefreshed:[year,...refreshed.otherYears.keys()],seasonMatches:refreshed.data.length,updated:refreshed.fresh.length,extracted:refreshed.fresh.length,pending:refreshed.queue.ids.length,complete:refreshed.complete,latestProviderDate:latestProviderResultDate([...refreshed.data,...refreshed.fresh]),probe:{usage:'ok',currentSeason:refreshed.complete?'ok':'deferred'},...(!refreshed.complete?{retryAt:providerQuotaRetryAt(quota)}:{})}
+      await save(result);return result
+    }
     const progressKey=`wta-current-progress-${year}`
     const refreshed=await reconcileSeasonResults(year,year,previous,request,'wta',{
       resume:await cloudRead(progressKey),save:checkpoint=>cloudWrite(progressKey,checkpoint),
