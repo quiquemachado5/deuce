@@ -121,7 +121,7 @@ async function runJob(job, { oncePerCycle = false } = {}) {
   try {
     const headers = { Authorization: `Bearer ${secret}` }
     const response = job.path === publicationJob.path
-      ? await internalRequest(`${base}${job.path}`, { headers, timeoutMs: 720_000 })
+      ? await internalRequest(`${base}${job.path}`, { headers, timeoutMs: 1_260_000 })
       : await fetch(`${base}${job.path}`, { headers, signal: AbortSignal.timeout(290_000) })
     const body = typeof response.body === 'string' ? response.body : await response.text()
     const result = parseJobResponse(response.status, body)

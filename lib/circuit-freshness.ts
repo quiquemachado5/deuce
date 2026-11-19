@@ -2,6 +2,7 @@ import { exactDay } from './archive-freshness';
 import { PUBLICATION_CATEGORIES } from './publication-scope';
 import { providerTournamentName } from './tournament-identity';
 import { modernTournamentCategory } from './tournament-tier';
+import { finalsIdentity } from './finals-identity';
 import type { Tour } from './types';
 
 type ProviderResultRow = {
@@ -14,6 +15,7 @@ type ProviderResultRow = {
   is_doubles?: unknown;
   tier?: unknown;
   tournament?: unknown;
+  tournament_id?: unknown;
 };
 
 const terminalResultStates = new Set(['completed', 'finished', 'retired', 'walkover', 'default']);
@@ -44,6 +46,7 @@ function inCurrentPublicationScope(row: ProviderResultRow, day: string) {
   if (row.is_doubles === true) return false;
   const tour: Tour | null = row.tour === 'atp' || row.tour === 'wta' ? row.tour : null;
   if (!tour || typeof row.tournament !== 'string') return true;
+  if (finalsIdentity(row)) return true;
   const tournament = providerTournamentName(row.tournament, { tour, tier: row.tier });
   const category = ['Australian Open', 'Roland Garros', 'Wimbledon', 'US Open'].includes(tournament)
     ? 'Grand Slam'
