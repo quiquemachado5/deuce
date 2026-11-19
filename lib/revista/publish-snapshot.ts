@@ -12,6 +12,7 @@ import {mkdir,writeFile,rename,readdir,unlink,readFile} from 'node:fs/promises';
 import {join} from 'node:path';
 import {isDeepStrictEqual} from 'node:util';
 import {cloudClone,cloudPruneSnapshotGenerations,cloudRead,cloudWrite,cloudWriteMany,type ArchiveWrite} from '../cloud-archive';
+import {archiveStoreBackend} from '../archive-store';
 import {attachIngestionHistory,partitionMatches,pieceChunk,type Snapshot,type RecordPages,type RecordManifest} from './snapshot';
 import {assertPublishableArchive} from '../dataset-summary';
 import {compileMatchBrowser,matchBrowserArtifact} from '../match-browser-snapshot';
@@ -107,7 +108,9 @@ export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotSt
     if(Date.parse(manifest.generatedAt)>Date.parse((published as RecordManifest).generatedAt))await storage.write('reading-v2-manifest',{...manifest,artifactPacks:(published as RecordManifest).artifactPacks});
     return manifest;
   }
-  if(storage.prune&&published&&typeof published==='object'&&typeof (published as RecordManifest).version==='string'){
+  // Filesystem readers can still hold the older generation until their cache
+  // expires. Reclaim it only after the new pointer has been published.
+  if(storage.prune&&archiveStoreBackend()!=='filesystem'&&published&&typeof published==='object'&&typeof (published as RecordManifest).version==='string'){
     await storage.prune([(published as RecordManifest).version]).catch(error=>console.warn('Snapshot retention preflight failed:',error instanceof Error?error.name:'unknown'));
   }
   async function* artifacts():AsyncGenerator<[string,unknown]> {

@@ -231,11 +231,16 @@ async function cloudBlobBuffer(version:string,id:string):Promise<Buffer|undefine
  }catch{return undefined;}
 }
 async function cloudBlob<T>(version:string,id:string):Promise<T|undefined>{
- try{
-  const encoded=await cloudBlobBuffer(version,id);
-  if(!encoded)return undefined;
-  return JSON.parse((await gunzipAsync(encoded)).toString()) as T;
- }catch(error){console.warn('Snapshot blob read failed:',id,error instanceof Error?error.message:'unknown');return undefined;}
+ for(let attempt=0;attempt<2;attempt++){
+  try{
+   const encoded=await cloudBlobBuffer(version,id);
+   if(encoded)return JSON.parse((await gunzipAsync(encoded)).toString()) as T;
+  }catch(error){console.warn('Snapshot blob read failed:',id,error instanceof Error?error.message:'unknown');}
+  // A busy filesystem may miss the first bounded read while publication writes
+  // large packs. Evict that failed probe before deciding the generation is bad.
+  if(attempt===0){remotePointers.clear();remoteArtifacts.clear();}
+ }
+ return undefined;
 }
 
 /**
