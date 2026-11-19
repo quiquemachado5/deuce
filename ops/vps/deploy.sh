@@ -401,7 +401,7 @@ start_prometheus_best_effort() {
 }
 
 wait_for_archive_idle() {
-  for attempt in {1..84}; do
+  for attempt in {1..288}; do
     if docker exec "${candidate}" node -e '
       const {readFile}=require("node:fs/promises"),{join}=require("node:path");
       (async()=>{const root=process.env.DEUCE_ARCHIVE_DIR,now=Date.now();
