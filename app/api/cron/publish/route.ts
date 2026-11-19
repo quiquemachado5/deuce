@@ -27,7 +27,7 @@ import {runIsolatedPublication} from '@/lib/isolated-publication'
 import {publicationRefreshCheckpoint} from '@/lib/operational-health'
 
 export const runtime = 'nodejs'
-export const maxDuration = 720
+export const maxDuration = 1320
 export const dynamic = 'force-dynamic'
 
 export async function GET(request: Request) {
@@ -40,7 +40,12 @@ export async function GET(request: Request) {
       if(response.ok){invalidatePreparedGeneration();revalidatePath('/','layout');const warmup=await warmPublishedNavigation(Number(process.env.PORT)||3000).catch(()=>[]);console.info('Published navigation warmed:',JSON.stringify(warmup))}
       return response;
     }catch(error){
-      console.error('Isolated publication failed:',error instanceof Error?error.message:'unknown');
+      const reason=error instanceof Error?error.message:'unknown'
+      console.error('Isolated publication failed:',reason);
+      if(reason!=='Publication worker port is unavailable'){
+        const current=await cloudRead('publish-status').catch(()=>undefined)
+        if(current?.status==='running')await cloudWrite('publish-status',withOperationHistory(current,{status:'error',attemptAt:current.attemptAt||current.at,lastSuccessAt:current.lastSuccessAt,at:new Date().toISOString(),message:reason})).catch(()=>undefined)
+      }
       return Response.json({status:'error',error:'Publication worker failed; previous generation retained'},{status:503});
     }
   }

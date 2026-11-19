@@ -406,7 +406,7 @@ wait_for_archive_idle() {
       const {readFile}=require("node:fs/promises"),{join}=require("node:path");
       (async()=>{const root=process.env.DEUCE_ARCHIVE_DIR,now=Date.now();
         try{const lease=JSON.parse(await readFile(join(root,".lease-tennis-provider.lock"),"utf8"));if(!lease.expiresAt||Date.parse(lease.expiresAt)>now)process.exit(1)}catch(error){if(error.code!=="ENOENT")process.exit(1)}
-        for(const name of ["publish-status.json","seed-status.json"]){try{const row=JSON.parse(await readFile(join(root,name),"utf8"));if(row.status==="running"){const at=Date.parse(row.attemptAt||row.at||"");if(!Number.isFinite(at)||now-at<900000)process.exit(1)}}catch(error){if(error.code!=="ENOENT")process.exit(1)}}
+        for(const name of ["publish-status.json","seed-status.json"]){try{const row=JSON.parse(await readFile(join(root,name),"utf8"));if(row.status==="running"){const at=Date.parse(row.attemptAt||row.at||"");if(!Number.isFinite(at)||now-at<1320000)process.exit(1)}}catch(error){if(error.code!=="ENOENT")process.exit(1)}}
       })().catch(()=>process.exit(1));'; then
       return 0
     fi

@@ -27,6 +27,16 @@ test('provider freshness uses terminal current results and rejects fixtures, inv
   assert.equal(latestProviderResultDate([{ status: 'upcoming', scheduled_time: '2026-11-02T08:00:00Z' }], now), null);
 });
 
+test('reviewed Finals results with a missing provider tier count toward freshness', () => {
+  const now = new Date('2026-11-19T12:00:00Z');
+  assert.equal(latestProviderResultDate([
+    { outcome: 'completed', tour: 'atp', draw: 'singles', tier: null, tournament: 'Finals - Turin', tournament_id: 2794, scheduled_time: '2026-11-18T17:00:00Z' },
+  ], now), '2026-11-18');
+  assert.equal(latestProviderResultDate([
+    { outcome: 'completed', tour: 'atp', draw: 'singles', tier: null, tournament: 'Finals - Turin', tournament_id: 9999, scheduled_time: '2026-11-18T17:00:00Z' },
+  ], now), null);
+});
+
 test('provider-to-snapshot lag allows three sporting days and ignores wall-clock offseason age', () => {
   assert.deepEqual(compareCircuitFreshness('2026-10-06', '2026-10-03'), {
     latestProviderDate: '2026-10-06', latestPublishedDate: '2026-10-03', lagDays: 3,

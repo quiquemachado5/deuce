@@ -19,5 +19,5 @@ test('internal publication has an absolute deadline and response byte limit',asy
 test('watchdog defers only a running publication with a fresh live bounded lease',()=>{
  const now=Date.now(),p={status:'running',attemptAt:new Date(now-1000).toISOString()},l={owner:'writer',expiresAt:new Date(now+5000).toISOString()};
  assert.equal(activePublicationLease(p,l,now),true);
- for(const [publication,lease] of [[{...p,status:'error'},l],[{...p,attemptAt:new Date(now-900001).toISOString()},l],[p,{...l,expiresAt:new Date(now-1).toISOString()}],[p,{...l,expiresAt:new Date(now+900001).toISOString()}],[p,{}]])assert.equal(activePublicationLease(publication,lease,now),false);
+ for(const [publication,lease] of [[{...p,status:'error'},l],[{...p,attemptAt:new Date(now-1_320_001).toISOString()},l],[p,{...l,expiresAt:new Date(now-1).toISOString()}],[p,{...l,expiresAt:new Date(now+900001).toISOString()}],[p,{}]])assert.equal(activePublicationLease(publication,lease,now),false);
 });
