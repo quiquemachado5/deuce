@@ -22,6 +22,11 @@ test('global search opens, finds Nadal and closes with Escape',async({page})=>{
  const input=page.getByRole('searchbox').first();await input.fill('Nadal');await expect(page.getByText('Rafael Nadal',{exact:true}).first()).toBeVisible();await input.press('Escape');await expect(page.getByRole('button',{name:'Buscar en DEUCE',exact:true})).toBeVisible();
 });
 
+test('published player biography appears in the active profile design',async({page})=>{
+ await page.goto('/jugadores/rafael-nadal');
+ await expect(page.getByText('185 cm',{exact:true})).toBeVisible();
+});
+
 test('English URLs redirect permanently to their Spanish entity',async({request})=>{
  for(const [from,to] of [['/en','/'],['/en/robots.txt','/robots.txt'],['/en/matches/live-216535','/match/live-216535'],['/en/players/rafael-nadal','/jugadores/rafael-nadal'],['/en/players/iga-swiatek?tour=wta','/jugadores/iga-swiatek?tour=wta'],['/en/tournaments/wimbledon/2022?tour=wta','/torneos/wimbledon/2022?cuadro=wta']]){
   const response=await request.get(from,{maxRedirects:0});expect(response.status()).toBe(308);
