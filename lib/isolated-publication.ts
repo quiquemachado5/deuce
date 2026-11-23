@@ -28,7 +28,10 @@ export function createPublicationRunner(options:{workerFile?:string;port?:number
   running=true;
   try{await new Promise<void>((resolve,reject)=>{const probe=createServer();probe.once('error',reject);probe.listen(port,'127.0.0.1',()=>probe.close(error=>error?reject(error):resolve()));});}
   catch(error){running=false;throw new Error('Publication worker port is unavailable',{cause:error});}
-  const child=spawn(process.execPath,[options.workerFile||join(process.cwd(),'server.js')],{
+  // The publication process owns several large, sequential projections. Give
+  // it an explicit collection boundary so completed projections cannot keep
+  // the next one above the container's bounded memory budget.
+  const child=spawn(process.execPath,['--expose-gc',options.workerFile||join(process.cwd(),'server.js')],{
    env:{...process.env,HOSTNAME:'127.0.0.1',PORT:String(port),DEUCE_PUBLICATION_CHILD:'1'},stdio:['ignore','inherit','inherit'],
   });
   let failure:Error|undefined;child.once('error',error=>{failure=error;});

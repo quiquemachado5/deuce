@@ -56,6 +56,13 @@ async function* compressedBrowser(matches:Snapshot['matches']):AsyncGenerator<[s
  }
  yield* await compressedBlob('browser-index',compileMatchBrowserIndex(matches,groups.map(group=>group.meta)));
 }
+async function releaseProjectionMemory(phase:string) {
+ await new Promise<void>(resolve=>setImmediate(resolve));
+ const gc=(globalThis as typeof globalThis&{gc?:()=>void}).gc;
+ if(!gc)return;
+ gc();
+ console.info('Snapshot publication: projection released',phase,Math.round(process.memoryUsage().rss/1048576));
+}
 export const snapshotKey=(version:string,id:string)=>`reading-v2-${version}-${id}`;
 export async function writeBundledSnapshot(snapshot:Snapshot) {
   const dir=join(process.cwd(),'data','reading');await mkdir(dir,{recursive:true});
@@ -94,6 +101,9 @@ function publishedGeneration(manifest:RecordManifest) {
 /** A published pointer proves all artifacts exist. A new pointer is written last. */
 export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotStorage={read:cloudRead,write:cloudWrite,writeMany:cloudWriteMany,reuse:cloudClone,prune:cloudPruneSnapshotGenerations}) {
   assertSnapshotIntegrity(snapshot);
+  // The caller has just discarded the raw provider archive. Collect it before
+  // opening any publication projection; the immutable snapshot remains live.
+  await releaseProjectionMemory('compiled-input');
   const {pieces,eras,matches,players,competition,audit,products}=snapshot;
   const published=await storage.read('reading-v2-manifest');
   if((published as RecordManifest|undefined)?.version===snapshot.manifest.version&&(published as RecordManifest).artifactPacks?.['public-archive']&&(published as RecordManifest).publicArchiveSchema===PUBLIC_ARCHIVE_SCHEMA)return published as RecordManifest;
@@ -131,10 +141,13 @@ export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotSt
     // browser decade and navigation entity alive together exceeded 4 GB for
     // the 152k-match archive even though each individual artifact is bounded.
     yield* compressedNavigation(matches,players);
-    const reconciliation=reconcileCoverage(matches,audit,historyBaseline.allowedPendingCohorts);
+    await releaseProjectionMemory('navigation');
     for(const [id,piece] of Object.entries(pieces))yield* compressedPages(id,piece);
     for(const group of partitionMatches(matches))yield* await compressedBlob(group.meta.id,group.matches);
+    await releaseProjectionMemory('full-match-shards');
     yield* compressedBrowser(matches);
+    await releaseProjectionMemory('browser-shards');
+    const reconciliation=reconcileCoverage(matches,audit,historyBaseline.allowedPendingCohorts);
     for(const [id,value] of [['page-revisions',pageRevisions],['correction-history',pageRevisions.corrections],['publication-index',snapshot.publicationIndex||buildPublicationIndex(matches)],['eras',eras],['players',players],['competition',competition],['audit',audit],['reconciliation',reconciliation],['draw-anomalies',drawAnomalies],['edition-products',products.editions],['player-directory',products.players],['search-products',products.search],['elo-products',products.elo],['time-machine',products.timeMachine]] as const)yield* await compressedBlob(id,value);
     yield* await compressedBlob('public-archive',compilePublicArchiveProducts(matches,players,manifest,pageRevisions,audit));
   }
