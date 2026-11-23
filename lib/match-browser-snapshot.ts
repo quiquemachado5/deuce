@@ -257,6 +257,20 @@ function circuitIndex(matches: Match[], tour: Tour): MatchBrowserCircuit {
   };
 }
 
+export function compileMatchBrowserIndex(
+  matches: Match[],
+  partitions: ReadonlyArray<Pick<MatchBrowserPartition, 'id' | 'tour' | 'fromYear' | 'toYear' | 'count'>>,
+): MatchBrowserIndex {
+  return {
+    schema: MATCH_BROWSER_SCHEMA,
+    count: matches.length,
+    partitions: [...partitions]
+      .sort((a, b) => b.fromYear - a.fromYear || a.tour.localeCompare(b.tour))
+      .map(({ id, tour, fromYear, toYear, count }) => ({ id, tour, fromYear, toYear, count })),
+    circuits: { atp: circuitIndex(matches, 'atp'), wta: circuitIndex(matches, 'wta') },
+  };
+}
+
 export function compileMatchBrowser(matches: Match[]) {
   const groups = new Map<string, { tour: Tour; fromYear: number; matches: Match[] }>();
   for (const match of matches) {
@@ -269,12 +283,7 @@ export function compileMatchBrowser(matches: Match[]) {
   }
   const partitions = [...groups].map(([id, group]) => createPartition(id, group.tour, group.fromYear, group.matches))
     .sort((a, b) => b.fromYear - a.fromYear || a.tour.localeCompare(b.tour));
-  const index: MatchBrowserIndex = {
-    schema: MATCH_BROWSER_SCHEMA,
-    count: matches.length,
-    partitions: partitions.map(({ id, tour, fromYear, toYear, count }) => ({ id, tour, fromYear, toYear, count })),
-    circuits: { atp: circuitIndex(matches, 'atp'), wta: circuitIndex(matches, 'wta') },
-  };
+  const index = compileMatchBrowserIndex(matches, partitions);
   return { index, partitions };
 }
 
