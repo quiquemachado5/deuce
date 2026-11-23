@@ -26,6 +26,12 @@ test('production preflight accepts a coherent private configuration', () => {
   assert.deepEqual(validateProductionEnv(valid).errors, [])
 })
 
+test('production preflight accepts the bulk results key without the live provider',()=>{
+ const values={...valid,TENNIS_RESULTS_API_KEY:'bulk-results-key-with-enough-entropy'}
+ delete values.TENNIS_API_KEY
+ assert.deepEqual(validateProductionEnv(values).errors,[])
+})
+
 test('production preflight rejects placeholders, weak secrets and mismatched origins', () => {
   const result = validateProductionEnv({
     ...valid,

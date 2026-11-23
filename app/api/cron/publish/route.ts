@@ -121,9 +121,13 @@ export async function GET(request: Request) {
       const {delta,changes}=comparePublicationIndexes(storedIndex,snapshot.publicationIndex)
       sampleMemory(validPublicationIndex(storedIndex)?'indexed':'indexed-migrated')
       snapshot.manifest.publicationDelta=delta
+      const providers=[refresh.provider,wtaRefresh?.provider].filter((provider):provider is string=>typeof provider==='string')
+      const bulkResults=providers.includes('tennis-api-results')
+      const publicationSource=bulkResults?'Tennis API daily results':'Live Tennis API'
+      const publicationSourceUrl=bulkResults?'https://docs.tennis-api.com/results':'https://api.livetennisapi.com/api/public/v1'
       // Immutable correction provenance survives serving-generation retention.
       // It is written before the pointer; an interrupted attempt cannot lose evidence.
-      if(changes.length)await cloudWrite(`archive-history-${snapshot.manifest.version}`,{encoding:'gzip-base64',gzip:gzipSync(JSON.stringify({at:attemptAt,fromVersion:baseline.manifest.version,toVersion:snapshot.manifest.version,source:'Live Tennis API',sourceUrl:'https://api.livetennisapi.com/api/public/v1',validation:'explicit circuit, unique identity, preserved published IDs',changes,corrections})).toString('base64')})
+      if(changes.length)await cloudWrite(`archive-history-${snapshot.manifest.version}`,{encoding:'gzip-base64',gzip:gzipSync(JSON.stringify({at:attemptAt,fromVersion:baseline.manifest.version,toVersion:snapshot.manifest.version,source:publicationSource,sourceUrl:publicationSourceUrl,validation:'explicit circuit, unique identity, preserved published IDs',changes,corrections})).toString('base64')})
       if(sourceCorrections.length)await cloudWrite(`archive-measurement-review-${snapshot.manifest.version}`,{at:attemptAt,fromVersion:baselineManifest.version,reason:'Provider explicitly marks reconstructed points; derived values are not observed measurements',matches:sourceCorrections.map(({previous,current})=>({identity:`${current.tour||'atp'}:${current.match_id}`,removedStatistics:previous.statistics.filter(stat=>!current.statistics.some(next=>next.player===stat.player&&next.period===stat.period&&next.name===stat.name)).map(stat=>({player:stat.player,period:stat.period,name:stat.name})),source:current.context?.pointSource,providerEvidence:current.raw_fixture,derivationVersion:current.context?.derivationVersion}))})
       const published=await publishRecordSnapshot(snapshot)
       sampleMemory('published')

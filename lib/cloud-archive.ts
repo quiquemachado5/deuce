@@ -18,13 +18,11 @@ import {
   writeArchiveObjects,
 } from './archive-store'
 import { detailCandidateKey, detailCandidatePlayers, detailMatchesCandidate, statisticsEnrichmentPlan, type DetailCandidate } from './enrichment-plan'
-import { activityFixtures } from './tour-activity'
 import {mergeSeasonBaseline,reconcileSeasonResults,type Season} from './result-refresh'
 import { detailRefreshPlan } from './detail-refresh-plan'
 import { hasClosedModernResult } from './modern-result'
 import { withOperationHistory } from './archive-operations'
 import { latestProviderResultDate } from './circuit-freshness'
-import { PROVIDER_PUBLICATION_TIERS } from './publication-scope'
 import { WTA_HISTORICAL_COHORTS, wtaBackfillCycle, wtaHistoricalCohortIds, wtaHistoricalCohortPlan, wtaHistoryProgress } from './wta-backfill-schedule'
 import {reserveProviderAttempt,reconcileProviderAttempts,ProviderAttemptBudgetExceeded} from './provider-attempt-budget'
 import { isProviderFreeHistoryLimit, providerHasRequestAfterUsage, providerMinimumReserve, providerQuotaRetryAt, providerQuotaSnapshot, providerRemainingCalls, type ProviderOperation } from './provider-quota'
@@ -264,6 +262,17 @@ export async function refreshCloudArchive() {
       await cloudWrite('sync-status',withOperationHistory(priorStatus,result))
       return result
     }
+    const year = new Date(started).getUTCFullYear()
+    const {bundledTourSeason}=await import('./live-tennis')
+    const old = mergeSeasonBaseline(await bundledTourSeason(year) as Season,await cloudRead(`season-${year}`))
+    const {bulkDailyResultsConfigured,collectBulkDailyResults}=await import('./daily-results')
+    if(bulkDailyResultsConfigured()){
+      const refreshed=await collectBulkDailyResults('atp',old,new Date(started))
+      calls=refreshed.calls
+      await cloudWrite(`season-${year}`,{data:refreshed.data,scope:refreshed.scope,at:refreshed.at})
+      const at=new Date().toISOString(),result={status:'success',phase:'daily-results',provider:refreshed.provider,attemptAt,at,lastSuccessAt:at,year,calls,matches:refreshed.data.length,updated:refreshed.fresh.length,extracted:refreshed.fresh.length,seasonsRefreshed:[year],latestProviderDate:latestProviderResultDate(refreshed.data as Parameters<typeof latestProviderResultDate>[0]),probe:{results:'ok',live:'disabled'}}
+      await cloudWrite('sync-status',withOperationHistory(priorStatus,result));return result
+    }
     calls++
     quota = await provider('/usage')
     const remaining = providerRemainingCalls(quota)
@@ -280,9 +289,6 @@ export async function refreshCloudArchive() {
       calls++
       return provider(path)
     }
-    const year = new Date().getUTCFullYear()
-    const {bundledTourSeason}=await import('./live-tennis')
-    const old = mergeSeasonBaseline(await bundledTourSeason(year) as Season,await cloudRead(`season-${year}`))
     if(dailyOnly){
       const {collectFreeCurrentResults}=await import('./free-current-results')
       const refreshed=await collectFreeCurrentResults('atp',old,await cloudRead('free-current-atp'),request,Math.max(0,Math.min(callLimit-calls-1,remaining-calls-wtaReserve-1)))
@@ -315,16 +321,10 @@ export async function refreshCloudArchive() {
       seasonsRefreshed.push(season)
       if(season===year){rows=fresh;data=complete}
     }
-    const activity: ReturnType<typeof activityFixtures> = []
-    let activityComplete=true
-    for(const status of ['live','upcoming'] as const) for(const tour of ['atp','wta'] as const){
-      const tiers=PROVIDER_PUBLICATION_TIERS[tour]
-      const page=await request(`/matches?status=${status}&tour=${tour}&draw=singles&tier=${tiers}&limit=200`)
-      if(!Array.isArray(page.data))throw new Error('Unexpected activity response')
-      activity.push(...activityFixtures(page.data,status,tour))
-      if(page.meta?.has_more)activityComplete=false
-    }
-    await cloudWrite('tour-activity',{checkedAt:new Date().toISOString(),fixtures:activity,complete:activityComplete})
+    // DEUCE publishes settled results only; user traffic and scheduled jobs
+    // never poll the live or upcoming match boards.
+    const activity: never[] = []
+    await cloudWrite('tour-activity',{checkedAt:new Date().toISOString(),fixtures:activity,complete:true})
     const { hasBundledDetail, bundledEnrichmentCandidates } = await import('./live-tennis')
     // Only keys are needed to avoid downloading the growing payload archive during sync.
     const known = new Set<string>()
@@ -520,6 +520,17 @@ export async function refreshCloudWta() {
       const result={status:capacity.status==='full'?'storage-reserve':'storage-unverified',phase:'current-season',attemptAt,lastSuccessAt,at:new Date().toISOString(),calls,relationBytes:capacity.report?.relationBytes,maximumBytes:capacity.maximum}
       await save(result);return result
     }
+    const year=new Date(started).getUTCFullYear()
+    const {bundledTourSeason}=await import('./live-tennis')
+    const previous=mergeSeasonBaseline(await bundledTourSeason(year,'wta') as Season,await cloudRead(`season-wta-${year}`),'wta')
+    const {bulkDailyResultsConfigured,collectBulkDailyResults}=await import('./daily-results')
+    if(bulkDailyResultsConfigured()){
+      const refreshed=await collectBulkDailyResults('wta',previous,new Date(started))
+      calls=refreshed.calls
+      await cloudWrite(`season-wta-${year}`,{data:refreshed.data,scope:refreshed.scope,at:refreshed.at})
+      const at=new Date().toISOString(),result={status:'success',phase:'daily-results',provider:refreshed.provider,attemptAt,lastSuccessAt:at,at,calls,year,seasonsRefreshed:[year],seasonMatches:refreshed.data.length,updated:refreshed.fresh.length,extracted:refreshed.fresh.length,latestProviderDate:latestProviderResultDate(refreshed.data as Parameters<typeof latestProviderResultDate>[0]),probe:{results:'ok',live:'disabled'}}
+      await save(result);return result
+    }
     calls++;quota=await provider('/usage')
     const remaining=providerRemainingCalls(quota)
     if(!providerHasRequestAfterUsage(quota)){
@@ -532,9 +543,6 @@ export async function refreshCloudWta() {
       if(calls>=callLimit||Date.now()-started>220_000)throw new Error('WTA current sync safety budget reached')
       await new Promise(resolve=>setTimeout(resolve,1300));calls++;return provider(path)
     }
-    const year=new Date().getUTCFullYear()
-    const {bundledTourSeason}=await import('./live-tennis')
-    const previous=mergeSeasonBaseline(await bundledTourSeason(year,'wta') as Season,await cloudRead(`season-wta-${year}`),'wta')
     if(dailyOnly){
       const {collectFreeCurrentResults}=await import('./free-current-results')
       const refreshed=await collectFreeCurrentResults('wta',previous,await cloudRead('free-current-wta'),request,Math.max(0,callLimit-calls-1))

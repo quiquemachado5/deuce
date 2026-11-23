@@ -411,7 +411,7 @@ export function DeuceTopbar() {
     >
       <div className={styles.shell}>
         <div className={styles.topline}>
-          <Link className={styles.logo} href={'/'} aria-label={'DEUCE, inicio'} onClick={closeAll}><span className={styles.logoMark} aria-hidden="true"><TennisBallMark/></span><span className={styles.logoWord}>DEUCE</span></Link>
+          <div className={styles.logo}><Link className={styles.logoGame} href="/juego" aria-label="Jugar al partido del día" aria-current={pathname === '/juego' ? 'page' : undefined} onClick={closeAll}><span className={styles.logoMark} aria-hidden="true"><TennisBallMark/></span><span className={styles.logoPlayLabel} aria-hidden="true">Jugar</span></Link><Link className={styles.logoWord} href="/" aria-label="DEUCE, inicio" onClick={closeAll}>DEUCE</Link></div>
           <nav className={styles.desktopNavigation} aria-label={'Principal'} aria-hidden={searchMounted} inert={searchMounted || undefined}>
             <Link className={`${styles.navTrigger} ${styles.homeLink}`} aria-current={pathname === ('/') ? 'page' : undefined} href={'/'} onClick={closeAll}>{'Inicio'}</Link>
             {navigationItems.map(({ label, section, href }) => section === 'compare'

@@ -17,7 +17,7 @@ const enrichmentJob = { name: 'optional match details', path: '/api/cron/enrich'
 const wikipediaJob = { name: 'optional Wikimedia context', path: '/api/cron/wikipedia' }
 const jobs = [...refreshJobs, publicationJob, backfillJob, enrichmentJob, wikipediaJob]
 // Run after the previous UTC day is complete so late match results are included.
-const pipelineHour = Number(process.env.DEUCE_PIPELINE_HOUR_UTC ?? 0)
+const pipelineHour = Number(process.env.DEUCE_PIPELINE_HOUR_UTC ?? 9)
 const pipelineMinute = Number(process.env.DEUCE_PIPELINE_MINUTE_UTC ?? 20)
 const dailyOnly = process.env.DEUCE_PROVIDER_DAILY_ONLY !== '0'
 // The publication SLA is 36 hours. A host restored later in the day must still

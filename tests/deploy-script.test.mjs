@@ -96,6 +96,13 @@ test('first release keeps the scheduler in heartbeat mode through both gates', (
   assert.match(source.slice(normal), /Normal scheduler did not publish a fresh healthy heartbeat/)
 })
 
+test('daily results run after late North American matches and remain configurable',()=>{
+ const schedulerService=compose.slice(compose.indexOf('  scheduler:'),compose.indexOf('  caddy:'))
+ assert.match(scheduler,/DEUCE_PIPELINE_HOUR_UTC \?\? 9/)
+ assert.match(schedulerService,/DEUCE_PIPELINE_HOUR_UTC: \$\{DEUCE_PIPELINE_HOUR_UTC:-9\}/)
+ assert.match(schedulerService,/DEUCE_PIPELINE_MINUTE_UTC: \$\{DEUCE_PIPELINE_MINUTE_UTC:-20\}/)
+})
+
 test('daily bootstrap allowance follows persisted health instead of release count', () => {
   const verification = source.slice(source.indexOf('verify_args=('), source.indexOf('candidate_verified=false'))
   assert.match(verification, /--allow-initial-daily-unavailable/)
