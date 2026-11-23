@@ -22,6 +22,7 @@ import { RecordLeaders, RecordsFilm } from './RecordsInteractive';
 import styles from './records-experience.module.css';
 import { PUBLICATION_CATEGORIES } from '@/lib/publication-scope';
 import VerifiedMilestones from './VerifiedMilestones';
+import OfficialRecords from './OfficialRecords';
 
 function Arrow(){return <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>}
 
@@ -86,6 +87,7 @@ export default async function RecordsExperience({manifest,query}:{manifest:Recor
         </section>
         <section className={styles.film} aria-label="El tenis, más allá del resultado" data-home-depth="45"><RecordsFilm/><div><p>La tensión se vive.<br/><span>La historia se descubre.</span></p><a className={styles.action} href="#explorar-records">Encuentra tu estadística<Arrow/></a></div></section>
         <VerifiedMilestones tour={tour}/>
+        <OfficialRecords tour={tour}/>
       </>}
       <section className={styles.directory} id="explorar-records" aria-labelledby="record-directory-title">
         <div className={styles.directoryHeading}><h2 id="record-directory-title">{selected?recordFamilyLabel(selected):term?'Resultados de búsqueda':'Cada ángulo del juego.'}</h2>{(term||selected)&&<Link href={recordsUrl(recordFilters(query))}>Quitar filtros<Arrow/></Link>}</div>

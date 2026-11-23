@@ -36,8 +36,8 @@ export function acceptedWikiContext(person:WikiPerson,entity:Entity,at=new Date(
 }
 
 /** Differences are review candidates, never instructions to overwrite the provider. */
-export function compareWikiBiography(context:WikiPlayerContext,provider:{birthday?:string;hand?:'L'|'R';backhand?:1|2}){
-  return ([['birthday',context.birthday,provider.birthday],['playingHand',context.playingHand,provider.hand],['backhand',context.backhand,provider.backhand]] as const)
+export function compareWikiBiography(context:WikiPlayerContext,provider:{birthday?:string;hand?:'L'|'R';backhand?:1|2;heightCm?:number}){
+  return ([['birthday',context.birthday,provider.birthday],['playingHand',context.playingHand,provider.hand],['backhand',context.backhand,provider.backhand],['heightCm',context.heightCm,provider.heightCm]] as const)
     .filter(([,value])=>value!==undefined)
     .map(([field,value,existing])=>({field,value,provider:existing??null,state:existing===undefined?'missing-provider':existing===value?'matched':'conflict',source:context.source}));
 }

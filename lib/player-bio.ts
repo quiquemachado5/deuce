@@ -3,7 +3,7 @@ import index from './player-bio-index.json';
 import wtaIndex from './wta-player-bio.json';
 import { playerSlug } from './explore';
 import { canonicalName } from './quality';
-const wikiBySlug=new Map(Object.values(wikiContext as Record<string,{name:string;tour:string;birthday?:string;playingHand?:'L'|'R';backhand?:1|2}>).map(person=>[person.tour+':'+playerSlug(canonicalName(person.name)),{...(person.birthday?{birthday:person.birthday}:{}),...(person.playingHand?{hand:person.playingHand}:{}),...(person.backhand?{backhand:person.backhand}:{})}]));
+const wikiBySlug=new Map(Object.values(wikiContext as Record<string,{name:string;tour:string;birthday?:string;playingHand?:'L'|'R';backhand?:1|2;heightCm?:number}>).map(person=>[person.tour+':'+playerSlug(canonicalName(person.name)),{...(person.birthday?{birthday:person.birthday}:{}),...(person.playingHand?{hand:person.playingHand}:{}),...(person.backhand?{backhand:person.backhand}:{}),...(person.heightCm?{heightCm:person.heightCm}:{})}]));
 const wtaBySlug=new Map(Object.entries(wtaIndex as Record<string,PlayerBio>).map(([name,bio])=>[playerSlug(canonicalName(name)),bio]));
 
 export type PlayerBio = {
@@ -11,6 +11,7 @@ export type PlayerBio = {
   birthday?: string;
   hand?: 'L' | 'R';
   backhand?: 1 | 2;
+  heightCm?: number;
 };
 
 type RawPlayer = Record<string, unknown>;
@@ -27,7 +28,8 @@ export function normalizedBio(player: RawPlayer): PlayerBio {
   const birthday = validBirthday(player.birthday);
   const hand = player.hand === 'L' || player.hand === 'R' ? player.hand : undefined;
   const backhand = player.backhand === 1 || player.backhand === 2 ? player.backhand : undefined;
-  return { ...(country && { country }), ...(birthday && { birthday }), ...(hand && { hand }), ...(backhand && { backhand }) };
+  const heightCm=Number.isFinite(player.heightCm)&&Number(player.heightCm)>=140&&Number(player.heightCm)<=230?Number(player.heightCm):undefined;
+  return { ...(country && { country }), ...(birthday && { birthday }), ...(hand && { hand }), ...(backhand && { backhand }),...(heightCm&&{heightCm}) };
 }
 
 export function mergeBio(base: PlayerBio | undefined, fresh: PlayerBio | undefined): PlayerBio | undefined {

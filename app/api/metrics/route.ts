@@ -4,15 +4,16 @@ import { renderPrometheusMetrics } from '@/lib/runtime-metrics';
 import { rateLimitDiagnostics } from '@/lib/rate-limit';
 import { cloudProbeRead } from '@/lib/cloud-archive';
 import { unauthorizedResponse } from '@/lib/security-events';
+import { dataReliabilityReport } from '@/lib/data-reliability';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 export async function GET(request: Request) {
   if (!authorizedCronRequest(request, process.env.METRICS_SECRET)) return unauthorizedResponse(request, 'metrics');
-  const [quota,publication,storage,enrichment,backup,host]=await Promise.all([
+  const [quota,publication,storage,enrichment,backup,host,reliability]=await Promise.all([
     cloudProbeRead('provider-quota-status'),cloudProbeRead('publish-status'),cloudProbeRead('storage-capacity-status'),
-    cloudProbeRead('enrichment-status'),cloudProbeRead('backup-status'),cloudProbeRead('host-status'),
+    cloudProbeRead('enrichment-status'),cloudProbeRead('backup-status'),cloudProbeRead('host-status'),dataReliabilityReport(),
   ]);
   const number=(value:unknown)=>Number.isFinite(value)?Number(value):undefined;
   const dateAge=(value:unknown)=>typeof value==='string'&&Number.isFinite(Date.parse(value))?Math.max(0,(Date.now()-Date.parse(value))/1000):undefined;
@@ -21,6 +22,8 @@ export async function GET(request: Request) {
     providerDailyCallCap:number(quota?.dailyCallCap),providerDailyCapAvailable:number(quota?.dailyCapAvailable),providerDailyCapUtilization:number(quota?.dailyCapUtilization),
     publicationPeakRssBytes:number(publication?.memory?.peakRssBytes),storageBytes:number(storage?.report?.relationBytes),storageObjects:number(storage?.report?.objects),
     incompleteEditions:number(publication?.incompleteEditions),enrichmentRemaining:number(enrichment?.remainingCandidates),enrichmentDeferred:number(enrichment?.deferred),
+    currentMissingLateRounds:reliability.summary.missingLateRounds,pendingResultRepairs:reliability.summary.pendingRepairs,
+    officialRecordsAgeSeconds:dateAge(reliability.officialRecords.at),wikimediaAgeSeconds:dateAge(reliability.wikimedia.at),
     backupAgeSeconds:dateAge(backup?.at),hostAvailableMemoryBytes:number(host?.availableMemoryBytes),
   }), {
     headers: { 'Content-Type': 'text/plain; version=0.0.4; charset=utf-8', 'Cache-Control': 'private, no-store' },

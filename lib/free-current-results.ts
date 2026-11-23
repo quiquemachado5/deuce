@@ -7,7 +7,7 @@ type Row={id:unknown;tour?:unknown;tier?:unknown;draw?:unknown;is_doubles?:unkno
 type Page={data?:Row[];meta?:{has_more?:boolean;limit?:number}};
 type Fixture={match_id?:unknown;status?:unknown;tournament?:unknown;event_date?:unknown;start_time?:unknown;is_qualifying?:unknown;tier?:unknown};
 type FixturePage={data?:Fixture[];meta?:{has_more?:boolean;limit?:number}};
-export type FreeCurrentQueue={ids:string[];at:string};
+export type FreeCurrentQueue={ids:string[];at:string;discovered?:number;grandSlamWindowDays?:number};
 const tiers:Record<Tour,Set<string>>={
  atp:new Set(['grand_slam','atp_1000','atp_500','atp_250','atp_finals']),
  wta:new Set(['grand_slam','wta_1000','wta_500','wta_250','wta_finals']),
@@ -25,7 +25,11 @@ export async function collectFreeCurrentResults(tour:Tour,previous:Season,saved:
  let calls=0,complete=true;
  const fresh:Row[]=[];
  const otherYears=new Map<number,Row[]>();
- const from=new Date(now.getTime()-7*86_400_000).toISOString().slice(0,10);
+ const regularFrom=new Date(now.getTime()-7*86_400_000).toISOString().slice(0,10);
+ // A major lasts a fortnight and its first rounds may already be older than the
+ // former seven-day window when the final is published. Keep one full draw in
+ // scope without spending calls on historical seasons.
+ const grandSlamFrom=new Date(now.getTime()-21*86_400_000).toISOString().slice(0,10);
  const to=new Date(now.getTime()-86_400_000).toISOString().slice(0,10);
  let offset=0;
  do{
@@ -37,6 +41,7 @@ export async function collectFreeCurrentResults(tour:Tour,previous:Season,saved:
   if(!Array.isArray(fixtures.data))throw new Error('Incomplete FREE fixture page');
   for(const fixture of fixtures.data){
    const played=String(fixture.start_time||fixture.event_date||'').slice(0,10);
+   const from=fixture.tier==='grand_slam'?grandSlamFrom:regularFrom;
    if(fixture.status==='finished'&&played>=from&&played<=to
     &&fixture.is_qualifying!==true
     &&(fixture.tier===undefined||fixture.tier===null||tiers[tour].has(String(fixture.tier))||finalsIdentity({...fixture,tour})!==null)
@@ -64,5 +69,5 @@ export async function collectFreeCurrentResults(tour:Tour,previous:Season,saved:
    ||row.status==='cancelled'){queue.delete(id)}
   // An unfinished or incomplete result remains queued for the next run.
  }
- return {data:[...known.values()],fresh,otherYears,queue:{ids:[...queue],at:now.toISOString()},calls,complete,scope:`${tour}-main-v2` as const,at:now.toISOString()};
+ return {data:[...known.values()],fresh,otherYears,queue:{ids:[...queue],at:now.toISOString(),discovered:fresh.length+queue.size,grandSlamWindowDays:21},calls,complete,scope:`${tour}-main-v3` as const,at:now.toISOString()};
 }
