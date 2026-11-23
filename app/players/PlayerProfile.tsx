@@ -204,7 +204,7 @@ export async function PlayerProfile({params,searchParams,proposal:preview=false,
     ]),
   ]}/>}
   <div className={`nc-wrap pp-page ${styles.profilePage}`} data-profile-proposal={proposal||undefined}>
-    {proposal?<ProfileProposalHero preview={preview} name={player.name} country={bio?.country} hand={bio?.hand?handLabel(bio.hand):undefined} tour={tour} activity={activityLabel} photo={portrait?.src.startsWith('/images/players/action/')?portrait:homePlayerPhoto(player.name)||portrait} metrics={coreMetrics}/>:<div className={styles.heroStage}>
+    {proposal?<ProfileProposalHero preview={preview} name={player.name} country={bio?.country} hand={bio?.hand?handLabel(bio.hand):undefined} height={bio?.heightCm?`${new Intl.NumberFormat('es-ES',{maximumFractionDigits:1}).format(bio.heightCm)} cm`:undefined} tour={tour} activity={activityLabel} photo={portrait?.src.startsWith('/images/players/action/')?portrait:homePlayerPhoto(player.name)||portrait} metrics={coreMetrics}/>:<div className={styles.heroStage}>
       <header className={`pp-hero${portrait?' has-photo':' no-photo'}`} id="resumen">
         {portrait?<PlayerPortrait photo={portrait} className="pp-hero-photo" preload/>:<div className="pp-hero-fallback" aria-label={`Sin fotografía disponible para ${player.name}`}><span>{initials}</span><PlayerFlag code={bio?.country}/><i/><i/></div>}
         <div className={styles.heroShade} aria-hidden="true"/>

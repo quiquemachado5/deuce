@@ -24,8 +24,8 @@ function categoryOrder(category:string){
   return 4;
 }
 
-export function ProfileProposalHero({ name, country, hand, tour, activity, photo, metrics, preview=false }: {
-  name: string; country?: string; hand?: string; tour: string; activity: string; photo: Photo | null; metrics: Stat[]; preview?:boolean;
+export function ProfileProposalHero({ name, country, hand, height, tour, activity, photo, metrics, preview=false }: {
+  name: string; country?: string; hand?: string; height?: string; tour: string; activity: string; photo: Photo | null; metrics: Stat[]; preview?:boolean;
 }) {
   const original = '/jugadores/' + playerSlug(name) + (tour === 'wta' ? '?tour=wta' : '');
   return <ProfileProposalMotion className={styles.opening}>
@@ -36,7 +36,7 @@ export function ProfileProposalHero({ name, country, hand, tour, activity, photo
       </div>
       <div className={styles.portraitStage} data-profile-scene="" data-has-photo={Boolean(photo) || undefined}>
         {photo && <Image fill preload sizes="(max-width:759px) 100vw, 1120px" src={photo.src} alt={photo.alt} style={imageFocus(photo.objectPosition || 'center', photo.mobileObjectPosition || photo.objectPosition || 'center')} />}
-        <div className={styles.portraitCaption}><span>{tour.toUpperCase()}</span>{hand && <span>{hand}</span>}<span>{activity} en DEUCE</span></div>
+        <div className={styles.portraitCaption}><span>{tour.toUpperCase()}</span>{hand && <span>{hand}</span>}{height && <span>{height}</span>}<span>{activity} en DEUCE</span></div>
       </div>
       <dl className={styles.ledger} aria-label="Cifras principales del archivo">
         {metrics.map(metric => <div key={metric.label}><dt>{metric.label}</dt><dd>{metric.value}</dd></div>)}
