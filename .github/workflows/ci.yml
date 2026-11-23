@@ -41,8 +41,8 @@ jobs:
             --build-arg "DEUCE_CADDY_SOURCE_SHA256=$CADDY_SOURCE_SHA256" \
             --tag "$CADDY_IMAGE" \
             ops/oracle
-          docker run --rm --entrypoint caddy "$CADDY_IMAGE" list-modules \
-            | grep -qx 'http.handlers.rate_limit'
+          caddy_modules="$(docker run --rm --entrypoint caddy "$CADDY_IMAGE" list-modules)"
+          grep -qx 'http.handlers.rate_limit' <<<"$caddy_modules"
           test "$(docker image inspect --format '{{index .Config.Labels "org.opencontainers.image.revision"}}' "$CADDY_IMAGE")" = "$CADDY_SOURCE_SHA256"
 
   caddy-publish:
@@ -83,13 +83,22 @@ jobs:
               ops/oracle
           fi
           docker pull "$CADDY_IMAGE"
-          docker run --rm --entrypoint caddy "$CADDY_IMAGE" list-modules \
-            | grep -qx 'http.handlers.rate_limit'
+          caddy_modules="$(docker run --rm --entrypoint caddy "$CADDY_IMAGE" list-modules)"
+          grep -qx 'http.handlers.rate_limit' <<<"$caddy_modules"
           test "$(docker image inspect --format '{{index .Config.Labels "org.opencontainers.image.revision"}}' "$CADDY_IMAGE")" = "$CADDY_SOURCE_SHA256"
       - name: Require anonymous production pulls
         run: |
           docker logout ghcr.io
-          docker image rm "$CADDY_IMAGE"
+          for attempt in 1 2 3 4 5 6 7 8 9 10; do
+            if docker image rm "$CADDY_IMAGE"; then
+              break
+            fi
+            sleep 1
+          done
+          if docker image inspect "$CADDY_IMAGE" >/dev/null 2>&1; then
+            echo "The local authenticated image could not be removed."
+            exit 1
+          fi
           docker pull "$CADDY_IMAGE"
 
   quality:
