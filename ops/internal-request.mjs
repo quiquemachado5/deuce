@@ -3,7 +3,7 @@ import https from 'node:https'
 
 // Publication can legitimately outlive fetch/Undici's five-minute header
 // deadline. Keep an absolute deadline and a bounded body on internal requests.
-export function internalRequest(url, { headers = {}, timeoutMs = 1_860_000, maximumBytes = 262_144 } = {}) {
+export function internalRequest(url, { headers = {}, timeoutMs = 2_760_000, maximumBytes = 262_144 } = {}) {
   return new Promise((resolve, reject) => {
     const target = new URL(url)
     if (!['http:', 'https:'].includes(target.protocol)) return reject(new Error('Unsupported internal request protocol'))

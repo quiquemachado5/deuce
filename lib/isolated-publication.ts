@@ -8,9 +8,10 @@ import {setTimeout as delay} from 'node:timers/promises';
 /** One short-lived worker; no second permanent web process or paid service. */
 export function createPublicationRunner(options:{workerFile?:string;port?:number;timeoutMs?:number}={}){
  let running=false;
- // The 152k-match archive can take more than 20 minutes to compile and warm.
+ // The 152k-match archive can take more than 30 minutes to compile and publish
+ // on the production CPU budget, even with decade-bounded browser artifacts.
  // Keep this below every caller deadline so the worker owns the failure state.
- const port=options.port||3001,timeoutMs=options.timeoutMs||1_800_000;
+ const port=options.port||3001,timeoutMs=options.timeoutMs||2_700_000;
  function call(path:string,authorization?:string,timeout=timeoutMs):Promise<{status:number;body:Buffer}>{
   return new Promise((resolve,reject)=>{
    const req=httpRequest({hostname:'127.0.0.1',port,path,method:'GET',headers:authorization?{authorization}:{}},res=>{

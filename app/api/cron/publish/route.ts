@@ -27,7 +27,7 @@ import {runIsolatedPublication} from '@/lib/isolated-publication'
 import {publicationRefreshCheckpoint} from '@/lib/operational-health'
 
 export const runtime = 'nodejs'
-export const maxDuration = 1920
+export const maxDuration = 2820
 export const dynamic = 'force-dynamic'
 
 export async function GET(request: Request) {
