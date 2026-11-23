@@ -43,7 +43,7 @@ if (!staleDataset && !recoverableDailyPublicationFailure(health)) {
   for (let attempt = 1; attempt <= 3; attempt += 1) {
     const response = await internalRequest(publishUrl, {
       headers: { Authorization: `Bearer ${secret}` },
-      timeoutMs: 1_260_000,
+      timeoutMs: 1_860_000,
     })
     const body = JSON.parse(response.body || '{}')
     if (response.status === 200 && body.status === 'success') {
