@@ -15,7 +15,7 @@ import {cloudClone,cloudPruneSnapshotGenerations,cloudRead,cloudWrite,cloudWrite
 import {archiveStoreBackend} from '../archive-store';
 import {attachIngestionHistory,partitionMatches,pieceChunk,type Snapshot,type RecordPages,type RecordManifest} from './snapshot';
 import {assertPublishableArchive} from '../dataset-summary';
-import {compileMatchBrowser,matchBrowserArtifact} from '../match-browser-snapshot';
+import {compileMatchBrowser,compileMatchBrowserIndex,createPartition,matchBrowserArtifact} from '../match-browser-snapshot';
 import {reconcileCoverage} from '../coverage-reconciliation';
 import historyBaseline from '../../ops/wta-history-baseline.json';
 import {buildPublicationIndex} from '../publication-index';
@@ -42,6 +42,19 @@ async function compressedBlob(id:string,value:unknown):Promise<Array<[string,unk
  const parts:Array<[string,unknown]>=[];
  for(let offset=0;offset<encoded.length;offset+=500_000)parts.push([`${id}-chunk${parts.length}`,{chunk:encoded.slice(offset,offset+500_000)}]);
  return [...parts,[id,{encoding:'gzip-chunks',chunks:parts.length}]];
+}
+async function* compressedNavigation(matches:Snapshot['matches'],players:Snapshot['players']):AsyncGenerator<[string,unknown]> {
+ const navigation=compileNavigationProducts(matches,players);
+ yield* await compressedBlob('navigation-index',navigation.index);
+ for(const [id,entity] of navigation.entities())yield* await compressedBlob(id,entity);
+}
+async function* compressedBrowser(matches:Snapshot['matches']):AsyncGenerator<[string,unknown]> {
+ const groups=partitionMatches(matches);
+ for(const group of groups){
+  const partition=createPartition(group.meta.id,group.meta.tour,group.meta.fromYear,group.matches);
+  yield* await compressedBlob(matchBrowserArtifact(group.meta.id),partition);
+ }
+ yield* await compressedBlob('browser-index',compileMatchBrowserIndex(matches,groups.map(group=>group.meta)));
 }
 export const snapshotKey=(version:string,id:string)=>`reading-v2-${version}-${id}`;
 export async function writeBundledSnapshot(snapshot:Snapshot) {
@@ -114,15 +127,15 @@ export async function publishRecordSnapshot(snapshot:Snapshot,storage:SnapshotSt
     await storage.prune([(published as RecordManifest).version]).catch(error=>console.warn('Snapshot retention preflight failed:',error instanceof Error?error.name:'unknown'));
   }
   async function* artifacts():AsyncGenerator<[string,unknown]> {
-    const browser=compileMatchBrowser(matches);
-    const navigation=compileNavigationProducts(matches,players);
-    yield* await compressedBlob('navigation-index',navigation.index);
-    for(const [id,entity] of navigation.entities())yield* await compressedBlob(id,entity);
+    // Complete each projection before opening the next one. Keeping every
+    // browser decade and navigation entity alive together exceeded 4 GB for
+    // the 152k-match archive even though each individual artifact is bounded.
+    yield* compressedNavigation(matches,players);
     const reconciliation=reconcileCoverage(matches,audit,historyBaseline.allowedPendingCohorts);
     for(const [id,piece] of Object.entries(pieces))yield* compressedPages(id,piece);
     for(const group of partitionMatches(matches))yield* await compressedBlob(group.meta.id,group.matches);
-    for(const partition of browser.partitions)yield* await compressedBlob(matchBrowserArtifact(partition.id),partition);
-    for(const [id,value] of [['page-revisions',pageRevisions],['correction-history',pageRevisions.corrections],['browser-index',browser.index],['publication-index',snapshot.publicationIndex||buildPublicationIndex(matches)],['eras',eras],['players',players],['competition',competition],['audit',audit],['reconciliation',reconciliation],['draw-anomalies',drawAnomalies],['edition-products',products.editions],['player-directory',products.players],['search-products',products.search],['elo-products',products.elo],['time-machine',products.timeMachine]] as const)yield* await compressedBlob(id,value);
+    yield* compressedBrowser(matches);
+    for(const [id,value] of [['page-revisions',pageRevisions],['correction-history',pageRevisions.corrections],['publication-index',snapshot.publicationIndex||buildPublicationIndex(matches)],['eras',eras],['players',players],['competition',competition],['audit',audit],['reconciliation',reconciliation],['draw-anomalies',drawAnomalies],['edition-products',products.editions],['player-directory',products.players],['search-products',products.search],['elo-products',products.elo],['time-machine',products.timeMachine]] as const)yield* await compressedBlob(id,value);
     yield* await compressedBlob('public-archive',compilePublicArchiveProducts(matches,players,manifest,pageRevisions,audit));
   }
   const artifactPacks: Record<string,string> = {};

@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { mockMatches } from '../lib/mocks';
-import { browserPartitionMatchesDetails, compileMatchBrowser, decodeMatchBrowserRow, queryMatchBrowser, queryMatchBrowserPage } from '../lib/match-browser-snapshot';
+import { browserPartitionMatchesDetails, compileMatchBrowser, compileMatchBrowserIndex, createPartition, decodeMatchBrowserRow, queryMatchBrowser, queryMatchBrowserPage } from '../lib/match-browser-snapshot';
 import { sentence } from '../lib/cuaderno/model';
 import { proofSummary } from '../lib/revista/snapshot';
 import type { Match } from '../lib/types';
@@ -35,6 +35,22 @@ test('match browser snapshot partitions compact rows and preserves listing capab
   assert.equal(decoded.match_id, 'atp-2026');
   assert.equal(decoded.listingCapabilities?.statistics, true);
   assert.deepEqual(decoded.statistics, []);
+});
+
+test('decade-at-a-time browser compilation preserves the monolithic index and partitions', () => {
+  const matches = [fixture('atp-2026', 'atp', 2026, '2026-10-02'), fixture('wta-2026', 'wta', 2026, '2026-11-02'), fixture('atp-2016', 'atp', 2016, '2016-07-10')];
+  const expected = compileMatchBrowser(matches);
+  const groups = new Map<string, { tour: 'atp' | 'wta'; fromYear: number; matches: Match[] }>();
+  for (const match of matches) {
+    const fromYear = Math.floor(match.year / 10) * 10;
+    const id = `matches-${match.tour}-${fromYear}s`;
+    const group = groups.get(id) || { tour: match.tour!, fromYear, matches: [] };
+    group.matches.push(match);
+    groups.set(id, group);
+  }
+  const partitions = [...groups].map(([id, group]) => createPartition(id, group.tour, group.fromYear, group.matches));
+  assert.deepEqual(compileMatchBrowserIndex(matches, partitions), expected.index);
+  assert.deepEqual(partitions.sort((a, b) => b.fromYear - a.fromYear || a.tour.localeCompare(b.tour)), expected.partitions);
 });
 
 test('compact navigation stays materially smaller than full match detail', () => {
