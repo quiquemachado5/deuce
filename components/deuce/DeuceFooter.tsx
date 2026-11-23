@@ -17,6 +17,7 @@ function FooterNavigationLinks({ circuit }: { circuit: Circuit }) {
       <Link href={circuitSectionHref('players',circuit)}>Jugadores</Link>
       <Link href={circuitSectionHref('tournaments',circuit)}>Torneos</Link>
       <Link href={circuitSectionHref('compare',circuit)}>Comparar</Link>
+      <Link href="/juego">Juegos</Link>
     </div>
     <div className={styles.navigationGroup}>
       <strong>El archivo</strong>

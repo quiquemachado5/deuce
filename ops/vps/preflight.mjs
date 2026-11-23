@@ -7,7 +7,6 @@ const required = [
   'DEUCE_WWW_HOST',
   'NEXT_PUBLIC_SITE_ORIGIN',
   'DEUCE_MONITOR_URL',
-  'TENNIS_API_KEY',
   'CRON_SECRET',
   'WTA_BACKFILL_SECRET',
   'METRICS_SECRET',
@@ -34,6 +33,13 @@ export function validateProductionEnv(values) {
   for (const name of required) if (!values[name]?.trim()) errors.push(`${name} is required`)
   const placeholder = /replace-|example\.com|change[-_]?me|your[-_]/i
   for (const name of required) if (placeholder.test(values[name] || '')) errors.push(`${name} still contains a placeholder`)
+  const providerKeys=['TENNIS_RESULTS_API_KEY','TENNIS_API_KEY']
+  const configuredProviderKeys=providerKeys.filter(name=>values[name]?.trim())
+  if(!configuredProviderKeys.length)errors.push('TENNIS_RESULTS_API_KEY or TENNIS_API_KEY is required')
+  for(const name of configuredProviderKeys){
+    if(placeholder.test(values[name]||''))errors.push(`${name} still contains a placeholder`)
+    if((values[name]||'').length<20)errors.push(`${name} is unexpectedly short`)
+  }
 
   const host = values.DEUCE_HOST?.trim()
   if (host && (host.includes('://') || host.includes('/') || /\s/.test(host))) errors.push('DEUCE_HOST must be a bare DNS name')
@@ -54,7 +60,6 @@ export function validateProductionEnv(values) {
     } catch { errors.push(`${name} must be a valid HTTPS URL`) }
   }
 
-  if ((values.TENNIS_API_KEY || '').length < 20) errors.push('TENNIS_API_KEY is unexpectedly short')
   const secretNames = ['CRON_SECRET', 'WTA_BACKFILL_SECRET', 'METRICS_SECRET']
   for (const name of secretNames) if ((values[name] || '').length < 48) errors.push(`${name} must contain at least 48 characters`)
   if (new Set(secretNames.map(name => values[name]).filter(Boolean)).size !== secretNames.filter(name => values[name]).length) errors.push('Server secrets must be different')

@@ -38,6 +38,23 @@ export function hasClosedModernResult(row: ResultRow): boolean {
   return sets[row.winner - 1] === target && sets[2 - row.winner] < target;
 }
 
+/** A retirement is settled when the provider declares a winner and supplies a coherent partial score. */
+export function hasSettledModernResult(row: ResultRow): boolean {
+  if (row.outcome === 'completed') return hasClosedModernResult(row);
+  if (row.outcome !== 'retired' || (row.winner !== 1 && row.winner !== 2)) return false;
+  const games = gamesOf(row);
+  const bestOf = row.format === 'BO5' ? 5 : row.format === 'BO3' || row.tour === 'wta' ? 3 : /australian open|french open|roland garros|wimbledon|us open/i.test(String(row.tournament || '')) ? 5 : 3;
+  const target = bestOf === 5 ? 3 : 2;
+  if (!games.length || games.length > bestOf) return false;
+  const sets = [0, 0];
+  for (const [index, game] of games.entries()) {
+    if (!game.every((value) => Number.isInteger(value) && value >= 0) || sets.some((won) => won >= target)) return false;
+    if (closedSet(game)) sets[game[0] > game[1] ? 0 : 1]++;
+    else if (index !== games.length - 1 || game[0] === game[1]) return false;
+  }
+  return sets.every((won) => won < target);
+}
+
 function samePlayerOrder(a: ResultRow, b: ResultRow): boolean {
   const normalize = (name: unknown) => String(name || '').normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]/g, '');
   return ([1, 2] as const).every((side) => {
