@@ -124,6 +124,7 @@ export type OperationalMetrics={
   providerDailyCallCap?:number;providerDailyCapAvailable?:number;providerDailyCapUtilization?:number;
   publicationPeakRssBytes?:number;storageBytes?:number;storageObjects?:number;
   incompleteEditions?:number;enrichmentRemaining?:number;enrichmentDeferred?:number;
+  currentMissingLateRounds?:number;pendingResultRepairs?:number;officialRecordsAgeSeconds?:number;wikimediaAgeSeconds?:number;
   backupAgeSeconds?:number;hostAvailableMemoryBytes?:number;
 };
 

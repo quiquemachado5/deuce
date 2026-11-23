@@ -69,3 +69,10 @@ test('a later Finals fixture is discovered despite an existing queue',async()=>{
  assert.deepEqual(result.fresh.map(row=>row.id),[20]);
  assert.deepEqual(result.queue.ids,[]);
 });
+
+test('Grand Slam rounds remain discoverable for a full three-week repair window',async()=>{
+ const completed={id:21,tour:'atp',draw:'singles',is_qualifying:false,tier:'grand_slam',scheduled_time:'2026-06-02T12:00:00Z',outcome:'completed',winner:1,format:'BO5',score:{games:[[6,6,6],[3,4,2]]}};
+ const result=await collectFreeCurrentResults('atp',{data:[]},undefined,async path=>path==='/matches/21'?completed:{data:[{match_id:21,status:'finished',event_date:'2026-06-02',tier:'grand_slam',is_qualifying:false}],meta:{has_more:false,limit:200}},10,new Date('2026-06-17T09:20:00Z'));
+ assert.deepEqual(result.fresh.map(row=>row.id),[21]);
+ assert.equal(result.queue.grandSlamWindowDays,21);
+});

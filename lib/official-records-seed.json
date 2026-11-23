@@ -1,0 +1,6 @@
+{
+  "atp:Australian Open": {"id":"ao-atp-titles","tour":"atp","tournament":"Australian Open","player":"Novak Djokovic","titles":10,"source":"https://ausopen.com/history/honour-roll/mens-singles","publisher":"Australian Open","capturedAt":"2026-11-23T00:00:00.000Z"},
+  "wta:Australian Open": {"id":"ao-wta-titles","tour":"wta","tournament":"Australian Open","player":"Margaret Court","titles":11,"source":"https://ausopen.com/history/honour-roll/womens-singles","publisher":"Australian Open","capturedAt":"2026-11-23T00:00:00.000Z"},
+  "atp:Roland Garros": {"id":"rg-atp-titles","tour":"atp","tournament":"Roland Garros","player":"Rafael Nadal","titles":14,"source":"https://www.rolandgarros.com/en-us/palmares/","publisher":"Roland-Garros","capturedAt":"2026-11-23T00:00:00.000Z"},
+  "wta:Roland Garros": {"id":"rg-wta-titles","tour":"wta","tournament":"Roland Garros","player":"Chris Evert","titles":7,"source":"https://www.rolandgarros.com/en-us/palmares/","publisher":"Roland-Garros","capturedAt":"2026-11-23T00:00:00.000Z"}
+}

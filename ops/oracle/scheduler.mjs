@@ -15,7 +15,9 @@ const publicationJob = { name: 'validated publication', path: '/api/cron/publish
 const backfillJob = { name: 'optional WTA history', path: '/api/cron/wta-backfill' }
 const enrichmentJob = { name: 'optional match details', path: '/api/cron/enrich' }
 const wikipediaJob = { name: 'optional Wikimedia context', path: '/api/cron/wikipedia' }
-const jobs = [...refreshJobs, publicationJob, backfillJob, enrichmentJob, wikipediaJob]
+const officialRecordsJob = { name: 'official record evidence', path: '/api/cron/official-records' }
+const contextJobs = [wikipediaJob, officialRecordsJob]
+const jobs = [...refreshJobs, publicationJob, backfillJob, enrichmentJob, ...contextJobs]
 // Run after the previous UTC day is complete so late match results are included.
 const pipelineHour = Number(process.env.DEUCE_PIPELINE_HOUR_UTC ?? 9)
 const pipelineMinute = Number(process.env.DEUCE_PIPELINE_MINUTE_UTC ?? 20)
@@ -82,7 +84,7 @@ function previousUtcDay(date = new Date()) {
   day.setUTCDate(day.getUTCDate() - 1)
   return dayKey(day)
 }
-const optionalJobs = dailyOnly ? [] : [backfillJob, enrichmentJob, wikipediaJob]
+const optionalJobs = dailyOnly ? contextJobs : [backfillJob, enrichmentJob, ...contextJobs]
 const pipelineComplete = value => publicationReady(value, [...refreshJobs, publicationJob].map(job => job.path))
   && optionalJobs.every(job => ['success', 'deferred-cycle', 'blocked'].includes(value.stages?.[job.path]?.status))
 
@@ -158,8 +160,13 @@ async function runPipeline(day, scheduledAt) {
   console.log(JSON.stringify({ event: 'deuce.scheduler.pipeline.started', day, stages: state.stages, at: new Date().toISOString() }))
   for (const job of dueStages(refreshJobs, state)) await runJob(job)
   if (publicationReady(state, refreshJobs.map(job => job.path))) {
-    if (!dailyOnly) for (const job of dueStages([wikipediaJob], state)) await runJob(job, { oncePerCycle: true })
     for (const job of dueStages([publicationJob], state)) await runJob(job)
+  }
+  // Public-web evidence is quota-independent and runs after the validated
+  // archive is visible. Failure is retained as a deferred/blocked optional
+  // stage and can never replace or delay a tennis result.
+  if (state.stages?.[publicationJob.path]?.status === 'success') {
+    for (const job of dueStages(contextJobs, state)) await runJob(job, { oncePerCycle: true })
   }
   if (!dailyOnly && state.stages?.[publicationJob.path]?.status === 'success') {
     for (const job of dueStages([backfillJob], state)) await runJob(job, { oncePerCycle: true })

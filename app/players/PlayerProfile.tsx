@@ -25,6 +25,7 @@ import { tournamentName } from '@/lib/labels';
 import { courtPhoto, type Photo } from '@/lib/imagery';
 import { playerDirectoryPhoto, playerEditionPhoto } from '@/lib/player-imagery';
 import { handLabel, playerBiography } from '@/lib/player-bio';
+import { publishedPlayerBiography } from '@/lib/published-player-bio';
 import { tournamentDirectory } from '@/lib/tournament-directory';
 import { tournamentBrandingFor, tournamentMarkFor } from '@/lib/tournament-branding';
 import { championPhotos } from '@/lib/tournament-media';
@@ -106,7 +107,7 @@ export async function PlayerProfile({params,searchParams,proposal:preview=false,
   const trends=playerTrends(player.matches,player.name);
   if(playerSlug(player.name)!==slug)permanentRedirect(`${profileBase}/${playerSlug(player.name)}${requestedTour==='wta'?'?tour=wta':''}`);
 
-  const portrait=playerDirectoryPhoto(player.name,tour),bio=playerBiography(player.name,tour);
+  const portrait=playerDirectoryPhoto(player.name,tour),bio=await publishedPlayerBiography(player.name,tour);
   const profileDescription=`${player.name}: resultados, temporadas, rivales y rendimiento dentro de la muestra publicada en DEUCE.`;
   const years=[...new Set(player.matches.map(match=>match.year))].sort((a,b)=>b-a);
   const latestYear=years[0],firstYear=years.at(-1)!;
@@ -215,7 +216,7 @@ export async function PlayerProfile({params,searchParams,proposal:preview=false,
       </header>
       <section className={styles.careerBoard} aria-label="Cifras principales de la muestra publicada">
         {coreMetrics.map(metric=><article key={metric.label}><span>{metric.label}</span><strong>{metric.value}</strong><small>{metric.context}</small></article>)}
-        <dl className="pp-hero-facts"><div><dt>Actividad en DEUCE</dt><dd>{activityLabel}</dd></div>{bio?.hand&&<div><dt>Mano</dt><dd>{handLabel(bio.hand)}</dd></div>}<div><dt>Circuito</dt><dd>{tour.toUpperCase()}</dd></div></dl>
+        <dl className="pp-hero-facts"><div><dt>Actividad en DEUCE</dt><dd>{activityLabel}</dd></div>{bio?.hand&&<div><dt>Mano</dt><dd>{handLabel(bio.hand)}</dd></div>}{bio?.heightCm&&<div><dt>Altura</dt><dd>{new Intl.NumberFormat('es-ES',{maximumFractionDigits:1}).format(bio.heightCm)} cm</dd></div>}<div><dt>Circuito</dt><dd>{tour.toUpperCase()}</dd></div></dl>
       </section>
     </div>}
 

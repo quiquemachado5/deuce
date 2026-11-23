@@ -136,6 +136,24 @@ groups:
           summary: "No hay telemetría de cuota del proveedor"
           description: "Comprobar la publicación de provider-quota-status antes de autorizar nuevas importaciones. Una métrica ausente no equivale a cuota disponible."
 
+      - alert: DeuceCurrentDrawIncomplete
+        expr: deuce_operational_value{name="currentMissingLateRounds"} > 0
+        for: 30m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Faltan rondas finales en una edición actual"
+          description: "La auditoría detecta cuartos, semifinales o final ausentes. La cola gratuita seguirá reintentando y la incidencia de GitHub conservará el aviso."
+
+      - alert: DeuceOfficialEvidenceStale
+        expr: deuce_operational_value{name="officialRecordsAgeSeconds"} > 691200
+        for: 1h
+        labels:
+          severity: info
+        annotations:
+          summary: "El contraste con palmarés oficiales supera ocho días"
+          description: "Revisar el trabajo official-records; el archivo interno continúa siendo la fuente de resultados."
+
       - alert: DeuceAccessDenialsSurge
         expr: sum(increase(caddy_http_requests_total{code=~"401|403"}[10m])) > 100
         for: 5m

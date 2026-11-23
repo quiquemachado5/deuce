@@ -1,8 +1,19 @@
 import type { Match, Point } from './types'
 import { analyzePointTape, chooseSocialHighlight } from './analytics/engine'
 import { normalizeText } from './quality'
+export function normalizeRound(round: string) {
+  const value = normalizeText(round).replace(/\./g,'').replace(/\s+/g,' ').trim()
+  const aliases:Record<string,string>={
+    f:'Final',finals:'Final',sf:'Semifinal',semi:'Semifinal',semifinals:'Semifinal',
+    qf:'Cuartos de final',quarterfinals:'Cuartos de final',r16:'Octavos de final','4r':'Octavos de final',
+    r32:'Tercera ronda','3r':'Tercera ronda',r64:'Segunda ronda','2r':'Segunda ronda',
+    r128:'Primera ronda','1r':'Primera ronda',rr:'RR','round robin':'RR','group stage':'RR','fase de grupos':'RR',
+    br:'BR','bronze medal':'BR','third place':'BR','tercer puesto':'BR',
+  }
+  return aliases[value]||round.trim()
+}
 export function roundPosition(round: string) {
-  const value = normalizeText(round)
+  const value = normalizeText(normalizeRound(round))
   if(value==='rr'||value==='fase de grupos'||value==='round robin')return .5
   if(value==='ronda no especificada')return .25
   if(value==='br'||value==='tercer puesto')return 6.5
@@ -10,6 +21,7 @@ export function roundPosition(round: string) {
   return order[value] || 0
 }
 export function roundLabel(round:string) {
+  round=normalizeRound(round)
   const numeric=normalizeText(round).match(/^(?:round of |ronda de )(128|64|32)$/)
   if(numeric) return `Ronda de ${numeric[1]}`
   return ({7:'Final',6:'Semifinal',5:'Cuartos de final',4:'Octavos de final',3:'Tercera ronda',2:'Segunda ronda',1:'Primera ronda'} as Record<number,string>)[roundPosition(round)] || round }

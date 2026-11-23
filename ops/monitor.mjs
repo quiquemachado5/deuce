@@ -29,6 +29,9 @@ async function check() {
         if(!Number.isFinite(overview.matches)||overview.matches<baseline.minimumTours[tour])failures.push(tour+' archive below release baseline');
         if(overview.rulesVersion!==baseline.requiredRulesVersion)failures.push(tour+' rules version mismatch');
       }
+      const dataResponse=await fetch(productionUrl+'/api/health/data',{signal:AbortSignal.timeout(30000),cache:'no-store'});
+      if(!dataResponse.ok)failures.push('Data reliability: HTTP '+dataResponse.status);
+      else {const data=await dataResponse.json();if(data.status==='attention')failures.push(`Current draws incomplete: ${Number(data.summary?.incomplete)||0}; missing late rounds: ${Number(data.summary?.missingLateRounds)||0}`);}
       failures.push(...await seoSmokeFailures(productionUrl));
       return {health:{...h,monitorScope:'public'},failures};
     }
