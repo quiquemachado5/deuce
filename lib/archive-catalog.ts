@@ -5,6 +5,7 @@ const category=(key:string)=>{
   if(key.startsWith('detail-'))return 'details';
   if(key.startsWith('archive-wta-'))return 'wta-history';
   if(key.startsWith('season-')||key.startsWith('wta-season-'))return 'seasons';
+  if(key.startsWith('result-consensus-')||key.startsWith('result-conflicts-')||key.startsWith('result-draw-audit-')||key.startsWith('result-ledger-'))return 'result-evidence';
   if(key.endsWith('-status')||key==='provider-quota-status')return 'operations';
   if(key.includes('progress')||key.endsWith('-state')||key.endsWith('-index'))return 'checkpoints';
   return 'other';

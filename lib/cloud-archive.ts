@@ -269,8 +269,18 @@ export async function refreshCloudArchive() {
     if(bulkDailyResultsConfigured()){
       const refreshed=await collectBulkDailyResults('atp',old,new Date(started))
       calls=refreshed.calls
-      await cloudWrite(`season-${year}`,{data:refreshed.data,scope:refreshed.scope,at:refreshed.at})
-      const at=new Date().toISOString(),result={status:'success',phase:'daily-results',provider:refreshed.provider,attemptAt,at,lastSuccessAt:at,year,calls,matches:refreshed.data.length,updated:refreshed.fresh.length,extracted:refreshed.fresh.length,seasonsRefreshed:[year],latestProviderDate:latestProviderResultDate(refreshed.data as Parameters<typeof latestProviderResultDate>[0]),probe:{results:'ok',live:'disabled'}}
+      const {mergeResultConsensus}=await import('./result-consensus')
+      const {auditConsensusDraws}=await import('./result-draw-audit')
+      const consensus=mergeResultConsensus(await cloudRead('result-consensus-atp'),refreshed.consensus)
+      const conflicts=consensus.filter(entry=>entry.status==='conflict'),drawAudit=auditConsensusDraws(consensus,refreshed.at)
+      await cloudWriteMany([
+        {key:`season-${year}`,payload:{data:refreshed.data,scope:refreshed.scope,at:refreshed.at}},
+        {key:'result-consensus-atp',payload:{schema:1,at:refreshed.at,window:refreshed.dates,entries:consensus}},
+        {key:`result-ledger-atp-${refreshed.at.slice(0,10)}`,payload:{schema:1,at:refreshed.at,window:refreshed.dates,entries:refreshed.consensus}},
+        {key:'result-conflicts-atp',payload:{schema:1,at:refreshed.at,entries:conflicts}},
+        {key:'result-draw-audit-atp',payload:drawAudit},
+      ])
+      const at=new Date().toISOString(),result={status:'success',phase:'daily-results',provider:refreshed.provider,attemptAt,at,lastSuccessAt:at,year,calls,matches:refreshed.data.length,updated:refreshed.fresh.length,extracted:refreshed.fresh.length,candidates:refreshed.candidates,confirmed:consensus.filter(entry=>entry.status.startsWith('confirmed')).length,provisional:consensus.filter(entry=>entry.status==='provisional').length,conflicts:conflicts.length,incompleteDraws:drawAudit.editions.filter(edition=>edition.complete===false).length,evidence:refreshed.evidence,seasonsRefreshed:[year],latestProviderDate:latestProviderResultDate(refreshed.data as Parameters<typeof latestProviderResultDate>[0]),probe:{results:'ok',evidence:refreshed.evidence.error?'degraded':'ok',live:'disabled'}}
       await cloudWrite('sync-status',withOperationHistory(priorStatus,result));return result
     }
     calls++
@@ -527,8 +537,18 @@ export async function refreshCloudWta() {
     if(bulkDailyResultsConfigured()){
       const refreshed=await collectBulkDailyResults('wta',previous,new Date(started))
       calls=refreshed.calls
-      await cloudWrite(`season-wta-${year}`,{data:refreshed.data,scope:refreshed.scope,at:refreshed.at})
-      const at=new Date().toISOString(),result={status:'success',phase:'daily-results',provider:refreshed.provider,attemptAt,lastSuccessAt:at,at,calls,year,seasonsRefreshed:[year],seasonMatches:refreshed.data.length,updated:refreshed.fresh.length,extracted:refreshed.fresh.length,latestProviderDate:latestProviderResultDate(refreshed.data as Parameters<typeof latestProviderResultDate>[0]),probe:{results:'ok',live:'disabled'}}
+      const {mergeResultConsensus}=await import('./result-consensus')
+      const {auditConsensusDraws}=await import('./result-draw-audit')
+      const consensus=mergeResultConsensus(await cloudRead('result-consensus-wta'),refreshed.consensus)
+      const conflicts=consensus.filter(entry=>entry.status==='conflict'),drawAudit=auditConsensusDraws(consensus,refreshed.at)
+      await cloudWriteMany([
+        {key:`season-wta-${year}`,payload:{data:refreshed.data,scope:refreshed.scope,at:refreshed.at}},
+        {key:'result-consensus-wta',payload:{schema:1,at:refreshed.at,window:refreshed.dates,entries:consensus}},
+        {key:`result-ledger-wta-${refreshed.at.slice(0,10)}`,payload:{schema:1,at:refreshed.at,window:refreshed.dates,entries:refreshed.consensus}},
+        {key:'result-conflicts-wta',payload:{schema:1,at:refreshed.at,entries:conflicts}},
+        {key:'result-draw-audit-wta',payload:drawAudit},
+      ])
+      const at=new Date().toISOString(),result={status:'success',phase:'daily-results',provider:refreshed.provider,attemptAt,lastSuccessAt:at,at,calls,year,seasonsRefreshed:[year],seasonMatches:refreshed.data.length,updated:refreshed.fresh.length,extracted:refreshed.fresh.length,candidates:refreshed.candidates,confirmed:consensus.filter(entry=>entry.status.startsWith('confirmed')).length,provisional:consensus.filter(entry=>entry.status==='provisional').length,conflicts:conflicts.length,incompleteDraws:drawAudit.editions.filter(edition=>edition.complete===false).length,evidence:refreshed.evidence,latestProviderDate:latestProviderResultDate(refreshed.data as Parameters<typeof latestProviderResultDate>[0]),probe:{results:'ok',evidence:refreshed.evidence.error?'degraded':'ok',live:'disabled'}}
       await save(result);return result
     }
     calls++;quota=await provider('/usage')

@@ -1,5 +1,8 @@
 import {createHash} from 'node:crypto'
 import type {Season} from './result-refresh'
+import {resolveResultConsensus,resultContentHash,resultIdentity,type ResultObservation} from './result-consensus'
+import {collectValuebetObservations} from './valuebet-results'
+import {collectPointTennisObservations} from './point-tennis-results'
 
 type Tour='atp'|'wta'
 type Row=Record<string,unknown>
@@ -53,6 +56,18 @@ function stableId(tour:Tour,row:Row){
  return String(7_000_000_000_000_000+hash)
 }
 
+function apiObservation(row:Row,tour:Tour,calendar:Map<string,Row>,retrievedAt:string):ResultObservation|null{
+ const tournament=object(row.tournament),calendarRow=calendar.get(String(row.tournamentId||tournament.id))||{}
+ const player1=object(row.player1),player2=object(row.player2),players:[string,string]=[text(player1.name),text(player2.name)]
+ const playedOn=text(row.date).slice(0,10),roundId=Number(row.roundId),resultType=text(row.result_type).toLowerCase()
+ if(!playedOn||!players[0]||!players[1]||!Number.isInteger(roundId)||roundId<4)return null
+ const status:ResultObservation['status']=resultType==='retired'?'retired':/walkover|w\/?o/.test(resultType)||/walkover|w\/?o/i.test(text(row.result))?'walkover':resultType==='defaulted'?'defaulted':resultType==='completed'?'completed':'unknown'
+ if(status==='unknown')return null
+ const resultRank=object(tournament.rank),calendarRank=object(calendarRow.rank)
+ const level=tier(calendarRow.tier||calendarRank.name||tournament.tier||resultRank.name||tournament.level,tournament.rankId||calendarRow.rankId||calendarRank.id||resultRank.id,tour)||undefined
+ return {schema:1,source:'tennis-api-results',sourceUrl:'https://docs.tennis-api.com/results',sourceId:String(row.liveMatchId||row.matchKey||row.matchId||row.id||stableId(tour,row)),retrievedAt,contentHash:resultContentHash(row),identity:resultIdentity(tour,playedOn,players),tour,playedOn,tournament:text(tournament.name)||text(calendarRow.name),level,round:roundId,players,winner:players[0],score:text(row.result),status}
+}
+
 export function normalizeBulkResult(row:Row,tour:Tour,calendar:Map<string,Row>,retrievedAt:string){
  const tournament=object(row.tournament),calendarRow=calendar.get(String(row.tournamentId||tournament.id))||{}
  const calendarRank=object(calendarRow.rank),calendarCourt=object(calendarRow.court),resultRank=object(tournament.rank),resultCourt=object(tournament.court)
@@ -83,10 +98,11 @@ export function normalizeBulkResult(row:Row,tour:Tour,calendar:Map<string,Row>,r
  } satisfies Row
 }
 
-export async function collectBulkDailyResults(tour:Tour,previous:Season,now=new Date(),fetcher:Fetcher=fetch,pause:(milliseconds:number)=>Promise<void>=milliseconds=>new Promise(resolve=>setTimeout(resolve,milliseconds))){
+export async function collectBulkDailyResults(tour:Tour,previous:Season,now=new Date(),fetcher:Fetcher=fetch,pause:(milliseconds:number)=>Promise<void>=milliseconds=>new Promise(resolve=>setTimeout(resolve,milliseconds)),evidenceFetcher:Fetcher=fetch){
  const key=process.env.TENNIS_RESULTS_API_KEY||process.env.RAPIDAPI_KEY
  if(!key)throw new Error('Bulk daily tennis results are not configured')
- const dates=[day(now,-1),day(now,-2)],years=[...new Set(dates.map(value=>value.slice(0,4)))]
+ const repairDays=Math.max(2,Math.min(14,Number(process.env.DEUCE_RESULT_REPAIR_DAYS||7)||7))
+ const dates=Array.from({length:repairDays},(_,index)=>day(now,-1-index)),years=[...new Set(dates.map(value=>value.slice(0,4)))]
  let calls=0,lastCall=0
  const request=async(path:string)=>{
   const wait=Math.max(0,275-(Date.now()-lastCall));if(wait)await pause(wait)
@@ -106,17 +122,34 @@ export async function collectBulkDailyResults(tour:Tour,previous:Season,now=new 
    if(pageNo===10)throw new Error('Bulk tennis calendar pagination exceeded safety limit')
   }
  }
- const retrievedAt=now.toISOString(),fresh:Row[]=[]
+ const retrievedAt=now.toISOString(),candidates:Row[]=[],apiObservations:ResultObservation[]=[]
  for(const date of dates){
   for(let pageNo=1;pageNo<=10;pageNo++){
    const page=await request(`/${tour}/results/${date}?pageSize=500&pageNo=${pageNo}&filter=PlayerGroup%3Asingles`)
-   for(const source of page.data||[]){const normalized=normalizeBulkResult(source,tour,calendar,retrievedAt);if(normalized)fresh.push(normalized)}
+   for(const source of page.data||[]){
+    const observation=apiObservation(source,tour,calendar,retrievedAt)
+    const normalized=normalizeBulkResult(source,tour,calendar,retrievedAt)
+    if(observation){
+     if(normalized)observation.providerRow=normalized
+     apiObservations.push(observation)
+    }
+    if(normalized)candidates.push(normalized)
+   }
    if(page.hasNextPage!==true)break
    if(pageNo===10)throw new Error('Bulk tennis result pagination exceeded safety limit')
   }
  }
+ let evidence:ResultObservation[]=[],evidenceError:string|undefined,point:ResultObservation[]=[],pointError:string|undefined,pointCalls=0
+ try{evidence=await collectValuebetObservations(tour,dates,retrievedAt,evidenceFetcher)}catch(error){evidenceError=error instanceof Error?error.message:'Valuebetennis evidence failed'}
+ try{const result=await collectPointTennisObservations(tour,dates,retrievedAt,evidenceFetcher);point=result.observations;pointCalls=result.calls}catch(error){pointError=error instanceof Error?error.message:'api.tennis evidence failed'}
+ const consensus=resolveResultConsensus([...apiObservations,...evidence,...point])
+ const fresh:Row[]=consensus.flatMap(entry=>entry.accepted?.providerRow?[{...entry.accepted.providerRow,
+  _deuce_result_source:entry.accepted.sourceUrl,
+  _deuce_evidence_sources:[...new Set(entry.observations.map(observation=>observation.sourceUrl))],
+  _deuce_consensus_status:entry.status,
+ } as Row]:[])
  const merged=new Map<string,Row>()
  for(const row of previous?.data||[])merged.set(String(row.id),row)
  for(const row of fresh)merged.set(String(row.id),row)
- return {data:[...merged.values()],fresh,scope:`${tour}-main-v2` as const,at:retrievedAt,calls,dates,provider:'tennis-api-results' as const}
+ return {data:[...merged.values()],fresh,scope:`${tour}-main-v2` as const,at:retrievedAt,calls,dates,provider:'multi-source-results' as const,consensus,evidence:{providers:['valuebetennis','point-tennis'] as const,observations:evidence.length+point.length,error:evidenceError||pointError,valuebetennis:{observations:evidence.length,error:evidenceError},pointTennis:{observations:point.length,calls:pointCalls,error:pointError,configured:Boolean(process.env.POINT_TENNIS_API_KEY)}},candidates:candidates.length}
 }

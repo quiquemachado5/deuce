@@ -89,6 +89,18 @@ export async function GET(request: Request) {
       const compiledAt=new Date()
       const plan=compilationPlan(input,baselineManifest,compiledAt)
       console.info('Daily publication: compilation plan',JSON.stringify({reusedCircuits:plan.reuse,verifyFull:plan.verifyFull}))
+      if(comparison.changes.length===0&&!plan.verifyFull){
+        const circuitFreshness={
+          atp:assertCircuitPublicationFreshness('atp',refresh.latestProviderDate,baselineManifest.circuitFreshness?.atp.latestExactDate),
+          ...(publishedWta>0?{wta:assertCircuitPublicationFreshness('wta',wtaRefresh!.latestProviderDate,baselineManifest.circuitFreshness?.wta.latestExactDate)}:{}),
+        }
+        const compilation={inputs:plan.inputs,fullVerifiedAt:plan.fullVerifiedAt,reusedCircuits:[...plan.reuse]}
+        input.length=0;loadedInput.length=0;priorMatches.length=0;mergedInput.length=0
+        sampleMemory('unchanged')
+        const peakRssBytes=Math.max(...memory.map(row=>row.rssBytes)),at=new Date().toISOString()
+        await cloudWrite('publish-status',withOperationHistory(previousStatus,{status:'success',mode:'unchanged',attemptAt,lastSuccessAt:at,at,version:baselineManifest.version,matches:baselineManifest.matchCount,tours:baselineManifest.summary.tours,delta:comparison.delta,circuitFreshness,compilation,memory:{peakRssBytes,phases:memory}}))
+        return Response.json({status:'success',mode:'unchanged',at,version:baselineManifest.version,matches:baselineManifest.matchCount,tours:baselineManifest.summary.tours,compilation,circuitFreshness},{headers:{'Cache-Control':'no-store'}})
+      }
       const compilationBaseline=await preparedCompilationBaseline(plan.unchanged)
       priorMatches.length=0
       mergedInput.length=0
@@ -122,9 +134,9 @@ export async function GET(request: Request) {
       sampleMemory(validPublicationIndex(storedIndex)?'indexed':'indexed-migrated')
       snapshot.manifest.publicationDelta=delta
       const providers=[refresh.provider,wtaRefresh?.provider].filter((provider):provider is string=>typeof provider==='string')
-      const bulkResults=providers.includes('tennis-api-results')
-      const publicationSource=bulkResults?'Tennis API daily results':'Live Tennis API'
-      const publicationSourceUrl=bulkResults?'https://docs.tennis-api.com/results':'https://api.livetennisapi.com/api/public/v1'
+      const bulkResults=providers.some(provider=>provider==='tennis-api-results'||provider==='multi-source-results')
+      const publicationSource=bulkResults?'Tennis API + Valuebetennis consensus':'Live Tennis API'
+      const publicationSourceUrl=bulkResults?'https://www.valuebetennis.com/en/donnees.htm':'https://api.livetennisapi.com/api/public/v1'
       // Immutable correction provenance survives serving-generation retention.
       // It is written before the pointer; an interrupted attempt cannot lose evidence.
       if(changes.length)await cloudWrite(`archive-history-${snapshot.manifest.version}`,{encoding:'gzip-base64',gzip:gzipSync(JSON.stringify({at:attemptAt,fromVersion:baseline.manifest.version,toVersion:snapshot.manifest.version,source:publicationSource,sourceUrl:publicationSourceUrl,validation:'explicit circuit, unique identity, preserved published IDs',changes,corrections})).toString('base64')})

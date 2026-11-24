@@ -392,7 +392,9 @@ function modern(row: Row, detail?: Row, summary = false): Match {
     point_tape: summary ? [] : tapePoints(detail), statistics: summary ? [] : modernStats(detail),
     raw_fixture: summary ? undefined : detail ? {...detail, provider_list:row} : row, raw_point_tape: summary ? undefined : detail?.tape,
     data_source: 'api', coverage: summary ? 'Solo resultado' : detail?.tape?.length ? 'Puntos documentados' : detail ? 'Estadísticas disponibles' : 'Solo resultado',
-    context: { pointSource:isReconstructedDetail(detail)?'reconstructed':detail?.tape?.length?'observed':'unknown',derivationVersion:'2026-11-finals-v2', date: row.scheduled_time || null, dateLabel: 'Fecha del partido', rank1: numeric(row.players?.p1?.ranking), rank2: numeric(row.players?.p2?.ranking), rankLabel: 'Ranking en la descarga', age1: null, age2: null, minutes: null, format: row.format || null, indoor: row.indoor ?? null,metadataSources:[...(reviewedEdition?.sources||[]),...(finalsRound&&finals?.tour==='wta'&&year===2026?WTA_FINALS_2026_ROUND_SOURCES:[])] },
+    context: { pointSource:isReconstructedDetail(detail)?'reconstructed':detail?.tape?.length?'observed':'unknown',derivationVersion:'2026-11-finals-v2', date: row.scheduled_time || null, dateLabel: 'Fecha del partido', rank1: numeric(row.players?.p1?.ranking), rank2: numeric(row.players?.p2?.ranking), rankLabel: 'Ranking en la descarga', age1: null, age2: null, minutes: null, format: row.format || null, indoor: row.indoor ?? null,
+      ...(typeof row._deuce_result_source==='string'?{resultSource:row._deuce_result_source}:{}),
+      metadataSources:[...(reviewedEdition?.sources||[]),...(finalsRound&&finals?.tour==='wta'&&year===2026?WTA_FINALS_2026_ROUND_SOURCES:[]),...(Array.isArray(row._deuce_evidence_sources)?row._deuce_evidence_sources.filter((url:unknown)=>typeof url==='string').map((url:string)=>({field:'resultado contrastado',url})):[])], },
   }))
 }
 function historical(row: Row, detail?: Row, summary = false): Match {
