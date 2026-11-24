@@ -97,6 +97,16 @@ test('court photos have real responsive files and edition photos never imply ano
   assert.equal(imageLoader({ src: '/images/players/optimized/novak-djokovic.webp', width: 160 }), '/images/players/optimized/novak-djokovic-small.webp')
 })
 
+test('editorial home portraits use their compact mobile variants', () => {
+  for (const name of ['federer', 'nadal', 'djokovic']) {
+    const src=`/images/home-curated/${name}.webp`
+    const compact=imageLoader({src,width:734})
+    assert.equal(compact, `/images/home-curated/${name}-small.webp`)
+    assert.ok(existsSync(`public${compact}`), `missing compact portrait for ${name}`)
+    assert.equal(imageLoader({src,width:1068}),src)
+  }
+})
+
 test('tournament detail photography ships responsive hero and editorial variants', () => {
   for (const tournament of ['Australian Open', 'Roland Garros', 'US Open', 'Wimbledon']) {
     for (const photo of [tournamentDetailPhoto(tournament), tournamentDetailFeaturePhoto(tournament)]) {

@@ -20,6 +20,6 @@ test('publication warming uses only sequential local read routes and continues a
  const calls:string[]=[];let active=0,max=0;
  const request=(async(input)=>{const url=String(input);calls.push(url);active++;max=Math.max(max,active);await Promise.resolve();active--;if(url.endsWith('/api/overview'))throw new Error('temporary');return new Response('ready',{status:200});}) as typeof fetch;
  const result=await warmPublishedNavigation(3000,request);
- assert.equal(max,1);assert.equal(result.length,5);assert.equal(result[0].status,0);assert.ok(result.slice(1).every(row=>row.status===200));
+ assert.equal(max,1);assert.equal(result.length,14);assert.equal(result[1].status,0);assert.ok(result.filter((_,index)=>index!==1).every(row=>row.status===200));
  assert.ok(calls.every(url=>url.startsWith('http://127.0.0.1:3000/')&&!url.includes('/api/cron/')));
 });

@@ -11,12 +11,12 @@ import {compilePublicArchiveProducts} from '../lib/public-archive-products';
 import {compileRecordSnapshot} from '../lib/revista/snapshot';
 
 const match={...mockMatches[0],tour:'atp' as const,data_source:'api' as const};
-test('CSP authorizes a per-response nonce and forbids arbitrary executable inline code',()=>{
- const policy=contentSecurityPolicy('abcdefghijklmnopqrstuvwx');
+test('CSP stays cacheable while blocking executable attributes and external frames',()=>{
+ const policy=contentSecurityPolicy();
  const scripts=policy.split(';').find(value=>value.trim().startsWith('script-src '))!;
- assert.match(scripts,/'nonce-abcdefghijklmnopqrstuvwx'/);assert.doesNotMatch(scripts,/unsafe-inline|unsafe-eval/);
+ assert.match(scripts,/'self'/);assert.match(scripts,/'unsafe-inline'/);assert.doesNotMatch(scripts,/nonce|strict-dynamic|unsafe-eval/);
  assert.match(policy,/script-src-attr 'none'/);assert.match(policy,/frame-src https:\/\/www.youtube-nocookie.com/);
- assert.throws(()=>contentSecurityPolicy("bad'; script-src *"));
+ assert.match(contentSecurityPolicy(true),/unsafe-eval/);
 });
 test('ranking search includes every page, folds accents and preserves tied positions',()=>{
  const rows=Array.from({length:80},(_,index)=>({name:index===65?'Rafael Nadal':index===66?'Ráfael Nadal Dos':`Persona ${index}`,value:index===66?15:80-index,sample:100,detail:'',href:'/jugadores/test'}));
