@@ -1,4 +1,7 @@
 import type { NextConfig } from 'next'
+import { contentSecurityPolicy } from './lib/security-policy'
+
+const securityPolicy=contentSecurityPolicy(process.env.NODE_ENV==='development')
 const nextConfig: NextConfig = {
   output: 'standalone',
   cacheMaxMemorySize: 128 * 1024 * 1024,
@@ -30,6 +33,7 @@ const nextConfig: NextConfig = {
       {key:'Cross-Origin-Opener-Policy',value:'same-origin'},
       {key:'Origin-Agent-Cluster',value:'?1'},
       {key:'X-DNS-Prefetch-Control',value:'off'},
+      {key:'Content-Security-Policy',value:securityPolicy},
     ]},
     {source:'/images/:path*',headers:[{key:'Cache-Control',value:'public, max-age=86400, must-revalidate'}]},
     {source:'/media/:path*',headers:[{key:'Cache-Control',value:'public, max-age=86400, must-revalidate'}]},

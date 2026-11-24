@@ -10,6 +10,9 @@ export default function imageLoader({ src, width }: ImageLoaderProps) {
   if (/^\/images\/players\/directory\/.+\.webp$/.test(cleanSrc) && !/-734\.webp$/.test(cleanSrc)) {
     return width <= 1068 ? cleanSrc.replace(/\.webp$/, '-734.webp') : cleanSrc
   }
+  if (/^\/images\/home-curated\/.+\.webp$/.test(cleanSrc) && !/-(?:small|734|1068|1440)\.webp$/.test(cleanSrc) && width <= 734) {
+    return cleanSrc.replace(/\.webp$/, '-small.webp')
+  }
   if (/^\/images\/tournaments\/detail\/.+\.webp$/.test(src) && !/-\d+\.webp$/.test(src)) {
     const size = width <= 734 ? 734 : width <= 1068 ? 1068 : 1440
     return src.replace(/\.webp$/, `-${size}.webp`)

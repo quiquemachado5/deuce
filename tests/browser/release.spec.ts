@@ -73,12 +73,12 @@ test('invalid player profiles return a real 404 before streaming',async({request
  const response=await request.get('/jugadores/jugador-inexistente-auditoria');expect(response.status()).toBe(404);
  expect(await response.text()).toContain('Este enlace no está en el archivo');
 });
-test('strict script CSP preserves search and has a fresh nonce per response',async({page,request})=>{
+test('cache-compatible script CSP preserves records search',async({page,request})=>{
  const one=await request.get('/records?dato=victorias'),two=await request.get('/records?dato=victorias');
  const policy=one.headers()['content-security-policy'];expect(policy).toBeTruthy();
  const scripts=policy.split(';').find(value=>value.trim().startsWith('script-src '))!;
- expect(scripts).toContain("'nonce-");expect(scripts).not.toContain("'unsafe-inline'");
- expect(two.headers()['content-security-policy']).not.toBe(policy);
+ expect(scripts).toContain("'self'");expect(scripts).toContain("'unsafe-inline'");expect(scripts).not.toContain("'nonce-");
+ expect(two.headers()['content-security-policy']).toBe(policy);
  await page.goto('/records?dato=victorias');
  await page.getByRole('searchbox',{name:'Buscar en toda la clasificación'}).fill('Nadal');
  await page.getByRole('button',{name:'Buscar',exact:true}).click();

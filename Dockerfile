@@ -46,6 +46,7 @@ COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/data/reading ./data/reading
 COPY --from=builder --chown=nextjs:nodejs /app/ops/railway/start.mjs ./ops/railway/start.mjs
 COPY --from=builder --chown=nextjs:nodejs /app/ops/oracle/scheduler.mjs ./ops/oracle/scheduler.mjs
+COPY --from=builder --chown=nextjs:nodejs /app/ops/oracle/start-web.mjs ./ops/oracle/start-web.mjs
 COPY --from=builder --chown=nextjs:nodejs /app/ops/scheduler-core.mjs ./ops/scheduler-core.mjs
 COPY --from=builder --chown=nextjs:nodejs /app/ops/release-policy.mjs ./ops/release-policy.mjs
 COPY --from=builder --chown=nextjs:nodejs /app/ops/release-baseline.json ./ops/release-baseline.json
@@ -63,4 +64,4 @@ USER nextjs
 EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=10s --start-period=90s --retries=3 \
   CMD node -e "fetch('http://127.0.0.1:'+(process.env.PORT||3000)+'/api/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"
-CMD ["node", "server.js"]
+CMD ["node", "ops/oracle/start-web.mjs"]

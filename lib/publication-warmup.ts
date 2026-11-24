@@ -1,4 +1,19 @@
-const paths=['/api/overview','/comparar?a=Roger+Federer&b=Rafael+Nadal','/jugadores/rafael-nadal','/records?dato=victorias&find=Nadal','/partidos'];
+const paths=[
+ '/',
+ '/api/overview',
+ '/api/search?mode=quick&tour=atp&q=Nadal',
+ '/api/search?tour=atp&q=Nadal',
+ '/api/search?mode=quick&tour=wta&q=Swiatek',
+ '/api/search?tour=wta&q=Swiatek',
+ '/partidos',
+ '/records',
+ '/jugadores',
+ '/torneos',
+ '/comparar',
+ '/comparar?a=Roger+Federer&b=Rafael+Nadal',
+ '/jugadores/rafael-nadal',
+ '/records?dato=victorias&find=Nadal',
+];
 /** Warm only our own read routes, sequentially, after the publication worker exits. */
 export async function warmPublishedNavigation(port=3000,request:typeof fetch=fetch){
  const origin=`http://127.0.0.1:${Number.isInteger(port)&&port>0&&port<=65535?port:3000}`,rows=[];
