@@ -27,9 +27,9 @@ services:
       - ALL
     pids_limit: 256
     mem_limit: 4g
-    # Cold server rendering can use several cores; the former 1.5 CPU ceiling
-    # amplified archive-cache misses into multi-second navigation stalls.
-    cpus: 3.0
+    # Give cold server rendering every CPU available on the two-core host; the
+    # former 1.5 CPU ceiling amplified cache misses into navigation stalls.
+    cpus: 2.0
     env_file:
       - .env.production
     environment:
